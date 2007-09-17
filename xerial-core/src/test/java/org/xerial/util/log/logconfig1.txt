@@ -1,0 +1,6 @@
+
+org.xerial.util.log=trace
+
+org.xerial.util.log.LoggerTest#color=true
+org.xerial.util.log.LoggerTest=debug
+

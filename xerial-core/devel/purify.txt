@@ -1,0 +1,49 @@
+
+
+Given an XML document and a set of FDs, we can purify the XML structure by dropping unnecessary tree structure to query XML data.
+
+
+<mydata>
+<dir>
+   <name>A</name>
+   <file>
+     <name>helloworld.txt</name>
+	 <date>2007/03/11</date>
+	 <type>text</type>
+	 <content><!CDATA[fdafkjklasfcvzcsfd fafdadsf]></content>
+   </file>
+</dir>
+<dir>
+  <name>B</name>
+  <file>
+     <name></name>
+	 <type></type>
+  </file>
+</dir>
+</mydata>
+
+
+dir: name, file
+file: name, date, type, content
+
+
+(automatic scope resolution)
+
+dir: dir.name, file
+file: file.name, date, type, content
+
+'dir.name' does not see dir//file//name since the name element is contained in another scope of a file element.
+
+
+mydata: 1 
+dir: 2
+name: 2- 3
+file: 2 - 4
+name: 4 - 5  
+date: 4 - 6
+type: 4- 7
+content: 4 - 8
+
+
+
+

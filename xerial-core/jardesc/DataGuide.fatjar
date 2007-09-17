@@ -1,0 +1,13 @@
+#Fat Jar Configuration File
+#Wed Jun 01 10:51:36 GMT+09:00 2005
+onejar.license.required=true
+manifest.classpath=
+onejar.checkbox=false
+jarname=tools/DataGuide.jar
+manifest.mergeall=true
+manifest.mainclass=org.xerial.index.DataGuide
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<po|XerialJ>~.svn/;<jar|junit.jar>
+includes=

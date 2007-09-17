@@ -1,0 +1,13 @@
+<booklist>
+	<book>
+		<author>A</author>
+		<author>B</author>
+		<title>Money Ball</title>
+		<year>2007</year>
+	</book>
+	<book>
+		<title>Curve Ball</title>
+		<author>C</author>
+		<year>2006</year>
+	</book>
+</booklist>

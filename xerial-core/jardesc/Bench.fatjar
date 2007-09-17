@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Nov 19 23:42:14 JST 2006
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=D\:\\cygwin\\home\\leo\\work\\xerial\\build\\xml\\Bench.jar
+manifest.mergeall=true
+manifest.mainclass=org.xerial.Bench
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|XerialJ>~.svn/;<jar|junit.jar>;<jar|commons-collections-3.1.jar>;<jar|saxon8.jar>;<jar|saxon8-xpath.jar>
+includes=

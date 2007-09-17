@@ -1,0 +1,4 @@
+<!-- DTD for auction database -->
+<!-- $Id: auction.dtd,v 1.15 2001/01/29 21:42:35 albrecht Exp $ -->
+
+<!ELEMENT site       (regions, categories, catgraph, people, open_auctions, closed_auctions)> 
