@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 JSONWalker.g 2007-09-13 13:36:50
+// $ANTLR 3.0.1 D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g 2007-09-17 19:26:58
 
 //--------------------------------------
 // Xerial Project
@@ -69,7 +69,7 @@ public class JSONWalker extends TreeParser {
         
 
     public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "JSONWalker.g"; }
+    public String getGrammarFileName() { return "D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g"; }
 
     
     	public String unquote(String s) { return StringUtil.unquote(s); }
@@ -77,7 +77,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start jsonObject
-    // JSONWalker.g:46:1: jsonObject returns [JSONObject r] : o= object ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:46:1: jsonObject returns [JSONObject r] : o= object ;
     public final JSONObject jsonObject() throws RecognitionException {
         JSONObject r = null;
 
@@ -85,8 +85,8 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // JSONWalker.g:47:2: (o= object )
-            // JSONWalker.g:47:4: o= object
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:47:2: (o= object )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:47:4: o= object
             {
             pushFollow(FOLLOW_object_in_jsonObject80);
             o=object();
@@ -109,7 +109,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start jsonArray
-    // JSONWalker.g:49:1: jsonArray returns [JSONArray r] : a= array ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:49:1: jsonArray returns [JSONArray r] : a= array ;
     public final JSONArray jsonArray() throws RecognitionException {
         JSONArray r = null;
 
@@ -117,8 +117,8 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // JSONWalker.g:50:2: (a= array )
-            // JSONWalker.g:50:4: a= array
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:50:2: (a= array )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:50:4: a= array
             {
             pushFollow(FOLLOW_array_in_jsonArray99);
             a=array();
@@ -141,7 +141,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start object
-    // JSONWalker.g:54:1: object returns [JSONObject v] : ^( OBJECT ( objectElement )* ) ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:54:1: object returns [JSONObject v] : ^( OBJECT ( objectElement )* ) ;
     public final JSONObject object() throws RecognitionException {
         ObjectLayer_stack.push(new ObjectLayer_scope());
 
@@ -151,14 +151,14 @@ public class JSONWalker extends TreeParser {
         	((ObjectLayer_scope)ObjectLayer_stack.peek()).elems = new ArrayList<JSONElement>();
 
         try {
-            // JSONWalker.g:59:2: ( ^( OBJECT ( objectElement )* ) )
-            // JSONWalker.g:59:4: ^( OBJECT ( objectElement )* )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:2: ( ^( OBJECT ( objectElement )* ) )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:4: ^( OBJECT ( objectElement )* )
             {
             match(input,OBJECT,FOLLOW_OBJECT_in_object130); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // JSONWalker.g:59:13: ( objectElement )*
+                // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:13: ( objectElement )*
                 loop1:
                 do {
                     int alt1=2;
@@ -171,7 +171,7 @@ public class JSONWalker extends TreeParser {
 
                     switch (alt1) {
                 	case 1 :
-                	    // JSONWalker.g:59:13: objectElement
+                	    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:13: objectElement
                 	    {
                 	    pushFollow(FOLLOW_objectElement_in_object132);
                 	    objectElement();
@@ -208,15 +208,15 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start objectElement
-    // JSONWalker.g:63:1: objectElement : ^( ELEMENT s= String v= value ) ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:63:1: objectElement : ^( ELEMENT s= String v= value ) ;
     public final void objectElement() throws RecognitionException {
         CommonTree s=null;
         JSONValue v = null;
 
 
         try {
-            // JSONWalker.g:64:2: ( ^( ELEMENT s= String v= value ) )
-            // JSONWalker.g:64:4: ^( ELEMENT s= String v= value )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:64:2: ( ^( ELEMENT s= String v= value ) )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:64:4: ^( ELEMENT s= String v= value )
             {
             match(input,ELEMENT,FOLLOW_ELEMENT_in_objectElement152); 
 
@@ -246,7 +246,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start array
-    // JSONWalker.g:68:1: array returns [JSONArray v] : ^( ARRAY ( arrayElement )* ) ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:68:1: array returns [JSONArray v] : ^( ARRAY ( arrayElement )* ) ;
     public final JSONArray array() throws RecognitionException {
         ArrayLayer_stack.push(new ArrayLayer_scope());
 
@@ -256,14 +256,14 @@ public class JSONWalker extends TreeParser {
         	((ArrayLayer_scope)ArrayLayer_stack.peek()).elems = new ArrayList<JSONValue>();
 
         try {
-            // JSONWalker.g:73:2: ( ^( ARRAY ( arrayElement )* ) )
-            // JSONWalker.g:73:4: ^( ARRAY ( arrayElement )* )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:2: ( ^( ARRAY ( arrayElement )* ) )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:4: ^( ARRAY ( arrayElement )* )
             {
             match(input,ARRAY,FOLLOW_ARRAY_in_array195); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // JSONWalker.g:73:12: ( arrayElement )*
+                // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:12: ( arrayElement )*
                 loop2:
                 do {
                     int alt2=2;
@@ -276,7 +276,7 @@ public class JSONWalker extends TreeParser {
 
                     switch (alt2) {
                 	case 1 :
-                	    // JSONWalker.g:73:12: arrayElement
+                	    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:12: arrayElement
                 	    {
                 	    pushFollow(FOLLOW_arrayElement_in_array197);
                 	    arrayElement();
@@ -313,14 +313,14 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start arrayElement
-    // JSONWalker.g:77:1: arrayElement : v= value ;
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:77:1: arrayElement : v= value ;
     public final void arrayElement() throws RecognitionException {
         JSONValue v = null;
 
 
         try {
-            // JSONWalker.g:78:2: (v= value )
-            // JSONWalker.g:78:4: v= value
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:78:2: (v= value )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:78:4: v= value
             {
             pushFollow(FOLLOW_value_in_arrayElement220);
             v=value();
@@ -343,7 +343,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start value
-    // JSONWalker.g:82:1: value returns [JSONValue v] : ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL );
+    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:82:1: value returns [JSONValue v] : ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL );
     public final JSONValue value() throws RecognitionException {
         JSONValue v = null;
 
@@ -355,7 +355,7 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // JSONWalker.g:83:2: ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL )
+            // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:83:2: ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL )
             int alt3=8;
             switch ( input.LA(1) ) {
             case STRING:
@@ -407,7 +407,7 @@ public class JSONWalker extends TreeParser {
 
             switch (alt3) {
                 case 1 :
-                    // JSONWalker.g:83:4: ^( STRING s= String )
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:83:4: ^( STRING s= String )
                     {
                     match(input,STRING,FOLLOW_STRING_in_value240); 
 
@@ -421,7 +421,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // JSONWalker.g:84:4: ^( INTEGER n= Integer )
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:84:4: ^( INTEGER n= Integer )
                     {
                     match(input,INTEGER,FOLLOW_INTEGER_in_value253); 
 
@@ -435,7 +435,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // JSONWalker.g:85:4: ^( DOUBLE n= Double )
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:85:4: ^( DOUBLE n= Double )
                     {
                     match(input,DOUBLE,FOLLOW_DOUBLE_in_value266); 
 
@@ -449,7 +449,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // JSONWalker.g:86:4: o= object
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:86:4: o= object
                     {
                     pushFollow(FOLLOW_object_in_value280);
                     o=object();
@@ -460,7 +460,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // JSONWalker.g:87:4: a= array
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:87:4: a= array
                     {
                     pushFollow(FOLLOW_array_in_value289);
                     a=array();
@@ -471,7 +471,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // JSONWalker.g:88:4: TRUE
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:88:4: TRUE
                     {
                     match(input,TRUE,FOLLOW_TRUE_in_value298); 
                      v = new JSONBoolean(true); 
@@ -479,7 +479,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // JSONWalker.g:89:4: FALSE
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:89:4: FALSE
                     {
                     match(input,FALSE,FOLLOW_FALSE_in_value305); 
                      v = new JSONBoolean(false); 
@@ -487,7 +487,7 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 8 :
-                    // JSONWalker.g:90:4: NULL
+                    // D:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:90:4: NULL
                     {
                     match(input,NULL,FOLLOW_NULL_in_value312); 
                      v = new JSONNull(); 

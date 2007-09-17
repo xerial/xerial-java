@@ -63,12 +63,14 @@ public class XerialException extends Exception
     static protected String concatinateMessage(Object... message)
     {
         StringBuffer buffer = new StringBuffer();
-        for(Object o : message)
+        if(message.length > 0 && message[0] != null)
+            buffer.append(message[0].toString());
+        for(int i=1; i<message.length; i++)
         {
-            if(o != null)
+            if(message[i] != null)
             {
-                buffer.append(o.toString());
                 buffer.append(" ");
+                buffer.append(message[i].toString());
             }
         } 
         return buffer.toString();
