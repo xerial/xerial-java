@@ -5,7 +5,7 @@
 	<groupId>org.xerial</groupId>
 	<artifactId>xerial-core</artifactId>
 	<version>0.2.13</version>
-	<name>Xerial Core Project</name>
+	<name>Xerial Core</name>
 	<description>
 		Xerial Core: standard utilities for XerialJ project
 	</description>
@@ -28,41 +28,13 @@
 		</repository>
 	</repositories>
 
-	<scm>
-		<connection>
-			scm:svn:http://www.xerial.org/svn/project/XerialJ/trunk/xerial-core
-		</connection>
-		<developerConnection>
-			scm:svn:http://www.xerial.org/svn/project/XerialJ/trunk/xerial-core
-		</developerConnection>
-		<url>
-			http://www.xerial.org/svn/project/XerialJ/trunk/xerial-core
-		</url>
-	</scm>
-
-
 	<distributionManagement>
-		<downloadUrl>
-			http://www.xerial.org/svn/project/XerialJ/trunk/maven/artifacts/org/xerial/xerial-core
-		</downloadUrl>
 		<site>
 			<id>xerial.local</id>
 			<url>
-				file://${basedir}/../maven/site/xerial/xerial-core
+				file://${basedir}/../maven/site/${project.artifactId}
 			</url>
 		</site>
-		<repository>
-			<id>xerial.local</id>
-			<name>Xerial Maven Repository managed by Subversion</name>
-			<url>file://${basedir}/../maven/artifact</url>
-		</repository>
-		<snapshotRepository>
-			<id>xerial.local</id>
-			<name>
-				Xerial Maven Snapshot Repository managed by Subversion
-			</name>
-			<url>file://${basedir}/../maven/snapshot</url>
-		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
@@ -94,16 +66,6 @@
 					<testIncludes>
 						<include>**</include>
 					</testIncludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<tagBase>
-						http://www.xerial.org/svn/project/XerialJ/tags/xerial-core
-					</tagBase>
 				</configuration>
 			</plugin>
 
