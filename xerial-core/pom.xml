@@ -18,6 +18,16 @@
 		<version>1</version>
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>xerial</id>
+			<name>Xerial Artifact Repository</name>
+			<url>
+				http://www.xerial.org/svn/project/XerialJ/trunk/maven/artifact
+			</url>
+		</repository>
+	</repositories>
+
 	<scm>
 		<connection>
 			scm:svn:http://www.xerial.org/svn/project/XerialJ/trunk/xerial-core
@@ -37,7 +47,9 @@
 		</downloadUrl>
 		<site>
 			<id>xerial.local</id>
-			<url>file://${basedir}/../maven/site/xerial-base</url>
+			<url>
+				file://${basedir}/../maven/site/xerial/xerial-core
+			</url>
 		</site>
 		<repository>
 			<id>xerial.local</id>
