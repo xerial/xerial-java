@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.xerial</groupId>
 	<artifactId>xerial-core</artifactId>
-	<version>0.3</version>
+	<version>0.3.1-SNAPSHOT</version>
 	<name>Xerial Core</name>
 	<description>
 		Xerial Core: standard utilities for XerialJ project
@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.xerial</groupId>
 		<artifactId>xerial-base</artifactId>
-		<version>1</version>
+		<version>1.1</version>
 	</parent>
 
 	<repositories>
@@ -94,18 +94,6 @@
 	<dependencies>
 
 
-		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>xerces</groupId>
@@ -138,12 +126,6 @@
 			<groupId>xpp3</groupId>
 			<artifactId>xpp3</artifactId>
 			<version>1.1.3.4.K</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sqlite</groupId>
-			<artifactId>sqlitejdbc</artifactId>
-			<version>v033-nested</version>
 		</dependency>
 
 	</dependencies>
