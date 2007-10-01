@@ -28,14 +28,14 @@ public class OptionParserTest extends TestCase
         _optParser.addOption(Opt.HELP, "h", "help", "display help message");
         
         _optParser.addOptionWithArgument(Opt.OUTDIR, "o", "output", "DIR", "secify output directory", ".");
-        _optParser.addOptionWithArgument(Opt.MODE, "m", "mode", "MODE", "select mode (1-3)", 1);
+        _optParser.addOptionWithArgument(Opt.MODE, "m", "mode", "MODE", "select mode (1-3)", "1");
 
         OptionGroup<Opt> cuiOptionGroup = new OptionGroup<Opt>("CUI", true);
         cuiOptionGroup.addOption(Opt.VERBOSE, "v", "verbose", "display verbose messages");
         _optParser.addOptionGroup(cuiOptionGroup);
         
         OptionGroup<Opt> guiOptionGroup = new OptionGroup<Opt>("GUI", true);
-        guiOptionGroup.addOptionWithArgment(Opt.WINDOWSIZE, "", "windowsize", "SIZE", "set GUI window size", 100);
+        guiOptionGroup.addOptionWithArgment(Opt.WINDOWSIZE, "", "windowsize", "SIZE", "set GUI window size", "100");
         _optParser.addOptionGroup(guiOptionGroup);        
     }
     
@@ -145,6 +145,26 @@ public class OptionParserTest extends TestCase
     	assertTrue(helpflag);
     	assertTrue(logLevelFlag);
     	assertEquals("DEBUG", logLevel);
+    }
+    
+    public void testGroupOptionHandler() throws OptionParserException
+    {
+        OptionParser<Opt> parser = new OptionParser<Opt>();
+
+        OptionGroup<Opt> group = new OptionGroup<Opt>("group");
+        group.addOption(Opt.HELP, "h", "help", "set the helpflag", new OptionHandler<Opt>() {
+            public void handle(OptionParser<Opt> parser) throws OptionParserException
+            {
+                helpflag = true;
+            }
+        }
+        );
+        
+        parser.addOptionGroup(group);
+        
+        parser.parse(new String[] {"-h"});
+
+        assertTrue(helpflag);
     }
     
 }

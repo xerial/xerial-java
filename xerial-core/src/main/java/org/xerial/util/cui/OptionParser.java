@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.cui;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
@@ -76,7 +75,7 @@ public class OptionParser<OptionID extends Comparable> {
     private Vector<String>          _argumentList       = new Vector<String>();
     private TreeSet<String>         _activeGroupSet     = new TreeSet<String>();
     private TreeSet<OptionID>       _optionIDSet        = new TreeSet<OptionID>();
-    private HashMap<OptionID, OptionHandler> _optionHandlerTable = new HashMap<OptionID, OptionHandler>();
+
 
 	/**
 	 * A constructor
@@ -108,8 +107,8 @@ public class OptionParser<OptionID extends Comparable> {
 	public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description, OptionHandler handler)
 	{
 	    addNewOptionID(optionID);
-	    if(handler != null)
-	        _optionHandlerTable.put(optionID, handler);
+	    
+	    _rootOptionGroup.addOptionHandler(optionID, handler);
 	    _rootOptionGroup.addOption(optionID, shortOptionName, longOptionName, description);
 	}
 
@@ -162,7 +161,7 @@ public class OptionParser<OptionID extends Comparable> {
      */
     public void addOptionWithArgument(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, OptionHandler<OptionID> handler) {
         addNewOptionID(optionID);
-        _optionHandlerTable.put(optionID, handler);
+        _rootOptionGroup.addOptionHandler(optionID, handler);
         _rootOptionGroup.addOptionWithArgment(optionID, shortOptionName, longOptionName, argumentName, description);
     }
 
@@ -175,7 +174,7 @@ public class OptionParser<OptionID extends Comparable> {
      * @param description the description of the option, which is used to generate the help message of this option
 	 * @param defaultValue the default value of the option
 	 */
-	public void addOptionWithArgument(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, Object defaultValue) {
+	public void addOptionWithArgument(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, String defaultValue) {
 		addNewOptionID(optionID);
 		_rootOptionGroup.addOptionWithArgment(optionID, shortOptionName, longOptionName, argumentName, description, defaultValue);
 	}
@@ -190,9 +189,9 @@ public class OptionParser<OptionID extends Comparable> {
      * @param defaultValue the default value of the option
      * @param handler the option argument handler invoked when the option is set
      */
-    public void addOptionWithArgument(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, Object defaultValue, OptionHandler<OptionID> handler) {
+    public void addOptionWithArgument(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, String defaultValue, OptionHandler<OptionID> handler) {
         addNewOptionID(optionID);
-        _optionHandlerTable.put(optionID, handler);
+        _rootOptionGroup.addOptionHandler(optionID, handler);
         _rootOptionGroup.addOptionWithArgment(optionID, shortOptionName, longOptionName, argumentName, description, defaultValue);
     }
 
@@ -291,7 +290,7 @@ public class OptionParser<OptionID extends Comparable> {
 		// invokes option handlers
 		for(OptionID optID : activatedOptionSet)
 		{
-		    OptionHandler handler = _optionHandlerTable.get(optID);
+		    OptionHandler handler = _rootOptionGroup.getOptionHandler(optID);
 		    if(handler != null)
 		    {
 		        handler.handle(this);
