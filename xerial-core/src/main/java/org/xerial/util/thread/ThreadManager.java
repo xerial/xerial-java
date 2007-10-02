@@ -1,5 +1,5 @@
 //--------------------------------------
-// Phenome Commons Project
+// XerialJ Project
 //
 // ThreadManager.java
 // Since: 2005/01/04
@@ -12,24 +12,46 @@ package org.xerial.util.thread;
 import java.util.LinkedList;
 
 /**
- * interface java.lang.Runnable を実装したクラスを追加するだけで、multi threadで実行してくれるサーバー。
- * 作成したthreadは再利用されるので、逐次Threadを生成するより効率が良い
+ * ThreadManager supports handy multi-thread programming.
  * 
+ * Usage example:
+ * <code>
+ * <pre>
+ *  ThreadManager threadManager = new TreadManager();
+ *  threadManager.addTask(new Runnable() {
+ *      public void run()
+ *      {
+ *          // do something in thread
+ *      }
+ *  });
+ *  
+ *  // wait until all tasks are terminated 
+ *  threadManager.joinAll();
+ * 
+ * </pre>
+ * </code>
+ * 
+ * 
+ * ThreadManager recieves any tasks that implement {@link Runnable} interface.
+ * Generated threads will be reused after the tasks are terminated, so
+ * multi-thread tasks run more efficiently than crating a new thread for each task. 
+ *  
  * @author leo
  * 
  */
 public class ThreadManager {
 
 	/**
-	 * デフォルトのスレッド数の上限は5 Task Queueのサイズは100
+	 * The number of generated thread is 5 in default, and the task queue size is 100.
 	 */
 	public ThreadManager() {
 		prepareWorkerThreads();
 	}
 
 	/**
-	 * @param numMaximumThread
-	 *            生成できるスレッド数の上限
+	 * @param numMaximumThread the number of threads preliminary generated
+	 * @param taskQueueSize  the task queue size. If you allocate larger size for the task queue, 
+	 * chances of waiting another thread will be reduced when calling {@link #addTask(Runnable)} method. 
 	 */
 	public ThreadManager(int numMaximumThread, int taskQueueSize) {
 		_numMaximumThread = numMaximumThread;
@@ -46,13 +68,15 @@ public class ThreadManager {
 	}
 
 	/**
-	 * taskをキューに追加する。追加されたtaskは、空いているスレッドに割り当てられ、そこでrunメソッドが実行される。
-	 * キューがいっぱいなら、キューが空くまで呼び出し側がwaitする。
+	 * Add a task to the task queue。The added task will be assigned to the idle thread, then within the thread, 
+	 * {@link Runnable#run()} method will be invoked.
 	 * 
-	 * @param task
-	 *            java.lang.Runnable interfaceを実装したクラス
-	 * @throws InterruptedException
-	 *             threadManagerが外部から処理をinterruptされたときに発生する例外
+	 * If the task queue is full at the time of method invocation, the caller will be blocked until  
+	 * the task queue has enough space for the task.
+	 * 
+	 * @param task a class instance that implements {@link Runnable} 
+	 * @throws InterruptedException invoked when the ThreadManager gets interrupted outside of the ThreadManager
+	 *             
 	 */
 	public void addTask(Runnable task) throws InterruptedException {
 		if (task == null)
@@ -68,12 +92,10 @@ public class ThreadManager {
 	}
 
 	/**
-	 * 次の仕事（java.lang.Runnable)が得られるまで待つ
+	 * Waits until the next work will be available
 	 * 
-	 * @return task queueにあるjava.lang.Runnalbleのインスタンス.
-	 *         Nullを返すときは、もうこれ以上仕事がないということ
-	 * @throws InterruptedException
-	 *             このメソッドを呼び出したthreadが外部からinterruptされた時に発生する
+	 * @return task {@link Runnable} class. When the task is null, it means there is no more task to process
+	 * @throws InterruptedException thrown when the caller thread of this method is interrupted.
 	 */
 	synchronized Runnable nextWork() throws InterruptedException {
 		while (_taskQueue.isEmpty() && !_isInTerminatePhase) {
@@ -88,10 +110,9 @@ public class ThreadManager {
 	}
 
 	/**
-	 * ThreadManagerに与えられたtaskがすべて終了するのを待つ
+	 * Waits until all tasks assigned to this ThreadManager.
 	 * 
-	 * @throws InterruptedException
-	 *             ThreadServerを実行しているthreadが外部からinterruptされた場合
+	 * @throws InterruptedException when the thread running the thread manager is interrupted
 	 */
 	public void joinAll() throws InterruptedException {
 		synchronized (this) {
@@ -106,7 +127,7 @@ public class ThreadManager {
 	}
 
 	/**
-	 * taskの実行をすべて強制終了する
+	 * Terminates all tasks assigned to the thread manager
 	 */
 	synchronized public void terminateAll() {
 		_isInTerminatePhase = true;
@@ -126,7 +147,7 @@ public class ThreadManager {
 }
 
 /**
- * 仕事を受け取って、実行するThread
+ * Worker thread receives a task, then perform the task
  * 
  * @author leo
  * 
@@ -145,7 +166,7 @@ class WorkerThread extends Thread {
 				task.run();
 			}
 		} catch (InterruptedException e) {
-			// 強制終了された場合
+			// force terminated out side of this thread 
 		}
 	}
 
