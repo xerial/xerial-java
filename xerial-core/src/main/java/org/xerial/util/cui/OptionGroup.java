@@ -282,7 +282,9 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
             if(opt instanceof OptionGroup)
             {
                 OptionGroup<OptionID> optionGroup = (OptionGroup<OptionID>) opt;
-                return optionGroup.getOptionHandler(optionID);
+                optionHandler = optionGroup.getOptionHandler(optionID);
+                if(optionHandler != null)
+                    return optionHandler;
             }
         }
         return null;
