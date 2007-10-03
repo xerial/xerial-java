@@ -32,10 +32,10 @@
           <source>1.5</source>
           <target>1.5</target>
           <includes>
-            <include>src/main/java/**</include>
+            <include>**</include>
           </includes>
           <testIncludes>
-            <include>src/test/java/**</include>
+            <include>**</include>
           </testIncludes>
         </configuration>
       </plugin>
