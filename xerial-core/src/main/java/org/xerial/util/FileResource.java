@@ -201,7 +201,7 @@ public class FileResource
             {
                 String jarURLString = "jar:" + jarPath; 
                 
-                jarPath = jarPath.replaceAll("%20", " ").replace("file:/", "");
+                jarPath = jarPath.replaceAll("%20", " ").replace("file:", "");
                 filePath = filePath.replaceAll("%20", " ");
                 
                 File jarFile = new File(jarPath);
