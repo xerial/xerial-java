@@ -848,6 +848,41 @@ public class BeanUtilTest
          assertEquals(t.getProperty().get("revision"), t2.getProperty().get("revision"));
      }
      
+     
+     class PersonList2
+     {
+         ArrayList personList = new ArrayList();
+         public PersonList2()
+         {}
+         
+         public void addPerson(Person person)
+         {
+             personList.add(person);
+         }
+         
+         public ArrayList getPerson()
+         {
+             return personList;
+         }
+         
+     }
+     
+     @Test 
+     public void adderTest2() throws InvalidBeanException, InvalidJSONDataException 
+     {
+         PersonList2 pl = new PersonList2();
+         pl.addPerson(new Person(1, "leo"));
+         pl.addPerson(new Person(2, "yui"));
+         
+         String json = BeanUtil.toJSON(pl);
+         
+         PersonList2 pl2 = new PersonList2();
+         BeanUtil.populateBean(pl2, json);
+         String json2 = BeanUtil.toJSON(pl2);
+         
+         
+     }
+     
 }
 
 
