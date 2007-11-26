@@ -59,4 +59,6 @@ public interface VirtualFile
      */
     URL getURL();
     
+    String toString();
+    
 }

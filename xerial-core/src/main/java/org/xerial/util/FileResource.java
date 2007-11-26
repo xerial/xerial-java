@@ -48,17 +48,16 @@ import org.xerial.util.log.Logger;
  * used to hold file resources within a package.
  * 
  * 
- * Usage:
- * <code>
+ * Usage: <code>
  * <pre>
- *   // if YourClass belongs to a package org.xerial.util, the following code searches org/xerial/util/sample.txt in the source folder (or jar file) 
- *   URL fileResourceURL = FileResource.find(YourClass.class, "sample.txt");
- *   
- *   // another form of the previous line
- *   URL fileResourceURL2 = FileResource.find("org.xerial.util", "sample.txt");
- *   
- *   // short-hand code to get Reader (equivalent to call new BufferedReader(new InputStreamReader(URL#openStream())) )
- *   BufferedReader reader = FileResource.open(YourClass.class, "sample.txt");
+ * // if YourClass belongs to a package org.xerial.util, the following code searches org/xerial/util/sample.txt in the source folder (or jar file) 
+ * URL fileResourceURL = FileResource.find(YourClass.class, &quot;sample.txt&quot;);
+ * 
+ * // another form of the previous line
+ * URL fileResourceURL2 = FileResource.find(&quot;org.xerial.util&quot;, &quot;sample.txt&quot;);
+ * 
+ * // short-hand code to get Reader (equivalent to call new BufferedReader(new InputStreamReader(URL#openStream())) )
+ * BufferedReader reader = FileResource.open(YourClass.class, &quot;sample.txt&quot;);
  * </pre>
  * </code>
  * 
@@ -68,23 +67,24 @@ import org.xerial.util.log.Logger;
 public class FileResource
 {
     private static Logger _logger = Logger.getLogger(FileResource.class);
-    
+
     /**
      * A virtual file implementation for usual files
+     * 
      * @author leo
-     *
+     * 
      */
     public static class SystemFile implements VirtualFile
     {
         private File file;
         private String logicalPath;
-        
+
         public SystemFile(File file, String logicalPath)
         {
             this.file = file;
             this.logicalPath = logicalPath;
         }
-        
+
         public String getLogicalPath()
         {
             return logicalPath;
@@ -107,26 +107,32 @@ public class FileResource
             return file.isDirectory();
         }
 
+        public String toString()
+        {
+            return getURL().toString();
+        }
+
     }
-    
+
     /**
      * A virtual file implementation for file resources contained in a JAR file
+     * 
      * @author leo
-     *
+     * 
      */
     public static class FileInJarArchive implements VirtualFile
     {
         private URL resourceURL;
         private String logicalPath;
         boolean isDirectory;
-        
+
         public FileInJarArchive(URL resourceURL, String logicalPath, boolean isDirectory)
         {
             this.resourceURL = resourceURL;
             this.logicalPath = logicalPath;
             this.isDirectory = isDirectory;
-            
-            if(this.resourceURL == null)
+
+            if (this.resourceURL == null)
                 throw new IllegalArgumentException("resource URL cannot be null: " + logicalPath);
         }
 
@@ -134,7 +140,6 @@ public class FileResource
         {
             return logicalPath;
         }
-
 
         public URL getURL()
         {
@@ -145,121 +150,134 @@ public class FileResource
         {
             return isDirectory;
         }
-        
+
+        public String toString()
+        {
+            return getURL().toString();
+        }
+
     }
-    
+
     public static interface ResourceFilter
     {
         boolean accept(String resourcePath);
     }
-    
-    /** 
+
+    /**
      * list up resources recursively under the given base package name
-     * @param basePackageName package name to search. e.g. org.xerial.util
-     * @return the list of resources represented as {@link VirtualFile} 
+     * 
+     * @param basePackageName
+     *            package name to search. e.g. org.xerial.util
+     * @return the list of resources represented as {@link VirtualFile}
      */
     public static List<VirtualFile> listResources(String basePackageName)
     {
-        return listResources(basePackageName, new ResourceFilter(){
+        return listResources(basePackageName, new ResourceFilter() {
             public boolean accept(String resourcePath)
             {
                 return true;
-            }}
-        );
+            }
+        });
     }
 
-    /** 
+    /**
      * list up resources recursively under the given base package name
-     * @param basePackageName package name to search. e.g. org.xerial.util
-     * @return the list of resources represented as {@link VirtualFile} 
+     * 
+     * @param basePackageName
+     *            package name to search. e.g. org.xerial.util
+     * @return the list of resources represented as {@link VirtualFile}
      */
     public static List<VirtualFile> listResources(String basePackageName, ResourceFilter resourceFilter)
     {
         String packagePath = packagePath(basePackageName);
-        URL resourceURL = find(packagePath);
+        List<URL> resourceURLList = getURLListFromAllClassLoader(packagePath);
         ArrayList<VirtualFile> fileList = new ArrayList<VirtualFile>();
-        if(resourceURL == null)
-            return fileList;
-        
-        String protocol = resourceURL.getProtocol();
-        if(protocol.equals("file"))
+        for (URL resourceURL : resourceURLList)
         {
-            String resourceURLString = resourceURL.toString();
-            collectFileResources(resourceURLString, fileList, packagePath, resourceFilter);
-        }
-        else if(protocol.equals("jar"))
-        {
-            // retrieve jar contents
-            String path = resourceURL.getPath();
-            int pos = path.indexOf("!");
-            if(pos < 0)
-                throw new IllegalArgumentException("invalid resource URL: " + resourceURL);
-            
-            String jarPath = path.substring(0, pos);
-            String filePath = path.substring(pos+2);
-            try
-            {
-                String jarURLString = "jar:" + jarPath; 
-                
-                jarPath = jarPath.replaceAll("%20", " ").replace("file:", "");
-                filePath = filePath.replaceAll("%20", " ");
-                
-                File jarFile = new File(jarPath);
-                JarFile jf = new JarFile(jarPath);
-                for(Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements(); )
-                {
-                    JarEntry jarEntry = entryEnum.nextElement();
-                                        
-                    String physicalURL = jarURLString + "!/" + jarEntry.getName();
-                    URL jarFileURL = new URL(physicalURL);
-     
-                    String logicalName = extractLogicalName(packagePath, jarEntry.getName());
-                    if(logicalName != null && resourceFilter.accept(logicalName))
-                        fileList.add(new FileInJarArchive(jarFileURL, logicalName, jarEntry.isDirectory()));
-                }
-                
-        
-            }
-            catch (MalformedURLException e)
-            {
-                _logger.error(e);
-            }
-            catch (IOException e)
-            {
-                _logger.error(e);
-            }
+            if (resourceURL == null)
+                continue;
 
+            String protocol = resourceURL.getProtocol();
+            if (protocol.equals("file"))
+            {
+                String resourceURLString = resourceURL.toString();
+                collectFileResources(resourceURLString, fileList, packagePath, resourceFilter);
+            }
+            else if (protocol.equals("jar"))
+            {
+                // retrieve jar contents
+                String path = resourceURL.getPath();
+                int pos = path.indexOf("!");
+                if (pos < 0)
+                    throw new IllegalArgumentException("invalid resource URL: " + resourceURL);
+
+                String jarPath = path.substring(0, pos);
+                String filePath = path.substring(pos + 2);
+                try
+                {
+                    String jarURLString = "jar:" + jarPath;
+
+                    jarPath = jarPath.replaceAll("%20", " ").replace("file:", "");
+                    filePath = filePath.replaceAll("%20", " ");
+
+                    File jarFile = new File(jarPath);
+                    JarFile jf = new JarFile(jarPath);
+                    for (Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements();)
+                    {
+                        JarEntry jarEntry = entryEnum.nextElement();
+
+                        String physicalURL = jarURLString + "!/" + jarEntry.getName();
+                        URL jarFileURL = new URL(physicalURL);
+
+                        String logicalName = extractLogicalName(packagePath, jarEntry.getName());
+                        if (logicalName != null && resourceFilter.accept(logicalName))
+                            fileList.add(new FileInJarArchive(jarFileURL, logicalName, jarEntry.isDirectory()));
+                    }
+
+                }
+                catch (MalformedURLException e)
+                {
+                    _logger.error(e);
+                }
+                catch (IOException e)
+                {
+                    _logger.error(e);
+                }
+
+            }
+            else
+            {
+                throw new UnsupportedOperationException("resources other than file or jar are not supported: "
+                        + resourceURL);
+            }
         }
-        else
-        {
-            throw new UnsupportedOperationException("resources other than file or jar are not supported: " + resourceURL);    
-        }
-        
+
         return fileList;
     }
 
-
-    private static void collectFileResources(String resourceURLString, ArrayList<VirtualFile> fileList, String packagePath, ResourceFilter resourceFilter)
+    private static void collectFileResources(String resourceURLString, ArrayList<VirtualFile> fileList,
+            String packagePath, ResourceFilter resourceFilter)
     {
-        if(resourceURLString.endsWith(".svn"))
+        if (resourceURLString.endsWith(".svn"))
         {
             return; // omit the .svn folder
         }
-        
+
         String logicalName = extractLogicalName(packagePath, resourceURLString);
-        if(logicalName == null)
+        if (logicalName == null)
             throw new IllegalArgumentException("packagePath=" + packagePath + ", resourceURL=" + resourceURLString);
-        
+
         try
         {
             File file = new File(new URL(resourceURLString).toURI());
-            if(resourceFilter.accept(file.getPath()))
+            if (resourceFilter.accept(file.getPath()))
                 fileList.add(new SystemFile(file, logicalName));
-            if(file.isDirectory())
+            if (file.isDirectory())
             {
-                for(File childFile : file.listFiles())
+                for (File childFile : file.listFiles())
                 {
-                    String childResourceURL = resourceURLString + (resourceURLString.endsWith("/") ? "" : "/") + childFile.getName();
+                    String childResourceURL = resourceURLString + (resourceURLString.endsWith("/") ? "" : "/")
+                            + childFile.getName();
                     collectFileResources(childResourceURL, fileList, packagePath, resourceFilter);
                 }
             }
@@ -273,22 +291,20 @@ public class FileResource
             _logger.error(e);
         }
     }
-    
-    
+
     private static String extractLogicalName(String packagePath, String resourcePath)
     {
-        if(!packagePath.endsWith("/"))
+        if (!packagePath.endsWith("/"))
             packagePath = packagePath + "/";
-        
+
         int pos = resourcePath.indexOf(packagePath);
-        if(pos < 0)
+        if (pos < 0)
             return null;
-            
+
         String logicalName = resourcePath.substring(pos + packagePath.length());
         return logicalName;
     }
-    
-    
+
     private static ArrayList<URL> getURLListFromAllClassLoader(String packageAsPath)
     {
         String path = !packageAsPath.endsWith("/") ? packageAsPath + "/" : packageAsPath;
@@ -424,32 +440,32 @@ public class FileResource
     {
         String packagePath = packagePath(packageName);
         String resourcePath = packagePath + resourceFileName;
-        if(!resourcePath.startsWith("/"))
+        if (!resourcePath.startsWith("/"))
             resourcePath = "/" + resourcePath;
         _logger.debug("search resource: " + resourcePath);
-        
+
         return FileResource.class.getResource(resourcePath);
     }
 
-    //private static HashMap<>
-    
+    // private static HashMap<>
+
     public static URL findFromJAR(String jarPath, String filePath)
     {
         try
         {
             URL jarURL = new URL(jarPath);
-            if(!jarURL.getProtocol().equals("file"))
+            if (!jarURL.getProtocol().equals("file"))
                 throw new IllegalArgumentException("not found the jar: " + jarURL);
-            
-            String jarURLString = "jar:" + jarPath; 
-            
+
+            String jarURLString = "jar:" + jarPath;
+
             File jarFile = new File(jarURL.toString());
             JarFile jf = new JarFile(jarFile);
-            for(Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements(); )
+            for (Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements();)
             {
                 JarEntry jarEntry = entryEnum.nextElement();
                 jarEntry.isDirectory();
-                
+
                 String physicalURL = jarURLString + "!/" + jarEntry.getName();
             }
         }
@@ -463,11 +479,11 @@ public class FileResource
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         return null;
-        
+
     }
-    
+
     /**
      * Finds the {@link URL} of the resource
      * 
@@ -479,6 +495,5 @@ public class FileResource
     {
         return find("", resourceFileName);
     }
-
 
 }

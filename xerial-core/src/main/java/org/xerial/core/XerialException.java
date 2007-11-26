@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.core;
 
-
+ 
 /**
  * The base class of exceptions for Xerial Project
  * 

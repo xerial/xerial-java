@@ -868,7 +868,7 @@ public class BeanUtilTest
      }
      
      @Test 
-     public void adderTest2() throws InvalidBeanException, InvalidJSONDataException 
+     public void adderTest2() throws InvalidBeanException, InvalidJSONDataException, InvalidXMLException 
      {
          PersonList2 pl = new PersonList2();
          pl.addPerson(new Person(1, "leo"));
@@ -880,6 +880,7 @@ public class BeanUtilTest
          BeanUtil.populateBean(pl2, json);
          String json2 = BeanUtil.toJSON(pl2);
          
+         String xml = BeanUtil.toXML("personList", pl);
          
      }
      
