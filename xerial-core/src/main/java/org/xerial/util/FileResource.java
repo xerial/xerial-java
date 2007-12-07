@@ -179,7 +179,7 @@ public class FileResource
      * Lists up all resources satisfying the given resourceFilter from the current class loader 
      * @param resourceFilter
      * @return the list of resources matching the condition specified in the resourceFilter
-     */
+     */     
     public static List<VirtualFile> listResources(ResourceFilter resourceFilter)
     {
         List<URLClassLoader> classLoaderList = getAllClassLoader();
@@ -194,6 +194,7 @@ public class FileResource
         
         return fileList;
     }
+
 
     /**
      * Lists up all resources recursively under the given resourceURL. 
@@ -559,5 +560,7 @@ public class FileResource
     {
         return find("", resourceFileName);
     }
+
+
 
 }
