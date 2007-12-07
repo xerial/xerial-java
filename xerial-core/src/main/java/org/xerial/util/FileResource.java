@@ -174,7 +174,7 @@ public class FileResource
         });
     }
  
-    
+     
     /**
      * Lists up all resources satisfying the given resourceFilter from the current class loader 
      * @param resourceFilter
