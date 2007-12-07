@@ -74,7 +74,18 @@ public class CollectionUtil {
 		}
 		return result;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public static <In> List collect(In[] collection, Functor<In> functor)
+	{
+	    ArrayList result = new ArrayList();
+	    for(In input : collection)
+	    {
+	        result.add(functor.apply(input));
+	    }
+	    return result;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <K, V> List collect(Map<K, V> map, BinaryFunctor<K, V> functor)
 	{

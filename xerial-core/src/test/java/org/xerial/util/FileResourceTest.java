@@ -37,7 +37,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.util.FileResource.ResourceFilter;
 import org.xerial.util.io.VirtualFile;
 import org.xerial.util.log.Logger;
 
