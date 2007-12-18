@@ -24,13 +24,15 @@
 //--------------------------------------
 package org.xerial.util.xml.analyzer;
 
-import java.io.BufferedInputStream;
+import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.END_TAG;
+import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.START_TAG;
+import static org.xmlpull.v1.XmlPullParser.TEXT;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
-import java.util.LinkedList;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -42,7 +44,6 @@ import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import static org.xmlpull.v1.XmlPullParser.*;
 
 /**
  * XMLのノード間の親子、祖先-子孫関係を解析する

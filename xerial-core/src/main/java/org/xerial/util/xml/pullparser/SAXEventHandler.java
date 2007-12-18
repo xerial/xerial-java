@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.xml.pullparser;
 
-import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
@@ -34,11 +33,11 @@ import org.xmlpull.v1.XmlPullParser;
  */
 public interface SAXEventHandler
 {
-    public void startTag(XmlPullParser parser) throws XMLException;
-    public void endTag(XmlPullParser parser) throws XMLException;
-    public void text(XmlPullParser parser) throws XMLException;
-    public void startDocument(XmlPullParser parser) throws XMLException;
-    public void endDocument(XmlPullParser parser) throws XMLException;
+    public void startTag(XmlPullParser parser) throws Exception;
+    public void endTag(XmlPullParser parser) throws Exception;
+    public void text(XmlPullParser parser) throws Exception;
+    public void startDocument(XmlPullParser parser) throws Exception;
+    public void endDocument(XmlPullParser parser) throws Exception;
 }
 
 

@@ -75,7 +75,7 @@ public class PrePostOrderIndexerTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
 
-    public void testEncode() throws XMLException, IOException
+    public void testEncode() throws Exception
     {
         PrePostOrderIndexer prepostIndexer = new PrePostOrderIndexer();
         SAXParser parser = new SAXParser(prepostIndexer);

@@ -68,7 +68,7 @@ public class DataGuideTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
 
-    public void testDataGuide() throws IOException, XMLException, XerialException
+    public void testDataGuide() throws Exception
     {
         // prepare the XML document
         DataGuide dg = new DataGuide();
@@ -76,7 +76,7 @@ public class DataGuideTest extends TestCase
         dg.outputGraphviz(new NullOutputStream());
     }
 
-    public void testDataGuideGenerator() throws XMLException, IOException
+    public void testDataGuideGenerator() throws Exception
     {
         DataGuide dg = new DataGuide();
         SAXParser parser = new SAXParser(dg);

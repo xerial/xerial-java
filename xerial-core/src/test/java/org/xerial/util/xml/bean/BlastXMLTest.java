@@ -9,18 +9,16 @@
 //--------------------------------------
 package org.xerial.util.xml.bean;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+
+import junit.framework.TestCase;
 
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLGenerator;
-
-import junit.framework.TestCase;
 
 public class BlastXMLTest extends TestCase
 {

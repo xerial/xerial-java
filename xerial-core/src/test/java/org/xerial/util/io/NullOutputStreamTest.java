@@ -24,11 +24,7 @@
 //--------------------------------------
 package org.xerial.util.io;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import org.xerial.util.io.NullOutputStream;
 
 import junit.framework.TestCase;
 

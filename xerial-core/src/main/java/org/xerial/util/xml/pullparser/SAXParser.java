@@ -109,7 +109,7 @@ public class SAXParser
      * @throws XMLParserException parserの生成に失敗したとき。
      * @throws XMLException invalidなXMLを読んだとき。
      */
-    public void parse(String xmlFileName) throws IOException, XMLException
+    public void parse(String xmlFileName) throws IOException, Exception
     {
         Reader reader = new BufferedReader(new FileReader(xmlFileName));
         parse(reader);
@@ -123,7 +123,7 @@ public class SAXParser
      * @throws XMLParserException parserの生成に失敗したとき。
      * @throws XMLException invalidなXMLを読んだとき。
      */
-    public void parse(Reader xmlInputSource) throws XMLException, IOException
+    public void parse(Reader xmlInputSource) throws Exception, IOException
     {
         XmlPullParser parser = PullParserUtil.newParser(xmlInputSource);
         this.parse(parser);
@@ -136,7 +136,7 @@ public class SAXParser
      * @throws IOException ファイルの入力でエラー
      * @throws XMLException invalidなXMLを読んだとき。
      */
-    public void parse(XmlPullParser p) throws XMLException, IOException
+    public void parse(XmlPullParser p) throws Exception, IOException
     {
         XmlPullParser parser = _keepParserStatusStableWhileHandlingSAXEvents ? new ParseContext(p) : p;
         

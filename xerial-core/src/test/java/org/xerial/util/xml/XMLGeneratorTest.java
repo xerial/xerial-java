@@ -19,17 +19,15 @@
 // XMLGeneratorTest.java 
 // Since: 2005/01/16
 //
-// $Date$ 
 // $Author$
 //--------------------------------------
 package org.xerial.util.xml;
 
-import java.io.BufferedOutputStream;
 import java.io.StringWriter;
 
-import org.xerial.util.log.Logger;
-
 import junit.framework.TestCase;
+
+import org.xerial.util.log.Logger;
 
 /**
  * @author leo

@@ -27,11 +27,14 @@ package org.xerial.util.bean;
 import java.io.IOException;
 import java.io.Reader;
 
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xerial.util.xml.XMLException;
-import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xerial.util.xml.pullparser.SAXEventHandler;
 import org.xerial.util.xml.pullparser.SAXParser;
-import org.xerial.util.xml.pullparser.XMLPullParser;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
@@ -39,82 +42,118 @@ import org.xmlpull.v1.XmlPullParser;
  * @author leo
  *
  */
-public class XMLVisitor implements TreeVisitor, SAXEventHandler
+public class XMLVisitor 
 {
-    private final SAXParser parser;
-    
-    public XMLVisitor() throws XMLException
+    /**
+     * A visitor implementation for XML stream
+     * @author leo
+     *
+     */
+    private class XMLStreamVisitor implements SAXEventHandler
     {
-        this.parser = new SAXParser(this);
+        private final SAXParser parser;
+        
+        public XMLStreamVisitor()
+        {
+            parser = new SAXParser(this);
+        }
+
+        
+        public void endDocument(XmlPullParser parser) throws Exception
+        {
+            visitor.finish();
+        }
+
+        public void endTag(XmlPullParser parser) throws Exception
+        {
+            visitor.leaveNode(parser.getName());
+        }
+
+        public void startDocument(XmlPullParser parser) throws Exception
+        {
+            visitor.init();
+        }
+
+        public void startTag(XmlPullParser parser) throws Exception
+        {
+            visitor.visitNode(parser.getName());
+        }
+
+
+        public void text(XmlPullParser parser) throws Exception
+        {
+            visitor.foundText(parser.getText());
+        }
+
+
+        public void parse(Reader reader) throws Exception, IOException
+        {
+            parser.parse(reader);
+        }
+
     }
     
-    public void parse(Reader xmlDataReader) throws XMLException, IOException
+    private class XMLDOMVisitor 
     {
-        parser.parse(xmlDataReader);
-    }
-    
-    public void foundText(String text)
-    {
-    // TODO Auto-generated method stub
+        public XMLDOMVisitor()
+        {}
+        
+        public void parse(Element element) throws Exception
+        {
+            String tagName = element.getNodeName();
+            visitor.visitNode(tagName);
+            
+            NamedNodeMap attributeMap = element.getAttributes();
+            for(int i=0; i<attributeMap.getLength(); i++)
+            {
+                Node attributeNode =  attributeMap.item(i);
+                String attributeName = attributeNode.getNodeName();
+                String attributeValue = attributeNode.getNodeValue();
+                
+                visitor.visitNode(attributeName);
+                visitor.foundText(attributeValue);
+                visitor.leaveNode(attributeName);
+            }
 
-    }
-
-    public void leaveNode(String nodeName)
-    {
-    // TODO Auto-generated method stub
-
-    }
-
-    public void visitNode(String nodeName)
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    public void finish()
-    {
-        // TODO Auto-generated method stub
+            NodeList nodeList = element.getChildNodes();
+            for(int i=0; i<nodeList.getLength(); i++)
+            {
+                Node childNode = nodeList.item(i);
+                if(childNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    parse((Element) childNode);
+                }
+            }
+            
+            visitor.leaveNode(tagName);
+        }
         
     }
-
-
-
-
-    public void init()
+    
+ 
+    private TreeVisitor visitor;
+    /**
+     * Constractor
+     * @throws XMLException
+     */
+    public XMLVisitor(TreeVisitor visitor) throws XMLException
     {
-        // TODO Auto-generated method stub
+        this.visitor = visitor;
+    }
+    
+    public void parse(Reader xmlDataReader) throws Exception, IOException
+    {
+        XMLStreamVisitor streamVisitor =  new XMLStreamVisitor();
+        streamVisitor.parse(xmlDataReader);
+    }
+    
+    public void parse(Element xmlElement) throws Exception
+    {
+        XMLDOMVisitor domVisitor = new XMLDOMVisitor();
         
-    }
-
-
-
-
-    public void endDocument(XmlPullParser parser) throws XMLException
-    {
-        finish();
-    }
-
-    public void endTag(XmlPullParser parser) throws XMLException
-    {
-        leaveNode(parser.getName());
-    }
-
-    public void startDocument(XmlPullParser parser) throws XMLException
-    {
-        init();
-    }
-
-
-    public void startTag(XmlPullParser parser) throws XMLException
-    {
-        visitNode(parser.getName());
-    }
-
-
-    public void text(XmlPullParser parser) throws XMLException
-    {
-        foundText(parser.getText());
+        visitor.init();
+        domVisitor.parse(xmlElement);
+        visitor.finish();
     }
 
 }

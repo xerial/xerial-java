@@ -75,7 +75,7 @@ public class IntervalIndexerTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
     
-    public void testOutput() throws XMLException, IOException
+    public void testOutput() throws Exception
     {
         IntervalIndexer indexer = new IntervalIndexer(new LWIndexWriter());
         SAXParser parser = new SAXParser(indexer);

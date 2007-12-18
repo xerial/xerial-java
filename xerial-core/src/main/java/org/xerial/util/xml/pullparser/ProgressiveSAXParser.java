@@ -95,7 +95,7 @@ public class ProgressiveSAXParser
 
     
     
-    public int parseStep() throws XMLException, IOException
+    public int parseStep() throws Exception, IOException
     {
         assert _parser != null;
         try

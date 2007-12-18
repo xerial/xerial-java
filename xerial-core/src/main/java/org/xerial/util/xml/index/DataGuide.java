@@ -178,7 +178,7 @@ public class DataGuide extends AbstractSAXEventHandler
      * @throws IOException
      * @throws XerialException
      */
-    public void generateFrom(String xmlFile) throws FileNotFoundException, XMLException, IOException, XerialException 
+    public void generateFrom(String xmlFile) throws FileNotFoundException, Exception, IOException, XerialException 
     {
         Reader reader = new BufferedReader(new FileReader(xmlFile));
         generateFrom(reader);
@@ -190,7 +190,7 @@ public class DataGuide extends AbstractSAXEventHandler
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public void generateFrom(Reader xmlReader) throws XMLException, IOException, XerialException 
+    public void generateFrom(Reader xmlReader) throws Exception, IOException, XerialException 
     {
         
         SAXParser saxParser = new SAXParser(this);
@@ -266,11 +266,7 @@ public class DataGuide extends AbstractSAXEventHandler
             dg.generateFrom(opt.getArgument(0));
             dg.outputGraphviz(System.out);
         }
-        catch (XerialException e)
-        {
-            System.err.println(e.getMessage());
-        }
-        catch (IOException e)
+        catch (Exception e)
         {
             System.err.println(e.getMessage());
         }

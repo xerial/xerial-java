@@ -35,28 +35,28 @@ public interface TreeVisitor
     /**
      * Initialize the visitor here 
      */
-    public void init();
+    public void init() throws Exception;
     
     /**
      * When found a node
      * @param nodeName the found node name
      */
-    public void visitNode(String nodeName);
+    public void visitNode(String nodeName) throws Exception;
     
     /**
      * When leaving a node
      * @param nodeName the node name to leave
      */
-    public void leaveNode(String nodeName);
+    public void leaveNode(String nodeName) throws Exception;
     
     /**
      * Found a text data
      * @param text
      */
-    public void foundText(String text);
+    public void foundText(String text) throws Exception;
 
     /**
      * When the tree visit has finished
      */
-    public void finish();
+    public void finish() throws Exception;
 }
