@@ -16,43 +16,56 @@
 //--------------------------------------
 // XerialJ
 //
-// BeanErrorCode.java
-// Since: Dec 18, 2007 12:23:20 PM
+// JSONErrorCode.java
+// Since: Dec 18, 2007 3:48:48 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+/**
+ * 
+ */
+package org.xerial.json;
 
-public enum BeanErrorCode {
-    
-    // XML
-    InvalidXMLData,
-    ParserError,
-    UnsupportedXMLDataType,
-    
+import org.xerial.core.ErrorCode;
 
-    // JSON
+/**
+ * 
+ * @author leo
+ *
+ */
+public enum JSONErrorCode implements ErrorCode {
+
+    // JSONException
     InvalidJSONData,
-    InvalidJSONArray,
+    KeyIsNotFound,
+    NotAJSONNumber,
+    NotAJSONString,
+    NotAJSONObject,
+    CannotConvertToJSONValue,
     
-    UnsupportedDataType,
-    
-    // Bean class
-    InvalidBeanClass,
-    IllegalArgument,
-    IllegalAccess,
-    NoPublicConstructor,
-    InstantiationFailure,
-    InvalidNumberFormat,
-    InvocationTargetException,
-    
-    // binder
-    GetterCannotBeUsedToBindData,
+    ParseError
+    ;
 
     
+    private final String description;
+    private JSONErrorCode(String description)
+    {
+        this.description = description;
+    }
+    private JSONErrorCode()
+    {
+        this.description = "";
+    }
     
-    
+    public String getCodeName()
+    {
+        return name();
+    }
 
-    
+    public String getDescription()
+    {
+        return description;
+    }
+
 }

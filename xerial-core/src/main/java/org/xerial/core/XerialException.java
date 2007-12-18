@@ -31,14 +31,14 @@ package org.xerial.core;
  * @author leo
  *
  */
-public abstract class XerialException extends Exception
+public class XerialException extends Exception
 {
     private static final long serialVersionUID = 1L;
 
     /**
      * 
      */
-    protected XerialException()
+    public XerialException()
     {
         super();
     }
@@ -47,7 +47,7 @@ public abstract class XerialException extends Exception
      * @param message
      * @param cause
      */
-    protected XerialException(String message, Throwable cause)
+    public XerialException(String message, Throwable cause)
     {
         super(message, cause);
     }
@@ -55,7 +55,7 @@ public abstract class XerialException extends Exception
     /**
      * @param message
      */
-    protected XerialException(String message)
+    public XerialException(String message)
     {
         super(message);
     }
@@ -63,12 +63,12 @@ public abstract class XerialException extends Exception
     /**
      * @param cause
      */
-    protected XerialException(Throwable cause)
+    public XerialException(Throwable cause)
     {
         super(cause);
     }
     
-    protected XerialException(Object... message)
+    public XerialException(Object... message)
     {
         super(concatinateMessage(message));
     }
