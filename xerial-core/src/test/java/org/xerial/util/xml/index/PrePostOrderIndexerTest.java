@@ -30,7 +30,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
@@ -76,7 +75,7 @@ public class PrePostOrderIndexerTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
 
-    public void testEncode() throws XMLParserException, XMLException, IOException
+    public void testEncode() throws XMLException, IOException
     {
         PrePostOrderIndexer prepostIndexer = new PrePostOrderIndexer();
         SAXParser parser = new SAXParser(prepostIndexer);

@@ -35,7 +35,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.xml.SinglePath;

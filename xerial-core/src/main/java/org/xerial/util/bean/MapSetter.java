@@ -24,13 +24,10 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
 
 
 class MapSetter extends BeanBinderBase {
@@ -40,7 +37,7 @@ class MapSetter extends BeanBinderBase {
 
     Class valueType;
 
-    public MapSetter(Method method, String parameterName, Class mapType, Class keyType, Class valueType) throws InvalidBeanException {
+    public MapSetter(Method method, String parameterName, Class mapType, Class keyType, Class valueType) throws BeanException {
         super(method, parameterName);
         this.mapType = mapType;
         this.keyType = keyType;
@@ -54,8 +51,7 @@ class MapSetter extends BeanBinderBase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
+    public void setJSONData(Object bean, Object json) throws BeanException { 
         JSONArray mapContent = getJSONArray(json, "-m");
         if (mapContent == null)
             return;
@@ -69,7 +65,7 @@ class MapSetter extends BeanBinderBase {
                 tmpMap.put(key, value);
             }
         }
-        getMethod().invoke(bean, new Object[] { tmpMap });
+        invokeMethod(bean, new Object[] { tmpMap });
     }
 
 }

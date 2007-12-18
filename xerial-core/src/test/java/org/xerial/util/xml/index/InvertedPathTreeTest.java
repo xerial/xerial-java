@@ -31,7 +31,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.io.NullOutputStream;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
@@ -42,7 +41,7 @@ import junit.framework.TestCase;
 
 public class InvertedPathTreeTest extends TestCase
 {
-    public void testInvertedPathTree() throws IOException, XMLParserException, XMLException, XerialException
+    public void testInvertedPathTree() throws IOException, XMLException, XerialException
     {
         // XMLï∂èëÇÃèÄîı
         StringWriter xmlWriter = new StringWriter();

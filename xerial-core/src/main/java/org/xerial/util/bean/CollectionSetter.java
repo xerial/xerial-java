@@ -24,13 +24,10 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
 
 
 class CollectionSetter extends BeanBinderBase {
@@ -38,7 +35,7 @@ class CollectionSetter extends BeanBinderBase {
 
     Class elementType;
 
-    public CollectionSetter(Method method, String parameterName, Class collectionType, Class elementType) throws InvalidBeanException {
+    public CollectionSetter(Method method, String parameterName, Class collectionType, Class elementType) throws BeanException {
         super(method, parameterName);
         this.collectionType = collectionType;
         this.elementType = elementType;
@@ -51,8 +48,7 @@ class CollectionSetter extends BeanBinderBase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
+    public void setJSONData(Object bean, Object json) throws BeanException {
         JSONArray collectionContent = getJSONArray(json, "-c");
         if (collectionContent == null)
             return;
@@ -61,7 +57,7 @@ class CollectionSetter extends BeanBinderBase {
         for (int i = 0; i < collectionContent.size(); i++) {
             tmpCollection.add(BeanUtil.createBean(elementType, collectionContent.get(i)));
         }
-        getMethod().invoke(bean, new Object[] { tmpCollection });
+        invokeMethod(bean, new Object[] { tmpCollection });
     }
 
 }

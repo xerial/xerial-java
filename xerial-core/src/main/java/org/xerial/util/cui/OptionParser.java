@@ -337,7 +337,7 @@ public class OptionParser<OptionID extends Comparable> {
 	public boolean isSet(OptionID optionID) throws OptionParserException {
 		Option<OptionID> option = findOption(optionID);
 		if (option == null)
-			throw new OptionParserException("unknown option ", optionID);
+			throw new OptionParserException("unknown option " + optionID);
 		return option.isSet();
 	}
 
@@ -403,9 +403,9 @@ public class OptionParser<OptionID extends Comparable> {
 	public String getValue(OptionID optionID) throws OptionParserException {
 		Option<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
 		if (targetOption == null)
-			throw new OptionParserException("unknown option: ", optionID);
+			throw new OptionParserException("unknown option: " +  optionID);
 		if (!(targetOption instanceof OptionWithArgument))
-			throw new OptionParserException("option ", optionID, " cannot take any argument");
+			throw new OptionParserException("option " +  optionID + " cannot take any argument");
 
 		OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);
 		return optWithArg.getArgumentValue();
@@ -423,9 +423,9 @@ public class OptionParser<OptionID extends Comparable> {
 	{
         Option<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
         if (targetOption == null)
-            throw new OptionParserException("unknown option: ", optionID);
+            throw new OptionParserException("unknown option: " +  optionID);
         if (!(targetOption instanceof OptionWithArgument))
-            throw new OptionParserException("option ", optionID, " cannot take any argument");
+            throw new OptionParserException("option " +  optionID + " cannot take any argument");
 
         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);
         String value = optWithArg.getArgumentValue();

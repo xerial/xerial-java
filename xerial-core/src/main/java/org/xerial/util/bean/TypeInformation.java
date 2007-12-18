@@ -39,6 +39,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.w3c.dom.Element;
+import org.xerial.core.XerialErrorCode;
 
 /**
  * BasicType class holds information of standard types that can be directly
@@ -144,13 +145,24 @@ class TypeInformation {
         return null;
     }
 
-    public static Object createInstance(Class c) throws InstantiationException, IllegalAccessException, InvalidBeanException {
+    public static Object createInstance(Class c) throws BeanException {
 
         Class constractableClass = alternateConstractableClassFor(c);
         if (constractableClass == null)
-            throw new InvalidBeanException("public constructor for the class: " + c.getName() + " is not available");
+            throw new BeanException(XerialErrorCode.NoPublicConstructor, "public constructor for the class: " + c.getName() + " is not available");
 
-        return constractableClass.newInstance();
+        try
+        {
+            return constractableClass.newInstance();
+        }
+        catch (InstantiationException e)
+        {
+            throw new BeanException(XerialErrorCode.InstantiationFailure, e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new BeanException(XerialErrorCode.IllegalAccess, e);
+        }
     }
 
 }

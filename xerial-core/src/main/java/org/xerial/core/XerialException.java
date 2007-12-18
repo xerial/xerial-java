@@ -33,34 +33,63 @@ package org.xerial.core;
  */
 public class XerialException extends Exception
 {
-    private static final long serialVersionUID = 3257006553428209977L;
-
-    /**
-     * 
-     */
-    public XerialException()
+    private static final long serialVersionUID = 1L;
+    private final XerialErrorCode errorCode;
+    
+    public XerialException(XerialException e)
+    {
+        super(e);
+        this.errorCode = e.getErrorCode();
+    }
+    
+    public XerialException(XerialErrorCode errorCode)
     {
         super();
+        this.errorCode = errorCode;
     }
 
-    /**
-     * @param message
-     */
-    public XerialException(String message)
+    public XerialException(XerialErrorCode errorCode, String message)
     {
         super(message);
+        this.errorCode = errorCode;
     }
-
-    /** 
-     * @param message non null objects
-     */
-    public XerialException(Object... message)
+    
+    public XerialException(XerialErrorCode errorCode, Throwable e)
+    {
+        super(e);
+        this.errorCode = errorCode;
+    }
+    public XerialException(XerialErrorCode errorCode, String message, Throwable e)
+    {
+        super(message, e);
+        this.errorCode = errorCode;
+    }
+    
+    public XerialException(XerialErrorCode errorCode, Object... message)
     {
         super(concatinateMessage(message));
+        this.errorCode = errorCode;
     }
     
+    public XerialErrorCode getErrorCode()
+    {
+        return errorCode;
+    }
     
-    static protected String concatinateMessage(Object... message)
+    public String toString()
+    {
+        return "[" + errorCode.name() + "] " +  super.toString();
+    }
+    
+
+        
+    @Override
+    public String getMessage()
+    {
+        return "[" + errorCode.name() + "] " +  super.getMessage();
+    }
+
+    protected static String concatinateMessage(Object... message)
     {
         StringBuffer buffer = new StringBuffer();
         if(message.length > 0 && message[0] != null)
@@ -74,24 +103,9 @@ public class XerialException extends Exception
             }
         } 
         return buffer.toString();
-    }
-    
-    /**
-     * @param message
-     * @param cause
-     */
-    public XerialException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+    }    
 
-    /**
-     * @param cause
-     */
-    public XerialException(Throwable cause)
-    {
-        super(cause);
-    }
+    
 
 }
 

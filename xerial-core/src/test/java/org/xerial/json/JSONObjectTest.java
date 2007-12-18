@@ -4,7 +4,6 @@
 // JSONObjectTest.java
 // Since: Apr 26, 2007
 //
-// $Date$
 // $URL$ 
 // $Author$
 //--------------------------------------
@@ -44,14 +43,14 @@ public class JSONObjectTest {
 	}
 
 	@Test
-	public void testParse() throws InvalidJSONDataException 
+	public void testParse() throws JSONException
 	{
 		String jsonTree = JSONObject.parse("{ \"name\":\"leo\", \"id\":3}").toStringTree();
 		_logger.debug(jsonTree);
 	}
 	
 	
-	public JSONObject parse(String json) throws RecognitionException, InvalidJSONDataException
+	public JSONObject parse(String json) throws RecognitionException, JSONException
 	{
 		CommonTree t = JSONObject.parse(json);
 		_logger.debug(t.toStringTree());
@@ -68,7 +67,7 @@ public class JSONObjectTest {
 			assertEquals(new JSONString("leo"), obj.get("name"));
 			assertEquals(new JSONInteger(3), obj.get("id"));
 		}
-		catch(InvalidJSONDataException e)
+		catch(JSONException e)
 		{
 			fail(e.getMessage());
 		}
@@ -89,8 +88,7 @@ public class JSONObjectTest {
 			JSONObject p = (JSONObject) v;
 			assertEquals(new JSONString("leo"), p.get("name"));
 			assertEquals(new JSONInteger(3), p.get("id"));
-		} catch (InvalidJSONDataException e) {
-			// TODO Auto-generated catch block
+		} catch (JSONException e) {
 			fail(e.getMessage());
 		}
 		
@@ -112,7 +110,7 @@ public class JSONObjectTest {
 			assertEquals(new JSONString("leo"), a.get(0));
 			assertEquals(new JSONInteger(3), a.get(1));
 			assertEquals(new JSONString("yui"), a.get(2));
-		} catch (InvalidJSONDataException e) {
+		} catch (JSONException e) {
 			fail(e.getMessage());
 		}
 	}

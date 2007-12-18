@@ -10,13 +10,7 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.xerial.json.InvalidJSONDataException;
-import org.xerial.json.JSONException;
-import org.xerial.util.xml.InvalidXMLException;
-
 
 public interface BeanBinder {
 
@@ -30,13 +24,12 @@ public interface BeanBinder {
 
 	public void setParameterName(String parameterName);
 
-	public void invokeJSONDataSetter(Object bean, Object json) throws InvalidBeanException, InvalidJSONDataException;
-	public void invokeXMLDataSetter(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException;
+	public void invokeJSONDataSetter(Object bean, Object json) throws BeanException;
+	public void invokeXMLDataSetter(Object bean, Object xmlData) throws BeanException;
 
-	public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException;
+	public void setJSONData(Object bean, Object json) throws BeanException;
 	
-	public void setXMLData(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public void setXMLData(Object bean, Object xmlData) throws BeanException;
 	
 	
 

@@ -31,7 +31,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
-import org.xerial.util.XMLParserException;
+import org.xerial.util.xml.XMLException;
 
 public class XMLPullParserTest {
 
@@ -44,7 +44,7 @@ public class XMLPullParserTest {
 	}
 	
 	@Test
-	public void constructor() throws XMLParserException, IOException
+	public void constructor() throws XMLException, IOException
 	{
 		XMLPullParser pullParser = new XMLPullParser(FileResource.find(XMLPullParserTest.class, "sample.xml").openStream());
 		pullParser.iterator("book");

@@ -16,43 +16,41 @@
 //--------------------------------------
 // XerialJ
 //
-// Setter.java
-// Since: Aug 9, 2007 9:42:31 AM
+// BeanErrorCode.java
+// Since: Dec 18, 2007 12:23:20 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.Method;
+public enum BeanErrorCode {
+    
+    // XML
+    InvalidXMLData,
+    ParserError,
+    UnsupportedXMLDataType,
 
+    // JSON
+    InvalidJSONData,
+    InvalidJSONArray,
+    
+    
+    // Bean class
+    InvalidBeanClass,
+    IllegalArgument,
+    IllegalAccess,
+    NoPublicConstructor,
+    InstantiationFailure,
+    InvalidNumberFormat,
+    InvocationTargetException,
+    
+    // binder
+    GetterCannotBeUsedToBindData,
 
-class Setter extends BeanBinderBase {
-    Class valueType;
+    
+    
+    
 
-    public Setter(Method method, String parameterName, Class valueType) {
-        super(method, parameterName);
-        this.valueType = valueType;
-    }
-
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        // the object is a JSONValue
-        if (json == null)
-            return;
-
-        Object tmpValue = BeanUtil.createBean(valueType, json);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
-
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException {
-        if(xmlData == null)
-            return;
-        
-        Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
     
 }
-

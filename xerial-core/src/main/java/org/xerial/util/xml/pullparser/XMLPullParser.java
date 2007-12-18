@@ -29,9 +29,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Iterator;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.SinglePath;
 import org.xerial.util.xml.XMLElement;
+import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
@@ -44,17 +44,17 @@ public class XMLPullParser {
 	private XmlPullParser _pullParser;
 	private SinglePath _currentPath;
 	
-	public XMLPullParser(InputStream xmlInputStream) throws XMLParserException 
+	public XMLPullParser(InputStream xmlInputStream) throws XMLException 
 	{
 		setupParser(new InputStreamReader(xmlInputStream));
 	}
 	
-	public XMLPullParser(Reader xmlReader) throws XMLParserException
+	public XMLPullParser(Reader xmlReader) throws XMLException
 	{
 		setupParser(xmlReader);
 	}
 	
-	private void setupParser(Reader xmlReader) throws XMLParserException
+	private void setupParser(Reader xmlReader) throws XMLException
 	{
 		_pullParser = PullParserUtil.newParser(xmlReader);
 	}

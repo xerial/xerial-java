@@ -11,7 +11,6 @@
 package org.xerial.json;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.xerial.core.XerialErrorCode;
 
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 
@@ -34,7 +34,7 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 			_array.add(v);
 	}
 	
-	public JSONArray(String jsonStr) throws InvalidJSONDataException {
+	public JSONArray(String jsonStr) throws JSONException {
 
 		CommonTree t = parse(jsonStr);
 		CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
@@ -43,11 +43,11 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 			JSONArray array = walker.jsonArray();
 			this._array = array._array;
 		} catch (RecognitionException e) {
-			throw new InvalidJSONDataException(jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 	
-	public static CommonTree parse(String jsonStr) throws InvalidJSONDataException 
+	public static CommonTree parse(String jsonStr) throws JSONException
 	{
 		JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -56,7 +56,7 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 			JSONParser.jsonArray_return r = parser.jsonArray();
 			return (CommonTree) r.getTree();
 		} catch (RecognitionException e) {
-			throw new InvalidJSONDataException(jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 

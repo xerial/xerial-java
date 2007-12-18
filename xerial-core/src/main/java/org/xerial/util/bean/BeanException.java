@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2007 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,74 +14,62 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// XerialJ Project
+// XerialJ
 //
-// XMLParserException.java
-// Since: 2005/01/12
+// BeanException.java
+// Since: Dec 18, 2007 12:47:54 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util;
+package org.xerial.util.bean;
 
-import org.xerial.util.xml.XMLException;
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 
-/**
- * XMLÇÃparserÇ…ä÷Ç∑ÇÈó·äOÅBparserÇÃê∂ê¨é∏îsÇ»Ç«
- * @author leo
- *
- */
-public class XMLParserException extends XMLException
+public class BeanException extends XerialException
 {
-
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 4051326755778607409L;
-
     /**
      * 
      */
-    public XMLParserException()
+    private static final long serialVersionUID = 1L;
+
+
+    /**
+     * @param errorCode
+     * @param message
+     * @param e
+     */
+    public BeanException(XerialErrorCode errorCode, String message, Throwable e)
     {
-        super();
+        super(errorCode, message, e);
     }
 
     /**
+     * @param errorCode
      * @param message
      */
-    public XMLParserException(String message)
+    public BeanException(XerialErrorCode errorCode, String message)
     {
-        super(message);
+        super(errorCode, message);
     }
 
     /**
-     * @param message
-     * @param cause
+     * @param errorCode
+     * @param e
      */
-    public XMLParserException(String message, Throwable cause)
+    public BeanException(XerialErrorCode errorCode, Throwable e)
     {
-        super(message, cause);
+        super(errorCode, e);
     }
 
     /**
-     * @param cause
-     */
-    public XMLParserException(Throwable cause)
-    {
-        super(cause);
-    }
-
-    /**
+     * @param errorCode
      * @param message
      */
-    public XMLParserException(Object... message)
+    public BeanException(XerialErrorCode errorCode, Object... message)
     {
-        super(message);
+        super(errorCode, message);
     }
-
+    
 }
-
-
-
-

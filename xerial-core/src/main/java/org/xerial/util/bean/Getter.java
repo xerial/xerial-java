@@ -24,11 +24,9 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.json.InvalidJSONDataException;
-import org.xerial.json.JSONException;
+import org.xerial.core.XerialErrorCode;
 
 class Getter extends BeanBinderBase {
     public Getter(Method method, String parameterName) {
@@ -36,8 +34,7 @@ class Getter extends BeanBinderBase {
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
-        throw new InvalidBeanException("getter cannot be used to bind data");
+    public void setJSONData(Object bean, Object json) throws BeanException {
+        throw new BeanException(XerialErrorCode.GetterCannotBeUsedToBindData);
     }
 }

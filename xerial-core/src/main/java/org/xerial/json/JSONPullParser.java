@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.Token;
+import org.xerial.core.XerialErrorCode;
 
 import static org.xerial.json.JSONLexer.*;
 
@@ -79,20 +80,20 @@ public class JSONPullParser
 		return null;
 	}
 	
-	public int getType() throws JSONPullParserException
+	public int getType() throws JSONException
 	{
 		return currentToken().getType();
 	}
 
-	public String getText() throws JSONPullParserException
+	public String getText() throws JSONException
 	{
 		return currentToken().getText();
 	}
 	
-	private Token currentToken() throws JSONPullParserException
+	private Token currentToken() throws JSONException
 	{
 		if(_tokenStack.isEmpty())
-			throw new JSONPullParserException("token stack is empty");
+			throw new JSONException(XerialErrorCode.ParseError, "token stack is empty");
 		else
 			return _tokenStack.getLast();
 	}

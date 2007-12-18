@@ -16,43 +16,49 @@
 //--------------------------------------
 // XerialJ
 //
-// Setter.java
-// Since: Aug 9, 2007 9:42:31 AM
+// TreeStructuredData.java
+// Since: Dec 18, 2007 10:42:02 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.Method;
+import java.util.List;
 
+/**
+ * A common interface to access XML, JSON and ANTLR Parse tree structures.
+ * @author leo
+ *
+ */
+public interface TreeNode
+{
+    /**
+     * @return true if this node has child nodes, otherwise false. 
+     */
+    public boolean hasChildNodes();
 
-class Setter extends BeanBinderBase {
-    Class valueType;
-
-    public Setter(Method method, String parameterName, Class valueType) {
-        super(method, parameterName);
-        this.valueType = valueType;
-    }
-
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        // the object is a JSONValue
-        if (json == null)
-            return;
-
-        Object tmpValue = BeanUtil.createBean(valueType, json);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
-
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException {
-        if(xmlData == null)
-            return;
-        
-        Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
+    /**
+     * @return 
+     */
+    public boolean hasNodeName();
+    
+    /**
+     * Retrieves the child nodes of this tree node
+     * @return the list of the child nodes
+     */
+    public List<TreeNode> getChildren();
+    
+    /**
+     * Gets the text value assigned to this tree node
+     * @return  the text value. If no text value is present, returns null
+     */
+    public String getTextValue();
+    
+    /**
+     * Gets the node name of this tree node
+     * @return the node name if it has, otherwise null 
+     */
+    public String getNodeName();
     
 }
-

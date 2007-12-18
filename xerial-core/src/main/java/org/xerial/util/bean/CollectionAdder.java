@@ -24,19 +24,16 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
-import org.xerial.util.xml.InvalidXMLException;
+
 
 
 class CollectionAdder extends BeanBinderBase {
     Class elementType;
 
-    public CollectionAdder(Method method, String parameterName, Class elementType) throws InvalidBeanException {
+    public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException {
         super(method, parameterName);
         this.elementType = elementType;
 
@@ -44,8 +41,7 @@ class CollectionAdder extends BeanBinderBase {
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
+    public void setJSONData(Object bean, Object json) throws BeanException {
         JSONArray collectionContent = getJSONArray(json, "-c");
         if (collectionContent == null)
             if (json.getClass() != JSONArray.class)
@@ -55,16 +51,15 @@ class CollectionAdder extends BeanBinderBase {
 
         for (int i = 0; i < collectionContent.size(); i++) {
             Object value = BeanUtil.createBean(elementType, collectionContent.get(i));
-            getMethod().invoke(bean, new Object[] { value });
+            invokeMethod(bean, new Object[] { value });
         }
     }
 
     @Override
-    public void setXMLData(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException,
-            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public void setXMLData(Object bean, Object xmlData) throws BeanException  
     {
         Object value = BeanUtil.createXMLBean(elementType, xmlData);
-        getMethod().invoke(bean, new Object[] { value });
+        invokeMethod(bean, new Object[] { value });
     }
     
     

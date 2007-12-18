@@ -16,15 +16,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.InvalidXMLException;
+import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLGenerator;
 
 import junit.framework.TestCase;
 
 public class BlastXMLTest extends TestCase
 {
-    public void testBlastOutput() throws XMLParserException, XMLBeanException, InvalidXMLException, IOException
+    public void testBlastOutput() throws XMLException, XMLBeanException, InvalidXMLException, IOException
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         XMLGenerator xout = new XMLGenerator(out);

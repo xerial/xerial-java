@@ -42,7 +42,6 @@ import java.util.Stack;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.StringUtil;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
@@ -89,7 +88,7 @@ public class StrongDataGuide
      * @throws IOException
      * @throws XerialException
      */
-    public void generateFrom(String xmlFile) throws FileNotFoundException, XMLParserException, XMLException, IOException, XerialException 
+    public void generateFrom(String xmlFile) throws FileNotFoundException, XMLException, IOException, XerialException 
     {
         Reader reader = new BufferedReader(new FileReader(xmlFile));
         generateFrom(reader);
@@ -101,7 +100,7 @@ public class StrongDataGuide
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public void generateFrom(Reader xmlReader) throws XMLParserException, XMLException, IOException, XerialException 
+    public void generateFrom(Reader xmlReader) throws XMLException, IOException, XerialException 
     {
         // initialize
         _currentPathID = _rootPathID; 

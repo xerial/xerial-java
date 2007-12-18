@@ -30,7 +30,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLGenerator;
@@ -76,7 +75,7 @@ public class IntervalIndexerTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
     
-    public void testOutput() throws XMLParserException, XMLException, IOException
+    public void testOutput() throws XMLException, IOException
     {
         IntervalIndexer indexer = new IntervalIndexer(new LWIndexWriter());
         SAXParser parser = new SAXParser(indexer);

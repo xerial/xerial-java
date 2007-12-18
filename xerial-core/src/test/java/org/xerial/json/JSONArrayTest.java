@@ -29,7 +29,7 @@ public class JSONArrayTest {
 	
 	
 	@Test
-	public void constructor() throws InvalidJSONDataException 
+	public void constructor() throws JSONException
 	{
 		JSONArray array = new JSONArray("[1, 2, 3]");
 		assertEquals(1, array.getJSONInteger(0).getIntValue());
@@ -38,7 +38,7 @@ public class JSONArrayTest {
 	}
 
 	@Test
-	public void objectInAnArray() throws InvalidJSONDataException, JSONException 
+	public void objectInAnArray() throws JSONException 
 	{
 		JSONArray array = new JSONArray("[{\"id\":1, \"name\":\"leo\"}]");
 		JSONObject p = array.getJSONObject(0);

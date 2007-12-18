@@ -10,36 +10,61 @@
 //--------------------------------------
 package org.xerial.json;
 
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-
 
 /**
  * Exception base class related JSON 
  * @author leo
  *
  */
-public class JSONException extends XerialException {
-
-	/**
-     * 
-     */
+public class JSONException extends XerialException
+{
     private static final long serialVersionUID = 1L;
 
-    public JSONException() {
+	/**
+     * @param errorCode
+     */
+    public JSONException(XerialErrorCode errorCode)
+    {
+        super(errorCode);
+    }
+
+    public JSONException(XerialErrorCode errorCode, String message)
+	{
+	    super(errorCode, message);
 	}
 
-	public JSONException(String message) {
-		super(message);
-	}
+    /**
+     * @param errorCode
+     * @param message
+     * @param e
+     */
+    public JSONException(XerialErrorCode errorCode, String message, Throwable e)
+    {
+        super(errorCode, message, e);
+    }
 
-	public JSONException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * @param errorCode
+     * @param e
+     */
+    public JSONException(XerialErrorCode errorCode, Throwable e)
+    {
+        super(errorCode, e);
+    }
 
-	public JSONException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
+    /**
+     * @param errorCode
+     * @param message
+     */
+    public JSONException(XerialErrorCode errorCode, Object... message)
+    {
+        super(errorCode, message);
+    }
+	
+    
+	
 }
 
 

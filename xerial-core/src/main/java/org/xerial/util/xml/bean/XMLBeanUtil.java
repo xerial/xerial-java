@@ -43,7 +43,6 @@ import java.util.regex.Pattern;
 
 import org.xerial.util.Algorithm;
 import org.xerial.util.Tuple;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.SinglePath;
@@ -270,7 +269,7 @@ public final class XMLBeanUtil
      *             XML文書が適切なフォーマットでない場合など
      */
     static public <E> E newInstance(Class<E> xmlBeanClass, InputStream xmlStream) throws IOException,
-            XMLParserException, XMLBeanException, InvalidXMLException
+            XMLException, XMLBeanException, InvalidXMLException
     {
         XmlPullParser parser;
         try
@@ -280,7 +279,7 @@ public final class XMLBeanUtil
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLParserException(e);
+            throw new XMLException(e);
         }
         return newInstance(xmlBeanClass, parser);
     }
@@ -368,7 +367,7 @@ public final class XMLBeanUtil
      * @throws XMLParserException
      *             PullParserの生成に失敗したとき。pullparserのライブラリがCLASSPATHに含まれていないことが主な原因
      */
-    static public void populate(Object xmlBean, InputStream xmlStream) throws XMLParserException, IOException,
+    static public void populate(Object xmlBean, InputStream xmlStream) throws XMLException, IOException,
             XMLBeanException, InvalidXMLException
     {
         XmlPullParser parser;
@@ -380,7 +379,7 @@ public final class XMLBeanUtil
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLParserException(e);
+            throw new XMLException(e);
         }
     }
 

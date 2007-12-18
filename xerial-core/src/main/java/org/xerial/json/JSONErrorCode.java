@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2007 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,38 +16,24 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialExceptionTest.java
-// Since: 2004/12/21
+// JSONErrorCode.java
+// Since: Dec 18, 2007 11:53:39 AM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.core;
+package org.xerial.json;
 
-import org.xerial.core.XerialException;
+public enum JSONErrorCode {
 
-import junit.framework.TestCase;
-
-/**
- * @author leo
- *
- */
-public class XerialExceptionTest extends TestCase
-{
-    public void testVarArgConstructor()
-    {
-        XerialException e = new XerialException(XerialErrorCode.UnknownError, "exception message", 1, "hello");
-        assertEquals("[UnknownError] exception message 1 hello", e.getMessage());
-    }
+    InvalidJSONData,
+    KeyIsNotFound,
+    NotAJSONNumber,
+    NotAJSONString,
+    NotAJSONObject,
     
-//    public void testVarArgConstructor2()
-//    {
-//        XerialException e = new XerialException("value:%d", 1);
-//        assertEquals("value:1", e.getMessage());
-//    }
-//
+    CannotConvertToJSONValue,
+    
+    ParseError,
+    
 }
-
-
-
-

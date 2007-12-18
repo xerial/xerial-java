@@ -28,10 +28,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
-import org.xerial.util.xml.InvalidXMLException;
 
 class ArraySetter extends BeanBinderBase {
     Class componentType;
@@ -42,8 +39,7 @@ class ArraySetter extends BeanBinderBase {
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
+    public void setJSONData(Object bean, Object json) throws BeanException {
         if (json == null || json.getClass() != JSONArray.class)
             return;
         JSONArray arrayContent = (JSONArray) json;
@@ -52,7 +48,7 @@ class ArraySetter extends BeanBinderBase {
         for (int i = 0; i < arrayContent.size(); i++) {
             tmpArray[i] = BeanUtil.createBean(componentType, arrayContent.get(i));
         }
-        getMethod().invoke(bean, new Object[] { tmpArray });
+        invokeMethod(bean, new Object[] { tmpArray });
     }
 
 

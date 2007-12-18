@@ -16,43 +16,47 @@
 //--------------------------------------
 // XerialJ
 //
-// Setter.java
-// Since: Aug 9, 2007 9:42:31 AM
+// TreeIterator.java
+// Since: Dec 18, 2007 11:04:35 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.Method;
+/**
+ * A depth-first visitor model for tree structured data, including XML, JSON, ANTLR Parse Tree, etc. 
+ * @author leo
+ *
+ */
+public interface TreeVisitor
+{
 
-
-class Setter extends BeanBinderBase {
-    Class valueType;
-
-    public Setter(Method method, String parameterName, Class valueType) {
-        super(method, parameterName);
-        this.valueType = valueType;
-    }
-
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        // the object is a JSONValue
-        if (json == null)
-            return;
-
-        Object tmpValue = BeanUtil.createBean(valueType, json);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
-
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException {
-        if(xmlData == null)
-            return;
-        
-        Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
+    /**
+     * Initialize the visitor here 
+     */
+    public void init();
     
-}
+    /**
+     * When found a node
+     * @param nodeName the found node name
+     */
+    public void visitNode(String nodeName);
+    
+    /**
+     * When leaving a node
+     * @param nodeName the node name to leave
+     */
+    public void leaveNode(String nodeName);
+    
+    /**
+     * Found a text data
+     * @param text
+     */
+    public void foundText(String text);
 
+    /**
+     * When the tree visit has finished
+     */
+    public void finish();
+}

@@ -25,7 +25,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 //import org.xerial.db.Value;
 //import org.xerial.db.ValueDomain;
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
@@ -234,6 +233,7 @@ public class BeanUtilTest
     
     /**
      * Test method for {@link org.utgenome.util.bean.BeanUtil#toJSON(java.lang.Object)}.
+     * @throws JSONException 
      * @throws UTGBException 
      * @throws UTGBException 
      * @throws JSONException 
@@ -242,7 +242,7 @@ public class BeanUtilTest
      * @throws JSONException 
      */
     @Test
-    public void simpleBeanClassToJSON() throws InvalidBeanException, JSONException 
+    public void simpleBeanClassToJSON() throws BeanException, JSONException
     {
         String str = BeanUtil.toJSON(new Person(5, "leo"));
         JSONObject json = new JSONObject(str);
@@ -251,7 +251,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void classWithArrayParameterToJSON() throws JSONException, InvalidBeanException
+    public void classWithArrayParameterToJSON() throws JSONException, BeanException
     {
         String str = BeanUtil.toJSON(new Book("Data on the Web", new String[] {"Abiteboul", "Buneman"}));
         JSONObject json = new JSONObject(str);
@@ -263,7 +263,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void doNotUsePrivateGetter() throws JSONException, InvalidBeanException 
+    public void doNotUsePrivateGetter() throws JSONException, BeanException 
     {
         String str = BeanUtil.toJSON(new PrivateGetterSetter(1.34));
         JSONObject json = new JSONObject(str);
@@ -274,7 +274,7 @@ public class BeanUtilTest
 
     
     @Test
-    public void populate() throws InvalidJSONDataException, InvalidBeanException 
+    public void populate() throws JSONException, BeanException 
     {
     	Person s = new Person(10, "leo");
     	Person s2 = new Person();
@@ -284,7 +284,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void populateArray() throws InvalidJSONDataException, InvalidBeanException 
+    public void populateArray() throws JSONException, BeanException 
     {
         Book s1 = new Book("Data on the Web", new String[] {"Abiteboul", "Buneman"});
         Book s2 = new Book();
@@ -294,7 +294,7 @@ public class BeanUtilTest
     }
 
     @Test
-    public void doNotUsePrivateSetter() throws InvalidJSONDataException, InvalidBeanException 
+    public void doNotUsePrivateSetter() throws JSONException, BeanException 
     {
     	PrivateGetterSetter p = new PrivateGetterSetter(0.0);
     	BeanUtil.populateBean(p, "{\"value\" : 1.34}");
@@ -330,7 +330,7 @@ public class BeanUtilTest
     }
     
     @Test 
-    public void beanWithCollectionParameters() throws InvalidBeanException, InvalidJSONDataException 
+    public void beanWithCollectionParameters() throws BeanException 
     {
     	String[] name = {"taro", "leo"};
     	Vector<String> v = new Vector<String>();
@@ -387,7 +387,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void nestedBean() throws InvalidJSONDataException, InvalidBeanException 
+    public void nestedBean() throws BeanException 
     {
     	Address addr = new Address(new Person(3, "leo"), "world");
     	String json = BeanUtil.toJSON(addr);
@@ -423,7 +423,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void beanCollection() throws InvalidBeanException, InvalidJSONDataException 
+    public void beanCollection() throws BeanException
     {
     	Person[] pa = { new Person(1, "leo"), new Person(3, "taro") };
     	Vector<Person> pv = new Vector<Person>();
@@ -494,7 +494,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void adder() throws InvalidBeanException, InvalidJSONDataException  
+    public void adder() throws BeanException
     {
     	int[] ans = { 1, 2, 3 };
     	PrimitiveAdder p = new PrimitiveAdder();
@@ -543,7 +543,7 @@ public class BeanUtilTest
     }
     
     @Test 
-    public void mapBean() throws InvalidJSONDataException, InvalidBeanException 
+    public void mapBean() throws BeanException
     {
     	String[] data = {"apple", "banana", "coconut"};
     	NameTable n1 = new NameTable();
@@ -586,7 +586,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void beanMap() throws InvalidJSONDataException, InvalidBeanException  
+    public void beanMap() throws BeanException
     {
     	Person[] pair1 = { new Person(1, "leo"), new Person(2, "naoko") };
     	Person[] pair2 = { new Person(3, "json"), new Person(4, "xml") };
@@ -636,7 +636,7 @@ public class BeanUtilTest
     }
     
     @Test
-    public void treeMapBindRule() throws InvalidBeanException
+    public void treeMapBindRule() throws BeanException
     {
     	TreeMap t = new TreeMap<Integer, String>();
     	BeanBinderSet bs = BeanUtil.getBeanOutputRule(t.getClass());
@@ -645,7 +645,7 @@ public class BeanUtilTest
     
     
     @Test
-    public void mapOfMap() throws InvalidJSONDataException, InvalidBeanException 
+    public void mapOfMap() throws BeanException
     {
     	HogeHoge h = new HogeHoge();
     	h.map.put(1, "hoge");
@@ -690,7 +690,7 @@ public class BeanUtilTest
     
     @SuppressWarnings("unchecked")
 	@Test
-    public void unknwonTypeMap() throws InvalidJSONDataException, InvalidBeanException 
+    public void unknwonTypeMap() throws BeanException
     {
     	UnknownTypeMap u1 = new UnknownTypeMap("rank");
     	u1.put("good", 50);
@@ -708,7 +708,7 @@ public class BeanUtilTest
     }
     
      @Test 
-    public void complexType() throws InvalidJSONDataException, InvalidBeanException 
+    public void complexType() throws BeanException, JSONException
     {
     	PersonTable p = new PersonTable();
     	p.put(1, new Person(100, "leo"));
@@ -747,7 +747,7 @@ public class BeanUtilTest
      
      
      @Ignore @Test
-     public void constructorCheck() throws InvalidJSONDataException 
+     public void constructorCheck() 
      {
     	 try
     	 {
@@ -755,7 +755,7 @@ public class BeanUtilTest
     		ArrayList<NonConstructableClass> a = new ArrayList<NonConstructableClass>();
     		BeanUtil.populateBean(a, "{\"-c\":[{\"name\":\"leo\"}]}");
     	 }
-    	 catch(InvalidBeanException e)
+    	 catch(BeanException e)
     	 {
     		 return;	
     	 }
@@ -764,14 +764,14 @@ public class BeanUtilTest
      
      
      @Ignore @Test 
-     public void constructorCheck2() throws InvalidJSONDataException  
+     public void constructorCheck2() 
      {
     	 try
     	 {
     		Map<Integer, NonConstructableClass> m = new TreeMap<Integer, NonConstructableClass>();
     		BeanUtil.populateBean(m, "{\"-m\":[[1, {\"name\":\"leo\"}]]}");
     	 }
-    	 catch(InvalidBeanException e)
+    	 catch(BeanException e)
     	 {
     		 return;	
     	 }
@@ -779,14 +779,14 @@ public class BeanUtilTest
      }
      
      @Ignore @Test 
-     public void constructorCheck3() throws InvalidJSONDataException 
+     public void constructorCheck3() 
      {
     	 try
     	 {
     		Map<NonConstructableClass, String> m = new TreeMap<NonConstructableClass, String>();
     		BeanUtil.populateBean(m, "{\"-m\":[[{\"name\":\"leo\"},\"value\"]]}");
     	 }
-    	 catch(InvalidBeanException e)
+    	 catch(BeanException e)
     	 {
     		 return;	
     	 }
@@ -794,7 +794,7 @@ public class BeanUtilTest
      }
      
      @Test
-     public void extendedCollection() throws InvalidJSONDataException, InvalidBeanException 
+     public void extendedCollection() throws BeanException
      {
     	 PersonVector pv = new PersonVector();
     	 pv.add(new Person(1, "leo"));
@@ -808,7 +808,7 @@ public class BeanUtilTest
      }
      
      @Test
-     public void beanToXML() throws InvalidXMLException, InvalidBeanException
+     public void beanToXML() throws BeanException
      {
     	 PersonVector pv = new PersonVector();
     	 pv.add(new Person(1, "leo"));
@@ -829,7 +829,7 @@ public class BeanUtilTest
      }
      
      @Test
-     public void beanToXML2() throws InvalidBeanException, XMLException 
+     public void beanToXML2() throws BeanException
      {
     	 TrackInfo t = new TrackInfo("sample track", false);
     	 t.putProperty("species", "human");
@@ -868,7 +868,7 @@ public class BeanUtilTest
      }
      
      @Test 
-     public void adderTest2() throws InvalidBeanException, InvalidJSONDataException, InvalidXMLException 
+     public void adderTest2() throws BeanException
      {
          PersonList2 pl = new PersonList2();
          pl.addPerson(new Person(1, "leo"));

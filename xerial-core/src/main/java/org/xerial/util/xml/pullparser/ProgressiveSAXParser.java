@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLInputSource;
 import org.xmlpull.v1.XmlPullParser;
@@ -67,13 +66,13 @@ public class ProgressiveSAXParser
      * @throws XMLParserException 
      * 
      */
-    public ProgressiveSAXParser(SAXEventHandler handler, XMLInputSource inputSource) throws XMLParserException
+    public ProgressiveSAXParser(SAXEventHandler handler, XMLInputSource inputSource) throws XMLException
     {
         _handlerList.add(handler);
         setXMLInputSource(inputSource);
     }
 
-    public ProgressiveSAXParser(List<SAXEventHandler> handlerList, XMLInputSource inputSource) throws XMLParserException
+    public ProgressiveSAXParser(List<SAXEventHandler> handlerList, XMLInputSource inputSource) throws XMLException
     {
         for (SAXEventHandler handler : handlerList)
             _handlerList.add(handler);
@@ -86,7 +85,7 @@ public class ProgressiveSAXParser
         _keepParserStatusWhileHandlingSAXEvents = false;
     }
 
-    private void setXMLInputSource(XMLInputSource inputSource) throws XMLParserException
+    private void setXMLInputSource(XMLInputSource inputSource) throws XMLException
     {
         _inputSource = inputSource;
         _parser = PullParserUtil.newParser(_inputSource.getReader());

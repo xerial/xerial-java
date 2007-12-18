@@ -35,9 +35,9 @@ import java.io.Reader;
 import junit.framework.TestCase;
 
 import org.xerial.util.FileResource;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.io.NullOutputStream;
 import org.xerial.util.xml.InvalidXMLException;
+import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -86,7 +86,7 @@ public class XMLBeanTest extends TestCase
         assertEquals(2004, book[1].getYear());
     }
     
-    public void testTagreading() throws XmlPullParserException, XMLBeanException, InvalidXMLException, IOException
+    public void testTagreading() throws XMLException, XMLBeanException, InvalidXMLException, IOException, XmlPullParserException
     {
         XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
         fin = FileResource.open(XMLBeanTest.class, "sample1.xml");
@@ -133,19 +133,9 @@ public class XMLBeanTest extends TestCase
             booklist = XMLBeanUtil.newInstance(Booklist.class, fst);
             validateBooklist(booklist);
         }
-        catch (XMLParserException e)
+        catch (XMLException e)
         {
             // parser ÇÃê∂ê¨Ç…é∏îsÇµÇΩÇ∆Ç´
-            fail(e.getMessage());
-        }
-        catch (XMLBeanException e)
-        {
-            // XMLBeanÇÃíËã`Ç™invalidÇÃÇ∆Ç´
-            fail(e.getMessage());
-        }
-        catch (InvalidXMLException e)
-        {
-            // ì¸óÕÇÃXMLÇ™Ç®Ç©ÇµÇ¢èÍçá
             fail(e.getMessage());
         }
         catch (IOException e)
@@ -164,14 +154,14 @@ public class XMLBeanTest extends TestCase
         book.setPublisher("Walt Disney");
         XMLBeanUtil.outputAsXML(book, new NullOutputStream());
     }
-    public void testNestedBeanOutput() throws XMLBeanException, InvalidXMLException, XMLParserException, FileNotFoundException, IOException
+    public void testNestedBeanOutput() throws FileNotFoundException, IOException, XMLException
     {
         fst = FileResource.find(XMLBeanTest.class, "booklist.xml").openStream();
         Booklist booklist = XMLBeanUtil.newInstance(Booklist.class, fst);
         XMLBeanUtil.outputAsXML(booklist, new NullOutputStream());
     }
     
-    public void testRecursion() throws XMLParserException, XMLBeanException, InvalidXMLException, IOException 
+    public void testRecursion() throws IOException, XMLException 
     {
         fst = FileResource.find(XMLBeanTest.class, "recursion.xml").openStream();
         Grammar g = XMLBeanUtil.newInstance(Grammar.class, fst);

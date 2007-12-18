@@ -24,9 +24,11 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 
-/** XMLに関係する例外のためのベースクラス
+/** 
+ * The base class for XML related exceptions
  * @author leo
  */
 public class XMLException extends XerialException
@@ -41,7 +43,7 @@ public class XMLException extends XerialException
      */
     public XMLException()
     {
-        super();
+        super(XerialErrorCode.XMLException);
     }
 
     /**
@@ -49,7 +51,7 @@ public class XMLException extends XerialException
      */
     public XMLException(String message)
     {
-        super(message);
+        super(XerialErrorCode.XMLException, message);
     }
     /**
      * @param message
@@ -57,21 +59,21 @@ public class XMLException extends XerialException
      */
     public XMLException(String message, Throwable cause)
     {
-        super(message, cause);
+        super(XerialErrorCode.XMLException, message, cause);
     }
     /**
      * @param cause
      */
     public XMLException(Throwable cause)
     {
-        super(cause);
+        super(XerialErrorCode.XMLException, cause);
     }
     /**
      * @param message
      */
     public XMLException(Object... message)
     {
-        super(message);
+        super(XerialErrorCode.XMLException, message);
     }
     
 }

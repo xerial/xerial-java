@@ -24,22 +24,17 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.w3c.dom.Element;
-import org.xerial.json.InvalidJSONDataException;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
-import org.xerial.util.xml.InvalidXMLException;
-import org.xerial.util.xml.dom.DOMUtil;
 
 class MapPutter extends BeanBinderBase {
     Class keyType;
 
     Class valueType;
 
-    public MapPutter(Method method, String parameterName, Class keyType, Class valueType) throws InvalidBeanException {
+    public MapPutter(Method method, String parameterName, Class keyType, Class valueType) throws BeanException {
         super(method, parameterName);
         this.keyType = keyType;
         this.valueType = valueType;
@@ -49,8 +44,7 @@ class MapPutter extends BeanBinderBase {
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, JSONException, InvalidBeanException, InstantiationException, InvalidJSONDataException {
+    public void setJSONData(Object bean, Object json) throws BeanException {
         JSONArray mapContent = getJSONArray(json, "-m");
         if (mapContent == null)
             if (json.getClass() != JSONArray.class)
@@ -63,14 +57,13 @@ class MapPutter extends BeanBinderBase {
             if (entry != null) {
                 Object key = BeanUtil.createBean(keyType, entry.get(0));
                 Object value = BeanUtil.createBean(valueType, entry.get(1));
-                getMethod().invoke(bean, new Object[] { key, value });
+                invokeMethod(bean, new Object[] { key, value });
             }
         }
     }
 
     @Override
-    public void setXMLData(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException,
-            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public void setXMLData(Object bean, Object xmlData) throws BeanException
     {
         if(!TypeInformation.isDOMElement(xmlData.getClass()))
             return;
@@ -79,7 +72,7 @@ class MapPutter extends BeanBinderBase {
         // TODO support for complex putter argument such as putSomething(String key, Map value);
         String key = mapEntryElement.getAttribute("key");
         Object value = BeanUtil.createXMLBean(valueType, mapEntryElement);
-        getMethod().invoke(bean, new Object[] { key, value } );
+        invokeMethod(bean, new Object[] { key, value } );
     }
     
     

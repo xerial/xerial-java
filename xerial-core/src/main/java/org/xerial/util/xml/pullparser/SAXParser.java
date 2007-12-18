@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Vector;
 
-import org.xerial.util.XMLParserException;
 import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -110,7 +109,7 @@ public class SAXParser
      * @throws XMLParserException parserの生成に失敗したとき。
      * @throws XMLException invalidなXMLを読んだとき。
      */
-    public void parse(String xmlFileName) throws IOException, XMLParserException, XMLException
+    public void parse(String xmlFileName) throws IOException, XMLException
     {
         Reader reader = new BufferedReader(new FileReader(xmlFileName));
         parse(reader);
@@ -124,7 +123,7 @@ public class SAXParser
      * @throws XMLParserException parserの生成に失敗したとき。
      * @throws XMLException invalidなXMLを読んだとき。
      */
-    public void parse(Reader xmlInputSource) throws XMLParserException, XMLException, IOException
+    public void parse(Reader xmlInputSource) throws XMLException, IOException
     {
         XmlPullParser parser = PullParserUtil.newParser(xmlInputSource);
         this.parse(parser);

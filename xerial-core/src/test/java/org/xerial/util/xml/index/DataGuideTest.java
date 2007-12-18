@@ -30,7 +30,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.XMLParserException;
 import org.xerial.util.io.NullOutputStream;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
@@ -69,7 +68,7 @@ public class DataGuideTest extends TestCase
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
 
-    public void testDataGuide() throws IOException, XMLParserException, XMLException, XerialException
+    public void testDataGuide() throws IOException, XMLException, XerialException
     {
         // prepare the XML document
         DataGuide dg = new DataGuide();
@@ -77,7 +76,7 @@ public class DataGuideTest extends TestCase
         dg.outputGraphviz(new NullOutputStream());
     }
 
-    public void testDataGuideGenerator() throws XMLParserException, XMLException, IOException
+    public void testDataGuideGenerator() throws XMLException, IOException
     {
         DataGuide dg = new DataGuide();
         SAXParser parser = new SAXParser(dg);

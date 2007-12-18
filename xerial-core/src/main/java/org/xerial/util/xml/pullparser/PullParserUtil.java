@@ -27,7 +27,7 @@ package org.xerial.util.xml.pullparser;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.xerial.util.XMLParserException;
+import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -69,7 +69,7 @@ public class PullParserUtil
      * @return pull parserのインスタンス
      * @throws XMLParserException parserの生成に失敗した時
      */
-    static public XmlPullParser newParser(Reader xmlReader) throws XMLParserException
+    static public XmlPullParser newParser(Reader xmlReader) throws XMLException
     {
         XmlPullParser parser;
         try
@@ -80,7 +80,7 @@ public class PullParserUtil
         }
         catch(XmlPullParserException e)
         {
-            throw new XMLParserException(e);
+            throw new XMLException(e);
         }
     }
 

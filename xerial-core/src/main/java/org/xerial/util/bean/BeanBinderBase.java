@@ -27,11 +27,9 @@ package org.xerial.util.bean;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.json.InvalidJSONDataException;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.json.JSONArray;
-import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
-import org.xerial.util.xml.InvalidXMLException;
 
 /**
  * A Binder holds a getter/setter method and its parameter type.
@@ -76,66 +74,67 @@ abstract class BeanBinderBase implements BeanBinder {
 
     // @see org.utgenome.util.BeanBinder#invokeSetter(java.lang.Object,
     // java.lang.Object)
-    public void invokeJSONDataSetter(Object bean, Object json) throws InvalidBeanException, InvalidJSONDataException {
+    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException {
         try {
             setJSONData(bean, json);
         } catch (NumberFormatException e) {
-            throw new InvalidJSONDataException(e);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidBeanException(e);
-        } catch (IllegalAccessException e) {
-            throw new InvalidBeanException(e);
-        } catch (InvocationTargetException e) {
-            throw new InvalidBeanException(e);
-        } catch (InstantiationException e) {
-            throw new InvalidBeanException("probably, public constructor of the bean " + e + " is not available: ");
-        } catch (JSONException e) {
-            throw new InvalidJSONDataException(e);
+            throw new BeanException(XerialErrorCode.InvalidNumberFormat, e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new BeanException(XerialErrorCode.IllegalArgument, e);
         }
     }
 
     // @see org.utgenome.util.BeanBinder#setJSONData(java.lang.Object,
     // java.lang.Object)
-    public abstract void setJSONData(Object bean, Object json) throws NumberFormatException, IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, InvalidBeanException, InstantiationException, InvalidJSONDataException, JSONException;
+    public abstract void setJSONData(Object bean, Object json) throws BeanException; 
 
-    public static JSONArray getJSONArray(Object json, String key) throws JSONException {
+    public static JSONArray getJSONArray(Object json, String key) {
         if (json == null || json.getClass() != JSONObject.class)
             return null;
         return ((JSONObject) json).getJSONArray(key);
     }
 
-    public static void constractableTest(Class c) throws InvalidBeanException {
+    public static void constractableTest(Class c) throws BeanException {
         if (!TypeInformation.canInstantiate(c)) {
-            throw new InvalidBeanException(c + " has no public constructor");
+            throw new BeanException(XerialErrorCode.NoPublicConstructor, c + " has no public constructor");
         }
     }
 
-    public void invokeXMLDataSetter(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException
+    public void invokeXMLDataSetter(Object bean, Object xmlData) throws BeanException
+    {
+        setXMLData(bean, xmlData);
+    }
+    
+    /**
+     * Invoke a method of the bean object, then handle some exceptions if they occur 
+     * @param bean
+     * @param args
+     * @throws BeanException
+     */
+    protected void invokeMethod(Object bean, Object[] args) throws BeanException
     {
         try
         {
-            setXMLData(bean, xmlData);
+            getMethod().invoke(bean, args);
         }
         catch (IllegalArgumentException e)
         {
-            throw new InvalidBeanException(e);
-        }
-        catch (InstantiationException e)
-        {
-            throw new InvalidBeanException(e);
+            throw new BeanException(XerialErrorCode.IllegalArgument, e);
         }
         catch (IllegalAccessException e)
         {
-            throw new InvalidBeanException(e);
+            throw new BeanException(XerialErrorCode.IllegalAccess, e);
         }
         catch (InvocationTargetException e)
         {
-            throw new InvalidBeanException(e);
+            throw new BeanException(XerialErrorCode.InvocationTargetException, e);
         }
     }
+    
 
-    public void setXMLData(Object bean, Object xmlData) throws InvalidXMLException, InvalidBeanException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public void setXMLData(Object bean, Object xmlData) throws BeanException
     {
         throw new UnsupportedOperationException(this.getClass() + "does not support setXMLData()");
     }
