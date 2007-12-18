@@ -24,7 +24,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.xerial.core.XerialErrorCode;
+
 
 
 public class JSONObject extends JSONValueBase {
@@ -51,7 +51,7 @@ public class JSONObject extends JSONValueBase {
 			JSONObject obj = walker.jsonObject();
 			this.content = obj.content;
 		} catch (RecognitionException e) {
-			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 	
@@ -135,7 +135,7 @@ public class JSONObject extends JSONValueBase {
 			JSONParser.jsonObject_return r = parser.jsonObject();
 			return (CommonTree) r.getTree();
 		} catch (RecognitionException e) {
-			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 	
@@ -193,11 +193,11 @@ public class JSONObject extends JSONValueBase {
 	public int getInt(String key) throws JSONException {
 		JSONValue v = get(key);
 		if(v == null)
-			throw new JSONException(XerialErrorCode.KeyIsNotFound, key);
+			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
 		
 		JSONNumber n = v.getJSONNumber();
 		if(n == null)
-			throw new JSONException(XerialErrorCode.NotAJSONNumber, n);
+			throw new JSONException(JSONErrorCode.NotAJSONNumber, n);
 		
 		return n.getIntValue();
 	}
@@ -206,11 +206,11 @@ public class JSONObject extends JSONValueBase {
 	{
 		JSONValue v = get(key);
 		if(v == null)
-			throw new JSONException(XerialErrorCode.KeyIsNotFound, key);
+			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
 		
 		JSONString s = v.getJSONString();
 		if(s == null)
-			throw new JSONException(XerialErrorCode.NotAJSONString, v);
+			throw new JSONException(JSONErrorCode.NotAJSONString, v);
 		return s.getValue();
 	}
 
@@ -243,10 +243,10 @@ public class JSONObject extends JSONValueBase {
 	public JSONObject getJSONObject(String key) throws JSONException {
 		JSONValue v = get(key);
 		if(v == null)
-			throw new JSONException(XerialErrorCode.KeyIsNotFound, key);
+			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
 		JSONObject o = v.getJSONObject();
 		if(o == null)
-			throw new JSONException(XerialErrorCode.NotAJSONObject, v);
+			throw new JSONException(JSONErrorCode.NotAJSONObject, v);
 		return o;
 	}
 }

@@ -9,7 +9,6 @@
 //--------------------------------------
 package org.xerial.json;
 
-import org.xerial.core.XerialErrorCode;
 
 public class JSONUtil {
 
@@ -32,7 +31,7 @@ public class JSONUtil {
 		else if(value instanceof Float)
 			return new JSONDouble((Float) value);
 		else
-			throw new JSONException(XerialErrorCode.CannotConvertToJSONValue, "cannot resolve " + value + " type as JSONValue");
+			throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve " + value + " type as JSONValue");
 	
 	}
 	

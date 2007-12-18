@@ -19,75 +19,60 @@
 // XerialException.java
 // Since: 2004/12/21
 //
-// $Date:2007-08-30 23:19:22 +0900 (Thu, 30 Aug 2007) $ 
+// $URL$
 // $Author:leo $
 //--------------------------------------
 package org.xerial.core;
 
- 
+
 /**
  * The base class of exceptions for Xerial Project
  * 
  * @author leo
  *
  */
-public class XerialException extends Exception
+public abstract class XerialException extends Exception
 {
     private static final long serialVersionUID = 1L;
-    private final XerialErrorCode errorCode;
-    
-    public XerialException(XerialException e)
-    {
-        super(e);
-        this.errorCode = e.getErrorCode();
-    }
-    
-    public XerialException(XerialErrorCode errorCode)
+
+    /**
+     * 
+     */
+    protected XerialException()
     {
         super();
-        this.errorCode = errorCode;
     }
 
-    public XerialException(XerialErrorCode errorCode, String message)
+    /**
+     * @param message
+     * @param cause
+     */
+    protected XerialException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
+
+    /**
+     * @param message
+     */
+    protected XerialException(String message)
     {
         super(message);
-        this.errorCode = errorCode;
+    }
+
+    /**
+     * @param cause
+     */
+    protected XerialException(Throwable cause)
+    {
+        super(cause);
     }
     
-    public XerialException(XerialErrorCode errorCode, Throwable e)
-    {
-        super(e);
-        this.errorCode = errorCode;
-    }
-    public XerialException(XerialErrorCode errorCode, String message, Throwable e)
-    {
-        super(message, e);
-        this.errorCode = errorCode;
-    }
-    
-    public XerialException(XerialErrorCode errorCode, Object... message)
+    protected XerialException(Object... message)
     {
         super(concatinateMessage(message));
-        this.errorCode = errorCode;
     }
-    
-    public XerialErrorCode getErrorCode()
-    {
-        return errorCode;
-    }
-    
-    public String toString()
-    {
-        return "[" + errorCode.name() + "] " +  super.toString();
-    }
-    
 
-        
-    @Override
-    public String getMessage()
-    {
-        return "[" + errorCode.name() + "] " +  super.getMessage();
-    }
 
     protected static String concatinateMessage(Object... message)
     {

@@ -120,7 +120,7 @@ public class StrongDataGuide
                     int pathID = getPathID(name);
                     _logger.trace("path ID  : " + pathID);
                     moveCursor(pathID);
-                    // attribute‚Ìˆ—
+                    // process attributes
                     for(int i=0; i<parser.getAttributeCount(); i++)
                     {
                         int attributeID = getPathID("@" + parser.getAttributeName(i));
@@ -140,10 +140,6 @@ public class StrongDataGuide
         catch(XmlPullParserException e)
         {
             throw new XMLException(e);
-        }
-        catch(GraphException e)
-        {
-            throw new XerialException(e);
         }
     }
     

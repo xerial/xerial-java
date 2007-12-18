@@ -72,13 +72,7 @@ public class XMLBeanException extends XMLException
         super(cause);
     }
 
-    /**
-     * @param message
-     */
-    public XMLBeanException(Object... message)
-    {
-        super(message);
-    }
+
 
 }
 

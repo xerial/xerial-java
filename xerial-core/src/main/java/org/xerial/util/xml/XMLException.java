@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 
 /** 
@@ -33,17 +32,15 @@ import org.xerial.core.XerialException;
  */
 public class XMLException extends XerialException
 {
-
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3833181419806668341L;
+    private static final long serialVersionUID = 1L;
+    private XMLErrorCode errorCode;
+    
     /**
      * 
      */
     public XMLException()
     {
-        super(XerialErrorCode.XMLException);
+        super();
     }
 
     /**
@@ -51,7 +48,7 @@ public class XMLException extends XerialException
      */
     public XMLException(String message)
     {
-        super(XerialErrorCode.XMLException, message);
+        super(message);
     }
     /**
      * @param message
@@ -59,23 +56,16 @@ public class XMLException extends XerialException
      */
     public XMLException(String message, Throwable cause)
     {
-        super(XerialErrorCode.XMLException, message, cause);
+        super(message, cause);
     }
     /**
      * @param cause
      */
     public XMLException(Throwable cause)
     {
-        super(XerialErrorCode.XMLException, cause);
+        super(cause);
     }
-    /**
-     * @param message
-     */
-    public XMLException(Object... message)
-    {
-        super(XerialErrorCode.XMLException, message);
-    }
-    
+
 }
 
 

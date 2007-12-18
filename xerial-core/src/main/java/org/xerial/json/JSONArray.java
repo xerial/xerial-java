@@ -43,7 +43,7 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 			JSONArray array = walker.jsonArray();
 			this._array = array._array;
 		} catch (RecognitionException e) {
-			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 			JSONParser.jsonArray_return r = parser.jsonArray();
 			return (CommonTree) r.getTree();
 		} catch (RecognitionException e) {
-			throw new JSONException(XerialErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
+			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
 		}
 	}
 

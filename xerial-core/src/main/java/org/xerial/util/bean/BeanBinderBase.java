@@ -27,7 +27,7 @@ package org.xerial.util.bean;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.core.XerialErrorCode;
+
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
 
@@ -78,11 +78,11 @@ abstract class BeanBinderBase implements BeanBinder {
         try {
             setJSONData(bean, json);
         } catch (NumberFormatException e) {
-            throw new BeanException(XerialErrorCode.InvalidNumberFormat, e);
+            throw new BeanException(BeanErrorCode.InvalidNumberFormat, e);
         }
         catch (IllegalArgumentException e)
         {
-            throw new BeanException(XerialErrorCode.IllegalArgument, e);
+            throw new BeanException(BeanErrorCode.IllegalArgument, e);
         }
     }
 
@@ -98,7 +98,7 @@ abstract class BeanBinderBase implements BeanBinder {
 
     public static void constractableTest(Class c) throws BeanException {
         if (!TypeInformation.canInstantiate(c)) {
-            throw new BeanException(XerialErrorCode.NoPublicConstructor, c + " has no public constructor");
+            throw new BeanException(BeanErrorCode.NoPublicConstructor, c + " has no public constructor");
         }
     }
 
@@ -121,15 +121,15 @@ abstract class BeanBinderBase implements BeanBinder {
         }
         catch (IllegalArgumentException e)
         {
-            throw new BeanException(XerialErrorCode.IllegalArgument, e);
+            throw new BeanException(BeanErrorCode.IllegalArgument, e);
         }
         catch (IllegalAccessException e)
         {
-            throw new BeanException(XerialErrorCode.IllegalAccess, e);
+            throw new BeanException(BeanErrorCode.IllegalAccess, e);
         }
         catch (InvocationTargetException e)
         {
-            throw new BeanException(XerialErrorCode.InvocationTargetException, e);
+            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
     

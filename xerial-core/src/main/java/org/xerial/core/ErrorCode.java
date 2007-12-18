@@ -16,24 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// JSONErrorCode.java
-// Since: Dec 18, 2007 11:53:39 AM
+// ErrorCode.java
+// Since: Dec 18, 2007 3:23:09 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.json;
+package org.xerial.core;
 
-public enum JSONErrorCode {
-
-    InvalidJSONData,
-    KeyIsNotFound,
-    NotAJSONNumber,
-    NotAJSONString,
-    NotAJSONObject,
-    
-    CannotConvertToJSONValue,
-    
-    ParseError,
-    
+/**
+ * A common interfarce for error codes
+ * @author leo
+ *
+ */
+public interface ErrorCode
+{
+    public String getCodeName();
+    public String getDescription();
 }

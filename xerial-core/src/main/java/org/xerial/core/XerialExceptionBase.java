@@ -16,23 +16,16 @@
 //--------------------------------------
 // XerialJ
 //
-// Getter.java
-// Since: Aug 9, 2007 9:41:56 AM
+// XerialExceptionBase.java
+// Since: Dec 18, 2007 3:30:42 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.core;
 
-import java.lang.reflect.Method;
-
-class Getter extends BeanBinderBase {
-    public Getter(Method method, String parameterName) {
-        super(method, parameterName);
-    }
-
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        throw new BeanException(BeanErrorCode.GetterCannotBeUsedToBindData);
-    }
+public abstract class XerialExceptionBase extends Exception
+{
+    
+    
 }

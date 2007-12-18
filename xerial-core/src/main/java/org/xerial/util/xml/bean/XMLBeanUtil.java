@@ -1079,7 +1079,7 @@ class XMLOutputProcess
         Class xmlBeanClass = xmlBean.getClass();
         OutputRuleSet outputRuleSet = _outputRuleOfEachClass.get(xmlBeanClass);
         if (outputRuleSet == null)
-            throw new XMLBeanException("cannot create any output rule for the class ", xmlBeanClass.getName());
+            throw new XMLBeanException("cannot create any output rule for the class " + xmlBeanClass.getName());
 
         String className = xmlBeanClass.getSimpleName();
         XMLAttribute attrib = new XMLAttribute();

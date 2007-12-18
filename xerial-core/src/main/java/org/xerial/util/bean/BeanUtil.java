@@ -32,7 +32,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xerial.core.XerialErrorCode;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONBoolean;
 import org.xerial.json.JSONDouble;
@@ -496,11 +495,11 @@ public class BeanUtil
             }
             catch (IllegalArgumentException e)
             {
-                throw new BeanException(XerialErrorCode.IllegalArgument, e);
+                throw new BeanException(BeanErrorCode.IllegalArgument, e);
             }
             catch (InvalidXMLException e)
             {
-                throw new BeanException(XerialErrorCode.InvalidXMLData, e);
+                throw new BeanException(BeanErrorCode.InvalidXMLData, e);
             }
         }
 
@@ -620,7 +619,7 @@ public class BeanUtil
             else if (beanClass == boolean.class || beanClass == Boolean.class)
                 value = new JSONBoolean((Boolean) bean);
             else
-                throw new BeanException(XerialErrorCode.InvalidBeanClass, beanClass.toString() + " is not basic type");
+                throw new BeanException(BeanErrorCode.InvalidBeanClass, beanClass.toString() + " is not basic type");
             return value;
         }
         else
@@ -672,15 +671,15 @@ public class BeanUtil
         }
         catch (IllegalArgumentException e)
         {
-            throw new BeanException(XerialErrorCode.IllegalArgument, e);
+            throw new BeanException(BeanErrorCode.IllegalArgument, e);
         }
         catch (IllegalAccessException e)
         {
-            throw new BeanException(XerialErrorCode.IllegalAccess, e);
+            throw new BeanException(BeanErrorCode.IllegalAccess, e);
         }
         catch (InvocationTargetException e)
         {
-            throw new BeanException(XerialErrorCode.InvocationTargetException, e);
+            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
     
@@ -696,15 +695,15 @@ public class BeanUtil
         }
         catch (XMLException e)
         {
-            throw new BeanException(XerialErrorCode.InvalidXMLData, e);
+            throw new BeanException(BeanErrorCode.InvalidXMLData, e);
         }
         catch (XmlPullParserException e)
         {
-            throw new BeanException(XerialErrorCode.ParserError, e);
+            throw new BeanException(BeanErrorCode.ParserError, e);
         }
         catch (IOException e)
         {
-            throw new BeanException(XerialErrorCode.InvalidXMLData, e);
+            throw new BeanException(BeanErrorCode.InvalidXMLData, e);
         }
     }
 
@@ -722,7 +721,7 @@ public class BeanUtil
         {
             Node attributeNode = attributeMap.item(i);
             if (attributeNode.getNodeType() != Node.ATTRIBUTE_NODE)
-                throw new BeanException(XerialErrorCode.InvalidXMLData, attributeNode.toString()
+                throw new BeanException(BeanErrorCode.InvalidXMLData, attributeNode.toString()
                         + " is not an attribute node");
 
             String attributeName = attributeNode.getNodeName();
@@ -784,7 +783,7 @@ public class BeanUtil
                 populateBeanWithXML(bean, (Element) xmlValue);
             else
             {
-                throw new BeanException(XerialErrorCode.UnsupportedXMLDataType, "unsupported value type: "
+                throw new BeanException(BeanErrorCode.UnsupportedXMLDataType, "unsupported value type: "
                         + xmlValue.getClass().toString());
             }
         }
@@ -813,7 +812,7 @@ public class BeanUtil
         }
         catch (JSONException e)
         {
-            throw new BeanException(XerialErrorCode.InvalidJSONData, e);
+            throw new BeanException(BeanErrorCode.InvalidJSONData, e);
         }
     }
 
@@ -878,17 +877,17 @@ public class BeanUtil
                 }
                 catch (InstantiationException e)
                 {
-                    throw new BeanException(XerialErrorCode.InstantiationFailure, e);
+                    throw new BeanException(BeanErrorCode.InstantiationFailure, e);
                 }
                 catch (IllegalAccessException e)
                 {
-                    throw new BeanException(XerialErrorCode.IllegalAccess, e);
+                    throw new BeanException(BeanErrorCode.IllegalAccess, e);
                 }
                 populateBean(array[i], jsonArray.get(i));
             }
         }
         else
-            throw new BeanException(XerialErrorCode.InvalidJSONArray,
+            throw new BeanException(BeanErrorCode.InvalidJSONArray,
                     "to bind json array to a bean, it must be an instance array (e.g. Object[])");
 
     }
@@ -921,7 +920,7 @@ public class BeanUtil
                 else if (beanClass == boolean.class || beanClass == Boolean.class)
                     bean = new Boolean(jsonStr);
                 else
-                    throw new BeanException(XerialErrorCode.InvalidBeanClass);
+                    throw new BeanException(BeanErrorCode.InvalidBeanClass);
             }
         }
     }

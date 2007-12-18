@@ -29,46 +29,35 @@ package org.xerial.core;
  * @author leo
  *
  */
-public enum XerialErrorCode
+public enum XerialErrorCode implements ErrorCode
 {
-    UnknownError,
+    UnknownError("unknown error"),
     OptionParserException,
     
-    // JSONException
-    InvalidJSONData,
-    KeyIsNotFound,
-    NotAJSONNumber,
-    NotAJSONString,
-    NotAJSONObject,
-    CannotConvertToJSONValue,
+    
+    DBException,
+    
+    GraphException;
 
-    // Bean -----------------------------------
-    // Bean.XML
-    InvalidXMLData,
-    ParserError,
-    UnsupportedXMLDataType,
-
-    // Bean.JSON
-    InvalidJSONArray,
+    private final String description;
+    // custom constructor
+    private XerialErrorCode(final String description)
+    {
+        this.description = description;
+    }
+    private XerialErrorCode()
+    {
+        this.description = "";
+    }
     
-    // Bean class
-    InvalidBeanClass,
-    IllegalArgument,
-    IllegalAccess,
-    NoPublicConstructor,
-    InstantiationFailure,
-    InvalidNumberFormat,
-    InvocationTargetException,
+    public String getCodeName()
+    {
+        return this.name();
+    }
     
-    // Bean binder
-    GetterCannotBeUsedToBindData,
-    // Bean -------------------------------------
-    
-    ParseError,
-    
-    XMLException,
-    
-    
-    GraphException
+    public String getDescription()
+    {
+        return this.description;
+    }
 
 }
