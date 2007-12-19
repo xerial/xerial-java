@@ -34,11 +34,12 @@ import junit.framework.TestCase;
  */
 public class XerialExceptionTest extends TestCase
 {
-//    public void testVarArgConstructor()
-//    {
-//        XerialException e = new XerialException("exception message", 1, "hello");
-//        assertEquals("exception message 1 hello", e.getMessage());
-//    }
+    
+    public void testVarArgConstructor()
+    {
+        XerialException e = new XerialException("exception message", 1, "hello");
+
+    }
     
 //    public void testVarArgConstructor2()
 //    {
