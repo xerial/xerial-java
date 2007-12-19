@@ -238,6 +238,9 @@ public class XMLWalker implements TreeWalker
      */
     public void parse(Reader xmlDataReader) throws XerialException, IOException 
     {
+        if(xmlDataReader == null)
+            throw new XMLException("XML reader is null");
+        
         XMLStreamWalker streamWalker =  new XMLStreamWalker(xmlDataReader);
         visitor.init(streamWalker);
         streamWalker.parse();

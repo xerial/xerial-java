@@ -89,7 +89,7 @@ public class BeanBindingProcess implements TreeVisitor
     
     public void setBean(int level, Object bean)
     {
-        while(beanStack.size() < level)
+        while(beanStack.size() <= level)
         {
             beanStack.add(null);
         }
@@ -131,12 +131,15 @@ public class BeanBindingProcess implements TreeVisitor
             
             try
             {
+                _logger.trace("update: " + valueBean.toString());
                 bindValue(parentBean, updator, valueBean);
             }
             catch(BeanException e)
             {
                 _logger.error(e);
             }
+            // clear the bean stack
+            setBean(nodeLevel, null);
         }
         
     }
@@ -188,7 +191,10 @@ public class BeanBindingProcess implements TreeVisitor
         {
             BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
             if(updator != null)
+            {
+                _logger.trace("bind attribute: " + attribute.getName() + "=" + attribute.getValue());
                 bindValue(bean, updator, attribute.getValue());
+            }
         }
 
     }

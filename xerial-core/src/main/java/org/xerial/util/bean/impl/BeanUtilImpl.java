@@ -39,4 +39,12 @@ public class BeanUtilImpl
         walker.parse(xmlReader);
         return (E) bindingProcess.getResultBean();
     }
+    
+    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException, IOException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
+        XMLWalker walker = new XMLWalker(bindingProcess);
+        walker.parse(xmlReader);
+        return bean; 
+    }
 }
