@@ -187,13 +187,16 @@ public class BeanBindingProcess implements TreeVisitor
         Class beanClass = bean.getClass();
         BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(beanClass);
         // bind attribute data
-        for(NodeAttribute attribute : nodeAttributeList)
+        if(nodeAttributeList != null)
         {
-            BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
-            if(updator != null)
+            for(NodeAttribute attribute : nodeAttributeList)
             {
-                _logger.trace("bind attribute: " + attribute.getName() + "=" + attribute.getValue());
-                bindValue(bean, updator, attribute.getValue());
+                BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
+                if(updator != null)
+                {
+                    _logger.trace("bind attribute: " + attribute.getName() + "=" + attribute.getValue());
+                    bindValue(bean, updator, attribute.getValue());
+                }
             }
         }
 
@@ -217,7 +220,6 @@ public class BeanBindingProcess implements TreeVisitor
     {
         try
         {
-            
             updator.getMethod().invoke(bean, convertType(updator.getElementType(), value));
         }
         catch (IllegalArgumentException e)

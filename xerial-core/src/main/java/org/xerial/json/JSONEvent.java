@@ -11,15 +11,16 @@
 package org.xerial.json;
 
 public enum JSONEvent {
-	
-	StartJSON,
 	EndJSON,
 	StartObject,
 	EndObject,
 	StartArray,
 	EndArray,
-	Key,
-	Value,
+	String,
+	Integer,
+	Double,
+	Boolean,
+	Null,
 }
 
 

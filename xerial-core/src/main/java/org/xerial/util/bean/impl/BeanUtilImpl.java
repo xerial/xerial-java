@@ -31,6 +31,7 @@ import org.antlr.runtime.Parser;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.ANTLRWalker;
+import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.XMLWalker;
 
 public class BeanUtilImpl
@@ -64,6 +65,22 @@ public class BeanUtilImpl
         BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
         ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess);
         walker.walk(parseTree);
+        return bean;
+    }
+    
+    public static <E> E createBeanFromJSON(Class<E> beanType, Reader jsonReader) throws IOException, XerialException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
+        JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
+        walker.walk();
+        return (E) bindingProcess.getResultBean();
+    }
+    
+    public static Object populateBeanWithJSON(Object bean, Reader jsonReader) throws IOException, XerialException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
+        JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
+        walker.walk();
         return bean;
     }
     

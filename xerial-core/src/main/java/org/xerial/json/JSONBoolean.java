@@ -19,7 +19,15 @@ public class JSONBoolean extends JSONValueBase {
 		this._value = b; 
 	}
 	
-	public boolean getValue()
+	public JSONBoolean(String text)
+    {
+	    if(text.equals("true"))
+	        this._value = true;
+	    else
+	        this._value = false;
+    }
+
+    public boolean getValue()
 	{
 		return _value;
 	}
