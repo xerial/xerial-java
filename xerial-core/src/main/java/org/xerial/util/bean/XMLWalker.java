@@ -51,7 +51,7 @@ import org.xmlpull.v1.XmlPullParserException;
  * @author leo
  *
  */
-public class XMLWalker implements TreeWalker
+public class XMLWalker 
 {
     /**
      * A walker implementation for XML stream
@@ -165,7 +165,6 @@ public class XMLWalker implements TreeWalker
      */
     class XMLDOMWalker implements TreeWalker
     {
-        private Stack<Element> elementStack = new Stack<Element>();
         private boolean skipDesendants = false;
         
         public XMLDOMWalker()
@@ -173,7 +172,6 @@ public class XMLWalker implements TreeWalker
         
         public void parse(Element element) throws XerialException
         {
-            elementStack.push(element);
             
             String tagName = element.getNodeName();
             ArrayList<NodeAttribute> attributeList = new ArrayList<NodeAttribute>();
@@ -207,7 +205,6 @@ public class XMLWalker implements TreeWalker
             // leave the current element
             String text = DOMUtil.getText(element);
             visitor.leaveNode(tagName, text.trim(), this);
-            elementStack.pop();
         }
 
         public void skipDescendants()
@@ -261,10 +258,6 @@ public class XMLWalker implements TreeWalker
         visitor.finish(domWalker);
     }
 
-    public void skipDescendants()
-    {
-        // TODO Auto-generated method stub
-        
-    }
+
 
 }
