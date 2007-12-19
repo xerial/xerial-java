@@ -90,4 +90,25 @@ public class BeanUtilImplTest
         assertEquals("Yui", sl.getSampleList().get(1).getName());
         assertEquals("My Family", sl.getListName());
     }
+    
+    @Test
+    public void createBeanFromJSON() throws IOException, XerialException
+    {
+        Sample s = BeanUtilImpl.createBeanFromJSON(Sample.class, FileResource.open(BeanUtilImplTest.class, "sample.json"));
+        assertEquals(100, s.getId());
+        assertEquals("Leo", s.getName());
+    }
+    
+    @Test
+    public void createNestedBeanFromJSON() throws XerialException, IOException
+    {
+        SampleList sl = BeanUtilImpl.createBeanFromJSON(SampleList.class, FileResource.open(BeanUtilImplTest.class, "samplelist.json"));
+        assertEquals(2, sl.getSampleList().size());
+        assertEquals(100, sl.getSampleList().get(0).getId());
+        assertEquals(101, sl.getSampleList().get(1).getId());
+        assertEquals("Leo", sl.getSampleList().get(0).getName());
+        assertEquals("Yui", sl.getSampleList().get(1).getName());
+        assertEquals("My Family", sl.getListName());
+    }
+
 }

@@ -54,7 +54,6 @@ public class JSONStreamWalker implements TreeWalker
             switch(event)
             {
             case StartObject:
-            case StartArray:
             {
                 if(!skipDescendants)
                 {
@@ -64,7 +63,6 @@ public class JSONStreamWalker implements TreeWalker
                 break;
             }
             case EndObject:
-            case EndArray:
             {
                 if(skipDescendants)
                 {

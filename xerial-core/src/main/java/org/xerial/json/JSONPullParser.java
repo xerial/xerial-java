@@ -19,6 +19,8 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.Token;
+import org.xerial.util.StringUtil;
+import org.xerial.util.log.Logger;
 
 
 /**
@@ -30,6 +32,7 @@ public class JSONPullParser
 {
     private static enum ParseState { Root, InObject, InArray, Key, KeyedValue } 
     
+    private static Logger _logger = Logger.getLogger(JSONPullParser.class);
 	private JSONLexer _lexer;
     private LinkedList<ParseState> parseStateStack = new LinkedList<ParseState>();
 	private JSONPullParserEvent lastReportedEvent = null;
@@ -79,6 +82,25 @@ public class JSONPullParser
 	        keyStack.removeLast();
 	}
 	
+	private void pushParseState(ParseState ps)
+	{
+	    parseStateStack.addLast(ps);
+	    _logger.trace("push: " + StringUtil.join(parseStateStack, ", "));
+	}
+	
+	private void popParseState()
+	{
+	    ParseState ps = parseStateStack.removeLast();
+	    _logger.trace("pop : " + StringUtil.join(parseStateStack, ", "));
+	}
+	
+	private void keyedValueTest()
+	{
+        if(getCurrentParseState() == ParseState.Key)
+            pushParseState(ParseState.KeyedValue);
+	}
+	
+	
 	public JSONEvent next() throws JSONException
 	{
 	    Token token;
@@ -87,9 +109,9 @@ public class JSONPullParser
 	        if(getCurrentParseState() == ParseState.KeyedValue)
 	        {
 	            keyStack.removeLast();
-	            parseStateStack.removeLast();
+	            popParseState();
 	            if(getCurrentParseState() == ParseState.Key)
-	                parseStateStack.removeLast();
+	                popParseState();
 	            else
 	                throw new JSONException(JSONErrorCode.ParseError);
 	        }
@@ -99,23 +121,25 @@ public class JSONPullParser
 	        switch(tokenType)
 	        {
 	        case JSONLexer.LBrace:
+	            keyedValueTest();
 	            currentDepth++;
-	            parseStateStack.addLast(ParseState.InObject);
+	            pushParseState(ParseState.InObject);
 	            return reportEvent(token, JSONEvent.StartObject); 
 	        case JSONLexer.RBrace:
                 currentDepth--;
 	            validateParseState(ParseState.InObject);
-	            parseStateStack.removeLast();
+	            popParseState();
 	            popKeyStack();
 	            return reportEvent(token, JSONEvent.EndObject);
 	        case JSONLexer.LBracket:
+	            keyedValueTest();
 	            currentDepth++;
-	            parseStateStack.addLast(ParseState.InArray);
+	            pushParseState(ParseState.InArray);
 	            return reportEvent(token, JSONEvent.StartArray);
 	        case JSONLexer.RBracket:
                 currentDepth--;
                 validateParseState(ParseState.InArray);
-                parseStateStack.removeLast();
+                popParseState();
                 popKeyStack();
 	            return reportEvent(token, JSONEvent.EndArray);
 	        case JSONLexer.Comma:
@@ -128,29 +152,24 @@ public class JSONPullParser
 	            if(getCurrentParseState() == ParseState.InObject)
 	            {
 	                // key
-	                parseStateStack.addLast(ParseState.Key);
+	                pushParseState(ParseState.Key);
 	                keyStack.addLast(removeDoubleQuotation(token.getText()));
 	                continue;
 	            }
-                if(getCurrentParseState() == ParseState.Key)
-                    parseStateStack.addLast(ParseState.KeyedValue);
+	            keyedValueTest();
                 return reportEvent(token, JSONEvent.String);
 	        case JSONLexer.Integer:
-                if(getCurrentParseState() == ParseState.Key)
-                    parseStateStack.addLast(ParseState.KeyedValue);
+                keyedValueTest();
                 return reportEvent(token, JSONEvent.Integer);
 	        case JSONLexer.Double:
-                if(getCurrentParseState() == ParseState.Key)
-                    parseStateStack.addLast(ParseState.KeyedValue);
+                keyedValueTest();
                 return reportEvent(token, JSONEvent.Double);
 	        case JSONLexer.TRUE:
 	        case JSONLexer.FALSE:
-	            if(getCurrentParseState() == ParseState.Key)
-                    parseStateStack.addLast(ParseState.KeyedValue);
+                keyedValueTest();
                 return reportEvent(token, JSONEvent.Boolean);
 	        case JSONLexer.NULL:
-                if(getCurrentParseState() == ParseState.Key)
-                    parseStateStack.addLast(ParseState.KeyedValue);
+                keyedValueTest();
                 return reportEvent(token, JSONEvent.Null);
 	        }
 	    }	    
@@ -207,7 +226,10 @@ public class JSONPullParser
 	
 	public String getText() 
 	{
-        return lastReportedEvent.getToken().getText();
+	    if(lastReportedEvent.getEvent() == JSONEvent.String)
+	        return removeDoubleQuotation(lastReportedEvent.getToken().getText());
+	    else
+	        return lastReportedEvent.getToken().getText();
 	}
 	
 	private static String removeDoubleQuotation(String text)
