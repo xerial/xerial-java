@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
-import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 
 /** 
@@ -45,7 +44,7 @@ public class GraphException extends XerialException
      */
     public GraphException()
     {
-        super(XerialErrorCode.GraphException);
+        super();
     }
 
     /**
@@ -53,7 +52,7 @@ public class GraphException extends XerialException
      */
     public GraphException(String message)
     {
-        super(XerialErrorCode.GraphException, message);
+        super(message);
     }
 
     /**
@@ -62,7 +61,7 @@ public class GraphException extends XerialException
      */
     public GraphException(String message, Throwable cause)
     {
-        super(XerialErrorCode.GraphException, message, cause);
+        super(message, cause);
     }
 
     /**
@@ -70,7 +69,7 @@ public class GraphException extends XerialException
      */
     public GraphException(Throwable cause)
     {
-        super(XerialErrorCode.GraphException, cause);
+        super(cause);
     }
 
 }

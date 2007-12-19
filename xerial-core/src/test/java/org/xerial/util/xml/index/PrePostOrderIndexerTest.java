@@ -25,19 +25,15 @@
 package org.xerial.util.xml.index;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.xerial.util.xml.InvalidXMLException;
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLException;
-import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.index.PrePostOrderIndexer;
-import org.xerial.util.xml.pullparser.SAXParser;
-
 import junit.framework.TestCase;
+
+import org.xerial.util.xml.XMLAttribute;
+import org.xerial.util.xml.XMLGenerator;
+import org.xerial.util.xml.pullparser.SAXParser;
 
 public class PrePostOrderIndexerTest extends TestCase
 {
@@ -46,7 +42,7 @@ public class PrePostOrderIndexerTest extends TestCase
     @Override
     protected void setUp() throws Exception
     {
-        // XMLï∂èëÇÃèÄîı
+        // prepare an XML data
         StringWriter xmlWriter = new StringWriter();
         XMLGenerator xout = new XMLGenerator(xmlWriter);
         xout.startTag("booklist");

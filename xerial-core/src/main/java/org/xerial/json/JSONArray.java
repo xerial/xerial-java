@@ -19,7 +19,6 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.xerial.core.XerialErrorCode;
 
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 

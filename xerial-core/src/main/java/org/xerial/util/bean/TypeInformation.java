@@ -49,7 +49,7 @@ import org.w3c.dom.Element;
  * @author leo
  * 
  */
-class TypeInformation {
+public class TypeInformation {
     static private Class[] _parameterClass = { int.class, double.class, float.class, boolean.class, String.class, Integer.class, Double.class, Float.class,
             Boolean.class };
 

@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.cui;
 
-import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 
 
@@ -47,7 +46,7 @@ public class OptionParserException extends XerialException
      */
     public OptionParserException()
     {
-        super(XerialErrorCode.OptionParserException);
+        super();
     }
 
     /**
@@ -55,7 +54,7 @@ public class OptionParserException extends XerialException
      */
     public OptionParserException(String message)
     {
-        super(XerialErrorCode.OptionParserException, message);
+        super(message);
     }
 
     /**
@@ -64,7 +63,7 @@ public class OptionParserException extends XerialException
      */
     public OptionParserException(String message, Throwable cause)
     {
-        super(XerialErrorCode.OptionParserException, message, cause);
+        super(message, cause);
     }
 
     /**
@@ -72,7 +71,7 @@ public class OptionParserException extends XerialException
      */
     public OptionParserException(Throwable cause)
     {
-        super(XerialErrorCode.OptionParserException, cause);
+        super(cause);
     }
 
 }

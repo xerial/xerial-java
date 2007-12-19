@@ -16,48 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// ErrorCode.java
-// Since: Dec 18, 2007 11:36:41 AM
+// TreeWalker.java
+// Since: Dec 19, 2007 12:40:15 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.core;
+package org.xerial.util.bean;
+
 
 /**
- * Error code related to XerialException
  * @author leo
  *
  */
-public enum XerialErrorCode implements ErrorCode
+public interface TreeWalker
 {
-    UnknownError("unknown error"),
-    OptionParserException,
-    
-    
-    DBException,
-    
-    GraphException;
-
-    private final String description;
-    // custom constructor
-    private XerialErrorCode(final String description)
-    {
-        this.description = description;
-    }
-    private XerialErrorCode()
-    {
-        this.description = "";
-    }
-    
-    public String getCodeName()
-    {
-        return this.name();
-    }
-    
-    public String getDescription()
-    {
-        return this.description;
-    }
+    public void skipDescendants();
 
 }

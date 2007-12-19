@@ -30,7 +30,7 @@ import org.xerial.json.JSONArray;
 
 
 
-class CollectionAdder extends BeanBinderBase {
+class CollectionAdder extends BeanBinderBase implements BeanUpdator {
     Class elementType;
 
     public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException {
@@ -60,6 +60,11 @@ class CollectionAdder extends BeanBinderBase {
     {
         Object value = BeanUtil.createXMLBean(elementType, xmlData);
         invokeMethod(bean, new Object[] { value });
+    }
+
+    public Class getElementType()
+    {
+        return elementType;
     }
     
     

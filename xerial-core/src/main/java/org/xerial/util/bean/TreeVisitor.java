@@ -24,6 +24,10 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
+import java.util.List;
+
+import org.xerial.core.XerialException;
+
 /**
  * A depth-first visitor model for tree structured data, including XML, JSON, ANTLR Parse Tree, etc. 
  * @author leo
@@ -35,28 +39,24 @@ public interface TreeVisitor
     /**
      * Initialize the visitor here 
      */
-    public void init() throws Exception;
+    public void init(TreeWalker walker) throws XerialException;
     
     /**
      * When found a node
      * @param nodeName the found node name
      */
-    public void visitNode(String nodeName) throws Exception;
+    public void visitNode(String nodeName, List<NodeAttribute> nodeAttributeList, TreeWalker walker) throws XerialException;
     
     /**
      * When leaving a node
      * @param nodeName the node name to leave
+     * @param nodeValue
+     * @throws XerialException
      */
-    public void leaveNode(String nodeName) throws Exception;
+    public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException;
     
-    /**
-     * Found a text data
-     * @param text
-     */
-    public void foundText(String text) throws Exception;
-
     /**
      * When the tree visit has finished
      */
-    public void finish() throws Exception;
+    public void finish(TreeWalker walker) throws XerialException;
 }

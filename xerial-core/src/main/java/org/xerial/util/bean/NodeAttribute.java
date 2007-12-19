@@ -16,16 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialExceptionBase.java
-// Since: Dec 18, 2007 3:30:42 PM
+// NodeAttribute.java
+// Since: Dec 19, 2007 12:45:12 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.core;
+package org.xerial.util.bean;
 
-public abstract class XerialExceptionBase extends Exception
+/**
+ * An attribute for a tree node
+ * @author leo
+ *
+ */
+public interface NodeAttribute
 {
-    
-    
+    public String getName();
+    public String getValue();
 }

@@ -27,7 +27,7 @@ package org.xerial.util.bean;
 import java.lang.reflect.Method;
 
 
-class Setter extends BeanBinderBase {
+class Setter extends BeanBinderBase implements BeanUpdator {
     Class valueType;
 
     public Setter(Method method, String parameterName, Class valueType) {
@@ -52,6 +52,11 @@ class Setter extends BeanBinderBase {
         
         Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
         invokeMethod(bean, new Object[] { tmpValue });
+    }
+
+    public Class getElementType()
+    {
+        return valueType;
     }
     
 }
