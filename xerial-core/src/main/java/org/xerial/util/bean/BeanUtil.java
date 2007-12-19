@@ -42,6 +42,13 @@ import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
 import org.xerial.util.StringUtil;
+import org.xerial.util.bean.impl.ArraySetter;
+import org.xerial.util.bean.impl.CollectionAdder;
+import org.xerial.util.bean.impl.CollectionSetter;
+import org.xerial.util.bean.impl.Getter;
+import org.xerial.util.bean.impl.MapPutter;
+import org.xerial.util.bean.impl.MapSetter;
+import org.xerial.util.bean.impl.Setter;
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
@@ -945,7 +952,7 @@ public class BeanUtil
         return bean;
     }
 
-    protected static Object createBean(Class valueType, Object jsonValue) throws BeanException
+    public static Object createBean(Class valueType, Object jsonValue) throws BeanException
     {
         if (jsonValue == null)
             return null;
@@ -1062,7 +1069,7 @@ public class BeanUtil
         return bean;
     }
 
-    static Object createXMLBean(Class valueType, Object xmlValue) throws BeanException
+    public static Object createXMLBean(Class valueType, Object xmlValue) throws BeanException
     {
         if (xmlValue == null)
             return null;

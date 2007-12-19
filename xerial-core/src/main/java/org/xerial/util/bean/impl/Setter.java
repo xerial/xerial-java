@@ -22,12 +22,16 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUtil;
 
-class Setter extends BeanBinderBase implements BeanUpdator {
+
+public class Setter extends BeanBinderBase implements BeanUpdator {
     Class valueType;
 
     public Setter(Method method, String parameterName, Class valueType) {

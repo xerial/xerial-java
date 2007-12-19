@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,6 +30,10 @@ import java.lang.reflect.Method;
 
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
+import org.xerial.util.bean.BeanBinder;
+import org.xerial.util.bean.BeanErrorCode;
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.TypeInformation;
 
 /**
  * A Binder holds a getter/setter method and its parameter type.

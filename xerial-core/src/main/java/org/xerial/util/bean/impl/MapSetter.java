@@ -16,64 +16,59 @@
 //--------------------------------------
 // XerialJ
 //
-// MapPutter.java
-// Since: Aug 9, 2007 9:43:22 AM
+// MapSetter.java
+// Since: Aug 9, 2007 9:43:40 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
-import org.w3c.dom.Element;
 import org.xerial.json.JSONArray;
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.BeanUtil;
+import org.xerial.util.bean.TypeInformation;
 
-class MapPutter extends BeanBinderBase {
+
+public class MapSetter extends BeanBinderBase {
+    Class mapType;
+
     Class keyType;
 
     Class valueType;
 
-    public MapPutter(Method method, String parameterName, Class keyType, Class valueType) throws BeanException {
+    public MapSetter(Method method, String parameterName, Class mapType, Class keyType, Class valueType) throws BeanException {
         super(method, parameterName);
+        this.mapType = mapType;
         this.keyType = keyType;
         this.valueType = valueType;
 
+        constractableTest(mapType);
         constractableTest(keyType);
         constractableTest(valueType);
+        assert (TypeInformation.isMap(mapType));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
+    public void setJSONData(Object bean, Object json) throws BeanException { 
         JSONArray mapContent = getJSONArray(json, "-m");
         if (mapContent == null)
-            if (json.getClass() != JSONArray.class)
-                return;
-            else
-                mapContent = (JSONArray) json;
+            return;
 
+        Map tmpMap = (Map) BeanUtil.createInstance(mapType);
         for (int i = 0; i < mapContent.size(); i++) {
             JSONArray entry = mapContent.getJSONArray(i);
             if (entry != null) {
                 Object key = BeanUtil.createBean(keyType, entry.get(0));
                 Object value = BeanUtil.createBean(valueType, entry.get(1));
-                invokeMethod(bean, new Object[] { key, value });
+                tmpMap.put(key, value);
             }
         }
+        invokeMethod(bean, new Object[] { tmpMap });
     }
 
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException
-    {
-        if(!TypeInformation.isDOMElement(xmlData.getClass()))
-            return;
-        
-        Element mapEntryElement = (Element) xmlData;
-        // TODO support for complex putter argument such as putSomething(String key, Map value);
-        String key = mapEntryElement.getAttribute("key");
-        Object value = BeanUtil.createXMLBean(valueType, mapEntryElement);
-        invokeMethod(bean, new Object[] { key, value } );
-    }
-    
-    
 }

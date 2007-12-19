@@ -29,90 +29,29 @@ import org.junit.Test;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
+import org.xerial.util.bean.sample.Address;
+import org.xerial.util.bean.sample.Book;
+import org.xerial.util.bean.sample.CollectionParam;
+import org.xerial.util.bean.sample.ComplexMap;
+import org.xerial.util.bean.sample.ComplexType;
+import org.xerial.util.bean.sample.HogeHoge;
+import org.xerial.util.bean.sample.Mate;
+import org.xerial.util.bean.sample.NameTable;
+import org.xerial.util.bean.sample.Person;
+import org.xerial.util.bean.sample.PersonList;
+import org.xerial.util.bean.sample.PersonList2;
+import org.xerial.util.bean.sample.PersonTable;
+import org.xerial.util.bean.sample.PersonVector;
+import org.xerial.util.bean.sample.PrimitiveAdder;
+import org.xerial.util.bean.sample.TrackInfo;
+import org.xerial.util.bean.sample.UnknownTypeMap;
 import org.xerial.util.log.Logger;
 
-/**
- * Sample class for BeanUtilTest
- * @author leo
- *
- */
-class Person implements Comparable<Person>
-{
-    int id;
-    String name;
-    
-    public Person()
-    {}
-    
-    public Person(int id, String name)
-    {
-        this.id = id;
-        this.name = name;
-    }
-    
-    @Override
-	public boolean equals(Object o) {
-    	if (o instanceof Person) {
-			Person other = (Person) o;
-	    	return (id == other.id) && (name.equals(other.name));			
-		}
-    	else
-    		return false;
-	}
 
-    public int compareTo(Person o) {
-		return (this.id - o.id);
-	}
 
-    public int getId()
-    {
-        return id;
-    }
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 
-}
 
-@SuppressWarnings("serial")
-class PersonTable extends TreeMap<Integer, Person>
-{
-	public PersonTable() 
-	{ super(); }
-}
 
-@SuppressWarnings("serial")
-class ComplexMap extends TreeMap<Integer, PersonTable>
-{
-	public ComplexMap()
-	{
-		super();
-	}
-
-}
-
-class ComplexType 
-{
-	Map table = new ComplexMap();
-
-	public ComplexType() {}
-	
-	public Map getTable() {
-		return table;
-	}
-	public void setTable(ComplexMap table) {
-		this.table = table;
-	}
-}
 
 
 /**
@@ -155,36 +94,7 @@ public class BeanUtilTest
     	assertNotNull(BeanUtil.pickPropertyName("put"));
     }
     
-    class Book
-    {
-        String title;
-        String[] author;
 
-        public Book() {}
-        public Book(String title, String[] author)
-        {
-            this.title = title;
-            this.author = author;
-        }
-
-        public String[] getAuthor()
-        {
-            return author;
-        }
-        public void setAuthor(String[] author)
-        {
-            this.author = author;
-        }
-        public String getTitle()
-        {
-            return title;
-        }
-        public void setTitle(String title)
-        {
-            this.title = title;
-        }
-    }
-    
     class PrivateGetterSetter
     {
         Double value;
@@ -299,34 +209,7 @@ public class BeanUtilTest
     	assertEquals(0.0, p.getValue());
     }
     
-    class CollectionParam
-    {
-    	Vector<String> nameList = new Vector<String>(); 
-    	ArrayList<Integer> idList = new ArrayList<Integer>();
-		
-    	public CollectionParam(Vector<String> nameList, ArrayList<Integer> idList) {
-			this.nameList = nameList;
-			this.idList = idList;
-		}
-    	
-		public CollectionParam() {
-		}
 
-		public ArrayList<Integer> getIdList() {
-			return idList;
-		}
-		public void setIdList(ArrayList<Integer> idList) {
-			this.idList = idList;
-		}
-		public Vector<String> getNameList() {
-			return nameList;
-		}
-		public void setNameList(Collection<String> nameList) {
-			this.nameList.clear();
-			this.nameList.addAll(nameList);
-		}
-    }
-    
     @Test 
     public void beanWithCollectionParameters() throws BeanException 
     {
@@ -356,33 +239,7 @@ public class BeanUtilTest
     	
     }
     
-    class Address
-    {
-    	Person person;
-    	String address;
-    	
-		public Address() {
-
-		}
-		public Address(Person person, String address) {
-			this.person = person;
-			this.address = address;
-		}
-		public String getAddress() {
-			return address;
-		}
-		public void setAddress(String address) {
-			this.address = address;
-		}
-		public Person getPerson() {
-			return person;
-		}
-		public void setPerson(Person person) {
-			this.person = person;
-		}
-		
-		
-    }
+  
     
     @Test
     public void nestedBean() throws BeanException 
@@ -400,25 +257,6 @@ public class BeanUtilTest
     	assertEquals("world", addr2.getAddress());
     }
     
-    class PersonList
-    {
-    	Vector<Person> personList = null;
-    	
-
-		public PersonList() {
-		}
-
-		public PersonList(Vector<Person> personList) {
-			this.personList = personList;
-		}
-
-		public Vector<Person> getPersonList() {
-			return personList;
-		}
-		public void setPersonList(Vector<Person> personList) {
-			this.personList = personList;
-		}
-    }
     
     @Test
     public void beanCollection() throws BeanException
@@ -469,27 +307,7 @@ public class BeanUtilTest
     }
     */
     
-    class PrimitiveAdder 
-    {
-    	Vector<Integer> valueList = new Vector<Integer>();
-    	public PrimitiveAdder()
-    	{}
-    	
-    	public void addValueList(Integer value)
-    	{
-    		valueList.add(value);
-    	}
-    	public Vector<Integer> getValueList() { return valueList; }
-    	
-    	@SuppressWarnings("unchecked")
-		public void setValueList(Vector valueList)
-    	{
-    		// this setter must be ignored, so we set invalid values to the valueList
-    		valueList.clear();
-    		valueList.add(434);
-    		valueList.add(4134);
-    	}
-    }
+
     
     @Test
     public void adder() throws BeanException
@@ -510,34 +328,6 @@ public class BeanUtilTest
     		assertEquals(v, p2.getValueList().get(index++));
     	}
     	
-    }
-    
-    class NameTable
-    {
-    	Map<Integer, String> nameTable = new TreeMap<Integer, String>();
-    	
-    	public NameTable() {}
-    	public NameTable(Map<Integer, String> nameTable)
-    	{
-    		this.nameTable = nameTable;
-    	}
-    	
-    	public String getNameTable(Integer key) 
-    	{
-    		return nameTable.get(key);
-    	}
-
-    	public void putNameTable(Integer key, String value)
-    	{
-    		nameTable.put(key, value);
-    	}
-		
-    	public Map<Integer, String> getNameTable() {
-			return nameTable;
-		}
-		public void setNameTable(Map<Integer, String> nameTable) {
-			this.nameTable = nameTable;
-		}
     }
     
     @Test 
@@ -561,27 +351,6 @@ public class BeanUtilTest
     	}
     }
     
-    class Mate
-    {
-    	Map<Person, Person> pair = new TreeMap<Person, Person>();
-    	public Mate() {}
-		
-    	public Map<Person, Person> getPair() {
-			return pair;
-		}
-		public void setPair(Map<Person, Person> pair) {
-			this.pair = pair;
-		}
-		
-		public void putPair(Person p1, Person p2)
-		{
-			pair.put(p1, p2);
-		}
-		public Person getPair(Person p1)
-		{
-			return pair.get(p1);
-		}
-    }
     
     @Test
     public void beanMap() throws BeanException
@@ -602,36 +371,6 @@ public class BeanUtilTest
     	assertEquals(m1.getPair(pair2[0]), m2.getPair(pair2[0]));
     }
     
-    class HogeHoge
-    {
-    	SortedMap<Integer, String> map = new TreeMap<Integer, String>();
-    	SortedMap<Integer, SortedMap<Integer, String>> graph = new TreeMap<Integer, SortedMap<Integer, String>>();
-    	
-    	public HogeHoge()
-    	{}
-
-		public void setMap(SortedMap<Integer, String> map) {
-			this.map = map;
-		}
-		
-		public Map<Integer, String> getMap()
-		{
-			return map;
-		}
-
-		public void setMap(Map m)
-		{
-			this.map = (TreeMap<Integer, String>) m;
-		}
-
-
-		public Map getGraph() { return graph; }
-		public void setGraph(SortedMap<Integer, SortedMap<Integer, String>> graph)
-		{
-			this.graph = graph;
-		}
-
-    }
     
     @Test
     public void treeMapBindRule() throws BeanException
@@ -662,29 +401,6 @@ public class BeanUtilTest
     }
     
     
-    @SuppressWarnings("serial")
-	class UnknownTypeMap extends TreeMap
-    {
-    	String mapName;
-    	public UnknownTypeMap() {}
-	
-
-    	/**
-		 * @param mapName
-		 */
-		public UnknownTypeMap(String mapName) {
-			this.mapName = mapName;
-		}
-
-
-		public String getMapName() {
-			return mapName;
-		}
-		public void setMapName(String mapName) {
-			this.mapName = mapName;
-		}
-
-    }
     
     @SuppressWarnings("unchecked")
 	@Test
@@ -700,7 +416,7 @@ public class BeanUtilTest
     	BeanUtil.populateBean(u2,json); 
     	
     	assertEquals(u1.size(), u2.size());
-    	assertEquals(u1.mapName, u2.mapName);
+    	assertEquals(u1.getMapName(), u2.getMapName());
     	assertEquals(50, u2.get("good"));
     	assertEquals(100, u2.get("excellent"));
     }
@@ -847,23 +563,6 @@ public class BeanUtilTest
      }
      
      
-     class PersonList2
-     {
-         ArrayList personList = new ArrayList();
-         public PersonList2()
-         {}
-         
-         public void addPerson(Person person)
-         {
-             personList.add(person);
-         }
-         
-         public ArrayList getPerson()
-         {
-             return personList;
-         }
-         
-     }
      
      @Test 
      public void adderTest2() throws BeanException
@@ -885,53 +584,4 @@ public class BeanUtilTest
 }
 
 
-@SuppressWarnings("serial")
-class PersonVector extends Vector<Person>
-{
-	public PersonVector() {}
-	
-	
-}
 
-
-class TrackInfo 
-{
-	String name;
-	boolean pack = true;
-	HashMap property = new HashMap();
-	
-	public TrackInfo()
-	{}
-
-	public TrackInfo(String name, boolean pack) {
-		super();
-		this.name = name;
-		this.pack = pack;
-	}
-	
-	public void putProperty(String key, String value)
-	{
-		property.put(key, value);
-	}
-	public HashMap getProperty()
-	{
-		return property;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean getPack() {
-		return pack;
-	}
-
-	public void setPack(boolean pack) {
-		this.pack = pack;
-	}
-
-}

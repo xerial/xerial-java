@@ -16,57 +16,51 @@
 //--------------------------------------
 // XerialJ
 //
-// CollectionAdder.java
-// Since: Aug 9, 2007 9:43:58 AM
+// CollectionSetter.java
+// Since: Aug 9, 2007 9:44:18 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import org.xerial.json.JSONArray;
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.BeanUtil;
+import org.xerial.util.bean.TypeInformation;
 
 
+public class CollectionSetter extends BeanBinderBase {
+    Class collectionType;
 
-class CollectionAdder extends BeanBinderBase implements BeanUpdator {
     Class elementType;
 
-    public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException {
+    public CollectionSetter(Method method, String parameterName, Class collectionType, Class elementType) throws BeanException {
         super(method, parameterName);
+        this.collectionType = collectionType;
         this.elementType = elementType;
 
+        constractableTest(collectionType);
         constractableTest(elementType);
+
+        assert (TypeInformation.isCollection(collectionType));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void setJSONData(Object bean, Object json) throws BeanException {
         JSONArray collectionContent = getJSONArray(json, "-c");
         if (collectionContent == null)
-            if (json.getClass() != JSONArray.class)
-                return;
-            else
-                collectionContent = (JSONArray) json;
+            return;
 
+        Collection tmpCollection = (Collection) BeanUtil.createInstance(collectionType);
         for (int i = 0; i < collectionContent.size(); i++) {
-            Object value = BeanUtil.createBean(elementType, collectionContent.get(i));
-            invokeMethod(bean, new Object[] { value });
+            tmpCollection.add(BeanUtil.createBean(elementType, collectionContent.get(i)));
         }
+        invokeMethod(bean, new Object[] { tmpCollection });
     }
-
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException  
-    {
-        Object value = BeanUtil.createXMLBean(elementType, xmlData);
-        invokeMethod(bean, new Object[] { value });
-    }
-
-    public Class getElementType()
-    {
-        return elementType;
-    }
-    
-    
 
 }

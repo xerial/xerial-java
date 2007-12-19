@@ -27,7 +27,10 @@ package org.xerial.util.bean.impl;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
+import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.XMLWalker;
 
 public class BeanUtilImpl
@@ -47,4 +50,21 @@ public class BeanUtilImpl
         walker.parse(xmlReader);
         return bean; 
     }
+    
+    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, Parser parser) throws XerialException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
+        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess);
+        walker.walk(parseTree);
+        return (E) bindingProcess.getResultBean();
+    }
+    
+    public static Object populateBeanWithParseTree(Object bean, Tree parseTree, Parser parser) throws XerialException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
+        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess);
+        walker.walk(parseTree);
+        return bean;
+    }
+    
 }

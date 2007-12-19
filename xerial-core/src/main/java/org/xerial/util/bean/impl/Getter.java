@@ -16,41 +16,26 @@
 //--------------------------------------
 // XerialJ
 //
-// ArraySetter.java
-// Since: Aug 9, 2007 9:42:59 AM
+// Getter.java
+// Since: Aug 9, 2007 9:41:56 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.xerial.json.JSONArray;
+import org.xerial.util.bean.BeanErrorCode;
+import org.xerial.util.bean.BeanException;
 
-class ArraySetter extends BeanBinderBase {
-    Class componentType;
-
-    public ArraySetter(Method method, String parameterName, Class componentType) {
+public class Getter extends BeanBinderBase {
+    public Getter(Method method, String parameterName) {
         super(method, parameterName);
-        this.componentType = componentType;
     }
 
     @Override
     public void setJSONData(Object bean, Object json) throws BeanException {
-        if (json == null || json.getClass() != JSONArray.class)
-            return;
-        JSONArray arrayContent = (JSONArray) json;
-
-        Object[] tmpArray = (Object[]) Array.newInstance(componentType, arrayContent.size());
-        for (int i = 0; i < arrayContent.size(); i++) {
-            tmpArray[i] = BeanUtil.createBean(componentType, arrayContent.get(i));
-        }
-        invokeMethod(bean, new Object[] { tmpArray });
+        throw new BeanException(BeanErrorCode.GetterCannotBeUsedToBindData);
     }
-
-
-
 }
