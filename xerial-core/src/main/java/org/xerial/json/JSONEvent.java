@@ -18,7 +18,7 @@ public enum JSONEvent {
 	EndObject,
 	StartArray,
 	EndArray,
-	KeyAndValue,
+	Key,
 	Value,
 }
 

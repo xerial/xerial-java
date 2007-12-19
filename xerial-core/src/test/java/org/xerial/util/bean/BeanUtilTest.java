@@ -15,10 +15,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -443,7 +440,8 @@ public class BeanUtilTest
     	assertEquals(json, json2);
     	
     	
-    	JSONObject jsonObj = new JSONObject(json);
+    	@SuppressWarnings("unused")
+        JSONObject jsonObj = new JSONObject(json);
 
     	
     }
