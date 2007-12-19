@@ -42,6 +42,7 @@ import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.bean.XMLWalker;
+import org.xerial.util.log.Logger;
 
 /**
  * 
@@ -51,6 +52,8 @@ import org.xerial.util.bean.XMLWalker;
  */
 public class BeanBindingProcess implements TreeVisitor
 {
+    private static Logger _logger = Logger.getLogger(BeanBindingProcess.class);
+    
     private final ArrayList<Object> beanStack = new ArrayList<Object>();
     private int currentLevel = 0;
 
@@ -64,6 +67,11 @@ public class BeanBindingProcess implements TreeVisitor
         beanStack.add(bean);
     }
 
+    public Object getResultBean()
+    {
+        return beanStack.get(0);
+    }
+    
     public void populateBeanWithXML(Reader xmlReader) throws Exception, IOException
     {
         XMLWalker xmlVisitor = new XMLWalker(this);
@@ -72,7 +80,11 @@ public class BeanBindingProcess implements TreeVisitor
 
     public Object getBean(int level)
     {
-        return level < beanStack.size() ? beanStack.get(level) : null;
+        if(level < 0 || level >= beanStack.size()) 
+            return null;
+        else
+            return beanStack.get(level);
+        
     }
     
     public void setBean(int level, Object bean)
@@ -98,24 +110,33 @@ public class BeanBindingProcess implements TreeVisitor
     public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
         int nodeLevel = --currentLevel;
+        _logger.trace("leave: " + nodeName + " level = " + nodeLevel);
         Object parentBean = getBean(nodeLevel-1);
         if(parentBean == null)
             return;
         
         Class parentBeanClass = parentBean.getClass();    
         BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(parentBeanClass);
-        BeanBinder binder = bindRuleSet.findRule(nodeName);
-        if (binder != null)
+        BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
+        if (updator != null)
         {
             Object valueBean = getBean(nodeLevel);
-            
             if(valueBean == null)
             {
                 if(nodeValue != null && nodeValue.length() > 0)
-                    bindValue(parentBean, binder, nodeValue);
+                {
+                    valueBean = nodeValue;
+                }
             }
-            else
-                bindValue(parentBean, binder, valueBean);
+            
+            try
+            {
+                bindValue(parentBean, updator, valueBean);
+            }
+            catch(BeanException e)
+            {
+                _logger.error(e);
+            }
         }
         
     }
@@ -124,6 +145,7 @@ public class BeanBindingProcess implements TreeVisitor
             throws XerialException
     {
         int nodeLevel = currentLevel++;
+        _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
         Object bean = getBean(nodeLevel);
         if(bean == null)
         {
@@ -164,19 +186,33 @@ public class BeanBindingProcess implements TreeVisitor
         // bind attribute data
         for(NodeAttribute attribute : nodeAttributeList)
         {
-            BeanBinder attributeBinder = bindRuleSet.findRule(attribute.getName());
-            if(attributeBinder != null)
-                bindValue(bean, attributeBinder, attribute.getValue());
+            BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
+            if(updator != null)
+                bindValue(bean, updator, attribute.getValue());
         }
 
     }
     
+    public static BeanUpdator getUpdator(BeanBinderSet bindRuleSet, String ruleName) throws BeanException
+    {
+        BeanBinder binder = bindRuleSet.findRule(ruleName);
+        if(binder == null)
+            return null;
+        else
+        {
+            if(!BeanUpdator.class.isAssignableFrom(binder.getClass()))
+                throw new BeanException(BeanErrorCode.InvalidBeanClass, binder.getClass().getName() + " cannot be used to bind data");
+            return  (BeanUpdator) binder;
+        }
+    }
     
-    protected void bindValue(Object bean, BeanBinder binder, Object value) throws BeanException
+    
+    protected void bindValue(Object bean, BeanUpdator updator, Object value) throws BeanException
     {
         try
         {
-            binder.getMethod().invoke(bean, value);
+            
+            updator.getMethod().invoke(bean, convertType(updator.getElementType(), value));
         }
         catch (IllegalArgumentException e)
         {
@@ -192,6 +228,40 @@ public class BeanBindingProcess implements TreeVisitor
         }
     }
     
+    public static Object convertType(Class targetType, Object value) throws BeanException
+    {
+        if(targetType == value.getClass())
+            return value;
+        else
+            return convertToBasicType(targetType, value);
+    }
     
+    
+    public static Object convertToBasicType(Class targetType, Object input) throws BeanException
+    {
+        assert(TypeInformation.isBasicType(targetType));
+
+        try
+        {
+            String value = input.toString();  
+            if (targetType == String.class)
+                return value;
+            else if (targetType == int.class || targetType == Integer.class)
+                return new Integer(value);
+            else if (targetType == long.class || targetType == Long.class)
+                return new Long(value);
+            else if (targetType == double.class || targetType == Double.class)
+                return new Double(value);
+            else if (targetType == float.class || targetType == Float.class)
+                return new Float(value);
+            else if (targetType == boolean.class || targetType == Boolean.class)
+                return new Boolean(value);
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName());    
+        }
+        catch(NumberFormatException e)
+        {
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName(), e.getMessage());    
+        }
+    }
 
 }

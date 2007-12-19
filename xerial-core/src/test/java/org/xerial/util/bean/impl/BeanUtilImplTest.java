@@ -16,18 +16,45 @@
 //--------------------------------------
 // XerialJ
 //
-// BeanAppender.java
-// Since: Dec 19, 2007 2:33:45 PM
+// BeanUtilImplTest.java
+// Since: Dec 19, 2007 4:43:11 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Method;
 
-public interface BeanUpdator
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.xerial.core.XerialException;
+import org.xerial.util.FileResource;
+
+
+
+public class BeanUtilImplTest
 {
-    public Class getElementType();
-    public Method getMethod();
+    
+    
+    @Before
+    public void setUp() throws Exception
+    {}
+
+    @After
+    public void tearDown() throws Exception
+    {}
+    
+    @Test
+    public void createBeanFromXML() throws XerialException, IOException
+    {
+        Sample s = BeanUtilImpl.createBeanFromXML(Sample.class, FileResource.open(BeanUtilImplTest.class, "sample.xml"));
+        assertEquals(100, s.getId());
+        assertEquals("Leo", s.getName());
+    }
+
 }

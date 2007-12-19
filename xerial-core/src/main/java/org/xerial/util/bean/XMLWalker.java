@@ -83,7 +83,7 @@ public class XMLWalker implements TreeWalker
                     {
                     case START_TAG:
                     {
-                        if(skipDescendants)
+                        if(!skipDescendants)
                         {
                             textStack.addLast(new StringBuilder());
                             String tagName = pullParser.getName();

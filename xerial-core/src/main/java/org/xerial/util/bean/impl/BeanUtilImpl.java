@@ -16,18 +16,27 @@
 //--------------------------------------
 // XerialJ
 //
-// BeanAppender.java
-// Since: Dec 19, 2007 2:33:45 PM
+// BeanUtilImpl.java
+// Since: Dec 19, 2007 4:38:26 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Method;
+import java.io.IOException;
+import java.io.Reader;
 
-public interface BeanUpdator
+import org.xerial.core.XerialException;
+import org.xerial.util.bean.XMLWalker;
+
+public class BeanUtilImpl
 {
-    public Class getElementType();
-    public Method getMethod();
+    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException, IOException
+    {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
+        XMLWalker walker = new XMLWalker(bindingProcess);
+        walker.parse(xmlReader);
+        return (E) bindingProcess.getResultBean();
+    }
 }

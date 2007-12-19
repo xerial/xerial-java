@@ -16,18 +16,45 @@
 //--------------------------------------
 // XerialJ
 //
-// BeanAppender.java
-// Since: Dec 19, 2007 2:33:45 PM
+// Sample.java
+// Since: Dec 19, 2007 4:47:44 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Method;
-
-public interface BeanUpdator
+public class Sample
 {
-    public Class getElementType();
-    public Method getMethod();
+    int id;
+    String name;
+    
+    public Sample()
+    {}
+    
+    /**
+     * @param id
+     * @param name
+     */
+    public Sample(int id, String name)
+    {
+        this.id = id;
+        this.name = name;
+    }
+    public int getId()
+    {
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }
