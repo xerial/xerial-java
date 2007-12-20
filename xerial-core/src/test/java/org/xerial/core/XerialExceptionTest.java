@@ -37,8 +37,8 @@ public class XerialExceptionTest extends TestCase
     
     public void testVarArgConstructor()
     {
-        XerialException e = new XerialException("exception message", 1, "hello");
-
+        new XerialException("exception message", 1, "hello");
+        
     }
     
 //    public void testVarArgConstructor2()

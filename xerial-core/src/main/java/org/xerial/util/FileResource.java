@@ -235,7 +235,7 @@ public class FileResource
                 jarPath = jarPath.replaceAll("%20", " ").replace("file:", "");
                 filePath = filePath.replaceAll("%20", " ");
                 
-                File jarFile = new File(jarPath);
+                //File jarFile = new File(jarPath);
                 JarFile jf = new JarFile(jarPath);
                 for(Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements(); )
                 {
@@ -522,7 +522,7 @@ public class FileResource
             if (!jarURL.getProtocol().equals("file"))
                 throw new IllegalArgumentException("not found the jar: " + jarURL);
 
-            String jarURLString = "jar:" + jarPath;
+            //String jarURLString = "jar:" + jarPath;
 
             File jarFile = new File(jarURL.toString());
             JarFile jf = new JarFile(jarFile);
@@ -531,7 +531,7 @@ public class FileResource
                 JarEntry jarEntry = entryEnum.nextElement();
                 jarEntry.isDirectory();
 
-                String physicalURL = jarURLString + "!/" + jarEntry.getName();
+                //String physicalURL = jarURLString + "!/" + jarEntry.getName();
             }
         }
         catch (MalformedURLException e)

@@ -64,7 +64,7 @@ public class DOMUtil
      */
     static public String getTextContent(Element parentElement, String tagName)
     {
-        NodeList tagList = parentElement.getElementsByTagName(tagName);
+        //NodeList tagList = parentElement.getElementsByTagName(tagName);
         
         // TODO impl
         return null;
@@ -136,7 +136,7 @@ public class DOMUtil
      */
     static public HashMap<String, String> getTextContentMap(Element element)
     {
-        String currentPath = ""; 
+        //String currentPath = ""; 
         DOMReadProcess readProcess = new DOMReadProcess();
         readProcess.traceSubTree(element);
         return readProcess.getContentMap();

@@ -1,9 +1,0 @@
-<grammar>
-  <name>g0</name>
-  <grammar>
-	<name>g1</name>  
-  </grammar>
-  <grammar>
-  	<name>g2</name>
-  </grammar>
-</grammar>

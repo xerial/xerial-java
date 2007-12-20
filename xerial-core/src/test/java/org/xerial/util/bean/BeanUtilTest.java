@@ -463,7 +463,7 @@ public class BeanUtilTest
      {
     	 try
     	 {
-    		NonConstructableClass c = new NonConstructableClass();
+    		//NonConstructableClass c = new NonConstructableClass();
     		ArrayList<NonConstructableClass> a = new ArrayList<NonConstructableClass>();
     		BeanUtil.populateBean(a, "{\"-c\":[{\"name\":\"leo\"}]}");
     	 }
@@ -536,6 +536,7 @@ public class BeanUtilTest
     	 m1.putPair(pair2[0], pair2[1]);
     	 String xml2 = BeanUtil.toXML("mate", m1);
     	 _logger.debug(xml);
+    	 _logger.debug(xml2);
     	 
     	 assertTrue(true);
      }
@@ -574,8 +575,10 @@ public class BeanUtilTest
          PersonList2 pl2 = new PersonList2();
          BeanUtil.populateBean(pl2, json);
          String json2 = BeanUtil.toJSON(pl2);
+         _logger.debug(json2);
          
          String xml = BeanUtil.toXML("personList", pl);
+         _logger.debug(xml);
          
      }
      

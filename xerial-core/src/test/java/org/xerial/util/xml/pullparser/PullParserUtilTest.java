@@ -24,15 +24,14 @@
 //--------------------------------------
 package org.xerial.util.xml.pullparser;
 
-import java.io.FileReader;
 import java.io.IOException;
+
+import junit.framework.TestCase;
 
 import org.xerial.util.FileResource;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import junit.framework.TestCase;
 
 /**
  * @author leo

@@ -90,12 +90,6 @@ public class DOMUtilTest extends TestCase
     
     
     
-    public void testBinder()
-    {
-        BookXMLBean bean = new BookXMLBean();
-        //XMLBeanUtil.populate(bean, );
-    }
-    
     public void testGetTextContentMap() throws FileNotFoundException, IOException, XMLException 
     {
     	HashMap<String, String> cMap = DOMUtil.getTextContentMap(FileResource.find(DOMUtilTest.class, "domtest.xml").openStream());

@@ -25,19 +25,18 @@
 package org.xerial.util.xml.pullparser;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
+
+import junit.framework.TestCase;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xerial.util.FileResource;
 import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParserException;
-
-import junit.framework.TestCase;
 
 /**
  * @author leo

@@ -537,7 +537,6 @@ public class BeanUtil
                 if (TypeInformation.isCollection(beanClass))
                 {
                     Collection collection = (Collection) bean;
-                    int i = 0;
                     for (Object elem : collection)
                     {
                         toXML(tagName, elem);
@@ -547,7 +546,6 @@ public class BeanUtil
                 {
                     Map map = (Map) bean;
 
-                    int i = 0;
                     for (Object key : map.keySet())
                     {
                         _out.startTag(tagName, new XMLAttribute("key", key.toString()));
@@ -764,13 +762,6 @@ public class BeanUtil
             if (binder != null)
                 binder.invokeXMLDataSetter(bean, textData.trim());
         }
-
-    }
-
-    public static void populateBean(Object bean, TreeVisitor treeIterator) throws BeanException
-    {
-        Class beanClass = bean.getClass();
-        BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(beanClass);
 
     }
 

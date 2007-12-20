@@ -33,7 +33,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
-import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 
 public class DTDParserTest

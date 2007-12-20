@@ -25,7 +25,6 @@
 package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.xerial.json.JSONArray;

@@ -1,8 +1,0 @@
-<domtest>
-  <name>Yui-chan</name>
-  <birth year="2002" month="12" day="25"/>
-  <photo><![CDATA[xxxbbbaaa]]></photo>
-  <!-- comment node -->
-  <address> Tokyo </address>
-</domtest>
-

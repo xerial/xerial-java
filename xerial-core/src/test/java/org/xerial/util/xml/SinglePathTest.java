@@ -35,8 +35,8 @@ public class SinglePathTest extends TestCase
 {
     public void testConstructor()
     {
-        SinglePath p1 = new SinglePath(AbsolutePath);
-        SinglePath p2 = new SinglePath("/book/author");
+        new SinglePath(AbsolutePath);
+        new SinglePath("/book/author");
     }
     
     public void testPathComparator()

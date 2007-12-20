@@ -90,7 +90,7 @@ public class JSONPullParser
 	
 	private void popParseState()
 	{
-	    ParseState ps = parseStateStack.removeLast();
+	    parseStateStack.removeLast();
 	    _logger.trace("pop : " + StringUtil.join(parseStateStack, ", "));
 	}
 	

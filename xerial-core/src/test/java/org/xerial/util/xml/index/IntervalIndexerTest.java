@@ -25,19 +25,15 @@
 package org.xerial.util.xml.index;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLException;
-import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.index.IntervalIndexer;
-import org.xerial.util.xml.index.LWIndexWriter;
-import org.xerial.util.xml.pullparser.SAXParser;
-
 import junit.framework.TestCase;
+
+import org.xerial.util.xml.XMLAttribute;
+import org.xerial.util.xml.XMLGenerator;
+import org.xerial.util.xml.pullparser.SAXParser;
 
 public class IntervalIndexerTest extends TestCase
 {

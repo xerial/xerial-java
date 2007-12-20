@@ -26,7 +26,6 @@ package org.xerial.util.xml.index;
 
 import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
 import static org.xmlpull.v1.XmlPullParser.END_TAG;
-import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
 import static org.xmlpull.v1.XmlPullParser.START_TAG;
 import static org.xmlpull.v1.XmlPullParser.TEXT;
 

@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Stack;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
