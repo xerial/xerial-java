@@ -49,6 +49,7 @@ public enum BeanErrorCode {
     
     // binder
     GetterCannotBeUsedToBindData,
+    BindFailure,
 
     
     

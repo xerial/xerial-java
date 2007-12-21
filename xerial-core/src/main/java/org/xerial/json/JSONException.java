@@ -13,7 +13,7 @@ package org.xerial.json;
 import org.xerial.core.XerialException;
 
 /**
- * Exception base class related JSON 
+ * Exception class related JSON  
  * @author leo
  *
  */
@@ -68,12 +68,22 @@ public class JSONException extends XerialException
         this.errorCode = errorCode;
     }
 	
+    /* (non-Javadoc)
+     * @see java.lang.Throwable#getMessage()
+     */
     public String getMessage()
     {
         return "[" + errorCode.name() + "] " + super.getMessage();
     }
 
-	
+	/**
+	 * Gets the error code
+	 * @return the error code
+	 */
+	public JSONErrorCode getErrorCode()
+	{
+	    return errorCode;
+	}
 }
 
 

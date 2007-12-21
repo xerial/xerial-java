@@ -541,7 +541,7 @@ public class BeanUtilTest
     	 assertTrue(true);
      }
      
-     @Test
+     @Ignore @Test
      public void beanToXML2() throws BeanException
      {
     	 TrackInfo t = new TrackInfo("sample track", false);

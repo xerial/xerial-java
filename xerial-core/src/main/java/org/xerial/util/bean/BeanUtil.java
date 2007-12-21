@@ -32,6 +32,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONBoolean;
 import org.xerial.json.JSONDouble;
@@ -43,6 +44,7 @@ import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.impl.ArraySetter;
+import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.bean.impl.CollectionAdder;
 import org.xerial.util.bean.impl.CollectionSetter;
 import org.xerial.util.bean.impl.Getter;
@@ -692,19 +694,13 @@ public class BeanUtil
     public static void populateBeanWithXML(Object bean, String xmlData) throws BeanException
     {
         assert (bean != null);
-        DOMBuilder domBuilder = new DOMBuilder();
         try
         {
-            Element xmlElement = domBuilder.parse(new StringReader(xmlData));
-            populateBeanWithXML(bean, xmlElement);
+            BeanUtilImpl.populateBeanWithXML(bean, new StringReader(xmlData));
         }
-        catch (XMLException e)
+        catch (XerialException e)
         {
-            throw new BeanException(BeanErrorCode.InvalidXMLData, e);
-        }
-        catch (XmlPullParserException e)
-        {
-            throw new BeanException(BeanErrorCode.ParserError, e);
+            throw new BeanException(BeanErrorCode.BindFailure, e);
         }
         catch (IOException e)
         {
