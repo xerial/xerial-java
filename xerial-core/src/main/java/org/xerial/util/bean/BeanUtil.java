@@ -689,23 +689,28 @@ public class BeanUtil
             throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
-    
-
-    public static void populateBeanWithXML(Object bean, String xmlData) throws BeanException
+   
+    public static void populateBeanWithXML(Object bean, Reader xmlReader) throws BeanException
     {
-        assert (bean != null);
+        if(bean == null)
+            throw new BeanException(BeanErrorCode.BeanObjectIsNull);
         try
         {
-            BeanUtilImpl.populateBeanWithXML(bean, new StringReader(xmlData));
+            BeanUtilImpl.populateBeanWithXML(bean, xmlReader);
         }
-        catch (XerialException e)
+        catch(XerialException e)
         {
             throw new BeanException(BeanErrorCode.BindFailure, e);
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             throw new BeanException(BeanErrorCode.InvalidXMLData, e);
         }
+    }
+
+    public static void populateBeanWithXML(Object bean, String xmlData) throws BeanException
+    {
+        populateBeanWithXML(bean, new StringReader(xmlData));
     }
 
     public static void populateBeanWithXML(Object bean, Element xmlElement) throws BeanException

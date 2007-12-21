@@ -47,6 +47,8 @@ public enum BeanErrorCode {
     InvalidNumberFormat,
     InvocationTargetException,
     
+    BeanObjectIsNull,
+    
     // binder
     GetterCannotBeUsedToBindData,
     BindFailure,

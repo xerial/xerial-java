@@ -50,7 +50,7 @@ import org.w3c.dom.Element;
  * 
  */
 public class TypeInformation {
-    static private Class[] _parameterClass = { int.class, double.class, float.class, boolean.class, String.class, Integer.class, Double.class, Float.class,
+    static private Class[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class, String.class, Integer.class, Double.class, Float.class, Long.class, 
             Boolean.class };
 
     static private HashSet<Class> basicTypeSet = new HashSet<Class>();
