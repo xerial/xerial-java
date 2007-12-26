@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
  * <pre>
  * public class YourBean
  * {
- *    @XMLAttribute
+ *    @OutputAsXMLAttribute
  *    public int getId()
  *    {
  *    }
@@ -49,6 +49,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface XMLAttribute {
+public @interface OutputAsXMLAttribute {
 
 }
