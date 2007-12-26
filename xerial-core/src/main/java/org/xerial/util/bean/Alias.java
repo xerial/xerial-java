@@ -16,31 +16,27 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeWalker.java
-// Since: Dec 19, 2007 12:40:15 PM
+// Alias.java
+// Since: Dec 26, 2007 3:24:43 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ * node name alias for setter/getter methods
+ * 
  * @author leo
  *
  */
-public interface TreeWalker
-{
-    /**
-     * Skip the descendants of the current node
-     */
-    public void skipDescendants();
-    
-    /**
-     * Gets the entire subtree beginning from the current node, and 
-     * skips the descendants.
-     * @return {@link TreeNode} representation of the tree structured data beginning from the current node
-     */
-    public TreeNode getSubTree();
-    
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Alias {
+    String[] value();
 }

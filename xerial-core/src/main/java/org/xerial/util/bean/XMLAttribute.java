@@ -16,31 +16,39 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeWalker.java
-// Since: Dec 19, 2007 12:40:15 PM
+// XMLAttribute.java
+// Since: Dec 26, 2007 3:57:35 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ * Use this annotation to get a getter result of a bean class as an XML attribute.
+ * 
+ * For example,
+ * <pre>
+ * public class YourBean
+ * {
+ *    @XMLAttribute
+ *    public int getId()
+ *    {
+ *    }
+ * }
+ * 
+ * </pre>
+ * 
  * @author leo
  *
  */
-public interface TreeWalker
-{
-    /**
-     * Skip the descendants of the current node
-     */
-    public void skipDescendants();
-    
-    /**
-     * Gets the entire subtree beginning from the current node, and 
-     * skips the descendants.
-     * @return {@link TreeNode} representation of the tree structured data beginning from the current node
-     */
-    public TreeNode getSubTree();
-    
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface XMLAttribute {
+
 }

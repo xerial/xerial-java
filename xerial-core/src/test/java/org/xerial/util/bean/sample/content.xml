@@ -1,0 +1,12 @@
+<contents>
+  <content type="person">
+    <id>1</id>
+    <name>Leo</name>
+  </content>
+  <content type="book">
+    <title>Database Handbook</title>
+    <author>Yui</author>
+    <author>May</author>
+  </content>
+</contents>
+

@@ -166,7 +166,7 @@ public class BeanBindingProcess implements TreeVisitor
                 Class elementType = updator.getElementType();
                 if(TypeInformation.isBasicType(elementType))
                 {
-                    // this bean can be converted from a element text, so there is no need to instantiate the object here.
+                    // this bean can be converted from an element text, so there is no need to instantiate the object here.
                     return;
                 }
                 else

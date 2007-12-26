@@ -108,4 +108,10 @@ public class JSONStreamWalker implements TreeWalker
     {
         skipDescendants = true;
     }
+
+
+    public TreeNode getSubTree()
+    {
+        throw new UnsupportedOperationException("not implemented");
+    }
 }

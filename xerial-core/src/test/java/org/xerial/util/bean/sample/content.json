@@ -1,0 +1,6 @@
+{ "content":
+  [
+    { "type":"person", "id":"1", "name":"Leo" },
+    { "type":"book", "title":"1", "author":["Yui", "May"] }
+  ]
+}

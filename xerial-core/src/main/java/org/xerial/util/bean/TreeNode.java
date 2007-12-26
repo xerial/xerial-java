@@ -16,31 +16,25 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeWalker.java
-// Since: Dec 19, 2007 12:40:15 PM
+// TreeNode.java
+// Since: Dec 26, 2007 4:02:11 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
+import java.util.List;
 
 /**
+ * Tree represetation of XML/JSON/ANTLR data
+ * 
  * @author leo
  *
  */
-public interface TreeWalker
+public interface TreeNode
 {
-    /**
-     * Skip the descendants of the current node
-     */
-    public void skipDescendants();
-    
-    /**
-     * Gets the entire subtree beginning from the current node, and 
-     * skips the descendants.
-     * @return {@link TreeNode} representation of the tree structured data beginning from the current node
-     */
-    public TreeNode getSubTree();
-    
+    public String getNodeName();
+    public String getNodeValue();
+    public List<TreeNode> getChildren();
 }

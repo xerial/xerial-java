@@ -25,6 +25,7 @@
 package org.xerial.util.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.tree.Tree;
@@ -40,6 +41,7 @@ public class ANTLRWalker implements TreeWalker
     private static final ArrayList<NodeAttribute> emptyAttributeList = new ArrayList<NodeAttribute>();
     private final Parser parser;
     private final TreeVisitor visitor;
+    private Tree currentNode = null;
     
     private boolean skipDescendants = false;
     
@@ -52,6 +54,7 @@ public class ANTLRWalker implements TreeWalker
         
     public void walk(Tree t) throws XerialException
     {
+        currentNode = t;
         int tokenType = t.getType();
         String nodeName = parser.getTokenNames()[tokenType];
         
@@ -80,4 +83,42 @@ public class ANTLRWalker implements TreeWalker
         skipDescendants = true;
     }
 
+
+    public TreeNode getSubTree()
+    {
+        skipDescendants();
+        return new ANTLRTreeNodeWrapper(currentNode);
+    }
+
+    class ANTLRTreeNodeWrapper implements TreeNode
+    {
+        private Tree t;
+
+        public ANTLRTreeNodeWrapper(Tree t)
+        {
+            this.t = t;
+        }
+        
+        public List<TreeNode> getChildren()
+        {
+            ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
+            for(int i=0; i<t.getChildCount(); i++)
+            {
+                childList.add(new ANTLRTreeNodeWrapper(t.getChild(i)));
+            }
+            return childList;
+        }
+
+        public String getNodeName()
+        {
+            return parser.getTokenNames()[t.getType()];
+        }
+
+        public String getNodeValue()
+        {
+            return t.getText();
+        }
+        
+    }
+    
 }

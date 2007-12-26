@@ -39,6 +39,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.core.XerialException;
+import org.xerial.util.bean.impl.XMLTreeNode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.dom.DOMUtil;
 import org.xerial.util.xml.pullparser.PullParserUtil;
@@ -132,6 +133,12 @@ public class XMLWalker
             skipDescendants = true;
             skipLevel = pullParser.getDepth();
         }
+
+        public TreeNode getSubTree()
+        {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
     
     private static class XMLAttributeImpl implements NodeAttribute
@@ -165,12 +172,14 @@ public class XMLWalker
     class XMLDOMWalker implements TreeWalker
     {
         private boolean skipDesendants = false;
+        private Element currentElement = null;
         
         public XMLDOMWalker()
         {}
         
         public void parse(Element element) throws XerialException
         {
+            currentElement = element;
             
             String tagName = element.getNodeName();
             ArrayList<NodeAttribute> attributeList = new ArrayList<NodeAttribute>();
@@ -209,6 +218,12 @@ public class XMLWalker
         public void skipDescendants()
         {
             this.skipDesendants = true;
+        }
+
+        public TreeNode getSubTree()
+        {
+            skipDescendants();
+            return new XMLTreeNode(currentElement);
         }
         
     }
