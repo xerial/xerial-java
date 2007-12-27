@@ -1,3 +1,15 @@
+
+require 'tempfile'
+require 'fileutils'
+require 'nkf'
+
+Dir["src/**/*.java"].each { |file|
+  lines = open(file) { |f| f.readlines }
+  next if lines[1].include?("Copyright")
+
+  out = Tempfile.new("tempfile")
+  puts "apply license to #{file}"
+  license = <<LICENSE
 /*--------------------------------------------------------------------------
  *  Copyright 2007 Taro L. Saito
  *
@@ -13,29 +25,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
-//--------------------------------------
-// XerialJ Project
-//
-// JSONEvent.java
-// Since: May 8, 2007
-//
-// $Date: 2007-05-08 11:51:00 +0900 (Tue, 08 May 2007) $
-// $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONEvent.java $ 
-// $Author: leo $
-//--------------------------------------
-package org.xerial.json;
-
-public enum JSONEvent {
-	EndJSON,
-	StartObject,
-	EndObject,
-	StartArray,
-	EndArray,
-	String,
-	Integer,
-	Double,
-	Boolean,
-	Null,
+LICENSE
+  out.puts NKF.nkf('-Lw', license) 
+  lines.each { |l| out.print(NKF.nkf('-Lw', l)) }
+  out.close
+  
+  FileUtils.mv(out.path, file)
+  
 }
 
 

@@ -1,3 +1,18 @@
+/*--------------------------------------------------------------------------
+ *  Copyright 2007 Taro L. Saito
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *--------------------------------------------------------------------------*/
 //--------------------------------------
 // XerialJ Project
 //
@@ -462,8 +477,8 @@ public class BeanUtil
      *            getSomething
      * @param patternType
      *            set(ter) or get(ter)
-     * @return ƒƒ\ƒbƒh–¼‚©‚çæ“ª‚Ìset/get‚ðŽæ‚èœ‚¢‚½•¶Žš—ñ‚Ìæ“ª‚ðlower case‚É•ÏŠ·‚µ‚½String.
-     *         Ø‚èo‚¹‚È‚¢ê‡‚ÍAnull ‚ð•Ô‚·/
+     * @return $B%a%=%C%IL>$+$i@hF,$N(Bset/get$B$r<h$j=|$$$?J8;zNs$N@hF,$r(Blower case$B$KJQ49$7$?(BString.
+     *         $B@Z$j=P$;$J$$>l9g$O!"(Bnull $B$rJV$9(B/
      */
     static String pickPropertyName(String methodName)
     {
