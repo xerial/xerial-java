@@ -34,7 +34,7 @@ scope ArrayLayer {
 //
 //--------------------------------------
 package org.xerial.json;
-import org.xerial.util.StringUtil;
+import org.xerial.util.StringUtil; 
 }
 
 
@@ -50,7 +50,7 @@ jsonArray returns [JSONArray r]
 	: a=array  { $r = a; }
 	;	
 
-
+ 
 object returns [JSONObject v]
 scope ObjectLayer;
 @init {
@@ -80,7 +80,7 @@ arrayElement
 	;
 
 value returns [JSONValue v]
-	: ^(STRING s=String) { $v = new JSONString($s.text); }
+	: ^(STRING s=String) { $v = new JSONString(unquote($s.text)); }
 	| ^(INTEGER n=Integer) { $v = new JSONInteger($n.text); }
 	| ^(DOUBLE n=Double) { $v = new JSONDouble($n.text); }
 	| o=object { $v = o; }

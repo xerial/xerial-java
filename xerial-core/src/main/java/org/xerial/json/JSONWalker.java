@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g 2007-12-27 10:18:15
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g 2007-12-27 12:22:43
 
 //--------------------------------------
 // Xerial Project
@@ -8,7 +8,7 @@
 //
 //--------------------------------------
 package org.xerial.json;
-import org.xerial.util.StringUtil;
+import org.xerial.util.StringUtil; 
 
 
 import org.antlr.runtime.*;
@@ -22,10 +22,10 @@ import java.util.ArrayList;
  */
 public class JSONWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "OBJECT", "ELEMENT", "ARRAY", "STRING", "INTEGER", "DOUBLE", "Colon", "Comma", "LBrace", "RBrace", "LBracket", "RBracket", "Dot", "TRUE", "FALSE", "NULL", "Digit", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "Int", "Frac", "Exp", "WhiteSpace", "StringValue", "String", "Integer", "Double"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "OBJECT", "ELEMENT", "ARRAY", "STRING", "INTEGER", "DOUBLE", "Colon", "Comma", "LBrace", "RBrace", "LBracket", "RBracket", "Dot", "TRUE", "FALSE", "NULL", "Digit", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "Int", "Frac", "Exp", "WhiteSpace", "String", "Integer", "Double"
     };
     public static final int INTEGER=8;
-    public static final int Double=32;
+    public static final int Double=31;
     public static final int LBrace=12;
     public static final int Frac=26;
     public static final int NULL=19;
@@ -39,19 +39,18 @@ public class JSONWalker extends TreeParser {
     public static final int TRUE=17;
     public static final int Int=25;
     public static final int OBJECT=4;
-    public static final int StringValue=29;
-    public static final int Dot=16;
     public static final int ELEMENT=5;
+    public static final int Dot=16;
     public static final int DOUBLE=9;
     public static final int StringChar=24;
     public static final int WhiteSpace=28;
-    public static final int String=30;
+    public static final int String=29;
     public static final int LBracket=14;
     public static final int FALSE=18;
     public static final int Comma=11;
     public static final int EscapeSequence=23;
     public static final int ARRAY=6;
-    public static final int Integer=31;
+    public static final int Integer=30;
     public static final int RBrace=13;
     public static final int STRING=7;
     protected static class ObjectLayer_scope {
@@ -155,7 +154,7 @@ public class JSONWalker extends TreeParser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:2: ( ^( OBJECT ( objectElement )* ) )
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:4: ^( OBJECT ( objectElement )* )
             {
-            match(input,OBJECT,FOLLOW_OBJECT_in_object130); 
+            match(input,OBJECT,FOLLOW_OBJECT_in_object131); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
@@ -174,7 +173,7 @@ public class JSONWalker extends TreeParser {
                 	case 1 :
                 	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:59:13: objectElement
                 	    {
-                	    pushFollow(FOLLOW_objectElement_in_object132);
+                	    pushFollow(FOLLOW_objectElement_in_object133);
                 	    objectElement();
                 	    _fsp--;
 
@@ -219,12 +218,12 @@ public class JSONWalker extends TreeParser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:64:2: ( ^( ELEMENT s= String v= value ) )
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:64:4: ^( ELEMENT s= String v= value )
             {
-            match(input,ELEMENT,FOLLOW_ELEMENT_in_objectElement152); 
+            match(input,ELEMENT,FOLLOW_ELEMENT_in_objectElement153); 
 
             match(input, Token.DOWN, null); 
             s=(CommonTree)input.LT(1);
-            match(input,String,FOLLOW_String_in_objectElement156); 
-            pushFollow(FOLLOW_value_in_objectElement160);
+            match(input,String,FOLLOW_String_in_objectElement157); 
+            pushFollow(FOLLOW_value_in_objectElement161);
             v=value();
             _fsp--;
 
@@ -260,7 +259,7 @@ public class JSONWalker extends TreeParser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:2: ( ^( ARRAY ( arrayElement )* ) )
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:4: ^( ARRAY ( arrayElement )* )
             {
-            match(input,ARRAY,FOLLOW_ARRAY_in_array195); 
+            match(input,ARRAY,FOLLOW_ARRAY_in_array196); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
@@ -279,7 +278,7 @@ public class JSONWalker extends TreeParser {
                 	case 1 :
                 	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:73:12: arrayElement
                 	    {
-                	    pushFollow(FOLLOW_arrayElement_in_array197);
+                	    pushFollow(FOLLOW_arrayElement_in_array198);
                 	    arrayElement();
                 	    _fsp--;
 
@@ -323,7 +322,7 @@ public class JSONWalker extends TreeParser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:78:2: (v= value )
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:78:4: v= value
             {
-            pushFollow(FOLLOW_value_in_arrayElement220);
+            pushFollow(FOLLOW_value_in_arrayElement221);
             v=value();
             _fsp--;
 
@@ -410,25 +409,25 @@ public class JSONWalker extends TreeParser {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:83:4: ^( STRING s= String )
                     {
-                    match(input,STRING,FOLLOW_STRING_in_value240); 
+                    match(input,STRING,FOLLOW_STRING_in_value241); 
 
                     match(input, Token.DOWN, null); 
                     s=(CommonTree)input.LT(1);
-                    match(input,String,FOLLOW_String_in_value244); 
+                    match(input,String,FOLLOW_String_in_value245); 
 
                     match(input, Token.UP, null); 
-                     v = new JSONString(s.getText()); 
+                     v = new JSONString(unquote(s.getText())); 
 
                     }
                     break;
                 case 2 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:84:4: ^( INTEGER n= Integer )
                     {
-                    match(input,INTEGER,FOLLOW_INTEGER_in_value253); 
+                    match(input,INTEGER,FOLLOW_INTEGER_in_value254); 
 
                     match(input, Token.DOWN, null); 
                     n=(CommonTree)input.LT(1);
-                    match(input,Integer,FOLLOW_Integer_in_value257); 
+                    match(input,Integer,FOLLOW_Integer_in_value258); 
 
                     match(input, Token.UP, null); 
                      v = new JSONInteger(n.getText()); 
@@ -438,11 +437,11 @@ public class JSONWalker extends TreeParser {
                 case 3 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:85:4: ^( DOUBLE n= Double )
                     {
-                    match(input,DOUBLE,FOLLOW_DOUBLE_in_value266); 
+                    match(input,DOUBLE,FOLLOW_DOUBLE_in_value267); 
 
                     match(input, Token.DOWN, null); 
                     n=(CommonTree)input.LT(1);
-                    match(input,Double,FOLLOW_Double_in_value270); 
+                    match(input,Double,FOLLOW_Double_in_value271); 
 
                     match(input, Token.UP, null); 
                      v = new JSONDouble(n.getText()); 
@@ -452,7 +451,7 @@ public class JSONWalker extends TreeParser {
                 case 4 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:86:4: o= object
                     {
-                    pushFollow(FOLLOW_object_in_value280);
+                    pushFollow(FOLLOW_object_in_value281);
                     o=object();
                     _fsp--;
 
@@ -463,7 +462,7 @@ public class JSONWalker extends TreeParser {
                 case 5 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:87:4: a= array
                     {
-                    pushFollow(FOLLOW_array_in_value289);
+                    pushFollow(FOLLOW_array_in_value290);
                     a=array();
                     _fsp--;
 
@@ -474,7 +473,7 @@ public class JSONWalker extends TreeParser {
                 case 6 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:88:4: TRUE
                     {
-                    match(input,TRUE,FOLLOW_TRUE_in_value298); 
+                    match(input,TRUE,FOLLOW_TRUE_in_value299); 
                      v = new JSONBoolean(true); 
 
                     }
@@ -482,7 +481,7 @@ public class JSONWalker extends TreeParser {
                 case 7 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:89:4: FALSE
                     {
-                    match(input,FALSE,FOLLOW_FALSE_in_value305); 
+                    match(input,FALSE,FOLLOW_FALSE_in_value306); 
                      v = new JSONBoolean(false); 
 
                     }
@@ -490,7 +489,7 @@ public class JSONWalker extends TreeParser {
                 case 8 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g:90:4: NULL
                     {
-                    match(input,NULL,FOLLOW_NULL_in_value312); 
+                    match(input,NULL,FOLLOW_NULL_in_value313); 
                      v = new JSONNull(); 
 
                     }
@@ -513,24 +512,24 @@ public class JSONWalker extends TreeParser {
 
     public static final BitSet FOLLOW_object_in_jsonObject80 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_array_in_jsonArray99 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBJECT_in_object130 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_objectElement_in_object132 = new BitSet(new long[]{0x0000000000000028L});
-    public static final BitSet FOLLOW_ELEMENT_in_objectElement152 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_String_in_objectElement156 = new BitSet(new long[]{0x00000000000E03D0L});
-    public static final BitSet FOLLOW_value_in_objectElement160 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ARRAY_in_array195 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_arrayElement_in_array197 = new BitSet(new long[]{0x00000000000E03D8L});
-    public static final BitSet FOLLOW_value_in_arrayElement220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_value240 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_String_in_value244 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_INTEGER_in_value253 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Integer_in_value257 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DOUBLE_in_value266 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Double_in_value270 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_object_in_value280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_value289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_value298 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_value305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NULL_in_value312 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBJECT_in_object131 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_objectElement_in_object133 = new BitSet(new long[]{0x0000000000000028L});
+    public static final BitSet FOLLOW_ELEMENT_in_objectElement153 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_String_in_objectElement157 = new BitSet(new long[]{0x00000000000E03D0L});
+    public static final BitSet FOLLOW_value_in_objectElement161 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ARRAY_in_array196 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_arrayElement_in_array198 = new BitSet(new long[]{0x00000000000E03D8L});
+    public static final BitSet FOLLOW_value_in_arrayElement221 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_value241 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_String_in_value245 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_INTEGER_in_value254 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Integer_in_value258 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DOUBLE_in_value267 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Double_in_value271 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_object_in_value281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_value290 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_value299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_value306 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NULL_in_value313 = new BitSet(new long[]{0x0000000000000002L});
 
 }

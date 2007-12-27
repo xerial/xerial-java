@@ -79,7 +79,7 @@ fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
 
 WhiteSpace: (' ' | '\r' | '\t' | '\u000C' | '\n') { $channel=HIDDEN; };
 
-String: '"'! StringChar* '"'! ;
+String: '"' StringChar* '"';
 Integer: Int;
 Double:  Int (Frac Exp? | Exp);
 

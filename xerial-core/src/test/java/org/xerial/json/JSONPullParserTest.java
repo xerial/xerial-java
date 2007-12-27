@@ -55,6 +55,7 @@ public class JSONPullParserTest
         e = pullParser.next();
         assertEquals(JSONEvent.String, e);
         assertEquals("name", pullParser.getKeyName());
+        String name = pullParser.getValue().toString();
         assertEquals(new JSONString("Leo"), pullParser.getValue());
         e = pullParser.next();
         assertEquals(JSONEvent.Integer, e);

@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g 2007-12-27 10:19:55
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g 2007-12-27 12:17:24
 
 //--------------------------------------
 // XerialJ Project
@@ -739,7 +739,7 @@ public class JSONLexer extends Lexer {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:82:9: '\"' ( StringChar )* '\"'
             {
             match('\"'); 
-            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:82:14: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:82:13: ( StringChar )*
             loop9:
             do {
                 int alt9=2;
@@ -752,7 +752,7 @@ public class JSONLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:82:14: StringChar
+            	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:82:13: StringChar
             	    {
             	    mStringChar(); 
 

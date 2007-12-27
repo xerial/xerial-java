@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g 2007-12-27 10:19:55
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g 2007-12-27 12:17:23
 
 //--------------------------------------
 // Xerial Project
@@ -92,7 +92,7 @@ public class JSONParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_object_in_jsonObject406);
+            pushFollow(FOLLOW_object_in_jsonObject403);
             object1=object();
             _fsp--;
 
@@ -137,7 +137,7 @@ public class JSONParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_array_in_jsonArray418);
+            pushFollow(FOLLOW_array_in_jsonArray415);
             array2=array();
             _fsp--;
 
@@ -192,7 +192,7 @@ public class JSONParser extends Parser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:4: LBrace ( objectElement ( Comma objectElement )* )? RBrace
             {
             LBrace3=(Token)input.LT(1);
-            match(input,LBrace,FOLLOW_LBrace_in_object431); 
+            match(input,LBrace,FOLLOW_LBrace_in_object428); 
             stream_LBrace.add(LBrace3);
 
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:11: ( objectElement ( Comma objectElement )* )?
@@ -206,7 +206,7 @@ public class JSONParser extends Parser {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:12: objectElement ( Comma objectElement )*
                     {
-                    pushFollow(FOLLOW_objectElement_in_object434);
+                    pushFollow(FOLLOW_objectElement_in_object431);
                     objectElement4=objectElement();
                     _fsp--;
 
@@ -227,10 +227,10 @@ public class JSONParser extends Parser {
                     	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:27: Comma objectElement
                     	    {
                     	    Comma5=(Token)input.LT(1);
-                    	    match(input,Comma,FOLLOW_Comma_in_object437); 
+                    	    match(input,Comma,FOLLOW_Comma_in_object434); 
                     	    stream_Comma.add(Comma5);
 
-                    	    pushFollow(FOLLOW_objectElement_in_object439);
+                    	    pushFollow(FOLLOW_objectElement_in_object436);
                     	    objectElement6=objectElement();
                     	    _fsp--;
 
@@ -251,7 +251,7 @@ public class JSONParser extends Parser {
             }
 
             RBrace7=(Token)input.LT(1);
-            match(input,RBrace,FOLLOW_RBrace_in_object445); 
+            match(input,RBrace,FOLLOW_RBrace_in_object442); 
             stream_RBrace.add(RBrace7);
 
 
@@ -330,14 +330,14 @@ public class JSONParser extends Parser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:102:4: String Colon value
             {
             String8=(Token)input.LT(1);
-            match(input,String,FOLLOW_String_in_objectElement469); 
+            match(input,String,FOLLOW_String_in_objectElement466); 
             stream_String.add(String8);
 
             Colon9=(Token)input.LT(1);
-            match(input,Colon,FOLLOW_Colon_in_objectElement471); 
+            match(input,Colon,FOLLOW_Colon_in_objectElement468); 
             stream_Colon.add(Colon9);
 
-            pushFollow(FOLLOW_value_in_objectElement473);
+            pushFollow(FOLLOW_value_in_objectElement470);
             value10=value();
             _fsp--;
 
@@ -419,10 +419,10 @@ public class JSONParser extends Parser {
             // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:4: LBracket value ( Comma value )* RBracket
             {
             LBracket11=(Token)input.LT(1);
-            match(input,LBracket,FOLLOW_LBracket_in_array499); 
+            match(input,LBracket,FOLLOW_LBracket_in_array496); 
             stream_LBracket.add(LBracket11);
 
-            pushFollow(FOLLOW_value_in_array501);
+            pushFollow(FOLLOW_value_in_array498);
             value12=value();
             _fsp--;
 
@@ -443,10 +443,10 @@ public class JSONParser extends Parser {
             	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:20: Comma value
             	    {
             	    Comma13=(Token)input.LT(1);
-            	    match(input,Comma,FOLLOW_Comma_in_array504); 
+            	    match(input,Comma,FOLLOW_Comma_in_array501); 
             	    stream_Comma.add(Comma13);
 
-            	    pushFollow(FOLLOW_value_in_array506);
+            	    pushFollow(FOLLOW_value_in_array503);
             	    value14=value();
             	    _fsp--;
 
@@ -461,7 +461,7 @@ public class JSONParser extends Parser {
             } while (true);
 
             RBracket15=(Token)input.LT(1);
-            match(input,RBracket,FOLLOW_RBracket_in_array510); 
+            match(input,RBracket,FOLLOW_RBracket_in_array507); 
             stream_RBracket.add(RBracket15);
 
 
@@ -604,7 +604,7 @@ public class JSONParser extends Parser {
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:113:4: String
                     {
                     String16=(Token)input.LT(1);
-                    match(input,String,FOLLOW_String_in_value535); 
+                    match(input,String,FOLLOW_String_in_value532); 
                     stream_String.add(String16);
 
 
@@ -640,7 +640,7 @@ public class JSONParser extends Parser {
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:114:4: Integer
                     {
                     Integer17=(Token)input.LT(1);
-                    match(input,Integer,FOLLOW_Integer_in_value548); 
+                    match(input,Integer,FOLLOW_Integer_in_value545); 
                     stream_Integer.add(Integer17);
 
 
@@ -676,7 +676,7 @@ public class JSONParser extends Parser {
                     // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:115:4: Double
                     {
                     Double18=(Token)input.LT(1);
-                    match(input,Double,FOLLOW_Double_in_value561); 
+                    match(input,Double,FOLLOW_Double_in_value558); 
                     stream_Double.add(Double18);
 
 
@@ -713,7 +713,7 @@ public class JSONParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_object_in_value574);
+                    pushFollow(FOLLOW_object_in_value571);
                     object19=object();
                     _fsp--;
 
@@ -726,7 +726,7 @@ public class JSONParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_array_in_value581);
+                    pushFollow(FOLLOW_array_in_value578);
                     array20=array();
                     _fsp--;
 
@@ -740,7 +740,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
 
                     TRUE21=(Token)input.LT(1);
-                    match(input,TRUE,FOLLOW_TRUE_in_value588); 
+                    match(input,TRUE,FOLLOW_TRUE_in_value585); 
                     TRUE21_tree = (Object)adaptor.create(TRUE21);
                     adaptor.addChild(root_0, TRUE21_tree);
 
@@ -753,7 +753,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
 
                     FALSE22=(Token)input.LT(1);
-                    match(input,FALSE,FOLLOW_FALSE_in_value596); 
+                    match(input,FALSE,FOLLOW_FALSE_in_value593); 
                     FALSE22_tree = (Object)adaptor.create(FALSE22);
                     adaptor.addChild(root_0, FALSE22_tree);
 
@@ -766,7 +766,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
 
                     NULL23=(Token)input.LT(1);
-                    match(input,NULL,FOLLOW_NULL_in_value601); 
+                    match(input,NULL,FOLLOW_NULL_in_value598); 
                     NULL23_tree = (Object)adaptor.create(NULL23);
                     adaptor.addChild(root_0, NULL23_tree);
 
@@ -792,28 +792,28 @@ public class JSONParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_object_in_jsonObject406 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_jsonArray418 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBrace_in_object431 = new BitSet(new long[]{0x0000000020002000L});
-    public static final BitSet FOLLOW_objectElement_in_object434 = new BitSet(new long[]{0x0000000000002800L});
-    public static final BitSet FOLLOW_Comma_in_object437 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_objectElement_in_object439 = new BitSet(new long[]{0x0000000000002800L});
-    public static final BitSet FOLLOW_RBrace_in_object445 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_objectElement469 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_Colon_in_objectElement471 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_objectElement473 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBracket_in_array499 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_array501 = new BitSet(new long[]{0x0000000000008800L});
-    public static final BitSet FOLLOW_Comma_in_array504 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_array506 = new BitSet(new long[]{0x0000000000008800L});
-    public static final BitSet FOLLOW_RBracket_in_array510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_value535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_value548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Double_in_value561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_object_in_value574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_value581 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_value588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_value596 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NULL_in_value601 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_object_in_jsonObject403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_jsonArray415 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBrace_in_object428 = new BitSet(new long[]{0x0000000020002000L});
+    public static final BitSet FOLLOW_objectElement_in_object431 = new BitSet(new long[]{0x0000000000002800L});
+    public static final BitSet FOLLOW_Comma_in_object434 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_objectElement_in_object436 = new BitSet(new long[]{0x0000000000002800L});
+    public static final BitSet FOLLOW_RBrace_in_object442 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_objectElement466 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_Colon_in_objectElement468 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_objectElement470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBracket_in_array496 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_array498 = new BitSet(new long[]{0x0000000000008800L});
+    public static final BitSet FOLLOW_Comma_in_array501 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_array503 = new BitSet(new long[]{0x0000000000008800L});
+    public static final BitSet FOLLOW_RBracket_in_array507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_value532 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_value545 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Double_in_value558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_object_in_value571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_value578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_value585 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_value593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NULL_in_value598 = new BitSet(new long[]{0x0000000000000002L});
 
 }

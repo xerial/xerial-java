@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.json;
 
+import org.xerial.util.StringUtil;
+
 
 public class JSONString extends JSONValueBase {
 
@@ -31,7 +33,7 @@ public class JSONString extends JSONValueBase {
 	public JSONString() {}
 	public JSONString(String s)
 	{
-		this.s = s;
+		this.s = StringUtil.unquote(s);
 	}
 	
 	public String toString()

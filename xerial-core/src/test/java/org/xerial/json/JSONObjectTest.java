@@ -64,7 +64,9 @@ public class JSONObjectTest {
 		{
 			JSONObject obj = new JSONObject("{ \"name\":\"leo\", \"id\":3}");
 			assertEquals(2, obj.elementSize());
-			assertEquals(new JSONString("leo"), obj.get("name"));
+            assertEquals(JSONValueType.String, obj.get("name").getValueType());
+            assertEquals(new JSONString("leo"), obj.get("name"));
+            assertEquals(JSONValueType.Integer, obj.get("id").getValueType());
 			assertEquals(new JSONInteger(3), obj.get("id"));
 		}
 		catch(JSONException e)
