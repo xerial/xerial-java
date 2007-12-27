@@ -80,7 +80,7 @@ arrayElement
 	;
 
 value returns [JSONValue v]
-	: ^(STRING s=String) { $v = new JSONString(unquote($s.text)); }
+	: ^(STRING s=String) { $v = new JSONString($s.text); }
 	| ^(INTEGER n=Integer) { $v = new JSONInteger($n.text); }
 	| ^(DOUBLE n=Double) { $v = new JSONDouble($n.text); }
 	| o=object { $v = o; }

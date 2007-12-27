@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g 2007-09-18 13:46:14
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSONWalker.g 2007-12-27 10:18:15
 
 //--------------------------------------
 // Xerial Project
@@ -22,10 +22,10 @@ import java.util.ArrayList;
  */
 public class JSONWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "OBJECT", "ELEMENT", "ARRAY", "STRING", "INTEGER", "DOUBLE", "Colon", "Comma", "LBrace", "RBrace", "LBracket", "RBracket", "Dot", "TRUE", "FALSE", "NULL", "Digit", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "Int", "Frac", "Exp", "WhiteSpace", "String", "Integer", "Double"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "OBJECT", "ELEMENT", "ARRAY", "STRING", "INTEGER", "DOUBLE", "Colon", "Comma", "LBrace", "RBrace", "LBracket", "RBracket", "Dot", "TRUE", "FALSE", "NULL", "Digit", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "Int", "Frac", "Exp", "WhiteSpace", "StringValue", "String", "Integer", "Double"
     };
     public static final int INTEGER=8;
-    public static final int Double=31;
+    public static final int Double=32;
     public static final int LBrace=12;
     public static final int Frac=26;
     public static final int NULL=19;
@@ -39,18 +39,19 @@ public class JSONWalker extends TreeParser {
     public static final int TRUE=17;
     public static final int Int=25;
     public static final int OBJECT=4;
-    public static final int ELEMENT=5;
+    public static final int StringValue=29;
     public static final int Dot=16;
+    public static final int ELEMENT=5;
     public static final int DOUBLE=9;
     public static final int StringChar=24;
     public static final int WhiteSpace=28;
-    public static final int String=29;
+    public static final int String=30;
     public static final int LBracket=14;
     public static final int FALSE=18;
     public static final int Comma=11;
     public static final int EscapeSequence=23;
     public static final int ARRAY=6;
-    public static final int Integer=30;
+    public static final int Integer=31;
     public static final int RBrace=13;
     public static final int STRING=7;
     protected static class ObjectLayer_scope {
@@ -416,7 +417,7 @@ public class JSONWalker extends TreeParser {
                     match(input,String,FOLLOW_String_in_value244); 
 
                     match(input, Token.UP, null); 
-                     v = new JSONString(unquote(s.getText())); 
+                     v = new JSONString(s.getText()); 
 
                     }
                     break;

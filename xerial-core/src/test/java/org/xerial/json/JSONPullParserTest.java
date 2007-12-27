@@ -72,5 +72,40 @@ public class JSONPullParserTest
         assertNull(pullParser.getKeyName());
     }
     
+    @Test
+    public void getValue() throws IOException, JSONException 
+    {
+        JSONPullParser pullParser = new JSONPullParser(FileResource.open(JSONPullParserTest.class, "sample.json"));
+        JSONEvent e = pullParser.next();
+        assertEquals(JSONEvent.StartObject, e);
+        JSONValue value = pullParser.getValue();
+        JSONObject obj = value.getJSONObject();
+        assertNotNull(obj);
+        JSONValue name = obj.get("name");
+        assertNotNull(name);
+        assertEquals("Leo", name.toString());
+        JSONValue id = obj.get("id");
+        assertNotNull(id);
+        assertEquals(100, id.getJSONNumber().getIntValue());
+    }
+    
+    @Test
+    public void getValue2() throws IOException, JSONException
+    {
+        JSONPullParser pullParser = new JSONPullParser(FileResource.open(JSONPullParserTest.class, "sample.json"));
+
+        JSONValue value = pullParser.getValue();
+        JSONObject obj = value.getJSONObject();
+        assertNotNull(obj);
+        JSONValue name = obj.get("name");
+        assertNotNull(name);
+        assertEquals("Leo", name.toString());
+        JSONValue id = obj.get("id");
+        assertNotNull(id);
+        assertEquals(100, id.getJSONNumber().getIntValue());
+
+    }
+    
+
 
 }

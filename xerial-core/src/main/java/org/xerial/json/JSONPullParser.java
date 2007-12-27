@@ -100,7 +100,117 @@ public class JSONPullParser
             pushParseState(ParseState.KeyedValue);
 	}
 	
+	/**
+	 * Reads the current JSONValue, which is one of {@link JSONObject} , {@link JSONArray}, 
+	 * {@link JSONInteger}, {@link JSONDouble}, {@link JSONString}, {@link JSONBoolean} and {@link JSONNull}.
+	 * This methods proceeds the parse state up to the end of the returned value. 
+	 * @return the current JSONValue
+	 * @throws JSONException when the current token is not a {@link JSONValue}
+	 */
+	public JSONValue getValue() throws JSONException
+	{
+	    JSONValue value = null;
+	    if(lastReportedEvent == null)
+	        next();
+	    
+	    while(lastReportedEvent.getEvent() != JSONEvent.EndJSON)
+	    {
+	        switch(lastReportedEvent.getEvent())
+	        {
+            case StartObject:
+                return readJSONObject(new JSONObject(), getDepth());
+            case StartArray:
+                return readJSONArray(new JSONArray(), getDepth());
+	        case String:
+	            return new JSONString(getText());
+	        case Integer:
+	            return new JSONInteger(getText());
+	        case Double:
+	            return new JSONDouble(getText());
+	        case Boolean:
+	            return new JSONBoolean(getText());
+	        case Null:
+	            return new JSONNull();
+	        default:
+	            next();
+	        }
+	    }
+	    throw new JSONException(JSONErrorCode.JSONValueIsNotFound);
+	}
+
+	private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException
+	{ 
+	    while(true)
+	    {
+	        JSONEvent event = next();
+	        switch(event)
+	        {
+	        case StartObject:
+	            jsonObject.put(getKeyName(), readJSONObject(new JSONObject(), getDepth()));
+	            break;
+	        case EndObject:
+	            if(getDepth() < baseObjectDepth)
+	                return jsonObject;
+	            else
+	                throw new JSONException(JSONErrorCode.ParseError);
+	        case StartArray:
+	            jsonObject.put(getKeyName(), readJSONArray(new JSONArray(), getDepth()));
+	            break;
+	        case EndArray:
+	            throw new JSONException(JSONErrorCode.NotInAJSONObject);
+	        case String:
+	        case Boolean:
+            case Double:
+            case Integer:
+            case Null:
+                jsonObject.put(getKeyName(), getValue());
+	            break;
+	        case EndJSON:
+	        default:
+	            throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
+	        }
+	    }
+	}
 	
+	private JSONArray readJSONArray(JSONArray jsonArray, int baseArrayDepth) throws JSONException
+	{
+	    while(true)
+	    {
+	        JSONEvent event = next();
+	        switch(event) 
+	        {
+	        case StartObject:
+	            jsonArray.add(readJSONObject(new JSONObject(), getDepth()));
+	            break;
+	        case EndObject:
+	            throw new JSONException(JSONErrorCode.ParseError);
+	        case StartArray:
+	            jsonArray.add(readJSONArray(new JSONArray(), getDepth()));
+	            break;
+	        case EndArray:
+	            if(getDepth() < baseArrayDepth)
+	                return jsonArray;
+	            else 
+	                throw new JSONException(JSONErrorCode.ParseError);
+            case String:
+            case Boolean:
+            case Double:
+            case Integer:
+            case Null:
+	            jsonArray.add(getValue());
+	            break;
+            case EndJSON:
+            default:
+                throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
+	        }
+	    }
+	}
+	
+	/**
+	 * Reads the next {@link JSONEvent}
+	 * @return the next {@link JSONEvent}. If no more token is available, returns {@link JSONEvent#EndJSON}.
+	 * @throws JSONException when some syntax error is found. 
+	 */
 	public JSONEvent next() throws JSONException
 	{
 	    Token token;
@@ -196,32 +306,6 @@ public class JSONPullParser
 	        return null;
 	    else
 	        return keyStack.peekLast();
-	}
-	
-	/**
-	 * Gets the JSONValue of the current event
-	 * @return the current JSONValue, or null If current event type is Start/EndObject, Start/EndArray or EndJSON, 
-	 * @throws JSONException
-	 */
-	public JSONValue getValue() 
-	{
-	    String text = lastReportedEvent.getToken().getText();
-	    switch(lastReportedEvent.getEvent())
-	    {
-	    case String:
-	        return new JSONString(removeDoubleQuotation(text));
-	    case Integer:
-	        return new JSONInteger(text);
-	    case Double:
-	        return new JSONDouble(text);
-	    case Boolean:
-	        return new JSONBoolean(text);
-	    case Null:
-	        return new JSONNull();
-	    default:
-	        return null;
-	    }
-
 	}
 	
 	public String getText() 

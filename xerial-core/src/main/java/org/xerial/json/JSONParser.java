@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 JSON.g 2007-09-13 13:36:50
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g 2007-12-27 10:19:55
 
 //--------------------------------------
 // Xerial Project
@@ -66,7 +66,7 @@ public class JSONParser extends Parser {
     }
 
     public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "JSON.g"; }
+    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g"; }
 
 
     public static class jsonObject_return extends ParserRuleReturnScope {
@@ -75,7 +75,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start jsonObject
-    // JSON.g:88:1: jsonObject : object ;
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:87:1: jsonObject : object ;
     public final jsonObject_return jsonObject() throws RecognitionException {
         jsonObject_return retval = new jsonObject_return();
         retval.start = input.LT(1);
@@ -87,12 +87,12 @@ public class JSONParser extends Parser {
 
 
         try {
-            // JSON.g:89:2: ( object )
-            // JSON.g:89:4: object
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:88:2: ( object )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:88:4: object
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_object_in_jsonObject405);
+            pushFollow(FOLLOW_object_in_jsonObject406);
             object1=object();
             _fsp--;
 
@@ -120,7 +120,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start jsonArray
-    // JSON.g:92:1: jsonArray : array ;
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:91:1: jsonArray : array ;
     public final jsonArray_return jsonArray() throws RecognitionException {
         jsonArray_return retval = new jsonArray_return();
         retval.start = input.LT(1);
@@ -132,12 +132,12 @@ public class JSONParser extends Parser {
 
 
         try {
-            // JSON.g:93:2: ( array )
-            // JSON.g:93:4: array
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:92:2: ( array )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:92:4: array
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_array_in_jsonArray417);
+            pushFollow(FOLLOW_array_in_jsonArray418);
             array2=array();
             _fsp--;
 
@@ -165,7 +165,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start object
-    // JSON.g:97:1: object : LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) ;
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:96:1: object : LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) ;
     public final object_return object() throws RecognitionException {
         object_return retval = new object_return();
         retval.start = input.LT(1);
@@ -188,14 +188,14 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_RBrace=new RewriteRuleTokenStream(adaptor,"token RBrace");
         RewriteRuleSubtreeStream stream_objectElement=new RewriteRuleSubtreeStream(adaptor,"rule objectElement");
         try {
-            // JSON.g:98:2: ( LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) )
-            // JSON.g:98:4: LBrace ( objectElement ( Comma objectElement )* )? RBrace
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:2: ( LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:4: LBrace ( objectElement ( Comma objectElement )* )? RBrace
             {
             LBrace3=(Token)input.LT(1);
-            match(input,LBrace,FOLLOW_LBrace_in_object430); 
+            match(input,LBrace,FOLLOW_LBrace_in_object431); 
             stream_LBrace.add(LBrace3);
 
-            // JSON.g:98:11: ( objectElement ( Comma objectElement )* )?
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:11: ( objectElement ( Comma objectElement )* )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -204,14 +204,14 @@ public class JSONParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // JSON.g:98:12: objectElement ( Comma objectElement )*
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:12: objectElement ( Comma objectElement )*
                     {
-                    pushFollow(FOLLOW_objectElement_in_object433);
+                    pushFollow(FOLLOW_objectElement_in_object434);
                     objectElement4=objectElement();
                     _fsp--;
 
                     stream_objectElement.add(objectElement4.getTree());
-                    // JSON.g:98:26: ( Comma objectElement )*
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:26: ( Comma objectElement )*
                     loop1:
                     do {
                         int alt1=2;
@@ -224,13 +224,13 @@ public class JSONParser extends Parser {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // JSON.g:98:27: Comma objectElement
+                    	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:97:27: Comma objectElement
                     	    {
                     	    Comma5=(Token)input.LT(1);
-                    	    match(input,Comma,FOLLOW_Comma_in_object436); 
+                    	    match(input,Comma,FOLLOW_Comma_in_object437); 
                     	    stream_Comma.add(Comma5);
 
-                    	    pushFollow(FOLLOW_objectElement_in_object438);
+                    	    pushFollow(FOLLOW_objectElement_in_object439);
                     	    objectElement6=objectElement();
                     	    _fsp--;
 
@@ -251,7 +251,7 @@ public class JSONParser extends Parser {
             }
 
             RBrace7=(Token)input.LT(1);
-            match(input,RBrace,FOLLOW_RBrace_in_object444); 
+            match(input,RBrace,FOLLOW_RBrace_in_object445); 
             stream_RBrace.add(RBrace7);
 
 
@@ -265,14 +265,14 @@ public class JSONParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 99:4: -> ^( OBJECT ( objectElement )* )
+            // 98:4: -> ^( OBJECT ( objectElement )* )
             {
-                // JSON.g:99:7: ^( OBJECT ( objectElement )* )
+                // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:98:7: ^( OBJECT ( objectElement )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(OBJECT, "OBJECT"), root_1);
 
-                // JSON.g:99:16: ( objectElement )*
+                // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:98:16: ( objectElement )*
                 while ( stream_objectElement.hasNext() ) {
                     adaptor.addChild(root_1, stream_objectElement.next());
 
@@ -308,7 +308,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start objectElement
-    // JSON.g:102:1: objectElement : String Colon value -> ^( ELEMENT String value ) ;
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:101:1: objectElement : String Colon value -> ^( ELEMENT String value ) ;
     public final objectElement_return objectElement() throws RecognitionException {
         objectElement_return retval = new objectElement_return();
         retval.start = input.LT(1);
@@ -326,25 +326,25 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // JSON.g:103:2: ( String Colon value -> ^( ELEMENT String value ) )
-            // JSON.g:103:4: String Colon value
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:102:2: ( String Colon value -> ^( ELEMENT String value ) )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:102:4: String Colon value
             {
             String8=(Token)input.LT(1);
-            match(input,String,FOLLOW_String_in_objectElement468); 
+            match(input,String,FOLLOW_String_in_objectElement469); 
             stream_String.add(String8);
 
             Colon9=(Token)input.LT(1);
-            match(input,Colon,FOLLOW_Colon_in_objectElement470); 
+            match(input,Colon,FOLLOW_Colon_in_objectElement471); 
             stream_Colon.add(Colon9);
 
-            pushFollow(FOLLOW_value_in_objectElement472);
+            pushFollow(FOLLOW_value_in_objectElement473);
             value10=value();
             _fsp--;
 
             stream_value.add(value10.getTree());
 
             // AST REWRITE
-            // elements: value, String
+            // elements: String, value
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -353,9 +353,9 @@ public class JSONParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 104:4: -> ^( ELEMENT String value )
+            // 103:4: -> ^( ELEMENT String value )
             {
-                // JSON.g:104:7: ^( ELEMENT String value )
+                // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:103:7: ^( ELEMENT String value )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(ELEMENT, "ELEMENT"), root_1);
@@ -392,7 +392,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start array
-    // JSON.g:107:1: array : LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) ;
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:106:1: array : LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) ;
     public final array_return array() throws RecognitionException {
         array_return retval = new array_return();
         retval.start = input.LT(1);
@@ -415,19 +415,19 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // JSON.g:108:2: ( LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) )
-            // JSON.g:108:4: LBracket value ( Comma value )* RBracket
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:2: ( LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:4: LBracket value ( Comma value )* RBracket
             {
             LBracket11=(Token)input.LT(1);
-            match(input,LBracket,FOLLOW_LBracket_in_array498); 
+            match(input,LBracket,FOLLOW_LBracket_in_array499); 
             stream_LBracket.add(LBracket11);
 
-            pushFollow(FOLLOW_value_in_array500);
+            pushFollow(FOLLOW_value_in_array501);
             value12=value();
             _fsp--;
 
             stream_value.add(value12.getTree());
-            // JSON.g:108:19: ( Comma value )*
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:19: ( Comma value )*
             loop3:
             do {
                 int alt3=2;
@@ -440,13 +440,13 @@ public class JSONParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // JSON.g:108:20: Comma value
+            	    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:107:20: Comma value
             	    {
             	    Comma13=(Token)input.LT(1);
-            	    match(input,Comma,FOLLOW_Comma_in_array503); 
+            	    match(input,Comma,FOLLOW_Comma_in_array504); 
             	    stream_Comma.add(Comma13);
 
-            	    pushFollow(FOLLOW_value_in_array505);
+            	    pushFollow(FOLLOW_value_in_array506);
             	    value14=value();
             	    _fsp--;
 
@@ -461,7 +461,7 @@ public class JSONParser extends Parser {
             } while (true);
 
             RBracket15=(Token)input.LT(1);
-            match(input,RBracket,FOLLOW_RBracket_in_array509); 
+            match(input,RBracket,FOLLOW_RBracket_in_array510); 
             stream_RBracket.add(RBracket15);
 
 
@@ -475,9 +475,9 @@ public class JSONParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 109:4: -> ^( ARRAY ( value )+ )
+            // 108:4: -> ^( ARRAY ( value )+ )
             {
-                // JSON.g:109:7: ^( ARRAY ( value )+ )
+                // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:108:7: ^( ARRAY ( value )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(ARRAY, "ARRAY"), root_1);
@@ -520,7 +520,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start value
-    // JSON.g:113:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );
+    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:112:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );
     public final value_return value() throws RecognitionException {
         value_return retval = new value_return();
         retval.start = input.LT(1);
@@ -549,7 +549,7 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_Integer=new RewriteRuleTokenStream(adaptor,"token Integer");
 
         try {
-            // JSON.g:114:2: ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL )
+            // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:113:2: ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL )
             int alt4=8;
             switch ( input.LA(1) ) {
             case String:
@@ -594,17 +594,17 @@ public class JSONParser extends Parser {
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("113:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );", 4, 0, input);
+                    new NoViableAltException("112:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );", 4, 0, input);
 
                 throw nvae;
             }
 
             switch (alt4) {
                 case 1 :
-                    // JSON.g:114:4: String
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:113:4: String
                     {
                     String16=(Token)input.LT(1);
-                    match(input,String,FOLLOW_String_in_value534); 
+                    match(input,String,FOLLOW_String_in_value535); 
                     stream_String.add(String16);
 
 
@@ -618,9 +618,9 @@ public class JSONParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 114:11: -> ^( STRING String )
+                    // 113:11: -> ^( STRING String )
                     {
-                        // JSON.g:114:14: ^( STRING String )
+                        // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:113:14: ^( STRING String )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(STRING, "STRING"), root_1);
@@ -637,10 +637,10 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // JSON.g:115:4: Integer
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:114:4: Integer
                     {
                     Integer17=(Token)input.LT(1);
-                    match(input,Integer,FOLLOW_Integer_in_value547); 
+                    match(input,Integer,FOLLOW_Integer_in_value548); 
                     stream_Integer.add(Integer17);
 
 
@@ -654,9 +654,9 @@ public class JSONParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 115:12: -> ^( INTEGER Integer )
+                    // 114:12: -> ^( INTEGER Integer )
                     {
-                        // JSON.g:115:15: ^( INTEGER Integer )
+                        // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:114:15: ^( INTEGER Integer )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(INTEGER, "INTEGER"), root_1);
@@ -673,10 +673,10 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // JSON.g:116:4: Double
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:115:4: Double
                     {
                     Double18=(Token)input.LT(1);
-                    match(input,Double,FOLLOW_Double_in_value560); 
+                    match(input,Double,FOLLOW_Double_in_value561); 
                     stream_Double.add(Double18);
 
 
@@ -690,9 +690,9 @@ public class JSONParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 116:11: -> ^( DOUBLE Double )
+                    // 115:11: -> ^( DOUBLE Double )
                     {
-                        // JSON.g:116:14: ^( DOUBLE Double )
+                        // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:115:14: ^( DOUBLE Double )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(DOUBLE, "DOUBLE"), root_1);
@@ -709,11 +709,11 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // JSON.g:117:4: object
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:116:4: object
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_object_in_value573);
+                    pushFollow(FOLLOW_object_in_value574);
                     object19=object();
                     _fsp--;
 
@@ -722,11 +722,11 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // JSON.g:118:4: array
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:117:4: array
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_array_in_value580);
+                    pushFollow(FOLLOW_array_in_value581);
                     array20=array();
                     _fsp--;
 
@@ -735,12 +735,12 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // JSON.g:119:4: TRUE
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:118:4: TRUE
                     {
                     root_0 = (Object)adaptor.nil();
 
                     TRUE21=(Token)input.LT(1);
-                    match(input,TRUE,FOLLOW_TRUE_in_value587); 
+                    match(input,TRUE,FOLLOW_TRUE_in_value588); 
                     TRUE21_tree = (Object)adaptor.create(TRUE21);
                     adaptor.addChild(root_0, TRUE21_tree);
 
@@ -748,12 +748,12 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // JSON.g:120:4: FALSE
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:119:4: FALSE
                     {
                     root_0 = (Object)adaptor.nil();
 
                     FALSE22=(Token)input.LT(1);
-                    match(input,FALSE,FOLLOW_FALSE_in_value595); 
+                    match(input,FALSE,FOLLOW_FALSE_in_value596); 
                     FALSE22_tree = (Object)adaptor.create(FALSE22);
                     adaptor.addChild(root_0, FALSE22_tree);
 
@@ -761,12 +761,12 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // JSON.g:121:4: NULL
+                    // F:\\cygwin\\home\\leo\\work\\workspace\\XerialJ\\xerial-core\\src\\main\\java\\org\\xerial\\json\\JSON.g:120:4: NULL
                     {
                     root_0 = (Object)adaptor.nil();
 
                     NULL23=(Token)input.LT(1);
-                    match(input,NULL,FOLLOW_NULL_in_value600); 
+                    match(input,NULL,FOLLOW_NULL_in_value601); 
                     NULL23_tree = (Object)adaptor.create(NULL23);
                     adaptor.addChild(root_0, NULL23_tree);
 
@@ -792,28 +792,28 @@ public class JSONParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_object_in_jsonObject405 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_jsonArray417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBrace_in_object430 = new BitSet(new long[]{0x0000000020002000L});
-    public static final BitSet FOLLOW_objectElement_in_object433 = new BitSet(new long[]{0x0000000000002800L});
-    public static final BitSet FOLLOW_Comma_in_object436 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_objectElement_in_object438 = new BitSet(new long[]{0x0000000000002800L});
-    public static final BitSet FOLLOW_RBrace_in_object444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_objectElement468 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_Colon_in_objectElement470 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_objectElement472 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBracket_in_array498 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_array500 = new BitSet(new long[]{0x0000000000008800L});
-    public static final BitSet FOLLOW_Comma_in_array503 = new BitSet(new long[]{0x00000000E00E5000L});
-    public static final BitSet FOLLOW_value_in_array505 = new BitSet(new long[]{0x0000000000008800L});
-    public static final BitSet FOLLOW_RBracket_in_array509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_value534 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_value547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Double_in_value560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_object_in_value573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_value580 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_value587 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_value595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NULL_in_value600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_object_in_jsonObject406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_jsonArray418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBrace_in_object431 = new BitSet(new long[]{0x0000000020002000L});
+    public static final BitSet FOLLOW_objectElement_in_object434 = new BitSet(new long[]{0x0000000000002800L});
+    public static final BitSet FOLLOW_Comma_in_object437 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_objectElement_in_object439 = new BitSet(new long[]{0x0000000000002800L});
+    public static final BitSet FOLLOW_RBrace_in_object445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_objectElement469 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_Colon_in_objectElement471 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_objectElement473 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBracket_in_array499 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_array501 = new BitSet(new long[]{0x0000000000008800L});
+    public static final BitSet FOLLOW_Comma_in_array504 = new BitSet(new long[]{0x00000000E00E5000L});
+    public static final BitSet FOLLOW_value_in_array506 = new BitSet(new long[]{0x0000000000008800L});
+    public static final BitSet FOLLOW_RBracket_in_array510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_value535 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_value548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Double_in_value561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_object_in_value574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_value581 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_value588 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_value596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NULL_in_value601 = new BitSet(new long[]{0x0000000000000002L});
 
 }

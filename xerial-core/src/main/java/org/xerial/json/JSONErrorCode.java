@@ -44,6 +44,10 @@ public enum JSONErrorCode implements ErrorCode {
     NotAJSONObject,
     CannotConvertToJSONValue,
     
+    JSONValueIsNotFound,
+    NotInAJSONObject,
+    UnexpectedEndOfJSON,
+    
     ParseError
     ;
 
