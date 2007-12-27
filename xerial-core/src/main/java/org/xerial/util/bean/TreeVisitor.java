@@ -45,7 +45,7 @@ public interface TreeVisitor
      * When found a node
      * @param nodeName the found node name
      */
-    public void visitNode(String nodeName, List<NodeAttribute> nodeAttributeList, TreeWalker walker) throws XerialException;
+    public void visitNode(String nodeName, List<TreeNodeAttribute> nodeAttributeList, TreeWalker walker) throws XerialException;
     
     /**
      * When leaving a node

@@ -73,6 +73,11 @@ public class JSONDouble implements JSONNumber {
 		else
 			return false;
 	}
+
+    public JSONValueType getValueType()
+    {
+        return JSONValueType.Double;
+    }
 }
 
 

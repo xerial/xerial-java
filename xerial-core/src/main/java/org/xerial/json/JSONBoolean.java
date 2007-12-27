@@ -49,6 +49,11 @@ public class JSONBoolean extends JSONValueBase {
 	public JSONBoolean getJSONBoolean() {
 		return this;
 	}
+
+    public JSONValueType getValueType()
+    {
+        return JSONValueType.Boolean;
+    }
 }
 
 

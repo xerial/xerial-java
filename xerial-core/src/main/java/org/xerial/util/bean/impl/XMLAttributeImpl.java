@@ -16,21 +16,40 @@
 //--------------------------------------
 // XerialJ
 //
-// NodeAttribute.java
-// Since: Dec 19, 2007 12:45:12 PM
+// XMLAttributeImpl.java
+// Since: Dec 27, 2007 11:10:50 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
+
+import org.xerial.util.bean.TreeNodeAttribute;
 
 /**
- * An attribute for a tree node
+ * A {@link TreeNodeAttribute} implementation for XML attributes
  * @author leo
  *
  */
-public interface NodeAttribute
+public class XMLAttributeImpl implements TreeNodeAttribute
 {
-    public String getName();
-    public String getValue();
+    private final String name;
+    private final String value;
+    
+    public XMLAttributeImpl(String name, String value)
+    {
+        this.name = name;
+        this.value = value;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getValue()
+    {
+        return value;
+    }
+    
 }

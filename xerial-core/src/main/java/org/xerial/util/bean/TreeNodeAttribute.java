@@ -16,26 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeNode.java
-// Since: Dec 26, 2007 4:02:11 PM
+// NodeAttribute.java
+// Since: Dec 19, 2007 12:45:12 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.util.List;
-
 /**
- * Tree represetation of XML/JSON/ANTLR data
- * 
+ * An attribute for a tree node
  * @author leo
  *
  */
-public interface TreeNode
+public interface TreeNodeAttribute
 {
-    public String getNodeName();
-    public String getNodeValue();
-    public List<TreeNode> getChildren();
-    public List<TreeNodeAttribute> getAttributeList();
+    public String getName();
+    public String getValue();
 }

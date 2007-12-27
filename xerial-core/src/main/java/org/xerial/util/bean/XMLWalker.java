@@ -39,9 +39,11 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.core.XerialException;
+import org.xerial.util.bean.impl.XMLAttributeImpl;
 import org.xerial.util.bean.impl.XMLTreeNode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.dom.DOMUtil;
+import org.xerial.util.xml.pullparser.DOMBuilder;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -87,7 +89,7 @@ public class XMLWalker
                         {
                             textStack.addLast(new StringBuilder());
                             String tagName = pullParser.getName();
-                            ArrayList<NodeAttribute> attributeList = new ArrayList<NodeAttribute>();
+                            ArrayList<TreeNodeAttribute> attributeList = new ArrayList<TreeNodeAttribute>();
                             // read attributes
                             for(int i=0; i<pullParser.getAttributeCount(); i++)
                             {
@@ -134,35 +136,26 @@ public class XMLWalker
             skipLevel = pullParser.getDepth();
         }
 
-        public TreeNode getSubTree()
+        public TreeNode getSubTree() throws BeanException
         {
-            // TODO Auto-generated method stub
-            return null;
+            skipDescendants();
+            DOMBuilder domBuilder = new DOMBuilder();
+            try
+            {
+                Element element = domBuilder.parse(pullParser);
+                return new XMLTreeNode(element);
+            }
+            catch (XMLException e)
+            {
+                throw new BeanException(BeanErrorCode.InvalidXMLData, e);
+            }
+            catch (IOException e)
+            {
+                throw new BeanException(BeanErrorCode.IOError, e);
+            }
         }
     }
     
-    private static class XMLAttributeImpl implements NodeAttribute
-    {
-        private final String name;
-        private final String value;
-        
-        public XMLAttributeImpl(String name, String value)
-        {
-            this.name = name;
-            this.value = value;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        public String getValue()
-        {
-            return value;
-        }
-        
-    }
     
     /**
      * An walker implementation for XML DOM model 
@@ -182,7 +175,7 @@ public class XMLWalker
             currentElement = element;
             
             String tagName = element.getNodeName();
-            ArrayList<NodeAttribute> attributeList = new ArrayList<NodeAttribute>();
+            ArrayList<TreeNodeAttribute> attributeList = new ArrayList<TreeNodeAttribute>();
             NamedNodeMap attributeMap = element.getAttributes();
             for(int i=0; i<attributeMap.getLength(); i++)
             {
@@ -220,7 +213,7 @@ public class XMLWalker
             this.skipDesendants = true;
         }
 
-        public TreeNode getSubTree()
+        public TreeNode getSubTree() throws BeanException
         {
             skipDescendants();
             return new XMLTreeNode(currentElement);

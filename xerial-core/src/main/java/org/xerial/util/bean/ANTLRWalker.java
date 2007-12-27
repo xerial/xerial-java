@@ -38,7 +38,7 @@ import org.xerial.core.XerialException;
  */
 public class ANTLRWalker implements TreeWalker
 {
-    private static final ArrayList<NodeAttribute> emptyAttributeList = new ArrayList<NodeAttribute>();
+    private static final ArrayList<TreeNodeAttribute> emptyAttributeList = new ArrayList<TreeNodeAttribute>();
     private final Parser parser;
     private final TreeVisitor visitor;
     private Tree currentNode = null;
@@ -84,7 +84,7 @@ public class ANTLRWalker implements TreeWalker
     }
 
 
-    public TreeNode getSubTree()
+    public TreeNode getSubTree() throws BeanException
     {
         skipDescendants();
         return new ANTLRTreeNodeWrapper(currentNode);
@@ -117,6 +117,11 @@ public class ANTLRWalker implements TreeWalker
         public String getNodeValue()
         {
             return t.getText();
+        }
+
+        public List<TreeNodeAttribute> getAttributeList()
+        {
+            return new ArrayList<TreeNodeAttribute>();
         }
         
     }

@@ -26,6 +26,8 @@ package org.xerial.util.bean;
 
 public enum BeanErrorCode {
     
+    IOError,
+    
     // XML
     InvalidXMLData,
     ParserError,

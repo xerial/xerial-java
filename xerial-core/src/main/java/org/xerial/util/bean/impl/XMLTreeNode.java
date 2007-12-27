@@ -32,6 +32,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.util.bean.TreeNode;
+import org.xerial.util.bean.TreeNodeAttribute;
 import org.xerial.util.xml.dom.DOMUtil;
 
 /**
@@ -44,6 +45,7 @@ public class XMLTreeNode implements TreeNode
     private String nodeName;
     private String nodeValue;
     private ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
+    private ArrayList<TreeNodeAttribute> attributeList = new ArrayList<TreeNodeAttribute>();
 
     public XMLTreeNode()
     {}
@@ -76,7 +78,7 @@ public class XMLTreeNode implements TreeNode
             Node attributeNode = attributeMap.item(i);
             String attributeName = attributeNode.getNodeName();
             String attributeValue = attributeNode.getNodeValue();
-            currentNode.addChild(new XMLTreeNode(attributeName, attributeValue));
+            currentNode.attributeList.add(new XMLAttributeImpl(attributeName, attributeValue));
         }
 
         NodeList nodeList = element.getChildNodes();
@@ -126,6 +128,11 @@ public class XMLTreeNode implements TreeNode
     public void addChild(XMLTreeNode childNode)
     {
         childList.add(childNode);
+    }
+
+    public List<TreeNodeAttribute> getAttributeList()
+    {
+        return attributeList;
     }
 
 }

@@ -12,7 +12,7 @@ package org.xerial.json;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class JSONValueBase implements JSONValue {
+public abstract class JSONValueBase implements JSONValue {
 
 	public JSONArray getJSONArray() {
 		return null;

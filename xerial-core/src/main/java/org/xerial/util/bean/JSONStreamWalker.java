@@ -26,11 +26,22 @@ package org.xerial.util.bean;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONArray;
 import org.xerial.json.JSONEvent;
+import org.xerial.json.JSONException;
+import org.xerial.json.JSONObject;
 import org.xerial.json.JSONPullParser;
+import org.xerial.json.JSONValue;
 
+/**
+ * A walker that traverses JSON streams
+ * @author leo
+ *
+ */
 public class JSONStreamWalker implements TreeWalker
 {
     private final JSONPullParser jsonPullParser;
@@ -99,6 +110,12 @@ public class JSONStreamWalker implements TreeWalker
                 visitor.leaveNode(key, null, this);
                 break;
             }
+            case StartArray:
+                // do nothing
+                break;
+            case EndArray:
+                // do nothing
+                break;
             }
         }
             
@@ -110,8 +127,72 @@ public class JSONStreamWalker implements TreeWalker
     }
 
 
-    public TreeNode getSubTree()
+    public TreeNode getSubTree() throws BeanException
     {
-        throw new UnsupportedOperationException("not implemented");
+        skipDescendants();
+        try
+        {
+            return new JSONTreeNodeImpl(jsonPullParser.getKeyName(), jsonPullParser.getValue());
+        }
+        catch (JSONException e)
+        {
+            throw new BeanException(BeanErrorCode.InvalidJSONData, e);
+        }
+    }
+    
+    private class JSONTreeNodeImpl implements TreeNode
+    {
+        String key;
+        JSONValue value;
+        
+        public JSONTreeNodeImpl(String key, JSONValue value)
+        {
+            this.key = key;
+            this.value = value;
+        }
+         
+        public List<TreeNodeAttribute> getAttributeList()
+        {
+            return new ArrayList<TreeNodeAttribute>();
+        }
+
+        public List<TreeNode> getChildren()
+        {
+            ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
+            switch(value.getValueType())
+            {
+            case Object:
+                JSONObject obj = value.getJSONObject();    
+                for(String entryKey : obj.keys())
+                    childList.add(new JSONTreeNodeImpl(entryKey, obj.get(entryKey)));
+                break;
+            case Array:
+                JSONArray array = value.getJSONArray();
+                for(JSONValue v : array)
+                    childList.add(new JSONTreeNodeImpl(key, v));
+                break;
+            }
+            
+            return childList;
+        }
+
+        public String getNodeName()
+        {
+            return key;
+        }
+
+        public String getNodeValue()
+        {
+            switch(value.getValueType())
+            {
+            case Object:
+            case Array:
+            case Null:
+                return null;
+            default:
+                return value.toString();
+            }
+        }
+        
     }
 }

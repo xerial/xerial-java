@@ -38,9 +38,10 @@ public interface TreeWalker
     
     /**
      * Gets the entire subtree beginning from the current node, and 
-     * skips the descendants.
+     * skips the descendants. 
      * @return {@link TreeNode} representation of the tree structured data beginning from the current node
+     * @throws BeanException TODO
      */
-    public TreeNode getSubTree();
+    public TreeNode getSubTree() throws BeanException;
     
 }

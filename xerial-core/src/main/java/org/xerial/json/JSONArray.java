@@ -159,6 +159,11 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue> {
 	public String getString(int i) {
 		return get(i).toString();
 	}
+
+    public JSONValueType getValueType()
+    {
+        return JSONValueType.Array;
+    }
 	
 
 	

@@ -37,7 +37,7 @@ import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.NodeAttribute;
+import org.xerial.util.bean.TreeNodeAttribute;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.TypeInformation;
@@ -144,7 +144,7 @@ public class BeanBindingProcess implements TreeVisitor
         
     }
 
-    public void visitNode(String nodeName, List<NodeAttribute> nodeAttributeList, TreeWalker walker)
+    public void visitNode(String nodeName, List<TreeNodeAttribute> nodeAttributeList, TreeWalker walker)
             throws XerialException
     {
         int nodeLevel = currentLevel++;
@@ -189,7 +189,7 @@ public class BeanBindingProcess implements TreeVisitor
         // bind attribute data
         if(nodeAttributeList != null)
         {
-            for(NodeAttribute attribute : nodeAttributeList)
+            for(TreeNodeAttribute attribute : nodeAttributeList)
             {
                 BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
                 if(updator != null)

@@ -16,26 +16,22 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeNode.java
-// Since: Dec 26, 2007 4:02:11 PM
+// JSONType.java
+// Since: Dec 27, 2007 11:25:08 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.json;
 
-import java.util.List;
+public enum JSONValueType {
+    
+    Object,
+    Array,
+    String,
+    Integer,
+    Double,
+    Boolean,
+    Null
 
-/**
- * Tree represetation of XML/JSON/ANTLR data
- * 
- * @author leo
- *
- */
-public interface TreeNode
-{
-    public String getNodeName();
-    public String getNodeValue();
-    public List<TreeNode> getChildren();
-    public List<TreeNodeAttribute> getAttributeList();
 }
