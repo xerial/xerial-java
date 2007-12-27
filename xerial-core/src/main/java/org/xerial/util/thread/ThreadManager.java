@@ -83,7 +83,7 @@ public class ThreadManager {
 	}
 
 	/**
-	 * Add a task to the task queue$B!#(BThe added task will be assigned to the idle thread, then within the thread, 
+	 * Add a task to the task queue(The added task will be assigned to the idle thread, then within the thread, 
 	 * {@link Runnable#run()} method will be invoked.
 	 * 
 	 * If the task queue is full at the time of method invocation, the caller will be blocked until  
@@ -131,7 +131,7 @@ public class ThreadManager {
 	 */
 	public void joinAll() throws InterruptedException {
 		synchronized (this) {
-			while (!_taskQueue.isEmpty()) // queue$B$K$"$kA4$F$N%?%9%/$N=*N;$^$GBT$D(B
+			while (!_taskQueue.isEmpty()) // wait until all tasks in the queue are terminated
 			{
 				wait();
 			}

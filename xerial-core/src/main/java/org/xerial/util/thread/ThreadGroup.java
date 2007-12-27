@@ -27,7 +27,7 @@ package org.xerial.util.thread;
 import java.util.LinkedList;
 
 /**
- * 複数のThreadを一括して管理するクラス
+ * Groups multiple threads as a unit
  * 
  * @author leo
  * 
