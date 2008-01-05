@@ -26,12 +26,14 @@ package org.xerial.util.bean.impl;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Map;
 
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
+import org.xerial.util.bean.MapWalker;
 import org.xerial.util.bean.XMLWalker;
 
 /**
@@ -88,6 +90,21 @@ public class BeanUtilImpl
         walker.walk();
         return bean;
     }
+    
+    public static <E> E createBeanFromMap(Class<E> beanType, Map map) throws XerialException 
+    {
+        BeanBindingProcess bindingProces = new BeanBindingProcess(beanType);
+        MapWalker walker = new MapWalker(bindingProces, map);
+        walker.walk();
+        return (E) bindingProces.getResultBean();
+    }
 
+    public static Object populateBeanWithMap(Object bean, Map map) throws XerialException
+    {
+        BeanBindingProcess bindingProces = new BeanBindingProcess(bean);
+        MapWalker walker = new MapWalker(bindingProces, map);
+        walker.walk();
+        return bean;
+    }
     
 }
