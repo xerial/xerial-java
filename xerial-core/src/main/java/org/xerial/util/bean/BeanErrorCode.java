@@ -28,6 +28,8 @@ public enum BeanErrorCode {
     
     IOError,
     
+    NoMoreSubtree,
+    
     // XML
     InvalidXMLData,
     ParserError,
