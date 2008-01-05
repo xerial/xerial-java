@@ -42,21 +42,26 @@ import org.xerial.json.JSONValue;
  * @author leo
  *
  */
-public class JSONStreamWalker implements TreeWalker
+public class JSONStreamWalker extends TreeWalker
 {
     private final JSONPullParser jsonPullParser;
     private boolean skipDescendants = false;
     private int skipLevel = Integer.MAX_VALUE; 
-    private TreeVisitor visitor;
     
     public JSONStreamWalker(TreeVisitor visitor, Reader jsonStream) throws IOException
     {
-        this.visitor = visitor;
+        super(visitor);
         jsonPullParser = new JSONPullParser(jsonStream);
     }
     
-    
     public void walk() throws XerialException
+    {
+        getTreeVisitor().init(this);
+        walk_internal();
+        getTreeVisitor().finish(this);
+    }
+    
+    public void walk_internal() throws XerialException
     {
         JSONEvent event;
         while((event = jsonPullParser.next()) != JSONEvent.EndJSON)
@@ -69,7 +74,7 @@ public class JSONStreamWalker implements TreeWalker
                 if(!skipDescendants)
                 {
                     String key = jsonPullParser.getKeyName(); 
-                    visitor.visitNode(key, null, this);
+                    getTreeVisitor().visitNode(key, null, this);
                 }
                 break;
             }
@@ -83,7 +88,7 @@ public class JSONStreamWalker implements TreeWalker
                         break;
                 }
                 String key = jsonPullParser.getKeyName(); 
-                visitor.leaveNode(key, null, this);
+                getTreeVisitor().leaveNode(key, null, this);
                 break;
             }
             case String:
@@ -96,8 +101,8 @@ public class JSONStreamWalker implements TreeWalker
             
                 String key = jsonPullParser.getKeyName(); 
                 String value = jsonPullParser.getText();
-                visitor.visitNode(key, null, this);
-                visitor.leaveNode(key, value, this);
+                getTreeVisitor().visitNode(key, null, this);
+                getTreeVisitor().leaveNode(key, value, this);
                 break;
             }
             case Null:            
@@ -106,8 +111,8 @@ public class JSONStreamWalker implements TreeWalker
                     break;
 
                 String key = jsonPullParser.getKeyName(); 
-                visitor.visitNode(key, null, this);
-                visitor.leaveNode(key, null, this);
+                getTreeVisitor().visitNode(key, null, this);
+                getTreeVisitor().leaveNode(key, null, this);
                 break;
             }
             case StartArray:

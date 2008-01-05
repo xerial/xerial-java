@@ -41,7 +41,6 @@ import org.xerial.util.bean.TreeNodeAttribute;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.TypeInformation;
-import org.xerial.util.bean.XMLWalker;
 import org.xerial.util.log.Logger;
 
 /**
@@ -72,12 +71,6 @@ public class BeanBindingProcess implements TreeVisitor
         return beanStack.get(0);
     }
     
-    public void populateBeanWithXML(Reader xmlReader) throws Exception, IOException
-    {
-        XMLWalker xmlVisitor = new XMLWalker(this);
-        xmlVisitor.parse(xmlReader);
-    }
-
     public Object getBean(int level)
     {
         if(level < 0 || level >= beanStack.size()) 

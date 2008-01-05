@@ -717,10 +717,6 @@ public class BeanUtil
         {
             throw new BeanException(BeanErrorCode.BindFailure, e);
         }
-        catch(IOException e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidXMLData, e);
-        }
     }
 
     public static void populateBeanWithXML(Object bean, String xmlData) throws BeanException

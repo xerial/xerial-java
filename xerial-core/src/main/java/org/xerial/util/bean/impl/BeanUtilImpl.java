@@ -34,28 +34,33 @@ import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.XMLWalker;
 
+/**
+ * Implementations of BeanUtil
+ * @author leo
+ *
+ */
 public class BeanUtilImpl
 {
-    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException, IOException
+    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        XMLWalker walker = new XMLWalker(bindingProcess);
-        walker.parse(xmlReader);
+        XMLWalker walker = new XMLWalker(bindingProcess, xmlReader);
+        walker.walk();
         return (E) bindingProcess.getResultBean();
     }
     
-    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException, IOException
+    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        XMLWalker walker = new XMLWalker(bindingProcess);
-        walker.parse(xmlReader);
+        XMLWalker walker = new XMLWalker(bindingProcess, xmlReader);
+        walker.walk();
         return bean; 
     }
     
     public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, Parser parser) throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess);
+        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess, parseTree);
         walker.walk(parseTree);
         return (E) bindingProcess.getResultBean();
     }
@@ -63,7 +68,7 @@ public class BeanUtilImpl
     public static Object populateBeanWithParseTree(Object bean, Tree parseTree, Parser parser) throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess);
+        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess, parseTree);
         walker.walk(parseTree);
         return bean;
     }
@@ -83,5 +88,6 @@ public class BeanUtilImpl
         walker.walk();
         return bean;
     }
+
     
 }

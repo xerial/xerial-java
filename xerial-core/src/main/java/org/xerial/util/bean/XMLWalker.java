@@ -53,14 +53,14 @@ import org.xmlpull.v1.XmlPullParserException;
  * @author leo
  *
  */
-public class XMLWalker 
+public class XMLWalker extends TreeWalker
 {
     /**
      * A walker implementation for XML stream
      * @author leo
      *
      */
-    class XMLStreamWalker implements TreeWalker 
+    class XMLStreamWalker extends TreeWalker 
     {
         private final XmlPullParser pullParser;
         private final LinkedList<StringBuilder> textStack = new LinkedList<StringBuilder>(); 
@@ -68,11 +68,29 @@ public class XMLWalker
         private boolean skipDescendants = false;
         private int skipLevel = Integer.MAX_VALUE;
         
-        public XMLStreamWalker(Reader reader) throws XMLException
+        public XMLStreamWalker(TreeVisitor visitor, Reader reader) throws XMLException
         {
+            super(visitor);
+
+            if(reader == null)
+                throw new XMLException("XML reader is null");
+
             pullParser = PullParserUtil.newParser(reader);
         }
-        
+
+        @Override
+        public void walk() throws XerialException
+        {
+            try
+            {
+                parse();
+            }
+            catch (IOException e)
+            {
+                throw new BeanException(BeanErrorCode.IOError, e);
+            }
+        }
+
         public void parse() throws XerialException, IOException 
         {
             int state;
@@ -97,7 +115,7 @@ public class XMLWalker
                                 String attributeValue = pullParser.getAttributeValue(i);
                                 attributeList.add(new XMLAttributeImpl(attributeName, attributeValue));
                             }
-                            visitor.visitNode(tagName, attributeList, this);
+                            getTreeVisitor().visitNode(tagName, attributeList, this);
                         }
                     }
                         break;
@@ -111,7 +129,7 @@ public class XMLWalker
                                 break;
                         }
                         String text = textStack.getLast().toString();
-                        visitor.leaveNode(pullParser.getName(), text.trim(), this);
+                        getTreeVisitor().leaveNode(pullParser.getName(), text.trim(), this);
                         textStack.removeLast();
                     }
                         break;
@@ -154,6 +172,7 @@ public class XMLWalker
                 throw new BeanException(BeanErrorCode.IOError, e);
             }
         }
+
     }
     
     
@@ -162,13 +181,22 @@ public class XMLWalker
      * @author leo
      *
      */
-    class XMLDOMWalker implements TreeWalker
+    class XMLDOMWalker extends TreeWalker
     {
         private boolean skipDesendants = false;
         private Element currentElement = null;
         
-        public XMLDOMWalker()
-        {}
+        public XMLDOMWalker(TreeVisitor visitor, Element element)
+        {
+            super(visitor);
+            this.currentElement = element;
+        }
+        
+        @Override
+        public void walk() throws XerialException
+        {
+            parse(currentElement);
+        }
         
         public void parse(Element element) throws XerialException
         {
@@ -186,7 +214,7 @@ public class XMLWalker
                 attributeList.add(new XMLAttributeImpl(attributeName, attributeValue));
             }
             // invoke visitor
-            visitor.visitNode(tagName, attributeList, this);
+            getTreeVisitor().visitNode(tagName, attributeList, this);
 
             // visit child nodes
             if(skipDesendants)
@@ -205,7 +233,7 @@ public class XMLWalker
             
             // leave the current element
             String text = DOMUtil.getText(element);
-            visitor.leaveNode(tagName, text.trim(), this);
+            getTreeVisitor().leaveNode(tagName, text.trim(), this);
         }
 
         public void skipDescendants()
@@ -218,51 +246,54 @@ public class XMLWalker
             skipDescendants();
             return new XMLTreeNode(currentElement);
         }
-        
+
+
     }
     
- 
-    private TreeVisitor visitor;
-    /**
-     * Constructor
-     * @throws XMLException
-     */
-    public XMLWalker(TreeVisitor visitor) throws XMLException
-    {
-        this.visitor = visitor;
-    }
+    
+    private final TreeWalker impl;
     
     /**
-     * Parses and traverses the given XML data stream 
-     * @param xmlDataReader
-     * @throws XerialException 
-     * @throws IOException 
-     * @throws Exception
-     * @throws IOException
+     * Constructs an XML stream walker
+     * @param visitor
+     * @param xmlDataReader xml data stream 
+     * @throws XMLException thrown when some error has found in the XML reader 
      */
-    public void parse(Reader xmlDataReader) throws XerialException, IOException 
+    public XMLWalker(TreeVisitor visitor, Reader xmlDataReader) throws XMLException
     {
-        if(xmlDataReader == null)
-            throw new XMLException("XML reader is null");
-        
-        XMLStreamWalker streamWalker =  new XMLStreamWalker(xmlDataReader);
-        visitor.init(streamWalker);
-        streamWalker.parse();
-        visitor.finish(streamWalker);
+        super(visitor);
+        impl = new XMLStreamWalker(visitor, xmlDataReader);
     }
     
     /**
-     * Parse and traverses the given XML DOM element
-     * @param xmlElement
-     * @throws XerialException 
-     * @throws Exception
+     * Constructs an XML DOM walker
+     * @param visitor
+     * @param element
      */
-    public void parse(Element xmlElement) throws XerialException 
+    public XMLWalker(TreeVisitor visitor, Element element) 
     {
-        XMLDOMWalker domWalker = new XMLDOMWalker();
-        visitor.init(domWalker);
-        domWalker.parse(xmlElement);
-        visitor.finish(domWalker);
+        super(visitor);
+        impl = new XMLDOMWalker(visitor, element);
+    }
+    
+    @Override
+    public TreeNode getSubTree() throws BeanException
+    {
+        return impl.getSubTree();
+    }
+
+    @Override
+    public void skipDescendants()
+    {
+        impl.skipDescendants();
+    }
+
+    @Override
+    public void walk() throws XerialException
+    {
+        getTreeVisitor().init(impl);
+        impl.walk();
+        getTreeVisitor().finish(impl);
     }
 
 

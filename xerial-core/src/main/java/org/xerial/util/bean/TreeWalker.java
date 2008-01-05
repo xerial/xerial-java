@@ -24,17 +24,40 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
+import org.xerial.core.XerialException;
+
 
 /**
+ * An depth-first walker interface of tree structured data
+ * 
  * @author leo
  *
  */
-public interface TreeWalker
+public abstract class TreeWalker
 {
+    private final TreeVisitor visitor;
+    
+    protected TreeWalker(TreeVisitor visitor)
+    {
+        if(visitor == null)
+            throw new NullPointerException("visitor cannot be null");
+        this.visitor = visitor;
+    }
+    
+    public TreeVisitor getTreeVisitor() 
+    {
+        return visitor;
+    }
+    
+    /**
+     * Start walking 
+     */
+    public abstract void walk() throws XerialException;
+    
     /**
      * Skip the descendants of the current node
      */
-    public void skipDescendants();
+    public abstract void skipDescendants();
     
     /**
      * Gets the entire subtree beginning from the current node, and 
@@ -42,6 +65,6 @@ public interface TreeWalker
      * @return {@link TreeNode} representation of the tree structured data beginning from the current node
      * @throws BeanException TODO
      */
-    public TreeNode getSubTree() throws BeanException;
+    public abstract TreeNode getSubTree() throws BeanException;
     
 }
