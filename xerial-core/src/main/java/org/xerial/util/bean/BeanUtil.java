@@ -678,7 +678,8 @@ public class BeanUtil
                 String parameterName = rule.getParameterName();
 
                 Object parameterValue = invokeGetterMethod(getter, bean);
-                json.put(parameterName, outputAsJSONValue(parameterValue));
+                if(parameterValue != null)
+                    json.put(parameterName, outputAsJSONValue(parameterValue));
             }
             return json;
         }
@@ -703,6 +704,11 @@ public class BeanUtil
         {
             throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
+    }
+    
+    public static void populateBeanWithMap(Object bean, Map map) throws XerialException
+    {
+    	BeanUtilImpl.populateBeanWithMap(bean, map);
     }
    
     public static void populateBeanWithXML(Object bean, Reader xmlReader) throws BeanException

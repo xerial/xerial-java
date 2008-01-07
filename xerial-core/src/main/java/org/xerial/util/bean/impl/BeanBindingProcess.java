@@ -120,6 +120,9 @@ public class BeanBindingProcess implements TreeVisitor
                 }
             }
             
+            if(valueBean == null)
+                return;
+            
             try
             {
                 _logger.trace("update: " + valueBean.toString());
@@ -211,6 +214,7 @@ public class BeanBindingProcess implements TreeVisitor
     {
         try
         {
+            _logger.trace("bind: " + updator.getMethod().toString() + " value=" + value.toString());
             updator.getMethod().invoke(bean, convertType(updator.getElementType(), value));
         }
         catch (IllegalArgumentException e)
