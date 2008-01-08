@@ -104,6 +104,7 @@ public class MapWalker extends TreeWalker
     public void walk() throws XerialException
     {
         getTreeVisitor().init(this);
+        getTreeVisitor().visitNode("_root", null, this); // visit the imaginary root node
         for(Object key : map.keySet())
         {
             currentKey = key;
@@ -112,6 +113,7 @@ public class MapWalker extends TreeWalker
             getTreeVisitor().visitNode(nodeName, null, this);
             getTreeVisitor().leaveNode(nodeName, value != null ? value.toString() : null, this);
         }
+        getTreeVisitor().leaveNode("_root", null, this);	// leave the imaginary root node
         getTreeVisitor().finish(this);
     }
 
