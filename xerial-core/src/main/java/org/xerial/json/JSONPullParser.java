@@ -76,7 +76,7 @@ public class JSONPullParser
 	
 	private ParseState getCurrentParseState()
 	{
-	    return parseStateStack.peekLast();
+	    return parseStateStack.getLast();
 	}
 	
 	
@@ -320,7 +320,7 @@ public class JSONPullParser
 	    if(keyStack.isEmpty())
 	        return null;
 	    else
-	        return keyStack.peekLast();
+	        return keyStack.getLast();
 	}
 	
 	public String getText() 
