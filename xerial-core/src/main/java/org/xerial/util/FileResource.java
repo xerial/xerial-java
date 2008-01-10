@@ -156,7 +156,6 @@ public class FileResource
 
     }
 
-
     /**
      * list up resources recursively under the given base package name
      * 
@@ -173,33 +172,49 @@ public class FileResource
             }
         });
     }
- 
-     
+
     /**
-     * Lists up all resources satisfying the given resourceFilter from the current class loader 
+     * Lists up all resources satisfying the given resourceFilter from the
+     * current class loader
+     * 
      * @param resourceFilter
-     * @return the list of resources matching the condition specified in the resourceFilter
-     */     
+     * @return the list of resources matching the condition specified in the
+     *         resourceFilter
+     */
     public static List<VirtualFile> listResources(ResourceFilter resourceFilter)
     {
-        List<URLClassLoader> classLoaderList = getAllClassLoader();
+        return listResources(FileResource.class.getClassLoader(), resourceFilter);
+    }
+
+    /**
+     * Lists up all resources satisfying the given resourceFilter from the given
+     * current class loader
+     * 
+     * @param resourceFilter
+     * @param classLoader
+     * @return the list of resources matching the condition specified in the
+     *         resourceFilter
+     */
+    public static List<VirtualFile> listResources(ClassLoader classLoader, ResourceFilter resourceFilter)
+    {
+        List<URLClassLoader> classLoaderList = getAllAncestorOrSelfClassLoaders(classLoader);
         ArrayList<VirtualFile> fileList = new ArrayList<VirtualFile>();
-        for(URLClassLoader cl : classLoaderList)
+        for (URLClassLoader cl : classLoaderList)
         {
-            for(URL url : cl.getURLs())
+            for (URL url : cl.getURLs())
             {
                 fileList.addAll(listResources(url, "", resourceFilter));
             }
         }
-        
+
         return fileList;
     }
 
-
     /**
-     * Lists up all resources recursively under the given resourceURL. 
-     * If the resourceURL is file, this method searches its sub directories, when it is Jar file, 
-     * it searches contents of the Jar file for other resources.  
+     * Lists up all resources recursively under the given resourceURL. If the
+     * resourceURL is file, this method searches its sub directories, when it is
+     * Jar file, it searches contents of the Jar file for other resources.
+     * 
      * @param resourceURL
      * @param resourceFilter
      * @return the list of resources matching the given resource filter
@@ -207,49 +222,48 @@ public class FileResource
     public static List<VirtualFile> listResources(URL resourceURL, String packagePath, ResourceFilter resourceFilter)
     {
         _logger.trace("listResource: url=" + resourceURL);
-        
+
         ArrayList<VirtualFile> fileList = new ArrayList<VirtualFile>();
-        if(resourceURL == null)
+        if (resourceURL == null)
             return fileList;
-        
+
         String protocol = resourceURL.getProtocol();
-        if(protocol.equals("file"))
+        if (protocol.equals("file"))
         {
             String resourceURLString = resourceURL.toString();
             collectFileResources(resourceURLString, fileList, packagePath, resourceFilter);
         }
-        else if(protocol.equals("jar"))
+        else if (protocol.equals("jar"))
         {
             // retrieve jar contents
             String path = resourceURL.getPath();
             int pos = path.indexOf("!");
-            if(pos < 0)
+            if (pos < 0)
                 throw new IllegalArgumentException("invalid resource URL: " + resourceURL);
-            
+
             String jarPath = path.substring(0, pos);
-            String filePath = path.substring(pos+2);
+            String filePath = path.substring(pos + 2);
             try
             {
-                String jarURLString = "jar:" + jarPath; 
-                
+                String jarURLString = "jar:" + jarPath;
+
                 jarPath = jarPath.replaceAll("%20", " ").replace("file:", "");
                 filePath = filePath.replaceAll("%20", " ");
-                
-                //File jarFile = new File(jarPath);
+
+                // File jarFile = new File(jarPath);
                 JarFile jf = new JarFile(jarPath);
-                for(Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements(); )
+                for (Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements();)
                 {
                     JarEntry jarEntry = entryEnum.nextElement();
-                                        
+
                     String physicalURL = jarURLString + "!/" + jarEntry.getName();
                     URL jarFileURL = new URL(physicalURL);
-     
+
                     String logicalName = extractLogicalName(packagePath, jarEntry.getName());
-                    if(logicalName != null && resourceFilter.accept(logicalName))
+                    if (logicalName != null && resourceFilter.accept(logicalName))
                         fileList.add(new FileInJarArchive(jarFileURL, logicalName, jarEntry.isDirectory()));
                 }
-                
-        
+
             }
             catch (MalformedURLException e)
             {
@@ -263,13 +277,14 @@ public class FileResource
         }
         else
         {
-            throw new UnsupportedOperationException("resources other than file or jar are not supported: " + resourceURL);    
+            throw new UnsupportedOperationException("resources other than file or jar are not supported: "
+                    + resourceURL);
         }
-        
+
         return fileList;
     }
-    
-    /** 
+
+    /**
      * list up resources recursively under the given base package name
      * 
      * @param basePackageName
@@ -278,8 +293,22 @@ public class FileResource
      */
     public static List<VirtualFile> listResources(String basePackageName, ResourceFilter resourceFilter)
     {
+        return listResources(FileResource.class.getClassLoader(), basePackageName, resourceFilter);
+    }
+
+    /**
+     * list up resources recursively under the given base package name
+     * 
+     * @param classLoader
+     * @param basePackageName
+     *            package name to search. e.g. org.xerial.util
+     * @return the list of resources represented as {@link VirtualFile}
+     */
+    public static List<VirtualFile> listResources(ClassLoader classLoader, String basePackageName,
+            ResourceFilter resourceFilter)
+    {
         String packagePath = packagePath(basePackageName);
-        List<URL> resourceURLList = getURLListFromAllClassLoader(packagePath);
+        List<URL> resourceURLList = getURLListFromAllAncestorOrSelfClassLoaders(classLoader, packagePath);
         ArrayList<VirtualFile> fileList = new ArrayList<VirtualFile>();
         for (URL resourceURL : resourceURLList)
         {
@@ -339,29 +368,28 @@ public class FileResource
         return logicalName;
     }
 
-    
     /**
      * Retrieves all {@link URLClassLoader}s that can be found from this class
+     * 
      * @return the list of {@link URLClassLoader}s
      */
-    public static ArrayList<URLClassLoader> getAllClassLoader()
+    public static ArrayList<URLClassLoader> getAllAncestorOrSelfClassLoaders(ClassLoader classLoader)
     {
         ArrayList<URLClassLoader> classLoaderSet = new ArrayList<URLClassLoader>();
-        for (ClassLoader clCursor = (URLClassLoader) FileResource.class.getClassLoader(); clCursor != null; clCursor = clCursor
-                .getParent())
+        for (ClassLoader clCursor = (URLClassLoader) classLoader; clCursor != null; clCursor = clCursor.getParent())
         {
             URLClassLoader urlClassLoader = (URLClassLoader) clCursor;
             classLoaderSet.add(urlClassLoader);
         }
         return classLoaderSet;
     }
-    
-    
-    private static ArrayList<URL> getURLListFromAllClassLoader(String packageAsPath)
+
+    private static ArrayList<URL> getURLListFromAllAncestorOrSelfClassLoaders(ClassLoader classLoader,
+            String packageAsPath)
     {
         String path = !packageAsPath.endsWith("/") ? packageAsPath + "/" : packageAsPath;
 
-        ArrayList<URLClassLoader> classLoaderSet = getAllClassLoader();
+        ArrayList<URLClassLoader> classLoaderSet = getAllAncestorOrSelfClassLoaders(classLoader);
 
         ArrayList<URL> resultURLList = new ArrayList<URL>();
         try
@@ -494,26 +522,20 @@ public class FileResource
     }
 
     /*
-    public static ArrayList<URL> listResourcesInJar(URL jarURL)
-    {
-        if (!jarURL.getProtocol().equals("file"))
-            throw new IllegalArgumentException("not found the jar: " + jarURL);
-
-        String jarURLString = "jar:" + jarPath;
-
-        File jarFile = new File(jarURL.toString());
-        JarFile jf = new JarFile(jarFile);
-        for (Enumeration<JarEntry> entryEnum = jf.entries(); entryEnum.hasMoreElements();)
-        {
-            JarEntry jarEntry = entryEnum.nextElement();
-            jarEntry.isDirectory();
-
-            String physicalURL = jarURLString + "!/" + jarEntry.getName();
-        }
-
-    }
+     * public static ArrayList<URL> listResourcesInJar(URL jarURL) { if
+     * (!jarURL.getProtocol().equals("file")) throw new
+     * IllegalArgumentException("not found the jar: " + jarURL);
+     * 
+     * String jarURLString = "jar:" + jarPath;
+     * 
+     * File jarFile = new File(jarURL.toString()); JarFile jf = new
+     * JarFile(jarFile); for (Enumeration<JarEntry> entryEnum = jf.entries();
+     * entryEnum.hasMoreElements();) { JarEntry jarEntry =
+     * entryEnum.nextElement(); jarEntry.isDirectory();
+     * 
+     * String physicalURL = jarURLString + "!/" + jarEntry.getName(); } }
      */
-    
+
     public static URL findFromJAR(String jarPath, String filePath)
     {
         try
@@ -522,7 +544,7 @@ public class FileResource
             if (!jarURL.getProtocol().equals("file"))
                 throw new IllegalArgumentException("not found the jar: " + jarURL);
 
-            //String jarURLString = "jar:" + jarPath;
+            // String jarURLString = "jar:" + jarPath;
 
             File jarFile = new File(jarURL.toString());
             JarFile jf = new JarFile(jarFile);
@@ -531,7 +553,8 @@ public class FileResource
                 JarEntry jarEntry = entryEnum.nextElement();
                 jarEntry.isDirectory();
 
-                //String physicalURL = jarURLString + "!/" + jarEntry.getName();
+                // String physicalURL = jarURLString + "!/" +
+                // jarEntry.getName();
             }
         }
         catch (MalformedURLException e)
@@ -560,7 +583,5 @@ public class FileResource
     {
         return find("", resourceFileName);
     }
-
-
 
 }
