@@ -8,7 +8,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>0.6.2-SNAPSHOT</version>
+  <version>0.6.2</version>
   <description>Xerial Core: standard utilities for XerialJ project</description>
   <build>
     <resources>
@@ -96,4 +96,10 @@
       <url>dav:http://maven.xerial.org/repository/site/${project.artifactId}</url>
     </site>
   </distributionManagement>
+
+  <scm>
+    <connection>scm:svn:http://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-0.6.2</connection>
+    <developerConnection>scm:svn:http://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-0.6.2</developerConnection>
+    <url>http://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-0.6.2</url>
+  </scm>
 </project>
