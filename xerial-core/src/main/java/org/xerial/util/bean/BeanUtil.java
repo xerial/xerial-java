@@ -805,6 +805,15 @@ public class BeanUtil
         }
     }
 
+    public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws BeanException, IOException
+    {
+    	try {
+			BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
+		} catch (XerialException e) {
+			throw new BeanException(BeanErrorCode.BindFailure, e);
+		}
+    }
+    
     /**
      * fill a bean class with a given JSON data
      * 
