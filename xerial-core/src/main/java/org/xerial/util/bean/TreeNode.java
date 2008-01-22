@@ -30,12 +30,13 @@ import java.util.List;
  * Tree represetation of XML/JSON/ANTLR data
  * 
  * @author leo
- *
+ * 
  */
 public interface TreeNode
 {
     public String getNodeName();
+
     public String getNodeValue();
+
     public List<TreeNode> getChildren();
-    public List<TreeNodeAttribute> getAttributeList();
 }

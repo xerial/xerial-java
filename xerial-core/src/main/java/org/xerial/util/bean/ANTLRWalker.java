@@ -33,63 +33,59 @@ import org.xerial.core.XerialException;
 
 /**
  * A walker implementation for ANTLR parse trees
+ * 
  * @author leo
- *
+ * 
  */
 public class ANTLRWalker extends TreeWalker
 {
-    private static final ArrayList<TreeNodeAttribute> emptyAttributeList = new ArrayList<TreeNodeAttribute>();
     private final Parser parser;
     private Tree currentNode = null;
-    
+
     private boolean skipDescendants = false;
-    
+
     public ANTLRWalker(Parser parser, TreeVisitor visitor, Tree parseTree)
     {
         super(visitor);
         this.parser = parser;
         this.currentNode = parseTree;
     }
-    
+
     public void walk() throws XerialException
     {
         getTreeVisitor().init(this);
         walk(currentNode);
         getTreeVisitor().finish(this);
     }
-    
-        
+
     public void walk(Tree t) throws XerialException
     {
         currentNode = t;
         int tokenType = t.getType();
         String nodeName = parser.getTokenNames()[tokenType];
-        
+
         // invoke visitor
-        getTreeVisitor().visitNode(nodeName, emptyAttributeList, this);
-        
+        getTreeVisitor().visitNode(nodeName, this);
+
         // visit child nodes
-        if(skipDescendants)
+        if (skipDescendants)
         {
-            for(int i=0; i<t.getChildCount(); i++)
+            for (int i = 0; i < t.getChildCount(); i++)
             {
                 Tree child = t.getChild(i);
                 walk(child);
             }
             skipDescendants = false;
         }
-        
+
         // leave the current node
         getTreeVisitor().leaveNode(nodeName, t.getText(), this);
     }
-    
-    
-    
+
     public void skipDescendants()
     {
         skipDescendants = true;
     }
-
 
     public TreeNode getSubTree() throws BeanException
     {
@@ -105,11 +101,11 @@ public class ANTLRWalker extends TreeWalker
         {
             this.t = t;
         }
-        
+
         public List<TreeNode> getChildren()
         {
             ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
-            for(int i=0; i<t.getChildCount(); i++)
+            for (int i = 0; i < t.getChildCount(); i++)
             {
                 childList.add(new ANTLRTreeNodeWrapper(t.getChild(i)));
             }
@@ -126,11 +122,6 @@ public class ANTLRWalker extends TreeWalker
             return t.getText();
         }
 
-        public List<TreeNodeAttribute> getAttributeList()
-        {
-            return new ArrayList<TreeNodeAttribute>();
-        }
-        
     }
-    
+
 }

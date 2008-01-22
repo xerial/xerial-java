@@ -24,9 +24,9 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.Properties;
 
 import org.junit.After;
@@ -44,15 +44,15 @@ public class MapWalkerTest
     @After
     public void tearDown() throws Exception
     {}
-    
+
     @Test
     public void testWalk() throws XerialException
     {
         final Properties prop = new Properties();
         prop.put("A", "hello");
         prop.put("B", "world");
-        
-        MapWalker walker = new MapWalker(new TreeVisitor(){
+
+        MapWalker walker = new MapWalker(new TreeVisitor() {
 
             boolean visitA = false;
             boolean visitB = false;
@@ -67,7 +67,7 @@ public class MapWalkerTest
                 assertTrue(visitB);
                 assertEquals("hello", valueA);
                 assertEquals("world", valueB);
-                
+
                 prop.put("C", "finished");
             }
 
@@ -78,7 +78,7 @@ public class MapWalkerTest
 
             public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
-                if(nodeName.equals("A"))
+                if (nodeName.equals("A"))
                 {
                     valueA = nodeValue;
                 }
@@ -88,10 +88,9 @@ public class MapWalkerTest
                 }
             }
 
-            public void visitNode(String nodeName, List<TreeNodeAttribute> nodeAttributeList, TreeWalker walker)
-                    throws XerialException
+            public void visitNode(String nodeName, TreeWalker walker) throws XerialException
             {
-                if(nodeName.equals("A"))
+                if (nodeName.equals("A"))
                 {
                     visitA = true;
                 }
@@ -99,11 +98,12 @@ public class MapWalkerTest
                 {
                     visitB = true;
                 }
-                                
-            }}, prop);
-        
+
+            }
+        }, prop);
+
         walker.walk();
-        
+
         assertTrue(prop.containsKey("C"));
         assertEquals("finished", prop.getProperty("C"));
     }

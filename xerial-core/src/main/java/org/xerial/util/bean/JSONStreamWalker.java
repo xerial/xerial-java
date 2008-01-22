@@ -39,55 +39,56 @@ import org.xerial.json.JSONValue;
 
 /**
  * A walker that traverses JSON streams
+ * 
  * @author leo
- *
+ * 
  */
 public class JSONStreamWalker extends TreeWalker
 {
     private final JSONPullParser jsonPullParser;
     private boolean skipDescendants = false;
-    private int skipLevel = Integer.MAX_VALUE; 
-    
+    private int skipLevel = Integer.MAX_VALUE;
+
     public JSONStreamWalker(TreeVisitor visitor, Reader jsonStream) throws IOException
     {
         super(visitor);
         jsonPullParser = new JSONPullParser(jsonStream);
     }
-    
+
     public void walk() throws XerialException
     {
         getTreeVisitor().init(this);
         walk_internal();
         getTreeVisitor().finish(this);
     }
-    
+
     public void walk_internal() throws XerialException
     {
         JSONEvent event;
-        while((event = jsonPullParser.next()) != JSONEvent.EndJSON)
+        while ((event = jsonPullParser.next()) != JSONEvent.EndJSON)
         {
-            
-            switch(event)
+
+            switch (event)
             {
             case StartObject:
             {
-                if(!skipDescendants)
+                if (!skipDescendants)
                 {
-                    String key = jsonPullParser.getKeyName(); 
-                    getTreeVisitor().visitNode(key, null, this);
+                    String key = jsonPullParser.getKeyName();
+                    getTreeVisitor().visitNode(key, this);
                 }
                 break;
             }
             case EndObject:
             {
-                if(skipDescendants)
+                if (skipDescendants)
                 {
-                    if(skipLevel == jsonPullParser.getDepth())
+                    if (skipLevel == jsonPullParser.getDepth())
                         skipDescendants = false;
                     else
                         break;
                 }
-                String key = jsonPullParser.getKeyName(); 
+                String key = jsonPullParser.getKeyName();
                 getTreeVisitor().leaveNode(key, null, this);
                 break;
             }
@@ -96,22 +97,22 @@ public class JSONStreamWalker extends TreeWalker
             case Double:
             case Boolean:
             {
-                if(skipDescendants)
+                if (skipDescendants)
                     break;
-            
-                String key = jsonPullParser.getKeyName(); 
+
+                String key = jsonPullParser.getKeyName();
                 String value = jsonPullParser.getText();
-                getTreeVisitor().visitNode(key, null, this);
+                getTreeVisitor().visitNode(key, this);
                 getTreeVisitor().leaveNode(key, value, this);
                 break;
             }
-            case Null:            
+            case Null:
             {
-                if(skipDescendants)
+                if (skipDescendants)
                     break;
 
-                String key = jsonPullParser.getKeyName(); 
-                getTreeVisitor().visitNode(key, null, this);
+                String key = jsonPullParser.getKeyName();
+                getTreeVisitor().visitNode(key, this);
                 getTreeVisitor().leaveNode(key, null, this);
                 break;
             }
@@ -123,14 +124,13 @@ public class JSONStreamWalker extends TreeWalker
                 break;
             }
         }
-            
+
     }
-    
+
     public void skipDescendants()
     {
         skipDescendants = true;
     }
-
 
     public TreeNode getSubTree() throws BeanException
     {
@@ -144,40 +144,35 @@ public class JSONStreamWalker extends TreeWalker
             throw new BeanException(BeanErrorCode.InvalidJSONData, e);
         }
     }
-    
+
     private class JSONTreeNodeImpl implements TreeNode
     {
         String key;
         JSONValue value;
-        
+
         public JSONTreeNodeImpl(String key, JSONValue value)
         {
             this.key = key;
             this.value = value;
         }
-         
-        public List<TreeNodeAttribute> getAttributeList()
-        {
-            return new ArrayList<TreeNodeAttribute>();
-        }
 
         public List<TreeNode> getChildren()
         {
             ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
-            switch(value.getValueType())
+            switch (value.getValueType())
             {
             case Object:
-                JSONObject obj = value.getJSONObject();    
-                for(String entryKey : obj.keys())
+                JSONObject obj = value.getJSONObject();
+                for (String entryKey : obj.keys())
                     childList.add(new JSONTreeNodeImpl(entryKey, obj.get(entryKey)));
                 break;
             case Array:
                 JSONArray array = value.getJSONArray();
-                for(JSONValue v : array)
+                for (JSONValue v : array)
                     childList.add(new JSONTreeNodeImpl(key, v));
                 break;
             }
-            
+
             return childList;
         }
 
@@ -188,7 +183,7 @@ public class JSONStreamWalker extends TreeWalker
 
         public String getNodeValue()
         {
-            switch(value.getValueType())
+            switch (value.getValueType())
             {
             case Object:
             case Array:
@@ -198,6 +193,6 @@ public class JSONStreamWalker extends TreeWalker
                 return value.toString();
             }
         }
-        
+
     }
 }

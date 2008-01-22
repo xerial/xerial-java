@@ -26,7 +26,6 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanBinder;
@@ -35,7 +34,6 @@ import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TreeNodeAttribute;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.TypeInformation;
@@ -157,8 +155,7 @@ public class BeanBindingProcess implements TreeVisitor
 
     }
 
-    public void visitNode(String nodeName, List<TreeNodeAttribute> nodeAttributeList, TreeWalker walker)
-            throws XerialException
+    public void visitNode(String nodeName, TreeWalker walker) throws XerialException
     {
         int nodeLevel = currentLevel++;
         _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
@@ -197,22 +194,6 @@ public class BeanBindingProcess implements TreeVisitor
                 // no descendant nodes to bind
                 walker.skipDescendants();
                 return;
-            }
-        }
-
-        Class beanClass = bean.getClass();
-        BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(beanClass);
-        // bind attribute data
-        if (nodeAttributeList != null)
-        {
-            for (TreeNodeAttribute attribute : nodeAttributeList)
-            {
-                BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
-                if (updator != null)
-                {
-                    _logger.trace("bind attribute: " + attribute.getName() + "=" + attribute.getValue());
-                    bindValue(bean, updator, attribute.getValue());
-                }
             }
         }
 

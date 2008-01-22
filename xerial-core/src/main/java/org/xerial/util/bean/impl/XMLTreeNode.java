@@ -32,20 +32,19 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.util.bean.TreeNode;
-import org.xerial.util.bean.TreeNodeAttribute;
 import org.xerial.util.xml.dom.DOMUtil;
 
 /**
- * {@link TreeNode} implementation for XML data 
+ * {@link TreeNode} implementation for XML data
+ * 
  * @author leo
- *
+ * 
  */
 public class XMLTreeNode implements TreeNode
 {
     private String nodeName;
     private String nodeValue;
     private ArrayList<TreeNode> childList = new ArrayList<TreeNode>();
-    private ArrayList<TreeNodeAttribute> attributeList = new ArrayList<TreeNodeAttribute>();
 
     public XMLTreeNode()
     {}
@@ -63,8 +62,11 @@ public class XMLTreeNode implements TreeNode
 
     /**
      * Parses the input DOM element, and constructs XMLTreeNode
-     * @param currentNode the current node matching the element
-     * @param element the parsing target element
+     * 
+     * @param currentNode
+     *            the current node matching the element
+     * @param element
+     *            the parsing target element
      * @return the currentNode with its descendant XMLTreeNodes
      */
     public static XMLTreeNode parse(XMLTreeNode currentNode, Element element)
@@ -78,7 +80,7 @@ public class XMLTreeNode implements TreeNode
             Node attributeNode = attributeMap.item(i);
             String attributeName = attributeNode.getNodeName();
             String attributeValue = attributeNode.getNodeValue();
-            currentNode.attributeList.add(new XMLAttributeImpl(attributeName, attributeValue));
+            currentNode.addChild(new XMLTreeNode(attributeName, attributeValue));
         }
 
         NodeList nodeList = element.getChildNodes();
@@ -92,12 +94,9 @@ public class XMLTreeNode implements TreeNode
         // set the current node value from the DOM texts
         String text = DOMUtil.getText(element);
         currentNode.setNodeValue(text);
-        
+
         return currentNode;
     }
-        
-    
-        
 
     public void setNodeValue(String nodeValue)
     {
@@ -128,11 +127,6 @@ public class XMLTreeNode implements TreeNode
     public void addChild(XMLTreeNode childNode)
     {
         childList.add(childNode);
-    }
-
-    public List<TreeNodeAttribute> getAttributeList()
-    {
-        return attributeList;
     }
 
 }

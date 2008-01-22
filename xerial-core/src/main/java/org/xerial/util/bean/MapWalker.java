@@ -32,35 +32,32 @@ import org.xerial.core.XerialException;
 
 /**
  * {@link TreeWalker} for map structured data
+ * 
  * @author leo
- *
+ * 
  */
 public class MapWalker extends TreeWalker
 {
     private final Map map;
+
     public MapWalker(TreeVisitor visitor, Map map)
     {
         super(visitor);
-        
-        if(map == null)
+
+        if (map == null)
             throw new NullPointerException("map cannot be null");
         this.map = map;
     }
-    
+
     static class SingleTreeNode implements TreeNode
     {
         private final String nodeName;
         private final String nodeValue;
-        
+
         public SingleTreeNode(String nodeName, String nodeValue)
         {
-            this.nodeName= nodeName;
+            this.nodeName = nodeName;
             this.nodeValue = nodeValue;
-        }
-        
-        public List<TreeNodeAttribute> getAttributeList()
-        {
-            return new ArrayList<TreeNodeAttribute>();
         }
 
         public List<TreeNode> getChildren()
@@ -77,13 +74,13 @@ public class MapWalker extends TreeWalker
         {
             return nodeValue;
         }
-        
+
     }
-    
+
     @Override
     public TreeNode getSubTree() throws BeanException
     {
-        if(currentKey != null)
+        if (currentKey != null)
         {
             Object value = map.get(currentKey);
             return new SingleTreeNode(currentKey.toString(), value != null ? value.toString() : null);
@@ -95,25 +92,28 @@ public class MapWalker extends TreeWalker
     @Override
     public void skipDescendants()
     {
-        // there is nothing to do
+    // there is nothing to do
     }
 
     private Object currentKey;
-    
+
     @Override
     public void walk() throws XerialException
     {
         getTreeVisitor().init(this);
-        getTreeVisitor().visitNode("_root", null, this); // visit the imaginary root node
-        for(Object key : map.keySet())
+        // visit the imaginary root node
+        getTreeVisitor().visitNode("_root", this);
+
+        for (Object key : map.keySet())
         {
             currentKey = key;
             String nodeName = key.toString();
             Object value = map.get(key);
-            getTreeVisitor().visitNode(nodeName, null, this);
+            getTreeVisitor().visitNode(nodeName, this);
             getTreeVisitor().leaveNode(nodeName, value != null ? value.toString() : null, this);
         }
-        getTreeVisitor().leaveNode("_root", null, this);	// leave the imaginary root node
+        // leave the imaginary root node
+        getTreeVisitor().leaveNode("_root", null, this);
         getTreeVisitor().finish(this);
     }
 
