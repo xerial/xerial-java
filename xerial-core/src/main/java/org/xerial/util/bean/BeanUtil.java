@@ -59,7 +59,10 @@ import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.impl.ArraySetter;
+import org.xerial.util.bean.impl.BeanBindingProcess;
+import org.xerial.util.bean.impl.BeanStreamReader;
 import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.util.bean.impl.BindRuleGeneratorForBeanStream;
 import org.xerial.util.bean.impl.CollectionAdder;
 import org.xerial.util.bean.impl.CollectionSetter;
 import org.xerial.util.bean.impl.Getter;
@@ -477,8 +480,9 @@ public class BeanUtil
      *            getSomething
      * @param patternType
      *            set(ter) or get(ter)
-     * @return メソッド名から先頭のset/getを取り除いた文字列の先頭をlower caseに変換したString.
-     *         切り出せない場合は、null を返す/
+     * @return メソッド名から先頭のset/getを取り除いた文字列の先頭をlower
+     *         caseに変換したString. 切り出せない場合は、null
+     *         を返す/
      */
     static String pickPropertyName(String methodName)
     {
@@ -678,14 +682,14 @@ public class BeanUtil
                 String parameterName = rule.getParameterName();
 
                 Object parameterValue = invokeGetterMethod(getter, bean);
-                if(parameterValue != null)
+                if (parameterValue != null)
                     json.put(parameterName, outputAsJSONValue(parameterValue));
             }
             return json;
         }
 
     }
-    
+
     private static Object invokeGetterMethod(Method getter, Object bean) throws BeanException
     {
         try
@@ -705,21 +709,21 @@ public class BeanUtil
             throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
-    
+
     public static void populateBeanWithMap(Object bean, Map map) throws XerialException
     {
-    	BeanUtilImpl.populateBeanWithMap(bean, map);
+        BeanUtilImpl.populateBeanWithMap(bean, map);
     }
-   
+
     public static void populateBeanWithXML(Object bean, Reader xmlReader) throws BeanException
     {
-        if(bean == null)
+        if (bean == null)
             throw new BeanException(BeanErrorCode.BeanObjectIsNull);
         try
         {
             BeanUtilImpl.populateBeanWithXML(bean, xmlReader);
         }
-        catch(XerialException e)
+        catch (XerialException e)
         {
             throw new BeanException(BeanErrorCode.BindFailure, e);
         }
@@ -1124,6 +1128,24 @@ public class BeanUtil
             return new Boolean(xmlValueStr);
         return xmlValue;
     }
+
+    public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, BeanHandler<T> beanHandler)
+            throws IOException, BeanException
+    {
+        try
+        {
+            BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
+                    new BindRuleGeneratorForBeanStream<T>(beanClass));
+
+            JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
+            walker.walk();
+        }
+        catch (XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e);
+        }
+    }
+
 }
 
 enum BeanParameterType {

@@ -50,9 +50,18 @@ import org.xerial.util.log.Logger;
 public class BeanBindingProcess implements TreeVisitor
 {
     private static Logger _logger = Logger.getLogger(BeanBindingProcess.class);
-    
+
     private final ArrayList<Object> beanStack = new ArrayList<Object>();
     private int currentLevel = 0;
+    private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
+
+    class BindRuleGeneratorImpl implements BindRuleGenerator
+    {
+        public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws BeanException
+        {
+            return BeanUtil.getBeanLoadRule(beanClass);
+        }
+    }
 
     public BeanBindingProcess(Class beanClass) throws BeanException
     {
@@ -64,23 +73,29 @@ public class BeanBindingProcess implements TreeVisitor
         beanStack.add(bean);
     }
 
+    public BeanBindingProcess(Object bean, BindRuleGenerator bindRuleGenerator)
+    {
+        beanStack.add(bean);
+        this.bindRuleGenerator = bindRuleGenerator;
+    }
+
     public Object getResultBean()
     {
         return beanStack.get(0);
     }
-    
+
     public Object getBean(int level)
     {
-        if(level < 0 || level >= beanStack.size()) 
+        if (level < 0 || level >= beanStack.size())
             return null;
         else
             return beanStack.get(level);
-        
+
     }
-    
-    public void setBean(int level, Object bean)
+
+    private void setBean(int level, Object bean)
     {
-        while(beanStack.size() <= level)
+        while (beanStack.size() <= level)
         {
             beanStack.add(null);
         }
@@ -98,44 +113,48 @@ public class BeanBindingProcess implements TreeVisitor
 
     }
 
+    protected <T> BeanBinderSet getBindRuleSet(Class<T> beanClass) throws BeanException
+    {
+        return bindRuleGenerator.getBeanBinderSet(beanClass);
+    }
+
     public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
         int nodeLevel = --currentLevel;
         _logger.trace("leave: " + nodeName + " level = " + nodeLevel);
-        Object parentBean = getBean(nodeLevel-1);
-        if(parentBean == null)
+        Object parentBean = getBean(nodeLevel - 1);
+        if (parentBean == null)
             return;
-        
-        Class parentBeanClass = parentBean.getClass();    
-        BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(parentBeanClass);
+
+        BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
         BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
         if (updator != null)
         {
             Object valueBean = getBean(nodeLevel);
-            if(valueBean == null)
+            if (valueBean == null)
             {
-                if(nodeValue != null && nodeValue.length() > 0)
+                if (nodeValue != null && nodeValue.length() > 0)
                 {
                     valueBean = nodeValue;
                 }
             }
-            
-            if(valueBean == null)
+
+            if (valueBean == null)
                 return;
-            
+
             try
             {
                 _logger.trace("update: " + valueBean.toString());
                 bindValue(parentBean, updator, valueBean);
             }
-            catch(BeanException e)
+            catch (BeanException e)
             {
                 _logger.error(e);
             }
             // clear the bean stack
             setBean(nodeLevel, null);
         }
-        
+
     }
 
     public void visitNode(String nodeName, List<TreeNodeAttribute> nodeAttributeList, TreeWalker walker)
@@ -144,23 +163,25 @@ public class BeanBindingProcess implements TreeVisitor
         int nodeLevel = currentLevel++;
         _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
         Object bean = getBean(nodeLevel);
-        if(bean == null)
+        if (bean == null)
         {
-            assert(currentLevel > 0);   // cannot be null when level is 0 
+            assert (currentLevel > 0); // cannot be null when level is 0
             Object parentBean = getBean(nodeLevel - 1);
-            BeanBinderSet parentBeanBindRuleSet = BeanUtil.getBeanLoadRule(parentBean.getClass());
+            BeanBinderSet parentBeanBindRuleSet = getBindRuleSet(parentBean.getClass());
             BeanBinder binder = parentBeanBindRuleSet.findRule(nodeName);
-            if(binder != null)
+            if (binder != null)
             {
                 // We have to instantiate a bean class of the node name
-                if(!BeanUpdator.class.isAssignableFrom(binder.getClass()))
-                    throw new BeanException(BeanErrorCode.InvalidBeanClass, binder.getClass().getName() + " cannot be used to bind data");
+                if (!BeanUpdator.class.isAssignableFrom(binder.getClass()))
+                    throw new BeanException(BeanErrorCode.InvalidBeanClass, binder.getClass().getName()
+                            + " cannot be used to bind data");
                 BeanUpdator updator = (BeanUpdator) binder;
-                
+
                 Class elementType = updator.getElementType();
-                if(TypeInformation.isBasicType(elementType))
+                if (TypeInformation.isBasicType(elementType))
                 {
-                    // this bean can be converted from an element text, so there is no need to instantiate the object here.
+                    // this bean can be converted from an element text, so there
+                    // is no need to instantiate the object here.
                     return;
                 }
                 else
@@ -172,21 +193,22 @@ public class BeanBindingProcess implements TreeVisitor
             }
             else
             {
-                // We can safely skip descendants of this node, since there is no descendant nodes to bind 
+                // We can safely skip descendants of this node, since there is
+                // no descendant nodes to bind
                 walker.skipDescendants();
                 return;
             }
         }
-        
+
         Class beanClass = bean.getClass();
         BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(beanClass);
         // bind attribute data
-        if(nodeAttributeList != null)
+        if (nodeAttributeList != null)
         {
-            for(TreeNodeAttribute attribute : nodeAttributeList)
+            for (TreeNodeAttribute attribute : nodeAttributeList)
             {
                 BeanUpdator updator = getUpdator(bindRuleSet, attribute.getName());
-                if(updator != null)
+                if (updator != null)
                 {
                     _logger.trace("bind attribute: " + attribute.getName() + "=" + attribute.getValue());
                     bindValue(bean, updator, attribute.getValue());
@@ -195,21 +217,21 @@ public class BeanBindingProcess implements TreeVisitor
         }
 
     }
-    
+
     public static BeanUpdator getUpdator(BeanBinderSet bindRuleSet, String ruleName) throws BeanException
     {
         BeanBinder binder = bindRuleSet.findRule(ruleName);
-        if(binder == null)
+        if (binder == null)
             return null;
         else
         {
-            if(!BeanUpdator.class.isAssignableFrom(binder.getClass()))
-                throw new BeanException(BeanErrorCode.InvalidBeanClass, binder.getClass().getName() + " cannot be used to bind data");
-            return  (BeanUpdator) binder;
+            if (!BeanUpdator.class.isAssignableFrom(binder.getClass()))
+                throw new BeanException(BeanErrorCode.InvalidBeanClass, binder.getClass().getName()
+                        + " cannot be used to bind data");
+            return (BeanUpdator) binder;
         }
     }
-    
-    
+
     protected void bindValue(Object bean, BeanUpdator updator, Object value) throws BeanException
     {
         try
@@ -230,23 +252,22 @@ public class BeanBindingProcess implements TreeVisitor
             throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
-    
+
     public static Object convertType(Class targetType, Object value) throws BeanException
     {
-        if(targetType == value.getClass())
+        if (targetType == value.getClass())
             return value;
         else
             return convertToBasicType(targetType, value);
     }
-    
-    
+
     public static Object convertToBasicType(Class targetType, Object input) throws BeanException
     {
-        assert(TypeInformation.isBasicType(targetType));
+        assert (TypeInformation.isBasicType(targetType));
 
         try
         {
-            String value = input.toString();  
+            String value = input.toString();
             if (targetType == String.class)
                 return value;
             else if (targetType == int.class || targetType == Integer.class)
@@ -259,11 +280,11 @@ public class BeanBindingProcess implements TreeVisitor
                 return new Float(value);
             else if (targetType == boolean.class || targetType == Boolean.class)
                 return new Boolean(value);
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName());    
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName());
         }
-        catch(NumberFormatException e)
+        catch (NumberFormatException e)
         {
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName(), e.getMessage());    
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName(), e.getMessage());
         }
     }
 
