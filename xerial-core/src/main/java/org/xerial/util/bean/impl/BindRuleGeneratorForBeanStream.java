@@ -24,11 +24,11 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Method;
 import java.util.Vector;
 
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
+import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 
@@ -36,16 +36,33 @@ public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
 {
     private final Class<E> targetBeanClass;
     private String className;
-    private BeanBinderSet binderSetForTargetBean = new MyBeanBinderSet();
+    private final BeanBinderSet binderSetForTargetBean;
 
-    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass)
+    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass) throws BeanException
     {
         this.targetBeanClass = targetBeanClass;
         className = targetBeanClass.getSimpleName().toLowerCase();
+
+        try
+        {
+            binderSetForTargetBean = new MyBeanBinderSet();
+        }
+        catch (Exception e)
+        {
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, e);
+        }
     }
 
     class MyBeanBinderSet implements BeanBinderSet
     {
+        private CollectionAdder adder;
+
+        public MyBeanBinderSet() throws BeanException, SecurityException, NoSuchMethodException
+        {
+            adder = new CollectionAdder(BeanStreamReader.class.getMethod("add", Object.class), className,
+                    targetBeanClass);
+        }
+
         public void addRule(BeanBinder binder)
         {
             throw new UnsupportedOperationException("addRule");
@@ -55,19 +72,10 @@ public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
         {
             if (name.equals(className))
             {
-                Method m;
-                try
-                {
-                    m = BeanStreamReader.class.getMethod("add", targetBeanClass);
-                    return new CollectionAdder(m, className, targetBeanClass);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                return adder;
             }
-
-            return null;
+            else
+                return null;
         }
 
         public Vector<BeanBinder> getBindRules()

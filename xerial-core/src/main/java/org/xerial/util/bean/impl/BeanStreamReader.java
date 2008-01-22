@@ -36,9 +36,10 @@ public class BeanStreamReader<BeanType>
         this.handler = handler;
     }
 
-    public void add(BeanType bean) throws Exception
+    @SuppressWarnings("unchecked")
+    public void add(Object bean) throws Exception
     {
-        handler.handle(bean);
+        handler.handle((BeanType) bean);
     }
 
 }
