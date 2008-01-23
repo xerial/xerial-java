@@ -43,6 +43,7 @@ import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
 import org.xerial.util.FileResource;
+import org.xerial.util.StopWatch;
 import org.xerial.util.bean.sample.Address;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.CollectionParam;
@@ -571,6 +572,7 @@ public class BeanUtilTest
         foundGene1 = false;
         foundGene2 = false;
 
+        StopWatch stopWatch = new StopWatch();
         BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"), Gene.class,
                 new BeanHandler<Gene>() {
                     public void handle(Gene gene) throws Exception
@@ -601,6 +603,7 @@ public class BeanUtilTest
 
                     }
                 });
+        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
 
         assertTrue(foundGene1);
         assertTrue(foundGene2);

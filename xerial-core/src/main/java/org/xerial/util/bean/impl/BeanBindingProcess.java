@@ -119,7 +119,7 @@ public class BeanBindingProcess implements TreeVisitor
     public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
         int nodeLevel = --currentLevel;
-        _logger.trace("leave: " + nodeName + " level = " + nodeLevel);
+        // _logger.trace("leave: " + nodeName + " level = " + nodeLevel);
         Object parentBean = getBean(nodeLevel - 1);
         if (parentBean == null)
             return;
@@ -142,7 +142,7 @@ public class BeanBindingProcess implements TreeVisitor
 
             try
             {
-                _logger.trace("update: " + valueBean.toString());
+                // _logger.trace("update: " + valueBean.toString());
                 bindValue(parentBean, updator, valueBean);
             }
             catch (BeanException e)
@@ -158,7 +158,7 @@ public class BeanBindingProcess implements TreeVisitor
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException
     {
         int nodeLevel = currentLevel++;
-        _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
+        // _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
         Object bean = getBean(nodeLevel);
         if (bean == null)
         {
@@ -217,7 +217,8 @@ public class BeanBindingProcess implements TreeVisitor
     {
         try
         {
-            _logger.trace("bind: " + updator.getMethod().toString() + " value=" + value.toString());
+            // _logger.trace("bind: " + updator.getMethod().toString() + "
+            // value=" + value.toString());
             updator.getMethod().invoke(bean, convertType(updator.getElementType(), value));
         }
         catch (IllegalArgumentException e)
