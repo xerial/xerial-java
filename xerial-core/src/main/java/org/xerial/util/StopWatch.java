@@ -29,52 +29,56 @@ package org.xerial.util;
  * StopWatch measures interval times.
  * 
  * @author leo
- *
+ * 
  */
-public class StopWatch {
+public class StopWatch
+{
 
-	private long initialSystemTIme;
-	private long lastSystemTime;
-	
-	public StopWatch() {
-		reset();
-	}
-	
-	/**
-	 * Gets the elapsed time since this instance is created in seconds.
-	 * @return the elapased time in seconds.
-	 */
-	public double getEleapsedTime()
-	{
-		lastSystemTime = System.currentTimeMillis();
-		long diff = lastSystemTime - initialSystemTIme;
-		return diff / 1000.0;
-	}
-	
-	/**
-	 * Gets the interval time since the last call of {@link StopWatch#getEleapsedTime()} or {@link StopWatch#getIntervalTime()}
-	 * @return the interval time in seconds
-	 */
-	public double getIntervalTime()
-	{
-		long now = System.currentTimeMillis();
-		long diff = now - lastSystemTime;
-		lastSystemTime = now;
-		return diff / 1000.0;
-	}
-	
-	/**
-	 * Reset the stop watch. The subsequent calls to {@link StopWatch#getEleapsedTime()} or {@link StopWatch#getIntervalTime()}
-	 * will measure the time intervals beginning from this method call.
-	 */
-	public void reset()
-	{
-		initialSystemTIme = System.currentTimeMillis();
-		lastSystemTime = initialSystemTIme;		
-	}
-	
-	
+    private long initialSystemTIme;
+    private long lastSystemTime;
+
+    public StopWatch()
+    {
+        reset();
+    }
+
+    /**
+     * Gets the elapsed time since this instance is created in seconds.
+     * 
+     * @return the elapsed time in seconds.
+     */
+    public double getElapsedTime()
+    {
+        lastSystemTime = System.currentTimeMillis();
+        long diff = lastSystemTime - initialSystemTIme;
+        return diff / 1000.0;
+    }
+
+    /**
+     * Gets the interval time since the last call of
+     * {@link StopWatch#getEleapsedTime()} or
+     * {@link StopWatch#getIntervalTime()}
+     * 
+     * @return the interval time in seconds
+     */
+    public double getIntervalTime()
+    {
+        long now = System.currentTimeMillis();
+        long diff = now - lastSystemTime;
+        lastSystemTime = now;
+        return diff / 1000.0;
+    }
+
+    /**
+     * Reset the stop watch. The subsequent calls to
+     * {@link StopWatch#getEleapsedTime()} or
+     * {@link StopWatch#getIntervalTime()} will measure the time intervals
+     * beginning from this method call.
+     */
+    public void reset()
+    {
+        initialSystemTIme = System.currentTimeMillis();
+        lastSystemTime = initialSystemTIme;
+    }
+
 }
-
-
-
