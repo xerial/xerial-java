@@ -36,6 +36,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -600,6 +603,33 @@ public class BeanUtil
         return bp.generateXML(tagName, bean);
     }
 
+    public static String toJSON(ResultSet resultSet) throws SQLException
+    {
+        StringBuilder builder = new StringBuilder();
+        ResultSetMetaData metadata = resultSet.getMetaData();
+        int colCount = metadata.getColumnCount();
+        builder.append("{");
+        for (int i = 1; i <= colCount; i++)
+        {
+            if (i >= 2)
+                builder.append(",");
+            Object value = resultSet.getObject(i);
+            builder.append("\"");
+            builder.append(metadata.getColumnName(i));
+            builder.append("\":");
+            if (value != null)
+            {
+                builder.append("\"");
+                builder.append(value.toString());
+                builder.append("\"");
+            }
+            else
+                builder.append("null");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
+
     public static String toJSON(Object bean) throws BeanException
     {
         return outputAsJSONValue(bean).toString();
@@ -811,13 +841,16 @@ public class BeanUtil
 
     public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws BeanException, IOException
     {
-    	try {
-			BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
-		} catch (XerialException e) {
-			throw new BeanException(BeanErrorCode.BindFailure, e);
-		}
+        try
+        {
+            BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
+        }
+        catch (XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e);
+        }
     }
-    
+
     /**
      * fill a bean class with a given JSON data
      * 
