@@ -610,4 +610,25 @@ public class BeanUtilTest
 
     }
 
+    @Test
+    public void toJSONPerf() throws BeanException, IOException
+    {
+
+        final ArrayList<Gene> geneList = new ArrayList<Gene>();
+        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "chr1.json"), Gene.class, new BeanHandler<Gene>() {
+            public void handle(Gene gene) throws Exception
+            {
+                geneList.add(gene);
+            }
+        });
+
+        StopWatch stopWatch = new StopWatch();
+        for (Gene g : geneList)
+        {
+            BeanUtil.toJSON(g);
+        }
+        _logger.debug("toJSON time: " + stopWatch.getElapsedTime());
+
+    }
+
 }

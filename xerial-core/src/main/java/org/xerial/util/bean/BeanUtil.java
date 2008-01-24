@@ -47,9 +47,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONBoolean;
@@ -74,11 +71,8 @@ import org.xerial.util.bean.impl.MapSetter;
 import org.xerial.util.bean.impl.Setter;
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLGenerator;
 import org.xerial.util.xml.dom.DOMUtil;
-import org.xerial.util.xml.pullparser.DOMBuilder;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * BeanUtil class supports data binding between JSON data and a bean class.
@@ -603,7 +597,7 @@ public class BeanUtil
         return bp.generateXML(tagName, bean);
     }
 
-    public static String toJSON(ResultSet resultSet) throws SQLException
+    public static String toJSONFromResultSet(ResultSet resultSet) throws SQLException
     {
         StringBuilder builder = new StringBuilder();
         ResultSetMetaData metadata = resultSet.getMetaData();
@@ -769,52 +763,14 @@ public class BeanUtil
         if (xmlElement == null)
             return; // there is nothing to bind
 
-        Class beanClass = bean.getClass();
-        BeanBinderSet bindRuleSet = BeanUtil.getBeanLoadRule(beanClass);
-
-        // attribute data
-        NamedNodeMap attributeMap = xmlElement.getAttributes();
-        for (int i = 0; i < attributeMap.getLength(); i++)
+        try
         {
-            Node attributeNode = attributeMap.item(i);
-            if (attributeNode.getNodeType() != Node.ATTRIBUTE_NODE)
-                throw new BeanException(BeanErrorCode.InvalidXMLData, attributeNode.toString()
-                        + " is not an attribute node");
-
-            String attributeName = attributeNode.getNodeName();
-            String attributeValue = attributeNode.getNodeValue();
-            BeanBinder binder = bindRuleSet.findRule(attributeName);
-            if (binder != null)
-            {
-                binder.invokeXMLDataSetter(bean, attributeValue);
-            }
+            BeanUtilImpl.populateBeanWithXML(bean, xmlElement);
         }
-
-        // child element data
-        NodeList childNodeList = xmlElement.getChildNodes();
-        for (int i = 0; i < childNodeList.getLength(); i++)
+        catch (XerialException e)
         {
-            Node node = childNodeList.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
-            {
-                String tagName = node.getNodeName();
-                BeanBinder binder = bindRuleSet.findRule(tagName);
-                if (binder != null)
-                {
-                    binder.invokeXMLDataSetter(bean, node);
-                }
-            }
+            throw new BeanException(BeanErrorCode.BindFailure, e);
         }
-
-        // text data of the xmlElement
-        String textData = DOMUtil.getText(xmlElement);
-        if (textData != null && textData.trim().length() > 0)
-        {
-            BeanBinder binder = bindRuleSet.findRule(xmlElement.getTagName());
-            if (binder != null)
-                binder.invokeXMLDataSetter(bean, textData.trim());
-        }
-
     }
 
     protected static void populateBeanWithXML(Object bean, Object xmlValue) throws BeanException
@@ -1099,20 +1055,16 @@ public class BeanUtil
         return TypeInformation.createInstance(c);
     }
 
-    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws XMLException, IOException,
+    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws BeanException, IOException,
             BeanException
     {
-        DOMBuilder builder = new DOMBuilder();
         try
         {
-            Element element = builder.parse(xmlReader);
-            Object bean = createInstance(valueType);
-            populateBeanWithXML(bean, element);
-            return (E) bean;
+            return BeanUtilImpl.createBeanFromXML(valueType, xmlReader);
         }
-        catch (XmlPullParserException e)
+        catch (XerialException e)
         {
-            throw new XMLException(e);
+            throw new BeanException(BeanErrorCode.BindFailure, e);
         }
     }
 
