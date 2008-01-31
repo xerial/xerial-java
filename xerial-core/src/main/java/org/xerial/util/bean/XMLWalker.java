@@ -114,6 +114,11 @@ public class XMLWalker extends TreeWalker
                                 String attributeName = pullParser.getAttributeName(i);
                                 String attributeValue = pullParser.getAttributeValue(i);
                                 getTreeVisitor().visitNode(attributeName, this);
+                                if (skipDescendants)
+                                {
+                                    // attributes has no more descendants
+                                    skipDescendants = false;
+                                }
                                 getTreeVisitor().leaveNode(attributeName, attributeValue, this);
                             }
 
