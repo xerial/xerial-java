@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,53 +16,50 @@
 //--------------------------------------
 // XerialJ
 //
-// JSONErrorCode.java
-// Since: Dec 18, 2007 3:48:48 PM
+// Person.java
+// Since: Feb 1, 2008 11:19:39 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-/**
- * 
- */
 package org.xerial.json;
 
-import org.xerial.core.ErrorCode;
+import java.util.ArrayList;
 
-/**
- * 
- * @author leo
- * 
- */
-public enum JSONErrorCode implements ErrorCode {
+public class Person
+{
+    private int id;
+    private String name;
+    private ArrayList<String> phoneList = new ArrayList<String>();
 
-    // JSONException
-    InvalidJSONData, KeyIsNotFound, NotAJSONNumber, NotAJSONString, NotAJSONObject, CannotConvertToJSONValue,
-
-    JSONValueIsNotFound, NotInAJSONObject, NotInAJSONArray, UnexpectedEndOfJSON,
-
-    ParseError, InvalidBeanClass, ;
-
-    private final String description;
-
-    private JSONErrorCode(String description)
+    public int getId()
     {
-        this.description = description;
+        return id;
     }
 
-    private JSONErrorCode()
+    public void setId(int id)
     {
-        this.description = "";
+        this.id = id;
     }
 
-    public String getCodeName()
+    public String getName()
     {
-        return name();
+        return name;
     }
 
-    public String getDescription()
+    public void setName(String name)
     {
-        return description;
+        this.name = name;
+    }
+
+    public ArrayList<String> getPhoneList()
+    {
+        return phoneList;
+    }
+
+    public void addPhone(String phone)
+    {
+        phoneList.add(phone);
     }
 
 }
