@@ -27,7 +27,6 @@ package org.xerial.util.bean.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
 import org.xerial.util.bean.BeanBinder;
@@ -41,47 +40,58 @@ import org.xerial.util.bean.TypeInformation;
  * @author leo
  * 
  */
-abstract class BeanBinderBase implements BeanBinder {
+abstract class BeanBinderBase implements BeanBinder
+{
     Method method;
 
     String parameterName;
 
-    public BeanBinderBase(Method method, String parameterName) {
+    public BeanBinderBase(Method method, String parameterName)
+    {
         this.method = method;
         this.parameterName = parameterName;
     }
 
     // @see org.utgenome.util.BeanBinder#getMethod()
-    public Method getMethod() {
+    public Method getMethod()
+    {
         return method;
     }
 
     // @see org.utgenome.util.BeanBinder#setMethod(java.lang.reflect.Method)
-    public void setMethod(Method method) {
+    public void setMethod(Method method)
+    {
         this.method = method;
     }
 
     // @see org.utgenome.util.BeanBinder#toString()
-    public String toString() {
+    public String toString()
+    {
         return "(" + method.toString() + ") ";
     }
 
     // @see org.utgenome.util.BeanBinder#getParameterName()
-    public String getParameterName() {
+    public String getParameterName()
+    {
         return parameterName;
     }
 
     // @see org.utgenome.util.BeanBinder#setParameterName(java.lang.String)
-    public void setParameterName(String parameterName) {
+    public void setParameterName(String parameterName)
+    {
         this.parameterName = parameterName;
     }
 
     // @see org.utgenome.util.BeanBinder#invokeSetter(java.lang.Object,
     // java.lang.Object)
-    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException {
-        try {
+    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException
+    {
+        try
+        {
             setJSONData(bean, json);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             throw new BeanException(BeanErrorCode.InvalidNumberFormat, e);
         }
         catch (IllegalArgumentException e)
@@ -92,27 +102,27 @@ abstract class BeanBinderBase implements BeanBinder {
 
     // @see org.utgenome.util.BeanBinder#setJSONData(java.lang.Object,
     // java.lang.Object)
-    public abstract void setJSONData(Object bean, Object json) throws BeanException; 
+    public abstract void setJSONData(Object bean, Object json) throws BeanException;
 
-    public static JSONArray getJSONArray(Object json, String key) {
+    public static JSONArray getJSONArray(Object json, String key)
+    {
         if (json == null || json.getClass() != JSONObject.class)
             return null;
         return ((JSONObject) json).getJSONArray(key);
     }
 
-    public static void constractableTest(Class c) throws BeanException {
-        if (!TypeInformation.canInstantiate(c)) {
+    public static void constractableTest(Class c) throws BeanException
+    {
+        if (!TypeInformation.canInstantiate(c))
+        {
             throw new BeanException(BeanErrorCode.NoPublicConstructor, c + " has no public constructor");
         }
     }
 
-    public void invokeXMLDataSetter(Object bean, Object xmlData) throws BeanException
-    {
-        setXMLData(bean, xmlData);
-    }
-    
     /**
-     * Invoke a method of the bean object, then handle some exceptions if they occur 
+     * Invoke a method of the bean object, then handle some exceptions if they
+     * occur
+     * 
      * @param bean
      * @param args
      * @throws BeanException
@@ -136,14 +146,5 @@ abstract class BeanBinderBase implements BeanBinder {
             throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
     }
-    
 
-    public void setXMLData(Object bean, Object xmlData) throws BeanException
-    {
-        throw new UnsupportedOperationException(this.getClass() + "does not support setXMLData()");
-    }
-    
-    
-    
-    
 }

@@ -44,7 +44,7 @@ public class JSONWriter
     private final Writer writer;
 
     enum JSONState {
-        InObject, InArray, Root, Unknown
+        InObject, InArray, InString, Root, Unknown
     }
 
     private final LinkedList<JSONState> stateStack = new LinkedList<JSONState>();
@@ -117,6 +117,41 @@ public class JSONWriter
         popState();
     }
 
+    public void startString() throws JSONException, IOException
+    {
+        if (getCurrentState() == JSONState.InArray)
+            throw new JSONException(JSONErrorCode.NotInAJSONArray,
+                    "cannot start a new string value outside of the JSON array in this method");
+        putComma();
+        writer.append("\"");
+        pushState(JSONState.InString);
+    }
+
+    public void startString(String key) throws JSONException, IOException
+    {
+        outputKeyPart(key);
+        writer.append("\"");
+        pushState(JSONState.InString);
+    }
+
+    public void append(String stringFragment) throws JSONException, IOException
+    {
+        if (getCurrentState() != JSONState.InString)
+            throw new JSONException(JSONErrorCode.NotInAJSONString,
+                    "cannot append any string before invoking startString() method");
+
+        writer.append(stringFragment);
+    }
+
+    public void endString() throws JSONException, IOException
+    {
+        if (getCurrentState() != JSONState.InString)
+            throw new JSONException(JSONErrorCode.NotInAJSONString,
+                    "cannot end the string not beginning from startString() method.");
+        writer.append("\"");
+        popState();
+    }
+
     public void startArray(String key) throws JSONException, IOException
     {
         if (getCurrentState() != JSONState.InObject)
@@ -184,13 +219,18 @@ public class JSONWriter
 
     private void addInternal(Object value) throws IOException
     {
-        if (getPreviousElementCount() > 0)
-            writer.append(",");
+        putComma();
         if (value != null)
             writer.append(value.toString());
         else
             writer.append("null");
         incrementElementCount();
+    }
+
+    private void putComma() throws IOException
+    {
+        if (getPreviousElementCount() > 0)
+            writer.append(",");
     }
 
     public void put(String key, String value) throws IOException, JSONException
@@ -239,13 +279,15 @@ public class JSONWriter
      * @throws IOException
      * @throws JSONException
      */
-    public void put(String key, Reader input) throws JSONException, IOException
+    public void putString(String key, Reader input) throws JSONException, IOException
     {
         outputKeyPart(key);
-        for (char ch; (ch = (char) input.read()) != -1;)
+        writer.append("\"");
+        for (int ch; (ch = input.read()) != -1;)
         {
-            writer.append(ch);
+            writer.append((char) ch);
         }
+        writer.append("\"");
     }
 
     private void putInternal(String key, Object value) throws JSONException, IOException
@@ -284,6 +326,8 @@ public class JSONWriter
             case InArray:
                 writer.append("]");
                 break;
+            case InString:
+                writer.append("\"");
             default:
                 // do nothing
                 break;

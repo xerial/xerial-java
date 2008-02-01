@@ -30,17 +30,19 @@ import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
 
-
-public class Setter extends BeanBinderBase implements BeanUpdator {
+public class Setter extends BeanBinderBase implements BeanUpdator
+{
     Class valueType;
 
-    public Setter(Method method, String parameterName, Class valueType) {
+    public Setter(Method method, String parameterName, Class valueType)
+    {
         super(method, parameterName);
         this.valueType = valueType;
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
+    public void setJSONData(Object bean, Object json) throws BeanException
+    {
         // the object is a JSONValue
         if (json == null)
             return;
@@ -49,19 +51,19 @@ public class Setter extends BeanBinderBase implements BeanUpdator {
         invokeMethod(bean, new Object[] { tmpValue });
     }
 
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException {
-        if(xmlData == null)
-            return;
-        
-        Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
+    // @Override
+    // public void setXMLData(Object bean, Object xmlData) throws BeanException
+    // {
+    // if(xmlData == null)
+    // return;
+    //        
+    // Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
+    // invokeMethod(bean, new Object[] { tmpValue });
+    // }
 
     public Class getElementType()
     {
         return valueType;
     }
-    
-}
 
+}

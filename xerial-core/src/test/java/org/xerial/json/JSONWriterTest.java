@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.junit.Test;
@@ -119,6 +120,49 @@ public class JSONWriterTest
 
         fail("cannot reach here");
         json.endJSON();
+    }
+
+    @Test
+    public void streamWrite() throws IOException, JSONException, BeanException
+    {
+        StringWriter writer = new StringWriter();
+        JSONWriter json = new JSONWriter(writer);
+
+        json.startObject();
+        json.put("id", 1);
+        json.putString("name", new StringReader("leo leo leo"));
+        json.endJSON();
+
+        String jsonData = writer.toString();
+        _logger.debug(jsonData);
+        Person p = new Person();
+        BeanUtil.populateBean(p, jsonData);
+
+        assertEquals(1, p.getId());
+        assertEquals("leo leo leo", p.getName());
+    }
+
+    @Test
+    public void appendString() throws IOException, JSONException, BeanException
+    {
+        StringWriter writer = new StringWriter();
+        JSONWriter json = new JSONWriter(writer);
+
+        json.startObject();
+        json.put("id", 1);
+        json.startString("name");
+        json.append("leo ");
+        json.append("leo ");
+        json.append("leo");
+        json.endJSON();
+
+        String jsonData = writer.toString();
+        _logger.debug(jsonData);
+        Person p = new Person();
+        BeanUtil.populateBean(p, jsonData);
+
+        assertEquals(1, p.getId());
+        assertEquals("leo leo leo", p.getName());
     }
 
 }

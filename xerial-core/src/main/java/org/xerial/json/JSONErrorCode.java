@@ -41,7 +41,7 @@ public enum JSONErrorCode implements ErrorCode {
 
     JSONValueIsNotFound, NotInAJSONObject, NotInAJSONArray, UnexpectedEndOfJSON,
 
-    ParseError, InvalidBeanClass, ;
+    ParseError, InvalidBeanClass, NotInAJSONString, ;
 
     private final String description;
 

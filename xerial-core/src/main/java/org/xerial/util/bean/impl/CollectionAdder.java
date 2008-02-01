@@ -31,12 +31,12 @@ import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
 
-
-
-public class CollectionAdder extends BeanBinderBase implements BeanUpdator {
+public class CollectionAdder extends BeanBinderBase implements BeanUpdator
+{
     Class elementType;
 
-    public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException {
+    public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException
+    {
         super(method, parameterName);
         this.elementType = elementType;
 
@@ -44,7 +44,8 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator {
     }
 
     @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
+    public void setJSONData(Object bean, Object json) throws BeanException
+    {
         JSONArray collectionContent = getJSONArray(json, "-c");
         if (collectionContent == null)
             if (json.getClass() != JSONArray.class)
@@ -52,24 +53,23 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator {
             else
                 collectionContent = (JSONArray) json;
 
-        for (int i = 0; i < collectionContent.size(); i++) {
+        for (int i = 0; i < collectionContent.size(); i++)
+        {
             Object value = BeanUtil.createBean(elementType, collectionContent.get(i));
             invokeMethod(bean, new Object[] { value });
         }
     }
 
-    @Override
-    public void setXMLData(Object bean, Object xmlData) throws BeanException  
-    {
-        Object value = BeanUtil.createXMLBean(elementType, xmlData);
-        invokeMethod(bean, new Object[] { value });
-    }
+    // @Override
+    // public void setXMLData(Object bean, Object xmlData) throws BeanException
+    // {
+    // Object value = BeanUtil.createXMLBean(elementType, xmlData);
+    // invokeMethod(bean, new Object[] { value });
+    // }
 
     public Class getElementType()
     {
         return elementType;
     }
-    
-    
 
 }

@@ -27,25 +27,21 @@ package org.xerial.util.bean;
 
 import java.lang.reflect.Method;
 
-public interface BeanBinder {
+public interface BeanBinder
+{
 
-	public Method getMethod();
+    public Method getMethod();
 
-	public void setMethod(Method method);
+    public void setMethod(Method method);
 
-	public String toString();
+    public String toString();
 
-	public String getParameterName();
+    public String getParameterName();
 
-	public void setParameterName(String parameterName);
+    public void setParameterName(String parameterName);
 
-	public void invokeJSONDataSetter(Object bean, Object json) throws BeanException;
-	public void invokeXMLDataSetter(Object bean, Object xmlData) throws BeanException;
+    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException;
 
-	public void setJSONData(Object bean, Object json) throws BeanException;
-	
-	public void setXMLData(Object bean, Object xmlData) throws BeanException;
-	
-	
+    public void setJSONData(Object bean, Object json) throws BeanException;
 
 }

@@ -53,6 +53,7 @@ import org.xerial.json.JSONBoolean;
 import org.xerial.json.JSONDouble;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONInteger;
+import org.xerial.json.JSONLong;
 import org.xerial.json.JSONNull;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
@@ -72,7 +73,6 @@ import org.xerial.util.bean.impl.Setter;
 import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.dom.DOMUtil;
 
 /**
  * BeanUtil class supports data binding between JSON data and a bean class.
@@ -668,6 +668,8 @@ public class BeanUtil
                 value = new JSONDouble(jsonStr);
             else if (beanClass == boolean.class || beanClass == Boolean.class)
                 value = new JSONBoolean((Boolean) bean);
+            else if (beanClass == long.class || beanClass == Long.class)
+                value = new JSONLong(jsonStr);
             else
                 throw new BeanException(BeanErrorCode.InvalidBeanClass, beanClass.toString() + " is not basic type");
             return value;
@@ -773,27 +775,29 @@ public class BeanUtil
         }
     }
 
-    protected static void populateBeanWithXML(Object bean, Object xmlValue) throws BeanException
-    {
-        if (xmlValue == null)
-            return;
-
-        Class beanClass = bean.getClass();
-        if (TypeInformation.isBasicType(beanClass))
-        {
-            bean = populateBasicTypeWithXML(beanClass, xmlValue);
-        }
-        else
-        {
-            if (TypeInformation.isDOMElement(xmlValue.getClass()))
-                populateBeanWithXML(bean, (Element) xmlValue);
-            else
-            {
-                throw new BeanException(BeanErrorCode.UnsupportedXMLDataType, "unsupported value type: "
-                        + xmlValue.getClass().toString());
-            }
-        }
-    }
+    // protected static void populateBeanWithXML(Object bean, Object xmlValue)
+    // throws BeanException
+    // {
+    // if (xmlValue == null)
+    // return;
+    //
+    // Class beanClass = bean.getClass();
+    // if (TypeInformation.isBasicType(beanClass))
+    // {
+    // bean = populateBasicTypeWithXML(beanClass, xmlValue);
+    // }
+    // else
+    // {
+    // if (TypeInformation.isDOMElement(xmlValue.getClass()))
+    // populateBeanWithXML(bean, (Element) xmlValue);
+    // else
+    // {
+    // throw new BeanException(BeanErrorCode.UnsupportedXMLDataType,
+    // "unsupported value type: "
+    // + xmlValue.getClass().toString());
+    // }
+    // }
+    // }
 
     public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws BeanException, IOException
     {
@@ -987,6 +991,8 @@ public class BeanUtil
             int value = ((JSONInteger) jsonValue).getIntValue();
             if (valueType == int.class || valueType == Integer.class)
                 return new Integer(value);
+            if (valueType == long.class || valueType == Long.class)
+                return new Long(value);
             else if (valueType == double.class || valueType == Double.class)
                 return new Double(value);
             else if (valueType == float.class || valueType == Float.class)
@@ -1003,6 +1009,8 @@ public class BeanUtil
             double value = ((JSONDouble) jsonValue).getDoubleValue();
             if (valueType == int.class || valueType == Integer.class)
                 return new Integer((int) value);
+            if (valueType == long.class || valueType == Long.class)
+                return new Long((long) value);
             else if (valueType == double.class || valueType == Double.class)
                 return new Double(value);
             else if (valueType == float.class || valueType == Float.class)
@@ -1020,6 +1028,8 @@ public class BeanUtil
             String value = ((JSONString) jsonValue).getValue();
             if (valueType == int.class || valueType == Integer.class)
                 return new Integer(value);
+            if (valueType == long.class || valueType == Long.class)
+                return new Long(value);
             else if (valueType == double.class || valueType == Double.class)
                 return new Double(value);
             else if (valueType == float.class || valueType == Float.class)
@@ -1038,6 +1048,8 @@ public class BeanUtil
                     return jsonStr;
                 else if (beanClass == int.class || beanClass == Integer.class)
                     return new Integer(jsonStr);
+                else if (beanClass == long.class || beanClass == Long.class)
+                    return new Long(jsonStr);
                 else if (beanClass == double.class || beanClass == Double.class)
                     return new Double(jsonStr);
                 else if (beanClass == float.class || beanClass == Float.class)
@@ -1076,43 +1088,45 @@ public class BeanUtil
         return bean;
     }
 
-    public static Object createXMLBean(Class valueType, Object xmlValue) throws BeanException
-    {
-        if (xmlValue == null)
-            return null;
+    // public static Object createXMLBean(Class valueType, Object xmlValue)
+    // throws BeanException
+    // {
+    // if (xmlValue == null)
+    // return null;
+    //
+    // // input xmlValue is a general Object
+    // if (TypeInformation.isBasicType(valueType))
+    // return populateBasicTypeWithXML(valueType, xmlValue);
+    // else
+    // {
+    // Object bean = createInstance(valueType);
+    // populateBeanWithXML(bean, xmlValue);
+    // return bean;
+    // }
+    // }
 
-        // input xmlValue is a general Object
-        if (TypeInformation.isBasicType(valueType))
-            return populateBasicTypeWithXML(valueType, xmlValue);
-        else
-        {
-            Object bean = createInstance(valueType);
-            populateBeanWithXML(bean, xmlValue);
-            return bean;
-        }
-    }
-
-    public static Object populateBasicTypeWithXML(Class valueType, Object xmlValue)
-    {
-        assert (TypeInformation.isBasicType(valueType));
-
-        String xmlValueStr;
-        if (TypeInformation.isDOMElement(xmlValue.getClass()))
-            xmlValueStr = DOMUtil.getText((Element) xmlValue);
-        else
-            xmlValueStr = xmlValue.toString();
-        if (valueType == String.class)
-            return xmlValueStr;
-        else if (valueType == int.class || valueType == Integer.class)
-            return new Integer(xmlValueStr);
-        else if (valueType == double.class || valueType == Double.class)
-            return new Double(xmlValueStr);
-        else if (valueType == float.class || valueType == Float.class)
-            return new Float(xmlValueStr);
-        else if (valueType == boolean.class || valueType == Boolean.class)
-            return new Boolean(xmlValueStr);
-        return xmlValue;
-    }
+    // public static Object populateBasicTypeWithXML(Class valueType, Object
+    // xmlValue)
+    // {
+    // assert (TypeInformation.isBasicType(valueType));
+    //
+    // String xmlValueStr;
+    // if (TypeInformation.isDOMElement(xmlValue.getClass()))
+    // xmlValueStr = DOMUtil.getText((Element) xmlValue);
+    // else
+    // xmlValueStr = xmlValue.toString();
+    // if (valueType == String.class)
+    // return xmlValueStr;
+    // else if (valueType == int.class || valueType == Integer.class)
+    // return new Integer(xmlValueStr);
+    // else if (valueType == double.class || valueType == Double.class)
+    // return new Double(xmlValueStr);
+    // else if (valueType == float.class || valueType == Float.class)
+    // return new Float(xmlValueStr);
+    // else if (valueType == boolean.class || valueType == Boolean.class)
+    // return new Boolean(xmlValueStr);
+    // return xmlValue;
+    // }
 
     public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, BeanHandler<T> beanHandler)
             throws IOException, BeanException
