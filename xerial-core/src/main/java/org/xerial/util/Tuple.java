@@ -19,7 +19,6 @@
 // Tuple.java 
 // Since: 2005/01/18
 //
-// $Date$ 
 // $Author$
 //--------------------------------------
 package org.xerial.util;

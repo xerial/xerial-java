@@ -19,7 +19,6 @@
 // JSONArray.java
 // Since: Apr 4, 2007
 //
-// $Date: 2007-06-15 10:50:04 +0900 (Fri, 15 Jun 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONArray.java $ 
 // $Author: leo $
 //--------------------------------------

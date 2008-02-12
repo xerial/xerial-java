@@ -19,7 +19,6 @@
 // BinaryFunctor.java
 // Since: May 8, 2007
 //
-// $Date$
 // $URL$ 
 // $Author$
 //--------------------------------------

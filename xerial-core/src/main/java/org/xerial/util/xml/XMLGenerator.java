@@ -19,7 +19,6 @@
 // XMLGenerator.java 
 // Since: 2005/01/16
 //
-// $Date$ 
 // $Author$
 //--------------------------------------
 package org.xerial.util.xml;

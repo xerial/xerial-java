@@ -19,7 +19,6 @@
 // JSONObject.java
 // Since: Apr 4, 2007
 //
-// $Date: 2007-05-17 23:24:25 +0900 (Thu, 17 May 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONObject.java $ 
 // $Author: leo $
 //--------------------------------------

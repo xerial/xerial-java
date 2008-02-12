@@ -19,7 +19,6 @@
 // JSONValue.java
 // Since: Apr 4, 2007
 //
-// $Date: 2007-05-08 09:44:35 +0900 (Tue, 08 May 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONValue.java $ 
 // $Author: leo $
 //--------------------------------------

@@ -19,7 +19,6 @@
 // DataGuide.java 
 // Since: 2005/05/31
 //
-// $Date$ 
 // $Author$
 //--------------------------------------
 package org.xerial.util.xml.index;

@@ -19,7 +19,6 @@
 // BeanBinderSet.java
 // Since: Apr 18, 2007
 //
-// $Date: 2007-04-18 15:49:19 +0900 (Wed, 18 Apr 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/util/bean/BeanBinderSet.java $ 
 // $Author: leo $
 //--------------------------------------

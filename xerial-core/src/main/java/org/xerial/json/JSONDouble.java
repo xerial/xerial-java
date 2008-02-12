@@ -19,7 +19,6 @@
 // JSONDouble.java
 // Since: Apr 27, 2007
 //
-// $Date: 2007-05-01 08:19:31 +0900 (Tue, 01 May 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONDouble.java $ 
 // $Author: leo $
 //--------------------------------------

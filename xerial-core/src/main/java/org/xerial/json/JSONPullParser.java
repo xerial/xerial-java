@@ -19,7 +19,6 @@
 // JSONPullParser.java
 // Since: May 8, 2007
 //
-// $Date: 2007-05-08 11:51:00 +0900 (Tue, 08 May 2007) $
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/src/org/utgenome/json/JSONPullParser.java $ 
 // $Author: leo $
 //--------------------------------------
