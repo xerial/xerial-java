@@ -8,7 +8,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>0.6.6</version>
+  <version>0.6.8-SNAPSHOT</version>
   <description>Xerial Core: standard utilities for XerialJ project</description>
   <build>
     <resources>

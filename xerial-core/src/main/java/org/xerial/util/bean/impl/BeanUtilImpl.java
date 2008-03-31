@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Map;
 
-import org.antlr.runtime.Parser;
 import org.antlr.runtime.tree.Tree;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
@@ -80,19 +79,20 @@ public class BeanUtilImpl
     }
 
     // ANTLR ParseTree
-    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, Parser parser)
+    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, final String[] parserTokenNames)
             throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess, parseTree);
+        ANTLRWalker walker = new ANTLRWalker(parserTokenNames, bindingProcess, parseTree);
         walker.walk(parseTree);
         return (E) bindingProcess.getResultBean();
     }
 
-    public static Object populateBeanWithParseTree(Object bean, Tree parseTree, Parser parser) throws XerialException
+    public static Object populateBeanWithParseTree(Object bean, Tree parseTree, final String[] parserTokenNames)
+            throws XerialException
     {
         BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        ANTLRWalker walker = new ANTLRWalker(parser, bindingProcess, parseTree);
+        ANTLRWalker walker = new ANTLRWalker(parserTokenNames, bindingProcess, parseTree);
         walker.walk(parseTree);
         return bean;
     }

@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUpdatorType;
 import org.xerial.util.bean.BeanUtil;
 
 public class Setter extends BeanBinderBase implements BeanUpdator
@@ -64,6 +65,11 @@ public class Setter extends BeanBinderBase implements BeanUpdator
     public Class getElementType()
     {
         return valueType;
+    }
+
+    public BeanUpdatorType getType()
+    {
+        return BeanUpdatorType.SETTER;
     }
 
 }

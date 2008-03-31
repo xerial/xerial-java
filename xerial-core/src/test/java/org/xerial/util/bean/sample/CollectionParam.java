@@ -25,33 +25,39 @@
 package org.xerial.util.bean.sample;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Vector;
 
 public class CollectionParam
 {
-    Vector<String> nameList = new Vector<String>(); 
+    Vector<String> nameList = new Vector<String>();
     ArrayList<Integer> idList = new ArrayList<Integer>();
-    
-    public CollectionParam(Vector<String> nameList, ArrayList<Integer> idList) {
+
+    public CollectionParam(Vector<String> nameList, ArrayList<Integer> idList)
+    {
         this.nameList = nameList;
         this.idList = idList;
     }
-    
-    public CollectionParam() {
-    }
 
-    public ArrayList<Integer> getIdList() {
+    public CollectionParam()
+    {}
+
+    public ArrayList<Integer> getId()
+    {
         return idList;
     }
-    public void setIdList(ArrayList<Integer> idList) {
-        this.idList = idList;
+
+    public void addId(int id)
+    {
+        this.idList.add(id);
     }
-    public Vector<String> getNameList() {
+
+    public Vector<String> getName()
+    {
         return nameList;
     }
-    public void setNameList(Collection<String> nameList) {
-        this.nameList.clear();
-        this.nameList.addAll(nameList);
+
+    public void addName(String name)
+    {
+        this.nameList.add(name);
     }
 }

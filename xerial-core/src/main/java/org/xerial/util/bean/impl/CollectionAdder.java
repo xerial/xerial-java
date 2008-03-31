@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUpdatorType;
 import org.xerial.util.bean.BeanUtil;
 
 public class CollectionAdder extends BeanBinderBase implements BeanUpdator
@@ -70,6 +71,11 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator
     public Class getElementType()
     {
         return elementType;
+    }
+
+    public BeanUpdatorType getType()
+    {
+        return BeanUpdatorType.COLLECTION_ADDER;
     }
 
 }

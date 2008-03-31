@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,35 +16,41 @@
 //--------------------------------------
 // XerialJ
 //
-// PersonList.java
-// Since: Dec 19, 2007 6:31:13 PM
+// KeyValuePair.java
+// Since: Mar 31, 2008 11:21:41 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean.sample;
+package org.xerial.util.bean.impl;
 
-import java.util.Vector;
+import org.xerial.util.bean.BeanErrorCode;
+import org.xerial.util.bean.BeanException;
 
-public class PersonList
+public class KeyValuePair
 {
-    Vector<Person> personList = new Vector<Person>();
+    private Object key;
+    private Object value;
 
-    public PersonList()
+    private int setterCount = 0;
+
+    public KeyValuePair()
     {}
 
-    public PersonList(Vector<Person> personList)
+    public void set(Object val) throws BeanException
     {
-        this.personList = personList;
+        switch (setterCount)
+        {
+        case 0:
+            key = value;
+            break;
+        case 1:
+            value = val;
+            break;
+        default:
+            throw new BeanException(BeanErrorCode.InvalidKeyAndValuePair);
+        }
+
     }
 
-    public Vector<Person> getPerson()
-    {
-        return personList;
-    }
-
-    public void addPerson(Person person)
-    {
-        personList.add(person);
-    }
 }

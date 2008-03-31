@@ -59,6 +59,11 @@ public class JSONPullParser
         this(new JSONLexer(new ANTLRStringStream(jsonString)));
     }
 
+    public JSONPullParser(JSONObject jsonObject)
+    {
+        this(new JSONLexer(new ANTLRStringStream(jsonObject.toJSONString())));
+    }
+
     public JSONPullParser(InputStream jsonStream) throws IOException
     {
         this(new JSONLexer(new ANTLRInputStream(jsonStream)));

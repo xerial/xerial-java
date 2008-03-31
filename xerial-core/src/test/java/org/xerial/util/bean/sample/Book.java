@@ -24,30 +24,38 @@
 //--------------------------------------
 package org.xerial.util.bean.sample;
 
+import java.util.ArrayList;
+
 public class Book
 {
     String title;
-    String[] author;
+    ArrayList<String> authorList = new ArrayList<String>();
 
-    public Book() {}
-    public Book(String title, String[] author)
+    public Book()
+    {}
+
+    public Book(String title, String[] authorList)
     {
         this.title = title;
-        this.author = author;
+        for (String author : authorList)
+            addAuthor(author);
     }
 
-    public String[] getAuthor()
+    public ArrayList<String> getAuthor()
     {
-        return author;
+        return authorList;
     }
-    public void setAuthor(String[] author)
+
+    public void addAuthor(String author)
     {
-        this.author = author;
+        authorList.add(author);
     }
+
     public String getTitle()
     {
         return title;
     }
+
     public void setTitle(String title)
     {
         this.title = title;

@@ -675,16 +675,13 @@ public class BeanUtil
         }
         else
         {
-            JSONObject json = new JSONObject();
-
-            // return JSONObject
             if (TypeInformation.isCollection(beanClass))
             {
                 Collection collection = (Collection) bean;
                 JSONArray jsonArray = new JSONArray();
                 for (Object obj : collection)
                     jsonArray.add(outputAsJSONValue(obj));
-                json.put("-c", jsonArray);
+                return jsonArray;
             }
             else if (TypeInformation.isMap(beanClass))
             {
@@ -697,20 +694,23 @@ public class BeanUtil
                     pair.add(outputAsJSONValue(map.get(key)));
                     jsonArray.add(pair);
                 }
-                json.put("-m", jsonArray);
+                return jsonArray;
             }
-
-            BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-            for (BeanBinder rule : outputRuleSet.getBindRules())
+            else
             {
-                Method getter = rule.getMethod();
-                String parameterName = rule.getParameterName();
+                JSONObject json = new JSONObject();
+                BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
+                for (BeanBinder rule : outputRuleSet.getBindRules())
+                {
+                    Method getter = rule.getMethod();
+                    String parameterName = rule.getParameterName();
 
-                Object parameterValue = invokeGetterMethod(getter, bean);
-                if (parameterValue != null)
-                    json.put(parameterName, outputAsJSONValue(parameterValue));
+                    Object parameterValue = invokeGetterMethod(getter, bean);
+                    if (parameterValue != null)
+                        json.put(parameterName, outputAsJSONValue(parameterValue));
+                }
+                return json;
             }
-            return json;
         }
 
     }
@@ -852,18 +852,17 @@ public class BeanUtil
     @SuppressWarnings("unchecked")
     public static void populateBean(Object bean, JSONObject json) throws BeanException
     {
-        Class beanClass = bean.getClass();
-
-        BeanBinderSet inputRuleSet = BeanUtil.getBeanLoadRule(beanClass);
-        for (String parameterName : json.keys())
+        try
         {
-            BeanBinder binder = inputRuleSet.findRule(parameterName);
-            if (binder != null)
-            {
-                JSONValue jsonData = json.get(parameterName);
-                if (jsonData != null)
-                    binder.invokeJSONDataSetter(bean, jsonData);
-            }
+            BeanUtilImpl.populateBeanWithJSON(bean, new StringReader(json.toJSONString()));
+        }
+        catch (IOException e)
+        {
+            throw new BeanException(BeanErrorCode.IOError, e.getMessage());
+        }
+        catch (XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
         }
     }
 

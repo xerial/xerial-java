@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,35 +16,14 @@
 //--------------------------------------
 // XerialJ
 //
-// PersonList.java
-// Since: Dec 19, 2007 6:31:13 PM
+// BeanUpdatorType.java
+// Since: Mar 31, 2008 11:03:31 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean.sample;
+package org.xerial.util.bean;
 
-import java.util.Vector;
-
-public class PersonList
-{
-    Vector<Person> personList = new Vector<Person>();
-
-    public PersonList()
-    {}
-
-    public PersonList(Vector<Person> personList)
-    {
-        this.personList = personList;
-    }
-
-    public Vector<Person> getPerson()
-    {
-        return personList;
-    }
-
-    public void addPerson(Person person)
-    {
-        personList.add(person);
-    }
+public enum BeanUpdatorType {
+    SETTER, COLLECTION_ADDER, MAP_PUTTER,
 }

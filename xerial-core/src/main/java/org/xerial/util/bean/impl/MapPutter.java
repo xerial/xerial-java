@@ -28,9 +28,11 @@ import java.lang.reflect.Method;
 
 import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUpdatorType;
 import org.xerial.util.bean.BeanUtil;
 
-public class MapPutter extends BeanBinderBase
+public class MapPutter extends BeanBinderBase implements BeanUpdator
 {
     Class keyType;
 
@@ -66,6 +68,16 @@ public class MapPutter extends BeanBinderBase
                 invokeMethod(bean, new Object[] { key, value });
             }
         }
+    }
+
+    public Class getElementType()
+    {
+        throw new UnsupportedOperationException("getElementType() for MapPutter is not supported yet");
+    }
+
+    public BeanUpdatorType getType()
+    {
+        return BeanUpdatorType.MAP_PUTTER;
     }
 
     // @Override

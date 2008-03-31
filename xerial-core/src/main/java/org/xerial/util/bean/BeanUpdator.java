@@ -28,6 +28,9 @@ import java.lang.reflect.Method;
 
 public interface BeanUpdator
 {
+    public BeanUpdatorType getType();
+
     public Class getElementType();
+
     public Method getMethod();
 }

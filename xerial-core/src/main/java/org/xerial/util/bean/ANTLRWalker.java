@@ -27,7 +27,6 @@ package org.xerial.util.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.runtime.Parser;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 
@@ -39,15 +38,15 @@ import org.xerial.core.XerialException;
  */
 public class ANTLRWalker extends TreeWalker
 {
-    private final Parser parser;
+    private final String[] parserTokenNames;
     private Tree currentNode = null;
 
     private boolean skipDescendants = false;
 
-    public ANTLRWalker(Parser parser, TreeVisitor visitor, Tree parseTree)
+    public ANTLRWalker(final String[] parserTokenNames, TreeVisitor visitor, Tree parseTree)
     {
         super(visitor);
-        this.parser = parser;
+        this.parserTokenNames = parserTokenNames;
         this.currentNode = parseTree;
     }
 
@@ -62,7 +61,7 @@ public class ANTLRWalker extends TreeWalker
     {
         currentNode = t;
         int tokenType = t.getType();
-        String nodeName = parser.getTokenNames()[tokenType];
+        String nodeName = parserTokenNames[tokenType];
 
         // invoke visitor
         getTreeVisitor().visitNode(nodeName, this);
@@ -114,7 +113,7 @@ public class ANTLRWalker extends TreeWalker
 
         public String getNodeName()
         {
-            return parser.getTokenNames()[t.getType()];
+            return parserTokenNames[t.getType()];
         }
 
         public String getNodeValue()

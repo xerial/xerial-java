@@ -229,13 +229,13 @@ public class BeanUtilTest
         CollectionParam c2 = new CollectionParam();
         BeanUtil.populateBean(c2, json);
 
-        assertEquals(v.size(), c2.getNameList().size());
-        for (int i = 0; i < c.getNameList().size(); i++)
-            assertEquals(c.getNameList().get(i), c2.getNameList().get(i));
+        assertEquals(v.size(), c2.getName().size());
+        for (int i = 0; i < c.getName().size(); i++)
+            assertEquals(c.getName().get(i), c2.getName().get(i));
 
-        assertEquals(a.size(), c2.getIdList().size());
-        for (int i = 0; i < c.getIdList().size(); i++)
-            assertEquals(c.getIdList().get(i), c2.getIdList().get(i));
+        assertEquals(a.size(), c2.getId().size());
+        for (int i = 0; i < c.getId().size(); i++)
+            assertEquals(c.getId().get(i), c2.getId().get(i));
 
     }
 
@@ -269,12 +269,12 @@ public class BeanUtilTest
         PersonList pl2 = new PersonList();
         BeanUtil.populateBean(pl2, json);
 
-        assertNotNull(pl2.getPersonList());
-        assertEquals(pl.getPersonList().size(), pl2.getPersonList().size());
-        for (int i = 0; i < pl.getPersonList().size(); i++)
+        assertNotNull(pl2.getPerson());
+        assertEquals(pl.getPerson().size(), pl2.getPerson().size());
+        for (int i = 0; i < pl.getPerson().size(); i++)
         {
-            Person p1 = pl.getPersonList().get(i);
-            Person p2 = pl2.getPersonList().get(i);
+            Person p1 = pl.getPerson().get(i);
+            Person p2 = pl2.getPerson().get(i);
             assertEquals(p1, p2);
         }
     }

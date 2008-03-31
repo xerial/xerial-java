@@ -41,6 +41,7 @@ import org.xerial.util.log.Logger;
 
 /**
  * 
+ * Tree-structured data to object binding process implementation
  * 
  * @author leo
  * 
@@ -128,29 +129,48 @@ public class BeanBindingProcess implements TreeVisitor
         BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
         if (updator != null)
         {
-            Object valueBean = getBean(nodeLevel);
-            if (valueBean == null)
+            switch (updator.getType())
             {
-                if (nodeValue != null && nodeValue.length() > 0)
+            case SETTER:
+            case COLLECTION_ADDER:
+            {
+                Object valueBean = getBean(nodeLevel);
+                if (valueBean == null)
                 {
-                    valueBean = nodeValue;
+                    if (nodeValue != null && nodeValue.length() > 0)
+                    {
+                        valueBean = nodeValue;
+                    }
+                }
+
+                if (valueBean == null)
+                    return;
+
+                try
+                {
+                    // _logger.trace("update: " + valueBean.toString());
+                    bindValue(parentBean, updator, valueBean);
+                }
+                catch (BeanException e)
+                {
+                    _logger.error(e);
+                }
+                // clear the bean stack
+                setBean(nodeLevel, null);
+            }
+            case MAP_PUTTER:
+            {
+                Object valueBean = getBean(nodeLevel);
+                if (valueBean == null)
+                {
+
                 }
             }
-
-            if (valueBean == null)
-                return;
-
-            try
-            {
-                // _logger.trace("update: " + valueBean.toString());
-                bindValue(parentBean, updator, valueBean);
+                // throw new UnsupportedOperationException("map putter is not
+                // yet supported");
+            default:
+                throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
             }
-            catch (BeanException e)
-            {
-                _logger.error(e);
-            }
-            // clear the bean stack
-            setBean(nodeLevel, null);
         }
 
     }
@@ -174,18 +194,30 @@ public class BeanBindingProcess implements TreeVisitor
                             + " cannot be used to bind data");
                 BeanUpdator updator = (BeanUpdator) binder;
 
-                Class elementType = updator.getElementType();
-                if (TypeInformation.isBasicType(elementType))
+                switch (updator.getType())
                 {
-                    // this bean can be converted from an element text, so there
-                    // is no need to instantiate the object here.
-                    return;
-                }
-                else
-                {
-                    Object newBean = BeanUtil.createInstance(updator.getElementType());
-                    setBean(nodeLevel, newBean);
-                    bean = newBean;
+                case SETTER:
+                case COLLECTION_ADDER:
+                    Class elementType = updator.getElementType();
+                    if (TypeInformation.isBasicType(elementType))
+                    {
+                        // this bean can be converted from an element text, so
+                        // there
+                        // is no need to instantiate the object here.
+                        return;
+                    }
+                    else
+                    {
+                        Object newBean = BeanUtil.createInstance(updator.getElementType());
+                        setBean(nodeLevel, newBean);
+                    }
+                    break;
+                case MAP_PUTTER:
+                    ArrayList<KeyValuePair> keyValuePairList = new ArrayList<KeyValuePair>();
+                    setBean(nodeLevel, keyValuePairList);
+                    break;
+                default:
+                    throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
                 }
             }
             else
