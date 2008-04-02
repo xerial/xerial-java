@@ -29,20 +29,25 @@ import org.xerial.util.bean.BeanException;
 
 public class KeyValuePair
 {
-    private Object key;
-    private Object value;
+    private final Object parentBean;
+    private final MapPutter mapPutter;
+    private Object key = null;
+    private Object value = null;
 
     private int setterCount = 0;
 
-    public KeyValuePair()
-    {}
+    public KeyValuePair(Object parentBean, MapPutter mapPutter)
+    {
+        this.parentBean = parentBean;
+        this.mapPutter = mapPutter;
+    }
 
     public void set(Object val) throws BeanException
     {
         switch (setterCount)
         {
         case 0:
-            key = value;
+            key = val;
             break;
         case 1:
             value = val;
@@ -50,7 +55,44 @@ public class KeyValuePair
         default:
             throw new BeanException(BeanErrorCode.InvalidKeyAndValuePair);
         }
+        setterCount++;
+    }
 
+    public boolean hasKey()
+    {
+        return setterCount > 0;
+    }
+
+    public Object getKey()
+    {
+        return key;
+    }
+
+    public Object getValue()
+    {
+        return value;
+    }
+
+    public void clearKeyValue()
+    {
+        setterCount = 0;
+        key = null;
+        value = null;
+    }
+
+    public Object getParentBean()
+    {
+        return parentBean;
+    }
+
+    /**
+     * Tests key and value are already set.
+     * 
+     * @return
+     */
+    public boolean isFilled()
+    {
+        return setterCount > 1;
     }
 
 }

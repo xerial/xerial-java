@@ -68,7 +68,7 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator
     // invokeMethod(bean, new Object[] { value });
     // }
 
-    public Class getElementType()
+    public Class getInputType()
     {
         return elementType;
     }

@@ -62,7 +62,7 @@ public class Setter extends BeanBinderBase implements BeanUpdator
     // invokeMethod(bean, new Object[] { tmpValue });
     // }
 
-    public Class getElementType()
+    public Class getInputType()
     {
         return valueType;
     }

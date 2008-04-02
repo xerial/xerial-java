@@ -44,6 +44,6 @@ public enum BeanErrorCode {
     BeanObjectIsNull,
 
     // binder
-    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair,
+    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed
 
 }

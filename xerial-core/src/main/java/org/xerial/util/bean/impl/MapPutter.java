@@ -70,7 +70,7 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator
         }
     }
 
-    public Class getElementType()
+    public Class getInputType()
     {
         throw new UnsupportedOperationException("getElementType() for MapPutter is not supported yet");
     }
@@ -78,6 +78,16 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator
     public BeanUpdatorType getType()
     {
         return BeanUpdatorType.MAP_PUTTER;
+    }
+
+    public Class getKeyType()
+    {
+        return keyType;
+    }
+
+    public Class getValueType()
+    {
+        return valueType;
     }
 
     // @Override

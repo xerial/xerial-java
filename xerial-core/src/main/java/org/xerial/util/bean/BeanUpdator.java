@@ -30,7 +30,7 @@ public interface BeanUpdator
 {
     public BeanUpdatorType getType();
 
-    public Class getElementType();
+    public Class getInputType();
 
     public Method getMethod();
 }

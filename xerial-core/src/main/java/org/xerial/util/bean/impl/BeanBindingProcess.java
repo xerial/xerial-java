@@ -26,6 +26,7 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanBinder;
@@ -51,6 +52,8 @@ public class BeanBindingProcess implements TreeVisitor
     private static Logger _logger = Logger.getLogger(BeanBindingProcess.class);
 
     private final ArrayList<Object> beanStack = new ArrayList<Object>();
+    private final TreeMap<Integer, KeyValuePair> mapElementHolder = new TreeMap<Integer, KeyValuePair>();
+
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
 
@@ -129,23 +132,22 @@ public class BeanBindingProcess implements TreeVisitor
         BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
         if (updator != null)
         {
+            Object valueBean = getBean(nodeLevel);
+            if (valueBean == null)
+            {
+                if (nodeValue != null && nodeValue.length() > 0)
+                {
+                    valueBean = nodeValue;
+                }
+            }
+
             switch (updator.getType())
             {
             case SETTER:
             case COLLECTION_ADDER:
             {
-                Object valueBean = getBean(nodeLevel);
-                if (valueBean == null)
-                {
-                    if (nodeValue != null && nodeValue.length() > 0)
-                    {
-                        valueBean = nodeValue;
-                    }
-                }
-
                 if (valueBean == null)
                     return;
-
                 try
                 {
                     // _logger.trace("update: " + valueBean.toString());
@@ -160,17 +162,53 @@ public class BeanBindingProcess implements TreeVisitor
             }
             case MAP_PUTTER:
             {
-                Object valueBean = getBean(nodeLevel);
-                if (valueBean == null)
+                if (mapElementHolder.containsKey(nodeLevel - 1))
                 {
+                    // at key, value data depth
+                    KeyValuePair keyValuePair = mapElementHolder.get(nodeLevel - 1);
+                    keyValuePair.set(valueBean); // allows null valueBean
 
+                    if (keyValuePair.isFilled())
+                    {
+                        // invoke putter
+                        bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
+                        // prepare a new key and value pair for the next map
+                        // element
+                        // setBean(nodeLevel, new KeyValuePair());
+                    }
                 }
+                else
+                {
+                    mapElementHolder.remove(nodeLevel - 1);
+                }
+
             }
-                // throw new UnsupportedOperationException("map putter is not
-                // yet supported");
+                break;
             default:
                 throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
             }
+        }
+
+    }
+
+    private void bindMapElement(Object bean, MapPutter mapPutter, KeyValuePair keyValuePair) throws BeanException
+    {
+        try
+        {
+            mapPutter.getMethod().invoke(bean, convertType(mapPutter.getKeyType(), keyValuePair.getKey()),
+                    convertType(mapPutter.getValueType(), keyValuePair.getValue()));
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new BeanException(BeanErrorCode.IllegalArgument, e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new BeanException(BeanErrorCode.IllegalAccess, e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
 
     }
@@ -184,6 +222,15 @@ public class BeanBindingProcess implements TreeVisitor
         {
             assert (currentLevel > 0); // cannot be null when level is 0
             Object parentBean = getBean(nodeLevel - 1);
+
+            // TODO impl
+            if (parentBean instanceof KeyValuePair)
+            {
+                // map elements
+                KeyValuePair new_name = (KeyValuePair) parentBean;
+
+            }
+
             BeanBinderSet parentBeanBindRuleSet = getBindRuleSet(parentBean.getClass());
             BeanBinder binder = parentBeanBindRuleSet.findRule(nodeName);
             if (binder != null)
@@ -198,7 +245,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                 case SETTER:
                 case COLLECTION_ADDER:
-                    Class elementType = updator.getElementType();
+                    Class elementType = updator.getInputType();
                     if (TypeInformation.isBasicType(elementType))
                     {
                         // this bean can be converted from an element text, so
@@ -208,13 +255,28 @@ public class BeanBindingProcess implements TreeVisitor
                     }
                     else
                     {
-                        Object newBean = BeanUtil.createInstance(updator.getElementType());
+                        Object newBean = BeanUtil.createInstance(elementType);
                         setBean(nodeLevel, newBean);
                     }
                     break;
                 case MAP_PUTTER:
-                    ArrayList<KeyValuePair> keyValuePairList = new ArrayList<KeyValuePair>();
-                    setBean(nodeLevel, keyValuePairList);
+                {
+                    MapPutter mapPutter = MapPutter.class.cast(updator);
+                    // prepare the key and value pair instance
+
+                    /*
+                     * if ( { KeyValuePair mapElement =
+                     * mapElementHolder.get(nodeLevel);
+                     * 
+                     * Class valueType; if (mapElement.hasKey()) { // prepare
+                     * the value instance valueType = mapPutter.getValueType(); }
+                     * else { // prepare the key instance valueType =
+                     * mapPutter.getKeyType(); } if
+                     * (!TypeInformation.isBasicType(valueType)) {
+                     * setBean(nodeLevel, BeanUtil.createInstance(valueType)); } }
+                     * else { setBean(nodeLevel, new KeyValuePair(parentBean)); }
+                     */
+                }
                     break;
                 default:
                     throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
@@ -251,7 +313,7 @@ public class BeanBindingProcess implements TreeVisitor
         {
             // _logger.trace("bind: " + updator.getMethod().toString() + "
             // value=" + value.toString());
-            updator.getMethod().invoke(bean, convertType(updator.getElementType(), value));
+            updator.getMethod().invoke(bean, convertType(updator.getInputType(), value));
         }
         catch (IllegalArgumentException e)
         {
