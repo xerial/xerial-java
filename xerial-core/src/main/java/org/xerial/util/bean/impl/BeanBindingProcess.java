@@ -26,6 +26,7 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import org.xerial.core.XerialException;
@@ -51,11 +52,74 @@ public class BeanBindingProcess implements TreeVisitor
 {
     private static Logger _logger = Logger.getLogger(BeanBindingProcess.class);
 
-    private final ArrayList<Object> beanStack = new ArrayList<Object>();
+    // private final ArrayList<Object> beanStack = new ArrayList<Object>();
+
+    
+    /*
+     * <pre>
+     * class A
+     * {
+     *    public void setB(C value);
+     *    public void putD(E key, F value); 
+     *    public void addG(H value);
+     * }
+     *
+     * XML
+     * 
+     * <A>
+     *  <B>c-value</B>
+     *  <D><key>k1</key><value>v1</value></D>
+     *  <D><key>k2</key><value>v2</value></D>
+     *  <G>1</G>
+     *  <G>2</G>
+     * </A>
+     * 
+     * JSON
+     * { A : { B:"c-value", D:[{key:"k1", value:"v1"}, {key:"k2", value:"v2"}], G:[1, 2] } }
+     *
+     *
+     * event
+     * visit(A)
+     * visit(B)
+     * leave(B) 
+     * visit(D)
+     *  visit(D)
+     *   visit(D) 
+     *   leave(D) key
+     *   visit(D)
+     *   leave(D) key
+     *  leave(D)
+     * leave(A)
+     * 
+     * 
+     * context bean stack
+     * [0] new A() (given by constructor)
+     * [1] 
+     * 
+     * </pre>
+     * 
+     */
+    private final TreeMap<Integer, ContextBean> contextBeanOfEachLevel = new TreeMap<Integer, ContextBean>();
+    private final ArrayList<ContextBean> contextBeanStack = new ArrayList<ContextBean>();
+
     private final TreeMap<Integer, KeyValuePair> mapElementHolder = new TreeMap<Integer, KeyValuePair>();
 
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
+
+    private static class ContextBean
+    {
+        Object bean;
+        final int level;
+
+        public ContextBean(Object bean, int level)
+        {
+            this.bean = bean;
+            this.level = level;
+        }
+        
+        
+    }
 
     class BindRuleGeneratorImpl implements BindRuleGenerator
     {
@@ -72,36 +136,42 @@ public class BeanBindingProcess implements TreeVisitor
 
     public BeanBindingProcess(Object bean)
     {
-        beanStack.add(bean);
+        pushContextBean(bean);
     }
 
     public BeanBindingProcess(Object bean, BindRuleGenerator bindRuleGenerator)
     {
-        beanStack.add(bean);
+        pushContextBean(bean);
         this.bindRuleGenerator = bindRuleGenerator;
+    }
+
+    private ContextBean pushContextBean(Object bean)
+    {
+        ContextBean contextBean = new ContextBean(bean, currentLevel);
+        contextBeanStack.add(contextBean);
+        contextBeanOfEachLevel.put(currentLevel, contextBean);
+        currentLevel++;
+        return contextBean;
     }
 
     public Object getResultBean()
     {
-        return beanStack.get(0);
+        return contextBeanStack.get(0).bean;
     }
 
-    public Object getBean(int level)
+    public ContextBean getContextBean(int level)
     {
-        if (level < 0 || level >= beanStack.size())
+        if (level < 0 || level >= contextBeanOfEachLevel.size())
             return null;
         else
-            return beanStack.get(level);
+            return contextBeanOfEachLevel.get(level);
 
     }
 
-    private void setBean(int level, Object bean)
+    private void setContextBean(int level, Object bean)
     {
-        while (beanStack.size() <= level)
-        {
-            beanStack.add(null);
-        }
-        beanStack.set(level, bean);
+        ContextBean contextBean = new ContextBean(bean, level);
+        contextBeanOfEachLevel.put(level, contextBean);
     }
 
     public void finish(TreeWalker walker) throws XerialException
@@ -190,38 +260,25 @@ public class BeanBindingProcess implements TreeVisitor
         }
 
     }
-
-    private void bindMapElement(Object bean, MapPutter mapPutter, KeyValuePair keyValuePair) throws BeanException
+    
+    public ContextBean getCurrentContextBean()
     {
-        try
-        {
-            mapPutter.getMethod().invoke(bean, convertType(mapPutter.getKeyType(), keyValuePair.getKey()),
-                    convertType(mapPutter.getValueType(), keyValuePair.getValue()));
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalArgument, e);
-        }
-        catch (IllegalAccessException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalAccess, e);
-        }
-        catch (InvocationTargetException e)
-        {
-            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
-        }
-
+        return contextBeanStack.get(contextBeanStack.size()-1);
     }
+     
 
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException
     {
-        int nodeLevel = currentLevel++;
+        currentLevel++;
         // _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
-        Object bean = getBean(nodeLevel);
+        
+        // prepare the context bean for this depth
+        ContextBean contextBean = getContextBean(nodeLevel);
+        Object bean = contextBean.bean;
         if (bean == null)
         {
             assert (currentLevel > 0); // cannot be null when level is 0
-            Object parentBean = getBean(nodeLevel - 1);
+            Object parentBean = getContextBean(nodeLevel - 1).bean;
 
             // TODO impl
             if (parentBean instanceof KeyValuePair)
@@ -289,6 +346,28 @@ public class BeanBindingProcess implements TreeVisitor
                 walker.skipDescendants();
                 return;
             }
+        }
+
+    }
+
+    private void bindMapElement(Object bean, MapPutter mapPutter, KeyValuePair keyValuePair) throws BeanException
+    {
+        try
+        {
+            mapPutter.getMethod().invoke(bean, convertType(mapPutter.getKeyType(), keyValuePair.getKey()),
+                    convertType(mapPutter.getValueType(), keyValuePair.getValue()));
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new BeanException(BeanErrorCode.IllegalArgument, e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new BeanException(BeanErrorCode.IllegalAccess, e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
         }
 
     }
