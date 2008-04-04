@@ -30,21 +30,25 @@ import java.util.TreeMap;
 public class UnknownTypeMap extends TreeMap
 {
     String mapName;
-    public UnknownTypeMap() {}
 
+    public UnknownTypeMap()
+    {}
 
     /**
      * @param mapName
      */
-    public UnknownTypeMap(String mapName) {
+    public UnknownTypeMap(String mapName)
+    {
         this.mapName = mapName;
     }
 
-
-    public String getMapName() {
+    public String getMapName()
+    {
         return mapName;
     }
-    public void setMapName(String mapName) {
+
+    public void setMapName(String mapName)
+    {
         this.mapName = mapName;
     }
 

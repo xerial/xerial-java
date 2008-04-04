@@ -83,6 +83,11 @@ public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
             throw new UnsupportedOperationException("getBindRules");
         }
 
+        public MapPutter getStandardMapPutter()
+        {
+            throw new UnsupportedOperationException("getStandardMapPutter");
+        }
+
     }
 
     public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws BeanException

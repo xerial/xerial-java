@@ -26,12 +26,17 @@ package org.xerial.util.bean;
 
 import java.util.Vector;
 
-public interface BeanBinderSet {
+import org.xerial.util.bean.impl.MapPutter;
 
-	public abstract void addRule(BeanBinder binder);
+public interface BeanBinderSet
+{
 
-	public abstract Vector<BeanBinder> getBindRules();
+    public abstract void addRule(BeanBinder binder);
 
-	public abstract BeanBinder findRule(String name);
+    public abstract Vector<BeanBinder> getBindRules();
+
+    public abstract BeanBinder findRule(String name);
+
+    public abstract MapPutter getStandardMapPutter();
 
 }

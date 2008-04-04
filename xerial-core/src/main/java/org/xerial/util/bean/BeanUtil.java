@@ -57,6 +57,7 @@ import org.xerial.json.JSONNull;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
+import org.xerial.util.Pair;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.impl.ArraySetter;
 import org.xerial.util.bean.impl.BeanBindingProcess;
@@ -70,7 +71,6 @@ import org.xerial.util.bean.impl.MapPutter;
 import org.xerial.util.bean.impl.MapSetter;
 import org.xerial.util.bean.impl.Setter;
 import org.xerial.util.xml.InvalidXMLException;
-import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLGenerator;
 
 /**
@@ -287,7 +287,7 @@ public class BeanUtil
                 if (parameterName.length() == 0 && TypeInformation.isMap(beanClass))
                 {
                     // bean.put(Key k, Value v)
-                    inputRuleSet.addRule(new MapPutter(method, "-m", mapElementType[0], mapElementType[1]));
+                    inputRuleSet.addRule(new MapPutter(method, "elem", mapElementType[0], mapElementType[1]));
                 }
                 else
                 {
@@ -307,7 +307,7 @@ public class BeanUtil
                 if (parameterName.length() == 0 && TypeInformation.isCollection(beanClass))
                 {
                     // bean.add(E element)
-                    inputRuleSet.addRule(new CollectionAdder(method, "-c", addType));
+                    inputRuleSet.addRule(new CollectionAdder(method, "elem", addType));
                 }
                 else
                 {
@@ -350,19 +350,12 @@ public class BeanUtil
                 else if (TypeInformation.isMap(inputTypeOfTheSetter))
                 {
                     // setSomething(Map<K, V> map) method
-                    ParameterizedType genericSetterArgumentType = getParentParameterizedType(method
-                            .getGenericParameterTypes()[0], Map.class);
-                    if (genericSetterArgumentType != null)
+                    Pair<Class, Class> keyValueTypePair = getGenericMapTypesOfMethodArgument(method, 0);
+                    if (keyValueTypePair != null)
                     {
-                        Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
-                        if (actualTypeList.length >= 2)
-                        {
-                            Class keyType = resolveRawType(actualTypeList[0]);
-                            Class valueType = resolveRawType(actualTypeList[1]);
-                            inputRuleSet.addRule(new MapSetter(method, parameterName, inputTypeOfTheSetter, keyType,
-                                    valueType));
-                            continue;
-                        }
+                        inputRuleSet.addRule(new MapSetter(method, parameterName, inputTypeOfTheSetter,
+                                keyValueTypePair.getFirst(), keyValueTypePair.getSecond()));
+                        continue;
                     }
                     // setMap(Map map) without any type parameter cannot be used
                 }
@@ -374,6 +367,26 @@ public class BeanUtil
         }
 
         return inputRuleSet;
+    }
+
+    public static Pair<Class, Class> getGenericMapTypesOfMethodArgument(Method method, int argIndex)
+    {
+        ParameterizedType genericSetterArgumentType = getParentParameterizedType(
+                method.getGenericParameterTypes()[argIndex], Map.class);
+
+        if (genericSetterArgumentType != null)
+        {
+            Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
+            if (actualTypeList.length >= 2)
+            {
+                Class keyType = resolveRawType(actualTypeList[0]);
+                Class valueType = resolveRawType(actualTypeList[1]);
+                return new Pair<Class, Class>(keyType, valueType);
+            }
+        }
+
+        return null;
+
     }
 
     public static ParameterizedType getParameterizedType(Type t)
@@ -565,8 +578,9 @@ public class BeanUtil
 
                     for (Object key : map.keySet())
                     {
-                        _out.startTag(tagName, new XMLAttribute("key", key.toString()));
-                        _out.text(map.get(key).toString());
+                        _out.startTag(tagName);
+                        _out.element("key", key.toString());
+                        _out.element("value", map.get(key).toString());
                         _out.endTag();
                     }
                 }
@@ -675,13 +689,23 @@ public class BeanUtil
         }
         else
         {
+
             if (TypeInformation.isCollection(beanClass))
             {
                 Collection collection = (Collection) bean;
                 JSONArray jsonArray = new JSONArray();
                 for (Object obj : collection)
                     jsonArray.add(outputAsJSONValue(obj));
-                return jsonArray;
+
+                if (hasGetter(beanClass))
+                {
+                    // extended Array class
+                    JSONObject json = new JSONObject();
+                    json.put("elem", jsonArray);
+                    return outputBeanParameters(json, bean);
+                }
+                else
+                    return jsonArray;
             }
             else if (TypeInformation.isMap(beanClass))
             {
@@ -689,30 +713,48 @@ public class BeanUtil
                 JSONArray jsonArray = new JSONArray();
                 for (Object key : map.keySet())
                 {
-                    JSONArray pair = new JSONArray();
-                    pair.add(outputAsJSONValue(key));
-                    pair.add(outputAsJSONValue(map.get(key)));
+                    JSONObject pair = new JSONObject();
+                    pair.put("key", outputAsJSONValue(key));
+                    pair.put("value", outputAsJSONValue(map.get(key)));
                     jsonArray.add(pair);
                 }
-                return jsonArray;
+
+                BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
+                if (outputRuleSet.getBindRules().size() > 0)
+                {
+                    // extended Map class
+                    JSONObject json = new JSONObject();
+                    json.put("elem", jsonArray);
+                    return outputBeanParameters(json, bean);
+                }
+                else
+                    return jsonArray;
             }
             else
-            {
-                JSONObject json = new JSONObject();
-                BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-                for (BeanBinder rule : outputRuleSet.getBindRules())
-                {
-                    Method getter = rule.getMethod();
-                    String parameterName = rule.getParameterName();
-
-                    Object parameterValue = invokeGetterMethod(getter, bean);
-                    if (parameterValue != null)
-                        json.put(parameterName, outputAsJSONValue(parameterValue));
-                }
-                return json;
-            }
+                return outputBeanParameters(new JSONObject(), bean);
         }
 
+    }
+
+    private static boolean hasGetter(Class beanClass) throws BeanException
+    {
+        BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
+        return outputRuleSet.getBindRules().size() > 0;
+    }
+
+    private static JSONObject outputBeanParameters(JSONObject json, Object bean) throws BeanException
+    {
+        BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(bean.getClass());
+        for (BeanBinder rule : outputRuleSet.getBindRules())
+        {
+            Method getter = rule.getMethod();
+            String parameterName = rule.getParameterName();
+
+            Object parameterValue = invokeGetterMethod(getter, bean);
+            if (parameterValue != null)
+                json.put(parameterName, outputAsJSONValue(parameterValue));
+        }
+        return json;
     }
 
     private static Object invokeGetterMethod(Method getter, Object bean) throws BeanException
@@ -1186,6 +1228,16 @@ class BinderSet implements BeanBinderSet
         {
             if (rule.getParameterName().equals(name))
                 return rule;
+        }
+        return null;
+    }
+
+    public MapPutter getStandardMapPutter()
+    {
+        for (BeanBinder rule : _bindRule)
+        {
+            if (rule.getMethod().getName().equals("put"))
+                return MapPutter.class.cast(rule);
         }
         return null;
     }

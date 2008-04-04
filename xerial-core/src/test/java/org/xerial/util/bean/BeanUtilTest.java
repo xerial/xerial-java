@@ -375,9 +375,11 @@ public class BeanUtilTest
         h.graph.put(3, t);
 
         String json = BeanUtil.toJSON(h);
+        _logger.debug(json);
 
         HogeHoge h2 = new HogeHoge();
         BeanUtil.populateBean(h2, json);
+        _logger.debug(BeanUtil.toJSON(h2));
 
         assertEquals(h.getMap(), h2.getMap());
         assertEquals(h.getGraph().toString(), h2.getGraph().toString());
@@ -392,14 +394,15 @@ public class BeanUtilTest
         u1.put("excellent", 100);
 
         String json = BeanUtil.toJSON(u1);
+        _logger.debug(json);
 
         UnknownTypeMap u2 = new UnknownTypeMap();
         BeanUtil.populateBean(u2, json);
 
         assertEquals(u1.size(), u2.size());
         assertEquals(u1.getMapName(), u2.getMapName());
-        assertEquals(50, u2.get("good"));
-        assertEquals(100, u2.get("excellent"));
+        assertEquals("50", u2.get("good"));
+        assertEquals("100", u2.get("excellent"));
     }
 
     @Test

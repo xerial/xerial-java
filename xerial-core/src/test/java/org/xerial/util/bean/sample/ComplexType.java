@@ -26,17 +26,25 @@ package org.xerial.util.bean.sample;
 
 import java.util.Map;
 
-
-public class ComplexType 
+public class ComplexType
 {
-    Map table = new ComplexMap();
+    ComplexMap table = new ComplexMap();
 
-    public ComplexType() {}
-    
-    public Map getTable() {
+    public ComplexType()
+    {}
+
+    public Map getTable()
+    {
         return table;
     }
-    public void setTable(ComplexMap table) {
+
+    public void setTable(ComplexMap table)
+    {
         this.table = table;
+    }
+
+    public void putTable(Integer key, PersonTable value)
+    {
+        table.put(key, value);
     }
 }

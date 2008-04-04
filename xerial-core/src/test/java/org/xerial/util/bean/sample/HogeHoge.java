@@ -32,29 +32,28 @@ public class HogeHoge
 {
     public SortedMap<Integer, String> map = new TreeMap<Integer, String>();
     public SortedMap<Integer, SortedMap<Integer, String>> graph = new TreeMap<Integer, SortedMap<Integer, String>>();
-    
+
     public HogeHoge()
     {}
 
-    public void setMap(SortedMap<Integer, String> map) {
-        this.map = map;
-    }
-    
     public Map<Integer, String> getMap()
     {
         return map;
     }
 
-    public void setMap(Map m)
+    public void putMap(Integer key, String value)
     {
-        this.map = (TreeMap<Integer, String>) m;
+        map.put(key, value);
     }
 
-
-    public Map getGraph() { return graph; }
-    public void setGraph(SortedMap<Integer, SortedMap<Integer, String>> graph)
+    public Map getGraph()
     {
-        this.graph = graph;
+        return graph;
+    }
+
+    public void putGraph(Integer index, SortedMap<Integer, String> graphData)
+    {
+        graph.put(index, graphData);
     }
 
 }

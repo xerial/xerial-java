@@ -24,43 +24,53 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-import org.xerial.util.bean.BeanErrorCode;
-import org.xerial.util.bean.BeanException;
+import java.lang.reflect.Method;
 
+/**
+ * Key and value pair structure for preparing data object for {@link MapPutter}
+ * 
+ * @author leo
+ * 
+ */
 public class KeyValuePair
 {
-    private final Object parentBean;
-    private final MapPutter mapPutter;
+    public final MapPutter mapPutter;
+
     private Object key = null;
     private Object value = null;
 
+    private final Class keyClass;
+    private final Class valueClass;
+
     private int setterCount = 0;
 
-    public KeyValuePair(Object parentBean, MapPutter mapPutter)
+    public KeyValuePair(MapPutter mapPutter)
     {
-        this.parentBean = parentBean;
         this.mapPutter = mapPutter;
+        this.keyClass = mapPutter.getKeyType();
+        this.valueClass = mapPutter.getValueType();
     }
 
-    public void set(Object val) throws BeanException
+    public KeyValuePair(MapPutter mapPutter, Class keyType, Class valueType)
     {
-        switch (setterCount)
-        {
-        case 0:
-            key = val;
-            break;
-        case 1:
-            value = val;
-            break;
-        default:
-            throw new BeanException(BeanErrorCode.InvalidKeyAndValuePair);
-        }
-        setterCount++;
+        this.mapPutter = mapPutter;
+        this.keyClass = keyType;
+        this.valueClass = valueType;
     }
 
-    public boolean hasKey()
+    public Class keyType()
     {
-        return setterCount > 0;
+        return keyClass;
+    }
+
+    public Class valueType()
+    {
+        return valueClass;
+    }
+
+    public Method putter()
+    {
+        return mapPutter.getMethod();
     }
 
     public Object getKey()
@@ -68,31 +78,19 @@ public class KeyValuePair
         return key;
     }
 
+    public void setKey(Object key)
+    {
+        this.key = key;
+    }
+
     public Object getValue()
     {
         return value;
     }
 
-    public void clearKeyValue()
+    public void setValue(Object value)
     {
-        setterCount = 0;
-        key = null;
-        value = null;
-    }
-
-    public Object getParentBean()
-    {
-        return parentBean;
-    }
-
-    /**
-     * Tests key and value are already set.
-     * 
-     * @return
-     */
-    public boolean isFilled()
-    {
-        return setterCount > 1;
+        this.value = value;
     }
 
 }
