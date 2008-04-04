@@ -125,14 +125,15 @@ public class BeanBindingProcess implements TreeVisitor
      */
 
     /*
-     * class TreeMap<Integer, String>
-     * put(Integet, String)
+     * class T extends TreeMap<Integer, String> {}
+     * 
      * 
      * <T>
-     *  <m>
-     *  
-     *  
+     *  <elem><key>k1</key><value>v1</value></elem>
+     *  <elem><key>k2</key><value>v2</value></elem>
      * </T>
+     * 
+     * {"elem":[{"key":"k1", "value":v2}, {"key":"k2", "value":"v2"}]}
      * 
      * 
      */

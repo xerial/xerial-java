@@ -916,13 +916,14 @@ public class BeanUtil
         }
     }
 
-    /**
-     * Map<K, V> m m.json = { "-m": [[k1, v1], [k2, v2], ...] }
+    /*
+     * Map<K, V> m m.json = { "elem":[{"key":k1, "value":v1}, {"key":k2, "value":v2}, ...] }
      * 
-     * Map a = Map<A, Map<B, C>> a.json = "{ "-m" : [[a1, {"-m" : [[b1, c1],
-     * [b2, c2], ...]}], [a2, { "-m":[[b3, c3], ...]}], ...]}"
+     * Map a = Map<A, Map<B, C>> a.json = 
+     * { "elem" : [{"key":"a1", "value":{"elem" : [{"key":b1, "value":c1}, {"key":b2, "value":c2}, ...]}}]}, 
+     * "
      * 
-     * Collection { "-c" : [f1, f2, ..., ] }
+     * Collection { "elem" : [f1, f2, ..., ] }
      * 
      * Array [f1, f2, ... ]
      * 
