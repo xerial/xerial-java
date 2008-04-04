@@ -371,6 +371,7 @@ public class BeanUtil
 
     public static Pair<Class, Class> getGenericMapTypesOfMethodArgument(Method method, int argIndex)
     {
+
         ParameterizedType genericSetterArgumentType = getParentParameterizedType(
                 method.getGenericParameterTypes()[argIndex], Map.class);
 
@@ -645,6 +646,13 @@ public class BeanUtil
     public static JSONObject toJSONObject(Object bean) throws BeanException
     {
         return outputAsJSONValue(bean).getJSONObject();
+    }
+
+    public static JSONObject toJSONObject(Collection collection) throws BeanException
+    {
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("elem", outputAsJSONValue(collection));
+        return jsonObj;
     }
 
     public static JSONValue getValue(Object bean, String propertyName) throws BeanException

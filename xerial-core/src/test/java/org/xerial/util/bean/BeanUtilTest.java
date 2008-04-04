@@ -48,7 +48,6 @@ import org.xerial.util.bean.sample.Address;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.CollectionParam;
 import org.xerial.util.bean.sample.ComplexMap;
-import org.xerial.util.bean.sample.ComplexType;
 import org.xerial.util.bean.sample.Gene;
 import org.xerial.util.bean.sample.HogeHoge;
 import org.xerial.util.bean.sample.Mate;
@@ -406,22 +405,22 @@ public class BeanUtilTest
     }
 
     @Test
-    public void complexType() throws BeanException, JSONException
+    public void complexMap() throws BeanException, JSONException
     {
         PersonTable p = new PersonTable();
         p.put(1, new Person(100, "leo"));
         p.put(2, new Person(101, "ahsan"));
         ComplexMap m = new ComplexMap();
         m.put(1234, p);
-        ComplexType ct = new ComplexType();
-        ct.setTable(m);
 
-        String json = BeanUtil.toJSON(ct);
+        String json = BeanUtil.toJSON(m);
+        _logger.debug(json);
 
-        ComplexType ct2 = new ComplexType();
-        BeanUtil.populateBean(ct2, json);
+        ComplexMap m2 = new ComplexMap();
+        BeanUtil.populateBean(m2, json);
 
-        String json2 = BeanUtil.toJSON(ct2);
+        String json2 = BeanUtil.toJSON(m2);
+        _logger.debug(json2);
 
         assertEquals(json, json2);
 
@@ -495,7 +494,9 @@ public class BeanUtilTest
     {
         PersonVector pv = new PersonVector();
         pv.add(new Person(1, "leo"));
-        String json = BeanUtil.toJSON(pv);
+
+        // Subclass of Array cannot be JSONObject, so explicit conversion to JSONObject must be used
+        String json = BeanUtil.toJSONObject(pv).toString();
 
         PersonVector pv2 = new PersonVector();
         BeanUtil.populateBean(pv2, json);

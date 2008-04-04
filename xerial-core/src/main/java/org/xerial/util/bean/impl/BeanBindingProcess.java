@@ -256,17 +256,19 @@ public class BeanBindingProcess implements TreeVisitor
                         Pair<Class, Class> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
                                 updateMethod, targetArgIndex);
 
+                        BeanBinderSet mapBindRuleSet = getBindRuleSet(elementType);
+                        MapPutter putter = mapBindRuleSet.getStandardMapPutter();
                         if (keyValueClassPair != null)
                         {
-                            BeanBinderSet mapBindRuleSet = getBindRuleSet(elementType);
-                            MapPutter putter = mapBindRuleSet.getStandardMapPutter();
                             setContextBean(nodeLevel, new KeyValuePair(putter, keyValueClassPair.getFirst(),
                                     keyValueClassPair.getSecond()));
                         }
                         else
                         {
                             // no need to put this sub tree since no putter is found
-                            walker.skipDescendants();
+                            //walker.skipDescendants();
+                            setContextBean(nodeLevel, new KeyValuePair(putter));
+
                         }
                     }
                     else if (elementType != Object.class)

@@ -38,10 +38,12 @@ public class ComplexType
         return table;
     }
 
+    /*
     public void setTable(ComplexMap table)
     {
         this.table = table;
     }
+    */
 
     public void putTable(Integer key, PersonTable value)
     {
