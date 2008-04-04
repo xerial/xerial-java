@@ -63,8 +63,8 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator
             JSONArray entry = mapContent.getJSONArray(i);
             if (entry != null)
             {
-                Object key = BeanUtil.createBean(keyType, entry.get(0));
-                Object value = BeanUtil.createBean(valueType, entry.get(1));
+                Object key = BeanUtil.createBeanFromJSON(keyType, entry.get(0));
+                Object value = BeanUtil.createBeanFromJSON(valueType, entry.get(1));
                 invokeMethod(bean, new Object[] { key, value });
             }
         }

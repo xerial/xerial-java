@@ -47,7 +47,7 @@ public class ArraySetter extends BeanBinderBase {
 
         Object[] tmpArray = (Object[]) Array.newInstance(componentType, arrayContent.size());
         for (int i = 0; i < arrayContent.size(); i++) {
-            tmpArray[i] = BeanUtil.createBean(componentType, arrayContent.get(i));
+            tmpArray[i] = BeanUtil.createBeanFromJSON(componentType, arrayContent.get(i));
         }
         invokeMethod(bean, new Object[] { tmpArray });
     }

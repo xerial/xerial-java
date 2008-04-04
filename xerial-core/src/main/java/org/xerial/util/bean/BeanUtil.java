@@ -873,7 +873,7 @@ public class BeanUtil
      * @throws InvalidBeanException
      *             when a bean class has invalid structure
      */
-    public static void populateBean(Object bean, String jsonData) throws BeanException
+    public static void populateBeanWithJSON(Object bean, String jsonData) throws BeanException
     {
         // parse the input JSON data
         try
@@ -953,7 +953,7 @@ public class BeanUtil
                 {
                     throw new BeanException(BeanErrorCode.IllegalAccess, e);
                 }
-                populateBean(array[i], jsonArray.get(i));
+                populateBeanWithJSON(array[i], jsonArray.get(i));
             }
         }
         else
@@ -962,7 +962,7 @@ public class BeanUtil
 
     }
 
-    protected static void populateBean(Object bean, Object jsonValue) throws BeanException
+    protected static void populateBeanWithJSON(Object bean, Object jsonValue) throws BeanException
     {
         if (jsonValue.getClass() == JSONObject.class)
         {
@@ -995,7 +995,7 @@ public class BeanUtil
         }
     }
 
-    public static Object createBean(Class beanType, Reader jsonReader) throws IOException, BeanException
+    public static Object createBeanFromJSON(Class beanType, Reader jsonReader) throws IOException, BeanException
     {
         BufferedReader reader = new BufferedReader(jsonReader);
         StringWriter buffer = new StringWriter();
@@ -1005,17 +1005,17 @@ public class BeanUtil
             buffer.append(line);
             buffer.append(StringUtil.newline());
         }
-        return createBean(beanType, buffer.toString());
+        return createBeanFromJSON(beanType, buffer.toString());
     }
 
-    public static Object createBean(Class beanType, String json) throws BeanException
+    public static Object createBeanFromJSON(Class beanType, String json) throws BeanException
     {
         Object bean = createInstance(beanType);
-        populateBean(bean, json);
+        populateBeanWithJSON(bean, json);
         return bean;
     }
 
-    public static Object createBean(Class valueType, Object jsonValue) throws BeanException
+    public static Object createBeanFromJSON(Class valueType, Object jsonValue) throws BeanException
     {
         if (jsonValue == null)
             return null;

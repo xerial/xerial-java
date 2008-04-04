@@ -48,7 +48,7 @@ public class Setter extends BeanBinderBase implements BeanUpdator
         if (json == null)
             return;
 
-        Object tmpValue = BeanUtil.createBean(valueType, json);
+        Object tmpValue = BeanUtil.createBeanFromJSON(valueType, json);
         invokeMethod(bean, new Object[] { tmpValue });
     }
 

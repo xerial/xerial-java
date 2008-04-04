@@ -187,7 +187,7 @@ public class BeanUtilTest
     {
         Person s = new Person(10, "leo");
         Person s2 = new Person();
-        BeanUtil.populateBean(s2, BeanUtil.toJSON(s));
+        BeanUtil.populateBeanWithJSON(s2, BeanUtil.toJSON(s));
         assertEquals(s.getId(), s2.getId());
         assertEquals(s.getName(), s2.getName());
     }
@@ -197,7 +197,7 @@ public class BeanUtilTest
     {
         Book s1 = new Book("Data on the Web", new String[] { "Abiteboul", "Buneman" });
         Book s2 = new Book();
-        BeanUtil.populateBean(s2, BeanUtil.toJSON(s1));
+        BeanUtil.populateBeanWithJSON(s2, BeanUtil.toJSON(s1));
         assertEquals(s1.getTitle(), s2.getTitle());
         assertEquals(s1.getAuthor(), s2.getAuthor());
     }
@@ -206,7 +206,7 @@ public class BeanUtilTest
     public void doNotUsePrivateSetter() throws JSONException, BeanException
     {
         PrivateGetterSetter p = new PrivateGetterSetter(0.0);
-        BeanUtil.populateBean(p, "{\"value\" : 1.34}");
+        BeanUtil.populateBeanWithJSON(p, "{\"value\" : 1.34}");
         assertEquals(0.0, p.getValue());
     }
 
@@ -226,7 +226,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSON(c);
 
         CollectionParam c2 = new CollectionParam();
-        BeanUtil.populateBean(c2, json);
+        BeanUtil.populateBeanWithJSON(c2, json);
 
         assertEquals(v.size(), c2.getName().size());
         for (int i = 0; i < c.getName().size(); i++)
@@ -244,7 +244,7 @@ public class BeanUtilTest
         Address addr = new Address(new Person(3, "leo"), "world");
         String json = BeanUtil.toJSON(addr);
         Address addr2 = new Address();
-        BeanUtil.populateBean(addr2, json);
+        BeanUtil.populateBeanWithJSON(addr2, json);
 
         assertNotNull(addr2.getPerson());
         assertNotNull(addr2.getAddress());
@@ -266,7 +266,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSON(pl);
 
         PersonList pl2 = new PersonList();
-        BeanUtil.populateBean(pl2, json);
+        BeanUtil.populateBeanWithJSON(pl2, json);
 
         assertNotNull(pl2.getPerson());
         assertEquals(pl.getPerson().size(), pl2.getPerson().size());
@@ -302,7 +302,7 @@ public class BeanUtilTest
 
         String json = BeanUtil.toJSON(p);
         PrimitiveAdder p2 = new PrimitiveAdder();
-        BeanUtil.populateBean(p2, json);
+        BeanUtil.populateBeanWithJSON(p2, json);
 
         assertEquals(ans.length, p2.getValueList().size());
         int index = 0;
@@ -326,7 +326,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSON(n1);
 
         NameTable n2 = new NameTable();
-        BeanUtil.populateBean(n2, json);
+        BeanUtil.populateBeanWithJSON(n2, json);
 
         for (int i = 0; i < data.length; i++)
         {
@@ -350,7 +350,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSON(m1);
 
         Mate m2 = new Mate();
-        BeanUtil.populateBean(m2, json);
+        BeanUtil.populateBeanWithJSON(m2, json);
         assertEquals(m1.getPair(pair1[0]), m2.getPair(pair1[0]));
         assertEquals(m1.getPair(pair2[0]), m2.getPair(pair2[0]));
     }
@@ -377,7 +377,7 @@ public class BeanUtilTest
         _logger.debug(json);
 
         HogeHoge h2 = new HogeHoge();
-        BeanUtil.populateBean(h2, json);
+        BeanUtil.populateBeanWithJSON(h2, json);
         _logger.debug(BeanUtil.toJSON(h2));
 
         assertEquals(h.getMap(), h2.getMap());
@@ -396,7 +396,7 @@ public class BeanUtilTest
         _logger.debug(json);
 
         UnknownTypeMap u2 = new UnknownTypeMap();
-        BeanUtil.populateBean(u2, json);
+        BeanUtil.populateBeanWithJSON(u2, json);
 
         assertEquals(u1.size(), u2.size());
         assertEquals(u1.getMapName(), u2.getMapName());
@@ -417,7 +417,7 @@ public class BeanUtilTest
         _logger.debug(json);
 
         ComplexMap m2 = new ComplexMap();
-        BeanUtil.populateBean(m2, json);
+        BeanUtil.populateBeanWithJSON(m2, json);
 
         String json2 = BeanUtil.toJSON(m2);
         _logger.debug(json2);
@@ -448,7 +448,7 @@ public class BeanUtilTest
         {
             // NonConstructableClass c = new NonConstructableClass();
             ArrayList<NonConstructableClass> a = new ArrayList<NonConstructableClass>();
-            BeanUtil.populateBean(a, "{\"-c\":[{\"name\":\"leo\"}]}");
+            BeanUtil.populateBeanWithJSON(a, "{\"-c\":[{\"name\":\"leo\"}]}");
         }
         catch (BeanException e)
         {
@@ -464,7 +464,7 @@ public class BeanUtilTest
         try
         {
             Map<Integer, NonConstructableClass> m = new TreeMap<Integer, NonConstructableClass>();
-            BeanUtil.populateBean(m, "{\"-m\":[[1, {\"name\":\"leo\"}]]}");
+            BeanUtil.populateBeanWithJSON(m, "{\"-m\":[[1, {\"name\":\"leo\"}]]}");
         }
         catch (BeanException e)
         {
@@ -480,7 +480,7 @@ public class BeanUtilTest
         try
         {
             Map<NonConstructableClass, String> m = new TreeMap<NonConstructableClass, String>();
-            BeanUtil.populateBean(m, "{\"-m\":[[{\"name\":\"leo\"},\"value\"]]}");
+            BeanUtil.populateBeanWithJSON(m, "{\"-m\":[[{\"name\":\"leo\"},\"value\"]]}");
         }
         catch (BeanException e)
         {
@@ -499,7 +499,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSONObject(pv).toString();
 
         PersonVector pv2 = new PersonVector();
-        BeanUtil.populateBean(pv2, json);
+        BeanUtil.populateBeanWithJSON(pv2, json);
 
         assertEquals(1, pv2.size());
         assertEquals(pv, pv2);
@@ -558,7 +558,7 @@ public class BeanUtilTest
         String json = BeanUtil.toJSON(pl);
 
         PersonList2 pl2 = new PersonList2();
-        BeanUtil.populateBean(pl2, json);
+        BeanUtil.populateBeanWithJSON(pl2, json);
         String json2 = BeanUtil.toJSON(pl2);
         _logger.debug(json2);
 

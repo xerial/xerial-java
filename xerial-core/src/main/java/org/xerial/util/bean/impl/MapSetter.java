@@ -63,8 +63,8 @@ public class MapSetter extends BeanBinderBase {
         for (int i = 0; i < mapContent.size(); i++) {
             JSONArray entry = mapContent.getJSONArray(i);
             if (entry != null) {
-                Object key = BeanUtil.createBean(keyType, entry.get(0));
-                Object value = BeanUtil.createBean(valueType, entry.get(1));
+                Object key = BeanUtil.createBeanFromJSON(keyType, entry.get(0));
+                Object value = BeanUtil.createBeanFromJSON(valueType, entry.get(1));
                 tmpMap.put(key, value);
             }
         }

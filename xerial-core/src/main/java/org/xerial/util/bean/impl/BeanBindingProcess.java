@@ -138,6 +138,7 @@ public class BeanBindingProcess implements TreeVisitor
      */
 
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
+    private final TreeMap<Integer, Map> mapAssociatedWitBean = new TreeMap<Integer, Map>();
 
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
@@ -208,7 +209,7 @@ public class BeanBindingProcess implements TreeVisitor
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException
     {
         int nodeLevel = currentLevel++;
-        _logger.trace("visit[" + nodeLevel + "] " + nodeName);
+        //_logger.trace("visit[" + nodeLevel + "] " + nodeName);
 
         // prepare the context bean for this depth
         Object bean = getContextBean(nodeLevel);
@@ -301,7 +302,7 @@ public class BeanBindingProcess implements TreeVisitor
     public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
         int nodeLevel = --currentLevel;
-        _logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
+        //_logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
 
         Object parentBean = getContextBean(nodeLevel - 1);
         if (parentBean == null)
@@ -355,6 +356,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                     KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
                     bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
+                    mapAssociatedWitBean.remove(parentBean.hashCode());
                 }
                 catch (ClassCastException e)
                 {
@@ -410,11 +412,30 @@ public class BeanBindingProcess implements TreeVisitor
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void bindValue(Object bean, BeanUpdator updator, Class targetType, Object value) throws BeanException
     {
         try
         {
-            updator.getMethod().invoke(bean, convertType(targetType, value));
+            if (value.getClass() == KeyValuePair.class && TypeInformation.isMap(targetType))
+            {
+                Map map = null;
+                if (mapAssociatedWitBean.containsKey(bean.hashCode()))
+                {
+                    map = mapAssociatedWitBean.get(bean.hashCode());
+                }
+                else
+                {
+                    map = Map.class.cast(BeanUtil.createInstance(targetType));
+                    mapAssociatedWitBean.put(bean.hashCode(), map);
+                }
+                KeyValuePair keyValuePair = KeyValuePair.class.cast(value);
+                map.put(keyValuePair.getKey(), keyValuePair.getValue());
+
+                updator.getMethod().invoke(bean, map);
+            }
+            else
+                updator.getMethod().invoke(bean, convertType(targetType, value));
         }
         catch (IllegalArgumentException e)
         {
@@ -437,17 +458,10 @@ public class BeanBindingProcess implements TreeVisitor
     }
 
     @SuppressWarnings("unchecked")
-    public static Object convertType(Class targetType, Object value) throws BeanException
+    public Object convertType(Class targetType, Object value) throws BeanException
     {
         if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
             return value;
-        else if (value.getClass() == KeyValuePair.class && TypeInformation.isMap(targetType))
-        {
-            Map newMapInstance = Map.class.cast(BeanUtil.createInstance(targetType));
-            KeyValuePair keyValuePair = KeyValuePair.class.cast(value);
-            newMapInstance.put(keyValuePair.getKey(), keyValuePair.getValue());
-            return newMapInstance;
-        }
         else
             return convertToBasicType(targetType, value);
     }

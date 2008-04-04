@@ -58,7 +58,7 @@ public class JSONWriterTest
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBean(p, jsonData);
+        BeanUtil.populateBeanWithJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("Leo", p.getName());
@@ -86,7 +86,7 @@ public class JSONWriterTest
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBean(p, jsonData);
+        BeanUtil.populateBeanWithJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("Leo", p.getName());
@@ -136,7 +136,7 @@ public class JSONWriterTest
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBean(p, jsonData);
+        BeanUtil.populateBeanWithJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("leo leo leo", p.getName());
@@ -159,7 +159,7 @@ public class JSONWriterTest
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBean(p, jsonData);
+        BeanUtil.populateBeanWithJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("leo leo leo", p.getName());

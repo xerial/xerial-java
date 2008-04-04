@@ -56,7 +56,7 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator
 
         for (int i = 0; i < collectionContent.size(); i++)
         {
-            Object value = BeanUtil.createBean(elementType, collectionContent.get(i));
+            Object value = BeanUtil.createBeanFromJSON(elementType, collectionContent.get(i));
             invokeMethod(bean, new Object[] { value });
         }
     }
