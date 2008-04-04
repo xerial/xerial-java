@@ -26,6 +26,7 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.xerial.core.XerialException;
@@ -204,83 +205,10 @@ public class BeanBindingProcess implements TreeVisitor
         return bindRuleGenerator.getBeanBinderSet(beanClass);
     }
 
-    public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
-    {
-        int nodeLevel = --currentLevel;
-        //_logger.trace("leave: " + nodeName + " level = " + nodeLevel);
-        Object parentBean = getContextBean(nodeLevel - 1);
-        if (parentBean == null)
-            return;
-
-        BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
-        BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
-        if (updator != null)
-        {
-            Object valueBean = getContextBean(nodeLevel);
-            if (valueBean == null)
-            {
-                if (nodeValue != null && nodeValue.length() > 0)
-                {
-                    valueBean = nodeValue;
-                }
-            }
-
-            // no value to bind
-            if (valueBean == null)
-                return;
-
-            switch (updator.getType())
-            {
-            case SETTER:
-            case COLLECTION_ADDER:
-                try
-                {
-                    if (parentBean instanceof KeyValuePair)
-                    {
-                        KeyValuePair keyValuePair = KeyValuePair.class.cast(parentBean);
-                        if (nodeName.equals("key"))
-                            bindValue(parentBean, updator, keyValuePair.keyType(), valueBean);
-                        else if (nodeName.equals("value"))
-                            bindValue(parentBean, updator, keyValuePair.valueType(), valueBean);
-                    }
-                    else
-                    {
-                        bindValue(parentBean, updator, valueBean);
-                    }
-
-                }
-                catch (BeanException e)
-                {
-                    _logger.error(e);
-                }
-                break;
-            case MAP_PUTTER:
-                // at key, value data depth
-                try
-                {
-                    KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
-                    bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
-                }
-                catch (ClassCastException e)
-                {
-                    _logger.error(e);
-                    // skip this element
-                }
-                break;
-            default:
-                throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
-            }
-
-            // clear the bean stack
-            removeContextBean(nodeLevel);
-        }
-
-    }
-
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException
     {
         int nodeLevel = currentLevel++;
-        _logger.trace("visit: " + nodeName + " level = " + nodeLevel);
+        _logger.trace("visit[" + nodeLevel + "] " + nodeName);
 
         // prepare the context bean for this depth
         Object bean = getContextBean(nodeLevel);
@@ -368,6 +296,80 @@ public class BeanBindingProcess implements TreeVisitor
 
     }
 
+    public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+    {
+        int nodeLevel = --currentLevel;
+        _logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
+
+        Object parentBean = getContextBean(nodeLevel - 1);
+        if (parentBean == null)
+            return;
+
+        BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
+        BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
+        if (updator != null)
+        {
+            Object valueBean = getContextBean(nodeLevel);
+            if (valueBean == null)
+            {
+                if (nodeValue != null && nodeValue.length() > 0)
+                {
+                    valueBean = nodeValue;
+                }
+            }
+
+            // no value to bind
+            if (valueBean == null)
+                return;
+
+            switch (updator.getType())
+            {
+            case SETTER:
+            case COLLECTION_ADDER:
+                try
+                {
+                    if (parentBean instanceof KeyValuePair)
+                    {
+                        KeyValuePair keyValuePair = KeyValuePair.class.cast(parentBean);
+                        if (nodeName.equals("key"))
+                            bindValue(parentBean, updator, keyValuePair.keyType(), valueBean);
+                        else if (nodeName.equals("value"))
+                            bindValue(parentBean, updator, keyValuePair.valueType(), valueBean);
+                    }
+                    else
+                    {
+                        bindValue(parentBean, updator, valueBean);
+                    }
+
+                }
+                catch (BeanException e)
+                {
+                    _logger.error(e);
+                }
+                break;
+            case MAP_PUTTER:
+                // at key, value data depth
+                try
+                {
+                    KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
+                    bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
+                }
+                catch (ClassCastException e)
+                {
+                    _logger.error(e);
+                    // skip this element
+                }
+                break;
+            default:
+                throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
+            }
+
+            // clear the bean stack
+            removeContextBean(nodeLevel);
+        }
+
+    }
+
     public static BeanUpdator getUpdator(BeanBinderSet bindRuleSet, String ruleName) throws BeanException
     {
         BeanBinder binder = bindRuleSet.findRule(ruleName);
@@ -432,10 +434,18 @@ public class BeanBindingProcess implements TreeVisitor
         bindValue(bean, updator, updator.getInputType(), value);
     }
 
+    @SuppressWarnings("unchecked")
     public static Object convertType(Class targetType, Object value) throws BeanException
     {
-        if (targetType == value.getClass() || targetType == Object.class)
+        if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
             return value;
+        else if (value.getClass() == KeyValuePair.class && TypeInformation.isMap(targetType))
+        {
+            Map newMapInstance = Map.class.cast(BeanUtil.createInstance(targetType));
+            KeyValuePair keyValuePair = KeyValuePair.class.cast(value);
+            newMapInstance.put(keyValuePair.getKey(), keyValuePair.getValue());
+            return newMapInstance;
+        }
         else
             return convertToBasicType(targetType, value);
     }
