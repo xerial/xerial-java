@@ -44,29 +44,6 @@ public class CollectionAdder extends BeanBinderBase implements BeanUpdator
         constractableTest(elementType);
     }
 
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException
-    {
-        JSONArray collectionContent = getJSONArray(json, "-c");
-        if (collectionContent == null)
-            if (json.getClass() != JSONArray.class)
-                return;
-            else
-                collectionContent = (JSONArray) json;
-
-        for (int i = 0; i < collectionContent.size(); i++)
-        {
-            Object value = BeanUtil.createBeanFromJSON(elementType, collectionContent.get(i));
-            invokeMethod(bean, new Object[] { value });
-        }
-    }
-
-    // @Override
-    // public void setXMLData(Object bean, Object xmlData) throws BeanException
-    // {
-    // Object value = BeanUtil.createXMLBean(elementType, xmlData);
-    // invokeMethod(bean, new Object[] { value });
-    // }
 
     public Class getInputType()
     {

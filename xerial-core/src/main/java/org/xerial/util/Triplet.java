@@ -24,16 +24,17 @@
 package org.xerial.util;
 
 /**
- * 3つの値の組を表すクラス
+ * Triplet structure  
+ * 
  * @author leo
  *
  */
-public class Tuple<E, F, J> 
+public class Triplet<E, F, J> 
 {
     private E first;
     private F second;
     private J third;
-    public Tuple(E first, F second, J third)
+    public Triplet(E first, F second, J third)
     {
         this.first = first;
         this.second = second;

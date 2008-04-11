@@ -49,18 +49,6 @@ public class CollectionSetter extends BeanBinderBase {
         assert (TypeInformation.isCollection(collectionType));
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        JSONArray collectionContent = getJSONArray(json, "-c");
-        if (collectionContent == null)
-            return;
 
-        Collection tmpCollection = (Collection) BeanUtil.createInstance(collectionType);
-        for (int i = 0; i < collectionContent.size(); i++) {
-            tmpCollection.add(BeanUtil.createBeanFromJSON(elementType, collectionContent.get(i)));
-        }
-        invokeMethod(bean, new Object[] { tmpCollection });
-    }
 
 }

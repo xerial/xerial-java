@@ -25,40 +25,40 @@
 package org.xerial.util;
 
 /** 
+ * Pair of two objects
  * @author leo
  *
  */
 public class Pair<X, Y>
 {
-    X _x;
-    Y _y;
+    private X x;
+    private Y y;
     
     /**
      * 
      */
     public Pair(X x, Y y)
     {
-        _x = x;
-        _y = y;
+        this.x = x;
+        this.y = y;
     }
     public X getFirst()
     {
-        return _x;
+        return x;
     }
     public Y getSecond()
     {
-        return _y;
+        return y;
     }
     public void setFirst(X x)
     {
-        _x = x;
+        this.x = x;
     }
     public void setSecond(Y y)
     {
-        _y = y;
+        this.y = y;
     }
-    
-    
+        
 }
 
 

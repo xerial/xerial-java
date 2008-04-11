@@ -82,28 +82,6 @@ abstract class BeanBinderBase implements BeanBinder
         this.parameterName = parameterName;
     }
 
-    // @see org.utgenome.util.BeanBinder#invokeSetter(java.lang.Object,
-    // java.lang.Object)
-    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException
-    {
-        try
-        {
-            setJSONData(bean, json);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidNumberFormat, e);
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalArgument, e);
-        }
-    }
-
-    // @see org.utgenome.util.BeanBinder#setJSONData(java.lang.Object,
-    // java.lang.Object)
-    public abstract void setJSONData(Object bean, Object json) throws BeanException;
-
     public static JSONArray getJSONArray(Object json, String key)
     {
         if (json == null || json.getClass() != JSONObject.class)

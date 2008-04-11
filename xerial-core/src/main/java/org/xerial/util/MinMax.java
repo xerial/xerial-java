@@ -25,14 +25,15 @@
 package org.xerial.util;
 
 /**
- * 最大値と最小値のペア
+ * A pair of min and max values
  * @author leo
  *
  */
 public class MinMax<E> extends Pair<E, E>
 {
 
-    /** 最大値と最小値のペアを作成
+    /** 
+     * Creates a pair of min and max
      * @param min
      * @param max
      */

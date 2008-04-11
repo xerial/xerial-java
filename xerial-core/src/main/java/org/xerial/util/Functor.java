@@ -24,6 +24,13 @@
 //--------------------------------------
 package org.xerial.util;
 
+/**
+ * A functor for {@link Algorithm}s.
+ * 
+ * @author leo
+ *
+ * @param <In>
+ */
 public interface Functor<In>
 {
 	public Object apply(In input);

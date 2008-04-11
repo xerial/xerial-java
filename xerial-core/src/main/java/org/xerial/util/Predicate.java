@@ -24,6 +24,13 @@
 //--------------------------------------
 package org.xerial.util;
 
+/**
+ * A predicate for repetitive evaluations. 
+ * 
+ * @author leo
+ *
+ * @param <Input>
+ */
 public interface Predicate<Input> {
 	public boolean apply(Input input);
 }

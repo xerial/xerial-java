@@ -41,27 +41,6 @@ public class Setter extends BeanBinderBase implements BeanUpdator
         this.valueType = valueType;
     }
 
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException
-    {
-        // the object is a JSONValue
-        if (json == null)
-            return;
-
-        Object tmpValue = BeanUtil.createBeanFromJSON(valueType, json);
-        invokeMethod(bean, new Object[] { tmpValue });
-    }
-
-    // @Override
-    // public void setXMLData(Object bean, Object xmlData) throws BeanException
-    // {
-    // if(xmlData == null)
-    // return;
-    //        
-    // Object tmpValue = BeanUtil.createXMLBean(valueType, xmlData);
-    // invokeMethod(bean, new Object[] { tmpValue });
-    // }
-
     public Class getInputType()
     {
         return valueType;

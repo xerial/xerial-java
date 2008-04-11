@@ -39,19 +39,5 @@ public class ArraySetter extends BeanBinderBase {
         this.componentType = componentType;
     }
 
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        if (json == null || json.getClass() != JSONArray.class)
-            return;
-        JSONArray arrayContent = (JSONArray) json;
-
-        Object[] tmpArray = (Object[]) Array.newInstance(componentType, arrayContent.size());
-        for (int i = 0; i < arrayContent.size(); i++) {
-            tmpArray[i] = BeanUtil.createBeanFromJSON(componentType, arrayContent.get(i));
-        }
-        invokeMethod(bean, new Object[] { tmpArray });
-    }
-
-
-
+ 
 }

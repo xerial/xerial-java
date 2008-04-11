@@ -34,8 +34,5 @@ public class Getter extends BeanBinderBase {
         super(method, parameterName);
     }
 
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException {
-        throw new BeanException(BeanErrorCode.GetterCannotBeUsedToBindData);
-    }
+
 }

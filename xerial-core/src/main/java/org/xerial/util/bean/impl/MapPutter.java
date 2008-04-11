@@ -48,28 +48,6 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator
         constractableTest(valueType);
     }
 
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException
-    {
-        JSONArray mapContent = getJSONArray(json, "-m");
-        if (mapContent == null)
-            if (json.getClass() != JSONArray.class)
-                return;
-            else
-                mapContent = (JSONArray) json;
-
-        for (int i = 0; i < mapContent.size(); i++)
-        {
-            JSONArray entry = mapContent.getJSONArray(i);
-            if (entry != null)
-            {
-                Object key = BeanUtil.createBeanFromJSON(keyType, entry.get(0));
-                Object value = BeanUtil.createBeanFromJSON(valueType, entry.get(1));
-                invokeMethod(bean, new Object[] { key, value });
-            }
-        }
-    }
-
     public Class getInputType()
     {
         throw new UnsupportedOperationException("getElementType() for MapPutter is not supported yet");

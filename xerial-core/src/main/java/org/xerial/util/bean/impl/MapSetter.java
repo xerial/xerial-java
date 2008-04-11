@@ -52,23 +52,4 @@ public class MapSetter extends BeanBinderBase {
         assert (TypeInformation.isMap(mapType));
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void setJSONData(Object bean, Object json) throws BeanException { 
-        JSONArray mapContent = getJSONArray(json, "-m");
-        if (mapContent == null)
-            return;
-
-        Map tmpMap = (Map) BeanUtil.createInstance(mapType);
-        for (int i = 0; i < mapContent.size(); i++) {
-            JSONArray entry = mapContent.getJSONArray(i);
-            if (entry != null) {
-                Object key = BeanUtil.createBeanFromJSON(keyType, entry.get(0));
-                Object value = BeanUtil.createBeanFromJSON(valueType, entry.get(1));
-                tmpMap.put(key, value);
-            }
-        }
-        invokeMethod(bean, new Object[] { tmpMap });
-    }
-
 }

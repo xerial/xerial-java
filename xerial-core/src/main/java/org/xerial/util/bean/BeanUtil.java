@@ -785,7 +785,7 @@ public class BeanUtil
         }
     }
 
-    public static void populateBeanWithMap(Object bean, Map map) throws XerialException
+    public static void populateBeanWithMap(Object bean, Map<?,?> map) throws XerialException
     {
         BeanUtilImpl.populateBeanWithMap(bean, map);
     }
@@ -899,7 +899,6 @@ public class BeanUtil
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    @SuppressWarnings("unchecked")
     public static void populateBean(Object bean, JSONObject json) throws BeanException
     {
         try
@@ -998,26 +997,36 @@ public class BeanUtil
 
     public static Object createBeanFromJSON(Class beanType, Reader jsonReader) throws IOException, BeanException
     {
-        BufferedReader reader = new BufferedReader(jsonReader);
-        StringWriter buffer = new StringWriter();
-        String line;
-        while ((line = reader.readLine()) != null)
+        try
         {
-            buffer.append(line);
-            buffer.append(StringUtil.newline());
+            return BeanUtilImpl.createBeanFromJSON(beanType, jsonReader);
         }
-        return createBeanFromJSON(beanType, buffer.toString());
+        catch(XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
+        }
     }
 
     public static Object createBeanFromJSON(Class beanType, String json) throws BeanException
     {
-        Object bean = createInstance(beanType);
-        populateBeanWithJSON(bean, json);
-        return bean;
+        try
+        {
+            return BeanUtilImpl.createBeanFromJSON(beanType, new StringReader(json));
+        }
+        catch (IOException e)
+        {
+            throw new BeanException(BeanErrorCode.IOError, e.getMessage());
+        }
+        catch (XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
+        }
     }
 
+    /*
     public static Object createBeanFromJSON(Class valueType, Object jsonValue) throws BeanException
     {
+        
         if (jsonValue == null)
             return null;
 
@@ -1110,6 +1119,7 @@ public class BeanUtil
             return jsonValue;
         }
     }
+    */
 
     public static Object createInstance(Class c) throws BeanException
     {
@@ -1235,7 +1245,7 @@ class BinderSet implements BeanBinderSet
     {
         for (BeanBinder rule : _bindRule)
         {
-            if (rule.getParameterName().equals(name))
+            if (rule.getParameterName().equalsIgnoreCase(name))
                 return rule;
         }
         return null;

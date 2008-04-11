@@ -70,6 +70,15 @@ public class Logger
         {
             _rootLogger.setLogLevel(logLevel);
         }
+        else
+        {
+            logLevel = System.getProperty("loglevel");
+            if(logLevel != null)
+            {
+                _rootLogger.setLogLevel(logLevel);
+            }
+        }
+        
         
         String loggerConfigFile = System.getProperty("log.config");
         if (loggerConfigFile != null)

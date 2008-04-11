@@ -39,8 +39,4 @@ public interface BeanBinder
 
     public void setParameterName(String parameterName);
 
-    public void invokeJSONDataSetter(Object bean, Object json) throws BeanException;
-
-    public void setJSONData(Object bean, Object json) throws BeanException;
-
 }
