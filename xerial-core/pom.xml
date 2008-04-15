@@ -1,43 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <artifactId>xerial-base</artifactId>
+    <artifactId>xerial-project</artifactId>
     <groupId>org.xerial</groupId>
-    <version>2.0</version>
+    <version>1.0</version>
   </parent>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>0.7.0-SNAPSHOT</version>
+  <version>0.8.0</version>
   <description>Xerial Core: standard utilities for XerialJ project</description>
+
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/java</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/java</directory>
-      </testResource>
-      <testResource>
-        <directory>src/test/resources</directory>
-      </testResource>
-    </testResources>
     <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <includes>
-            <include>**</include>
-          </includes>
-          <testIncludes>
-            <include>**</include>
-          </testIncludes>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.xerial.maven</groupId>
         <artifactId>maven-antlr-plugin</artifactId>
@@ -55,13 +31,7 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>xerial</id>
-      <name>Xerial Artifact Repository</name>
-      <url>http://maven.xerial.org/repository/artifact</url>
-    </repository>
-  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>org.xerial.thirdparty</groupId>
@@ -90,10 +60,5 @@
       <version>1.1.3.4.K</version>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <site>
-      <id>xerial.dav</id>
-      <url>dav:http://maven.xerial.org/repository/site/${project.artifactId}</url>
-    </site>
-  </distributionManagement>
+
 </project>
