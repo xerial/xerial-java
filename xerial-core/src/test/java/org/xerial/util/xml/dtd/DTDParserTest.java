@@ -34,6 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
+import org.xerial.util.xml.dtd.impl.DTDParser;
 
 public class DTDParserTest
 {

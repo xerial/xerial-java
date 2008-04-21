@@ -24,20 +24,31 @@
 //--------------------------------------
 package org.xerial.json;
 
-class JSONElement {
-	String key;
-	JSONValue value;
-	
-	public JSONElement(String key, JSONValue value)
-	{
-		this.key = key; this.value = value;
-	}
-	
-	public String getKey() { return key; }
-	public JSONValue getValue() { return value; }
-	
+/**
+ * A key and value pair of the {@link JSONObject}
+ * 
+ * @author leo
+ * 
+ */
+public class JSONElement
+{
+    String key;
+    JSONValue value;
+
+    public JSONElement(String key, JSONValue value)
+    {
+        this.key = key;
+        this.value = value;
+    }
+
+    public String getKey()
+    {
+        return key;
+    }
+
+    public JSONValue getValue()
+    {
+        return value;
+    }
+
 }
-
-
-
-

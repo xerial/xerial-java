@@ -67,7 +67,7 @@ public class ANTLRWalker extends TreeWalker
         getTreeVisitor().visitNode(nodeName, this);
 
         // visit child nodes
-        if (skipDescendants)
+        if (!skipDescendants)
         {
             for (int i = 0; i < t.getChildCount(); i++)
             {

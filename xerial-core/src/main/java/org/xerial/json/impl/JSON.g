@@ -33,7 +33,7 @@ tokens
 // Since: Apr 26, 2007
 //
 //--------------------------------------
-package org.xerial.json;
+package org.xerial.json.impl;
 }
 
 @header
@@ -45,7 +45,7 @@ package org.xerial.json;
 // Since: Apr 26, 2007
 //
 //--------------------------------------
-package org.xerial.json;
+package org.xerial.json.impl;
 }
 
 @rulecatch {

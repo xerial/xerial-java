@@ -33,6 +33,7 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.Token;
+import org.xerial.json.impl.JSONLexer;
 import org.xerial.util.log.Logger;
 
 /**

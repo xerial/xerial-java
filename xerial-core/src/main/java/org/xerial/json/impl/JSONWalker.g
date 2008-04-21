@@ -33,7 +33,8 @@ scope ArrayLayer {
 // Since: Apr 26, 2007
 //
 //--------------------------------------
-package org.xerial.json;
+package org.xerial.json.impl;
+import org.xerial.json.*;
 import org.xerial.util.StringUtil; 
 }
 

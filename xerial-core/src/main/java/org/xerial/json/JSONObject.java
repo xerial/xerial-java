@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.json;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -38,42 +37,56 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.xerial.json.impl.JSONLexer;
+import org.xerial.json.impl.JSONParser;
+import org.xerial.json.impl.JSONWalker;
 
+/**
+ * JSONObject
+ * 
+ * @author leo
+ * 
+ */
+public class JSONObject extends JSONValueBase
+{
 
+    @SuppressWarnings("serial")
+    class JSONObjectContent extends LinkedHashMap<String, JSONValue>
+    {
+    }
 
-public class JSONObject extends JSONValueBase {
+    JSONObjectContent content = new JSONObjectContent();
 
-	@SuppressWarnings("serial")
-	class JSONObjectContent extends LinkedHashMap<String, JSONValue> 
-	{}
-	
-	JSONObjectContent content = new JSONObjectContent();
-	
-	/**
-	 * 
-	 */
-	public JSONObject() {
-		
-	}
+    /**
+     * 
+     */
+    public JSONObject()
+    {
 
-	public JSONObject(String jsonStr) throws JSONException
-	{
-		try {
-			CommonTree t = parse(jsonStr);
-			CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
-			JSONWalker walker = new JSONWalker(ts);
-			JSONObject obj = walker.jsonObject();
-			this.content = obj.content;
-		} catch (RecognitionException e) {
-			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
-		}
-	}
-	
-	/*
-	public static JSONObject convertXMLtoJSONObject(Reader xmlReader)
-	{
-	    JSONObject result = new JSONObject();
-	    try
+    }
+
+    public JSONObject(String jsonStr) throws JSONException
+    {
+        try
+        {
+            CommonTree t = parse(jsonStr);
+            CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
+            JSONWalker walker = new JSONWalker(ts);
+            JSONObject obj = walker.jsonObject();
+            this.content = obj.content;
+        }
+        catch (RecognitionException e)
+        {
+            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
+                    + e.charPositionInLine + ")");
+        }
+    }
+
+    /*
+    public static JSONObject convertXMLtoJSONObject(Reader xmlReader)
+    {
+        JSONObject result = new JSONObject();
+        try
         {
             XmlPullParser parser = PullParserUtil.newParser(xmlReader);
             
@@ -134,142 +147,147 @@ public class JSONObject extends JSONValueBase {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	    return null;
-	}
-	*/
-	
-	
-	public static CommonTree parse(String jsonStr) throws JSONException
-	{
-		JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		JSONParser parser = new JSONParser(tokens);
-		
-		try {
-			JSONParser.jsonObject_return r = parser.jsonObject();
-			return (CommonTree) r.getTree();
-		} catch (RecognitionException e) {
-			throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "(" + e.charPositionInLine + ")");
-		}
-	}
-	
-	JSONObject(List<JSONElement> elemList)
-	{
-		for(JSONElement e : elemList)
-			put(e.getKey(), e.getValue());
-	}
-	
-	
-	public void put(String key, JSONValue obj)
-	{
-		content.put(key, obj);
-	}
-	
-	public void put(String key, Object value) throws JSONException
-	{
-		content.put(key, translateAsJSONValue(value));
-	}
-	
-	public String toString() 
-	{
-		return toJSONString();
-	}
-	
-	public String toJSONString()
-	{
-		StringBuilder jsonBuilder = new StringBuilder();
-		jsonBuilder.append("{");
-		ArrayList<String> elementList = new ArrayList<String>();
-		for(Iterator<Entry<String, JSONValue>> it = content.entrySet().iterator(); it.hasNext(); )
-		{
-			Entry<String, JSONValue> entry = it.next();
-			String jsonKey = "\"" + entry.getKey() + "\"";
-			String jsonValue = (entry.getValue() == null)? "null" : entry.getValue().toJSONString();
-			elementList.add(jsonKey + ":" + jsonValue);
-		}
-		jsonBuilder.append(join(elementList, ","));
-		jsonBuilder.append("}");
-		return jsonBuilder.toString();
-	}
+        return null;
+    }
+    */
 
-	public int elementSize() {
-		return content.size();
-	}
+    public static CommonTree parse(String jsonStr) throws JSONException
+    {
+        JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JSONParser parser = new JSONParser(tokens);
 
-	public JSONValue get(String key) {
-		return content.get(key);
-	}
+        try
+        {
+            JSONParser.jsonObject_return r = parser.jsonObject();
+            return (CommonTree) r.getTree();
+        }
+        catch (RecognitionException e)
+        {
+            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
+                    + e.charPositionInLine + ")");
+        }
+    }
 
-	public Set<String> keys() {
-		return content.keySet();
-	}
+    public JSONObject(List<JSONElement> elemList)
+    {
+        for (JSONElement e : elemList)
+            put(e.getKey(), e.getValue());
+    }
 
-	public int getInt(String key) throws JSONException {
-		JSONValue v = get(key);
-		if(v == null)
-			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
-		
-		JSONNumber n = v.getJSONNumber();
-		if(n == null)
-			throw new JSONException(JSONErrorCode.NotAJSONNumber, n);
-		
-		return n.getIntValue();
-	}
-	
-	public String getString(String key) throws JSONException
-	{
-		JSONValue v = get(key);
-		if(v == null)
-			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
-		
-		JSONString s = v.getJSONString();
-		if(s == null)
-			throw new JSONException(JSONErrorCode.NotAJSONString, v);
-		return s.getValue();
-	}
+    public void put(String key, JSONValue obj)
+    {
+        content.put(key, obj);
+    }
 
-	@Override
-	public JSONObject getJSONObject() {
-		return this;
-	}
+    public void put(String key, Object value) throws JSONException
+    {
+        content.put(key, translateAsJSONValue(value));
+    }
 
-	public JSONArray getJSONArray(String key) {
-		JSONValue v = get(key);
-		if(v == null)
-			return null;
-		
-		JSONArray a = v.getJSONArray();
-		if(a == null)
-			return null;
-		return a;
-	}
+    public String toString()
+    {
+        return toJSONString();
+    }
 
-	public boolean hasKey(String key) {
-		return content.containsKey(key);
-	}
-	
-	
-	public Map<String, JSONValue> getKeyValueMap()
-	{
-		return content;
-	}
+    public String toJSONString()
+    {
+        StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("{");
+        ArrayList<String> elementList = new ArrayList<String>();
+        for (Iterator<Entry<String, JSONValue>> it = content.entrySet().iterator(); it.hasNext();)
+        {
+            Entry<String, JSONValue> entry = it.next();
+            String jsonKey = "\"" + entry.getKey() + "\"";
+            String jsonValue = (entry.getValue() == null) ? "null" : entry.getValue().toJSONString();
+            elementList.add(jsonKey + ":" + jsonValue);
+        }
+        jsonBuilder.append(join(elementList, ","));
+        jsonBuilder.append("}");
+        return jsonBuilder.toString();
+    }
 
-	public JSONObject getJSONObject(String key) throws JSONException {
-		JSONValue v = get(key);
-		if(v == null)
-			throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
-		JSONObject o = v.getJSONObject();
-		if(o == null)
-			throw new JSONException(JSONErrorCode.NotAJSONObject, v);
-		return o;
-	}
+    public int elementSize()
+    {
+        return content.size();
+    }
+
+    public JSONValue get(String key)
+    {
+        return content.get(key);
+    }
+
+    public Set<String> keys()
+    {
+        return content.keySet();
+    }
+
+    public int getInt(String key) throws JSONException
+    {
+        JSONValue v = get(key);
+        if (v == null)
+            throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
+
+        JSONNumber n = v.getJSONNumber();
+        if (n == null)
+            throw new JSONException(JSONErrorCode.NotAJSONNumber, n);
+
+        return n.getIntValue();
+    }
+
+    public String getString(String key) throws JSONException
+    {
+        JSONValue v = get(key);
+        if (v == null)
+            throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
+
+        JSONString s = v.getJSONString();
+        if (s == null)
+            throw new JSONException(JSONErrorCode.NotAJSONString, v);
+        return s.getValue();
+    }
+
+    @Override
+    public JSONObject getJSONObject()
+    {
+        return this;
+    }
+
+    public JSONArray getJSONArray(String key)
+    {
+        JSONValue v = get(key);
+        if (v == null)
+            return null;
+
+        JSONArray a = v.getJSONArray();
+        if (a == null)
+            return null;
+        return a;
+    }
+
+    public boolean hasKey(String key)
+    {
+        return content.containsKey(key);
+    }
+
+    public Map<String, JSONValue> getKeyValueMap()
+    {
+        return content;
+    }
+
+    public JSONObject getJSONObject(String key) throws JSONException
+    {
+        JSONValue v = get(key);
+        if (v == null)
+            throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
+        JSONObject o = v.getJSONObject();
+        if (o == null)
+            throw new JSONException(JSONErrorCode.NotAJSONObject, v);
+        return o;
+    }
 
     public JSONValueType getValueType()
     {
         return JSONValueType.Object;
     }
 }
-
-
-
-

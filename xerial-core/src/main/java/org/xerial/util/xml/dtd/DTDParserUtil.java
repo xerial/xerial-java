@@ -31,6 +31,8 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
+import org.xerial.util.xml.dtd.impl.DTDLexer;
+import org.xerial.util.xml.dtd.impl.DTDParser;
 
 public class DTDParserUtil
 {

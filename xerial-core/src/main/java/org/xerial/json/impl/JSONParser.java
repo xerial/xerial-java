@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g 2008-01-10 21:55:40
+// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g 2008-04-21 11:18:35
 
 //--------------------------------------
 // Xerial Project
@@ -7,7 +7,7 @@
 // Since: Apr 26, 2007
 //
 //--------------------------------------
-package org.xerial.json;
+package org.xerial.json.impl;
 
 
 import org.antlr.runtime.*;
@@ -66,7 +66,7 @@ public class JSONParser extends Parser {
     }
 
     public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "/Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g"; }
+    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g"; }
 
 
     public static class jsonObject_return extends ParserRuleReturnScope {
@@ -75,7 +75,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start jsonObject
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:87:1: jsonObject : object ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:87:1: jsonObject : object ;
     public final jsonObject_return jsonObject() throws RecognitionException {
         jsonObject_return retval = new jsonObject_return();
         retval.start = input.LT(1);
@@ -87,8 +87,8 @@ public class JSONParser extends Parser {
 
 
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:88:2: ( object )
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:88:4: object
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:2: ( object )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:4: object
             {
             root_0 = (Object)adaptor.nil();
 
@@ -120,7 +120,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start jsonArray
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:91:1: jsonArray : array ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:1: jsonArray : array ;
     public final jsonArray_return jsonArray() throws RecognitionException {
         jsonArray_return retval = new jsonArray_return();
         retval.start = input.LT(1);
@@ -132,8 +132,8 @@ public class JSONParser extends Parser {
 
 
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:92:2: ( array )
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:92:4: array
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:2: ( array )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:4: array
             {
             root_0 = (Object)adaptor.nil();
 
@@ -165,7 +165,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start object
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:96:1: object : LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:96:1: object : LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) ;
     public final object_return object() throws RecognitionException {
         object_return retval = new object_return();
         retval.start = input.LT(1);
@@ -188,14 +188,14 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_RBrace=new RewriteRuleTokenStream(adaptor,"token RBrace");
         RewriteRuleSubtreeStream stream_objectElement=new RewriteRuleSubtreeStream(adaptor,"rule objectElement");
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:2: ( LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) )
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:4: LBrace ( objectElement ( Comma objectElement )* )? RBrace
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:2: ( LBrace ( objectElement ( Comma objectElement )* )? RBrace -> ^( OBJECT ( objectElement )* ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:4: LBrace ( objectElement ( Comma objectElement )* )? RBrace
             {
             LBrace3=(Token)input.LT(1);
             match(input,LBrace,FOLLOW_LBrace_in_object428); 
             stream_LBrace.add(LBrace3);
 
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:11: ( objectElement ( Comma objectElement )* )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:11: ( objectElement ( Comma objectElement )* )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -204,14 +204,14 @@ public class JSONParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:12: objectElement ( Comma objectElement )*
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:12: objectElement ( Comma objectElement )*
                     {
                     pushFollow(FOLLOW_objectElement_in_object431);
                     objectElement4=objectElement();
                     _fsp--;
 
                     stream_objectElement.add(objectElement4.getTree());
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:26: ( Comma objectElement )*
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:26: ( Comma objectElement )*
                     loop1:
                     do {
                         int alt1=2;
@@ -224,7 +224,7 @@ public class JSONParser extends Parser {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:97:27: Comma objectElement
+                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:27: Comma objectElement
                     	    {
                     	    Comma5=(Token)input.LT(1);
                     	    match(input,Comma,FOLLOW_Comma_in_object434); 
@@ -267,12 +267,12 @@ public class JSONParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 98:4: -> ^( OBJECT ( objectElement )* )
             {
-                // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:98:7: ^( OBJECT ( objectElement )* )
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:98:7: ^( OBJECT ( objectElement )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(OBJECT, "OBJECT"), root_1);
 
-                // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:98:16: ( objectElement )*
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:98:16: ( objectElement )*
                 while ( stream_objectElement.hasNext() ) {
                     adaptor.addChild(root_1, stream_objectElement.next());
 
@@ -308,7 +308,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start objectElement
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:101:1: objectElement : String Colon value -> ^( ELEMENT String value ) ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:101:1: objectElement : String Colon value -> ^( ELEMENT String value ) ;
     public final objectElement_return objectElement() throws RecognitionException {
         objectElement_return retval = new objectElement_return();
         retval.start = input.LT(1);
@@ -326,8 +326,8 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:102:2: ( String Colon value -> ^( ELEMENT String value ) )
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:102:4: String Colon value
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:102:2: ( String Colon value -> ^( ELEMENT String value ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:102:4: String Colon value
             {
             String8=(Token)input.LT(1);
             match(input,String,FOLLOW_String_in_objectElement466); 
@@ -355,7 +355,7 @@ public class JSONParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 103:4: -> ^( ELEMENT String value )
             {
-                // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:103:7: ^( ELEMENT String value )
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:103:7: ^( ELEMENT String value )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(ELEMENT, "ELEMENT"), root_1);
@@ -392,7 +392,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start array
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:106:1: array : LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:106:1: array : LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) ;
     public final array_return array() throws RecognitionException {
         array_return retval = new array_return();
         retval.start = input.LT(1);
@@ -415,8 +415,8 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_LBracket=new RewriteRuleTokenStream(adaptor,"token LBracket");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:107:2: ( LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) )
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:107:4: LBracket value ( Comma value )* RBracket
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:107:2: ( LBracket value ( Comma value )* RBracket -> ^( ARRAY ( value )+ ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:107:4: LBracket value ( Comma value )* RBracket
             {
             LBracket11=(Token)input.LT(1);
             match(input,LBracket,FOLLOW_LBracket_in_array496); 
@@ -427,7 +427,7 @@ public class JSONParser extends Parser {
             _fsp--;
 
             stream_value.add(value12.getTree());
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:107:19: ( Comma value )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:107:19: ( Comma value )*
             loop3:
             do {
                 int alt3=2;
@@ -440,7 +440,7 @@ public class JSONParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:107:20: Comma value
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:107:20: Comma value
             	    {
             	    Comma13=(Token)input.LT(1);
             	    match(input,Comma,FOLLOW_Comma_in_array501); 
@@ -477,7 +477,7 @@ public class JSONParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 108:4: -> ^( ARRAY ( value )+ )
             {
-                // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:108:7: ^( ARRAY ( value )+ )
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:108:7: ^( ARRAY ( value )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(adaptor.create(ARRAY, "ARRAY"), root_1);
@@ -520,7 +520,7 @@ public class JSONParser extends Parser {
     };
 
     // $ANTLR start value
-    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:112:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:112:1: value : ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL );
     public final value_return value() throws RecognitionException {
         value_return retval = new value_return();
         retval.start = input.LT(1);
@@ -549,7 +549,7 @@ public class JSONParser extends Parser {
         RewriteRuleTokenStream stream_Double=new RewriteRuleTokenStream(adaptor,"token Double");
 
         try {
-            // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:113:2: ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:113:2: ( String -> ^( STRING String ) | Integer -> ^( INTEGER Integer ) | Double -> ^( DOUBLE Double ) | object | array | TRUE | FALSE | NULL )
             int alt4=8;
             switch ( input.LA(1) ) {
             case String:
@@ -601,7 +601,7 @@ public class JSONParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:113:4: String
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:113:4: String
                     {
                     String16=(Token)input.LT(1);
                     match(input,String,FOLLOW_String_in_value532); 
@@ -620,7 +620,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 113:11: -> ^( STRING String )
                     {
-                        // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:113:14: ^( STRING String )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:113:14: ^( STRING String )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(STRING, "STRING"), root_1);
@@ -637,7 +637,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:114:4: Integer
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:114:4: Integer
                     {
                     Integer17=(Token)input.LT(1);
                     match(input,Integer,FOLLOW_Integer_in_value545); 
@@ -656,7 +656,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 114:12: -> ^( INTEGER Integer )
                     {
-                        // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:114:15: ^( INTEGER Integer )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:114:15: ^( INTEGER Integer )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(INTEGER, "INTEGER"), root_1);
@@ -673,7 +673,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:115:4: Double
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:115:4: Double
                     {
                     Double18=(Token)input.LT(1);
                     match(input,Double,FOLLOW_Double_in_value558); 
@@ -692,7 +692,7 @@ public class JSONParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 115:11: -> ^( DOUBLE Double )
                     {
-                        // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:115:14: ^( DOUBLE Double )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:115:14: ^( DOUBLE Double )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(adaptor.create(DOUBLE, "DOUBLE"), root_1);
@@ -709,7 +709,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:116:4: object
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:116:4: object
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -722,7 +722,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:117:4: array
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:117:4: array
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -735,7 +735,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:118:4: TRUE
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:118:4: TRUE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -748,7 +748,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:119:4: FALSE
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:119:4: FALSE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -761,7 +761,7 @@ public class JSONParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // /Users/leo/work/workspace/XerialJ/xerial-core/src/main/java/org/xerial/json/JSON.g:120:4: NULL
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:120:4: NULL
                     {
                     root_0 = (Object)adaptor.nil();
 
