@@ -236,11 +236,11 @@ public class BeanBindingProcess implements TreeVisitor
                         // for map elment
                         KeyValuePair keyValuePair = KeyValuePair.class.cast(parentBean);
                         updateMethod = keyValuePair.putter();
-                        if (nodeName.equals("key"))
+                        if (nodeName.equalsIgnoreCase("key"))
                         {
                             elementType = keyValuePair.keyType();
                         }
-                        else if (nodeName.equals("value"))
+                        else if (nodeName.equalsIgnoreCase("value"))
                         {
                             elementType = keyValuePair.valueType();
                             targetArgIndex = 1;
@@ -335,9 +335,9 @@ public class BeanBindingProcess implements TreeVisitor
                     if (parentBean instanceof KeyValuePair)
                     {
                         KeyValuePair keyValuePair = KeyValuePair.class.cast(parentBean);
-                        if (nodeName.equals("key"))
+                        if (nodeName.equalsIgnoreCase("key"))
                             bindValue(parentBean, updator, keyValuePair.keyType(), valueBean);
-                        else if (nodeName.equals("value"))
+                        else if (nodeName.equalsIgnoreCase("value"))
                             bindValue(parentBean, updator, keyValuePair.valueType(), valueBean);
                     }
                     else
