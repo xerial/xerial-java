@@ -90,6 +90,8 @@ public class JSONWriter
 
     public void startObject() throws IOException
     {
+        if (getCurrentState() == JSONState.InArray)
+            putComma();
         writer.append("{");
         pushState(JSONState.InObject);
     }
@@ -100,6 +102,9 @@ public class JSONWriter
             throw new JSONException(JSONErrorCode.NotInAJSONObject, "cannot end the object outside of the JSON object");
         writer.append("}");
         popState();
+
+        if (getCurrentState() == JSONState.InArray)
+            incrementElementCount();
     }
 
     public void startArray() throws IOException
@@ -199,12 +204,12 @@ public class JSONWriter
             addInternal("false");
     }
 
-    private void addNull() throws IOException
+    public void addNull() throws IOException
     {
         addInternal("null");
     }
 
-    private void addObject(Object bean) throws IOException, JSONException
+    public void addObject(Object bean) throws IOException, JSONException
     {
         try
         {

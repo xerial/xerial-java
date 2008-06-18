@@ -165,4 +165,33 @@ public class JSONWriterTest
         assertEquals("leo leo leo", p.getName());
     }
 
+    @Test
+    public void arrayOfObjects() throws JSONException, IOException
+    {
+        StringWriter writer = new StringWriter();
+        JSONWriter json = new JSONWriter(writer);
+
+        json.startArray();
+        json.startObject();
+        json.put("id", 1);
+        json.put("name", "leo");
+        json.endObject();
+        json.startObject();
+        json.put("id", 2);
+        json.put("name", "yui");
+        json.endObject();
+        json.endArray();
+
+        String jsonData = writer.toString();
+        JSONArray array = new JSONArray(jsonData);
+        assertEquals(2, array.size());
+        JSONObject leo = array.getJSONObject(0);
+        JSONObject yui = array.getJSONObject(1);
+
+        assertEquals(1, leo.getInt("id"));
+        assertEquals("leo", leo.getString("name"));
+        assertEquals(2, yui.getInt("id"));
+        assertEquals("yui", yui.getString("name"));
+
+    }
 }
