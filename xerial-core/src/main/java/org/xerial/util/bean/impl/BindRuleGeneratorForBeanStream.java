@@ -40,9 +40,13 @@ public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
 
     public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass) throws BeanException
     {
-        this.targetBeanClass = targetBeanClass;
-        className = targetBeanClass.getSimpleName().toLowerCase();
+        this(targetBeanClass, targetBeanClass.getSimpleName());
+    }
 
+    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass, String targetNodeName) throws BeanException
+    {
+        this.targetBeanClass = targetBeanClass;
+        className = targetNodeName.toLowerCase();
         try
         {
             binderSetForTargetBean = new MyBeanBinderSet();

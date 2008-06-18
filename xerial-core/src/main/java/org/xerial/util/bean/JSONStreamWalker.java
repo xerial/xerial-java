@@ -103,6 +103,8 @@ public class JSONStreamWalker extends TreeWalker
                 String key = jsonPullParser.getKeyName();
                 String value = jsonPullParser.getText();
                 getTreeVisitor().visitNode(key, this);
+                if (skipDescendants)
+                    skipDescendants = false;
                 getTreeVisitor().leaveNode(key, value, this);
                 break;
             }
@@ -113,6 +115,8 @@ public class JSONStreamWalker extends TreeWalker
 
                 String key = jsonPullParser.getKeyName();
                 getTreeVisitor().visitNode(key, this);
+                if (skipDescendants)
+                    skipDescendants = false;
                 getTreeVisitor().leaveNode(key, null, this);
                 break;
             }

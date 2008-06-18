@@ -49,6 +49,7 @@ import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.CollectionParam;
 import org.xerial.util.bean.sample.ComplexMap;
 import org.xerial.util.bean.sample.Gene;
+import org.xerial.util.bean.sample.GenePartial;
 import org.xerial.util.bean.sample.HogeHoge;
 import org.xerial.util.bean.sample.Mate;
 import org.xerial.util.bean.sample.NameTable;
@@ -632,6 +633,48 @@ public class BeanUtilTest
             BeanUtil.toJSON(g);
         }
         _logger.debug("toJSON time: " + stopWatch.getElapsedTime());
+
+    }
+
+    @Test
+    public void partialMatchTest() throws BeanException, IOException
+    {
+        foundGene1 = false;
+        foundGene2 = false;
+
+        StopWatch stopWatch = new StopWatch();
+        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"), GenePartial.class, "gene",
+                new BeanHandler<GenePartial>() {
+                    public void handle(GenePartial gene) throws Exception
+                    {
+                        assertNotNull(gene);
+                        if (gene.getId() == 1)
+                        {
+                            assertEquals(100, gene.getStart());
+                            assertEquals(200, gene.getEnd());
+                            assertEquals("chr1", gene.getTarget());
+                            assertEquals("-", gene.getStrand());
+                            foundGene1 = true;
+                        }
+                        else if (gene.getId() == 2)
+                        {
+                            assertEquals(300, gene.getStart());
+                            assertEquals(500, gene.getEnd());
+                            assertEquals("chr2", gene.getTarget());
+                            assertEquals("+", gene.getStrand());
+                            foundGene2 = true;
+                        }
+                        else
+                        {
+                            fail("invalid gene");
+                        }
+
+                    }
+                });
+        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
+
+        assertTrue(foundGene1);
+        assertTrue(foundGene2);
 
     }
 

@@ -24,12 +24,10 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -53,12 +51,10 @@ import org.xerial.json.JSONDouble;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONInteger;
 import org.xerial.json.JSONLong;
-import org.xerial.json.JSONNull;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
 import org.xerial.util.Pair;
-import org.xerial.util.StringUtil;
 import org.xerial.util.bean.impl.ArraySetter;
 import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanStreamReader;
@@ -785,7 +781,7 @@ public class BeanUtil
         }
     }
 
-    public static void populateBeanWithMap(Object bean, Map<?,?> map) throws XerialException
+    public static void populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException
     {
         BeanUtilImpl.populateBeanWithMap(bean, map);
     }
@@ -1001,7 +997,7 @@ public class BeanUtil
         {
             return BeanUtilImpl.createBeanFromJSON(beanType, jsonReader);
         }
-        catch(XerialException e)
+        catch (XerialException e)
         {
             throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
         }
@@ -1194,6 +1190,23 @@ public class BeanUtil
         {
             BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
                     new BindRuleGeneratorForBeanStream<T>(beanClass));
+
+            JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
+            walker.walk();
+        }
+        catch (XerialException e)
+        {
+            throw new BeanException(BeanErrorCode.BindFailure, e);
+        }
+    }
+
+    public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, String targetNodeName,
+            BeanHandler<T> beanHandler) throws IOException, BeanException
+    {
+        try
+        {
+            BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
+                    new BindRuleGeneratorForBeanStream<T>(beanClass, targetNodeName));
 
             JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
             walker.walk();
