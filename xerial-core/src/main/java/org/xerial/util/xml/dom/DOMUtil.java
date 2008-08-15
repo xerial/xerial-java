@@ -24,6 +24,10 @@
 //--------------------------------------
 package org.xerial.util.xml.dom;
 
+import static org.w3c.dom.Node.CDATA_SECTION_NODE;
+import static org.w3c.dom.Node.ELEMENT_NODE;
+import static org.w3c.dom.Node.TEXT_NODE;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -33,7 +37,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
@@ -42,22 +45,24 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import static org.w3c.dom.Node.*;
 import org.xerial.util.StringUtil;
 import org.xerial.util.xml.XMLException;
 import org.xml.sax.SAXException;
 
-
 /**
- * DOMを操作する際に役立つユーティリティ
+ * Utilities for manipulating DOM
+ * 
  * @author leo
- *
+ * 
  */
 public class DOMUtil
 {
-    private DOMUtil() {}
-    
-    /** TagのElementから、特定の子ノードのtext contentを返す
+    private DOMUtil()
+    {}
+
+    /**
+     * Retrieves text contents under the specified element
+     * 
      * @param parentElement
      * @param tagName
      * @return tagNameの子ノードのtext content
@@ -65,40 +70,44 @@ public class DOMUtil
     static public String getTextContent(Element parentElement, String tagName)
     {
         //NodeList tagList = parentElement.getElementsByTagName(tagName);
-        
+
         // TODO impl
         return null;
     }
-    
+
     /**
-     * Gets the text data enclosed by the specified element. 
-     * If xml data has several separated text data, the returned text will be 
-     * their concatination. For example, in the following XML data, {@link #getText(Element)} for the 
-     * wiki element gives "  Hello World!  Nice to meet you.".
+     * Gets the text data enclosed by the specified element. If xml data has
+     * several separated text data, the returned text will be their
+     * concatination. For example, in the following XML data,
+     * {@link #getText(Element)} for the wiki element gives " Hello World! Nice
+     * to meet you.".
+     * 
      * <pre>
-     * <wiki> 
+     * &lt;wiki&gt; 
      *   Hello World!
-     *   <author>leo</author>
+     *   &lt;author&gt;leo&lt;/author&gt;
      *   Nice to meet you.
-     * <wiki>
+     * &lt;wiki&gt;
      * </pre>
      * 
-     * The result removes ignorable white spaces between tags. 
+     * The result removes ignorable white spaces between tags.
      * 
-     * @param element the target element
-     * @return the text content of the element, or null if no text content is found under the element
+     * @param element
+     *            the target element
+     * @return the text content of the element, or null if no text content is
+     *         found under the element
      */
     static public String getText(Element element)
     {
         NodeList nodeList = element.getChildNodes();
         StringBuilder buf = new StringBuilder();
         int numTextNodes = 0;
-        for(int i=0; i<nodeList.getLength(); i++)
+        for (int i = 0; i < nodeList.getLength(); i++)
         {
             Node node = nodeList.item(i);
-            if(node.getNodeType() == Node.TEXT_NODE)
+            if (node.getNodeType() == Node.TEXT_NODE)
             {
-                if(!((Text) node).isElementContentWhitespace())
+                if (!((Text) node).isElementContentWhitespace())
                 {
                     numTextNodes++;
                     buf.append(node.getNodeValue());
@@ -107,32 +116,31 @@ public class DOMUtil
         }
         return numTextNodes > 0 ? buf.toString() : null;
     }
-    
-    
-    static public HashMap<String, String> getTextContentMap(InputStream xmlStream)
-    	throws XMLException, IOException
+
+    static public HashMap<String, String> getTextContentMap(InputStream xmlStream) throws XMLException, IOException
     {
-    	try
-    	{
-    		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    		Document doc = docBuilder.parse(xmlStream);
-    		Element rootElem = doc.getDocumentElement();
-    		return getTextContentMap(rootElem);
-    	}
-    	catch(ParserConfigurationException e)
-    	{
-    		throw new XMLException(e);
-    	}
-    	catch(SAXException e)
-    	{
-    		throw new XMLException(e);
-    	}
+        try
+        {
+            DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = docBuilder.parse(xmlStream);
+            Element rootElem = doc.getDocumentElement();
+            return getTextContentMap(rootElem);
+        }
+        catch (ParserConfigurationException e)
+        {
+            throw new XMLException(e);
+        }
+        catch (SAXException e)
+        {
+            throw new XMLException(e);
+        }
     }
-    
-    
-    /** 
-     * @param element 探索を開始するElementノード 
-     * @return Relative Path Expression -> Text Content の構造のHashMap
+
+    /**
+     * @param element
+     *            the element from which the search starts
+     * 
+     * @return Relative Path Expression -> Text Content HashMap
      */
     static public HashMap<String, String> getTextContentMap(Element element)
     {
@@ -141,77 +149,73 @@ public class DOMUtil
         readProcess.traceSubTree(element);
         return readProcess.getContentMap();
     }
-    
-    static class DOMReadProcess 
+
+    static class DOMReadProcess
     {
-    	LinkedList<String> _relativePath = new LinkedList<String>();
-    	HashMap<String, String> _path2contentMap = new HashMap<String, String>();
-        public DOMReadProcess() 
+        LinkedList<String> _relativePath = new LinkedList<String>();
+        HashMap<String, String> _path2contentMap = new HashMap<String, String>();
+
+        public DOMReadProcess()
         {}
-        
+
         public void traceSubTree(Element subtreeRoot)
         {
-        	String tagName = subtreeRoot.getTagName();
-        	_relativePath.add(tagName);
-        	
-        	
-        	if(subtreeRoot.hasAttributes())
-        	{
-        		String currentPath = getCurrentPath();
-        		NamedNodeMap attribMap = subtreeRoot.getAttributes();
-        		
-        		for(int i=0; i<attribMap.getLength(); i++)
-        		{
-        			Attr attrib = (Attr) attribMap.item(i);
-        			String attribPath = currentPath + "/@" + attrib.getName();
-        			_path2contentMap.put(attribPath, attrib.getValue());
-        		}
-        	}
-        	
+            String tagName = subtreeRoot.getTagName();
+            _relativePath.add(tagName);
+
+            if (subtreeRoot.hasAttributes())
+            {
+                String currentPath = getCurrentPath();
+                NamedNodeMap attribMap = subtreeRoot.getAttributes();
+
+                for (int i = 0; i < attribMap.getLength(); i++)
+                {
+                    Attr attrib = (Attr) attribMap.item(i);
+                    String attribPath = currentPath + "/@" + attrib.getName();
+                    _path2contentMap.put(attribPath, attrib.getValue());
+                }
+            }
+
             StringBuilder contentBuffer = new StringBuilder();
             IterableNodeList childNodes = new IterableNodeList(subtreeRoot.getChildNodes());
-            for(Node node : childNodes)
+            for (Node node : childNodes)
             {
-            	switch(node.getNodeType()) 
-            	{
-            	case ELEMENT_NODE:
-            		traceSubTree((Element) node);
-            		break;
-            	case TEXT_NODE:
-            		Text text = (Text) node;
-            		contentBuffer.append(text.getData());
-            		break;
-            	case CDATA_SECTION_NODE:
-            		CDATASection cdata = (CDATASection) node;
-            		contentBuffer.append(cdata.getData());
-             		break;
-            	}
-            }            
+                switch (node.getNodeType())
+                {
+                case ELEMENT_NODE:
+                    traceSubTree((Element) node);
+                    break;
+                case TEXT_NODE:
+                    Text text = (Text) node;
+                    contentBuffer.append(text.getData());
+                    break;
+                case CDATA_SECTION_NODE:
+                    CDATASection cdata = (CDATASection) node;
+                    contentBuffer.append(cdata.getData());
+                    break;
+                }
+            }
             String textContent = contentBuffer.toString();
-            if(!StringUtil.isWhiteSpace(textContent))
-            	_path2contentMap.put(getCurrentPath(), contentBuffer.toString());
+            if (!StringUtil.isWhiteSpace(textContent))
+                _path2contentMap.put(getCurrentPath(), contentBuffer.toString());
             _relativePath.removeLast();
         }
-        
+
         public HashMap<String, String> getContentMap()
         {
-        	return _path2contentMap;
+            return _path2contentMap;
         }
-        
+
         String getCurrentPath()
         {
-        	StringBuilder pathExprBuilder = new StringBuilder();
-        	for(String tag : _relativePath)
-        	{
-        		pathExprBuilder.append("/");
-        		pathExprBuilder.append(tag);
-        	}
-        	return pathExprBuilder.substring(1);  // relative path
+            StringBuilder pathExprBuilder = new StringBuilder();
+            for (String tag : _relativePath)
+            {
+                pathExprBuilder.append("/");
+                pathExprBuilder.append(tag);
+            }
+            return pathExprBuilder.substring(1); // relative path
         }
-        
+
     }
 }
-
-
-
-
