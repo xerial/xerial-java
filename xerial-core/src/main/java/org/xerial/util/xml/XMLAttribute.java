@@ -138,7 +138,7 @@ public class XMLAttribute
 
     /**
      * @param attributeName
-     * @return attributeNameに対応するstring
+     * @return attributeName
      */
     public String getValue(String attributeName)
     {
@@ -146,7 +146,7 @@ public class XMLAttribute
     }
 
     /**
-     * @return このインスタンスに含まれるattribute名のリストのView
+     * @return
      */
     public List<String> getAttributeNames()
     {
@@ -154,7 +154,7 @@ public class XMLAttribute
     }
 
     /**
-     * @return Attributeの個数を返す
+     * @return the number of attributes
      */
     public int length()
     {
@@ -162,7 +162,7 @@ public class XMLAttribute
     }
 
     /**
-     * @return XMLのattributeのフォーマットの文字列
+     * @return
      */
     public String toXMLString()
     {

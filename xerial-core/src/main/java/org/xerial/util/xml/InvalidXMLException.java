@@ -24,9 +24,11 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-/** invalidなフォーマットのXMLが入力されたときのための例外
+/**
+ * Exception when invalid input XML data is given
+ * 
  * @author leo
- *
+ * 
  */
 public class InvalidXMLException extends XMLException
 {
@@ -74,7 +76,3 @@ public class InvalidXMLException extends XMLException
     }
 
 }
-
-
-
-
