@@ -43,28 +43,27 @@ public class ANTLRWalker extends TreeWalker
 
     private boolean skipDescendants = false;
 
-    public ANTLRWalker(final String[] parserTokenNames, TreeVisitor visitor, Tree parseTree)
+    public ANTLRWalker(final String[] parserTokenNames, Tree parseTree)
     {
-        super(visitor);
         this.parserTokenNames = parserTokenNames;
         this.currentNode = parseTree;
     }
 
-    public void walk() throws XerialException
+    public void walk(TreeVisitor visitor) throws XerialException
     {
-        getTreeVisitor().init(this);
-        walk(currentNode);
-        getTreeVisitor().finish(this);
+        visitor.init(this);
+        walk(currentNode, visitor);
+        visitor.finish(this);
     }
 
-    public void walk(Tree t) throws XerialException
+    public void walk(Tree t, TreeVisitor visitor) throws XerialException
     {
         currentNode = t;
         int tokenType = t.getType();
         String nodeName = parserTokenNames[tokenType];
 
         // invoke visitor
-        getTreeVisitor().visitNode(nodeName, this);
+        visitor.visitNode(nodeName, this);
 
         // visit child nodes
         if (!skipDescendants)
@@ -72,13 +71,13 @@ public class ANTLRWalker extends TreeWalker
             for (int i = 0; i < t.getChildCount(); i++)
             {
                 Tree child = t.getChild(i);
-                walk(child);
+                walk(child, visitor);
             }
             skipDescendants = false;
         }
 
         // leave the current node
-        getTreeVisitor().leaveNode(nodeName, t.getText(), this);
+        visitor.leaveNode(nodeName, t.getText(), this);
     }
 
     public void skipDescendants()

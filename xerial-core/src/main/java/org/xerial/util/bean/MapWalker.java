@@ -40,10 +40,8 @@ public class MapWalker extends TreeWalker
 {
     private final Map map;
 
-    public MapWalker(TreeVisitor visitor, Map map)
+    public MapWalker(Map map)
     {
-        super(visitor);
-
         if (map == null)
             throw new NullPointerException("map cannot be null");
         this.map = map;
@@ -98,23 +96,23 @@ public class MapWalker extends TreeWalker
     private Object currentKey;
 
     @Override
-    public void walk() throws XerialException
+    public void walk(TreeVisitor visitor) throws XerialException
     {
-        getTreeVisitor().init(this);
+        visitor.init(this);
         // visit the imaginary root node
-        getTreeVisitor().visitNode("_root", this);
+        visitor.visitNode("_root", this);
 
         for (Object key : map.keySet())
         {
             currentKey = key;
             String nodeName = key.toString();
             Object value = map.get(key);
-            getTreeVisitor().visitNode(nodeName, this);
-            getTreeVisitor().leaveNode(nodeName, value != null ? value.toString() : null, this);
+            visitor.visitNode(nodeName, this);
+            visitor.leaveNode(nodeName, value != null ? value.toString() : null, this);
         }
         // leave the imaginary root node
-        getTreeVisitor().leaveNode("_root", null, this);
-        getTreeVisitor().finish(this);
+        visitor.leaveNode("_root", null, this);
+        visitor.finish(this);
     }
 
 }

@@ -83,10 +83,10 @@ public class JSONStreamWalkerTest
     @Test
     public void walk() throws IOException, XerialException
     {
-        JSONStreamWalker walker = new JSONStreamWalker(new MyVisitor(), getSampleData());
+        JSONStreamWalker walker = new JSONStreamWalker(getSampleData());
 
         stopWatch.reset();
-        walker.walk();
+        walker.walk(new MyVisitor());
         _logger.debug("walk time: " + stopWatch.getElapsedTime());
     }
 

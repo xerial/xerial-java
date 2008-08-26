@@ -1191,8 +1191,8 @@ public class BeanUtil
             BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
                     new BindRuleGeneratorForBeanStream<T>(beanClass));
 
-            JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
-            walker.walk();
+            JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
+            walker.walk(bindingProcess);
         }
         catch (XerialException e)
         {
@@ -1208,8 +1208,8 @@ public class BeanUtil
             BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
                     new BindRuleGeneratorForBeanStream<T>(beanClass, targetNodeName));
 
-            JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
-            walker.walk();
+            JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
+            walker.walk(bindingProcess);
         }
         catch (XerialException e)
         {

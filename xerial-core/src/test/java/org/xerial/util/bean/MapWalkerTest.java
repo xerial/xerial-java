@@ -52,7 +52,8 @@ public class MapWalkerTest
         prop.put("A", "hello");
         prop.put("B", "world");
 
-        MapWalker walker = new MapWalker(new TreeVisitor() {
+        MapWalker walker = new MapWalker(prop);
+        walker.walk(new TreeVisitor() {
 
             boolean visitA = false;
             boolean visitB = false;
@@ -100,9 +101,7 @@ public class MapWalkerTest
                 }
 
             }
-        }, prop);
-
-        walker.walk();
+        });
 
         assertTrue(prop.containsKey("C"));
         assertEquals("finished", prop.getProperty("C"));

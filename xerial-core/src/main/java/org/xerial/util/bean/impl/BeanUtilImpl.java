@@ -34,6 +34,7 @@ import org.xerial.core.XerialException;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.MapWalker;
+import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.XMLWalker;
 
 /**
@@ -44,89 +45,103 @@ import org.xerial.util.bean.XMLWalker;
  */
 public class BeanUtilImpl
 {
+    /**
+     * Create a bean of the specified type from the tree walker input
+     * 
+     * @param <E>
+     * @param treeWalker
+     * @param beanType
+     * @return bean
+     * @throws XerialException
+     */
+
+    /**
+     * Create a bean object using a given tree walker
+     * 
+     * @param <E>
+     * @param treeWalker
+     * @param beanType
+     * @return
+     * @throws XerialException
+     */
+    protected static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType) throws XerialException
+    {
+        return beanType.cast(createBean(treeWalker, new BeanBindingProcess(beanType)));
+    }
+
+    /**
+     * Create a bean object using a given tree walker
+     * 
+     * @param treeWalker
+     * @param bean
+     * @return
+     * @throws XerialException
+     */
+    protected static Object createBean(TreeWalker treeWalker, Object bean) throws XerialException
+    {
+        return createBean(treeWalker, new BeanBindingProcess(bean));
+    }
+
+    protected static Object createBean(TreeWalker treeWalker, BeanBindingProcess beanBindingVisitor)
+            throws XerialException
+    {
+        treeWalker.walk(beanBindingVisitor);
+        return beanBindingVisitor.getResultBean();
+    }
+
     // XML Stream
     public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        XMLWalker walker = new XMLWalker(bindingProcess, xmlReader);
-        walker.walk();
-        return (E) bindingProcess.getResultBean();
+        return createTypedBean(new XMLWalker(xmlReader), beanType);
     }
 
     public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        XMLWalker walker = new XMLWalker(bindingProcess, xmlReader);
-        walker.walk();
-        return bean;
+        return createBean(new XMLWalker(xmlReader), bean);
     }
 
     // XML DOM
     public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement) throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        XMLWalker walker = new XMLWalker(bindingProcess, xmlElement);
-        walker.walk();
-        return (E) bindingProcess.getResultBean();
+        return createTypedBean(new XMLWalker(xmlElement), beanType);
     }
 
     public static Object populateBeanWithXML(Object bean, Element xmlElement) throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        XMLWalker walker = new XMLWalker(bindingProcess, xmlElement);
-        walker.walk();
-        return bean;
+        return createBean(new XMLWalker(xmlElement), new BeanBindingProcess(bean));
     }
 
     // ANTLR ParseTree
     public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, final String[] parserTokenNames)
             throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        ANTLRWalker walker = new ANTLRWalker(parserTokenNames, bindingProcess, parseTree);
-        walker.walk(parseTree);
-        return (E) bindingProcess.getResultBean();
+        return createTypedBean(new ANTLRWalker(parserTokenNames, parseTree), beanType);
     }
 
     public static Object populateBeanWithParseTree(Object bean, Tree parseTree, final String[] parserTokenNames)
             throws XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        ANTLRWalker walker = new ANTLRWalker(parserTokenNames, bindingProcess, parseTree);
-        walker.walk(parseTree);
-        return bean;
+        return createBean(new ANTLRWalker(parserTokenNames, parseTree), bean);
     }
 
     public static <E> E createBeanFromJSON(Class<E> beanType, Reader jsonReader) throws IOException, XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(beanType);
-        JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
-        walker.walk();
-        return (E) bindingProcess.getResultBean();
+        return createTypedBean(new JSONStreamWalker(jsonReader), beanType);
     }
 
     public static Object populateBeanWithJSON(Object bean, Reader jsonReader) throws IOException, XerialException
     {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(bean);
-        JSONStreamWalker walker = new JSONStreamWalker(bindingProcess, jsonReader);
-        walker.walk();
-        return bean;
+        return createBean(new JSONStreamWalker(jsonReader), bean);
     }
 
-    public static <E> E createBeanFromMap(Class<E> beanType, Map map) throws XerialException
+    public static <E> E createBeanFromMap(Class<E> beanType, Map< ? , ? > map) throws XerialException
     {
-        BeanBindingProcess bindingProces = new BeanBindingProcess(beanType);
-        MapWalker walker = new MapWalker(bindingProces, map);
-        walker.walk();
-        return (E) bindingProces.getResultBean();
+        return createTypedBean(new MapWalker(map), beanType);
     }
 
-    public static Object populateBeanWithMap(Object bean, Map map) throws XerialException
+    public static Object populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException
     {
-        BeanBindingProcess bindingProces = new BeanBindingProcess(bean);
-        MapWalker walker = new MapWalker(bindingProces, map);
-        walker.walk();
-        return bean;
+        return createBean(new MapWalker(map), bean);
     }
 
 }

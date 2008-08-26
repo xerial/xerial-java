@@ -68,10 +68,8 @@ public class XMLWalker extends TreeWalker
         private boolean skipDescendants = false;
         private int skipLevel = Integer.MAX_VALUE;
 
-        public XMLStreamWalker(TreeVisitor visitor, Reader reader) throws XMLException
+        public XMLStreamWalker(Reader reader) throws XMLException
         {
-            super(visitor);
-
             if (reader == null)
                 throw new XMLException("XML reader is null");
 
@@ -79,11 +77,11 @@ public class XMLWalker extends TreeWalker
         }
 
         @Override
-        public void walk() throws XerialException
+        public void walk(TreeVisitor visitor) throws XerialException
         {
             try
             {
-                parse();
+                parse(visitor);
             }
             catch (IOException e)
             {
@@ -91,7 +89,7 @@ public class XMLWalker extends TreeWalker
             }
         }
 
-        public void parse() throws XerialException, IOException
+        public void parse(TreeVisitor visitor) throws XerialException, IOException
         {
             int state;
             try
@@ -107,19 +105,19 @@ public class XMLWalker extends TreeWalker
                         {
                             textStack.addLast(new StringBuilder());
                             String tagName = pullParser.getName();
-                            getTreeVisitor().visitNode(tagName, this);
+                            visitor.visitNode(tagName, this);
                             // read attributes
                             for (int i = 0; i < pullParser.getAttributeCount(); i++)
                             {
                                 String attributeName = pullParser.getAttributeName(i);
                                 String attributeValue = pullParser.getAttributeValue(i);
-                                getTreeVisitor().visitNode(attributeName, this);
+                                visitor.visitNode(attributeName, this);
                                 if (skipDescendants)
                                 {
                                     // attributes has no more descendants
                                     skipDescendants = false;
                                 }
-                                getTreeVisitor().leaveNode(attributeName, attributeValue, this);
+                                visitor.leaveNode(attributeName, attributeValue, this);
                             }
 
                         }
@@ -135,7 +133,7 @@ public class XMLWalker extends TreeWalker
                                 break;
                         }
                         String text = textStack.getLast().toString();
-                        getTreeVisitor().leaveNode(pullParser.getName(), text.trim(), this);
+                        visitor.leaveNode(pullParser.getName(), text.trim(), this);
                         textStack.removeLast();
                     }
                         break;
@@ -191,24 +189,23 @@ public class XMLWalker extends TreeWalker
         private boolean skipDesendants = false;
         private Element currentElement = null;
 
-        public XMLDOMWalker(TreeVisitor visitor, Element element)
+        public XMLDOMWalker(Element element)
         {
-            super(visitor);
             this.currentElement = element;
         }
 
         @Override
-        public void walk() throws XerialException
+        public void walk(TreeVisitor visitor) throws XerialException
         {
-            parse(currentElement);
+            parse(currentElement, visitor);
         }
 
-        public void parse(Element element) throws XerialException
+        public void parse(Element element, TreeVisitor visitor) throws XerialException
         {
             currentElement = element;
             String tagName = element.getNodeName();
             // invoke visitor
-            getTreeVisitor().visitNode(tagName, this);
+            visitor.visitNode(tagName, this);
 
             // visit attribute nodes
             NamedNodeMap attributeMap = element.getAttributes();
@@ -218,8 +215,8 @@ public class XMLWalker extends TreeWalker
                 String attributeName = attributeNode.getNodeName();
                 String attributeValue = attributeNode.getNodeValue();
 
-                getTreeVisitor().visitNode(attributeName, this);
-                getTreeVisitor().leaveNode(attributeName, attributeValue, this);
+                visitor.visitNode(attributeName, this);
+                visitor.leaveNode(attributeName, attributeValue, this);
             }
 
             // visit child nodes
@@ -231,7 +228,7 @@ public class XMLWalker extends TreeWalker
                     Node childNode = nodeList.item(i);
                     if (childNode.getNodeType() == Node.ELEMENT_NODE)
                     {
-                        parse((Element) childNode);
+                        parse((Element) childNode, visitor);
                     }
                 }
                 skipDesendants = false;
@@ -239,7 +236,7 @@ public class XMLWalker extends TreeWalker
 
             // leave the current element
             String text = DOMUtil.getText(element);
-            getTreeVisitor().leaveNode(tagName, text.trim(), this);
+            visitor.leaveNode(tagName, text.trim(), this);
         }
 
         public void skipDescendants()
@@ -266,10 +263,9 @@ public class XMLWalker extends TreeWalker
      * @throws XMLException
      *             thrown when some error has found in the XML reader
      */
-    public XMLWalker(TreeVisitor visitor, Reader xmlDataReader) throws XMLException
+    public XMLWalker(Reader xmlDataReader) throws XMLException
     {
-        super(visitor);
-        impl = new XMLStreamWalker(visitor, xmlDataReader);
+        impl = new XMLStreamWalker(xmlDataReader);
     }
 
     /**
@@ -278,10 +274,9 @@ public class XMLWalker extends TreeWalker
      * @param visitor
      * @param element
      */
-    public XMLWalker(TreeVisitor visitor, Element element)
+    public XMLWalker(Element element)
     {
-        super(visitor);
-        impl = new XMLDOMWalker(visitor, element);
+        impl = new XMLDOMWalker(element);
     }
 
     @Override
@@ -297,11 +292,11 @@ public class XMLWalker extends TreeWalker
     }
 
     @Override
-    public void walk() throws XerialException
+    public void walk(TreeVisitor visitor) throws XerialException
     {
-        getTreeVisitor().init(impl);
-        impl.walk();
-        getTreeVisitor().finish(impl);
+        visitor.init(impl);
+        impl.walk(visitor);
+        visitor.finish(impl);
     }
 
 }

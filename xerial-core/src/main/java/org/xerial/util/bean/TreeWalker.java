@@ -26,45 +26,40 @@ package org.xerial.util.bean;
 
 import org.xerial.core.XerialException;
 
-
 /**
  * An depth-first walker interface of tree structured data
  * 
  * @author leo
- *
+ * 
  */
 public abstract class TreeWalker
 {
-    private final TreeVisitor visitor;
-    
-    protected TreeWalker(TreeVisitor visitor)
-    {
-        if(visitor == null)
-            throw new NullPointerException("visitor cannot be null");
-        this.visitor = visitor;
-    }
-    
-    public TreeVisitor getTreeVisitor() 
-    {
-        return visitor;
-    }
-    
+    protected TreeWalker()
+    {}
+
     /**
-     * Start walking 
+     * Start walking
+     * 
+     * @param visitor
+     *            A {@link TreeVisitor} that handles tree visit events
+     * @throws XerialException
      */
-    public abstract void walk() throws XerialException;
-    
+    public abstract void walk(TreeVisitor visitor) throws XerialException;
+
     /**
      * Skip the descendants of the current node
      */
     public abstract void skipDescendants();
-    
+
     /**
-     * Gets the entire subtree beginning from the current node, and 
-     * skips the descendants. 
-     * @return {@link TreeNode} representation of the tree structured data beginning from the current node
-     * @throws BeanException TODO
+     * Gets the entire subtree beginning from the current node, and skips the
+     * descendants.
+     * 
+     * @return {@link TreeNode} representation of the tree structured data
+     *         beginning from the current node
+     * @throws BeanException
+     *             TODO
      */
     public abstract TreeNode getSubTree() throws BeanException;
-    
+
 }

@@ -49,20 +49,19 @@ public class JSONStreamWalker extends TreeWalker
     private boolean skipDescendants = false;
     private int skipLevel = Integer.MAX_VALUE;
 
-    public JSONStreamWalker(TreeVisitor visitor, Reader jsonStream) throws IOException
+    public JSONStreamWalker(Reader jsonStream) throws IOException
     {
-        super(visitor);
         jsonPullParser = new JSONPullParser(jsonStream);
     }
 
-    public void walk() throws XerialException
+    public void walk(TreeVisitor visitor) throws XerialException
     {
-        getTreeVisitor().init(this);
-        walk_internal();
-        getTreeVisitor().finish(this);
+        visitor.init(this);
+        walk_internal(visitor);
+        visitor.finish(this);
     }
 
-    public void walk_internal() throws XerialException
+    public void walk_internal(TreeVisitor visitor) throws XerialException
     {
         JSONEvent event;
         while ((event = jsonPullParser.next()) != JSONEvent.EndJSON)
@@ -75,7 +74,7 @@ public class JSONStreamWalker extends TreeWalker
                 if (!skipDescendants)
                 {
                     String key = jsonPullParser.getKeyName();
-                    getTreeVisitor().visitNode(key, this);
+                    visitor.visitNode(key, this);
                 }
                 break;
             }
@@ -89,7 +88,7 @@ public class JSONStreamWalker extends TreeWalker
                         break;
                 }
                 String key = jsonPullParser.getKeyName();
-                getTreeVisitor().leaveNode(key, null, this);
+                visitor.leaveNode(key, null, this);
                 break;
             }
             case String:
@@ -102,10 +101,10 @@ public class JSONStreamWalker extends TreeWalker
 
                 String key = jsonPullParser.getKeyName();
                 String value = jsonPullParser.getText();
-                getTreeVisitor().visitNode(key, this);
+                visitor.visitNode(key, this);
                 if (skipDescendants)
                     skipDescendants = false;
-                getTreeVisitor().leaveNode(key, value, this);
+                visitor.leaveNode(key, value, this);
                 break;
             }
             case Null:
@@ -114,10 +113,10 @@ public class JSONStreamWalker extends TreeWalker
                     break;
 
                 String key = jsonPullParser.getKeyName();
-                getTreeVisitor().visitNode(key, this);
+                visitor.visitNode(key, this);
                 if (skipDescendants)
                     skipDescendants = false;
-                getTreeVisitor().leaveNode(key, null, this);
+                visitor.leaveNode(key, null, this);
                 break;
             }
             case StartArray:
