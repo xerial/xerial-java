@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2008-04-21 11:18:36
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2008-10-06 10:58:12
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -24,37 +24,62 @@ public class DTDParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "NUMBER", "STRING", "ML_COMMENT", "At", "Colon", "Comma", "Apos", "Quot", "Dot", "SemiColon", "LParen", "RParen", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "StringLiteral", "Name", "Reference", "AttValue", "EntityRef", "CharRef", "DefaultDecl", "Element", "'>'", "'EMPTY'", "'ANY'", "'?'", "'*'", "'+'", "'|'", "'#PCDATA'", "'<!ATTLIST'", "'NOTATION'", "'CDATA'", "'ID'", "'IDREF'", "'IDREFS'", "'ENTITY'", "'ENTITIES'", "'NMTOKEN'", "'NMTOKENS'"
     };
-    public static final int NameChar=19;
+    public static final int CharRef=26;
+    public static final int T__29=29;
     public static final int DefaultDecl=27;
     public static final int Apos=10;
-    public static final int Digit=17;
-    public static final int SemiColon=13;
-    public static final int NUMBER=4;
-    public static final int STRING=5;
-    public static final int RParen=15;
-    public static final int StringLiteral=21;
-    public static final int Name=22;
-    public static final int AttValue=24;
-    public static final int LParen=14;
-    public static final int Letter=16;
-    public static final int CharRef=26;
-    public static final int Comma=9;
-    public static final int Dot=12;
-    public static final int WhiteSpaceChar=20;
     public static final int EOF=-1;
-    public static final int Reference=23;
+    public static final int AttValue=24;
     public static final int ML_COMMENT=6;
-    public static final int Quot=11;
     public static final int Digits=18;
-    public static final int Element=28;
-    public static final int EntityRef=25;
-    public static final int Colon=8;
+    public static final int WhiteSpaceChar=20;
+    public static final int Reference=23;
+    public static final int Quot=11;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int SemiColon=13;
+    public static final int T__40=40;
+    public static final int RParen=15;
+    public static final int T__41=41;
+    public static final int T__46=46;
+    public static final int T__44=44;
     public static final int At=7;
+    public static final int T__45=45;
+    public static final int LParen=14;
+    public static final int NUMBER=4;
+    public static final int NameChar=19;
+    public static final int Colon=8;
+    public static final int Digit=17;
+    public static final int EntityRef=25;
+    public static final int StringLiteral=21;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int T__33=33;
+    public static final int T__34=34;
+    public static final int T__35=35;
+    public static final int T__36=36;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int Dot=12;
+    public static final int Name=22;
+    public static final int Comma=9;
+    public static final int Letter=16;
+    public static final int Element=28;
+    public static final int STRING=5;
+
+    // delegates
+    // delegators
+
 
         public DTDParser(TokenStream input) {
-            super(input);
-            ruleMemo = new HashMap[27+1];
-         }
+            this(input, new RecognizerSharedState());
+        }
+        public DTDParser(TokenStream input, RecognizerSharedState state) {
+            super(input, state);
+             
+        }
         
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
@@ -65,7 +90,7 @@ public class DTDParser extends Parser {
         return adaptor;
     }
 
-    public String[] getTokenNames() { return tokenNames; }
+    public String[] getTokenNames() { return DTDParser.tokenNames; }
     public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g"; }
 
 
@@ -74,10 +99,10 @@ public class DTDParser extends Parser {
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start integerLiteral
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:113:1: integerLiteral : Digits ;
-    public final integerLiteral_return integerLiteral() throws RecognitionException {
-        integerLiteral_return retval = new integerLiteral_return();
+    // $ANTLR start "integerLiteral"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:1: integerLiteral : Digits ;
+    public final DTDParser.integerLiteral_return integerLiteral() throws RecognitionException {
+        DTDParser.integerLiteral_return retval = new DTDParser.integerLiteral_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -87,14 +112,13 @@ public class DTDParser extends Parser {
         Object Digits1_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:113:15: ( Digits )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:113:17: Digits
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:15: ( Digits )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:17: Digits
             {
             root_0 = (Object)adaptor.nil();
 
-            Digits1=(Token)input.LT(1);
-            match(input,Digits,FOLLOW_Digits_in_integerLiteral485); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Digits1=(Token)match(input,Digits,FOLLOW_Digits_in_integerLiteral491); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Digits1_tree = (Object)adaptor.create(Digits1);
             adaptor.addChild(root_0, Digits1_tree);
             }
@@ -103,30 +127,33 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end integerLiteral
+    // $ANTLR end "integerLiteral"
 
     public static class decimalLiteral_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start decimalLiteral
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:114:1: decimalLiteral : ( Dot Digits | Digits Dot Digits );
-    public final decimalLiteral_return decimalLiteral() throws RecognitionException {
-        decimalLiteral_return retval = new decimalLiteral_return();
+    // $ANTLR start "decimalLiteral"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:1: decimalLiteral : ( Dot Digits | Digits Dot Digits );
+    public final DTDParser.decimalLiteral_return decimalLiteral() throws RecognitionException {
+        DTDParser.decimalLiteral_return retval = new DTDParser.decimalLiteral_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -144,7 +171,7 @@ public class DTDParser extends Parser {
         Object Digits6_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:114:15: ( Dot Digits | Digits Dot Digits )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:15: ( Dot Digits | Digits Dot Digits )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -155,27 +182,25 @@ public class DTDParser extends Parser {
                 alt1=2;
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("114:1: decimalLiteral : ( Dot Digits | Digits Dot Digits );", 1, 0, input);
+                    new NoViableAltException("", 1, 0, input);
 
                 throw nvae;
             }
             switch (alt1) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:114:17: Dot Digits
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:17: Dot Digits
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Dot2=(Token)input.LT(1);
-                    match(input,Dot,FOLLOW_Dot_in_decimalLiteral491); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Dot2=(Token)match(input,Dot,FOLLOW_Dot_in_decimalLiteral497); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Dot2_tree = (Object)adaptor.create(Dot2);
                     adaptor.addChild(root_0, Dot2_tree);
                     }
-                    Digits3=(Token)input.LT(1);
-                    match(input,Digits,FOLLOW_Digits_in_decimalLiteral493); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Digits3=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral499); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Digits3_tree = (Object)adaptor.create(Digits3);
                     adaptor.addChild(root_0, Digits3_tree);
                     }
@@ -183,25 +208,22 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:114:29: Digits Dot Digits
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:29: Digits Dot Digits
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Digits4=(Token)input.LT(1);
-                    match(input,Digits,FOLLOW_Digits_in_decimalLiteral496); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Digits4=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral502); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Digits4_tree = (Object)adaptor.create(Digits4);
                     adaptor.addChild(root_0, Digits4_tree);
                     }
-                    Dot5=(Token)input.LT(1);
-                    match(input,Dot,FOLLOW_Dot_in_decimalLiteral498); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Dot5=(Token)match(input,Dot,FOLLOW_Dot_in_decimalLiteral504); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Dot5_tree = (Object)adaptor.create(Dot5);
                     adaptor.addChild(root_0, Dot5_tree);
                     }
-                    Digits6=(Token)input.LT(1);
-                    match(input,Digits,FOLLOW_Digits_in_decimalLiteral500); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Digits6=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral506); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Digits6_tree = (Object)adaptor.create(Digits6);
                     adaptor.addChild(root_0, Digits6_tree);
                     }
@@ -212,43 +234,46 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end decimalLiteral
+    // $ANTLR end "decimalLiteral"
 
     public static class literal_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start literal
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:1: literal : ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) );
-    public final literal_return literal() throws RecognitionException {
-        literal_return retval = new literal_return();
+    // $ANTLR start "literal"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:1: literal : ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) );
+    public final DTDParser.literal_return literal() throws RecognitionException {
+        DTDParser.literal_return retval = new DTDParser.literal_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
         Token StringLiteral8=null;
-        numericLiteral_return numericLiteral7 = null;
+        DTDParser.numericLiteral_return numericLiteral7 = null;
 
 
         Object StringLiteral8_tree=null;
         RewriteRuleTokenStream stream_StringLiteral=new RewriteRuleTokenStream(adaptor,"token StringLiteral");
         RewriteRuleSubtreeStream stream_numericLiteral=new RewriteRuleSubtreeStream(adaptor,"rule numericLiteral");
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:8: ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:8: ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) )
             int alt2=3;
             switch ( input.LA(1) ) {
             case EOF:
@@ -268,29 +293,31 @@ public class DTDParser extends Parser {
                 }
                 break;
             default:
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("116:1: literal : ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) );", 2, 0, input);
+                    new NoViableAltException("", 2, 0, input);
 
                 throw nvae;
             }
 
             switch (alt2) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:117:2: 
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:2: 
                     {
                     root_0 = (Object)adaptor.nil();
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:117:4: numericLiteral
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:4: numericLiteral
                     {
-                    pushFollow(FOLLOW_numericLiteral_in_literal511);
+                    pushFollow(FOLLOW_numericLiteral_in_literal517);
                     numericLiteral7=numericLiteral();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) stream_numericLiteral.add(numericLiteral7.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_numericLiteral.add(numericLiteral7.getTree());
+
 
                     // AST REWRITE
                     // elements: numericLiteral
@@ -298,35 +325,34 @@ public class DTDParser extends Parser {
                     // rule labels: retval
                     // token list labels: 
                     // rule list labels: 
-                    if ( backtracking==0 ) {
+                    if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 117:19: -> ^( NUMBER numericLiteral )
+                    // 119:19: -> ^( NUMBER numericLiteral )
                     {
-                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:117:22: ^( NUMBER numericLiteral )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:22: ^( NUMBER numericLiteral )
                         {
                         Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot(adaptor.create(NUMBER, "NUMBER"), root_1);
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NUMBER, "NUMBER"), root_1);
 
-                        adaptor.addChild(root_1, stream_numericLiteral.next());
+                        adaptor.addChild(root_1, stream_numericLiteral.nextTree());
 
                         adaptor.addChild(root_0, root_1);
                         }
 
                     }
 
-                    }
-
+                    retval.tree = root_0;}
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:4: StringLiteral
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:120:4: StringLiteral
                     {
-                    StringLiteral8=(Token)input.LT(1);
-                    match(input,StringLiteral,FOLLOW_StringLiteral_in_literal524); if (failed) return retval;
-                    if ( backtracking==0 ) stream_StringLiteral.add(StringLiteral8);
+                    StringLiteral8=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_literal530); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_StringLiteral.add(StringLiteral8);
+
 
 
                     // AST REWRITE
@@ -335,69 +361,71 @@ public class DTDParser extends Parser {
                     // rule labels: retval
                     // token list labels: 
                     // rule list labels: 
-                    if ( backtracking==0 ) {
+                    if ( state.backtracking==0 ) {
                     retval.tree = root_0;
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 118:18: -> ^( STRING StringLiteral )
+                    // 120:18: -> ^( STRING StringLiteral )
                     {
-                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:21: ^( STRING StringLiteral )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:120:21: ^( STRING StringLiteral )
                         {
                         Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot(adaptor.create(STRING, "STRING"), root_1);
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STRING, "STRING"), root_1);
 
-                        adaptor.addChild(root_1, stream_StringLiteral.next());
+                        adaptor.addChild(root_1, stream_StringLiteral.nextNode());
 
                         adaptor.addChild(root_0, root_1);
                         }
 
                     }
 
-                    }
-
+                    retval.tree = root_0;}
                     }
                     break;
 
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end literal
+    // $ANTLR end "literal"
 
     public static class numericLiteral_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start numericLiteral
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:121:1: numericLiteral : ( integerLiteral | decimalLiteral );
-    public final numericLiteral_return numericLiteral() throws RecognitionException {
-        numericLiteral_return retval = new numericLiteral_return();
+    // $ANTLR start "numericLiteral"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:123:1: numericLiteral : ( integerLiteral | decimalLiteral );
+    public final DTDParser.numericLiteral_return numericLiteral() throws RecognitionException {
+        DTDParser.numericLiteral_return retval = new DTDParser.numericLiteral_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        integerLiteral_return integerLiteral9 = null;
+        DTDParser.integerLiteral_return integerLiteral9 = null;
 
-        decimalLiteral_return decimalLiteral10 = null;
+        DTDParser.decimalLiteral_return decimalLiteral10 = null;
 
 
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:122:2: ( integerLiteral | decimalLiteral )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:124:2: ( integerLiteral | decimalLiteral )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -411,9 +439,9 @@ public class DTDParser extends Parser {
                     alt3=1;
                 }
                 else {
-                    if (backtracking>0) {failed=true; return retval;}
+                    if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("121:1: numericLiteral : ( integerLiteral | decimalLiteral );", 3, 1, input);
+                        new NoViableAltException("", 3, 1, input);
 
                     throw nvae;
                 }
@@ -422,36 +450,38 @@ public class DTDParser extends Parser {
                 alt3=2;
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("121:1: numericLiteral : ( integerLiteral | decimalLiteral );", 3, 0, input);
+                    new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
             }
             switch (alt3) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:122:4: integerLiteral
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:124:4: integerLiteral
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_integerLiteral_in_numericLiteral544);
+                    pushFollow(FOLLOW_integerLiteral_in_numericLiteral550);
                     integerLiteral9=integerLiteral();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, integerLiteral9.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, integerLiteral9.getTree());
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:123:4: decimalLiteral
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:125:4: decimalLiteral
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_decimalLiteral_in_numericLiteral550);
+                    pushFollow(FOLLOW_decimalLiteral_in_numericLiteral556);
                     decimalLiteral10=decimalLiteral();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, decimalLiteral10.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, decimalLiteral10.getTree());
 
                     }
                     break;
@@ -459,45 +489,48 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end numericLiteral
+    // $ANTLR end "numericLiteral"
 
     public static class dtd_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start dtd
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:127:1: dtd : ( markupdecl )* ;
-    public final dtd_return dtd() throws RecognitionException {
-        dtd_return retval = new dtd_return();
+    // $ANTLR start "dtd"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:1: dtd : ( markupdecl )* ;
+    public final DTDParser.dtd_return dtd() throws RecognitionException {
+        DTDParser.dtd_return retval = new DTDParser.dtd_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        markupdecl_return markupdecl11 = null;
+        DTDParser.markupdecl_return markupdecl11 = null;
 
 
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:127:4: ( ( markupdecl )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:127:6: ( markupdecl )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:4: ( ( markupdecl )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: ( markupdecl )*
             {
             root_0 = (Object)adaptor.nil();
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:127:6: ( markupdecl )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: ( markupdecl )*
             loop4:
             do {
                 int alt4=2;
@@ -510,13 +543,14 @@ public class DTDParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:127:6: markupdecl
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: markupdecl
             	    {
-            	    pushFollow(FOLLOW_markupdecl_in_dtd561);
+            	    pushFollow(FOLLOW_markupdecl_in_dtd567);
             	    markupdecl11=markupdecl();
-            	    _fsp--;
-            	    if (failed) return retval;
-            	    if ( backtracking==0 ) adaptor.addChild(root_0, markupdecl11.getTree());
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, markupdecl11.getTree());
 
             	    }
             	    break;
@@ -531,42 +565,45 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end dtd
+    // $ANTLR end "dtd"
 
     public static class markupdecl_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start markupdecl
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:1: markupdecl : ( elementDecl | attlistDecl );
-    public final markupdecl_return markupdecl() throws RecognitionException {
-        markupdecl_return retval = new markupdecl_return();
+    // $ANTLR start "markupdecl"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:1: markupdecl : ( elementDecl | attlistDecl );
+    public final DTDParser.markupdecl_return markupdecl() throws RecognitionException {
+        DTDParser.markupdecl_return retval = new DTDParser.markupdecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        elementDecl_return elementDecl12 = null;
+        DTDParser.elementDecl_return elementDecl12 = null;
 
-        attlistDecl_return attlistDecl13 = null;
+        DTDParser.attlistDecl_return attlistDecl13 = null;
 
 
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:11: ( elementDecl | attlistDecl )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:11: ( elementDecl | attlistDecl )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -577,36 +614,38 @@ public class DTDParser extends Parser {
                 alt5=2;
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("129:1: markupdecl : ( elementDecl | attlistDecl );", 5, 0, input);
+                    new NoViableAltException("", 5, 0, input);
 
                 throw nvae;
             }
             switch (alt5) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:13: elementDecl
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:13: elementDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_elementDecl_in_markupdecl569);
+                    pushFollow(FOLLOW_elementDecl_in_markupdecl575);
                     elementDecl12=elementDecl();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, elementDecl12.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, elementDecl12.getTree());
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:27: attlistDecl
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:27: attlistDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attlistDecl_in_markupdecl573);
+                    pushFollow(FOLLOW_attlistDecl_in_markupdecl579);
                     attlistDecl13=attlistDecl();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, attlistDecl13.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, attlistDecl13.getTree());
 
                     }
                     break;
@@ -614,30 +653,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end markupdecl
+    // $ANTLR end "markupdecl"
 
     public static class elementDecl_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start elementDecl
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:132:1: elementDecl : Element Name contentSpec '>' ;
-    public final elementDecl_return elementDecl() throws RecognitionException {
-        elementDecl_return retval = new elementDecl_return();
+    // $ANTLR start "elementDecl"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:1: elementDecl : Element Name contentSpec '>' ;
+    public final DTDParser.elementDecl_return elementDecl() throws RecognitionException {
+        DTDParser.elementDecl_return retval = new DTDParser.elementDecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -645,7 +687,7 @@ public class DTDParser extends Parser {
         Token Element14=null;
         Token Name15=null;
         Token char_literal17=null;
-        contentSpec_return contentSpec16 = null;
+        DTDParser.contentSpec_return contentSpec16 = null;
 
 
         Object Element14_tree=null;
@@ -653,31 +695,29 @@ public class DTDParser extends Parser {
         Object char_literal17_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:132:12: ( Element Name contentSpec '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:132:14: Element Name contentSpec '>'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:12: ( Element Name contentSpec '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:14: Element Name contentSpec '>'
             {
             root_0 = (Object)adaptor.nil();
 
-            Element14=(Token)input.LT(1);
-            match(input,Element,FOLLOW_Element_in_elementDecl581); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Element14=(Token)match(input,Element,FOLLOW_Element_in_elementDecl587); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Element14_tree = (Object)adaptor.create(Element14);
             adaptor.addChild(root_0, Element14_tree);
             }
-            Name15=(Token)input.LT(1);
-            match(input,Name,FOLLOW_Name_in_elementDecl583); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Name15=(Token)match(input,Name,FOLLOW_Name_in_elementDecl589); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Name15_tree = (Object)adaptor.create(Name15);
             adaptor.addChild(root_0, Name15_tree);
             }
-            pushFollow(FOLLOW_contentSpec_in_elementDecl585);
+            pushFollow(FOLLOW_contentSpec_in_elementDecl591);
             contentSpec16=contentSpec();
-            _fsp--;
-            if (failed) return retval;
-            if ( backtracking==0 ) adaptor.addChild(root_0, contentSpec16.getTree());
-            char_literal17=(Token)input.LT(1);
-            match(input,29,FOLLOW_29_in_elementDecl587); if (failed) return retval;
-            if ( backtracking==0 ) {
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, contentSpec16.getTree());
+            char_literal17=(Token)match(input,29,FOLLOW_29_in_elementDecl593); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             char_literal17_tree = (Object)adaptor.create(char_literal17);
             adaptor.addChild(root_0, char_literal17_tree);
             }
@@ -686,46 +726,49 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end elementDecl
+    // $ANTLR end "elementDecl"
 
     public static class contentSpec_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start contentSpec
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:1: contentSpec : ( 'EMPTY' | 'ANY' | mixed | children );
-    public final contentSpec_return contentSpec() throws RecognitionException {
-        contentSpec_return retval = new contentSpec_return();
+    // $ANTLR start "contentSpec"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:1: contentSpec : ( 'EMPTY' | 'ANY' | mixed | children );
+    public final DTDParser.contentSpec_return contentSpec() throws RecognitionException {
+        DTDParser.contentSpec_return retval = new DTDParser.contentSpec_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
         Token string_literal18=null;
         Token string_literal19=null;
-        mixed_return mixed20 = null;
+        DTDParser.mixed_return mixed20 = null;
 
-        children_return children21 = null;
+        DTDParser.children_return children21 = null;
 
 
         Object string_literal18_tree=null;
         Object string_literal19_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:12: ( 'EMPTY' | 'ANY' | mixed | children )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:12: ( 'EMPTY' | 'ANY' | mixed | children )
             int alt6=4;
             switch ( input.LA(1) ) {
             case 30:
@@ -749,31 +792,30 @@ public class DTDParser extends Parser {
                     alt6=4;
                 }
                 else {
-                    if (backtracking>0) {failed=true; return retval;}
+                    if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("135:1: contentSpec : ( 'EMPTY' | 'ANY' | mixed | children );", 6, 3, input);
+                        new NoViableAltException("", 6, 3, input);
 
                     throw nvae;
                 }
                 }
                 break;
             default:
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("135:1: contentSpec : ( 'EMPTY' | 'ANY' | mixed | children );", 6, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
 
             switch (alt6) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:14: 'EMPTY'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:14: 'EMPTY'
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    string_literal18=(Token)input.LT(1);
-                    match(input,30,FOLLOW_30_in_contentSpec597); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    string_literal18=(Token)match(input,30,FOLLOW_30_in_contentSpec603); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     string_literal18_tree = (Object)adaptor.create(string_literal18);
                     adaptor.addChild(root_0, string_literal18_tree);
                     }
@@ -781,13 +823,12 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:24: 'ANY'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:24: 'ANY'
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    string_literal19=(Token)input.LT(1);
-                    match(input,31,FOLLOW_31_in_contentSpec601); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    string_literal19=(Token)match(input,31,FOLLOW_31_in_contentSpec607); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     string_literal19_tree = (Object)adaptor.create(string_literal19);
                     adaptor.addChild(root_0, string_literal19_tree);
                     }
@@ -795,28 +836,30 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:32: mixed
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:32: mixed
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_mixed_in_contentSpec605);
+                    pushFollow(FOLLOW_mixed_in_contentSpec611);
                     mixed20=mixed();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, mixed20.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, mixed20.getTree());
 
                     }
                     break;
                 case 4 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:135:40: children
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:40: children
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_children_in_contentSpec609);
+                    pushFollow(FOLLOW_children_in_contentSpec615);
                     children21=children();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, children21.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, children21.getTree());
 
                     }
                     break;
@@ -824,136 +867,89 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end contentSpec
+    // $ANTLR end "contentSpec"
 
     public static class children_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start children
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
-    public final children_return children() throws RecognitionException {
-        children_return retval = new children_return();
+    // $ANTLR start "children"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
+    public final DTDParser.children_return children() throws RecognitionException {
+        DTDParser.children_return retval = new DTDParser.children_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
         Token set23=null;
         Token set25=null;
-        choice_return choice22 = null;
+        DTDParser.choice_return choice22 = null;
 
-        seq_return seq24 = null;
+        DTDParser.seq_return seq24 = null;
 
 
         Object set23_tree=null;
         Object set25_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:139:1: ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:1: ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
             if ( (LA9_0==LParen) ) {
                 int LA9_1 = input.LA(2);
 
-                if ( (LA9_1==Name) ) {
-                    int LA9_2 = input.LA(3);
-
-                    if ( ((LA9_2>=32 && LA9_2<=34)) ) {
-                        int LA9_4 = input.LA(4);
-
-                        if ( (LA9_4==35) && (synpred1())) {
-                            alt9=1;
-                        }
-                        else if ( (LA9_4==RParen) && (synpred1())) {
-                            alt9=1;
-                        }
-                        else if ( (LA9_4==Comma) && (synpred2())) {
-                            alt9=2;
-                        }
-                        else {
-                            if (backtracking>0) {failed=true; return retval;}
-                            NoViableAltException nvae =
-                                new NoViableAltException("138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 9, 4, input);
-
-                            throw nvae;
-                        }
-                    }
-                    else if ( (LA9_2==Comma) && (synpred2())) {
-                        alt9=2;
-                    }
-                    else if ( (LA9_2==35) && (synpred1())) {
-                        alt9=1;
-                    }
-                    else if ( (LA9_2==RParen) && (synpred1())) {
-                        alt9=1;
-                    }
-                    else {
-                        if (backtracking>0) {failed=true; return retval;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 9, 2, input);
-
-                        throw nvae;
-                    }
+                if ( (synpred1_DTD()) ) {
+                    alt9=1;
                 }
-                else if ( (LA9_1==LParen) ) {
-                    int LA9_3 = input.LA(3);
-
-                    if ( (synpred1()) ) {
-                        alt9=1;
-                    }
-                    else if ( (synpred2()) ) {
-                        alt9=2;
-                    }
-                    else {
-                        if (backtracking>0) {failed=true; return retval;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 9, 3, input);
-
-                        throw nvae;
-                    }
+                else if ( (synpred2_DTD()) ) {
+                    alt9=2;
                 }
                 else {
-                    if (backtracking>0) {failed=true; return retval;}
+                    if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 9, 1, input);
+                        new NoViableAltException("", 9, 1, input);
 
                     throw nvae;
                 }
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("138:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 9, 0, input);
+                    new NoViableAltException("", 9, 0, input);
 
                 throw nvae;
             }
             switch (alt9) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:139:3: ( choice )=> choice ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:3: ( choice )=> choice ( '?' | '*' | '+' )?
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_choice_in_children628);
+                    pushFollow(FOLLOW_choice_in_children634);
                     choice22=choice();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, choice22.getTree());
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:139:23: ( '?' | '*' | '+' )?
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, choice22.getTree());
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:23: ( '?' | '*' | '+' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -967,14 +963,13 @@ public class DTDParser extends Parser {
                             set23=(Token)input.LT(1);
                             if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
                                 input.consume();
-                                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set23));
-                                errorRecovery=false;failed=false;
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set23));
+                                state.errorRecovery=false;state.failed=false;
                             }
                             else {
-                                if (backtracking>0) {failed=true; return retval;}
-                                MismatchedSetException mse =
-                                    new MismatchedSetException(null,input);
-                                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_children631);    throw mse;
+                                if (state.backtracking>0) {state.failed=true; return retval;}
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                throw mse;
                             }
 
 
@@ -987,16 +982,17 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:3: ( seq )=> seq ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:3: ( seq )=> seq ( '?' | '*' | '+' )?
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_seq_in_children652);
+                    pushFollow(FOLLOW_seq_in_children658);
                     seq24=seq();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, seq24.getTree());
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:16: ( '?' | '*' | '+' )?
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, seq24.getTree());
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:16: ( '?' | '*' | '+' )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -1010,14 +1006,13 @@ public class DTDParser extends Parser {
                             set25=(Token)input.LT(1);
                             if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
                                 input.consume();
-                                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set25));
-                                errorRecovery=false;failed=false;
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set25));
+                                state.errorRecovery=false;state.failed=false;
                             }
                             else {
-                                if (backtracking>0) {failed=true; return retval;}
-                                MismatchedSetException mse =
-                                    new MismatchedSetException(null,input);
-                                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_children654);    throw mse;
+                                if (state.backtracking>0) {state.failed=true; return retval;}
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                throw mse;
                             }
 
 
@@ -1033,30 +1028,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end children
+    // $ANTLR end "children"
 
     public static class cp_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start cp
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:143:1: cp : ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
-    public final cp_return cp() throws RecognitionException {
-        cp_return retval = new cp_return();
+    // $ANTLR start "cp"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:1: cp : ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
+    public final DTDParser.cp_return cp() throws RecognitionException {
+        DTDParser.cp_return retval = new DTDParser.cp_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1065,9 +1063,9 @@ public class DTDParser extends Parser {
         Token set27=null;
         Token set29=null;
         Token set31=null;
-        choice_return choice28 = null;
+        DTDParser.choice_return choice28 = null;
 
-        seq_return seq30 = null;
+        DTDParser.seq_return seq30 = null;
 
 
         Object Name26_tree=null;
@@ -1076,50 +1074,49 @@ public class DTDParser extends Parser {
         Object set31_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:144:1: ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:1: ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
             int alt13=3;
             int LA13_0 = input.LA(1);
 
-            if ( (LA13_0==Name) && (synpred3())) {
+            if ( (LA13_0==Name) && (synpred3_DTD())) {
                 alt13=1;
             }
             else if ( (LA13_0==LParen) ) {
                 int LA13_2 = input.LA(2);
 
-                if ( (synpred4()) ) {
+                if ( (synpred4_DTD()) ) {
                     alt13=2;
                 }
-                else if ( (synpred5()) ) {
+                else if ( (synpred5_DTD()) ) {
                     alt13=3;
                 }
                 else {
-                    if (backtracking>0) {failed=true; return retval;}
+                    if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("143:1: cp : ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 13, 2, input);
+                        new NoViableAltException("", 13, 2, input);
 
                     throw nvae;
                 }
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("143:1: cp : ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );", 13, 0, input);
+                    new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
             }
             switch (alt13) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:144:3: ( Name )=> Name ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:3: ( Name )=> Name ( '?' | '*' | '+' )?
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Name26=(Token)input.LT(1);
-                    match(input,Name,FOLLOW_Name_in_cp682); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    Name26=(Token)match(input,Name,FOLLOW_Name_in_cp688); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     Name26_tree = (Object)adaptor.create(Name26);
                     adaptor.addChild(root_0, Name26_tree);
                     }
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:144:19: ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:19: ( '?' | '*' | '+' )?
                     int alt10=2;
                     int LA10_0 = input.LA(1);
 
@@ -1133,14 +1130,13 @@ public class DTDParser extends Parser {
                             set27=(Token)input.LT(1);
                             if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
                                 input.consume();
-                                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set27));
-                                errorRecovery=false;failed=false;
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set27));
+                                state.errorRecovery=false;state.failed=false;
                             }
                             else {
-                                if (backtracking>0) {failed=true; return retval;}
-                                MismatchedSetException mse =
-                                    new MismatchedSetException(null,input);
-                                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_cp685);    throw mse;
+                                if (state.backtracking>0) {state.failed=true; return retval;}
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                throw mse;
                             }
 
 
@@ -1153,16 +1149,17 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:4: ( choice )=> choice ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:4: ( choice )=> choice ( '?' | '*' | '+' )?
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_choice_in_cp707);
+                    pushFollow(FOLLOW_choice_in_cp713);
                     choice28=choice();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, choice28.getTree());
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:24: ( '?' | '*' | '+' )?
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, choice28.getTree());
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:24: ( '?' | '*' | '+' )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -1176,14 +1173,13 @@ public class DTDParser extends Parser {
                             set29=(Token)input.LT(1);
                             if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
                                 input.consume();
-                                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set29));
-                                errorRecovery=false;failed=false;
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set29));
+                                state.errorRecovery=false;state.failed=false;
                             }
                             else {
-                                if (backtracking>0) {failed=true; return retval;}
-                                MismatchedSetException mse =
-                                    new MismatchedSetException(null,input);
-                                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_cp710);    throw mse;
+                                if (state.backtracking>0) {state.failed=true; return retval;}
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                throw mse;
                             }
 
 
@@ -1196,16 +1192,17 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:4: ( seq )=> seq ( '?' | '*' | '+' )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:4: ( seq )=> seq ( '?' | '*' | '+' )?
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_seq_in_cp732);
+                    pushFollow(FOLLOW_seq_in_cp738);
                     seq30=seq();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, seq30.getTree());
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:18: ( '?' | '*' | '+' )?
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, seq30.getTree());
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:18: ( '?' | '*' | '+' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1219,14 +1216,13 @@ public class DTDParser extends Parser {
                             set31=(Token)input.LT(1);
                             if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
                                 input.consume();
-                                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set31));
-                                errorRecovery=false;failed=false;
+                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set31));
+                                state.errorRecovery=false;state.failed=false;
                             }
                             else {
-                                if (backtracking>0) {failed=true; return retval;}
-                                MismatchedSetException mse =
-                                    new MismatchedSetException(null,input);
-                                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_cp735);    throw mse;
+                                if (state.backtracking>0) {state.failed=true; return retval;}
+                                MismatchedSetException mse = new MismatchedSetException(null,input);
+                                throw mse;
                             }
 
 
@@ -1242,30 +1238,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end cp
+    // $ANTLR end "cp"
 
     public static class choice_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start choice
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:149:1: choice : LParen cp ( '|' cp )* RParen ;
-    public final choice_return choice() throws RecognitionException {
-        choice_return retval = new choice_return();
+    // $ANTLR start "choice"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:1: choice : LParen cp ( '|' cp )* RParen ;
+    public final DTDParser.choice_return choice() throws RecognitionException {
+        DTDParser.choice_return retval = new DTDParser.choice_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1273,9 +1272,9 @@ public class DTDParser extends Parser {
         Token LParen32=null;
         Token char_literal34=null;
         Token RParen36=null;
-        cp_return cp33 = null;
+        DTDParser.cp_return cp33 = null;
 
-        cp_return cp35 = null;
+        DTDParser.cp_return cp35 = null;
 
 
         Object LParen32_tree=null;
@@ -1283,23 +1282,23 @@ public class DTDParser extends Parser {
         Object RParen36_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:149:7: ( LParen cp ( '|' cp )* RParen )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:149:9: LParen cp ( '|' cp )* RParen
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:7: ( LParen cp ( '|' cp )* RParen )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:9: LParen cp ( '|' cp )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            LParen32=(Token)input.LT(1);
-            match(input,LParen,FOLLOW_LParen_in_choice754); if (failed) return retval;
-            if ( backtracking==0 ) {
+            LParen32=(Token)match(input,LParen,FOLLOW_LParen_in_choice760); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             LParen32_tree = (Object)adaptor.create(LParen32);
             adaptor.addChild(root_0, LParen32_tree);
             }
-            pushFollow(FOLLOW_cp_in_choice756);
+            pushFollow(FOLLOW_cp_in_choice762);
             cp33=cp();
-            _fsp--;
-            if (failed) return retval;
-            if ( backtracking==0 ) adaptor.addChild(root_0, cp33.getTree());
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:149:19: ( '|' cp )*
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, cp33.getTree());
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:19: ( '|' cp )*
             loop14:
             do {
                 int alt14=2;
@@ -1312,19 +1311,19 @@ public class DTDParser extends Parser {
 
                 switch (alt14) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:149:20: '|' cp
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:20: '|' cp
             	    {
-            	    char_literal34=(Token)input.LT(1);
-            	    match(input,35,FOLLOW_35_in_choice759); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    char_literal34=(Token)match(input,35,FOLLOW_35_in_choice765); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    char_literal34_tree = (Object)adaptor.create(char_literal34);
             	    adaptor.addChild(root_0, char_literal34_tree);
             	    }
-            	    pushFollow(FOLLOW_cp_in_choice761);
+            	    pushFollow(FOLLOW_cp_in_choice767);
             	    cp35=cp();
-            	    _fsp--;
-            	    if (failed) return retval;
-            	    if ( backtracking==0 ) adaptor.addChild(root_0, cp35.getTree());
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, cp35.getTree());
 
             	    }
             	    break;
@@ -1334,9 +1333,8 @@ public class DTDParser extends Parser {
                 }
             } while (true);
 
-            RParen36=(Token)input.LT(1);
-            match(input,RParen,FOLLOW_RParen_in_choice765); if (failed) return retval;
-            if ( backtracking==0 ) {
+            RParen36=(Token)match(input,RParen,FOLLOW_RParen_in_choice771); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             RParen36_tree = (Object)adaptor.create(RParen36);
             adaptor.addChild(root_0, RParen36_tree);
             }
@@ -1345,30 +1343,33 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end choice
+    // $ANTLR end "choice"
 
     public static class seq_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start seq
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:152:1: seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen ;
-    public final seq_return seq() throws RecognitionException {
-        seq_return retval = new seq_return();
+    // $ANTLR start "seq"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:1: seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen ;
+    public final DTDParser.seq_return seq() throws RecognitionException {
+        DTDParser.seq_return retval = new DTDParser.seq_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1376,9 +1377,9 @@ public class DTDParser extends Parser {
         Token LParen37=null;
         Token Comma39=null;
         Token RParen41=null;
-        cp_return cp38 = null;
+        DTDParser.cp_return cp38 = null;
 
-        cp_return cp40 = null;
+        DTDParser.cp_return cp40 = null;
 
 
         Object LParen37_tree=null;
@@ -1386,23 +1387,23 @@ public class DTDParser extends Parser {
         Object RParen41_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:152:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:152:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            LParen37=(Token)input.LT(1);
-            match(input,LParen,FOLLOW_LParen_in_seq785); if (failed) return retval;
-            if ( backtracking==0 ) {
+            LParen37=(Token)match(input,LParen,FOLLOW_LParen_in_seq791); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             LParen37_tree = (Object)adaptor.create(LParen37);
             adaptor.addChild(root_0, LParen37_tree);
             }
-            pushFollow(FOLLOW_cp_in_seq787);
+            pushFollow(FOLLOW_cp_in_seq793);
             cp38=cp();
-            _fsp--;
-            if (failed) return retval;
-            if ( backtracking==0 ) adaptor.addChild(root_0, cp38.getTree());
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:152:37: ( Comma cp )+
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, cp38.getTree());
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:37: ( Comma cp )+
             int cnt15=0;
             loop15:
             do {
@@ -1416,26 +1417,26 @@ public class DTDParser extends Parser {
 
                 switch (alt15) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:152:38: Comma cp
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:38: Comma cp
             	    {
-            	    Comma39=(Token)input.LT(1);
-            	    match(input,Comma,FOLLOW_Comma_in_seq790); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    Comma39=(Token)match(input,Comma,FOLLOW_Comma_in_seq796); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    Comma39_tree = (Object)adaptor.create(Comma39);
             	    adaptor.addChild(root_0, Comma39_tree);
             	    }
-            	    pushFollow(FOLLOW_cp_in_seq792);
+            	    pushFollow(FOLLOW_cp_in_seq798);
             	    cp40=cp();
-            	    _fsp--;
-            	    if (failed) return retval;
-            	    if ( backtracking==0 ) adaptor.addChild(root_0, cp40.getTree());
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, cp40.getTree());
 
             	    }
             	    break;
 
             	default :
             	    if ( cnt15 >= 1 ) break loop15;
-            	    if (backtracking>0) {failed=true; return retval;}
+            	    if (state.backtracking>0) {state.failed=true; return retval;}
                         EarlyExitException eee =
                             new EarlyExitException(15, input);
                         throw eee;
@@ -1443,9 +1444,8 @@ public class DTDParser extends Parser {
                 cnt15++;
             } while (true);
 
-            RParen41=(Token)input.LT(1);
-            match(input,RParen,FOLLOW_RParen_in_seq796); if (failed) return retval;
-            if ( backtracking==0 ) {
+            RParen41=(Token)match(input,RParen,FOLLOW_RParen_in_seq802); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             RParen41_tree = (Object)adaptor.create(RParen41);
             adaptor.addChild(root_0, RParen41_tree);
             }
@@ -1454,30 +1454,33 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end seq
+    // $ANTLR end "seq"
 
     public static class mixed_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start mixed
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:155:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );
-    public final mixed_return mixed() throws RecognitionException {
-        mixed_return retval = new mixed_return();
+    // $ANTLR start "mixed"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );
+    public final DTDParser.mixed_return mixed() throws RecognitionException {
+        DTDParser.mixed_return retval = new DTDParser.mixed_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1503,7 +1506,7 @@ public class DTDParser extends Parser {
         Object RParen50_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:155:6: ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:6: ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1523,9 +1526,9 @@ public class DTDParser extends Parser {
                             alt17=2;
                         }
                         else {
-                            if (backtracking>0) {failed=true; return retval;}
+                            if (state.backtracking>0) {state.failed=true; return retval;}
                             NoViableAltException nvae =
-                                new NoViableAltException("155:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );", 17, 3, input);
+                                new NoViableAltException("", 17, 3, input);
 
                             throw nvae;
                         }
@@ -1534,47 +1537,45 @@ public class DTDParser extends Parser {
                         alt17=1;
                     }
                     else {
-                        if (backtracking>0) {failed=true; return retval;}
+                        if (state.backtracking>0) {state.failed=true; return retval;}
                         NoViableAltException nvae =
-                            new NoViableAltException("155:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );", 17, 2, input);
+                            new NoViableAltException("", 17, 2, input);
 
                         throw nvae;
                     }
                 }
                 else {
-                    if (backtracking>0) {failed=true; return retval;}
+                    if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("155:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );", 17, 1, input);
+                        new NoViableAltException("", 17, 1, input);
 
                     throw nvae;
                 }
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("155:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );", 17, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
             }
             switch (alt17) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:155:8: LParen '#PCDATA' ( '|' Name )* RParen '*'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:8: LParen '#PCDATA' ( '|' Name )* RParen '*'
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LParen42=(Token)input.LT(1);
-                    match(input,LParen,FOLLOW_LParen_in_mixed806); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    LParen42=(Token)match(input,LParen,FOLLOW_LParen_in_mixed812); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     LParen42_tree = (Object)adaptor.create(LParen42);
                     adaptor.addChild(root_0, LParen42_tree);
                     }
-                    string_literal43=(Token)input.LT(1);
-                    match(input,36,FOLLOW_36_in_mixed808); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    string_literal43=(Token)match(input,36,FOLLOW_36_in_mixed814); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     string_literal43_tree = (Object)adaptor.create(string_literal43);
                     adaptor.addChild(root_0, string_literal43_tree);
                     }
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:155:25: ( '|' Name )*
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:25: ( '|' Name )*
                     loop16:
                     do {
                         int alt16=2;
@@ -1587,17 +1588,15 @@ public class DTDParser extends Parser {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:155:26: '|' Name
+                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:26: '|' Name
                     	    {
-                    	    char_literal44=(Token)input.LT(1);
-                    	    match(input,35,FOLLOW_35_in_mixed811); if (failed) return retval;
-                    	    if ( backtracking==0 ) {
+                    	    char_literal44=(Token)match(input,35,FOLLOW_35_in_mixed817); if (state.failed) return retval;
+                    	    if ( state.backtracking==0 ) {
                     	    char_literal44_tree = (Object)adaptor.create(char_literal44);
                     	    adaptor.addChild(root_0, char_literal44_tree);
                     	    }
-                    	    Name45=(Token)input.LT(1);
-                    	    match(input,Name,FOLLOW_Name_in_mixed813); if (failed) return retval;
-                    	    if ( backtracking==0 ) {
+                    	    Name45=(Token)match(input,Name,FOLLOW_Name_in_mixed819); if (state.failed) return retval;
+                    	    if ( state.backtracking==0 ) {
                     	    Name45_tree = (Object)adaptor.create(Name45);
                     	    adaptor.addChild(root_0, Name45_tree);
                     	    }
@@ -1610,15 +1609,13 @@ public class DTDParser extends Parser {
                         }
                     } while (true);
 
-                    RParen46=(Token)input.LT(1);
-                    match(input,RParen,FOLLOW_RParen_in_mixed817); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    RParen46=(Token)match(input,RParen,FOLLOW_RParen_in_mixed823); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     RParen46_tree = (Object)adaptor.create(RParen46);
                     adaptor.addChild(root_0, RParen46_tree);
                     }
-                    char_literal47=(Token)input.LT(1);
-                    match(input,33,FOLLOW_33_in_mixed819); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    char_literal47=(Token)match(input,33,FOLLOW_33_in_mixed825); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     char_literal47_tree = (Object)adaptor.create(char_literal47);
                     adaptor.addChild(root_0, char_literal47_tree);
                     }
@@ -1626,25 +1623,22 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:156:5: LParen '#PCDATA' RParen
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:158:5: LParen '#PCDATA' RParen
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LParen48=(Token)input.LT(1);
-                    match(input,LParen,FOLLOW_LParen_in_mixed826); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    LParen48=(Token)match(input,LParen,FOLLOW_LParen_in_mixed832); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     LParen48_tree = (Object)adaptor.create(LParen48);
                     adaptor.addChild(root_0, LParen48_tree);
                     }
-                    string_literal49=(Token)input.LT(1);
-                    match(input,36,FOLLOW_36_in_mixed828); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    string_literal49=(Token)match(input,36,FOLLOW_36_in_mixed834); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     string_literal49_tree = (Object)adaptor.create(string_literal49);
                     adaptor.addChild(root_0, string_literal49_tree);
                     }
-                    RParen50=(Token)input.LT(1);
-                    match(input,RParen,FOLLOW_RParen_in_mixed830); if (failed) return retval;
-                    if ( backtracking==0 ) {
+                    RParen50=(Token)match(input,RParen,FOLLOW_RParen_in_mixed836); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
                     RParen50_tree = (Object)adaptor.create(RParen50);
                     adaptor.addChild(root_0, RParen50_tree);
                     }
@@ -1655,30 +1649,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end mixed
+    // $ANTLR end "mixed"
 
     public static class attlistDecl_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start attlistDecl
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:159:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' ;
-    public final attlistDecl_return attlistDecl() throws RecognitionException {
-        attlistDecl_return retval = new attlistDecl_return();
+    // $ANTLR start "attlistDecl"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' ;
+    public final DTDParser.attlistDecl_return attlistDecl() throws RecognitionException {
+        DTDParser.attlistDecl_return retval = new DTDParser.attlistDecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1686,7 +1683,7 @@ public class DTDParser extends Parser {
         Token string_literal51=null;
         Token Name52=null;
         Token char_literal54=null;
-        attDef_return attDef53 = null;
+        DTDParser.attDef_return attDef53 = null;
 
 
         Object string_literal51_tree=null;
@@ -1694,24 +1691,22 @@ public class DTDParser extends Parser {
         Object char_literal54_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:159:12: ( '<!ATTLIST' Name ( attDef )* '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:159:14: '<!ATTLIST' Name ( attDef )* '>'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:12: ( '<!ATTLIST' Name ( attDef )* '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:14: '<!ATTLIST' Name ( attDef )* '>'
             {
             root_0 = (Object)adaptor.nil();
 
-            string_literal51=(Token)input.LT(1);
-            match(input,37,FOLLOW_37_in_attlistDecl842); if (failed) return retval;
-            if ( backtracking==0 ) {
+            string_literal51=(Token)match(input,37,FOLLOW_37_in_attlistDecl848); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             string_literal51_tree = (Object)adaptor.create(string_literal51);
             adaptor.addChild(root_0, string_literal51_tree);
             }
-            Name52=(Token)input.LT(1);
-            match(input,Name,FOLLOW_Name_in_attlistDecl844); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Name52=(Token)match(input,Name,FOLLOW_Name_in_attlistDecl850); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Name52_tree = (Object)adaptor.create(Name52);
             adaptor.addChild(root_0, Name52_tree);
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:159:31: ( attDef )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:31: ( attDef )*
             loop18:
             do {
                 int alt18=2;
@@ -1724,13 +1719,14 @@ public class DTDParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:159:31: attDef
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:31: attDef
             	    {
-            	    pushFollow(FOLLOW_attDef_in_attlistDecl846);
+            	    pushFollow(FOLLOW_attDef_in_attlistDecl852);
             	    attDef53=attDef();
-            	    _fsp--;
-            	    if (failed) return retval;
-            	    if ( backtracking==0 ) adaptor.addChild(root_0, attDef53.getTree());
+
+            	    state._fsp--;
+            	    if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, attDef53.getTree());
 
             	    }
             	    break;
@@ -1740,9 +1736,8 @@ public class DTDParser extends Parser {
                 }
             } while (true);
 
-            char_literal54=(Token)input.LT(1);
-            match(input,29,FOLLOW_29_in_attlistDecl849); if (failed) return retval;
-            if ( backtracking==0 ) {
+            char_literal54=(Token)match(input,29,FOLLOW_29_in_attlistDecl855); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             char_literal54_tree = (Object)adaptor.create(char_literal54);
             adaptor.addChild(root_0, char_literal54_tree);
             }
@@ -1751,62 +1746,64 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end attlistDecl
+    // $ANTLR end "attlistDecl"
 
     public static class attDef_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start attDef
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:162:1: attDef : Name attType DefaultDecl ;
-    public final attDef_return attDef() throws RecognitionException {
-        attDef_return retval = new attDef_return();
+    // $ANTLR start "attDef"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:1: attDef : Name attType DefaultDecl ;
+    public final DTDParser.attDef_return attDef() throws RecognitionException {
+        DTDParser.attDef_return retval = new DTDParser.attDef_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
         Token Name55=null;
         Token DefaultDecl57=null;
-        attType_return attType56 = null;
+        DTDParser.attType_return attType56 = null;
 
 
         Object Name55_tree=null;
         Object DefaultDecl57_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:162:7: ( Name attType DefaultDecl )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:162:9: Name attType DefaultDecl
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:7: ( Name attType DefaultDecl )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:9: Name attType DefaultDecl
             {
             root_0 = (Object)adaptor.nil();
 
-            Name55=(Token)input.LT(1);
-            match(input,Name,FOLLOW_Name_in_attDef859); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Name55=(Token)match(input,Name,FOLLOW_Name_in_attDef865); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Name55_tree = (Object)adaptor.create(Name55);
             adaptor.addChild(root_0, Name55_tree);
             }
-            pushFollow(FOLLOW_attType_in_attDef861);
+            pushFollow(FOLLOW_attType_in_attDef867);
             attType56=attType();
-            _fsp--;
-            if (failed) return retval;
-            if ( backtracking==0 ) adaptor.addChild(root_0, attType56.getTree());
-            DefaultDecl57=(Token)input.LT(1);
-            match(input,DefaultDecl,FOLLOW_DefaultDecl_in_attDef863); if (failed) return retval;
-            if ( backtracking==0 ) {
+
+            state._fsp--;
+            if (state.failed) return retval;
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, attType56.getTree());
+            DefaultDecl57=(Token)match(input,DefaultDecl,FOLLOW_DefaultDecl_in_attDef869); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             DefaultDecl57_tree = (Object)adaptor.create(DefaultDecl57);
             adaptor.addChild(root_0, DefaultDecl57_tree);
             }
@@ -1815,44 +1812,47 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end attDef
+    // $ANTLR end "attDef"
 
     public static class attType_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start attType
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:165:1: attType : ( stringType | tokenizedType | enumeratedType );
-    public final attType_return attType() throws RecognitionException {
-        attType_return retval = new attType_return();
+    // $ANTLR start "attType"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:1: attType : ( stringType | tokenizedType | enumeratedType );
+    public final DTDParser.attType_return attType() throws RecognitionException {
+        DTDParser.attType_return retval = new DTDParser.attType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        stringType_return stringType58 = null;
+        DTDParser.stringType_return stringType58 = null;
 
-        tokenizedType_return tokenizedType59 = null;
+        DTDParser.tokenizedType_return tokenizedType59 = null;
 
-        enumeratedType_return enumeratedType60 = null;
+        DTDParser.enumeratedType_return enumeratedType60 = null;
 
 
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:165:8: ( stringType | tokenizedType | enumeratedType )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:8: ( stringType | tokenizedType | enumeratedType )
             int alt19=3;
             switch ( input.LA(1) ) {
             case 39:
@@ -1878,50 +1878,53 @@ public class DTDParser extends Parser {
                 }
                 break;
             default:
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("165:1: attType : ( stringType | tokenizedType | enumeratedType );", 19, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
             }
 
             switch (alt19) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:165:10: stringType
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:10: stringType
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_stringType_in_attType874);
+                    pushFollow(FOLLOW_stringType_in_attType880);
                     stringType58=stringType();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, stringType58.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, stringType58.getTree());
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:165:23: tokenizedType
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:23: tokenizedType
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_tokenizedType_in_attType878);
+                    pushFollow(FOLLOW_tokenizedType_in_attType884);
                     tokenizedType59=tokenizedType();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, tokenizedType59.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, tokenizedType59.getTree());
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:165:39: enumeratedType
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:39: enumeratedType
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_enumeratedType_in_attType882);
+                    pushFollow(FOLLOW_enumeratedType_in_attType888);
                     enumeratedType60=enumeratedType();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, enumeratedType60.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, enumeratedType60.getTree());
 
                     }
                     break;
@@ -1929,30 +1932,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end attType
+    // $ANTLR end "attType"
 
     public static class enumeration_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start enumeration
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:1: enumeration : LParen Name ( '|' Name )* RParen ;
-    public final enumeration_return enumeration() throws RecognitionException {
-        enumeration_return retval = new enumeration_return();
+    // $ANTLR start "enumeration"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:1: enumeration : LParen Name ( '|' Name )* RParen ;
+    public final DTDParser.enumeration_return enumeration() throws RecognitionException {
+        DTDParser.enumeration_return retval = new DTDParser.enumeration_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -1970,24 +1976,22 @@ public class DTDParser extends Parser {
         Object RParen65_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:12: ( LParen Name ( '|' Name )* RParen )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:14: LParen Name ( '|' Name )* RParen
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:12: ( LParen Name ( '|' Name )* RParen )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:14: LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            LParen61=(Token)input.LT(1);
-            match(input,LParen,FOLLOW_LParen_in_enumeration889); if (failed) return retval;
-            if ( backtracking==0 ) {
+            LParen61=(Token)match(input,LParen,FOLLOW_LParen_in_enumeration895); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             LParen61_tree = (Object)adaptor.create(LParen61);
             adaptor.addChild(root_0, LParen61_tree);
             }
-            Name62=(Token)input.LT(1);
-            match(input,Name,FOLLOW_Name_in_enumeration891); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Name62=(Token)match(input,Name,FOLLOW_Name_in_enumeration897); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Name62_tree = (Object)adaptor.create(Name62);
             adaptor.addChild(root_0, Name62_tree);
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:26: ( '|' Name )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:26: ( '|' Name )*
             loop20:
             do {
                 int alt20=2;
@@ -2000,17 +2004,15 @@ public class DTDParser extends Parser {
 
                 switch (alt20) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:27: '|' Name
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:27: '|' Name
             	    {
-            	    char_literal63=(Token)input.LT(1);
-            	    match(input,35,FOLLOW_35_in_enumeration894); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    char_literal63=(Token)match(input,35,FOLLOW_35_in_enumeration900); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    char_literal63_tree = (Object)adaptor.create(char_literal63);
             	    adaptor.addChild(root_0, char_literal63_tree);
             	    }
-            	    Name64=(Token)input.LT(1);
-            	    match(input,Name,FOLLOW_Name_in_enumeration896); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    Name64=(Token)match(input,Name,FOLLOW_Name_in_enumeration902); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    Name64_tree = (Object)adaptor.create(Name64);
             	    adaptor.addChild(root_0, Name64_tree);
             	    }
@@ -2023,9 +2025,8 @@ public class DTDParser extends Parser {
                 }
             } while (true);
 
-            RParen65=(Token)input.LT(1);
-            match(input,RParen,FOLLOW_RParen_in_enumeration900); if (failed) return retval;
-            if ( backtracking==0 ) {
+            RParen65=(Token)match(input,RParen,FOLLOW_RParen_in_enumeration906); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             RParen65_tree = (Object)adaptor.create(RParen65);
             adaptor.addChild(root_0, RParen65_tree);
             }
@@ -2034,42 +2035,45 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end enumeration
+    // $ANTLR end "enumeration"
 
     public static class enumeratedType_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start enumeratedType
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:168:1: enumeratedType : ( notationType | enumeration );
-    public final enumeratedType_return enumeratedType() throws RecognitionException {
-        enumeratedType_return retval = new enumeratedType_return();
+    // $ANTLR start "enumeratedType"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:1: enumeratedType : ( notationType | enumeration );
+    public final DTDParser.enumeratedType_return enumeratedType() throws RecognitionException {
+        DTDParser.enumeratedType_return retval = new DTDParser.enumeratedType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        notationType_return notationType66 = null;
+        DTDParser.notationType_return notationType66 = null;
 
-        enumeration_return enumeration67 = null;
+        DTDParser.enumeration_return enumeration67 = null;
 
 
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:168:15: ( notationType | enumeration )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:15: ( notationType | enumeration )
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2080,36 +2084,38 @@ public class DTDParser extends Parser {
                 alt21=2;
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("168:1: enumeratedType : ( notationType | enumeration );", 21, 0, input);
+                    new NoViableAltException("", 21, 0, input);
 
                 throw nvae;
             }
             switch (alt21) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:168:17: notationType
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:17: notationType
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_notationType_in_enumeratedType906);
+                    pushFollow(FOLLOW_notationType_in_enumeratedType912);
                     notationType66=notationType();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, notationType66.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, notationType66.getTree());
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:168:32: enumeration
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:32: enumeration
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_enumeration_in_enumeratedType910);
+                    pushFollow(FOLLOW_enumeration_in_enumeratedType916);
                     enumeration67=enumeration();
-                    _fsp--;
-                    if (failed) return retval;
-                    if ( backtracking==0 ) adaptor.addChild(root_0, enumeration67.getTree());
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, enumeration67.getTree());
 
                     }
                     break;
@@ -2117,30 +2123,33 @@ public class DTDParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end enumeratedType
+    // $ANTLR end "enumeratedType"
 
     public static class notationType_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start notationType
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:1: notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
-    public final notationType_return notationType() throws RecognitionException {
-        notationType_return retval = new notationType_return();
+    // $ANTLR start "notationType"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:1: notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
+    public final DTDParser.notationType_return notationType() throws RecognitionException {
+        DTDParser.notationType_return retval = new DTDParser.notationType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -2160,30 +2169,27 @@ public class DTDParser extends Parser {
         Object RParen73_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:15: 'NOTATION' LParen Name ( '|' Name )* RParen
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:15: 'NOTATION' LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            string_literal68=(Token)input.LT(1);
-            match(input,38,FOLLOW_38_in_notationType916); if (failed) return retval;
-            if ( backtracking==0 ) {
+            string_literal68=(Token)match(input,38,FOLLOW_38_in_notationType922); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             string_literal68_tree = (Object)adaptor.create(string_literal68);
             adaptor.addChild(root_0, string_literal68_tree);
             }
-            LParen69=(Token)input.LT(1);
-            match(input,LParen,FOLLOW_LParen_in_notationType918); if (failed) return retval;
-            if ( backtracking==0 ) {
+            LParen69=(Token)match(input,LParen,FOLLOW_LParen_in_notationType924); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             LParen69_tree = (Object)adaptor.create(LParen69);
             adaptor.addChild(root_0, LParen69_tree);
             }
-            Name70=(Token)input.LT(1);
-            match(input,Name,FOLLOW_Name_in_notationType920); if (failed) return retval;
-            if ( backtracking==0 ) {
+            Name70=(Token)match(input,Name,FOLLOW_Name_in_notationType926); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             Name70_tree = (Object)adaptor.create(Name70);
             adaptor.addChild(root_0, Name70_tree);
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:38: ( '|' Name )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:38: ( '|' Name )*
             loop22:
             do {
                 int alt22=2;
@@ -2196,17 +2202,15 @@ public class DTDParser extends Parser {
 
                 switch (alt22) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:39: '|' Name
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:39: '|' Name
             	    {
-            	    char_literal71=(Token)input.LT(1);
-            	    match(input,35,FOLLOW_35_in_notationType923); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    char_literal71=(Token)match(input,35,FOLLOW_35_in_notationType929); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    char_literal71_tree = (Object)adaptor.create(char_literal71);
             	    adaptor.addChild(root_0, char_literal71_tree);
             	    }
-            	    Name72=(Token)input.LT(1);
-            	    match(input,Name,FOLLOW_Name_in_notationType925); if (failed) return retval;
-            	    if ( backtracking==0 ) {
+            	    Name72=(Token)match(input,Name,FOLLOW_Name_in_notationType931); if (state.failed) return retval;
+            	    if ( state.backtracking==0 ) {
             	    Name72_tree = (Object)adaptor.create(Name72);
             	    adaptor.addChild(root_0, Name72_tree);
             	    }
@@ -2219,9 +2223,8 @@ public class DTDParser extends Parser {
                 }
             } while (true);
 
-            RParen73=(Token)input.LT(1);
-            match(input,RParen,FOLLOW_RParen_in_notationType929); if (failed) return retval;
-            if ( backtracking==0 ) {
+            RParen73=(Token)match(input,RParen,FOLLOW_RParen_in_notationType935); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             RParen73_tree = (Object)adaptor.create(RParen73);
             adaptor.addChild(root_0, RParen73_tree);
             }
@@ -2230,30 +2233,33 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end notationType
+    // $ANTLR end "notationType"
 
     public static class stringType_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start stringType
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:1: stringType : 'CDATA' ;
-    public final stringType_return stringType() throws RecognitionException {
-        stringType_return retval = new stringType_return();
+    // $ANTLR start "stringType"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:1: stringType : 'CDATA' ;
+    public final DTDParser.stringType_return stringType() throws RecognitionException {
+        DTDParser.stringType_return retval = new DTDParser.stringType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -2263,14 +2269,13 @@ public class DTDParser extends Parser {
         Object string_literal74_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:11: ( 'CDATA' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:13: 'CDATA'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:11: ( 'CDATA' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:13: 'CDATA'
             {
             root_0 = (Object)adaptor.nil();
 
-            string_literal74=(Token)input.LT(1);
-            match(input,39,FOLLOW_39_in_stringType936); if (failed) return retval;
-            if ( backtracking==0 ) {
+            string_literal74=(Token)match(input,39,FOLLOW_39_in_stringType942); if (state.failed) return retval;
+            if ( state.backtracking==0 ) {
             string_literal74_tree = (Object)adaptor.create(string_literal74);
             adaptor.addChild(root_0, string_literal74_tree);
             }
@@ -2279,30 +2284,33 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end stringType
+    // $ANTLR end "stringType"
 
     public static class tokenizedType_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start tokenizedType
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:174:1: tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
-    public final tokenizedType_return tokenizedType() throws RecognitionException {
-        tokenizedType_return retval = new tokenizedType_return();
+    // $ANTLR start "tokenizedType"
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:176:1: tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
+    public final DTDParser.tokenizedType_return tokenizedType() throws RecognitionException {
+        DTDParser.tokenizedType_return retval = new DTDParser.tokenizedType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
@@ -2312,7 +2320,7 @@ public class DTDParser extends Parser {
         Object set75_tree=null;
 
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:174:14: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:176:14: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
             {
             root_0 = (Object)adaptor.nil();
@@ -2320,14 +2328,13 @@ public class DTDParser extends Parser {
             set75=(Token)input.LT(1);
             if ( (input.LA(1)>=40 && input.LA(1)<=46) ) {
                 input.consume();
-                if ( backtracking==0 ) adaptor.addChild(root_0, adaptor.create(set75));
-                errorRecovery=false;failed=false;
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set75));
+                state.errorRecovery=false;state.failed=false;
             }
             else {
-                if (backtracking>0) {failed=true; return retval;}
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_tokenizedType0);    throw mse;
+                if (state.backtracking>0) {state.failed=true; return retval;}
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
             }
 
 
@@ -2335,241 +2342,250 @@ public class DTDParser extends Parser {
 
             retval.stop = input.LT(-1);
 
-            if ( backtracking==0 ) {
-                retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-                adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
             }
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
         }
         finally {
         }
         return retval;
     }
-    // $ANTLR end tokenizedType
+    // $ANTLR end "tokenizedType"
 
-    // $ANTLR start synpred1
-    public final void synpred1_fragment() throws RecognitionException {   
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:139:3: ( choice )
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:139:4: choice
+    // $ANTLR start synpred1_DTD
+    public final void synpred1_DTD_fragment() throws RecognitionException {   
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:3: ( choice )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:4: choice
         {
-        pushFollow(FOLLOW_choice_in_synpred1623);
+        pushFollow(FOLLOW_choice_in_synpred1_DTD629);
         choice();
-        _fsp--;
-        if (failed) return ;
+
+        state._fsp--;
+        if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred1
+    // $ANTLR end synpred1_DTD
 
-    // $ANTLR start synpred2
-    public final void synpred2_fragment() throws RecognitionException {   
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:3: ( seq )
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:4: seq
+    // $ANTLR start synpred2_DTD
+    public final void synpred2_DTD_fragment() throws RecognitionException {   
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:3: ( seq )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:4: seq
         {
-        pushFollow(FOLLOW_seq_in_synpred2647);
+        pushFollow(FOLLOW_seq_in_synpred2_DTD653);
         seq();
-        _fsp--;
-        if (failed) return ;
+
+        state._fsp--;
+        if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred2
+    // $ANTLR end synpred2_DTD
 
-    // $ANTLR start synpred3
-    public final void synpred3_fragment() throws RecognitionException {   
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:144:3: ( Name )
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:144:4: Name
+    // $ANTLR start synpred3_DTD
+    public final void synpred3_DTD_fragment() throws RecognitionException {   
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:3: ( Name )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:4: Name
         {
-        match(input,Name,FOLLOW_Name_in_synpred3677); if (failed) return ;
+        match(input,Name,FOLLOW_Name_in_synpred3_DTD683); if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred3
+    // $ANTLR end synpred3_DTD
 
-    // $ANTLR start synpred4
-    public final void synpred4_fragment() throws RecognitionException {   
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:4: ( choice )
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:5: choice
+    // $ANTLR start synpred4_DTD
+    public final void synpred4_DTD_fragment() throws RecognitionException {   
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:4: ( choice )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:5: choice
         {
-        pushFollow(FOLLOW_choice_in_synpred4702);
+        pushFollow(FOLLOW_choice_in_synpred4_DTD708);
         choice();
-        _fsp--;
-        if (failed) return ;
+
+        state._fsp--;
+        if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred4
+    // $ANTLR end synpred4_DTD
 
-    // $ANTLR start synpred5
-    public final void synpred5_fragment() throws RecognitionException {   
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:4: ( seq )
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:5: seq
+    // $ANTLR start synpred5_DTD
+    public final void synpred5_DTD_fragment() throws RecognitionException {   
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:4: ( seq )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:5: seq
         {
-        pushFollow(FOLLOW_seq_in_synpred5727);
+        pushFollow(FOLLOW_seq_in_synpred5_DTD733);
         seq();
-        _fsp--;
-        if (failed) return ;
+
+        state._fsp--;
+        if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred5
+    // $ANTLR end synpred5_DTD
 
-    public final boolean synpred4() {
-        backtracking++;
+    // Delegated rules
+
+    public final boolean synpred3_DTD() {
+        state.backtracking++;
         int start = input.mark();
         try {
-            synpred4_fragment(); // can never throw exception
+            synpred3_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
-        boolean success = !failed;
+        boolean success = !state.failed;
         input.rewind(start);
-        backtracking--;
-        failed=false;
+        state.backtracking--;
+        state.failed=false;
         return success;
     }
-    public final boolean synpred2() {
-        backtracking++;
+    public final boolean synpred2_DTD() {
+        state.backtracking++;
         int start = input.mark();
         try {
-            synpred2_fragment(); // can never throw exception
+            synpred2_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
-        boolean success = !failed;
+        boolean success = !state.failed;
         input.rewind(start);
-        backtracking--;
-        failed=false;
+        state.backtracking--;
+        state.failed=false;
         return success;
     }
-    public final boolean synpred3() {
-        backtracking++;
+    public final boolean synpred4_DTD() {
+        state.backtracking++;
         int start = input.mark();
         try {
-            synpred3_fragment(); // can never throw exception
+            synpred4_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
-        boolean success = !failed;
+        boolean success = !state.failed;
         input.rewind(start);
-        backtracking--;
-        failed=false;
+        state.backtracking--;
+        state.failed=false;
         return success;
     }
-    public final boolean synpred1() {
-        backtracking++;
+    public final boolean synpred1_DTD() {
+        state.backtracking++;
         int start = input.mark();
         try {
-            synpred1_fragment(); // can never throw exception
+            synpred1_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
-        boolean success = !failed;
+        boolean success = !state.failed;
         input.rewind(start);
-        backtracking--;
-        failed=false;
+        state.backtracking--;
+        state.failed=false;
         return success;
     }
-    public final boolean synpred5() {
-        backtracking++;
+    public final boolean synpred5_DTD() {
+        state.backtracking++;
         int start = input.mark();
         try {
-            synpred5_fragment(); // can never throw exception
+            synpred5_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
-        boolean success = !failed;
+        boolean success = !state.failed;
         input.rewind(start);
-        backtracking--;
-        failed=false;
+        state.backtracking--;
+        state.failed=false;
         return success;
     }
 
 
  
 
-    public static final BitSet FOLLOW_Digits_in_integerLiteral485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Dot_in_decimalLiteral491 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral496 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_Dot_in_decimalLiteral498 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral500 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericLiteral_in_literal511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_literal524 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integerLiteral_in_numericLiteral544 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decimalLiteral_in_numericLiteral550 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_markupdecl_in_dtd561 = new BitSet(new long[]{0x0000002010000002L});
-    public static final BitSet FOLLOW_elementDecl_in_markupdecl569 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attlistDecl_in_markupdecl573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Element_in_elementDecl581 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_elementDecl583 = new BitSet(new long[]{0x00000000C0004000L});
-    public static final BitSet FOLLOW_contentSpec_in_elementDecl585 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_elementDecl587 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_contentSpec597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_contentSpec601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_mixed_in_contentSpec605 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_children_in_contentSpec609 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_children628 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_children631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_children652 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_children654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_cp682 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp685 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_cp707 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_cp732 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_choice754 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_cp_in_choice756 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_choice759 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_cp_in_choice761 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_choice765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_seq785 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_cp_in_seq787 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_Comma_in_seq790 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_cp_in_seq792 = new BitSet(new long[]{0x0000000000008200L});
-    public static final BitSet FOLLOW_RParen_in_seq796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_mixed806 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_mixed808 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_mixed811 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_mixed813 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_mixed817 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_mixed819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_mixed826 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_mixed828 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_RParen_in_mixed830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_attlistDecl842 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_attlistDecl844 = new BitSet(new long[]{0x0000000020400000L});
-    public static final BitSet FOLLOW_attDef_in_attlistDecl846 = new BitSet(new long[]{0x0000000020400000L});
-    public static final BitSet FOLLOW_29_in_attlistDecl849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_attDef859 = new BitSet(new long[]{0x00007FC000004000L});
-    public static final BitSet FOLLOW_attType_in_attDef861 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_DefaultDecl_in_attDef863 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringType_in_attType874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tokenizedType_in_attType878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_enumeratedType_in_attType882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_enumeration889 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_enumeration891 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_enumeration894 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_enumeration896 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_enumeration900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_notationType_in_enumeratedType906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_enumeration_in_enumeratedType910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_notationType916 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_LParen_in_notationType918 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_notationType920 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_notationType923 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_notationType925 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_notationType929 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_stringType936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Digits_in_integerLiteral491 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Dot_in_decimalLiteral497 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_Digits_in_decimalLiteral499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Digits_in_decimalLiteral502 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_Dot_in_decimalLiteral504 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_Digits_in_decimalLiteral506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numericLiteral_in_literal517 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringLiteral_in_literal530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integerLiteral_in_numericLiteral550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decimalLiteral_in_numericLiteral556 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_markupdecl_in_dtd567 = new BitSet(new long[]{0x0000002010000002L});
+    public static final BitSet FOLLOW_elementDecl_in_markupdecl575 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attlistDecl_in_markupdecl579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Element_in_elementDecl587 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_elementDecl589 = new BitSet(new long[]{0x00000000C0004000L});
+    public static final BitSet FOLLOW_contentSpec_in_elementDecl591 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_elementDecl593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_contentSpec603 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_contentSpec607 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_mixed_in_contentSpec611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_children_in_contentSpec615 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_children634 = new BitSet(new long[]{0x0000000700000002L});
+    public static final BitSet FOLLOW_set_in_children637 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_children658 = new BitSet(new long[]{0x0000000700000002L});
+    public static final BitSet FOLLOW_set_in_children660 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_cp688 = new BitSet(new long[]{0x0000000700000002L});
+    public static final BitSet FOLLOW_set_in_cp691 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_cp713 = new BitSet(new long[]{0x0000000700000002L});
+    public static final BitSet FOLLOW_set_in_cp716 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_cp738 = new BitSet(new long[]{0x0000000700000002L});
+    public static final BitSet FOLLOW_set_in_cp741 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_choice760 = new BitSet(new long[]{0x00000000C0404000L});
+    public static final BitSet FOLLOW_cp_in_choice762 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_35_in_choice765 = new BitSet(new long[]{0x00000000C0404000L});
+    public static final BitSet FOLLOW_cp_in_choice767 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_RParen_in_choice771 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_seq791 = new BitSet(new long[]{0x00000000C0404000L});
+    public static final BitSet FOLLOW_cp_in_seq793 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_Comma_in_seq796 = new BitSet(new long[]{0x00000000C0404000L});
+    public static final BitSet FOLLOW_cp_in_seq798 = new BitSet(new long[]{0x0000000000008200L});
+    public static final BitSet FOLLOW_RParen_in_seq802 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_mixed812 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_mixed814 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_35_in_mixed817 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_mixed819 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_RParen_in_mixed823 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_mixed825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_mixed832 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_36_in_mixed834 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_RParen_in_mixed836 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_attlistDecl848 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_attlistDecl850 = new BitSet(new long[]{0x0000000020400000L});
+    public static final BitSet FOLLOW_attDef_in_attlistDecl852 = new BitSet(new long[]{0x0000000020400000L});
+    public static final BitSet FOLLOW_29_in_attlistDecl855 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_attDef865 = new BitSet(new long[]{0x00007FC000004000L});
+    public static final BitSet FOLLOW_attType_in_attDef867 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_DefaultDecl_in_attDef869 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringType_in_attType880 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tokenizedType_in_attType884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_enumeratedType_in_attType888 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_enumeration895 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_enumeration897 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_35_in_enumeration900 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_enumeration902 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_RParen_in_enumeration906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_notationType_in_enumeratedType912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_enumeration_in_enumeratedType916 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_notationType922 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_LParen_in_notationType924 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_notationType926 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_35_in_notationType929 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_Name_in_notationType931 = new BitSet(new long[]{0x0000000800008000L});
+    public static final BitSet FOLLOW_RParen_in_notationType935 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_stringType942 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_tokenizedType0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_synpred1623 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_synpred2647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_synpred3677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_synpred4702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_synpred5727 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_synpred1_DTD629 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_synpred2_DTD653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_synpred3_DTD683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_synpred4_DTD708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_synpred5_DTD733 = new BitSet(new long[]{0x0000000000000002L});
 
 }

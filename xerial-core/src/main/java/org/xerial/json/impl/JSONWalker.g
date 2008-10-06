@@ -15,7 +15,7 @@ options
   tokenVocab=JSON;
   ASTLabelType=CommonTree;
   k=4;
-}
+} 
 
 scope ObjectLayer {
  	ArrayList<JSONElement> elems;

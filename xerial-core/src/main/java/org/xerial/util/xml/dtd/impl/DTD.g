@@ -10,17 +10,19 @@ grammar DTD;
 options 
 {
 	language=Java;
+	output=AST;
 	// some lexer & parser options
-// 	k=4;	// number of look-ahead characters 
-	output=AST;	
-}
+	// number of look-ahead characters 
+	// 	k=4;	
+	
+} 
 
 tokens {
 NUMBER;
 STRING;
 }
 
-
+ 
 @lexer::header
 {
 //--------------------------------------------------

@@ -5,7 +5,7 @@
 // Since: Apr 26, 2007
 //
 //--------------------------------------
-
+ 
 grammar JSON;
 options
 {
@@ -13,7 +13,7 @@ options
 	output=AST;
 //	charVocabulary='\u0000'..'\uFFFE';
 }
-
+  
 tokens
 {
 	OBJECT;
