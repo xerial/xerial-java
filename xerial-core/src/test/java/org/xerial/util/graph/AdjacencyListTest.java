@@ -86,6 +86,20 @@ public class AdjacencyListTest extends TestCase
         assertTrue(edgeList1.contains(edge(1, 4)));
     }
 
+    public void testHasEdge()
+    {
+        assertTrue(al.hasEdge(edge(0, 1)));
+        assertTrue(al.hasEdge(edge(1, 2)));
+        assertTrue(al.hasEdge(edge(0, 3)));
+        assertTrue(al.hasEdge(edge(4, 3)));
+        assertTrue(al.hasEdge(edge(1, 4)));
+        assertTrue(al.hasEdge(edge(4, 1)));
+
+        assertFalse(al.hasEdge(edge(1, 1)));
+        assertFalse(al.hasEdge(edge(2, 1)));
+
+    }
+
     public void testHasNode()
     {
         for (int i = 0; i < 5; i++)

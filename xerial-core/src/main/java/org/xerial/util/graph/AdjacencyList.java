@@ -194,6 +194,11 @@ public class AdjacencyList<NodeType, EdgeType>
         return _edgeTable.hasEdge(getNodeID(src), getNodeID(dest));
     }
 
+    public boolean hasEdge(Edge e)
+    {
+        return _edgeTable.hasEdge(e.getSourceNodeID(), e.getDestNodeID());
+    }
+
     public void clear()
     {
         _nodeTable.clear();
