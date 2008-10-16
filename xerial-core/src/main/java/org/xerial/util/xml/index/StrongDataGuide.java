@@ -54,8 +54,9 @@ import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * StrongDataGuide, which aggregates XML nodes based on same paths
+ * 
  * @author leo
- *
+ * 
  */
 public class StrongDataGuide
 {
@@ -66,7 +67,7 @@ public class StrongDataGuide
     private SinglePath _rootPath;
     private int _rootPathID;
     private Logger _logger = Logger.getLogger(StrongDataGuide.class);
-    
+
     /**
      * 
      */
@@ -74,12 +75,12 @@ public class StrongDataGuide
     {
         super();
         _rootPath = new SinglePath(SinglePath.PathType.AbsolutePath);
-        _rootPathID = _graph.add(_rootPath);
+        _rootPathID = _graph.addNode(_rootPath);
     }
-    
 
-    /** 
+    /**
      * Generates the StrongDataGuide from the XML file
+     * 
      * @param xmlFile
      * @throws FileNotFoundException
      * @throws XMLParserException
@@ -87,31 +88,32 @@ public class StrongDataGuide
      * @throws IOException
      * @throws XerialException
      */
-    public void generateFrom(String xmlFile) throws FileNotFoundException, XMLException, IOException, XerialException 
+    public void generateFrom(String xmlFile) throws FileNotFoundException, XMLException, IOException, XerialException
     {
         Reader reader = new BufferedReader(new FileReader(xmlFile));
         generateFrom(reader);
     }
-    
+
     /**
      * Generates the {@link StrongDataGuide} from the {@link Reader}
+     * 
      * @param xmlReader
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public void generateFrom(Reader xmlReader) throws XMLException, IOException, XerialException 
+    public void generateFrom(Reader xmlReader) throws XMLException, IOException, XerialException
     {
         // initialize
-        _currentPathID = _rootPathID; 
+        _currentPathID = _rootPathID;
         _currentPath = _rootPath;
 
         XmlPullParser parser = PullParserUtil.newParser(xmlReader);
         try
         {
             int state;
-            while((state = parser.next()) != END_DOCUMENT)
+            while ((state = parser.next()) != END_DOCUMENT)
             {
-                switch(state)
+                switch (state)
                 {
                 case START_TAG:
                     String name = parser.getName();
@@ -120,7 +122,7 @@ public class StrongDataGuide
                     _logger.trace("path ID  : " + pathID);
                     moveCursor(pathID);
                     // process attributes
-                    for(int i=0; i<parser.getAttributeCount(); i++)
+                    for (int i = 0; i < parser.getAttributeCount(); i++)
                     {
                         int attributeID = getPathID("@" + parser.getAttributeName(i));
                         moveCursor(attributeID);
@@ -134,18 +136,18 @@ public class StrongDataGuide
                     break;
                 }
             }
-            
+
         }
-        catch(XmlPullParserException e)
+        catch (XmlPullParserException e)
         {
             throw new XMLException(e);
         }
     }
-    
+
     private void moveCursor(int pathID) throws GraphException
     {
         Set<Integer> destNodeID = _graph.destNodeIDSet(_currentPathID);
-        if(!destNodeID.contains(pathID))
+        if (!destNodeID.contains(pathID))
         {
             _graph.addEdge(_currentPathID, pathID, "edge");
         }
@@ -153,64 +155,64 @@ public class StrongDataGuide
         _currentPathID = pathID;
         _currentPath = _graph.getNode(pathID);
     }
-    private void traceBack() 
+
+    private void traceBack()
     {
         assert !_cursorHistory.empty();
         _currentPathID = _cursorHistory.pop();
         _currentPath = _graph.getNode(_currentPathID);
     }
-    
-    
-    
-    
+
     private int getPathID(String tagName)
     {
         SinglePath path = new SinglePath(_currentPath, tagName);
         int pathID = _graph.getNodeID(path);
-        if(pathID == -1)
+        if (pathID == -1)
         {
-            pathID = _graph.add(path);
+            pathID = _graph.addNode(path);
         }
         return pathID;
     }
-    
-    public void outputGraphviz(OutputStream out) 
+
+    public void outputGraphviz(OutputStream out)
     {
         PrintWriter gout = new PrintWriter(out);
         gout.println("digraph G {");
         // output node labels
-        for(int pathID : _graph.nodeIDSet())
+        for (int pathID : _graph.nodeIDSet())
         {
             SinglePath path = _graph.getNode(pathID);
             gout.println(pathID + " [label=" + StringUtil.quote(path.getLeaf(), "\"") + "];");
         }
-        for(int pathID : _graph.nodeIDSet())
+        for (int pathID : _graph.nodeIDSet())
         {
-        	Set<Integer> destNodeIDSet = _graph.destNodeIDSet(pathID);
-        	for(int destNodeID : destNodeIDSet)
-        	{
-        		gout.println(pathID + " -> " + destNodeID + ";");
-        	}
+            Set<Integer> destNodeIDSet = _graph.destNodeIDSet(pathID);
+            for (int destNodeID : destNodeIDSet)
+            {
+                gout.println(pathID + " -> " + destNodeID + ";");
+            }
         }
-        
+
         gout.println("}");
         gout.flush();
     }
-    
-    private static enum Opt { help }
-    
+
+    private static enum Opt {
+        help
+    }
+
     public static void main(String[] args) throws OptionParserException
     {
         OptionParser<Opt> opt = new OptionParser<Opt>();
         opt.addOption(Opt.help, "h", "help", "display help messages");
-        
+
         opt.parse(args);
-        if(opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
+        if (opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
         {
             printHelpMessage(opt);
             return;
         }
-    
+
         StrongDataGuide sdg = new StrongDataGuide();
         try
         {
@@ -226,7 +228,7 @@ public class StrongDataGuide
             System.err.println(e.getMessage());
         }
     }
-    
+
     private static void printHelpMessage(OptionParser<Opt> opt)
     {
         System.out.println("usage: > java -jar StrongDataGuide.jar [option] xml_file");
@@ -234,7 +236,3 @@ public class StrongDataGuide
     }
 
 }
-
-
-
-

@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.util.xml.index;
 
-import static org.xmlpull.v1.XmlPullParser.*;
+import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.END_TAG;
+import static org.xmlpull.v1.XmlPullParser.START_TAG;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -33,7 +35,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.util.Set;
-
 
 import org.xerial.core.XerialException;
 import org.xerial.util.cui.OptionParser;
@@ -46,20 +47,20 @@ import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-
 /**
  * Inverted pathの集合をグラフで表現したもの（Inverted Path Tree)
+ * 
  * @author leo
- *
+ * 
  */
 public class InvertedPathTree
 {
     AdjacencyList<InvertedPath, String> _pathTree = new AdjacencyList<InvertedPath, String>();
-//    TreeMap<InvertedPath, Integer> _path2idMap = new TreeMap<InvertedPath, Integer>();
-//    TreeMap<Integer, InvertedPath> _id2pathMap = new TreeMap<Integer, InvertedPath>();
+    //    TreeMap<InvertedPath, Integer> _path2idMap = new TreeMap<InvertedPath, Integer>();
+    //    TreeMap<Integer, InvertedPath> _id2pathMap = new TreeMap<Integer, InvertedPath>();
     InvertedPath _currentInvertedPath = new InvertedPath();
     int _rootID;
-    
+
     /**
      * 
      */
@@ -67,28 +68,28 @@ public class InvertedPathTree
     {
         super();
         InvertedPath rootPath = new InvertedPath();
-        _rootID = _pathTree.add(rootPath);
+        _rootID = _pathTree.addNode(rootPath);
     }
-    
+
     public void generateFrom(String xmlFile) throws XMLException, GraphException, FileNotFoundException, IOException
     {
         generateFrom(new BufferedReader(new FileReader(xmlFile)));
     }
-    
-    public void generateFrom(Reader xmlReader) throws IOException, XMLException, GraphException 
+
+    public void generateFrom(Reader xmlReader) throws IOException, XMLException, GraphException
     {
         XmlPullParser parser = PullParserUtil.newParser(xmlReader);
-        
+
         try
         {
             int state;
-            while((state = parser.next()) != END_DOCUMENT)
+            while ((state = parser.next()) != END_DOCUMENT)
             {
-                switch(state)
+                switch (state)
                 {
                 case START_TAG:
                     _currentInvertedPath.addChild(parser.getName());
-                    for(int i=0; i<parser.getAttributeCount(); i++)
+                    for (int i = 0; i < parser.getAttributeCount(); i++)
                     {
                         _currentInvertedPath.addChild("@" + parser.getAttributeName(i));
                         updateInvertedPathTree();
@@ -101,31 +102,31 @@ public class InvertedPathTree
                     break;
                 }
             }
-            
+
         }
-        catch(XmlPullParserException e)
+        catch (XmlPullParserException e)
         {
             throw new XMLException(e);
         }
-        catch(GraphException e)
+        catch (GraphException e)
         {
             throw e;
         }
     }
-    
+
     /**
      * currentPathに対応するnodeとedgeをグラフに追加する
      */
-    private void updateInvertedPathTree() throws GraphException 
+    private void updateInvertedPathTree() throws GraphException
     {
         int cursor = _rootID;
         InvertedPath cursorPath = new InvertedPath();
-        for(String tag : _currentInvertedPath)
+        for (String tag : _currentInvertedPath)
         {
             cursorPath.addParent(tag);
             Set<Integer> destNodeID = _pathTree.destNodeIDSet(cursor);
             int pathID = getPathID(cursorPath);
-            if(!destNodeID.contains(pathID))
+            if (!destNodeID.contains(pathID))
             {
                 // create an edge from the cursor node to the pathID node
                 _pathTree.addEdge(cursor, pathID, "edge");
@@ -133,25 +134,25 @@ public class InvertedPathTree
             cursor = pathID;
         }
     }
-        
+
     private int getPathID(InvertedPath path)
     {
         int pathID = _pathTree.getNodeID(path);
-        if(pathID == -1)
+        if (pathID == -1)
         {
-        	InvertedPath clonePath = new InvertedPath(path);
-            pathID = _pathTree.add(clonePath);
+            InvertedPath clonePath = new InvertedPath(path);
+            pathID = _pathTree.addNode(clonePath);
         }
         return pathID;
     }
-    
+
     public void outputGraphviz(OutputStream os)
     {
         GraphvizHelper gout = new GraphvizHelper(os);
         gout.beginDigraph("G");
-        
+
         // output node labels
-        for(int pathID : _pathTree.nodeIDSet())
+        for (int pathID : _pathTree.nodeIDSet())
         {
             InvertedPath path = _pathTree.getNode(pathID);
             assert path != null;
@@ -160,35 +161,37 @@ public class InvertedPathTree
 
         // output edges
         outputGraphvizEdges(gout, _rootID);
-            
+
         gout.endDigraph();
         gout.endOutput();
     }
-    
+
     private void outputGraphvizEdges(GraphvizHelper gout, int currentNodeID)
     {
-    	Set<Integer> destNodeIDSet = _pathTree.destNodeIDSet(currentNodeID);
-    	for(int dest : destNodeIDSet)
-    	{
-    		gout.edge(currentNodeID, dest);
-    		outputGraphvizEdges(gout, dest); // recursion
-    	}
+        Set<Integer> destNodeIDSet = _pathTree.destNodeIDSet(currentNodeID);
+        for (int dest : destNodeIDSet)
+        {
+            gout.edge(currentNodeID, dest);
+            outputGraphvizEdges(gout, dest); // recursion
+        }
     }
-    
-    
-    enum Opt { help }
+
+    enum Opt {
+        help
+    }
+
     public static void main(String[] args) throws OptionParserException
     {
         OptionParser<Opt> opt = new OptionParser<Opt>();
         opt.addOption(Opt.help, "h", "help", "display help messages");
-        
+
         opt.parse(args);
-        if(opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
+        if (opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
         {
             printHelpMessage(opt);
             return;
         }
-    
+
         InvertedPathTree ipt = new InvertedPathTree();
         try
         {
@@ -204,14 +207,10 @@ public class InvertedPathTree
             System.err.println(e.getMessage());
         }
     }
-    
+
     private static void printHelpMessage(OptionParser<Opt> opt)
     {
         System.out.println("usage: > java -jar DataGuide.jar [option] xml_file");
         System.out.println(opt.helpMessage());
     }
 }
-
-
-
-

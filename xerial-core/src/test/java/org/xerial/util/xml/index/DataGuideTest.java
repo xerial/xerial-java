@@ -69,7 +69,8 @@ public class DataGuideTest extends TestCase
         // prepare the XML document
         DataGuide dg = new DataGuide();
         dg.generateFrom(xmlSource);
-        dg.outputGraphviz(new NullOutputStream());
+        //dg.outputGraphviz(new NullOutputStream());
+        dg.outputGraphviz(System.out);
     }
 
     public void testDataGuideGenerator() throws Exception

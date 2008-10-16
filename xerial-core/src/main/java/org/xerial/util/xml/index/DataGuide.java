@@ -46,26 +46,26 @@ import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xerial.util.xml.pullparser.SAXParser;
 import org.xmlpull.v1.XmlPullParser;
 
-
 /**
  * DataGuideを作成する
+ * 
  * @author leo
- *
+ * 
  */
 public class DataGuide extends AbstractSAXEventHandler
 {
     /**
-     * Adjacency list of String:tagID (node) and String:label (edge) 
+     * Adjacency list of String:tagID (node) and String:label (edge)
      */
     private AdjacencyList<String, String> _graph = new AdjacencyList<String, String>();
-//    private HashMap<String, Integer> _tag2idMap = new HashMap<String, Integer>();
-//    private HashMap<Integer, String> _id2tagMap = new HashMap<Integer, String>();
+    //    private HashMap<String, Integer> _tag2idMap = new HashMap<String, Integer>();
+    //    private HashMap<Integer, String> _id2tagMap = new HashMap<Integer, String>();
     private int _currentNodeID = 0;
     private Stack<Integer> _cursorHistory = new Stack<Integer>();
     private int _rootNodeID;
 
-    public static final String ROOT_TAG = "_root"; 
-    
+    public static final String ROOT_TAG = "_root";
+
     /**
      * 
      */
@@ -75,13 +75,15 @@ public class DataGuide extends AbstractSAXEventHandler
         init();
     }
 
-    private static XmlPullParser getParser(Reader xmlReader) throws XMLException {
+    private static XmlPullParser getParser(Reader xmlReader) throws XMLException
+    {
         XmlPullParser parser = PullParserUtil.newParser(xmlReader);
         return parser;
     }
-    
+
     /**
      * DataGuideをたどって、与えられたpathに該当するノードIDを得る
+     * 
      * @param path
      * @return ノードID. 該当するパスが存在しないときには-1
      */
@@ -89,18 +91,19 @@ public class DataGuide extends AbstractSAXEventHandler
     {
         return getTagID(path.getLeaf());
     }
-    
+
     /**
      * DataGuide中のノードIDを返す
-     * @param tagName タグの名前。attributeの場合は, @id のような形式
+     * 
+     * @param tagName
+     *            タグの名前。attributeの場合は, @id のような形式
      * @return node ID. タグに対応するノードが見つからない場合には、-1
      */
     public int getTagID(String tagName)
     {
-    	return _graph.getNodeID(tagName);
+        return _graph.getNodeID(tagName);
     }
 
-    
     public int newTag(String tagName) throws XMLException
     {
         try
@@ -109,38 +112,38 @@ public class DataGuide extends AbstractSAXEventHandler
             this.moveCursor(tagID);
             return _currentNodeID;
         }
-        catch(GraphException e)
+        catch (GraphException e)
         {
             throw new XMLException(e);
         }
     }
-    public void newAttribute(String attributeName) throws XMLException
+
+    public void newAttribute(String tagName, String attributeName) throws XMLException
     {
         try
         {
-            int attributeID = this.getTagID_internal("@" + attributeName);
+            int attributeID = this.getTagID_internal(String.format("%s@%s", tagName, attributeName));
             this.moveCursor(attributeID);
             this.traceBack();
         }
-        catch(GraphException e)
+        catch (GraphException e)
         {
             throw new XMLException(e);
         }
     }
-    
-    public void closeTag() 
+
+    public void closeTag()
     {
         this.traceBack();
     }
-    
-        
+
     public void init()
     {
         // some initialization
         _currentNodeID = _rootNodeID;
-        
+
     }
-    
+
     //------------------------------------------------------------------------------------------------
     // SAXハンドラ用のメソッド
     // @see org.xerial.util.xml.pullparser.SAXEventHandler#startDocument(org.xmlpull.v1.XmlPullParser)
@@ -150,26 +153,27 @@ public class DataGuide extends AbstractSAXEventHandler
         init();
     }
 
-
     @Override
     public void startTag(XmlPullParser parser) throws XMLException
     {
         newTag(parser.getName());
-        for(int i=0; i<parser.getAttributeCount(); i++)
+        for (int i = 0; i < parser.getAttributeCount(); i++)
         {
-            newAttribute(parser.getAttributeName(i));
+            newAttribute(parser.getName(), parser.getAttributeName(i));
         }
     }
-    
+
     @Override
     public void endTag(XmlPullParser parser) throws XMLException
     {
         closeTag();
     }
+
     //--------------------------------------------------------------------------------------------------
 
-    /** 
+    /**
      * xml fileを読んでDataGuideを生成する。
+     * 
      * @param xmlFile
      * @throws FileNotFoundException
      * @throws XMLParserException
@@ -177,25 +181,26 @@ public class DataGuide extends AbstractSAXEventHandler
      * @throws IOException
      * @throws XerialException
      */
-    public void generateFrom(String xmlFile) throws FileNotFoundException, Exception, IOException, XerialException 
+    public void generateFrom(String xmlFile) throws FileNotFoundException, Exception, IOException, XerialException
     {
         Reader reader = new BufferedReader(new FileReader(xmlFile));
         generateFrom(reader);
     }
-    
+
     /**
      * readerからXMLを読み込んで、DataGuideを生成する
+     * 
      * @param xmlReader
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public void generateFrom(Reader xmlReader) throws Exception, IOException, XerialException 
+    public void generateFrom(Reader xmlReader) throws Exception, IOException, XerialException
     {
-        
+
         SAXParser saxParser = new SAXParser(this);
-        saxParser.parse(xmlReader);            
+        saxParser.parse(xmlReader);
     }
-    
+
     void moveCursor(int tagID) throws GraphException
     {
         _graph.addEdge(_currentNodeID, tagID, "edge");
@@ -203,62 +208,63 @@ public class DataGuide extends AbstractSAXEventHandler
         _cursorHistory.push(_currentNodeID);
         _currentNodeID = tagID;
     }
-    void traceBack() 
+
+    void traceBack()
     {
         assert !_cursorHistory.empty();
         _currentNodeID = _cursorHistory.pop();
     }
-    
-    
-    
+
     int getTagID_internal(String tagName)
     {
         int tagID = _graph.getNodeID(tagName);
-        if(tagID == -1)
+        if (tagID == -1)
         {
-            tagID = _graph.add(tagName);
+            tagID = _graph.addNode(tagName);
         }
         return tagID;
     }
-    
-    public void outputGraphviz(OutputStream out) 
+
+    public void outputGraphviz(OutputStream out)
     {
         PrintWriter gout = new PrintWriter(out);
         gout.println("digraph G {");
         // output node labels
-        for(int tagID : _graph.nodeIDSet())
+        for (int tagID : _graph.nodeIDSet())
         {
             gout.println(tagID + " [label=" + StringUtil.quote(_graph.getNode(tagID), "\"") + "];");
         }
-        for(int tagID : _graph.nodeIDSet())
+        for (int tagID : _graph.nodeIDSet())
         {
             String tagName = _graph.getNode(tagID);
             assert tagName != null;
             Set<Integer> destNodeIDSet = _graph.destNodeIDSet(tagID);
-            for(int destNodeID : destNodeIDSet)
+            for (int destNodeID : destNodeIDSet)
             {
-            	gout.println(tagID + " -> " + destNodeID + ";");
+                gout.println(tagID + " -> " + destNodeID + ";");
             }
         }
-        
+
         gout.println("}");
         gout.flush();
     }
-    
-    private static enum Opt { help }
-    
+
+    private static enum Opt {
+        help
+    }
+
     public static void main(String[] args) throws OptionParserException
     {
         OptionParser<Opt> opt = new OptionParser<Opt>();
         opt.addOption(Opt.help, "h", "help", "display help messages");
-        
+
         opt.parse(args);
-        if(opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
+        if (opt.isSet(Opt.help) || opt.getArgumentLength() < 1)
         {
             printHelpMessage(opt);
             return;
         }
-    
+
         DataGuide dg = new DataGuide();
         try
         {
@@ -270,7 +276,7 @@ public class DataGuide extends AbstractSAXEventHandler
             System.err.println(e.getMessage());
         }
     }
-    
+
     private static void printHelpMessage(OptionParser<Opt> opt)
     {
         System.out.println("usage: > java -jar DataGuide.jar [option] xml_file");

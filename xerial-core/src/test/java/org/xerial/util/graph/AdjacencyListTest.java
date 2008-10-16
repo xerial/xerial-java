@@ -32,12 +32,12 @@ import junit.framework.TestCase;
 
 /**
  * @author leo
- *
+ * 
  */
 public class AdjacencyListTest extends TestCase
 {
     AdjacencyList<Integer, String> al;
-    
+
     protected void setUp() throws Exception
     {
         al = new AdjacencyList<Integer, String>();
@@ -54,74 +54,74 @@ public class AdjacencyListTest extends TestCase
         al.addEdge(1, 4);
         al.addEdge(4, 1);
     }
+
     protected void tearDown() throws Exception
     {
-        
+
     }
-    
+
     public void testAddVertex()
     {
         assertEquals(5, al.numVertex());
-        al.add(6);
+        al.addNode(6);
         assertEquals(6, al.numVertex());
     }
 
     private Edge edge(int src, int dest)
     {
-    	return new Edge(al.getNodeID(src), al.getNodeID(dest));
+        return new Edge(al.getNodeID(src), al.getNodeID(dest));
     }
-    
+
     @SuppressWarnings("unchecked")
-	public void testAddEdge() 
+    public void testAddEdge()
     {
-    	List<Edge> edgeList = al.outEdgeList(0);
-    	assertEquals(2, edgeList.size());
-    	assertTrue(edgeList.contains(edge(0, 1)));
-    	assertTrue(edgeList.contains(edge(0, 3)));
-    	
-    	List<Edge> edgeList1 = al.outEdgeList(1);
-    	assertEquals(2, edgeList1.size());
-    	assertTrue(edgeList1.contains(edge(1, 2)));
-    	assertTrue(edgeList1.contains(edge(1, 4)));
+        List<Edge> edgeList = al.outEdgeList(0);
+        assertEquals(2, edgeList.size());
+        assertTrue(edgeList.contains(edge(0, 1)));
+        assertTrue(edgeList.contains(edge(0, 3)));
+
+        List<Edge> edgeList1 = al.outEdgeList(1);
+        assertEquals(2, edgeList1.size());
+        assertTrue(edgeList1.contains(edge(1, 2)));
+        assertTrue(edgeList1.contains(edge(1, 4)));
     }
 
     public void testHasNode()
     {
-        for(int i=0; i<5; i++)
+        for (int i = 0; i < 5; i++)
             assertTrue(al.hasNode(i));
-        for(int i=5; i<10; i++)
+        for (int i = 5; i < 10; i++)
             assertFalse(al.hasNode(i));
     }
 
     public void testVertexSet()
     {
-    	Collection<Integer> nodeList = al.nodeCollection();
-    	
-    	assertTrue(nodeList.contains(0));
-    	assertTrue(nodeList.contains(1));
-    	assertTrue(nodeList.contains(2));
-    	assertTrue(nodeList.contains(3));
-    	assertTrue(nodeList.contains(4));
-    	assertFalse(nodeList.contains(5));
+        Collection<Integer> nodeList = al.nodeCollection();
+
+        assertTrue(nodeList.contains(0));
+        assertTrue(nodeList.contains(1));
+        assertTrue(nodeList.contains(2));
+        assertTrue(nodeList.contains(3));
+        assertTrue(nodeList.contains(4));
+        assertFalse(nodeList.contains(5));
 
     }
 
-
     public void testDestNodeSet()
     {
-    	Set<Integer> s = al.destNodeIDSetOf(0);
-    	assertEquals(2, s.size());
-    	assertTrue(s.contains(al.getNodeID(1)));
-    	assertTrue(s.contains(al.getNodeID(3)));
+        Set<Integer> s = al.destNodeIDSetOf(0);
+        assertEquals(2, s.size());
+        assertTrue(s.contains(al.getNodeID(1)));
+        assertTrue(s.contains(al.getNodeID(3)));
     }
 
     public void testSourceNodeSet()
     {
-    	Set<Integer> s = al.sourceNodeIDSetOf(1);
-    	
-    	assertEquals(2, s.size());
-    	assertTrue(s.contains(al.getNodeID(0)));
-    	assertTrue(s.contains(al.getNodeID(4)));
+        Set<Integer> s = al.sourceNodeIDSetOf(1);
+
+        assertEquals(2, s.size());
+        assertTrue(s.contains(al.getNodeID(0)));
+        assertTrue(s.contains(al.getNodeID(4)));
 
     }
 
@@ -129,7 +129,7 @@ public class AdjacencyListTest extends TestCase
     {
         List<Edge> l = al.outEdgeList(4);
         assertEquals(2, l.size());
-        
+
         assertTrue(l.contains(edge(4, 3)));
         assertTrue(l.contains(edge(4, 1)));
     }
@@ -148,8 +148,16 @@ public class AdjacencyListTest extends TestCase
         assertEquals(0, al.numVertex());
     }
 
+    public void testSetEdge()
+    {
+        Edge e = edge(0, 3);
+        int edgeID = al.getEdgeID(e);
+        assertNotSame(0, edgeID);
+        assertNull(al.getEdge(e));
+        assertNull(al.getEdge(e.getSourceNodeID(), e.getDestNodeID()));
+
+        al.setEdge(e, "hello");
+        assertEquals("hello", al.getEdge(e));
+    }
+
 }
-
-
-
-
