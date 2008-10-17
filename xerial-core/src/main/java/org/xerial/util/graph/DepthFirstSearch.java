@@ -29,6 +29,9 @@ import java.util.HashMap;
 /**
  * Depth First Search Algorithm of the graph.
  * 
+ * Reference:
+ * http://www.boost.org/doc/libs/1_36_0/libs/graph/doc/DFSVisitor.html
+ * 
  * <ol>
  * <li>initializeNode each node is colored WHITE
  * <li>startNode
@@ -180,55 +183,55 @@ public abstract class DepthFirstSearch<NodeType, EdgeType>
      * 
      * @param node
      */
-    public abstract void initializeNode(NodeType node);
+    protected abstract void initializeNode(NodeType node);
 
     /**
      * Invoked when the DFS search from this node begins.
      * 
      * @param node
      */
-    public abstract void startNode(NodeType node);
+    protected abstract void startNode(NodeType node);
 
     /**
      * Invoked when a new node is found
      * 
      * @param node
      */
-    public abstract void discoverNode(NodeType node);
+    protected abstract void discoverNode(NodeType node);
 
     /**
      * Invoked when the depth first search beginning from this node
      * 
      * @param node
      */
-    public abstract void finishNode(NodeType node);
+    protected abstract void finishNode(NodeType node);
 
     /**
      * Invoked when searching for edges to traverse
      * 
      * @param edge
      */
-    public abstract void examineEdge(Edge edge);
+    protected abstract void examineEdge(Edge edge);
 
     /**
      * Invoked when traversing to a newly found node (WHITE)
      * 
      * @param edge
      */
-    public abstract void treeEdge(Edge edge);
+    protected abstract void treeEdge(Edge edge);
 
     /**
      * Invoked when a node whose DFS search is in-progress (GRAY) is found.
      * 
      * @param edge
      */
-    public abstract void backEdge(Edge edge);
+    protected abstract void backEdge(Edge edge);
 
     /**
      * Invoked when an already finished node (BLACK) is found
      * 
      * @param edge
      */
-    public abstract void forwardOrCrossEdge(Edge edge);
+    protected abstract void forwardOrCrossEdge(Edge edge);
 
 }

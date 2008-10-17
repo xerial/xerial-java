@@ -68,53 +68,53 @@ public class DepthFirsetSearchTest
         Logger _logger = Logger.getLogger(DepthFirsetSearchTest.class);
 
         @Override
-        public void backEdge(Edge edge)
+        protected void backEdge(Edge edge)
         {
             _logger.debug("back edge: " + toString(edge));
         }
 
         @Override
-        public void discoverNode(String node)
+        protected void discoverNode(String node)
         {
             _logger.debug("discover: " + node);
         }
 
         @Override
-        public void examineEdge(Edge edge)
+        protected void examineEdge(Edge edge)
         {
             _logger.debug("examine edge: " + toString(edge));
         }
 
         @Override
-        public void finishNode(String node)
+        protected void finishNode(String node)
         {
             _logger.debug("finish: " + node);
 
         }
 
         @Override
-        public void forwardOrCrossEdge(Edge edge)
+        protected void forwardOrCrossEdge(Edge edge)
         {
             _logger.debug("forward or cross: " + toString(edge));
 
         }
 
         @Override
-        public void initializeNode(String node)
+        protected void initializeNode(String node)
         {
             _logger.debug("initialize: " + node);
 
         }
 
         @Override
-        public void startNode(String node)
+        protected void startNode(String node)
         {
             _logger.debug("start: " + node);
 
         }
 
         @Override
-        public void treeEdge(Edge edge)
+        protected void treeEdge(Edge edge)
         {
             _logger.debug("tree edge: " + toString(edge));
         }
