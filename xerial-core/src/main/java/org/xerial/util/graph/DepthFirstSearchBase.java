@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,59 +16,71 @@
 //--------------------------------------
 // XerialJ
 //
-// Edge.java
-// Since: 2004/12/27
+// DepthFirstSearchBase.java
+// Since: Oct 17, 2008 4:33:48 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.graph;
 
-public class Edge implements Comparable<Edge>
+/**
+ * A base class for implementing a {@link DepthFirstSearch} event handler.
+ * 
+ * @author leo
+ * 
+ * @param <NodeType>
+ * @param <EdgeType>
+ */
+public class DepthFirstSearchBase<NodeType, EdgeType> extends DepthFirstSearch<NodeType, EdgeType>
 {
-    int srcNodeID;
-    int destNodeID;
 
-    /**
-     * @param edge
-     * @param src
-     * @param dest
-     */
-    public Edge(int src, int dest)
+    @Override
+    public void backEdge(Edge edge)
     {
-        this.srcNodeID = src;
-        this.destNodeID = dest;
+
     }
 
-    public int getDestNodeID()
+    @Override
+    public void discoverNode(NodeType node)
     {
-        return destNodeID;
+
     }
 
-    public int getSourceNodeID()
+    @Override
+    public void examineEdge(Edge edge)
     {
-        return srcNodeID;
+
     }
 
-    public boolean equals(Object o)
+    @Override
+    public void finishNode(NodeType node)
     {
-        if (o instanceof Edge)
-        {
-            Edge e = (Edge) o;
-            return (srcNodeID == e.getSourceNodeID()) && (destNodeID == e.getDestNodeID());
-        }
-        else
-            return false;
+
     }
 
-    public int compareTo(Edge o)
+    @Override
+    public void forwardOrCrossEdge(Edge edge)
     {
-        int diff = srcNodeID - o.getSourceNodeID();
-        return (diff != 0) ? diff : destNodeID - o.getDestNodeID();
+
     }
 
-    public String toString()
+    @Override
+    public void initializeNode(NodeType node)
     {
-        return String.format("(%d, %d)", srcNodeID, destNodeID);
+
     }
+
+    @Override
+    public void startNode(NodeType node)
+    {
+
+    }
+
+    @Override
+    public void treeEdge(Edge edge)
+    {
+
+    }
+
 }
