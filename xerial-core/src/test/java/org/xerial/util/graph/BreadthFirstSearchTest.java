@@ -39,8 +39,8 @@ public class BreadthFirstSearchTest
         graph = new AdjacencyList<String, String>();
         /*
          *  A->B -->C
-         *  |  |^
-         *  V  V|
+         *  | ^|^
+         *  V/ V|
          *  D<-E
          */
         graph.addEdge("A", "B");
@@ -49,6 +49,7 @@ public class BreadthFirstSearchTest
         graph.addEdge("E", "D");
         graph.addEdge("B", "E");
         graph.addEdge("E", "B");
+        graph.addEdge("D", "B");
     }
 
     @After
