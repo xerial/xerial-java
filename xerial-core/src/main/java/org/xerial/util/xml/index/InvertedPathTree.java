@@ -34,12 +34,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.util.Set;
+import java.util.Collection;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
+import org.xerial.util.graph.Edge;
+import org.xerial.util.graph.Graph;
 import org.xerial.util.graph.GraphException;
 import org.xerial.util.graph.GraphvizHelper;
 import org.xerial.util.xml.XMLException;
@@ -48,14 +50,14 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * Inverted pathの集合をグラフで表現したもの（Inverted Path Tree)
+ * Inverted path tree is a set of inverted paths represented with a graph
  * 
  * @author leo
  * 
  */
 public class InvertedPathTree
 {
-    AdjacencyList<InvertedPath, String> _pathTree = new AdjacencyList<InvertedPath, String>();
+    private Graph<InvertedPath, String> _pathTree = new AdjacencyList<InvertedPath, String>();
     //    TreeMap<InvertedPath, Integer> _path2idMap = new TreeMap<InvertedPath, Integer>();
     //    TreeMap<Integer, InvertedPath> _id2pathMap = new TreeMap<Integer, InvertedPath>();
     InvertedPath _currentInvertedPath = new InvertedPath();
@@ -124,12 +126,12 @@ public class InvertedPathTree
         for (String tag : _currentInvertedPath)
         {
             cursorPath.addParent(tag);
-            Set<Integer> destNodeID = _pathTree.destNodeIDSet(cursor);
+            Collection<Integer> destNodeID = _pathTree.getDestNodeIDSetOf(cursor);
             int pathID = getPathID(cursorPath);
             if (!destNodeID.contains(pathID))
             {
                 // create an edge from the cursor node to the pathID node
-                _pathTree.addEdge(cursor, pathID, "edge");
+                _pathTree.addEdge(new Edge(cursor, pathID), "edge");
             }
             cursor = pathID;
         }
@@ -152,9 +154,9 @@ public class InvertedPathTree
         gout.beginDigraph("G");
 
         // output node labels
-        for (int pathID : _pathTree.nodeIDSet())
+        for (int pathID : _pathTree.getNodeIDSet())
         {
-            InvertedPath path = _pathTree.getNode(pathID);
+            InvertedPath path = _pathTree.getNodeLabel(pathID);
             assert path != null;
             gout.label(pathID, path.getLastParent());
         }
@@ -168,8 +170,7 @@ public class InvertedPathTree
 
     private void outputGraphvizEdges(GraphvizHelper gout, int currentNodeID)
     {
-        Set<Integer> destNodeIDSet = _pathTree.destNodeIDSet(currentNodeID);
-        for (int dest : destNodeIDSet)
+        for (int dest : _pathTree.getDestNodeIDSetOf(currentNodeID))
         {
             gout.edge(currentNodeID, dest);
             outputGraphvizEdges(gout, dest); // recursion

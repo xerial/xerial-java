@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.util.Set;
 import java.util.Stack;
 
 import org.xerial.core.XerialException;
@@ -38,6 +37,8 @@ import org.xerial.util.StringUtil;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
+import org.xerial.util.graph.Edge;
+import org.xerial.util.graph.Graph;
 import org.xerial.util.graph.GraphException;
 import org.xerial.util.xml.SinglePath;
 import org.xerial.util.xml.XMLException;
@@ -47,7 +48,7 @@ import org.xerial.util.xml.pullparser.SAXParser;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
- * DataGuideを作成する
+ * Generates DataGuides
  * 
  * @author leo
  * 
@@ -57,7 +58,7 @@ public class DataGuide extends AbstractSAXEventHandler
     /**
      * Adjacency list of String:tagID (node) and String:label (edge)
      */
-    private AdjacencyList<String, String> _graph = new AdjacencyList<String, String>();
+    private Graph<String, String> _graph = new AdjacencyList<String, String>();
     //    private HashMap<String, Integer> _tag2idMap = new HashMap<String, Integer>();
     //    private HashMap<Integer, String> _id2tagMap = new HashMap<Integer, String>();
     private int _currentNodeID = 0;
@@ -82,10 +83,10 @@ public class DataGuide extends AbstractSAXEventHandler
     }
 
     /**
-     * DataGuideをたどって、与えられたpathに該当するノードIDを得る
+     * Get path ID
      * 
      * @param path
-     * @return ノードID. 該当するパスが存在しないときには-1
+     * @return the found path ID, if not found returns -1
      */
     public int getPathID(SinglePath path)
     {
@@ -93,11 +94,12 @@ public class DataGuide extends AbstractSAXEventHandler
     }
 
     /**
-     * DataGuide中のノードIDを返す
+     * Return tag id
      * 
      * @param tagName
-     *            タグの名前。attributeの場合は, @id のような形式
-     * @return node ID. タグに対応するノードが見つからない場合には、-1
+     *            tag name or attribute name (tag@name)
+     * 
+     * @return node ID, or -1 (if not found)
      */
     public int getTagID(String tagName)
     {
@@ -145,7 +147,7 @@ public class DataGuide extends AbstractSAXEventHandler
     }
 
     //------------------------------------------------------------------------------------------------
-    // SAXハンドラ用のメソッド
+    // SAX handler methods
     // @see org.xerial.util.xml.pullparser.SAXEventHandler#startDocument(org.xmlpull.v1.XmlPullParser)
     @Override
     public void startDocument(XmlPullParser parser) throws XMLException
@@ -172,7 +174,7 @@ public class DataGuide extends AbstractSAXEventHandler
     //--------------------------------------------------------------------------------------------------
 
     /**
-     * xml fileを読んでDataGuideを生成する。
+     * generates the DataGuides of the given XML file
      * 
      * @param xmlFile
      * @throws FileNotFoundException
@@ -188,7 +190,7 @@ public class DataGuide extends AbstractSAXEventHandler
     }
 
     /**
-     * readerからXMLを読み込んで、DataGuideを生成する
+     * Generates the DataGuide of the given XML stream
      * 
      * @param xmlReader
      * @throws FileNotFoundException
@@ -203,7 +205,7 @@ public class DataGuide extends AbstractSAXEventHandler
 
     void moveCursor(int tagID) throws GraphException
     {
-        _graph.addEdge(_currentNodeID, tagID, "edge");
+        _graph.addEdge(new Edge(_currentNodeID, tagID), "edge");
 
         _cursorHistory.push(_currentNodeID);
         _currentNodeID = tagID;
@@ -230,16 +232,13 @@ public class DataGuide extends AbstractSAXEventHandler
         PrintWriter gout = new PrintWriter(out);
         gout.println("digraph G {");
         // output node labels
-        for (int tagID : _graph.nodeIDSet())
+        for (int tagID : _graph.getNodeIDSet())
         {
-            gout.println(tagID + " [label=" + StringUtil.quote(_graph.getNode(tagID), "\"") + "];");
+            gout.println(tagID + " [label=" + StringUtil.quote(_graph.getNodeLabel(tagID), "\"") + "];");
         }
-        for (int tagID : _graph.nodeIDSet())
+        for (int tagID : _graph.getNodeIDSet())
         {
-            String tagName = _graph.getNode(tagID);
-            assert tagName != null;
-            Set<Integer> destNodeIDSet = _graph.destNodeIDSet(tagID);
-            for (int destNodeID : destNodeIDSet)
+            for (int destNodeID : _graph.getDestNodeIDSetOf(tagID))
             {
                 gout.println(tagID + " -> " + destNodeID + ";");
             }

@@ -24,10 +24,16 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+/**
+ * Edge structure from source node ID to destination node ID
+ * 
+ * @author leo
+ * 
+ */
 public class Edge implements Comparable<Edge>
 {
-    int srcNodeID;
-    int destNodeID;
+    final int srcNodeID;
+    final int destNodeID;
 
     /**
      * @param edge

@@ -47,36 +47,36 @@ import java.util.HashMap;
  * @author leo
  * 
  */
-public abstract class DepthFirstSearch<NodeType, EdgeType>
+public abstract class DepthFirstSearch<NodeLabel, EdgeLabel>
 {
     enum NodeColor {
         WHITE, GRAY, BLACK
     }
 
-    private AdjacencyList<NodeType, EdgeType> _graph;
-    private HashMap<NodeType, NodeColor> _nodeColor = new HashMap<NodeType, NodeColor>();
-    private HashMap<NodeType, NodeType> _predecessor = new HashMap<NodeType, NodeType>();
+    private Graph<NodeLabel, EdgeLabel> _graph;
+    private HashMap<NodeLabel, NodeColor> _nodeColor = new HashMap<NodeLabel, NodeColor>();
+    private HashMap<NodeLabel, NodeLabel> _predecessor = new HashMap<NodeLabel, NodeLabel>();
     private int _time;
-    private HashMap<NodeType, Integer> _discoveryTime = new HashMap<NodeType, Integer>();
-    private HashMap<NodeType, Integer> _finishTime = new HashMap<NodeType, Integer>();
+    private HashMap<NodeLabel, Integer> _discoveryTime = new HashMap<NodeLabel, Integer>();
+    private HashMap<NodeLabel, Integer> _finishTime = new HashMap<NodeLabel, Integer>();
 
     public DepthFirstSearch()
     {
 
     }
 
-    public void run(AdjacencyList<NodeType, EdgeType> graph)
+    public void run(Graph<NodeLabel, EdgeLabel> graph)
     {
         // start from the fist entry in the node collection of the graph
         run(graph, null);
     }
 
-    public void run(AdjacencyList<NodeType, EdgeType> graph, NodeType startNode)
+    public void run(Graph<NodeLabel, EdgeLabel> graph, NodeLabel startNode)
     {
         this._graph = graph;
 
         // initialize each node 
-        for (NodeType eachNode : _graph.nodeCollection())
+        for (NodeLabel eachNode : _graph.getNodeLabels())
         {
             this.initializeNode(eachNode);
 
@@ -89,7 +89,7 @@ public abstract class DepthFirstSearch<NodeType, EdgeType>
             this.startNode(startNode);
             dfsVisit(startNode);
         }
-        for (NodeType node : _graph.nodeCollection())
+        for (NodeLabel node : _graph.getNodeLabels())
         {
             NodeColor color = _nodeColor.get(node);
             assert (color != null);
@@ -101,16 +101,16 @@ public abstract class DepthFirstSearch<NodeType, EdgeType>
         }
     }
 
-    private void dfsVisit(NodeType node)
+    private void dfsVisit(NodeLabel node)
     {
         this.discoverNode(node);
         _nodeColor.put(node, NodeColor.GRAY);
         _discoveryTime.put(node, _time++);
-        for (Edge edge : _graph.outEdgeList(node))
+        for (Edge edge : _graph.getOutEdges(node))
         {
             this.examineEdge(edge);
 
-            NodeType adjacentNode = _graph.getNode(edge.getDestNodeID());
+            NodeLabel adjacentNode = _graph.getNodeLabel(edge.getDestNodeID());
             NodeColor color = _nodeColor.get(adjacentNode);
             assert (color != null);
             if (color == NodeColor.WHITE)
@@ -137,45 +137,45 @@ public abstract class DepthFirstSearch<NodeType, EdgeType>
     }
 
     // utilty methods
-    protected NodeType getPredecessor(NodeType node)
+    protected NodeLabel getPredecessor(NodeLabel node)
     {
         return _predecessor.get(node);
     }
 
-    protected int getDiscoveryTime(NodeType node)
+    protected int getDiscoveryTime(NodeLabel node)
     {
         return _discoveryTime.get(node);
     }
 
-    protected int getFinishTime(NodeType node)
+    protected int getFinishTime(NodeLabel node)
     {
         return _finishTime.get(node);
     }
 
-    protected final AdjacencyList<NodeType, EdgeType> getGraph()
+    protected final Graph<NodeLabel, EdgeLabel> getGraph()
     {
         return _graph;
     }
 
-    protected EdgeType getEdgeData(Edge edge)
+    protected EdgeLabel getEdgeLabel(Edge edge)
     {
-        return _graph.getEdge(edge);
+        return _graph.getEdgeLabel(edge);
     }
 
-    protected NodeType getSourceNode(Edge edge)
+    protected NodeLabel getSourceNode(Edge edge)
     {
-        return _graph.getNode(edge.getSourceNodeID());
+        return _graph.getNodeLabel(edge.getSourceNodeID());
     }
 
-    protected NodeType getDestNode(Edge edge)
+    protected NodeLabel getDestNode(Edge edge)
     {
-        return _graph.getNode(edge.getDestNodeID());
+        return _graph.getNodeLabel(edge.getDestNodeID());
     }
 
     public String toString(Edge edge)
     {
-        return String.format("(%s,%s)", getGraph().getNode(edge.getSourceNodeID()).toString(), getGraph().getNode(
-                edge.getDestNodeID()).toString());
+        return String.format("(%s,%s)", getGraph().getNodeLabel(edge.getSourceNodeID()).toString(), getGraph()
+                .getNodeLabel(edge.getDestNodeID()).toString());
     }
 
     /**
@@ -183,28 +183,28 @@ public abstract class DepthFirstSearch<NodeType, EdgeType>
      * 
      * @param node
      */
-    protected abstract void initializeNode(NodeType node);
+    protected abstract void initializeNode(NodeLabel node);
 
     /**
      * Invoked when the DFS search from this node begins.
      * 
      * @param node
      */
-    protected abstract void startNode(NodeType node);
+    protected abstract void startNode(NodeLabel node);
 
     /**
      * Invoked when a new node is found
      * 
      * @param node
      */
-    protected abstract void discoverNode(NodeType node);
+    protected abstract void discoverNode(NodeLabel node);
 
     /**
      * Invoked when the depth first search beginning from this node
      * 
      * @param node
      */
-    protected abstract void finishNode(NodeType node);
+    protected abstract void finishNode(NodeLabel node);
 
     /**
      * Invoked when searching for edges to traverse

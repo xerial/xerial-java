@@ -39,7 +39,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         WHITE, GRAY, BLACK
     }
 
-    private AdjacencyList<NodeType, EdgeType> _graph;
+    private Graph<NodeType, EdgeType> _graph;
     private HashMap<NodeType, NodeColor> _nodeColor = new HashMap<NodeType, NodeColor>();
     private HashMap<NodeType, NodeType> _predecessor = new HashMap<NodeType, NodeType>();
     private int _time;
@@ -47,17 +47,17 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
     //private HashMap<NodeType, Integer> _finishTime = new HashMap<NodeType, Integer>();
     private Stack<NodeType> nodeStack = new Stack<NodeType>();
 
-    public void run(AdjacencyList<NodeType, EdgeType> graph)
+    public void run(Graph<NodeType, EdgeType> graph)
     {
         run(graph, null);
     }
 
-    public void run(AdjacencyList<NodeType, EdgeType> graph, NodeType startNode)
+    public void run(Graph<NodeType, EdgeType> graph, NodeType startNode)
     {
         this._graph = graph;
         nodeStack.clear();
 
-        for (NodeType eachNode : _graph.nodeCollection())
+        for (NodeType eachNode : _graph.getNodeLabels())
         {
             initializeNode(eachNode);
             _nodeColor.put(eachNode, NodeColor.WHITE);
@@ -68,7 +68,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         {
             searchStart(startNode);
         }
-        for (NodeType node : _graph.nodeCollection())
+        for (NodeType node : _graph.getNodeLabels())
         {
             searchStart(node);
         }
@@ -100,11 +100,11 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
             NodeType cursorNode = nodeStack.pop();
             this.examineNode(cursorNode);
 
-            for (Edge edge : _graph.outEdgeList(cursorNode))
+            for (Edge edge : _graph.getOutEdges(cursorNode))
             {
                 this.examineEdge(edge);
 
-                NodeType nextNode = _graph.getNode(edge.getDestNodeID());
+                NodeType nextNode = _graph.getNodeLabel(edge.getDestNodeID());
                 NodeColor nextNodeColor = _nodeColor.get(nextNode);
                 assert (nextNodeColor != null);
 

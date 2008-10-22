@@ -43,11 +43,11 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class AdjacencyList<NodeType, EdgeType>
+public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, EdgeLabel>
 {
-    NodeTable<NodeType> _nodeTable = new NodeTable<NodeType>();
+    NodeTable<NodeLabel> _nodeTable = new NodeTable<NodeLabel>();
 
-    EdgeTable<EdgeType> _edgeTable = new EdgeTable<EdgeType>();
+    EdgeTable<EdgeLabel> _edgeTable = new EdgeTable<EdgeLabel>();
 
     public AdjacencyList()
     {
@@ -59,12 +59,12 @@ public class AdjacencyList<NodeType, EdgeType>
      * @return
      * @deprecated use {@link #addNode(Object)} instead
      */
-    public int add(NodeType node)
+    public int add(NodeLabel node)
     {
         return addNode(node);
     }
 
-    public int addNode(NodeType node)
+    public int addNode(NodeLabel node)
     {
         int nodeID = _nodeTable.getNodeID(node);
         if (nodeID == -1)
@@ -72,12 +72,12 @@ public class AdjacencyList<NodeType, EdgeType>
         return nodeID;
     }
 
-    public void addEdge(NodeType sourceNode, NodeType destNode)
+    public Edge addEdge(NodeLabel sourceNode, NodeLabel destNode)
     {
-        addEdge(sourceNode, destNode, null);
+        return addEdge(sourceNode, destNode, null);
     }
 
-    public void addEdge(NodeType sourceNode, NodeType destNode, EdgeType edge)
+    public Edge addEdge(NodeLabel sourceNode, NodeLabel destNode, EdgeLabel edgeLabel)
     {
         addNode(sourceNode);
         addNode(destNode);
@@ -85,73 +85,59 @@ public class AdjacencyList<NodeType, EdgeType>
         int sourceNodeID = _nodeTable.getNodeID(sourceNode);
         int destNodeID = _nodeTable.getNodeID(destNode);
 
-        _edgeTable.add(edge, sourceNodeID, destNodeID);
+        Edge newEdge = new Edge(sourceNodeID, destNodeID);
+        _edgeTable.add(newEdge, edgeLabel);
+        return newEdge;
     }
 
-    public void addEdge(Edge target, EdgeType edgeInfo) throws GraphException
+    public Edge addEdge(Edge edge, EdgeLabel edgeLabel)
     {
-        addEdge(target.getSourceNodeID(), target.getDestNodeID(), edgeInfo);
+        if (!_nodeTable.containsKey(edge.srcNodeID))
+            throw new IllegalArgumentException("no node id is found: " + edge.srcNodeID);
+        if (!_nodeTable.containsKey(edge.destNodeID))
+            throw new IllegalArgumentException("no node id is found: " + edge.destNodeID);
+
+        _edgeTable.add(edge, edgeLabel);
+
+        return edge;
     }
 
-    public void addEdge(int sourceNodeID, int destNodeID, EdgeType edge) throws GraphException
+    public Edge addEdge(int sourceNodeID, int destNodeID, EdgeLabel edgeLabel)
     {
-        if (!_nodeTable.containsKey(sourceNodeID))
-            throw new GraphException("no node id is found: " + sourceNodeID);
-        if (!_nodeTable.containsKey(destNodeID))
-            throw new GraphException("no node id is found: " + destNodeID);
-
-        _edgeTable.add(edge, sourceNodeID, destNodeID);
-
+        return addEdge(new Edge(sourceNodeID, destNodeID), edgeLabel);
     }
 
-    /*
-    public void setNodeTable(List<NodeData> nodeList)
-    {
-    	
-    }
-    */
-
-    public Collection<NodeType> nodeCollection()
+    public Collection<NodeLabel> getNodeLabels()
     {
         return _nodeTable.values();
     }
 
-    public Set<Integer> nodeIDSet()
+    public Collection<Integer> getNodeIDSet()
     {
         return _nodeTable.keySet();
     }
 
-    public Set<Integer> destNodeIDSetOf(NodeType node)
-    {
-        return destNodeIDSet(getNodeID(node));
-    }
-
-    public Set<Integer> sourceNodeIDSetOf(NodeType node)
-    {
-        return sourceNodeIDSet(getNodeID(node));
-    }
-
-    public Set<Integer> destNodeIDSet(Integer nodeID)
+    public Collection<Integer> getDestNodeIDSetOf(int nodeID)
     {
         return _edgeTable.destNodeIDSet(nodeID);
     }
 
-    public Set<Integer> sourceNodeIDSet(Integer nodeID)
+    public Collection<Integer> getSourceNodeIDSetOf(int nodeID)
     {
         return _edgeTable.sourceNodeIDSet(nodeID);
     }
 
-    public int getNodeID(NodeType node)
+    public int getNodeID(NodeLabel node)
     {
         return _nodeTable.getNodeID(node);
     }
 
-    public NodeType getNode(int nodeID)
+    public NodeLabel getNodeLabel(int nodeID)
     {
         return _nodeTable.get(nodeID);
     }
 
-    public List<Edge> outEdgeList(NodeType node)
+    public Collection<Edge> getOutEdges(NodeLabel node)
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         int sourceNodeID = getNodeID(node);
@@ -162,18 +148,18 @@ public class AdjacencyList<NodeType, EdgeType>
         return edgeList;
     }
 
-    public List<NodeType> outNodeList(NodeType node)
+    public List<NodeLabel> outNodeList(NodeLabel node)
     {
-        ArrayList<NodeType> outNodeList = new ArrayList<NodeType>();
+        ArrayList<NodeLabel> outNodeList = new ArrayList<NodeLabel>();
         int sourceNodeID = getNodeID(node);
         for (Integer destNodeID : _edgeTable.destNodeIDSet(sourceNodeID))
         {
-            outNodeList.add(getNode(destNodeID));
+            outNodeList.add(getNodeLabel(destNodeID));
         }
         return outNodeList;
     }
 
-    public List<Edge> inEdgeList(NodeType node)
+    public Collection<Edge> getInEdges(NodeLabel node)
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         int nodeID = getNodeID(node);
@@ -184,19 +170,20 @@ public class AdjacencyList<NodeType, EdgeType>
         return edgeList;
     }
 
-    public boolean hasNode(NodeType node)
+    public boolean hasNode(NodeLabel node)
     {
         return _nodeTable.containsValue(node);
     }
 
-    public boolean hasEdge(NodeType src, NodeType dest)
+    public boolean hasEdge(NodeLabel src, NodeLabel dest)
     {
-        return _edgeTable.hasEdge(getNodeID(src), getNodeID(dest));
+        Edge edge = new Edge(getNodeID(src), getNodeID(dest));
+        return hasEdge(edge);
     }
 
     public boolean hasEdge(Edge e)
     {
-        return _edgeTable.hasEdge(e.getSourceNodeID(), e.getDestNodeID());
+        return _edgeTable.hasEdge(e);
     }
 
     public void clear()
@@ -205,17 +192,17 @@ public class AdjacencyList<NodeType, EdgeType>
         _edgeTable.clear();
     }
 
-    public int numVertex()
+    public int getNumNodes()
     {
         return _nodeTable.size();
     }
 
-    public List<Edge> edgeSet()
+    public Collection<Edge> getEdges()
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
-        for (int nodeID : nodeIDSet())
+        for (int nodeID : getNodeIDSet())
         {
-            for (Edge edge : outEdgeList(getNode(nodeID)))
+            for (Edge edge : getOutEdges(getNodeLabel(nodeID)))
             {
                 edgeList.add(edge);
             }
@@ -226,17 +213,17 @@ public class AdjacencyList<NodeType, EdgeType>
 
     public int getEdgeID(Edge edge)
     {
-        return _edgeTable.getEdgeID(edge.getSourceNodeID(), edge.getDestNodeID());
+        return _edgeTable.getEdgeID(edge);
     }
 
-    public EdgeType getEdge(Edge edge)
+    public EdgeLabel getEdgeLabel(Edge edge)
     {
-        return _edgeTable.getEdgeInfo(edge);
+        return _edgeTable.getEdgeLabel(edge);
     }
 
-    public EdgeType getEdge(NodeType src, NodeType dest)
+    public EdgeLabel getEdgeLabel(NodeLabel src, NodeLabel dest)
     {
-        return _edgeTable.getEdgeInfo(new Edge(getNodeID(src), getNodeID(dest)));
+        return _edgeTable.getEdgeLabel(new Edge(getNodeID(src), getNodeID(dest)));
     }
 
     /**
@@ -244,9 +231,9 @@ public class AdjacencyList<NodeType, EdgeType>
      * @return
      * @deprecated use {@link #getEdge(Edge)} instead
      */
-    public EdgeType getEdgeInfo(Edge edge)
+    public EdgeLabel getEdgeInfo(Edge edge)
     {
-        return getEdge(edge);
+        return getEdgeLabel(edge);
     }
 
     /**
@@ -255,19 +242,19 @@ public class AdjacencyList<NodeType, EdgeType>
      * @return
      * @deprecated use {@link #getEdge(Object, Object)} instead
      */
-    public EdgeType getEdgeInfo(NodeType src, NodeType dest)
+    public EdgeLabel getEdgeInfo(NodeLabel src, NodeLabel dest)
     {
-        return getEdge(src, dest);
+        return getEdgeLabel(src, dest);
     }
 
-    public void setNode(int nodeID, NodeType node)
+    public void setNodeLabel(int nodeID, NodeLabel node)
     {
         _nodeTable.add(nodeID, node);
     }
 
-    public void setEdge(Edge targetEdge, EdgeType edgeInfo)
+    public void setEdgeLabel(Edge edge, EdgeLabel edgeLabel)
     {
-        _edgeTable.setEdge(targetEdge.srcNodeID, targetEdge.destNodeID, edgeInfo);
+        _edgeTable.setEdge(edge, edgeLabel);
     }
 
     public String toString()
@@ -275,9 +262,9 @@ public class AdjacencyList<NodeType, EdgeType>
         String nodeData = CollectionUtil.displayMap(_nodeTable, ":", ", ");
 
         ArrayList<String> edgeData = new ArrayList<String>();
-        for (Edge e : edgeSet())
+        for (Edge e : getEdges())
         {
-            EdgeType edgeInfo = getEdge(e);
+            EdgeLabel edgeInfo = getEdgeLabel(e);
             edgeData.add(e.toString() + ":" + (edgeInfo != null ? edgeInfo.toString() : ""));
         }
         return "node: " + nodeData + "\n" + StringUtil.join(edgeData, "\n");
@@ -327,70 +314,64 @@ class NodeTable<NodeType> extends TreeMap<Integer, NodeType>
 
 }
 
-class EdgeTable<EdgeType>
+class EdgeTable<EdgeLabel>
 {
     /**
 	 * 
 	 */
     private static final long serialVersionUID = 1L;
-    TreeMap<Integer, EdgeType> _edgeTable = new TreeMap<Integer, EdgeType>();
+    TreeMap<Integer, EdgeLabel> _edgeTable = new TreeMap<Integer, EdgeLabel>();
     TreeMap<Edge, Integer> _edgeIndex = new TreeMap<Edge, Integer>();
     HashMap<Integer, TreeSet<Integer>> _outNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
     HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
 
-    public int add(int newEdgeID, EdgeType edge, int sourceNodeID, int destNodeID)
+    protected int add(int newEdgeID, EdgeLabel edgeLabel, Edge newEdge)
     {
-        Edge newEdge = new Edge(sourceNodeID, destNodeID);
-        Set<Integer> destNodeListOfSourceNode = destNodeIDSet(sourceNodeID);
-        Set<Integer> sourceNodeListdOfDestinationNode = sourceNodeIDSet(destNodeID);
+        Set<Integer> destNodeListOfSourceNode = destNodeIDSet(newEdge.srcNodeID);
+        Set<Integer> sourceNodeListdOfDestinationNode = sourceNodeIDSet(newEdge.destNodeID);
 
-        destNodeListOfSourceNode.add(destNodeID);
-        sourceNodeListdOfDestinationNode.add(sourceNodeID);
+        destNodeListOfSourceNode.add(newEdge.destNodeID);
+        sourceNodeListdOfDestinationNode.add(newEdge.srcNodeID);
         _edgeIndex.put(newEdge, newEdgeID);
-        _edgeTable.put(newEdgeID, edge);
+        _edgeTable.put(newEdgeID, edgeLabel);
 
         return newEdgeID;
     }
 
-    public int add(EdgeType edge, int sourceNodeID, int destNodeID)
+    public int add(Edge edge, EdgeLabel edgeLabel)
     {
-        if (hasEdge(sourceNodeID, destNodeID))
-            return getEdgeID(sourceNodeID, destNodeID);
+        if (hasEdge(edge))
+            return getEdgeID(edge);
 
         int newEdgeID = _edgeIndex.size() + 1;
-        return add(newEdgeID, edge, sourceNodeID, destNodeID);
+        return add(newEdgeID, edgeLabel, edge);
     }
 
-    public void setEdge(int sourceNodeID, int destNodeID, EdgeType edge)
+    public void setEdge(Edge edge, EdgeLabel edgeLabel)
     {
-        if (!hasEdge(sourceNodeID, destNodeID))
+        if (!hasEdge(edge))
         {
-            add(edge, sourceNodeID, destNodeID);
+            add(edge, edgeLabel);
             return;
         }
 
-        int edgeID = getEdgeID(sourceNodeID, destNodeID);
-        _edgeTable.put(edgeID, edge);
+        int edgeID = getEdgeID(edge);
+        _edgeTable.put(edgeID, edgeLabel);
     }
 
-    public boolean hasEdge(int sourceNodeID, int destNodeID)
+    public boolean hasEdge(Edge edge)
     {
-        return destNodeIDSet(sourceNodeID).contains(destNodeID);
+        return destNodeIDSet(edge.srcNodeID).contains(edge.destNodeID);
     }
 
-    public EdgeType getEdgeInfo(int edgeID)
+    public EdgeLabel getEdgeLabel(int edgeID)
     {
         return _edgeTable.get(edgeID);
     }
 
-    public EdgeType getEdgeInfo(Edge edge)
+    public EdgeLabel getEdgeLabel(Edge edge)
     {
-        return getEdgeInfo(getEdgeID(edge.getSourceNodeID(), edge.getDestNodeID()));
-    }
-
-    public int getEdgeID(int sourceNodeID, int destNodeID)
-    {
-        return getEdgeID(new Edge(sourceNodeID, destNodeID));
+        return getEdgeLabel(getEdgeID(edge));
     }
 
     public int getEdgeID(Edge e)

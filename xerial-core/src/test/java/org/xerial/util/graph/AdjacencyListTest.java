@@ -25,8 +25,6 @@
 package org.xerial.util.graph;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -36,7 +34,7 @@ import junit.framework.TestCase;
  */
 public class AdjacencyListTest extends TestCase
 {
-    AdjacencyList<Integer, String> al;
+    Graph<Integer, String> al;
 
     protected void setUp() throws Exception
     {
@@ -62,9 +60,9 @@ public class AdjacencyListTest extends TestCase
 
     public void testAddVertex()
     {
-        assertEquals(5, al.numVertex());
+        assertEquals(5, al.getNumNodes());
         al.addNode(6);
-        assertEquals(6, al.numVertex());
+        assertEquals(6, al.getNumNodes());
     }
 
     private Edge edge(int src, int dest)
@@ -75,12 +73,12 @@ public class AdjacencyListTest extends TestCase
     @SuppressWarnings("unchecked")
     public void testAddEdge()
     {
-        List<Edge> edgeList = al.outEdgeList(0);
+        Collection<Edge> edgeList = al.getOutEdges(0);
         assertEquals(2, edgeList.size());
         assertTrue(edgeList.contains(edge(0, 1)));
         assertTrue(edgeList.contains(edge(0, 3)));
 
-        List<Edge> edgeList1 = al.outEdgeList(1);
+        Collection<Edge> edgeList1 = al.getOutEdges(1);
         assertEquals(2, edgeList1.size());
         assertTrue(edgeList1.contains(edge(1, 2)));
         assertTrue(edgeList1.contains(edge(1, 4)));
@@ -110,7 +108,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testVertexSet()
     {
-        Collection<Integer> nodeList = al.nodeCollection();
+        Collection<Integer> nodeList = al.getNodeLabels();
 
         assertTrue(nodeList.contains(0));
         assertTrue(nodeList.contains(1));
@@ -123,7 +121,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testDestNodeSet()
     {
-        Set<Integer> s = al.destNodeIDSetOf(0);
+        Collection<Integer> s = al.getDestNodeIDSetOf(al.getNodeID(0));
         assertEquals(2, s.size());
         assertTrue(s.contains(al.getNodeID(1)));
         assertTrue(s.contains(al.getNodeID(3)));
@@ -131,7 +129,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testSourceNodeSet()
     {
-        Set<Integer> s = al.sourceNodeIDSetOf(1);
+        Collection<Integer> s = al.getSourceNodeIDSetOf(al.getNodeID(1));
 
         assertEquals(2, s.size());
         assertTrue(s.contains(al.getNodeID(0)));
@@ -141,7 +139,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testOutEdgeList() throws GraphException
     {
-        List<Edge> l = al.outEdgeList(4);
+        Collection<Edge> l = al.getOutEdges(4);
         assertEquals(2, l.size());
 
         assertTrue(l.contains(edge(4, 3)));
@@ -150,7 +148,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testInEdgeList() throws GraphException
     {
-        List<Edge> l = al.inEdgeList(3);
+        Collection<Edge> l = al.getInEdges(3);
         assertEquals(2, l.size());
         assertTrue(l.contains(edge(0, 3)));
         assertTrue(l.contains(edge(4, 3)));
@@ -159,19 +157,16 @@ public class AdjacencyListTest extends TestCase
     public void testClear()
     {
         al.clear();
-        assertEquals(0, al.numVertex());
+        assertEquals(0, al.getNumNodes());
     }
 
     public void testSetEdge()
     {
         Edge e = edge(0, 3);
-        int edgeID = al.getEdgeID(e);
-        assertNotSame(0, edgeID);
-        assertNull(al.getEdge(e));
-        assertNull(al.getEdge(e.getSourceNodeID(), e.getDestNodeID()));
+        assertNull(al.getEdgeLabel(e));
 
-        al.setEdge(e, "hello");
-        assertEquals("hello", al.getEdge(e));
+        al.setEdgeLabel(e, "hello");
+        assertEquals("hello", al.getEdgeLabel(e));
     }
 
 }

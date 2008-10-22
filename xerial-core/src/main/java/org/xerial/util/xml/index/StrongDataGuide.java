@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.util.Set;
+import java.util.Collection;
 import java.util.Stack;
 
 import org.xerial.core.XerialException;
@@ -44,6 +44,8 @@ import org.xerial.util.StringUtil;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
+import org.xerial.util.graph.Edge;
+import org.xerial.util.graph.Graph;
 import org.xerial.util.graph.GraphException;
 import org.xerial.util.log.Logger;
 import org.xerial.util.xml.SinglePath;
@@ -60,7 +62,7 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class StrongDataGuide
 {
-    private AdjacencyList<SinglePath, String> _graph = new AdjacencyList<SinglePath, String>();
+    private Graph<SinglePath, String> _graph = new AdjacencyList<SinglePath, String>();
     private int _currentPathID = 0;
     private Stack<Integer> _cursorHistory = new Stack<Integer>();
     private SinglePath _currentPath;
@@ -146,21 +148,21 @@ public class StrongDataGuide
 
     private void moveCursor(int pathID) throws GraphException
     {
-        Set<Integer> destNodeID = _graph.destNodeIDSet(_currentPathID);
+        Collection<Integer> destNodeID = _graph.getDestNodeIDSetOf(_currentPathID);
         if (!destNodeID.contains(pathID))
         {
-            _graph.addEdge(_currentPathID, pathID, "edge");
+            _graph.addEdge(new Edge(_currentPathID, pathID), "edge");
         }
         _cursorHistory.push(_currentPathID);
         _currentPathID = pathID;
-        _currentPath = _graph.getNode(pathID);
+        _currentPath = _graph.getNodeLabel(pathID);
     }
 
     private void traceBack()
     {
         assert !_cursorHistory.empty();
         _currentPathID = _cursorHistory.pop();
-        _currentPath = _graph.getNode(_currentPathID);
+        _currentPath = _graph.getNodeLabel(_currentPathID);
     }
 
     private int getPathID(String tagName)
@@ -179,15 +181,14 @@ public class StrongDataGuide
         PrintWriter gout = new PrintWriter(out);
         gout.println("digraph G {");
         // output node labels
-        for (int pathID : _graph.nodeIDSet())
+        for (int pathID : _graph.getNodeIDSet())
         {
-            SinglePath path = _graph.getNode(pathID);
+            SinglePath path = _graph.getNodeLabel(pathID);
             gout.println(pathID + " [label=" + StringUtil.quote(path.getLeaf(), "\"") + "];");
         }
-        for (int pathID : _graph.nodeIDSet())
+        for (int pathID : _graph.getNodeIDSet())
         {
-            Set<Integer> destNodeIDSet = _graph.destNodeIDSet(pathID);
-            for (int destNodeID : destNodeIDSet)
+            for (int destNodeID : _graph.getDestNodeIDSetOf(pathID))
             {
                 gout.println(pathID + " -> " + destNodeID + ";");
             }
