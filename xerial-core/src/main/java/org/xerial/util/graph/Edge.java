@@ -66,6 +66,15 @@ public class Edge implements Comparable<Edge>
         else
             return false;
     }
+    
+    @Override
+    public int hashCode()
+    {
+        int hash = 31;
+        hash += srcNodeID * 271;
+        hash += destNodeID * 271;
+        return hash;
+    }
 
     public int compareTo(Edge o)
     {
