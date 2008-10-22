@@ -79,13 +79,13 @@ public interface Graph<NodeLabel, EdgeLabel>
 
     void setEdgeLabel(Edge edge, EdgeLabel edgeLabel);
 
-    Collection<NodeLabel> getNodeLabels();
+    Collection<NodeLabel> getNodeLabelSet();
 
-    Collection<Edge> getOutEdges(NodeLabel node);
+    Collection<Edge> getOutEdgeSet(NodeLabel node);
 
-    Collection<Edge> getInEdges(NodeLabel node);
+    Collection<Edge> getInEdgeSet(NodeLabel node);
 
-    Collection<Edge> getEdges();
+    Collection<Edge> getEdgeSet();
 
     Collection<Integer> getDestNodeIDSetOf(int nodeID);
 

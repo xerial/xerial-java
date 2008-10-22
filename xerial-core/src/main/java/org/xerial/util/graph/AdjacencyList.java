@@ -107,7 +107,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         return addEdge(new Edge(sourceNodeID, destNodeID), edgeLabel);
     }
 
-    public Collection<NodeLabel> getNodeLabels()
+    public Collection<NodeLabel> getNodeLabelSet()
     {
         return _nodeTable.values();
     }
@@ -137,7 +137,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         return _nodeTable.get(nodeID);
     }
 
-    public Collection<Edge> getOutEdges(NodeLabel node)
+    public Collection<Edge> getOutEdgeSet(NodeLabel node)
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         int sourceNodeID = getNodeID(node);
@@ -159,7 +159,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         return outNodeList;
     }
 
-    public Collection<Edge> getInEdges(NodeLabel node)
+    public Collection<Edge> getInEdgeSet(NodeLabel node)
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         int nodeID = getNodeID(node);
@@ -197,12 +197,12 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         return _nodeTable.size();
     }
 
-    public Collection<Edge> getEdges()
+    public Collection<Edge> getEdgeSet()
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         for (int nodeID : getNodeIDSet())
         {
-            for (Edge edge : getOutEdges(getNodeLabel(nodeID)))
+            for (Edge edge : getOutEdgeSet(getNodeLabel(nodeID)))
             {
                 edgeList.add(edge);
             }
@@ -262,7 +262,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         String nodeData = CollectionUtil.displayMap(_nodeTable, ":", ", ");
 
         ArrayList<String> edgeData = new ArrayList<String>();
-        for (Edge e : getEdges())
+        for (Edge e : getEdgeSet())
         {
             EdgeLabel edgeInfo = getEdgeLabel(e);
             edgeData.add(e.toString() + ":" + (edgeInfo != null ? edgeInfo.toString() : ""));

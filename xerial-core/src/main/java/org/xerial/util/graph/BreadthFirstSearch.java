@@ -57,7 +57,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         this._graph = graph;
         nodeStack.clear();
 
-        for (NodeType eachNode : _graph.getNodeLabels())
+        for (NodeType eachNode : _graph.getNodeLabelSet())
         {
             initializeNode(eachNode);
             _nodeColor.put(eachNode, NodeColor.WHITE);
@@ -68,7 +68,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         {
             searchStart(startNode);
         }
-        for (NodeType node : _graph.getNodeLabels())
+        for (NodeType node : _graph.getNodeLabelSet())
         {
             searchStart(node);
         }
@@ -100,7 +100,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
             NodeType cursorNode = nodeStack.pop();
             this.examineNode(cursorNode);
 
-            for (Edge edge : _graph.getOutEdges(cursorNode))
+            for (Edge edge : _graph.getOutEdgeSet(cursorNode))
             {
                 this.examineEdge(edge);
 

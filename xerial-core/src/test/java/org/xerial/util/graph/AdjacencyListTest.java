@@ -73,12 +73,12 @@ public class AdjacencyListTest extends TestCase
     @SuppressWarnings("unchecked")
     public void testAddEdge()
     {
-        Collection<Edge> edgeList = al.getOutEdges(0);
+        Collection<Edge> edgeList = al.getOutEdgeSet(0);
         assertEquals(2, edgeList.size());
         assertTrue(edgeList.contains(edge(0, 1)));
         assertTrue(edgeList.contains(edge(0, 3)));
 
-        Collection<Edge> edgeList1 = al.getOutEdges(1);
+        Collection<Edge> edgeList1 = al.getOutEdgeSet(1);
         assertEquals(2, edgeList1.size());
         assertTrue(edgeList1.contains(edge(1, 2)));
         assertTrue(edgeList1.contains(edge(1, 4)));
@@ -108,7 +108,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testVertexSet()
     {
-        Collection<Integer> nodeList = al.getNodeLabels();
+        Collection<Integer> nodeList = al.getNodeLabelSet();
 
         assertTrue(nodeList.contains(0));
         assertTrue(nodeList.contains(1));
@@ -139,7 +139,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testOutEdgeList() throws GraphException
     {
-        Collection<Edge> l = al.getOutEdges(4);
+        Collection<Edge> l = al.getOutEdgeSet(4);
         assertEquals(2, l.size());
 
         assertTrue(l.contains(edge(4, 3)));
@@ -148,7 +148,7 @@ public class AdjacencyListTest extends TestCase
 
     public void testInEdgeList() throws GraphException
     {
-        Collection<Edge> l = al.getInEdges(3);
+        Collection<Edge> l = al.getInEdgeSet(3);
         assertEquals(2, l.size());
         assertTrue(l.contains(edge(0, 3)));
         assertTrue(l.contains(edge(4, 3)));

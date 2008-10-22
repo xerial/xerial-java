@@ -76,7 +76,7 @@ public abstract class DepthFirstSearch<NodeLabel, EdgeLabel>
         this._graph = graph;
 
         // initialize each node 
-        for (NodeLabel eachNode : _graph.getNodeLabels())
+        for (NodeLabel eachNode : _graph.getNodeLabelSet())
         {
             this.initializeNode(eachNode);
 
@@ -89,7 +89,7 @@ public abstract class DepthFirstSearch<NodeLabel, EdgeLabel>
             this.startNode(startNode);
             dfsVisit(startNode);
         }
-        for (NodeLabel node : _graph.getNodeLabels())
+        for (NodeLabel node : _graph.getNodeLabelSet())
         {
             NodeColor color = _nodeColor.get(node);
             assert (color != null);
@@ -106,7 +106,7 @@ public abstract class DepthFirstSearch<NodeLabel, EdgeLabel>
         this.discoverNode(node);
         _nodeColor.put(node, NodeColor.GRAY);
         _discoveryTime.put(node, _time++);
-        for (Edge edge : _graph.getOutEdges(node))
+        for (Edge edge : _graph.getOutEdgeSet(node))
         {
             this.examineEdge(edge);
 
