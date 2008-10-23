@@ -36,6 +36,8 @@ public class StopWatch
 
     private long initialSystemTIme;
     private long lastSystemTime;
+    
+    private static final double NANO_UNIT = 1000000000L;
 
     public StopWatch()
     {
@@ -49,9 +51,9 @@ public class StopWatch
      */
     public double getElapsedTime()
     {
-        lastSystemTime = System.currentTimeMillis();
+        lastSystemTime = System.nanoTime();
         long diff = lastSystemTime - initialSystemTIme;
-        return diff / 1000.0;
+        return diff / NANO_UNIT;
     }
 
     /**
@@ -63,10 +65,10 @@ public class StopWatch
      */
     public double getIntervalTime()
     {
-        long now = System.currentTimeMillis();
+        long now = System.nanoTime();
         long diff = now - lastSystemTime;
         lastSystemTime = now;
-        return diff / 1000.0;
+        return diff / NANO_UNIT;
     }
 
     /**
@@ -77,7 +79,7 @@ public class StopWatch
      */
     public void reset()
     {
-        initialSystemTIme = System.currentTimeMillis();
+        initialSystemTIme = System.nanoTime();
         lastSystemTime = initialSystemTIme;
     }
 
