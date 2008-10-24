@@ -162,20 +162,19 @@ public abstract class DepthFirstSearch<NodeLabel, EdgeLabel>
         return _graph.getEdgeLabel(edge);
     }
 
-    protected NodeLabel getSourceNode(Edge edge)
+    protected NodeLabel getSourceNodeLabel(Edge edge)
     {
-        return _graph.getNodeLabel(edge.getSourceNodeID());
+        return GraphHelper.getSourceNodeLabel(_graph, edge);
     }
 
-    protected NodeLabel getDestNode(Edge edge)
+    protected NodeLabel getDestNodeLabel(Edge edge)
     {
-        return _graph.getNodeLabel(edge.getDestNodeID());
+        return GraphHelper.getDestNodeLabel(_graph, edge);
     }
 
-    public String toString(Edge edge)
+    protected String toString(Edge edge)
     {
-        return String.format("(%s,%s)", getGraph().getNodeLabel(edge.getSourceNodeID()).toString(), getGraph()
-                .getNodeLabel(edge.getDestNodeID()).toString());
+        return GraphHelper.toString(_graph, edge);
     }
 
     /**

@@ -30,34 +30,34 @@ import java.util.Stack;
 /**
  * @author leo
  * 
- * @param <NodeType>
- * @param <EdgeType>
+ * @param <NodeLabel>
+ * @param <EdgeLabel>
  */
-public abstract class BreadthFirstSearch<NodeType, EdgeType>
+public abstract class BreadthFirstSearch<NodeLabel, EdgeLabel>
 {
     enum NodeColor {
         WHITE, GRAY, BLACK
     }
 
-    private Graph<NodeType, EdgeType> _graph;
-    private HashMap<NodeType, NodeColor> _nodeColor = new HashMap<NodeType, NodeColor>();
-    private HashMap<NodeType, NodeType> _predecessor = new HashMap<NodeType, NodeType>();
+    private Graph<NodeLabel, EdgeLabel> _graph;
+    private HashMap<NodeLabel, NodeColor> _nodeColor = new HashMap<NodeLabel, NodeColor>();
+    private HashMap<NodeLabel, NodeLabel> _predecessor = new HashMap<NodeLabel, NodeLabel>();
     private int _time;
-    private HashMap<NodeType, Integer> _depth = new HashMap<NodeType, Integer>();
+    private HashMap<NodeLabel, Integer> _depth = new HashMap<NodeLabel, Integer>();
     //private HashMap<NodeType, Integer> _finishTime = new HashMap<NodeType, Integer>();
-    private Stack<NodeType> nodeStack = new Stack<NodeType>();
+    private Stack<NodeLabel> nodeStack = new Stack<NodeLabel>();
 
-    public void run(Graph<NodeType, EdgeType> graph)
+    public void run(Graph<NodeLabel, EdgeLabel> graph)
     {
         run(graph, null);
     }
 
-    public void run(Graph<NodeType, EdgeType> graph, NodeType startNode)
+    public void run(Graph<NodeLabel, EdgeLabel> graph, NodeLabel startNode)
     {
         this._graph = graph;
         nodeStack.clear();
 
-        for (NodeType eachNode : _graph.getNodeLabelSet())
+        for (NodeLabel eachNode : _graph.getNodeLabelSet())
         {
             initializeNode(eachNode);
             _nodeColor.put(eachNode, NodeColor.WHITE);
@@ -68,14 +68,14 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         {
             searchStart(startNode);
         }
-        for (NodeType node : _graph.getNodeLabelSet())
+        for (NodeLabel node : _graph.getNodeLabelSet())
         {
             searchStart(node);
         }
 
     }
 
-    private void searchStart(NodeType node)
+    private void searchStart(NodeLabel node)
     {
         NodeColor color = _nodeColor.get(node);
         assert (color != null);
@@ -88,7 +88,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
         bfsVisit(node);
     }
 
-    private void bfsVisit(NodeType node)
+    private void bfsVisit(NodeLabel node)
     {
         nodeStack.add(node);
         this.discoverNode(node);
@@ -97,14 +97,14 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
 
         while (!nodeStack.isEmpty())
         {
-            NodeType cursorNode = nodeStack.pop();
+            NodeLabel cursorNode = nodeStack.pop();
             this.examineNode(cursorNode);
 
             for (Edge edge : _graph.getOutEdgeSet(cursorNode))
             {
                 this.examineEdge(edge);
 
-                NodeType nextNode = _graph.getNodeLabel(edge.getDestNodeID());
+                NodeLabel nextNode = _graph.getNodeLabel(edge.getDestNodeID());
                 NodeColor nextNodeColor = _nodeColor.get(nextNode);
                 assert (nextNodeColor != null);
 
@@ -135,33 +135,69 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
 
     }
 
+    protected final Graph<NodeLabel, EdgeLabel> getGraph()
+    {
+        return _graph;
+    }
+
+    // utilty methods
+    protected NodeLabel getPredecessor(NodeLabel node)
+    {
+        return _predecessor.get(node);
+    }
+
+    protected int getSearchDepth(NodeLabel node)
+    {
+        return _depth.get(node);
+    }
+
+    protected EdgeLabel getEdgeLabel(Edge edge)
+    {
+        return _graph.getEdgeLabel(edge);
+    }
+
+    protected NodeLabel getSourceNodeLabel(Edge edge)
+    {
+        return GraphHelper.getSourceNodeLabel(_graph, edge);
+    }
+
+    protected NodeLabel getDestNodeLabel(Edge edge)
+    {
+        return GraphHelper.getDestNodeLabel(_graph, edge);
+    }
+
+    protected String toString(Edge edge)
+    {
+        return GraphHelper.toString(_graph, edge);
+    }
+
     /**
      * Invoked before the search starts
      * 
      * @param node
      */
-    protected abstract void initializeNode(NodeType node);
+    protected abstract void initializeNode(NodeLabel node);
 
     /**
      * Invoked when the search starts from this node
      * 
      * @param node
      */
-    protected abstract void startNode(NodeType node);
+    protected abstract void startNode(NodeLabel node);
 
     /**
      * Invoked when this node is discovered.
      * 
      * @param node
      */
-    protected abstract void discoverNode(NodeType node);
+    protected abstract void discoverNode(NodeLabel node);
 
     /**
      * Invoked when the node becomes the travasal target
      * 
      * @param node
      */
-    protected abstract void examineNode(NodeType node);
+    protected abstract void examineNode(NodeLabel node);
 
     /**
      * Invoked when the edge is examined
@@ -182,7 +218,7 @@ public abstract class BreadthFirstSearch<NodeType, EdgeType>
      * 
      * @param node
      */
-    protected abstract void finishNode(NodeType node);
+    protected abstract void finishNode(NodeLabel node);
 
     /**
      * Invoked when a node whose DFS search is in-progress (GRAY) is found.
