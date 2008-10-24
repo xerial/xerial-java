@@ -126,7 +126,7 @@ public class StrongDataGuide
                     // process attributes
                     for (int i = 0; i < parser.getAttributeCount(); i++)
                     {
-                        int attributeID = getPathID("@" + parser.getAttributeName(i));
+                        int attributeID = getPathID(String.format("%s@%s", name, parser.getAttributeName(i)));
                         moveCursor(attributeID);
                         traceBack();
                     }

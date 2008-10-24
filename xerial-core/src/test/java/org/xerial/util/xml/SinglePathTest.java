@@ -24,21 +24,28 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import junit.framework.TestCase;
-import static org.xerial.util.xml.SinglePath.PathType.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.xerial.util.xml.SinglePath.PathType.AbsolutePath;
+
+import java.util.HashSet;
+
+import org.junit.Test;
 
 /**
  * @author leo
- *
+ * 
  */
-public class SinglePathTest extends TestCase
+public class SinglePathTest
 {
+    @Test
     public void testConstructor()
     {
         new SinglePath(AbsolutePath);
         new SinglePath("/book/author");
     }
-    
+
+    @Test
     public void testPathComparator()
     {
         SinglePath p1 = new SinglePath("/book/author");
@@ -46,10 +53,33 @@ public class SinglePathTest extends TestCase
         assertTrue(p1.compareTo(p2) < 0);
         p2.removeLastChild();
         assertTrue(p1.compareTo(p2) == 0);
-        
+
+    }
+
+    @Test
+    public void testContainer()
+    {
+        SinglePath p1 = new SinglePath("/book/author");
+        SinglePath p2 = new SinglePath("/book/author");
+        SinglePath p3 = new SinglePath("/book/author");
+        SinglePath p4 = new SinglePath("/book/author/item");
+
+        HashSet<SinglePath> pathSet = new HashSet<SinglePath>();
+
+        pathSet.add(p1);
+        pathSet.add(p2);
+
+        assertTrue(pathSet.contains(p1));
+        assertTrue(pathSet.contains(p2));
+        assertTrue(pathSet.contains(p3));
+        assertFalse(pathSet.contains(p4));
+
+        pathSet.add(p4);
+
+        assertTrue(pathSet.contains(p1));
+        assertTrue(pathSet.contains(p2));
+        assertTrue(pathSet.contains(p3));
+        assertTrue(pathSet.contains(p4));
+
     }
 }
-
-
-
-

@@ -29,101 +29,122 @@ import java.util.Vector;
 
 import org.xerial.util.Algorithm;
 
-
-/** 親子関係(/)だけからなる単純なPath
+/**
+ * A simple path structure that consists of parent-child axis only
+ * 
  * @author leo
- *
+ * 
  */
 public class SinglePath implements Comparable<SinglePath>, Iterable<String>
 {
-    static public enum PathType { AbsolutePath, RelativePath }
-    
-    Vector<String> _path = new Vector<String>();
-    PathType _pathType =  PathType.AbsolutePath;
+    static public enum PathType {
+        AbsolutePath, RelativePath
+    }
 
+    Vector<String> _path = new Vector<String>();
+    PathType _pathType = PathType.AbsolutePath;
 
     /**
-     * 相対パスを作成 
+     * create a relative path
      */
     public SinglePath()
     {
         _pathType = PathType.RelativePath;
     }
-    
+
     /**
-     * パスを作成
-     * @param pathType PathType.AbsolutePath(ルートから始まる絶対path) or PathType.RelativePath (相対path)
+     * create a path
+     * 
+     * @param pathType
+     *            PathType.AbsolutePath(ルートから始まる絶対path) or PathType.RelativePath
+     *            (relative path)
      */
     public SinglePath(PathType pathType)
     {
         _pathType = pathType;
     }
-    
+
     public SinglePath(String pathExpression)
     {
-        if(!pathExpression.startsWith("/"))
+        if (!pathExpression.startsWith("/"))
             _pathType = PathType.RelativePath;
-        
+
         String[] pathComponent = pathExpression.split("/");
-        for(String tag : pathComponent)
+        for (String tag : pathComponent)
             addChild(tag);
     }
-    
+
     /**
-     * pathにchildTagを足して、新しいPathを作成
-     * @param path ベースとなるpath
-     * @param childTag 
+     * copy constuctor
+     * 
+     * @param other
+     */
+    public SinglePath(SinglePath other)
+    {
+        this._pathType = other._pathType;
+        this._path.addAll(other._path);
+    }
+
+    /**
+     * creat a new path based on the given path and its child tag
+     * 
+     * @param path
+     *            base path
+     * 
+     * @param childTag
      */
     public SinglePath(SinglePath path, String childTag)
     {
         this._pathType = path._pathType;
-        for(String e : path._path)
+        for (String e : path._path)
         {
             this._path.add(e);
         }
         this.addChild(childTag);
     }
-    
+
     public String getTag(int index)
     {
         return _path.get(index);
     }
+
     public String getLeaf()
     {
-        if(_path.size()<1)
+        if (_path.size() < 1)
             return "";
         else
             return _path.lastElement();
     }
-    
+
     public void addChild(String tagName)
     {
         _path.add(tagName);
     }
+
     public void removeLastChild()
     {
         assert _path.size() > 0;
-        _path.remove(_path.size()-1);
+        _path.remove(_path.size() - 1);
     }
-    
+
     public Integer size()
     {
         return _path.size();
     }
-    
+
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        
-        for(String tag : _path)
+
+        for (String tag : _path)
         {
             builder.append("/");
             builder.append(tag);
         }
-        if(!isAbsolutePath())
+        if (!isAbsolutePath())
         {
-           if(builder.length() > 0)
-               return builder.substring(1);  // truncate the first slash
+            if (builder.length() > 0)
+                return builder.substring(1); // truncate the first slash
         }
         return builder.toString();
     }
@@ -133,25 +154,37 @@ public class SinglePath implements Comparable<SinglePath>, Iterable<String>
     {
         // comparison
         //MinMax<Integer> pathLengthMinMax = Algorithm.minmax(this.size(), other.size());
-        // 絶対パスの方が順序が小さくなるようにする
+        // define the order so that absolute paths are less then the relative path
         int cmp = Algorithm.boolToInt(!this.isAbsolutePath()) - Algorithm.boolToInt(!other.isAbsolutePath());
-        if(cmp != 0)
+        if (cmp != 0)
             return cmp;
-        
-        // 辞書順比較
+
+        // lexicographical order
         cmp = Algorithm.lexicographicalCompare(this.getPath(), other.getPath());
         return cmp;
     }
-    
-    
+
     @Override
     public boolean equals(Object obj)
     {
         SinglePath other = (SinglePath) obj;
-        if(obj == null)
+        if (obj == null)
             return false;
-        
+
         return this.compareTo(other) == 0;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        long hashValue = 31;
+        for (String eachTag : _path)
+        {
+            hashValue += eachTag.hashCode() * 137;
+        }
+        hashValue += _pathType.hashCode();
+
+        return (int) hashValue % 1987;
     }
 
     public boolean isAbsolutePath()
@@ -167,20 +200,12 @@ public class SinglePath implements Comparable<SinglePath>, Iterable<String>
     @Override
     protected Object clone() throws CloneNotSupportedException
     {
-        SinglePath newPath = new SinglePath(_pathType);
-        newPath._path = (Vector<String>) this._path.clone();
-        return newPath;
+        return new SinglePath(this);
     }
 
     public Iterator<String> iterator()
     {
         return _path.iterator();
     }
-    
-    
-    
-} 
 
-
-
-
+}
