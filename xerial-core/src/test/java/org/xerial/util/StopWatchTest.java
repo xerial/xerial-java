@@ -24,15 +24,15 @@
 //--------------------------------------
 package org.xerial.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.xerial.util.log.Logger;
 
 public class StopWatchTest
 {
-    private static Logger _logger = Logger.getLogger(StopWatchTest.class); 
-    
+    private static Logger _logger = Logger.getLogger(StopWatchTest.class);
+
     @Test
     public void testStopWatch() throws InterruptedException
     {
@@ -41,7 +41,7 @@ public class StopWatchTest
         sw.reset();
         Thread.sleep((long) (waitingTime * 1000));
         double time = sw.getElapsedTime();
-        assertEquals(waitingTime, time, 0.001);
+        assertEquals(waitingTime, time, 0.01);
     }
 
 }
