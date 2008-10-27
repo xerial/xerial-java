@@ -39,7 +39,7 @@ import java.util.TreeSet;
 import org.xerial.core.XerialException;
 import org.xerial.util.cui.OptionParser;
 import org.xerial.util.cui.OptionParserException;
-import org.xerial.util.xml.SinglePath;
+import org.xerial.util.xml.SinglePathBuilder;
 import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.PullParserUtil;
@@ -124,7 +124,7 @@ public class XMLNodeRelationAnalyzer
     class ParseProcess
     {
         XmlPullParser parser;
-        SinglePath currentPath = new SinglePath(SinglePath.PathType.AbsolutePath);
+        SinglePathBuilder currentPath = new SinglePathBuilder();
         TreeMap<String, TreeSet<String>> tag2relatedTagNames = new TreeMap<String, TreeSet<String>>();
         int pathCount = 0;
 
@@ -158,14 +158,14 @@ public class XMLNodeRelationAnalyzer
                                 relatedTagSet2.add(currentTag);
                             }
                         }
-                        // TODO attributeÇÃèàóù
+                        // TODO attribute processing
                         for (int i = 0; i < parser.getAttributeCount(); i++)
                         {
 
                         }
                         break;
                     case END_TAG:
-                        currentPath.removeLastChild();
+                        currentPath.removeLeaf();
                         break;
                     case START_DOCUMENT:
                         break;

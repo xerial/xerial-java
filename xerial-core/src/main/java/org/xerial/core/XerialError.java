@@ -25,7 +25,7 @@
 package org.xerial.core;
 
 /**
- * Unchecked exception class that represents errors related to programming bugs
+ * Unchecked exception class that represents errors related to programming bugs.
  * This type of error is usually unrecoverable.
  * 
  * @author leo
@@ -64,6 +64,11 @@ public class XerialError extends RuntimeException
         this.errorCode = errorCode;
     }
 
+    /**
+     * Get the error code of this error
+     * 
+     * @return
+     */
     public ErrorCode getErrorCode()
     {
         return errorCode;

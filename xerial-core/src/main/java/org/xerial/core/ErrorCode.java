@@ -34,7 +34,17 @@ public interface ErrorCode
 {
     static final String EMPTY_DESCRIPTION = "";
 
+    /**
+     * Get the code name of the error
+     * 
+     * @return
+     */
     public String getCodeName();
 
+    /**
+     * Get the description of the error code
+     * 
+     * @return
+     */
     public String getDescription();
 }

@@ -34,7 +34,12 @@ import org.xerial.core.ErrorCode;
  */
 public enum XMLErrorCode implements ErrorCode {
 
-    INVALID_XML_STRUCTURE, NO_MORE_TAG_TO_CLOSE, PARSE_ERROR, SAX_ERROR, INVALID_PARSER_CONFIGURATION, FAILED_TO_CREATE_XML_PARSER;
+    INVALID_XML_STRUCTURE,
+    NO_MORE_TAG_TO_CLOSE,
+    PARSE_ERROR,
+    SAX_ERROR,
+    INVALID_PARSER_CONFIGURATION,
+    FAILED_TO_CREATE_XML_PARSER;
 
     private final String description;
 

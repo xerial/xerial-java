@@ -24,13 +24,16 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
 
 import org.xerial.util.Algorithm;
 
 /**
- * A simple path structure that consists of parent-child axis only
+ * A simple path structure that consists of parent-child axis only.
+ * 
+ * SinglePath is an immutable object.
  * 
  * @author leo
  * 
@@ -41,66 +44,80 @@ public class SinglePath implements Comparable<SinglePath>, Iterable<String>
         AbsolutePath, RelativePath
     }
 
-    Vector<String> _path = new Vector<String>();
-    PathType _pathType = PathType.AbsolutePath;
+    private static final String EMPTY_LEAF = "";
+    private final List<String> _path;
+    private final PathType _pathType;
+
+    SinglePath(PathType absoluteOrRelative, List<String> tagListInThePath)
+    {
+        _pathType = absoluteOrRelative;
+        // create a copy (don't share the array)
+        _path = new ArrayList<String>(tagListInThePath.size());
+        _path.addAll(tagListInThePath);
+    }
 
     /**
-     * create a relative path
+     * Create a new path by appending a child tag to the base path
+     * 
+     * @param basePath
+     * @param childTag
      */
-    public SinglePath()
+    public SinglePath(SinglePath basePath, String childTag)
     {
-        _pathType = PathType.RelativePath;
+        this._pathType = basePath._pathType;
+        this._path = new ArrayList<String>(basePath.size() + 1);
+        for (String e : basePath)
+        {
+            this._path.add(e);
+        }
+        this._path.add(childTag);
     }
 
     /**
      * create a path
      * 
      * @param pathType
-     *            PathType.AbsolutePath(ÉãÅ[ÉgÇ©ÇÁénÇ‹ÇÈê‚ëŒpath) or PathType.RelativePath
-     *            (relative path)
+     *            PathType.AbsolutePath (beginning from the root) or
+     *            PathType.RelativePath (relative path)
      */
-    public SinglePath(PathType pathType)
+    private SinglePath(PathType pathType)
     {
         _pathType = pathType;
+        _path = new ArrayList<String>(0);
     }
 
-    public SinglePath(String pathExpression)
+    public static SinglePath rootPath()
     {
-        if (!pathExpression.startsWith("/"))
-            _pathType = PathType.RelativePath;
+        return new SinglePath(PathType.AbsolutePath);
+    }
 
-        String[] pathComponent = pathExpression.split("/");
+    public static SinglePath newPath(String pathExpression)
+    {
+        SinglePathBuilder builder = new SinglePathBuilder();
+
+        String pathExprWithoutLeadingSlash = pathExpression;
+        if (!pathExpression.startsWith("/"))
+        {
+            builder.setPathType(PathType.RelativePath);
+        }
+        else
+            pathExprWithoutLeadingSlash = pathExpression.substring(1);
+
+        String[] pathComponent = pathExprWithoutLeadingSlash.split("/");
         for (String tag : pathComponent)
-            addChild(tag);
+            builder.addChild(tag);
+
+        return builder.build();
     }
 
     /**
-     * copy constuctor
+     * copy constructor
      * 
      * @param other
      */
     public SinglePath(SinglePath other)
     {
-        this._pathType = other._pathType;
-        this._path.addAll(other._path);
-    }
-
-    /**
-     * creat a new path based on the given path and its child tag
-     * 
-     * @param path
-     *            base path
-     * 
-     * @param childTag
-     */
-    public SinglePath(SinglePath path, String childTag)
-    {
-        this._pathType = path._pathType;
-        for (String e : path._path)
-        {
-            this._path.add(e);
-        }
-        this.addChild(childTag);
+        this(other._pathType, other._path);
     }
 
     public String getTag(int index)
@@ -111,23 +128,23 @@ public class SinglePath implements Comparable<SinglePath>, Iterable<String>
     public String getLeaf()
     {
         if (_path.size() < 1)
-            return "";
+            return EMPTY_LEAF;
         else
-            return _path.lastElement();
+            return _path.get(_path.size() - 1);
     }
 
-    public void addChild(String tagName)
-    {
-        _path.add(tagName);
-    }
+    //    public void addChild(String tagName)
+    //    {
+    //        _path.add(tagName);
+    //    }
+    //
+    //    public void removeLastChild()
+    //    {
+    //        assert _path.size() > 0;
+    //        _path.remove(_path.size() - 1);
+    //    }
 
-    public void removeLastChild()
-    {
-        assert _path.size() > 0;
-        _path.remove(_path.size() - 1);
-    }
-
-    public Integer size()
+    public int size()
     {
         return _path.size();
     }
@@ -192,15 +209,9 @@ public class SinglePath implements Comparable<SinglePath>, Iterable<String>
         return _pathType == PathType.AbsolutePath;
     }
 
-    private Vector<String> getPath()
+    private List<String> getPath()
     {
         return _path;
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException
-    {
-        return new SinglePath(this);
     }
 
     public Iterator<String> iterator()

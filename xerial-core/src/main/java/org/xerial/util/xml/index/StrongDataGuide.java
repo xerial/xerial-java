@@ -76,7 +76,7 @@ public class StrongDataGuide
     public StrongDataGuide()
     {
         super();
-        _rootPath = new SinglePath(SinglePath.PathType.AbsolutePath);
+        _rootPath = SinglePath.rootPath();
         _rootPathID = _graph.addNode(_rootPath);
     }
 
