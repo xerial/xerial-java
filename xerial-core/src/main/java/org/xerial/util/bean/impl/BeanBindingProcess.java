@@ -39,6 +39,7 @@ import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
+import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 
@@ -459,40 +460,9 @@ public class BeanBindingProcess implements TreeVisitor
     }
 
     @SuppressWarnings("unchecked")
-    public Object convertType(Class targetType, Object value) throws BeanException
+    public static Object convertType(Class targetType, Object value) throws BeanException
     {
-        if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
-            return value;
-        else
-            return convertToBasicType(targetType, value);
-    }
-
-    public static Object convertToBasicType(Class targetType, Object input) throws BeanException
-    {
-        assert (TypeInformation.isBasicType(targetType));
-
-        try
-        {
-            String value = input.toString();
-            if (targetType == String.class)
-                return value;
-            else if (targetType == int.class || targetType == Integer.class)
-                return new Integer(value);
-            else if (targetType == long.class || targetType == Long.class)
-                return new Long(value);
-            else if (targetType == double.class || targetType == Double.class)
-                return new Double(value);
-            else if (targetType == float.class || targetType == Float.class)
-                return new Float(value);
-            else if (targetType == boolean.class || targetType == Boolean.class)
-                return new Boolean(value);
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName());
-        }
-        catch (NumberFormatException e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, String.format("%s %s", targetType.getName(), e
-                    .getMessage()));
-        }
+        return TypeConverter.convertType(targetType, value);
     }
 
 }

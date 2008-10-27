@@ -39,20 +39,35 @@ public enum BeanErrorCode implements ErrorCode {
     NoMoreSubtree,
 
     // XML
-    InvalidXMLData, ParserError, UnsupportedXMLDataType,
+    InvalidXMLData,
+    ParserError,
+    UnsupportedXMLDataType,
 
     // JSON
-    InvalidJSONData, InvalidJSONArray,
+    InvalidJSONData,
+    InvalidJSONArray,
 
     UnsupportedDataType,
 
     // Bean class
-    InvalidBeanClass, IllegalArgument, IllegalAccess, NoPublicConstructor, InstantiationFailure, InvalidNumberFormat, InvocationTargetException,
+    InvalidBeanClass,
+    IllegalArgument,
+    IllegalAccess,
+    NoPublicConstructor,
+    InstantiationFailure,
+    InvalidNumberFormat,
+    InvocationTargetException,
 
     BeanObjectIsNull,
 
     // binder
-    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed;
+    GetterCannotBeUsedToBindData,
+    BindFailure,
+    UnknownBeanUpdator,
+    InvalidKeyAndValuePair,
+    MapContainerIsNotFound,
+    MapElementConstructionFailed,
+    InvalidDateFormat;
 
     private final String description;
 

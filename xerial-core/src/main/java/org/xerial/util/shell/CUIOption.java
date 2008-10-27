@@ -16,42 +16,45 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// CUIOption.java
+// Since: Oct 27, 2008 4:10:08 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.shell;
 
-import org.xerial.core.ErrorCode;
+/**
+ * @author leo
+ * 
+ */
+class CUIOption
+{
+    final Option optionDescriptor;
+    final OptionSetter optionSetter;
 
-public enum ShellError implements ErrorCode {
-
-    INACCESSIBLE_SETTER_METHOD(""), WRONG_DATA_TYPE, NO_OPTION_ANNOTATION_IS_FOUND
-
-    ;
-
-    private final String description;
-
-    private ShellError()
+    public CUIOption(Option optionDescriptor, OptionSetter optionSetter)
     {
-        this.description = "";
+        this.optionDescriptor = optionDescriptor;
+        this.optionSetter = optionSetter;
     }
 
-    private ShellError(String description)
+    @Override
+    public boolean equals(Object obj)
     {
-        this.description = description;
+        if (obj instanceof CUIOption)
+        {
+            CUIOption other = (CUIOption) obj;
+            return optionDescriptor.equals(obj);
+        }
+        else
+            return false;
     }
 
-    public String getCodeName()
+    @Override
+    public int hashCode()
     {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
+        return optionDescriptor.hashCode();
     }
 
 }

@@ -29,8 +29,29 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Command-line argument with no option prefix such as "-" or "--"
+ * 
+ * @author leo
+ * 
+ */
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD })
+@Target( { ElementType.FIELD, ElementType.METHOD })
 public @interface Argument {
+    /**
+     * description of the argument
+     */
+    String description() default "";
+
+    /**
+     * This argument is required
+     */
+    boolean required() default false;
+
+    /**
+     * argument index (0-origin) among the arguments without option prefix, "-"
+     * or "--". The default is 0
+     */
+    int index() default 0;
 
 }

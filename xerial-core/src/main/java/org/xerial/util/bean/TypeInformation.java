@@ -28,6 +28,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -40,7 +41,6 @@ import java.util.TreeSet;
 
 import org.w3c.dom.Element;
 
-
 /**
  * BasicType class holds information of standard types that can be directly
  * assignable as Bean parameter values. For example, int/Integer, double/Double,
@@ -49,15 +49,24 @@ import org.w3c.dom.Element;
  * @author leo
  * 
  */
-public class TypeInformation {
-    static private Class[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class, String.class, Integer.class, Double.class, Float.class, Long.class, 
-            Boolean.class };
+public class TypeInformation
+{
+    static private Class< ? >[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class,
+            char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class, Boolean.class,
+            Character.class, Short.class, Date.class };
 
-    static private HashSet<Class> basicTypeSet = new HashSet<Class>();
-    static {
-        for (Class c : _parameterClass)
+    static private HashSet<Class< ? >> basicTypeSet = new HashSet<Class< ? >>();
+    static
+    {
+        for (Class< ? > c : _parameterClass)
             basicTypeSet.add(c);
     }
+
+    /**
+     * non-constractable
+     */
+    private TypeInformation()
+    {}
 
     /**
      * @param c
@@ -65,47 +74,63 @@ public class TypeInformation {
      *         double, float, boolean, String, Integer, Double, Float or
      *         Boolean. otherwise false.
      */
-    public static boolean isBasicType(Class c) {
+    public static boolean isBasicType(Class< ? > c)
+    {
         if (c.isArray())
             return basicTypeSet.contains(c.getComponentType());
         else
             return basicTypeSet.contains(c);
     }
 
-    public static boolean isCollection(Class c) {
+    public static boolean isCollection(Class< ? > c)
+    {
         return Collection.class.isAssignableFrom(c);
     }
 
-    public static boolean isSet(Class c) {
+    public static boolean isSet(Class< ? > c)
+    {
         return Set.class.isAssignableFrom(c);
     }
 
-    public static boolean isSortedSet(Class c) {
+    public static boolean isSortedSet(Class< ? > c)
+    {
         return SortedSet.class.isAssignableFrom(c);
     }
 
-    public static boolean isSortedMap(Class c) {
+    public static boolean isSortedMap(Class< ? > c)
+    {
         return SortedMap.class.isAssignableFrom(c);
     }
 
-    public static boolean isMap(Class c) {
+    public static boolean isMap(Class< ? > c)
+    {
         return Map.class.isAssignableFrom(c);
     }
 
-    public static boolean isString(Class c) {
-        return Map.class.isAssignableFrom(c);
+    public static boolean isString(Class< ? > c)
+    {
+        return String.class.isAssignableFrom(c);
     }
 
-    public static boolean isDOMElement(Class c)
+    public static boolean isBoolean(Class< ? > c)
+    {
+        return boolean.class.isAssignableFrom(c) || Boolean.class.isAssignableFrom(c);
+    }
+
+    public static boolean isDOMElement(Class< ? > c)
     {
         return Element.class.isAssignableFrom(c);
     }
-    
-    public static boolean hasPublicConstructor(Class c) {
-        for (Constructor constructor : c.getConstructors()) {
-            if (constructor.getParameterTypes().length == 0) {
+
+    public static boolean hasPublicConstructor(Class< ? > c)
+    {
+        for (Constructor< ? > constructor : c.getConstructors())
+        {
+            if (constructor.getParameterTypes().length == 0)
+            {
                 // the default constructor is public?
-                if (Modifier.isPublic(constructor.getModifiers())) {
+                if (Modifier.isPublic(constructor.getModifiers()))
+                {
                     return true;
                 }
             }
@@ -113,20 +138,22 @@ public class TypeInformation {
         return false;
     }
 
-    public static boolean canInstantiate(Class c) {
+    public static boolean canInstantiate(Class< ? > c)
+    {
         // do not worry about basic types
         return (isBasicType(c) || alternateConstractableClassFor(c) != null);
     }
 
-    private static Class alternateConstractableClassFor(Class c) {
+    private static Class< ? > alternateConstractableClassFor(Class< ? > c)
+    {
         if (hasPublicConstructor(c))
             return c;
 
-        if(isCollection(c))
+        if (isCollection(c))
         {
-            if(isSet(c))
+            if (isSet(c))
             {
-                if(isSortedSet(c))
+                if (isSortedSet(c))
                     return TreeSet.class;
                 else
                     return LinkedHashSet.class;
@@ -134,9 +161,9 @@ public class TypeInformation {
             else
                 return ArrayList.class;
         }
-        else if(isMap(c))
+        else if (isMap(c))
         {
-            if(isSortedMap(c))
+            if (isSortedMap(c))
                 return TreeMap.class;
             else
                 return LinkedHashMap.class;
@@ -145,11 +172,13 @@ public class TypeInformation {
         return null;
     }
 
-    public static Object createInstance(Class c) throws BeanException {
+    public static Object createInstance(Class< ? > c) throws BeanException
+    {
 
-        Class constractableClass = alternateConstractableClassFor(c);
+        Class< ? > constractableClass = alternateConstractableClassFor(c);
         if (constractableClass == null)
-            throw new BeanException(BeanErrorCode.NoPublicConstructor, "public constructor for the class: " + c.getName() + " is not available");
+            throw new BeanException(BeanErrorCode.NoPublicConstructor, "public constructor for the class: "
+                    + c.getName() + " is not available");
 
         try
         {

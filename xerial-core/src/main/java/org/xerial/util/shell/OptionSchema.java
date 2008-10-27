@@ -25,8 +25,8 @@
 package org.xerial.util.shell;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 /**
  * 
@@ -36,79 +36,32 @@ import java.lang.reflect.Method;
  */
 public class OptionSchema
 {
+    private final HashMap<String, OptionSetter> optionIndex = new HashMap<String, OptionSetter>();
+    private final HashMap<Integer, OptionSetter> argumentIndex = new HashMap<Integer, OptionSetter>();
 
-    public void addOptionSetter(Method setter)
+    public OptionSetter getOption(String optionName)
     {
-
+        return optionIndex.get(optionName);
     }
 
-    public void addOptionField(Field field)
+    public void addOptionSetter(Option option, Method setter)
     {
-
+        optionIndex.put(option.name(), new SetterMethod(setter));
     }
 
-    public void addArgumentSetter(Method setter)
+    public void addOptionField(Option option, Field field)
     {
-
+        optionIndex.put(option.name(), new FieldSetter(field));
     }
 
-    public void addArgumentField(Field field)
+    public void addArgumentSetter(Argument argument, Method setter)
     {
-
+        argument.index()
     }
 
-}
-
-interface OptionSetter
-{
-    void setOption(Object bean, String value);
-
-    Class< ? > getType();
-}
-
-final class OptionSetterMethod implements OptionSetter
-{
-    private Method m;
-
-    public OptionSetterMethod(Method m)
+    public void addArgumentField(Argument argument, Field field)
     {
-        this.m = m;
-        //if(m.getParameterTypes().length != 1)
-        //throw new 
 
-    }
-
-    public void setOption(Object bean, String value)
-    {
-        try
-        {
-            try
-            {
-                m.invoke(bean, value);
-            }
-            catch (IllegalAccessException e)
-            {
-                m.setAccessible(true);
-                try
-                {
-                    m.invoke(bean, value);
-                }
-                catch (IllegalAccessException e2)
-                {
-                    throw new IllegalAccessError(e2.getMessage());
-                }
-            }
-        }
-        catch (InvocationTargetException e)
-        {
-            throw new IllegalStateException(e);
-        }
-
-    }
-
-    public Class< ? > getType()
-    {
-        return m.getParameterTypes()[0];
     }
 
 }

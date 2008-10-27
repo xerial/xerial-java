@@ -16,42 +16,27 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// OptionSetter.java
+// Since: Oct 27, 2008 3:26:01 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.shell;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.util.cui.OptionParserException;
 
-public enum ShellError implements ErrorCode {
+/**
+ * @author leo
+ * 
+ */
+public interface OptionSetter
+{
+    void setOption(Object bean, String value) throws OptionParserException;
 
-    INACCESSIBLE_SETTER_METHOD(""), WRONG_DATA_TYPE, NO_OPTION_ANNOTATION_IS_FOUND
+    Class< ? > getOptionDataType();
 
-    ;
+    boolean takesArgument();
 
-    private final String description;
-
-    private ShellError()
-    {
-        this.description = "";
-    }
-
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
+    Option getOption();
 }
