@@ -33,9 +33,10 @@ import org.xerial.util.xml.pullparser.AbstractSAXEventHandler;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
- * (start, end)ÇÃÉâÉxÉäÉìÉOÇXMLÇ…ëŒÇµÇƒçsÇ§
+ * Label XML documents with start and end intervals
+ * 
  * @author leo
- *
+ * 
  */
 public class IntervalIndexer extends AbstractSAXEventHandler
 {
@@ -43,12 +44,10 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     int _currentDepth = 0;
     int _startOrder = 0;
     LWIndexWriter _writer;
-    
+
     int STARTORDER_INCREMENT = 1;
     int MINIMUM_INTERAVAL = 1;
-    
-    
-    
+
     public class LWIndex implements XMLNode
     {
         int start;
@@ -72,7 +71,7 @@ public class IntervalIndexer extends AbstractSAXEventHandler
             return StringUtil.concatinateWithTab(start, end, level);
         }
     }
-    
+
     public IntervalIndexer(LWIndexWriter writer)
     {
         _writer = writer;
@@ -121,17 +120,18 @@ public class IntervalIndexer extends AbstractSAXEventHandler
         _startOrder += STARTORDER_INCREMENT;
         _currentDepth++;
     }
-    
+
     private void popStack(XmlPullParser parser)
     {
         int endOrder = _startOrder + MINIMUM_INTERAVAL;
-        
+
         Pair<Integer, String> currentNode = _startOrderStack.pop();
         // output node data
-        _writer.write(new LWIndex(currentNode.getFirst(), endOrder, _currentDepth), parser.getName(), currentNode.getSecond());
-        
+        _writer.write(new LWIndex(currentNode.getFirst(), endOrder, _currentDepth), parser.getName(), currentNode
+                .getSecond());
+
         _startOrder = endOrder + STARTORDER_INCREMENT;
         _currentDepth--;
     }
-    
+
 }

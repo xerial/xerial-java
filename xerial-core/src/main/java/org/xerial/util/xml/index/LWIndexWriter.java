@@ -24,26 +24,35 @@
 //--------------------------------------
 package org.xerial.util.xml.index;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import org.xerial.util.StringUtil;
 
 /**
- * XML IndexÇèoóÕÇ∑ÇÈÉNÉâÉX
+ * XML index writer
+ * 
  * @author leo
- *
+ * 
  */
 public class LWIndexWriter
 {
-    
-    
+    PrintStream out = System.out;
+
     public LWIndexWriter()
     {
-        
+
     }
-    
+
+    public LWIndexWriter(OutputStream out)
+    {
+        this.out = new PrintStream(out);
+    }
+
     public void write(XMLNode node, String tagName, String textContent)
     {
-        System.out.println(StringUtil.concatinateWithTab(node.outputAsTabDelimited(), tagName, textContent == null? "" : textContent.trim()));
+        out.println(StringUtil.concatinateWithTab(node.outputAsTabDelimited(), tagName, textContent == null ? ""
+                : textContent.trim()));
     }
 
 }
-

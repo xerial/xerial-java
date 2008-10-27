@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.util.xml.index;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Stack;
 
 import org.xerial.util.Pair;
@@ -33,23 +35,25 @@ import org.xmlpull.v1.XmlPullParser;
 
 /**
  * pre-post order labeling
+ * 
  * @author leo
- *
+ * 
  */
 public class PrePostOrderIndexer extends AbstractSAXEventHandler
 {
     private int _preOrder = 0;
     private int _postOrder = 0;
     private Stack<Pair<Integer, String>> _nodeStack;
-    
+
+    private final PrintStream out;
+
     /**
      * 
      */
-    public PrePostOrderIndexer()
+    public PrePostOrderIndexer(OutputStream out)
     {
-        
+        this.out = new PrintStream(out);
     }
-
 
     @Override
     public void startDocument(XmlPullParser parser) throws XMLException
@@ -59,20 +63,21 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
         _postOrder = 0;
         pushStack();
     }
-    
+
     private void pushStack()
     {
         _nodeStack.add(new Pair<Integer, String>(_preOrder++, null));
     }
+
     private void popStack(String tagName)
     {
         Pair<Integer, String> node = _nodeStack.pop();
         int preOrder = node.getFirst();
         int postOrder = _postOrder++;
         // output node info
-        System.out.println(preOrder + "\t" + postOrder + "\t" + tagName + "\t" + (node.getSecond() != null ? node.getSecond().trim() : ""));
+        out.println(preOrder + "\t" + postOrder + "\t" + tagName + "\t"
+                + (node.getSecond() != null ? node.getSecond().trim() : ""));
     }
-
 
     @Override
     public void endDocument(XmlPullParser parser) throws XMLException
@@ -80,20 +85,17 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
         popStack("_root");
     }
 
-
     @Override
     public void startTag(XmlPullParser parser) throws XMLException
     {
         pushStack();
     }
 
-    
     @Override
     public void endTag(XmlPullParser parser) throws XMLException
     {
         popStack(parser.getName());
     }
-
 
     @Override
     public void text(XmlPullParser parser) throws XMLException
@@ -101,7 +103,5 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
         Pair<Integer, String> currentNode = _nodeStack.peek();
         currentNode.setSecond(parser.getText());
     }
-    
 
 }
-

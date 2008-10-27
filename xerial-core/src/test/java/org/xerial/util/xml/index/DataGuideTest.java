@@ -24,13 +24,14 @@
 package org.xerial.util.xml.index;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
 import junit.framework.TestCase;
 
-import org.xerial.util.io.NullOutputStream;
+import org.xerial.util.log.Logger;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLGenerator;
 import org.xerial.util.xml.pullparser.SAXParser;
@@ -41,7 +42,7 @@ import org.xerial.util.xml.pullparser.SAXParser;
  */
 public class DataGuideTest extends TestCase
 {
-
+    private static Logger _logger = Logger.getLogger(DataGuideTest.class);
     Reader xmlSource = null;
 
     @Override
@@ -70,7 +71,10 @@ public class DataGuideTest extends TestCase
         DataGuide dg = new DataGuide();
         dg.generateFrom(xmlSource);
         //dg.outputGraphviz(new NullOutputStream());
-        dg.outputGraphviz(System.out);
+
+        ByteArrayOutputStream writer = new ByteArrayOutputStream();
+        dg.outputGraphviz(writer);
+        _logger.debug(writer.toString());
     }
 
     public void testDataGuideGenerator() throws Exception
@@ -80,6 +84,8 @@ public class DataGuideTest extends TestCase
 
         parser.parse(xmlSource);
 
-        dg.outputGraphviz(new NullOutputStream());
+        ByteArrayOutputStream writer = new ByteArrayOutputStream();
+        dg.outputGraphviz(writer);
+        _logger.debug(writer.toString());
     }
 }

@@ -25,57 +25,53 @@
 package org.xerial.util.xml.index;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import junit.framework.TestCase;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.xerial.util.log.Logger;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLGenerator;
 import org.xerial.util.xml.pullparser.SAXParser;
 
-public class IntervalIndexerTest extends TestCase
+public class IntervalIndexerTest
 {
     private Reader xmlSource;
-    
-    @Override
-    protected void setUp() throws Exception
+    private static Logger _logger = Logger.getLogger(IntervalIndexerTest.class);
+
+    @Before
+    public void setUp()
     {
-        // XMLï∂èëÇÃèÄîı
+        // prepare an XML document
         StringWriter xmlWriter = new StringWriter();
         XMLGenerator xout = new XMLGenerator(xmlWriter);
         xout.startTag("booklist");
-        xout.startTag("book", new XMLAttribute().add("isbn", "20424142342")).
-            startTag("author").
-                element("first-name", "Peter").
-                element("last-name", "Buneman").
-            endTag().
-            element("author", new XMLAttribute().add("id", "3214"), "leoleo").
-            element("year", "2005").
-            startTag("publisher").
-                element("name", "Morgan-Kaufmann").
-            endTag().
-        endTag();
-        xout.startTag("book").
-            startTag("authors").
-                startTag("author").element("id", "4234").text("taro").endTag().
-                element("author", "yui").
-            endTag().
-        endTag();   
-        
+        xout.startTag("book", new XMLAttribute().add("isbn", "20424142342")).startTag("author").element("first-name",
+                "Peter").element("last-name", "Buneman").endTag().element("author",
+                new XMLAttribute().add("id", "3214"), "leoleo").element("year", "2005").startTag("publisher").element(
+                "name", "Morgan-Kaufmann").endTag().endTag();
+        xout.startTag("book").startTag("authors").startTag("author").element("id", "4234").text("taro").endTag()
+                .element("author", "yui").endTag().endTag();
+
         xout.endTag();
         xout.endDocument();
         xout.flush();
-        
+
         xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
     }
-    
+
+    @Test
     public void testOutput() throws Exception
     {
-        IntervalIndexer indexer = new IntervalIndexer(new LWIndexWriter());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IntervalIndexer indexer = new IntervalIndexer(new LWIndexWriter(out));
         SAXParser parser = new SAXParser(indexer);
-        
+
         parser.parse(xmlSource);
+
+        _logger.debug(out.toString());
     }
 }
