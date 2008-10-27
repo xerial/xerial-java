@@ -38,6 +38,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.FIELD, ElementType.METHOD })
 public @interface Argument {
+    
     /**
      * description of the argument
      */
@@ -50,8 +51,8 @@ public @interface Argument {
 
     /**
      * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0
+     * or "--". The default is 0.
      */
     int index() default 0;
-
+    
 }

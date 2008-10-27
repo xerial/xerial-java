@@ -16,77 +16,69 @@
 //--------------------------------------
 // XerialJ
 //
-// SetterMethod.java
-// Since: Oct 27, 2008 3:48:55 PM
+// FieldSetter.java
+// Since: Oct 27, 2008 3:28:03 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.shell;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
-import org.xerial.core.XerialError;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
-public class SetterMethod implements OptionSetter
+/**
+ * Option setter that bind arguments directory to a field variable
+ * 
+ * @author leo
+ * 
+ */
+public class OptionSetterViaField implements OptionSetter
 {
-    private Method m;
+    private final Field field;
 
-    public SetterMethod(Method m)
+    public OptionSetterViaField(Field field)
     {
-        this.m = m;
-        //if(m.getParameterTypes().length != 1)
-        //throw new 
-
+        this.field = field;
     }
 
-    public void setOption(Object bean, String value) throws OptionParserException
+    public Class< ? > getOptionDataType()
+    {
+        field.getType();
+        return null;
+    }
+
+    public void setOption(Object bean, Object value) throws OptionParserException
     {
         try
         {
+            field.set(bean, value);
+        }
+        catch (IllegalAccessException e)
+        {
+            field.setAccessible(true);
             try
             {
-                m.invoke(bean, value);
+                field.set(bean, value);
             }
-            catch (IllegalAccessException e)
+            catch (IllegalAccessException e1)
             {
-                m.setAccessible(true);
-                try
-                {
-                    m.invoke(bean, value);
-                }
-                catch (IllegalAccessException e2)
-                {
-                    throw new IllegalAccessError(e2.getMessage());
-                }
+                throw new IllegalAccessError(e1.getMessage());
             }
         }
-        catch (InvocationTargetException e)
+        catch (IllegalArgumentException e)
         {
             throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
         }
 
     }
 
-    public Class< ? > getOptionDataType()
-    {
-        return m.getParameterTypes()[0];
-    }
-
     public boolean takesArgument()
     {
-        return !TypeInformation.isBoolean(getOptionDataType());
-    }
-
-    public Option getOption()
-    {
-        Option option = m.getAnnotation(Option.class);
-        if (option == null)
-            throw new XerialError(ShellError.NO_OPTION_ANNOTATION_IS_FOUND);
-        return option;
+        Class< ? > type = getOptionDataType();
+        return !TypeInformation.isBoolean(type);
     }
 
 }

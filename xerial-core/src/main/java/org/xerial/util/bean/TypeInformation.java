@@ -107,6 +107,16 @@ public class TypeInformation
         return Map.class.isAssignableFrom(c);
     }
 
+    public static boolean isEnum(Class< ? > c)
+    {
+        return c.isEnum();
+    }
+    
+    public static boolean isArray(Class< ? > c)
+    {
+        return c.isArray();
+    }
+    
     public static boolean isString(Class< ? > c)
     {
         return String.class.isAssignableFrom(c);

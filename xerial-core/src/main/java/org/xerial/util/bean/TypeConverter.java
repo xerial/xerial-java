@@ -36,14 +36,40 @@ import java.util.Date;
  */
 public class TypeConverter
 {
-    public static Object convertType(Class< ? > targetType, Object value) throws BeanException
+    // conversion to the Enum type is tested before the cast 
+    @SuppressWarnings("unchecked") 
+    public static <T> T convertType(Class<T> targetType, Object value) throws BeanException
     {
         if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
-            return value;
+            return (T) value;
+        else if (targetType.isEnum())
+            return (T) convertToEnum((Class<Enum>) targetType, value);
         else
-            return convertToBasicType(targetType, value);
+            return (T) convertToBasicType(targetType, value);
+    }
+    
+    /**
+     * Convert the input to the specified type
+     * @param <T>
+     * @param targetType
+     * @param input
+     * @return
+     */
+    public static <T extends Enum<T>> T convertToEnum(Class<T> targetType, Object input)
+    {
+        assert (targetType.isEnum());
+
+        String value = input.toString();
+        return Enum.valueOf(targetType, value);
     }
 
+    /**
+     * Convert the input to the basic type (int, double, String,... etc.)
+     * @param targetType
+     * @param input
+     * @return
+     * @throws BeanException
+     */
     public static Object convertToBasicType(Class< ? > targetType, Object input) throws BeanException
     {
         assert (TypeInformation.isBasicType(targetType));

@@ -42,7 +42,8 @@ public class OptionParser
 {
     private boolean ignoreUnknownOption = false;
 
-    public <OptionBean> OptionBean parse(String[] args, OptionBean bean)
+    
+    public <OptionBean> OptionBean parse(String[] args, OptionBean bean) throws OptionParserException
     {
         OptionSchema schema = newOptionSchema(bean);
 
@@ -53,19 +54,17 @@ public class OptionParser
         for (; index < args.length; index++)
         {
             String currentArg = args[index];
+
             if (currentArg.startsWith("--"))
             {
                 // long name option
                 int splitPos = currentArg.indexOf('=');
-                String longOptionName;
-                String value;
                 if (splitPos == -1)
                 {
                     // no value is found
-                    longOptionName = currentArg.substring(2);
-
-                    OptionSetter setter = schema.getOptionSetter(longOptionName);
-                    if (setter == null)
+                    String longOptionName = currentArg.substring(2);
+                    OptionItem optionItem = schema.getOption(longOptionName);
+                    if (optionItem == null)
                     {
                         if (ignoreUnknownOption)
                         {
@@ -79,44 +78,48 @@ public class OptionParser
                         }
                     }
 
-                    if (setter.takesArgument())
+                    if (optionItem.needsArgument())
                         throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
                                 "parameter value is required for --" + longOptionName);
 
-                    setter.setOption(bean, args[++index]);
-                    activatedOptionSet.add(opt.getOptionID());
+                    optionItem.setOption(bean, args[++index]);
+                    activatedOption.add(optionItem.getOption());
                 }
                 else
                 {
-                    // a matching argument value is found
-                    longOptionName = arg.substring(2, splitPos);
-                    value = arg.substring(splitPos + 1);
-                    OptionWithNoArgument<OptionID> opt = _rootOptionGroup.findByLongOptionName(longOptionName);
-                    if (opt == null)
-                        if (ignoreUnknownOption)
-                        {
-                            index++;
-                            continue;
-                        }
-                        else
-                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
-                                    + longOptionName);
-                    if (opt instanceof OptionWithArgument)
-                    {
-                        OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) opt;
-                        optWithArg.setArgumentValue(value);
-                        optWithArg.set(args, index);
-                        activatedOptionSet.add(optWithArg.getOptionID());
-                    }
-                    else
-                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "syntax error --"
-                                + longOptionName);
+                    // option is a (key, value) pair
+//                    String longOptionName = currentArg.substring(2, splitPos);
+//                    String value = currentArg.substring(splitPos + 1);
+//                    OptionSetter setter = schema.getOption(longOptionName);
+//                    if (setter == null)
+//                        if (ignoreUnknownOption)
+//                        {
+//                            index++;
+//                            continue;
+//                        }
+//                        else
+//                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
+//                                    + longOptionName);
+//
+//                    if(!setter.takesArgument())
+//                    {
+//                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "syntax error --"
+//                                + longOptionName);
+//                    }
+//
+//                    setter.setOption(bean,args[++index]);
+//                    activatedOption.add(setter.getOption());
                 }
 
             }
             else if (currentArg.startsWith("-"))
             {
-
+                // option with a leading hyphen
+                
+            }
+            else
+            {
+                // general argument
             }
 
         }
@@ -134,29 +137,25 @@ public class OptionParser
             // looks for bean methods annotated with Option or Argument 
             for (Method eachMethod : beanClass.getDeclaredMethods())
             {
-                Option option = eachMethod.getAnnotation(Option.class);
-                if (option != null)
-                    optionSchema.addOptionSetter(option, eachMethod);
+                if (eachMethod.getAnnotation(Option.class) != null)
+                    optionSchema.addOptionItem(eachMethod);
 
-                Argument argument = eachMethod.getAnnotation(Argument.class);
-                if (argument != null)
-                    optionSchema.addArgumentSetter(argument, eachMethod);
-
+                if (eachMethod.getAnnotation(Argument.class) != null)
+                    optionSchema.addArgumentItem(eachMethod);
             }
 
             // looks for bean fields annotated with Option or Argument 
             for (Field f : beanClass.getFields())
             {
-                Option option = f.getAnnotation(Option.class);
-                if (option != null)
-                    optionSchema.addOptionField(f);
+                if (f.getAnnotation(Option.class) != null)
+                    optionSchema.addOptionItem(f);
 
-                Argument argument = f.getAnnotation(Argument.class);
-                if (argument != null)
-                    optionSchema.addArgumentField(f);
+                if (f.getAnnotation(Argument.class) != null)
+                    optionSchema.addArgumentItem(f);
             }
-
         }
+        
+        
 
         return optionSchema;
     }

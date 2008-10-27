@@ -32,11 +32,9 @@ import org.xerial.util.cui.OptionParserException;
  */
 public interface OptionSetter
 {
-    void setOption(Object bean, String value) throws OptionParserException;
+    void setOption(Object bean, Object convertedValue) throws OptionParserException;
 
     Class< ? > getOptionDataType();
 
     boolean takesArgument();
-
-    Option getOption();
 }

@@ -26,7 +26,7 @@ package org.xerial.util.shell;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * 
@@ -36,32 +36,51 @@ import java.util.HashMap;
  */
 public class OptionSchema
 {
-    private final HashMap<String, OptionSetter> optionIndex = new HashMap<String, OptionSetter>();
-    private final HashMap<Integer, OptionSetter> argumentIndex = new HashMap<Integer, OptionSetter>();
+    private final ArrayList<OptionItem> optionItemList = new ArrayList<OptionItem>();
+    private final ArrayList<ArgumentItem> argumentItemList = new ArrayList<ArgumentItem>();
 
-    public OptionSetter getOption(String optionName)
+    /**
+     * @param optionName
+     * @return 
+     */
+    public OptionItem getOption(String optionName)
     {
-        return optionIndex.get(optionName);
+        for(OptionItem eachOption : optionItemList)
+        {
+            Option opt = eachOption.getOption();
+            if(optionName.equals(opt.name()))
+                return eachOption;
+            
+            String longName = opt.longName();
+            if(longName != null && optionName.equals(longName))
+                return eachOption;
+        }
+        
+        return null;
     }
 
-    public void addOptionSetter(Option option, Method setter)
+    public void addOptionItem(Method setter)
     {
-        optionIndex.put(option.name(), new SetterMethod(setter));
+        OptionItem newOption = new OptionItem(setter);
+        optionItemList.add(newOption);
     }
 
-    public void addOptionField(Option option, Field field)
+    public void addOptionItem(Field field)
     {
-        optionIndex.put(option.name(), new FieldSetter(field));
+        OptionItem newOption = new OptionItem(field);
+        optionItemList.add(newOption);
     }
 
-    public void addArgumentSetter(Argument argument, Method setter)
+    public void addArgumentItem(Method setter)
     {
-        argument.index()
+        ArgumentItem newArg = new ArgumentItem(setter);
+        argumentItemList.add(newArg);
     }
 
-    public void addArgumentField(Argument argument, Field field)
+    public void addArgumentItem(Field field)
     {
-
+        ArgumentItem newArg = new ArgumentItem(field);
+        argumentItemList.add(newArg);
     }
 
 }

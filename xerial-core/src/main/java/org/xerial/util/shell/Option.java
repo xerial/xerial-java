@@ -59,10 +59,5 @@ public @interface Option {
      * command-line options
      */
     String description() default "";
-
-    /**
-     * Set this true if this option allows multiple occurrences. The default is
-     * false.
-     */
-    boolean multiple() default false;
+    
 }
