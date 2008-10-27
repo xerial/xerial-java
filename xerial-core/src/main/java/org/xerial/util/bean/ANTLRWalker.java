@@ -36,7 +36,7 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class ANTLRWalker extends TreeWalker
+public class ANTLRWalker implements TreeWalker
 {
     private final String[] parserTokenNames;
     private Tree currentNode = null;
@@ -85,7 +85,7 @@ public class ANTLRWalker extends TreeWalker
         skipDescendants = true;
     }
 
-    public TreeNode getSubTree() throws BeanException
+    public TreeNode getSubTree() throws XerialException
     {
         skipDescendants();
         return new ANTLRTreeNodeWrapper(currentNode);

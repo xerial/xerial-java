@@ -29,32 +29,33 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.xerial.util.FileResource;
+import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 /**
  * @author leo
- *
+ * 
  */
 public class PullParserUtilTest extends TestCase
 {
     XmlPullParser parser;
-    
+
     protected void setUp() throws Exception
     {
         parser = XmlPullParserFactory.newInstance().newPullParser();
         parser.setInput(FileResource.open(PullParserUtilTest.class, "booklist.xml"));
     }
+
     protected void tearDown() throws Exception
     {
 
     }
-    
-    public void testParseUntil() throws XmlPullParserException, IOException
-    {   
+
+    public void testParseUntil() throws XMLException, IOException
+    {
         int bookCount = 0;
-        while(PullParserUtil.parseUntil("book", parser))
+        while (PullParserUtil.parseUntil("book", parser))
         {
             bookCount++;
             assertEquals("book", parser.getName());
@@ -62,7 +63,3 @@ public class PullParserUtilTest extends TestCase
         assertEquals(2, bookCount);
     }
 }
-
-
-
-

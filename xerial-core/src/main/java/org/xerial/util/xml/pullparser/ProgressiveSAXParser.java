@@ -24,26 +24,31 @@
 //--------------------------------------
 package org.xerial.util.xml.pullparser;
 
+import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.END_TAG;
+import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.START_TAG;
+import static org.xmlpull.v1.XmlPullParser.TEXT;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLInputSource;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import static org.xmlpull.v1.XmlPullParser.*;
-
 /**
- * SAXParsingの進み具合を自分でコントロールするためのクラス
+ * SAX Parser that can control parsing steps by its own
  * 
  * <pre>
- * XMLInputSource xmlSource = new XMLInputSource("booklist.xml");
+ * XMLInputSource xmlSource = new XMLInputSource(&quot;booklist.xml&quot;);
  * ProgressiveSAXParser parser = new ProgressiveSAXParser(handler, xmlSource);
  * 
  * int state;
- * while((state = parser.parseStep()) != XmlPullParser.END_DOCUMENT)
+ * while ((state = parser.parseStep()) != XmlPullParser.END_DOCUMENT)
  * {}
  * 
  * </pre>
@@ -60,10 +65,8 @@ public class ProgressiveSAXParser
 
     private XmlPullParser _parser = null;
 
-    
-    
     /**
-     * @throws XMLParserException 
+     * @throws XMLParserException
      * 
      */
     public ProgressiveSAXParser(SAXEventHandler handler, XMLInputSource inputSource) throws XMLException
@@ -76,10 +79,10 @@ public class ProgressiveSAXParser
     {
         for (SAXEventHandler handler : handlerList)
             _handlerList.add(handler);
-        
+
         setXMLInputSource(inputSource);
     }
-    
+
     private void enablePullParsingWhileHandlingEvents()
     {
         _keepParserStatusWhileHandlingSAXEvents = false;
@@ -92,9 +95,6 @@ public class ProgressiveSAXParser
         _parser = _keepParserStatusWhileHandlingSAXEvents ? new ParseContext(_parser) : _parser;
     }
 
-
-    
-    
     public int parseStep() throws Exception, IOException
     {
         assert _parser != null;
@@ -127,7 +127,7 @@ public class ProgressiveSAXParser
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
         }
     }
 

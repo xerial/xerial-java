@@ -24,7 +24,15 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-public enum BeanErrorCode {
+import org.xerial.core.ErrorCode;
+
+/**
+ * Error codes for bean package
+ * 
+ * @author leo
+ * 
+ */
+public enum BeanErrorCode implements ErrorCode {
 
     IOError,
 
@@ -44,6 +52,28 @@ public enum BeanErrorCode {
     BeanObjectIsNull,
 
     // binder
-    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed
+    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed;
+
+    private final String description;
+
+    BeanErrorCode(String description)
+    {
+        this.description = description;
+    }
+
+    BeanErrorCode()
+    {
+        this.description = EMPTY_DESCRIPTION;
+    }
+
+    public String getCodeName()
+    {
+        return name();
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
 
 }

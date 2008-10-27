@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,31 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialExceptionTest.java
-// Since: 2004/12/21
+// Argument.java
+// Since: Oct 27, 2008 11:37:08 AM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.core;
+package org.xerial.util.shell;
 
-import static org.junit.Assert.assertEquals;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.junit.Test;
-
-/**
- * @author leo
- * 
- */
-public class XerialExceptionTest
-{
-
-    @Test
-    public void testVarArgConstructor()
-    {
-        XerialException e = new XerialException(StandardErrorCode.INVALID_STATE, "exception message");
-        assertEquals(StandardErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
-
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.FIELD })
+public @interface Argument {
 
 }

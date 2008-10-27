@@ -24,50 +24,73 @@
 //--------------------------------------
 package org.xerial.util.xml.pullparser;
 
+import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
+import static org.xmlpull.v1.XmlPullParser.START_TAG;
+
 import java.io.IOException;
 import java.io.Reader;
 
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import static org.xmlpull.v1.XmlPullParser.*;
-
-/** XMLのpull parserを便利に使うためのユーティリティ群
+/**
+ * Utilities for XML pull parser
+ * 
  * @author leo
- *
+ * 
  */
 public class PullParserUtil
 {
 
-    /** 特定のtagにたどり着くまで、parseを進める
-     * @param tagName 目標のtag
-     * @param pullParser pull parser
-     * @return 目的のtagが見つかればtrue, 見つからなければfalse。trueの時、
-     * pull parserは、START_TAGのところにカーソルがあった状態になる
-     * @throws XmlPullParserException
-     * @throws IOException
-     */
-    static public boolean parseUntil(String tagName, XmlPullParser pullParser) throws XmlPullParserException, IOException
-    {
-        while(pullParser.next() != END_DOCUMENT)
-        {
-            int state = pullParser.getEventType();
-            if(state == START_TAG)
-            {
-                if(tagName.equals(pullParser.getName()))
-                    return true; // found the target tag
-            }
-        }
-        return false;
-    }
-    
     /**
-     * プルパーサの生成補助
-     * @param xmlReader XMLを読み込むreader
-     * @return pull parserのインスタンス
-     * @throws XMLParserException parserの生成に失敗した時
+     * Parse until the taget tag is found. When this method returns true, the
+     * pull parser's cursor is on the START_TAG of the target
+     * 
+     * @param tagName
+     *            the target
+     * @param pullParser
+     *            pull parser
+     * @return true when the target tag is found, otherwise false
+     * @throws IOException
+     *             when failed to read XML data
+     * 
+     * @throws XMLException
+     *             when parse error is found
+     */
+    static public boolean parseUntil(String tagName, XmlPullParser pullParser) throws XMLException, IOException
+    {
+        try
+        {
+            while (pullParser.next() != END_DOCUMENT)
+            {
+                int state = pullParser.getEventType();
+                if (state == START_TAG)
+                {
+                    if (tagName.equals(pullParser.getName()))
+                        return true; // found the target tag
+                }
+            }
+            return false;
+        }
+        catch (XmlPullParserException e)
+        {
+            throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
+        }
+    }
+
+    /**
+     * Generates a XML pull parser
+     * 
+     * @param xmlReader
+     *            XML reader
+     * 
+     * @return an instance of the pull parser
+     * @throws XMLException
+     *             when failed to create XML pull parser
+     * 
      */
     static public XmlPullParser newParser(Reader xmlReader) throws XMLException
     {
@@ -78,14 +101,10 @@ public class PullParserUtil
             parser.setInput(xmlReader);
             return parser;
         }
-        catch(XmlPullParserException e)
+        catch (XmlPullParserException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.FAILED_TO_CREATE_XML_PARSER, e);
         }
     }
 
 }
-
-
-
-

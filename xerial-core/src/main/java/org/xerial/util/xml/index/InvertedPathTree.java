@@ -42,8 +42,8 @@ import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Graph;
-import org.xerial.util.graph.GraphException;
 import org.xerial.util.graph.GraphvizHelper;
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
@@ -73,12 +73,12 @@ public class InvertedPathTree
         _rootID = _pathTree.addNode(rootPath);
     }
 
-    public void generateFrom(String xmlFile) throws XMLException, GraphException, FileNotFoundException, IOException
+    public void generateFrom(String xmlFile) throws XMLException, FileNotFoundException, IOException
     {
         generateFrom(new BufferedReader(new FileReader(xmlFile)));
     }
 
-    public void generateFrom(Reader xmlReader) throws IOException, XMLException, GraphException
+    public void generateFrom(Reader xmlReader) throws IOException, XMLException
     {
         XmlPullParser parser = PullParserUtil.newParser(xmlReader);
 
@@ -108,18 +108,14 @@ public class InvertedPathTree
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLException(e);
-        }
-        catch (GraphException e)
-        {
-            throw e;
+            throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
         }
     }
 
     /**
-     * currentPath‚É‘Î‰ž‚·‚énode‚Æedge‚ðƒOƒ‰ƒt‚É’Ç‰Á‚·‚é
+     * add nodes and edges corresponding to the current path
      */
-    private void updateInvertedPathTree() throws GraphException
+    private void updateInvertedPathTree()
     {
         int cursor = _rootID;
         InvertedPath cursorPath = new InvertedPath();

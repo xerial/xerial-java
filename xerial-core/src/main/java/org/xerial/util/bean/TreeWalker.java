@@ -32,34 +32,37 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public abstract class TreeWalker
+public interface TreeWalker
 {
-    protected TreeWalker()
-    {}
-
     /**
-     * Start walking
+     * Start walking, and invoke some visitor methods (
+     * {@link TreeVisitor#visitNode(String, TreeWalker)},
+     * {@link TreeVisitor#leaveNode(String, String, TreeWalker)} etc. while
+     * traversing the tree.
      * 
      * @param visitor
      *            A {@link TreeVisitor} that handles tree visit events
      * @throws XerialException
+     *             when we have to stop the walking
      */
-    public abstract void walk(TreeVisitor visitor) throws XerialException;
+    public void walk(TreeVisitor visitor) throws XerialException;
 
     /**
      * Skip the descendants of the current node
      */
-    public abstract void skipDescendants();
+    public void skipDescendants();
 
     /**
-     * Gets the entire subtree beginning from the current node, and skips the
-     * descendants.
+     * Gets the entire subtree beginning from the current node, and skips all
+     * visitor method invocation as for the sub tree nodes.
+     * 
      * 
      * @return {@link TreeNode} representation of the tree structured data
      *         beginning from the current node
-     * @throws BeanException
-     *             TODO
+     * @throws XerialException
+     *             when we have to stop the walking
+     * 
      */
-    public abstract TreeNode getSubTree() throws BeanException;
+    public TreeNode getSubTree() throws XerialException;
 
 }

@@ -29,6 +29,8 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import org.xerial.core.XerialError;
+
 /**
  * XML Generator produces well-formed XML documents
  * 
@@ -44,7 +46,9 @@ import java.util.LinkedList;
  * A (the previous output is starg tag) B (the previous output is text content)
  * C (the previous output is end tag)
  * 
- * @author leo TODO attribute‘Î‰ž TODO Javadoc TODO indent on/off
+ * TODO: on/off of indentation
+ * 
+ * @author leo
  */
 public class XMLGenerator
 {
@@ -119,7 +123,7 @@ public class XMLGenerator
         return this;
     }
 
-    public XMLGenerator element(String tagName, String textContent) throws InvalidXMLException
+    public XMLGenerator element(String tagName, String textContent)
     {
         startTag(tagName, null);
         text(textContent);
@@ -127,7 +131,7 @@ public class XMLGenerator
         return this;
     }
 
-    public XMLGenerator element(String tagName, XMLAttribute attribute, String textContent) throws InvalidXMLException
+    public XMLGenerator element(String tagName, XMLAttribute attribute, String textContent)
     {
         startTag(tagName, attribute);
         text(textContent);
@@ -135,17 +139,17 @@ public class XMLGenerator
         return this;
     }
 
-    public XMLGenerator selfCloseTag(String tagName, XMLAttribute attribute) throws InvalidXMLException
+    public XMLGenerator selfCloseTag(String tagName, XMLAttribute attribute)
     {
         startTag(tagName, attribute);
         endTag();
         return this;
     }
 
-    public XMLGenerator endTag() throws InvalidXMLException
+    public XMLGenerator endTag()
     {
         if (_currentLevel < 1)
-            throw new InvalidXMLException("");
+            throw new XerialError(XMLErrorCode.NO_MORE_TAG_TO_CLOSE);
 
         switch (_prevOut)
         {
@@ -179,7 +183,7 @@ public class XMLGenerator
         return this;
     }
 
-    public void endDocument() throws InvalidXMLException
+    public void endDocument()
     {
         while (!_tagStack.isEmpty())
             endTag();

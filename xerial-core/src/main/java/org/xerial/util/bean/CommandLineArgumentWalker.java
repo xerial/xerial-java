@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,46 +16,58 @@
 //--------------------------------------
 // XerialJ
 //
-// XMLErrorCode.java
-// Since: Dec 18, 2007 4:18:42 PM
+// CommandLineArgumentWalker.java
+// Since: Oct 27, 2008 11:14:30 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.xml;
+package org.xerial.util.bean;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.core.XerialException;
 
 /**
- * XML related errors
+ * 
  * 
  * @author leo
  * 
  */
-public enum XMLErrorCode implements ErrorCode {
+public class CommandLineArgumentWalker implements TreeWalker
+{
+    private final String[] args;
+    private int index = 0;
 
-    INVALID_XML_STRUCTURE, NO_MORE_TAG_TO_CLOSE, PARSE_ERROR, SAX_ERROR, INVALID_PARSER_CONFIGURATION, FAILED_TO_CREATE_XML_PARSER;
-
-    private final String description;
-
-    private XMLErrorCode()
+    public CommandLineArgumentWalker(String[] args)
     {
-        this.description = EMPTY_DESCRIPTION;
+        this.args = args;
     }
 
-    private XMLErrorCode(String description)
+    public TreeNode getSubTree() throws XerialException
     {
-        this.description = description;
+        // TODO Auto-generated method stub
+        return null;
     }
 
-    public String getCodeName()
+    public void skipDescendants()
     {
-        return name();
+    // TODO Auto-generated method stub
+
     }
 
-    public String getDescription()
+    public void walk(TreeVisitor visitor) throws XerialException
     {
-        return description;
+        index = 0;
+
+        for (; index < args.length; index++)
+        {
+            String currentArg = args[index];
+            if (currentArg.startsWith("-"))
+            {
+
+            }
+
+        }
+
     }
 
 }

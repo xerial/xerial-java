@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,31 +16,44 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialExceptionTest.java
-// Since: 2004/12/21
+// StandardErrorCode.java
+// Since: Oct 27, 2008 1:02:08 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.core;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 /**
+ * Standard error codes
+ * 
  * @author leo
  * 
  */
-public class XerialExceptionTest
-{
+public enum StandardErrorCode implements ErrorCode {
 
-    @Test
-    public void testVarArgConstructor()
+    INVALID_STATE, SYNTAX_ERROR;
+
+    private final String description;
+
+    private StandardErrorCode()
     {
-        XerialException e = new XerialException(StandardErrorCode.INVALID_STATE, "exception message");
-        assertEquals(StandardErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
+        this.description = EMPTY_DESCRIPTION;
+    }
 
+    private StandardErrorCode(String description)
+    {
+        this.description = description;
+    }
+
+    public String getCodeName()
+    {
+        return name();
+    }
+
+    public String getDescription()
+    {
+        return null;
     }
 
 }

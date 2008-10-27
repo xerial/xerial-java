@@ -39,7 +39,6 @@ import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Graph;
-import org.xerial.util.graph.GraphException;
 import org.xerial.util.xml.SinglePath;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.AbstractSAXEventHandler;
@@ -108,30 +107,16 @@ public class DataGuide extends AbstractSAXEventHandler
 
     public int newTag(String tagName) throws XMLException
     {
-        try
-        {
-            int tagID = this.getTagID_internal(tagName);
-            this.moveCursor(tagID);
-            return _currentNodeID;
-        }
-        catch (GraphException e)
-        {
-            throw new XMLException(e);
-        }
+        int tagID = this.getTagID_internal(tagName);
+        this.moveCursor(tagID);
+        return _currentNodeID;
     }
 
     public void newAttribute(String tagName, String attributeName) throws XMLException
     {
-        try
-        {
-            int attributeID = this.getTagID_internal(String.format("%s@%s", tagName, attributeName));
-            this.moveCursor(attributeID);
-            this.traceBack();
-        }
-        catch (GraphException e)
-        {
-            throw new XMLException(e);
-        }
+        int attributeID = this.getTagID_internal(String.format("%s@%s", tagName, attributeName));
+        this.moveCursor(attributeID);
+        this.traceBack();
     }
 
     public void closeTag()
@@ -203,7 +188,7 @@ public class DataGuide extends AbstractSAXEventHandler
         saxParser.parse(xmlReader);
     }
 
-    void moveCursor(int tagID) throws GraphException
+    void moveCursor(int tagID)
     {
         _graph.addEdge(new Edge(_currentNodeID, tagID), "edge");
 

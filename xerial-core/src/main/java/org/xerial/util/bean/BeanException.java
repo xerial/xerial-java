@@ -26,13 +26,18 @@ package org.xerial.util.bean;
 
 import org.xerial.core.XerialException;
 
+/**
+ * Bean related exception
+ * 
+ * @author leo
+ * 
+ */
 public class BeanException extends XerialException
 {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    private final BeanErrorCode errorCode;
 
     /**
      * @param errorCode
@@ -41,8 +46,7 @@ public class BeanException extends XerialException
      */
     public BeanException(BeanErrorCode errorCode, String message, Throwable e)
     {
-        super(message, e);
-        this.errorCode = errorCode;
+        super(errorCode, message, e);
     }
 
     /**
@@ -51,8 +55,7 @@ public class BeanException extends XerialException
      */
     public BeanException(BeanErrorCode errorCode, String message)
     {
-        super(message);
-        this.errorCode = errorCode;
+        super(errorCode, message);
     }
 
     /**
@@ -61,26 +64,16 @@ public class BeanException extends XerialException
      */
     public BeanException(BeanErrorCode errorCode, Throwable e)
     {
-        super(e);
-        this.errorCode = errorCode;
+        super(errorCode, e);
     }
 
-    /**
-     * @param errorCode
-     * @param message
-     */
-    public BeanException(BeanErrorCode errorCode, Object... message)
+    public BeanException(BeanErrorCode errorCode)
     {
-        super(message);
-        this.errorCode = errorCode;
+        super(errorCode);
     }
 
-
-    public String getMessage()
+    public BeanErrorCode getErrorCode()
     {
-        return "[" + errorCode.name() + "] " + super.getMessage();
+        return (BeanErrorCode) super.getErrorCode();
     }
-
-    
-    
 }

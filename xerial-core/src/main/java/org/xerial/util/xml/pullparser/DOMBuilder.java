@@ -38,7 +38,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
-import org.xerial.util.xml.InvalidXMLException;
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -82,12 +82,12 @@ public class DOMBuilder
         }
         catch (XmlPullParserException e)
         {
-            throw new InvalidXMLException(e);
+            throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
         }
     }
 
     protected Element parseElement(XmlPullParser pullParser, Document document) throws XmlPullParserException,
-            InvalidXMLException, IOException
+            IOException, XMLException
     {
         pullParser.require(START_TAG, null, null); // START_TAG‚©‚ç‚Å‚È‚¢‚Æelement‚Ìparse‚Í‚Å‚«‚È‚¢
         String tagName = pullParser.getName();
@@ -131,8 +131,8 @@ public class DOMBuilder
                 element.appendChild(textElement);
                 break;
             default: // END_DOCUMENT, etc
-                throw new InvalidXMLException("line " + pullParser.getLineNumber() + ": tag <" + qName
-                        + "> is not closed");
+                throw new XMLException(XMLErrorCode.INVALID_XML_STRUCTURE, "line " + pullParser.getLineNumber()
+                        + ": tag <" + qName + "> is not closed");
             }
         }
 
@@ -155,7 +155,7 @@ public class DOMBuilder
         }
         catch (ParserConfigurationException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.INVALID_PARSER_CONFIGURATION, e);
         }
     }
 

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,45 +16,49 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialException.java
-// Since: 2004/12/21
+// XerialRuntimeException.java
+// Since: Oct 27, 2008 12:32:23 PM
 //
 // $URL$
-// $Author:leo $
+// $Author$
 //--------------------------------------
 package org.xerial.core;
 
 /**
- * Base exception class for Xerial Project
+ * Unchecked exception class that represents errors related to programming bugs
+ * This type of error is usually unrecoverable.
  * 
  * @author leo
  * 
  */
-public class XerialException extends Exception
+public class XerialError extends RuntimeException
 {
+    /**
+     * 
+     */
     private static final long serialVersionUID = 1L;
 
     private final ErrorCode errorCode;
 
-    public XerialException(ErrorCode errorCode)
+    public XerialError(ErrorCode errorCode)
     {
         super();
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, String message, Throwable cause)
+    public XerialError(ErrorCode errorCode, String message, Throwable cause)
     {
         super(message, cause);
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, String message)
+    public XerialError(ErrorCode errorCode, String message)
     {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, Throwable cause)
+    public XerialError(ErrorCode errorCode, Throwable cause)
     {
         super(cause);
         this.errorCode = errorCode;

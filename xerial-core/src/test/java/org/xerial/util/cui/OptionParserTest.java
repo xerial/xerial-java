@@ -26,46 +26,53 @@ package org.xerial.util.cui;
 
 import junit.framework.TestCase;
 
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author leo
- *
+ * 
  */
 public class OptionParserTest extends TestCase
 {
-    enum Opt {HELP, OUTDIR, VERBOSE, MODE, WINDOWSIZE, LOGLEVEL}       
-    
+    enum Opt {
+        HELP, OUTDIR, VERBOSE, MODE, WINDOWSIZE, LOGLEVEL
+    }
+
     OptionParser<Opt> _optParser;
 
+    @Before
     protected void setUp() throws Exception
     {
         _optParser = new OptionParser<Opt>();
         _optParser.addOption(Opt.HELP, "h", "help", "display help message");
-        
+
         _optParser.addOptionWithArgument(Opt.OUTDIR, "o", "output", "DIR", "secify output directory", ".");
         _optParser.addOptionWithArgument(Opt.MODE, "m", "mode", "MODE", "select mode (1-3)", "1");
 
         OptionGroup<Opt> cuiOptionGroup = new OptionGroup<Opt>("CUI", true);
         cuiOptionGroup.addOption(Opt.VERBOSE, "v", "verbose", "display verbose messages");
         _optParser.addOptionGroup(cuiOptionGroup);
-        
+
         OptionGroup<Opt> guiOptionGroup = new OptionGroup<Opt>("GUI", true);
         guiOptionGroup.addOptionWithArgment(Opt.WINDOWSIZE, "", "windowsize", "SIZE", "set GUI window size", "100");
-        _optParser.addOptionGroup(guiOptionGroup);        
+        _optParser.addOptionGroup(guiOptionGroup);
     }
-    
+
+    @Test
     public void testDeafaultValue() throws OptionParserException
     {
-        _optParser.parse(new String[] {""});
+        _optParser.parse(new String[] { "" });
         assertEquals(".", _optParser.getValue(Opt.OUTDIR));
         assertEquals(1, _optParser.getIntValue(Opt.MODE));
         assertEquals(100, _optParser.getIntValue(Opt.WINDOWSIZE));
     }
-    
+
+    @Test
     public void testParse() throws OptionParserException
-    {        
-        _optParser.parse(new String[] {"-vh", "-o", "outdir", "inputfile.xml"});
-        
+    {
+        _optParser.parse(new String[] { "-vh", "-o", "outdir", "inputfile.xml" });
+
         assertTrue(_optParser.isSet(Opt.HELP));
         assertTrue(_optParser.isSet(Opt.VERBOSE));
         assertTrue(_optParser.isSet(Opt.OUTDIR));
@@ -75,8 +82,8 @@ public class OptionParserTest extends TestCase
         assertEquals(1, _optParser.getArgumentLength());
         assertEquals("inputfile.xml", _optParser.getArgument(0));
     }
-    
 
+    @Test
     public void testDupilicateOption()
     {
         try
@@ -85,12 +92,13 @@ public class OptionParserTest extends TestCase
             _optParser.addOption(Opt.HELP, "h", "help2", "another help");
             fail("failed to detect duplicate options");
         }
-        catch(IllegalArgumentException e)
+        catch (IllegalArgumentException e)
         {
             // success
         }
     }
 
+    @Test
     public void testDupilicateOption2()
     {
         try
@@ -101,67 +109,69 @@ public class OptionParserTest extends TestCase
             _optParser.addOptionGroup(tmpGroup);
             fail("failed to detect duplicate option IDs");
         }
-        catch(IllegalArgumentException e)
+        catch (IllegalArgumentException e)
         {
             // success
         }
     }
 
+    @Test
     public void testLongOptionArgument() throws OptionParserException
     {
-        String args[] = { "--mode=mixed"};
+        String args[] = { "--mode=mixed" };
         _optParser.parse(args);
         assertTrue(_optParser.isSet(Opt.MODE));
         assertEquals("mixed", _optParser.getValue(Opt.MODE));
         assertEquals(0, _optParser.getArgumentLength());
     }
-    
+
+    @Test
     public void testGroupCompatibility()
     {
-        String args[] = { "-v", "--windowsize=200"};
+        String args[] = { "-v", "--windowsize=200" };
         try
         {
             _optParser.parse(args);
             fail("OptionParser must recongnize that imcompatible options are set at the same time");
         }
-        catch(OptionParserException e)
+        catch (OptionParserException e)
         {
             //System.err.println(e.getMessage());
         }
     }
-    
 
     boolean helpflag = false;
     boolean logLevelFlag = false;
     String logLevel = null;
-    
+
+    @Test
     public void testHandler() throws OptionParserException
     {
-    	OptionParser<Opt> parser = new OptionParser<Opt>();
-    	
-    	parser.addOption(Opt.HELP, "h", "help", "set the helpflag", new OptionHandler<Opt>() {
+        OptionParser<Opt> parser = new OptionParser<Opt>();
+
+        parser.addOption(Opt.HELP, "h", "help", "set the helpflag", new OptionHandler<Opt>() {
             public void handle(OptionParser<Opt> parser) throws OptionParserException
             {
                 helpflag = true;
             }
-    	}
-    	);
-    	
-    	parser.addOptionWithArgument(Opt.LOGLEVEL, "l", "loglevel", "LEVEL", "set loglevel", new OptionHandler<Opt>() {
-    	    public void handle(OptionParser<Opt> parser) throws OptionParserException
-    	    {
-    	        logLevelFlag = true;
-    	        logLevel = parser.getValue(Opt.LOGLEVEL, "INFO");
-    	    }
-    	});
-    	
-    	parser.parse(new String[] {"-h", "--loglevel=DEBUG"});
-    	
-    	assertTrue(helpflag);
-    	assertTrue(logLevelFlag);
-    	assertEquals("DEBUG", logLevel);
+        });
+
+        parser.addOptionWithArgument(Opt.LOGLEVEL, "l", "loglevel", "LEVEL", "set loglevel", new OptionHandler<Opt>() {
+            public void handle(OptionParser<Opt> parser) throws OptionParserException
+            {
+                logLevelFlag = true;
+                logLevel = parser.getValue(Opt.LOGLEVEL, "INFO");
+            }
+        });
+
+        parser.parse(new String[] { "-h", "--loglevel=DEBUG" });
+
+        assertTrue(helpflag);
+        assertTrue(logLevelFlag);
+        assertEquals("DEBUG", logLevel);
     }
-    
+
+    @Test
     public void testGroupOptionHandler() throws OptionParserException
     {
         OptionParser<Opt> parser = new OptionParser<Opt>();
@@ -172,18 +182,13 @@ public class OptionParserTest extends TestCase
             {
                 helpflag = true;
             }
-        }
-        );
-        
+        });
+
         parser.addOptionGroup(group);
-        
-        parser.parse(new String[] {"-h"});
+
+        parser.parse(new String[] { "-h" });
 
         assertTrue(helpflag);
     }
-    
+
 }
-
-
-
-

@@ -230,7 +230,7 @@ public class JSONObject extends JSONValueBase
 
         JSONNumber n = v.getJSONNumber();
         if (n == null)
-            throw new JSONException(JSONErrorCode.NotAJSONNumber, n);
+            throw new JSONException(JSONErrorCode.NotAJSONNumber, n.toString());
 
         return n.getIntValue();
     }
@@ -243,7 +243,7 @@ public class JSONObject extends JSONValueBase
 
         JSONString s = v.getJSONString();
         if (s == null)
-            throw new JSONException(JSONErrorCode.NotAJSONString, v);
+            throw new JSONException(JSONErrorCode.NotAJSONString, v.toString());
         return s.getValue();
     }
 
@@ -282,7 +282,7 @@ public class JSONObject extends JSONValueBase
             throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
         JSONObject o = v.getJSONObject();
         if (o == null)
-            throw new JSONException(JSONErrorCode.NotAJSONObject, v);
+            throw new JSONException(JSONErrorCode.NotAJSONObject, v.toString());
         return o;
     }
 

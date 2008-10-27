@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.xerial.core.StandardErrorCode;
+
 /**
  * <p>
  * {@link OptionParser} parses command line arguments
@@ -60,7 +62,7 @@ import java.util.Vector;
  *           String outDir = p.getValue(Opt.OUTDIR);
  *       }
  *   }
- *  
+ * 
  * </pre>
  * 
  * @param OptionID
@@ -139,7 +141,7 @@ public class OptionParser<OptionID extends Comparable>
      *             {@link #addOption(Comparable, String, String, String, OptionHandler)}
      *             instead.
      */
-    public void addOption(Option<OptionID> option)
+    public void addOption(OptionWithNoArgument<OptionID> option)
     {
         option.setParent(_rootOptionGroup);
         addNewOptionID(option.getOptionID());
@@ -316,7 +318,7 @@ public class OptionParser<OptionID extends Comparable>
                 {
                     // no value is found
                     longOptionName = arg.substring(2);
-                    Option<OptionID> opt = _rootOptionGroup.findByLongOptionName(longOptionName);
+                    OptionWithNoArgument<OptionID> opt = _rootOptionGroup.findByLongOptionName(longOptionName);
                     if (opt == null)
                         if (ignoreUnknownOption)
                         {
@@ -324,9 +326,11 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException("unknown option --" + longOptionName);
+                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
+                                    + longOptionName);
                     if (opt.takeArgument())
-                        throw new OptionParserException("parameter value is required for --" + longOptionName);
+                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                                "parameter value is required for --" + longOptionName);
                     opt.set(args, index);
                     activatedOptionSet.add(opt.getOptionID());
                 }
@@ -335,7 +339,7 @@ public class OptionParser<OptionID extends Comparable>
                     // a matching argument value is found
                     longOptionName = arg.substring(2, splitPos);
                     value = arg.substring(splitPos + 1);
-                    Option<OptionID> opt = _rootOptionGroup.findByLongOptionName(longOptionName);
+                    OptionWithNoArgument<OptionID> opt = _rootOptionGroup.findByLongOptionName(longOptionName);
                     if (opt == null)
                         if (ignoreUnknownOption)
                         {
@@ -343,7 +347,8 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException("unknown option --" + longOptionName);
+                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
+                                    + longOptionName);
                     if (opt instanceof OptionWithArgument)
                     {
                         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) opt;
@@ -352,7 +357,8 @@ public class OptionParser<OptionID extends Comparable>
                         activatedOptionSet.add(optWithArg.getOptionID());
                     }
                     else
-                        throw new OptionParserException("syntax error --" + longOptionName);
+                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "syntax error --"
+                                + longOptionName);
                 }
             }
             else if (arg.startsWith("-"))
@@ -362,7 +368,7 @@ public class OptionParser<OptionID extends Comparable>
                 for (int i = 0; i < shortOptionList.length(); i++)
                 {
                     String shortOption = shortOptionList.substring(i, i + 1);
-                    Option<OptionID> opt = _rootOptionGroup.findByShortOptionName(shortOption);
+                    OptionWithNoArgument<OptionID> opt = _rootOptionGroup.findByShortOptionName(shortOption);
                     if (opt == null)
                         if (ignoreUnknownOption)
                         {
@@ -370,18 +376,21 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException("unknown option -" + shortOption);
+                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option -"
+                                    + shortOption);
                     if (opt.takeArgument())
                     {
                         if (shortOptionList.length() != 1)
-                            throw new OptionParserException("options with argument must be isolated: -" + shortOption);
+                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                                    "options with argument must be isolated: -" + shortOption);
                         if (opt instanceof OptionWithArgument)
                         {
                             OptionWithArgument optWithArg = (OptionWithArgument) opt;
                             if (++index < args.length)
                                 optWithArg.setArgumentValue(args[index]);
                             else
-                                throw new OptionParserException("parameter value is required for -" + shortOption);
+                                throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                                        "parameter value is required for -" + shortOption);
                         }
                     }
                     opt.set(args, index);
@@ -411,7 +420,7 @@ public class OptionParser<OptionID extends Comparable>
     }
 
     /**
-     * オプション関連以外のコマンドラインの引数のリストを得る
+     * Get the list of command-line arguments except option related ones
      * 
      * @return オプション関連以外のコマンドライン引数のリスト
      */
@@ -421,10 +430,11 @@ public class OptionParser<OptionID extends Comparable>
     }
 
     /**
-     * index番目のコマンドライン引数（オプション以外）
+     * Get a command line argument
      * 
      * @param index
-     * @return index番目(0 origin)のオプション関連以外のコマンドライン引数
+     *            argumetn index (0 origin)
+     * @return the command line argument at the index
      */
     public String getArgument(int index)
     {
@@ -432,9 +442,9 @@ public class OptionParser<OptionID extends Comparable>
     }
 
     /**
-     * オプション以外のコマンドライン引数の数を返す
+     * Get the argument length (except option related ones)
      * 
-     * @return 引数の数
+     * @return the number of arguments
      */
     public int getArgumentLength()
     {
@@ -442,28 +452,33 @@ public class OptionParser<OptionID extends Comparable>
     }
 
     /**
-     * 特定のoptionがセットされているか調べる
+     * Test whether the option is set in the command line argument
      * 
      * @param optionID
-     * @return コマンドラインでそのオプションが使われていればTrue。それ以外はfalse
+     *            the target option
+     * @return true if the option is set in the command line, otherwise false
      * @throws OptionParserException
-     *             optionIDに該当するオプションが設定されていない場合
+     *             if unknown option ID is given in the argument
      */
     public boolean isSet(OptionID optionID) throws OptionParserException
     {
-        Option<OptionID> option = findOption(optionID);
+        OptionWithNoArgument<OptionID> option = findOption(optionID);
         if (option == null)
-            throw new OptionParserException("unknown option " + optionID);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option " + optionID);
         return option.isSet();
     }
 
     /**
-     * option引数(例:--width=100 の100) のint value
+     * Get the integer value of the option (ex. if the option is --width=100,
+     * return 100 (int))
      * 
      * @param optionID
-     * @return int値
+     * @return the integer value of the option value
      * @throws OptionParserException
-     *             該当するoptionIDはない、あるいは引数がintに変換できない場合、あるいは引数を取れないオプションの場合
+     *             if no corresponding option ID is found in the
+     *             {@link OptionParser}, or the specified option cannot take any
+     *             argument. Or the argument value cannot be translated into
+     *             integer.
      */
     public int getIntValue(OptionID optionID) throws OptionParserException
     {
@@ -473,17 +488,21 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(e);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
         }
     }
 
     /**
-     * option引数の double値
+     * Get the option value in double format
      * 
      * @param optionID
-     * @return option引数の double値
+     *            the option ID
+     * @return the double value of the option
      * @throws OptionParserException
-     *             該当するoptionIDはない、あるいは引数がdoubleに変換できない場合、あるいは引数を取れないオプションの場合
+     *             if no corresponding option ID is found in the
+     *             {@link OptionParser}, or the specified option cannot take any
+     *             argument. Or the option value cannot be translated into
+     *             double.
      */
     public double getDoubleValue(OptionID optionID) throws OptionParserException
     {
@@ -493,18 +512,22 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(e);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
         }
 
     }
 
     /**
-     * option引数のfloat値
+     * Get the option value in float format
      * 
      * @param optionID
-     * @return option引数のfloat値
+     *            the option ID
+     * @return the float value of the option
      * @throws OptionParserException
-     *             該当するoptionIDはない、あるいは引数がfloatに変換できない場合、あるいは引数を取れないオプションの場合
+     *             if no corresponding option ID is found in the
+     *             {@link OptionParser}, or the specified option cannot take any
+     *             argument. Or the option value cannot be translated into
+     *             float.
      */
     public float getFloatValue(OptionID optionID) throws OptionParserException
     {
@@ -514,7 +537,7 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(e);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
         }
     }
 
@@ -530,11 +553,12 @@ public class OptionParser<OptionID extends Comparable>
      */
     public String getValue(OptionID optionID) throws OptionParserException
     {
-        Option<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
+        OptionWithNoArgument<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
         if (targetOption == null)
-            throw new OptionParserException("unknown option: " + optionID);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
         if (!(targetOption instanceof OptionWithArgument))
-            throw new OptionParserException("option " + optionID + " cannot take any argument");
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "option " + optionID
+                    + " cannot take any argument");
 
         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);
         return optWithArg.getArgumentValue();
@@ -555,11 +579,12 @@ public class OptionParser<OptionID extends Comparable>
      */
     public String getValue(OptionID optionID, String defaultValue) throws OptionParserException
     {
-        Option<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
+        OptionWithNoArgument<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
         if (targetOption == null)
-            throw new OptionParserException("unknown option: " + optionID);
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
         if (!(targetOption instanceof OptionWithArgument))
-            throw new OptionParserException("option " + optionID + " cannot take any argument");
+            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "option " + optionID
+                    + " cannot take any argument");
 
         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);
         String value = optWithArg.getArgumentValue();
@@ -580,7 +605,7 @@ public class OptionParser<OptionID extends Comparable>
         return container.toString();
     }
 
-    private Option<OptionID> findOption(OptionID optionID)
+    private OptionWithNoArgument<OptionID> findOption(OptionID optionID)
     {
         return _rootOptionGroup.findOption(optionID);
     }

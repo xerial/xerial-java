@@ -137,7 +137,7 @@ public class AdjacencyListTest extends TestCase
 
     }
 
-    public void testOutEdgeList() throws GraphException
+    public void testOutEdgeList()
     {
         Collection<Edge> l = al.getOutEdgeSet(4);
         assertEquals(2, l.size());
@@ -146,7 +146,7 @@ public class AdjacencyListTest extends TestCase
         assertTrue(l.contains(edge(4, 1)));
     }
 
-    public void testInEdgeList() throws GraphException
+    public void testInEdgeList()
     {
         Collection<Edge> l = al.getInEdgeSet(3);
         assertEquals(2, l.size());

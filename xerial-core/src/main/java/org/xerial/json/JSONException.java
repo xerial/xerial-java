@@ -27,29 +27,27 @@ package org.xerial.json;
 import org.xerial.core.XerialException;
 
 /**
- * Exception class related JSON  
+ * Exception class related JSON
+ * 
  * @author leo
- *
+ * 
  */
 public class JSONException extends XerialException
 {
     private static final long serialVersionUID = 1L;
-    private final JSONErrorCode errorCode;
-    
-	/**
+
+    /**
      * @param errorCode
      */
     public JSONException(JSONErrorCode errorCode)
     {
-        super();
-        this.errorCode = errorCode;
+        super(errorCode);
     }
 
     public JSONException(JSONErrorCode errorCode, String message)
-	{
-	    super(message);
-        this.errorCode = errorCode;
-	}
+    {
+        super(errorCode, message);
+    }
 
     /**
      * @param errorCode
@@ -58,8 +56,7 @@ public class JSONException extends XerialException
      */
     public JSONException(JSONErrorCode errorCode, String message, Throwable e)
     {
-        super(message, e);
-        this.errorCode = errorCode;
+        super(errorCode, message, e);
     }
 
     /**
@@ -68,38 +65,16 @@ public class JSONException extends XerialException
      */
     public JSONException(JSONErrorCode errorCode, Throwable e)
     {
-        super(e);
-        this.errorCode = errorCode;
+        super(errorCode);
     }
 
     /**
-     * @param errorCode
-     * @param message
+     * Gets the error code
+     * 
+     * @return the error code
      */
-    public JSONException(JSONErrorCode errorCode, Object... message)
+    public JSONErrorCode getErrorCode()
     {
-        super(message);
-        this.errorCode = errorCode;
+        return (JSONErrorCode) super.getErrorCode();
     }
-	
-    /* (non-Javadoc)
-     * @see java.lang.Throwable#getMessage()
-     */
-    public String getMessage()
-    {
-        return "[" + errorCode.name() + "] " + super.getMessage();
-    }
-
-	/**
-	 * Gets the error code
-	 * @return the error code
-	 */
-	public JSONErrorCode getErrorCode()
-	{
-	    return errorCode;
-	}
 }
-
-
-
-

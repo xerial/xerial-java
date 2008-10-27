@@ -43,7 +43,7 @@ import org.xerial.json.JSONValue;
  * @author leo
  * 
  */
-public class JSONStreamWalker extends TreeWalker
+public class JSONStreamWalker implements TreeWalker
 {
     private final JSONPullParser jsonPullParser;
     private boolean skipDescendants = false;
@@ -135,7 +135,7 @@ public class JSONStreamWalker extends TreeWalker
         skipDescendants = true;
     }
 
-    public TreeNode getSubTree() throws BeanException
+    public TreeNode getSubTree() throws XerialException
     {
         skipDescendants();
         try

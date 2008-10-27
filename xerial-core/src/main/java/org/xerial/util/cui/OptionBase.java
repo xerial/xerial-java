@@ -33,16 +33,16 @@ import java.util.List;
 
 /**
  * 
- * A base class for {@link Option} and {@link OptionGroup}
+ * A base class for {@link OptionWithNoArgument} and {@link OptionGroup}
  * 
  * @author leo
  *
  */
 abstract class OptionBase<OptionID extends Comparable> 
 {
-    abstract protected Option<OptionID> findByLongOptionName(String longOption);
-    abstract protected Option<OptionID> findByShortOptionName(String shortOption);
-    abstract protected Option<OptionID> findOption(OptionID optionID);
+    abstract protected OptionWithNoArgument<OptionID> findByLongOptionName(String longOption);
+    abstract protected OptionWithNoArgument<OptionID> findByShortOptionName(String shortOption);
+    abstract protected OptionWithNoArgument<OptionID> findOption(OptionID optionID);
     abstract protected void collectOptionID(List<OptionID> optionIDList);
     abstract protected void collectOptionDescriptions(OptionDescriptionContainer container);
     

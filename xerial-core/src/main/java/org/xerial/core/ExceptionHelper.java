@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,31 +16,35 @@
 //--------------------------------------
 // XerialJ
 //
-// XerialExceptionTest.java
-// Since: 2004/12/21
+// ExceptionHelper.java
+// Since: Oct 27, 2008 12:44:54 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.core;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 /**
+ * Helper class for implementing Exceptions
+ * 
  * @author leo
  * 
  */
-public class XerialExceptionTest
+class ExceptionHelper
 {
-
-    @Test
-    public void testVarArgConstructor()
+    static String getMessage(ErrorCode errorCode, String message)
     {
-        XerialException e = new XerialException(StandardErrorCode.INVALID_STATE, "exception message");
-        assertEquals(StandardErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
+        String errorCodeDescription = errorCode.getDescription();
+        String errorCodeDisplay;
+        if (errorCodeDescription == null || errorCodeDescription.length() <= 0)
+            errorCodeDisplay = String.format("[%s]", errorCode.getCodeName());
+        else
+            errorCodeDisplay = String.format("[%s: %s]", errorCode.getCodeName(), errorCode.getDescription());
 
+        if (message == null)
+            return errorCodeDisplay;
+        else
+            return String.format("%s:%s", errorCodeDisplay, message);
     }
 
 }

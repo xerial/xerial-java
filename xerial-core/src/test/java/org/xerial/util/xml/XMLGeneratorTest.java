@@ -31,30 +31,31 @@ import org.xerial.util.log.Logger;
 
 /**
  * @author leo
- *
+ * 
  */
-public class XMLGeneratorTest extends TestCase {
+public class XMLGeneratorTest extends TestCase
+{
 
     private static Logger _logger = Logger.getLogger(XMLGeneratorTest.class);
-	
-	public void testOut() throws InvalidXMLException
-	{
-	    StringWriter writer = new StringWriter();
-		XMLGenerator xout = new XMLGenerator(writer);
-		xout.startTag("booklist");
-		xout.startTag("book", new XMLAttribute().add("isbn", "232423423").add("year", 1343));
-		xout.startTag("author");
-		xout.text("Peter Buneman");
-		xout.endTag();
-		xout.startTag("author");
-		xout.text("somebody");
-		xout.text(" you know");
-		xout.endTag();
-		xout.endTag();
-		xout.endTag();
-		
-		xout.endDocument();
-		
-		_logger.debug(writer.toString());
-	}
+
+    public void testOut()
+    {
+        StringWriter writer = new StringWriter();
+        XMLGenerator xout = new XMLGenerator(writer);
+        xout.startTag("booklist");
+        xout.startTag("book", new XMLAttribute().add("isbn", "232423423").add("year", 1343));
+        xout.startTag("author");
+        xout.text("Peter Buneman");
+        xout.endTag();
+        xout.startTag("author");
+        xout.text("somebody");
+        xout.text(" you know");
+        xout.endTag();
+        xout.endTag();
+        xout.endTag();
+
+        xout.endDocument();
+
+        _logger.debug(writer.toString());
+    }
 }

@@ -28,9 +28,10 @@ import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
- * SAXEventHandlerを実装するためのhelperクラス。デフォルトで何もしない動作を定義
+ * The base implementation of the {@link SAXEventHandler}
+ * 
  * @author leo
- *
+ * 
  */
 public class AbstractSAXEventHandler implements SAXEventHandler
 {
@@ -39,31 +40,21 @@ public class AbstractSAXEventHandler implements SAXEventHandler
      * 
      */
     public AbstractSAXEventHandler()
-    {
-    }
+    {}
 
     public void startTag(XmlPullParser parser) throws XMLException
-    {
-    }
+    {}
 
     public void endTag(XmlPullParser parser) throws XMLException
-    {
-    }
+    {}
 
     public void text(XmlPullParser parser) throws XMLException
-    {
-    }
+    {}
 
     public void startDocument(XmlPullParser parser) throws XMLException
-    {
-    }
+    {}
 
     public void endDocument(XmlPullParser parser) throws XMLException
-    {
-    }
+    {}
 
 }
-
-
-
-

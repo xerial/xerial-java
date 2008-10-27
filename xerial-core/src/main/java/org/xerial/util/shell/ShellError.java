@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,60 +16,40 @@
 //--------------------------------------
 // XerialJ
 //
-// GraphException.java
-// Since: 2004/12/27
+// ShellError.java
+// Since: Oct 27, 2008 12:19:58 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.graph;
+package org.xerial.util.shell;
 
-import org.xerial.core.XerialException;
+import org.xerial.core.ErrorCode;
 
-/** 
- * Exception base class related to Graph package
- * @author leo
- *
- */
-public class GraphException extends XerialException
-{
+public enum ShellError implements ErrorCode {
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = 3256446906237531955L;
+    INACCESSIBLE_SETTER_METHOD("");
 
-    /**
-     * 
-     */
-    public GraphException()
+    private final String description;
+
+    private ShellError()
     {
-        super();
+        this.description = "";
     }
 
-    /**
-     * @param message
-     */
-    public GraphException(String message)
+    private ShellError(String description)
     {
-        super(message);
+        this.description = description;
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
-    public GraphException(String message, Throwable cause)
+    public String getCodeName()
     {
-        super(message, cause);
+        return name();
     }
 
-    /**
-     * @param cause
-     */
-    public GraphException(Throwable cause)
+    public String getDescription()
     {
-        super(cause);
+        return description;
     }
 
 }

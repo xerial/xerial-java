@@ -46,6 +46,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xerial.util.StringUtil;
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xml.sax.SAXException;
 
@@ -128,11 +129,11 @@ public class DOMUtil
         }
         catch (ParserConfigurationException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.INVALID_PARSER_CONFIGURATION, e);
         }
         catch (SAXException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.SAX_ERROR, e);
         }
     }
 

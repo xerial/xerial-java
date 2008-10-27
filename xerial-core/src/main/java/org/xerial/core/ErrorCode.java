@@ -26,11 +26,15 @@ package org.xerial.core;
 
 /**
  * A common interfarce for error codes
+ * 
  * @author leo
- *
+ * 
  */
 public interface ErrorCode
 {
+    static final String EMPTY_DESCRIPTION = "";
+
     public String getCodeName();
+
     public String getDescription();
 }

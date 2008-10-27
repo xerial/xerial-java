@@ -39,6 +39,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.impl.XMLTreeNode;
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.dom.DOMUtil;
 import org.xerial.util.xml.pullparser.DOMBuilder;
@@ -52,7 +53,7 @@ import org.xmlpull.v1.XmlPullParserException;
  * @author leo
  * 
  */
-public class XMLWalker extends TreeWalker
+public class XMLWalker implements TreeWalker
 {
     /**
      * A walker implementation for XML stream
@@ -60,7 +61,7 @@ public class XMLWalker extends TreeWalker
      * @author leo
      * 
      */
-    class XMLStreamWalker extends TreeWalker
+    class XMLStreamWalker implements TreeWalker
     {
         private final XmlPullParser pullParser;
         private final LinkedList<StringBuilder> textStack = new LinkedList<StringBuilder>();
@@ -71,12 +72,11 @@ public class XMLWalker extends TreeWalker
         public XMLStreamWalker(Reader reader) throws XMLException
         {
             if (reader == null)
-                throw new XMLException("XML reader is null");
+                throw new IllegalArgumentException("XML reader is null");
 
             pullParser = PullParserUtil.newParser(reader);
         }
 
-        @Override
         public void walk(TreeVisitor visitor) throws XerialException
         {
             try
@@ -146,7 +146,7 @@ public class XMLWalker extends TreeWalker
             }
             catch (XmlPullParserException e)
             {
-                throw new XMLException(e);
+                throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
             }
 
         }
@@ -157,7 +157,7 @@ public class XMLWalker extends TreeWalker
             skipLevel = pullParser.getDepth();
         }
 
-        public TreeNode getSubTree() throws BeanException
+        public TreeNode getSubTree() throws XerialException
         {
             skipDescendants();
             DOMBuilder domBuilder = new DOMBuilder();
@@ -184,7 +184,7 @@ public class XMLWalker extends TreeWalker
      * @author leo
      * 
      */
-    class XMLDOMWalker extends TreeWalker
+    class XMLDOMWalker implements TreeWalker
     {
         private boolean skipDesendants = false;
         private Element currentElement = null;
@@ -194,7 +194,6 @@ public class XMLWalker extends TreeWalker
             this.currentElement = element;
         }
 
-        @Override
         public void walk(TreeVisitor visitor) throws XerialException
         {
             parse(currentElement, visitor);
@@ -244,7 +243,7 @@ public class XMLWalker extends TreeWalker
             this.skipDesendants = true;
         }
 
-        public TreeNode getSubTree() throws BeanException
+        public TreeNode getSubTree() throws XerialException
         {
             skipDescendants();
             return new XMLTreeNode(currentElement);
@@ -279,19 +278,16 @@ public class XMLWalker extends TreeWalker
         impl = new XMLDOMWalker(element);
     }
 
-    @Override
-    public TreeNode getSubTree() throws BeanException
+    public TreeNode getSubTree() throws XerialException
     {
         return impl.getSubTree();
     }
 
-    @Override
     public void skipDescendants()
     {
         impl.skipDescendants();
     }
 
-    @Override
     public void walk(TreeVisitor visitor) throws XerialException
     {
         visitor.init(impl);

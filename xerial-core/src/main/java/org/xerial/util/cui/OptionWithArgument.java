@@ -32,7 +32,7 @@ package org.xerial.util.cui;
  * @author leo
  *
  */
-class OptionWithArgument<OptionID extends Comparable> extends Option<OptionID>
+class OptionWithArgument<OptionID extends Comparable> extends OptionWithNoArgument<OptionID>
 {
 
     /**

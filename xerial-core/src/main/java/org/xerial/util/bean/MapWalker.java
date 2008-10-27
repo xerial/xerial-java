@@ -36,7 +36,7 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class MapWalker extends TreeWalker
+public class MapWalker implements TreeWalker
 {
     private final Map map;
 
@@ -75,8 +75,7 @@ public class MapWalker extends TreeWalker
 
     }
 
-    @Override
-    public TreeNode getSubTree() throws BeanException
+    public TreeNode getSubTree() throws XerialException
     {
         if (currentKey != null)
         {
@@ -87,7 +86,6 @@ public class MapWalker extends TreeWalker
             throw new BeanException(BeanErrorCode.NoMoreSubtree);
     }
 
-    @Override
     public void skipDescendants()
     {
     // there is nothing to do
@@ -95,7 +93,6 @@ public class MapWalker extends TreeWalker
 
     private Object currentKey;
 
-    @Override
     public void walk(TreeVisitor visitor) throws XerialException
     {
         visitor.init(this);

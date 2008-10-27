@@ -24,58 +24,41 @@
 //--------------------------------------
 package org.xerial.util.cui;
 
+import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
 
-
-/** 
- * An exception class thrown when illegal states are found when parsing command line arguments
+/**
+ * An exception class thrown when illegal states are found when parsing command
+ * line arguments
  * 
  * @author leo
- *
+ * 
  */
 public class OptionParserException extends XerialException
-{ 
-
+{
     /**
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 3906085637814695480L;
 
-    /**
-     * 
-     */
-    public OptionParserException()
+    public OptionParserException(ErrorCode errorCode, String message, Throwable cause)
     {
-        super();
+        super(errorCode, message, cause);
     }
 
-    /**
-     * @param message
-     */
-    public OptionParserException(String message)
+    public OptionParserException(ErrorCode errorCode, String message)
     {
-        super(message);
+        super(errorCode, message);
     }
 
-    /**
-     * @param message
-     * @param cause
-     */
-    public OptionParserException(String message, Throwable cause)
+    public OptionParserException(ErrorCode errorCode, Throwable cause)
     {
-        super(message, cause);
+        super(errorCode, cause);
     }
 
-    /**
-     * @param cause
-     */
-    public OptionParserException(Throwable cause)
+    public OptionParserException(ErrorCode errorCode)
     {
-        super(cause);
+        super(errorCode);
     }
 
 }
-
-
-
-

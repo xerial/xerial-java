@@ -26,14 +26,13 @@ package org.xerial.util.cui;
 
 import java.util.List;
 
-
 /**
- * {@link Option} represents a command line option
+ * {@link OptionWithNoArgument} represents a command line option
  * 
  * @author leo
- *
+ * 
  */
-public class Option<OptionID extends Comparable> extends OptionBase<OptionID>
+public class OptionWithNoArgument<OptionID extends Comparable> extends OptionBase<OptionID>
 {
     private OptionID _optionID;
     private boolean _flag = false;
@@ -44,107 +43,109 @@ public class Option<OptionID extends Comparable> extends OptionBase<OptionID>
     /**
      * 
      */
-    public Option(OptionID optionID, String shortOptionName, String longOptionName, String description)
+    OptionWithNoArgument(OptionID optionID, String shortOptionName, String longOptionName, String description)
     {
         super(null);
         setValue(optionID, shortOptionName, longOptionName, description, false);
     }
-    Option(OptionGroup<OptionID> parentGroup, OptionID optionID, String shortOptionName, String longOptionName, String description)
+
+    OptionWithNoArgument(OptionGroup<OptionID> parentGroup, OptionID optionID, String shortOptionName,
+            String longOptionName, String description)
     {
         super(parentGroup);
         setValue(optionID, shortOptionName, longOptionName, description, false);
     }
-    Option(OptionGroup<OptionID> parentGroup, OptionID optionID, String shortOptionName, String longOptionName, String description, boolean presetValue)
+
+    OptionWithNoArgument(OptionGroup<OptionID> parentGroup, OptionID optionID, String shortOptionName,
+            String longOptionName, String description, boolean presetValue)
     {
         super(parentGroup);
         setValue(optionID, shortOptionName, longOptionName, description, presetValue);
     }
-    
-    private void setValue(OptionID optionID, String shortOptionName, String longOptionName, String description, boolean presetValue)
+
+    private void setValue(OptionID optionID, String shortOptionName, String longOptionName, String description,
+            boolean presetValue)
     {
-        _optionID = optionID; 
+        _optionID = optionID;
         _shortName = shortOptionName;
         _longName = longOptionName;
         _description = description;
         _flag = presetValue;
     }
-    
+
     public boolean isSet()
     {
         return _flag;
     }
+
     public void set(String[] args, int argIndex)
     {
-        _flag = true; 
+        _flag = true;
         this.activateParentGroup();
     }
-     
-    public OptionID getOptionID() 
+
+    public OptionID getOptionID()
     {
         return _optionID;
     }
-    
+
     public boolean takeArgument()
     {
         return false;
     }
-    
+
     // @see lab.cb.common.cui.OptionComposite#findByLongOptionName(java.lang.String)
-    protected Option<OptionID> findByLongOptionName(String longOption)
+    protected OptionWithNoArgument<OptionID> findByLongOptionName(String longOption)
     {
-        if(_longName.equals(longOption))
+        if (_longName.equals(longOption))
             return this;
         else
             return null;
     }
-
 
     // @see lab.cb.common.cui.OptionComposite#findByShortOptionName(java.lang.String)
-    protected Option<OptionID> findByShortOptionName(String shortOption)
+    protected OptionWithNoArgument<OptionID> findByShortOptionName(String shortOption)
     {
-        if(_shortName.equals(shortOption))
+        if (_shortName.equals(shortOption))
             return this;
         else
             return null;
     }
-
 
     // @see lab.cb.common.cui.OptionComposite#findOption(java.lang.Comparable)
-    protected Option<OptionID> findOption(OptionID optionID)
+    protected OptionWithNoArgument<OptionID> findOption(OptionID optionID)
     {
-        if(optionID.compareTo(_optionID) == 0)
+        if (optionID.compareTo(_optionID) == 0)
             return this;
         else
             return null;
     }
-    
+
     // @see lab.cb.common.cui.OptionComposite#collectOptionID(java.util.List)
     protected void collectOptionID(List<OptionID> optionIDList)
     {
         optionIDList.add(_optionID);
     }
+
     // @see lab.cb.common.cui.OptionComposite#collectOptionDescriptions(lab.cb.common.cui.OptionDescriptionContainer)
     protected void collectOptionDescriptions(OptionDescriptionContainer container)
     {
         container.addDescription(getShortOptionName(), getLongOptionName(), getDescription());
     }
+
     public String getLongOptionName()
     {
-        return _longName.equals("") ? "" : "--" + _longName;  
+        return _longName.equals("") ? "" : "--" + _longName;
     }
+
     public String getShortOptionName()
     {
         return _shortName.equals("") ? "" : "-" + _shortName + (_longName.equals("") ? " " : ", ");
     }
+
     public String getDescription()
     {
         return _description;
     }
-    
 
-    
 }
-
-
-
-

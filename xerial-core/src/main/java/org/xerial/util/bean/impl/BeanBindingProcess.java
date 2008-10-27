@@ -490,7 +490,8 @@ public class BeanBindingProcess implements TreeVisitor
         }
         catch (NumberFormatException e)
         {
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName(), e.getMessage());
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, String.format("%s %s", targetType.getName(), e
+                    .getMessage()));
         }
     }
 

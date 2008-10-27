@@ -24,12 +24,12 @@
 //--------------------------------------
 package org.xerial.util.cui;
 
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.xerial.core.StandardErrorCode;
 
 /**
  * OptionGroup creates a bundle of options
@@ -37,7 +37,7 @@ import java.util.TreeSet;
  * By setting some OptionGroup as exclusive, you can prevent multiple exclusive
  * OptionGroups will be activated at the same time.
  * 
- * <h3>usage </h3>
+ * <h3>usage</h3>
  * 
  * <pre>
  *    enum Opt { &quot;cui&quot;, &quot;gui&quot; }
@@ -51,7 +51,7 @@ import java.util.TreeSet;
  *    parser.addOptionGroup(guiGroup);
  *    
  *    parser.parse(new String[] {&quot;--cui&quot;, &quot;--gui&quot; }); // throws OptionParserException
- *    
+ * 
  * </pre>
  * 
  * @author leo
@@ -64,7 +64,7 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
     private boolean _isActive = false;
     private boolean _isExclusive = false;
     private HashMap<OptionID, OptionHandler> _optionHandlerTable = new HashMap<OptionID, OptionHandler>();
-    
+
     /**
      * 
      */
@@ -73,120 +73,201 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
         super(null);
         _groupName = groupName;
     }
+
     /**
      * Creates an option group
-     * @param groupName the group name
-     * @param isExclusive true when you forbid the activation of other option groups, which belong to the same level with this option group     
-     *  */
+     * 
+     * @param groupName
+     *            the group name
+     * @param isExclusive
+     *            true when you forbid the activation of other option groups,
+     *            which belong to the same level with this option group
+     * */
     public OptionGroup(String groupName, boolean isExclusive)
     {
         super(null);
         _groupName = groupName;
         _isExclusive = isExclusive;
     }
-    
-    /** 
+
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param description the description of this option
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param description
+     *            the description of this option
      */
     public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description)
     {
-        addOption(new Option<OptionID>(this, optionID, shortOptionName, longOptionName, description));
+        addOption(new OptionWithNoArgument<OptionID>(this, optionID, shortOptionName, longOptionName, description));
     }
-    /** 
+
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param description the description of this option
-     * @param presetValue true: this option is on in default, false: off
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param description
+     *            the description of this option
+     * @param presetValue
+     *            true: this option is on in default, false: off
      */
-    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description, boolean presetValue)
+    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description,
+            boolean presetValue)
     {
-        addOption(new Option<OptionID>(this, optionID, shortOptionName, longOptionName, description, presetValue));
+        addOption(new OptionWithNoArgument<OptionID>(this, optionID, shortOptionName, longOptionName, description,
+                presetValue));
     }
-    /** 
+
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param description the description of this option
-     * @param handler {@link OptionHandler} invoked when this option is set
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param description
+     *            the description of this option
+     * @param handler
+     *            {@link OptionHandler} invoked when this option is set
      */
-    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description, OptionHandler<OptionID> handler)
+    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description,
+            OptionHandler<OptionID> handler)
     {
-        addOption(new Option<OptionID>(this, optionID, shortOptionName, longOptionName, description), handler);
+        addOption(new OptionWithNoArgument<OptionID>(this, optionID, shortOptionName, longOptionName, description),
+                handler);
     }
-    /** 
+
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param description the description of this option
-     * @param presetValue true: this option is on in default, false: off
-     * @param handler {@link OptionHandler} invoked when this option is set
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param description
+     *            the description of this option
+     * @param presetValue
+     *            true: this option is on in default, false: off
+     * @param handler
+     *            {@link OptionHandler} invoked when this option is set
      */
-    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description, boolean presetValue, OptionHandler<OptionID> handler)
+    public void addOption(OptionID optionID, String shortOptionName, String longOptionName, String description,
+            boolean presetValue, OptionHandler<OptionID> handler)
     {
-        addOption(new Option<OptionID>(this, optionID, shortOptionName, longOptionName, description, presetValue), handler);
+        addOption(new OptionWithNoArgument<OptionID>(this, optionID, shortOptionName, longOptionName, description,
+                presetValue), handler);
     }
-    
-    
-    void addOption(Option<OptionID> option, OptionHandler<OptionID> optionHandler)
+
+    void addOption(OptionWithNoArgument<OptionID> option, OptionHandler<OptionID> optionHandler)
     {
         addOptionHandler(option.getOptionID(), optionHandler);
         _contents.add(option);
     }
 
-    void addOption(Option<OptionID> option)
+    void addOption(OptionWithNoArgument<OptionID> option)
     {
-    	_contents.add(option);
+        _contents.add(option);
     }
 
-    /** 
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param argumentName  argument name of this option. This argument is used only for displaying the help message.  
-     * @param description the description of this option
-     * @param handler {@link OptionHandler} invoked when this option is set
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param argumentName
+     *            argument name of this option. This argument is used only for
+     *            displaying the help message.
+     * @param description
+     *            the description of this option
+     * @param handler
+     *            {@link OptionHandler} invoked when this option is set
      */
-    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description)
+    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName,
+            String argumentName, String description)
     {
-        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName, description));        
+        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName,
+                description));
     }
-    
-    /** 
+
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "l" as the argument, "-l" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "loglevel" as the argument, "--loglevel" can be used as a command line option
-     * @param argumentName  argument name of this option. This argument is used only for displaying the help message.  
-     * @param description the description of this option 
-     * @param handler {@link OptionHandler} invoked when this option is set
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "l" as the argument,
+     *            "-l" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "loglevel" as the
+     *            argument, "--loglevel" can be used as a command line option
+     * @param argumentName
+     *            argument name of this option. This argument is used only for
+     *            displaying the help message.
+     * @param description
+     *            the description of this option
+     * @param handler
+     *            {@link OptionHandler} invoked when this option is set
      */
-    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, OptionHandler<OptionID> handler)
+    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName,
+            String argumentName, String description, OptionHandler<OptionID> handler)
     {
         addOptionHandler(optionID, handler);
-        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName, description));        
+        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName,
+                description));
     }
 
-    /** 
+    /**
      * Adds an option to this option group
-     * @param optionID  the option ID
-     * @param shortOptionName the short option name. If you specified "h" as the argument, "-h" can be used as a command line option 
-     * @param longOptionName the long option name. If you specified "help" as the argument, "--help" can be used as a command line option 
-     * @param argumentName  argument name of this option. This argument is used only for displaying the help message.  
-     * @param description the description of this option
-     * @param defaultValue the default value of this option
+     * 
+     * @param optionID
+     *            the option ID
+     * @param shortOptionName
+     *            the short option name. If you specified "h" as the argument,
+     *            "-h" can be used as a command line option
+     * @param longOptionName
+     *            the long option name. If you specified "help" as the argument,
+     *            "--help" can be used as a command line option
+     * @param argumentName
+     *            argument name of this option. This argument is used only for
+     *            displaying the help message.
+     * @param description
+     *            the description of this option
+     * @param defaultValue
+     *            the default value of this option
      */
-    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName, String argumentName, String description, String defaultValue)
+    public void addOptionWithArgment(OptionID optionID, String shortOptionName, String longOptionName,
+            String argumentName, String description, String defaultValue)
     {
-        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName, description, defaultValue));                
+        _contents.add(new OptionWithArgument<OptionID>(this, optionID, shortOptionName, longOptionName, argumentName,
+                description, defaultValue));
     }
 
     public void addOptionGroup(OptionGroup<OptionID> optionGroup)
@@ -194,64 +275,61 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
         optionGroup.setParent(this);
         _contents.add(optionGroup);
     }
-    
+
     public void addOptionHandler(OptionID optionID, OptionHandler<OptionID> handler)
     {
-        if(handler == null)
+        if (handler == null)
             throw new IllegalArgumentException("handler is null: " + optionID.toString());
-        
+
         _optionHandlerTable.put(optionID, handler);
     }
-            
-    
+
     protected void collectOptionDescriptions(OptionDescriptionContainer container)
     {
-        if(!_groupName.equals(""))  
+        if (!_groupName.equals(""))
             container.addDescription("[" + _groupName + "]");
-        for(OptionBase<OptionID> opt : getChildren())
+        for (OptionBase<OptionID> opt : getChildren())
         {
-           opt.collectOptionDescriptions(container);
+            opt.collectOptionDescriptions(container);
         }
     }
 
-    
-    
     List<OptionBase<OptionID>> getChildren()
     {
         return _contents;
     }
-    
+
     // @see lab.cb.common.cui.OptionComposite#findByLongOptionName(java.lang.String)
-    protected Option<OptionID> findByLongOptionName(String longOption)
+    protected OptionWithNoArgument<OptionID> findByLongOptionName(String longOption)
     {
-        for(OptionBase<OptionID> opt : getChildren())
+        for (OptionBase<OptionID> opt : getChildren())
         {
-            Option<OptionID> searchResult = opt.findByLongOptionName(longOption);
-            if(searchResult != null)
+            OptionWithNoArgument<OptionID> searchResult = opt.findByLongOptionName(longOption);
+            if (searchResult != null)
                 return searchResult;
         }
         return null;
     }
 
     // @see lab.cb.common.cui.OptionComposite#findByShortOptionName(java.lang.String)
-    protected Option<OptionID> findByShortOptionName(String shortOption)
+    protected OptionWithNoArgument<OptionID> findByShortOptionName(String shortOption)
     {
-        for(OptionBase<OptionID> opt : getChildren())
+        for (OptionBase<OptionID> opt : getChildren())
         {
-            Option<OptionID> searchResult = opt.findByShortOptionName(shortOption);
-            if(searchResult != null)
+            OptionWithNoArgument<OptionID> searchResult = opt.findByShortOptionName(shortOption);
+            if (searchResult != null)
                 return searchResult;
         }
         return null;
     }
 
     // @see lab.cb.common.cui.OptionComposite#findOption(java.lang.Comparable)
-    protected Option<OptionID> findOption(OptionID optionID)
+    protected OptionWithNoArgument<OptionID> findOption(OptionID optionID)
     {
-        for(OptionBase<OptionID> opt : getChildren())
+        for (OptionBase<OptionID> opt : getChildren())
         {
-            Option<OptionID> searchResult = opt.findOption(optionID);
-            if(searchResult != null)
+            OptionWithNoArgument<OptionID> searchResult = opt.findOption(optionID);
+            if (searchResult != null)
                 return searchResult;
         }
         return null;
@@ -260,85 +338,89 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
     // @see lab.cb.common.cui.OptionComposite#collectOptionID(java.util.List)
     protected void collectOptionID(List<OptionID> optionIDList)
     {
-        for(OptionBase<OptionID> opt : getChildren())
+        for (OptionBase<OptionID> opt : getChildren())
         {
             opt.collectOptionID(optionIDList);
         }
     }
-    
+
     /**
-     * Finds the option handler of the specified optionID. This method recursively searches nested option groups
-     * @param optionID the option ID
+     * Finds the option handler of the specified optionID. This method
+     * recursively searches nested option groups
+     * 
+     * @param optionID
+     *            the option ID
      * @return the option handler
      */
     public OptionHandler<OptionID> getOptionHandler(OptionID optionID)
     {
         OptionHandler<OptionID> optionHandler = _optionHandlerTable.get(optionID);
-        if(optionHandler != null)
+        if (optionHandler != null)
             return optionHandler;
-        
-        for(OptionBase<OptionID> opt : getChildren())
+
+        for (OptionBase<OptionID> opt : getChildren())
         {
-            if(opt instanceof OptionGroup)
+            if (opt instanceof OptionGroup)
             {
                 OptionGroup<OptionID> optionGroup = (OptionGroup<OptionID>) opt;
                 optionHandler = optionGroup.getOptionHandler(optionID);
-                if(optionHandler != null)
+                if (optionHandler != null)
                     return optionHandler;
             }
         }
         return null;
     }
-    
+
     public boolean isActive()
     {
         return _isActive;
     }
+
     public void activate()
     {
         _isActive = true;
     }
-    
+
     public String getGroupName()
     {
         return _groupName;
     }
- 
+
     boolean isExclusive()
     {
         return _isExclusive;
     }
-    
+
     /**
-     * Tests there are exclusive option groups that are simultaneously activated in the same level (depth)
-     * @throws OptionParserException when exclusive option groups are activated at the same time
+     * Tests there are exclusive option groups that are simultaneously activated
+     * in the same level (depth)
+     * 
+     * @throws OptionParserException
+     *             when exclusive option groups are activated at the same time
      */
     void validateExclusiveness() throws OptionParserException
     {
         TreeSet<String> activeAndIncompatibleGroups = new TreeSet<String>();
-        for(OptionBase<OptionID> opt : _contents)
+        for (OptionBase<OptionID> opt : _contents)
         {
-            if(opt instanceof OptionGroup)
+            if (opt instanceof OptionGroup)
             {
                 OptionGroup<OptionID> optGroup = (OptionGroup<OptionID>) opt;
-                if(optGroup.isExclusive() && optGroup.isActive())
+                if (optGroup.isExclusive() && optGroup.isActive())
                 {
                     activeAndIncompatibleGroups.add(optGroup.getGroupName());
                 }
                 optGroup.validateExclusiveness();
             }
         }
-        if(activeAndIncompatibleGroups.size() > 1)
-            throw new OptionParserException("options in groups " + activeAndIncompatibleGroups + " cannot be set simultaneously");
+        if (activeAndIncompatibleGroups.size() > 1)
+            throw new OptionParserException(StandardErrorCode.INVALID_STATE, String.format(
+                    "options in groups %s cannot be set simultaneously", activeAndIncompatibleGroups));
     }
-    
-	public void handle(String[] args, int argIndex) {
-    	// do nothing in default
-	}
 
+    public void handle(String[] args, int argIndex)
+    {
+    // do nothing in default
+    }
 
 }
-
-
-
-  

@@ -52,7 +52,7 @@ public enum JSONErrorCode implements ErrorCode {
 
     private JSONErrorCode()
     {
-        this.description = "";
+        this.description = EMPTY_DESCRIPTION;
     }
 
     public String getCodeName()

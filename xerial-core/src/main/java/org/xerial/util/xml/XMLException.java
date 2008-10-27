@@ -26,48 +26,38 @@ package org.xerial.util.xml;
 
 import org.xerial.core.XerialException;
 
-/** 
+/**
  * The base class for XML related exceptions
+ * 
  * @author leo
  */
 public class XMLException extends XerialException
 {
     private static final long serialVersionUID = 1L;
-    private XMLErrorCode errorCode;
-    
-    /**
-     * 
-     */
-    public XMLException()
+
+    public XMLException(XMLErrorCode errorCode, String message, Throwable cause)
     {
-        super();
+        super(errorCode, message, cause);
     }
 
-    /**
-     * @param message
-     */
-    public XMLException(String message)
+    public XMLException(XMLErrorCode errorCode, String message)
     {
-        super(message);
+        super(errorCode, message);
     }
-    /**
-     * @param message
-     * @param cause
-     */
-    public XMLException(String message, Throwable cause)
+
+    public XMLException(XMLErrorCode errorCode, Throwable cause)
     {
-        super(message, cause);
+        super(errorCode, cause);
     }
-    /**
-     * @param cause
-     */
-    public XMLException(Throwable cause)
+
+    public XMLException(XMLErrorCode errorCode)
     {
-        super(cause);
+        super(errorCode);
+    }
+
+    public XMLErrorCode getErrorCode()
+    {
+        return (XMLErrorCode) super.getErrorCode();
     }
 
 }
-
-
-
-

@@ -66,7 +66,6 @@ import org.xerial.util.bean.impl.Getter;
 import org.xerial.util.bean.impl.MapPutter;
 import org.xerial.util.bean.impl.MapSetter;
 import org.xerial.util.bean.impl.Setter;
-import org.xerial.util.xml.InvalidXMLException;
 import org.xerial.util.xml.XMLGenerator;
 
 /**
@@ -83,8 +82,8 @@ import org.xerial.util.xml.XMLGenerator;
  * following description.
  * 
  * For example, a Person class with integer id and string name values must have
- * <code>public int getId()</code> and <code>public String getName()</code>,
- * and <code>public void setId(int id)</code> and
+ * <code>public int getId()</code> and <code>public String getName()</code>, and
+ * <code>public void setId(int id)</code> and
  * <code>public void setName(String name)</code> methods.
  * 
  * Usage Example. <code>
@@ -117,8 +116,7 @@ import org.xerial.util.xml.XMLGenerator;
  * codes. This is a problematic since GWT cannot compile the following method:
  * <code>
  * void setPersonList(List<Person> personList) { this.personList = personList; }
- * </code>
- * So you have to change the argument of the avobe method as: <code>
+ * </code> So you have to change the argument of the avobe method as: <code>
  * void setPersonList(List personList) { ... }
  * </code>
  * But, with this setter method, we have no information about the element type
@@ -152,10 +150,10 @@ import org.xerial.util.xml.XMLGenerator;
  * 
  * In order to use a Bean class with Map<K, V> objects, you must define
  * <code>public Map getSomething()</code> and
- * <code>public void putSomething(KeyType key, ValueType value)</code>
- * methods, since BeanUtil learns class types K, V from the putSomething(K key,
- * V value) methods. If a method <code>public void setSomething(Map map)</code>
- * exists, BeanUtil simply ignores it.
+ * <code>public void putSomething(KeyType key, ValueType value)</code> methods,
+ * since BeanUtil learns class types K, V from the putSomething(K key, V value)
+ * methods. If a method <code>public void setSomething(Map map)</code> exists,
+ * BeanUtil simply ignores it.
  * 
  * 
  * The following is an example of a bean class with Map object. <code>
@@ -486,9 +484,10 @@ public class BeanUtil
      *            getSomething
      * @param patternType
      *            set(ter) or get(ter)
-     * @return メソッド名から先頭のset/getを取り除いた文字列の先頭をlower
+     * @return 
+     *         $B%a%=%C%IL>$+$i@hF,$Nset/getを取り除いた文字列の先頭をlower
      *         caseに変換したString. 切り出せない場合は、null
-     *         を返す/
+     *         $B$rJV$9/
      */
     static String pickPropertyName(String methodName)
     {
@@ -531,13 +530,9 @@ public class BeanUtil
             {
                 throw new BeanException(BeanErrorCode.IllegalArgument, e);
             }
-            catch (InvalidXMLException e)
-            {
-                throw new BeanException(BeanErrorCode.InvalidXMLData, e);
-            }
         }
 
-        private void toXML(String tagName, Object bean) throws BeanException, InvalidXMLException
+        private void toXML(String tagName, Object bean) throws BeanException
         {
             if (bean == null)
                 return;

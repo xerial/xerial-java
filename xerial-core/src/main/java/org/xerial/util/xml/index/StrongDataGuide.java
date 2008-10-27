@@ -46,9 +46,9 @@ import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Graph;
-import org.xerial.util.graph.GraphException;
 import org.xerial.util.log.Logger;
 import org.xerial.util.xml.SinglePath;
+import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
@@ -142,11 +142,11 @@ public class StrongDataGuide
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLException(e);
+            throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
         }
     }
 
-    private void moveCursor(int pathID) throws GraphException
+    private void moveCursor(int pathID)
     {
         Collection<Integer> destNodeID = _graph.getDestNodeIDSetOf(_currentPathID);
         if (!destNodeID.contains(pathID))
