@@ -16,43 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// Mapper.java
+// Since: Oct 28, 2008 3:56:50 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.xerial.util;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * mapper
  * 
  * @author leo
  * 
+ * @param <In>
+ * @param <Out>
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
-
-    /**
-     * description of the argument
-     */
-    String description() default "";
-
-    /**
-     * This argument is required
-     */
-    boolean required() default false;
-
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
-
+public interface Mapper<In, Out>
+{
+    public Out map(In input);
 }

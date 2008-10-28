@@ -27,31 +27,33 @@ package org.xerial.util.shell;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
 /**
  * ArgumentItem
+ * 
  * @author leo
- *
+ * 
  */
 public class ArgumentItem
 {
-    private final Argument argumentDescriptor;
+    private final Argument     argumentDescriptor;
     private final OptionSetter argumentSetter;
 
     public ArgumentItem(Method setter)
     {
         argumentDescriptor = setter.getAnnotation(Argument.class);
-        if(argumentDescriptor == null)
+        if (argumentDescriptor == null)
             throw new IllegalArgumentException(setter + " is not for an option argument");
-        
+
         argumentSetter = new OptionSetterViaMethod(setter);
     }
-    
+
     public ArgumentItem(Field field)
     {
         argumentDescriptor = field.getAnnotation(Argument.class);
-        if(argumentDescriptor == null)
+        if (argumentDescriptor == null)
             throw new IllegalArgumentException(field + " is not for an option argument");
 
         argumentSetter = new OptionSetterViaField(field);
@@ -74,17 +76,20 @@ public class ArgumentItem
     {
         return argumentDescriptor.hashCode();
     }
-    
+
+    public boolean takesMultipleArguments()
+    {
+        return TypeInformation.isCollection(argumentSetter.getOptionDataType());
+    }
 
     public void set(Object bean, Object value) throws OptionParserException
     {
         argumentSetter.setOption(bean, value);
     }
-    
+
     public Argument getArgumentDescriptor()
     {
         return argumentDescriptor;
     }
 
-    
 }

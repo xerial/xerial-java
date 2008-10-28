@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import org.xerial.core.StandardErrorCode;
+import org.xerial.core.XerialErrorCode;
 
 /**
  * <p>
@@ -75,12 +75,12 @@ import org.xerial.core.StandardErrorCode;
 public class OptionParser<OptionID extends Comparable>
 {
 
-    private OptionGroup<OptionID> _rootOptionGroup = new OptionGroup<OptionID>("");
-    private Vector<String> _argumentList = new Vector<String>();
-    private TreeSet<String> _activeGroupSet = new TreeSet<String>();
-    private TreeSet<OptionID> _optionIDSet = new TreeSet<OptionID>();
+    private OptionGroup<OptionID> _rootOptionGroup    = new OptionGroup<OptionID>("");
+    private Vector<String>        _argumentList       = new Vector<String>();
+    private TreeSet<String>       _activeGroupSet     = new TreeSet<String>();
+    private TreeSet<OptionID>     _optionIDSet        = new TreeSet<OptionID>();
 
-    private boolean ignoreUnknownOption = false;
+    private boolean               ignoreUnknownOption = false;
 
     /**
      * A constructor
@@ -326,10 +326,10 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
+                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option --"
                                     + longOptionName);
                     if (opt.takeArgument())
-                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
                                 "parameter value is required for --" + longOptionName);
                     opt.set(args, index);
                     activatedOptionSet.add(opt.getOptionID());
@@ -347,7 +347,7 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option --"
+                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option --"
                                     + longOptionName);
                     if (opt instanceof OptionWithArgument)
                     {
@@ -357,7 +357,7 @@ public class OptionParser<OptionID extends Comparable>
                         activatedOptionSet.add(optWithArg.getOptionID());
                     }
                     else
-                        throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "syntax error --"
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "syntax error --"
                                 + longOptionName);
                 }
             }
@@ -376,12 +376,12 @@ public class OptionParser<OptionID extends Comparable>
                             continue;
                         }
                         else
-                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option -"
+                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option -"
                                     + shortOption);
                     if (opt.takeArgument())
                     {
                         if (shortOptionList.length() != 1)
-                            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
                                     "options with argument must be isolated: -" + shortOption);
                         if (opt instanceof OptionWithArgument)
                         {
@@ -389,7 +389,7 @@ public class OptionParser<OptionID extends Comparable>
                             if (++index < args.length)
                                 optWithArg.setArgumentValue(args[index]);
                             else
-                                throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR,
+                                throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
                                         "parameter value is required for -" + shortOption);
                         }
                     }
@@ -422,7 +422,7 @@ public class OptionParser<OptionID extends Comparable>
     /**
      * Get the list of command-line arguments except option related ones
      * 
-     * @return オプション関連以外のコマンドライン引数のリスト
+     * @return
      */
     public List<String> getArgument()
     {
@@ -464,7 +464,7 @@ public class OptionParser<OptionID extends Comparable>
     {
         OptionWithNoArgument<OptionID> option = findOption(optionID);
         if (option == null)
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option " + optionID);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option " + optionID);
         return option.isSet();
     }
 
@@ -488,7 +488,7 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, e);
         }
     }
 
@@ -512,7 +512,7 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, e);
         }
 
     }
@@ -537,7 +537,7 @@ public class OptionParser<OptionID extends Comparable>
         }
         catch (NumberFormatException e)
         {
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, e);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, e);
         }
     }
 
@@ -555,9 +555,9 @@ public class OptionParser<OptionID extends Comparable>
     {
         OptionWithNoArgument<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
         if (targetOption == null)
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
         if (!(targetOption instanceof OptionWithArgument))
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "option " + optionID
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "option " + optionID
                     + " cannot take any argument");
 
         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);
@@ -581,9 +581,9 @@ public class OptionParser<OptionID extends Comparable>
     {
         OptionWithNoArgument<OptionID> targetOption = _rootOptionGroup.findOption(optionID);
         if (targetOption == null)
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: " + optionID);
         if (!(targetOption instanceof OptionWithArgument))
-            throw new OptionParserException(StandardErrorCode.SYNTAX_ERROR, "option " + optionID
+            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "option " + optionID
                     + " cannot take any argument");
 
         OptionWithArgument<OptionID> optWithArg = (OptionWithArgument<OptionID>) (targetOption);

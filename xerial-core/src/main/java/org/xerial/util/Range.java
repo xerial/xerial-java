@@ -16,43 +16,39 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// Range.java
+// Since: Oct 28, 2008 3:22:44 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.xerial.util;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * Range
  * 
  * @author leo
- * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
+public class Range
+{
+    public final int start;
+    public final int end;
 
-    /**
-     * description of the argument
-     */
-    String description() default "";
+    public Range(int start, int end)
+    {
+        this.start = start;
+        this.end = end;
+    }
 
-    /**
-     * This argument is required
-     */
-    boolean required() default false;
+    public boolean overlaps(Range other)
+    {
+        return (other.start <= this.end) && (other.end >= this.start);
+    }
 
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+    @Override
+    public String toString()
+    {
+        return String.format("(%s,%e)", start, end);
+    }
 
 }

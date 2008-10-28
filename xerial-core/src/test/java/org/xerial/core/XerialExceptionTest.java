@@ -38,8 +38,8 @@ public class XerialExceptionTest
     @Test
     public void testVarArgConstructor()
     {
-        XerialException e = new XerialException(StandardErrorCode.INVALID_STATE, "exception message");
-        assertEquals(StandardErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
+        XerialException e = new XerialException(XerialErrorCode.INVALID_STATE, "exception message");
+        assertEquals(XerialErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
 
     }
 

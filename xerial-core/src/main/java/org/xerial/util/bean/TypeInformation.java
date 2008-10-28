@@ -51,11 +51,11 @@ import org.w3c.dom.Element;
  */
 public class TypeInformation
 {
-    static private Class< ? >[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class,
-            char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class, Boolean.class,
-            Character.class, Short.class, Date.class };
+    static private Class< ? >[]        _parameterClass = { int.class, double.class, float.class, long.class,
+            boolean.class, char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class,
+            Boolean.class, Character.class, Short.class, Date.class };
 
-    static private HashSet<Class< ? >> basicTypeSet = new HashSet<Class< ? >>();
+    static private HashSet<Class< ? >> basicTypeSet    = new HashSet<Class< ? >>();
     static
     {
         for (Class< ? > c : _parameterClass)
@@ -111,12 +111,12 @@ public class TypeInformation
     {
         return c.isEnum();
     }
-    
+
     public static boolean isArray(Class< ? > c)
     {
         return c.isArray();
     }
-    
+
     public static boolean isString(Class< ? > c)
     {
         return String.class.isAssignableFrom(c);
@@ -154,7 +154,14 @@ public class TypeInformation
         return (isBasicType(c) || alternateConstractableClassFor(c) != null);
     }
 
-    private static Class< ? > alternateConstractableClassFor(Class< ? > c)
+    /**
+     * @param <T>
+     * @param c
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    // type cast is tested
+    private static <T> Class<T> alternateConstractableClassFor(Class<T> c)
     {
         if (hasPublicConstructor(c))
             return c;
@@ -164,28 +171,28 @@ public class TypeInformation
             if (isSet(c))
             {
                 if (isSortedSet(c))
-                    return TreeSet.class;
+                    return (Class<T>) TreeSet.class;
                 else
-                    return LinkedHashSet.class;
+                    return (Class<T>) LinkedHashSet.class;
             }
             else
-                return ArrayList.class;
+                return (Class<T>) ArrayList.class;
         }
         else if (isMap(c))
         {
             if (isSortedMap(c))
-                return TreeMap.class;
+                return (Class<T>) TreeMap.class;
             else
-                return LinkedHashMap.class;
+                return (Class<T>) LinkedHashMap.class;
         }
 
         return null;
     }
 
-    public static Object createInstance(Class< ? > c) throws BeanException
+    public static <T> T createInstance(Class<T> c) throws BeanException
     {
 
-        Class< ? > constractableClass = alternateConstractableClassFor(c);
+        Class<T> constractableClass = alternateConstractableClassFor(c);
         if (constractableClass == null)
             throw new BeanException(BeanErrorCode.NoPublicConstructor, "public constructor for the class: "
                     + c.getName() + " is not available");

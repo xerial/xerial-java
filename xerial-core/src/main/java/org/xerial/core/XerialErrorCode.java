@@ -16,43 +16,51 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// StandardErrorCode.java
+// Since: Oct 27, 2008 1:02:08 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.xerial.core;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * Standard error codes
  * 
  * @author leo
  * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
+public enum XerialErrorCode implements ErrorCode {
 
-    /**
-     * description of the argument
-     */
-    String description() default "";
+    // related to programming error
+    INVALID_STATE,
+    SYNTAX_ERROR,
 
-    /**
-     * This argument is required
-     */
-    boolean required() default false;
+    // option parser error
+    DUPLICATE_OPTION
 
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+    ;
+
+    private final String description;
+
+    private XerialErrorCode()
+    {
+        this.description = EMPTY_DESCRIPTION;
+    }
+
+    private XerialErrorCode(String description)
+    {
+        this.description = description;
+    }
+
+    public String getCodeName()
+    {
+        return name();
+    }
+
+    public String getDescription()
+    {
+        return null;
+    }
 
 }

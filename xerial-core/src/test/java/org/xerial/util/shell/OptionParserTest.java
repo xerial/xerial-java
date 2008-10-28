@@ -16,44 +16,48 @@
 //--------------------------------------
 // XerialJ
 //
-// StandardErrorCode.java
-// Since: Oct 27, 2008 1:02:08 PM
+// OptionParserTest.java
+// Since: Oct 28, 2008 4:44:53 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.core;
+package org.xerial.util.shell;
 
-/**
- * Standard error codes
- * 
- * @author leo
- * 
- */
-public enum StandardErrorCode implements ErrorCode {
+import java.util.List;
 
-    INVALID_STATE, SYNTAX_ERROR;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-    private final String description;
+public class OptionParserTest
+{
 
-    private StandardErrorCode()
+    @Before
+    public void setUp() throws Exception
+    {}
+
+    @After
+    public void tearDown() throws Exception
+    {}
+
+    class MyOption
     {
-        this.description = EMPTY_DESCRIPTION;
+        @Option(name = "h", longName = "help", description = "display help message")
+        boolean      displayHelp;
+
+        @Argument(description = "sub command name", index = 0)
+        String       subCommand;
+
+        @Argument(description = "input files ...", index = 1, required = true)
+        List<String> fileList;
     }
 
-    private StandardErrorCode(String description)
+    @Test
+    public void option()
     {
-        this.description = description;
+        MyOption myOption = new MyOption();
+        OptionParser parser = new OptionParser(myOption);
+        parser.parse(new String[] { "", "" });
     }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return null;
-    }
-
 }

@@ -32,7 +32,7 @@ import org.xerial.json.JSONErrorCode;
  * XerialException must be instantiated with an error code that implements
  * {@link ErrorCode} interface. To add your own error codes for the use with
  * {@link XerialException}, you have to implement the {@link ErrorCode}
- * interface. See examples of error codes: {@link StandardErrorCode},
+ * interface. See examples of error codes: {@link XerialErrorCode},
  * {@link JSONErrorCode}, etc.
  * 
  * @author leo

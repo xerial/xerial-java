@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
-import org.xerial.core.StandardErrorCode;
+import org.xerial.core.XerialErrorCode;
 
 /**
  * OptionGroup creates a bundle of options
@@ -414,7 +414,7 @@ public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionI
             }
         }
         if (activeAndIncompatibleGroups.size() > 1)
-            throw new OptionParserException(StandardErrorCode.INVALID_STATE, String.format(
+            throw new OptionParserException(XerialErrorCode.INVALID_STATE, String.format(
                     "options in groups %s cannot be set simultaneously", activeAndIncompatibleGroups));
     }
 
