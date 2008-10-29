@@ -46,8 +46,7 @@ public class OptionSetterViaField implements OptionSetter
 
     public Class< ? > getOptionDataType()
     {
-        field.getType();
-        return null;
+        return field.getType();
     }
 
     public void setOption(Object bean, Object value) throws OptionParserException
@@ -73,6 +72,11 @@ public class OptionSetterViaField implements OptionSetter
             throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
         }
 
+    }
+
+    boolean setterTakesMultipleArguments()
+    {
+        return TypeInformation.isCollection(getOptionDataType());
     }
 
     public boolean takesArgument()

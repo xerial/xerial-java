@@ -26,14 +26,17 @@ package org.xerial.util.shell;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
 /**
  * Option setter using a class method.
+ * 
  * @author leo
- *
+ * 
  */
 class OptionSetterViaMethod implements OptionSetter
 {
@@ -74,7 +77,13 @@ class OptionSetterViaMethod implements OptionSetter
 
     public Class< ? > getOptionDataType()
     {
-        return m.getParameterTypes()[0];
+        Type t = m.getParameterTypes()[0];
+        if (ParameterizedType.class.isInstance(t))
+        {
+            return (Class< ? >) ((ParameterizedType) t).getRawType();
+        }
+        else
+            return (Class< ? >) t;
     }
 
     public boolean takesArgument()
@@ -83,5 +92,3 @@ class OptionSetterViaMethod implements OptionSetter
     }
 
 }
-
-

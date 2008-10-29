@@ -29,7 +29,7 @@ package org.xerial.util;
  * 
  * @author leo
  */
-public class Range
+public class Range implements Comparable<Range>
 {
     public final int start;
     public final int end;
@@ -49,6 +49,12 @@ public class Range
     public String toString()
     {
         return String.format("(%s,%e)", start, end);
+    }
+
+    public int compareTo(Range o)
+    {
+        int diff = this.start - o.start;
+        return diff == 0 ? this.end - o.end : diff;
     }
 
 }

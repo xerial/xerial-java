@@ -16,8 +16,8 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionParserTest.java
-// Since: Oct 28, 2008 4:44:53 PM
+// OptionSchemaTest.java
+// Since: Oct 29, 2008 12:49:36 PM
 //
 // $URL$
 // $Author$
@@ -26,17 +26,20 @@ package org.xerial.util.shell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.util.cui.OptionParserException;
+import org.xerial.util.log.LogLevel;
+import org.xerial.util.log.Logger;
 
-public class OptionParserTest
+public class OptionSchemaTest
 {
+    private static Logger _logger = Logger.getLogger(OptionSchemaTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -46,32 +49,39 @@ public class OptionParserTest
     public void tearDown() throws Exception
     {}
 
+    @Usage(command = "> java -jar MyProg [option ..]")
     class MyOption
     {
         @Option(symbol = "h", longName = "help", description = "display help message")
         boolean      displayHelp;
 
-        @Argument(name = "sub command name", index = 0)
+        @Option(longName = "verbose", description = "output verbose messages")
+        boolean      verbose;
+
+        @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL", description = "set log level: ERROR, DEBUG, WARN")
+        LogLevel     logLevel;
+
+        @Argument(name = "file", index = 1, required = false)
+        List<String> fileList;
+
+        @Argument(name = "sub_command", index = 0)
         String       subCommand;
 
-        @Argument(name = "input files ...", index = 1, required = false)
-        List<String> fileList;
     }
 
     @Test
-    public void option() throws OptionParserException
+    public void testPrintUsage() throws IOException
     {
-        MyOption myOption = new MyOption();
-        OptionParser parser = new OptionParser(myOption);
+        OptionSchema schema = OptionSchema.newOptionSchema(MyOption.class);
 
-        parser.parse(new String[] { "add", "-h", "1.txt", "2.txt" });
+        assertEquals(3, schema.getOptionItemList().size());
+        assertEquals(2, schema.getArgumentItemList().size());
+        assertNotNull(schema.getUsage());
 
-        assertEquals("add", myOption.subCommand);
-        assertTrue(myOption.displayHelp);
-        assertNotNull(myOption.fileList);
-        assertEquals(2, myOption.fileList.size());
-        assertEquals("1.txt", myOption.fileList.get(0));
-        assertEquals("2.txt", myOption.fileList.get(1));
-
+        StringWriter out = new StringWriter();
+        out.append("\n");
+        schema.printUsage(out);
+        _logger.debug(out.toString());
     }
+
 }

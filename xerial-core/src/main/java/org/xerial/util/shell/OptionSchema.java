@@ -24,18 +24,24 @@
 //--------------------------------------
 package org.xerial.util.shell;
 
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.util.Algorithm;
 import org.xerial.util.Mapper;
 import org.xerial.util.Range;
-import org.xerial.util.Reducer;
+import org.xerial.util.StringUtil;
 
 /**
  * Option Structure
@@ -47,46 +53,169 @@ public class OptionSchema
 {
     private final ArrayList<OptionItem>   optionItemList   = new ArrayList<OptionItem>();
     private final ArrayList<ArgumentItem> argumentItemList = new ArrayList<ArgumentItem>();
+    private Usage                         usage            = null;
 
-    public void printUsage(OutputStream out)
+    List<OptionItem> getOptionItemList()
+    {
+        return optionItemList;
+    }
+
+    List<ArgumentItem> getArgumentItemList()
+    {
+        return argumentItemList;
+    }
+
+    Usage getUsage()
+    {
+        return usage;
+    }
+
+    protected static String optionDescription(OptionItem optionItem)
+    {
+        StringBuilder line = new StringBuilder();
+        Option opt = optionItem.getOption();
+        if (optionItem.hasSymbol())
+        {
+            line.append(String.format("-%s", opt.symbol()));
+            if (optionItem.hasLongName())
+            {
+                line.append(String.format(", --%s", opt.longName()));
+
+                if (optionItem.needsArgument())
+                    line.append(String.format("=%s", opt.varName()));
+            }
+            else
+            {
+                if (optionItem.needsArgument())
+                    line.append(String.format(" ", opt.varName()));
+            }
+        }
+        else if (optionItem.hasLongName())
+        {
+            line.append(String.format("    --%s", opt.longName()));
+            if (optionItem.needsArgument())
+                line.append(String.format("=%s", opt.varName()));
+        }
+        else
+        {
+            throw new XerialError(XerialErrorCode.NO_OPTION, optionItem.toString());
+        }
+
+        return line.toString();
+
+    }
+
+    protected static String argumentExpression(ArgumentItem argItem)
+    {
+        StringBuilder line = new StringBuilder();
+
+        Argument arg = argItem.getArgumentDescriptor();
+        String format;
+
+        if (arg.required())
+            format = argItem.takesMultipleArguments() ? "%s ..." : "%s";
+        else
+            format = argItem.takesMultipleArguments() ? "[%s ...]" : "[%s]";
+
+        String name = arg.name();
+        if (name == null || name.length() <= 0)
+            name = "ARG";
+
+        line.append(String.format(format, name));
+
+        return line.toString();
+    }
+
+    public void printUsage(OutputStream out) throws IOException
+    {
+        printUsage(new OutputStreamWriter(out));
+    }
+
+    public void printUsage(Writer out) throws IOException
     {
         PrintWriter writer = new PrintWriter(out);
-        
-        int longestLongOptionNameSize = 
-            Algorithm.mapReduce(optionItemList, 
-                    new Mapper<OptionItem, Integer>(){
-                public Integer map(OptionItem input)
-                {
-                    Option opt = input.getOption();
-                    if(opt.longName() != null)
-                        return opt.longName().length();
-                    else
-                        return 0;
-                }},
-                new Reducer<Integer, Integer>() {
-                    public Integer reduce(Iterable<Integer> input)
-                    {
-                        int sum = 0;
-                        for(int each : input)
-                            sum += each;
-                        return sum;
-                    }
-                }
-            );
-        
-        
-        //String optionHelpFormat = String.format(" %%%ds %%%ds %%s", longestLongOptionNameSize + "s %s";
-        
-        for(OptionItem each : optionItemList)
+
+        // argument list
+        Collections.sort(argumentItemList, new Comparator<ArgumentItem>() {
+            public int compare(ArgumentItem o1, ArgumentItem o2)
+            {
+                return o1.getRange().compareTo(o2.getRange());
+            }
+        });
+
+        List<String> argExpressionList = Algorithm.map(argumentItemList, new Mapper<ArgumentItem, String>() {
+            public String map(ArgumentItem input)
+            {
+                return argumentExpression(input);
+            }
+        });
+
+        // usage information
+        if (usage != null)
         {
-            Option eachOpt = each.getOption(); 
-            String shortOptionName = eachOpt.name().length() > 0 ? "-" + eachOpt.name() : "";
-            String longOptionName = eachOpt.longName().length() > 0 ? "--" + eachOpt.longName() : "";
-            String description = eachOpt.description();
-            
-            writer.println(String.format(" %s %s %s", shortOptionName, longOptionName, description));
+            writer.print("usage: ");
+            writer.print(usage.command());
+            writer.print(" ");
         }
-        
+        writer.println(StringUtil.join(argExpressionList, " "));
+
+        if (usage != null)
+        {
+            if (usage.description().length() > 0)
+                writer.println("\t" + usage.description());
+        }
+
+        // option list
+        Collections.sort(optionItemList, new Comparator<OptionItem>() {
+            public int compare(OptionItem o1, OptionItem o2)
+            {
+                Option opt1 = o1.getOption();
+                Option opt2 = o2.getOption();
+
+                // prefer options that have a short name 
+                if (o1.hasSymbol())
+                {
+                    if (!o2.hasSymbol())
+                        return -1;
+                }
+                else if (o2.hasSymbol())
+                    return 1;
+
+                int diff = opt1.symbol().compareTo(opt2.symbol());
+                if (diff == 0)
+                    return opt1.longName().compareTo(opt2.longName());
+                else
+                    return diff;
+            }
+        });
+
+        List<String> descriptionList = Algorithm.map(optionItemList, new Mapper<OptionItem, String>() {
+            public String map(OptionItem input)
+            {
+                return optionDescription(input);
+            }
+        });
+
+        int maxDescriptionLength = 15;
+        for (String each : descriptionList)
+            if (each.length() > maxDescriptionLength)
+                maxDescriptionLength = each.length();
+
+        String optionHelpFormat = String.format(" %%-%ds  %%s", maxDescriptionLength);
+
+        if (optionItemList.size() >= 0)
+        {
+            writer.println();
+            writer.println("[options]");
+        }
+        for (int i = 0; i < optionItemList.size(); ++i)
+        {
+            OptionItem optionItem = optionItemList.get(i);
+            String optionHelp = descriptionList.get(i);
+            String line = String.format(optionHelpFormat, optionHelp, optionItem.getOption().description());
+            writer.println(line);
+        }
+        writer.flush();
     }
 
     /**
@@ -98,7 +227,7 @@ public class OptionSchema
         for (OptionItem eachOption : optionItemList)
         {
             Option opt = eachOption.getOption();
-            if (optionName.equals(opt.name()))
+            if (optionName.equals(opt.symbol()))
                 return eachOption;
 
             String longName = opt.longName();
@@ -151,21 +280,66 @@ public class OptionSchema
 
     private void validate(ArgumentItem newArg)
     {
-        Range newRange = getRangeOf(newArg);
+        Range newRange = newArg.getRange();
         for (ArgumentItem each : argumentItemList)
         {
-            Range r = getRangeOf(each);
+            Range r = each.getRange();
             if (r.overlaps(newRange))
                 throw new XerialError(XerialErrorCode.DUPLICATE_OPTION, String.format(
                         "argument %s and %s have an overlap", each, newArg));
         }
     }
 
-    static Range getRangeOf(ArgumentItem arg)
+    public static OptionSchema newOptionSchema(Class< ? > optionHolderType)
     {
-        int start = arg.getArgumentDescriptor().index();
-        int end = arg.takesMultipleArguments() ? Integer.MAX_VALUE : start;
-        return new Range(start, end);
+        OptionSchema optionSchema = new OptionSchema();
+
+        // traverses through super classes
+        for (Class< ? > optionHolderClass = optionHolderType; optionHolderClass != null; optionHolderClass = optionHolderClass
+                .getSuperclass())
+        {
+            // looks for bean methods annotated with Option or Argument 
+            for (Method eachMethod : optionHolderClass.getDeclaredMethods())
+            {
+                if (eachMethod.getAnnotation(Option.class) != null)
+                    optionSchema.addOptionItem(eachMethod);
+
+                if (eachMethod.getAnnotation(Argument.class) != null)
+                    optionSchema.addArgumentItem(eachMethod);
+            }
+
+            // looks for bean fields annotated with Option or Argument 
+            for (Field f : optionHolderClass.getDeclaredFields())
+            {
+                if (f.getAnnotation(Option.class) != null)
+                    optionSchema.addOptionItem(f);
+
+                if (f.getAnnotation(Argument.class) != null)
+                    optionSchema.addArgumentItem(f);
+            }
+
+            if (optionHolderClass.getAnnotation(Usage.class) != null)
+            {
+                optionSchema.setUsage(optionHolderClass);
+            }
+        }
+
+        return optionSchema;
+    }
+
+    private void setUsage(Class< ? > optionHolderClass)
+    {
+        Usage newUsage = optionHolderClass.getAnnotation(Usage.class);
+        if (newUsage == null)
+            throw new XerialError(XerialErrorCode.NO_USAGE_ANNOTATION, optionHolderClass.toString());
+
+        if (usage == null)
+            usage = newUsage;
+    }
+
+    public static <OptionHolder> OptionSchema newOptionSchema(OptionHolder optionHolder)
+    {
+        return newOptionSchema(optionHolder.getClass());
     }
 
 }

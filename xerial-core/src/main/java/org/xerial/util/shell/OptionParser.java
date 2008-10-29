@@ -25,8 +25,6 @@
 package org.xerial.util.shell;
 
 import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 
 import org.xerial.core.XerialErrorCode;
@@ -37,17 +35,17 @@ import org.xerial.util.cui.OptionParserException;
  * 
  * @author leo
  * 
- */ 
+ */
 public class OptionParser
 {
     private boolean            ignoreUnknownOption = false;
     private final OptionSchema schema;
-    private final Object optionHolder;
+    private final Object       optionHolder;
 
     public <T> OptionParser(T optionHolder)
     {
         this.optionHolder = optionHolder;
-        schema = newOptionSchema(optionHolder);
+        schema = OptionSchema.newOptionSchema(optionHolder);
     }
 
     OptionItem findOptionItem(OptionSchema schema, String optionName) throws OptionParserException
@@ -159,45 +157,10 @@ public class OptionParser
 
                 argItem.set(optionHolder, currentArg);
                 activatedArgument.add(argItem.getArgumentDescriptor());
+                argIndex++;
             }
 
         }
     }
 
-    public static <OptionBean> OptionSchema newOptionSchema(Class<OptionBean> optionHolderType)
-    {
-        OptionSchema optionSchema = new OptionSchema();
-
-        // traverses through super classes
-        for (Class< ? > optionHolderClass = optionHolderType; optionHolderClass != null; optionHolderClass = optionHolderClass
-                .getSuperclass())
-        {
-            // looks for bean methods annotated with Option or Argument 
-            for (Method eachMethod : optionHolderClass.getDeclaredMethods())
-            {
-                if (eachMethod.getAnnotation(Option.class) != null)
-                    optionSchema.addOptionItem(eachMethod);
-
-                if (eachMethod.getAnnotation(Argument.class) != null)
-                    optionSchema.addArgumentItem(eachMethod);
-            }
-
-            // looks for bean fields annotated with Option or Argument 
-            for (Field f : optionHolderClass.getFields())
-            {
-                if (f.getAnnotation(Option.class) != null)
-                    optionSchema.addOptionItem(f);
-
-                if (f.getAnnotation(Argument.class) != null)
-                    optionSchema.addArgumentItem(f);
-            }
-        }
-
-        return optionSchema;
-    }
-
-    public static <OptionHolder> OptionSchema newOptionSchema(OptionHolder optionHolder)
-    {
-        return newOptionSchema(optionHolder.getClass());
-    }
 }

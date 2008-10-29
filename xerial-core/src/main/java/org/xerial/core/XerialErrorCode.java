@@ -38,9 +38,10 @@ public enum XerialErrorCode implements ErrorCode {
 
     // option parser error
     DUPLICATE_OPTION,
-    
+    NO_OPTION,
+    NO_USAGE_ANNOTATION,
     // type 
-    MISSING_TYPE_PARAMETER
+    MISSING_TYPE_PARAMETER,
 
     ;
 

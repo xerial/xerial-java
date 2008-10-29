@@ -143,7 +143,7 @@ public class Algorithm
             result.add(mapper.map(each));
         }
 
-        return null;
+        return result;
     }
 
     static public <Input, Output> Output reduce(Iterable<Input> input, Reducer<Input, Output> reducer)

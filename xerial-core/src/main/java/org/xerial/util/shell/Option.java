@@ -42,10 +42,10 @@ import java.lang.annotation.Target;
 public @interface Option {
 
     /**
-     * Name of the option. If the name is "h", it handles option "-h"
+     * symbol of the option. If the symbol is "h", it handles option "-h"
      * 
      */
-    String name();
+    String symbol() default "";
 
     /**
      * Longer name of the option. If the long name is "help", it handles option
@@ -55,9 +55,15 @@ public @interface Option {
     String longName() default "";
 
     /**
+     * Variable name used to describe option argument (e.g. --file=VALUE). The
+     * default value is capitalized name().
+     */
+    String varName() default "VAR";
+
+    /**
      * Description of the option, used to generate a help message of the
      * command-line options
      */
     String description() default "";
-    
+
 }

@@ -39,29 +39,28 @@ import org.xerial.util.cui.OptionParserException;
  */
 public class OptionItem
 {
-    private final Option optionDescriptor;
+    private final Option       optionDescriptor;
     private final OptionSetter optionSetter;
-    
+
     public OptionItem(Method method)
     {
         Option option = method.getAnnotation(Option.class);
-        if(option == null)
+        if (option == null)
             throw new IllegalArgumentException(method + " is not an option item");
 
         this.optionDescriptor = option;
         this.optionSetter = new OptionSetterViaMethod(method);
     }
-    
+
     public OptionItem(Field field)
     {
         Option option = field.getAnnotation(Option.class);
-        if(option == null)
+        if (option == null)
             throw new IllegalArgumentException(field + " is not an option item");
 
         this.optionDescriptor = option;
         this.optionSetter = new OptionSetterViaField(field);
     }
-    
 
     @Override
     public boolean equals(Object obj)
@@ -80,20 +79,30 @@ public class OptionItem
     {
         return optionDescriptor.hashCode();
     }
-    
+
     public boolean needsArgument()
     {
         return optionSetter.takesArgument();
     }
-    
+
+    public boolean hasSymbol()
+    {
+        return optionDescriptor.symbol() != null && optionDescriptor.symbol().length() > 0;
+    }
+
+    public boolean hasLongName()
+    {
+        return optionDescriptor.longName() != null && optionDescriptor.longName().length() > 0;
+    }
+
     public Option getOption()
     {
-        return optionDescriptor; 
+        return optionDescriptor;
     }
-    
+
     public void setOption(Object bean, String value) throws OptionParserException
     {
-        Class<?> optionType = optionSetter.getOptionDataType();
+        Class< ? > optionType = optionSetter.getOptionDataType();
         try
         {
             Object convertedValue = TypeConverter.convertType(optionType, value);
@@ -103,8 +112,7 @@ public class OptionItem
         {
             throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
         }
-        
+
     }
-     
 
 }

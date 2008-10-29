@@ -16,45 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionTest.java
-// Since: Oct 27, 2008 11:34:49 AM
+// Usage.java
+// Since: Oct 29, 2008 4:10:03 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.shell;
 
-import java.util.ArrayList;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Usage {
+    String command() default "";
 
-public class OptionTest
-{
-
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    class MyOption
-    {
-        @Option(symbol = "h", longName = "help", description = "display help message")
-        boolean displayHelpMessage = false;
-
-        @Argument
-        ArrayList<String> files = new ArrayList<String>();
-
-    }
-
-    @Test
-    public void constructor()
-    {
-
-    }
-
+    String description() default "";
 }

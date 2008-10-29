@@ -38,7 +38,7 @@ import org.xerial.util.StringUtil;
 
 public class Logger
 {
-    private static String[] logPrefix = { "", // ALL
+    private static String[]                logPrefix           = { "", // ALL
             "\033[0;32m", // TRACE
             "", // DEBUG
             "\033[1;36m", // INFO
@@ -46,17 +46,17 @@ public class Logger
             "\033[1;35m", // ERROR
             "\033[1;31m", // FATAL
             "", // OFF
-            "", };
+            "",                                               };
 
-    private Writer _out = null;
-    private LogLevel _threshold = LogLevel.UNSPECIFIED;
-    private String _loggerFullName = "";
-    private String _loggerShortName = "";
-    private Logger _parentLogger = null;
-    private boolean _emitEscapeSequence = false;
+    private Writer                         _out                = null;
+    private LogLevel                       _threshold          = LogLevel.UNSPECIFIED;
+    private String                         _loggerFullName     = "";
+    private String                         _loggerShortName    = "";
+    private Logger                         _parentLogger       = null;
+    private boolean                        _emitEscapeSequence = false;
 
-    private static TreeMap<String, Logger> _loggerHolder = new TreeMap<String, Logger>();
-    private static Logger _rootLogger = new Logger();
+    private static TreeMap<String, Logger> _loggerHolder       = new TreeMap<String, Logger>();
+    private static Logger                  _rootLogger         = new Logger();
 
     static
     {
@@ -66,20 +66,23 @@ public class Logger
         _rootLogger._loggerShortName = "root";
 
         String logLevel = System.getProperty("xerial.loglevel");
-        if(logLevel != null)
+        if (logLevel != null)
         {
             _rootLogger.setLogLevel(logLevel);
         }
         else
         {
             logLevel = System.getProperty("loglevel");
-            if(logLevel != null)
+            if (logLevel != null)
             {
                 _rootLogger.setLogLevel(logLevel);
             }
         }
-        
-        
+
+        String useColor = System.getProperty("color");
+        if (useColor != null)
+            _rootLogger._emitEscapeSequence = Boolean.parseBoolean(useColor);
+
         String loggerConfigFile = System.getProperty("log.config");
         if (loggerConfigFile != null)
         {
@@ -151,6 +154,7 @@ public class Logger
         {
             Logger newLogger = new Logger(fullTypeName);
             _loggerHolder.put(fullTypeName, newLogger);
+            newLogger._emitEscapeSequence = _rootLogger._emitEscapeSequence;
             return newLogger;
         }
     }
@@ -167,45 +171,45 @@ public class Logger
 
     public static void configure(Reader configurationFileReader) throws IOException
     {
-    	Properties configProperties = new Properties();
-    	
-    	StringBuilder sb = new StringBuilder();
-    	int ch;
-    	while((ch = configurationFileReader.read()) > 0)
-    	{  
-    	    sb.append((char) ch);
-    	}
-    	ByteArrayInputStream bs = new ByteArrayInputStream(sb.toString().getBytes());
-    	configProperties.load(bs);
-    	
-    	for(Object key : configProperties.keySet())
-    	{
-    	    String[] lhs = ((String) key).split("#");
-    		String loggerName = lhs[0];
-    		String value = configProperties.getProperty(key.toString());
-    		Logger logger = getLogger(loggerName);
-    		if(lhs.length <= 1)
-    		{
-    		    logger.setLogLevel(value);
-    		}
-    		else if(lhs.length > 1)
-    		{
-    		    // packageName:parameter = value configuration
-    		    String parameter = lhs[1];
-    		    if(parameter.equals("color"))
-    		    {
-    		        logger.setColor(Boolean.parseBoolean(value));
-    		    }
-    		    else
-    		    {
-    		        System.err.println("unknown configuration parameter: " + parameter);
-    		    }
-    		}
-    		else
-    		{
-    		    System.err.println("Error in the logger configuration file: " + key);
-    		}
-    	}
+        Properties configProperties = new Properties();
+
+        StringBuilder sb = new StringBuilder();
+        int ch;
+        while ((ch = configurationFileReader.read()) > 0)
+        {
+            sb.append((char) ch);
+        }
+        ByteArrayInputStream bs = new ByteArrayInputStream(sb.toString().getBytes());
+        configProperties.load(bs);
+
+        for (Object key : configProperties.keySet())
+        {
+            String[] lhs = ((String) key).split("#");
+            String loggerName = lhs[0];
+            String value = configProperties.getProperty(key.toString());
+            Logger logger = getLogger(loggerName);
+            if (lhs.length <= 1)
+            {
+                logger.setLogLevel(value);
+            }
+            else if (lhs.length > 1)
+            {
+                // packageName:parameter = value configuration
+                String parameter = lhs[1];
+                if (parameter.equals("color"))
+                {
+                    logger.setColor(Boolean.parseBoolean(value));
+                }
+                else
+                {
+                    System.err.println("unknown configuration parameter: " + parameter);
+                }
+            }
+            else
+            {
+                System.err.println("Error in the logger configuration file: " + key);
+            }
+        }
     }
 
     public String getLoggerName()

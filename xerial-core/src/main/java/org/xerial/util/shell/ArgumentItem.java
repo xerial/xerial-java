@@ -27,6 +27,7 @@ package org.xerial.util.shell;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.xerial.util.Range;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
@@ -80,6 +81,18 @@ public class ArgumentItem
     public boolean takesMultipleArguments()
     {
         return TypeInformation.isCollection(argumentSetter.getOptionDataType());
+    }
+
+    public static Range getRangeOf(ArgumentItem arg)
+    {
+        int start = arg.getArgumentDescriptor().index();
+        int end = arg.takesMultipleArguments() ? Integer.MAX_VALUE : start;
+        return new Range(start, end);
+    }
+
+    public Range getRange()
+    {
+        return getRangeOf(this);
     }
 
     public void set(Object bean, Object value) throws OptionParserException

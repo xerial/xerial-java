@@ -40,14 +40,14 @@ import java.lang.annotation.Target;
 public @interface Argument {
 
     /**
-     * description of the argument
+     * name of the argument
      */
-    String description() default "";
+    String name() default "";
 
     /**
-     * This argument is required
+     * This argument is required or not
      */
-    boolean required() default false;
+    boolean required() default true;
 
     /**
      * argument index (0-origin) among the arguments without option prefix, "-"
