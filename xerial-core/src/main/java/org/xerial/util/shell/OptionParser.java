@@ -74,6 +74,16 @@ public class OptionParser
 
     public void parse(String[] args) throws OptionParserException
     {
+        // initialize collections in the OptionHolder
+        for (OptionItem each : schema.getOptionItemList())
+        {
+            each.initialize(optionHolder);
+        }
+        for (ArgumentItem each : schema.getArgumentItemList())
+        {
+            each.initialize(optionHolder);
+        }
+
         HashSet<Option> activatedOption = new HashSet<Option>();
         HashSet<Argument> activatedArgument = new HashSet<Argument>();
 

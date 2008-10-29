@@ -37,4 +37,6 @@ public interface OptionSetter
     Class< ? > getOptionDataType();
 
     boolean takesArgument();
+    
+    void initialize(Object bean) throws OptionParserException;
 }

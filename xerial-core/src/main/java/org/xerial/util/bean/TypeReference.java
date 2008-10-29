@@ -26,7 +26,6 @@ package org.xerial.util.bean;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -41,7 +40,8 @@ import org.xerial.core.XerialErrorCode;
  * 
  * @author leo
  */
-public class TypeReference<T extends Collection<?>> {
+public class TypeReference<T>
+{
 
     private final Type type;
 
@@ -53,7 +53,6 @@ public class TypeReference<T extends Collection<?>> {
         else
             this.type = ((ParameterizedType) superClass).getActualTypeArguments()[0];
     }
-
     
     /**
      * Gets the referenced type
@@ -65,7 +64,8 @@ public class TypeReference<T extends Collection<?>> {
     }
 
     /**
-     * Gets the row type of the referenced type
+     * Gets the element type of the referenced type
+     * 
      * @return
      */
     public Class<?> getRawType()

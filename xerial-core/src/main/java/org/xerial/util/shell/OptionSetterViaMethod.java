@@ -91,4 +91,9 @@ class OptionSetterViaMethod implements OptionSetter
         return !TypeInformation.isBoolean(getOptionDataType());
     }
 
+    public void initialize(Object bean) throws OptionParserException
+    {
+    // do nothing
+    }
+
 }

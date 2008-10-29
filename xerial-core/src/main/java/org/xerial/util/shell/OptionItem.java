@@ -27,8 +27,7 @@ package org.xerial.util.shell;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.TypeConverter;
+import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
 /**
@@ -99,20 +98,33 @@ public class OptionItem
     {
         return optionDescriptor;
     }
+    
+    public boolean takesMultipleArguments()
+    {
+        return TypeInformation.isCollection(optionSetter.getOptionDataType());
+    }
+
 
     public void setOption(Object bean, String value) throws OptionParserException
     {
-        Class< ? > optionType = optionSetter.getOptionDataType();
-        try
-        {
-            Object convertedValue = TypeConverter.convertType(optionType, value);
-            optionSetter.setOption(bean, convertedValue);
-        }
-        catch (BeanException e)
-        {
-            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
-        }
+        optionSetter.setOption(bean, value);
 
+        //        Class< ? > optionType = optionSetter.getOptionDataType();
+        //        try
+        //        {
+        //            Object convertedValue = TypeConverter.convertType(optionType, value);
+        //            optionSetter.setOption(bean, convertedValue);
+        //        }
+        //        catch (BeanException e)
+        //        {
+        //            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
+        //        }
+
+    }
+
+    public void initialize(Object optionHolder) throws OptionParserException
+    {
+        optionSetter.initialize(optionHolder);
     }
 
 }

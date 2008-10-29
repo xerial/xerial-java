@@ -35,13 +35,17 @@ public enum XerialErrorCode implements ErrorCode {
     // related to programming error
     INVALID_STATE,
     SYNTAX_ERROR,
-
+    NOT_INITIALIZED,
+    
     // option parser error
     DUPLICATE_OPTION,
     NO_OPTION,
     NO_USAGE_ANNOTATION,
+
     // type 
     MISSING_TYPE_PARAMETER,
+    NOT_A_COLLECTION,
+    INACCESSIBLE_METHOD, 
 
     ;
 

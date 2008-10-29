@@ -25,7 +25,13 @@
 package org.xerial.util.shell;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
@@ -49,7 +55,29 @@ public class OptionSetterViaField implements OptionSetter
         return field.getType();
     }
 
-    public void setOption(Object bean, Object value) throws OptionParserException
+    protected Object getValue(Object bean)
+    {
+        Object value = null;
+        try
+        {
+            value = field.get(bean);
+        }
+        catch (IllegalAccessException e)
+        {
+            field.setAccessible(true);
+            try
+            {
+                value = field.get(bean);
+            }
+            catch (IllegalAccessException e1)
+            {
+                throw new IllegalAccessError(e1.getMessage());
+            }
+        }
+        return value;
+    }
+    
+    protected void setValue(Object bean, Object value)
     {
         try
         {
@@ -67,7 +95,59 @@ public class OptionSetterViaField implements OptionSetter
                 throw new IllegalAccessError(e1.getMessage());
             }
         }
+
+    }
+    
+    public void setOption(Object bean, Object value) throws OptionParserException
+    {
+        try
+        {
+            if (setterTakesMultipleArguments())
+            {
+                Object collection = getValue(bean);
+                if (collection == null)
+                {
+                    throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
+                }
+                
+                // use adder
+                try
+                {
+                    Method adder = getOptionDataType().getMethod("add", Object.class);
+                    // TODO type convertion of value to the collection element  
+                    adder.invoke(collection, value);
+                }
+                catch (SecurityException e)
+                {
+                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add of "
+                            + getOptionDataType().toString());
+                }
+                catch (NoSuchMethodException e)
+                {
+                    throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, getOptionDataType().toString());
+                }
+                catch (IllegalAccessException e)
+                {
+                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add of "
+                            + getOptionDataType().toString());
+                }
+                catch (InvocationTargetException e)
+                {
+                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, e);
+                }
+            }
+            else
+            {
+                Class< ? > optionType = getOptionDataType();
+                Object convertedValue = TypeConverter.convertType(optionType, value);
+                setValue(bean, convertedValue);
+            }
+        }
         catch (IllegalArgumentException e)
+        {
+            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
+        }
+        catch (BeanException e)
         {
             throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
         }
@@ -83,6 +163,29 @@ public class OptionSetterViaField implements OptionSetter
     {
         Class< ? > type = getOptionDataType();
         return !TypeInformation.isBoolean(type);
+    }
+
+    
+    public void initialize(Object bean) throws OptionParserException
+    {
+        try
+        {
+            if (setterTakesMultipleArguments())
+            {
+                Object collection = getValue(bean);
+
+                // initialize the array
+                if (collection == null)
+                {
+                    collection = TypeInformation.createInstance(getOptionDataType());
+                    setValue(bean, collection);
+                }
+            }
+        }
+        catch (BeanException e)
+        {
+            throw new OptionParserException(e.getErrorCode());
+        }
     }
 
 }

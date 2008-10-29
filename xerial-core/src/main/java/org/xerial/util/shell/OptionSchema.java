@@ -245,7 +245,7 @@ public class OptionSchema
             Argument arg = each.getArgumentDescriptor();
             if (arg.index() == argumentIndex)
                 return each;
-            if (arg.index() > argumentIndex && each.takesMultipleArguments())
+            if (arg.index() < argumentIndex && each.takesMultipleArguments())
                 return each;
         }
 

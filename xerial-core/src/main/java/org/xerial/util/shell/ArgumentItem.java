@@ -105,4 +105,9 @@ public class ArgumentItem
         return argumentDescriptor;
     }
 
+    public void initialize(Object optionHolder) throws OptionParserException
+    {
+        argumentSetter.initialize(optionHolder);
+    }
+
 }
