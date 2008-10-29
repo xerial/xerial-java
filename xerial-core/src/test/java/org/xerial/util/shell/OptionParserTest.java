@@ -24,11 +24,16 @@
 //--------------------------------------
 package org.xerial.util.shell;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.cui.OptionParserException;
 
 public class OptionParserTest
 {
@@ -54,10 +59,18 @@ public class OptionParserTest
     }
 
     @Test
-    public void option()
+    public void option() throws OptionParserException
     {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
-        parser.parse(new String[] { "", "" });
+        parser.parse(new String[] { "add", "-h", "1.txt", "2.txt" });
+
+        assertEquals("add", myOption.subCommand);
+        assertTrue(myOption.displayHelp);
+        assertNotNull(myOption.fileList);
+        assertEquals(2, myOption.fileList.size());
+        assertEquals("1.txt", myOption.fileList.get(0));
+        assertEquals("2.txt", myOption.fileList.get(1));
+        
     }
 }

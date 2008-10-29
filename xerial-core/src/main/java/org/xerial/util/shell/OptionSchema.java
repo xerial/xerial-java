@@ -60,6 +60,8 @@ public class OptionSchema
                     Option opt = input.getOption();
                     if(opt.longName() != null)
                         return opt.longName().length();
+                    else
+                        return 0;
                 }},
                 new Reducer<Integer, Integer>() {
                     public Integer reduce(Iterable<Integer> input)
@@ -73,6 +75,8 @@ public class OptionSchema
             );
         
         
+        //String optionHelpFormat = String.format(" %%%ds %%%ds %%s", longestLongOptionNameSize + "s %s";
+        
         for(OptionItem each : optionItemList)
         {
             Option eachOpt = each.getOption(); 
@@ -80,7 +84,7 @@ public class OptionSchema
             String longOptionName = eachOpt.longName().length() > 0 ? "--" + eachOpt.longName() : "";
             String description = eachOpt.description();
             
-            writer.println(String.format(" %s %s")
+            writer.println(String.format(" %s %s %s", shortOptionName, longOptionName, description));
         }
         
     }

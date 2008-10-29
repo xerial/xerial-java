@@ -29,11 +29,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 
-import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
-import org.xerial.util.bean.BeanErrorCode;
-import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.cui.OptionParserException;
 
 /**
@@ -41,17 +37,17 @@ import org.xerial.util.cui.OptionParserException;
  * 
  * @author leo
  * 
- */
+ */ 
 public class OptionParser
 {
     private boolean            ignoreUnknownOption = false;
     private final OptionSchema schema;
-    private final Class< ? >   optionHolderClass;
+    private final Object optionHolder;
 
-    public OptionParser(Class< ? > optionHolderClass)
+    public <T> OptionParser(T optionHolder)
     {
-        this.optionHolderClass = optionHolderClass;
-        schema = newOptionSchema(optionHolderClass);
+        this.optionHolder = optionHolder;
+        schema = newOptionSchema(optionHolder);
     }
 
     OptionItem findOptionItem(OptionSchema schema, String optionName) throws OptionParserException
@@ -67,19 +63,6 @@ public class OptionParser
         return optionItem;
     }
 
-    public OptionHolder parse(String[] args) throws OptionParserException
-    {
-        try
-        {
-            return parse(args, TypeInformation.createInstance(optionHolderType));
-        }
-        catch (BeanException e)
-        {
-            // failed to instantiate the bean class
-            throw new XerialError(BeanErrorCode.NoPublicConstructor);
-        }
-    }
-
     public void printUsage()
     {
         printUsage(System.out);
@@ -91,7 +74,7 @@ public class OptionParser
 
     }
 
-    public OptionHolder parse(String[] args, OptionHolder optionHolder) throws OptionParserException
+    public void parse(String[] args) throws OptionParserException
     {
         HashSet<Option> activatedOption = new HashSet<Option>();
         HashSet<Argument> activatedArgument = new HashSet<Argument>();
@@ -136,7 +119,7 @@ public class OptionParser
                                 + longOptionName);
                     }
 
-                    optionItem.setOption(optionHolder, args[++index]);
+                    optionItem.setOption(optionHolder, value);
                     activatedOption.add(optionItem.getOption());
                 }
 
@@ -179,8 +162,6 @@ public class OptionParser
             }
 
         }
-
-        return optionHolder;
     }
 
     public static <OptionBean> OptionSchema newOptionSchema(Class<OptionBean> optionHolderType)

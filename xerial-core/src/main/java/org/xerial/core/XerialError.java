@@ -63,6 +63,18 @@ public class XerialError extends RuntimeException
         super(cause);
         this.errorCode = errorCode;
     }
+    
+    public XerialError(XerialError cause)
+    {
+        super(cause);
+        this.errorCode = cause.getErrorCode();
+    }
+    
+    public XerialError(XerialException cause)
+    {
+        super(cause);
+        this.errorCode = cause.getErrorCode();
+    }
 
     /**
      * Get the error code of this error

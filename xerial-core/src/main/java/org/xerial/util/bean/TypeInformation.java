@@ -26,6 +26,8 @@ package org.xerial.util.bean;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -210,5 +212,87 @@ public class TypeInformation
             throw new BeanException(BeanErrorCode.IllegalAccess, e);
         }
     }
+    
+    public static Class<?> getElementTypeOfCollection(Class<? extends Collection<?>> collectionType)
+    {
+//        collectionType.get
+//        
+//        ParameterizedType pt = getParentParameterizedType(type, Collection.class);
+//        if (pt != null)
+//        {
+//            Type[] actualType = pt.getActualTypeArguments();
+//            if (actualType.length > 0)
+//                return resolveRawType(actualType[0], orig);
+//        }
+//        return orig;
+        return null;
+    }
+    
+    public static ParameterizedType getParameterizedType(Type t)
+    {
+        if (t == null)
+            return null;
+
+        if (t instanceof ParameterizedType)
+        {
+            ParameterizedType pt = (ParameterizedType) t;
+            return pt;
+        }
+        if (t instanceof Class)
+            return getParameterizedType(((Class) t).getGenericSuperclass());
+        else
+            return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static ParameterizedType getParentParameterizedType(Type t, Class target)
+    {
+        if (t == null)
+            return null;
+
+        if (t instanceof ParameterizedType)
+        {
+            ParameterizedType pt = (ParameterizedType) t;
+            if (target.isAssignableFrom((Class) pt.getRawType()))
+            {
+                return pt;
+            }
+        }
+
+        if (t instanceof Class)
+        {
+            Class c = (Class) t;
+            return getParentParameterizedType(c.getGenericSuperclass(), target);
+        }
+        else
+            return null;
+    }
+
+    public static Class resolveRawType(Type type, Class orig)
+    {
+        if (type instanceof ParameterizedType)
+        {
+            ParameterizedType pt = (ParameterizedType) type;
+            return resolveRawType(pt.getRawType(), orig);
+        }
+        else if (type instanceof Class)
+            return (Class) type;
+        else
+            return orig;
+    }
+
+    public static Class resolveRawType(Type type)
+    {
+        if (type instanceof ParameterizedType)
+        {
+            ParameterizedType pt = (ParameterizedType) type;
+            return resolveRawType(pt.getRawType());
+        }
+        else if (type instanceof Class)
+            return (Class) type;
+        else
+            return Object.class;
+    }
+
 
 }

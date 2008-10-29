@@ -140,7 +140,7 @@ public class BeanBindingProcess implements TreeVisitor
      */
 
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
-    private final TreeMap<Integer, Map> mapAssociatedWitBean = new TreeMap<Integer, Map>();
+    private final TreeMap<Integer, Map<?,?>> mapAssociatedWithBean = new TreeMap<Integer, Map<?,?>>();
 
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
@@ -153,7 +153,7 @@ public class BeanBindingProcess implements TreeVisitor
         }
     }
 
-    public BeanBindingProcess(Class beanClass) throws BeanException
+    public BeanBindingProcess(Class<?> beanClass) throws BeanException
     {
         this(BeanUtil.createInstance(beanClass));
     }
@@ -231,7 +231,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                 case SETTER:
                 case COLLECTION_ADDER:
-                    Class elementType = updator.getInputType();
+                    Class<?> elementType = updator.getInputType();
                     if (parentBean instanceof KeyValuePair)
                     {
                         // for map elment
@@ -256,7 +256,7 @@ public class BeanBindingProcess implements TreeVisitor
                     else if (TypeInformation.isMap(elementType))
                     {
                         // when input of setter/ or K, V of putSomthing(K, V) is map
-                        Pair<Class, Class> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
+                        Pair<Class<?>, Class<?>> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
                                 updateMethod, targetArgIndex);
 
                         BeanBinderSet mapBindRuleSet = getBindRuleSet(elementType);
@@ -358,7 +358,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                     KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
                     bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
-                    mapAssociatedWitBean.remove(parentBean.hashCode());
+                    mapAssociatedWithBean.remove(parentBean.hashCode());
                 }
                 catch (ClassCastException e)
                 {
@@ -422,14 +422,14 @@ public class BeanBindingProcess implements TreeVisitor
             if (value.getClass() == KeyValuePair.class && TypeInformation.isMap(targetType))
             {
                 Map map = null;
-                if (mapAssociatedWitBean.containsKey(bean.hashCode()))
+                if (mapAssociatedWithBean.containsKey(bean.hashCode()))
                 {
-                    map = mapAssociatedWitBean.get(bean.hashCode());
+                    map = mapAssociatedWithBean.get(bean.hashCode());
                 }
                 else
                 {
                     map = Map.class.cast(BeanUtil.createInstance(targetType));
-                    mapAssociatedWitBean.put(bean.hashCode(), map);
+                    mapAssociatedWithBean.put(bean.hashCode(), map);
                 }
                 KeyValuePair keyValuePair = KeyValuePair.class.cast(value);
                 map.put(keyValuePair.getKey(), keyValuePair.getValue());

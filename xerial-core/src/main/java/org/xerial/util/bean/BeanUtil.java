@@ -181,11 +181,11 @@ import org.xerial.util.xml.XMLGenerator;
 public class BeanUtil
 {
 
-    private static HashMap<Class, BinderSet> _beanOutputRuleRegistry = new HashMap<Class, BinderSet>();
+    private static HashMap<Class<?>, BinderSet> _beanOutputRuleRegistry = new HashMap<Class<?>, BinderSet>();
 
-    private static HashMap<Class, BinderSet> _beanLoadRuleRegistry = new HashMap<Class, BinderSet>();
+    private static HashMap<Class<?>, BinderSet> _beanLoadRuleRegistry = new HashMap<Class<?>, BinderSet>();
 
-    public static BeanBinderSet getBeanOutputRule(Class c) throws BeanException
+    public static BeanBinderSet getBeanOutputRule(Class<?> c) throws BeanException
     {
         if (_beanOutputRuleRegistry.containsKey(c))
             return _beanOutputRuleRegistry.get(c);
@@ -197,7 +197,7 @@ public class BeanUtil
         }
     }
 
-    public static BeanBinderSet getBeanLoadRule(Class c) throws BeanException
+    public static BeanBinderSet getBeanLoadRule(Class<?> c) throws BeanException
     {
         if (_beanLoadRuleRegistry.containsKey(c))
             return _beanLoadRuleRegistry.get(c);
@@ -220,7 +220,7 @@ public class BeanUtil
      * @param bean
      * @throws UTGBException
      */
-    private static BinderSet inspectGetters(Class beanClass) throws BeanException
+    private static BinderSet inspectGetters(Class<?> beanClass) throws BeanException
     {
         BinderSet outputRuleSet = new BinderSet(beanClass);
 
@@ -237,7 +237,7 @@ public class BeanUtil
             if (!methodName.startsWith("get") || methodName.equals("getClass"))
                 continue; // Object
 
-            Class[] parameterType = m.getParameterTypes();
+            Class<?>[] parameterType = m.getParameterTypes();
             if (parameterType.length != 0) // we cannot use the getter unless
                 // it requires no argument.
                 continue;
@@ -247,7 +247,7 @@ public class BeanUtil
         return outputRuleSet;
     }
 
-    public static BinderSet inspectSetter(Class beanClass) throws BeanException
+    public static BinderSet inspectSetter(Class<?> beanClass) throws BeanException
     {
         BinderSet inputRuleSet = new BinderSet(beanClass);
 
@@ -270,13 +270,13 @@ public class BeanUtil
                 // setter/adder/putter?
                 continue;
 
-            Class[] parameterType = method.getParameterTypes();
+            Class<?>[] parameterType = method.getParameterTypes();
             if (methodName.startsWith("put"))
             {
                 if (parameterType.length != 2)
                     continue;
 
-                Class[] mapElementType = resolveActualTypeOfMapElement(beanClass, parameterType);
+                Class<?>[] mapElementType = resolveActualTypeOfMapElement(beanClass, parameterType);
 
                 if (parameterName.length() == 0 && TypeInformation.isMap(beanClass))
                 {
@@ -296,7 +296,7 @@ public class BeanUtil
                 if (parameterType.length != 1)
                     continue;
 
-                Class addType = resolveActualTypeOfCollectionElement(beanClass, parameterType[0]);
+                Class<?> addType = resolveActualTypeOfCollectionElement(beanClass, parameterType[0]);
 
                 if (parameterName.length() == 0 && TypeInformation.isCollection(beanClass))
                 {
@@ -316,12 +316,12 @@ public class BeanUtil
                 if (parameterType.length != 1 || parameterName.length() == 0)
                     continue;
 
-                Class inputTypeOfTheSetter = parameterType[0];
+                Class<?> inputTypeOfTheSetter = parameterType[0];
 
                 if (inputTypeOfTheSetter.isArray())
                 {
                     // setSomething(int[] array) etc
-                    Class componentType = inputTypeOfTheSetter.getComponentType();
+                    Class<?> componentType = inputTypeOfTheSetter.getComponentType();
                     inputRuleSet.addRule(new ArraySetter(method, parameterName, componentType));
                 }
                 else if (TypeInformation.isCollection(inputTypeOfTheSetter))
@@ -333,7 +333,7 @@ public class BeanUtil
                         Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
                         if (actualTypeList.length > 0)
                         {
-                            Class elementType = resolveRawType(actualTypeList[0]);
+                            Class<?> elementType = resolveRawType(actualTypeList[0]);
                             inputRuleSet.addRule(new CollectionSetter(method, parameterName, inputTypeOfTheSetter,
                                     elementType));
                         }
@@ -344,7 +344,7 @@ public class BeanUtil
                 else if (TypeInformation.isMap(inputTypeOfTheSetter))
                 {
                     // setSomething(Map<K, V> map) method
-                    Pair<Class, Class> keyValueTypePair = getGenericMapTypesOfMethodArgument(method, 0);
+                    Pair<Class<?>, Class<?>> keyValueTypePair = getGenericMapTypesOfMethodArgument(method, 0);
                     if (keyValueTypePair != null)
                     {
                         inputRuleSet.addRule(new MapSetter(method, parameterName, inputTypeOfTheSetter,
@@ -363,7 +363,7 @@ public class BeanUtil
         return inputRuleSet;
     }
 
-    public static Pair<Class, Class> getGenericMapTypesOfMethodArgument(Method method, int argIndex)
+    public static Pair<Class<?>, Class<?>> getGenericMapTypesOfMethodArgument(Method method, int argIndex)
     {
 
         ParameterizedType genericSetterArgumentType = getParentParameterizedType(
@@ -374,9 +374,9 @@ public class BeanUtil
             Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
             if (actualTypeList.length >= 2)
             {
-                Class keyType = resolveRawType(actualTypeList[0]);
-                Class valueType = resolveRawType(actualTypeList[1]);
-                return new Pair<Class, Class>(keyType, valueType);
+                Class<?> keyType = resolveRawType(actualTypeList[0]);
+                Class<?> valueType = resolveRawType(actualTypeList[1]);
+                return new Pair<Class<?>, Class<?>>(keyType, valueType);
             }
         }
 
@@ -395,7 +395,7 @@ public class BeanUtil
             return pt;
         }
         if (t instanceof Class)
-            return getParameterizedType(((Class) t).getGenericSuperclass());
+            return getParameterizedType(((Class<?>) t).getGenericSuperclass());
         else
             return null;
     }
@@ -424,7 +424,7 @@ public class BeanUtil
             return null;
     }
 
-    private static Class resolveActualTypeOfCollectionElement(Type type, Class orig)
+    private static Class<?> resolveActualTypeOfCollectionElement(Type type, Class<?> orig)
     {
         ParameterizedType pt = getParentParameterizedType(type, Collection.class);
         if (pt != null)
@@ -436,7 +436,7 @@ public class BeanUtil
         return orig;
     }
 
-    private static Class[] resolveActualTypeOfMapElement(Type type, Class[] orig)
+    private static Class<?>[] resolveActualTypeOfMapElement(Type type, Class<?>[] orig)
     {
         ParameterizedType pt = getParentParameterizedType(type, Map.class);
         if (pt != null)
@@ -448,7 +448,7 @@ public class BeanUtil
         return orig;
     }
 
-    private static Class resolveRawType(Type type, Class orig)
+    private static Class<?> resolveRawType(Type type, Class<?> orig)
     {
         if (type instanceof ParameterizedType)
         {
@@ -456,12 +456,12 @@ public class BeanUtil
             return resolveRawType(pt.getRawType(), orig);
         }
         else if (type instanceof Class)
-            return (Class) type;
+            return (Class<?>) type;
         else
             return orig;
     }
 
-    private static Class resolveRawType(Type type)
+    private static Class<?> resolveRawType(Type type)
     {
         if (type instanceof ParameterizedType)
         {
@@ -469,7 +469,7 @@ public class BeanUtil
             return resolveRawType(pt.getRawType());
         }
         else if (type instanceof Class)
-            return (Class) type;
+            return (Class<?>) type;
         else
             return Object.class;
     }
@@ -537,7 +537,7 @@ public class BeanUtil
             if (bean == null)
                 return;
 
-            Class beanClass = bean.getClass();
+            Class<?> beanClass = bean.getClass();
 
             if (beanClass.isArray())
             {
@@ -558,7 +558,7 @@ public class BeanUtil
             {
                 if (TypeInformation.isCollection(beanClass))
                 {
-                    Collection collection = (Collection) bean;
+                    Collection<?> collection = (Collection<?>) bean;
                     for (Object elem : collection)
                     {
                         toXML(tagName, elem);
@@ -566,7 +566,7 @@ public class BeanUtil
                 }
                 else if (TypeInformation.isMap(beanClass))
                 {
-                    Map map = (Map) bean;
+                    Map<?, ?> map = (Map<?, ?>) bean;
 
                     for (Object key : map.keySet())
                     {
@@ -639,7 +639,7 @@ public class BeanUtil
         return outputAsJSONValue(bean).getJSONObject();
     }
 
-    public static JSONObject toJSONObject(Collection collection) throws BeanException
+    public static JSONObject toJSONObject(Collection<?> collection) throws BeanException
     {
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("elem", outputAsJSONValue(collection));
@@ -656,7 +656,7 @@ public class BeanUtil
     {
         if (bean == null)
             return null;
-        Class beanClass = bean.getClass();
+        Class<?> beanClass = bean.getClass();
 
         if (beanClass.isArray())
         {
@@ -691,7 +691,7 @@ public class BeanUtil
 
             if (TypeInformation.isCollection(beanClass))
             {
-                Collection collection = (Collection) bean;
+                Collection<?> collection = (Collection<?>) bean;
                 JSONArray jsonArray = new JSONArray();
                 for (Object obj : collection)
                     jsonArray.add(outputAsJSONValue(obj));
@@ -708,7 +708,7 @@ public class BeanUtil
             }
             else if (TypeInformation.isMap(beanClass))
             {
-                Map map = (Map) bean;
+                Map<?, ?> map = (Map<?, ?>) bean;
                 JSONArray jsonArray = new JSONArray();
                 for (Object key : map.keySet())
                 {
@@ -735,7 +735,7 @@ public class BeanUtil
 
     }
 
-    private static boolean hasGetter(Class beanClass) throws BeanException
+    private static boolean hasGetter(Class<?> beanClass) throws BeanException
     {
         BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
         return outputRuleSet.getBindRules().size() > 0;
@@ -925,11 +925,11 @@ public class BeanUtil
      */
     protected static void populateBean(Object bean, JSONArray jsonArray) throws BeanException
     {
-        Class beanClass = bean.getClass();
+        Class<?> beanClass = bean.getClass();
         if (beanClass.isArray())
         {
             Object[] array = (Object[]) bean;
-            Class componentType = beanClass.getComponentType();
+            Class<?> componentType = beanClass.getComponentType();
             for (int i = 0; i < jsonArray.size(); i++)
             {
                 try
@@ -966,7 +966,7 @@ public class BeanUtil
         else
         {
             // the object is a JSONValue
-            Class beanClass = bean.getClass();
+            Class<?> beanClass = bean.getClass();
             if (TypeInformation.isBasicType(beanClass))
             {
                 String jsonStr = jsonValue.toString();
@@ -986,7 +986,7 @@ public class BeanUtil
         }
     }
 
-    public static Object createBeanFromJSON(Class beanType, Reader jsonReader) throws IOException, BeanException
+    public static Object createBeanFromJSON(Class<?> beanType, Reader jsonReader) throws IOException, BeanException
     {
         try
         {
@@ -998,7 +998,7 @@ public class BeanUtil
         }
     }
 
-    public static Object createBeanFromJSON(Class beanType, String json) throws BeanException
+    public static Object createBeanFromJSON(Class<?> beanType, String json) throws BeanException
     {
         try
         {
@@ -1112,7 +1112,7 @@ public class BeanUtil
     }
     */
 
-    public static Object createInstance(Class c) throws BeanException
+    public static Object createInstance(Class<?> c) throws BeanException
     {
         return TypeInformation.createInstance(c);
     }
@@ -1130,7 +1130,7 @@ public class BeanUtil
         }
     }
 
-    public static Object createXMLBean(Class valueType, String xmlData) throws BeanException
+    public static Object createXMLBean(Class<?> valueType, String xmlData) throws BeanException
     {
         Object bean;
         bean = createInstance(valueType);
@@ -1227,11 +1227,11 @@ enum BeanParameterType {
  */
 class BinderSet implements BeanBinderSet
 {
-    Class beanClass;
+    Class<?> beanClass;
 
     Vector<BeanBinder> _bindRule = new Vector<BeanBinder>();
 
-    public BinderSet(Class beanClass)
+    public BinderSet(Class<?> beanClass)
     {
         this.beanClass = beanClass;
     }
