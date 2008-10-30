@@ -281,4 +281,42 @@ public class OptionParserTest
         }
 
     }
+
+    class MainCommand
+    {
+        @Argument(name = "sub_command")
+        String subCommand = null;
+    }
+
+    class SubCommand
+    {
+        @Option(symbol = "h", longName = "--help")
+        boolean displayHelp = false;
+
+        @Argument(name = "input")
+        String  input       = null;
+    }
+
+    @Test
+    public void retrieveUnusedArguments() throws OptionParserException
+    {
+        MainCommand mainCommand = new MainCommand();
+        OptionParser mainCommandParser = new OptionParser(mainCommand);
+        mainCommandParser.setIgnoreUnknownOption(true);
+
+        mainCommandParser.parse(new String[] { "action", "input.txt" });
+
+        String[] subCommandArgs = mainCommandParser.getUnusedArguments();
+
+        assertEquals(1, subCommandArgs.length);
+        assertEquals("input.txt", subCommandArgs[0]);
+
+        SubCommand subCommand = new SubCommand();
+        OptionParser subCommandParser = new OptionParser(subCommand);
+
+        subCommandParser.parse(subCommandArgs);
+
+        assertNotNull(subCommand.input);
+        assertEquals("input.txt", subCommand.input);
+    }
 }

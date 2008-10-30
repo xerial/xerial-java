@@ -40,6 +40,9 @@ public enum XerialErrorCode implements ErrorCode {
     // resources 
     RESOURCE_NOT_FOUND,
 
+    // I/O
+    READ_ERROR,
+
     // option parser error
     DUPLICATE_OPTION,
     NO_OPTION,

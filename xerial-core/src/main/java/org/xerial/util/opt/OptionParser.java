@@ -25,7 +25,9 @@
 package org.xerial.util.opt;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.xerial.core.XerialErrorCode;
 
@@ -37,9 +39,13 @@ import org.xerial.core.XerialErrorCode;
  */
 public class OptionParser
 {
-    private boolean            ignoreUnknownOption = false;
     private final OptionSchema schema;
     private final Object       optionHolder;
+
+    private boolean            ignoreUnknownOption = false;
+    private HashSet<Option>    activatedOption     = new HashSet<Option>();
+    private HashSet<Argument>  activatedArgument   = new HashSet<Argument>();
+    private List<String>       unusedArgument      = new ArrayList<String>();
 
     public <T> OptionParser(T optionHolder)
     {
@@ -71,8 +77,21 @@ public class OptionParser
 
     }
 
+    public String[] getUnusedArguments()
+    {
+        String[] result = new String[unusedArgument.size()];
+        for (int i = 0; i < unusedArgument.size(); ++i)
+            result[i] = unusedArgument.get(i);
+        return result;
+    }
+
     public void parse(String[] args) throws OptionParserException
     {
+        // clear
+        unusedArgument.clear();
+        activatedOption.clear();
+        activatedArgument.clear();
+
         // initialize collections in the OptionHolder
         for (OptionItem each : schema.getOptionItemList())
         {
@@ -82,9 +101,6 @@ public class OptionParser
         {
             each.initialize(optionHolder);
         }
-
-        HashSet<Option> activatedOption = new HashSet<Option>();
-        HashSet<Argument> activatedArgument = new HashSet<Argument>();
 
         int index = 0; // index in the args array
         int argIndex = 0; // argument index
@@ -102,7 +118,10 @@ public class OptionParser
                     String longOptionName = currentArg.substring(2);
                     OptionItem optionItem = findOptionItem(schema, longOptionName);
                     if (optionItem == null)
+                    {
+                        unusedArgument.add(currentArg);
                         continue;
+                    }
 
                     if (optionItem.needsArgument())
                         throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
@@ -123,7 +142,10 @@ public class OptionParser
                     String value = currentArg.substring(splitPos + 1);
                     OptionItem optionItem = findOptionItem(schema, longOptionName);
                     if (optionItem == null)
+                    {
+                        unusedArgument.add(currentArg);
                         continue;
+                    }
 
                     if (!optionItem.needsArgument())
                     {
@@ -149,7 +171,10 @@ public class OptionParser
                     String shortOptionName = shortOptionList.substring(i, i + 1);
                     OptionItem optionItem = findOptionItem(schema, shortOptionName);
                     if (optionItem == null)
+                    {
+                        unusedArgument.add(currentArg);
                         continue;
+                    }
 
                     if (optionItem.needsArgument())
                     {
@@ -175,7 +200,15 @@ public class OptionParser
                 // general argument
                 ArgumentItem argItem = schema.getArgument(argIndex);
                 if (argItem == null)
-                    throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unused argument: " + currentArg);
+                {
+                    if (ignoreUnknownOption)
+                    {
+                        unusedArgument.add(currentArg);
+                        continue;
+                    }
+                    else
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unused argument: " + currentArg);
+                }
 
                 argItem.set(optionHolder, currentArg);
                 if (!argItem.takesMultipleArguments() && activatedArgument.contains(argItem.getArgumentDescriptor()))
@@ -197,6 +230,12 @@ public class OptionParser
         }
     }
 
+    /**
+     * Set this true when ignoring unknown options and arguments that match the
+     * input arguments
+     * 
+     * @param ignore
+     */
     public void setIgnoreUnknownOption(boolean ignore)
     {
         ignoreUnknownOption = ignore;
