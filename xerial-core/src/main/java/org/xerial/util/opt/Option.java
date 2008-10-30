@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

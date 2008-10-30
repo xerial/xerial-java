@@ -13,30 +13,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
-//--------------------------------------
-// XerialJ
-//
-// OptionSetter.java
-// Since: Oct 27, 2008 3:26:01 PM
-//
-// $URL$
-// $Author$
-//--------------------------------------
-package org.xerial.util.shell;
-
-import org.xerial.util.cui.OptionParserException;
-
 /**
- * @author leo
+ * The command line argument parser. (deprecated use org.xerial.util.opt.OptionParser)
  * 
  */
-public interface OptionSetter
-{
-    void setOption(Object bean, Object convertedValue) throws OptionParserException;
-
-    Class< ? > getOptionDataType();
-
-    boolean takesArgument();
-    
-    void initialize(Object bean) throws OptionParserException;
-}
+package org.xerial.util.cui;

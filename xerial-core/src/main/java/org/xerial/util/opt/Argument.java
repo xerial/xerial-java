@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,31 +16,43 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionHandler.java
-// Since: Aug 27, 2007 9:05:52 AM
+// Argument.java
+// Since: Oct 27, 2008 11:37:08 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.cui;
+package org.xerial.util.opt;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * A handler called when an option is set.
+ * Command-line argument with no option prefix such as "-" or "--"
  * 
  * @author leo
  * 
- * @see no longer supported. Use {@link org.xerial.util.opt.OptionParser}
- *      instead
  */
-public interface OptionHandler<OptionID extends Comparable>
-{
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.FIELD, ElementType.METHOD })
+public @interface Argument {
+
     /**
-     * Called when the option is specified
-     * 
-     * @param parser
-     *            the option parser
-     * @throws OptionParserException
-     *             when handling of this option is failed
+     * name of the argument
      */
-    public void handle(OptionParser<OptionID> parser) throws OptionParserException;
+    String name() default "";
+
+    /**
+     * This argument is required or not
+     */
+    boolean required() default true;
+
+    /**
+     * argument index (0-origin) among the arguments without option prefix, "-"
+     * or "--". The default is 0.
+     */
+    int index() default 0;
+
 }

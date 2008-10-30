@@ -71,6 +71,10 @@ import org.xerial.core.XerialErrorCode;
  * 
  * @author leo
  * 
+ * @see no longer maintained. Use {@link org.xerial.util.opt.OptionParser},
+ *      which is easier to use, instead.
+ * 
+ * 
  */
 public class OptionParser<OptionID extends Comparable>
 {

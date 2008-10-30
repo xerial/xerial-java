@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.io.IOException;
 import java.io.OutputStream;

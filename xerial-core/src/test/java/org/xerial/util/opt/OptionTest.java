@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,31 +16,47 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionHandler.java
-// Since: Aug 27, 2007 9:05:52 AM
+// OptionTest.java
+// Since: Oct 27, 2008 11:34:49 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.cui;
+package org.xerial.util.opt;
 
-/**
- * A handler called when an option is set.
- * 
- * @author leo
- * 
- * @see no longer supported. Use {@link org.xerial.util.opt.OptionParser}
- *      instead
- */
-public interface OptionHandler<OptionID extends Comparable>
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Option;
+
+public class OptionTest
 {
-    /**
-     * Called when the option is specified
-     * 
-     * @param parser
-     *            the option parser
-     * @throws OptionParserException
-     *             when handling of this option is failed
-     */
-    public void handle(OptionParser<OptionID> parser) throws OptionParserException;
+
+    @Before
+    public void setUp() throws Exception
+    {}
+
+    @After
+    public void tearDown() throws Exception
+    {}
+
+    class MyOption
+    {
+        @Option(symbol = "h", longName = "help", description = "display help message")
+        boolean displayHelpMessage = false;
+
+        @Argument
+        ArrayList<String> files = new ArrayList<String>();
+
+    }
+
+    @Test
+    public void constructor()
+    {
+
+    }
+
 }

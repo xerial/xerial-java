@@ -16,43 +16,15 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// OptionHandler.java
+// Since: Oct 27, 2008 4:33:38 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * Command-line argument with no option prefix such as "-" or "--"
- * 
- * @author leo
- * 
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
-
-    /**
-     * name of the argument
-     */
-    String name() default "";
-
-    /**
-     * This argument is required or not
-     */
-    boolean required() default true;
-
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+public interface OptionHandler
+{
 
 }

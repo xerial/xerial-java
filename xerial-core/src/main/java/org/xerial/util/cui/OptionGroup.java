@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.xerial.core.XerialErrorCode;
+import org.xerial.util.opt.OptionParser;
 
 /**
  * OptionGroup creates a bundle of options
@@ -55,14 +56,15 @@ import org.xerial.core.XerialErrorCode;
  * </pre>
  * 
  * @author leo
+ * @see no longer supported. See {@link OptionParser} instead.
  * 
  */
 public class OptionGroup<OptionID extends Comparable> extends OptionBase<OptionID>
 {
-    private LinkedList<OptionBase<OptionID>> _contents = new LinkedList<OptionBase<OptionID>>();
-    private String _groupName;
-    private boolean _isActive = false;
-    private boolean _isExclusive = false;
+    private LinkedList<OptionBase<OptionID>> _contents           = new LinkedList<OptionBase<OptionID>>();
+    private String                           _groupName;
+    private boolean                          _isActive           = false;
+    private boolean                          _isExclusive        = false;
     private HashMap<OptionID, OptionHandler> _optionHandlerTable = new HashMap<OptionID, OptionHandler>();
 
     /**

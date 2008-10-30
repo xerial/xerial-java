@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -35,7 +35,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.util.cui.OptionParserException;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 

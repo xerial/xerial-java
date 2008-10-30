@@ -22,14 +22,13 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.xerial.util.Range;
 import org.xerial.util.bean.TypeInformation;
-import org.xerial.util.cui.OptionParserException;
 
 /**
  * ArgumentItem

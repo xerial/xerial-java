@@ -22,13 +22,12 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.io.OutputStream;
 import java.util.HashSet;
 
 import org.xerial.core.XerialErrorCode;
-import org.xerial.util.cui.OptionParserException;
 
 /**
  * A command-line option and argument parser

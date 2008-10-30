@@ -16,45 +16,42 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionTest.java
-// Since: Oct 27, 2008 11:34:49 AM
+// ShellError.java
+// Since: Oct 27, 2008 12:19:58 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
-import java.util.ArrayList;
+import org.xerial.core.ErrorCode;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+public enum ShellError implements ErrorCode {
 
-public class OptionTest
-{
+    INACCESSIBLE_SETTER_METHOD(""), WRONG_DATA_TYPE, NO_OPTION_ANNOTATION_IS_FOUND
 
-    @Before
-    public void setUp() throws Exception
-    {}
+    ;
 
-    @After
-    public void tearDown() throws Exception
-    {}
+    private final String description;
 
-    class MyOption
+    private ShellError()
     {
-        @Option(symbol = "h", longName = "help", description = "display help message")
-        boolean displayHelpMessage = false;
-
-        @Argument
-        ArrayList<String> files = new ArrayList<String>();
-
+        this.description = "";
     }
 
-    @Test
-    public void constructor()
+    private ShellError(String description)
     {
+        this.description = description;
+    }
 
+    public String getCodeName()
+    {
+        return name();
+    }
+
+    public String getDescription()
+    {
+        return description;
     }
 
 }

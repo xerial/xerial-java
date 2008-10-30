@@ -13,45 +13,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
-//--------------------------------------
-// XerialJ
-//
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
-//
-// $URL$
-// $Author$
-//--------------------------------------
-package org.xerial.util.shell;
+/**
+ * command-line argument parser
+ */
+package org.xerial.util.opt;
 
-import org.xerial.core.ErrorCode;
-
-public enum ShellError implements ErrorCode {
-
-    INACCESSIBLE_SETTER_METHOD(""), WRONG_DATA_TYPE, NO_OPTION_ANNOTATION_IS_FOUND
-
-    ;
-
-    private final String description;
-
-    private ShellError()
-    {
-        this.description = "";
-    }
-
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-}

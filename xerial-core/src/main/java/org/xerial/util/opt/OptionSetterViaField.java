@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -35,7 +35,6 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
-import org.xerial.util.cui.OptionParserException;
 
 /**
  * Option setter that bind arguments directory to a field variable

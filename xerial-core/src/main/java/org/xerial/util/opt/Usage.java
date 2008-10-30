@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -52,7 +52,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Usage {
 
-    public static String DEFAULT_TEMPLATE = "org/xerial/util/shell/help-message.template";
+    public static String DEFAULT_TEMPLATE = "org/xerial/util/opt/help-message.template";
 
     /**
      * command name

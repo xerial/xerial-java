@@ -16,15 +16,25 @@
 //--------------------------------------
 // XerialJ
 //
-// OptionHandler.java
-// Since: Oct 27, 2008 4:33:38 PM
+// OptionSetter.java
+// Since: Oct 27, 2008 3:26:01 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
-public interface OptionHandler
+/**
+ * @author leo
+ * 
+ */
+public interface OptionSetter
 {
+    void setOption(Object bean, Object convertedValue) throws OptionParserException;
 
+    Class< ? > getOptionDataType();
+
+    boolean takesArgument();
+
+    void initialize(Object bean) throws OptionParserException;
 }

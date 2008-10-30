@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.shell;
+package org.xerial.util.opt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -87,7 +87,7 @@ public class OptionSchemaTest
         _logger.debug(out.toString());
     }
 
-    @Usage(command = "> java -jar MyProg [option ..]", description = "sample program", templatePath = "org/xerial/util/shell/help-message-alt.template")
+    @Usage(command = "> java -jar MyProg [option ..]", description = "sample program", templatePath = "org/xerial/util/opt/help-message-alt.template")
     class MyOption2
     {
         @Option(symbol = "h", longName = "help", description = "display help message")

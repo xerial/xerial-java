@@ -79,7 +79,7 @@ public class Logger
             }
         }
 
-        String useColor = System.getProperty("color");
+        String useColor = System.getProperty("log.color");
         if (useColor != null)
             _rootLogger._emitEscapeSequence = Boolean.parseBoolean(useColor);
 
