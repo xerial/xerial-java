@@ -24,15 +24,17 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import org.junit.*;
-
+import org.junit.Test;
 
 public class TypeConverterTest
 {
-    enum Animal { CAT, DOG, PIG }
-    
+    enum Animal {
+        CAT, DOG, PIG
+    }
+
     @Test
     public void enumConversion()
     {
@@ -63,9 +65,21 @@ public class TypeConverterTest
             Animal cow = TypeConverter.convertToEnum(Animal.class, "COW");
             fail("cannot reach here");
         }
-        catch(IllegalArgumentException e)
+        catch (IllegalArgumentException e)
         {
-            
+
         }
     }
+
+    @Test
+    public void tryCapitalizeInputForEnumConversion() throws BeanException
+    {
+        Animal cat = TypeConverter.convertType(Animal.class, "cat");
+        assertEquals(Animal.CAT, cat);
+        Animal dog = TypeConverter.convertType(Animal.class, "doG");
+        assertEquals(Animal.DOG, dog);
+        Animal pig = TypeConverter.convertType(Animal.class, "Pig");
+        assertEquals(Animal.PIG, pig);
+    }
+
 }

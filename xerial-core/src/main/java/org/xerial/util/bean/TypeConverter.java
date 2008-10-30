@@ -37,7 +37,7 @@ import java.util.Date;
 public class TypeConverter
 {
     // conversion to the Enum type is tested before the cast 
-    @SuppressWarnings("unchecked") 
+    @SuppressWarnings("unchecked")
     public static <T> T convertType(Class<T> targetType, Object value) throws BeanException
     {
         if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
@@ -47,9 +47,10 @@ public class TypeConverter
         else
             return (T) convertToBasicType(targetType, value);
     }
-    
+
     /**
      * Convert the input to the specified type
+     * 
      * @param <T>
      * @param targetType
      * @param input
@@ -60,11 +61,20 @@ public class TypeConverter
         assert (targetType.isEnum());
 
         String value = input.toString();
-        return Enum.valueOf(targetType, value);
+        try
+        {
+            return Enum.valueOf(targetType, value);
+        }
+        catch (IllegalArgumentException e)
+        {
+            // try capitalized value
+            return Enum.valueOf(targetType, value.toString().toUpperCase());
+        }
     }
 
     /**
      * Convert the input to the basic type (int, double, String,... etc.)
+     * 
      * @param targetType
      * @param input
      * @return
