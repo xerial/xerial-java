@@ -41,7 +41,7 @@ import org.xerial.util.log.Logger;
 public class OptionParserTest
 {
     private static Logger _logger = Logger.getLogger(OptionParserTest.class);
-    
+
     @Before
     public void setUp() throws Exception
     {}
@@ -53,13 +53,13 @@ public class OptionParserTest
     class MyOption
     {
         @Option(symbol = "h", longName = "help", description = "display help message")
-        boolean      displayHelp;
+        private boolean      displayHelp;
 
         @Argument(name = "sub command name", index = 0)
-        String       subCommand;
+        private String       subCommand;
 
         @Argument(name = "input files ...", index = 1, required = false)
-        List<String> fileList;
+        private List<String> fileList;
     }
 
     @Test
@@ -77,9 +77,8 @@ public class OptionParserTest
         assertEquals("1.txt", myOption.fileList.get(0));
         assertEquals("2.txt", myOption.fileList.get(1));
 
-        
     }
-    
+
     @Test
     public void initializeCollectionsInOptionHolder() throws OptionParserException
     {
@@ -94,7 +93,7 @@ public class OptionParserTest
         assertEquals(0, myOption.fileList.size());
 
     }
-    
+
     class LoglevelCommand
     {
         @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL")
@@ -110,7 +109,7 @@ public class OptionParserTest
 
         assertEquals(LogLevel.DEBUG, opt.loglevel);
     }
-    
+
     class MultipleName
     {
         @Option(longName = "name")
@@ -127,7 +126,7 @@ public class OptionParserTest
         assertNotNull(mn.name);
         assertEquals(2, mn.name.size());
         assertEquals("leo", mn.name.get(0));
-        assertEquals("leo", mn.name.get(1));
+        assertEquals("yui", mn.name.get(1));
     }
 
 }

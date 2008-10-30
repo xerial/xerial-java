@@ -1,0 +1,5 @@
+usage: $COMMAND$ $ARGUMENT_LIST$
+	$DESCRIPTION$
+
+[options]
+$OPTION_LIST$

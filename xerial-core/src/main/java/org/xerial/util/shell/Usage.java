@@ -29,10 +29,44 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Describes the usage of a command attached as a class annotation
+ * 
+ * help-message template must have four variables: command, argumentList,
+ * description and optionList, each of them is enclosed by $ mark. The following
+ * is an example of help message template.
+ * 
+ * <pre>
+ * usage: $command$ $argumentList$
+ *      $description$
+ * 
+ * [options]
+ * $optionList$
+ * 
+ * </pre>
+ * 
+ * @author leo
+ * 
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Usage {
+
+    public static String DEFAULT_TEMPLATE = "org/xerial/util/shell/help-message.template";
+
+    /**
+     * command name
+     */
     String command() default "";
 
+    /**
+     * description of the command
+     */
     String description() default "";
+
+    /**
+     * path to the help message template
+     */
+    String templatePath() default DEFAULT_TEMPLATE;
+
 }

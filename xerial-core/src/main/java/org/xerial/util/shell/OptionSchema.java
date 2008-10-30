@@ -27,7 +27,7 @@ package org.xerial.util.shell;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -35,13 +35,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.util.Algorithm;
 import org.xerial.util.Mapper;
 import org.xerial.util.Range;
+import org.xerial.util.ResourcePath;
 import org.xerial.util.StringUtil;
+import org.xerial.util.template.Template;
 
 /**
  * Option Structure
@@ -131,9 +135,13 @@ public class OptionSchema
         printUsage(new OutputStreamWriter(out));
     }
 
+    private enum TemplateVariable {
+        COMMAND, ARGUMENT_LIST, DESCRIPTION, OPTION_LIST
+    }
+
     public void printUsage(Writer out) throws IOException
     {
-        PrintWriter writer = new PrintWriter(out);
+        Properties helpMessageTemplateValue = new Properties();
 
         // argument list
         Collections.sort(argumentItemList, new Comparator<ArgumentItem>() {
@@ -153,17 +161,12 @@ public class OptionSchema
         // usage information
         if (usage != null)
         {
-            writer.print("usage: ");
-            writer.print(usage.command());
-            writer.print(" ");
+            helpMessageTemplateValue.put(TemplateVariable.COMMAND.name(), usage.command());
+            if (usage.description() != null && usage.description().length() > 0)
+                helpMessageTemplateValue.put(TemplateVariable.DESCRIPTION.name(), usage.description());
         }
-        writer.println(StringUtil.join(argExpressionList, " "));
 
-        if (usage != null)
-        {
-            if (usage.description().length() > 0)
-                writer.println("\t" + usage.description());
-        }
+        helpMessageTemplateValue.put(TemplateVariable.ARGUMENT_LIST.name(), StringUtil.join(argExpressionList, " "));
 
         // option list
         Collections.sort(optionItemList, new Comparator<OptionItem>() {
@@ -203,19 +206,34 @@ public class OptionSchema
 
         String optionHelpFormat = String.format(" %%-%ds  %%s", maxDescriptionLength);
 
-        if (optionItemList.size() >= 0)
-        {
-            writer.println();
-            writer.println("[options]");
-        }
+        StringWriter optionListHelpWriter = new StringWriter();
         for (int i = 0; i < optionItemList.size(); ++i)
         {
             OptionItem optionItem = optionItemList.get(i);
             String optionHelp = descriptionList.get(i);
             String line = String.format(optionHelpFormat, optionHelp, optionItem.getOption().description());
-            writer.println(line);
+            optionListHelpWriter.append(line);
+            optionListHelpWriter.append(StringUtil.newline());
         }
-        writer.flush();
+        helpMessageTemplateValue.put(TemplateVariable.OPTION_LIST.name(), optionListHelpWriter.toString());
+
+        // render help messages using template
+
+        ResourcePath rp = usage != null ? new ResourcePath(usage.templatePath()) : new ResourcePath(
+                Usage.DEFAULT_TEMPLATE);
+
+        try
+        {
+            Template helpMessageTemplate = new Template(rp.openBinaryStream());
+            String helpMessage = helpMessageTemplate.apply(helpMessageTemplateValue);
+            out.append(helpMessage);
+            out.flush();
+        }
+        catch (XerialException e)
+        {
+            throw new XerialError(e);
+        }
+
     }
 
     /**

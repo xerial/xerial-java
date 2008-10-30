@@ -74,7 +74,7 @@ public class FileResource
      */
     public static class SystemFile implements VirtualFile
     {
-        private File file;
+        private File   file;
         private String logicalPath;
 
         public SystemFile(File file, String logicalPath)
@@ -120,9 +120,9 @@ public class FileResource
      */
     public static class FileInJarArchive implements VirtualFile
     {
-        private URL resourceURL;
+        private URL    resourceURL;
         private String logicalPath;
-        boolean isDirectory;
+        boolean        isDirectory;
 
         public FileInJarArchive(URL resourceURL, String logicalPath, boolean isDirectory)
         {

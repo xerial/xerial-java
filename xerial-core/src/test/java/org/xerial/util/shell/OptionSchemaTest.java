@@ -49,7 +49,7 @@ public class OptionSchemaTest
     public void tearDown() throws Exception
     {}
 
-    @Usage(command = "> java -jar MyProg [option ..]")
+    @Usage(command = "> java -jar MyProg [option ..]", description = "sample program")
     class MyOption
     {
         @Option(symbol = "h", longName = "help", description = "display help message")
@@ -60,6 +60,9 @@ public class OptionSchemaTest
 
         @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL", description = "set log level: ERROR, DEBUG, WARN")
         LogLevel     logLevel;
+
+        @Option(symbol = "o", varName = "FILE", description = "output file")
+        String       outputFile;
 
         @Argument(name = "file", index = 1, required = false)
         List<String> fileList;
@@ -74,7 +77,44 @@ public class OptionSchemaTest
     {
         OptionSchema schema = OptionSchema.newOptionSchema(MyOption.class);
 
-        assertEquals(3, schema.getOptionItemList().size());
+        assertEquals(4, schema.getOptionItemList().size());
+        assertEquals(2, schema.getArgumentItemList().size());
+        assertNotNull(schema.getUsage());
+
+        StringWriter out = new StringWriter();
+        out.append("\n");
+        schema.printUsage(out);
+        _logger.debug(out.toString());
+    }
+
+    @Usage(command = "> java -jar MyProg [option ..]", description = "sample program", templatePath = "org/xerial/util/shell/help-message-alt.template")
+    class MyOption2
+    {
+        @Option(symbol = "h", longName = "help", description = "display help message")
+        boolean      displayHelp;
+
+        @Option(longName = "verbose", description = "output verbose messages")
+        boolean      verbose;
+
+        @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL", description = "set log level: ERROR, DEBUG, WARN")
+        LogLevel     logLevel;
+
+        @Option(symbol = "o", varName = "FILE", description = "output file")
+        String       outputFile;
+
+        @Argument(name = "file", index = 1, required = false)
+        List<String> fileList;
+
+        @Argument(name = "sub_command", index = 0)
+        String       subCommand;
+    }
+
+    @Test
+    public void alternativeTemplate() throws IOException
+    {
+        OptionSchema schema = OptionSchema.newOptionSchema(MyOption2.class);
+
+        assertEquals(4, schema.getOptionItemList().size());
         assertEquals(2, schema.getArgumentItemList().size());
         assertNotNull(schema.getUsage());
 

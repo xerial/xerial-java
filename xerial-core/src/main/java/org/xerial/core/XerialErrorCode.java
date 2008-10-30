@@ -36,7 +36,10 @@ public enum XerialErrorCode implements ErrorCode {
     INVALID_STATE,
     SYNTAX_ERROR,
     NOT_INITIALIZED,
-    
+
+    // resources 
+    RESOURCE_NOT_FOUND,
+
     // option parser error
     DUPLICATE_OPTION,
     NO_OPTION,
@@ -45,7 +48,7 @@ public enum XerialErrorCode implements ErrorCode {
     // type 
     MISSING_TYPE_PARAMETER,
     NOT_A_COLLECTION,
-    INACCESSIBLE_METHOD, 
+    INACCESSIBLE_METHOD,
 
     ;
 

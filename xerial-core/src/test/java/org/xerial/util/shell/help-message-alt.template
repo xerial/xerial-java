@@ -1,0 +1,8 @@
+[usage]
+$COMMAND$ $ARGUMENT_LIST$
+
+[description]
+$DESCRIPTION$
+
+[options]
+$OPTION_LIST$
