@@ -110,6 +110,11 @@ public class OptionParser
                                 "parameter value is required for --" + longOptionName);
 
                     optionItem.setOption(optionHolder, "true");
+
+                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
+                                .toString());
+
                     activatedOption.add(optionItem.getOption());
                 }
                 else
@@ -128,6 +133,10 @@ public class OptionParser
                     }
 
                     optionItem.setOption(optionHolder, value);
+                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
+                                .toString());
+
                     activatedOption.add(optionItem.getOption());
                 }
 
@@ -155,6 +164,10 @@ public class OptionParser
                     else
                         optionItem.setOption(optionHolder, "true");
 
+                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
+                                .toString());
+
                     activatedOption.add(optionItem.getOption());
                 }
             }
@@ -166,10 +179,22 @@ public class OptionParser
                     throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unused argument: " + currentArg);
 
                 argItem.set(optionHolder, currentArg);
+                if (!argItem.takesMultipleArguments() && activatedArgument.contains(argItem.getArgumentDescriptor()))
+                    throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem.getArgumentDescriptor()
+                            .toString());
+
                 activatedArgument.add(argItem.getArgumentDescriptor());
                 argIndex++;
             }
 
+        }
+
+        // verify missing options & arguments
+        for (ArgumentItem argItem : schema.getArgumentItemList())
+        {
+            if (argItem.getArgumentDescriptor().required()
+                    && !activatedArgument.contains(argItem.getArgumentDescriptor()))
+                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem.toString());
         }
     }
 

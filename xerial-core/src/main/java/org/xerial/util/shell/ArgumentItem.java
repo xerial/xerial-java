@@ -110,4 +110,11 @@ public class ArgumentItem
         argumentSetter.initialize(optionHolder);
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("name=%s, index=%s, required=%s", argumentDescriptor.name(), getRange().toString(),
+                argumentDescriptor.required());
+    }
+
 }

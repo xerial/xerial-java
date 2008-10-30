@@ -27,6 +27,8 @@ package org.xerial.util.shell;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -55,6 +57,26 @@ public class OptionSetterViaField implements OptionSetter
         return field.getType();
     }
 
+    private Class< ? > getCollectionElementType()
+    {
+        if (!TypeInformation.isCollection(getOptionDataType()))
+            throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, field.toString());
+
+        Type optionFieldType = field.getGenericType();
+
+        if (ParameterizedType.class.isInstance(optionFieldType))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(optionFieldType);
+            Type elementType = pt.getActualTypeArguments()[0];
+            if (Class.class.isInstance(elementType))
+                return (Class< ? >) elementType;
+            else
+                return Object.class;
+        }
+        else
+            return Object.class;
+    }
+
     protected Object getValue(Object bean)
     {
         Object value = null;
@@ -76,7 +98,7 @@ public class OptionSetterViaField implements OptionSetter
         }
         return value;
     }
-    
+
     protected void setValue(Object bean, Object value)
     {
         try
@@ -97,7 +119,7 @@ public class OptionSetterViaField implements OptionSetter
         }
 
     }
-    
+
     public void setOption(Object bean, Object value) throws OptionParserException
     {
         try
@@ -109,13 +131,15 @@ public class OptionSetterViaField implements OptionSetter
                 {
                     throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
                 }
-                
+
                 // use adder
                 try
                 {
                     Method adder = getOptionDataType().getMethod("add", Object.class);
-                    // TODO type convertion of value to the collection element  
-                    adder.invoke(collection, value);
+                    Class< ? > elementType = getCollectionElementType();
+
+                    Object convertedValue = TypeConverter.convertType(elementType, value);
+                    adder.invoke(collection, convertedValue);
                 }
                 catch (SecurityException e)
                 {
@@ -165,7 +189,6 @@ public class OptionSetterViaField implements OptionSetter
         return !TypeInformation.isBoolean(type);
     }
 
-    
     public void initialize(Object bean) throws OptionParserException
     {
         try

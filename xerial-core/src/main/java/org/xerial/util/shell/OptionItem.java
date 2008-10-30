@@ -98,12 +98,11 @@ public class OptionItem
     {
         return optionDescriptor;
     }
-    
+
     public boolean takesMultipleArguments()
     {
         return TypeInformation.isCollection(optionSetter.getOptionDataType());
     }
-
 
     public void setOption(Object bean, String value) throws OptionParserException
     {
@@ -127,4 +126,10 @@ public class OptionItem
         optionSetter.initialize(optionHolder);
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("symbol=%s, longName=%s, description=%s", optionDescriptor.symbol(), optionDescriptor
+                .longName(), optionDescriptor.description());
+    }
 }

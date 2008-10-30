@@ -48,7 +48,7 @@ public class Range implements Comparable<Range>
     @Override
     public String toString()
     {
-        return String.format("(%s,%e)", start, end);
+        return String.format("(%s,%s)", start, end);
     }
 
     public int compareTo(Range o)

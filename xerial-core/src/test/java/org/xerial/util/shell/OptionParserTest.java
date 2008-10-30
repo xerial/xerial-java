@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -80,6 +81,61 @@ public class OptionParserTest
     }
 
     @Test
+    public void testDuplicatedOptionFlag()
+    {
+        try
+        {
+            MyOption myOption = new MyOption();
+            OptionParser parser = new OptionParser(myOption);
+
+            parser.parse(new String[] { "-h", "-h" });
+
+            fail("must detect the presence of duplicated option flags");
+        }
+        catch (OptionParserException e)
+        {
+
+        }
+    }
+
+    @Test
+    public void testDuplicatedLongOptionFlag()
+    {
+        try
+        {
+            MyOption myOption = new MyOption();
+            OptionParser parser = new OptionParser(myOption);
+
+            parser.parse(new String[] { "--help", "--help" });
+
+            fail("must detect the presence of duplicated option flags");
+        }
+        catch (OptionParserException e)
+        {
+
+        }
+    }
+
+    @Test
+    public void detectMissingArgument()
+    {
+        try
+        {
+            MyOption myOption = new MyOption();
+            OptionParser parser = new OptionParser(myOption);
+
+            parser.parse(new String[] {});
+
+            fail("must detect some argument is missing");
+        }
+        catch (OptionParserException e)
+        {
+
+        }
+
+    }
+
+    @Test
     public void initializeCollectionsInOptionHolder() throws OptionParserException
     {
         MyOption myOption = new MyOption();
@@ -127,6 +183,66 @@ public class OptionParserTest
         assertEquals(2, mn.name.size());
         assertEquals("leo", mn.name.get(0));
         assertEquals("yui", mn.name.get(1));
+    }
+
+    class IntArg
+    {
+        @Option(symbol = "i")
+        int           num;
+
+        @Argument(name = "value")
+        List<Integer> value;
+    }
+
+    @Test
+    public void intArgument() throws OptionParserException
+    {
+        IntArg intArg = new IntArg();
+        OptionParser parser = new OptionParser(intArg);
+
+        parser.parse(new String[] { "-i", "3", "1", "4", "10" });
+
+        assertNotNull(intArg.value);
+        assertEquals(3, intArg.num);
+        assertEquals(3, intArg.value.size());
+        assertEquals(1, intArg.value.get(0).intValue());
+        assertEquals(4, intArg.value.get(1).intValue());
+        assertEquals(10, intArg.value.get(2).intValue());
+
+    }
+
+    class AmbiguousTypeArg
+    {
+        @Argument(name = "value")
+        List< ? > value;
+
+        /**
+         * for testing purpose, use untyped list
+         */
+        @SuppressWarnings("unchecked")
+        @Option(symbol = "d")
+        List      d;
+    }
+
+    @Test
+    public void ambiguousType() throws OptionParserException
+    {
+        AmbiguousTypeArg arg = new AmbiguousTypeArg();
+        OptionParser parser = new OptionParser(arg);
+
+        parser.parse(new String[] { "1", "2", "3", "-d", "5", "-d", "10" });
+
+        assertNotNull(arg.value);
+        assertEquals(3, arg.value.size());
+        assertEquals("1", arg.value.get(0));
+        assertEquals("2", arg.value.get(1));
+        assertEquals("3", arg.value.get(2));
+
+        assertNotNull(arg.d);
+        assertEquals(2, arg.d.size());
+        assertEquals("5", arg.d.get(0));
+        assertEquals("10", arg.d.get(1));
+
     }
 
 }

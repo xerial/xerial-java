@@ -44,6 +44,7 @@ public enum XerialErrorCode implements ErrorCode {
     DUPLICATE_OPTION,
     NO_OPTION,
     NO_USAGE_ANNOTATION,
+    MISSING_ARGUMENT,
 
     // type 
     MISSING_TYPE_PARAMETER,
