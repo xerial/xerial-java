@@ -290,7 +290,7 @@ public class OptionParserTest
 
     class SubCommand
     {
-        @Option(symbol = "h", longName = "--help")
+        @Option(symbol = "h", longName = "help")
         boolean displayHelp = false;
 
         @Argument(name = "input")
@@ -304,12 +304,13 @@ public class OptionParserTest
         OptionParser mainCommandParser = new OptionParser(mainCommand);
         mainCommandParser.setIgnoreUnknownOption(true);
 
-        mainCommandParser.parse(new String[] { "action", "input.txt" });
+        mainCommandParser.parse(new String[] { "action", "input.txt", "--help" });
 
         String[] subCommandArgs = mainCommandParser.getUnusedArguments();
 
-        assertEquals(1, subCommandArgs.length);
+        assertEquals(2, subCommandArgs.length);
         assertEquals("input.txt", subCommandArgs[0]);
+        assertEquals("--help", subCommandArgs[1]);
 
         SubCommand subCommand = new SubCommand();
         OptionParser subCommandParser = new OptionParser(subCommand);
@@ -318,5 +319,6 @@ public class OptionParserTest
 
         assertNotNull(subCommand.input);
         assertEquals("input.txt", subCommand.input);
+        assertTrue(subCommand.displayHelp);
     }
 }
