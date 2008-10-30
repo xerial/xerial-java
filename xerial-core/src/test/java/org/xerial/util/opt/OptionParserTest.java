@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.StringWriter;
 import java.util.List;
 
 import org.junit.After;
@@ -77,6 +78,18 @@ public class OptionParserTest
         assertEquals("1.txt", myOption.fileList.get(0));
         assertEquals("2.txt", myOption.fileList.get(1));
 
+    }
+
+    @Test
+    public void printUsage()
+    {
+        MyOption myOption = new MyOption();
+        OptionParser parser = new OptionParser(myOption);
+
+        StringWriter out = new StringWriter();
+        parser.printUsage(out);
+        String help = out.toString();
+        assertTrue(help.length() > 0);
     }
 
     @Test

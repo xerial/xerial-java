@@ -42,6 +42,7 @@ public enum XerialErrorCode implements ErrorCode {
 
     // I/O
     READ_ERROR,
+    OUTPUT_ERROR,
 
     // option parser error
     DUPLICATE_OPTION,

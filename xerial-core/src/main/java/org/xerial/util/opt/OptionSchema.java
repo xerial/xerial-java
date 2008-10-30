@@ -130,7 +130,7 @@ public class OptionSchema
         return line.toString();
     }
 
-    public void printUsage(OutputStream out) throws IOException
+    public void printUsage(OutputStream out)
     {
         printUsage(new OutputStreamWriter(out));
     }
@@ -139,7 +139,7 @@ public class OptionSchema
         COMMAND, ARGUMENT_LIST, DESCRIPTION, OPTION_LIST
     }
 
-    public void printUsage(Writer out) throws IOException
+    public void printUsage(Writer out)
     {
         Properties helpMessageTemplateValue = new Properties();
 
@@ -228,6 +228,10 @@ public class OptionSchema
             String helpMessage = helpMessageTemplate.apply(helpMessageTemplateValue);
             out.append(helpMessage);
             out.flush();
+        }
+        catch (IOException e)
+        {
+            throw new XerialError(XerialErrorCode.OUTPUT_ERROR, e);
         }
         catch (XerialException e)
         {

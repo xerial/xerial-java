@@ -25,6 +25,7 @@
 package org.xerial.util.opt;
 
 import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -71,10 +72,16 @@ public class OptionParser
         printUsage(System.out);
     }
 
+    public void printUsage(Writer out)
+    {
+        assert schema != null;
+        schema.printUsage(out);
+    }
+
     public void printUsage(OutputStream out)
     {
         assert schema != null;
-
+        schema.printUsage(out);
     }
 
     public String[] getUnusedArguments()
