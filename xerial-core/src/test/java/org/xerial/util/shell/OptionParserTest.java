@@ -245,4 +245,41 @@ public class OptionParserTest
 
     }
 
+    @Test
+    public void detectUnknownOption()
+    {
+        MyOption myOption = new MyOption();
+        OptionParser parser = new OptionParser(myOption);
+
+        try
+        {
+            parser.parse(new String[] { "-v", "file" });
+
+            fail("must detect unknown options ");
+        }
+        catch (OptionParserException e)
+        {
+
+        }
+
+    }
+
+    @Test
+    public void ignoreUnknownOption()
+    {
+        MyOption myOption = new MyOption();
+        OptionParser parser = new OptionParser(myOption);
+        parser.setIgnoreUnknownOption(true);
+
+        try
+        {
+            parser.parse(new String[] { "-v", "file" });
+
+        }
+        catch (OptionParserException e)
+        {
+            fail("must ignore unknown options ");
+        }
+
+    }
 }

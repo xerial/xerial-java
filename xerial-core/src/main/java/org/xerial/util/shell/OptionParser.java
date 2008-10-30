@@ -198,4 +198,9 @@ public class OptionParser
         }
     }
 
+    public void setIgnoreUnknownOption(boolean ignore)
+    {
+        ignoreUnknownOption = ignore;
+    }
+
 }
