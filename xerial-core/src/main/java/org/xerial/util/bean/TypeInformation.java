@@ -55,7 +55,7 @@ public class TypeInformation
 {
     static private Class< ? >[]        _parameterClass = { int.class, double.class, float.class, long.class,
             boolean.class, char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class,
-            Boolean.class, Character.class, Short.class, Date.class };
+            Boolean.class, Character.class, Short.class, Date.class, Enum.class };
 
     static private HashSet<Class< ? >> basicTypeSet    = new HashSet<Class< ? >>();
     static
@@ -212,22 +212,22 @@ public class TypeInformation
             throw new BeanException(BeanErrorCode.IllegalAccess, e);
         }
     }
-    
-    public static Class<?> getElementTypeOfCollection(Class<? extends Collection<?>> collectionType)
+
+    public static Class< ? > getElementTypeOfCollection(Class< ? extends Collection< ? >> collectionType)
     {
-//        collectionType.get
-//        
-//        ParameterizedType pt = getParentParameterizedType(type, Collection.class);
-//        if (pt != null)
-//        {
-//            Type[] actualType = pt.getActualTypeArguments();
-//            if (actualType.length > 0)
-//                return resolveRawType(actualType[0], orig);
-//        }
-//        return orig;
+        //        collectionType.get
+        //        
+        //        ParameterizedType pt = getParentParameterizedType(type, Collection.class);
+        //        if (pt != null)
+        //        {
+        //            Type[] actualType = pt.getActualTypeArguments();
+        //            if (actualType.length > 0)
+        //                return resolveRawType(actualType[0], orig);
+        //        }
+        //        return orig;
         return null;
     }
-    
+
     public static ParameterizedType getParameterizedType(Type t)
     {
         if (t == null)
@@ -239,7 +239,7 @@ public class TypeInformation
             return pt;
         }
         if (t instanceof Class)
-            return getParameterizedType(((Class) t).getGenericSuperclass());
+            return getParameterizedType(((Class< ? >) t).getGenericSuperclass());
         else
             return null;
     }
@@ -268,7 +268,7 @@ public class TypeInformation
             return null;
     }
 
-    public static Class resolveRawType(Type type, Class orig)
+    public static Class< ? > resolveRawType(Type type, Class< ? > orig)
     {
         if (type instanceof ParameterizedType)
         {
@@ -276,12 +276,12 @@ public class TypeInformation
             return resolveRawType(pt.getRawType(), orig);
         }
         else if (type instanceof Class)
-            return (Class) type;
+            return (Class< ? >) type;
         else
             return orig;
     }
 
-    public static Class resolveRawType(Type type)
+    public static Class< ? > resolveRawType(Type type)
     {
         if (type instanceof ParameterizedType)
         {
@@ -289,10 +289,9 @@ public class TypeInformation
             return resolveRawType(pt.getRawType());
         }
         else if (type instanceof Class)
-            return (Class) type;
+            return (Class< ? >) type;
         else
             return Object.class;
     }
-
 
 }

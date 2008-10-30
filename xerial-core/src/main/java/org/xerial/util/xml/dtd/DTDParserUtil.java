@@ -36,8 +36,9 @@ import org.xerial.util.xml.dtd.impl.DTDParser;
 
 public class DTDParserUtil
 {
-	private static Logger _logger = Logger.getLogger(DTDParserUtil.class);
-	
+    private static Logger _logger = Logger.getLogger(DTDParserUtil.class);
+
+    @SuppressWarnings("unchecked")
     public static DTDParser createParser(InputStream dtdStream) throws IOException
     {
         DTDLexer lexer = new DTDLexer(new ANTLRInputStream(dtdStream));
@@ -46,5 +47,5 @@ public class DTDParserUtil
         DTDParser parser = new DTDParser(tokens);
         return parser;
     }
-    
+
 }

@@ -410,7 +410,7 @@ public class FileResource
         return resultURLList;
     }
 
-    private static String packagePath(Class referenceClass)
+    private static String packagePath(Class< ? > referenceClass)
     {
         return packagePath(referenceClass.getPackage());
     }
@@ -439,7 +439,7 @@ public class FileResource
      * @throws IOException
      *             when failed to open the file resource
      */
-    public static BufferedReader open(Class referenceClass, String resouceFileName) throws IOException
+    public static BufferedReader open(Class< ? > referenceClass, String resouceFileName) throws IOException
     {
         URL url = find(referenceClass, resouceFileName);
         if (url != null)
@@ -482,7 +482,7 @@ public class FileResource
      *            referenceClass
      * @return the URL of the file resource
      */
-    public static URL find(Class referenceClass, String resourceFileName)
+    public static URL find(Class< ? > referenceClass, String resourceFileName)
     {
         return find(referenceClass.getPackage(), resourceFileName);
     }

@@ -62,7 +62,6 @@ public class CollectionUtil
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     public static <In> List<In> select(Iterable<In> collection, Predicate<In> filter)
     {
         ArrayList<In> result = new ArrayList<In>();
@@ -94,10 +93,9 @@ public class CollectionUtil
         return result;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <K, V> List collect(Map<K, V> map, BinaryFunctor<K, V> functor)
+    public static <K, V> List<Object> collect(Map<K, V> map, BinaryFunctor<K, V> functor)
     {
-        ArrayList result = new ArrayList();
+        ArrayList<Object> result = new ArrayList<Object>();
         for (K key : map.keySet())
         {
             result.add(functor.apply(key, map.get(key)));

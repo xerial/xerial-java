@@ -116,7 +116,7 @@ public class XMLAttribute
 
     public XMLAttribute(Properties properties)
     {
-        Set keySet = properties.keySet();
+        Set< ? > keySet = properties.keySet();
         for (Object attributeObj : keySet)
         {
             String attribute = attributeObj.toString();
@@ -125,9 +125,9 @@ public class XMLAttribute
         }
     }
 
-    public XMLAttribute(Map properties)
+    public XMLAttribute(Map< ? , ? > properties)
     {
-        Set keySet = properties.keySet();
+        Set< ? > keySet = properties.keySet();
         for (Object attributeObj : keySet)
         {
             String attribute = attributeObj.toString();
@@ -181,6 +181,6 @@ public class XMLAttribute
             return returnString;
     }
 
-    protected LinkedList<String> _attributeNameList = new LinkedList<String>();
-    protected HashMap<String, String> _attributeValue = new HashMap<String, String>();
+    protected LinkedList<String>      _attributeNameList = new LinkedList<String>();
+    protected HashMap<String, String> _attributeValue    = new HashMap<String, String>();
 }

@@ -31,16 +31,16 @@ import java.util.NoSuchElementException;
 import org.xerial.util.Algorithm;
 
 /**
- * InvertedPath: 
- *  /booklist/book/authorÇ∆Ç¢Ç§XPathÇÃinverted pathÇÕÅAauthor.book.booklist
- *  
+ * InvertedPath is a reversed path. For example, the inverted path of a xpath
+ * expression /booklist/book/author, is author.book.booklist
+ * 
  * @author leo
- *
+ * 
  */
 public class InvertedPath implements Comparable<InvertedPath>, Iterable<String>
 {
     private LinkedList<String> _path = new LinkedList<String>();
-    
+
     /**
      * 
      */
@@ -48,72 +48,77 @@ public class InvertedPath implements Comparable<InvertedPath>, Iterable<String>
     {
         super();
     }
+
     public InvertedPath(String stringRepresentationOfInvertedPath)
     {
         String[] pathComponent = stringRepresentationOfInvertedPath.split("\\.");
-        for(String c : pathComponent)
+        for (String c : pathComponent)
         {
             addParent(c);
         }
     }
-    
+
     /**
      * copy constructor
+     * 
      * @param invertedPath
      */
     public InvertedPath(InvertedPath invertedPath)
     {
-        for(String s : invertedPath)
+        for (String s : invertedPath)
             addParent(s);
     }
-    
+
     public void addParent(String tagName)
     {
         _path.add(tagName);
     }
+
     public void addChild(String tagName)
     {
         _path.addFirst(tagName);
     }
-    
+
     public String getLastParent()
     {
-        if(_path.isEmpty())
+        if (_path.isEmpty())
             return "";
         else
             return _path.getLast();
     }
-    
+
     /**
-     * @throws NoSuchElementException if this inverted path contains no step
+     * @throws NoSuchElementException
+     *             if this inverted path contains no step
      */
     public void removeLastParent() throws NoSuchElementException
     {
-        if(_path.isEmpty())
+        if (_path.isEmpty())
             throw new NoSuchElementException("empty path");
         _path.removeLast();
     }
+
     public void removeFirstChild() throws NoSuchElementException
     {
-        if(_path.isEmpty())
+        if (_path.isEmpty())
             throw new NoSuchElementException("empty path");
         _path.removeFirst();
     }
-        
+
     public Integer size()
     {
         return _path.size();
     }
-    
+
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        for(String tag : _path)
+        for (String tag : _path)
         {
             builder.append(".");
             builder.append(tag);
         }
-        if(builder.length() > 1)
+        if (builder.length() > 1)
             return builder.substring(1);
         else
             return "";
@@ -124,42 +129,25 @@ public class InvertedPath implements Comparable<InvertedPath>, Iterable<String>
     {
         return Algorithm.lexicographicalCompare(this.getPath(), other.getPath());
     }
-    
-    
+
     @Override
     public boolean equals(Object obj)
     {
         InvertedPath other = (InvertedPath) obj;
-        if(obj == null)
+        if (obj == null)
             return false;
-        
+
         return this.compareTo(other) == 0;
     }
-
 
     private LinkedList<String> getPath()
     {
         return _path;
     }
 
-    @Override
-    protected InvertedPath clone() throws CloneNotSupportedException
-    {
-        InvertedPath newPath = new InvertedPath();
-        newPath._path = (LinkedList<String>) this._path.clone();
-        return newPath;
-    }
-
     public Iterator<String> iterator()
     {
         return _path.iterator();
     }
-    
-    
-
 
 }
-
-
-
-
