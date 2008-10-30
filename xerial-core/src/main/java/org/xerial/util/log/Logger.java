@@ -99,7 +99,7 @@ public class Logger
     }
 
     /**
-     * Non constractable
+     * hide constructor
      */
     private Logger()
     {
@@ -132,8 +132,7 @@ public class Logger
         return builder.toString();
     }
 
-    @SuppressWarnings("unchecked")
-    public static Logger getLogger(Class c)
+    public static Logger getLogger(Class< ? > c)
     {
         return getLogger(c.getName());
     }
