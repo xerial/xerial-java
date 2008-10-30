@@ -121,9 +121,7 @@ public class OptionSchema
         else
             format = argItem.takesMultipleArguments() ? "[%s ...]" : "[%s]";
 
-        String name = arg.name();
-        if (name == null || name.length() <= 0)
-            name = "ARG";
+        String name = argItem.getArgumentName();
 
         line.append(String.format(format, name));
 

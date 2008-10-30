@@ -116,4 +116,13 @@ public class ArgumentItem
                 argumentDescriptor.required());
     }
 
+    public String getArgumentName()
+    {
+        String name = argumentDescriptor.name();
+        if (name == null || name.length() <= 0)
+            name = argumentSetter.getParameterName();
+
+        return name;
+    }
+
 }

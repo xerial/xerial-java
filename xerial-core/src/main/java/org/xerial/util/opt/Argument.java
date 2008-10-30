@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 public @interface Argument {
 
     /**
-     * name of the argument
+     * name of the argument. If nothing is given, field name is used;
      */
     String name() default "";
 

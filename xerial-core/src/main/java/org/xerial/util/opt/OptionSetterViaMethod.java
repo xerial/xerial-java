@@ -95,4 +95,9 @@ class OptionSetterViaMethod implements OptionSetter
     // do nothing
     }
 
+    public String getParameterName()
+    {
+        return m.getName();
+    }
+
 }

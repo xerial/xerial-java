@@ -67,7 +67,7 @@ public class OptionSchemaTest
         @Argument(name = "file", index = 1, required = false)
         List<String> fileList;
 
-        @Argument(name = "sub_command", index = 0)
+        @Argument(index = 0)
         String       subCommand;
 
     }

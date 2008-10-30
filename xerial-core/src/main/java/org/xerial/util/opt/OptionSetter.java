@@ -37,4 +37,6 @@ public interface OptionSetter
     boolean takesArgument();
 
     void initialize(Object bean) throws OptionParserException;
+
+    String getParameterName();
 }

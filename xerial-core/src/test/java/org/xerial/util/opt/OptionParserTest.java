@@ -56,10 +56,10 @@ public class OptionParserTest
         @Option(symbol = "h", longName = "help", description = "display help message")
         private boolean      displayHelp;
 
-        @Argument(name = "sub command name", index = 0)
+        @Argument(index = 0)
         private String       subCommand;
 
-        @Argument(name = "input files ...", index = 1, required = false)
+        @Argument(name = "input_file", index = 1, required = false)
         private List<String> fileList;
     }
 

@@ -516,7 +516,7 @@ public class FileResource
         String resourcePath = packagePath + resourceFileName;
         if (!resourcePath.startsWith("/"))
             resourcePath = "/" + resourcePath;
-        _logger.debug("search resource: " + resourcePath);
+        _logger.trace("search resource: " + resourcePath);
 
         return FileResource.class.getResource(resourcePath);
     }

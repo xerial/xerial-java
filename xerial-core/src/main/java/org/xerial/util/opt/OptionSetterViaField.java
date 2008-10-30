@@ -210,4 +210,9 @@ public class OptionSetterViaField implements OptionSetter
         }
     }
 
+    public String getParameterName()
+    {
+        return field.getName();
+    }
+
 }
