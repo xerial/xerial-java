@@ -25,9 +25,10 @@
 package org.xerial.util.xml.index;
 
 /**
- * Ç≥Ç‹Ç¥Ç‹Ç…encodeÇ≥ÇÍÇÈXMLÉmÅ[Éhã§í ÇÃinterface
+ * a common interface for XML node
+ * 
  * @author leo
- *
+ * 
  */
 public interface XMLNode
 {

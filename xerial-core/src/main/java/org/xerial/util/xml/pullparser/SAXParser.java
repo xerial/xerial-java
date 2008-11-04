@@ -114,12 +114,13 @@ public class SAXParser
      * @param xmlFileName
      * @throws IOException
      *             when failed to read a file
+     * @throws XMLException
      * @throws XMLParserException
      *             when failed to produce XML parser instance
      * @throws XMLException
      *             when reading invalid XML data
      */
-    public void parse(String xmlFileName) throws IOException, Exception
+    public void parse(String xmlFileName) throws IOException, XMLException
     {
         Reader reader = new BufferedReader(new FileReader(xmlFileName));
         parse(reader);
@@ -127,31 +128,35 @@ public class SAXParser
     }
 
     /**
-     * XML文書を xmlInputSourceから読み、eventに応じて、SAXEventHandler中のメソッドを呼び出す
+     * Read the input XML data, and produce SAX events, which will be caught by
+     * SAX event Handlers
      * 
      * @param xmlInputSource
      * @throws IOException
-     *             ファイルの入力でエラー
+     *             file I/O errro
+     * 
      * @throws XMLParserException
-     *             parserの生成に失敗したとき。
+     *             when failed to produce PullParser Instance
+     * 
      * @throws XMLException
-     *             invalidなXMLを読んだとき。
+     *             invalid XML data format
+     * 
      */
-    public void parse(Reader xmlInputSource) throws Exception, IOException
+    public void parse(Reader xmlInputSource) throws IOException, XMLException
     {
         XmlPullParser parser = PullParserUtil.newParser(xmlInputSource);
         this.parse(parser);
     }
 
     /**
-     * 現在のpull parserの状態から、parsing をはじめる
+     * resume parsing
      * 
      * @param xmlInputSource
      * @throws IOException
-     *             ファイルの入力でエラー
+     * 
      * @throws XMLException
-     * @throws XMLException
-     *             invalidなXMLを読んだとき。
+     *             when invalid XML data is given
+     * 
      */
     public void parse(XmlPullParser p) throws IOException, XMLException
     {

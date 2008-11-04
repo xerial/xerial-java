@@ -30,6 +30,7 @@ import static org.xmlpull.v1.XmlPullParser.START_TAG;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.xerial.core.XerialError;
 import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xmlpull.v1.XmlPullParser;
@@ -88,11 +89,11 @@ public class PullParserUtil
      *            XML reader
      * 
      * @return an instance of the pull parser
-     * @throws XMLException
+     * @throws XerialError
      *             when failed to create XML pull parser
      * 
      */
-    static public XmlPullParser newParser(Reader xmlReader) throws XMLException
+    static public XmlPullParser newParser(Reader xmlReader) 
     {
         XmlPullParser parser;
         try
@@ -103,7 +104,7 @@ public class PullParserUtil
         }
         catch (XmlPullParserException e)
         {
-            throw new XMLException(XMLErrorCode.FAILED_TO_CREATE_XML_PARSER, e);
+            throw new XerialError(XMLErrorCode.FAILED_TO_CREATE_XML_PARSER, e);
         }
     }
 
