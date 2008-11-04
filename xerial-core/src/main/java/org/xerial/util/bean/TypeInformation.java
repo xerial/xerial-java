@@ -55,7 +55,7 @@ public class TypeInformation
 {
     static private Class< ? >[]        _parameterClass = { int.class, double.class, float.class, long.class,
             boolean.class, char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class,
-            Boolean.class, Character.class, Short.class, Date.class, Enum.class };
+            Boolean.class, Character.class, Short.class, Date.class };
 
     static private HashSet<Class< ? >> basicTypeSet    = new HashSet<Class< ? >>();
     static
@@ -80,6 +80,8 @@ public class TypeInformation
     {
         if (c.isArray())
             return basicTypeSet.contains(c.getComponentType());
+        else if (c.isEnum())
+            return true;
         else
             return basicTypeSet.contains(c);
     }

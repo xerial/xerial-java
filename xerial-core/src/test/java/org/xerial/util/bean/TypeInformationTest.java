@@ -60,6 +60,10 @@ public class TypeInformationTest
     public void tearDown() throws Exception
     {}
 
+    enum SampleEnum {
+        A, B, C
+    }
+
     @Test
     public void testIsBasicType()
     {
@@ -89,8 +93,7 @@ public class TypeInformationTest
         assertTrue(TypeInformation.isBasicType(String[].class));
 
         assertTrue(TypeInformation.isBasicType(Date.class));
-
-        assertTrue(TypeInformation.isBasicType(Enum.class));
+        assertTrue(TypeInformation.isBasicType(SampleEnum.class));
 
         assertFalse(TypeInformation.isBasicType(Collection.class));
 
