@@ -25,6 +25,7 @@
 package org.xerial.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,6 +42,7 @@ public class XerialExceptionTest
         XerialException e = new XerialException(XerialErrorCode.INVALID_STATE, "exception message");
         assertEquals(XerialErrorCode.INVALID_STATE.name(), e.getErrorCode().getCodeName());
 
+        assertTrue(e.getMessage().contains("exception message"));
     }
 
 }
