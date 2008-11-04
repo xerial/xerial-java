@@ -42,7 +42,14 @@ public class XerialException extends Exception
 {
     private static final long serialVersionUID = 1L;
 
-    private final ErrorCode errorCode;
+    private final ErrorCode   errorCode;
+
+    public XerialException(XerialException e)
+    {
+        super(e.getErrorMessage());
+        this.errorCode = e.errorCode;
+
+    }
 
     public XerialException(ErrorCode errorCode)
     {
@@ -82,6 +89,11 @@ public class XerialException extends Exception
     public String getMessage()
     {
         return ExceptionHelper.getMessage(errorCode, super.getMessage());
+    }
+
+    private String getErrorMessage()
+    {
+        return super.getMessage();
     }
 
 }
