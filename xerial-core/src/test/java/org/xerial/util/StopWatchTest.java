@@ -43,5 +43,31 @@ public class StopWatchTest
         double time = sw.getElapsedTime();
         assertEquals(waitingTime, time, 0.01);
     }
+    
+    @Test
+    public void stopAndResume() throws InterruptedException
+    {
+        double waitingTime = 0.1;
+
+        StopWatch sw = new StopWatch();
+        Thread.sleep((long) (waitingTime * 1000));
+        sw.stop();
+        double time = sw.getElapsedTime();
+        assertEquals(waitingTime, time, 0.01);
+
+        Thread.sleep((long) (waitingTime * 1000));
+        double timeAfterStop = sw.getElapsedTime();
+        assertEquals(time, timeAfterStop, 0.001);
+        
+        sw.resume();
+        Thread.sleep((long) (waitingTime * 1000));
+        double timeAfterResume = sw.getElapsedTime();
+        assertEquals(timeAfterStop + waitingTime, timeAfterResume, 0.01);
+        
+
+        _logger.debug("time: " + time);
+        _logger.debug("time: " + timeAfterStop);
+        _logger.debug("time: " + timeAfterResume);
+    }
 
 }

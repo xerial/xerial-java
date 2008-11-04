@@ -33,9 +33,13 @@ package org.xerial.util;
  */
 public class StopWatch
 {
+    enum State {
+        RUNNING, STOPPED
+    }
 
-    private long initialSystemTIme;
     private long lastSystemTime;
+    private long accumulatedElapsedTime;
+    private State               state     = State.RUNNING;
     
     private static final double NANO_UNIT = 1000000000L;
 
@@ -51,24 +55,16 @@ public class StopWatch
      */
     public double getElapsedTime()
     {
-        lastSystemTime = System.nanoTime();
-        long diff = lastSystemTime - initialSystemTIme;
-        return diff / NANO_UNIT;
-    }
-
-    /**
-     * Gets the interval time since the last call of
-     * {@link StopWatch#getEleapsedTime()} or
-     * {@link StopWatch#getIntervalTime()}
-     * 
-     * @return the interval time in seconds
-     */
-    public double getIntervalTime()
-    {
-        long now = System.nanoTime();
-        long diff = now - lastSystemTime;
-        lastSystemTime = now;
-        return diff / NANO_UNIT;
+        if (state == State.RUNNING)
+        {
+            long now = System.nanoTime();
+            long diff = now - lastSystemTime;
+            return (accumulatedElapsedTime + diff) / NANO_UNIT;
+        }
+        else
+        {
+            return accumulatedElapsedTime / NANO_UNIT;
+        }
     }
 
     /**
@@ -79,8 +75,30 @@ public class StopWatch
      */
     public void reset()
     {
-        initialSystemTIme = System.nanoTime();
-        lastSystemTime = initialSystemTIme;
+        lastSystemTime = System.nanoTime();
+        accumulatedElapsedTime = 0L;
+    }
+    
+    public void stop()
+    {
+        if (state == State.STOPPED)
+            return;
+
+        // elapsed time 
+        long now = System.nanoTime();
+        accumulatedElapsedTime += now - lastSystemTime;
+        lastSystemTime = now;
+
+        state = State.STOPPED;
+    }
+
+    public void resume()
+    {
+        if (state == State.RUNNING)
+            return;
+
+        lastSystemTime = System.nanoTime();
+        state = State.RUNNING;
     }
 
 }
