@@ -64,7 +64,7 @@ public class StopWatchTest
         double timeAfterResume = sw.getElapsedTime();
         assertEquals(timeAfterStop + waitingTime, timeAfterResume, 0.01);
         
-
+        
         _logger.debug("time: " + time);
         _logger.debug("time: " + timeAfterStop);
         _logger.debug("time: " + timeAfterResume);
