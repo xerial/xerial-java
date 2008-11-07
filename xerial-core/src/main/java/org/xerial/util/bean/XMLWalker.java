@@ -63,13 +63,13 @@ public class XMLWalker implements TreeWalker
      */
     class XMLStreamWalker implements TreeWalker
     {
-        private final XmlPullParser pullParser;
-        private final LinkedList<StringBuilder> textStack = new LinkedList<StringBuilder>();
+        private final XmlPullParser             pullParser;
+        private final LinkedList<StringBuilder> textStack       = new LinkedList<StringBuilder>();
 
-        private boolean skipDescendants = false;
-        private int skipLevel = Integer.MAX_VALUE;
+        private boolean                         skipDescendants = false;
+        private int                             skipLevel       = Integer.MAX_VALUE;
 
-        public XMLStreamWalker(Reader reader) throws XMLException
+        public XMLStreamWalker(Reader reader)
         {
             if (reader == null)
                 throw new IllegalArgumentException("XML reader is null");
