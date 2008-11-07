@@ -159,7 +159,6 @@ public class XMLWalker implements TreeWalker
 
         public TreeNode getSubTree() throws XerialException
         {
-            skipDescendants();
             DOMBuilder domBuilder = new DOMBuilder();
             try
             {
