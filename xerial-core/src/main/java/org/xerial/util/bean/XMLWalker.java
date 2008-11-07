@@ -259,10 +259,8 @@ public class XMLWalker implements TreeWalker
      * @param visitor
      * @param xmlDataReader
      *            xml data stream
-     * @throws XMLException
-     *             thrown when some error has found in the XML reader
      */
-    public XMLWalker(Reader xmlDataReader) throws XMLException
+    public XMLWalker(Reader xmlDataReader)
     {
         impl = new XMLStreamWalker(xmlDataReader);
     }
