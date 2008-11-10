@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
@@ -109,12 +110,12 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public Collection<NodeLabel> getNodeLabelSet()
     {
-        return _nodeTable.values();
+        return _nodeTable.getNodeLabelSet();
     }
 
     public Collection<Integer> getNodeIDSet()
     {
-        return _nodeTable.keySet();
+        return _nodeTable.getNodeIDSet();
     }
 
     public Collection<Integer> getDestNodeIDSetOf(int nodeID)
@@ -259,7 +260,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public String toString()
     {
-        String nodeData = CollectionUtil.displayMap(_nodeTable, ":", ", ");
+        String nodeData = CollectionUtil.displayMap(_nodeTable.getNodeTable(), ":", ", ");
 
         ArrayList<String> edgeData = new ArrayList<String>();
         for (Edge e : getEdgeSet())
@@ -269,16 +270,53 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         }
         return "node: " + nodeData + "\n" + StringUtil.join(edgeData, "\n");
     }
+    
 
 }
 
-class NodeTable<NodeType> extends TreeMap<Integer, NodeType>
+class NodeTable<NodeType> 
 {
     private static final long serialVersionUID = 1L;
 
     private int _numNode = 0;
 
+    private TreeMap<Integer, NodeType> _nodeTable       = new TreeMap<Integer, NodeType>();
     private HashMap<NodeType, Integer> _nodeIDIndex = new HashMap<NodeType, Integer>();
+
+    public NodeType get(int nodeID)
+    {
+        return _nodeTable.get(nodeID);
+    }
+    
+    public Set<NodeType> getNodeLabelSet()
+    {
+        return _nodeIDIndex.keySet();
+    }
+
+    public Set<Integer> getNodeIDSet()
+    {
+        return _nodeTable.keySet();
+    }
+    
+    public boolean containsValue(NodeType value)
+    {
+        return _nodeIDIndex.containsKey(value);
+    }
+    
+    public boolean containsKey(Integer nodeID)
+    {
+        return _nodeTable.containsKey(nodeID);
+    }
+    
+    public Map<Integer, NodeType> getNodeTable()
+    {
+        return _nodeTable;
+    }
+    
+    public int size()
+    {
+        return _nodeTable.size();
+    }
 
     public int getNodeID(NodeType node)
     {
@@ -288,7 +326,7 @@ class NodeTable<NodeType> extends TreeMap<Integer, NodeType>
 
     public int add(int nodeID, NodeType node)
     {
-        super.put(nodeID, node);
+        _nodeTable.put(nodeID, node);
         if (nodeID > _numNode)
             _numNode = nodeID;
         _nodeIDIndex.put(node, nodeID);
@@ -299,7 +337,7 @@ class NodeTable<NodeType> extends TreeMap<Integer, NodeType>
     public int add(NodeType node)
     {
         int newNodeID = _numNode + 1;
-        super.put(newNodeID, node);
+        _nodeTable.put(newNodeID, node);
         _nodeIDIndex.put(node, newNodeID);
         ++_numNode;
         return newNodeID;
@@ -308,7 +346,7 @@ class NodeTable<NodeType> extends TreeMap<Integer, NodeType>
     public void clear()
     {
         _numNode = 0;
-        super.clear();
+        _nodeTable.clear();
         _nodeIDIndex.clear();
     }
 
