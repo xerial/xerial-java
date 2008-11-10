@@ -27,8 +27,6 @@ package org.xerial.util.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.xerial.core.XerialError;
-import org.xerial.core.XerialErrorCode;
 import org.xerial.util.BitVector;
 import org.xerial.util.IndexedSet;
 
@@ -96,10 +94,45 @@ public class Lattice<T>
         if (prevNode != null)
             return prevNode;
         else
-            throw new XerialError(XerialErrorCode.UNSUPPORTED, String.format(
-                    "previous node must exist in the lattice. currentNode = %s, element = %s", currentNode, element));
+        {
+            return previousLatticeNode(currentNode.getElementOnOffIndicator(), element);
+            //            throw new XerialError(XerialErrorCode.UNSUPPORTED, String.format(
+            //                    "previous node must exist in the lattice. currentNode = %s, element = %s", currentNode, element));
+        }
     }
 
+    /**
+     * recursively constructs the previous lattice node(s)
+     * 
+     * @param current
+     * @param elementToRemove
+     * @return
+     */
+    private LatticeNode<T> previousLatticeNode(BitVector current, T elementToRemove)
+    {
+        if (elementToRemove == null)
+        {
+            // no more element to remove
+            return emptySet;
+        }
+
+        int elementIDToRemove = getElementID(elementToRemove);
+        BitVector elementOnOffIndicator = BitVector.newInstance(current);
+        elementOnOffIndicator.off(elementIDToRemove);
+
+        for (int i = 0; i < elementOnOffIndicator.size(); i++)
+        {
+            if (elementOnOffIndicator.get(i))
+            {
+                T backEdgeNode = getElementByID(i);
+                LatticeNode<T> prev = previousLatticeNode(elementOnOffIndicator, backEdgeNode);
+                return prev.next(backEdgeNode);
+            }
+        }
+        // no bit is on
+        return previousLatticeNode(elementOnOffIndicator, null);
+    }
+    
     protected LatticeNode<T> newLatticeNode(BitVector bv)
     {
         LatticeNode<T> newLatticeNode = new LatticeNode<T>(this, bv);
@@ -121,6 +154,11 @@ public class Lattice<T>
     {
         return emptySet;
     }
+    
+    public LatticeCursor<T> emptyNodeCursor()
+    {
+        return new LatticeCursorImpl<T>(emptySet);
+    }
 
     public int getElementID(T element)
     {
@@ -130,6 +168,37 @@ public class Lattice<T>
     public T getElementByID(int elementID)
     {
         return elementSet.getByID(elementID);
+    }
+    
+    private static class LatticeCursorImpl<T> implements LatticeCursor<T>
+    {
+        private LatticeNode<T> currentLatticeNode;
+
+        public LatticeCursorImpl(LatticeNode<T> latticeNode)
+        {
+            this.currentLatticeNode = latticeNode;
+        }
+
+        public void back(T elementToRemove)
+        {
+            currentLatticeNode = currentLatticeNode.back(elementToRemove);
+        }
+
+        public boolean contains(T element)
+        {
+            return currentLatticeNode.contains(element);
+        }
+
+        public void next(T elementToAdd)
+        {
+            currentLatticeNode = currentLatticeNode.next(elementToAdd);
+        }
+
+        public LatticeNode<T> getNode()
+        {
+            return currentLatticeNode;
+        }
+
     }
 
 }

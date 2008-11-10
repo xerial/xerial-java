@@ -29,6 +29,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +50,7 @@ public class LatticeTest
     {}
 
     @Test
-    public void latticeCursor()
+    public void latticeNode()
     {
         Lattice<String> lattice = new Lattice<String>();
         LatticeNode<String> emptyNode = lattice.emptyNode();
@@ -110,6 +112,60 @@ public class LatticeTest
         emptyNode2 = emptyNode.next("A").next("B").back("B").back("A");
         assertEquals(emptyNode, emptyNode2);
 
+    }
+    
+    @Test
+    public void latticeCursor()
+    {
+        Lattice<String> lattice = new Lattice<String>();
+        LatticeCursor<String> cursor = lattice.emptyNodeCursor();
+
+        cursor.next("A");
+        assertTrue(cursor.contains("A"));
+        assertTrue(!cursor.contains("B"));
+        assertTrue(!cursor.contains("C"));
+        cursor.next("B");
+        assertTrue(cursor.contains("A"));
+        assertTrue(cursor.contains("B"));
+        assertTrue(!cursor.contains("C"));
+        cursor.next("C");
+        assertTrue(cursor.contains("A"));
+        assertTrue(cursor.contains("B"));
+        assertTrue(cursor.contains("C"));
+        cursor.back("C");
+        assertTrue(cursor.contains("A"));
+        assertTrue(cursor.contains("B"));
+        assertTrue(!cursor.contains("C"));
+        cursor.back("A");
+        assertTrue(!cursor.contains("A"));
+        assertTrue(cursor.contains("B"));
+        assertTrue(!cursor.contains("C"));
+        
+        
+        ArrayList<String> path = new ArrayList<String>();
+        path.add("A");
+        path.add("B");
+        path.add("C");
+        path.add("D");
+        path.add("E");
+        path.add("F");
+        path.add("G");
+        StopWatch timer = new StopWatch();
+        int N = 100000;
+        timer.reset();
+        for (int i = 0; i < N; i++)
+        {
+            for (String each : path)
+            {
+                cursor.next(each);
+            }
+            for (int p = path.size() - 1; p >= 0; --p)
+            {
+                cursor.back(path.get(p));
+            }
+        }
+        _logger.debug(timer.getElapsedTime());
+        
     }
 
 }
