@@ -37,7 +37,7 @@ import org.xerial.util.IndexedSet;
  * 
  * @param <T>
  */
-public class Lattice<T>
+public class Lattice<T> 
 {
     private IndexedSet<T>                         elementSet        = new IndexedSet<T>();
     private IndexedSet<LatticeNode<T>>            latticeNodeSet    = new IndexedSet<LatticeNode<T>>();
@@ -72,9 +72,24 @@ public class Lattice<T>
         if (nextNode != null)
             return nextNode;
 
+        // search the corresponding lattice node
+        BitVector toFind = BitVector.newInstanceWithAnAdditionalBit(currentNode.getElementOnOffIndicator(), elementSet
+                .getIDwithAddition(element));
+        for (LatticeNode<T> each : latticeNodeSet)
+        {
+            if (each.getElementOnOffIndicator().equals(toFind))
+            {
+                // update edges  
+                getOutEdgeIndex(currentLatticeNodeID).put(element, each);
+                getInEdgeIndex(each.getID()).put(element, currentNode);
+
+                return each;
+            }
+        }
+        
+        
         // create a new lattice node
-        LatticeNode<T> newLatticeNode = newLatticeNode(BitVector.newInstanceWithAnAdditionalBit(currentNode
-                .getElementOnOffIndicator(), elementSet.getIDwithAddition(element)));
+        LatticeNode<T> newLatticeNode = newLatticeNode(toFind);
 
         // draw an in-edge from the current node (for back operation)
         getInEdgeIndex(newLatticeNode.getID()).put(element, currentNode);
@@ -155,7 +170,7 @@ public class Lattice<T>
         return emptySet;
     }
     
-    public LatticeCursor<T> emptyNodeCursor()
+    public LatticeCursor<T> cursor()
     {
         return new LatticeCursorImpl<T>(emptySet);
     }

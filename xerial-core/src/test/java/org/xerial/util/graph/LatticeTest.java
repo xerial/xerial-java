@@ -118,7 +118,7 @@ public class LatticeTest
     public void latticeCursor()
     {
         Lattice<String> lattice = new Lattice<String>();
-        LatticeCursor<String> cursor = lattice.emptyNodeCursor();
+        LatticeCursor<String> cursor = lattice.cursor();
 
         cursor.next("A");
         assertTrue(cursor.contains("A"));
@@ -141,7 +141,36 @@ public class LatticeTest
         assertTrue(cursor.contains("B"));
         assertTrue(!cursor.contains("C"));
         
-        
+    }
+    
+    
+    @Test
+    public void loopBack()
+    {
+        Lattice<String> lattice = new Lattice<String>();
+        LatticeCursor<String> cursor = lattice.cursor();
+        cursor.next("A"); // {A}
+        _logger.debug(cursor.getNode());
+        cursor.next("B"); // {A,B}
+        _logger.debug(cursor.getNode());
+        cursor.next("C"); // {A,B,C}
+        _logger.debug(cursor.getNode());
+        cursor.back("C"); // {A,B}
+        _logger.debug(cursor.getNode());
+        cursor.back("A"); // {B}
+        _logger.debug(cursor.getNode());
+        cursor.next("D"); // {B, D}
+        _logger.debug(cursor.getNode());
+        cursor.next("B"); // {B, D}
+        _logger.debug(cursor.getNode());
+    }
+    
+
+    @Test
+    public void pathRepeat()
+    {
+        Lattice<String> lattice = new Lattice<String>();
+        LatticeCursor<String> cursor = lattice.cursor();
         ArrayList<String> path = new ArrayList<String>();
         path.add("A");
         path.add("B");
@@ -151,7 +180,7 @@ public class LatticeTest
         path.add("F");
         path.add("G");
         StopWatch timer = new StopWatch();
-        int N = 100000;
+        int N = 1000;
         timer.reset();
         for (int i = 0; i < N; i++)
         {

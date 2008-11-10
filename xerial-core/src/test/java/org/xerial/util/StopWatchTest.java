@@ -41,7 +41,7 @@ public class StopWatchTest
         sw.reset();
         Thread.sleep((long) (waitingTime * 1000));
         double time = sw.getElapsedTime();
-        assertEquals(waitingTime, time, 0.01);
+        assertEquals(waitingTime, time, 0.05);
     }
     
     @Test
@@ -53,16 +53,16 @@ public class StopWatchTest
         Thread.sleep((long) (waitingTime * 1000));
         sw.stop();
         double time = sw.getElapsedTime();
-        assertEquals(waitingTime, time, 0.01);
+        assertEquals(waitingTime, time, 0.05);
 
         Thread.sleep((long) (waitingTime * 1000));
         double timeAfterStop = sw.getElapsedTime();
-        assertEquals(time, timeAfterStop, 0.001);
+        assertEquals(time, timeAfterStop, 0.05);
         
         sw.resume();
         Thread.sleep((long) (waitingTime * 1000));
         double timeAfterResume = sw.getElapsedTime();
-        assertEquals(timeAfterStop + waitingTime, timeAfterResume, 0.01);
+        assertEquals(timeAfterStop + waitingTime, timeAfterResume, 0.05);
         
         
         _logger.debug("time: " + time);
