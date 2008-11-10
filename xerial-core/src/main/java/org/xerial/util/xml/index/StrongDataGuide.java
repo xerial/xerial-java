@@ -62,13 +62,13 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class StrongDataGuide
 {
-    private Graph<SinglePath, String> _graph = new AdjacencyList<SinglePath, String>();
-    private int _currentPathID = 0;
-    private Stack<Integer> _cursorHistory = new Stack<Integer>();
-    private SinglePath _currentPath;
-    private SinglePath _rootPath;
-    private int _rootPathID;
-    private Logger _logger = Logger.getLogger(StrongDataGuide.class);
+    private Graph<SinglePath, String> _graph         = new AdjacencyList<SinglePath, String>();
+    private int                       _currentPathID = 0;
+    private Stack<Integer>            _cursorHistory = new Stack<Integer>();
+    private SinglePath                _currentPath;
+    private SinglePath                _rootPath;
+    private int                       _rootPathID;
+    private Logger                    _logger        = Logger.getLogger(StrongDataGuide.class);
 
     /**
      * 
@@ -198,7 +198,7 @@ public class StrongDataGuide
         gout.flush();
     }
 
-    private static enum Opt {
+    public static enum Opt {
         help
     }
 
@@ -234,6 +234,7 @@ public class StrongDataGuide
     {
         System.out.println("usage: > java -jar StrongDataGuide.jar [option] xml_file");
         System.out.println(opt.helpMessage());
+
     }
 
 }

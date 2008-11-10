@@ -41,7 +41,7 @@ public class BitVector
 
     public BitVector()
     {}
-    
+
     public void on(int index)
     {
         set(index, true);
@@ -51,14 +51,14 @@ public class BitVector
     {
         set(index, false);
     }
-    
+
     public void set(int index, boolean flag)
     {
         extend(index);
 
         int pos = pos(index);
         int mask = 0x01 << offset(index);
-        
+
         int value = bitVector.get(pos);
         bitVector.set(pos, flag ? (value |= mask) : (value &= ~mask));
     }
@@ -88,7 +88,7 @@ public class BitVector
     {
         if (size <= index)
             size = index + 1;
-        
+
         int pos = pos(index);
         if (pos < bitVector.size())
             return;
@@ -96,7 +96,7 @@ public class BitVector
         while (bitVector.size() <= pos)
             bitVector.add(0);
     }
-    
+
     @Override
     public boolean equals(Object obj)
     {
@@ -119,7 +119,7 @@ public class BitVector
 
         return true;
     }
-    
+
     @Override
     public int hashCode()
     {
@@ -129,8 +129,7 @@ public class BitVector
 
         return hashValue % 1987;
     }
-    
-    
+
     /**
      * @param array
      */
@@ -143,13 +142,19 @@ public class BitVector
             this.bitVector.add(v);
         }
     }
-    
-    
+
     public static BitVector newInstance(BitVector source)
     {
         return new BitVector(source.bitVector, source.size);
     }
-    
+
+    public static BitVector newInstance(BitVector source, int additionlBitIndex)
+    {
+        BitVector newInstance = new BitVector(source.bitVector, source.size);
+        newInstance.on(additionlBitIndex);
+        return newInstance;
+    }
+
     public int size()
     {
         return size;
@@ -163,5 +168,5 @@ public class BitVector
             buf.append(get(i) ? "1" : "0");
         return buf.toString();
     }
-    
+
 }

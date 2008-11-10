@@ -24,70 +24,33 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
-
-import java.util.HashMap;
-
 import org.xerial.util.BitVector;
 import org.xerial.util.IndexedSet;
 
+/**
+ * lattice structure
+ * 
+ * @author leo
+ * 
+ * @param <T>
+ */
 public class Lattice<T>
 {
-    private IndexedSet<T>         elementSet     = new IndexedSet<T>();
-    private IndexedSet<BitVector> latticeNodeSet = new IndexedSet<BitVector>();
-    
-    public class LatticeNode
-    {
-        final BitVector elementOnOffIndicator;
-        final HashMap<T, LatticeNode> linkToNextNode = new HashMap<T, LatticeNode>(); 
+    IndexedSet<T>         elementSet     = new IndexedSet<T>();
+    IndexedSet<BitVector> latticeNodeSet = new IndexedSet<BitVector>();
 
-        public LatticeNode(BitVector elementOnOffIndicator)
-        {
-            this.elementOnOffIndicator = elementOnOffIndicator;
-        }
-
-        public boolean contains(T element)
-        {
-            int id = elementSet.getID(element);
-            if (id == IndexedSet.INVALID_ID)
-                return false;
-
-            return elementOnOffIndicator.get(id - 1);
-        }
-
-        public LatticeNode next(T elementToAdd)
-        {
-            int elementID = getID(elementToAdd);
-            
-            BitVector newIndicator = BitVector.newInstance(elementOnOffIndicator);
-            newIndicator.on(elementID - 1);
-
-            int latticeNodeID = latticeNodeSet.getID(newIndicator);
-            if (latticeNodeID == IndexedSet.INVALID_ID)
-            {
-                latticeNodeSet.add(newIndicator);
-                return new LatticeNode(newIndicator);
-            }
-            else
-                return new LatticeNode(latticeNodeSet.getByID(latticeNodeID));
-        }
-    }
-    
-    protected int getID(T element)
-    {
-        if (!elementSet.contains(element))
-            elementSet.add(element);
-
-        return elementSet.getID(element);
-    }
-    
     public Lattice()
     {
         latticeNodeSet.add(new BitVector());
     }
-    
-    public LatticeNode emptyNode()
+
+    public LatticeNode<T> emptyNode()
     {
-        return new LatticeNode(new BitVector());
+        return new LatticeNode<T>(this, new BitVector());
     }
-    
+
+    public T getElementByID(int elementID)
+    {
+        return elementSet.getByID(elementID);
+    }
 }
