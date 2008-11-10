@@ -53,7 +53,7 @@ public class IndexedSet<T> implements Set<T>
 
     public boolean containsID(int id)
     {
-        return id < elementArray.size() && getByID(id) != null;
+        return id <= elementArray.size() && getByID(id) != null;
     }
 
     /**

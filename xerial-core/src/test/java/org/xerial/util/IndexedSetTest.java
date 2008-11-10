@@ -56,6 +56,9 @@ public class IndexedSetTest
         
         assertTrue(s.contains("A"));
         assertTrue(s.contains("B"));
+        
+        assertEquals("A", s.getByID(idOfA));
+        assertEquals("B", s.getByID(idOfB));
     }
 
 

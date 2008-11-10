@@ -57,7 +57,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
     public int addNode(NodeLabel node)
     {
         int nodeID = _nodeTable.getIDwithAddition(node);
-        return nodeID;
+        return nodeID; 
     }
 
     public Edge addEdge(NodeLabel sourceNode, NodeLabel destNode)
