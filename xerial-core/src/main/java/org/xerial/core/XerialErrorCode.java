@@ -36,6 +36,7 @@ public enum XerialErrorCode implements ErrorCode {
     INVALID_STATE,
     SYNTAX_ERROR,
     NOT_INITIALIZED,
+    UNSUPPORTED,
     // collection
     MISSING_ELEMENT,
 

@@ -25,7 +25,6 @@
 package org.xerial.util.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -33,11 +32,18 @@ import org.xerial.util.BitVector;
 import org.xerial.util.IndexedSet;
 import org.xerial.util.StringUtil;
 
+/**
+ * lattice node
+ * 
+ * @author leo
+ * 
+ * @param <T>
+ */
 public class LatticeNode<T>
 {
-    private final Lattice<T>                 lattice;
-    private final BitVector                  elementOnOffIndicator;
-    private final HashMap<T, LatticeNode<T>> linkToNextNode = new HashMap<T, LatticeNode<T>>();
+    private int              id = -1;
+    private final Lattice<T> lattice;
+    private final BitVector  elementOnOffIndicator;
 
     public LatticeNode(Lattice<T> lattice, BitVector elementOnOffIndicator)
     {
@@ -45,43 +51,59 @@ public class LatticeNode<T>
         this.elementOnOffIndicator = elementOnOffIndicator;
     }
 
+    public void setID(int id)
+    {
+        this.id = id;
+    }
+
+    public int getID()
+    {
+        assert id != -1;
+        return id;
+    }
+
+    BitVector getElementOnOffIndicator()
+    {
+        return elementOnOffIndicator;
+    }
+
     public boolean contains(T element)
     {
-        int id = lattice.elementSet.getID(element);
+        int id = lattice.getElementID(element);
         if (id == IndexedSet.INVALID_ID)
             return false;
 
-        return elementOnOffIndicator.get(id - 1);
-    }
-
-    protected int getElementID(T element)
-    {
-        if (!lattice.elementSet.contains(element))
-            lattice.elementSet.add(element);
-
-        return lattice.elementSet.getID(element);
+        return elementOnOffIndicator.get(id);
     }
 
     public LatticeNode<T> next(T elementToAdd)
     {
-        if (linkToNextNode.containsKey(elementToAdd))
-        {
-            return linkToNextNode.get(elementToAdd);
-        }
+        return lattice.next(this, elementToAdd);
+    }
 
-        // Add new edge to a LatticeNode
-        // First, create a new bit vector that additionally set the target element ID
-        int elementID = getElementID(elementToAdd);
-        BitVector newIndicator = BitVector.newInstance(elementOnOffIndicator, elementID - 1);
+    public LatticeNode<T> back(T elementToRemove)
+    {
+        return lattice.back(this, elementToRemove);
+    }
 
-        int latticeNodeID = lattice.latticeNodeSet.getID(newIndicator);
-        if (latticeNodeID == IndexedSet.INVALID_ID)
-        {
-            lattice.latticeNodeSet.add(newIndicator);
-            return new LatticeNode<T>(lattice, newIndicator);
-        }
-        else
-            return new LatticeNode<T>(lattice, lattice.latticeNodeSet.getByID(latticeNodeID));
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!this.getClass().isInstance(obj))
+            return false;
+
+        LatticeNode<T> other = (LatticeNode<T>) obj;
+        return this.lattice == other.lattice && this.elementOnOffIndicator.equals(other.elementOnOffIndicator);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hashValue = 3;
+        hashValue += lattice.hashCode() * 31;
+        hashValue += elementOnOffIndicator.hashCode() * 31;
+        return hashValue % 1987;
     }
 
     @Override

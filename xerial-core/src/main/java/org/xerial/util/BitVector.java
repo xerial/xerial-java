@@ -148,10 +148,10 @@ public class BitVector
         return new BitVector(source.bitVector, source.size);
     }
 
-    public static BitVector newInstance(BitVector source, int additionlBitIndex)
+    public static BitVector newInstanceWithAnAdditionalBit(BitVector source, int bitIndexToAdd)
     {
         BitVector newInstance = new BitVector(source.bitVector, source.size);
-        newInstance.on(additionlBitIndex);
+        newInstance.on(bitIndexToAdd);
         return newInstance;
     }
 

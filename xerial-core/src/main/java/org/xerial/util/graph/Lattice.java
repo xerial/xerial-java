@@ -24,6 +24,11 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.util.BitVector;
 import org.xerial.util.IndexedSet;
 
@@ -36,21 +41,95 @@ import org.xerial.util.IndexedSet;
  */
 public class Lattice<T>
 {
-    IndexedSet<T>         elementSet     = new IndexedSet<T>();
-    IndexedSet<BitVector> latticeNodeSet = new IndexedSet<BitVector>();
+    private IndexedSet<T>                         elementSet        = new IndexedSet<T>();
+    private IndexedSet<LatticeNode<T>>            latticeNodeSet    = new IndexedSet<LatticeNode<T>>();
+    private ArrayList<HashMap<T, LatticeNode<T>>> outEdgeIndexTable = new ArrayList<HashMap<T, LatticeNode<T>>>();
+    private ArrayList<HashMap<T, LatticeNode<T>>> inEdgeIndexTable  = new ArrayList<HashMap<T, LatticeNode<T>>>();
+
+    private final LatticeNode<T>                  emptySet;
 
     public Lattice()
     {
-        latticeNodeSet.add(new BitVector());
+        emptySet = newLatticeNode(new BitVector());
+    }
+
+    private HashMap<T, LatticeNode<T>> getOutEdgeIndex(int latticeNodeID)
+    {
+        assert latticeNodeID > 0;
+        return outEdgeIndexTable.get(latticeNodeID - 1);
+    }
+
+    private HashMap<T, LatticeNode<T>> getInEdgeIndex(int latticeNodeID)
+    {
+        assert latticeNodeID > 0;
+        return inEdgeIndexTable.get(latticeNodeID - 1);
+    }
+
+    LatticeNode<T> next(LatticeNode<T> currentNode, T element)
+    {
+        int currentLatticeNodeID = currentNode.getID();
+
+        HashMap<T, LatticeNode<T>> outEdgeIndexOfTheCurrentNode = getOutEdgeIndex(currentLatticeNodeID);
+        LatticeNode<T> nextNode = outEdgeIndexOfTheCurrentNode.get(element);
+        if (nextNode != null)
+            return nextNode;
+
+        // create a new lattice node
+        LatticeNode<T> newLatticeNode = newLatticeNode(BitVector.newInstanceWithAnAdditionalBit(currentNode
+                .getElementOnOffIndicator(), elementSet.getIDwithAddition(element)));
+
+        // draw an in-edge from the current node (for back operation)
+        getInEdgeIndex(newLatticeNode.getID()).put(element, currentNode);
+
+        // draw an out-edge (labeled with the element value) from the current node to the new node
+        getOutEdgeIndex(currentLatticeNodeID).put(element, newLatticeNode);
+
+        return newLatticeNode;
+    }
+
+    LatticeNode<T> back(LatticeNode<T> currentNode, T element)
+    {
+        int currentLatticeNodeID = currentNode.getID();
+
+        HashMap<T, LatticeNode<T>> inEdgeIndexOfTheCurrentNode = getInEdgeIndex(currentLatticeNodeID);
+        LatticeNode<T> prevNode = inEdgeIndexOfTheCurrentNode.get(element);
+        if (prevNode != null)
+            return prevNode;
+        else
+            throw new XerialError(XerialErrorCode.UNSUPPORTED, String.format(
+                    "previous node must exist in the lattice. currentNode = %s, element = %s", currentNode, element));
+    }
+
+    protected LatticeNode<T> newLatticeNode(BitVector bv)
+    {
+        LatticeNode<T> newLatticeNode = new LatticeNode<T>(this, bv);
+        // allocate an new ID for the lattice node 
+        int newLatticeNodeID = latticeNodeSet.getIDwithAddition(newLatticeNode);
+        newLatticeNode.setID(newLatticeNodeID);
+
+        // create in/out edge indexes for the new node
+        inEdgeIndexTable.add(new HashMap<T, LatticeNode<T>>());
+        outEdgeIndexTable.add(new HashMap<T, LatticeNode<T>>());
+
+        assert (newLatticeNodeID == outEdgeIndexTable.size());
+        assert (newLatticeNodeID == inEdgeIndexTable.size());
+
+        return newLatticeNode;
     }
 
     public LatticeNode<T> emptyNode()
     {
-        return new LatticeNode<T>(this, new BitVector());
+        return emptySet;
+    }
+
+    public int getElementID(T element)
+    {
+        return elementSet.getID(element);
     }
 
     public T getElementByID(int elementID)
     {
         return elementSet.getByID(elementID);
     }
+
 }
