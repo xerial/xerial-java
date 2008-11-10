@@ -29,39 +29,97 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * Set container, each element of which is assigned an unique ID in the set.
  * 
  * @author leo
  * 
- * @param <T> element type to store
+ * @param <T>
+ *            element type to store
  */
 public class IndexedSet<T> implements Set<T>
 {
-    public final static int     INVALID_ID      = -1;
+    public final static int     INVALID_ID   = -1;
     private int                 elementCount = 0;
     private HashMap<T, Integer> elementToID  = new HashMap<T, Integer>();
     private ArrayList<T>        elementArray = new ArrayList<T>();
+
+    public Collection<Integer> getIDSet()
+    {
+        return elementToID.values();
+    }
+
+    public boolean containsID(int id)
+    {
+        return id < elementArray.size() && getByID(id) != null;
+    }
 
     /**
      * get the element ID
      * 
      * @param element
      * @return the element ID. if no corresponding element found in the set,
-     *         returns NOT_IN_THE_SET
+     *         returns {@link IndexedSet#INVALID_ID}
      */
     public int getID(T element)
     {
         Integer id = elementToID.get(element);
         return (id == null) ? INVALID_ID : id;
     }
-    
+
+    /**
+     * get the element ID. If the element is not present in the set, add the
+     * element to the set and return the new element ID
+     * 
+     * @param element
+     * @return
+     */
+    public int getIDwithAddition(T element)
+    {
+        if (contains(element))
+            return getID(element);
+        else
+        {
+            return addNewElement(element);
+        }
+    }
+
+    /**
+     * Get the element using the element ID
+     * 
+     * @param elementID
+     * @return
+     */
     public T getByID(int elementID)
     {
-        return elementArray.get(elementID);
+        return elementArray.get(elementID - 1);
     }
-    
+
+    public T set(int id, T element)
+    {
+        T oldValue = elementArray.set(id, element); // range check occurs
+        elementToID.put(element, id);
+        return oldValue;
+    }
+
+    /**
+     * Add an new element, and return the assigned element ID
+     * 
+     * @param element
+     * @return the new element ID
+     */
+    private int addNewElement(T element)
+    {
+        assert (!elementToID.containsKey(element));
+
+        int newNodeID = ++elementCount;
+        elementToID.put(element, newNodeID);
+        elementArray.add(element);
+        return newNodeID;
+    }
+
     public boolean add(T element)
     {
         if (elementToID.containsKey(element))
@@ -70,9 +128,7 @@ public class IndexedSet<T> implements Set<T>
         }
         else
         {
-            int newNodeID = ++elementCount;
-            elementToID.put(element, newNodeID);
-            elementArray.add(element);
+            addNewElement(element);
             return true;
         }
     }
@@ -126,8 +182,6 @@ public class IndexedSet<T> implements Set<T>
         int id = getID((T) element);
         if (id == INVALID_ID)
             return false;
-        
-        
 
         elementToID.remove(element);
         elementArray.set(id - 1, null);
@@ -164,5 +218,17 @@ public class IndexedSet<T> implements Set<T>
     {
         return elementToID.keySet().toArray(array);
     }
-    
+
+    @Override
+    public String toString()
+    {
+        ArrayList<String> elementList = new ArrayList<String>();
+        for (Entry<T, Integer> entry : elementToID.entrySet())
+        {
+            elementList.add(String.format("%s(%d)", entry.getKey(), entry.getValue()));
+        }
+
+        return String.format("{%s}", StringUtil.join(elementList, ", "));
+    }
+
 }

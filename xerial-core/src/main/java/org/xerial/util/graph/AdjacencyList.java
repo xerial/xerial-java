@@ -28,13 +28,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.xerial.util.CollectionUtil;
+import org.xerial.util.IndexedSet;
 import org.xerial.util.StringUtil;
 
 /**
@@ -46,30 +45,18 @@ import org.xerial.util.StringUtil;
  */
 public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, EdgeLabel>
 {
-    NodeTable<NodeLabel> _nodeTable = new NodeTable<NodeLabel>();
+    IndexedSet<NodeLabel> _nodeTable = new IndexedSet<NodeLabel>();
 
-    EdgeTable<EdgeLabel> _edgeTable = new EdgeTable<EdgeLabel>();
+    EdgeTable<EdgeLabel>  _edgeTable = new EdgeTable<EdgeLabel>();
 
     public AdjacencyList()
     {
 
     }
 
-    /**
-     * @param node
-     * @return
-     * @deprecated use {@link #addNode(Object)} instead
-     */
-    public int add(NodeLabel node)
-    {
-        return addNode(node);
-    }
-
     public int addNode(NodeLabel node)
     {
-        int nodeID = _nodeTable.getNodeID(node);
-        if (nodeID == -1)
-            nodeID = _nodeTable.add(node);
+        int nodeID = _nodeTable.getIDwithAddition(node);
         return nodeID;
     }
 
@@ -80,11 +67,8 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public Edge addEdge(NodeLabel sourceNode, NodeLabel destNode, EdgeLabel edgeLabel)
     {
-        addNode(sourceNode);
-        addNode(destNode);
-
-        int sourceNodeID = _nodeTable.getNodeID(sourceNode);
-        int destNodeID = _nodeTable.getNodeID(destNode);
+        int sourceNodeID = _nodeTable.getIDwithAddition(sourceNode);
+        int destNodeID = _nodeTable.getIDwithAddition(destNode);
 
         Edge newEdge = new Edge(sourceNodeID, destNodeID);
         _edgeTable.add(newEdge, edgeLabel);
@@ -93,9 +77,9 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public Edge addEdge(Edge edge, EdgeLabel edgeLabel)
     {
-        if (!_nodeTable.containsKey(edge.srcNodeID))
+        if (!_nodeTable.containsID(edge.srcNodeID))
             throw new IllegalArgumentException("no node id is found: " + edge.srcNodeID);
-        if (!_nodeTable.containsKey(edge.destNodeID))
+        if (!_nodeTable.containsID(edge.destNodeID))
             throw new IllegalArgumentException("no node id is found: " + edge.destNodeID);
 
         _edgeTable.add(edge, edgeLabel);
@@ -110,12 +94,12 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public Collection<NodeLabel> getNodeLabelSet()
     {
-        return _nodeTable.getNodeLabelSet();
+        return _nodeTable;
     }
 
     public Collection<Integer> getNodeIDSet()
     {
-        return _nodeTable.getNodeIDSet();
+        return _nodeTable.getIDSet();
     }
 
     public Collection<Integer> getDestNodeIDSetOf(int nodeID)
@@ -130,12 +114,12 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public int getNodeID(NodeLabel node)
     {
-        return _nodeTable.getNodeID(node);
+        return _nodeTable.getID(node);
     }
 
     public NodeLabel getNodeLabel(int nodeID)
     {
-        return _nodeTable.get(nodeID);
+        return _nodeTable.getByID(nodeID);
     }
 
     public Collection<Edge> getOutEdgeSet(NodeLabel node)
@@ -173,7 +157,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public boolean hasNode(NodeLabel node)
     {
-        return _nodeTable.containsValue(node);
+        return _nodeTable.contains(node);
     }
 
     public boolean hasEdge(NodeLabel src, NodeLabel dest)
@@ -201,7 +185,8 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
     public Collection<Edge> getEdgeSet()
     {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
-        for (int nodeID : getNodeIDSet())
+        Collection<Integer> nodeIDSet = getNodeIDSet();
+        for (int nodeID : nodeIDSet)
         {
             for (Edge edge : getOutEdgeSet(getNodeLabel(nodeID)))
             {
@@ -227,30 +212,9 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         return _edgeTable.getEdgeLabel(new Edge(getNodeID(src), getNodeID(dest)));
     }
 
-    /**
-     * @param edge
-     * @return
-     * @deprecated use {@link #getEdge(Edge)} instead
-     */
-    public EdgeLabel getEdgeInfo(Edge edge)
-    {
-        return getEdgeLabel(edge);
-    }
-
-    /**
-     * @param src
-     * @param dest
-     * @return
-     * @deprecated use {@link #getEdge(Object, Object)} instead
-     */
-    public EdgeLabel getEdgeInfo(NodeLabel src, NodeLabel dest)
-    {
-        return getEdgeLabel(src, dest);
-    }
-
     public void setNodeLabel(int nodeID, NodeLabel node)
     {
-        _nodeTable.add(nodeID, node);
+        _nodeTable.set(nodeID, node);
     }
 
     public void setEdgeLabel(Edge edge, EdgeLabel edgeLabel)
@@ -260,94 +224,21 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 
     public String toString()
     {
-        String nodeData = CollectionUtil.displayMap(_nodeTable.getNodeTable(), ":", ", ");
+
+        //        ArrayList<String> nodeList = new ArrayList<String>();
+        //        for (NodeLabel node : _nodeTable)
+        //        {
+        //            nodeList.add(String.format("%s:%s", node.toString(), _nodeTable.getID(node)));
+        //        }
+        String nodeData = _nodeTable.toString();
 
         ArrayList<String> edgeData = new ArrayList<String>();
         for (Edge e : getEdgeSet())
         {
             EdgeLabel edgeInfo = getEdgeLabel(e);
-            edgeData.add(e.toString() + ":" + (edgeInfo != null ? edgeInfo.toString() : ""));
+            edgeData.add(e.toString() + (edgeInfo != null ? ":" + edgeInfo.toString() : ""));
         }
-        return "node: " + nodeData + "\n" + StringUtil.join(edgeData, "\n");
-    }
-    
-
-}
-
-class NodeTable<NodeType> 
-{
-    private static final long serialVersionUID = 1L;
-
-    private int _numNode = 0;
-
-    private TreeMap<Integer, NodeType> _nodeTable       = new TreeMap<Integer, NodeType>();
-    private HashMap<NodeType, Integer> _nodeIDIndex = new HashMap<NodeType, Integer>();
-
-    public NodeType get(int nodeID)
-    {
-        return _nodeTable.get(nodeID);
-    }
-    
-    public Set<NodeType> getNodeLabelSet()
-    {
-        return _nodeIDIndex.keySet();
-    }
-
-    public Set<Integer> getNodeIDSet()
-    {
-        return _nodeTable.keySet();
-    }
-    
-    public boolean containsValue(NodeType value)
-    {
-        return _nodeIDIndex.containsKey(value);
-    }
-    
-    public boolean containsKey(Integer nodeID)
-    {
-        return _nodeTable.containsKey(nodeID);
-    }
-    
-    public Map<Integer, NodeType> getNodeTable()
-    {
-        return _nodeTable;
-    }
-    
-    public int size()
-    {
-        return _nodeTable.size();
-    }
-
-    public int getNodeID(NodeType node)
-    {
-        Integer nodeID = _nodeIDIndex.get(node);
-        return (nodeID == null) ? -1 : nodeID;
-    }
-
-    public int add(int nodeID, NodeType node)
-    {
-        _nodeTable.put(nodeID, node);
-        if (nodeID > _numNode)
-            _numNode = nodeID;
-        _nodeIDIndex.put(node, nodeID);
-        _numNode++;
-        return nodeID;
-    }
-
-    public int add(NodeType node)
-    {
-        int newNodeID = _numNode + 1;
-        _nodeTable.put(newNodeID, node);
-        _nodeIDIndex.put(node, newNodeID);
-        ++_numNode;
-        return newNodeID;
-    }
-
-    public void clear()
-    {
-        _numNode = 0;
-        _nodeTable.clear();
-        _nodeIDIndex.clear();
+        return String.format("node (value, id):%s\nedge(id, id):%s", nodeData, StringUtil.join(edgeData, ", "));
     }
 
 }
@@ -357,11 +248,11 @@ class EdgeTable<EdgeLabel>
     /**
 	 * 
 	 */
-    private static final long serialVersionUID = 1L;
-    TreeMap<Integer, EdgeLabel> _edgeTable = new TreeMap<Integer, EdgeLabel>();
-    TreeMap<Edge, Integer> _edgeIndex = new TreeMap<Edge, Integer>();
+    private static final long          serialVersionUID       = 1L;
+    TreeMap<Integer, EdgeLabel>        _edgeTable             = new TreeMap<Integer, EdgeLabel>();
+    TreeMap<Edge, Integer>             _edgeIndex             = new TreeMap<Edge, Integer>();
     HashMap<Integer, TreeSet<Integer>> _outNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
-    HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
+    HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode  = new HashMap<Integer, TreeSet<Integer>>();
 
     protected int add(int newEdgeID, EdgeLabel edgeLabel, Edge newEdge)
     {
