@@ -93,17 +93,22 @@ public class LatticeTest
         LatticeNode<String> emptyNode = lattice.emptyNode();
 
         StopWatch timer = new StopWatch();
-        int N = 10000;
+        int N = 100000;
 
         timer.reset();
+        for (int i = 0; i < N; i++)
+        {
+            emptyNode.next("A").next("B").next("C").next("D").next("E").next("F").back("F").next("F").back("F").back(
+                    "E").back("D").back("C").back("B").back("A");
+        }
+        _logger.debug(timer.getElapsedTime());
+
         LatticeNode<String> emptyNode2 = emptyNode.next("A").next("B").next("C").next("D").back("D").back("C")
                 .back("B").back("A");
         assertEquals(emptyNode, emptyNode2);
 
         emptyNode2 = emptyNode.next("A").next("B").back("B").back("A");
         assertEquals(emptyNode, emptyNode2);
-
-        _logger.debug(timer.getElapsedTime());
 
     }
 
