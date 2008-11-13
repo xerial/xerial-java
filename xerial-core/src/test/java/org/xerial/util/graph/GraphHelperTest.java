@@ -56,6 +56,10 @@ public class GraphHelperTest
         assertTrue(closure.hasEdge("B", "C"));
         assertTrue(closure.hasEdge("A", "C"));
         assertTrue(closure.hasEdge("D", "C"));
+        assertTrue(!closure.hasEdge("A", "D"));
+        assertTrue(!closure.hasEdge("B", "D"));
+        assertTrue(!closure.hasEdge("C", "D"));
+
         
         assertEquals(3, graph.getEdgeSet().size());
         assertTrue(graph.hasEdge("A", "B"));
