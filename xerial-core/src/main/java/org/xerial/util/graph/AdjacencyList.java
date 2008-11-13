@@ -236,9 +236,10 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         for (Edge e : getEdgeSet())
         {
             EdgeLabel edgeInfo = getEdgeLabel(e);
-            edgeData.add(e.toString() + (edgeInfo != null ? ":" + edgeInfo.toString() : ""));
+            edgeData.add(String.format("(%s, %s)%s", getNodeLabel(e.getSourceNodeID()),
+                    getNodeLabel(e.getDestNodeID()), (edgeInfo != null ? ":" + edgeInfo.toString() : "")));
         }
-        return String.format("node (value, id):%s\nedge(id, id):%s", nodeData, StringUtil.join(edgeData, ", "));
+        return String.format("node (value, id):%s\nedge(node, node):\n%s", nodeData, StringUtil.join(edgeData, ",\n"));
     }
     
     public static <NodeLabel, EdgeLabel> AdjacencyList<NodeLabel, EdgeLabel> copy(Graph<NodeLabel, EdgeLabel> source)
