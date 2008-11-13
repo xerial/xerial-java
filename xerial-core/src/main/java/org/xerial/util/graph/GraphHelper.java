@@ -32,7 +32,7 @@ package org.xerial.util.graph;
  * @author leo
  * 
  */
-class GraphHelper
+public class GraphHelper
 {
     /**
      * Prohibit construction
