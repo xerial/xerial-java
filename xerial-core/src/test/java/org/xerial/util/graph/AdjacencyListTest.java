@@ -195,7 +195,7 @@ public class AdjacencyListTest
     @Test
     public void testToString()
     {
-        _logger.info(al.toString());
+        _logger.debug(al.toString());
     }
 
 }
