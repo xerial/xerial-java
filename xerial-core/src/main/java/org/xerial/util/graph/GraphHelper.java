@@ -56,4 +56,47 @@ class GraphHelper
                 edge.getDestNodeID()).toString());
     }
 
+    
+    /**
+     * compute the transitive closure of the input graph
+     * 
+     * @param <NodeLabel>
+     * @param <EdgeLabel>
+     * @param original
+     * @return
+     */
+    public static <NodeLabel, EdgeLabel> Graph<NodeLabel, EdgeLabel> transitiveClosure(
+            Graph<NodeLabel, EdgeLabel> input)
+    {
+        Graph<NodeLabel, EdgeLabel> graph = AdjacencyList.copy(input);
+
+        for (int numChange = 1; numChange > 0; numChange = 0)
+        {
+            for (NodeLabel from : graph.getNodeLabelSet())
+            {
+                for (NodeLabel to : graph.getNodeLabelSet())
+                {
+                    if (graph.hasEdge(from, to))
+                        continue;
+
+                    int destNodeID = graph.getNodeID(to);
+                    for (Edge startPoint : graph.getOutEdgeSet(from))
+                    {
+                        int intermediateNodeID = startPoint.getDestNodeID();
+
+                        if (graph.hasEdge(new Edge(intermediateNodeID, destNodeID)))
+                        {
+                            graph.addEdge(from, to);
+                            ++numChange;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return graph;
+    }
+    
+    
 }

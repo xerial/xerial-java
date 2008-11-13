@@ -240,7 +240,51 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         }
         return String.format("node (value, id):%s\nedge(id, id):%s", nodeData, StringUtil.join(edgeData, ", "));
     }
+    
+    public static <NodeLabel, EdgeLabel> AdjacencyList<NodeLabel, EdgeLabel> copy(Graph<NodeLabel, EdgeLabel> source)
+    {
+        // sort the node ID
+        TreeSet<Integer> sortedNodeIDSet = new TreeSet<Integer>();
+        for (int nodeID : source.getNodeIDSet())
+            sortedNodeIDSet.add(nodeID);
 
+        // add nodes in the ascending order of node IDs
+        IndexedSet<NodeLabel> nodeIndex = new IndexedSet<NodeLabel>();
+        for (int nodeID : sortedNodeIDSet)
+        {
+            nodeIndex.add(source.getNodeLabel(nodeID));
+        }
+
+        // add edges
+        EdgeTable<EdgeLabel> edgeTable = new EdgeTable<EdgeLabel>();
+        for (Edge edge : source.getEdgeSet())
+        {
+            edgeTable.add(source.getEdgeID(edge), source.getEdgeLabel(edge), edge);
+        }
+        return new AdjacencyList<NodeLabel, EdgeLabel>(nodeIndex, edgeTable);
+    }
+
+    /**
+     * create new graph from a given node table and edge table
+     * 
+     * @param nodeIndex
+     * @param edgeTable
+     */
+    private AdjacencyList(IndexedSet<NodeLabel> nodeIndex, EdgeTable<EdgeLabel> edgeTable)
+    {
+        this._nodeTable = nodeIndex;
+        this._edgeTable = edgeTable;
+    }
+
+    public Collection<Integer> getEdgeIDSet()
+    {
+        return _edgeTable.getEdgeIDSet();
+    }
+
+    public EdgeLabel getEdgeLabel(int edgeID)
+    {
+        return _edgeTable.getEdgeLabel(edgeID);
+    }
 }
 
 class EdgeTable<EdgeLabel>
@@ -254,6 +298,11 @@ class EdgeTable<EdgeLabel>
     HashMap<Integer, TreeSet<Integer>> _outNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
     HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode  = new HashMap<Integer, TreeSet<Integer>>();
 
+    public Collection<Integer> getEdgeIDSet()
+    {
+        return _edgeTable.keySet();
+    }
+    
     protected int add(int newEdgeID, EdgeLabel edgeLabel, Edge newEdge)
     {
         Set<Integer> destNodeListOfSourceNode = destNodeIDSet(newEdge.srcNodeID);
@@ -292,6 +341,8 @@ class EdgeTable<EdgeLabel>
     {
         return destNodeIDSet(edge.srcNodeID).contains(edge.destNodeID);
     }
+    
+    
 
     public EdgeLabel getEdgeLabel(int edgeID)
     {

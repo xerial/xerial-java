@@ -70,10 +70,13 @@ public interface Graph<NodeLabel, EdgeLabel>
     NodeLabel getNodeLabel(int nodeID);
 
     EdgeLabel getEdgeLabel(Edge edge);
+    EdgeLabel getEdgeLabel(int edgeID);
 
     int getNodeID(NodeLabel nodeLabel);
+    int getEdgeID(Edge edge);
 
     Collection<Integer> getNodeIDSet();
+    Collection<Integer> getEdgeIDSet();
 
     void setNodeLabel(int nodeID, NodeLabel nodeLabel);
 
