@@ -29,7 +29,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Map.Entry;
+import java.util.TreeSet;
 
 /**
  * Set container, each element of which is assigned an unique ID in the set.
@@ -223,7 +223,8 @@ public class IndexedSet<T> implements Set<T>
     public String toString()
     {
         ArrayList<String> elementList = new ArrayList<String>();
-        for (int elementID : getIDSet())
+        TreeSet<Integer> sortedIDSet = new TreeSet<Integer>(getIDSet());
+        for (int elementID : sortedIDSet)
         {
             elementList.add(String.format("%s(%d)", getByID(elementID), elementID));
         }
