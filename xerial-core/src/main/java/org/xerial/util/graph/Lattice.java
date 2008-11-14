@@ -37,7 +37,7 @@ import org.xerial.util.IndexedSet;
  * 
  * @param <T>
  */
-public class Lattice<T> 
+public class Lattice<T>
 {
     private IndexedSet<T>                         elementSet        = new IndexedSet<T>();
     private IndexedSet<LatticeNode<T>>            latticeNodeSet    = new IndexedSet<LatticeNode<T>>();
@@ -53,14 +53,14 @@ public class Lattice<T>
 
     private HashMap<T, LatticeNode<T>> getOutEdgeIndex(int latticeNodeID)
     {
-        assert latticeNodeID > 0;
-        return outEdgeIndexTable.get(latticeNodeID - 1);
+        assert latticeNodeID >= 0;
+        return outEdgeIndexTable.get(latticeNodeID);
     }
 
     private HashMap<T, LatticeNode<T>> getInEdgeIndex(int latticeNodeID)
     {
-        assert latticeNodeID > 0;
-        return inEdgeIndexTable.get(latticeNodeID - 1);
+        assert latticeNodeID >= 0;
+        return inEdgeIndexTable.get(latticeNodeID);
     }
 
     LatticeNode<T> next(LatticeNode<T> currentNode, T element)
@@ -86,8 +86,7 @@ public class Lattice<T>
                 return each;
             }
         }
-        
-        
+
         // create a new lattice node
         LatticeNode<T> newLatticeNode = newLatticeNode(toFind);
 
@@ -147,7 +146,7 @@ public class Lattice<T>
         // no bit is on
         return previousLatticeNode(elementOnOffIndicator, null);
     }
-    
+
     protected LatticeNode<T> newLatticeNode(BitVector bv)
     {
         LatticeNode<T> newLatticeNode = new LatticeNode<T>(this, bv);
@@ -159,8 +158,8 @@ public class Lattice<T>
         inEdgeIndexTable.add(new HashMap<T, LatticeNode<T>>());
         outEdgeIndexTable.add(new HashMap<T, LatticeNode<T>>());
 
-        assert (newLatticeNodeID == outEdgeIndexTable.size());
-        assert (newLatticeNodeID == inEdgeIndexTable.size());
+        assert (newLatticeNodeID == outEdgeIndexTable.size() - 1);
+        assert (newLatticeNodeID == inEdgeIndexTable.size() - 1);
 
         return newLatticeNode;
     }
@@ -169,7 +168,7 @@ public class Lattice<T>
     {
         return emptySet;
     }
-    
+
     public LatticeCursor<T> cursor()
     {
         return new LatticeCursorImpl<T>(emptySet);
@@ -184,7 +183,7 @@ public class Lattice<T>
     {
         return elementSet.getByID(elementID);
     }
-    
+
     private static class LatticeCursorImpl<T> implements LatticeCursor<T>
     {
         private LatticeNode<T> currentLatticeNode;

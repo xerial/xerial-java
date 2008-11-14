@@ -51,16 +51,15 @@ public class IndexedSetTest
         assertNotSame(IndexedSet.INVALID_ID, idOfA);
         assertNotSame(IndexedSet.INVALID_ID, idOfB);
         assertNotSame(idOfA, idOfB);
-        assertEquals(1, idOfA);
-        assertEquals(2, idOfB);
-        
+        assertEquals(0, idOfA);
+        assertEquals(1, idOfB);
+
         assertTrue(s.contains("A"));
         assertTrue(s.contains("B"));
-        
+
         assertEquals("A", s.getByID(idOfA));
         assertEquals("B", s.getByID(idOfB));
     }
-
 
     @Test
     public void testAddAll()
@@ -82,7 +81,7 @@ public class IndexedSetTest
 
         assertTrue(s.contains("A"));
         assertTrue(s.contains("B"));
-        
+
     }
 
     @Test
@@ -123,7 +122,7 @@ public class IndexedSetTest
         s.add("A");
 
         assertFalse(s.isEmpty());
-     
+
     }
 
     @Test
@@ -141,7 +140,7 @@ public class IndexedSetTest
         {
             assertTrue(orig.contains(element));
         }
-        
+
     }
 
     @Test
@@ -177,6 +176,5 @@ public class IndexedSetTest
         assertFalse(s.contains("C"));
 
     }
-
 
 }

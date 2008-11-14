@@ -53,7 +53,7 @@ public class IndexedSet<T> implements Set<T>
 
     public boolean containsID(int id)
     {
-        return id <= elementArray.size() && getByID(id) != null;
+        return id < elementArray.size() && getByID(id) != null;
     }
 
     /**
@@ -94,7 +94,7 @@ public class IndexedSet<T> implements Set<T>
      */
     public T getByID(int elementID)
     {
-        return elementArray.get(elementID - 1);
+        return elementArray.get(elementID);
     }
 
     public T set(int id, T element)
@@ -114,7 +114,7 @@ public class IndexedSet<T> implements Set<T>
     {
         assert (!elementToID.containsKey(element));
 
-        int newNodeID = ++elementCount;
+        int newNodeID = elementCount++;
         elementToID.put(element, newNodeID);
         elementArray.add(element);
         return newNodeID;
@@ -184,7 +184,7 @@ public class IndexedSet<T> implements Set<T>
             return false;
 
         elementToID.remove(element);
-        elementArray.set(id - 1, null);
+        elementArray.set(id, null);
         return true;
     }
 
