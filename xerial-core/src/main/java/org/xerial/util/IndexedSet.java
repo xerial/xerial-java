@@ -223,9 +223,9 @@ public class IndexedSet<T> implements Set<T>
     public String toString()
     {
         ArrayList<String> elementList = new ArrayList<String>();
-        for (Entry<T, Integer> entry : elementToID.entrySet())
+        for (int elementID : getIDSet())
         {
-            elementList.add(String.format("%s(%d)", entry.getKey(), entry.getValue()));
+            elementList.add(String.format("%s(%d)", getByID(elementID), elementID));
         }
 
         return String.format("{%s}", StringUtil.join(elementList, ", "));
