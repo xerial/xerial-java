@@ -25,6 +25,7 @@
 package org.xerial.util.graph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -39,7 +40,7 @@ import org.xerial.util.StringUtil;
  * 
  * @param <T>
  */
-public class LatticeNode<T>
+public class LatticeNode<T> implements Iterable<T>
 {
     private int              id = -1;
     private final Lattice<T> lattice;
@@ -122,5 +123,48 @@ public class LatticeNode<T>
         }
 
         return String.format("{%s}", StringUtil.join(containedElement, ", "));
+    }
+
+    private class NodeSetIterator implements Iterator<T>
+    {
+        int cursor = -1;
+        
+        public boolean hasNext()
+        {
+            return nextIndex() != -1;
+        }
+
+        private int nextIndex()
+        {
+            int nextCursor = cursor + 1;
+            for (; nextCursor < elementOnOffIndicator.size(); nextCursor++)
+            {
+                if (elementOnOffIndicator.get(nextCursor))
+                    return nextCursor;
+            }
+            return -1;
+        }
+
+        public T next()
+        {
+            cursor = nextIndex();
+            if (cursor != -1)
+            {
+                T ret = lattice.getElementByID(cursor);
+                return ret;
+            }
+            else
+                return null;
+        }
+
+        public void remove()
+        {
+            throw new UnsupportedOperationException("remove");
+        }
+    }
+    
+    public Iterator<T> iterator()
+    {
+        return new NodeSetIterator();
     }
 }

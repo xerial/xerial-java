@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,11 +60,20 @@ public class LatticeTest
         assertTrue(aNode.contains("A"));
         assertFalse(aNode.contains("B"));
         assertFalse(aNode.contains("B")); // double check
+        
+        HashSet<String> answer = new HashSet<String>();
+        answer.add("A");
+
+        for (String s : aNode)
+            assertTrue(answer.contains(s));
 
         LatticeNode<String> abNode = aNode.next("B");
         assertTrue(abNode.contains("A"));
         assertTrue(abNode.contains("B"));
         assertFalse(abNode.contains("C"));
+        answer.add("B");
+        for (String s : abNode)
+            assertTrue(answer.contains(s));
 
         LatticeNode<String> acNode = aNode.next("C");
         assertTrue(acNode.contains("A"));
@@ -75,6 +85,11 @@ public class LatticeTest
         assertTrue(acdNode.contains("C"));
         assertTrue(acdNode.contains("D"));
         assertTrue(!acdNode.contains("B"));
+        answer.add("C");
+        answer.add("D");
+        for (String s : acdNode)
+            assertTrue(answer.contains(s));
+
 
         LatticeNode<String> acdMinusDNode = acdNode.back("D");
         assertEquals(acNode, acdMinusDNode);
