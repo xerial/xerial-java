@@ -159,6 +159,12 @@ public class BitVector
     {
         return size;
     }
+    
+    public void clear()
+    {
+        bitVector.clear();
+        size = 0;
+    }
 
     @Override
     public String toString()
