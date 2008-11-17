@@ -42,6 +42,11 @@ public class BitVector
     public BitVector()
     {}
 
+    public BitVector(int size)
+    {
+        extend(size - 1);
+    }
+
     public void on(int index)
     {
         set(index, true);
@@ -106,12 +111,13 @@ public class BitVector
         BitVector other = BitVector.class.cast(obj);
 
         // compare the size
-        int size = this.bitVector.size();
-        if (size != other.bitVector.size())
+        if (size() != other.size())
             return false;
 
         // compare each byte
-        for (int i = 0; i < size; i++)
+        int byteLength = byteLength();
+
+        for (int i = 0; i < byteLength; i++)
         {
             if (!this.bitVector.get(i).equals(other.bitVector.get(i)))
                 return false;
@@ -120,12 +126,21 @@ public class BitVector
         return true;
     }
 
+    private int byteLength()
+    {
+        int maxBitPos = size() - 1;
+        return pos(maxBitPos) + (offset(maxBitPos) == 0 ? 0 : 1);
+    }
+
     @Override
     public int hashCode()
     {
         int hashValue = 3;
-        for (int v : bitVector)
-            hashValue += hashValue * 137 + v;
+
+        for (int i = 0; i < byteLength(); i++)
+        {
+            hashValue += hashValue * 137 + bitVector.get(i);
+        }
 
         return hashValue % 1987;
     }
@@ -159,7 +174,7 @@ public class BitVector
     {
         return size;
     }
-    
+
     public void clear()
     {
         bitVector.clear();
