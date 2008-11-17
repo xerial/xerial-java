@@ -129,6 +129,8 @@ public class BitVector
     private int byteLength()
     {
         int maxBitPos = size() - 1;
+        if (maxBitPos < 0)
+            maxBitPos = 0;
         return pos(maxBitPos) + (offset(maxBitPos) == 0 ? 0 : 1);
     }
 
@@ -137,7 +139,8 @@ public class BitVector
     {
         int hashValue = 3;
 
-        for (int i = 0; i < byteLength(); i++)
+        int byteLength = byteLength();
+        for (int i = 0; i < byteLength; i++)
         {
             hashValue += hashValue * 137 + bitVector.get(i);
         }
