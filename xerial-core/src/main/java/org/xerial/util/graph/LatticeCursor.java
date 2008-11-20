@@ -38,14 +38,14 @@ public interface LatticeCursor<T>
      * 
      * @param elementToAdd
      */
-    void next(T elementToAdd);
+    LatticeNode<T> next(T elementToAdd);
 
     /**
      * move to previous lattice node that lacks the specified element
      * 
      * @param elementToRemove
      */
-    void back(T elementToRemove);
+    LatticeNode<T> back(T elementToRemove);
 
     /**
      * test the current lattice node contains the specified element
@@ -56,5 +56,7 @@ public interface LatticeCursor<T>
     boolean contains(T element);
 
     LatticeNode<T> getNode();
+    
+    int getNodeID();
     
 }

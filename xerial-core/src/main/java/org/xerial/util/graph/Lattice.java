@@ -193,9 +193,10 @@ public class Lattice<T>
             this.currentLatticeNode = latticeNode;
         }
 
-        public void back(T elementToRemove)
+        public LatticeNode<T> back(T elementToRemove)
         {
             currentLatticeNode = currentLatticeNode.back(elementToRemove);
+            return currentLatticeNode;
         }
 
         public boolean contains(T element)
@@ -203,14 +204,20 @@ public class Lattice<T>
             return currentLatticeNode.contains(element);
         }
 
-        public void next(T elementToAdd)
+        public LatticeNode<T> next(T elementToAdd)
         {
             currentLatticeNode = currentLatticeNode.next(elementToAdd);
+            return currentLatticeNode;
         }
 
         public LatticeNode<T> getNode()
         {
             return currentLatticeNode;
+        }
+
+        public int getNodeID()
+        {
+            return currentLatticeNode.getID();
         }
 
     }
