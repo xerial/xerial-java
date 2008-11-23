@@ -47,7 +47,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
 {
     IndexedSet<NodeLabel> _nodeTable = new IndexedSet<NodeLabel>();
 
-    EdgeTable<EdgeLabel>  _edgeTable = new EdgeTable<EdgeLabel>();
+    EdgeTable<EdgeLabel> _edgeTable = new EdgeTable<EdgeLabel>();
 
     public AdjacencyList()
     {
@@ -57,7 +57,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
     public int addNode(NodeLabel node)
     {
         int nodeID = _nodeTable.getIDwithAddition(node);
-        return nodeID; 
+        return nodeID;
     }
 
     public Edge addEdge(NodeLabel sourceNode, NodeLabel destNode)
@@ -239,9 +239,9 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
             edgeData.add(String.format("(%s, %s)%s", getNodeLabel(e.getSourceNodeID()),
                     getNodeLabel(e.getDestNodeID()), (edgeInfo != null ? ":" + edgeInfo.toString() : "")));
         }
-        return String.format("node (value, id):%s\nedge(node, node):\n%s", nodeData, StringUtil.join(edgeData, ", "));
+        return String.format("node (value, id):%s\nedge(node, node):\n%s", nodeData, StringUtil.join(edgeData, ",\n"));
     }
-    
+
     public static <NodeLabel, EdgeLabel> AdjacencyList<NodeLabel, EdgeLabel> copy(Graph<NodeLabel, EdgeLabel> source)
     {
         // sort the node ID
@@ -293,17 +293,17 @@ class EdgeTable<EdgeLabel>
     /**
 	 * 
 	 */
-    private static final long          serialVersionUID       = 1L;
-    TreeMap<Integer, EdgeLabel>        _edgeTable             = new TreeMap<Integer, EdgeLabel>();
-    TreeMap<Edge, Integer>             _edgeIndex             = new TreeMap<Edge, Integer>();
+    private static final long serialVersionUID = 1L;
+    TreeMap<Integer, EdgeLabel> _edgeTable = new TreeMap<Integer, EdgeLabel>();
+    TreeMap<Edge, Integer> _edgeIndex = new TreeMap<Edge, Integer>();
     HashMap<Integer, TreeSet<Integer>> _outNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
-    HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode  = new HashMap<Integer, TreeSet<Integer>>();
+    HashMap<Integer, TreeSet<Integer>> _inNodeListOfEachNode = new HashMap<Integer, TreeSet<Integer>>();
 
     public Collection<Integer> getEdgeIDSet()
     {
         return _edgeTable.keySet();
     }
-    
+
     protected int add(int newEdgeID, EdgeLabel edgeLabel, Edge newEdge)
     {
         Set<Integer> destNodeListOfSourceNode = destNodeIDSet(newEdge.srcNodeID);
@@ -342,8 +342,6 @@ class EdgeTable<EdgeLabel>
     {
         return destNodeIDSet(edge.srcNodeID).contains(edge.destNodeID);
     }
-    
-    
 
     public EdgeLabel getEdgeLabel(int edgeID)
     {
