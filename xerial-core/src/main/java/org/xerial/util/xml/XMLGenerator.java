@@ -90,11 +90,10 @@ public class XMLGenerator
 
     public XMLGenerator startTag(String tagName)
     {
-
         return startTag(tagName, null);
     }
 
-    public XMLGenerator startTag(String tagName, XMLAttribute attribute)
+    void beforeStartTag()
     {
         switch (_prevOut)
         {
@@ -106,6 +105,12 @@ public class XMLGenerator
                 indent(_currentLevel);
             break;
         }
+    }
+
+    public XMLGenerator startTag(String tagName, XMLAttribute attribute)
+    {
+        beforeStartTag();
+
         _out.print("<");
         _out.print(tagName);
 
@@ -139,10 +144,28 @@ public class XMLGenerator
         return this;
     }
 
+    public XMLGenerator selfCloseTag(String tagName)
+    {
+        return selfCloseTag(tagName, null);
+    }
+
     public XMLGenerator selfCloseTag(String tagName, XMLAttribute attribute)
     {
-        startTag(tagName, attribute);
-        endTag();
+        beforeStartTag();
+
+        _out.print("<");
+        _out.print(tagName);
+
+        if (attribute != null && attribute.length() > 0)
+        {
+            _out.print(" ");
+            _out.print(attribute.toXMLString());
+        }
+        _out.print("/>");
+        if (isEnable(FormatStab.NewlineAfterElement))
+            newline();
+
+        _prevOut = PreviousOutput.EndTag;
         return this;
     }
 

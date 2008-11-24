@@ -44,6 +44,7 @@ public class XMLGeneratorTest extends TestCase
         XMLGenerator xout = new XMLGenerator(writer);
         xout.startTag("booklist");
         xout.startTag("book", new XMLAttribute().add("isbn", "232423423").add("year", 1343));
+        xout.selfCloseTag("memo");
         xout.startTag("author");
         xout.text("Peter Buneman");
         xout.endTag();
