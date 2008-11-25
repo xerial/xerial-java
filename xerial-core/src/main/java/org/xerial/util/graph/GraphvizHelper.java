@@ -31,17 +31,17 @@ import java.util.Stack;
 
 import org.xerial.util.StringUtil;
 
-
 /**
- * Graphvizのdotファイルを出力するためのヘルパークラス
+ * A helper class for generateing Graphviz's dot file
+ * 
  * @author leo
- *
+ * 
  */
 public class GraphvizHelper
 {
-    private PrintWriter  _out;
-    private Stack<GraphvizComponent> _componentStack = new Stack<GraphvizComponent>(); 
-    
+    private PrintWriter _out;
+    private Stack<GraphvizComponent> _componentStack = new Stack<GraphvizComponent>();
+
     /**
      * 
      */
@@ -49,22 +49,23 @@ public class GraphvizHelper
     {
         _out = new PrintWriter(out);
     }
-    
+
     public GraphvizHelper(Writer out)
     {
         _out = new PrintWriter(out);
     }
-    
-    
+
     /**
-     * digraphを開始する。edgeなどの出力が終了したら、最後にendDigraphを呼ばなくてはならない
+     * begin output of digraph. Finally, you have to call endDigraph to close
+     * the dot description.
+     * 
      * @param graphName
      */
     public void beginDigraph(String graphName)
     {
         pushComponent(new Digraph(graphName));
     }
-    
+
     public void endDigraph()
     {
         assert !_componentStack.empty();
@@ -73,39 +74,48 @@ public class GraphvizHelper
         lastComponent.leave(_out);
         flush();
     }
-    
-    
+
     public void label(Object nodeName, Object label)
     {
         _out.println(nodeName.toString() + " [label=" + StringUtil.quote(label.toString(), "\"") + "];");
     }
+
+    public void option(String option)
+    {
+        _out.println(String.format("[];", option));
+    }
+
     public void edge(Object nodeFrom, Object nodeTo)
     {
         _out.println(nodeFrom.toString() + " -> " + nodeTo.toString() + ";");
     }
-    
-    
+
+    public void edge(Object nodeFrom, Object nodeTo, String option)
+    {
+        _out.println(String.format("%s -> %s [%s];", nodeFrom.toString(), nodeTo.toString(), option));
+    }
+
     public void endOutput()
     {
-        while(!_componentStack.empty())
+        while (!_componentStack.empty())
         {
             GraphvizComponent lastComponent = popComponent();
             lastComponent.leave(_out);
         }
         _out.flush();
     }
-    
+
     public void flush()
     {
         _out.flush();
     }
-    
+
     private void pushComponent(GraphvizComponent component)
     {
         _componentStack.add(component);
         component.enter(_out);
     }
-    
+
     private GraphvizComponent popComponent()
     {
         assert !_componentStack.empty();
@@ -115,30 +125,31 @@ public class GraphvizHelper
     class GraphvizComponent
     {
         /**
-         * このコンポーネント追加時の出力を定義
+         * 
          */
-        public void enter(PrintWriter out) 
-        { }
-        
+        public void enter(PrintWriter out)
+        {}
+
         /**
-         * このコンポーネントを抜けるときの出力を定義
+         * 
          */
         public void leave(PrintWriter out)
-        { }
+        {}
     }
-    
+
     class Digraph extends GraphvizComponent
     {
         private String _graphName;
+
         public Digraph(String graphName)
         {
             _graphName = graphName;
         }
-        
+
         @Override
         public void enter(PrintWriter out)
         {
-           out.println("digraph " + _graphName + "{");
+            out.println("digraph " + _graphName + "{");
         }
 
         @Override
@@ -146,11 +157,7 @@ public class GraphvizHelper
         {
             out.println("}");
         }
-        
+
     }
 
 }
-
-
-
-

@@ -42,7 +42,7 @@ import org.xerial.util.log.Logger;
  */
 public class AdjacencyListTest
 {
-    private static Logger  _logger = Logger.getLogger(AdjacencyListTest.class);
+    private static Logger _logger = Logger.getLogger(AdjacencyListTest.class);
 
     Graph<Integer, String> al;
 
@@ -196,6 +196,12 @@ public class AdjacencyListTest
     public void testToString()
     {
         _logger.debug(al.toString());
+    }
+
+    @Test
+    public void testToGraphviz()
+    {
+        _logger.info(al.toGraphViz());
     }
 
 }

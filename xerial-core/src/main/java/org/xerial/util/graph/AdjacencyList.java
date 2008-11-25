@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -240,6 +241,30 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
                     getNodeLabel(e.getDestNodeID()), (edgeInfo != null ? ":" + edgeInfo.toString() : "")));
         }
         return String.format("node (value, id):%s\nedge(node, node):\n%s", nodeData, StringUtil.join(edgeData, ",\n"));
+    }
+
+    public String toGraphViz()
+    {
+        StringWriter writer = new StringWriter();
+        GraphvizHelper graphviz = new GraphvizHelper(writer);
+        graphviz.beginDigraph("G");
+        for (int i = 0; i < _nodeTable.size(); i++)
+        {
+            NodeLabel node = _nodeTable.getByID(0);
+            graphviz.label(i + 1, node.toString());
+        }
+
+        for (Edge e : getEdgeSet())
+        {
+            EdgeLabel label = getEdgeLabel(e);
+            if (label != null)
+                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1, String.format("label=%s", label));
+            else
+                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1);
+        }
+        graphviz.endDigraph();
+        return writer.toString();
+
     }
 
     public static <NodeLabel, EdgeLabel> AdjacencyList<NodeLabel, EdgeLabel> copy(Graph<NodeLabel, EdgeLabel> source)
