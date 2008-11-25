@@ -250,7 +250,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         graphviz.beginDigraph("G");
         for (int i = 0; i < _nodeTable.size(); i++)
         {
-            NodeLabel node = _nodeTable.getByID(0);
+            NodeLabel node = _nodeTable.getByID(i);
             graphviz.label(i + 1, node.toString());
         }
 
@@ -258,7 +258,7 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         {
             EdgeLabel label = getEdgeLabel(e);
             if (label != null)
-                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1, String.format("label=%s", label));
+                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1, String.format("label=\"%s\"", label));
             else
                 graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1);
         }
