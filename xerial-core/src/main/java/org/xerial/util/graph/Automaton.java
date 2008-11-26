@@ -72,11 +72,7 @@ public class Automaton<State, Symbol>
             if (input == null)
                 return false;
 
-            Map<Symbol, State> transitionTable = getTransitionTableOf(currentState);
-            if (transitionTable == null)
-                return false;
-
-            return transitionTable.containsKey(input);
+            return getTransitionTableOf(currentState).containsKey(input);
         }
 
         public Set<Symbol> getAcceptableSymbolSet()
@@ -110,9 +106,6 @@ public class Automaton<State, Symbol>
         public State transit(Symbol input)
         {
             Map<Symbol, State> transitionTable = getTransitionTableOf(currentState);
-            if (transitionTable == null)
-                return otherTransit(input);
-
             State nextState = transitionTable.get(input);
             if (nextState == null)
                 return otherTransit(input);
@@ -144,7 +137,13 @@ public class Automaton<State, Symbol>
 
     private Map<Symbol, State> getTransitionTableOf(State state)
     {
-        return transition.get(state);
+        HashMap<Symbol, State> result = transition.get(state);
+        if (result == null)
+        {
+            result = new HashMap<Symbol, State>();
+            transition.put(state, result);
+        }
+        return result;
     }
 
     public AutomatonCursor<State, Symbol> cursor(State initialState)
@@ -162,11 +161,17 @@ public class Automaton<State, Symbol>
         if (!hasState(state))
             throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format("state %s not found", state));
 
-        Map<Symbol, State> transitionTable = getTransitionTableOf(state);
-        if (transitionTable == null)
-            return new HashSet<Symbol>(0);
-        else
-            return transitionTable.keySet();
+        return getTransitionTableOf(state).keySet();
+    }
+
+    public Set<State> getAdjacentStates(State from)
+    {
+        HashSet<State> result = new HashSet<State>();
+        if (transitionForOtherInput.containsKey(from))
+            result.add(transitionForOtherInput.get(from));
+
+        result.addAll(getTransitionTableOf(from).values());
+        return result;
     }
 
     public void addState(State state)
@@ -185,14 +190,7 @@ public class Automaton<State, Symbol>
         addState(from);
         addState(to);
 
-        HashMap<Symbol, State> transitionOfTheSymbol = transition.get(from);
-        if (transitionOfTheSymbol == null)
-        {
-            transitionOfTheSymbol = new HashMap<Symbol, State>();
-            transition.put(from, transitionOfTheSymbol);
-        }
-
-        transitionOfTheSymbol.put(input, to);
+        getTransitionTableOf(from).put(input, to);
     }
 
     public void addStarTransition(State from, State to)

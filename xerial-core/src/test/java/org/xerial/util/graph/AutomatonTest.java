@@ -77,6 +77,10 @@ public class AutomatonTest
         for (int i = 1; i <= 6; i++)
             assertTrue(automaton.hasState(i));
 
+        assertTrue(automaton.getAdjacentStates(1).contains(2));
+        assertTrue(automaton.getAdjacentStates(1).contains(3));
+        assertTrue(!automaton.getAdjacentStates(1).contains(4));
+
         AutomatonCursor<Integer, String> cursor = automaton.cursor(1);
 
         assertEquals(1, cursor.getState());
