@@ -24,16 +24,19 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.util.IndexedSet;
+import org.xerial.util.StringUtil;
 
 /**
  * Definite Finite State Automaton implementation
@@ -218,6 +221,55 @@ public class Automaton<State, Symbol>
     public boolean hasState(State state)
     {
         return stateSet.contains(state);
+    }
+
+    public String toString()
+    {
+        ArrayList<String> edgeData = new ArrayList<String>();
+        for (State from : transition.keySet())
+        {
+            int fromID = stateSet.getID(from);
+            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet())
+            {
+                edgeData.add(String.format("%s -> %s [%s]", from, eachTransition.getValue(), eachTransition.getKey()));
+            }
+
+            if (transitionForOtherInput.containsKey(from))
+            {
+                edgeData.add(String.format("%s -> %s [*]", from, transitionForOtherInput.get(from)));
+            }
+        }
+
+        return String
+                .format("node:\n%s\nedge:\n%s", StringUtil.join(stateSet, ",\n"), StringUtil.join(edgeData, ",\n"));
+    }
+
+    public String toGraphviz()
+    {
+        StringWriter writer = new StringWriter();
+        GraphvizHelper g = new GraphvizHelper(writer);
+        g.beginDigraph("G");
+        for (State each : stateSet)
+        {
+            g.label(stateSet.getID(each), each.toString());
+        }
+
+        for (State from : transition.keySet())
+        {
+            int fromID = stateSet.getID(from);
+            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet())
+            {
+                g.edge(fromID, stateSet.getID(eachTransition.getValue()), eachTransition.getKey().toString());
+            }
+
+            if (transitionForOtherInput.containsKey(from))
+            {
+                g.edge(fromID, transitionForOtherInput.get(from), "*");
+            }
+        }
+
+        g.endDigraph();
+        return writer.toString();
     }
 
 }

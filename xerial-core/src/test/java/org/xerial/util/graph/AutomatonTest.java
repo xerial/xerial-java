@@ -31,9 +31,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.log.Logger;
 
 public class AutomatonTest
 {
+    private static Logger _logger = Logger.getLogger(AutomatonTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -128,6 +130,9 @@ public class AutomatonTest
         assertEquals(6, cursor.getState());
         cursor.transit("A");
         assertEquals(6, cursor.getState());
+
+        _logger.debug(automaton.toString());
+        _logger.debug(automaton.toGraphviz());
 
     }
 

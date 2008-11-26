@@ -41,10 +41,10 @@ import java.util.TreeSet;
  */
 public class IndexedSet<T> implements Set<T>
 {
-    public final static int     INVALID_ID   = -1;
-    private int                 elementCount = 0;
-    private HashMap<T, Integer> elementToID  = new HashMap<T, Integer>();
-    private ArrayList<T>        elementArray = new ArrayList<T>();
+    public final static int INVALID_ID = -1;
+    private int elementCount = 0;
+    private HashMap<T, Integer> elementToID = new HashMap<T, Integer>();
+    private ArrayList<T> elementArray = new ArrayList<T>();
 
     public Collection<Integer> getIDSet()
     {
@@ -173,7 +173,25 @@ public class IndexedSet<T> implements Set<T>
 
     public Iterator<T> iterator()
     {
-        return elementToID.keySet().iterator();
+        return new Iterator<T>() {
+            int next = 0;
+
+            public boolean hasNext()
+            {
+                return next < size();
+            }
+
+            public T next()
+            {
+                return getByID(next++);
+            }
+
+            public void remove()
+            {
+                throw new UnsupportedOperationException("remove");
+            }
+
+        };
     }
 
     @SuppressWarnings("unchecked")
