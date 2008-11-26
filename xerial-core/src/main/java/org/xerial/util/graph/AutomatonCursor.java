@@ -16,22 +16,24 @@
 //--------------------------------------
 // XerialJ
 //
-// AutomatonAction.java
-// Since: 2008/11/08 0:05:22
+// AutomatonCursor.java
+// Since: 2008/11/26 8:58:57
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.graph;
 
-/**
- * Action performed when moving to a next state
- * 
- * @author leo
- * 
- */
-public interface AutomatonAction
+public interface AutomatonCursor<State, Symbol>
 {
-    void doAction();
-}
+    State getState();
 
+    State transit(Symbol input);
+
+    boolean canAccept(Symbol input);
+
+    boolean isTerminal();
+
+    AutomatonCursor<State, Symbol> moveTo(State state);
+
+}

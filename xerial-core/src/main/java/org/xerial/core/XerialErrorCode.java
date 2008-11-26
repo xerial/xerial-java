@@ -33,10 +33,7 @@ package org.xerial.core;
 public enum XerialErrorCode implements ErrorCode {
 
     // related to programming error
-    INVALID_STATE,
-    SYNTAX_ERROR,
-    NOT_INITIALIZED,
-    UNSUPPORTED,
+    INVALID_STATE, SYNTAX_ERROR, NOT_INITIALIZED, UNSUPPORTED, INVALID_INPUT,
     // collection
     MISSING_ELEMENT,
 
@@ -44,19 +41,13 @@ public enum XerialErrorCode implements ErrorCode {
     RESOURCE_NOT_FOUND,
 
     // I/O
-    READ_ERROR,
-    OUTPUT_ERROR,
+    READ_ERROR, OUTPUT_ERROR,
 
     // option parser error
-    DUPLICATE_OPTION,
-    NO_OPTION,
-    NO_USAGE_ANNOTATION,
-    MISSING_ARGUMENT,
+    DUPLICATE_OPTION, NO_OPTION, NO_USAGE_ANNOTATION, MISSING_ARGUMENT,
 
     // type 
-    MISSING_TYPE_PARAMETER,
-    NOT_A_COLLECTION,
-    INACCESSIBLE_METHOD
+    MISSING_TYPE_PARAMETER, NOT_A_COLLECTION, INACCESSIBLE_METHOD
 
     ;
 
