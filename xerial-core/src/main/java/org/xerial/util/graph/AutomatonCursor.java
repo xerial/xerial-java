@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+import java.util.Set;
+
 public interface AutomatonCursor<State, Symbol>
 {
     State getState();
@@ -32,8 +34,12 @@ public interface AutomatonCursor<State, Symbol>
 
     boolean canAccept(Symbol input);
 
+    boolean canAcceptAnySymbol();
+
+    Set<Symbol> getAcceptableSymbolSet();
+
     boolean isTerminal();
 
-    AutomatonCursor<State, Symbol> moveTo(State state);
+    AutomatonCursor<State, Symbol> reset(State initialState);
 
 }

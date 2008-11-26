@@ -36,7 +36,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.util.IndexedSet;
 
 /**
- * Automaton implementation
+ * Definite Finite State Automaton implementation
  * 
  * @author leo
  * 
@@ -49,6 +49,7 @@ public class Automaton<State, Symbol>
     private IndexedSet<State> stateSet = new IndexedSet<State>();
     private Set<State> terminalState = new HashSet<State>();
     private HashMap<State, HashMap<Symbol, State>> transition = new HashMap<State, HashMap<Symbol, State>>();
+    private HashMap<State, State> transitionForOtherInput = new HashMap<State, State>();
 
     private class CursorImpl implements AutomatonCursor<State, Symbol>
     {
@@ -61,11 +62,28 @@ public class Automaton<State, Symbol>
 
         public boolean canAccept(Symbol input)
         {
+            if (canAcceptAnySymbol())
+                return true;
+
+            // when cannot accept any symbol
+            if (input == null)
+                return false;
+
             Map<Symbol, State> transitionTable = getTransitionTableOf(currentState);
             if (transitionTable == null)
                 return false;
 
             return transitionTable.containsKey(input);
+        }
+
+        public Set<Symbol> getAcceptableSymbolSet()
+        {
+            return getAcceptableSymbolSetOf(currentState);
+        }
+
+        public boolean canAcceptAnySymbol()
+        {
+            return transitionForOtherInput.containsKey(currentState);
         }
 
         public State getState()
@@ -78,7 +96,7 @@ public class Automaton<State, Symbol>
             return terminalState.contains(currentState);
         }
 
-        public AutomatonCursor<State, Symbol> moveTo(State state)
+        public AutomatonCursor<State, Symbol> reset(State state)
         {
             if (!hasState(state))
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, "no such state found: " + state);
@@ -90,10 +108,33 @@ public class Automaton<State, Symbol>
         {
             Map<Symbol, State> transitionTable = getTransitionTableOf(currentState);
             if (transitionTable == null)
-                throw new XerialError(XerialErrorCode.INVALID_INPUT, "cannot accept the symbol:" + input);
+                return otherTransit(input);
 
-            // TODO
-            return null;
+            State nextState = transitionTable.get(input);
+            if (nextState == null)
+                return otherTransit(input);
+
+            // notify the transition to listeners
+            for (AutomatonListener<State, Symbol> each : listenerList)
+            {
+                each.onTansit(currentState, input, nextState);
+            }
+
+            currentState = nextState;
+            return currentState;
+        }
+
+        private State otherTransit(Symbol input)
+        {
+            if (transitionForOtherInput.containsKey(currentState))
+            {
+                currentState = transitionForOtherInput.get(currentState);
+                return currentState;
+            }
+            else
+            {
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "cannot accept the symbol:" + input);
+            }
         }
 
     }
@@ -105,13 +146,24 @@ public class Automaton<State, Symbol>
 
     public AutomatonCursor<State, Symbol> cursor(State initialState)
     {
-        // TODO impl
-        return null;
+        return new CursorImpl(initialState);
     }
 
-    public Set<State> stateSet()
+    public Set<State> getStateSet()
     {
         return stateSet;
+    }
+
+    public Set<Symbol> getAcceptableSymbolSetOf(State state)
+    {
+        if (!hasState(state))
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format("state %s not found", state));
+
+        Map<Symbol, State> transitionTable = getTransitionTableOf(state);
+        if (transitionTable == null)
+            return new HashSet<Symbol>(0);
+        else
+            return transitionTable.keySet();
     }
 
     public void addState(State state)
@@ -127,6 +179,9 @@ public class Automaton<State, Symbol>
 
     public void addTransition(State from, Symbol input, State to)
     {
+        addState(from);
+        addState(to);
+
         HashMap<Symbol, State> transitionOfTheSymbol = transition.get(from);
         if (transitionOfTheSymbol == null)
         {
@@ -135,6 +190,14 @@ public class Automaton<State, Symbol>
         }
 
         transitionOfTheSymbol.put(input, to);
+    }
+
+    public void addStarTransition(State from, State to)
+    {
+        addState(from);
+        addState(to);
+
+        transitionForOtherInput.put(from, to);
     }
 
     public void addListener(AutomatonListener<State, Symbol> listener)
