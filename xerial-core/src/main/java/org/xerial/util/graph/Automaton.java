@@ -251,7 +251,7 @@ public class Automaton<State, Symbol>
         g.beginDigraph("G");
         for (State each : stateSet)
         {
-            g.label(stateSet.getID(each), each.toString());
+            g.node(stateSet.getID(each), each.toString());
         }
 
         for (State from : transition.keySet())

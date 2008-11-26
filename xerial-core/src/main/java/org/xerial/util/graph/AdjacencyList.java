@@ -251,14 +251,14 @@ public class AdjacencyList<NodeLabel, EdgeLabel> implements Graph<NodeLabel, Edg
         for (int i = 0; i < _nodeTable.size(); i++)
         {
             NodeLabel node = _nodeTable.getByID(i);
-            graphviz.label(i + 1, node.toString());
+            graphviz.node(i + 1, node.toString());
         }
 
         for (Edge e : getEdgeSet())
         {
             EdgeLabel label = getEdgeLabel(e);
             if (label != null)
-                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1, String.format("label=\"%s\"", label));
+                graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1, label.toString());
             else
                 graphviz.edge(e.srcNodeID + 1, e.destNodeID + 1);
         }

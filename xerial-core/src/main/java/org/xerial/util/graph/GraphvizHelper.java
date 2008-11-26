@@ -29,8 +29,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Stack;
 
-import org.xerial.util.StringUtil;
-
 /**
  * A helper class for generateing Graphviz's dot file
  * 
@@ -75,9 +73,9 @@ public class GraphvizHelper
         flush();
     }
 
-    public void label(Object nodeName, Object label)
+    public void node(Object nodeName, Object label)
     {
-        _out.println(nodeName.toString() + " [label=" + StringUtil.quote(label.toString(), "\"") + "];");
+        _out.println(String.format("%s [label=\"%s\"];", nodeName.toString(), label.toString()));
     }
 
     public void option(String option)
@@ -90,9 +88,9 @@ public class GraphvizHelper
         _out.println(nodeFrom.toString() + " -> " + nodeTo.toString() + ";");
     }
 
-    public void edge(Object nodeFrom, Object nodeTo, String option)
+    public void edge(Object nodeFrom, Object nodeTo, String label)
     {
-        _out.println(String.format("%s -> %s [%s];", nodeFrom.toString(), nodeTo.toString(), option));
+        _out.println(String.format("%s -> %s [label=\"%s\"];", nodeFrom.toString(), nodeTo.toString(), label));
     }
 
     public void endOutput()

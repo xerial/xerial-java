@@ -154,7 +154,7 @@ public class InvertedPathTree
         {
             InvertedPath path = _pathTree.getNodeLabel(pathID);
             assert path != null;
-            gout.label(pathID, path.getLastParent());
+            gout.node(pathID, path.getLastParent());
         }
 
         // output edges
