@@ -27,6 +27,8 @@ package org.xerial.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.TreeMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +40,8 @@ public class RedBlackTreeTest
     @Before
     public void setUp() throws Exception
     {
+        TreeMap<Integer, String> competitor = new TreeMap<Integer, String>();
+
         t.put(10, "world!");
         t.put(5, "hello");
         t.put(20, "nice to meet you");
@@ -56,17 +60,23 @@ public class RedBlackTreeTest
     }
 
     @Test
+    public void testSize()
+    {
+        assertEquals(3, t.size());
+    }
+
+    @Test
     public void testContains()
     {
 
-        assertTrue(t.contains(5));
-        assertTrue(t.contains(10));
-        assertTrue(t.contains(20));
+        assertTrue(t.containsKey(5));
+        assertTrue(t.containsKey(10));
+        assertTrue(t.containsKey(20));
 
-        assertTrue(!t.contains(0));
-        assertTrue(!t.contains(34));
-        assertTrue(!t.contains(102));
-        assertTrue(!t.contains(-10));
+        assertTrue(!t.containsKey(0));
+        assertTrue(!t.containsKey(34));
+        assertTrue(!t.containsKey(102));
+        assertTrue(!t.containsKey(-10));
     }
 
     @Test
@@ -79,15 +89,17 @@ public class RedBlackTreeTest
         assertEquals("evil", t.get(12));
         assertEquals("nice to meet you", t.get(20));
 
-        assertTrue(t.contains(5));
-        assertTrue(t.contains(10));
-        assertTrue(t.contains(20));
-        assertTrue(t.contains(12));
+        assertTrue(t.containsKey(5));
+        assertTrue(t.containsKey(10));
+        assertTrue(t.containsKey(20));
+        assertTrue(t.containsKey(12));
 
-        assertTrue(!t.contains(0));
-        assertTrue(!t.contains(34));
-        assertTrue(!t.contains(102));
-        assertTrue(!t.contains(-10));
+        assertTrue(!t.containsKey(0));
+        assertTrue(!t.containsKey(34));
+        assertTrue(!t.containsKey(102));
+        assertTrue(!t.containsKey(-10));
+
+        assertEquals(4, t.size());
     }
 
 }

@@ -24,6 +24,10 @@
 //--------------------------------------
 package org.xerial.util;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Red-Black tree implementation using Left-Leaning Red-Black Tree (LLRB)
  * 
@@ -32,9 +36,8 @@ package org.xerial.util;
  * @param <Key>
  * @param <Value>
  */
-public class RedBlackTree<Key extends Comparable<Key>, Value>
+public class RedBlackTree<Key extends Comparable<Key>, Value> implements Map<Key, Value>
 {
-
     private final static boolean RED = true;
     private final static boolean BLACK = false;
 
@@ -61,14 +64,19 @@ public class RedBlackTree<Key extends Comparable<Key>, Value>
         }
     }
 
-    private Node root = null;
+    private Node root;
+    private int size = 0;
+    private Value previousValue; // not thread-safe
 
     public RedBlackTree()
-    {}
-
-    public Value get(Key key)
     {
-        return get(root, key);
+        clear();
+    }
+
+    @SuppressWarnings("unchecked")
+    public Value get(Object key)
+    {
+        return get(root, (Key) key);
     }
 
     public Value get(Node current, Key key)
@@ -85,22 +93,28 @@ public class RedBlackTree<Key extends Comparable<Key>, Value>
             return get(current.right, key);
     }
 
-    public boolean contains(Key key)
+    public boolean containsKey(Object key)
     {
         return get(key) != null;
     }
 
-    public void put(Key key, Value value)
+    public Value put(Key key, Value value)
     {
+        previousValue = null;
         root = insert(root, key, value);
         root.color = BLACK;
+        return previousValue;
     }
 
     private Node insert(Node current, Key key, Value value)
     {
         // insert at the bottom
         if (current == null)
+        {
+            previousValue = null;
+            size++;
             return new Node(key, value);
+        }
 
         // split 4-nodes (both of left and right edges are red) on the way down
         if (isRed(current.left) && isRed(current.right))
@@ -108,7 +122,10 @@ public class RedBlackTree<Key extends Comparable<Key>, Value>
 
         int cmp = key.compareTo(current.key);
         if (cmp == 0)
+        {
+            previousValue = current.value;
             current.value = value; // previous value is overwritten because no duplicate keys are allowed
+        }
         else if (cmp < 0)
             current.left = insert(current.left, key, value);
         else
@@ -218,6 +235,12 @@ public class RedBlackTree<Key extends Comparable<Key>, Value>
         return x;
     }
 
+    /**
+     * invariant: curent node (c) is not a 2-node
+     * 
+     * @param c
+     * @return
+     */
     private Node fixUp(Node c)
     {
         if (isRed(c.right))
@@ -231,4 +254,93 @@ public class RedBlackTree<Key extends Comparable<Key>, Value>
 
         return c;
     }
+
+    public void clear()
+    {
+        root = null;
+        previousValue = null;
+        size = 0;
+    }
+
+    public Node delete(Node c, Key key)
+    {
+        int cmp = key.compareTo(c.key);
+        if (cmp < 0)
+        {
+            // delete from the left
+            c.left = delete(c.left, key);
+        }
+        else
+        {
+            // TODO impl
+        }
+
+        return null;
+    }
+
+    private Node deleteMin(Node c)
+    {
+        if (c.left == null)
+            return null;
+
+        if (!isRed(c.left) && !isRed(c.left.left))
+        {
+            // TODO impl
+        }
+
+        return null;
+
+    }
+
+    public Set<java.util.Map.Entry<Key, Value>> entrySet()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean isEmpty()
+    {
+        return size == 0;
+    }
+
+    public Set<Key> keySet()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void putAll(Map< ? extends Key, ? extends Value> newEntries)
+    {
+        for (Entry< ? extends Key, ? extends Value> each : newEntries.entrySet())
+        {
+            put(each.getKey(), each.getValue());
+        }
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public Value remove(Object key)
+    {
+        root = delete(root, (Key) key);
+        root.color = BLACK;
+        return previousValue;
+    }
+
+    public int size()
+    {
+        return size;
+    }
+
+    public boolean containsValue(Object arg0)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public Collection<Value> values()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
