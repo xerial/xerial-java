@@ -126,7 +126,7 @@ public class RelationPullParser
             {
                 if (currentLine.startsWith("---"))
                 {
-                    adjustLevel(schemaStack.size() - 1);
+                    adjustLevel(schemaStack.size());
                     pushEvent(Event.END_OBJECT);
                     return next();
                 }
@@ -177,6 +177,7 @@ public class RelationPullParser
                         Event nextEvent = (state == ParseState.InDataBlock) ? Event.DATA_FRAGMENT : Event.OBJECT_LINE;
                         if (StringUtil.isWhiteSpace(currentLine))
                             return Event.EMPTY_LINE;
+
                         pushEvent(nextEvent);
                         return next();
                     }

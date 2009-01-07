@@ -25,7 +25,6 @@
 package org.xerial.rel;
 
 import java.io.Reader;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 import org.xerial.core.XerialException;
@@ -33,6 +32,7 @@ import org.xerial.rel.RelationPullParser.Event;
 import org.xerial.util.bean.TreeNode;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
+import org.xerial.util.log.Logger;
 
 /**
  * {@link TreeWalker} for the REL file format
@@ -42,6 +42,8 @@ import org.xerial.util.bean.TreeWalker;
  */
 public class RelationWalker implements TreeWalker
 {
+    private static Logger _logger = Logger.getLogger(RelationWalker.class);
+
     private RelationPullParser parser;
 
     public RelationWalker(Reader input)
@@ -49,11 +51,9 @@ public class RelationWalker implements TreeWalker
         this.parser = new RelationPullParser(input);
     }
 
-    private LinkedList<SchemaElement> schemaStack = new LinkedList<SchemaElement>();
+    private LinkedList<Integer> objectLineCount = new LinkedList<Integer>();
     private boolean skipDescendants = false;
     private int skipLevel = Integer.MAX_VALUE;
-
-    private HashSet<SchemaElement> processedObjectSchemaSet = new HashSet<SchemaElement>();
 
     public void walk(TreeVisitor visitor) throws XerialException
     {
@@ -62,20 +62,29 @@ public class RelationWalker implements TreeWalker
         Event event;
         while ((event = parser.next()) != Event.END_OF_FILE)
         {
+            _logger.debug(event);
             switch (event)
             {
             case BEGIN_OBJECT:
+            {
+                if (skipDescendants)
+                    break;
+
+                objectLineCount.add(0);
+                SchemaElement schema = parser.getCurrentSchema();
+                walkObject(schema, visitor);
+                break;
+            }
             case BEGIN_ATTRIBUTE:
             {
                 if (skipDescendants)
                     break;
 
                 SchemaElement schema = parser.getCurrentSchema();
-                schemaStack.add(schema);
-            }
+                walkAttribute(schema, visitor);
                 break;
+            }
             case END_OBJECT:
-            case END_ATTRIBUTE:
             {
                 if (skipDescendants)
                 {
@@ -85,13 +94,21 @@ public class RelationWalker implements TreeWalker
                         break;
                 }
 
-                SchemaElement schema = schemaStack.pop();
-                if (!processedObjectSchemaSet.contains(schema))
-                    walkSchemaLine(schema, visitor);
-                else
-                    processedObjectSchemaSet.remove(schema);
-            }
+                if (!objectLineCount.isEmpty())
+                    objectLineCount.removeLast();
                 break;
+            }
+            case END_ATTRIBUTE:
+            {
+                if (skipDescendants)
+                {
+                    if (skipLevel == parser.getCurrentLevel())
+                        skipDescendants = false;
+                    else
+                        break;
+                }
+                return;
+            }
             case DATA_BLOCK_BEGIN:
                 break;
             case DATA_BLOCK_END:
@@ -123,76 +140,84 @@ public class RelationWalker implements TreeWalker
         visitor.finish(this);
     }
 
-    public void walkSchemaLine(SchemaElement schema, TreeVisitor visitor) throws XerialException
+    void walkObject(SchemaElement schema, TreeVisitor visitor) throws XerialException
     {
+        ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
+        beginObject(objectSchema, visitor);
 
-        if (schema.isObject())
+        walk(visitor);
+
+        visitor.leaveNode(schema.getName(), null, this);
+    }
+
+    void beginObject(ObjectSchema objectSchema, TreeVisitor visitor) throws XerialException
+    {
+        visitor.visitNode(objectSchema.getName(), this);
+
+        int attributeIndex = 0;
+        while (attributeIndex < objectSchema.size())
         {
-            visitor.visitNode(schema.getName(), this);
-            ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
+            SchemaElement attributeSchema = objectSchema.get(attributeIndex++);
+            if (attributeSchema.hasValue())
+            {
+                visitor.visitNode(attributeSchema.getName(), this);
+                visitor.leaveNode(attributeSchema.getName(), attributeSchema.getValue(), this);
+            }
+        }
+    }
 
-            int attributeIndex = 0;
+    void walkAttribute(SchemaElement schema, TreeVisitor visitor) throws XerialException
+    {
+        // attribute
+        visitor.visitNode(schema.getName(), this);
+        walk(visitor);
+        visitor.leaveNode(schema.getName(), schema.getValue(), this);
+    }
+
+    void walkObjectLine(TreeVisitor visitor) throws XerialException
+    {
+        String line = parser.getLine();
+        SchemaElement schema = parser.getCurrentSchema();
+
+        ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
+        int numGeneratedObject = objectLineCount.removeLast();
+
+        if (numGeneratedObject > 0)
+        {
+            visitor.leaveNode(objectSchema.getName(), null, this);
+            beginObject(objectSchema, visitor);
+        }
+
+        // TODO coping with csv, gzipped data etc.
+        String[] columns = line.split("\t");
+
+        int attributeIndex = 0;
+        for (String eachColumn : columns)
+        {
+
             while (attributeIndex < objectSchema.size())
             {
                 SchemaElement attributeSchema = objectSchema.get(attributeIndex++);
                 if (attributeSchema.hasValue())
                 {
                     visitor.visitNode(attributeSchema.getName(), this);
+                    // TODO parse nested structure
                     visitor.leaveNode(attributeSchema.getName(), attributeSchema.getValue(), this);
                 }
-            }
-            visitor.leaveNode(schema.getName(), null, this);
-        }
-        else
-        {
-            // attribute
-            visitor.visitNode(schema.getName(), this);
-            visitor.leaveNode(schema.getName(), schema.getValue(), this);
-        }
-
-    }
-
-    public void walkObjectLine(TreeVisitor visitor) throws XerialException
-    {
-        String line = parser.getLine();
-        SchemaElement schema = parser.getCurrentSchema();
-
-        if (schema.isObject())
-        {
-            ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
-            processedObjectSchemaSet.add(objectSchema);
-
-            visitor.visitNode(objectSchema.getName(), this);
-
-            // TODO coping with csv, gzipped data etc.
-            String[] columns = line.split("\t");
-
-            int attributeIndex = 0;
-            for (String eachColumn : columns)
-            {
-
-                while (attributeIndex < objectSchema.size())
+                else
                 {
-                    SchemaElement attributeSchema = objectSchema.get(attributeIndex++);
-                    if (attributeSchema.hasValue())
-                    {
-                        visitor.visitNode(attributeSchema.getName(), this);
-                        // TODO parse nested structure
-                        visitor.leaveNode(attributeSchema.getName(), attributeSchema.getValue(), this);
-                    }
-                    else
-                    {
-                        visitor.visitNode(attributeSchema.getName(), this);
-                        // TODO parse nested structure
-                        visitor.leaveNode(attributeSchema.getName(), eachColumn, this);
-                        break;
-                    }
+                    visitor.visitNode(attributeSchema.getName(), this);
+                    // TODO parse nested structure
+                    visitor.leaveNode(attributeSchema.getName(), eachColumn, this);
+                    break;
                 }
-
             }
 
-            visitor.leaveNode(objectSchema.getName(), null, this);
         }
+
+        //visitor.leaveNode(objectSchema.getName(), null, this);
+
+        objectLineCount.add(numGeneratedObject + 1);
 
     }
 
