@@ -32,18 +32,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.rel.RelationStreamReader.Event;
+import org.xerial.rel.RelationPullParser.Event;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
-public class RelationStreamReaderTest
+public class RelationPullParserTest
 {
-    private static Logger _logger = Logger.getLogger(RelationStreamReaderTest.class);
+    private static Logger _logger = Logger.getLogger(RelationPullParserTest.class);
 
     @Before
     public void setUp() throws Exception
     {
-        Logger.configure(FileResource.open(RelationStreamReaderTest.class, "log.config"));
+        Logger.configure(FileResource.open(RelationPullParserTest.class, "log.config"));
     }
 
     @After
@@ -53,15 +53,15 @@ public class RelationStreamReaderTest
     @Test
     public void read() throws IOException, XerialException
     {
-        RelationStreamReader reader = new RelationStreamReader(FileResource.open(RelationStreamReaderTest.class,
-                "sample.rel"));
+        RelationPullParser reader = new RelationPullParser(FileResource
+                .open(RelationPullParserTest.class, "sample.rel"));
         Event e;
         while ((e = reader.next()) != Event.END_OF_FILE)
         {
             switch (e)
             {
-            case OBJECT_SCHEMA:
-            case ATTRIBUTE:
+            case BEGIN_OBJECT:
+            case BEGIN_ATTRIBUTE:
                 _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
                         .getCurrentLevel(), reader.getCurrentSchema()));
                 break;
@@ -69,13 +69,14 @@ public class RelationStreamReaderTest
             case COMMENT:
             case HEADER:
             case DATA_FRAGMENT:
-            case DATA_LINE:
+            case OBJECT_LINE:
                 _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
                         .getCurrentLevel(), reader.getLine()));
                 break;
             case DATA_BLOCK_BEGIN:
             case DATA_BLOCK_END:
-            case END_SCOPE:
+            case END_OBJECT:
+            case END_ATTRIBUTE:
             case EMPTY_LINE:
                 _logger.debug(String.format("line=%3d, %15s(%d)", reader.getLineCount(), e.name(), reader
                         .getCurrentLevel()));

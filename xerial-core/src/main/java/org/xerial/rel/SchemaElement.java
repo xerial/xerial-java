@@ -57,15 +57,14 @@ public abstract class SchemaElement
         this.occurrence = occurrence;
     }
 
-    public String getValue()
-    {
-        throw new UnsupportedOperationException("getValue()");
-    }
+    public abstract String getValue();
 
     public String getDataType()
     {
-        throw new UnsupportedOperationException("getValue()");
+        throw new UnsupportedOperationException("getDataType()");
     }
+
+    public abstract boolean hasValue();
 
     public abstract boolean isAttribute();
 

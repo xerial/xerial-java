@@ -69,6 +69,12 @@ public class ObjectAttribute extends SchemaElement
     }
 
     @Override
+    public boolean hasValue()
+    {
+        return value != null;
+    }
+
+    @Override
     public boolean isAttribute()
     {
         return true;

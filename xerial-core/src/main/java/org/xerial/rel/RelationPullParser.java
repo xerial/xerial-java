@@ -29,11 +29,14 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.StringUtil;
+import org.xerial.util.bean.TreeNode;
+import org.xerial.util.bean.TreeVisitor;
 
 /**
  * Pull-style REL format text reader
@@ -41,7 +44,7 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class RelationStreamReader
+public class RelationPullParser
 {
 
     private final static char SCHEMA_SYMBOL = '>';
@@ -50,7 +53,7 @@ public class RelationStreamReader
     private final static char HEADER_SYMBOL = '%';
 
     public enum Event {
-        EMPTY_LINE, END_SCOPE, OBJECT_SCHEMA, ATTRIBUTE, HEADER, COMMENT, DATA_BLOCK_BEGIN, DATA_FRAGMENT, DATA_LINE, DATA_BLOCK_END, END_OF_FILE
+        EMPTY_LINE, END_OBJECT, END_ATTRIBUTE, BEGIN_OBJECT, BEGIN_ATTRIBUTE, HEADER, COMMENT, DATA_BLOCK_BEGIN, DATA_FRAGMENT, OBJECT_LINE, DATA_BLOCK_END, END_OF_FILE
     }
 
     private enum ParseState {
@@ -77,11 +80,11 @@ public class RelationStreamReader
             this.event = event;
             this.lineNumber = lineCount;
             this.level = schemaStack.size();
-            this.line = RelationStreamReader.this.currentLine;
+            this.line = RelationPullParser.this.currentLine;
         }
     }
 
-    public RelationStreamReader(Reader input)
+    public RelationPullParser(Reader input)
     {
         this.input = new BufferedReader(input);
         //schemaStack.add(new ObjectSchema("rel"));
@@ -124,7 +127,7 @@ public class RelationStreamReader
                 if (currentLine.startsWith("---"))
                 {
                     adjustLevel(schemaStack.size() - 1);
-                    pushEvent(Event.END_SCOPE);
+                    pushEvent(Event.END_OBJECT);
                     return next();
                 }
 
@@ -137,7 +140,7 @@ public class RelationStreamReader
                         ObjectSchema schema = ObjectSchema.parseSchemaLine(currentLine);
                         adjustLevel(schema.getLevel());
                         schemaStack.add(schema);
-                        pushEvent(Event.OBJECT_SCHEMA);
+                        pushEvent(Event.BEGIN_OBJECT);
                         if (schema.isFollowedByStreamData())
                         {
                             pushEvent(Event.DATA_BLOCK_BEGIN);
@@ -150,7 +153,7 @@ public class RelationStreamReader
                         ObjectAttribute attribute = ObjectAttribute.parseAttributeLine(currentLine);
                         popAttribute();
                         schemaStack.add(attribute);
-                        pushEvent(Event.ATTRIBUTE);
+                        pushEvent(Event.BEGIN_ATTRIBUTE);
                         if (attribute.isFollowedByStreamData())
                         {
                             pushEvent(Event.DATA_BLOCK_BEGIN);
@@ -171,7 +174,7 @@ public class RelationStreamReader
                         return next();
                     default:
                     {
-                        Event nextEvent = (state == ParseState.InDataBlock) ? Event.DATA_FRAGMENT : Event.DATA_LINE;
+                        Event nextEvent = (state == ParseState.InDataBlock) ? Event.DATA_FRAGMENT : Event.OBJECT_LINE;
                         if (StringUtil.isWhiteSpace(currentLine))
                             return Event.EMPTY_LINE;
                         pushEvent(nextEvent);
@@ -206,7 +209,10 @@ public class RelationStreamReader
         // pop attribute element
         SchemaElement currentSchema = getCurrentSchema();
         if (currentSchema != null && getCurrentSchema().isAttribute())
+        {
+            pushEvent(Event.END_ATTRIBUTE);
             schemaStack.remove(schemaStack.size() - 1);
+        }
     }
 
     private void adjustLevel(int newLevel)
@@ -217,9 +223,9 @@ public class RelationStreamReader
         popAttribute();
 
         // adjust to the target level
-        while (schemaStack.size() > newLevel)
+        while (schemaStack.size() > 0 && schemaStack.size() >= newLevel)
         {
-            pushEvent(Event.END_SCOPE);
+            pushEvent(Event.END_OBJECT);
             schemaStack.remove(schemaStack.size() - 1);
         }
     }
@@ -232,7 +238,7 @@ public class RelationStreamReader
             return schemaStack.get(schemaStack.size() - 1);
     }
 
-    protected EventHolder getCurrentEventHolder()
+    private EventHolder getCurrentEventHolder()
     {
         if (currentEvent == null)
             throw new XerialError(XerialErrorCode.NOT_READY,
@@ -255,9 +261,96 @@ public class RelationStreamReader
         return getCurrentEventHolder().line;
     }
 
+    public static void walkObjectLine(SchemaElement schema, String line, TreeVisitor visitor)
+    {
+
+    }
+
     public int getCurrentLevel()
     {
         return getCurrentEventHolder().level;
+    }
+
+    public TreeNode getSubTree()
+    {
+        return new SubtreeBuilder().parse();
+    }
+
+    private class RelTreeNode implements TreeNode
+    {
+
+        public List<TreeNode> getChildren()
+        {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        public String getNodeName()
+        {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        public String getNodeValue()
+        {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        public void addChild(RelTreeNode child)
+        {
+        // TODO impl
+        }
+
+    }
+
+    private class SubtreeBuilder
+    {
+        public TreeNode parse()
+        {
+            RelTreeNode subtreeRoot = new RelTreeNode();
+            return parse(subtreeRoot);
+        }
+
+        public TreeNode parse(RelTreeNode parent)
+        {
+            Event event;
+            while ((event = getCurrentEvent()) != Event.END_OF_FILE)
+            {
+                switch (event)
+                {
+                case BEGIN_OBJECT:
+                case BEGIN_ATTRIBUTE:
+                case END_OBJECT:
+                case END_ATTRIBUTE:
+                    break;
+
+                case DATA_BLOCK_BEGIN:
+                    break;
+                case DATA_FRAGMENT:
+                    break;
+                case DATA_BLOCK_END:
+                    break;
+
+                case OBJECT_LINE:
+                    parent.addChild(parseObject(getCurrentSchema()));
+                    break;
+                case COMMENT:
+                case HEADER:
+                case EMPTY_LINE:
+                    break;
+                }
+
+            }
+            return null;
+        }
+
+        public RelTreeNode parseObject(SchemaElement schema)
+        {
+
+            return null;
+        }
+
     }
 
 }

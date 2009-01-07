@@ -66,6 +66,12 @@ public class ObjectSchema extends SchemaElement
         this.setName(name);
     }
 
+    @Override
+    public String getValue()
+    {
+        return null;
+    }
+
     public boolean isObject()
     {
         return !isAttribute();
@@ -74,6 +80,12 @@ public class ObjectSchema extends SchemaElement
     public boolean isAttribute()
     {
         return getName() == NULL_STR;
+    }
+
+    @Override
+    public boolean hasValue()
+    {
+        return false;
     }
 
     @Override
@@ -118,6 +130,16 @@ public class ObjectSchema extends SchemaElement
     public List<SchemaElement> getSchemaElementList()
     {
         return schemaElements;
+    }
+
+    public int size()
+    {
+        return schemaElements.size();
+    }
+
+    public SchemaElement get(int index)
+    {
+        return schemaElements.get(index);
     }
 
     @Override
