@@ -32,7 +32,6 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.rel.impl.ObjectSchemaLexer;
 import org.xerial.rel.impl.ObjectSchemaParser;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
 
@@ -49,10 +48,15 @@ public class ObjectAttribute extends SchemaElement
 
     private String value = null;
     private String dataType = DEFAULT_TYPE;
-    private Occurrence occurrence = Occurrence.ONE;
 
     public ObjectAttribute()
     {}
+
+    @Override
+    public boolean isFollowedByStreamData()
+    {
+        return getOccurrence().isFollowedByStreamData();
+    }
 
     public String getValue()
     {
@@ -107,7 +111,7 @@ public class ObjectAttribute extends SchemaElement
         {
             ObjectSchemaParser.attributeSchema_return ret = parser.attributeSchema();
             CommonTree parseTree = (CommonTree) ret.getTree();
-            _logger.debug("\n" + ANTLRUtil.parseTree(parseTree, ObjectSchemaParser.tokenNames));
+            //_logger.debug("\n" + ANTLRUtil.parseTree(parseTree, ObjectSchemaParser.tokenNames));
             ObjectAttribute attribute = BeanUtilImpl.createBeanFromParseTree(ObjectAttribute.class, parseTree,
                     ObjectSchemaParser.tokenNames);
             return attribute;

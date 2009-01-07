@@ -71,4 +71,6 @@ public abstract class SchemaElement
 
     public abstract boolean isObject();
 
+    public abstract boolean isFollowedByStreamData();
+
 }

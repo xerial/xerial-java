@@ -33,7 +33,7 @@ package org.xerial.core;
 public enum XerialErrorCode implements ErrorCode {
 
     // related to programming error
-    INVALID_STATE, SYNTAX_ERROR, NOT_INITIALIZED, UNSUPPORTED, INVALID_INPUT,
+    INVALID_STATE, SYNTAX_ERROR, NOT_INITIALIZED, UNSUPPORTED, INVALID_INPUT, NOT_READY,
     // collection
     MISSING_ELEMENT,
 

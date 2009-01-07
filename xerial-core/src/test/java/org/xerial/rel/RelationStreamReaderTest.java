@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.rel;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.junit.After;
@@ -40,7 +42,9 @@ public class RelationStreamReaderTest
 
     @Before
     public void setUp() throws Exception
-    {}
+    {
+        Logger.configure(FileResource.open(RelationStreamReaderTest.class, "log.config"));
+    }
 
     @After
     public void tearDown() throws Exception
@@ -54,9 +58,34 @@ public class RelationStreamReaderTest
         Event e;
         while ((e = reader.next()) != Event.END_OF_FILE)
         {
-            _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
-                    .getCurrentLevel(), reader.currentSchema()));
+            switch (e)
+            {
+            case OBJECT_SCHEMA:
+            case ATTRIBUTE:
+                _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
+                        .getCurrentLevel(), reader.getCurrentSchema()));
+                break;
+
+            case COMMENT:
+            case HEADER:
+            case DATA_FRAGMENT:
+            case DATA_LINE:
+                _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
+                        .getCurrentLevel(), reader.getLine()));
+                break;
+            case DATA_BLOCK_BEGIN:
+            case DATA_BLOCK_END:
+            case END_SCOPE:
+            case EMPTY_LINE:
+                _logger.debug(String.format("line=%3d, %15s(%d)", reader.getLineCount(), e.name(), reader
+                        .getCurrentLevel()));
+                break;
+            }
         }
+
+        assertEquals(Event.END_OF_FILE, reader.next());
+        assertEquals(Event.END_OF_FILE, reader.next());
+        assertEquals(Event.END_OF_FILE, reader.next());
 
     }
 }

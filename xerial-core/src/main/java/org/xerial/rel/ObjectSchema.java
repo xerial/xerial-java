@@ -38,6 +38,7 @@ import org.xerial.core.XerialException;
 import org.xerial.rel.impl.ObjectSchemaLexer;
 import org.xerial.rel.impl.ObjectSchemaParser;
 import org.xerial.util.StringUtil;
+import org.xerial.util.TernaryBoolean;
 import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
@@ -55,6 +56,7 @@ public class ObjectSchema extends SchemaElement
 
     private int level = 0;
     private ArrayList<SchemaElement> schemaElements = new ArrayList<SchemaElement>();
+    private TernaryBoolean isFollowedByStreamData = TernaryBoolean.UNKNOWN;
 
     public ObjectSchema()
     {}
@@ -72,6 +74,25 @@ public class ObjectSchema extends SchemaElement
     public boolean isAttribute()
     {
         return getName() == NULL_STR;
+    }
+
+    @Override
+    public boolean isFollowedByStreamData()
+    {
+        if (isFollowedByStreamData == TernaryBoolean.UNKNOWN)
+        {
+            isFollowedByStreamData = TernaryBoolean.FALSE;
+            for (SchemaElement each : schemaElements)
+            {
+                if (each.getOccurrence().isFollowedByStreamData())
+                {
+                    isFollowedByStreamData = TernaryBoolean.TRUE;
+                    break;
+                }
+            }
+        }
+
+        return isFollowedByStreamData.getBoolean();
     }
 
     public void addLevel(String level)

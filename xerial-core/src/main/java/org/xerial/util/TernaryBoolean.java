@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 utgenome.org
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,27 +14,33 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// utgb-core Project
+// XerialJ
 //
-// Occurrence.java
-// Since: Jan 5, 2009
+// TernaryBoolean.java
+// Since: Jan 7, 2009 2:19:26 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.rel;
+package org.xerial.util;
+
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 
 /**
- * specifies multiple occurrences of data objects
+ * Ternary boolean value (UNKNOWN, TRUE, FALSE)
  * 
  * @author leo
  * 
  */
-public enum Occurrence {
-    ONE, ZERO_OR_MORE, ONE_OR_MORE, ZERO_OR_ONE, SEQUENCE, TABBED_SEQUENCE;
+public enum TernaryBoolean {
+    UNKNOWN, TRUE, FALSE;
 
-    public boolean isFollowedByStreamData()
+    public boolean getBoolean()
     {
-        return this == SEQUENCE || this == TABBED_SEQUENCE;
+        if (this == UNKNOWN)
+            throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
+        else
+            return this == TRUE ? true : false;
     }
 }
