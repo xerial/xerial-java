@@ -27,13 +27,13 @@ package org.xerial.rel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TreeNode;
 import org.xerial.util.bean.TreeVisitor;
@@ -61,8 +61,8 @@ public class RelationPullParser
     }
 
     private final BufferedReader input;
-    private LinkedList<EventHolder> eventQueue = new LinkedList<EventHolder>();
-    private ArrayList<SchemaElement> schemaStack = new ArrayList<SchemaElement>();
+    private Deque<EventHolder> eventQueue = new ArrayDeque<EventHolder>();
+    private Deque<SchemaElement> schemaStack = new ArrayDeque<SchemaElement>();
     private int lineCount = 0;
     private String currentLine;
     private ParseState state = ParseState.Default;
@@ -74,6 +74,7 @@ public class RelationPullParser
         int lineNumber;
         int level;
         String line;
+        SchemaElement schema;
 
         public EventHolder(Event event)
         {
@@ -81,6 +82,7 @@ public class RelationPullParser
             this.lineNumber = lineCount;
             this.level = schemaStack.size();
             this.line = RelationPullParser.this.currentLine;
+            this.schema = schemaStack.isEmpty() ? null : schemaStack.getLast();
         }
     }
 
@@ -213,7 +215,7 @@ public class RelationPullParser
         if (currentSchema != null && getCurrentSchema().isAttribute())
         {
             pushEvent(Event.END_ATTRIBUTE);
-            schemaStack.remove(schemaStack.size() - 1);
+            schemaStack.removeLast();
         }
     }
 
@@ -228,16 +230,13 @@ public class RelationPullParser
         while (schemaStack.size() > 0 && schemaStack.size() >= newLevel)
         {
             pushEvent(Event.END_OBJECT);
-            schemaStack.remove(schemaStack.size() - 1);
+            schemaStack.removeLast();
         }
     }
 
     public SchemaElement getCurrentSchema()
     {
-        if (schemaStack.isEmpty())
-            return null;
-        else
-            return schemaStack.get(schemaStack.size() - 1);
+        return getCurrentEventHolder().schema;
     }
 
     private EventHolder getCurrentEventHolder()

@@ -38,7 +38,7 @@ import org.xerial.util.StringUtil;
 
 public class Logger
 {
-    private static String[]                logPrefix           = { "", // ALL
+    private static String[] logPrefix = { "", // ALL
             "\033[0;32m", // TRACE
             "", // DEBUG
             "\033[1;36m", // INFO
@@ -46,17 +46,17 @@ public class Logger
             "\033[1;35m", // ERROR
             "\033[1;31m", // FATAL
             "", // OFF
-            "",                                               };
+            "", };
 
-    private Writer                         _out                = null;
-    private LogLevel                       _threshold          = LogLevel.UNSPECIFIED;
-    private String                         _loggerFullName     = "";
-    private String                         _loggerShortName    = "";
-    private Logger                         _parentLogger       = null;
-    private boolean                        _emitEscapeSequence = false;
+    private Writer _out = null;
+    private LogLevel _threshold = LogLevel.UNSPECIFIED;
+    private String _loggerFullName = "";
+    private String _loggerShortName = "";
+    private Logger _parentLogger = null;
+    private boolean _emitEscapeSequence = false;
 
-    private static TreeMap<String, Logger> _loggerHolder       = new TreeMap<String, Logger>();
-    private static Logger                  _rootLogger         = new Logger();
+    private static TreeMap<String, Logger> _loggerHolder = new TreeMap<String, Logger>();
+    private static Logger _rootLogger = new Logger();
 
     static
     {
@@ -289,9 +289,39 @@ public class Logger
     /**
      * @return true when escape sequence is used to output the log
      */
-    public boolean isEnabledColor()
+    public boolean isColorEnabled()
     {
         return _emitEscapeSequence;
+    }
+
+    public boolean isDebugEnabled()
+    {
+        return isEnabled(LogLevel.DEBUG);
+    }
+
+    public boolean isTraceEnabled()
+    {
+        return isEnabled(LogLevel.TRACE);
+    }
+
+    public boolean isInfoEnabled()
+    {
+        return isEnabled(LogLevel.INFO);
+    }
+
+    public boolean isWarnEnabled()
+    {
+        return isEnabled(LogLevel.WARN);
+    }
+
+    public boolean isErrorEnabled()
+    {
+        return isEnabled(LogLevel.ERROR);
+    }
+
+    public boolean isFatalEnalbed()
+    {
+        return isEnabled(LogLevel.FATAL);
     }
 
     public boolean isEnabled(LogLevel logLevel)

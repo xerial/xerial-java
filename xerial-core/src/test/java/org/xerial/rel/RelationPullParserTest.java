@@ -61,6 +61,7 @@ public class RelationPullParserTest
             {
             case BEGIN_OBJECT:
             case BEGIN_ATTRIBUTE:
+            case END_OBJECT:
                 _logger.debug(String.format("line=%3d, %15s(%d): %s", reader.getLineCount(), e.name(), reader
                         .getCurrentLevel(), reader.getCurrentSchema()));
                 break;
@@ -74,7 +75,7 @@ public class RelationPullParserTest
                 break;
             case DATA_BLOCK_BEGIN:
             case DATA_BLOCK_END:
-            case END_OBJECT:
+
             case END_ATTRIBUTE:
             case EMPTY_LINE:
                 _logger.debug(String.format("line=%3d, %15s(%d)", reader.getLineCount(), e.name(), reader

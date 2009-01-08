@@ -24,13 +24,13 @@
 //--------------------------------------
 package org.xerial.util.log;
 
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.xerial.util.FileResource;
 
 public class LoggerTest
@@ -48,12 +48,12 @@ public class LoggerTest
     public void configure() throws IOException
     {
         Logger.configure(FileResource.open(LoggerTest.class, "logconfig1.txt"));
-        
+
         Logger logger = Logger.getLogger("org.xerial.util.log");
         assertEquals(LogLevel.TRACE, logger.getLogLevel());
-        
+
         Logger logger2 = Logger.getLogger(LoggerTest.class);
         assertEquals(LogLevel.DEBUG, logger2.getLogLevel());
-        assertEquals(true, logger2.isEnabledColor());
+        assertEquals(true, logger2.isColorEnabled());
     }
 }

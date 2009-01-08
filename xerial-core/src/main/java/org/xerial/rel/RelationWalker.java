@@ -25,10 +25,11 @@
 package org.xerial.rel;
 
 import java.io.Reader;
-import java.util.LinkedList;
 
 import org.xerial.core.XerialException;
 import org.xerial.rel.RelationPullParser.Event;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.bean.TreeNode;
 import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.bean.TreeWalker;
@@ -51,18 +52,66 @@ public class RelationWalker implements TreeWalker
         this.parser = new RelationPullParser(input);
     }
 
-    private LinkedList<Integer> objectLineCount = new LinkedList<Integer>();
+    private enum Scope {
+        InObject, InAttribute
+    }
+
+    private Deque<Context> contextStack = new ArrayDeque<Context>();
     private boolean skipDescendants = false;
     private int skipLevel = Integer.MAX_VALUE;
 
+    private class Context
+    {
+        SchemaElement schema;
+        boolean isOpen = false;
+        Scope scope;
+
+        public Context(Scope scope)
+        {
+            schema = parser.getCurrentSchema();
+            this.scope = scope;
+        }
+
+        public boolean isOpen()
+        {
+            return isOpen;
+        }
+
+        @Override
+        public String toString()
+        {
+            return String.format("%s (%s)", schema, isOpen);
+        }
+
+    }
+
+    private void pushContext(Scope scope)
+    {
+        contextStack.addLast(new Context(scope));
+    }
+
+    private Context peekLastContext()
+    {
+        return contextStack.peekLast();
+    }
+
+    private void popContext()
+    {
+        if (!contextStack.isEmpty())
+            contextStack.removeLast();
+    }
+
     public void walk(TreeVisitor visitor) throws XerialException
     {
+
         visitor.init(this);
 
         Event event;
         while ((event = parser.next()) != Event.END_OF_FILE)
         {
-            _logger.debug(event);
+            if (_logger.isDebugEnabled())
+                _logger.debug(event);
+
             switch (event)
             {
             case BEGIN_OBJECT:
@@ -70,9 +119,8 @@ public class RelationWalker implements TreeWalker
                 if (skipDescendants)
                     break;
 
-                objectLineCount.add(0);
-                SchemaElement schema = parser.getCurrentSchema();
-                walkObject(schema, visitor);
+                preprocess(visitor);
+                pushContext(Scope.InObject);
                 break;
             }
             case BEGIN_ATTRIBUTE:
@@ -80,8 +128,8 @@ public class RelationWalker implements TreeWalker
                 if (skipDescendants)
                     break;
 
-                SchemaElement schema = parser.getCurrentSchema();
-                walkAttribute(schema, visitor);
+                preprocess(visitor);
+                pushContext(Scope.InAttribute);
                 break;
             }
             case END_OBJECT:
@@ -94,8 +142,13 @@ public class RelationWalker implements TreeWalker
                         break;
                 }
 
-                if (!objectLineCount.isEmpty())
-                    objectLineCount.removeLast();
+                preprocess(visitor);
+                Context currentContext = peekLastContext();
+                if (currentContext.isOpen)
+                {
+                    visitor.leaveNode(currentContext.schema.getName(), null, this);
+                }
+                popContext();
                 break;
             }
             case END_ATTRIBUTE:
@@ -107,7 +160,10 @@ public class RelationWalker implements TreeWalker
                     else
                         break;
                 }
-                return;
+
+                preprocess(visitor);
+                popContext();
+                break;
             }
             case DATA_BLOCK_BEGIN:
                 break;
@@ -118,7 +174,7 @@ public class RelationWalker implements TreeWalker
                 if (skipDescendants)
                     break;
 
-                walkObjectLine(visitor);
+                reportObjectLine(visitor);
                 break;
             }
             case DATA_FRAGMENT:
@@ -140,52 +196,107 @@ public class RelationWalker implements TreeWalker
         visitor.finish(this);
     }
 
-    void walkObject(SchemaElement schema, TreeVisitor visitor) throws XerialException
+    protected void preprocess(TreeVisitor visitor) throws XerialException
     {
-        ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
-        beginObject(objectSchema, visitor);
-
-        walk(visitor);
-
-        visitor.leaveNode(schema.getName(), null, this);
-    }
-
-    void beginObject(ObjectSchema objectSchema, TreeVisitor visitor) throws XerialException
-    {
-        visitor.visitNode(objectSchema.getName(), this);
-
-        int attributeIndex = 0;
-        while (attributeIndex < objectSchema.size())
+        if (!contextStack.isEmpty())
         {
-            SchemaElement attributeSchema = objectSchema.get(attributeIndex++);
-            if (attributeSchema.hasValue())
+            Context prevContext = peekLastContext();
+            if (!peekLastContext().isOpen)
             {
-                visitor.visitNode(attributeSchema.getName(), this);
-                visitor.leaveNode(attributeSchema.getName(), attributeSchema.getValue(), this);
+                openContext(prevContext, visitor);
             }
         }
     }
 
-    void walkAttribute(SchemaElement schema, TreeVisitor visitor) throws XerialException
+    protected void openContext(Context context, TreeVisitor visitor) throws XerialException
     {
-        // attribute
+        SchemaElement schema = context.schema;
         visitor.visitNode(schema.getName(), this);
-        walk(visitor);
-        visitor.leaveNode(schema.getName(), schema.getValue(), this);
+        context.isOpen = true;
+
+        if (schema.isObject())
+        {
+            ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
+            int attributeIndex = 0;
+            while (attributeIndex < objectSchema.size())
+            {
+                SchemaElement attributeSchema = objectSchema.get(attributeIndex++);
+                if (attributeSchema.hasValue())
+                {
+                    visitor.visitNode(attributeSchema.getName(), this);
+                    visitor.leaveNode(attributeSchema.getName(), attributeSchema.getValue(), this);
+                }
+            }
+        }
+        else
+        {
+            ObjectAttribute attribute = ObjectAttribute.class.cast(schema);
+            visitor.leaveNode(attribute.getName(), attribute.getValue(), this);
+        }
+
     }
 
-    void walkObjectLine(TreeVisitor visitor) throws XerialException
+    void reportObjectLine(TreeVisitor visitor) throws XerialException
     {
         String line = parser.getLine();
-        SchemaElement schema = parser.getCurrentSchema();
+        Context currentContext = peekLastContext();
+        ObjectSchema objectSchema = ObjectSchema.class.cast(currentContext.schema);
 
-        ObjectSchema objectSchema = ObjectSchema.class.cast(schema);
-        int numGeneratedObject = objectLineCount.removeLast();
+        // case: begin_object - (openContext) - attribute - (*) - object_line      [ report_attributes  ]
+        // case: begin_object - (openContext) (*) - object_line - object_line    [ report_attributes  ]
+        // case: begin_object - (openContext) - object_line - (*) - object_line    [ leave, openContext, report_attributes ] 
+        // case: begin_object - (openContext) - object_line - attribute - (*) - object_line    [ leave, openContext, report_attributes ]  
 
-        if (numGeneratedObject > 0)
+        /*
+         * case 1:
+         * 
+         * begin_object
+         * -(openContext)
+         * -  attribute        
+         * -  object_line  
+         * -(closeContext)
+         * 
+         * -(openContext)
+         * - object_line  
+         * -(closeContext)
+         * end_object
+         */
+
+        /*
+         * case 2:
+         * 
+         * begin_object
+         * -(openContext)
+         * -  object_line
+         * -  attribute  
+         * -(closeContext)
+         * 
+         * -(openContext)
+         * - object_line  
+         * -(closeContext)
+         * end_object
+         */
+
+        /* 
+         * case 3
+         * 
+         * begin_object
+         * (openContext)    -- preprocess()
+         * (closeContext)
+         * end_object
+         * 
+         * 
+         */
+
+        if (currentContext.isOpen)
         {
+            // close the context
             visitor.leaveNode(objectSchema.getName(), null, this);
-            beginObject(objectSchema, visitor);
+            openContext(currentContext, visitor);
+        }
+        else
+        {
+            openContext(currentContext, visitor);
         }
 
         // TODO coping with csv, gzipped data etc.
@@ -216,8 +327,7 @@ public class RelationWalker implements TreeWalker
         }
 
         //visitor.leaveNode(objectSchema.getName(), null, this);
-
-        objectLineCount.add(numGeneratedObject + 1);
+        currentContext.isOpen = true;
 
     }
 
@@ -225,6 +335,7 @@ public class RelationWalker implements TreeWalker
     {
         skipDescendants();
 
+        // TODO retrieve the subtree
         return null;
     }
 
