@@ -52,7 +52,7 @@ public class RelationWalkerTest
     @Test
     public void walk() throws IOException, XerialException
     {
-        RelationWalker walker = new RelationWalker(FileResource.open(RelationWalkerTest.class, "sample.rel"));
+        RelationWalker walker = new RelationWalker(FileResource.open(RelationWalkerTest.class, "tab.rel"));
         walker.walk(new TreeVisitor() {
 
             public void finish(TreeWalker walker) throws XerialException

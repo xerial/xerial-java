@@ -27,6 +27,7 @@ package org.xerial.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Random;
 import java.util.TreeMap;
 
 import org.junit.After;
@@ -100,6 +101,29 @@ public class RedBlackTreeTest
         assertTrue(!t.containsKey(-10));
 
         assertEquals(4, t.size());
+    }
+
+    @Test
+    public void performenceTest()
+    {
+        RedBlackTree<Integer, String> rt = new RedBlackTree<Integer, String>();
+
+        final int N = 1000000;
+
+        Random r = new Random(0);
+        StopWatch timer = new StopWatch();
+        for (int i = 0; i < N; ++i)
+            rt.put(r.nextInt(), null);
+        System.out.println("LLRB: " + timer.getElapsedTime());
+        rt.clear();
+
+        TreeMap<Integer, String> tm = new TreeMap<Integer, String>();
+        r = new Random(0);
+        timer.reset();
+        for (int i = 0; i < N; ++i)
+            tm.put(r.nextInt(), null);
+        System.out.println("RB:   " + timer.getElapsedTime());
+
     }
 
 }

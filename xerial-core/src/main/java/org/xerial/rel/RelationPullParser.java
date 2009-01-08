@@ -178,6 +178,7 @@ public class RelationPullParser
                         if (StringUtil.isWhiteSpace(currentLine))
                             return Event.EMPTY_LINE;
 
+                        popAttribute();
                         pushEvent(nextEvent);
                         return next();
                     }

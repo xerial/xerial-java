@@ -53,8 +53,7 @@ public class RelationPullParserTest
     @Test
     public void read() throws IOException, XerialException
     {
-        RelationPullParser reader = new RelationPullParser(FileResource
-                .open(RelationPullParserTest.class, "sample.rel"));
+        RelationPullParser reader = new RelationPullParser(FileResource.open(RelationPullParserTest.class, "tab.rel"));
         Event e;
         while ((e = reader.next()) != Event.END_OF_FILE)
         {
