@@ -2,6 +2,10 @@
 > coordinate(group:utgb, type:chromosome, species:human, revision:hg18, name:chr1)
 > gene(name, strand, start, end)
 NM_001005277	+	357521	358460
+- description: hello
 NM_001005224	-	610958	611897
-- description: A RefSeq gene
+- description>
+This is a RefSeq entry 
+of NM_10052224 gene.
+---
 NM_001005221	-	610958	611897

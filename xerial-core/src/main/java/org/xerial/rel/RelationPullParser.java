@@ -129,7 +129,7 @@ public class RelationPullParser
                 if (currentLine.startsWith("---"))
                 {
                     adjustLevel(schemaStack.size());
-                    pushEvent(Event.END_OBJECT);
+                    //pushEvent(Event.END_OBJECT);
                     return next();
                 }
 
@@ -176,11 +176,19 @@ public class RelationPullParser
                         return next();
                     default:
                     {
-                        Event nextEvent = (state == ParseState.InDataBlock) ? Event.DATA_FRAGMENT : Event.OBJECT_LINE;
-                        if (StringUtil.isWhiteSpace(currentLine))
-                            return Event.EMPTY_LINE;
+                        Event nextEvent = Event.OBJECT_LINE;
+                        if (state == ParseState.InDataBlock)
+                        {
+                            nextEvent = Event.DATA_FRAGMENT;
+                        }
+                        else
+                        {
+                            if (StringUtil.isWhiteSpace(currentLine))
+                                nextEvent = Event.EMPTY_LINE;
+                            else
+                                popAttribute();
+                        }
 
-                        popAttribute();
                         pushEvent(nextEvent);
                         return next();
                     }
@@ -202,7 +210,7 @@ public class RelationPullParser
         }
     }
 
-    public void popAttribute()
+    private void popAttribute()
     {
         if (state == ParseState.InDataBlock)
         {
