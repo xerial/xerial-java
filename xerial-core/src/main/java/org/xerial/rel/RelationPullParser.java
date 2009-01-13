@@ -37,6 +37,7 @@ import org.xerial.util.Deque;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TreeNode;
 import org.xerial.util.bean.TreeVisitor;
+import org.xerial.util.log.Logger;
 
 /**
  * Pull-style REL format text reader
@@ -46,6 +47,7 @@ import org.xerial.util.bean.TreeVisitor;
  */
 public class RelationPullParser
 {
+    private static Logger _logger = Logger.getLogger(RelationPullParser.class);
 
     private final static char SCHEMA_SYMBOL = '>';
     private final static char ATTRIBUTE_SYMBOL = '-';
@@ -104,6 +106,9 @@ public class RelationPullParser
 
     public Event next() throws XerialException
     {
+        //        if (_logger.isDebugEnabled())
+        //            _logger.debug("stack: " + schemaStack);
+
         if (!eventQueue.isEmpty())
         {
             currentEvent = eventQueue.getFirst();
@@ -219,11 +224,15 @@ public class RelationPullParser
         }
 
         // pop attribute element
-        SchemaElement currentSchema = getCurrentSchema();
-        if (currentSchema != null && getCurrentSchema().isAttribute())
+
+        if (!schemaStack.isEmpty())
         {
-            pushEvent(Event.END_ATTRIBUTE);
-            schemaStack.removeLast();
+            SchemaElement currentSchema = schemaStack.getLast();
+            if (currentSchema.isAttribute())
+            {
+                pushEvent(Event.END_ATTRIBUTE);
+                schemaStack.removeLast();
+            }
         }
     }
 
@@ -235,10 +244,15 @@ public class RelationPullParser
         popAttribute();
 
         // adjust to the target level
+
         while (schemaStack.size() > 0 && schemaStack.size() >= newLevel)
         {
-            pushEvent(Event.END_OBJECT);
-            schemaStack.removeLast();
+            SchemaElement currentSchema = schemaStack.getLast();
+            if (currentSchema.isObject())
+            {
+                pushEvent(Event.END_OBJECT);
+                schemaStack.removeLast();
+            }
         }
     }
 

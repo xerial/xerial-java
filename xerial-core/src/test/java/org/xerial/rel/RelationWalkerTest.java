@@ -47,7 +47,9 @@ public class RelationWalkerTest
 
     @After
     public void tearDown() throws Exception
-    {}
+    {
+
+    }
 
     @Test
     public void walk() throws IOException, XerialException
