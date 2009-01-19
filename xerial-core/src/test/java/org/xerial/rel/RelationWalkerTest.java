@@ -79,6 +79,12 @@ public class RelationWalkerTest
             {
                 _logger.debug(String.format("visit: %-10s", nodeName));
             }
+
+            public void text(String nodeValue) throws XerialException
+            {
+            // TODO Auto-generated method stub
+
+            }
         });
 
     }

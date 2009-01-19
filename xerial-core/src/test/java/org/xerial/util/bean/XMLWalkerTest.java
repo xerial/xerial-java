@@ -90,6 +90,12 @@ public class XMLWalkerTest
                 }
 
             }
+
+            public void text(String nodeValue) throws XerialException
+            {
+            // TODO Auto-generated method stub
+
+            }
         });
     }
 }

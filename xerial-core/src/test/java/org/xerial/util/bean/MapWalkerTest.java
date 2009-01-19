@@ -103,6 +103,12 @@ public class MapWalkerTest
                 }
 
             }
+
+            public void text(String nodeValue) throws XerialException
+            {
+            // TODO Auto-generated method stub
+
+            }
         });
 
         assertTrue(prop.containsKey("C"));

@@ -73,6 +73,12 @@ public class JSONStreamWalkerTest
 
         }
 
+        public void text(String nodeValue) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
     }
 
     private StopWatch stopWatch = new StopWatch();

@@ -29,6 +29,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.BeanBinder;
@@ -140,7 +142,7 @@ public class BeanBindingProcess implements TreeVisitor
      */
 
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
-    private final TreeMap<Integer, Map<?,?>> mapAssociatedWithBean = new TreeMap<Integer, Map<?,?>>();
+    private final TreeMap<Integer, Map< ? , ? >> mapAssociatedWithBean = new TreeMap<Integer, Map< ? , ? >>();
 
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
@@ -153,7 +155,7 @@ public class BeanBindingProcess implements TreeVisitor
         }
     }
 
-    public BeanBindingProcess(Class<?> beanClass) throws BeanException
+    public BeanBindingProcess(Class< ? > beanClass) throws BeanException
     {
         this(BeanUtil.createInstance(beanClass));
     }
@@ -231,7 +233,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                 case SETTER:
                 case COLLECTION_ADDER:
-                    Class<?> elementType = updator.getInputType();
+                    Class< ? > elementType = updator.getInputType();
                     if (parentBean instanceof KeyValuePair)
                     {
                         // for map elment
@@ -256,7 +258,7 @@ public class BeanBindingProcess implements TreeVisitor
                     else if (TypeInformation.isMap(elementType))
                     {
                         // when input of setter/ or K, V of putSomthing(K, V) is map
-                        Pair<Class<?>, Class<?>> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
+                        Pair<Class< ? >, Class< ? >> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
                                 updateMethod, targetArgIndex);
 
                         BeanBinderSet mapBindRuleSet = getBindRuleSet(elementType);
@@ -463,6 +465,11 @@ public class BeanBindingProcess implements TreeVisitor
     public static Object convertType(Class targetType, Object value) throws BeanException
     {
         return TypeConverter.convertType(targetType, value);
+    }
+
+    public void text(String nodeValue) throws XerialException
+    {
+        throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
 }
