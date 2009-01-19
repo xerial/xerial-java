@@ -34,6 +34,9 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 public class XMLWalkerTest
 {

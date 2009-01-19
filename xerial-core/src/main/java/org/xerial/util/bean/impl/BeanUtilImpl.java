@@ -34,8 +34,8 @@ import org.xerial.core.XerialException;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.MapWalker;
-import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.XMLWalker;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * Implementations of BeanUtil

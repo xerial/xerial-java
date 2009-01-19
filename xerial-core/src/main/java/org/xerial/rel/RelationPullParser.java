@@ -35,9 +35,9 @@ import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.TreeNode;
-import org.xerial.util.bean.TreeVisitor;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
 
 /**
  * Pull-style REL format text reader

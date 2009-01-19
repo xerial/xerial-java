@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xerial.util.bean.TreeNode;
+import org.xerial.util.tree.TreeNode;
 import org.xerial.util.xml.dom.DOMUtil;
 
 /**

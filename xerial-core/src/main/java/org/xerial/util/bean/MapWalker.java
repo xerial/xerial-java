@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * {@link TreeWalker} for map structured data

@@ -29,6 +29,9 @@ import java.util.List;
 
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * A walker implementation for ANTLR parse trees

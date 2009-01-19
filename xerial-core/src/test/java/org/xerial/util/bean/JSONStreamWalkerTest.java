@@ -39,6 +39,8 @@ import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.sample.Gene;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 public class JSONStreamWalkerTest
 {

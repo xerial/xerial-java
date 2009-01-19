@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.util.bean.sample;
 
-import org.xerial.util.bean.TreeNode;
+import org.xerial.util.tree.TreeNode;
 
 public class Content
 {

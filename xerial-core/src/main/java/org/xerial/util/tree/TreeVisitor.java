@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.tree;
 
 import org.xerial.core.XerialException;
 
@@ -42,7 +42,7 @@ public interface TreeVisitor
     public void init(TreeWalker walker) throws XerialException;
 
     /**
-     * When found a node
+     * Invoked when a new node is found (in the depth-first manner)
      * 
      * @param nodeName
      *            the found node name
@@ -50,7 +50,15 @@ public interface TreeVisitor
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException;
 
     /**
-     * When leaving a node
+     * When text data is found under the current node
+     * 
+     * @param nodeValue
+     * @throws XerialException
+     */
+    public void text(String nodeValue) throws XerialException;
+
+    /**
+     * Invoked when leaving a node (in the depth-first manner)
      * 
      * @param nodeName
      *            the node name to leave

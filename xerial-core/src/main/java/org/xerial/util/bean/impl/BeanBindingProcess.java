@@ -37,11 +37,11 @@ import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TreeVisitor;
-import org.xerial.util.bean.TreeWalker;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * 

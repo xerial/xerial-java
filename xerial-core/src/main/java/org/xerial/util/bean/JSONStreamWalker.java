@@ -36,6 +36,9 @@ import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONPullParser;
 import org.xerial.json.JSONValue;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * A walker that traverses JSON streams

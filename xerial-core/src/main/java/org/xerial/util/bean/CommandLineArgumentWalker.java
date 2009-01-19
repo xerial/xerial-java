@@ -25,6 +25,9 @@
 package org.xerial.util.bean;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * 
