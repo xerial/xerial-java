@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.AbstractCollection;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -910,14 +910,26 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
         try
         {
             ArrayDeque<E> result = (ArrayDeque<E>) super.clone();
-            result.elements = Arrays.copyOf(elements, elements.length);
+            result.elements = copyOf(elements, elements.length);
             return result;
-
         }
         catch (CloneNotSupportedException e)
         {
             throw new AssertionError();
         }
+    }
+
+    private static <T> T[] copyOf(T[] original, int newLength)
+    {
+        return (T[]) copyOf(original, newLength, original.getClass());
+    }
+
+    private static <T, U> T[] copyOf(U[] original, int newLength, Class< ? extends T[]> newType)
+    {
+        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array
+                .newInstance(newType.getComponentType(), newLength);
+        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
+        return copy;
     }
 
     /**
