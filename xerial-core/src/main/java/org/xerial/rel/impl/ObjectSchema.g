@@ -119,7 +119,7 @@ Plus: '+';
 fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
 fragment Digit: '0' .. '9';
 Digits: (Digit)+;
-
+ 
 fragment NameChar: Letter | Digit | '_' | '-' | Dot;
 
 WhiteSpaceChar: ( ' ' | '\t' | '\n' | '\r' | '\u000C')+ { $channel=HIDDEN; };
@@ -142,9 +142,12 @@ DataType
 
 schema: objectSchema | attributeSchema;
 
-objectSchema: Level+ QName (LParen attributeList RParen)?
+objectSchema
+	: Level+ QName (LParen attributeList RParen)?
 	-> ^(ObjectSchema Level+ Name[$QName.text] attributeList?)
 	;
+
+
 
 attributeSchema: AttributeIndicator attributeList -> attributeList     
 	;

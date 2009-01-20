@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g 2009-01-07 19:36:02
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g 2009-01-20 19:18:05
 
 /*--------------------------------------------------------------------------
  *  Copyright 2008 Taro L. Saito
@@ -91,7 +91,7 @@ public class ObjectSchemaParser extends Parser {
     }
 
     public String[] getTokenNames() { return ObjectSchemaParser.tokenNames; }
-    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g"; }
+    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g"; }
 
 
     public static class schema_return extends ParserRuleReturnScope {
@@ -100,7 +100,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "schema"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:1: schema : ( objectSchema | attributeSchema );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:1: schema : ( objectSchema | attributeSchema );
     public final ObjectSchemaParser.schema_return schema() throws RecognitionException {
         ObjectSchemaParser.schema_return retval = new ObjectSchemaParser.schema_return();
         retval.start = input.LT(1);
@@ -114,7 +114,7 @@ public class ObjectSchemaParser extends Parser {
 
 
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:7: ( objectSchema | attributeSchema )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:7: ( objectSchema | attributeSchema )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -132,11 +132,11 @@ public class ObjectSchemaParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:9: objectSchema
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:9: objectSchema
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_objectSchema_in_schema371);
+                    pushFollow(FOLLOW_objectSchema_in_schema372);
                     objectSchema1=objectSchema();
 
                     state._fsp--;
@@ -146,11 +146,11 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:24: attributeSchema
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:143:24: attributeSchema
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attributeSchema_in_schema375);
+                    pushFollow(FOLLOW_attributeSchema_in_schema376);
                     attributeSchema2=attributeSchema();
 
                     state._fsp--;
@@ -185,7 +185,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "objectSchema"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:1: objectSchema : ( Level )+ QName ( LParen attributeList RParen )? -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? ) ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:1: objectSchema : ( Level )+ QName ( LParen attributeList RParen )? -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? ) ;
     public final ObjectSchemaParser.objectSchema_return objectSchema() throws RecognitionException {
         ObjectSchemaParser.objectSchema_return retval = new ObjectSchemaParser.objectSchema_return();
         retval.start = input.LT(1);
@@ -209,10 +209,10 @@ public class ObjectSchemaParser extends Parser {
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:13: ( ( Level )+ QName ( LParen attributeList RParen )? -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:15: ( Level )+ QName ( LParen attributeList RParen )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:2: ( ( Level )+ QName ( LParen attributeList RParen )? -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:4: ( Level )+ QName ( LParen attributeList RParen )?
             {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:15: ( Level )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:4: ( Level )+
             int cnt2=0;
             loop2:
             do {
@@ -226,9 +226,9 @@ public class ObjectSchemaParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:15: Level
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:4: Level
             	    {
-            	    Level3=(Token)match(input,Level,FOLLOW_Level_in_objectSchema382);  
+            	    Level3=(Token)match(input,Level,FOLLOW_Level_in_objectSchema385);  
             	    stream_Level.add(Level3);
 
 
@@ -244,10 +244,10 @@ public class ObjectSchemaParser extends Parser {
                 cnt2++;
             } while (true);
 
-            QName4=(Token)match(input,QName,FOLLOW_QName_in_objectSchema385);  
+            QName4=(Token)match(input,QName,FOLLOW_QName_in_objectSchema388);  
             stream_QName.add(QName4);
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:28: ( LParen attributeList RParen )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:17: ( LParen attributeList RParen )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -256,18 +256,18 @@ public class ObjectSchemaParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:145:29: LParen attributeList RParen
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:18: LParen attributeList RParen
                     {
-                    LParen5=(Token)match(input,LParen,FOLLOW_LParen_in_objectSchema388);  
+                    LParen5=(Token)match(input,LParen,FOLLOW_LParen_in_objectSchema391);  
                     stream_LParen.add(LParen5);
 
-                    pushFollow(FOLLOW_attributeList_in_objectSchema390);
+                    pushFollow(FOLLOW_attributeList_in_objectSchema393);
                     attributeList6=attributeList();
 
                     state._fsp--;
 
                     stream_attributeList.add(attributeList6.getTree());
-                    RParen7=(Token)match(input,RParen,FOLLOW_RParen_in_objectSchema392);  
+                    RParen7=(Token)match(input,RParen,FOLLOW_RParen_in_objectSchema395);  
                     stream_RParen.add(RParen7);
 
 
@@ -279,7 +279,7 @@ public class ObjectSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: attributeList, Level
+            // elements: Level, attributeList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -288,9 +288,9 @@ public class ObjectSchemaParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 146:2: -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? )
+            // 147:2: -> ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? )
             {
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:5: ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? )
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:147:5: ^( ObjectSchema ( Level )+ Name[$QName.text] ( attributeList )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ObjectSchema, "ObjectSchema"), root_1);
@@ -304,7 +304,7 @@ public class ObjectSchemaParser extends Parser {
                 }
                 stream_Level.reset();
                 adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName4!=null?QName4.getText():null)));
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:146:45: ( attributeList )?
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:147:45: ( attributeList )?
                 if ( stream_attributeList.hasNext() ) {
                     adaptor.addChild(root_1, stream_attributeList.nextTree());
 
@@ -343,7 +343,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributeSchema"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:149:1: attributeSchema : AttributeIndicator attributeList -> attributeList ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:1: attributeSchema : AttributeIndicator attributeList -> attributeList ;
     public final ObjectSchemaParser.attributeSchema_return attributeSchema() throws RecognitionException {
         ObjectSchemaParser.attributeSchema_return retval = new ObjectSchemaParser.attributeSchema_return();
         retval.start = input.LT(1);
@@ -358,13 +358,13 @@ public class ObjectSchemaParser extends Parser {
         RewriteRuleTokenStream stream_AttributeIndicator=new RewriteRuleTokenStream(adaptor,"token AttributeIndicator");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:149:16: ( AttributeIndicator attributeList -> attributeList )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:149:18: AttributeIndicator attributeList
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:16: ( AttributeIndicator attributeList -> attributeList )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:18: AttributeIndicator attributeList
             {
-            AttributeIndicator8=(Token)match(input,AttributeIndicator,FOLLOW_AttributeIndicator_in_attributeSchema419);  
+            AttributeIndicator8=(Token)match(input,AttributeIndicator,FOLLOW_AttributeIndicator_in_attributeSchema424);  
             stream_AttributeIndicator.add(AttributeIndicator8);
 
-            pushFollow(FOLLOW_attributeList_in_attributeSchema421);
+            pushFollow(FOLLOW_attributeList_in_attributeSchema426);
             attributeList9=attributeList();
 
             state._fsp--;
@@ -382,7 +382,7 @@ public class ObjectSchemaParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 149:51: -> attributeList
+            // 152:51: -> attributeList
             {
                 adaptor.addChild(root_0, stream_attributeList.nextTree());
 
@@ -415,7 +415,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributeList"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:1: attributeList : attribute ( Comma attribute )* ;
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:1: attributeList : attribute ( Comma attribute )* ;
     public final ObjectSchemaParser.attributeList_return attributeList() throws RecognitionException {
         ObjectSchemaParser.attributeList_return retval = new ObjectSchemaParser.attributeList_return();
         retval.start = input.LT(1);
@@ -431,18 +431,18 @@ public class ObjectSchemaParser extends Parser {
         Object Comma11_tree=null;
 
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:14: ( attribute ( Comma attribute )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:16: attribute ( Comma attribute )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:14: ( attribute ( Comma attribute )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:16: attribute ( Comma attribute )*
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_attribute_in_attributeList439);
+            pushFollow(FOLLOW_attribute_in_attributeList444);
             attribute10=attribute();
 
             state._fsp--;
 
             adaptor.addChild(root_0, attribute10.getTree());
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:26: ( Comma attribute )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:26: ( Comma attribute )*
             loop4:
             do {
                 int alt4=2;
@@ -455,10 +455,10 @@ public class ObjectSchemaParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:152:27: Comma attribute
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:27: Comma attribute
             	    {
-            	    Comma11=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList442); 
-            	    pushFollow(FOLLOW_attribute_in_attributeList445);
+            	    Comma11=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList447); 
+            	    pushFollow(FOLLOW_attribute_in_attributeList450);
             	    attribute12=attribute();
 
             	    state._fsp--;
@@ -500,7 +500,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "attribute"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:155:1: attribute : ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:158:1: attribute : ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) );
     public final ObjectSchemaParser.attribute_return attribute() throws RecognitionException {
         ObjectSchemaParser.attribute_return retval = new ObjectSchemaParser.attribute_return();
         retval.start = input.LT(1);
@@ -531,24 +531,24 @@ public class ObjectSchemaParser extends Parser {
         RewriteRuleSubtreeStream stream_attributeOption=new RewriteRuleSubtreeStream(adaptor,"rule attributeOption");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:2: ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:2: ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) )
             int alt8=2;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:4: QName ( DataType )? ( attributeOption )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:4: QName ( DataType )? ( attributeOption )?
                     {
-                    QName13=(Token)match(input,QName,FOLLOW_QName_in_attribute458);  
+                    QName13=(Token)match(input,QName,FOLLOW_QName_in_attribute463);  
                     stream_QName.add(QName13);
 
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:10: ( DataType )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:10: ( DataType )?
                     int alt5=2;
                     alt5 = dfa5.predict(input);
                     switch (alt5) {
                         case 1 :
-                            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:10: DataType
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:10: DataType
                             {
-                            DataType14=(Token)match(input,DataType,FOLLOW_DataType_in_attribute460);  
+                            DataType14=(Token)match(input,DataType,FOLLOW_DataType_in_attribute465);  
                             stream_DataType.add(DataType14);
 
 
@@ -557,14 +557,14 @@ public class ObjectSchemaParser extends Parser {
 
                     }
 
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:20: ( attributeOption )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:20: ( attributeOption )?
                     int alt6=2;
                     alt6 = dfa6.predict(input);
                     switch (alt6) {
                         case 1 :
-                            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:156:20: attributeOption
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:20: attributeOption
                             {
-                            pushFollow(FOLLOW_attributeOption_in_attribute463);
+                            pushFollow(FOLLOW_attributeOption_in_attribute468);
                             attributeOption15=attributeOption();
 
                             state._fsp--;
@@ -579,7 +579,7 @@ public class ObjectSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: DataType, attributeOption
+                    // elements: attributeOption, DataType
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -588,21 +588,21 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 157:2: -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? )
+                    // 160:2: -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? )
                     {
-                        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:157:5: ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:160:5: ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ObjectAttribute, "ObjectAttribute"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName13!=null?QName13.getText():null)));
-                        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:157:41: ( DataType )?
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:160:41: ( DataType )?
                         if ( stream_DataType.hasNext() ) {
                             adaptor.addChild(root_1, stream_DataType.nextNode());
 
                         }
                         stream_DataType.reset();
-                        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:157:51: ( attributeOption )?
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:160:51: ( attributeOption )?
                         if ( stream_attributeOption.hasNext() ) {
                             adaptor.addChild(root_1, stream_attributeOption.nextTree());
 
@@ -618,31 +618,31 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:158:4: QName LParen attributeList RParen ( attributeOption )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:161:4: QName LParen attributeList RParen ( attributeOption )?
                     {
-                    QName16=(Token)match(input,QName,FOLLOW_QName_in_attribute486);  
+                    QName16=(Token)match(input,QName,FOLLOW_QName_in_attribute491);  
                     stream_QName.add(QName16);
 
-                    LParen17=(Token)match(input,LParen,FOLLOW_LParen_in_attribute488);  
+                    LParen17=(Token)match(input,LParen,FOLLOW_LParen_in_attribute493);  
                     stream_LParen.add(LParen17);
 
-                    pushFollow(FOLLOW_attributeList_in_attribute490);
+                    pushFollow(FOLLOW_attributeList_in_attribute495);
                     attributeList18=attributeList();
 
                     state._fsp--;
 
                     stream_attributeList.add(attributeList18.getTree());
-                    RParen19=(Token)match(input,RParen,FOLLOW_RParen_in_attribute492);  
+                    RParen19=(Token)match(input,RParen,FOLLOW_RParen_in_attribute497);  
                     stream_RParen.add(RParen19);
 
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:158:38: ( attributeOption )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:161:38: ( attributeOption )?
                     int alt7=2;
                     alt7 = dfa7.predict(input);
                     switch (alt7) {
                         case 1 :
-                            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:158:38: attributeOption
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:161:38: attributeOption
                             {
-                            pushFollow(FOLLOW_attributeOption_in_attribute494);
+                            pushFollow(FOLLOW_attributeOption_in_attribute499);
                             attributeOption20=attributeOption();
 
                             state._fsp--;
@@ -657,7 +657,7 @@ public class ObjectSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: attributeOption, attributeList
+                    // elements: attributeList, attributeOption
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -666,16 +666,16 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 159:2: -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? )
+                    // 162:2: -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? )
                     {
-                        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:5: ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:162:5: ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ObjectSchema, "ObjectSchema"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName16!=null?QName16.getText():null)));
                         adaptor.addChild(root_1, stream_attributeList.nextTree());
-                        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:159:52: ( attributeOption )?
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:162:52: ( attributeOption )?
                         if ( stream_attributeOption.hasNext() ) {
                             adaptor.addChild(root_1, stream_attributeOption.nextTree());
 
@@ -716,7 +716,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributeOption"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:163:1: attributeOption : ( attributePlural | StringLiteral -> Value[$StringLiteral.text] | Literal -> Value[$Literal.text] );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:166:1: attributeOption : ( attributePlural | StringLiteral -> Value[$StringLiteral.text] | Literal -> Value[$Literal.text] );
     public final ObjectSchemaParser.attributeOption_return attributeOption() throws RecognitionException {
         ObjectSchemaParser.attributeOption_return retval = new ObjectSchemaParser.attributeOption_return();
         retval.start = input.LT(1);
@@ -734,7 +734,7 @@ public class ObjectSchemaParser extends Parser {
         RewriteRuleTokenStream stream_StringLiteral=new RewriteRuleTokenStream(adaptor,"token StringLiteral");
 
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:164:2: ( attributePlural | StringLiteral -> Value[$StringLiteral.text] | Literal -> Value[$Literal.text] )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:167:2: ( attributePlural | StringLiteral -> Value[$StringLiteral.text] | Literal -> Value[$Literal.text] )
             int alt9=3;
             switch ( input.LA(1) ) {
             case Level:
@@ -765,11 +765,11 @@ public class ObjectSchemaParser extends Parser {
 
             switch (alt9) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:164:4: attributePlural
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:167:4: attributePlural
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attributePlural_in_attributeOption524);
+                    pushFollow(FOLLOW_attributePlural_in_attributeOption529);
                     attributePlural21=attributePlural();
 
                     state._fsp--;
@@ -779,9 +779,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:165:4: StringLiteral
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:168:4: StringLiteral
                     {
-                    StringLiteral22=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_attributeOption529);  
+                    StringLiteral22=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_attributeOption534);  
                     stream_StringLiteral.add(StringLiteral22);
 
 
@@ -796,7 +796,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 165:18: -> Value[$StringLiteral.text]
+                    // 168:18: -> Value[$StringLiteral.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Value, (StringLiteral22!=null?StringLiteral22.getText():null)));
 
@@ -806,9 +806,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:166:4: Literal
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:169:4: Literal
                     {
-                    Literal23=(Token)match(input,Literal,FOLLOW_Literal_in_attributeOption539);  
+                    Literal23=(Token)match(input,Literal,FOLLOW_Literal_in_attributeOption544);  
                     stream_Literal.add(Literal23);
 
 
@@ -823,7 +823,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 166:12: -> Value[$Literal.text]
+                    // 169:12: -> Value[$Literal.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Value, (Literal23!=null?Literal23.getText():null)));
 
@@ -858,7 +858,7 @@ public class ObjectSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributePlural"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:169:1: attributePlural : ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] | Level -> Occurrence[\"SEQUENCE\"] | TabbedValueIndicator -> Occurrence[\"TABBED_SEQUENCE\"] );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:172:1: attributePlural : ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] | Level -> Occurrence[\"SEQUENCE\"] | TabbedValueIndicator -> Occurrence[\"TABBED_SEQUENCE\"] );
     public final ObjectSchemaParser.attributePlural_return attributePlural() throws RecognitionException {
         ObjectSchemaParser.attributePlural_return retval = new ObjectSchemaParser.attributePlural_return();
         retval.start = input.LT(1);
@@ -883,7 +883,7 @@ public class ObjectSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Level=new RewriteRuleTokenStream(adaptor,"token Level");
 
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:170:2: ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] | Level -> Occurrence[\"SEQUENCE\"] | TabbedValueIndicator -> Occurrence[\"TABBED_SEQUENCE\"] )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:173:2: ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] | Level -> Occurrence[\"SEQUENCE\"] | TabbedValueIndicator -> Occurrence[\"TABBED_SEQUENCE\"] )
             int alt10=5;
             switch ( input.LA(1) ) {
             case Star:
@@ -920,9 +920,9 @@ public class ObjectSchemaParser extends Parser {
 
             switch (alt10) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:170:4: Star
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:173:4: Star
                     {
-                    Star24=(Token)match(input,Star,FOLLOW_Star_in_attributePlural555);  
+                    Star24=(Token)match(input,Star,FOLLOW_Star_in_attributePlural560);  
                     stream_Star.add(Star24);
 
 
@@ -937,7 +937,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 170:9: -> Occurrence[\"ZERO_OR_MORE\"]
+                    // 173:9: -> Occurrence[\"ZERO_OR_MORE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ZERO_OR_MORE"));
 
@@ -947,9 +947,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:171:4: Plus
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:174:4: Plus
                     {
-                    Plus25=(Token)match(input,Plus,FOLLOW_Plus_in_attributePlural565);  
+                    Plus25=(Token)match(input,Plus,FOLLOW_Plus_in_attributePlural570);  
                     stream_Plus.add(Plus25);
 
 
@@ -964,7 +964,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 171:9: -> Occurrence[\"ONE_OR_MORE\"]
+                    // 174:9: -> Occurrence[\"ONE_OR_MORE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ONE_OR_MORE"));
 
@@ -974,9 +974,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:172:4: Question
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:175:4: Question
                     {
-                    Question26=(Token)match(input,Question,FOLLOW_Question_in_attributePlural575);  
+                    Question26=(Token)match(input,Question,FOLLOW_Question_in_attributePlural580);  
                     stream_Question.add(Question26);
 
 
@@ -991,7 +991,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 172:13: -> Occurrence[\"ZERO_OR_ONE\"]
+                    // 175:13: -> Occurrence[\"ZERO_OR_ONE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ZERO_OR_ONE"));
 
@@ -1001,9 +1001,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:173:4: Level
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:176:4: Level
                     {
-                    Level27=(Token)match(input,Level,FOLLOW_Level_in_attributePlural585);  
+                    Level27=(Token)match(input,Level,FOLLOW_Level_in_attributePlural590);  
                     stream_Level.add(Level27);
 
 
@@ -1018,7 +1018,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 173:10: -> Occurrence[\"SEQUENCE\"]
+                    // 176:10: -> Occurrence[\"SEQUENCE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "SEQUENCE"));
 
@@ -1028,9 +1028,9 @@ public class ObjectSchemaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:174:4: TabbedValueIndicator
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:177:4: TabbedValueIndicator
                     {
-                    TabbedValueIndicator28=(Token)match(input,TabbedValueIndicator,FOLLOW_TabbedValueIndicator_in_attributePlural595);  
+                    TabbedValueIndicator28=(Token)match(input,TabbedValueIndicator,FOLLOW_TabbedValueIndicator_in_attributePlural600);  
                     stream_TabbedValueIndicator.add(TabbedValueIndicator28);
 
 
@@ -1045,7 +1045,7 @@ public class ObjectSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 174:25: -> Occurrence[\"TABBED_SEQUENCE\"]
+                    // 177:25: -> Occurrence[\"TABBED_SEQUENCE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "TABBED_SEQUENCE"));
 
@@ -1140,7 +1140,7 @@ public class ObjectSchemaParser extends Parser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "155:1: attribute : ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) );";
+            return "158:1: attribute : ( QName ( DataType )? ( attributeOption )? -> ^( ObjectAttribute Name[$QName.text] ( DataType )? ( attributeOption )? ) | QName LParen attributeList RParen ( attributeOption )? -> ^( ObjectSchema Name[$QName.text] attributeList ( attributeOption )? ) );";
         }
     }
     static final String DFA5_eotS =
@@ -1200,7 +1200,7 @@ public class ObjectSchemaParser extends Parser {
             this.transition = DFA5_transition;
         }
         public String getDescription() {
-            return "156:10: ( DataType )?";
+            return "159:10: ( DataType )?";
         }
     }
     static final String DFA6_eotS =
@@ -1259,7 +1259,7 @@ public class ObjectSchemaParser extends Parser {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "156:20: ( attributeOption )?";
+            return "159:20: ( attributeOption )?";
         }
     }
     static final String DFA7_eotS =
@@ -1318,38 +1318,38 @@ public class ObjectSchemaParser extends Parser {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "158:38: ( attributeOption )?";
+            return "161:38: ( attributeOption )?";
         }
     }
  
 
-    public static final BitSet FOLLOW_objectSchema_in_schema371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attributeSchema_in_schema375 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Level_in_objectSchema382 = new BitSet(new long[]{0x0000000010000800L});
-    public static final BitSet FOLLOW_QName_in_objectSchema385 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_LParen_in_objectSchema388 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_attributeList_in_objectSchema390 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_RParen_in_objectSchema392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AttributeIndicator_in_attributeSchema419 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_attributeList_in_attributeSchema421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attribute_in_attributeList439 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_Comma_in_attributeList442 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_attribute_in_attributeList445 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_QName_in_attribute458 = new BitSet(new long[]{0x00000001C0780802L});
-    public static final BitSet FOLLOW_DataType_in_attribute460 = new BitSet(new long[]{0x00000000C0780802L});
-    public static final BitSet FOLLOW_attributeOption_in_attribute463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QName_in_attribute486 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_LParen_in_attribute488 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_attributeList_in_attribute490 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_RParen_in_attribute492 = new BitSet(new long[]{0x00000000C0780802L});
-    public static final BitSet FOLLOW_attributeOption_in_attribute494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attributePlural_in_attributeOption524 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_attributeOption529 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Literal_in_attributeOption539 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Star_in_attributePlural555 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Plus_in_attributePlural565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Question_in_attributePlural575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Level_in_attributePlural585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TabbedValueIndicator_in_attributePlural595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_objectSchema_in_schema372 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attributeSchema_in_schema376 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Level_in_objectSchema385 = new BitSet(new long[]{0x0000000010000800L});
+    public static final BitSet FOLLOW_QName_in_objectSchema388 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_LParen_in_objectSchema391 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_attributeList_in_objectSchema393 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_RParen_in_objectSchema395 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AttributeIndicator_in_attributeSchema424 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_attributeList_in_attributeSchema426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attribute_in_attributeList444 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_Comma_in_attributeList447 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_attribute_in_attributeList450 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_QName_in_attribute463 = new BitSet(new long[]{0x00000001C0780802L});
+    public static final BitSet FOLLOW_DataType_in_attribute465 = new BitSet(new long[]{0x00000000C0780802L});
+    public static final BitSet FOLLOW_attributeOption_in_attribute468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QName_in_attribute491 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_LParen_in_attribute493 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_attributeList_in_attribute495 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_RParen_in_attribute497 = new BitSet(new long[]{0x00000000C0780802L});
+    public static final BitSet FOLLOW_attributeOption_in_attribute499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attributePlural_in_attributeOption529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringLiteral_in_attributeOption534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Literal_in_attributeOption544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Star_in_attributePlural560 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Plus_in_attributePlural570 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Question_in_attributePlural580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Level_in_attributePlural590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TabbedValueIndicator_in_attributePlural600 = new BitSet(new long[]{0x0000000000000002L});
 
 }
