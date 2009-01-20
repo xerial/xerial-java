@@ -119,16 +119,14 @@ public class ObjectSchemaTest
     @Test
     public void testAttribute() throws XerialException
     {
-        ObjectSchema schema = ObjectSchema.parseSchemaLine("- sequence[gzip/base64]>");
-        assertNotNull(schema);
-        assertEquals(0, schema.getLevel());
-        assertEquals(true, schema.isAttribute());
-        assertEquals(null, schema.getName());
-        List<SchemaElement> attributeList = schema.getSchemaElementList();
-        assertEquals(1, attributeList.size());
-        assertEquals("sequence", attributeList.get(0).getName());
-        assertEquals(Occurrence.SEQUENCE, attributeList.get(0).getOccurrence());
-        assertEquals("gzip/base64", attributeList.get(0).getDataType());
+        ObjectAttribute attribute = ObjectAttribute.parseAttributeLine("- sequence[gzip/base64]>");
+        assertNotNull(attribute);
+        assertEquals(false, attribute.isObject());
+        assertEquals(true, attribute.isAttribute());
+        assertEquals(true, attribute.isFollowedByStreamData());
+        assertEquals("sequence", attribute.getName());
+        assertEquals(Occurrence.SEQUENCE, attribute.getOccurrence());
+        assertEquals("gzip/base64", attribute.getDataType());
 
     }
 

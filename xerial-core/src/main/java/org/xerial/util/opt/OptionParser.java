@@ -25,6 +25,7 @@
 package org.xerial.util.opt;
 
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,12 +42,12 @@ import org.xerial.core.XerialErrorCode;
 public class OptionParser
 {
     private final OptionSchema schema;
-    private final Object       optionHolder;
+    private final Object optionHolder;
 
-    private boolean            ignoreUnknownOption = false;
-    private HashSet<Option>    activatedOption     = new HashSet<Option>();
-    private HashSet<Argument>  activatedArgument   = new HashSet<Argument>();
-    private List<String>       unusedArgument      = new ArrayList<String>();
+    private boolean ignoreUnknownOption = false;
+    private HashSet<Option> activatedOption = new HashSet<Option>();
+    private HashSet<Argument> activatedArgument = new HashSet<Argument>();
+    private List<String> unusedArgument = new ArrayList<String>();
 
     public <T> OptionParser(T optionHolder)
     {
@@ -82,6 +83,13 @@ public class OptionParser
     {
         assert schema != null;
         schema.printUsage(out);
+    }
+
+    public String getUsage()
+    {
+        StringWriter buf = new StringWriter();
+        printUsage(buf);
+        return buf.toString();
     }
 
     public String[] getUnusedArguments()
