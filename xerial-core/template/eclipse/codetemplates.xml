@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><templates><template autoinsert="false" context="newtype_context" deleted="false" description="Newly created files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.newtype" name="newtype">/*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="newtype_context" deleted="true" description="Newly created files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.newtype" name="newtype">/*--------------------------------------------------------------------------
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
