@@ -7,14 +7,14 @@
 
 % class coordinate(group, type, species, revision, name)
 % relation coordinate -> gene -> expression
-% class gene(name, strand, start, end, cds(start,end), exon(start, end)*) 
+% class 
 
 # single comment line
 # object data in a line
-> track(name:"refseq gene")
+- track(name:"refseq gene")
 
 # specify coordinates
-> coordinate
+- coordinate
  - group:		utgb
  - type:		chromosome
  - species:	human
@@ -22,7 +22,7 @@
  - name:		chr1
 
 # object_name(attribute,.., object_name(attribute, ...), ...)
->gene
+-gene(name, strand, start, end, cds(start,end), exon(start, end)*) 
 NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
 NM_001005224	+	357521	358460	[357521, 358460]	[[357521, 358460]]
 NM_001005221	+	357521	358460	[357521, 358460]	[[357521, 358460]]
@@ -30,9 +30,8 @@ NM_001005277	-	610958	611897	[610958, 611897]	[[610958, 611897]]
 NM_001005224	-	610958	611897	[610958, 611897]	[[610958, 611897]]
 NM_001005221	-	610958	611897	[610958, 611897]	[[610958, 611897]]
 NM_152486	+	850983	869824	[851184, 869396]	[[850983, 851043],[851164, 851256],[855397, 855579],[856281, 856332],[861014, 861139],[864282, 864372],[864517, 864703],[866386, 866549],[867378, 867494],[867652, 867731],[867801, 868301],[868495, 868620],[868940, 869051],[869150, 869824]]	
-description: NL_152486 has several exons
 
->gene(name:NM_001005277, fasta>)
+-gene(name:NM_001005277, sequence>)
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -48,9 +47,9 @@ GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
 TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 
-> gene
-- name:NM_001005224
-- fasta>
+# alternative representation
+-gene(name:NM_001005224)
+ -sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -66,25 +65,30 @@ GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
 TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 
+
+- gene
 # '|' indicates multi-line data where all line breaks are significant (data values are separated by )
->> expression(value[csv]|)
+ - expression(value[csv]|)
 0.0,0.1,0.3,0.5
 0.3,0.4,0.7,0.8
 # same data representation  
->> expression(value[csv]>)
+ - expression(value[csv]>)
 0.0,0.1,0.3,0.5,
 0.3,0.4,0.7,0.8,
 # same data representation
->> expression(value*)
-[0.0, 0.1, 0.3, 0.5, 0.3, 0.4, 0.7, 0.8]
+ - expression(value): [0.0, 0.1, 0.3, 0.5, 0.3, 0.4, 0.7, 0.8]
 # same data representation
->> expression(value[csv])
+ - expression(value[csv])
 0.0, 0.1, 0.3, 0.5, 0.3, 0.4, 0.7, 0.8
+
+- gene(name, strand)[csv]
+NM_0123123, +
+NM_0123423, -
 
 
 # binary data representation
-> gene(name:NM_001005277) 
-- sequence[gzip/base64]>
+- gene(name:NM_001005277) 
+ - sequence[gzip/base64]>
 H4sIAL2gYUkAA0WT0ZHEMAhD/zOTojR80ID7r+X0JGcvG29iAkIIrLMrFj+d0XitDcebY+Ph4t87
 u811OaxN3Jl5H62t3w0AYez8xifDgTqyo4MFmqRRnEQKh7zPaYSGNDya0AGk5QIIC5igDHzJYNci
 acAR5GzbkghKIARn3wdOwoM42OxAEDgVDxxgFhjbwBIyndNk0LT74pa7Uua1qWUi5hO1YEhKPK4e
@@ -93,7 +97,7 @@ NaBPJbbTEAFCqkOuvTMSJkvCTtZG+aBmp7l9j1jNefWPuFfojFSRfrPT4an0eFlnpEopp2JWrXSC
 x+WQYclcpyUb384W1vdh/iko85VvEWxaXuTR/nqgnhJ9ZV/xU1eamUlB15yEUmdARec7MeENQ2w5
 jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 # new attribute value
-- sequence[gzip/base64]>
+ - sequence[gzip/base64]>
 H4sIAL2gYUkAA0WT0ZHEMAhD/zOTojR80ID7r+X0JGcvG29iAkIIrLMrFj+d0XitDcebY+Ph4t87
 u811OaxN3Jl5H62t3w0AYez8xifDgTqyo4MFmqRRnEQKh7zPaYSGNDya0AGk5QIIC5igDHzJYNci
 acAR5GzbkghKIARn3wdOwoM42OxAEDgVDxxgFhjbwBIyndNk0LT74pa7Uua1qWUi5hO1YEhKPK4e
@@ -102,27 +106,24 @@ NaBPJbbTEAFCqkOuvTMSJkvCTtZG+aBmp7l9j1jNefWPuFfojFSRfrPT4an0eFlnpEopp2JWrXSC
 x+WQYclcpyUb384W1vdh/iko85VvEWxaXuTR/nqgnhJ9ZV/xU1eamUlB15yEUmdARec7MeENQ2w5
 jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 
-> gene
+- gene
  - name:g1
  - start:357521
-> gene
+- gene
  - name:g2	
  - start:610958
 
 
-> paper(id:1)
-- title: "some paper"
-> reference
+- paper(id:1)
+ - title: "some paper"
+ - reference
   - title: "reference paper"
   - author: author 1
   - author: author 2
   - author: author 3
-# scope separator        
----
-# still in the scope of the paper (id:1)
-- year:2009          
+ - year:2009  # still in the scope of the paper (id:1)
 # begin a new paper scope
-> paper(id:2)       
+- paper(id:2)       
  - title: "another paper"
  - year:2008
 
