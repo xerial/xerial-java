@@ -45,7 +45,7 @@ public class ANTLRUtil
         text = text.replaceAll("\n", "\\\\n");
         text = text.replaceAll("\r", "\\\\r");
         text = text.replaceAll("\t", "\\\\t");
-        return '"' + text + '"';
+        return String.format("\"%s\"", text);
     }
 
     public static String parseTree(Tree t, String[] parserTokenNames)

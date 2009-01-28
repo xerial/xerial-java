@@ -25,13 +25,18 @@
 package org.xerial.silk.impl;
 
 import org.antlr.runtime.ANTLRReaderStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.tree.Tree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
+import org.xerial.util.antlr.ANTLRUtil;
+import org.xerial.util.log.Logger;
 
 public class SilkParserTest
 {
+    private static Logger _logger = Logger.getLogger(SilkParserTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -46,6 +51,11 @@ public class SilkParserTest
     {
         SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource
                 .open(SilkParserTest.class, "../example.silk")));
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        SilkParser parser = new SilkParser(token);
+        SilkParser.silkFile_return ret = parser.silkFile();
+        _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+
     }
 
 }

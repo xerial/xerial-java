@@ -33,7 +33,6 @@ tokens {
 SilkNode;
 SilkAttribute;
 Name;
-Value;
 Occurrence;
 Type;
 }
@@ -148,6 +147,9 @@ DataType
 	{ String tmp = getText(); setText(tmp.substring(1, tmp.length()-1).trim()); }
 	;
 
+fragment Colon: ':';
+Value: Colon (~(Comma | RParen | '\n'))+ { setText(getText().substring(1).trim()); } ;
+
 SequenceIndicator: '>';
 LParen: '(';
 RParen: ')';
@@ -160,14 +162,16 @@ Dot: '.';
 Star: '*';
 Question: '?';
 Plus: '+';
-Colon: ':';
 At: '@';
-
 
 
 // parser rules	
 
 schema: node;
+
+silkFile:
+	silkLine*
+	;
 
 silkLine
 	: Preamble
@@ -177,16 +181,12 @@ silkLine
 	;
 
 
-
 nodeName: QName | String;
-nodeValue: QName | String
-	-> Value[$nodeValue.text]
-	;
 
 node: NodeIndicator nestedNodeList;
 
-nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? DataType? plural?
-	-> Name[$nodeName.text] nodeValue? DataType? plural? attributeList? 
+nodeItem: nodeName (Value)? (LParen attributeList RParen)? DataType? plural?
+	-> Name[$nodeName.text] Value? DataType? plural? attributeList? 
 	;
 
 	

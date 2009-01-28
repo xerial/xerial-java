@@ -57,8 +57,6 @@ public class SilkLexerTest
         Map<Integer, String> tokenTable = ANTLRUtil.getTokenTable(SilkLexer.class, "Silk.tokens");
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        _logger
-                .info("\n"
-                        + StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), tokenTable), ",\n"));
+        _logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), tokenTable), "\n"));
     }
 }
