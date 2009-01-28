@@ -74,4 +74,10 @@ public class SilkParserTest
         parse("../funk.silk");
     }
 
+    @Test
+    public void testSuzakuConfig() throws Exception
+    {
+        parse("../suzaku-config.silk");
+    }
+
 }

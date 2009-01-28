@@ -30,6 +30,7 @@ options
 	output=AST;	
 }
 tokens {
+Silk;
 SilkNode;
 SilkAttribute;
 Name;
@@ -103,7 +104,15 @@ package org.xerial.silk.impl;
 
 }
 
-
+@lexer::members {
+  private boolean hasColon = false;
+  private boolean testHasColon() { 
+     boolean tmp = hasColon;
+     hasColon = false;
+     return tmp;
+  }
+  
+}
 
 // lexer rules
 
@@ -113,7 +122,7 @@ Preamble: '%' ~('\n'|'\r')* '\r'? '\n';
 NewLine: '\r'? '\n' { $channel=HIDDEN; };
 
 // node indicator
-NodeIndicator: {getCharPositionInLine()==0}? => (' ')* '-';
+NodeStart: {getCharPositionInLine()==0}? => (' ')* '-';
 
 fragment SpecialSymbol: '-' | '%' | '#' | ' ' | '\n' | '\r';   
 DataLine: { getCharPositionInLine()==0 }? =>  (' ')* ~SpecialSymbol ~('\n'|'\r')* NewLine; 
@@ -139,21 +148,15 @@ fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
 String: '"' StringChar* '"'
 { 
   // remove the quotations
-  String tmp = getText(); setText(tmp.substring(1, tmp.length()-1)); 
+  String tmp = getText(); setText(tmp.substring(1, tmp.length()-1));
+  hasColon=false;   
 };
-Integer: Int;
-Double:  Int (Frac Exp? | Exp);
-
-//fragment
-//InLineStringChar: ~('\n'|'\r'|'#'|Comma|LParen|'"');
-
-Colon: ':';
-//NodeValue: Colon (~(Comma | RParen | '\n'))+
-//NodeValue: Colon (String | InLineStringChar+ ) { setText(getText().substring(1).trim()); } ;
+Integer: Int ;
+Double:  Int (Frac Exp? | Exp) ;
 
 fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
 fragment NameChar: Letter | Digit | '_' | '-' | Dot;
-QName: (Letter | '_') NameChar*
+QName: (Letter | '_') NameChar* 
 	; 
 
 
@@ -173,12 +176,21 @@ At: '@';
 Slash: '/';
 
 
+fragment
+InLineStringChar: ('\n'|'\r'|'#'|Comma|LParen|RParen|LBracket|RBracket|LBrace|RBrace|'"');
+
+Colon: ':' { hasColon = true; } ;
+NodeValue: 
+	{ testHasColon() }? => 
+	(String | ~(' '|'\t' | InLineStringChar) (options {greedy=false;} : ~InLineStringChar+)) 
+	;
+
+
 // parser rules	
 
 schema: node;
 
-silkFile:
-	silkLine*
+silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
 silkLine
@@ -219,13 +231,15 @@ jsonValue
 	;
 
 jsonAtom
-	: String
-	| Integer
-	| Double
+	: String 
+	| Integer 
+	| Double 
 	| QName
+	| NodeValue
 	;
 
-node: NodeIndicator (coreNode | function);
+
+node: NodeStart (coreNode | function);
 
 coreNode: nodeItem
 	-> ^(SilkNode nodeItem)
@@ -267,7 +281,7 @@ function: At QName LParen (functionArg (Comma functionArg)*)? RParen
 
 functionArg
 	: jsonAtom -> Argument[$jsonAtom.text]
-	| QName Colon jsonAtom -> ^(KeyValuePair Key[$QName.text] Value[$jsonAtom.text])
+	| QName Colon NodeValue -> ^(KeyValuePair Key[$QName.text] Value[$NodeValue.text])
 	;
 
 

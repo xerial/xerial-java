@@ -118,7 +118,7 @@ public class ANTLRUtil
 
         int charStart = t.getCharPositionInLine();
         int charEnd = charStart + t.getText().length();
-        return String.format("[%3d(%4d-%4d)] %12s: %s", t.getLine(), charStart, charEnd, tokenTable.get(t.getType()),
+        return String.format("[%2d(%2d-%2d)] %12s: %s", t.getLine(), charStart, charEnd, tokenTable.get(t.getType()),
                 ANTLRUtil.toVisibleString(t.getText()));
     }
 

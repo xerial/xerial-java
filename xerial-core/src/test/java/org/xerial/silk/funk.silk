@@ -1,9 +1,9 @@
-- @import(file.silk)
+- @import(src:file.silk)
 
 # relative path
-- @import("../file.silk")
+- @import(src:../file.silk)
 
 # URL
-- @import("http://www.xerial.org/file.silk")
+- @import(src:http://www.xerial.org/file.silk)
 
 - @import(file.silk, head:1)
