@@ -1,0 +1,29 @@
+%REL:1.0
+
+-config
+ -version:		1.0
+ -group: 		org.utgenome
+ -projectName: 		repeatscape
+ -package:		org.utgenome.repeatscape
+
+-import
+ -actionPackage:	org.utgenome.gwt.utgb.server.app
+ -alias:			utgb-core
+ 
+
+-database(id:mydb)
+ -connection
+  -dbms:	sqlite
+  -scope:	development
+  -address:	db/sample.db
+
+ -connection
+  -dbms:	sqlite
+  -scope:	test
+  -address: 	:memory:
+
+-property
+ -key: wiki.base
+ -value: file:///f:/cygwin/home/leo/work/utgb-paper/wiki/repeatscape
+ 
+ 

@@ -86,12 +86,17 @@ public class RelationPullParser
             this.line = RelationPullParser.this.currentLine;
             this.schema = schemaStack.isEmpty() ? null : schemaStack.getLast();
         }
+
+        @Override
+        public String toString()
+        {
+            return String.format("{%s, %s}", event, schema);
+        }
     }
 
     public RelationPullParser(Reader input)
     {
         this.input = new BufferedReader(input);
-        //schemaStack.add(new ObjectSchema("rel"));
     }
 
     public Event getCurrentEvent()

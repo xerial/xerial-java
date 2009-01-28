@@ -12,6 +12,7 @@
 #  7. suited for arrays and sequences
 #  8. easier to describe (can omit double quotations)
 #  9. allow blank lines for readability
+# 10. Every sub tree in REL format must be REL?
 
 # single comment line
 # object schema definition:  object_name(key[:value], ...) 

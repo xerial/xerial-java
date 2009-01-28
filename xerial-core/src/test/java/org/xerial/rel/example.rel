@@ -1,30 +1,38 @@
+%rel version:1.0 
 # single-line comment
 
 # object description (one-liner)
--object: param1: value1, param2: value2 
+# -node_name(:node_value) attrib_name(:attrib_value)? (attrib_name(:attrib_value)?)*
+-object param1:value1, param2:value2 
 
 # object description (folded). Indentation represents nested structure
--object: 
-	-param1: value1
-	-param2: value2
+-object 
+  -param1:value1
+  -param2:value2
 
-# tab-separeted data description with a specified object schema
-
--address: id, name, phone 
+# tab-separeted data description with an object schema
+-address id, name, phone 
 1	leo	xxx-xxxx
 2	yui	yyy-yyyy
 
 # The above expression is equivalent to the follwoing descriptions:
--address: id:1, name:leo, phone:xxx-xxxx
--address: id:2, name:yui, phone:yyy-yyyy
+-address id:1, name:leo, phone:xxx-xxxx
+-address id:2, name:yui, phone:yyy-yyyy
  
 
 # combination of one-line and folded attributes of an object
--object: param1:value1
-	-param2:value2
+-object param1:value1
+  -param2:value2
 
 # sample data (tab)
--gene: id, chr, name
+-gene id, chr, name
+1	chr1	gene1
+2	chr1	gene2	
+3	chr1	gene3
+4	chr2	gene4
+
+# sample data explicitely specifies succeeding data format
+-gene (id, chr, name)[tab]
 1	chr1	gene1
 2	chr1	gene2	
 3	chr1	gene3
@@ -32,30 +40,37 @@
 
 # alternative tree structures, grouped by the chr values
 -chr:chr1
-  -gene: id, name	
+  -gene id, name	
 1	gene1
 2	gene2
 3	gene3
 -chr:chr2
-  -gene: id, name
+  -gene id, name
 4	gene4
 
+# omit nesting
+-chr:chr1 gene(id, name)	
+1	gene1
+2	gene2
+3	gene3
+-chr:chr2 gene(id, name)
+4	gene4
 
 # nested structure. relative depth of the indentation determines the nest level
-- paper: id:1
- - title: "some paper"
+- paper id:1
+ - title:"some paper"
  - reference
-  - title: "reference paper"
-  - author: author 1
-  - author: author 2
-  - author: author 3
+  - title:"reference paper"
+  - author:author 1
+  - author:author 2
+  - author:author 3
  - year:2009  # Still in the scope of the paper (id:1)
-- paper: id:2 # A new paper scope begins from here       
- - title: "another paper"
+- paper id:2 # A new paper scope begins from here       
+ - title:"another paper"
  - year:2008
 
 # binary data
--gene: name:NM_001005277, sequence>
+- gene name:NM_001005277, sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -72,7 +87,7 @@ TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 
 # binady data with gzip compression and base64 encode.
-- gene: name:NM_001005277, sequence[gzip/base64]>
+- gene name:NM_001005277, sequence[gzip/base64]>
 H4sIAL2gYUkAA0WT0ZHEMAhD/zOTojR80ID7r+X0JGcvG29iAkIIrLMrFj+d0XitDcebY+Ph4t87
 u811OaxN3Jl5H62t3w0AYez8xifDgTqyo4MFmqRRnEQKh7zPaYSGNDya0AGk5QIIC5igDHzJYNci
 acAR5GzbkghKIARn3wdOwoM42OxAEDgVDxxgFhjbwBIyndNk0LT74pa7Uua1qWUi5hO1YEhKPK4e
@@ -81,4 +96,36 @@ NaBPJbbTEAFCqkOuvTMSJkvCTtZG+aBmp7l9j1jNefWPuFfojFSRfrPT4an0eFlnpEopp2JWrXSC
 x+WQYclcpyUb384W1vdh/iko85VvEWxaXuTR/nqgnhJ9ZV/xU1eamUlB15yEUmdARec7MeENQ2w5
 jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 
+
+# attribute_name[format_name]
+# Available format names are: 
+#   tab(default), cvs(comma), space, base64(binary), gzip/base64
+
+
+# Optionally, parenthesis can be used to wrap attribute nodes
+-coordinate(group:utgb, type:chromosome, species:human, revision:hg18, name:chr1)
+
+# microdata format in the attribute
+-gene id, chr, name, cds(start, end)
+1	chr1	gene1	[10, 200]
+2	chr1	gene2	[20, 200]
+3	chr1	gene3	[30, 40]
+4	chr2	gene4	[100, 200]
+
+# microdata format in the attribute
+-gene 
+ - id:1
+ - chr:chr1, name, cds(start, end)
+ - name:gene1
+ - cds(start,end):[10, 200]
+ - exon(start,end)*: [[850983, 851043],[851164, 851256]]
+
+# JSON 
+-gene 
+ - id:1
+ - chr:chr1, name, cds(start, end)
+ - name:gene1
+ - cds: {start:10, end:200}
+ - exon(start, end): [850983, 851043]
+ - exon(start, end): [851164, 851256] 
 

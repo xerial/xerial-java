@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0032)http://yaml.org/type/binary.html -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    
+    <TITLE>
+      Binary Data Language-Independent Type for
+      YAML&trade;&nbsp;Version&nbsp;1.1
+    </TITLE>
+    <LINK rel="stylesheet" href="./YAML-Binary-1.1.htm_files/single_html.css" type="text/css">
+    <META name="generator" content="DocBook XSL Stylesheets V1.67.2">
+  </HEAD><BODY>
+    <DIV class="article" lang="en" xml:lang="en">
+      <DIV class="titlepage">
+        <DIV>
+          <DIV>
+            <H1 class="title"><A id="id664002"></A>
+      Binary Data Language-Independent Type for
+      <SPAN class="trademark">YAML</SPAN>&trade;&nbsp;Version&nbsp;1.1
+    </H1>
+          </DIV>
+          <DIV>
+            <H3 class="subtitle">
+              <I>
+      Working Draft 2005-01-18
+    </I>
+            </H3>
+          </DIV>
+          <DIV>
+            <DIV class="authorgroup">
+              <DIV class="author">
+                <H3 class="author"><SPAN class="firstname">Oren</SPAN> <SPAN class="surname">Ben-Kiki</SPAN></H3>
+                <CODE class="email">&lt;<A href="mailto:oren@ben-kiki.org">oren@ben-kiki.org</A>&gt;</CODE>
+              </DIV>
+              <DIV class="author">
+                <H3 class="author"><SPAN class="firstname">Clark</SPAN> <SPAN class="surname">Evans</SPAN></H3>
+                <CODE class="email">&lt;<A href="mailto:cce+yaml@clarkevans.com">cce+yaml@clarkevans.com</A>&gt;</CODE>
+              </DIV>
+              <DIV class="author">
+                <H3 class="author"><SPAN class="firstname">Brian</SPAN> <SPAN class="surname">Ingerson</SPAN></H3>
+                <CODE class="email">&lt;<A href="mailto:ingy@ttul.org">ingy@ttul.org</A>&gt;</CODE>
+              </DIV>
+            </DIV>
+          </DIV>
+          <DIV>
+            <P class="copyright">Copyright &copy; 2001-2005 Oren Ben-Kiki, Clark Evans, Brian Ingerson</P>
+          </DIV>
+          <DIV>
+            <DIV class="legalnotice"><A id="id838299"></A>
+      This document may be freely copied provided it is not modified.
+    </DIV>
+          </DIV>
+          <DIV>
+            <DIV class="abstract">
+              <P class="title">
+                <B>Status</B>
+              </P>
+              <P>
+       This specification is a draft reflecting consensus reached by members of
+       the <A href="http://lists.sourceforge.net/lists/listinfo/yaml-core" target="_top">yaml-core
+       mailing list</A>. Any questions regarding this draft should be
+       raised on this list.
+      </P>
+            </DIV>
+          </DIV>
+        </DIV>
+        <HR>
+      </DIV>
+      <DIV class="section" lang="en" xml:lang="en">
+        <DIV class="titlepage"></DIV>
+        <DIV class="variablelist">
+          <DL>
+            <DT>
+              <SPAN class="term">
+          <P>
+            URI:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            <STRONG class="userinput"><CODE>tag:yaml.org,2002:binary</CODE></STRONG>
+          </P>
+            </DD>
+            <DT>
+              <SPAN class="term">
+          <P>
+            Shorthand:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            <STRONG class="userinput"><CODE>!!binary</CODE></STRONG>
+          </P>
+            </DD>
+            <DT>
+              <SPAN class="term">
+          <P>
+            Kind:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            Scalar.
+          </P>
+            </DD>
+            <DT>
+              <SPAN class="term">
+          <P>
+            Canonical:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            Base64 without white space and line breaks.
+          </P>
+            </DD>
+            <DT>
+              <SPAN class="term">
+          <P>
+            Regexp:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            Base64 including white space and line breaks.
+          </P>
+            </DD>
+            <DT>
+              <SPAN class="term">
+          <P>
+            Definition:
+          </P>
+        </SPAN>
+            </DT>
+            <DD>
+              <P>
+            A sequence of zero or more octets (8 bit values).
+          </P>
+              <P>
+            Binary data is serialized using the base64 format as defined by
+            <A href="http://www.ietf.org/rfc/rfc2045.txt" target="_top">RFC2045</A>
+            (MIME), with the following notes:
+          </P>
+              <DIV class="itemizedlist">
+                <UL type="disc">
+                  <LI>
+                    <P>
+                The content is not restricted to lines of 76 characters or
+                less.
+              </P>
+                  </LI>
+                  <LI>
+                    <P>
+                Characters other than the base64 alphabet, line breaks and
+                white space are considered an error.
+              </P>
+                  </LI>
+                </UL>
+              </DIV>
+              <P>
+            Base64 is the recommended way to store opaque binary data in YAML
+            files. Note that many forms of binary data have internal structure
+            that may benefit from being represented as YAML nodes (e.g. the
+            Java serialization format).
+          </P>
+            </DD>
+          </DL>
+        </DIV>
+        <DIV class="example">
+          <A id="id838485"></A>
+          <P class="title">
+            <B>Example&nbsp;1.&nbsp;<CODE class="userinput">!!binary</CODE> Examples</B>
+          </P>
+          <PRE class="programlisting">canonical: !!binary &quot;\
+ R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5\
+ OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+\
+ +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC\
+ AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=&quot;
+generic: !binary |
+ R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5
+ OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+
+ +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC
+ AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=
+description:
+ The binary value above is a tiny arrow encoded as a gif image.
+</PRE>
+        </DIV>
+      </DIV>
+    </DIV>
+  
+
+</BODY></HTML>
