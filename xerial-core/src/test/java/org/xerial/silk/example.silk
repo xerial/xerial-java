@@ -21,7 +21,7 @@
  
 
 # combination of one-line and folded attributes of an object
--object param1:value1
+-object(param1:value1)
   -param2:value2
 
 # sample data (tab)
@@ -117,8 +117,11 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
  - id:1
  - chr:chr1
  - name:gene1
- - cds(start,end):[10, 200]
- - exon(start,end)*: [[850983, 851043],[851164, 851256]]
+ - cds(start, end)
+10	200
+ - exon(start,end)
+850983	851043
+851164	851256
 
 # array construct
 -gene
@@ -130,11 +133,10 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 # JSON 
 -gene 
  - id:1
- - chr:chr1, name, cds(start, end)
+ - chr:chr1
  - name:gene1
  - cds: {start:10, end:200}
- - exon(start, end): [850983, 851043]
- - exon(start, end): [851164, 851256] 
+ - exon: [{start:850983, end:851043}, {start:851164, end:851256}]
 
 
 # Folding deep nesting in SILK
@@ -145,8 +147,8 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
      - E:v5
 
 # A - B - C - D nesting can be flatten in a line  
-- A:v1 B:v2 C:v3 D:v4
- - E:v5
+#- A:v1 B:v2 C:v3 D:v4
+# - E:v5
 
 # By using double quotations, long parameter names allowing spaces can be used  
 -"long parameter name":"quoted value"
@@ -154,6 +156,6 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 # @-mark denotes function 
 -@import(somefile.silk)
 
--expression[csv]( )*
+
  
  

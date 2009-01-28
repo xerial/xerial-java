@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g 2009-01-20 19:18:06
+// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g 2009-01-28 19:10:08
 
 /*--------------------------------------------------------------------------
  *  Copyright 2008 Taro L. Saito
@@ -74,17 +74,17 @@ public class ObjectSchemaLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g"; }
+    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g"; }
 
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:2: ( ( '\\r' )? '\\n' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: ( '\\r' )? '\\n'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:2: ( ( '\\r' )? '\\n' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: ( '\\r' )? '\\n'
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: ( '\\r' )?
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: ( '\\r' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -93,7 +93,7 @@ public class ObjectSchemaLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: '\\r'
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:100:4: '\\r'
                     {
                     match('\r'); 
 
@@ -120,8 +120,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Level;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:103:6: ( '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:103:8: '>'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:103:6: ( '>' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:103:8: '>'
             {
             match('>'); 
 
@@ -140,8 +140,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = AttributeIndicator;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:104:19: ( '-' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:104:21: '-'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:104:19: ( '-' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:104:21: '-'
             {
             match('-'); 
 
@@ -160,8 +160,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:105:6: ( ',' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:105:8: ','
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:105:6: ( ',' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:105:8: ','
             {
             match(','); 
 
@@ -180,8 +180,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:107:4: ( '.' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:107:6: '.'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:107:4: ( '.' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:107:6: '.'
             {
             match('.'); 
 
@@ -200,8 +200,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:108:7: ( '(' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:108:9: '('
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:108:7: ( '(' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:108:9: '('
             {
             match('('); 
 
@@ -220,8 +220,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:109:7: ( ')' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:109:9: ')'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:109:7: ( ')' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:109:9: ')'
             {
             match(')'); 
 
@@ -238,8 +238,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "LBracket"
     public final void mLBracket() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:110:18: ( '[' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:110:20: '['
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:110:18: ( '[' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:110:20: '['
             {
             match('['); 
 
@@ -254,8 +254,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "RBracket"
     public final void mRBracket() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:111:18: ( ']' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:111:20: ']'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:111:18: ( ']' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:111:20: ']'
             {
             match(']'); 
 
@@ -272,8 +272,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = TabbedValueIndicator;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:113:21: ( '|' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:113:23: '|'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:113:21: ( '|' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:113:23: '|'
             {
             match('|'); 
 
@@ -292,8 +292,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:114:5: ( '*' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:114:7: '*'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:114:5: ( '*' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:114:7: '*'
             {
             match('*'); 
 
@@ -312,8 +312,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:115:9: ( '?' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:115:11: '?'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:115:9: ( '?' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:115:11: '?'
             {
             match('?'); 
 
@@ -332,8 +332,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:116:5: ( '+' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:116:7: '+'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:116:5: ( '+' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:116:7: '+'
             {
             match('+'); 
 
@@ -350,8 +350,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:119:16: ( 'a' .. 'z' | 'A' .. 'Z' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:119:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -374,8 +374,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:120:15: ( '0' .. '9' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:120:17: '0' .. '9'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:120:15: ( '0' .. '9' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:120:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -392,10 +392,10 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:7: ( ( Digit )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:9: ( Digit )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:7: ( ( Digit )+ )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:9: ( Digit )+
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:9: ( Digit )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -409,7 +409,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:10: Digit
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:121:10: Digit
             	    {
             	    mDigit(); 
 
@@ -439,8 +439,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:123:18: ( Letter | Digit | '_' | '-' | Dot )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:123:18: ( Letter | Digit | '_' | '-' | Dot )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
             {
             if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -465,10 +465,10 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:125:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -482,7 +482,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -523,8 +523,8 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:6: ( ( Letter | '_' ) ( NameChar )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:8: ( Letter | '_' ) ( NameChar )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:6: ( ( Letter | '_' ) ( NameChar )* )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:8: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -535,7 +535,7 @@ public class ObjectSchemaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:23: ( NameChar )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:23: ( NameChar )*
             loop4:
             do {
                 int alt4=2;
@@ -548,7 +548,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:23: NameChar
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:127:23: NameChar
             	    {
             	    mNameChar(); 
 
@@ -574,8 +574,8 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR start "Colon"
     public final void mColon() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:129:15: ( ':' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:129:17: ':'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:129:15: ( ':' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:129:17: ':'
             {
             match(':'); 
 
@@ -592,11 +592,11 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:1: ( '\"' (~ '\"' )* '\"' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:3: '\"' (~ '\"' )* '\"'
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:1: ( '\"' (~ '\"' )* '\"' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:3: '\"' (~ '\"' )* '\"'
             {
             match('\"'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:7: (~ '\"' )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:7: (~ '\"' )*
             loop5:
             do {
                 int alt5=2;
@@ -609,7 +609,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:8: ~ '\"'
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:131:8: ~ '\"'
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -647,11 +647,11 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = Literal;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:8: ( Colon (~ ( Comma | RParen | '\\n' ) )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:10: Colon (~ ( Comma | RParen | '\\n' ) )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:8: ( Colon (~ ( Comma | RParen | '\\n' ) )+ )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:10: Colon (~ ( Comma | RParen | '\\n' ) )+
             {
             mColon(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:16: (~ ( Comma | RParen | '\\n' ) )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:16: (~ ( Comma | RParen | '\\n' ) )+
             int cnt6=0;
             loop6:
             do {
@@ -665,7 +665,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:17: ~ ( Comma | RParen | '\\n' )
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:134:17: ~ ( Comma | RParen | '\\n' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='(')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -706,11 +706,11 @@ public class ObjectSchemaLexer extends Lexer {
         try {
             int _type = DataType;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:2: ( LBracket (~ RBracket )+ RBracket )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:4: LBracket (~ RBracket )+ RBracket
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:2: ( LBracket (~ RBracket )+ RBracket )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:4: LBracket (~ RBracket )+ RBracket
             {
             mLBracket(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:13: (~ RBracket )+
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:13: (~ RBracket )+
             int cnt7=0;
             loop7:
             do {
@@ -724,7 +724,7 @@ public class ObjectSchemaLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:14: ~ RBracket
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:137:14: ~ RBracket
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\u0011')||(input.LA(1)>='\u0013' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -762,124 +762,124 @@ public class ObjectSchemaLexer extends Lexer {
     // $ANTLR end "DataType"
 
     public void mTokens() throws RecognitionException {
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:8: ( NEWLINE | Level | AttributeIndicator | Comma | Dot | LParen | RParen | TabbedValueIndicator | Star | Question | Plus | Digits | WhiteSpaceChar | QName | StringLiteral | Literal | DataType )
+        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:8: ( NEWLINE | Level | AttributeIndicator | Comma | Dot | LParen | RParen | TabbedValueIndicator | Star | Question | Plus | Digits | WhiteSpaceChar | QName | StringLiteral | Literal | DataType )
         int alt8=17;
         alt8 = dfa8.predict(input);
         switch (alt8) {
             case 1 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:10: NEWLINE
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:10: NEWLINE
                 {
                 mNEWLINE(); 
 
                 }
                 break;
             case 2 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:18: Level
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:18: Level
                 {
                 mLevel(); 
 
                 }
                 break;
             case 3 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:24: AttributeIndicator
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:24: AttributeIndicator
                 {
                 mAttributeIndicator(); 
 
                 }
                 break;
             case 4 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:43: Comma
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:43: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 5 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:49: Dot
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:49: Dot
                 {
                 mDot(); 
 
                 }
                 break;
             case 6 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:53: LParen
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:53: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 7 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:60: RParen
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:60: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 8 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:67: TabbedValueIndicator
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:67: TabbedValueIndicator
                 {
                 mTabbedValueIndicator(); 
 
                 }
                 break;
             case 9 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:88: Star
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:88: Star
                 {
                 mStar(); 
 
                 }
                 break;
             case 10 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:93: Question
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:93: Question
                 {
                 mQuestion(); 
 
                 }
                 break;
             case 11 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:102: Plus
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:102: Plus
                 {
                 mPlus(); 
 
                 }
                 break;
             case 12 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:107: Digits
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:107: Digits
                 {
                 mDigits(); 
 
                 }
                 break;
             case 13 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:114: WhiteSpaceChar
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:114: WhiteSpaceChar
                 {
                 mWhiteSpaceChar(); 
 
                 }
                 break;
             case 14 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:129: QName
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:129: QName
                 {
                 mQName(); 
 
                 }
                 break;
             case 15 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:135: StringLiteral
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:135: StringLiteral
                 {
                 mStringLiteral(); 
 
                 }
                 break;
             case 16 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:149: Literal
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:149: Literal
                 {
                 mLiteral(); 
 
                 }
                 break;
             case 17 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:157: DataType
+                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\rel\\impl\\ObjectSchema.g:1:157: DataType
                 {
                 mDataType(); 
 

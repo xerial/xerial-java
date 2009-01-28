@@ -26,15 +26,23 @@ options
 {
 	language=Java;
 	// some lexer & parser options
-	k=4;	// number of look-ahead characters 
+	k=2;	// number of look-ahead characters 
 	output=AST;	
 }
 tokens {
 SilkNode;
 SilkAttribute;
 Name;
+Value;
 Occurrence;
-Type;
+DataType;
+Function;
+Argument;
+KeyValuePair;
+Key;
+//JSONObject;
+//JSONArray;
+//JSONElement;
 }
 
 
@@ -115,10 +123,11 @@ BlankLine: { getCharPositionInLine()==0 }? => WhiteSpaces? (NewLine | EOF);
 
 fragment Digit: '0' .. '9';
 fragment HexDigit: ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
-fragment UnicodeChar: ~('"'| '\\');
+fragment UnicodeChar: ~('"'| '\\' | '\r' | '\n');
 fragment EscapeSequence
 	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
 	;
+	
 fragment StringChar :  UnicodeChar | EscapeSequence;
 
 fragment Int: '-'? ('0' | '1'..'9' Digit*);
@@ -134,21 +143,18 @@ String: '"' StringChar* '"'
 Integer: Int;
 Double:  Int (Frac Exp? | Exp);
 
+//fragment
+//InLineStringChar: ~('\n'|'\r'|'#'|Comma|LParen|'"');
 
-
+Colon: ':';
+//NodeValue: Colon (~(Comma | RParen | '\n'))+
+//NodeValue: Colon (String | InLineStringChar+ ) { setText(getText().substring(1).trim()); } ;
 
 fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
 fragment NameChar: Letter | Digit | '_' | '-' | Dot;
 QName: (Letter | '_') NameChar*
 	; 
 
-DataType
-	: LBracket (~RBracket)+ RBracket 
-	{ String tmp = getText(); setText(tmp.substring(1, tmp.length()-1).trim()); }
-	;
-
-fragment Colon: ':';
-Value: Colon (~(Comma | RParen | '\n'))+ { setText(getText().substring(1).trim()); } ;
 
 SequenceIndicator: '>';
 LParen: '(';
@@ -163,6 +169,7 @@ Star: '*';
 Question: '?';
 Plus: '+';
 At: '@';
+Slash: '/';
 
 
 // parser rules	
@@ -182,22 +189,69 @@ silkLine
 
 
 nodeName: QName | String;
-
-node: NodeIndicator nestedNodeList;
-
-nodeItem: nodeName (Value)? (LParen attributeList RParen)? DataType? plural?
-	-> Name[$nodeName.text] Value? DataType? plural? attributeList? 
+nodeValue
+	: inLineJSON
+	 -> Value[$nodeValue.text]
 	;
 
+inLineJSON
+	: jsonObject
+	| jsonArray
+	| jsonAtom
+	;
+
+jsonObject
+	: LBrace (jsonElement (Comma jsonElement)*)? RBrace
+	;
+	
+jsonArray
+	: LBracket (jsonValue (Comma jsonValue)*)? RBracket
+	;	
+
+jsonElement: nodeName Colon jsonValue
+	;
+
+jsonValue
+	: jsonAtom
+	| jsonObject
+	| jsonArray 
+	;
+
+jsonAtom
+	: String
+	| Integer
+	| Double
+	| QName
+	;
+
+node: NodeIndicator (coreNode | function);
+
+coreNode: nodeItem
+	-> ^(SilkNode nodeItem)
+	;
+
+nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
+	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
+	;
+
+dataType: LBracket! dataTypeName RBracket!
+	;
+	
+dataTypeName: QName (Slash QName)*
+	-> DataType[$dataTypeName.text]
+	; 	
 	
 attributeList: attributeItem (Comma! attributeItem)* ;	
 attributeItem: nodeItem -> ^(SilkAttribute nodeItem);
-	
-nestedNodeList: nestedNodeItem+
+
+/*	
+nestedNodeList: nestedNodeItem (nestedNodeItem)
+	-> ^(Silk
 	;
 
 nestedNodeItem: nodeItem -> ^(SilkNode nodeItem)
 	;
+	*/
 
 plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
@@ -206,13 +260,13 @@ plural
 	| SequenceIndicator -> Occurrence["SEQUENCE"]
 	;
 
+function: At QName LParen (functionArg (Comma functionArg)*)? RParen
+	-> ^(Function[$QName.text] functionArg*)
+	;
 
-/*
-attributeOption
-	: attributePlural
-	| StringLiteral	-> Value[$StringLiteral.text]
-	| Literal -> Value[$Literal.text]
+functionArg
+	: jsonAtom -> Argument[$jsonAtom.text]
+	| QName Colon jsonAtom -> ^(KeyValuePair Key[$QName.text] Value[$jsonAtom.text])
 	;
 
 
-	*/

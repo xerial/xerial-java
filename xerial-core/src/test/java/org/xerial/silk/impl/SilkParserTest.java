@@ -24,13 +24,18 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
+import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
@@ -46,16 +51,27 @@ public class SilkParserTest
     public void tearDown() throws Exception
     {}
 
-    @Test
-    public void testParser() throws Exception
+    static void parse(String filePath) throws IOException, RecognitionException
     {
-        SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource
-                .open(SilkParserTest.class, "../example.silk")));
+        SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource.open(SilkParserTest.class, filePath)));
         CommonTokenStream token = new CommonTokenStream(lexer);
+        Map<Integer, String> tokenTable = ANTLRUtil.getTokenTable(SilkLexer.class, "Silk.tokens");
+        _logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
         SilkParser parser = new SilkParser(token);
         SilkParser.silkFile_return ret = parser.silkFile();
         _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+    }
 
+    @Test
+    public void testExample() throws Exception
+    {
+        parse("../example.silk");
+    }
+
+    @Test
+    public void testFunction() throws Exception
+    {
+        parse("../funk.silk");
     }
 
 }
