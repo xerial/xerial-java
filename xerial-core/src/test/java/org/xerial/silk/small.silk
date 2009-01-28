@@ -1,0 +1,10 @@
+%silk version1.0
+  
+# comment-line
+
+-object
+
+-object:value
+  -p1:value
+  
+  

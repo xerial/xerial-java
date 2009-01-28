@@ -30,8 +30,8 @@ options
 	output=AST;	
 }
 tokens {
-ObjectSchema;
-ObjectAttribute;
+SilkNode;
+SilkAttribute;
 Name;
 Value;
 Occurrence;
@@ -97,22 +97,22 @@ package org.xerial.silk.impl;
 }
 
 
-// skip newlines and white spaces
-NewLine: '\r'? '\n' { $channel=HIDDEN; }
-	;
 
-LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }
-    ;
+// lexer rules
+
+// skip comment 
+LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
+Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
+NewLine: '\r'? '\n' { $channel=HIDDEN; };
 
 // node indicator
-fragment LeadingWhiteSpaces:  (' ')*;  
-RelativeNodeIndicator: {getCharPositionInLine()==0}? => LeadingWhiteSpaces '->';
-NodeIndicator: {getCharPositionInLine()==0}? => LeadingWhiteSpaces '-';
+NodeIndicator: {getCharPositionInLine()==0}? => (' ')* '-';
 
-WhiteSpaces: ( ' ' | '\t' | '\n' | '\r' | '\u000C')+ { $channel=HIDDEN; };
+DataLine: { getCharPositionInLine()==0 }? =>  ~(' ' | '\r' | '\n' | '-' | '%' | '#') ~('\n'|'\r')*  NewLine; 
 
-Comma: ',';
-Dot: '.';
+WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; };
+
+BlankLine: { getCharPositionInLine()==0 }? => WhiteSpaces? (NewLine | EOF);
 
 fragment Digit: '0' .. '9';
 fragment HexDigit: ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
@@ -135,43 +135,76 @@ String: '"' StringChar* '"'
 Integer: Int;
 Double:  Int (Frac Exp? | Exp);
 
-SequenceIndicator: '>';
-LParen: '(';
-RParen: ')';
-fragment LBracket: '[';
-fragment RBracket: ']';
 
 
-Star: '*';
-Question: '?';
-Plus: '+';
 
-Colon: ':'
-	;
-
-
-QName: StringChar*;
-
+fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
+fragment NameChar: Letter | Digit | '_' | '-' | Dot;
+QName: (Letter | '_') NameChar*
+	; 
 
 DataType
 	: LBracket (~RBracket)+ RBracket 
 	{ String tmp = getText(); setText(tmp.substring(1, tmp.length()-1).trim()); }
 	;
 
+SequenceIndicator: '>';
+LParen: '(';
+RParen: ')';
+LBracket: '[';
+RBracket: ']';
+LBrace: '{';
+RBrace: '}';
+Comma: ',';
+Dot: '.';
+Star: '*';
+Question: '?';
+Plus: '+';
+Colon: ':';
+At: '@';
+
+
+
+// parser rules	
 
 schema: node;
 
-node:
-	  NodeIndicator nodeItem nodeList 
+silkLine
+	: Preamble
+	| BlankLine
+	| DataLine
+	| node
 	;
 
-nodeItem: nodeName (Colon nodeValue)? ;
 
-nodeList: nodeItem+; 
 
-nodeName: QName | String; 
+nodeName: QName | String;
+nodeValue: QName | String
+	-> Value[$nodeValue.text]
+	;
 
-nodeValue: QName | String;
+node: NodeIndicator nestedNodeList;
+
+nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? DataType? plural?
+	-> Name[$nodeName.text] nodeValue? DataType? plural? attributeList? 
+	;
+
+	
+attributeList: attributeItem (Comma! attributeItem)* ;	
+attributeItem: nodeItem -> ^(SilkAttribute nodeItem);
+	
+nestedNodeList: nestedNodeItem+
+	;
+
+nestedNodeItem: nodeItem -> ^(SilkNode nodeItem)
+	;
+
+plural
+	: Star -> Occurrence["ZERO_OR_MORE"]
+	| Plus -> Occurrence["ONE_OR_MORE"]
+	| Question -> Occurrence["ZERO_OR_ONE"]
+	| SequenceIndicator -> Occurrence["SEQUENCE"]
+	;
 
 
 /*
@@ -181,11 +214,5 @@ attributeOption
 	| Literal -> Value[$Literal.text]
 	;
 
-attributePlural
-	: Star -> Occurrence["ZERO_OR_MORE"]
-	| Plus -> Occurrence["ONE_OR_MORE"]
-	| Question -> Occurrence["ZERO_OR_ONE"]
-	| SequenceIndicator -> Occurrence["SEQUENCE"]
-	;
 
 	*/

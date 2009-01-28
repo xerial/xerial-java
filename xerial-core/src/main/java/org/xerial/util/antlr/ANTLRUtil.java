@@ -24,7 +24,18 @@
 //--------------------------------------
 package org.xerial.util.antlr;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
+
+import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
+import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 
 public class ANTLRUtil
@@ -67,6 +78,48 @@ public class ANTLRUtil
         {
             parseTree(sb, t.getChild(i), depth + 1, parserTokenNames);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Map<Integer, String> getTokenTable(Class< ? > packageBaseClass, String tokenFileName)
+            throws IOException
+    {
+        Properties p = new Properties();
+        TreeMap<Integer, String> tokenTable = new TreeMap<Integer, String>();
+
+        URL wikiTokenFileURL = FileResource.find(packageBaseClass, tokenFileName);
+        if (wikiTokenFileURL != null)
+            p.load(wikiTokenFileURL.openStream());
+
+        for (Iterator it = p.keySet().iterator(); it.hasNext();)
+        {
+            String tokenName = (String) it.next();
+            int tokenType = Integer.parseInt(p.get(tokenName).toString());
+            tokenTable.put(tokenType, tokenName);
+        }
+
+        return tokenTable;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<String> prettyPrintTokenList(List tokenList, Map<Integer, String> tokenTable)
+    {
+        ArrayList<String> result = new ArrayList<String>();
+        for (Iterator it = tokenList.iterator(); it.hasNext();)
+        {
+            Token t = (Token) it.next();
+            result.add(prettyPrint(t, tokenTable));
+        }
+        return result;
+    }
+
+    public static String prettyPrint(Token t, Map<Integer, String> tokenTable)
+    {
+
+        int charStart = t.getCharPositionInLine();
+        int charEnd = charStart + t.getText().length();
+        return String.format("[%3d(%4d-%4d)] %12s: %s", t.getLine(), charStart, charEnd, tokenTable.get(t.getType()),
+                ANTLRUtil.toVisibleString(t.getText()));
     }
 
 }

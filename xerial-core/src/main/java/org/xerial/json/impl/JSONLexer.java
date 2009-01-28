@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g 2008-10-06 10:54:22
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g 2009-01-28 14:31:42
 
 //--------------------------------------
 // XerialJ Project
@@ -16,35 +16,35 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class JSONLexer extends Lexer {
-    public static final int INTEGER=8;
-    public static final int Double=31;
-    public static final int LBrace=12;
-    public static final int Frac=26;
-    public static final int NULL=19;
-    public static final int Exp=27;
-    public static final int RBracket=15;
-    public static final int Colon=10;
-    public static final int UnicodeChar=22;
-    public static final int Digit=20;
-    public static final int EOF=-1;
-    public static final int HexDigit=21;
-    public static final int TRUE=17;
-    public static final int Int=25;
     public static final int OBJECT=4;
     public static final int ELEMENT=5;
-    public static final int Dot=16;
-    public static final int DOUBLE=9;
-    public static final int StringChar=24;
-    public static final int WhiteSpace=28;
-    public static final int String=29;
-    public static final int LBracket=14;
-    public static final int FALSE=18;
-    public static final int Comma=11;
-    public static final int EscapeSequence=23;
-    public static final int ARRAY=6;
-    public static final int Integer=30;
     public static final int RBrace=13;
+    public static final int ARRAY=6;
+    public static final int LBracket=14;
+    public static final int Digit=20;
+    public static final int Frac=26;
+    public static final int HexDigit=21;
+    public static final int DOUBLE=9;
+    public static final int Exp=27;
     public static final int STRING=7;
+    public static final int Int=25;
+    public static final int FALSE=18;
+    public static final int UnicodeChar=22;
+    public static final int StringChar=24;
+    public static final int String=29;
+    public static final int INTEGER=8;
+    public static final int Comma=11;
+    public static final int Dot=16;
+    public static final int EscapeSequence=23;
+    public static final int EOF=-1;
+    public static final int NULL=19;
+    public static final int Integer=30;
+    public static final int LBrace=12;
+    public static final int Double=31;
+    public static final int RBracket=15;
+    public static final int WhiteSpace=28;
+    public static final int TRUE=17;
+    public static final int Colon=10;
 
     // delegates
     // delegators
@@ -64,8 +64,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:56:6: ( ':' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:56:8: ':'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:71:6: ( ':' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:71:8: ':'
             {
             match(':'); 
 
@@ -84,8 +84,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:57:6: ( ',' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:57:8: ','
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:72:6: ( ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:72:8: ','
             {
             match(','); 
 
@@ -104,8 +104,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = LBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:58:7: ( '{' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:58:9: '{'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:7: ( '{' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:9: '{'
             {
             match('{'); 
 
@@ -124,8 +124,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = RBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:59:7: ( '}' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:59:9: '}'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:74:7: ( '}' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:74:9: '}'
             {
             match('}'); 
 
@@ -144,8 +144,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:60:9: ( '[' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:60:11: '['
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:75:9: ( '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:75:11: '['
             {
             match('['); 
 
@@ -164,8 +164,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:61:9: ( ']' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:61:11: ']'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:9: ( ']' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:11: ']'
             {
             match(']'); 
 
@@ -182,8 +182,8 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "Dot"
     public final void mDot() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:62:13: ( '.' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:62:15: '.'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:13: ( '.' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:15: '.'
             {
             match('.'); 
 
@@ -200,8 +200,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:63:5: ( 'true' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:63:8: 'true'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:5: ( 'true' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:8: 'true'
             {
             match("true"); 
 
@@ -221,8 +221,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:64:6: ( 'false' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:64:8: 'false'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:79:6: ( 'false' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:79:8: 'false'
             {
             match("false"); 
 
@@ -242,8 +242,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = NULL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:65:5: ( 'null' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:65:7: 'null'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:80:5: ( 'null' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:80:7: 'null'
             {
             match("null"); 
 
@@ -261,8 +261,8 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:67:15: ( '0' .. '9' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:67:17: '0' .. '9'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:15: ( '0' .. '9' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -277,8 +277,8 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:68:18: ( ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:68:20: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:83:18: ( ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:83:20: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -301,8 +301,8 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:69:21: (~ ( '\"' | '\\\\' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:69:23: ~ ( '\"' | '\\\\' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:21: (~ ( '\"' | '\\\\' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -325,7 +325,7 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:70:21: ( UnicodeChar | EscapeSequence )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:85:21: ( UnicodeChar | EscapeSequence )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -343,14 +343,14 @@ public class JSONLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:70:24: UnicodeChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:85:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:70:38: EscapeSequence
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:85:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -367,11 +367,11 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt2=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -428,63 +428,63 @@ public class JSONLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:10: '\\\"'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:17: '\\\\'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:24: '/'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:30: 'b'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:36: 'f'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:42: 'n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:48: 'r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:54: 't'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:73:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:88:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -509,10 +509,10 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "Int"
     public final void mInt() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:13: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:15: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:13: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:15: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:15: ( '-' )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:15: ( '-' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -521,7 +521,7 @@ public class JSONLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:15: '-'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:15: '-'
                     {
                     match('-'); 
 
@@ -530,7 +530,7 @@ public class JSONLexer extends Lexer {
 
             }
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:20: ( '0' | '1' .. '9' ( Digit )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:20: ( '0' | '1' .. '9' ( Digit )* )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -548,17 +548,17 @@ public class JSONLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:21: '0'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:21: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:27: '1' .. '9' ( Digit )*
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:27: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:36: ( Digit )*
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:36: ( Digit )*
                     loop4:
                     do {
                         int alt4=2;
@@ -571,7 +571,7 @@ public class JSONLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:76:36: Digit
+                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:91:36: Digit
                     	    {
                     	    mDigit(); 
 
@@ -601,11 +601,11 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:14: ( Dot ( Digit )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:16: Dot ( Digit )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:14: ( Dot ( Digit )+ )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:16: Dot ( Digit )+
             {
             mDot(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:20: ( Digit )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:20: ( Digit )+
             int cnt6=0;
             loop6:
             do {
@@ -619,7 +619,7 @@ public class JSONLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:77:20: Digit
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:92:20: Digit
             	    {
             	    mDigit(); 
 
@@ -647,8 +647,8 @@ public class JSONLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:93:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:93:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -659,7 +659,7 @@ public class JSONLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:27: ( '+' | '-' )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:93:27: ( '+' | '-' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -685,7 +685,7 @@ public class JSONLexer extends Lexer {
 
             }
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:40: ( Digit )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:93:40: ( Digit )+
             int cnt8=0;
             loop8:
             do {
@@ -699,7 +699,7 @@ public class JSONLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:78:40: Digit
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:93:40: Digit
             	    {
             	    mDigit(); 
 
@@ -729,8 +729,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = WhiteSpace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:80:11: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:80:13: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:95:11: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:95:13: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -758,11 +758,11 @@ public class JSONLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:7: ( '\"' ( StringChar )* '\"' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:9: '\"' ( StringChar )* '\"'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:7: ( '\"' ( StringChar )* '\"' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:9: '\"' ( StringChar )* '\"'
             {
             match('\"'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:13: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:13: ( StringChar )*
             loop9:
             do {
                 int alt9=2;
@@ -775,7 +775,7 @@ public class JSONLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:82:13: StringChar
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:97:13: StringChar
             	    {
             	    mStringChar(); 
 
@@ -804,8 +804,8 @@ public class JSONLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:83:8: ( Int )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:83:10: Int
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:98:8: ( Int )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:98:10: Int
             {
             mInt(); 
 
@@ -824,11 +824,11 @@ public class JSONLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:7: ( Int ( Frac ( Exp )? | Exp ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:10: Int ( Frac ( Exp )? | Exp )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:7: ( Int ( Frac ( Exp )? | Exp ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:10: Int ( Frac ( Exp )? | Exp )
             {
             mInt(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:14: ( Frac ( Exp )? | Exp )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:14: ( Frac ( Exp )? | Exp )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -846,10 +846,10 @@ public class JSONLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:15: Frac ( Exp )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:15: Frac ( Exp )?
                     {
                     mFrac(); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:20: ( Exp )?
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:20: ( Exp )?
                     int alt10=2;
                     int LA10_0 = input.LA(1);
 
@@ -858,7 +858,7 @@ public class JSONLexer extends Lexer {
                     }
                     switch (alt10) {
                         case 1 :
-                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:20: Exp
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:20: Exp
                             {
                             mExp(); 
 
@@ -871,7 +871,7 @@ public class JSONLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:84:27: Exp
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSON.g:99:27: Exp
                     {
                     mExp(); 
 
