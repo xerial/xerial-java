@@ -63,7 +63,6 @@
   - title:"reference paper"
   - author:author 1
   - author:author 2
-  - author:author 3
  - year:2009  # Still in the scope of the paper (id:1)
 - paper(id:2) # A new paper scope begins from here       
  - title:"another paper"
@@ -123,11 +122,11 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 850983	851043
 851164	851256
 
-# array construct
+# array construct with indentation
 -gene
  - exon(start,end)[csv]>
-850983, 851043
-851164, 851256
+    850983, 851043
+    851164, 851256
 
 
 # JSON 

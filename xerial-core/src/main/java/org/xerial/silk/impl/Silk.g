@@ -115,7 +115,8 @@ NewLine: '\r'? '\n' { $channel=HIDDEN; };
 // node indicator
 NodeIndicator: {getCharPositionInLine()==0}? => (' ')* '-';
 
-DataLine: { getCharPositionInLine()==0 }? =>  ~(' ' | '\r' | '\n' | '-' | '%' | '#') ~('\n'|'\r')*  NewLine; 
+fragment SpecialSymbol: '-' | '%' | '#' | ' ' | '\n' | '\r';   
+DataLine: { getCharPositionInLine()==0 }? =>  (' ')* ~SpecialSymbol ~('\n'|'\r')* NewLine; 
 
 WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; };
 
