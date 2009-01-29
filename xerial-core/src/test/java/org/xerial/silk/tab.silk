@@ -1,5 +1,5 @@
 -gene(id, chr, name)
-1	chr1	gene1
-2	chr2	gene2
-3	chr3	gene3
+  1	chr1	gene1
+  2	chr2	gene2
+  3	chr3	gene3
 

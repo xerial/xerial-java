@@ -190,7 +190,7 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| { currentState() == State.OUT }? => (':' | '?') NonSpaceChar
+	| { currentState() == State.OUT }? => (':' | '?' | '{' | '[') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	

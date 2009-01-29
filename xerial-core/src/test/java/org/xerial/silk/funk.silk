@@ -1,10 +1,10 @@
-- @import(src:file.silk)
+- @import(file.silk)
 
 # relative path
 - @import(src:../file.silk)
 
 # URL
-- @import(src:"http://www.xerial.org/file.silk")
+- @import("http://www.xerial.org/file.silk")
 
 - @import(file.silk, head:1)
 
