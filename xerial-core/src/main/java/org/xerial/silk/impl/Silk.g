@@ -112,8 +112,8 @@ private Stack<State> contextStack = new Stack<State>();
    
 private State currentState() { return contextStack.empty() ? State.DEFAULT : contextStack.peek(); }
 private void push(State s) { contextStack.push(s); }
-private State pop() { return contextStack.pop(); } 
-private State clearStack() { contextStack.clear(); }
+private void pop() { if(!contextStack.empty()) contextStack.pop(); } 
+private void clearStack() { contextStack.clear(); }
 }
 
 
@@ -159,7 +159,7 @@ fragment EscapeSequence
 	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
 	; 
 
-fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';
+
 fragment StringChar :  UnicodeChar | EscapeSequence;
 fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace ) | EscapeSequence;
 
@@ -177,33 +177,36 @@ BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak { $channel=HIDDEN
 
 DataLine: {getCharPositionInLine()==0}? => ~('-' | '%' | '#' | ' ' | LineBreakChar) ~('\n'|'\r')* LineBreak;
 
-LParen: '(';
+LParen: '(' { push(State.IN); };  
 RParen:	')';
 Comma: 	',';
-Colon:	':';
+Colon:	':' { push(State.OUT); } ;
 Seq: 	'>';
 Star: 	'*';
 At:		'@';
 Plus:	'+';
-LBracket:	'[';
+LBracket:	'[' { push(State.IN); };
 RBracket:	']';
 Question:	'?';
-
+ 
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
 	| (':' | '?') NonSpaceChar
 	;
-	
+
+fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
 fragment FlowIndicator: ',' | '[' | ']' | '{' | '}';
 
-fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | FlowIndicator) | EscapeSequence;	
-fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#') | EscapeSequence;
+fragment ScopeIndicator: '(' | ')' | ':';
+
+fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator | FlowIndicator) | EscapeSequence;	
+fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#'| ScopeIndicator) | EscapeSequence;
 
 fragment PlainSafe
 	: { currentState() == State.KEY }? => PlainSafeIn 
 	| { currentState() == State.IN }? => PlainSafeIn 
-	| { currentState() == State.OUT }? => PlainSafeIn 
+	| { currentState() == State.OUT }? => PlainSafeOut
 	;
 
 fragment PlainChar: PlainSafe '#'? | ':' NonSpaceChar; 
