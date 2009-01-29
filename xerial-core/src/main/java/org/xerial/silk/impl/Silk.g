@@ -25,9 +25,11 @@ grammar Silk;
 options 
 {
 	language=Java;
+	output=AST;
 	// some lexer & parser options
-	k=2;	// number of look-ahead characters 
-	output=AST;	
+	// number of look-ahead characters 
+	//k=3;	
+	backtrack=true;
 }
 tokens {
 Silk;
@@ -106,37 +108,37 @@ package org.xerial.silk.impl;
 
 @lexer::members {
   private boolean hasColon = false;
-  private boolean testHasColon() { 
-     boolean tmp = hasColon;
-     hasColon = false;
-     return tmp;
-  }
-  
+
 }
+
 
 // lexer rules
 
 // skip comment 
 LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
 Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
-NewLine: '\r'? '\n' { $channel=HIDDEN; hasColon = false; };
+
+NewLine: '\r'? '\n' { hasColon = false; $channel=HIDDEN; };
+
 
 // node indicator
-NodeStart: {getCharPositionInLine()==0}? => (' ')* '-';
+NodeStart: {getCharPositionInLine()==0}? (' ')* '-';
+BlankLine: {getCharPositionInLine()==0}? ( ' ' | '\t' | '\u000C')* NewLine { $channel=HIDDEN; };
 
-fragment SpecialSymbol: '-' | '%' | '#' | ' ' | '\n' | '\r';   
-DataLine: { getCharPositionInLine()==0 }? =>  (' ')* ~SpecialSymbol ~('\n'|'\r')* NewLine; 
 
-WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; };
+fragment SpecialSymbol: '%' | '#' | ' ' | '\n' | '\r';   
+DataLine: { getCharPositionInLine()==0 }? (' ')* ~SpecialSymbol ~('\n'|'\r')* NewLine;
 
-BlankLine: { getCharPositionInLine()==0 }? => WhiteSpaces? (NewLine | EOF);
+WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { skip(); }; 
+
+
 
 fragment Digit: '0' .. '9';
 fragment HexDigit: ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
 fragment UnicodeChar: ~('"'| '\\' | '\r' | '\n');
 fragment EscapeSequence
 	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
-	;
+	; 
 	
 fragment StringChar :  UnicodeChar | EscapeSequence;
 
@@ -151,14 +153,55 @@ String: '"' StringChar* '"'
   String tmp = getText(); setText(tmp.substring(1, tmp.length()-1));
   hasColon=false;   
 };
-Integer: Int ;
-Double:  Int (Frac Exp? | Exp) ;
+
+Number: Int (Frac Exp? | Exp)?;
 
 fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
 fragment NameChar: Letter | Digit | '_' | '-' | Dot;
 QName: (Letter | '_') NameChar* 
 	; 
 
+
+
+
+
+Colon: ':' { hasColon = true; } ;
+
+
+InLineJSON: {hasColon}? => (JSONObject | JSONArray) { hasColon = false; }
+	;  
+
+
+fragment
+JSONObject
+	: LBrace (QName | String) (Comma JSONValue)* RBrace
+	;
+	
+fragment
+JSONArray
+	: LBracket (JSONValue (Comma JSONValue)*)? RBracket
+	;	
+
+fragment
+JSONElement: (String | QName) Colon JSONValue
+	;
+
+fragment
+JSONValue
+	: JSONObject
+	| JSONArray
+	| String
+	| Number
+	;
+
+fragment
+InLineStringChar: ('\n'|'\r'|'#'|Comma|LParen|RParen|LBracket|RBracket|LBrace|RBrace|'"');
+
+NodeValue: 
+	{ hasColon }? 
+		=> (String | ~(' '|'\t' | InLineStringChar) (options {greedy=false;} : ~(InLineStringChar)*))
+	{ hasColon = false; }
+	;
 
 SequenceIndicator: '>';
 LParen: '(';
@@ -175,18 +218,6 @@ Plus: '+';
 At: '@';
 Slash: '/';
 
-
-fragment
-InLineStringChar: ('\n'|'\r'|'#'|Comma|LParen|RParen|LBracket|RBracket|LBrace|RBrace|'"');
-
-Colon: ':' { hasColon = true; } ;
-NodeValue: 
-	{ hasColon }? => 
-	(String | ~(' '|'\t' | InLineStringChar) (options {greedy=false;} : ~InLineStringChar+)) 
-	{ hasColon = false; }
-	;
-
-
 // parser rules	
 
 schema: node;
@@ -196,7 +227,6 @@ silkFile: silkLine* -> ^(Silk silkLine*)
 
 silkLine
 	: Preamble
-	| BlankLine
 	| DataLine
 	| node
 	;
@@ -204,39 +234,7 @@ silkLine
 
 nodeName: QName | String;
 nodeValue
-	: inLineJSON
-	 -> Value[$nodeValue.text]
-	;
-
-inLineJSON
-	: jsonObject
-	| jsonArray
-	| jsonAtom
-	;
-
-jsonObject
-	: LBrace (jsonElement (Comma jsonElement)*)? RBrace
-	;
-	
-jsonArray
-	: LBracket (jsonValue (Comma jsonValue)*)? RBracket
-	;	
-
-jsonElement: nodeName Colon jsonValue
-	;
-
-jsonValue
-	: jsonAtom
-	| jsonObject
-	| jsonArray 
-	;
-
-jsonAtom
-	: String 
-	| Integer 
-	| Double 
-	| QName
-	| NodeValue
+	: NodeValue -> Value[$nodeValue.text]
 	;
 
 
@@ -281,8 +279,11 @@ function: At QName LParen (functionArg (Comma functionArg)*)? RParen
 	;
 
 functionArg
-	: jsonAtom -> Argument[$jsonAtom.text]
+	: (String | QName) -> Argument[$functionArg.text]
 	| QName Colon NodeValue -> ^(KeyValuePair Key[$QName.text] Value[$NodeValue.text])
 	;
+
+
+
 
 

@@ -80,4 +80,10 @@ public class SilkParserTest
         parse("../suzaku-config.silk");
     }
 
+    @Test
+    public void testTab() throws Exception
+    {
+        parse("../tab.silk");
+    }
+
 }
