@@ -28,7 +28,7 @@ options
 	output=AST;
 	// some lexer & parser options
 	// number of look-ahead characters 
-	//k=3;	
+	k=3;	
 	backtrack=true;
 }
 tokens {
@@ -103,124 +103,120 @@ package org.xerial.silk.impl;
 //
 //--------------------------------------
 package org.xerial.silk.impl;
-
+import java.util.Stack;
 }
 
 @lexer::members {
-  private boolean hasColon = false;
-
+private enum State { DEFAULT, KEY, IN, OUT }; 
+private Stack<State> contextStack = new Stack<State>();
+   
+private State currentState() { return contextStack.empty() ? State.DEFAULT : contextStack.peek(); }
+private void push(State s) { contextStack.push(s); }
+private State pop() { return contextStack.pop(); } 
+private State clearStack() { contextStack.clear(); }
 }
 
 
 // lexer rules
 
-// Character Set
+/*
+fragment
+ChPrintable
+	: '\t' | LineBreakChar | '\u0020' .. '\u007E'          
+	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
+	;
 
+fragment
+PlainChar
+	: '\t' | '\u0020' .. '\u007E'          
+	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
+	;
 
-// skip comment 
+fragment NonSpaceChar	
+	: '\u0021' .. '\u007E'          
+	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
+	;
+*/	
+
+// comment 
 LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
 Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
 
-NewLine: '\r'? '\n' { hasColon = false; $channel=HIDDEN; };
+// r: <CR> n : <LF>
+fragment LineBreakChar: '\n' | '\r';
 
+LineBreak
+	: ('\r' '\n' | '\r' | '\n' ) 
+	{ $channel=HIDDEN; clearStack(); }
+	;		
 
-// node indicator
-NodeStart: {getCharPositionInLine()==0}? (' ')* '-';
-BlankLine: {getCharPositionInLine()==0}? ( ' ' | '\t' | '\u000C')* NewLine { $channel=HIDDEN; };
-
-
-fragment SpecialSymbol: '%' | '#' | ' ' | '\n' | '\r';   
-DataLine: { getCharPositionInLine()==0 }? ~SpecialSymbol ~('\n'|'\r')* NewLine;
-
-WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; }; 
-
-
-
-
+		
 fragment Digit: '0' .. '9';
-fragment HexDigit: ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
-fragment UnicodeChar: ~('"'| '\\' | '\r' | '\n');
+fragment Letter: 'A' .. 'F' | 'a' .. 'f';
+fragment HexDigit: Digit | Letter;
+fragment UnicodeChar: ~('"'| '\\' | LineBreakChar);
 fragment EscapeSequence
 	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
 	; 
-	
+
+fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';
 fragment StringChar :  UnicodeChar | EscapeSequence;
+fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace ) | EscapeSequence;
 
-fragment Int: '-'? ('0' | '1'..'9' Digit*);
-fragment Frac: Dot Digit+;
-fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
-
-
-String: '"' StringChar* '"'
-{ 
-  // remove the quotations
-  String tmp = getText(); setText(tmp.substring(1, tmp.length()-1));
-  hasColon=false;   
-};
-
-Number: Int (Frac Exp? | Exp)?;
-
-fragment Letter: 'a' .. 'z' | 'A' .. 'Z';
-fragment NameChar: Letter | Digit | '_' | '-' | Dot;
-QName: (Letter | '_') NameChar* 
-	; 
-
-
-
-
-
-Colon: ':' { hasColon = true; } ;
-
-
-InLineJSON: {hasColon}? => (JSONObject | JSONArray) { hasColon = false; }
-	;  
-
+String: '"' StringChar* '"';
 
 fragment
-JSONObject
-	: LBrace JSONElement (Comma JSONElement)* RBrace
+URIChar
+	: Letter | Digit | '%' HexDigit HexDigit
+	| ';' | '/' | '?' | ':' | '@' | '&' | '=' | '+' | '$' | ','
+	| '_' | '.' | '!' | '~' | '*' | '\'' | '(' | ')' | '[' | ']'
+	; 	
+	
+NodeStart: {getCharPositionInLine()==0}? (' ')* '-' { push(State.KEY); } ;
+BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak { $channel=HIDDEN; };
+
+DataLine: {getCharPositionInLine()==0}? => ~('-' | '%' | '#' | ' ' | LineBreakChar) ~('\n'|'\r')* LineBreak;
+
+LParen: '(';
+RParen:	')';
+Comma: 	',';
+Colon:	':';
+Seq: 	'>';
+Star: 	'*';
+At:		'@';
+Plus:	'+';
+LBracket:	'[';
+RBracket:	']';
+Question:	'?';
+
+fragment PlainFirst
+	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
+	| EscapeSequence 
+	| (':' | '?') NonSpaceChar
 	;
 	
-fragment
-JSONArray
-	: LBracket (JSONValue (Comma JSONValue)*)? RBracket
-	;	
+fragment FlowIndicator: ',' | '[' | ']' | '{' | '}';
 
-fragment
-JSONElement: (String | QName) Colon JSONValue
+fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | FlowIndicator) | EscapeSequence;	
+fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#') | EscapeSequence;
+
+fragment PlainSafe
+	: { currentState() == State.KEY }? => PlainSafeIn 
+	| { currentState() == State.IN }? => PlainSafeIn 
+	| { currentState() == State.OUT }? => PlainSafeIn 
 	;
 
-fragment
-JSONValue
-	: JSONObject
-	| JSONArray
-	| String
-	| Number
-	;
+fragment PlainChar: PlainSafe '#'? | ':' NonSpaceChar; 
 
-fragment
-InLineStringChar: ('\n'|'\r'|'#'|Comma|LParen|RParen|LBracket|RBracket|LBrace|RBrace|'"');
+PlainOneLine: PlainFirst (WhiteSpace* PlainChar)*;
 
-NodeValue: 
-	{ hasColon }? 
-		=> (String | ~(' '|'\t' | InLineStringChar) (options {greedy=false;} : ~(InLineStringChar)*))
-	{ hasColon = false; }
-	;
+Separation: { currentState() != State.DEFAULT }? WhiteSpace+;
 
-SequenceIndicator: '>';
-LParen: '(';
-RParen: ')';
-LBracket: '[';
-RBracket: ']';
-LBrace: '{';
-RBrace: '}';
-Comma: ',';
-Dot: '.';
-Star: '*';
-Question: '?';
-Plus: '+';
-At: '@';
-Slash: '/';
+WhiteSpace
+	:	(' ' | '\t') 
+	;		
+
+
 
 
 
@@ -238,11 +234,8 @@ silkLine
 	;
 
 
-nodeName: QName | String;
-nodeValue
-	: NodeValue -> Value[$nodeValue.text]
-	;
-
+nodeName: PlainOneLine | String;
+nodeValue: (PlainOneLine | String) -> Value[$nodeValue.text];
 
 node: NodeStart (coreNode | function);
 
@@ -250,43 +243,35 @@ coreNode: nodeItem
 	-> ^(SilkNode nodeItem)
 	;
 
-nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
+nodeItem: nodeName (Comma nodeValue)? (LParen attributeList RParen)? dataType? plural?
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
 	;
 
 dataType: LBracket! dataTypeName RBracket!
 	;
 	
-dataTypeName: QName (Slash QName)*
+dataTypeName: PlainOneLine
 	-> DataType[$dataTypeName.text]
 	; 	
 	
 attributeList: attributeItem (Comma! attributeItem)* ;	
 attributeItem: nodeItem -> ^(SilkAttribute nodeItem);
 
-/*	
-nestedNodeList: nestedNodeItem (nestedNodeItem)
-	-> ^(Silk
-	;
-
-nestedNodeItem: nodeItem -> ^(SilkNode nodeItem)
-	;
-	*/
 
 plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
 	| Plus -> Occurrence["ONE_OR_MORE"]
 	| Question -> Occurrence["ZERO_OR_ONE"]
-	| SequenceIndicator -> Occurrence["SEQUENCE"]
+	| Seq -> Occurrence["SEQUENCE"]
 	;
 
-function: At QName LParen (functionArg (Comma functionArg)*)? RParen
-	-> ^(Function[$QName.text] functionArg*)
+function: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
+	-> ^(Function[$PlainOneLine.text] functionArg*)
 	;
 
 functionArg
-	: (String | QName) -> Argument[$functionArg.text]
-	| QName Colon NodeValue -> ^(KeyValuePair Key[$QName.text] Value[$NodeValue.text])
+	: nodeValue -> Argument[$functionArg.text]
+	| nodeName Colon nodeValue -> ^(KeyValuePair Key[$nodeName.text] nodeValue)
 	;
 
 
