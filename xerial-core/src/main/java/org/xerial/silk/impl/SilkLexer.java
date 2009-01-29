@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-29 23:31:06
+// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-29 23:50:05
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -1156,7 +1156,7 @@ public class SilkLexer extends Lexer {
             if ( (LA14_0=='?') ) {
                 int LA14_1 = input.LA(2);
 
-                if ( ((LA14_1>='\u0000' && LA14_1<='\b')||(LA14_1>='\u000B' && LA14_1<='\f')||(LA14_1>='\u000E' && LA14_1<='\u001F')||LA14_1=='!'||(LA14_1>='#' && LA14_1<='\uFFFF')) && (( currentState() == State.OUT ))) {
+                if ( ((LA14_1>='\u0000' && LA14_1<='\b')||(LA14_1>='\u000B' && LA14_1<='\f')||(LA14_1>='\u000E' && LA14_1<='\u001F')||LA14_1=='!'||(LA14_1>='#' && LA14_1<='\uFFFF')) && (( currentState() == State.OUT_VALUE ))) {
                     alt14=3;
                 }
                 else {
@@ -1168,7 +1168,7 @@ public class SilkLexer extends Lexer {
             else if ( ((LA14_0>='\u0000' && LA14_0<='\b')||(LA14_0>='\u000B' && LA14_0<='\f')||(LA14_0>='\u000E' && LA14_0<='\u001F')||LA14_0=='!'||LA14_0=='$'||LA14_0=='&'||(LA14_0>='*' && LA14_0<='+')||(LA14_0>='.' && LA14_0<='9')||(LA14_0>=';' && LA14_0<='=')||(LA14_0>='A' && LA14_0<='Z')||(LA14_0>='^' && LA14_0<='z')||LA14_0=='|'||(LA14_0>='~' && LA14_0<='\uFFFF')) ) {
                 alt14=1;
             }
-            else if ( (LA14_0==':'||LA14_0=='['||LA14_0=='{') && (( currentState() == State.OUT ))) {
+            else if ( (LA14_0==':'||LA14_0=='['||LA14_0=='{') && (( currentState() == State.OUT_VALUE ))) {
                 alt14=3;
             }
             else {
@@ -1203,8 +1203,8 @@ public class SilkLexer extends Lexer {
                 case 3 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:4: {...}? => ( ':' | '?' | '{' | '[' ) NonSpaceChar
                     {
-                    if ( !(( currentState() == State.OUT )) ) {
-                        throw new FailedPredicateException(input, "PlainFirst", " currentState() == State.OUT ");
+                    if ( !(( currentState() == State.OUT_VALUE )) ) {
+                        throw new FailedPredicateException(input, "PlainFirst", " currentState() == State.OUT_VALUE ");
                     }
                     if ( input.LA(1)==':'||input.LA(1)=='?'||input.LA(1)=='['||input.LA(1)=='{' ) {
                         input.consume();
@@ -1459,8 +1459,8 @@ public class SilkLexer extends Lexer {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:206:4: {...}? => PlainSafeKey
                     {
-                    if ( !(( currentState() == State.KEY )) ) {
-                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.KEY ");
+                    if ( !(( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {
+                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.IN_KEY || currentState() == State.OUT_KEY ");
                     }
                     mPlainSafeKey(); 
 
@@ -1469,8 +1469,8 @@ public class SilkLexer extends Lexer {
                 case 2 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:207:4: {...}? => PlainSafeIn
                     {
-                    if ( !(( currentState() == State.IN )) ) {
-                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.IN ");
+                    if ( !(( currentState() == State.IN_VALUE )) ) {
+                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.IN_VALUE ");
                     }
                     mPlainSafeIn(); 
 
@@ -1479,8 +1479,8 @@ public class SilkLexer extends Lexer {
                 case 3 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:208:4: {...}? => PlainSafeOut
                     {
-                    if ( !(( currentState() == State.OUT )) ) {
-                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.OUT ");
+                    if ( !(( currentState() == State.OUT_VALUE )) ) {
+                        throw new FailedPredicateException(input, "PlainSafe", " currentState() == State.OUT_VALUE ");
                     }
                     mPlainSafeOut(); 
 
@@ -1546,16 +1546,16 @@ public class SilkLexer extends Lexer {
                 if ( (LA21_0=='\t'||LA21_0==' ') ) {
                     alt21=1;
                 }
-                else if ( ((LA21_0>='\u0000' && LA21_0<='\b')||(LA21_0>='\u000B' && LA21_0<='\f')||(LA21_0>='\u000E' && LA21_0<='\u001F')||LA21_0=='!'||(LA21_0>='$' && LA21_0<='\'')||(LA21_0>='*' && LA21_0<='+')||(LA21_0>='-' && LA21_0<='9')||(LA21_0>=';' && LA21_0<='Z')||(LA21_0>='^' && LA21_0<='z')||LA21_0=='|'||(LA21_0>='~' && LA21_0<='\uFFFF')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {
+                else if ( ((LA21_0>='\u0000' && LA21_0<='\b')||(LA21_0>='\u000B' && LA21_0<='\f')||(LA21_0>='\u000E' && LA21_0<='\u001F')||LA21_0=='!'||(LA21_0>='$' && LA21_0<='\'')||(LA21_0>='*' && LA21_0<='+')||(LA21_0>='-' && LA21_0<='9')||(LA21_0>=';' && LA21_0<='Z')||(LA21_0>='^' && LA21_0<='z')||LA21_0=='|'||(LA21_0>='~' && LA21_0<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {
                     alt21=1;
                 }
-                else if ( (LA21_0=='\\') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {
+                else if ( (LA21_0=='\\') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {
                     alt21=1;
                 }
-                else if ( (LA21_0==':') && ((( currentState() == State.OUT )||( currentState() == State.IN )))) {
+                else if ( (LA21_0==':') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_VALUE )))) {
                     alt21=1;
                 }
-                else if ( (LA21_0==','||LA21_0=='['||LA21_0==']'||LA21_0=='{'||LA21_0=='}') && (( currentState() == State.OUT ))) {
+                else if ( (LA21_0==','||LA21_0=='['||LA21_0==']'||LA21_0=='{'||LA21_0=='}') && (( currentState() == State.OUT_VALUE ))) {
                     alt21=1;
                 }
 
@@ -1933,7 +1933,7 @@ public class SilkLexer extends Lexer {
                         int index18_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_17>='0' && LA18_17<='9')||(LA18_17>='A' && LA18_17<='F')||(LA18_17>='a' && LA18_17<='f')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 18;}
+                        if ( ((LA18_17>='0' && LA18_17<='9')||(LA18_17>='A' && LA18_17<='F')||(LA18_17>='a' && LA18_17<='f')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 18;}
 
                          
                         input.seek(index18_17);
@@ -1946,7 +1946,7 @@ public class SilkLexer extends Lexer {
                         int index18_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_18>='0' && LA18_18<='9')||(LA18_18>='A' && LA18_18<='F')||(LA18_18>='a' && LA18_18<='f')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 19;}
+                        if ( ((LA18_18>='0' && LA18_18<='9')||(LA18_18>='A' && LA18_18<='F')||(LA18_18>='a' && LA18_18<='f')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 19;}
 
                          
                         input.seek(index18_18);
@@ -1959,11 +1959,11 @@ public class SilkLexer extends Lexer {
                         int index18_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_13);
@@ -1976,11 +1976,11 @@ public class SilkLexer extends Lexer {
                         int index18_7 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_7);
@@ -1993,11 +1993,11 @@ public class SilkLexer extends Lexer {
                         int index18_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_9);
@@ -2010,11 +2010,11 @@ public class SilkLexer extends Lexer {
                         int index18_12 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_12);
@@ -2027,9 +2027,9 @@ public class SilkLexer extends Lexer {
                         int index18_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.IN )) ) {s = 6;}
+                        if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_3);
@@ -2042,11 +2042,11 @@ public class SilkLexer extends Lexer {
                         int index18_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_1);
@@ -2059,11 +2059,11 @@ public class SilkLexer extends Lexer {
                         int index18_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_10);
@@ -2076,11 +2076,11 @@ public class SilkLexer extends Lexer {
                         int index18_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_8);
@@ -2093,11 +2093,11 @@ public class SilkLexer extends Lexer {
                         int index18_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_14);
@@ -2110,7 +2110,7 @@ public class SilkLexer extends Lexer {
                         int index18_15 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_15>='0' && LA18_15<='9')||(LA18_15>='A' && LA18_15<='F')||(LA18_15>='a' && LA18_15<='f')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 16;}
+                        if ( ((LA18_15>='0' && LA18_15<='9')||(LA18_15>='A' && LA18_15<='F')||(LA18_15>='a' && LA18_15<='f')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 16;}
 
                          
                         input.seek(index18_15);
@@ -2123,13 +2123,13 @@ public class SilkLexer extends Lexer {
                         int index18_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_0>='\u0000' && LA18_0<='\b')||(LA18_0>='\u000B' && LA18_0<='\f')||(LA18_0>='\u000E' && LA18_0<='\u001F')||LA18_0=='!'||(LA18_0>='$' && LA18_0<='\'')||(LA18_0>='*' && LA18_0<='+')||(LA18_0>='-' && LA18_0<='9')||(LA18_0>=';' && LA18_0<='Z')||(LA18_0>='^' && LA18_0<='z')||LA18_0=='|'||(LA18_0>='~' && LA18_0<='\uFFFF')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 1;}
+                        if ( ((LA18_0>='\u0000' && LA18_0<='\b')||(LA18_0>='\u000B' && LA18_0<='\f')||(LA18_0>='\u000E' && LA18_0<='\u001F')||LA18_0=='!'||(LA18_0>='$' && LA18_0<='\'')||(LA18_0>='*' && LA18_0<='+')||(LA18_0>='-' && LA18_0<='9')||(LA18_0>=';' && LA18_0<='Z')||(LA18_0>='^' && LA18_0<='z')||LA18_0=='|'||(LA18_0>='~' && LA18_0<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 1;}
 
-                        else if ( (LA18_0=='\\') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 2;}
+                        else if ( (LA18_0=='\\') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 2;}
 
-                        else if ( (LA18_0==':') && ((( currentState() == State.OUT )||( currentState() == State.IN )))) {s = 3;}
+                        else if ( (LA18_0==':') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_VALUE )))) {s = 3;}
 
-                        else if ( (LA18_0==','||LA18_0=='['||LA18_0==']'||LA18_0=='{'||LA18_0=='}') && (( currentState() == State.OUT ))) {s = 4;}
+                        else if ( (LA18_0==','||LA18_0=='['||LA18_0==']'||LA18_0=='{'||LA18_0=='}') && (( currentState() == State.OUT_VALUE ))) {s = 4;}
 
                          
                         input.seek(index18_0);
@@ -2142,11 +2142,11 @@ public class SilkLexer extends Lexer {
                         int index18_19 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_19);
@@ -2159,7 +2159,7 @@ public class SilkLexer extends Lexer {
                         int index18_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_16>='0' && LA18_16<='9')||(LA18_16>='A' && LA18_16<='F')||(LA18_16>='a' && LA18_16<='f')) && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 17;}
+                        if ( ((LA18_16>='0' && LA18_16<='9')||(LA18_16>='A' && LA18_16<='F')||(LA18_16>='a' && LA18_16<='f')) && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 17;}
 
                          
                         input.seek(index18_16);
@@ -2172,11 +2172,11 @@ public class SilkLexer extends Lexer {
                         int index18_11 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( currentState() == State.KEY )) ) {s = 5;}
+                        if ( (( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )) ) {s = 5;}
 
-                        else if ( (( currentState() == State.IN )) ) {s = 6;}
+                        else if ( (( currentState() == State.IN_VALUE )) ) {s = 6;}
 
-                        else if ( (( currentState() == State.OUT )) ) {s = 4;}
+                        else if ( (( currentState() == State.OUT_VALUE )) ) {s = 4;}
 
                          
                         input.seek(index18_11);
@@ -2189,23 +2189,23 @@ public class SilkLexer extends Lexer {
                         int index18_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA18_2=='\"') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 7;}
+                        if ( (LA18_2=='\"') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 7;}
 
-                        else if ( (LA18_2=='\\') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 8;}
+                        else if ( (LA18_2=='\\') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 8;}
 
-                        else if ( (LA18_2=='/') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 9;}
+                        else if ( (LA18_2=='/') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 9;}
 
-                        else if ( (LA18_2=='b') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 10;}
+                        else if ( (LA18_2=='b') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 10;}
 
-                        else if ( (LA18_2=='f') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 11;}
+                        else if ( (LA18_2=='f') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 11;}
 
-                        else if ( (LA18_2=='n') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 12;}
+                        else if ( (LA18_2=='n') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 12;}
 
-                        else if ( (LA18_2=='r') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 13;}
+                        else if ( (LA18_2=='r') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 13;}
 
-                        else if ( (LA18_2=='t') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 14;}
+                        else if ( (LA18_2=='t') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 14;}
 
-                        else if ( (LA18_2=='u') && ((( currentState() == State.OUT )||( currentState() == State.KEY )||( currentState() == State.IN )))) {s = 15;}
+                        else if ( (LA18_2=='u') && ((( currentState() == State.OUT_VALUE )||( currentState() == State.IN_KEY || currentState() == State.OUT_KEY )||( currentState() == State.IN_VALUE )))) {s = 15;}
 
                          
                         input.seek(index18_2);
@@ -2690,23 +2690,23 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_83>='\u0000' && LA23_83<='!')||(LA23_83>='#' && LA23_83<='.')||(LA23_83>='0' && LA23_83<='[')||(LA23_83>=']' && LA23_83<='a')||(LA23_83>='c' && LA23_83<='e')||(LA23_83>='g' && LA23_83<='m')||(LA23_83>='o' && LA23_83<='q')||LA23_83=='s'||(LA23_83>='v' && LA23_83<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_83=='\"') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 123;}
+                        else if ( (LA23_83=='\"') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 123;}
 
-                        else if ( (LA23_83=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 124;}
+                        else if ( (LA23_83=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 124;}
 
-                        else if ( (LA23_83=='/') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 125;}
+                        else if ( (LA23_83=='/') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 125;}
 
-                        else if ( (LA23_83=='b') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 126;}
+                        else if ( (LA23_83=='b') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 126;}
 
-                        else if ( (LA23_83=='f') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 127;}
+                        else if ( (LA23_83=='f') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 127;}
 
-                        else if ( (LA23_83=='n') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 128;}
+                        else if ( (LA23_83=='n') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 128;}
 
-                        else if ( (LA23_83=='r') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 129;}
+                        else if ( (LA23_83=='r') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 129;}
 
-                        else if ( (LA23_83=='t') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 130;}
+                        else if ( (LA23_83=='t') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 130;}
 
-                        else if ( (LA23_83=='u') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 131;}
+                        else if ( (LA23_83=='u') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 131;}
 
                          
                         input.seek(index23_83);
@@ -2765,17 +2765,17 @@ public class SilkLexer extends Lexer {
                         int index23_124 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA23_124=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        if ( (LA23_124=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_124=='\t'||LA23_124==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_124=='\t'||LA23_124==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_124>='\u0000' && LA23_124<='\b')||(LA23_124>='\u000B' && LA23_124<='\f')||(LA23_124>='\u000E' && LA23_124<='\u001F')||LA23_124=='!'||(LA23_124>='$' && LA23_124<='\'')||(LA23_124>='*' && LA23_124<='+')||(LA23_124>='-' && LA23_124<='9')||(LA23_124>=';' && LA23_124<='Z')||(LA23_124>='^' && LA23_124<='z')||LA23_124=='|'||(LA23_124>='~' && LA23_124<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_124>='\u0000' && LA23_124<='\b')||(LA23_124>='\u000B' && LA23_124<='\f')||(LA23_124>='\u000E' && LA23_124<='\u001F')||LA23_124=='!'||(LA23_124>='$' && LA23_124<='\'')||(LA23_124>='*' && LA23_124<='+')||(LA23_124>='-' && LA23_124<='9')||(LA23_124>=';' && LA23_124<='Z')||(LA23_124>='^' && LA23_124<='z')||LA23_124=='|'||(LA23_124>='~' && LA23_124<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_124=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_124=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_124==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_124==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_124==','||LA23_124=='['||LA23_124==']'||LA23_124=='{'||LA23_124=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_124==','||LA23_124=='['||LA23_124==']'||LA23_124=='{'||LA23_124=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else if ( (LA23_124=='\n'||LA23_124=='\r'||LA23_124=='\"'||(LA23_124>='(' && LA23_124<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -2894,15 +2894,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_38=='\n'||LA23_38=='\r'||(LA23_38>='\"' && LA23_38<='#')||(LA23_38>='(' && LA23_38<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_38=='\t'||LA23_38==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_38=='\t'||LA23_38==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_38>='\u0000' && LA23_38<='\b')||(LA23_38>='\u000B' && LA23_38<='\f')||(LA23_38>='\u000E' && LA23_38<='\u001F')||LA23_38=='!'||(LA23_38>='$' && LA23_38<='\'')||(LA23_38>='*' && LA23_38<='+')||(LA23_38>='-' && LA23_38<='9')||(LA23_38>=';' && LA23_38<='Z')||(LA23_38>='^' && LA23_38<='z')||LA23_38=='|'||(LA23_38>='~' && LA23_38<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_38>='\u0000' && LA23_38<='\b')||(LA23_38>='\u000B' && LA23_38<='\f')||(LA23_38>='\u000E' && LA23_38<='\u001F')||LA23_38=='!'||(LA23_38>='$' && LA23_38<='\'')||(LA23_38>='*' && LA23_38<='+')||(LA23_38>='-' && LA23_38<='9')||(LA23_38>=';' && LA23_38<='Z')||(LA23_38>='^' && LA23_38<='z')||LA23_38=='|'||(LA23_38>='~' && LA23_38<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_38=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_38=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_38==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_38==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_38==','||LA23_38=='['||LA23_38==']'||LA23_38=='{'||LA23_38=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_38==','||LA23_38=='['||LA23_38==']'||LA23_38=='{'||LA23_38=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -2942,7 +2942,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_154>='\u0000' && LA23_154<='/')||(LA23_154>=':' && LA23_154<='@')||(LA23_154>='G' && LA23_154<='`')||(LA23_154>='g' && LA23_154<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_154>='0' && LA23_154<='9')||(LA23_154>='A' && LA23_154<='F')||(LA23_154>='a' && LA23_154<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 161;}
+                        else if ( ((LA23_154>='0' && LA23_154<='9')||(LA23_154>='A' && LA23_154<='F')||(LA23_154>='a' && LA23_154<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 161;}
 
                          
                         input.seek(index23_154);
@@ -2985,9 +2985,9 @@ public class SilkLexer extends Lexer {
                         int index23_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA23_22>='\u0000' && LA23_22<='\b')||(LA23_22>='\u000B' && LA23_22<='\f')||(LA23_22>='\u000E' && LA23_22<='\u001F')||LA23_22=='!'||(LA23_22>='#' && LA23_22<='[')||(LA23_22>=']' && LA23_22<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 38;}
+                        if ( ((LA23_22>='\u0000' && LA23_22<='\b')||(LA23_22>='\u000B' && LA23_22<='\f')||(LA23_22>='\u000E' && LA23_22<='\u001F')||LA23_22=='!'||(LA23_22>='#' && LA23_22<='[')||(LA23_22>=']' && LA23_22<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 38;}
 
-                        else if ( (LA23_22=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 39;}
+                        else if ( (LA23_22=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 39;}
 
                         else if ( ((LA23_22>='\t' && LA23_22<='\n')||LA23_22=='\r'||LA23_22==' '||LA23_22=='\"') && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -3284,7 +3284,7 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA23_0=='\\') ) {s = 21;}
 
-                        else if ( (LA23_0=='{') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 22;}
+                        else if ( (LA23_0=='{') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 22;}
 
                         else if ( (LA23_0=='\''||LA23_0=='}') && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -3301,7 +3301,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_155>='\u0000' && LA23_155<='/')||(LA23_155>=':' && LA23_155<='@')||(LA23_155>='G' && LA23_155<='`')||(LA23_155>='g' && LA23_155<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_155>='0' && LA23_155<='9')||(LA23_155>='A' && LA23_155<='F')||(LA23_155>='a' && LA23_155<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 162;}
+                        else if ( ((LA23_155>='0' && LA23_155<='9')||(LA23_155>='A' && LA23_155<='F')||(LA23_155>='a' && LA23_155<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 162;}
 
                          
                         input.seek(index23_155);
@@ -3358,17 +3358,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_130=='\n'||LA23_130=='\r'||LA23_130=='\"'||(LA23_130>='(' && LA23_130<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_130=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_130=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_130=='\t'||LA23_130==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_130=='\t'||LA23_130==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_130>='\u0000' && LA23_130<='\b')||(LA23_130>='\u000B' && LA23_130<='\f')||(LA23_130>='\u000E' && LA23_130<='\u001F')||LA23_130=='!'||(LA23_130>='$' && LA23_130<='\'')||(LA23_130>='*' && LA23_130<='+')||(LA23_130>='-' && LA23_130<='9')||(LA23_130>=';' && LA23_130<='Z')||(LA23_130>='^' && LA23_130<='z')||LA23_130=='|'||(LA23_130>='~' && LA23_130<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_130>='\u0000' && LA23_130<='\b')||(LA23_130>='\u000B' && LA23_130<='\f')||(LA23_130>='\u000E' && LA23_130<='\u001F')||LA23_130=='!'||(LA23_130>='$' && LA23_130<='\'')||(LA23_130>='*' && LA23_130<='+')||(LA23_130>='-' && LA23_130<='9')||(LA23_130>=';' && LA23_130<='Z')||(LA23_130>='^' && LA23_130<='z')||LA23_130=='|'||(LA23_130>='~' && LA23_130<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_130=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_130=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_130==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_130==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_130==','||LA23_130=='['||LA23_130==']'||LA23_130=='{'||LA23_130=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_130==','||LA23_130=='['||LA23_130==']'||LA23_130=='{'||LA23_130=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -3439,17 +3439,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_82=='\n'||LA23_82=='\r'||LA23_82=='\"'||(LA23_82>='(' && LA23_82<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_82=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_82=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_82=='\t'||LA23_82==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_82=='\t'||LA23_82==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_82>='\u0000' && LA23_82<='\b')||(LA23_82>='\u000B' && LA23_82<='\f')||(LA23_82>='\u000E' && LA23_82<='\u001F')||LA23_82=='!'||(LA23_82>='$' && LA23_82<='\'')||(LA23_82>='*' && LA23_82<='+')||(LA23_82>='-' && LA23_82<='9')||(LA23_82>=';' && LA23_82<='Z')||(LA23_82>='^' && LA23_82<='z')||LA23_82=='|'||(LA23_82>='~' && LA23_82<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_82>='\u0000' && LA23_82<='\b')||(LA23_82>='\u000B' && LA23_82<='\f')||(LA23_82>='\u000E' && LA23_82<='\u001F')||LA23_82=='!'||(LA23_82>='$' && LA23_82<='\'')||(LA23_82>='*' && LA23_82<='+')||(LA23_82>='-' && LA23_82<='9')||(LA23_82>=';' && LA23_82<='Z')||(LA23_82>='^' && LA23_82<='z')||LA23_82=='|'||(LA23_82>='~' && LA23_82<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_82=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_82=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_82==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_82==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_82==','||LA23_82=='['||LA23_82==']'||LA23_82=='{'||LA23_82=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_82==','||LA23_82=='['||LA23_82==']'||LA23_82=='{'||LA23_82=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -3464,17 +3464,17 @@ public class SilkLexer extends Lexer {
                         int index23_127 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA23_127=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        if ( (LA23_127=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_127=='\t'||LA23_127==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_127=='\t'||LA23_127==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_127>='\u0000' && LA23_127<='\b')||(LA23_127>='\u000B' && LA23_127<='\f')||(LA23_127>='\u000E' && LA23_127<='\u001F')||LA23_127=='!'||(LA23_127>='$' && LA23_127<='\'')||(LA23_127>='*' && LA23_127<='+')||(LA23_127>='-' && LA23_127<='9')||(LA23_127>=';' && LA23_127<='Z')||(LA23_127>='^' && LA23_127<='z')||LA23_127=='|'||(LA23_127>='~' && LA23_127<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_127>='\u0000' && LA23_127<='\b')||(LA23_127>='\u000B' && LA23_127<='\f')||(LA23_127>='\u000E' && LA23_127<='\u001F')||LA23_127=='!'||(LA23_127>='$' && LA23_127<='\'')||(LA23_127>='*' && LA23_127<='+')||(LA23_127>='-' && LA23_127<='9')||(LA23_127>=';' && LA23_127<='Z')||(LA23_127>='^' && LA23_127<='z')||LA23_127=='|'||(LA23_127>='~' && LA23_127<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_127=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_127=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_127==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_127==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_127==','||LA23_127=='['||LA23_127==']'||LA23_127=='{'||LA23_127=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_127==','||LA23_127=='['||LA23_127==']'||LA23_127=='{'||LA23_127=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else if ( (LA23_127=='\n'||LA23_127=='\r'||LA23_127=='\"'||(LA23_127>='(' && LA23_127<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -3575,15 +3575,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_92=='\n'||LA23_92=='\r'||(LA23_92>='\"' && LA23_92<='#')||(LA23_92>='(' && LA23_92<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_92=='\t'||LA23_92==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_92=='\t'||LA23_92==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_92>='\u0000' && LA23_92<='\b')||(LA23_92>='\u000B' && LA23_92<='\f')||(LA23_92>='\u000E' && LA23_92<='\u001F')||LA23_92=='!'||(LA23_92>='$' && LA23_92<='\'')||(LA23_92>='*' && LA23_92<='+')||(LA23_92>='-' && LA23_92<='9')||(LA23_92>=';' && LA23_92<='Z')||(LA23_92>='^' && LA23_92<='z')||LA23_92=='|'||(LA23_92>='~' && LA23_92<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_92>='\u0000' && LA23_92<='\b')||(LA23_92>='\u000B' && LA23_92<='\f')||(LA23_92>='\u000E' && LA23_92<='\u001F')||LA23_92=='!'||(LA23_92>='$' && LA23_92<='\'')||(LA23_92>='*' && LA23_92<='+')||(LA23_92>='-' && LA23_92<='9')||(LA23_92>=';' && LA23_92<='Z')||(LA23_92>='^' && LA23_92<='z')||LA23_92=='|'||(LA23_92>='~' && LA23_92<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_92=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_92=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_92==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_92==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_92==','||LA23_92=='['||LA23_92==']'||LA23_92=='{'||LA23_92=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_92==','||LA23_92=='['||LA23_92==']'||LA23_92=='{'||LA23_92=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -3600,7 +3600,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_148>='\u0000' && LA23_148<='/')||(LA23_148>=':' && LA23_148<='@')||(LA23_148>='G' && LA23_148<='`')||(LA23_148>='g' && LA23_148<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_148>='0' && LA23_148<='9')||(LA23_148>='A' && LA23_148<='F')||(LA23_148>='a' && LA23_148<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 155;}
+                        else if ( ((LA23_148>='0' && LA23_148<='9')||(LA23_148>='A' && LA23_148<='F')||(LA23_148>='a' && LA23_148<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 155;}
 
                          
                         input.seek(index23_148);
@@ -3682,17 +3682,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_84=='\n'||LA23_84=='\r'||LA23_84=='\"'||(LA23_84>='(' && LA23_84<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_84=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_84=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_84=='\t'||LA23_84==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_84=='\t'||LA23_84==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_84>='\u0000' && LA23_84<='\b')||(LA23_84>='\u000B' && LA23_84<='\f')||(LA23_84>='\u000E' && LA23_84<='\u001F')||LA23_84=='!'||(LA23_84>='$' && LA23_84<='\'')||(LA23_84>='*' && LA23_84<='+')||(LA23_84>='-' && LA23_84<='9')||(LA23_84>=';' && LA23_84<='Z')||(LA23_84>='^' && LA23_84<='z')||LA23_84=='|'||(LA23_84>='~' && LA23_84<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_84>='\u0000' && LA23_84<='\b')||(LA23_84>='\u000B' && LA23_84<='\f')||(LA23_84>='\u000E' && LA23_84<='\u001F')||LA23_84=='!'||(LA23_84>='$' && LA23_84<='\'')||(LA23_84>='*' && LA23_84<='+')||(LA23_84>='-' && LA23_84<='9')||(LA23_84>=';' && LA23_84<='Z')||(LA23_84>='^' && LA23_84<='z')||LA23_84=='|'||(LA23_84>='~' && LA23_84<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_84=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_84=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_84==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_84==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_84==','||LA23_84=='['||LA23_84==']'||LA23_84=='{'||LA23_84=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_84==','||LA23_84=='['||LA23_84==']'||LA23_84=='{'||LA23_84=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -3862,15 +3862,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_122=='\n'||LA23_122=='\r'||(LA23_122>='\"' && LA23_122<='#')||(LA23_122>='(' && LA23_122<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_122=='\t'||LA23_122==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_122=='\t'||LA23_122==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_122>='\u0000' && LA23_122<='\b')||(LA23_122>='\u000B' && LA23_122<='\f')||(LA23_122>='\u000E' && LA23_122<='\u001F')||LA23_122=='!'||(LA23_122>='$' && LA23_122<='\'')||(LA23_122>='*' && LA23_122<='+')||(LA23_122>='-' && LA23_122<='9')||(LA23_122>=';' && LA23_122<='Z')||(LA23_122>='^' && LA23_122<='z')||LA23_122=='|'||(LA23_122>='~' && LA23_122<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_122>='\u0000' && LA23_122<='\b')||(LA23_122>='\u000B' && LA23_122<='\f')||(LA23_122>='\u000E' && LA23_122<='\u001F')||LA23_122=='!'||(LA23_122>='$' && LA23_122<='\'')||(LA23_122>='*' && LA23_122<='+')||(LA23_122>='-' && LA23_122<='9')||(LA23_122>=';' && LA23_122<='Z')||(LA23_122>='^' && LA23_122<='z')||LA23_122=='|'||(LA23_122>='~' && LA23_122<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_122=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_122=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_122==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_122==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_122==','||LA23_122=='['||LA23_122==']'||LA23_122=='{'||LA23_122=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_122==','||LA23_122=='['||LA23_122==']'||LA23_122=='{'||LA23_122=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -3937,17 +3937,17 @@ public class SilkLexer extends Lexer {
                         int index23_126 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA23_126=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        if ( (LA23_126=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_126=='\t'||LA23_126==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_126=='\t'||LA23_126==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_126>='\u0000' && LA23_126<='\b')||(LA23_126>='\u000B' && LA23_126<='\f')||(LA23_126>='\u000E' && LA23_126<='\u001F')||LA23_126=='!'||(LA23_126>='$' && LA23_126<='\'')||(LA23_126>='*' && LA23_126<='+')||(LA23_126>='-' && LA23_126<='9')||(LA23_126>=';' && LA23_126<='Z')||(LA23_126>='^' && LA23_126<='z')||LA23_126=='|'||(LA23_126>='~' && LA23_126<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_126>='\u0000' && LA23_126<='\b')||(LA23_126>='\u000B' && LA23_126<='\f')||(LA23_126>='\u000E' && LA23_126<='\u001F')||LA23_126=='!'||(LA23_126>='$' && LA23_126<='\'')||(LA23_126>='*' && LA23_126<='+')||(LA23_126>='-' && LA23_126<='9')||(LA23_126>=';' && LA23_126<='Z')||(LA23_126>='^' && LA23_126<='z')||LA23_126=='|'||(LA23_126>='~' && LA23_126<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_126=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_126=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_126==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_126==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_126==','||LA23_126=='['||LA23_126==']'||LA23_126=='{'||LA23_126=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_126==','||LA23_126=='['||LA23_126==']'||LA23_126=='{'||LA23_126=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else if ( (LA23_126=='\n'||LA23_126=='\r'||LA23_126=='\"'||(LA23_126>='(' && LA23_126<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -4068,17 +4068,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_125=='\n'||LA23_125=='\r'||LA23_125=='\"'||(LA23_125>='(' && LA23_125<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_125=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_125=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_125=='\t'||LA23_125==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_125=='\t'||LA23_125==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_125>='\u0000' && LA23_125<='\b')||(LA23_125>='\u000B' && LA23_125<='\f')||(LA23_125>='\u000E' && LA23_125<='\u001F')||LA23_125=='!'||(LA23_125>='$' && LA23_125<='\'')||(LA23_125>='*' && LA23_125<='+')||(LA23_125>='-' && LA23_125<='9')||(LA23_125>=';' && LA23_125<='Z')||(LA23_125>='^' && LA23_125<='z')||LA23_125=='|'||(LA23_125>='~' && LA23_125<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_125>='\u0000' && LA23_125<='\b')||(LA23_125>='\u000B' && LA23_125<='\f')||(LA23_125>='\u000E' && LA23_125<='\u001F')||LA23_125=='!'||(LA23_125>='$' && LA23_125<='\'')||(LA23_125>='*' && LA23_125<='+')||(LA23_125>='-' && LA23_125<='9')||(LA23_125>=';' && LA23_125<='Z')||(LA23_125>='^' && LA23_125<='z')||LA23_125=='|'||(LA23_125>='~' && LA23_125<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_125=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_125=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_125==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_125==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_125==','||LA23_125=='['||LA23_125==']'||LA23_125=='{'||LA23_125=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_125==','||LA23_125=='['||LA23_125==']'||LA23_125=='{'||LA23_125=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4137,7 +4137,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_94>='\u0000' && LA23_94<='/')||(LA23_94>=':' && LA23_94<='@')||(LA23_94>='G' && LA23_94<='`')||(LA23_94>='g' && LA23_94<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_94>='0' && LA23_94<='9')||(LA23_94>='A' && LA23_94<='F')||(LA23_94>='a' && LA23_94<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 132;}
+                        else if ( ((LA23_94>='0' && LA23_94<='9')||(LA23_94>='A' && LA23_94<='F')||(LA23_94>='a' && LA23_94<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 132;}
 
                          
                         input.seek(index23_94);
@@ -4192,17 +4192,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_129=='\n'||LA23_129=='\r'||LA23_129=='\"'||(LA23_129>='(' && LA23_129<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_129=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_129=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_129=='\t'||LA23_129==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_129=='\t'||LA23_129==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_129>='\u0000' && LA23_129<='\b')||(LA23_129>='\u000B' && LA23_129<='\f')||(LA23_129>='\u000E' && LA23_129<='\u001F')||LA23_129=='!'||(LA23_129>='$' && LA23_129<='\'')||(LA23_129>='*' && LA23_129<='+')||(LA23_129>='-' && LA23_129<='9')||(LA23_129>=';' && LA23_129<='Z')||(LA23_129>='^' && LA23_129<='z')||LA23_129=='|'||(LA23_129>='~' && LA23_129<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_129>='\u0000' && LA23_129<='\b')||(LA23_129>='\u000B' && LA23_129<='\f')||(LA23_129>='\u000E' && LA23_129<='\u001F')||LA23_129=='!'||(LA23_129>='$' && LA23_129<='\'')||(LA23_129>='*' && LA23_129<='+')||(LA23_129>='-' && LA23_129<='9')||(LA23_129>=';' && LA23_129<='Z')||(LA23_129>='^' && LA23_129<='z')||LA23_129=='|'||(LA23_129>='~' && LA23_129<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_129=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_129=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_129==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_129==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_129==','||LA23_129=='['||LA23_129==']'||LA23_129=='{'||LA23_129=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_129==','||LA23_129=='['||LA23_129==']'||LA23_129=='{'||LA23_129=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4244,7 +4244,7 @@ public class SilkLexer extends Lexer {
                         int index23_147 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA23_147>='0' && LA23_147<='9')||(LA23_147>='A' && LA23_147<='F')||(LA23_147>='a' && LA23_147<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 154;}
+                        if ( ((LA23_147>='0' && LA23_147<='9')||(LA23_147>='A' && LA23_147<='F')||(LA23_147>='a' && LA23_147<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 154;}
 
                         else if ( ((LA23_147>='\u0000' && LA23_147<='/')||(LA23_147>=':' && LA23_147<='@')||(LA23_147>='G' && LA23_147<='`')||(LA23_147>='g' && LA23_147<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -4372,15 +4372,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_91=='\n'||LA23_91=='\r'||(LA23_91>='\"' && LA23_91<='#')||(LA23_91>='(' && LA23_91<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_91=='\t'||LA23_91==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_91=='\t'||LA23_91==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_91>='\u0000' && LA23_91<='\b')||(LA23_91>='\u000B' && LA23_91<='\f')||(LA23_91>='\u000E' && LA23_91<='\u001F')||LA23_91=='!'||(LA23_91>='$' && LA23_91<='\'')||(LA23_91>='*' && LA23_91<='+')||(LA23_91>='-' && LA23_91<='9')||(LA23_91>=';' && LA23_91<='Z')||(LA23_91>='^' && LA23_91<='z')||LA23_91=='|'||(LA23_91>='~' && LA23_91<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_91>='\u0000' && LA23_91<='\b')||(LA23_91>='\u000B' && LA23_91<='\f')||(LA23_91>='\u000E' && LA23_91<='\u001F')||LA23_91=='!'||(LA23_91>='$' && LA23_91<='\'')||(LA23_91>='*' && LA23_91<='+')||(LA23_91>='-' && LA23_91<='9')||(LA23_91>=';' && LA23_91<='Z')||(LA23_91>='^' && LA23_91<='z')||LA23_91=='|'||(LA23_91>='~' && LA23_91<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_91=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_91=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_91==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_91==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_91==','||LA23_91=='['||LA23_91==']'||LA23_91=='{'||LA23_91=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_91==','||LA23_91=='['||LA23_91==']'||LA23_91=='{'||LA23_91=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4424,7 +4424,7 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA23_19==','||LA23_19=='['||LA23_19==']'||LA23_19=='{'||LA23_19=='}') ) {s = 55;}
 
-                        else if ( (LA23_19=='#'||(LA23_19>='(' && LA23_19<=')')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 38;}
+                        else if ( (LA23_19=='#'||(LA23_19>='(' && LA23_19<=')')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 38;}
 
                         else if ( (LA23_19=='\n'||LA23_19=='\r'||LA23_19=='\"') && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -4546,15 +4546,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_88=='\n'||LA23_88=='\r'||(LA23_88>='\"' && LA23_88<='#')||(LA23_88>='(' && LA23_88<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_88=='\t'||LA23_88==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_88=='\t'||LA23_88==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_88>='\u0000' && LA23_88<='\b')||(LA23_88>='\u000B' && LA23_88<='\f')||(LA23_88>='\u000E' && LA23_88<='\u001F')||LA23_88=='!'||(LA23_88>='$' && LA23_88<='\'')||(LA23_88>='*' && LA23_88<='+')||(LA23_88>='-' && LA23_88<='9')||(LA23_88>=';' && LA23_88<='Z')||(LA23_88>='^' && LA23_88<='z')||LA23_88=='|'||(LA23_88>='~' && LA23_88<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_88>='\u0000' && LA23_88<='\b')||(LA23_88>='\u000B' && LA23_88<='\f')||(LA23_88>='\u000E' && LA23_88<='\u001F')||LA23_88=='!'||(LA23_88>='$' && LA23_88<='\'')||(LA23_88>='*' && LA23_88<='+')||(LA23_88>='-' && LA23_88<='9')||(LA23_88>=';' && LA23_88<='Z')||(LA23_88>='^' && LA23_88<='z')||LA23_88=='|'||(LA23_88>='~' && LA23_88<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_88=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_88=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_88==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_88==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_88==','||LA23_88=='['||LA23_88==']'||LA23_88=='{'||LA23_88=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_88==','||LA23_88=='['||LA23_88==']'||LA23_88=='{'||LA23_88=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4571,15 +4571,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_87=='\n'||LA23_87=='\r'||(LA23_87>='\"' && LA23_87<='#')||(LA23_87>='(' && LA23_87<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_87=='\t'||LA23_87==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_87=='\t'||LA23_87==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_87>='\u0000' && LA23_87<='\b')||(LA23_87>='\u000B' && LA23_87<='\f')||(LA23_87>='\u000E' && LA23_87<='\u001F')||LA23_87=='!'||(LA23_87>='$' && LA23_87<='\'')||(LA23_87>='*' && LA23_87<='+')||(LA23_87>='-' && LA23_87<='9')||(LA23_87>=';' && LA23_87<='Z')||(LA23_87>='^' && LA23_87<='z')||LA23_87=='|'||(LA23_87>='~' && LA23_87<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_87>='\u0000' && LA23_87<='\b')||(LA23_87>='\u000B' && LA23_87<='\f')||(LA23_87>='\u000E' && LA23_87<='\u001F')||LA23_87=='!'||(LA23_87>='$' && LA23_87<='\'')||(LA23_87>='*' && LA23_87<='+')||(LA23_87>='-' && LA23_87<='9')||(LA23_87>=';' && LA23_87<='Z')||(LA23_87>='^' && LA23_87<='z')||LA23_87=='|'||(LA23_87>='~' && LA23_87<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_87=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_87=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_87==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_87==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_87==','||LA23_87=='['||LA23_87==']'||LA23_87=='{'||LA23_87=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_87==','||LA23_87=='['||LA23_87==']'||LA23_87=='{'||LA23_87=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4716,7 +4716,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_132>='\u0000' && LA23_132<='/')||(LA23_132>=':' && LA23_132<='@')||(LA23_132>='G' && LA23_132<='`')||(LA23_132>='g' && LA23_132<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_132>='0' && LA23_132<='9')||(LA23_132>='A' && LA23_132<='F')||(LA23_132>='a' && LA23_132<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 148;}
+                        else if ( ((LA23_132>='0' && LA23_132<='9')||(LA23_132>='A' && LA23_132<='F')||(LA23_132>='a' && LA23_132<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 148;}
 
                          
                         input.seek(index23_132);
@@ -4769,15 +4769,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_80=='\n'||LA23_80=='\r'||(LA23_80>='\"' && LA23_80<='#')||(LA23_80>='(' && LA23_80<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_80>='\u0000' && LA23_80<='\b')||(LA23_80>='\u000B' && LA23_80<='\f')||(LA23_80>='\u000E' && LA23_80<='\u001F')||LA23_80=='!'||(LA23_80>='$' && LA23_80<='\'')||(LA23_80>='*' && LA23_80<='+')||(LA23_80>='-' && LA23_80<='9')||(LA23_80>=';' && LA23_80<='Z')||(LA23_80>='^' && LA23_80<='z')||LA23_80=='|'||(LA23_80>='~' && LA23_80<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_80>='\u0000' && LA23_80<='\b')||(LA23_80>='\u000B' && LA23_80<='\f')||(LA23_80>='\u000E' && LA23_80<='\u001F')||LA23_80=='!'||(LA23_80>='$' && LA23_80<='\'')||(LA23_80>='*' && LA23_80<='+')||(LA23_80>='-' && LA23_80<='9')||(LA23_80>=';' && LA23_80<='Z')||(LA23_80>='^' && LA23_80<='z')||LA23_80=='|'||(LA23_80>='~' && LA23_80<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_80=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_80=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_80==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_80==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_80==','||LA23_80=='['||LA23_80==']'||LA23_80=='{'||LA23_80=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_80==','||LA23_80=='['||LA23_80==']'||LA23_80=='{'||LA23_80=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
-                        else if ( (LA23_80=='\t'||LA23_80==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_80=='\t'||LA23_80==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
                          
                         input.seek(index23_80);
@@ -4846,15 +4846,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_86=='\n'||LA23_86=='\r'||(LA23_86>='\"' && LA23_86<='#')||(LA23_86>='(' && LA23_86<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_86=='\t'||LA23_86==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_86=='\t'||LA23_86==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_86>='\u0000' && LA23_86<='\b')||(LA23_86>='\u000B' && LA23_86<='\f')||(LA23_86>='\u000E' && LA23_86<='\u001F')||LA23_86=='!'||(LA23_86>='$' && LA23_86<='\'')||(LA23_86>='*' && LA23_86<='+')||(LA23_86>='-' && LA23_86<='9')||(LA23_86>=';' && LA23_86<='Z')||(LA23_86>='^' && LA23_86<='z')||LA23_86=='|'||(LA23_86>='~' && LA23_86<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_86>='\u0000' && LA23_86<='\b')||(LA23_86>='\u000B' && LA23_86<='\f')||(LA23_86>='\u000E' && LA23_86<='\u001F')||LA23_86=='!'||(LA23_86>='$' && LA23_86<='\'')||(LA23_86>='*' && LA23_86<='+')||(LA23_86>='-' && LA23_86<='9')||(LA23_86>=';' && LA23_86<='Z')||(LA23_86>='^' && LA23_86<='z')||LA23_86=='|'||(LA23_86>='~' && LA23_86<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_86=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_86=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_86==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_86==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_86==','||LA23_86=='['||LA23_86==']'||LA23_86=='{'||LA23_86=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_86==','||LA23_86=='['||LA23_86==']'||LA23_86=='{'||LA23_86=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4871,15 +4871,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_89=='\n'||LA23_89=='\r'||(LA23_89>='\"' && LA23_89<='#')||(LA23_89>='(' && LA23_89<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_89=='\t'||LA23_89==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_89=='\t'||LA23_89==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_89>='\u0000' && LA23_89<='\b')||(LA23_89>='\u000B' && LA23_89<='\f')||(LA23_89>='\u000E' && LA23_89<='\u001F')||LA23_89=='!'||(LA23_89>='$' && LA23_89<='\'')||(LA23_89>='*' && LA23_89<='+')||(LA23_89>='-' && LA23_89<='9')||(LA23_89>=';' && LA23_89<='Z')||(LA23_89>='^' && LA23_89<='z')||LA23_89=='|'||(LA23_89>='~' && LA23_89<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_89>='\u0000' && LA23_89<='\b')||(LA23_89>='\u000B' && LA23_89<='\f')||(LA23_89>='\u000E' && LA23_89<='\u001F')||LA23_89=='!'||(LA23_89>='$' && LA23_89<='\'')||(LA23_89>='*' && LA23_89<='+')||(LA23_89>='-' && LA23_89<='9')||(LA23_89>=';' && LA23_89<='Z')||(LA23_89>='^' && LA23_89<='z')||LA23_89=='|'||(LA23_89>='~' && LA23_89<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_89=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_89=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_89==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_89==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_89==','||LA23_89=='['||LA23_89==']'||LA23_89=='{'||LA23_89=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_89==','||LA23_89=='['||LA23_89==']'||LA23_89=='{'||LA23_89=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -4923,17 +4923,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_85=='\n'||LA23_85=='\r'||LA23_85=='\"'||(LA23_85>='(' && LA23_85<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_85=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_85=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_85=='\t'||LA23_85==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_85=='\t'||LA23_85==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_85>='\u0000' && LA23_85<='\b')||(LA23_85>='\u000B' && LA23_85<='\f')||(LA23_85>='\u000E' && LA23_85<='\u001F')||LA23_85=='!'||(LA23_85>='$' && LA23_85<='\'')||(LA23_85>='*' && LA23_85<='+')||(LA23_85>='-' && LA23_85<='9')||(LA23_85>=';' && LA23_85<='Z')||(LA23_85>='^' && LA23_85<='z')||LA23_85=='|'||(LA23_85>='~' && LA23_85<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_85>='\u0000' && LA23_85<='\b')||(LA23_85>='\u000B' && LA23_85<='\f')||(LA23_85>='\u000E' && LA23_85<='\u001F')||LA23_85=='!'||(LA23_85>='$' && LA23_85<='\'')||(LA23_85>='*' && LA23_85<='+')||(LA23_85>='-' && LA23_85<='9')||(LA23_85>=';' && LA23_85<='Z')||(LA23_85>='^' && LA23_85<='z')||LA23_85=='|'||(LA23_85>='~' && LA23_85<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_85=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_85=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_85==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_85==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_85==','||LA23_85=='['||LA23_85==']'||LA23_85=='{'||LA23_85=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_85==','||LA23_85=='['||LA23_85==']'||LA23_85=='{'||LA23_85=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5093,15 +5093,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_90=='\n'||LA23_90=='\r'||(LA23_90>='\"' && LA23_90<='#')||(LA23_90>='(' && LA23_90<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_90=='\t'||LA23_90==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_90=='\t'||LA23_90==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_90>='\u0000' && LA23_90<='\b')||(LA23_90>='\u000B' && LA23_90<='\f')||(LA23_90>='\u000E' && LA23_90<='\u001F')||LA23_90=='!'||(LA23_90>='$' && LA23_90<='\'')||(LA23_90>='*' && LA23_90<='+')||(LA23_90>='-' && LA23_90<='9')||(LA23_90>=';' && LA23_90<='Z')||(LA23_90>='^' && LA23_90<='z')||LA23_90=='|'||(LA23_90>='~' && LA23_90<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_90>='\u0000' && LA23_90<='\b')||(LA23_90>='\u000B' && LA23_90<='\f')||(LA23_90>='\u000E' && LA23_90<='\u001F')||LA23_90=='!'||(LA23_90>='$' && LA23_90<='\'')||(LA23_90>='*' && LA23_90<='+')||(LA23_90>='-' && LA23_90<='9')||(LA23_90>=';' && LA23_90<='Z')||(LA23_90>='^' && LA23_90<='z')||LA23_90=='|'||(LA23_90>='~' && LA23_90<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_90=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_90=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_90==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_90==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_90==','||LA23_90=='['||LA23_90==']'||LA23_90=='{'||LA23_90=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_90==','||LA23_90=='['||LA23_90==']'||LA23_90=='{'||LA23_90=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5135,9 +5135,9 @@ public class SilkLexer extends Lexer {
                         int index23_12 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA23_12>='\u0000' && LA23_12<='\b')||(LA23_12>='\u000B' && LA23_12<='\f')||(LA23_12>='\u000E' && LA23_12<='\u001F')||LA23_12=='!'||(LA23_12>='#' && LA23_12<='[')||(LA23_12>=']' && LA23_12<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 38;}
+                        if ( ((LA23_12>='\u0000' && LA23_12<='\b')||(LA23_12>='\u000B' && LA23_12<='\f')||(LA23_12>='\u000E' && LA23_12<='\u001F')||LA23_12=='!'||(LA23_12>='#' && LA23_12<='[')||(LA23_12>=']' && LA23_12<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 38;}
 
-                        else if ( (LA23_12=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 39;}
+                        else if ( (LA23_12=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 39;}
 
                         else if ( ((LA23_12>='\t' && LA23_12<='\n')||LA23_12=='\r'||LA23_12==' '||LA23_12=='\"') && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -5156,7 +5156,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_161>='\u0000' && LA23_161<='/')||(LA23_161>=':' && LA23_161<='@')||(LA23_161>='G' && LA23_161<='`')||(LA23_161>='g' && LA23_161<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_161>='0' && LA23_161<='9')||(LA23_161>='A' && LA23_161<='F')||(LA23_161>='a' && LA23_161<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 166;}
+                        else if ( ((LA23_161>='0' && LA23_161<='9')||(LA23_161>='A' && LA23_161<='F')||(LA23_161>='a' && LA23_161<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 166;}
 
                          
                         input.seek(index23_161);
@@ -5201,17 +5201,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_128=='\n'||LA23_128=='\r'||LA23_128=='\"'||(LA23_128>='(' && LA23_128<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_128=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_128=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_128=='\t'||LA23_128==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_128=='\t'||LA23_128==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_128>='\u0000' && LA23_128<='\b')||(LA23_128>='\u000B' && LA23_128<='\f')||(LA23_128>='\u000E' && LA23_128<='\u001F')||LA23_128=='!'||(LA23_128>='$' && LA23_128<='\'')||(LA23_128>='*' && LA23_128<='+')||(LA23_128>='-' && LA23_128<='9')||(LA23_128>=';' && LA23_128<='Z')||(LA23_128>='^' && LA23_128<='z')||LA23_128=='|'||(LA23_128>='~' && LA23_128<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_128>='\u0000' && LA23_128<='\b')||(LA23_128>='\u000B' && LA23_128<='\f')||(LA23_128>='\u000E' && LA23_128<='\u001F')||LA23_128=='!'||(LA23_128>='$' && LA23_128<='\'')||(LA23_128>='*' && LA23_128<='+')||(LA23_128>='-' && LA23_128<='9')||(LA23_128>=';' && LA23_128<='Z')||(LA23_128>='^' && LA23_128<='z')||LA23_128=='|'||(LA23_128>='~' && LA23_128<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_128=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_128=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_128==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_128==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_128==','||LA23_128=='['||LA23_128==']'||LA23_128=='{'||LA23_128=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_128==','||LA23_128=='['||LA23_128==']'||LA23_128=='{'||LA23_128=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5334,17 +5334,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_123=='\n'||LA23_123=='\r'||LA23_123=='\"'||(LA23_123>='(' && LA23_123<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_123=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_123=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_123=='\t'||LA23_123==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_123=='\t'||LA23_123==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_123>='\u0000' && LA23_123<='\b')||(LA23_123>='\u000B' && LA23_123<='\f')||(LA23_123>='\u000E' && LA23_123<='\u001F')||LA23_123=='!'||(LA23_123>='$' && LA23_123<='\'')||(LA23_123>='*' && LA23_123<='+')||(LA23_123>='-' && LA23_123<='9')||(LA23_123>=';' && LA23_123<='Z')||(LA23_123>='^' && LA23_123<='z')||LA23_123=='|'||(LA23_123>='~' && LA23_123<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_123>='\u0000' && LA23_123<='\b')||(LA23_123>='\u000B' && LA23_123<='\f')||(LA23_123>='\u000E' && LA23_123<='\u001F')||LA23_123=='!'||(LA23_123>='$' && LA23_123<='\'')||(LA23_123>='*' && LA23_123<='+')||(LA23_123>='-' && LA23_123<='9')||(LA23_123>=';' && LA23_123<='Z')||(LA23_123>='^' && LA23_123<='z')||LA23_123=='|'||(LA23_123>='~' && LA23_123<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_123=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_123=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_123==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_123==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_123==','||LA23_123=='['||LA23_123==']'||LA23_123=='{'||LA23_123=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_123==','||LA23_123=='['||LA23_123==']'||LA23_123=='{'||LA23_123=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5413,15 +5413,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_93=='\n'||LA23_93=='\r'||(LA23_93>='\"' && LA23_93<='#')||(LA23_93>='(' && LA23_93<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_93=='\t'||LA23_93==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_93=='\t'||LA23_93==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_93>='\u0000' && LA23_93<='\b')||(LA23_93>='\u000B' && LA23_93<='\f')||(LA23_93>='\u000E' && LA23_93<='\u001F')||LA23_93=='!'||(LA23_93>='$' && LA23_93<='\'')||(LA23_93>='*' && LA23_93<='+')||(LA23_93>='-' && LA23_93<='9')||(LA23_93>=';' && LA23_93<='Z')||(LA23_93>='^' && LA23_93<='z')||LA23_93=='|'||(LA23_93>='~' && LA23_93<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_93>='\u0000' && LA23_93<='\b')||(LA23_93>='\u000B' && LA23_93<='\f')||(LA23_93>='\u000E' && LA23_93<='\u001F')||LA23_93=='!'||(LA23_93>='$' && LA23_93<='\'')||(LA23_93>='*' && LA23_93<='+')||(LA23_93>='-' && LA23_93<='9')||(LA23_93>=';' && LA23_93<='Z')||(LA23_93>='^' && LA23_93<='z')||LA23_93=='|'||(LA23_93>='~' && LA23_93<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_93=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_93=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_93==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_93==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_93==','||LA23_93=='['||LA23_93==']'||LA23_93=='{'||LA23_93=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_93==','||LA23_93=='['||LA23_93==']'||LA23_93=='{'||LA23_93=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5436,9 +5436,9 @@ public class SilkLexer extends Lexer {
                         int index23_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA23_17>='\u0000' && LA23_17<='\b')||(LA23_17>='\u000B' && LA23_17<='\f')||(LA23_17>='\u000E' && LA23_17<='\u001F')||LA23_17=='!'||(LA23_17>='#' && LA23_17<='[')||(LA23_17>=']' && LA23_17<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 38;}
+                        if ( ((LA23_17>='\u0000' && LA23_17<='\b')||(LA23_17>='\u000B' && LA23_17<='\f')||(LA23_17>='\u000E' && LA23_17<='\u001F')||LA23_17=='!'||(LA23_17>='#' && LA23_17<='[')||(LA23_17>=']' && LA23_17<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 38;}
 
-                        else if ( (LA23_17=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 39;}
+                        else if ( (LA23_17=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 39;}
 
                         else if ( ((LA23_17>='\t' && LA23_17<='\n')||LA23_17=='\r'||LA23_17==' '||LA23_17=='\"') && ((getCharPositionInLine()==0))) {s = 23;}
 
@@ -5565,17 +5565,17 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_166=='\n'||LA23_166=='\r'||LA23_166=='\"'||(LA23_166>='(' && LA23_166<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_166=='#') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 122;}
+                        else if ( (LA23_166=='#') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 122;}
 
-                        else if ( (LA23_166=='\t'||LA23_166==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_166=='\t'||LA23_166==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_166>='\u0000' && LA23_166<='\b')||(LA23_166>='\u000B' && LA23_166<='\f')||(LA23_166>='\u000E' && LA23_166<='\u001F')||LA23_166=='!'||(LA23_166>='$' && LA23_166<='\'')||(LA23_166>='*' && LA23_166<='+')||(LA23_166>='-' && LA23_166<='9')||(LA23_166>=';' && LA23_166<='Z')||(LA23_166>='^' && LA23_166<='z')||LA23_166=='|'||(LA23_166>='~' && LA23_166<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_166>='\u0000' && LA23_166<='\b')||(LA23_166>='\u000B' && LA23_166<='\f')||(LA23_166>='\u000E' && LA23_166<='\u001F')||LA23_166=='!'||(LA23_166>='$' && LA23_166<='\'')||(LA23_166>='*' && LA23_166<='+')||(LA23_166>='-' && LA23_166<='9')||(LA23_166>=';' && LA23_166<='Z')||(LA23_166>='^' && LA23_166<='z')||LA23_166=='|'||(LA23_166>='~' && LA23_166<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_166=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_166=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_166==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_166==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_166==','||LA23_166=='['||LA23_166==']'||LA23_166=='{'||LA23_166=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_166==','||LA23_166=='['||LA23_166==']'||LA23_166=='{'||LA23_166=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5642,15 +5642,15 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA23_162=='\n'||LA23_162=='\r'||(LA23_162>='\"' && LA23_162<='#')||(LA23_162>='(' && LA23_162<=')')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_162=='\t'||LA23_162==' ') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 80;}
+                        else if ( (LA23_162=='\t'||LA23_162==' ') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 80;}
 
-                        else if ( ((LA23_162>='\u0000' && LA23_162<='\b')||(LA23_162>='\u000B' && LA23_162<='\f')||(LA23_162>='\u000E' && LA23_162<='\u001F')||LA23_162=='!'||(LA23_162>='$' && LA23_162<='\'')||(LA23_162>='*' && LA23_162<='+')||(LA23_162>='-' && LA23_162<='9')||(LA23_162>=';' && LA23_162<='Z')||(LA23_162>='^' && LA23_162<='z')||LA23_162=='|'||(LA23_162>='~' && LA23_162<='\uFFFF')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 82;}
+                        else if ( ((LA23_162>='\u0000' && LA23_162<='\b')||(LA23_162>='\u000B' && LA23_162<='\f')||(LA23_162>='\u000E' && LA23_162<='\u001F')||LA23_162=='!'||(LA23_162>='$' && LA23_162<='\'')||(LA23_162>='*' && LA23_162<='+')||(LA23_162>='-' && LA23_162<='9')||(LA23_162>=';' && LA23_162<='Z')||(LA23_162>='^' && LA23_162<='z')||LA23_162=='|'||(LA23_162>='~' && LA23_162<='\uFFFF')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 82;}
 
-                        else if ( (LA23_162=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 83;}
+                        else if ( (LA23_162=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 83;}
 
-                        else if ( (LA23_162==':') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 84;}
+                        else if ( (LA23_162==':') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 84;}
 
-                        else if ( (LA23_162==','||LA23_162=='['||LA23_162==']'||LA23_162=='{'||LA23_162=='}') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 85;}
+                        else if ( (LA23_162==','||LA23_162=='['||LA23_162==']'||LA23_162=='{'||LA23_162=='}') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 85;}
 
                         else s = 81;
 
@@ -5761,23 +5761,23 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_39>='\u0000' && LA23_39<='!')||(LA23_39>='#' && LA23_39<='.')||(LA23_39>='0' && LA23_39<='[')||(LA23_39>=']' && LA23_39<='a')||(LA23_39>='c' && LA23_39<='e')||(LA23_39>='g' && LA23_39<='m')||(LA23_39>='o' && LA23_39<='q')||LA23_39=='s'||(LA23_39>='v' && LA23_39<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( (LA23_39=='\"') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 86;}
+                        else if ( (LA23_39=='\"') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 86;}
 
-                        else if ( (LA23_39=='\\') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 87;}
+                        else if ( (LA23_39=='\\') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 87;}
 
-                        else if ( (LA23_39=='/') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 88;}
+                        else if ( (LA23_39=='/') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 88;}
 
-                        else if ( (LA23_39=='b') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 89;}
+                        else if ( (LA23_39=='b') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 89;}
 
-                        else if ( (LA23_39=='f') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 90;}
+                        else if ( (LA23_39=='f') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 90;}
 
-                        else if ( (LA23_39=='n') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 91;}
+                        else if ( (LA23_39=='n') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 91;}
 
-                        else if ( (LA23_39=='r') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 92;}
+                        else if ( (LA23_39=='r') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 92;}
 
-                        else if ( (LA23_39=='t') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 93;}
+                        else if ( (LA23_39=='t') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 93;}
 
-                        else if ( (LA23_39=='u') && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 94;}
+                        else if ( (LA23_39=='u') && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 94;}
 
                          
                         input.seek(index23_39);
@@ -5838,7 +5838,7 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( ((LA23_131>='\u0000' && LA23_131<='/')||(LA23_131>=':' && LA23_131<='@')||(LA23_131>='G' && LA23_131<='`')||(LA23_131>='g' && LA23_131<='\uFFFF')) && ((getCharPositionInLine()==0))) {s = 23;}
 
-                        else if ( ((LA23_131>='0' && LA23_131<='9')||(LA23_131>='A' && LA23_131<='F')||(LA23_131>='a' && LA23_131<='f')) && ((( currentState() == State.OUT )||(getCharPositionInLine()==0)))) {s = 147;}
+                        else if ( ((LA23_131>='0' && LA23_131<='9')||(LA23_131>='A' && LA23_131<='F')||(LA23_131>='a' && LA23_131<='f')) && ((( currentState() == State.OUT_VALUE )||(getCharPositionInLine()==0)))) {s = 147;}
 
                          
                         input.seek(index23_131);

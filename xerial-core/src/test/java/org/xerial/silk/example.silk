@@ -6,12 +6,12 @@
 -object(param1:value1, param2:value2)  # line-end comment
 
 # object description (folded). Indentation represents nested structure
--object 
-  -param1:value1
-  -param2:value2
+-object
+ -param1:value1
+ -param2:value2
 
 # tab-separeted data description with an object schema
--address(id, name, phone) 
+-address(id, name, phone)
 1	leo	xxx-xxxx
 2	yui	yyy-yyyy
 
@@ -32,7 +32,7 @@
 4	chr2	gene4
 
 # sample data that explicitly specifies succeeding data format
--gene (id, chr, name)[tab]
+-gene(id, chr, name)[tab]
 1	chr1	gene1
 2	chr1	gene2	
 3	chr1	gene3
@@ -40,7 +40,7 @@
 
 # alternative tree structures, grouped by the chr values
 -chr:chr1
-  -gene(id, name)	
+ -gene(id, name)
 1	gene1
 2	gene2
 3	gene3
@@ -49,7 +49,7 @@
 4	gene4
 
 # describe nesting in a line
--chr:chr1(gene(id, name))	
+-chr:chr1(gene(id,name))
 1	gene1
 2	gene2
 3	gene3
@@ -63,8 +63,8 @@
   - title:"reference paper"
   - author:author 1
   - author:author 2
- - year:2009  # Still in the scope of the paper (id:1)
-- paper(id:2) # A new paper scope begins from here       
+ - year:2009
+- paper(id:2)
  - title:"another paper"
  - year:2008
 
@@ -112,7 +112,7 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 4	chr2	gene4	[100, 200]
 
 # microdata format in the attribute
--gene 
+-gene
  - id:1
  - chr:chr1
  - name:gene1
@@ -130,7 +130,7 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 
 
 # JSON 
--gene 
+-gene
  - id:1
  - chr:chr1
  - name:gene1
@@ -155,6 +155,3 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 # @-mark denotes function 
 -@import(somefile.silk)
 
-
- 
- 

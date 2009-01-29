@@ -45,7 +45,7 @@ import org.xerial.util.graph.AutomatonCursor;
 public class SilkLexerState
 {
     public static enum State {
-        INIT, KEY, OUT, IN
+        INIT, OUT_KEY, OUT_VALUE, IN_VALUE, IN_KEY
     };
 
     public static enum Symbol {
@@ -57,11 +57,12 @@ public class SilkLexerState
 
     static
     {
-        automaton.addTransition(State.INIT, Symbol.NodeStart, State.KEY);
-        automaton.addTransition(State.KEY, Symbol.Colon, State.OUT);
-        automaton.addTransition(State.KEY, Symbol.EnterParen, State.KEY);
-        automaton.addTransition(State.OUT, Symbol.EnterParen, State.IN);
-        automaton.addTransition(State.IN, Symbol.LeaveValue, State.KEY);
+        automaton.addTransition(State.INIT, Symbol.NodeStart, State.OUT_KEY);
+        automaton.addTransition(State.OUT_KEY, Symbol.Colon, State.OUT_VALUE);
+        automaton.addTransition(State.OUT_KEY, Symbol.EnterParen, State.IN_KEY);
+        automaton.addTransition(State.OUT_VALUE, Symbol.EnterParen, State.IN_KEY);
+        automaton.addTransition(State.IN_KEY, Symbol.Colon, State.IN_VALUE);
+        automaton.addTransition(State.IN_VALUE, Symbol.LeaveValue, State.IN_KEY);
 
         for (State each : State.values())
             automaton.addStarTransition(each, each);

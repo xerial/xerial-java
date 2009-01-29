@@ -1,3 +1,5 @@
+-object
+
 -node:value
   -p1:hello
   -p2: long text value spareted by some white spaces.

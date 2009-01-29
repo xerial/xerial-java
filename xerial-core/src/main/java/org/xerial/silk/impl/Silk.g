@@ -190,7 +190,7 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| { currentState() == State.OUT }? => (':' | '?' | '{' | '[') NonSpaceChar
+	| { currentState() == State.OUT_VALUE }? => (':' | '?' | '{' | '[') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
@@ -203,9 +203,9 @@ fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndi
 fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#'| ScopeIndicator) | EscapeSequence;
 
 fragment PlainSafe
-	: { currentState() == State.KEY }? => PlainSafeKey
-	| { currentState() == State.IN }? => PlainSafeIn 
-	| { currentState() == State.OUT }? => PlainSafeOut
+	: { currentState() == State.IN_KEY || currentState() == State.OUT_KEY }? => PlainSafeKey
+	| { currentState() == State.IN_VALUE }? => PlainSafeIn 
+	| { currentState() == State.OUT_VALUE }? => PlainSafeOut
 	;
 
 fragment PlainChar: PlainSafe '#'?;
