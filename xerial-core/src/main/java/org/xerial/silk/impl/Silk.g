@@ -116,7 +116,10 @@ private SilkLexerState lexerContext = new SilkLexerState();
 private State currentState() { return lexerContext.getCurrentState(); } 
 private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
-
+private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
+private boolean isInValue() { return currentState() == State.IN_VALUE; }
+private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
+private boolean isHead() { return getCharPositionInLine() == 0; }
 }
 
 
@@ -170,10 +173,10 @@ fragment StringChar_s: StringChar*;
 String: '"' s=StringChar_s '"' { setText($s.text); };
 
 	
-NodeStart: {getCharPositionInLine()==0}? (' ')* '-' { transit(Symbol.NodeStart); } ;
-BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak;
+NodeStart: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
+BlankLine: { isHead() }? WhiteSpace* LineBreak;
 
-DataLine: {getCharPositionInLine()==0}? => WhiteSpace* ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('\n'|'\r')* LineBreak;
+DataLine: { isHead() }? => WhiteSpace* ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('\n'|'\r')* LineBreak;
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')';
@@ -190,7 +193,7 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| { currentState() == State.OUT_VALUE }? => (':' | '?' | '{' | '[') NonSpaceChar
+	| { isOutValue() }? => (':' | '?' | '{' | '[') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
@@ -198,17 +201,19 @@ fragment FlowIndicator: ',' | '[' | ']' | '{' | '}';
 
 fragment ScopeIndicator: '(' | ')';
 
-fragment PlainSafeKey: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator | ':' | FlowIndicator) | EscapeSequence; 
-fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator | FlowIndicator) | EscapeSequence;	
-fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#'| ScopeIndicator) | EscapeSequence;
+fragment PlainSafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
+
+fragment PlainSafeKey: ~(PlainSafeChar | FlowIndicator | ':' | '>') | EscapeSequence; 
+fragment PlainSafeIn: ~(PlainSafeChar | FlowIndicator) | EscapeSequence;	
+fragment PlainSafeOut: ~(PlainSafeChar) | EscapeSequence;
 
 fragment PlainSafe
-	: { currentState() == State.IN_KEY || currentState() == State.OUT_KEY }? => PlainSafeKey
-	| { currentState() == State.IN_VALUE }? => PlainSafeIn 
-	| { currentState() == State.OUT_VALUE }? => PlainSafeOut
+	: { isKey() }? => PlainSafeKey
+	| { isInValue() }? => PlainSafeIn 
+	| { isOutValue() }? => PlainSafeOut
 	;
 
-fragment PlainChar: PlainSafe '#'?;
+//fragment PlainChar: PlainSafe '#'?;
 
 /*
 fragment URIPrefix
@@ -223,7 +228,7 @@ fragment URIChar
 */
  
 PlainOneLine
-	: PlainFirst (WhiteSpace* PlainChar)* { transit(Symbol.LeaveValue); }
+	: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
 	;
 
 Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };
@@ -243,15 +248,13 @@ schema: node;
 silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
-silkLine: silkLine_i -> ^(SilkLine silkLine_i)
-	;
-
-silkLine_i
-	: Preamble
+silkLine
+	: node -> ^(SilkLine node)
+	| Preamble
 	| DataLine
 	| BlankLine
-	| node
 	;
+
 
 
 nodeName: PlainOneLine | String;
