@@ -119,7 +119,7 @@ package org.xerial.silk.impl;
 // skip comment 
 LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
 Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
-NewLine: '\r'? '\n' { $channel=HIDDEN; };
+NewLine: '\r'? '\n' { $channel=HIDDEN; hasColon = false; };
 
 // node indicator
 NodeStart: {getCharPositionInLine()==0}? => (' ')* '-';
@@ -181,8 +181,9 @@ InLineStringChar: ('\n'|'\r'|'#'|Comma|LParen|RParen|LBracket|RBracket|LBrace|RB
 
 Colon: ':' { hasColon = true; } ;
 NodeValue: 
-	{ testHasColon() }? => 
+	{ hasColon }? => 
 	(String | ~(' '|'\t' | InLineStringChar) (options {greedy=false;} : ~InLineStringChar+)) 
+	{ hasColon = false; }
 	;
 
 
