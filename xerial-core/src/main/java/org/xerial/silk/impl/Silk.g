@@ -29,7 +29,7 @@ options
 	// some lexer & parser options
 	// number of look-ahead characters 
 	//k=3;	
-	//backtrack=true;
+	backtrack=true;
 }
 tokens {
 Silk;
@@ -114,7 +114,7 @@ package org.xerial.silk.impl;
 private SilkLexerState lexerContext = new SilkLexerState();
 
 private State currentState() { return lexerContext.getCurrentState(); } 
-private void transit(Symbol token) { System.out.println(lexerContext.transit(token)); } 
+private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
 
 }
@@ -173,7 +173,7 @@ String: '"' s=StringChar_s '"' { setText($s.text); };
 NodeStart: {getCharPositionInLine()==0}? (' ')* '-' { transit(Symbol.NodeStart); } ;
 BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak;
 
-DataLine: {getCharPositionInLine()==0}? => ~('-' | '%' | '#' | ' ' | LineBreakChar) ~('\n'|'\r')* LineBreak;
+DataLine: {getCharPositionInLine()==0}? => WhiteSpace* ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('\n'|'\r')* LineBreak;
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')';
@@ -190,19 +190,20 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-//	| (':' | '?') NonSpaceChar
+	| { currentState() == State.OUT }? => (':' | '?') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
 fragment FlowIndicator: ',' | '[' | ']' | '{' | '}';
 
-fragment ScopeIndicator: '(' | ')' | ':';
+fragment ScopeIndicator: '(' | ')';
 
+fragment PlainSafeKey: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator | ':' | FlowIndicator) | EscapeSequence; 
 fragment PlainSafeIn: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator | FlowIndicator) | EscapeSequence;	
 fragment PlainSafeOut: ~('"'| '\\' | LineBreakChar | WhiteSpace | '#'| ScopeIndicator) | EscapeSequence;
 
 fragment PlainSafe
-	: { currentState() == State.KEY }? => PlainSafeIn 
+	: { currentState() == State.KEY }? => PlainSafeKey
 	| { currentState() == State.IN }? => PlainSafeIn 
 	| { currentState() == State.OUT }? => PlainSafeOut
 	;
@@ -222,7 +223,7 @@ fragment URIChar
 */
  
 PlainOneLine
-	: PlainFirst (WhiteSpace* PlainChar)*
+	: PlainFirst (WhiteSpace* PlainChar)* { transit(Symbol.LeaveValue); }
 	;
 
 Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };

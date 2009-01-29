@@ -49,22 +49,26 @@ public class SilkLexerState
     };
 
     public static enum Symbol {
-        NodeStart, Colon, EnterParen
+        NodeStart, Colon, EnterParen, LeaveValue
     }
 
-    private final Automaton<State, Symbol> automaton = new Automaton<State, Symbol>();
+    private static final Automaton<State, Symbol> automaton = new Automaton<State, Symbol>();
     private final AutomatonCursor<State, Symbol> cursor;
 
-    public SilkLexerState()
+    static
     {
         automaton.addTransition(State.INIT, Symbol.NodeStart, State.KEY);
         automaton.addTransition(State.KEY, Symbol.Colon, State.OUT);
-        automaton.addTransition(State.KEY, Symbol.EnterParen, State.IN);
+        automaton.addTransition(State.KEY, Symbol.EnterParen, State.KEY);
         automaton.addTransition(State.OUT, Symbol.EnterParen, State.IN);
+        automaton.addTransition(State.IN, Symbol.LeaveValue, State.KEY);
 
         for (State each : State.values())
             automaton.addStarTransition(each, each);
+    }
 
+    public SilkLexerState()
+    {
         cursor = automaton.cursor(State.INIT);
     }
 
