@@ -1,0 +1,3 @@
+# JSON 
+- cds: {"start":10, end:200}
+- exon: [{start:850983, end:851043}, {start:851164, end:851256}]

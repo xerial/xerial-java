@@ -86,4 +86,9 @@ public class SilkParserTest
         parse("../tab.silk");
     }
 
+    @Test
+    public void testJSON() throws Exception
+    {
+        parse("../json.silk");
+    }
 }

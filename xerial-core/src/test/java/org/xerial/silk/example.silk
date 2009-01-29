@@ -125,8 +125,8 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 # array construct with indentation
 -gene
  - exon(start,end)[csv]>
-  850983, 851043
-  851164, 851256
+850983, 851043
+851164, 851256
 
 
 # JSON 

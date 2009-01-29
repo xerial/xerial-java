@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-29 15:28:24
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-29 15:40:09
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -46,7 +46,7 @@ public class SilkLexer extends Lexer {
     public static final int Occurrence=9;
     public static final int Argument=12;
     public static final int Letter=34;
-    public static final int Comma=42;
+    public static final int Comma=43;
     public static final int SpecialSymbol=20;
     public static final int NodeValue=51;
     public static final int Dot=29;
@@ -57,7 +57,7 @@ public class SilkLexer extends Lexer {
     public static final int LineComment=15;
     public static final int Colon=37;
     public static final int SequenceIndicator=52;
-    public static final int JSONValue=43;
+    public static final int JSONValue=46;
     public static final int At=56;
     public static final int NameChar=35;
     public static final int SilkAttribute=6;
@@ -82,8 +82,8 @@ public class SilkLexer extends Lexer {
     public static final int Value=8;
     public static final int LBrace=41;
     public static final int JSONArray=39;
-    public static final int RBracket=46;
-    public static final int JSONElement=47;
+    public static final int RBracket=47;
+    public static final int JSONElement=42;
     public static final int Number=33;
     public static final int NewLine=17;
     public static final int WhiteSpaces=22;
@@ -423,37 +423,12 @@ public class SilkLexer extends Lexer {
         try {
             int _type = DataLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:9: ({...}? ( ' ' )* ~ SpecialSymbol (~ ( '\\n' | '\\r' ) )* NewLine )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:11: {...}? ( ' ' )* ~ SpecialSymbol (~ ( '\\n' | '\\r' ) )* NewLine
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:9: ({...}?~ SpecialSymbol (~ ( '\\n' | '\\r' ) )* NewLine )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:11: {...}?~ SpecialSymbol (~ ( '\\n' | '\\r' ) )* NewLine
             {
             if ( !(( getCharPositionInLine()==0 )) ) {
                 throw new FailedPredicateException(input, "DataLine", " getCharPositionInLine()==0 ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:43: ( ' ' )*
-            loop8:
-            do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
-
-                if ( (LA8_0==' ') ) {
-                    alt8=1;
-                }
-
-
-                switch (alt8) {
-            	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:44: ' '
-            	    {
-            	    match(' '); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop8;
-                }
-            } while (true);
-
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\u0013')||(input.LA(1)>='\u0015' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
@@ -463,20 +438,20 @@ public class SilkLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:65: (~ ( '\\n' | '\\r' ) )*
-            loop9:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:58: (~ ( '\\n' | '\\r' ) )*
+            loop8:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA9_0>='\u0000' && LA9_0<='\t')||(LA9_0>='\u000B' && LA9_0<='\f')||(LA9_0>='\u000E' && LA9_0<='\uFFFF')) ) {
-                    alt9=1;
+                if ( ((LA8_0>='\u0000' && LA8_0<='\t')||(LA8_0>='\u000B' && LA8_0<='\f')||(LA8_0>='\u000E' && LA8_0<='\uFFFF')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt8) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:65: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:130:58: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -492,7 +467,7 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop8;
                 }
             } while (true);
 
@@ -517,18 +492,18 @@ public class SilkLexer extends Lexer {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:132:14: ( ' ' | '\\t' | '\\u000C' )+
             {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:132:14: ( ' ' | '\\t' | '\\u000C' )+
-            int cnt10=0;
-            loop10:
+            int cnt9=0;
+            loop9:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA10_0=='\t'||LA10_0=='\f'||LA10_0==' ') ) {
-                    alt10=1;
+                if ( (LA9_0=='\t'||LA9_0=='\f'||LA9_0==' ') ) {
+                    alt9=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt9) {
             	case 1 :
             	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             	    {
@@ -546,15 +521,15 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt10 >= 1 ) break loop10;
+            	    if ( cnt9 >= 1 ) break loop9;
                         EarlyExitException eee =
-                            new EarlyExitException(10, input);
+                            new EarlyExitException(9, input);
                         throw eee;
                 }
-                cnt10++;
+                cnt9++;
             } while (true);
 
-             skip(); 
+             _channel=HIDDEN; 
 
             }
 
@@ -638,61 +613,61 @@ public class SilkLexer extends Lexer {
             {
             match('\\'); 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
-            int alt11=9;
+            int alt10=9;
             switch ( input.LA(1) ) {
             case '\"':
                 {
-                alt11=1;
+                alt10=1;
                 }
                 break;
             case '\\':
                 {
-                alt11=2;
+                alt10=2;
                 }
                 break;
             case '/':
                 {
-                alt11=3;
+                alt10=3;
                 }
                 break;
             case 'b':
                 {
-                alt11=4;
+                alt10=4;
                 }
                 break;
             case 'f':
                 {
-                alt11=5;
+                alt10=5;
                 }
                 break;
             case 'n':
                 {
-                alt11=6;
+                alt10=6;
                 }
                 break;
             case 'r':
                 {
-                alt11=7;
+                alt10=7;
                 }
                 break;
             case 't':
                 {
-                alt11=8;
+                alt10=8;
                 }
                 break;
             case 'u':
                 {
-                alt11=9;
+                alt10=9;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 11, 0, input);
+                    new NoViableAltException("", 10, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt11) {
+            switch (alt10) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:10: '\\\"'
                     {
@@ -776,22 +751,22 @@ public class SilkLexer extends Lexer {
     public final void mStringChar() throws RecognitionException {
         try {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:21: ( UnicodeChar | EscapeSequence )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( ((LA12_0>='\u0000' && LA12_0<='\t')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='!')||(LA12_0>='#' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
-                alt12=1;
+            if ( ((LA11_0>='\u0000' && LA11_0<='\t')||(LA11_0>='\u000B' && LA11_0<='\f')||(LA11_0>='\u000E' && LA11_0<='!')||(LA11_0>='#' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFF')) ) {
+                alt11=1;
             }
-            else if ( (LA12_0=='\\') ) {
-                alt12=2;
+            else if ( (LA11_0=='\\') ) {
+                alt11=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 11, 0, input);
 
                 throw nvae;
             }
-            switch (alt12) {
+            switch (alt11) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:24: UnicodeChar
                     {
@@ -821,13 +796,13 @@ public class SilkLexer extends Lexer {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:15: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:15: ( '-' )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            int alt12=2;
+            int LA12_0 = input.LA(1);
 
-            if ( (LA13_0=='-') ) {
-                alt13=1;
+            if ( (LA12_0=='-') ) {
+                alt12=1;
             }
-            switch (alt13) {
+            switch (alt12) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:15: '-'
                     {
@@ -839,22 +814,22 @@ public class SilkLexer extends Lexer {
             }
 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:20: ( '0' | '1' .. '9' ( Digit )* )
-            int alt15=2;
-            int LA15_0 = input.LA(1);
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA15_0=='0') ) {
-                alt15=1;
+            if ( (LA14_0=='0') ) {
+                alt14=1;
             }
-            else if ( ((LA15_0>='1' && LA15_0<='9')) ) {
-                alt15=2;
+            else if ( ((LA14_0>='1' && LA14_0<='9')) ) {
+                alt14=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt15) {
+            switch (alt14) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:21: '0'
                     {
@@ -867,17 +842,17 @@ public class SilkLexer extends Lexer {
                     {
                     matchRange('1','9'); 
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:36: ( Digit )*
-                    loop14:
+                    loop13:
                     do {
-                        int alt14=2;
-                        int LA14_0 = input.LA(1);
+                        int alt13=2;
+                        int LA13_0 = input.LA(1);
 
-                        if ( ((LA14_0>='0' && LA14_0<='9')) ) {
-                            alt14=1;
+                        if ( ((LA13_0>='0' && LA13_0<='9')) ) {
+                            alt13=1;
                         }
 
 
-                        switch (alt14) {
+                        switch (alt13) {
                     	case 1 :
                     	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:36: Digit
                     	    {
@@ -887,7 +862,7 @@ public class SilkLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop14;
+                    	    break loop13;
                         }
                     } while (true);
 
@@ -914,18 +889,18 @@ public class SilkLexer extends Lexer {
             {
             mDot(); 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:20: ( Digit )+
-            int cnt16=0;
-            loop16:
+            int cnt15=0;
+            loop15:
             do {
-                int alt16=2;
-                int LA16_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( ((LA16_0>='0' && LA16_0<='9')) ) {
-                    alt16=1;
+                if ( ((LA15_0>='0' && LA15_0<='9')) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt16) {
+                switch (alt15) {
             	case 1 :
             	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:20: Digit
             	    {
@@ -935,12 +910,12 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt16 >= 1 ) break loop16;
+            	    if ( cnt15 >= 1 ) break loop15;
                         EarlyExitException eee =
-                            new EarlyExitException(16, input);
+                            new EarlyExitException(15, input);
                         throw eee;
                 }
-                cnt16++;
+                cnt15++;
             } while (true);
 
 
@@ -968,13 +943,13 @@ public class SilkLexer extends Lexer {
                 throw mse;}
 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:27: ( '+' | '-' )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            int alt16=2;
+            int LA16_0 = input.LA(1);
 
-            if ( (LA17_0=='+'||LA17_0=='-') ) {
-                alt17=1;
+            if ( (LA16_0=='+'||LA16_0=='-') ) {
+                alt16=1;
             }
-            switch (alt17) {
+            switch (alt16) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
                     {
@@ -994,18 +969,18 @@ public class SilkLexer extends Lexer {
             }
 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:40: ( Digit )+
-            int cnt18=0;
-            loop18:
+            int cnt17=0;
+            loop17:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( ((LA18_0>='0' && LA18_0<='9')) ) {
-                    alt18=1;
+                if ( ((LA17_0>='0' && LA17_0<='9')) ) {
+                    alt17=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt17) {
             	case 1 :
             	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:40: Digit
             	    {
@@ -1015,12 +990,12 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt18 >= 1 ) break loop18;
+            	    if ( cnt17 >= 1 ) break loop17;
                         EarlyExitException eee =
-                            new EarlyExitException(18, input);
+                            new EarlyExitException(17, input);
                         throw eee;
                 }
-                cnt18++;
+                cnt17++;
             } while (true);
 
 
@@ -1042,17 +1017,17 @@ public class SilkLexer extends Lexer {
             {
             match('\"'); 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:13: ( StringChar )*
-            loop19:
+            loop18:
             do {
-                int alt19=2;
-                int LA19_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( ((LA19_0>='\u0000' && LA19_0<='\t')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='!')||(LA19_0>='#' && LA19_0<='\uFFFF')) ) {
-                    alt19=1;
+                if ( ((LA18_0>='\u0000' && LA18_0<='\t')||(LA18_0>='\u000B' && LA18_0<='\f')||(LA18_0>='\u000E' && LA18_0<='!')||(LA18_0>='#' && LA18_0<='\uFFFF')) ) {
+                    alt18=1;
                 }
 
 
-                switch (alt19) {
+                switch (alt18) {
             	case 1 :
             	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:13: StringChar
             	    {
@@ -1062,7 +1037,7 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop19;
+            	    break loop18;
                 }
             } while (true);
 
@@ -1093,28 +1068,28 @@ public class SilkLexer extends Lexer {
             {
             mInt(); 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:13: ( Frac ( Exp )? | Exp )?
-            int alt21=3;
-            int LA21_0 = input.LA(1);
+            int alt20=3;
+            int LA20_0 = input.LA(1);
 
-            if ( (LA21_0=='.') ) {
-                alt21=1;
+            if ( (LA20_0=='.') ) {
+                alt20=1;
             }
-            else if ( (LA21_0=='E'||LA21_0=='e') ) {
-                alt21=2;
+            else if ( (LA20_0=='E'||LA20_0=='e') ) {
+                alt20=2;
             }
-            switch (alt21) {
+            switch (alt20) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:14: Frac ( Exp )?
                     {
                     mFrac(); 
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:19: ( Exp )?
-                    int alt20=2;
-                    int LA20_0 = input.LA(1);
+                    int alt19=2;
+                    int LA19_0 = input.LA(1);
 
-                    if ( (LA20_0=='E'||LA20_0=='e') ) {
-                        alt20=1;
+                    if ( (LA19_0=='E'||LA19_0=='e') ) {
+                        alt19=1;
                     }
-                    switch (alt20) {
+                    switch (alt19) {
                         case 1 :
                             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:19: Exp
                             {
@@ -1215,17 +1190,17 @@ public class SilkLexer extends Lexer {
                 throw mse;}
 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:23: ( NameChar )*
-            loop22:
+            loop21:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( ((LA22_0>='-' && LA22_0<='.')||(LA22_0>='0' && LA22_0<='9')||(LA22_0>='A' && LA22_0<='Z')||LA22_0=='_'||(LA22_0>='a' && LA22_0<='z')) ) {
-                    alt22=1;
+                if ( ((LA21_0>='-' && LA21_0<='.')||(LA21_0>='0' && LA21_0<='9')||(LA21_0>='A' && LA21_0<='Z')||LA21_0=='_'||(LA21_0>='a' && LA21_0<='z')) ) {
+                    alt21=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt21) {
             	case 1 :
             	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:23: NameChar
             	    {
@@ -1235,7 +1210,7 @@ public class SilkLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop21;
                 }
             } while (true);
 
@@ -1283,22 +1258,22 @@ public class SilkLexer extends Lexer {
                 throw new FailedPredicateException(input, "InLineJSON", "hasColon");
             }
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:28: ( JSONObject | JSONArray )
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            int alt22=2;
+            int LA22_0 = input.LA(1);
 
-            if ( (LA23_0=='{') ) {
-                alt23=1;
+            if ( (LA22_0=='{') ) {
+                alt22=1;
             }
-            else if ( (LA23_0=='[') ) {
-                alt23=2;
+            else if ( (LA22_0=='[') ) {
+                alt22=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 23, 0, input);
+                    new NoViableAltException("", 22, 0, input);
 
                 throw nvae;
             }
-            switch (alt23) {
+            switch (alt22) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:29: JSONObject
                     {
@@ -1331,67 +1306,34 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "JSONObject"
     public final void mJSONObject() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:2: ( LBrace ( QName | String ) ( Comma JSONValue )* RBrace )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:4: LBrace ( QName | String ) ( Comma JSONValue )* RBrace
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:2: ( LBrace JSONElement ( Comma JSONElement )* RBrace )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:4: LBrace JSONElement ( Comma JSONElement )* RBrace
             {
             mLBrace(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:11: ( QName | String )
-            int alt24=2;
-            int LA24_0 = input.LA(1);
-
-            if ( ((LA24_0>='A' && LA24_0<='Z')||LA24_0=='_'||(LA24_0>='a' && LA24_0<='z')) ) {
-                alt24=1;
-            }
-            else if ( (LA24_0=='\"') ) {
-                alt24=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 24, 0, input);
-
-                throw nvae;
-            }
-            switch (alt24) {
-                case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:12: QName
-                    {
-                    mQName(); 
-
-                    }
-                    break;
-                case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:20: String
-                    {
-                    mString(); 
-
-                    }
-                    break;
-
-            }
-
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:28: ( Comma JSONValue )*
-            loop25:
+            mJSONElement(); 
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:23: ( Comma JSONElement )*
+            loop23:
             do {
-                int alt25=2;
-                int LA25_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( (LA25_0==',') ) {
-                    alt25=1;
+                if ( (LA23_0==',') ) {
+                    alt23=1;
                 }
 
 
-                switch (alt25) {
+                switch (alt23) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:29: Comma JSONValue
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:24: Comma JSONElement
             	    {
             	    mComma(); 
-            	    mJSONValue(); 
+            	    mJSONElement(); 
 
             	    }
             	    break;
 
             	default :
-            	    break loop25;
+            	    break loop23;
                 }
             } while (true);
 
@@ -1413,29 +1355,29 @@ public class SilkLexer extends Lexer {
             {
             mLBracket(); 
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:13: ( JSONValue ( Comma JSONValue )* )?
-            int alt27=2;
-            int LA27_0 = input.LA(1);
+            int alt25=2;
+            int LA25_0 = input.LA(1);
 
-            if ( (LA27_0=='\"'||LA27_0=='-'||(LA27_0>='0' && LA27_0<='9')||LA27_0=='['||LA27_0=='{') ) {
-                alt27=1;
+            if ( (LA25_0=='\"'||LA25_0=='-'||(LA25_0>='0' && LA25_0<='9')||LA25_0=='['||LA25_0=='{') ) {
+                alt25=1;
             }
-            switch (alt27) {
+            switch (alt25) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:14: JSONValue ( Comma JSONValue )*
                     {
                     mJSONValue(); 
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:24: ( Comma JSONValue )*
-                    loop26:
+                    loop24:
                     do {
-                        int alt26=2;
-                        int LA26_0 = input.LA(1);
+                        int alt24=2;
+                        int LA24_0 = input.LA(1);
 
-                        if ( (LA26_0==',') ) {
-                            alt26=1;
+                        if ( (LA24_0==',') ) {
+                            alt24=1;
                         }
 
 
-                        switch (alt26) {
+                        switch (alt24) {
                     	case 1 :
                     	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:25: Comma JSONValue
                     	    {
@@ -1446,7 +1388,7 @@ public class SilkLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop26;
+                    	    break loop24;
                         }
                     } while (true);
 
@@ -1473,22 +1415,22 @@ public class SilkLexer extends Lexer {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:14: ( String | QName ) Colon JSONValue
             {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:14: ( String | QName )
-            int alt28=2;
-            int LA28_0 = input.LA(1);
+            int alt26=2;
+            int LA26_0 = input.LA(1);
 
-            if ( (LA28_0=='\"') ) {
-                alt28=1;
+            if ( (LA26_0=='\"') ) {
+                alt26=1;
             }
-            else if ( ((LA28_0>='A' && LA28_0<='Z')||LA28_0=='_'||(LA28_0>='a' && LA28_0<='z')) ) {
-                alt28=2;
+            else if ( ((LA26_0>='A' && LA26_0<='Z')||LA26_0=='_'||(LA26_0>='a' && LA26_0<='z')) ) {
+                alt26=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 28, 0, input);
+                    new NoViableAltException("", 26, 0, input);
 
                 throw nvae;
             }
-            switch (alt28) {
+            switch (alt26) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:15: String
                     {
@@ -1521,21 +1463,21 @@ public class SilkLexer extends Lexer {
     public final void mJSONValue() throws RecognitionException {
         try {
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:2: ( JSONObject | JSONArray | String | Number )
-            int alt29=4;
+            int alt27=4;
             switch ( input.LA(1) ) {
             case '{':
                 {
-                alt29=1;
+                alt27=1;
                 }
                 break;
             case '[':
                 {
-                alt29=2;
+                alt27=2;
                 }
                 break;
             case '\"':
                 {
-                alt29=3;
+                alt27=3;
                 }
                 break;
             case '-':
@@ -1550,17 +1492,17 @@ public class SilkLexer extends Lexer {
             case '8':
             case '9':
                 {
-                alt29=4;
+                alt27=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 29, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt29) {
+            switch (alt27) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:4: JSONObject
                     {
@@ -1633,22 +1575,22 @@ public class SilkLexer extends Lexer {
                 throw new FailedPredicateException(input, "NodeValue", " hasColon ");
             }
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:6: ( String | ~ ( ' ' | '\\t' | InLineStringChar ) ( options {greedy=false; } : (~ ( InLineStringChar ) )* ) )
-            int alt31=2;
-            int LA31_0 = input.LA(1);
+            int alt29=2;
+            int LA29_0 = input.LA(1);
 
-            if ( (LA31_0=='\"') ) {
-                alt31=1;
+            if ( (LA29_0=='\"') ) {
+                alt29=1;
             }
-            else if ( ((LA31_0>='\u0000' && LA31_0<='\b')||(LA31_0>='\u000B' && LA31_0<='\f')||(LA31_0>='\u000E' && LA31_0<='\u001F')||LA31_0=='!'||(LA31_0>='$' && LA31_0<='\'')||(LA31_0>='*' && LA31_0<='+')||(LA31_0>='-' && LA31_0<='Z')||LA31_0=='\\'||(LA31_0>='^' && LA31_0<='z')||LA31_0=='|'||(LA31_0>='~' && LA31_0<='\uFFFF')) ) {
-                alt31=2;
+            else if ( ((LA29_0>='\u0000' && LA29_0<='\b')||(LA29_0>='\u000B' && LA29_0<='\f')||(LA29_0>='\u000E' && LA29_0<='\u001F')||LA29_0=='!'||(LA29_0>='$' && LA29_0<='\'')||(LA29_0>='*' && LA29_0<='+')||(LA29_0>='-' && LA29_0<='Z')||LA29_0=='\\'||(LA29_0>='^' && LA29_0<='z')||LA29_0=='|'||(LA29_0>='~' && LA29_0<='\uFFFF')) ) {
+                alt29=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 31, 0, input);
+                    new NoViableAltException("", 29, 0, input);
 
                 throw nvae;
             }
-            switch (alt31) {
+            switch (alt29) {
                 case 1 :
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:7: String
                     {
@@ -1672,17 +1614,17 @@ public class SilkLexer extends Lexer {
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:74: (~ ( InLineStringChar ) )*
                     {
                     // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:74: (~ ( InLineStringChar ) )*
-                    loop30:
+                    loop28:
                     do {
-                        int alt30=2;
-                        int LA30_0 = input.LA(1);
+                        int alt28=2;
+                        int LA28_0 = input.LA(1);
 
-                        if ( ((LA30_0>='\u0000' && LA30_0<='\t')||(LA30_0>='\u000B' && LA30_0<='\f')||(LA30_0>='\u000E' && LA30_0<='!')||(LA30_0>='$' && LA30_0<='\'')||(LA30_0>='*' && LA30_0<='+')||(LA30_0>='-' && LA30_0<='Z')||LA30_0=='\\'||(LA30_0>='^' && LA30_0<='z')||LA30_0=='|'||(LA30_0>='~' && LA30_0<='\uFFFF')) ) {
-                            alt30=1;
+                        if ( ((LA28_0>='\u0000' && LA28_0<='\t')||(LA28_0>='\u000B' && LA28_0<='\f')||(LA28_0>='\u000E' && LA28_0<='!')||(LA28_0>='$' && LA28_0<='\'')||(LA28_0>='*' && LA28_0<='+')||(LA28_0>='-' && LA28_0<='Z')||LA28_0=='\\'||(LA28_0>='^' && LA28_0<='z')||LA28_0=='|'||(LA28_0>='~' && LA28_0<='\uFFFF')) ) {
+                            alt28=1;
                         }
 
 
-                        switch (alt30) {
+                        switch (alt28) {
                     	case 1 :
                     	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:74: ~ ( InLineStringChar )
                     	    {
@@ -1700,7 +1642,7 @@ public class SilkLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop30;
+                    	    break loop28;
                         }
                     } while (true);
 
@@ -2007,9 +1949,9 @@ public class SilkLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | NewLine | NodeStart | BlankLine | DataLine | WhiteSpaces | String | Number | QName | Colon | InLineJSON | NodeValue | SequenceIndicator | LParen | RParen | LBracket | RBracket | LBrace | RBrace | Comma | Dot | Star | Question | Plus | At | Slash )
-        int alt32=27;
-        alt32 = dfa32.predict(input);
-        switch (alt32) {
+        int alt30=27;
+        alt30 = dfa30.predict(input);
+        switch (alt30) {
             case 1 :
                 // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:10: LineComment
                 {
@@ -2205,24 +2147,24 @@ public class SilkLexer extends Lexer {
     }
 
 
-    protected DFA32 dfa32 = new DFA32(this);
-    static final String DFA32_eotS =
+    protected DFA30 dfa30 = new DFA30(this);
+    static final String DFA30_eotS =
         "\67\uffff";
-    static final String DFA32_eofS =
+    static final String DFA30_eofS =
         "\67\uffff";
-    static final String DFA32_minS =
+    static final String DFA30_minS =
         "\1\0\1\uffff\33\0\32\uffff";
-    static final String DFA32_maxS =
+    static final String DFA30_maxS =
         "\1\uffff\1\uffff\33\0\32\uffff";
-    static final String DFA32_acceptS =
-        "\1\uffff\1\1\33\uffff\1\2\1\15\1\3\1\5\1\4\1\6\1\7\1\11\1\10\1"+
+    static final String DFA30_acceptS =
+        "\1\uffff\1\1\33\uffff\1\2\1\15\1\3\1\5\1\4\1\7\1\6\1\11\1\10\1"+
         "\12\1\13\1\14\1\23\1\21\1\16\1\17\1\26\1\20\1\22\1\24\1\25\1\27"+
         "\1\30\1\31\1\32\1\33";
-    static final String DFA32_specialS =
+    static final String DFA30_specialS =
         "\1\0\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
         "\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30"+
         "\1\31\1\32\1\33\32\uffff}>";
-    static final String[] DFA32_transitionS = {
+    static final String[] DFA30_transitionS = {
             "\11\34\1\20\1\4\1\34\1\7\1\3\22\34\1\5\1\34\1\10\1\1\1\34\1"+
             "\2\2\34\1\21\1\23\1\27\1\31\1\26\1\6\1\22\1\33\1\11\11\12\1"+
             "\14\3\34\1\17\1\30\1\32\32\13\1\16\1\34\1\24\1\34\1\13\1\34"+
@@ -2283,34 +2225,34 @@ public class SilkLexer extends Lexer {
             ""
     };
 
-    static final short[] DFA32_eot = DFA.unpackEncodedString(DFA32_eotS);
-    static final short[] DFA32_eof = DFA.unpackEncodedString(DFA32_eofS);
-    static final char[] DFA32_min = DFA.unpackEncodedStringToUnsignedChars(DFA32_minS);
-    static final char[] DFA32_max = DFA.unpackEncodedStringToUnsignedChars(DFA32_maxS);
-    static final short[] DFA32_accept = DFA.unpackEncodedString(DFA32_acceptS);
-    static final short[] DFA32_special = DFA.unpackEncodedString(DFA32_specialS);
-    static final short[][] DFA32_transition;
+    static final short[] DFA30_eot = DFA.unpackEncodedString(DFA30_eotS);
+    static final short[] DFA30_eof = DFA.unpackEncodedString(DFA30_eofS);
+    static final char[] DFA30_min = DFA.unpackEncodedStringToUnsignedChars(DFA30_minS);
+    static final char[] DFA30_max = DFA.unpackEncodedStringToUnsignedChars(DFA30_maxS);
+    static final short[] DFA30_accept = DFA.unpackEncodedString(DFA30_acceptS);
+    static final short[] DFA30_special = DFA.unpackEncodedString(DFA30_specialS);
+    static final short[][] DFA30_transition;
 
     static {
-        int numStates = DFA32_transitionS.length;
-        DFA32_transition = new short[numStates][];
+        int numStates = DFA30_transitionS.length;
+        DFA30_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA32_transition[i] = DFA.unpackEncodedString(DFA32_transitionS[i]);
+            DFA30_transition[i] = DFA.unpackEncodedString(DFA30_transitionS[i]);
         }
     }
 
-    class DFA32 extends DFA {
+    class DFA30 extends DFA {
 
-        public DFA32(BaseRecognizer recognizer) {
+        public DFA30(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 32;
-            this.eot = DFA32_eot;
-            this.eof = DFA32_eof;
-            this.min = DFA32_min;
-            this.max = DFA32_max;
-            this.accept = DFA32_accept;
-            this.special = DFA32_special;
-            this.transition = DFA32_transition;
+            this.decisionNumber = 30;
+            this.eot = DFA30_eot;
+            this.eof = DFA30_eof;
+            this.min = DFA30_min;
+            this.max = DFA30_max;
+            this.accept = DFA30_accept;
+            this.special = DFA30_special;
+            this.transition = DFA30_transition;
         }
         public String getDescription() {
             return "1:1: Tokens : ( LineComment | Preamble | NewLine | NodeStart | BlankLine | DataLine | WhiteSpaces | String | Number | QName | Colon | InLineJSON | NodeValue | SequenceIndicator | LParen | RParen | LBracket | RBracket | LBrace | RBrace | Comma | Dot | Star | Question | Plus | At | Slash );";
@@ -2320,72 +2262,72 @@ public class SilkLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA32_0 = input.LA(1);
+                        int LA30_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA32_0=='#') ) {s = 1;}
+                        if ( (LA30_0=='#') ) {s = 1;}
 
-                        else if ( (LA32_0=='%') ) {s = 2;}
+                        else if ( (LA30_0=='%') ) {s = 2;}
 
-                        else if ( (LA32_0=='\r') ) {s = 3;}
+                        else if ( (LA30_0=='\r') ) {s = 3;}
 
-                        else if ( (LA32_0=='\n') ) {s = 4;}
+                        else if ( (LA30_0=='\n') ) {s = 4;}
 
-                        else if ( (LA32_0==' ') ) {s = 5;}
+                        else if ( (LA30_0==' ') ) {s = 5;}
 
-                        else if ( (LA32_0=='-') ) {s = 6;}
+                        else if ( (LA30_0=='-') ) {s = 6;}
 
-                        else if ( (LA32_0=='\f') ) {s = 7;}
+                        else if ( (LA30_0=='\f') ) {s = 7;}
 
-                        else if ( (LA32_0=='\"') ) {s = 8;}
+                        else if ( (LA30_0=='\"') ) {s = 8;}
 
-                        else if ( (LA32_0=='0') ) {s = 9;}
+                        else if ( (LA30_0=='0') ) {s = 9;}
 
-                        else if ( ((LA32_0>='1' && LA32_0<='9')) ) {s = 10;}
+                        else if ( ((LA30_0>='1' && LA30_0<='9')) ) {s = 10;}
 
-                        else if ( ((LA32_0>='A' && LA32_0<='Z')||LA32_0=='_'||(LA32_0>='a' && LA32_0<='z')) ) {s = 11;}
+                        else if ( ((LA30_0>='A' && LA30_0<='Z')||LA30_0=='_'||(LA30_0>='a' && LA30_0<='z')) ) {s = 11;}
 
-                        else if ( (LA32_0==':') ) {s = 12;}
+                        else if ( (LA30_0==':') ) {s = 12;}
 
-                        else if ( (LA32_0=='{') ) {s = 13;}
+                        else if ( (LA30_0=='{') ) {s = 13;}
 
-                        else if ( (LA32_0=='[') ) {s = 14;}
+                        else if ( (LA30_0=='[') ) {s = 14;}
 
-                        else if ( (LA32_0=='>') ) {s = 15;}
+                        else if ( (LA30_0=='>') ) {s = 15;}
 
-                        else if ( (LA32_0=='\t') ) {s = 16;}
+                        else if ( (LA30_0=='\t') ) {s = 16;}
 
-                        else if ( (LA32_0=='(') ) {s = 17;}
+                        else if ( (LA30_0=='(') ) {s = 17;}
 
-                        else if ( (LA32_0=='.') ) {s = 18;}
+                        else if ( (LA30_0=='.') ) {s = 18;}
 
-                        else if ( (LA32_0==')') ) {s = 19;}
+                        else if ( (LA30_0==')') ) {s = 19;}
 
-                        else if ( (LA32_0==']') ) {s = 20;}
+                        else if ( (LA30_0==']') ) {s = 20;}
 
-                        else if ( (LA32_0=='}') ) {s = 21;}
+                        else if ( (LA30_0=='}') ) {s = 21;}
 
-                        else if ( (LA32_0==',') ) {s = 22;}
+                        else if ( (LA30_0==',') ) {s = 22;}
 
-                        else if ( (LA32_0=='*') ) {s = 23;}
+                        else if ( (LA30_0=='*') ) {s = 23;}
 
-                        else if ( (LA32_0=='?') ) {s = 24;}
+                        else if ( (LA30_0=='?') ) {s = 24;}
 
-                        else if ( (LA32_0=='+') ) {s = 25;}
+                        else if ( (LA30_0=='+') ) {s = 25;}
 
-                        else if ( (LA32_0=='@') ) {s = 26;}
+                        else if ( (LA30_0=='@') ) {s = 26;}
 
-                        else if ( (LA32_0=='/') ) {s = 27;}
+                        else if ( (LA30_0=='/') ) {s = 27;}
 
-                        else if ( ((LA32_0>='\u0000' && LA32_0<='\b')||LA32_0=='\u000B'||(LA32_0>='\u000E' && LA32_0<='\u001F')||LA32_0=='!'||LA32_0=='$'||(LA32_0>='&' && LA32_0<='\'')||(LA32_0>=';' && LA32_0<='=')||LA32_0=='\\'||LA32_0=='^'||LA32_0=='`'||LA32_0=='|'||(LA32_0>='~' && LA32_0<='\uFFFF')) ) {s = 28;}
+                        else if ( ((LA30_0>='\u0000' && LA30_0<='\b')||LA30_0=='\u000B'||(LA30_0>='\u000E' && LA30_0<='\u001F')||LA30_0=='!'||LA30_0=='$'||(LA30_0>='&' && LA30_0<='\'')||(LA30_0>=';' && LA30_0<='=')||LA30_0=='\\'||LA30_0=='^'||LA30_0=='`'||LA30_0=='|'||(LA30_0>='~' && LA30_0<='\uFFFF')) ) {s = 28;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA32_2 = input.LA(1);
+                        int LA30_2 = input.LA(1);
 
                          
-                        int index32_2 = input.index();
+                        int index30_2 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (!((( hasColon )))) ) {s = 29;}
@@ -2393,14 +2335,14 @@ public class SilkLexer extends Lexer {
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_2);
+                        input.seek(index30_2);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA32_3 = input.LA(1);
+                        int LA30_3 = input.LA(1);
 
                          
-                        int index32_3 = input.index();
+                        int index30_3 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (!(((getCharPositionInLine()==0)))) ) {s = 31;}
@@ -2408,14 +2350,14 @@ public class SilkLexer extends Lexer {
                         else if ( ((getCharPositionInLine()==0)) ) {s = 32;}
 
                          
-                        input.seek(index32_3);
+                        input.seek(index30_3);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA32_4 = input.LA(1);
+                        int LA30_4 = input.LA(1);
 
                          
-                        int index32_4 = input.index();
+                        int index30_4 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (!(((getCharPositionInLine()==0)))) ) {s = 31;}
@@ -2423,414 +2365,412 @@ public class SilkLexer extends Lexer {
                         else if ( ((getCharPositionInLine()==0)) ) {s = 32;}
 
                          
-                        input.seek(index32_4);
+                        input.seek(index30_4);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA32_5 = input.LA(1);
+                        int LA30_5 = input.LA(1);
 
                          
-                        int index32_5 = input.index();
+                        int index30_5 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((getCharPositionInLine()==0)) ) {s = 33;}
 
                         else if ( ((getCharPositionInLine()==0)) ) {s = 32;}
 
-                        else if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
-
-                        else if ( (true) ) {s = 35;}
+                        else if ( (true) ) {s = 34;}
 
                          
-                        input.seek(index32_5);
+                        input.seek(index30_5);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA32_6 = input.LA(1);
+                        int LA30_6 = input.LA(1);
 
                          
-                        int index32_6 = input.index();
+                        int index30_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((getCharPositionInLine()==0)) ) {s = 33;}
 
-                        else if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        else if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon )||(getCharPositionInLine()==0))))) ) {s = 36;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_6);
+                        input.seek(index30_6);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA32_7 = input.LA(1);
+                        int LA30_7 = input.LA(1);
 
                          
-                        int index32_7 = input.index();
+                        int index30_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((getCharPositionInLine()==0)) ) {s = 32;}
 
-                        else if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        else if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
-                        else if ( (!(((( getCharPositionInLine()==0 )||( hasColon )||(getCharPositionInLine()==0))))) ) {s = 35;}
+                        else if ( (!(((( getCharPositionInLine()==0 )||( hasColon )||(getCharPositionInLine()==0))))) ) {s = 34;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_7);
+                        input.seek(index30_7);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA32_8 = input.LA(1);
+                        int LA30_8 = input.LA(1);
 
                          
-                        int index32_8 = input.index();
+                        int index30_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon ))))) ) {s = 37;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_8);
+                        input.seek(index30_8);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA32_9 = input.LA(1);
+                        int LA30_9 = input.LA(1);
 
                          
-                        int index32_9 = input.index();
+                        int index30_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon ))))) ) {s = 36;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_9);
+                        input.seek(index30_9);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA32_10 = input.LA(1);
+                        int LA30_10 = input.LA(1);
 
                          
-                        int index32_10 = input.index();
+                        int index30_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon ))))) ) {s = 36;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_10);
+                        input.seek(index30_10);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA32_11 = input.LA(1);
+                        int LA30_11 = input.LA(1);
 
                          
-                        int index32_11 = input.index();
+                        int index30_11 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon ))))) ) {s = 38;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_11);
+                        input.seek(index30_11);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
-                        int LA32_12 = input.LA(1);
+                        int LA30_12 = input.LA(1);
 
                          
-                        int index32_12 = input.index();
+                        int index30_12 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (!(((( getCharPositionInLine()==0 )||( hasColon ))))) ) {s = 39;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_12);
+                        input.seek(index30_12);
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA32_13 = input.LA(1);
+                        int LA30_13 = input.LA(1);
 
                          
-                        int index32_13 = input.index();
+                        int index30_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( ((hasColon)) ) {s = 40;}
 
                         else if ( (true) ) {s = 41;}
 
                          
-                        input.seek(index32_13);
+                        input.seek(index30_13);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA32_14 = input.LA(1);
+                        int LA30_14 = input.LA(1);
 
                          
-                        int index32_14 = input.index();
+                        int index30_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( ((hasColon)) ) {s = 40;}
 
                         else if ( (true) ) {s = 42;}
 
                          
-                        input.seek(index32_14);
+                        input.seek(index30_14);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA32_15 = input.LA(1);
+                        int LA30_15 = input.LA(1);
 
                          
-                        int index32_15 = input.index();
+                        int index30_15 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index32_15);
+                        input.seek(index30_15);
                         if ( s>=0 ) return s;
                         break;
                     case 15 : 
-                        int LA32_16 = input.LA(1);
+                        int LA30_16 = input.LA(1);
 
                          
-                        int index32_16 = input.index();
+                        int index30_16 = input.index();
                         input.rewind();
                         s = -1;
                         if ( ((getCharPositionInLine()==0)) ) {s = 32;}
 
-                        else if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        else if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
-                        else if ( (true) ) {s = 35;}
+                        else if ( (true) ) {s = 34;}
 
                          
-                        input.seek(index32_16);
+                        input.seek(index30_16);
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA32_17 = input.LA(1);
+                        int LA30_17 = input.LA(1);
 
                          
-                        int index32_17 = input.index();
+                        int index30_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (true) ) {s = 44;}
 
                          
-                        input.seek(index32_17);
+                        input.seek(index30_17);
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA32_18 = input.LA(1);
+                        int LA30_18 = input.LA(1);
 
                          
-                        int index32_18 = input.index();
+                        int index30_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 45;}
 
                          
-                        input.seek(index32_18);
+                        input.seek(index30_18);
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA32_19 = input.LA(1);
+                        int LA30_19 = input.LA(1);
 
                          
-                        int index32_19 = input.index();
+                        int index30_19 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (true) ) {s = 46;}
 
                          
-                        input.seek(index32_19);
+                        input.seek(index30_19);
                         if ( s>=0 ) return s;
                         break;
                     case 19 : 
-                        int LA32_20 = input.LA(1);
+                        int LA30_20 = input.LA(1);
 
                          
-                        int index32_20 = input.index();
+                        int index30_20 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (true) ) {s = 47;}
 
                          
-                        input.seek(index32_20);
+                        input.seek(index30_20);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
-                        int LA32_21 = input.LA(1);
+                        int LA30_21 = input.LA(1);
 
                          
-                        int index32_21 = input.index();
+                        int index30_21 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (true) ) {s = 48;}
 
                          
-                        input.seek(index32_21);
+                        input.seek(index30_21);
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA32_22 = input.LA(1);
+                        int LA30_22 = input.LA(1);
 
                          
-                        int index32_22 = input.index();
+                        int index30_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (true) ) {s = 49;}
 
                          
-                        input.seek(index32_22);
+                        input.seek(index30_22);
                         if ( s>=0 ) return s;
                         break;
                     case 22 : 
-                        int LA32_23 = input.LA(1);
+                        int LA30_23 = input.LA(1);
 
                          
-                        int index32_23 = input.index();
+                        int index30_23 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 50;}
 
                          
-                        input.seek(index32_23);
+                        input.seek(index30_23);
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA32_24 = input.LA(1);
+                        int LA30_24 = input.LA(1);
 
                          
-                        int index32_24 = input.index();
+                        int index30_24 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 51;}
 
                          
-                        input.seek(index32_24);
+                        input.seek(index30_24);
                         if ( s>=0 ) return s;
                         break;
                     case 24 : 
-                        int LA32_25 = input.LA(1);
+                        int LA30_25 = input.LA(1);
 
                          
-                        int index32_25 = input.index();
+                        int index30_25 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 52;}
 
                          
-                        input.seek(index32_25);
+                        input.seek(index30_25);
                         if ( s>=0 ) return s;
                         break;
                     case 25 : 
-                        int LA32_26 = input.LA(1);
+                        int LA30_26 = input.LA(1);
 
                          
-                        int index32_26 = input.index();
+                        int index30_26 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 53;}
 
                          
-                        input.seek(index32_26);
+                        input.seek(index30_26);
                         if ( s>=0 ) return s;
                         break;
                     case 26 : 
-                        int LA32_27 = input.LA(1);
+                        int LA30_27 = input.LA(1);
 
                          
-                        int index32_27 = input.index();
+                        int index30_27 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                         else if ( (true) ) {s = 54;}
 
                          
-                        input.seek(index32_27);
+                        input.seek(index30_27);
                         if ( s>=0 ) return s;
                         break;
                     case 27 : 
-                        int LA32_28 = input.LA(1);
+                        int LA30_28 = input.LA(1);
 
                          
-                        int index32_28 = input.index();
+                        int index30_28 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( getCharPositionInLine()==0 )) ) {s = 34;}
+                        if ( (( getCharPositionInLine()==0 )) ) {s = 35;}
 
                         else if ( (( hasColon )) ) {s = 30;}
 
                          
-                        input.seek(index32_28);
+                        input.seek(index30_28);
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 32, _s, input);
+                new NoViableAltException(getDescription(), 30, _s, input);
             error(nvae);
             throw nvae;
         }

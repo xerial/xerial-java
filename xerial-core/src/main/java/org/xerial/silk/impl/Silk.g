@@ -127,9 +127,9 @@ BlankLine: {getCharPositionInLine()==0}? ( ' ' | '\t' | '\u000C')* NewLine { $ch
 
 
 fragment SpecialSymbol: '%' | '#' | ' ' | '\n' | '\r';   
-DataLine: { getCharPositionInLine()==0 }? (' ')* ~SpecialSymbol ~('\n'|'\r')* NewLine;
+DataLine: { getCharPositionInLine()==0 }? ~SpecialSymbol ~('\n'|'\r')* NewLine;
 
-WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { skip(); }; 
+WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; }; 
 
 
 
@@ -174,7 +174,7 @@ InLineJSON: {hasColon}? => (JSONObject | JSONArray) { hasColon = false; }
 
 fragment
 JSONObject
-	: LBrace (QName | String) (Comma JSONValue)* RBrace
+	: LBrace JSONElement (Comma JSONElement)* RBrace
 	;
 	
 fragment
