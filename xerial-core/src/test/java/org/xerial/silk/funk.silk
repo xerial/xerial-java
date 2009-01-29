@@ -4,7 +4,7 @@
 - @import(src:../file.silk)
 
 # URL
-- @import(src:http://www.xerial.org/file.silk)
+- @import(src:"http://www.xerial.org/file.silk")
 
 - @import(file.silk, head:1)
 

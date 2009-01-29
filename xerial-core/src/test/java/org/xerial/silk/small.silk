@@ -1,10 +1,5 @@
-%silk version1.0
+-node:value
+  -p1:hello
+  -p2: long text value spareted by some white spaces.
   
-# comment-line
-
--object
-
--object:value
-  -p1:value
-  
-  
+-link(page name: Welcome to Xerial, url:"http://www.xerial.org/")

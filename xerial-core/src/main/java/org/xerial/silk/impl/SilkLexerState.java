@@ -59,6 +59,7 @@ public class SilkLexerState
     {
         automaton.addTransition(State.INIT, Symbol.NodeStart, State.KEY);
         automaton.addTransition(State.KEY, Symbol.Colon, State.OUT);
+        automaton.addTransition(State.KEY, Symbol.EnterParen, State.IN);
         automaton.addTransition(State.OUT, Symbol.EnterParen, State.IN);
 
         for (State each : State.values())

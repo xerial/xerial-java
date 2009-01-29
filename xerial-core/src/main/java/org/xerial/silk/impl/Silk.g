@@ -28,13 +28,14 @@ options
 	output=AST;
 	// some lexer & parser options
 	// number of look-ahead characters 
-	k=3;	
-	backtrack=true;
+	//k=3;	
+	//backtrack=true;
 }
 tokens {
 Silk;
 SilkNode;
 SilkAttribute;
+SilkLine;
 Name;
 Value;
 Occurrence;
@@ -75,6 +76,9 @@ Key;
 //--------------------------------------
 
 package org.xerial.silk.impl;
+import org.xerial.silk.impl.SilkLexerState;
+import org.xerial.silk.impl.SilkLexerState.State;
+import org.xerial.silk.impl.SilkLexerState.Symbol;
 }
 
 
@@ -103,17 +107,16 @@ package org.xerial.silk.impl;
 //
 //--------------------------------------
 package org.xerial.silk.impl;
-import java.util.Stack;
 }
 
 @lexer::members {
-private enum State { DEFAULT, KEY, IN, OUT }; 
-private Stack<State> contextStack = new Stack<State>();
-   
-private State currentState() { return contextStack.empty() ? State.DEFAULT : contextStack.peek(); }
-private void push(State s) { contextStack.push(s); }
-private void pop() { if(!contextStack.empty()) contextStack.pop(); } 
-private void clearStack() { contextStack.clear(); }
+
+private SilkLexerState lexerContext = new SilkLexerState();
+
+private State currentState() { return lexerContext.getCurrentState(); } 
+private void transit(Symbol token) { System.out.println(lexerContext.transit(token)); } 
+private void resetContext() { lexerContext.reset(); }
+
 }
 
 
@@ -147,7 +150,7 @@ fragment LineBreakChar: '\n' | '\r';
 
 LineBreak
 	: ('\r' '\n' | '\r' | '\n' ) 
-	{ $channel=HIDDEN; clearStack(); }
+	{ $channel=HIDDEN; resetContext(); }
 	;		
 
 		
@@ -163,36 +166,31 @@ fragment EscapeSequence
 fragment StringChar :  UnicodeChar | EscapeSequence;
 fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace ) | EscapeSequence;
 
-String: '"' StringChar* '"';
+fragment StringChar_s: StringChar*;
+String: '"' s=StringChar_s '"' { setText($s.text); };
 
-fragment
-URIChar
-	: Letter | Digit | '%' HexDigit HexDigit
-	| ';' | '/' | '?' | ':' | '@' | '&' | '=' | '+' | '$' | ','
-	| '_' | '.' | '!' | '~' | '*' | '\'' | '(' | ')' | '[' | ']'
-	; 	
 	
-NodeStart: {getCharPositionInLine()==0}? (' ')* '-' { push(State.KEY); } ;
-BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak { $channel=HIDDEN; };
+NodeStart: {getCharPositionInLine()==0}? (' ')* '-' { transit(Symbol.NodeStart); } ;
+BlankLine: {getCharPositionInLine()==0}? WhiteSpace* LineBreak;
 
 DataLine: {getCharPositionInLine()==0}? => ~('-' | '%' | '#' | ' ' | LineBreakChar) ~('\n'|'\r')* LineBreak;
 
-LParen: '(' { push(State.IN); };  
+LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')';
 Comma: 	',';
-Colon:	':' { push(State.OUT); } ;
+Colon:	':' { transit(Symbol.Colon); } ;
 Seq: 	'>';
 Star: 	'*';
 At:		'@';
 Plus:	'+';
-LBracket:	'[' { push(State.IN); };
+LBracket:	'[' { transit(Symbol.EnterParen); };
 RBracket:	']';
 Question:	'?';
  
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| (':' | '?') NonSpaceChar
+//	| (':' | '?') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
@@ -209,11 +207,25 @@ fragment PlainSafe
 	| { currentState() == State.OUT }? => PlainSafeOut
 	;
 
-fragment PlainChar: PlainSafe '#'? | ':' NonSpaceChar; 
+fragment PlainChar: PlainSafe '#'?;
 
-PlainOneLine: PlainFirst (WhiteSpace* PlainChar)*;
+/*
+fragment URIPrefix
+	: ('http' | 'ftp' | 'https' | 'sftp' | 'rsync' ) '://'
+	;
 
-Separation: { currentState() != State.DEFAULT }? WhiteSpace+;
+fragment URIChar
+	: Letter | Digit | '%' HexDigit HexDigit
+	| ';' | '/' | '?' | ':' | '@' | '&' | '=' | '+' | '$' | ','
+	| '_' | '.' | '!' | '~' | '*' | '\'' | '(' | ')' | '[' | ']'
+	;
+*/
+ 
+PlainOneLine
+	: PlainFirst (WhiteSpace* PlainChar)*
+	;
+
+Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };
 
 WhiteSpace
 	:	(' ' | '\t') 
@@ -230,9 +242,13 @@ schema: node;
 silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
-silkLine
+silkLine: silkLine_i -> ^(SilkLine silkLine_i)
+	;
+
+silkLine_i
 	: Preamble
 	| DataLine
+	| BlankLine
 	| node
 	;
 
@@ -246,7 +262,7 @@ coreNode: nodeItem
 	-> ^(SilkNode nodeItem)
 	;
 
-nodeItem: nodeName (Comma nodeValue)? (LParen attributeList RParen)? dataType? plural?
+nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
 	;
 

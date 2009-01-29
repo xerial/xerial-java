@@ -91,4 +91,10 @@ public class SilkParserTest
     {
         parse("../json.silk");
     }
+
+    @Test
+    public void testSmall() throws Exception
+    {
+        parse("../small.silk");
+    }
 }
