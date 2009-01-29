@@ -114,6 +114,9 @@ package org.xerial.silk.impl;
 
 // lexer rules
 
+// Character Set
+
+
 // skip comment 
 LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
 Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
@@ -130,6 +133,7 @@ fragment SpecialSymbol: '%' | '#' | ' ' | '\n' | '\r';
 DataLine: { getCharPositionInLine()==0 }? ~SpecialSymbol ~('\n'|'\r')* NewLine;
 
 WhiteSpaces: ( ' ' | '\t' | '\u000C')+ { $channel=HIDDEN; }; 
+
 
 
 
@@ -217,6 +221,8 @@ Question: '?';
 Plus: '+';
 At: '@';
 Slash: '/';
+
+
 
 // parser rules	
 
