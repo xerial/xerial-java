@@ -24,13 +24,62 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.ANTLRReaderStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.xerial.silk.impl.SilkLexer;
+import org.xerial.silk.impl.SilkParser;
+import org.xerial.silk.impl.SilkParser.silkLine_return;
+
 /**
- * Silk format pull parser
+ * Pull parser of the Silk format. Pull-style means each parsing event is
+ * generated when next() method is called, suited to stream processing.
  * 
  * @author leo
  * 
  */
 public class SilkPullParser
 {
+    private final SilkLexer lexer;
+    private CommonTokenStream tokenStream;
+    private SilkParser parser;
+
+    public SilkPullParser(InputStream input) throws IOException
+    {
+        lexer = new SilkLexer(new ANTLRInputStream(input));
+        init();
+    }
+
+    public SilkPullParser(Reader input) throws IOException
+    {
+        lexer = new SilkLexer(new ANTLRReaderStream(input));
+        init();
+    }
+
+    private void init()
+    {
+        tokenStream = new CommonTokenStream(lexer);
+        parser = new SilkParser(tokenStream);
+    }
+
+    public SilkEvent next()
+    {
+        try
+        {
+            silkLine_return ret = parser.silkLine();
+
+        }
+        catch (RecognitionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

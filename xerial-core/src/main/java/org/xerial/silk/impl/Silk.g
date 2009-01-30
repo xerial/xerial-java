@@ -113,7 +113,7 @@ package org.xerial.silk.impl;
 @lexer::members {
 
 private static Logger _logger = Logger.getLogger(SilkLexer.class);
-public static final int JSON_CHANNEL = 1; 
+//public static final int JSON_CHANNEL = 1; 
 
 private SilkLexerState lexerContext = new SilkLexerState();
 
@@ -121,10 +121,11 @@ private State currentState() { return lexerContext.getCurrentState(); }
 private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
 private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
-private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
+//private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
+private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
-private boolean isJSON() { return currentState() == State.JSON; }
+//private boolean isJSON() { return currentState() == State.JSON; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
 }
 
@@ -144,7 +145,7 @@ LineBreak
 	;		
 
 	
-NodeStart: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
+NodeIndent: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? WhiteSpace* LineBreak;
 
 DataLine: { isHead() }? => WhiteSpace* ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('\n'|'\r')* LineBreak;
@@ -203,47 +204,6 @@ fragment PlainSafe
  
 PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
 		;
-	
-
-/*	
-fragment JSONSafe_i
-	: ('[' | '{') { transit(Symbol.EnterJSONFragment); }
-	| (']' | '}') { transit(Symbol.LeaveJSONFragment); }
-	| ~(PlainUnsafeChar | '[' | ']' | '{' | '}')
-	| String
-	;  
-
-	
-fragment JSONSafe : { isJSON() }? => (WhiteSpace* JSONSafe_i)+;
-	
-fragment JSONFirst: { isValue() }? => ('{' | '[') { transit(Symbol.EnterJSONFragment); } 
-	;	
-
-
-fragment Int: '-'? ('0' | '1'..'9' Digit*);
-fragment Frac: '.' Digit+;
-fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
-fragment Double: Int (Frac Exp? | Exp);
-
-fragment JSONObject: '{' JSONElement (',' JSONElement)* '}';
-fragment JSONElement: String ':' JSONValue; 
-fragment JSONArray: '[' JSONValue (',' JSONValue)* ']';
-
-fragment JSONValue
-	: String
-	| Int
-	| Double
-	| 'true'
-	| 'false'
-	| 'null'
-	;
-
-fragment JSON_i
-	: JSONObject
-	| JSONArray 
-	;
-
-*/
 
 JSON
 	: { isValue() }? => '{'
@@ -254,7 +214,7 @@ JSON
 		InLineJSONParser p = new InLineJSONParser(tokens);
 		p.jsonObjectFragment();
 		
-		$channel = JSON_CHANNEL;
+		//$channel = JSON_CHANNEL;
 		emit(new CommonToken(JSON, getText())); 
 	}
 	| { isValue() }? => '['
@@ -265,7 +225,7 @@ JSON
 		InLineJSONParser p = new InLineJSONParser(tokens);
 		p.jsonArrayFragment();
 		
-		$channel = JSON_CHANNEL;
+		//$channel = JSON_CHANNEL;
 		emit(new CommonToken(JSON, getText())); 
 	}  
 	;
@@ -299,7 +259,7 @@ nodeValue
 	| JSON 
 	; 
 
-node: NodeStart (coreNode | function);
+node: NodeIndent (coreNode | function);
 
 coreNode: nodeItem
 	-> ^(SilkNode nodeItem)

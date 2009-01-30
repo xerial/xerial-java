@@ -97,4 +97,29 @@ public class SilkParserTest
     {
         parse("../small.silk");
     }
+
+    @Test
+    public void testType() throws Exception
+    {
+        parse("../type.silk");
+    }
+
+    @Test
+    public void pullTest() throws Exception
+    {
+        String filePath = "../small.silk";
+
+        SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource.open(SilkParserTest.class, filePath)));
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        Map<Integer, String> tokenTable = ANTLRUtil.getTokenTable(SilkLexer.class, "Silk.tokens");
+        //_logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
+
+        SilkParser parser = new SilkParser(token);
+        while (token.index() < token.size())
+        {
+            SilkParser.silkLine_return ret = parser.silkLine();
+            _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+        }
+
+    }
 }

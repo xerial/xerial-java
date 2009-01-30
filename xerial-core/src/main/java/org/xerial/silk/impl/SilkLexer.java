@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-30 14:19:47
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-01-30 15:01:01
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -43,8 +43,8 @@ public class SilkLexer extends Lexer {
     public static final int SilkNode=5;
     public static final int SilkLine=7;
     public static final int LBracket=32;
-    public static final int NodeStart=20;
     public static final int Digit=35;
+    public static final int NodeIndent=20;
     public static final int HexDigit=37;
     public static final int PlainOneLine=53;
     public static final int Plus=31;
@@ -92,7 +92,7 @@ public class SilkLexer extends Lexer {
 
 
     private static Logger _logger = Logger.getLogger(SilkLexer.class);
-    public static final int JSON_CHANNEL = 1; 
+    //public static final int JSON_CHANNEL = 1; 
 
     private SilkLexerState lexerContext = new SilkLexerState();
 
@@ -100,10 +100,11 @@ public class SilkLexer extends Lexer {
     private void transit(Symbol token) { lexerContext.transit(token); } 
     private void resetContext() { lexerContext.reset(); }
     private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
-    private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
+    //private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
+    private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
     private boolean isInValue() { return currentState() == State.IN_VALUE; }
     private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
-    private boolean isJSON() { return currentState() == State.JSON; }
+    //private boolean isJSON() { return currentState() == State.JSON; }
     private boolean isHead() { return getCharPositionInLine() == 0; }
 
 
@@ -125,11 +126,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:12: ( '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:14: '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:12: ( '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:14: '#' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match('#'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:18: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:18: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -142,7 +143,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:18: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:18: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -162,7 +163,7 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:32: ( '\\r' )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:32: ( '\\r' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -171,7 +172,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:135:32: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:32: '\\r'
                     {
                     match('\r'); 
 
@@ -198,11 +199,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Preamble;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:9: ( '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:11: '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:9: ( '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:11: '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match('%'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:15: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:15: (~ ( '\\n' | '\\r' ) )*
             loop3:
             do {
                 int alt3=2;
@@ -215,7 +216,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:15: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:15: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -235,7 +236,7 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:29: ( '\\r' )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:29: ( '\\r' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -244,7 +245,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:136:29: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:29: '\\r'
                     {
                     match('\r'); 
 
@@ -268,7 +269,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:139:23: ( '\\n' | '\\r' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:23: ( '\\n' | '\\r' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -294,10 +295,10 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt5=3;
             int LA5_0 = input.LA(1);
 
@@ -321,7 +322,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:5: '\\r' '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:5: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -329,14 +330,14 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:17: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:17: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:142:24: '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:143:24: '\\n'
                     {
                     match('\n'); 
 
@@ -357,18 +358,18 @@ public class SilkLexer extends Lexer {
     }
     // $ANTLR end "LineBreak"
 
-    // $ANTLR start "NodeStart"
-    public final void mNodeStart() throws RecognitionException {
+    // $ANTLR start "NodeIndent"
+    public final void mNodeIndent() throws RecognitionException {
         try {
-            int _type = NodeStart;
+            int _type = NodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:10: ({...}? ( ' ' )* '-' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:12: {...}? ( ' ' )* '-'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:11: ({...}? ( ' ' )* '-' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:13: {...}? ( ' ' )* '-'
             {
             if ( !(( isHead() )) ) {
-                throw new FailedPredicateException(input, "NodeStart", " isHead() ");
+                throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:26: ( ' ' )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:27: ( ' ' )*
             loop6:
             do {
                 int alt6=2;
@@ -381,7 +382,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:27: ' '
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:28: ' '
             	    {
             	    match(' '); 
 
@@ -404,20 +405,20 @@ public class SilkLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "NodeStart"
+    // $ANTLR end "NodeIndent"
 
     // $ANTLR start "BlankLine"
     public final void mBlankLine() throws RecognitionException {
         try {
             int _type = BlankLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:10: ({...}? ( WhiteSpace )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:12: {...}? ( WhiteSpace )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:10: ({...}? ( WhiteSpace )* LineBreak )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:12: {...}? ( WhiteSpace )* LineBreak
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlankLine", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:26: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:26: ( WhiteSpace )*
             loop7:
             do {
                 int alt7=2;
@@ -430,7 +431,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:148:26: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:26: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -459,13 +460,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = DataLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:9: ({...}? => ( WhiteSpace )* ~ ( '-' | '%' | '#' | WhiteSpace | LineBreakChar ) (~ ( '\\n' | '\\r' ) )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:11: {...}? => ( WhiteSpace )* ~ ( '-' | '%' | '#' | WhiteSpace | LineBreakChar ) (~ ( '\\n' | '\\r' ) )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:9: ({...}? => ( WhiteSpace )* ~ ( '-' | '%' | '#' | WhiteSpace | LineBreakChar ) (~ ( '\\n' | '\\r' ) )* LineBreak )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:11: {...}? => ( WhiteSpace )* ~ ( '-' | '%' | '#' | WhiteSpace | LineBreakChar ) (~ ( '\\n' | '\\r' ) )* LineBreak
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "DataLine", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:28: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:28: ( WhiteSpace )*
             loop8:
             do {
                 int alt8=2;
@@ -478,7 +479,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:28: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:28: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -499,7 +500,7 @@ public class SilkLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:88: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:88: (~ ( '\\n' | '\\r' ) )*
             loop9:
             do {
                 int alt9=2;
@@ -512,7 +513,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:88: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:88: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -549,8 +550,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:152:7: ( '(' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:152:9: '('
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:7: ( '(' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:9: '('
             {
             match('('); 
              transit(Symbol.EnterParen); 
@@ -570,8 +571,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:7: ( ')' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:9: ')'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:7: ( ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:9: ')'
             {
             match(')'); 
 
@@ -590,8 +591,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:6: ( ',' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:9: ','
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:6: ( ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:9: ','
             {
             match(','); 
 
@@ -610,8 +611,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:6: ( ':' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:8: ':'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:6: ( ':' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:8: ':'
             {
             match(':'); 
              transit(Symbol.Colon); 
@@ -631,8 +632,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Seq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:4: ( '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:7: '>'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:4: ( '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:7: '>'
             {
             match('>'); 
 
@@ -651,8 +652,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:5: ( '*' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:8: '*'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:5: ( '*' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:8: '*'
             {
             match('*'); 
 
@@ -671,8 +672,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:3: ( '@' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:6: '@'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:3: ( '@' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:6: '@'
             {
             match('@'); 
 
@@ -691,8 +692,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:5: ( '+' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:7: '+'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:5: ( '+' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:7: '+'
             {
             match('+'); 
 
@@ -711,8 +712,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:9: ( '[' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:11: '['
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:9: ( '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:11: '['
             {
             match('['); 
              transit(Symbol.EnterParen); 
@@ -732,8 +733,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:9: ( ']' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:11: ']'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:9: ( ']' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:11: ']'
             {
             match(']'); 
 
@@ -752,8 +753,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:9: ( '?' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:11: '?'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:9: ( '?' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:11: '?'
             {
             match('?'); 
 
@@ -770,8 +771,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:15: ( '0' .. '9' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:17: '0' .. '9'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:15: ( '0' .. '9' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -786,7 +787,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:16: ( 'A' .. 'F' | 'a' .. 'f' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -810,7 +811,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:18: ( Digit | Letter )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:18: ( Digit | Letter )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -834,8 +835,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:21: (~ ( '\"' | '\\\\' | LineBreakChar ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:23: ~ ( '\"' | '\\\\' | LineBreakChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:21: (~ ( '\"' | '\\\\' | LineBreakChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:23: ~ ( '\"' | '\\\\' | LineBreakChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -858,11 +859,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt10=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -919,63 +920,63 @@ public class SilkLexer extends Lexer {
 
             switch (alt10) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:10: '\\\"'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:17: '\\\\'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:24: '/'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:30: 'b'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:36: 'f'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:42: 'n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:48: 'r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:54: 't'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -1000,7 +1001,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:173:21: ( UnicodeChar | EscapeSequence )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:21: ( UnicodeChar | EscapeSequence )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1018,14 +1019,14 @@ public class SilkLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:173:24: UnicodeChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:173:38: EscapeSequence
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -1042,8 +1043,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "NonSpaceChar"
     public final void mNonSpaceChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:22: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:24: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:22: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:24: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1066,10 +1067,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:22: ( ( StringChar )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:22: ( ( StringChar )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:24: ( StringChar )*
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:24: ( StringChar )*
             loop12:
             do {
                 int alt12=2;
@@ -1082,7 +1083,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:24: StringChar
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -1110,8 +1111,8 @@ public class SilkLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:7: ( '\"' s= StringChar_s '\"' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:9: '\"' s= StringChar_s '\"'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:7: ( '\"' s= StringChar_s '\"' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart473 = getCharIndex();
@@ -1133,7 +1134,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:181:2: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator ) | {...}? => ( ':' | '?' ) NonSpaceChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:2: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator ) | {...}? => ( ':' | '?' ) NonSpaceChar )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1160,7 +1161,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:181:4: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator )
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:4: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||input.LA(1)=='|'||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -1175,7 +1176,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:4: {...}? => ( ':' | '?' ) NonSpaceChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:4: {...}? => ( ':' | '?' ) NonSpaceChar
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
@@ -1204,7 +1205,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "ScopeIndicator"
     public final void mScopeIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:185:24: ( '(' | ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:24: ( '(' | ')' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='(' && input.LA(1)<=')') ) {
@@ -1228,7 +1229,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "FlowIndicator"
     public final void mFlowIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:23: ( '[' | ']' | '{' | '}' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:23: ( '[' | ']' | '{' | '}' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='{'||input.LA(1)=='}' ) {
@@ -1252,7 +1253,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '\\'' | '\"' | '@' | '%' | '\\\\' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '\\'' | '\"' | '@' | '%' | '\\\\' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<=')')||(input.LA(1)>=',' && input.LA(1)<='-')||input.LA(1)==':'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||input.LA(1)=='{'||input.LA(1)=='}' ) {
@@ -1276,7 +1277,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainUnsafeChar"
     public final void mPlainUnsafeChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:190:25: ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:25: ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' '||(input.LA(1)>='\"' && input.LA(1)<='#')||(input.LA(1)>='(' && input.LA(1)<=')')||input.LA(1)=='\\' ) {
@@ -1300,8 +1301,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeKey"
     public final void mPlainSafeKey() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:22: (~ ( PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:24: ~ ( PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:22: (~ ( PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:24: ~ ( PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||input.LA(1)=='|'||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1324,8 +1325,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeIn"
     public final void mPlainSafeIn() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:21: (~ ( PlainUnsafeChar | ',' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:23: ~ ( PlainUnsafeChar | ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:21: (~ ( PlainUnsafeChar | ',' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:23: ~ ( PlainUnsafeChar | ',' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1348,8 +1349,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeOut"
     public final void mPlainSafeOut() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:22: (~ ( PlainUnsafeChar ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:24: ~ ( PlainUnsafeChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:22: (~ ( PlainUnsafeChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:24: ~ ( PlainUnsafeChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1372,7 +1373,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafe"
     public final void mPlainSafe() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:198:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:199:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
             int alt14=3;
             int LA14_0 = input.LA(1);
 
@@ -1422,7 +1423,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:198:4: {...}? => PlainSafeKey
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:199:4: {...}? => PlainSafeKey
                     {
                     if ( !(( isKey() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isKey() ");
@@ -1432,7 +1433,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:199:4: {...}? => PlainSafeIn
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:4: {...}? => PlainSafeIn
                     {
                     if ( !(( isInValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isInValue() ");
@@ -1442,7 +1443,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:4: {...}? => PlainSafeOut
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:201:4: {...}? => PlainSafeOut
                     {
                     if ( !(( isOutValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isOutValue() ");
@@ -1464,11 +1465,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = PlainOneLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:13: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:15: PlainFirst ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:13: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:15: PlainFirst ( ( WhiteSpace )* PlainSafe )*
             {
             mPlainFirst(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:26: ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:26: ( ( WhiteSpace )* PlainSafe )*
             loop16:
             do {
                 int alt16=2;
@@ -1490,9 +1491,9 @@ public class SilkLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:27: ( WhiteSpace )* PlainSafe
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )* PlainSafe
             	    {
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:27: ( WhiteSpace )*
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )*
             	    loop15:
             	    do {
             	        int alt15=2;
@@ -1505,7 +1506,7 @@ public class SilkLexer extends Lexer {
 
             	        switch (alt15) {
             	    	case 1 :
-            	    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:27: WhiteSpace
+            	    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: WhiteSpace
             	    	    {
             	    	    mWhiteSpace(); 
 
@@ -1544,7 +1545,7 @@ public class SilkLexer extends Lexer {
         try {
             int _type = JSON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:249:2: ({...}? => '{' | {...}? => '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:2: ({...}? => '{' | {...}? => '[' )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1562,7 +1563,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:249:4: {...}? => '{'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:4: {...}? => '{'
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1575,14 +1576,14 @@ public class SilkLexer extends Lexer {
                     		InLineJSONParser p = new InLineJSONParser(tokens);
                     		p.jsonObjectFragment();
                     		
-                    		_channel = JSON_CHANNEL;
+                    		//_channel = JSON_CHANNEL;
                     		emit(new CommonToken(JSON, getText())); 
                     	
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:260:4: {...}? => '['
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:4: {...}? => '['
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1595,7 +1596,7 @@ public class SilkLexer extends Lexer {
                     		InLineJSONParser p = new InLineJSONParser(tokens);
                     		p.jsonArrayFragment();
                     		
-                    		_channel = JSON_CHANNEL;
+                    		//_channel = JSON_CHANNEL;
                     		emit(new CommonToken(JSON, getText())); 
                     	
 
@@ -1616,13 +1617,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Separation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:273:11: ({...}? ( WhiteSpace )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:273:13: {...}? ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:11: ({...}? ( WhiteSpace )+ )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:13: {...}? ( WhiteSpace )+
             {
             if ( !(( currentState() != State.INIT )) ) {
                 throw new FailedPredicateException(input, "Separation", " currentState() != State.INIT ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:273:47: ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:47: ( WhiteSpace )+
             int cnt18=0;
             loop18:
             do {
@@ -1636,7 +1637,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:273:47: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:47: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1669,8 +1670,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = WhiteSpace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:276:2: ( ( ' ' | '\\t' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:276:4: ( ' ' | '\\t' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:2: ( ( ' ' | '\\t' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:4: ( ' ' | '\\t' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1693,7 +1694,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR end "WhiteSpace"
 
     public void mTokens() throws RecognitionException {
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | NodeStart | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | NodeIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace )
         int alt19=22;
         alt19 = dfa19.predict(input);
         switch (alt19) {
@@ -1719,133 +1720,133 @@ public class SilkLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:41: NodeStart
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:41: NodeIndent
                 {
-                mNodeStart(); 
+                mNodeIndent(); 
 
                 }
                 break;
             case 5 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:51: BlankLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:52: BlankLine
                 {
                 mBlankLine(); 
 
                 }
                 break;
             case 6 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:61: DataLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:62: DataLine
                 {
                 mDataLine(); 
 
                 }
                 break;
             case 7 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:70: LParen
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:71: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 8 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:77: RParen
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:78: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 9 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:84: Comma
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:85: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 10 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:90: Colon
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:91: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 11 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:96: Seq
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:97: Seq
                 {
                 mSeq(); 
 
                 }
                 break;
             case 12 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:100: Star
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:101: Star
                 {
                 mStar(); 
 
                 }
                 break;
             case 13 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:105: At
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:106: At
                 {
                 mAt(); 
 
                 }
                 break;
             case 14 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:108: Plus
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:109: Plus
                 {
                 mPlus(); 
 
                 }
                 break;
             case 15 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:113: LBracket
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:114: LBracket
                 {
                 mLBracket(); 
 
                 }
                 break;
             case 16 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:122: RBracket
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:123: RBracket
                 {
                 mRBracket(); 
 
                 }
                 break;
             case 17 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:131: Question
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:132: Question
                 {
                 mQuestion(); 
 
                 }
                 break;
             case 18 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:140: String
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:141: String
                 {
                 mString(); 
 
                 }
                 break;
             case 19 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:147: PlainOneLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:148: PlainOneLine
                 {
                 mPlainOneLine(); 
 
                 }
                 break;
             case 20 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:160: JSON
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:161: JSON
                 {
                 mJSON(); 
 
                 }
                 break;
             case 21 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:165: Separation
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:166: Separation
                 {
                 mSeparation(); 
 
                 }
                 break;
             case 22 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:176: WhiteSpace
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:177: WhiteSpace
                 {
                 mWhiteSpace(); 
 
@@ -2050,7 +2051,7 @@ public class SilkLexer extends Lexer {
             this.transition = DFA19_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( LineComment | Preamble | LineBreak | NodeStart | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace );";
+            return "1:1: Tokens : ( LineComment | Preamble | LineBreak | NodeIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
