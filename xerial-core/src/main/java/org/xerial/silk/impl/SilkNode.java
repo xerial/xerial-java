@@ -16,65 +16,71 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkLine.java
-// Since: Jan 30, 2009 3:55:13 PM
+// SilkNode.java
+// Since: Jan 30, 2009 6:58:59 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import java.util.ArrayList;
+
 /**
+ * SilkNode begins with '-' character, follwed by object notation of the form:
  * 
- * SilkLine contents
+ * <pre>
+ *  object_name (: nodeValue)? '(' attribute, ... ')' ([format_name])? ('*' | '&gt;' | '|')
+ * </pre>
  * 
  * @author leo
  * 
  */
-public class SilkLine
+public class SilkNode
 {
-    String nodeIndent;
-    SilkNode node = null;
-    SilkFunction function = null;
+    private String indent;
+    private String name;
+    private SiklNodeOccurrence occurrence;
+    private ArrayList<SilkNode> childNodeList = new ArrayList<SilkNode>();
 
     public String getNodeIndent()
     {
-        return nodeIndent;
+        return indent;
     }
 
-    public void setNodeIndent(String nodeIndent)
+    public void setNodeIndent(String indent)
     {
-        this.nodeIndent = nodeIndent;
+        this.indent = indent;
     }
 
-    public void setSilkNode(SilkNode node)
+    public String getName()
     {
-        this.node = node;
+        return name;
     }
 
-    public SilkNode getSilkNode()
+    public void setName(String name)
     {
-        return node;
+        this.name = name;
     }
 
-    public void setFunction(SilkFunction function)
+    public SiklNodeOccurrence getOccurrence()
     {
-        this.function = function;
+        return occurrence;
     }
 
-    public SilkFunction getFunction()
+    public void setOccurrence(SiklNodeOccurrence occurrence)
     {
-        return function;
+        this.occurrence = occurrence;
     }
 
-    public boolean hasFunction()
+    public ArrayList<SilkNode> getChildNodes()
     {
-        return function != null;
+        return childNodeList;
     }
 
-    public boolean hasSilkNode()
+    public void addSilkNode(SilkNode childNode)
     {
-        return node != null;
+        this.childNodeList.add(childNode);
     }
 
 }

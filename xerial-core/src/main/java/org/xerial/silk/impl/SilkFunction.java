@@ -16,20 +16,51 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkEvent.java
-// Since: Jan 30, 2009 3:30:38 PM
+// SilkFunction.java
+// Since: Jan 30, 2009 7:36:19 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.silk.impl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Pull parsing events of Silk data format
+ * function data
  * 
  * @author leo
  * 
  */
-public enum SilkEvent {
-    NODE, FUNCTION, BLANK_LINE, DATA_LINE, END_OF_FILE;
+public class SilkFunction
+{
+    private String indent;
+    private ArrayList<SilkFunctionArg> argumentList = new ArrayList<SilkFunctionArg>();
+
+    public void addArgument(String argument)
+    {
+        argumentList.add(SilkFunctionArg.newArgValue(argument));
+    }
+
+    public void addKeyValuePair(SilkFunctionArg argument)
+    {
+        argumentList.add(argument);
+    }
+
+    public List<SilkFunctionArg> getArgumentList()
+    {
+        return argumentList;
+    }
+
+    public String getNodeIndent()
+    {
+        return indent;
+    }
+
+    public void setNodeIndent(String indent)
+    {
+        this.indent = indent;
+    }
+
 }

@@ -34,7 +34,7 @@ options
 tokens {
 Silk;
 SilkNode;
-SilkAttribute;
+//SilkAttribute;
 SilkLine;
 Name;
 Value;
@@ -239,18 +239,18 @@ WhiteSpace
 
 // parser rules	
 
-schema: node;
 
 silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
 silkLine
-	: node -> ^(SilkLine node)
+	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem) 
+	| NodeIndent function -> ^(Function NodeIndent function)  
 	| Preamble
 	| DataLine
 	| BlankLine
+	| WhiteSpace -> BlankLine
 	;
-
 
 
 nodeName: PlainOneLine | String;
@@ -259,11 +259,14 @@ nodeValue
 	| JSON 
 	; 
 
-node: NodeIndent (coreNode | function);
+/*
+node
+	: NodeIndent (coreNode | function);
 
 coreNode: nodeItem
 	-> ^(SilkNode nodeItem)
 	;
+	*/
 
 nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
@@ -277,7 +280,7 @@ dataTypeName: PlainOneLine
 	; 	
 	
 attributeList: attributeItem (Comma! attributeItem)* ;	
-attributeItem: nodeItem -> ^(SilkAttribute nodeItem);
+attributeItem: nodeItem -> ^(SilkNode nodeItem);
 
 
 plural
@@ -288,12 +291,12 @@ plural
 	;
 
 function: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
-	-> ^(Function[$PlainOneLine.text] functionArg*)
+	-> Name[$PlainOneLine.text] functionArg*
 	;
 
 functionArg
 	: nodeValue -> Argument[$functionArg.text]
-	| nodeName Colon nodeValue -> ^(KeyValuePair Key[$nodeName.text] nodeValue)
+	| nodeName Colon nodeValue -> ^(KeyValuePair Name[$nodeName.text] nodeValue)
 	;
 
 

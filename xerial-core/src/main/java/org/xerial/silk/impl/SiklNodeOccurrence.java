@@ -16,20 +16,26 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkEvent.java
-// Since: Jan 30, 2009 3:30:38 PM
+// SiklNodeOccurrence.java
+// Since: Jan 30, 2009 7:15:46 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.silk.impl;
 
 /**
- * Pull parsing events of Silk data format
+ * node occurrence
  * 
  * @author leo
  * 
  */
-public enum SilkEvent {
-    NODE, FUNCTION, BLANK_LINE, DATA_LINE, END_OF_FILE;
+public enum SiklNodeOccurrence {
+
+    ONE, ZERO_OR_MORE, ONE_OR_MORE, ZERO_OR_ONE, SEQUENCE, TABBED_SEQUENCE;
+
+    public boolean isFollowedByStreamData()
+    {
+        return this == SEQUENCE || this == TABBED_SEQUENCE;
+    }
 }

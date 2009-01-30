@@ -115,11 +115,18 @@ public class SilkParserTest
         //_logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
 
         SilkParser parser = new SilkParser(token);
-        while (token.index() < token.size())
+        int lastIndex = Integer.MIN_VALUE;
+        int currentIndex = token.index();
+
+        while (lastIndex < currentIndex)
         {
+            _logger.info(String.format("%d, %d", lastIndex, currentIndex));
             SilkParser.silkLine_return ret = parser.silkLine();
             _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+            lastIndex = currentIndex;
+            currentIndex = token.index();
         }
+        _logger.info(String.format("%d, %d", lastIndex, currentIndex));
 
     }
 }

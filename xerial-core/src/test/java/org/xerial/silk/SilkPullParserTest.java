@@ -24,12 +24,15 @@
 //--------------------------------------
 package org.xerial.silk;
 
-
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
 
 public class SilkPullParserTest
 {
+    private static Logger _logger = Logger.getLogger(SilkPullParserTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -39,4 +42,16 @@ public class SilkPullParserTest
     public void tearDown() throws Exception
     {}
 
+    @Test
+    public void testSmall() throws Exception
+    {
+        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, "small.silk"));
+
+        while (true)
+        {
+            SilkEvent e = p.next();
+            _logger.info(e);
+        }
+
+    }
 }

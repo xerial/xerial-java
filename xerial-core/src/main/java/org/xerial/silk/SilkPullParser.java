@@ -32,9 +32,15 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.Tree;
+import org.xerial.core.XerialException;
+import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
+import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
+import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.util.log.Logger;
 
 /**
  * Pull parser of the Silk format. Pull-style means each parsing event is
@@ -45,6 +51,8 @@ import org.xerial.silk.impl.SilkParser.silkLine_return;
  */
 public class SilkPullParser
 {
+    private static Logger _logger = Logger.getLogger(SilkPullParser.class);
+
     private final SilkLexer lexer;
     private CommonTokenStream tokenStream;
     private SilkParser parser;
@@ -69,12 +77,41 @@ public class SilkPullParser
 
     public SilkEvent next()
     {
+        _logger.info("next");
         try
         {
             silkLine_return ret = parser.silkLine();
+            Tree t = (Tree) ret.getTree();
+            switch (t.getType())
+            {
+            case SilkParser.Function:
+            {
+                SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t, SilkParser.tokenNames);
+                return SilkEvent.FUNCTION;
+            }
+            case SilkParser.SilkNode:
+            {
+                SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
+                return SilkEvent.NODE;
+            }
+            case SilkParser.BlankLine:
+            {
+                return SilkEvent.BLANK_LINE;
+            }
+            case SilkParser.DataLine:
+            {
+                String dataLine = t.getText();
+                return SilkEvent.DATA_LINE;
+            }
+            }
 
         }
         catch (RecognitionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (XerialException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
