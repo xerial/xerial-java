@@ -30,6 +30,7 @@ import java.util.Map;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
 import org.junit.After;
 import org.junit.Before;
@@ -115,18 +116,11 @@ public class SilkParserTest
         //_logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
 
         SilkParser parser = new SilkParser(token);
-        int lastIndex = Integer.MIN_VALUE;
-        int currentIndex = token.index();
-
-        while (lastIndex < currentIndex)
+        while (token.LT(1) != Token.EOF_TOKEN)
         {
-            _logger.info(String.format("%d, %d", lastIndex, currentIndex));
             SilkParser.silkLine_return ret = parser.silkLine();
             _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
-            lastIndex = currentIndex;
-            currentIndex = token.index();
         }
-        _logger.info(String.format("%d, %d", lastIndex, currentIndex));
 
     }
 }

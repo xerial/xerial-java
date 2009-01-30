@@ -47,9 +47,10 @@ public class SilkPullParserTest
     {
         SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, "small.silk"));
 
-        while (true)
+        SilkEvent e = SilkEvent.UNKNOWN;
+        while (e != SilkEvent.END_OF_FILE)
         {
-            SilkEvent e = p.next();
+            e = p.next();
             _logger.info(e);
         }
 

@@ -32,6 +32,7 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkFunction;
@@ -77,6 +78,8 @@ public class SilkPullParser
 
     public SilkEvent next()
     {
+        if (tokenStream.LT(1) == Token.EOF_TOKEN)
+            return SilkEvent.END_OF_FILE;
         _logger.info("next");
         try
         {
