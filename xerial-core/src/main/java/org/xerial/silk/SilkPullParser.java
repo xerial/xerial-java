@@ -80,7 +80,6 @@ public class SilkPullParser
     {
         if (tokenStream.LT(1) == Token.EOF_TOKEN)
             return SilkEvent.END_OF_FILE;
-        _logger.info("next");
         try
         {
             silkLine_return ret = parser.silkLine();
