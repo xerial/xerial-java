@@ -121,6 +121,7 @@ private boolean isKey() { return currentState() == State.IN_KEY || currentState(
 private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
+private boolean isJSON() { return currentState() == State.JSON; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
 }
 
@@ -195,19 +196,28 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| { isValue() }? => (':' | '?' | '{' | '[') NonSpaceChar
+	| { isValue() }? => (':' | '?') NonSpaceChar
+
 	;
 
-fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
-fragment FlowIndicator: ',' | '[' | ']' | '{' | '}';
-
 fragment ScopeIndicator: '(' | ')';
+fragment FlowIndicator:  '[' | ']' | '{' | '}';
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
 
-fragment PlainSafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
 
-fragment PlainSafeKey: ~(PlainSafeChar | FlowIndicator | ':' | '>') | EscapeSequence; 
-fragment PlainSafeIn: ~(PlainSafeChar | ',') | EscapeSequence;	
-fragment PlainSafeOut: ~(PlainSafeChar) | EscapeSequence;
+fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
+
+fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>') | EscapeSequence; 
+fragment PlainSafeIn: ~(PlainUnsafeChar | ',') | EscapeSequence;	
+fragment PlainSafeOut: ~(PlainUnsafeChar) | EscapeSequence;
+
+fragment JSONSafe
+	: ('[' | '{') { transit(Symbol.EnterJSONFragment); }
+	| (']' | '}') { transit(Symbol.LeaveJSONFragment); }
+	| ~(PlainUnsafeChar | '[' | ']' | '{' | '}' )
+	| String 
+	| EscapeSequence
+	;  
 
 fragment PlainSafe
 	: { isKey() }? => PlainSafeKey
@@ -229,9 +239,13 @@ fragment URIChar
 	;
 */
  
-PlainOneLine
-	: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
-	;
+ 
+ 
+PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
+		;
+	
+JSON: { isValue() }? => ('{' | '[') { transit(Symbol.EnterJSONFragment); } JSONSafe+;  
+
 
 Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };
 
@@ -260,7 +274,7 @@ silkLine
 
 
 nodeName: PlainOneLine | String;
-nodeValue: (PlainOneLine | String) -> Value[$nodeValue.text];
+nodeValue: (PlainOneLine | String | JSON) -> Value[$nodeValue.text];
 
 node: NodeStart (coreNode | function);
 
