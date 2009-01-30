@@ -44,6 +44,7 @@ Function;
 Argument;
 KeyValuePair;
 Key;
+JSONValue;
 //JSONObject;
 //JSONArray;
 //JSONElement;
@@ -117,6 +118,7 @@ private State currentState() { return lexerContext.getCurrentState(); }
 private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
 private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
+private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
@@ -193,7 +195,7 @@ Question:	'?';
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| EscapeSequence 
-	| { isOutValue() }? => (':' | '?' | '{' | '[') NonSpaceChar
+	| { isValue() }? => (':' | '?' | '{' | '[') NonSpaceChar
 	;
 
 fragment Indicator: '-' | ':' | '{' | '}' | '[' | ']' | '(' | ')' | ',' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
@@ -204,7 +206,7 @@ fragment ScopeIndicator: '(' | ')';
 fragment PlainSafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
 
 fragment PlainSafeKey: ~(PlainSafeChar | FlowIndicator | ':' | '>') | EscapeSequence; 
-fragment PlainSafeIn: ~(PlainSafeChar | FlowIndicator) | EscapeSequence;	
+fragment PlainSafeIn: ~(PlainSafeChar | ',') | EscapeSequence;	
 fragment PlainSafeOut: ~(PlainSafeChar) | EscapeSequence;
 
 fragment PlainSafe
