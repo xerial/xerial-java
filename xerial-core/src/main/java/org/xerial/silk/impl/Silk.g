@@ -29,7 +29,7 @@ options
 	// some lexer & parser options
 	// number of look-ahead characters 
 	//k=3;	
-	backtrack=true;
+	//backtrack=true;
 }
 tokens {
 Silk;
@@ -44,7 +44,6 @@ Function;
 Argument;
 KeyValuePair;
 Key;
-JSONValue;
 //JSONObject;
 //JSONArray;
 //JSONElement;
@@ -77,6 +76,7 @@ JSONValue;
 //--------------------------------------
 
 package org.xerial.silk.impl;
+import org.xerial.util.log.Logger;
 import org.xerial.silk.impl.SilkLexerState;
 import org.xerial.silk.impl.SilkLexerState.State;
 import org.xerial.silk.impl.SilkLexerState.Symbol;
@@ -112,13 +112,16 @@ package org.xerial.silk.impl;
 
 @lexer::members {
 
+private static Logger _logger = Logger.getLogger(SilkLexer.class);
+public static final int JSON_CHANNEL = 1; 
+
 private SilkLexerState lexerContext = new SilkLexerState();
 
 private State currentState() { return lexerContext.getCurrentState(); } 
 private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
 private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
-private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
+private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
 private boolean isJSON() { return currentState() == State.JSON; }
@@ -127,25 +130,6 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
 
 
 // lexer rules
-
-/*
-fragment
-ChPrintable
-	: '\t' | LineBreakChar | '\u0020' .. '\u007E'          
-	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
-	;
-
-fragment
-PlainChar
-	: '\t' | '\u0020' .. '\u007E'          
-	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
-	;
-
-fragment NonSpaceChar	
-	: '\u0021' .. '\u007E'          
-	| '\u0085' | '\u00A0' .. '\uD7FF' | '\uE000' .. '\uFFFE' 
-	;
-*/	
 
 // comment 
 LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
@@ -158,22 +142,6 @@ LineBreak
 	: ('\r' '\n' | '\r' | '\n' ) 
 	{ $channel=HIDDEN; resetContext(); }
 	;		
-
-		
-fragment Digit: '0' .. '9';
-fragment Letter: 'A' .. 'F' | 'a' .. 'f';
-fragment HexDigit: Digit | Letter;
-fragment UnicodeChar: ~('"'| '\\' | LineBreakChar);
-fragment EscapeSequence
-	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
-	; 
-
-
-fragment StringChar :  UnicodeChar | EscapeSequence;
-fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace ) | EscapeSequence;
-
-fragment StringChar_s: StringChar*;
-String: '"' s=StringChar_s '"' { setText($s.text); };
 
 	
 NodeStart: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
@@ -192,12 +160,26 @@ Plus:	'+';
 LBracket:	'[' { transit(Symbol.EnterParen); };
 RBracket:	']';
 Question:	'?';
+
+fragment Digit: '0' .. '9';
+fragment Letter: 'A' .. 'F' | 'a' .. 'f';
+fragment HexDigit: Digit | Letter;
+fragment UnicodeChar: ~('"'| '\\' | LineBreakChar);
+fragment EscapeSequence
+	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
+	; 
+
+
+fragment StringChar :  UnicodeChar | EscapeSequence;
+fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace );
+
+fragment StringChar_s: StringChar*;
+String: '"' s=StringChar_s '"' { setText($s.text); };
+
  
 fragment PlainFirst
 	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
-	| EscapeSequence 
 	| { isValue() }? => (':' | '?') NonSpaceChar
-
 	;
 
 fragment ScopeIndicator: '(' | ')';
@@ -207,17 +189,10 @@ fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>
 
 fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
 
-fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>') | EscapeSequence; 
-fragment PlainSafeIn: ~(PlainUnsafeChar | ',') | EscapeSequence;	
-fragment PlainSafeOut: ~(PlainUnsafeChar) | EscapeSequence;
+fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>'); 
+fragment PlainSafeIn: ~(PlainUnsafeChar | ',');
+fragment PlainSafeOut: ~(PlainUnsafeChar);
 
-fragment JSONSafe
-	: ('[' | '{') { transit(Symbol.EnterJSONFragment); }
-	| (']' | '}') { transit(Symbol.LeaveJSONFragment); }
-	| ~(PlainUnsafeChar | '[' | ']' | '{' | '}' )
-	| String 
-	| EscapeSequence
-	;  
 
 fragment PlainSafe
 	: { isKey() }? => PlainSafeKey
@@ -225,36 +200,81 @@ fragment PlainSafe
 	| { isOutValue() }? => PlainSafeOut
 	;
 
-//fragment PlainChar: PlainSafe '#'?;
-
-/*
-fragment URIPrefix
-	: ('http' | 'ftp' | 'https' | 'sftp' | 'rsync' ) '://'
-	;
-
-fragment URIChar
-	: Letter | Digit | '%' HexDigit HexDigit
-	| ';' | '/' | '?' | ':' | '@' | '&' | '=' | '+' | '$' | ','
-	| '_' | '.' | '!' | '~' | '*' | '\'' | '(' | ')' | '[' | ']'
-	;
-*/
- 
- 
  
 PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
 		;
 	
-JSON: { isValue() }? => ('{' | '[') { transit(Symbol.EnterJSONFragment); } JSONSafe+;  
+
+/*	
+fragment JSONSafe_i
+	: ('[' | '{') { transit(Symbol.EnterJSONFragment); }
+	| (']' | '}') { transit(Symbol.LeaveJSONFragment); }
+	| ~(PlainUnsafeChar | '[' | ']' | '{' | '}')
+	| String
+	;  
+
+	
+fragment JSONSafe : { isJSON() }? => (WhiteSpace* JSONSafe_i)+;
+	
+fragment JSONFirst: { isValue() }? => ('{' | '[') { transit(Symbol.EnterJSONFragment); } 
+	;	
 
 
+fragment Int: '-'? ('0' | '1'..'9' Digit*);
+fragment Frac: '.' Digit+;
+fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
+fragment Double: Int (Frac Exp? | Exp);
+
+fragment JSONObject: '{' JSONElement (',' JSONElement)* '}';
+fragment JSONElement: String ':' JSONValue; 
+fragment JSONArray: '[' JSONValue (',' JSONValue)* ']';
+
+fragment JSONValue
+	: String
+	| Int
+	| Double
+	| 'true'
+	| 'false'
+	| 'null'
+	;
+
+fragment JSON_i
+	: JSONObject
+	| JSONArray 
+	;
+
+*/
+
+JSON
+	: { isValue() }? => '{'
+	{
+		//_logger.info("enter JSON object");
+		InLineJSONLexer l = new InLineJSONLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(l);
+		InLineJSONParser p = new InLineJSONParser(tokens);
+		p.jsonObjectFragment();
+		
+		$channel = JSON_CHANNEL;
+		emit(new CommonToken(JSON, getText())); 
+	}
+	| { isValue() }? => '['
+	{
+		//_logger.info("enter JSON array");
+		InLineJSONLexer l = new InLineJSONLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(l);
+		InLineJSONParser p = new InLineJSONParser(tokens);
+		p.jsonArrayFragment();
+		
+		$channel = JSON_CHANNEL;
+		emit(new CommonToken(JSON, getText())); 
+	}  
+	;
+	 
 Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };
 
 WhiteSpace
 	:	(' ' | '\t') 
 	;		
-
-
-
 
 
 // parser rules	
@@ -274,7 +294,10 @@ silkLine
 
 
 nodeName: PlainOneLine | String;
-nodeValue: (PlainOneLine | String | JSON) -> Value[$nodeValue.text];
+nodeValue
+	: (PlainOneLine | String) -> Value[$nodeValue.text]
+	| JSON 
+	; 
 
 node: NodeStart (coreNode | function);
 

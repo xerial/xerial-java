@@ -1,6 +1,8 @@
 # JSON 
-- cds: {start:10, end:200}
-- exon: [{start:850983, end:851043}, {start:851164, end:851256}]
+- cds: {"start":10, "end":200}
+- exon: [{"start":850983, "end":851043}, {"start":851164, "end":851256}]
 
-- gene(exon:[{start:850983, end:851043}, {start:851164, end:851256}])
-
+- gene(exon:[{"start":850983, "end":851043}, {"start":851164, "end":851256}])
+- cds: {"gene":"g1","start":10,"end":200}
+- array: ["A", "B"]
+ 

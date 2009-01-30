@@ -45,14 +45,16 @@ import org.xerial.util.graph.AutomatonCursor;
 public class SilkLexerState
 {
     public static enum State {
-        INIT, OUT_KEY, OUT_VALUE, IN_VALUE, IN_KEY
+        INIT, OUT_KEY, OUT_VALUE, IN_VALUE, IN_KEY, JSON
     };
 
     public static enum Symbol {
-        NodeStart, Colon, EnterParen, LeaveValue
+        NodeStart, Colon, EnterParen, LeaveValue, EnterJSONFragment, LeaveJSONFragment
     }
 
     private static final Automaton<State, Symbol> automaton = new Automaton<State, Symbol>();
+    private State beforeJSONState = State.INIT;
+    private int nestLevel = 0;
     private final AutomatonCursor<State, Symbol> cursor;
 
     static
@@ -63,6 +65,9 @@ public class SilkLexerState
         automaton.addTransition(State.OUT_VALUE, Symbol.EnterParen, State.IN_KEY);
         automaton.addTransition(State.IN_KEY, Symbol.Colon, State.IN_VALUE);
         automaton.addTransition(State.IN_VALUE, Symbol.LeaveValue, State.IN_KEY);
+
+        automaton.addTransition(State.IN_VALUE, Symbol.EnterJSONFragment, State.JSON);
+        automaton.addTransition(State.OUT_VALUE, Symbol.EnterJSONFragment, State.JSON);
 
         for (State each : State.values())
             automaton.addStarTransition(each, each);
@@ -75,6 +80,33 @@ public class SilkLexerState
 
     public State transit(Symbol input)
     {
+
+        State current = getCurrentState();
+        if (current == State.JSON)
+        {
+            switch (input)
+            {
+            case EnterJSONFragment:
+                nestLevel++;
+                break;
+            case LeaveJSONFragment:
+                nestLevel--;
+                if (nestLevel <= 0)
+                {
+                    cursor.reset(beforeJSONState);
+                    return getCurrentState();
+                }
+                break;
+            }
+        }
+        else
+        {
+            if (input == Symbol.EnterJSONFragment)
+            {
+                beforeJSONState = current;
+            }
+        }
+
         return cursor.transit(input);
     }
 
@@ -86,6 +118,8 @@ public class SilkLexerState
     public void reset()
     {
         cursor.reset(State.INIT);
+        beforeJSONState = State.INIT;
+        nestLevel = 0;
     }
 
 }

@@ -134,8 +134,8 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
  - id:1
  - chr:chr1
  - name:gene1
- - cds: {start:10, end:200}
- - exon: [{start:850983, end:851043}, {start:851164, end:851256}]
+ - cds: {"start":10, "end":200}
+ - exon: [{"start":850983, "end":851043}, {"start":851164, "end":851256}]
 
 
 # Folding deep nesting in SILK
