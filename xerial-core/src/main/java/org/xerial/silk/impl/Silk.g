@@ -113,7 +113,6 @@ package org.xerial.silk.impl;
 @lexer::members {
 
 private static Logger _logger = Logger.getLogger(SilkLexer.class);
-//public static final int JSON_CHANNEL = 1; 
 
 private SilkLexerState lexerContext = new SilkLexerState();
 
@@ -121,11 +120,9 @@ private State currentState() { return lexerContext.getCurrentState(); }
 private void transit(Symbol token) { lexerContext.transit(token); } 
 private void resetContext() { lexerContext.reset(); }
 private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
-//private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE || currentState() == State.JSON; }
 private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
-//private boolean isJSON() { return currentState() == State.JSON; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
 }
 
@@ -133,7 +130,7 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
 // lexer rules
 
 // comment 
-LineComment: '#' ~('\n'|'\r')* '\r'? '\n' { $channel=HIDDEN; }; 
+LineComment: '#' ~('\n'|'\r')* '\r' '\n' { $channel=HIDDEN; }; 
 Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
 
 // r: <CR> n : <LF>
@@ -148,7 +145,9 @@ LineBreak
 NodeIndent: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? WhiteSpace* LineBreak;
 
-DataLine: { isHead() }? => WhiteSpace* ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('\n'|'\r')* LineBreak;
+fragment DataLineBody: ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
+DataLine: { isHead() }? 
+	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText($DataLineBody.text); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')';
