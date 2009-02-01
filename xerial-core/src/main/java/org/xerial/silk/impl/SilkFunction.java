@@ -27,6 +27,8 @@ package org.xerial.silk.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xerial.util.StringUtil;
+
 /**
  * function data
  * 
@@ -35,8 +37,19 @@ import java.util.List;
  */
 public class SilkFunction
 {
+    private String name;
     private String indent;
     private ArrayList<SilkFunctionArg> argumentList = new ArrayList<SilkFunctionArg>();
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
 
     public void addArgument(String argument)
     {
@@ -61,6 +74,12 @@ public class SilkFunction
     public void setNodeIndent(String indent)
     {
         this.indent = indent;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("function %s(%s)", name, StringUtil.join(argumentList, ", "));
     }
 
 }

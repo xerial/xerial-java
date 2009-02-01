@@ -16,7 +16,7 @@
 //--------------------------------------
 // XerialJ
 //
-// SiklNodeOccurrence.java
+// SilkNodeOccurrence.java
 // Since: Jan 30, 2009 7:15:46 PM
 //
 // $URL$
@@ -30,12 +30,25 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public enum SiklNodeOccurrence {
+public enum SilkNodeOccurrence {
 
-    ONE, ZERO_OR_MORE, ONE_OR_MORE, ZERO_OR_ONE, SEQUENCE, TABBED_SEQUENCE;
+    ONE("."), ZERO_OR_MORE("*"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), SEQUENCE(">"), TABBED_SEQUENCE("|");
+
+    private String symbol;
+
+    private SilkNodeOccurrence(String symbol)
+    {
+        this.symbol = symbol;
+    }
 
     public boolean isFollowedByStreamData()
     {
         return this == SEQUENCE || this == TABBED_SEQUENCE;
+    }
+
+    @Override
+    public String toString()
+    {
+        return symbol;
     }
 }

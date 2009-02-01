@@ -7,3 +7,6 @@
 -link(page name: Welcome to Xerial, url:"http://www.xerial.org/")
 
 -"quoted key":"quoted value"("quoted attrib":"quoted attrib value")
+
+-@import(somefile.silk)
+

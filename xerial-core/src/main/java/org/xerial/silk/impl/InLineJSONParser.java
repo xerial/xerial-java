@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g 2009-01-30 14:19:46
+// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g 2009-01-30 21:13:12
 
 //--------------------------------------
 // XerialJ Project
@@ -57,23 +57,23 @@ public class InLineJSONParser extends Parser {
         
 
     public String[] getTokenNames() { return InLineJSONParser.tokenNames; }
-    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g"; }
+    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g"; }
 
 
 
     // $ANTLR start "jsonObjectFragment"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:1: jsonObjectFragment : jsonElement ( Comma jsonElement )* ;
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:1: jsonObjectFragment : jsonElement ( Comma jsonElement )* ;
     public final void jsonObjectFragment() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:19: ( jsonElement ( Comma jsonElement )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:21: jsonElement ( Comma jsonElement )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:19: ( jsonElement ( Comma jsonElement )* )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:21: jsonElement ( Comma jsonElement )*
             {
             pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment369);
             jsonElement();
 
             state._fsp--;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:33: ( Comma jsonElement )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:33: ( Comma jsonElement )*
             loop1:
             do {
                 int alt1=2;
@@ -86,7 +86,7 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:34: Comma jsonElement
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:34: Comma jsonElement
             	    {
             	    match(input,Comma,FOLLOW_Comma_in_jsonObjectFragment372); 
             	    pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment374);
@@ -119,18 +119,18 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonArrayFragment"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:1: jsonArrayFragment : jsonValue ( Comma jsonValue )* ;
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:1: jsonArrayFragment : jsonValue ( Comma jsonValue )* ;
     public final void jsonArrayFragment() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:18: ( jsonValue ( Comma jsonValue )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:20: jsonValue ( Comma jsonValue )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:18: ( jsonValue ( Comma jsonValue )* )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:20: jsonValue ( Comma jsonValue )*
             {
             pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment382);
             jsonValue();
 
             state._fsp--;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:30: ( Comma jsonValue )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:30: ( Comma jsonValue )*
             loop2:
             do {
                 int alt2=2;
@@ -143,7 +143,7 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:31: Comma jsonValue
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:31: Comma jsonValue
             	    {
             	    match(input,Comma,FOLLOW_Comma_in_jsonArrayFragment385); 
             	    pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment387);
@@ -176,11 +176,11 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonObject"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:1: jsonObject : LBrace jsonElement ( ',' jsonElement )* RBrace ;
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:1: jsonObject : LBrace jsonElement ( ',' jsonElement )* RBrace ;
     public final void jsonObject() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:11: ( LBrace jsonElement ( ',' jsonElement )* RBrace )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:13: LBrace jsonElement ( ',' jsonElement )* RBrace
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:11: ( LBrace jsonElement ( ',' jsonElement )* RBrace )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:13: LBrace jsonElement ( ',' jsonElement )* RBrace
             {
             match(input,LBrace,FOLLOW_LBrace_in_jsonObject396); 
             pushFollow(FOLLOW_jsonElement_in_jsonObject398);
@@ -188,7 +188,7 @@ public class InLineJSONParser extends Parser {
 
             state._fsp--;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:32: ( ',' jsonElement )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:32: ( ',' jsonElement )*
             loop3:
             do {
                 int alt3=2;
@@ -201,7 +201,7 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:33: ',' jsonElement
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:33: ',' jsonElement
             	    {
             	    match(input,Comma,FOLLOW_Comma_in_jsonObject401); 
             	    pushFollow(FOLLOW_jsonElement_in_jsonObject403);
@@ -235,11 +235,11 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonElement"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:1: jsonElement : String Colon jsonValue ;
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:1: jsonElement : String Colon jsonValue ;
     public final void jsonElement() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:12: ( String Colon jsonValue )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:14: String Colon jsonValue
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:12: ( String Colon jsonValue )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:14: String Colon jsonValue
             {
             match(input,String,FOLLOW_String_in_jsonElement413); 
             match(input,Colon,FOLLOW_Colon_in_jsonElement415); 
@@ -264,11 +264,11 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonArray"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:1: jsonArray : LBracket jsonValue ( ',' jsonValue )* RBracket ;
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:1: jsonArray : LBracket jsonValue ( ',' jsonValue )* RBracket ;
     public final void jsonArray() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:10: ( LBracket jsonValue ( ',' jsonValue )* RBracket )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:12: LBracket jsonValue ( ',' jsonValue )* RBracket
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:10: ( LBracket jsonValue ( ',' jsonValue )* RBracket )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:12: LBracket jsonValue ( ',' jsonValue )* RBracket
             {
             match(input,LBracket,FOLLOW_LBracket_in_jsonArray424); 
             pushFollow(FOLLOW_jsonValue_in_jsonArray426);
@@ -276,7 +276,7 @@ public class InLineJSONParser extends Parser {
 
             state._fsp--;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:31: ( ',' jsonValue )*
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:31: ( ',' jsonValue )*
             loop4:
             do {
                 int alt4=2;
@@ -289,7 +289,7 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:32: ',' jsonValue
+            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:32: ',' jsonValue
             	    {
             	    match(input,Comma,FOLLOW_Comma_in_jsonArray429); 
             	    pushFollow(FOLLOW_jsonValue_in_jsonArray431);
@@ -323,10 +323,10 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonValue"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:103:1: jsonValue : ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' );
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:103:1: jsonValue : ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' );
     public final void jsonValue() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:2: ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:2: ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' )
             int alt5=8;
             switch ( input.LA(1) ) {
             case LBrace:
@@ -378,7 +378,7 @@ public class InLineJSONParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:4: jsonObject
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:4: jsonObject
                     {
                     pushFollow(FOLLOW_jsonObject_in_jsonValue444);
                     jsonObject();
@@ -389,7 +389,7 @@ public class InLineJSONParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:105:4: jsonArray
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:105:4: jsonArray
                     {
                     pushFollow(FOLLOW_jsonArray_in_jsonValue449);
                     jsonArray();
@@ -400,42 +400,42 @@ public class InLineJSONParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:106:4: String
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:106:4: String
                     {
                     match(input,String,FOLLOW_String_in_jsonValue454); 
 
                     }
                     break;
                 case 4 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:107:4: Integer
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:107:4: Integer
                     {
                     match(input,Integer,FOLLOW_Integer_in_jsonValue459); 
 
                     }
                     break;
                 case 5 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:108:4: Double
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:108:4: Double
                     {
                     match(input,Double,FOLLOW_Double_in_jsonValue464); 
 
                     }
                     break;
                 case 6 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:109:4: 'true'
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:109:4: 'true'
                     {
                     match(input,23,FOLLOW_23_in_jsonValue469); 
 
                     }
                     break;
                 case 7 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:110:4: 'false'
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:110:4: 'false'
                     {
                     match(input,24,FOLLOW_24_in_jsonValue474); 
 
                     }
                     break;
                 case 8 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:111:4: 'null'
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:111:4: 'null'
                     {
                     match(input,25,FOLLOW_25_in_jsonValue479); 
 

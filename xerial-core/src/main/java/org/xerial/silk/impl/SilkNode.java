@@ -26,6 +26,8 @@ package org.xerial.silk.impl;
 
 import java.util.ArrayList;
 
+import org.xerial.util.StringUtil;
+
 /**
  * SilkNode begins with '-' character, follwed by object notation of the form:
  * 
@@ -40,7 +42,10 @@ public class SilkNode
 {
     private String indent;
     private String name;
-    private SiklNodeOccurrence occurrence;
+    private SilkValue value = null;
+
+    private String dataType = null;
+    private SilkNodeOccurrence occurrence = SilkNodeOccurrence.ONE;
     private ArrayList<SilkNode> childNodeList = new ArrayList<SilkNode>();
 
     public String getNodeIndent()
@@ -63,12 +68,27 @@ public class SilkNode
         this.name = name;
     }
 
-    public SiklNodeOccurrence getOccurrence()
+    public boolean hasDataType()
+    {
+        return dataType != null;
+    }
+
+    public String getDataType()
+    {
+        return dataType;
+    }
+
+    public void setDataType(String dataType)
+    {
+        this.dataType = dataType;
+    }
+
+    public SilkNodeOccurrence getOccurrence()
     {
         return occurrence;
     }
 
-    public void setOccurrence(SiklNodeOccurrence occurrence)
+    public void setOccurrence(SilkNodeOccurrence occurrence)
     {
         this.occurrence = occurrence;
     }
@@ -81,6 +101,33 @@ public class SilkNode
     public void addSilkNode(SilkNode childNode)
     {
         this.childNodeList.add(childNode);
+    }
+
+    public void setValue(String text)
+    {
+        this.value = new SilkTextValue(text);
+    }
+
+    public void setJSON(String jsonText)
+    {
+        this.value = new SilkJSONValue(jsonText);
+    }
+
+    public SilkValue getValue()
+    {
+        return value;
+    }
+
+    @Override
+    public String toString()
+    {
+        String childNodeString = childNodeList.isEmpty() ? "" : String.format("(%s)", StringUtil.join(childNodeList,
+                ", "));
+        String nodeValue = value != null ? ":" + value.toString() : "";
+        if (hasDataType())
+            return String.format("%s[%s]<%s>%s%s", name, dataType, childNodeString, occurrence, nodeValue);
+        else
+            return String.format("%s%s<%s>%s", name, childNodeString, occurrence, nodeValue);
     }
 
 }

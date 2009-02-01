@@ -33,19 +33,20 @@ package org.xerial.silk.impl;
 public class SilkFunctionArg
 {
     private String argName = null;
-    private String value = null;
-    private String jsonValue = null;
+    private SilkValue value = null;
 
     public static SilkFunctionArg newArgValue(String value)
     {
-        return new SilkFunctionArg(null, value, null);
+        return new SilkFunctionArg(null, value);
     }
 
-    private SilkFunctionArg(String argName, String value, String jsonValue)
+    public SilkFunctionArg()
+    {}
+
+    private SilkFunctionArg(String argName, String value)
     {
         this.argName = argName;
-        this.value = value;
-        this.jsonValue = jsonValue;
+        setValue(value);
     }
 
     public String getName()
@@ -58,38 +59,42 @@ public class SilkFunctionArg
         this.argName = argName;
     }
 
-    public String getValue()
+    public SilkValue getValue()
     {
         return value;
     }
 
     public void setValue(String value)
     {
-        this.value = value;
+        this.value = new SilkTextValue(value);
     }
 
     public void setJSON(String jsonValue)
     {
-        this.jsonValue = jsonValue;
-    }
-
-    public String getJSON()
-    {
-        return jsonValue;
-    }
-
-    public boolean hasJSONValue()
-    {
-        return jsonValue != null;
-    }
-
-    public boolean hasValue()
-    {
-        return value != null;
+        this.value = new SilkJSONValue(jsonValue);
     }
 
     public boolean hasName()
     {
         return argName != null;
+    }
+
+    @Override
+    public String toString()
+    {
+        if (hasName())
+        {
+            if (value == null)
+                return argName;
+            else
+                return String.format("%s:%s", argName, value);
+        }
+        else
+        {
+            if (value == null)
+                return "";
+            else
+                return value.toString();
+        }
     }
 }

@@ -89,11 +89,13 @@ public class SilkPullParser
             case SilkParser.Function:
             {
                 SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t, SilkParser.tokenNames);
+                _logger.info(func);
                 return SilkEvent.FUNCTION;
             }
             case SilkParser.SilkNode:
             {
                 SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
+                _logger.info(node);
                 return SilkEvent.NODE;
             }
             case SilkParser.BlankLine:
@@ -103,6 +105,7 @@ public class SilkPullParser
             case SilkParser.DataLine:
             {
                 String dataLine = t.getText();
+                _logger.info("data line: " + dataLine);
                 return SilkEvent.DATA_LINE;
             }
             }
