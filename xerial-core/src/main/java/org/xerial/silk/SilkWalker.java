@@ -27,11 +27,13 @@ package org.xerial.silk;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashMap;
 
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.Pair;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.tree.TreeNode;
@@ -49,21 +51,42 @@ public class SilkWalker implements TreeWalker
     private final SilkPullParser parser;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
 
-    private static enum WalkState {
-        INIT, PRESERVED_NODE
+    private static enum State {
+        INIT, PRESERVED_NODE, DATA_LINE
     }
 
-    private static enum WalkSymbol {
-        LowerNode, HigherNode, SiblingNode, Data
+    private static enum Symbol {
+        ChildNode, AncestorNode, SiblingNode, Data
     }
 
-    private static Automaton<WalkState, WalkSymbol> stateMachine = new Automaton<WalkState, WalkSymbol>();
-    private AutomatonCursor<WalkState, WalkSymbol> stateCursor;
+    private static Automaton<State, Symbol> stateMachine = new Automaton<State, Symbol>();
+    private AutomatonCursor<State, Symbol> stateCursor;
+
+    private static interface Action
+    {
+        void execute();
+    }
+
+    private static HashMap<Pair<State, State>, Action> actionTable = new HashMap<Pair<State, State>, Action>();
 
     static
     {
-        stateMachine.addTransition(WalkState.INIT, WalkSymbol.HigherNode, WalkState.PRESERVED_NODE);
-        //stateMachine.addTransition(WalkState.PRESERVED_NODE, WalkSymbol.Data, WalkState.);
+        stateMachine.addTransition(State.INIT, Symbol.ChildNode, State.PRESERVED_NODE);
+        stateMachine.addTransition(State.PRESERVED_NODE, Symbol.Data, State.DATA_LINE);
+        stateMachine.addTransition(State.DATA_LINE, Symbol.Data, State.DATA_LINE);
+        stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
+        stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
+
+    }
+
+    private class OutputNode implements Action
+    {
+
+        public void execute()
+        {
+        // TODO Auto-generated method stub
+
+        }
 
     }
 
@@ -76,6 +99,7 @@ public class SilkWalker implements TreeWalker
     public SilkWalker(InputStream input) throws IOException
     {
         this.parser = new SilkPullParser(input);
+        init();
     }
 
     /**
@@ -87,6 +111,13 @@ public class SilkWalker implements TreeWalker
     public SilkWalker(Reader input) throws IOException
     {
         this.parser = new SilkPullParser(input);
+        init();
+    }
+
+    public void init()
+    {
+        actionTable.put(new Pair<State, State>(State.PRESERVED_NODE, State.DATA_LINE), new OutputNode());
+
     }
 
     public TreeNode getSubTree() throws XerialException
@@ -104,7 +135,7 @@ public class SilkWalker implements TreeWalker
     public void walk(TreeVisitor visitor) throws XerialException
     {
         // initialize
-        stateCursor = stateMachine.cursor(WalkState.INIT);
+        stateCursor = stateMachine.cursor(State.INIT);
 
         visitor.init(this);
 
