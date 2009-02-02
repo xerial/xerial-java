@@ -35,7 +35,7 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkFunction
+public class SilkFunction implements SilkElement
 {
     private String name;
     private String indent;

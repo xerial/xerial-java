@@ -35,11 +35,14 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
+import org.xerial.silk.impl.SilkElement;
 import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
 
@@ -57,6 +60,31 @@ public class SilkPullParser
     private final SilkLexer lexer;
     private CommonTokenStream tokenStream;
     private SilkParser parser;
+    private Deque<EventItem> eventQueue = new ArrayDeque<EventItem>();
+
+    /**
+     * SilkEvents
+     * 
+     * @author leo
+     * 
+     */
+    private static class EventItem
+    {
+        SilkEventType event;
+        SilkElement element;
+
+        public EventItem(SilkEventType event, SilkElement element)
+        {
+            this.event = event;
+            this.element = element;
+        }
+
+        public EventItem(SilkEventType event)
+        {
+            this.event = event;
+            this.element = null;
+        }
+    }
 
     public SilkPullParser(InputStream input) throws IOException
     {
@@ -76,10 +104,20 @@ public class SilkPullParser
         parser = new SilkParser(tokenStream);
     }
 
-    public SilkEvent next()
+    public boolean hasNext()
+    {
+        return false;
+    }
+
+    private void refill()
+    {
+
+    }
+
+    public SilkEventType next()
     {
         if (tokenStream.LT(1) == Token.EOF_TOKEN)
-            return SilkEvent.END_OF_FILE;
+            return SilkEventType.END_OF_FILE;
         try
         {
             silkLine_return ret = parser.silkLine();
@@ -90,23 +128,23 @@ public class SilkPullParser
             {
                 SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t, SilkParser.tokenNames);
                 _logger.info(func);
-                return SilkEvent.FUNCTION;
+                return SilkEventType.FUNCTION;
             }
             case SilkParser.SilkNode:
             {
                 SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
                 _logger.info(node);
-                return SilkEvent.NODE;
+                return SilkEventType.NODE;
             }
             case SilkParser.BlankLine:
             {
-                return SilkEvent.BLANK_LINE;
+                return SilkEventType.BLANK_LINE;
             }
             case SilkParser.DataLine:
             {
                 String dataLine = t.getText();
                 _logger.info("data line: " + dataLine);
-                return SilkEvent.DATA_LINE;
+                return SilkEventType.DATA_LINE;
             }
             }
 

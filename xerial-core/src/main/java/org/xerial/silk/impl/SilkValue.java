@@ -30,7 +30,7 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public interface SilkValue
+public interface SilkValue extends SilkElement
 {
     public boolean isJSON();
 

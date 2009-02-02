@@ -16,8 +16,8 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkLine.java
-// Since: Jan 30, 2009 3:55:13 PM
+// SilkElement.java
+// Since: Feb 2, 2009 10:22:51 AM
 //
 // $URL$
 // $Author$
@@ -25,56 +25,12 @@
 package org.xerial.silk.impl;
 
 /**
- * 
- * SilkLine contents
+ * Common interface of {@link SilkNode} and {@link SilkFunction}.
  * 
  * @author leo
  * 
  */
-public class SilkLine
+public interface SilkElement
 {
-    String nodeIndent;
-    SilkNode node = null;
-    SilkFunction function = null;
-
-    public String getNodeIndent()
-    {
-        return nodeIndent;
-    }
-
-    public void setNodeIndent(String nodeIndent)
-    {
-        this.nodeIndent = nodeIndent;
-    }
-
-    public void setSilkNode(SilkNode node)
-    {
-        this.node = node;
-    }
-
-    public SilkNode getSilkNode()
-    {
-        return node;
-    }
-
-    public void setFunction(SilkFunction function)
-    {
-        this.function = function;
-    }
-
-    public SilkFunction getFunction()
-    {
-        return function;
-    }
-
-    public boolean hasFunction()
-    {
-        return function != null;
-    }
-
-    public boolean hasSilkNode()
-    {
-        return node != null;
-    }
 
 }

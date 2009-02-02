@@ -16,20 +16,43 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkEvent.java
-// Since: Jan 30, 2009 3:30:38 PM
+// SilkReader.java
+// Since: Feb 2, 2009 10:10:48 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
+
 /**
- * Pull parsing events of Silk data format
+ * Silk format reader
  * 
  * @author leo
  * 
  */
-public enum SilkEvent {
-    UNKNOWN, NODE, FUNCTION, BLANK_LINE, DATA_LINE, END_OF_FILE;
+public class SilkReader
+{
+    private Reader input;
+
+    public SilkReader(InputStream input)
+    {
+        this.input = new InputStreamReader(input);
+    }
+
+    public SilkReader(Reader input)
+    {
+        this.input = input;
+    }
+
+    public void toJSON(Writer out) throws IOException
+    {
+        SilkPullParser parser = new SilkPullParser(input);
+
+    }
 }

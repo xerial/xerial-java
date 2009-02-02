@@ -38,7 +38,7 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkNode
+public class SilkNode implements SilkElement
 {
     private String indent;
     private String name;
