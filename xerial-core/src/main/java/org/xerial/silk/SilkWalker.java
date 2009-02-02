@@ -29,6 +29,9 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.xerial.core.XerialException;
+import org.xerial.silk.impl.SilkNode;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -42,12 +45,25 @@ import org.xerial.util.tree.TreeWalker;
 public class SilkWalker implements TreeWalker
 {
     private final SilkPullParser parser;
+    private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
 
+    /**
+     * Creates a new SilkWalker with the specified input stream
+     * 
+     * @param input
+     * @throws IOException
+     */
     public SilkWalker(InputStream input) throws IOException
     {
         this.parser = new SilkPullParser(input);
     }
 
+    /**
+     * Creates a new SilkWalker with the specified reader
+     * 
+     * @param input
+     * @throws IOException
+     */
     public SilkWalker(Reader input) throws IOException
     {
         this.parser = new SilkPullParser(input);
@@ -70,6 +86,10 @@ public class SilkWalker implements TreeWalker
         while (parser.hasNext())
         {
             SilkEvent currentEvent = parser.next();
+
+            // push context node
+            if (currentEvent.getType() == SilkEventType.NODE)
+                contextNodeStack.push(SilkNode.class.cast(currentEvent.getElement()));
 
         }
 

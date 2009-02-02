@@ -28,7 +28,8 @@ import org.xerial.core.XerialException;
 
 /**
  * A depth-first visitor model for tree structured data, including XML, JSON,
- * ANTLR Parse Tree, etc.
+ * ANTLR Parse Tree, etc. Implement this interface to create your own visitor
+ * class.
  * 
  * @author leo
  * 
@@ -50,22 +51,25 @@ public interface TreeVisitor
     public void visitNode(String nodeName, TreeWalker walker) throws XerialException;
 
     /**
-     * When text data is found under the current node
+     * When text data is found under the current node. This event might be
+     * invoked more than 2 times within a node.
      * 
      * @param nodeValue
      * @throws XerialException
      */
-    public void text(String nodeValue) throws XerialException;
+    public void text(String textDataFragment) throws XerialException;
 
     /**
      * Invoked when leaving a node (in the depth-first manner)
      * 
      * @param nodeName
-     *            the node name to leave
-     * @param nodeValue
+     *            The node name to leave
+     * @param immediateNodeValue
+     *            The immediate node value of the node. When no value is
+     *            observed, this value will be <tt>null</tt>.
      * @throws XerialException
      */
-    public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException;
+    public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException;
 
     /**
      * When the tree visit has finished
