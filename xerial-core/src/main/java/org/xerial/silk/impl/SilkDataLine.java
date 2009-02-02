@@ -16,42 +16,37 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkPullParserTest.java
-// Since: Jan 28, 2009 1:02:44 PM
+// SilkDataLine.java
+// Since: Feb 2, 2009 11:16:05 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.silk.impl;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.xerial.util.FileResource;
-import org.xerial.util.log.Logger;
-
-public class SilkPullParserTest
+/**
+ * dataline
+ * 
+ * @author leo
+ * 
+ */
+public class SilkDataLine implements SilkElement
 {
-    private static Logger _logger = Logger.getLogger(SilkPullParserTest.class);
+    private final String dataLine;
 
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testSmall() throws Exception
+    public SilkDataLine(String dataLine)
     {
-        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, "small.silk"));
+        this.dataLine = dataLine;
+    }
 
-        while (p.hasNext())
-        {
-            SilkEvent e = p.next();
-            _logger.info(e);
-        }
+    public String getDataLine()
+    {
+        return dataLine;
+    }
 
+    @Override
+    public String toString()
+    {
+        return dataLine;
     }
 }

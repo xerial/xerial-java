@@ -34,15 +34,15 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.silk.impl.SilkDataLine;
 import org.xerial.silk.impl.SilkElement;
 import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
-import org.xerial.util.ArrayDeque;
-import org.xerial.util.Deque;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
 
@@ -56,11 +56,14 @@ import org.xerial.util.log.Logger;
 public class SilkPullParser
 {
     private static Logger _logger = Logger.getLogger(SilkPullParser.class);
+    private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
+    private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
     private final SilkLexer lexer;
     private CommonTokenStream tokenStream;
     private SilkParser parser;
-    private Deque<EventItem> eventQueue = new ArrayDeque<EventItem>();
+
+    private boolean foundEOF = false;
 
     /**
      * SilkEvents
@@ -106,18 +109,20 @@ public class SilkPullParser
 
     public boolean hasNext()
     {
-        return false;
+        return !foundEOF;
     }
 
-    private void refill()
+    public SilkEvent next() throws XerialException
     {
+        if (foundEOF)
+            return EOFEvent;
 
-    }
-
-    public SilkEventType next()
-    {
         if (tokenStream.LT(1) == Token.EOF_TOKEN)
-            return SilkEventType.END_OF_FILE;
+        {
+            foundEOF = true;
+            return EOFEvent;
+        }
+
         try
         {
             silkLine_return ret = parser.silkLine();
@@ -127,39 +132,35 @@ public class SilkPullParser
             case SilkParser.Function:
             {
                 SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t, SilkParser.tokenNames);
-                _logger.info(func);
-                return SilkEventType.FUNCTION;
+                return new SilkEvent(SilkEventType.FUNCTION, func);
             }
             case SilkParser.SilkNode:
             {
                 SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
-                _logger.info(node);
-                return SilkEventType.NODE;
+                return new SilkEvent(SilkEventType.NODE, node);
             }
             case SilkParser.BlankLine:
             {
-                return SilkEventType.BLANK_LINE;
+                return BlankLineEvent;
             }
             case SilkParser.DataLine:
             {
-                String dataLine = t.getText();
-                _logger.info("data line: " + dataLine);
-                return SilkEventType.DATA_LINE;
+                SilkDataLine dataLine = new SilkDataLine(t.getText());
+                return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
             }
+            default:
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "invalid data type");
             }
 
         }
         catch (RecognitionException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new XerialException(XerialErrorCode.INVALID_INPUT, "parse error: " + e.getMessage());
         }
         catch (XerialException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new XerialException(XerialErrorCode.INVALID_INPUT, "parse error: " + e.getMessage());
         }
-        return null;
     }
 
 }

@@ -16,42 +16,50 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkPullParserTest.java
-// Since: Jan 28, 2009 1:02:44 PM
+// SilkNode.java
+// Since: Feb 2, 2009 10:41:58 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.xerial.util.FileResource;
-import org.xerial.util.log.Logger;
+import org.xerial.silk.impl.SilkElement;
 
-public class SilkPullParserTest
+/**
+ * Event data of {@link SilkPullParser}
+ * 
+ * @author leo
+ * 
+ */
+public class SilkEvent
 {
-    private static Logger _logger = Logger.getLogger(SilkPullParserTest.class);
+    private final SilkEventType type;
+    private SilkElement element;
 
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testSmall() throws Exception
+    public SilkEvent(SilkEventType type, SilkElement element)
     {
-        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, "small.silk"));
-
-        while (p.hasNext())
-        {
-            SilkEvent e = p.next();
-            _logger.info(e);
-        }
-
+        this.type = type;
+        this.element = element;
     }
+
+    public SilkEventType getType()
+    {
+        return type;
+    }
+
+    public SilkElement getElement()
+    {
+        return element;
+    }
+
+    @Override
+    public String toString()
+    {
+        if (element == null)
+            return String.format("[%s]", type);
+        else
+            return String.format("[%s] %s", type, element);
+    }
+
 }
