@@ -32,6 +32,8 @@ import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.graph.Automaton;
+import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -46,6 +48,24 @@ public class SilkWalker implements TreeWalker
 {
     private final SilkPullParser parser;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
+
+    private static enum WalkState {
+        INIT, PRESERVED_NODE
+    }
+
+    private static enum WalkSymbol {
+        LowerNode, HigherNode, SiblingNode, Data
+    }
+
+    private static Automaton<WalkState, WalkSymbol> stateMachine = new Automaton<WalkState, WalkSymbol>();
+    private AutomatonCursor<WalkState, WalkSymbol> stateCursor;
+
+    static
+    {
+        stateMachine.addTransition(WalkState.INIT, WalkSymbol.HigherNode, WalkState.PRESERVED_NODE);
+        //stateMachine.addTransition(WalkState.PRESERVED_NODE, WalkSymbol.Data, WalkState.);
+
+    }
 
     /**
      * Creates a new SilkWalker with the specified input stream
@@ -83,19 +103,49 @@ public class SilkWalker implements TreeWalker
 
     public void walk(TreeVisitor visitor) throws XerialException
     {
+        // initialize
+        stateCursor = stateMachine.cursor(WalkState.INIT);
+
         visitor.init(this);
 
         while (parser.hasNext())
         {
             SilkEvent currentEvent = parser.next();
 
-            // push context node
-            if (currentEvent.getType() == SilkEventType.NODE)
-                contextNodeStack.push(SilkNode.class.cast(currentEvent.getElement()));
+            switch (currentEvent.getType())
+            {
+            case NODE:
+                // push context node
+                SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
+                contextNodeStack.push(newContextNode);
+
+                /*
+                 * 1.node -> 2.node:        output node 1.
+                 * 1.node -> 2.data line    output 2 (with node 1's values)     
+                 * 1.node -> 
+                 */
+
+                break;
+
+            case FUNCTION:
+                break;
+            case DATA_LINE:
+                break;
+            case BLANK_LINE:
+                break;
+
+            }
 
         }
 
         visitor.finish(this);
     }
 
+    private SilkNode getContextNode()
+    {
+        if (contextNodeStack.isEmpty())
+            return null;
+        else
+            return contextNodeStack.getLast();
+    }
 }
