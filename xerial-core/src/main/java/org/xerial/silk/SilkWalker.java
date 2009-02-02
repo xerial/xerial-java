@@ -83,6 +83,8 @@ public class SilkWalker implements TreeWalker
 
     public void walk(TreeVisitor visitor) throws XerialException
     {
+        visitor.init(this);
+
         while (parser.hasNext())
         {
             SilkEvent currentEvent = parser.next();
@@ -93,6 +95,7 @@ public class SilkWalker implements TreeWalker
 
         }
 
+        visitor.finish(this);
     }
 
 }
