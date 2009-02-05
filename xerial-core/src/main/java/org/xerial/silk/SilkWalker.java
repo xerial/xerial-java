@@ -34,6 +34,7 @@ import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONValue;
 import org.xerial.json.JSONValueType;
+import org.xerial.silk.impl.SilkDataLine;
 import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkValue;
@@ -220,6 +221,39 @@ public class SilkWalker implements TreeWalker
             case FUNCTION:
                 break;
             case DATA_LINE:
+                if (contextNodeStack.isEmpty())
+                {
+                    // row(c1, c2, ...) 
+                    SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
+                    String[] columns = line.getDataLine().trim().split("\t");
+                    int index = 1;
+                    visitor.visitNode("row", this);
+                    for (String each : columns)
+                    {
+                        String columnName = String.format("c%d", index++);
+                        visitor.visitNode(columnName, this);
+                        visitor.leaveNode(columnName, each, this);
+                    }
+                    visitor.leaveNode("row", null, this);
+                }
+                else
+                {
+                    SilkNode schema = contextNodeStack.peekLast();
+                    SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
+                    String[] columns = line.getDataLine().trim().split("\t");
+                    int index = 0;
+                    visitor.visitNode(schema.getName(), this);
+                    for (String each : columns)
+                    {
+                        // TODO output default values specified in the schema
+                        SilkNode child = schema.getChildNodes().get(index++);
+                        visitor.visitNode(child.getName(), this);
+                        visitor.leaveNode(child.getName(), each, this);
+
+                    }
+                    // TODO output core node value correctly
+                    visitor.leaveNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null, this);
+                }
 
                 break;
             case BLANK_LINE:
