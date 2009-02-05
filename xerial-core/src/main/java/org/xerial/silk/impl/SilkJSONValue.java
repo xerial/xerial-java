@@ -54,4 +54,15 @@ public class SilkJSONValue implements SilkValue
     {
         return json;
     }
+
+    public boolean isObject()
+    {
+        return json.trim().startsWith("{");
+    }
+
+    public boolean isArray()
+    {
+        return json.trim().startsWith("[");
+    }
+
 }

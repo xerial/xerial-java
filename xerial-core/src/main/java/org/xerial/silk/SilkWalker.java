@@ -30,7 +30,11 @@ import java.io.Reader;
 import java.util.HashMap;
 
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONArray;
+import org.xerial.json.JSONObject;
+import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.impl.SilkValue;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.Pair;
@@ -62,9 +66,9 @@ public class SilkWalker implements TreeWalker
     private static Automaton<State, Symbol> stateMachine = new Automaton<State, Symbol>();
     private AutomatonCursor<State, Symbol> stateCursor;
 
-    private static interface Action
-    {
-        void execute();
+    private static enum Action {
+        OUTPUT_NODE, OUTPUT_DATALINE,
+
     }
 
     private static HashMap<Pair<State, State>, Action> actionTable = new HashMap<Pair<State, State>, Action>();
@@ -76,17 +80,6 @@ public class SilkWalker implements TreeWalker
         stateMachine.addTransition(State.DATA_LINE, Symbol.Data, State.DATA_LINE);
         stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
         stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
-
-    }
-
-    private class OutputNode implements Action
-    {
-
-        public void execute()
-        {
-        // TODO Auto-generated method stub
-
-        }
 
     }
 
@@ -116,7 +109,7 @@ public class SilkWalker implements TreeWalker
 
     public void init()
     {
-        actionTable.put(new Pair<State, State>(State.PRESERVED_NODE, State.DATA_LINE), new OutputNode());
+        actionTable.put(new Pair<State, State>(State.PRESERVED_NODE, State.DATA_LINE), Action.OUTPUT_NODE);
 
     }
 
@@ -139,6 +132,7 @@ public class SilkWalker implements TreeWalker
 
         visitor.init(this);
 
+        // depth first search 
         while (parser.hasNext())
         {
             SilkEvent currentEvent = parser.next();
@@ -149,6 +143,30 @@ public class SilkWalker implements TreeWalker
                 // push context node
                 SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
                 contextNodeStack.push(newContextNode);
+
+                visitor.visitNode(newContextNode.getName(), this);
+
+                SilkValue textValue = newContextNode.getValue();
+                if (textValue != null && textValue.isJSON())
+                {
+                    // TODO traverse JSON text
+                    SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
+                    if (jsonValue.isObject())
+                    {
+                        JSONObject jsonObj = new JSONObject(jsonValue.getValue());
+
+                    }
+                    else
+                    {
+                        JSONArray jsonArray = new JSONArray(jsonValue.getValue());
+                    }
+
+                }
+
+                if (textValue != null && !textValue.isJSON())
+                    visitor.leaveNode(newContextNode.getName(), textValue.toString(), this);
+                else
+                    visitor.leaveNode(newContextNode.getName(), null, null);
 
                 /*
                  * 1.node -> 2.node:        output node 1.

@@ -15,7 +15,7 @@
 1	leo	xxx-xxxx
 2	yui	yyy-yyyy
 
-# The above expression is equivalent to the follwoing descriptions:
+# The above expression is equivalent to the following descriptions:
 -address(id:1, name:leo, phone:xxx-xxxx)
 -address(id:2, name:yui, phone:yyy-yyyy)
 
