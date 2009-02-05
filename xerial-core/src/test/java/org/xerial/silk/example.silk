@@ -25,14 +25,7 @@
   -param2:value2
 
 # sample data (tab)
--gene(id, chr, name)
-1	chr1	gene1
-2	chr1	gene2	
-3	chr1	gene3
-4	chr2	gene4
-
-# sample data that explicitly specifies succeeding data format
--gene(id, chr, name)[tab]
+-gene(id, chr, name)|
 1	chr1	gene1
 2	chr1	gene2	
 3	chr1	gene3
@@ -40,20 +33,20 @@
 
 # alternative tree structures, grouped by the chr values
 -chr:chr1
- -gene(id, name)
+ -gene(id, name)|
 1	gene1
 2	gene2
 3	gene3
 -chr:chr2
-  -gene(id, name)
+  -gene(id, name)|
 4	gene4
 
 # describe nesting in a line
--chr:chr1(gene(id,name))
+-chr:chr1(gene(id,name))|
 1	gene1
 2	gene2
 3	gene3
--chr:chr2(gene(id, name))
+-chr:chr2(gene(id, name))|
 4	gene4
 
 # nested structure. relative depth of the indentation determines the nest level
@@ -105,7 +98,7 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 -coordinate(group:utgb, type:chromosome, species:human, revision:hg18, name:chr1)
 
 # microdata format in the attribute
--gene(id, chr, name, cds(start, end))
+-gene(id, chr, name, cds(start, end))|
 1	chr1	gene1	[10, 200]
 2	chr1	gene2	[20, 200]
 3	chr1	gene3	[30, 40]
@@ -116,9 +109,9 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
  - id:1
  - chr:chr1
  - name:gene1
- - cds(start, end)
+ - cds(start, end)|
 10	200
- - exon(start,end)
+ - exon(start,end)|
 850983	851043
 851164	851256
 

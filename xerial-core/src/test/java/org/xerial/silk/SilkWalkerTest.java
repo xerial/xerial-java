@@ -47,38 +47,48 @@ public class SilkWalkerTest
     public void tearDown() throws Exception
     {}
 
+    class MyVisitor implements TreeVisitor
+    {
+        public void finish(TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void init(TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+        {
+            _logger.info(String.format("leave: %s, %s", nodeName, immediateNodeValue));
+        }
+
+        public void text(String textDataFragment) throws XerialException
+        {
+            _logger.info(String.format("text:  %s", textDataFragment));
+        }
+
+        public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+        {
+            _logger.info(String.format("visit: %s", nodeName));
+        }
+
+    }
+
     @Test
     public void testWalk() throws IOException, XerialException
     {
         SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, "small.silk"));
-        walker.walk(new TreeVisitor() {
+        walker.walk(new MyVisitor());
+    }
 
-            public void finish(TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
-
-            }
-
-            public void init(TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
-
-            }
-
-            public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-            {
-                _logger.info(String.format("leave: %s, %s", nodeName, immediateNodeValue));
-            }
-
-            public void text(String textDataFragment) throws XerialException
-            {
-                _logger.info(String.format("text:  %s", textDataFragment));
-            }
-
-            public void visitNode(String nodeName, TreeWalker walker) throws XerialException
-            {
-                _logger.info(String.format("visit: %s", nodeName));
-            }
-        });
+    @Test
+    public void testWalkTab() throws IOException, XerialException
+    {
+        SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, "tab.silk"));
+        walker.walk(new MyVisitor());
     }
 }
