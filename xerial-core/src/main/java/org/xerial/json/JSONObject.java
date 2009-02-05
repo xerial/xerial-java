@@ -290,4 +290,9 @@ public class JSONObject extends JSONValueBase
     {
         return JSONValueType.Object;
     }
+
+    public void remove(String nodeName)
+    {
+        content.remove(nodeName);
+    }
 }

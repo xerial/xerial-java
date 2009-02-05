@@ -72,8 +72,7 @@ public class SilkWalkerTest
     @Test
     public void testSmall() throws IOException, XerialException
     {
-        TreeWalkLog l = walk("small.silk");
-        _logger.info("\n" + l);
+        compare("small.silk", "small.json");
     }
 
     @Test
@@ -87,8 +86,7 @@ public class SilkWalkerTest
     @Test
     public void testConfig() throws IOException, XerialException
     {
-        TreeWalkLog l = walk("suzaku-config.silk");
-        _logger.info("\n" + l);
+        compare("suzaku-config.silk", "suzaku-config.json");
     }
 
 }

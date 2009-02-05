@@ -30,6 +30,7 @@ import java.io.Writer;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import org.xerial.core.XerialError;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 
@@ -96,10 +97,10 @@ public class JSONWriter
         pushState(JSONState.InObject);
     }
 
-    public void endObject() throws IOException, JSONException
+    public void endObject() throws IOException
     {
         if (getCurrentState() != JSONState.InObject)
-            throw new JSONException(JSONErrorCode.NotInAJSONObject, "cannot end the object outside of the JSON object");
+            throw new XerialError(JSONErrorCode.NotInAJSONObject, "cannot end the object outside of the JSON object");
         writer.append("}");
         popState();
 
@@ -113,54 +114,54 @@ public class JSONWriter
         pushState(JSONState.InArray);
     }
 
-    public void endArray() throws IOException, JSONException
+    public void endArray() throws IOException
     {
         if (getCurrentState() != JSONState.InArray)
-            throw new JSONException(JSONErrorCode.NotInAJSONArray, "cannot end the arry outside of the JSON array");
+            throw new XerialError(JSONErrorCode.NotInAJSONArray, "cannot end the arry outside of the JSON array");
 
         writer.append("]");
         popState();
     }
 
-    public void startString() throws JSONException, IOException
+    public void startString() throws IOException
     {
         if (getCurrentState() == JSONState.InArray)
-            throw new JSONException(JSONErrorCode.NotInAJSONArray,
+            throw new XerialError(JSONErrorCode.NotInAJSONArray,
                     "cannot start a new string value outside of the JSON array in this method");
         putComma();
         writer.append("\"");
         pushState(JSONState.InString);
     }
 
-    public void startString(String key) throws JSONException, IOException
+    public void startString(String key) throws IOException
     {
         outputKeyPart(key);
         writer.append("\"");
         pushState(JSONState.InString);
     }
 
-    public void append(String stringFragment) throws JSONException, IOException
+    public void append(String stringFragment) throws IOException
     {
         if (getCurrentState() != JSONState.InString)
-            throw new JSONException(JSONErrorCode.NotInAJSONString,
+            throw new XerialError(JSONErrorCode.NotInAJSONString,
                     "cannot append any string before invoking startString() method");
 
         writer.append(stringFragment);
     }
 
-    public void endString() throws JSONException, IOException
+    public void endString() throws IOException
     {
         if (getCurrentState() != JSONState.InString)
-            throw new JSONException(JSONErrorCode.NotInAJSONString,
+            throw new XerialError(JSONErrorCode.NotInAJSONString,
                     "cannot end the string not beginning from startString() method.");
         writer.append("\"");
         popState();
     }
 
-    public void startArray(String key) throws JSONException, IOException
+    public void startArray(String key) throws IOException
     {
         if (getCurrentState() != JSONState.InObject)
-            throw new JSONException(JSONErrorCode.NotInAJSONObject,
+            throw new XerialError(JSONErrorCode.NotInAJSONObject,
                     "cannot start a keyed array outside of the JSON object");
 
         if (getPreviousElementCount() > 0)
@@ -209,7 +210,7 @@ public class JSONWriter
         addInternal("null");
     }
 
-    public void addObject(Object bean) throws IOException, JSONException
+    public void addObject(Object bean) throws IOException
     {
         try
         {
@@ -218,7 +219,7 @@ public class JSONWriter
         }
         catch (BeanException e)
         {
-            throw new JSONException(JSONErrorCode.InvalidBeanClass, "cannot generate a JSON data from the given object");
+            throw new XerialError(JSONErrorCode.InvalidBeanClass, "cannot generate a JSON data from the given object");
         }
     }
 
@@ -238,32 +239,32 @@ public class JSONWriter
             writer.append(",");
     }
 
-    public void put(String key, String value) throws IOException, JSONException
+    public void put(String key, String value) throws IOException
     {
         putInternal(key, doubleQuote(value));
     }
 
-    public void put(String key, int value) throws JSONException, IOException
+    public void put(String key, int value) throws IOException
     {
         putInternal(key, value);
     }
 
-    public void put(String key, float value) throws JSONException, IOException
+    public void put(String key, float value) throws IOException
     {
         putInternal(key, value);
     }
 
-    public void put(String key, double value) throws JSONException, IOException
+    public void put(String key, double value) throws IOException
     {
         putInternal(key, value);
     }
 
-    public void put(String key, long value) throws JSONException, IOException
+    public void put(String key, long value) throws IOException
     {
         putInternal(key, value);
     }
 
-    public void put(String key, boolean value) throws JSONException, IOException
+    public void put(String key, boolean value) throws IOException
     {
         if (value)
             putInternal(key, "true");
@@ -271,7 +272,7 @@ public class JSONWriter
             putInternal(key, "false");
     }
 
-    public void putNull(String key) throws JSONException, IOException
+    public void putNull(String key) throws IOException
     {
         putInternal(key, "null");
     }
@@ -282,9 +283,8 @@ public class JSONWriter
      * @param key
      * @param input
      * @throws IOException
-     * @throws JSONException
      */
-    public void putString(String key, Reader input) throws JSONException, IOException
+    public void putString(String key, Reader input) throws IOException
     {
         outputKeyPart(key);
         writer.append("\"");
@@ -295,17 +295,17 @@ public class JSONWriter
         writer.append("\"");
     }
 
-    private void putInternal(String key, Object value) throws JSONException, IOException
+    private void putInternal(String key, Object value) throws IOException
     {
         outputKeyPart(key);
         writer.append(value.toString());
         incrementElementCount();
     }
 
-    private void outputKeyPart(String key) throws JSONException, IOException
+    private void outputKeyPart(String key) throws IOException
     {
         if (getCurrentState() != JSONState.InObject)
-            throw new JSONException(JSONErrorCode.NotInAJSONObject,
+            throw new XerialError(JSONErrorCode.NotInAJSONObject,
                     "cannot add key and value pair outside of the JSON object");
         if (getPreviousElementCount() > 0)
             writer.append(",");

@@ -108,15 +108,7 @@ public class JSONWriterTest
         json.add("xxx");
         json.add("yyy");
 
-        try
-        {
-            json.endObject();
-        }
-        catch (JSONException e)
-        {
-            assertEquals(JSONErrorCode.NotInAJSONObject, e.getErrorCode());
-            return;
-        }
+        json.endObject();
 
         fail("cannot reach here");
         json.endJSON();
