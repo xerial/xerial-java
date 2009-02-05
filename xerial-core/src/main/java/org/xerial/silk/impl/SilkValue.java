@@ -34,6 +34,13 @@ public interface SilkValue extends SilkElement
 {
     public boolean isJSON();
 
+    public boolean isFunction();
+
+    /**
+     * Returns the string value of this element
+     * 
+     * @return
+     */
     public String getValue();
 
 }

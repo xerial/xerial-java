@@ -130,6 +130,11 @@ public class SilkNode implements SilkElement
         this.value = new SilkJSONValue(jsonText);
     }
 
+    public void setFunction(SilkFunction func)
+    {
+        this.value = func;
+    }
+
     public SilkValue getValue()
     {
         return value;

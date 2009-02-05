@@ -95,4 +95,10 @@ public class SilkWalkerTest
         compare("example.silk", "example.json");
     }
 
+    @Test
+    public void testFunc() throws Exception
+    {
+        TreeWalkLog l = walk("func.silk");
+        _logger.info("\n" + l);
+    }
 }

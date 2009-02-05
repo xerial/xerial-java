@@ -71,13 +71,13 @@ public class SilkReader
         SilkWalker walker = new SilkWalker(input);
         JSONBuilder jsonBuilder = new JSONBuilder();
         walker.walk(jsonBuilder);
-        JSONObject root = jsonBuilder.getRoot();
+        JSONArray root = jsonBuilder.getRoot();
         out.append(root.toJSONString());
     }
 
     private class JSONBuilder implements TreeVisitor
     {
-        JSONObject root = new JSONObject();
+        JSONArray root = new JSONArray();
         Deque<JSONObject> contextStack = new ArrayDeque<JSONObject>();
         Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
         final StringBuilder ZERO_CAPACITY_BUFFER = new StringBuilder(0);
@@ -87,7 +87,7 @@ public class SilkReader
 
         }
 
-        public JSONObject getRoot()
+        public JSONArray getRoot()
         {
             return root;
         }
@@ -108,58 +108,61 @@ public class SilkReader
         }
 
         public void finish(TreeWalker walker) throws XerialException
-        {
-
-        }
+        {}
 
         public void init(TreeWalker walker) throws XerialException
-        {
-            contextStack.addLast(root);
-            textStack.addLast(ZERO_CAPACITY_BUFFER);
-        }
+        {}
 
         public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
         {
             JSONObject node = getContext();
             contextStack.removeLast();
+
             if (node.keys().size() == 0)
             {
                 // flatten object into single key:value pair
-                if (!contextStack.isEmpty())
+                JSONObject parent = getContext();
+                if (textStack.peekLast() != ZERO_CAPACITY_BUFFER)
+                    parent.put(nodeName, textStack.peekLast().toString());
+                else
+                    parent.put(nodeName, immediateNodeValue);
+
+                if (contextStack.size() == 1)
                 {
-                    JSONObject parent = getContext();
-                    if (textStack.peekLast() != ZERO_CAPACITY_BUFFER)
-                        parent.put(nodeName, textStack.peekLast().toString());
-                    else
-                        parent.put(nodeName, immediateNodeValue);
+                    contextStack.removeLast(); // remove additional object
+                    textStack.removeLast();
+                    return;
                 }
             }
             else
             {
-                if (!contextStack.isEmpty())
+                if (contextStack.size() == 1)
                 {
-                    JSONObject parent = getContext();
-                    if (!parent.hasKey(nodeName))
-                        parent.put(nodeName, node);
+                    contextStack.removeLast(); // remove additional object
+                    textStack.removeLast();
+                    return;
+                }
+
+                JSONObject parent = getContext();
+                if (!parent.hasKey(nodeName))
+                    parent.put(nodeName, node);
+                else
+                {
+                    // use array to handle multiple occurrences of the same name node
+                    JSONValue elderBrother = parent.get(nodeName);
+                    JSONArray array = elderBrother.getJSONArray();
+                    if (array != null)
+                    {
+                        array.add(node);
+                    }
                     else
                     {
-                        // use array to handle multiple occurrences of the same name node
-                        JSONValue elderBrother = parent.get(nodeName);
-                        JSONArray array = elderBrother.getJSONArray();
-                        if (array != null)
-                        {
-                            array.add(node);
-                        }
-                        else
-                        {
-                            parent.remove(nodeName);
-                            array = new JSONArray();
-                            array.add(elderBrother);
-                            array.add(node);
+                        parent.remove(nodeName);
+                        array = new JSONArray();
+                        array.add(elderBrother);
+                        array.add(node);
 
-                            parent.put(nodeName, array);
-                        }
-
+                        parent.put(nodeName, array);
                     }
                 }
             }
@@ -175,6 +178,15 @@ public class SilkReader
         public void visitNode(String nodeName, TreeWalker walker) throws XerialException
         {
             JSONObject newContext = new JSONObject();
+
+            if (contextStack.isEmpty())
+            {
+                JSONObject childOfRoot = new JSONObject();
+                childOfRoot.put(nodeName, newContext);
+                root.add(childOfRoot);
+                contextStack.addLast(childOfRoot); // additional object
+            }
+
             contextStack.addLast(newContext);
             textStack.addLast(ZERO_CAPACITY_BUFFER);
         }

@@ -64,4 +64,13 @@ public class SilkReaderTest
         _logger.info(buf.toString());
     }
 
+    @Test
+    public void testToJSON3() throws IOException, XerialException
+    {
+        SilkReader reader = new SilkReader(FileResource.open(SilkReaderTest.class, "small.silk"));
+        StringWriter buf = new StringWriter();
+        reader.toJSON(buf);
+        _logger.info(buf.toString());
+    }
+
 }

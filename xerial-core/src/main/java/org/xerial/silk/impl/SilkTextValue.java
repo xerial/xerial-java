@@ -50,6 +50,11 @@ public class SilkTextValue implements SilkValue
         return false;
     }
 
+    public boolean isFunction()
+    {
+        return false;
+    }
+
     @Override
     public String toString()
     {

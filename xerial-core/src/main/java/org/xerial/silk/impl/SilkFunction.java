@@ -27,6 +27,8 @@ package org.xerial.silk.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.util.StringUtil;
 
 /**
@@ -35,7 +37,7 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkFunction implements SilkElement
+public class SilkFunction implements SilkElement, SilkValue
 {
     private String name;
     private String indent;
@@ -80,6 +82,21 @@ public class SilkFunction implements SilkElement
     public String toString()
     {
         return String.format("function %s(%s)", name, StringUtil.join(argumentList, ", "));
+    }
+
+    public String getValue()
+    {
+        throw new XerialError(XerialErrorCode.UNSUPPORTED, "getValue() for SilkFunction");
+    }
+
+    public boolean isJSON()
+    {
+        return false;
+    }
+
+    public boolean isFunction()
+    {
+        return true;
     }
 
 }

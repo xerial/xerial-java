@@ -8,3 +8,4 @@
 
 - @import(file.silk, head:1)
 
+- photo: @import(sample.jpg)

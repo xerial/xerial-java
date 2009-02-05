@@ -49,6 +49,11 @@ public class SilkJSONValue implements SilkValue
         return true;
     }
 
+    public boolean isFunction()
+    {
+        return false;
+    }
+
     @Override
     public String toString()
     {

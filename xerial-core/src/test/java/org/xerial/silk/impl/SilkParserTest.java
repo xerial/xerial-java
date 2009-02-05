@@ -72,7 +72,7 @@ public class SilkParserTest
     @Test
     public void testFunction() throws Exception
     {
-        parse("../funk.silk");
+        parse("../func.silk");
     }
 
     @Test

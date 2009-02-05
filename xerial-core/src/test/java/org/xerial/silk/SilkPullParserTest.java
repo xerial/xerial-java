@@ -24,9 +24,12 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -42,16 +45,26 @@ public class SilkPullParserTest
     public void tearDown() throws Exception
     {}
 
-    @Test
-    public void testSmall() throws Exception
+    public void pull(String silkFile) throws IOException, XerialException
     {
-        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, "small.silk"));
+        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, silkFile));
 
         while (p.hasNext())
         {
             SilkEvent e = p.next();
             _logger.info(e);
         }
+    }
 
+    @Test
+    public void testSmall() throws Exception
+    {
+        pull("small.silk");
+    }
+
+    @Test
+    public void testFunc() throws Exception
+    {
+        pull("func.silk");
     }
 }

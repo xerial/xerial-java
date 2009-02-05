@@ -255,7 +255,8 @@ silkLine
 
 nodeName: PlainOneLine | String;
 nodeValue
-	: (PlainOneLine | String) -> Value[$nodeValue.text]
+	: function -> ^(Function function)
+	| (PlainOneLine | String) -> Value[$nodeValue.text]
 	| JSON 
 	; 
 
