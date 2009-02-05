@@ -60,6 +60,7 @@ public class SilkWalker implements TreeWalker
 
     private final SilkPullParser parser;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
+    private final Deque<Integer> outputDataCountStack = new ArrayDeque<Integer>();
 
     private static enum State {
         INIT, PRESERVED_NODE, DATA_LINE
@@ -142,6 +143,8 @@ public class SilkWalker implements TreeWalker
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
+                outputDataCountStack.removeLast();
+
                 closeContext(node, visitor);
             }
             else
@@ -166,6 +169,8 @@ public class SilkWalker implements TreeWalker
         closeUpTo(indentLevel, visitor);
 
         contextNodeStack.addLast(node);
+        outputDataCountStack.addLast(0);
+
         String nodeName = node.getName();
         visitor.visitNode(nodeName, this);
 
@@ -240,21 +245,38 @@ public class SilkWalker implements TreeWalker
                 {
                     SilkNode schema = contextNodeStack.peekLast();
                     SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-                    String[] columns = line.getDataLine().trim().split("\t");
-                    int index = 0;
-                    visitor.visitNode(schema.getName(), this);
-                    for (String each : columns)
+
+                    switch (schema.getOccurrence())
                     {
-                        // TODO output default values specified in the schema
-                        SilkNode child = schema.getChildNodes().get(index++);
-                        visitor.visitNode(child.getName(), this);
-                        visitor.leaveNode(child.getName(), each, this);
+                    case SEQUENCE:
+                        visitor.text(line.getDataLine().trim());
+                        break;
+                    case TABBED_SEQUENCE:
+                    {
+                        String[] columns = line.getDataLine().trim().split("\t");
+                        int index = 0;
 
+                        if (outputDataCountStack.peekLast() != 0)
+                        {
+                            // TODO output core node value correctly
+                            visitor.leaveNode(schema.getName(),
+                                    schema.hasValue() ? schema.getValue().toString() : null, this);
+                            visitor.visitNode(schema.getName(), this);
+                        }
+                        for (String each : columns)
+                        {
+                            // TODO output default values specified in the schema
+                            SilkNode child = schema.getChildNodes().get(index++);
+                            visitor.visitNode(child.getName(), this);
+                            visitor.leaveNode(child.getName(), each, this);
+                        }
+
+                        int value = outputDataCountStack.removeLast();
+                        outputDataCountStack.addLast(value + 1);
+                        break;
                     }
-                    // TODO output core node value correctly
-                    visitor.leaveNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null, this);
+                    }
                 }
-
                 break;
             case BLANK_LINE:
                 break;

@@ -154,6 +154,7 @@ RParen:	')';
 Comma: 	',';
 Colon:	':' { transit(Symbol.Colon); } ;
 Seq: 	'>';
+TabSeq:	'|';
 Star: 	'*';
 At:		'@';
 Plus:	'+';
@@ -184,7 +185,7 @@ fragment PlainFirst
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
-fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '\'' | '"' | '@' | '%' | '\\';	
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '\'' | '"' | '@' | '%' | '\\';	
 
 
 fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
@@ -287,6 +288,7 @@ plural
 	| Plus -> Occurrence["ONE_OR_MORE"]
 	| Question -> Occurrence["ZERO_OR_ONE"]
 	| Seq -> Occurrence["SEQUENCE"]
+	| TabSeq -> Occurrence["TABBED_SEQUENCE"]
 	;
 
 function: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen

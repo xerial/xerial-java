@@ -53,7 +53,7 @@ public class SilkNode implements SilkElement
         return indent;
     }
 
-    public final static int NO_INDENT = Integer.MAX_VALUE;
+    public final static int NO_INDENT = Integer.MAX_VALUE; // must be higher than other indent levels
 
     /**
      * Return the indent level (the length of the leadning white spaces) of this

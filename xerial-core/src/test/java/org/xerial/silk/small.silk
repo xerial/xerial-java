@@ -6,10 +6,14 @@
   
 -link(page name: Welcome to Xerial, url:"http://www.xerial.org/")
 
--"quoted key":"quoted value"("quoted attrib":"quoted attrib value")
 
 -@import(somefile.silk)
 
--data(id, name)
+-data(id, name)|
 1	leo    # comment
 2	yui
+
+-seq>
+ACCTGC
+AGGTT
+
