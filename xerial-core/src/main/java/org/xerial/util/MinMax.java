@@ -26,31 +26,32 @@ package org.xerial.util;
 
 /**
  * A pair of min and max values
+ * 
  * @author leo
- *
+ * 
  */
 public class MinMax<E> extends Pair<E, E>
 {
 
-    /** 
+    /**
      * Creates a pair of min and max
+     * 
      * @param min
      * @param max
      */
-    public MinMax(E min, E max)	
+    public MinMax(E min, E max)
     {
         super(min, max);
     }
-    
-    public E min() 
+
+    public E min()
     {
         return getFirst();
     }
+
     public E max()
     {
         return getSecond();
     }
 
 }
-
-

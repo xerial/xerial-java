@@ -1,0 +1,12 @@
+{"node1":null}
+ 
+{"node2":{"p1":"hello", "p2": "long text value spareted by some white spaces.","value":"value"}}
+
+{"link":{"page name":"Welcome to Xerial", "url":"http://www.xerial.org/"}}
+
+{"data":
+  [{"id":1, "name":"leo"}, {"id":2, "name":"yui"}]}
+
+{"seq":"ACCTGCAGGTT"}
+
+  
