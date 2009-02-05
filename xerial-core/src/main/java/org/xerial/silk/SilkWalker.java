@@ -32,6 +32,8 @@ import java.util.HashMap;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
+import org.xerial.json.JSONValue;
+import org.xerial.json.JSONValueType;
 import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkValue;
@@ -40,6 +42,7 @@ import org.xerial.util.Deque;
 import org.xerial.util.Pair;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
+import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -52,6 +55,8 @@ import org.xerial.util.tree.TreeWalker;
  */
 public class SilkWalker implements TreeWalker
 {
+    private static Logger _logger = Logger.getLogger(SilkWalker.class);
+
     private final SilkPullParser parser;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
 
@@ -125,6 +130,72 @@ public class SilkWalker implements TreeWalker
 
     }
 
+    private void closeUpTo(int newIndentLevel, TreeVisitor visitor) throws XerialException
+    {
+        //        if (newIndentLevel == SilkNode.NO_INDENT)
+        //            newIndentLevel = contextNodeStack.isEmpty() ? 0 : contextNodeStack.peekLast().getIndentLevel() + 1;
+
+        while (!contextNodeStack.isEmpty())
+        {
+            SilkNode node = contextNodeStack.peekLast();
+            if (node.getIndentLevel() >= newIndentLevel)
+            {
+                contextNodeStack.removeLast();
+                closeContext(node, visitor);
+            }
+            else
+                return;
+        }
+    }
+
+    private void closeContext(SilkNode node, TreeVisitor visitor) throws XerialException
+    {
+        String nodeName = node.getName();
+        SilkValue textValue = node.getValue();
+        if (textValue != null && !textValue.isJSON())
+            visitor.leaveNode(nodeName, textValue.toString(), this);
+        else
+            visitor.leaveNode(nodeName, null, null);
+    }
+
+    private void openContext(SilkNode node, TreeVisitor visitor) throws XerialException
+    {
+        int indentLevel = node.getIndentLevel();
+
+        closeUpTo(indentLevel, visitor);
+
+        contextNodeStack.addLast(node);
+        String nodeName = node.getName();
+        visitor.visitNode(nodeName, this);
+
+        SilkValue textValue = node.getValue();
+        if (textValue != null && textValue.isJSON())
+        {
+            SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
+            if (jsonValue.isObject())
+            {
+                JSONObject jsonObj = new JSONObject(jsonValue.getValue());
+                walkJSONObject(jsonObj, visitor);
+            }
+            else
+            {
+                JSONArray jsonArray = new JSONArray(jsonValue.getValue());
+                walkJSONAray(jsonArray, nodeName, visitor);
+            }
+
+        }
+
+        // traverse attribute nodes with text values
+        for (SilkNode eachChild : node.getChildNodes())
+        {
+            if (eachChild.hasValue())
+            {
+                openContext(eachChild, visitor);
+            }
+        }
+
+    }
+
     public void walk(TreeVisitor visitor) throws XerialException
     {
         // initialize
@@ -137,48 +208,19 @@ public class SilkWalker implements TreeWalker
         {
             SilkEvent currentEvent = parser.next();
 
+            //_logger.info("stack: " + contextNodeStack);
+
             switch (currentEvent.getType())
             {
             case NODE:
                 // push context node
                 SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
-                contextNodeStack.push(newContextNode);
-
-                visitor.visitNode(newContextNode.getName(), this);
-
-                SilkValue textValue = newContextNode.getValue();
-                if (textValue != null && textValue.isJSON())
-                {
-                    // TODO traverse JSON text
-                    SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
-                    if (jsonValue.isObject())
-                    {
-                        JSONObject jsonObj = new JSONObject(jsonValue.getValue());
-
-                    }
-                    else
-                    {
-                        JSONArray jsonArray = new JSONArray(jsonValue.getValue());
-                    }
-
-                }
-
-                if (textValue != null && !textValue.isJSON())
-                    visitor.leaveNode(newContextNode.getName(), textValue.toString(), this);
-                else
-                    visitor.leaveNode(newContextNode.getName(), null, null);
-
-                /*
-                 * 1.node -> 2.node:        output node 1.
-                 * 1.node -> 2.data line    output 2 (with node 1's values)     
-                 * 1.node -> 
-                 */
-
+                openContext(newContextNode, visitor);
                 break;
-
             case FUNCTION:
                 break;
             case DATA_LINE:
+
                 break;
             case BLANK_LINE:
                 break;
@@ -187,7 +229,61 @@ public class SilkWalker implements TreeWalker
 
         }
 
+        closeUpTo(0, visitor);
+
         visitor.finish(this);
+    }
+
+    private void walkJSONAray(JSONArray jsonArray, String parentNodeName, TreeVisitor visitor) throws XerialException
+    {
+        for (JSONValue each : jsonArray)
+        {
+            walkJSONValue(each, parentNodeName, visitor);
+        }
+    }
+
+    private void walkJSONObject(JSONObject jsonObj, TreeVisitor visitor) throws XerialException
+    {
+        for (String key : jsonObj.keys())
+        {
+            JSONValue val = jsonObj.get(key);
+            walkJSONValue(val, key, visitor);
+        }
+    }
+
+    private void walkJSONValue(JSONValue value, String parentNodeName, TreeVisitor visitor) throws XerialException
+    {
+        JSONValueType type = value.getValueType();
+        switch (type)
+        {
+        case Array:
+            walkJSONAray(value.getJSONArray(), parentNodeName, visitor);
+            break;
+        case Object:
+            walkJSONObject(value.getJSONObject(), visitor);
+            break;
+        case Boolean:
+            visitor.visitNode(parentNodeName, this);
+            visitor.leaveNode(parentNodeName, value.toString(), this);
+            break;
+        case Double:
+            visitor.visitNode(parentNodeName, this);
+            visitor.leaveNode(parentNodeName, value.toString(), this);
+            break;
+        case Integer:
+            visitor.visitNode(parentNodeName, this);
+            visitor.leaveNode(parentNodeName, value.toString(), this);
+            break;
+        case Null:
+            visitor.visitNode(parentNodeName, this);
+            visitor.leaveNode(parentNodeName, value.toString(), this);
+            break;
+        case String:
+            visitor.visitNode(parentNodeName, this);
+            visitor.leaveNode(parentNodeName, value.toString(), this);
+            break;
+        }
+
     }
 
     private SilkNode getContextNode()

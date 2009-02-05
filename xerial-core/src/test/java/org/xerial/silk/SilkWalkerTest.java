@@ -24,14 +24,20 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.fail;
+import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.core.XerialException;
+import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 public class SilkWalkerTest
 {
+    private static Logger _logger = Logger.getLogger(SilkWalkerTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -42,9 +48,37 @@ public class SilkWalkerTest
     {}
 
     @Test
-    public void testWalk()
+    public void testWalk() throws IOException, XerialException
     {
-        fail("Not yet implemented");
-    }
+        SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, "small.silk"));
+        walker.walk(new TreeVisitor() {
 
+            public void finish(TreeWalker walker) throws XerialException
+            {
+            // TODO Auto-generated method stub
+
+            }
+
+            public void init(TreeWalker walker) throws XerialException
+            {
+            // TODO Auto-generated method stub
+
+            }
+
+            public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+            {
+                _logger.info(String.format("leave: %s, %s", nodeName, immediateNodeValue));
+            }
+
+            public void text(String textDataFragment) throws XerialException
+            {
+                _logger.info(String.format("text:  %s", textDataFragment));
+            }
+
+            public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+            {
+                _logger.info(String.format("visit: %s", nodeName));
+            }
+        });
+    }
 }
