@@ -16,20 +16,37 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkEvent.java
-// Since: Jan 30, 2009 3:30:38 PM
+// SilkPreamble.java
+// Since: Feb 5, 2009 4:29:18 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.silk.impl;
 
 /**
- * Pull parsing events of Silk data format
+ * Preamble such as %silk(version:1.0)
  * 
  * @author leo
  * 
  */
-public enum SilkEventType {
-    UNKNOWN, NODE, FUNCTION, BLANK_LINE, DATA_LINE, END_OF_FILE, PREAMBLE;
+public class SilkPreamble implements SilkElement
+{
+    final String preamble;
+
+    public SilkPreamble(String preamble)
+    {
+        this.preamble = preamble;
+    }
+
+    public String getPreamble()
+    {
+        return preamble;
+    }
+
+    @Override
+    public String toString()
+    {
+        return preamble;
+    }
 }

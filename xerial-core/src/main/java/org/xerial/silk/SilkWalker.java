@@ -259,16 +259,23 @@ public class SilkWalker implements TreeWalker
                     case TABBED_SEQUENCE:
                     {
                         String[] columns = line.getDataLine().trim().split("\t");
-                        int index = 0;
-
+                        int columnIndex = 0;
                         visitor.visitNode(schema.getName(), this);
-                        for (String each : columns)
+                        for (int i = 0; i < schema.getChildNodes().size(); i++)
                         {
-                            // TODO output default values specified in the schema
-                            SilkNode child = schema.getChildNodes().get(index++);
-                            visitor.visitNode(child.getName(), this);
-                            visitor.leaveNode(child.getName(), each, this);
+                            SilkNode child = schema.getChildNodes().get(i);
+                            if (child.hasValue())
+                            {
+                                visitor.visitNode(child.getName(), this);
+                                visitor.leaveNode(child.getName(), child.getValue().toString(), this);
+                            }
+                            else
+                            {
+                                visitor.visitNode(child.getName(), this);
+                                visitor.leaveNode(child.getName(), columns[columnIndex++], this);
+                            }
                         }
+
                         visitor.leaveNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null,
                                 this);
                         break;

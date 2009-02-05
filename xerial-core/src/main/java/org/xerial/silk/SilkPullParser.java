@@ -42,6 +42,7 @@ import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
+import org.xerial.silk.impl.SilkPreamble;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
@@ -148,18 +149,18 @@ public class SilkPullParser
                 SilkDataLine dataLine = new SilkDataLine(t.getText());
                 return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
             }
+            case SilkParser.Preamble:
+                return new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(t.getText()));
             default:
-                throw new XerialException(XerialErrorCode.INVALID_INPUT, "invalid data type");
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "invalid data type: "
+                        + parser.getTokenNames()[t.getType()]);
             }
 
         }
         catch (RecognitionException e)
         {
-            throw new XerialException(XerialErrorCode.INVALID_INPUT, "parse error: " + e.getMessage());
-        }
-        catch (XerialException e)
-        {
-            throw new XerialException(XerialErrorCode.INVALID_INPUT, "parse error: " + e.getMessage());
+            throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format("parse error line=%d: %s", e.line, e
+                    .getMessage()));
         }
     }
 

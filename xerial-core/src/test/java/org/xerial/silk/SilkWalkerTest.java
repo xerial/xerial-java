@@ -47,6 +47,14 @@ public class SilkWalkerTest
     public void tearDown() throws Exception
     {}
 
+    public static TreeWalkLog walk(String silkFile) throws IOException, XerialException
+    {
+        SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, silkFile));
+        TreeWalkLog l1 = new TreeWalkLog();
+        walker.walk(l1);
+        return l1;
+    }
+
     public void compare(String silkFile, String jsonFile) throws IOException, XerialException
     {
         SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, silkFile));
@@ -64,12 +72,23 @@ public class SilkWalkerTest
     @Test
     public void testSmall() throws IOException, XerialException
     {
-        compare("small.silk", "small.json");
+        TreeWalkLog l = walk("small.silk");
+        _logger.info("\n" + l);
     }
 
     @Test
     public void testTab() throws IOException, XerialException
     {
+        //TreeWalkLog l = walk("tab.silk");
+        //_logger.info("\n" + l);
         compare("tab.silk", "tab.json");
     }
+
+    @Test
+    public void testConfig() throws IOException, XerialException
+    {
+        TreeWalkLog l = walk("suzaku-config.silk");
+        _logger.info("\n" + l);
+    }
+
 }
