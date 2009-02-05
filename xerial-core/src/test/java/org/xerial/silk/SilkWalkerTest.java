@@ -89,4 +89,10 @@ public class SilkWalkerTest
         compare("suzaku-config.silk", "suzaku-config.json");
     }
 
+    @Test
+    public void testExample() throws Exception
+    {
+        compare("example.silk", "example.json");
+    }
+
 }

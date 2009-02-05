@@ -3,15 +3,15 @@
 
 # object description (one-liner)
 # -node_name(:node_value) attrib_name(:attrib_value)? (attrib_name(:attrib_value)?)*
--object(param1:value1, param2:value2)  # line-end comment
+-object(p1:v1, p2:v2)  # line-end comment
 
 # object description (folded). Indentation represents nested structure
 -object
- -param1:value1
- -param2:value2
+ -p3:v3
+ -p4:v4
 
 # tab-separeted data description with an object schema
--address(id, name, phone)
+-address(id, name, phone)|
 1	leo	xxx-xxxx
 2	yui	yyy-yyyy
 
@@ -21,7 +21,7 @@
 
 
 # combination of one-line and folded attributes of an object
--object(param1:value1)
+-o2(param1:value1)
   -param2:value2
 
 # sample data (tab)
@@ -62,7 +62,8 @@
  - year:2008
 
 # binary data
-- gene(name:NM_001005277, sequence>)
+- gene(name:NM_001005277)
+ -sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -79,7 +80,8 @@ TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 
 # binady data with gzip compression and base64 encode.
-- gene(name:NM_001005277, sequence[gzip/base64]>)
+- gene(name:NM_001005277)
+ - sequence[gzip/base64]>
 H4sIAL2gYUkAA0WT0ZHEMAhD/zOTojR80ID7r+X0JGcvG29iAkIIrLMrFj+d0XitDcebY+Ph4t87
 u811OaxN3Jl5H62t3w0AYez8xifDgTqyo4MFmqRRnEQKh7zPaYSGNDya0AGk5QIIC5igDHzJYNci
 acAR5GzbkghKIARn3wdOwoM42OxAEDgVDxxgFhjbwBIyndNk0LT74pa7Uua1qWUi5hO1YEhKPK4e
