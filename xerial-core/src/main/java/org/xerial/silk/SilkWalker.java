@@ -37,6 +37,7 @@ import org.xerial.json.JSONValueType;
 import org.xerial.silk.impl.SilkDataLine;
 import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.impl.SilkNodeOccurrence;
 import org.xerial.silk.impl.SilkValue;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
@@ -143,9 +144,10 @@ public class SilkWalker implements TreeWalker
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
-                outputDataCountStack.removeLast();
+                //outputDataCountStack.removeLast();
 
-                closeContext(node, visitor);
+                if (node.getOccurrence() != SilkNodeOccurrence.TABBED_SEQUENCE)
+                    closeContext(node, visitor);
             }
             else
                 return;
@@ -169,7 +171,10 @@ public class SilkWalker implements TreeWalker
         closeUpTo(indentLevel, visitor);
 
         contextNodeStack.addLast(node);
-        outputDataCountStack.addLast(0);
+        //outputDataCountStack.addLast(0);
+
+        if (node.getOccurrence() == SilkNodeOccurrence.TABBED_SEQUENCE)
+            return; // do not invoke visit events 
 
         String nodeName = node.getName();
         visitor.visitNode(nodeName, this);
@@ -256,13 +261,7 @@ public class SilkWalker implements TreeWalker
                         String[] columns = line.getDataLine().trim().split("\t");
                         int index = 0;
 
-                        if (outputDataCountStack.peekLast() != 0)
-                        {
-                            // TODO output core node value correctly
-                            visitor.leaveNode(schema.getName(),
-                                    schema.hasValue() ? schema.getValue().toString() : null, this);
-                            visitor.visitNode(schema.getName(), this);
-                        }
+                        visitor.visitNode(schema.getName(), this);
                         for (String each : columns)
                         {
                             // TODO output default values specified in the schema
@@ -270,9 +269,8 @@ public class SilkWalker implements TreeWalker
                             visitor.visitNode(child.getName(), this);
                             visitor.leaveNode(child.getName(), each, this);
                         }
-
-                        int value = outputDataCountStack.removeLast();
-                        outputDataCountStack.addLast(value + 1);
+                        visitor.leaveNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null,
+                                this);
                         break;
                     }
                     }
