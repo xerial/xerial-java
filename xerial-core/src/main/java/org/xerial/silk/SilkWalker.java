@@ -27,6 +27,8 @@ package org.xerial.silk;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 import org.xerial.core.XerialException;
@@ -35,6 +37,8 @@ import org.xerial.json.JSONObject;
 import org.xerial.json.JSONValue;
 import org.xerial.json.JSONValueType;
 import org.xerial.silk.impl.SilkDataLine;
+import org.xerial.silk.impl.SilkFunction;
+import org.xerial.silk.impl.SilkFunctionArg;
 import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkNodeOccurrence;
@@ -214,6 +218,13 @@ public class SilkWalker implements TreeWalker
 
         visitor.init(this);
 
+        walkInternal(visitor);
+
+        visitor.finish(this);
+    }
+
+    private void walkInternal(TreeVisitor visitor) throws XerialException
+    {
         // depth first search 
         while (parser.hasNext())
         {
@@ -229,6 +240,40 @@ public class SilkWalker implements TreeWalker
                 openContext(newContextNode, visitor);
                 break;
             case FUNCTION:
+                SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
+                if (function.getName().equals("import"))
+                {
+                    // import function
+                    String fileName = null;
+                    for (SilkFunctionArg each : function.getArgumentList())
+                    {
+                        if (!each.hasName())
+                            fileName = each.getValue().toString();
+                    }
+                    if (fileName == null)
+                    {
+                        _logger.warn("no input file is specified");
+                        break;
+                    }
+
+                    try
+                    {
+                        URL url = new URL(fileName);
+                        SilkWalker subWalker = new SilkWalker(url.openStream());
+                        subWalker.walkInternal(visitor);
+                    }
+                    catch (MalformedURLException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (IOException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
                 break;
             case DATA_LINE:
                 if (contextNodeStack.isEmpty())
@@ -292,7 +337,6 @@ public class SilkWalker implements TreeWalker
 
         closeUpTo(0, visitor);
 
-        visitor.finish(this);
     }
 
     private void walkJSONAray(JSONArray jsonArray, String parentNodeName, TreeVisitor visitor) throws XerialException
