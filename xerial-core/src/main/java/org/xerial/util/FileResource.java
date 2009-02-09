@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -74,7 +75,7 @@ public class FileResource
      */
     public static class SystemFile implements VirtualFile
     {
-        private File   file;
+        private File file;
         private String logicalPath;
 
         public SystemFile(File file, String logicalPath)
@@ -120,9 +121,9 @@ public class FileResource
      */
     public static class FileInJarArchive implements VirtualFile
     {
-        private URL    resourceURL;
+        private URL resourceURL;
         private String logicalPath;
-        boolean        isDirectory;
+        boolean isDirectory;
 
         public FileInJarArchive(URL resourceURL, String logicalPath, boolean isDirectory)
         {
@@ -582,6 +583,45 @@ public class FileResource
     public static URL find(String resourceFileName)
     {
         return find("", resourceFileName);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> List<Class<T>> findClasses(Package searchPath, Class<T> toSearch, ClassLoader classLoader)
+    {
+        List<Class<T>> result = new ArrayList<Class<T>>();
+
+        String packageName = searchPath.getName();
+        List<VirtualFile> classFileList = FileResource.listResources(packageName, new ResourceFilter() {
+            public boolean accept(String resourcePath)
+            {
+                return resourcePath.endsWith(".class");
+            }
+        });
+
+        for (VirtualFile vf : classFileList)
+        {
+            String logicalPath = vf.getLogicalPath();
+            int dot = logicalPath.lastIndexOf(".");
+            if (dot <= 0)
+                continue;
+            String className = packageName + "." + logicalPath.substring(0, dot).replaceAll("/", ".");
+            try
+            {
+                Class< ? > c = Class.forName(className, false, classLoader);
+                if (!Modifier.isAbstract(c.getModifiers()) && toSearch.isAssignableFrom(c))
+                {
+                    // found a target class
+                    result.add((Class<T>) c);
+                }
+            }
+            catch (ClassNotFoundException e)
+            {
+                continue;
+            }
+        }
+
+        return result;
+
     }
 
 }

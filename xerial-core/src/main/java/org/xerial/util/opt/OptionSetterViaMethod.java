@@ -24,12 +24,12 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Option setter using a class method.
@@ -48,30 +48,7 @@ class OptionSetterViaMethod implements OptionSetter
 
     public void setOption(Object bean, Object value) throws OptionParserException
     {
-        try
-        {
-            try
-            {
-                m.invoke(bean, value);
-            }
-            catch (IllegalAccessException e)
-            {
-                m.setAccessible(true);
-                try
-                {
-                    m.invoke(bean, value);
-                }
-                catch (IllegalAccessException e2)
-                {
-                    throw new IllegalAccessError(e2.getMessage());
-                }
-            }
-        }
-        catch (InvocationTargetException e)
-        {
-            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
-        }
-
+        ReflectionUtil.setValueViaSetter(bean, m, value);
     }
 
     public Class< ? > getOptionDataType()

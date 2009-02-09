@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,49 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// TreeVisitorBase.java
+// Since: Feb 9, 2009 6:57:14 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.tree;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.core.XerialException;
 
-public enum ShellError implements ErrorCode {
+/**
+ * Base implementation of {@link TreeVisitor} interface. Override methods in
+ * this class.
+ * 
+ * @author leo
+ * 
+ */
+public class TreeVisitorBase implements TreeVisitor
+{
 
-    INACCESSIBLE_SETTER_METHOD(""), NO_OPTION_ANNOTATION_IS_FOUND
-
-    ;
-
-    private final String description;
-
-    private ShellError()
+    public void finish(TreeWalker walker) throws XerialException
     {
-        this.description = "";
+
     }
 
-    private ShellError(String description)
+    public void init(TreeWalker walker) throws XerialException
     {
-        this.description = description;
+
     }
 
-    public String getCodeName()
+    public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
     {
-        return name();
+
     }
 
-    public String getDescription()
+    public void text(String textDataFragment) throws XerialException
     {
-        return description;
+
+    }
+
+    public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+    {
+
     }
 
 }

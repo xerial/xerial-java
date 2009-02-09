@@ -35,6 +35,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -42,6 +43,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.w3c.dom.Element;
+import org.xerial.util.ArrayDeque;
 
 /**
  * BasicType class holds information of standard types that can be directly
@@ -53,11 +55,11 @@ import org.w3c.dom.Element;
  */
 public class TypeInformation
 {
-    static private Class< ? >[]        _parameterClass = { int.class, double.class, float.class, long.class,
-            boolean.class, char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class,
-            Boolean.class, Character.class, Short.class, Date.class };
+    static private Class< ? >[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class,
+            char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class, Boolean.class,
+            Character.class, Short.class, Date.class };
 
-    static private HashSet<Class< ? >> basicTypeSet    = new HashSet<Class< ? >>();
+    static private HashSet<Class< ? >> basicTypeSet = new HashSet<Class< ? >>();
     static
     {
         for (Class< ? > c : _parameterClass)
@@ -109,6 +111,11 @@ public class TypeInformation
     public static boolean isMap(Class< ? > c)
     {
         return Map.class.isAssignableFrom(c);
+    }
+
+    public static boolean isQueue(Class< ? > c)
+    {
+        return Queue.class.isAssignableFrom(c);
     }
 
     public static boolean isEnum(Class< ? > c)
@@ -178,6 +185,10 @@ public class TypeInformation
                     return (Class<T>) TreeSet.class;
                 else
                     return (Class<T>) LinkedHashSet.class;
+            }
+            else if (isQueue(c))
+            {
+                return (Class<T>) ArrayDeque.class;
             }
             else
                 return (Class<T>) ArrayList.class;

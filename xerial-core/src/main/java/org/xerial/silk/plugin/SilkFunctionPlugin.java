@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,30 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// SilkFunctionPlugin.java
+// Since: Feb 9, 2009 3:42:01 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.silk.plugin;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.silk.SilkEnv;
 
-public enum ShellError implements ErrorCode {
-
-    INACCESSIBLE_SETTER_METHOD(""), NO_OPTION_ANNOTATION_IS_FOUND
-
-    ;
-
-    private final String description;
-
-    private ShellError()
-    {
-        this.description = "";
-    }
-
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
+/**
+ * The common interface of pluggable functions that can be used in Silk format.
+ * 
+ * @author leo
+ * 
+ */
+public interface SilkFunctionPlugin
+{
+    /**
+     * Execute this function using the given environment (if necessary)
+     * 
+     * @param env
+     *            the current environment
+     */
+    public void eval(SilkEnv env);
 
 }

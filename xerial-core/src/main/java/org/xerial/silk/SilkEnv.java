@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,26 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// SilkEnv.java
+// Since: Feb 9, 2009 5:43:18 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.silk;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeWalker;
 
-public enum ShellError implements ErrorCode {
+/**
+ * Environment variable holder for evaluating Silk functions.
+ * 
+ * @author leo
+ * 
+ */
+public interface SilkEnv
+{
+    public TreeWalker getTreeWalker();
 
-    INACCESSIBLE_SETTER_METHOD(""), NO_OPTION_ANNOTATION_IS_FOUND
-
-    ;
-
-    private final String description;
-
-    private ShellError()
-    {
-        this.description = "";
-    }
-
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
+    public Logger getLogger();
 }

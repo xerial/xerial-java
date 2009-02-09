@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,36 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// Import.java
+// Since: Feb 9, 2009 3:40:27 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.silk.plugin;
 
-import org.xerial.core.ErrorCode;
+import org.xerial.silk.SilkEnv;
 
-public enum ShellError implements ErrorCode {
+/**
+ * <em>import</em> function
+ * 
+ * @author leo
+ * 
+ */
+public class Import implements SilkFunctionPlugin
+{
 
-    INACCESSIBLE_SETTER_METHOD(""), NO_OPTION_ANNOTATION_IS_FOUND
+    @SilkFunctionArgument
+    String filePath = null;
 
-    ;
-
-    private final String description;
-
-    private ShellError()
+    public void eval(SilkEnv env)
     {
-        this.description = "";
-    }
+        if (filePath == null)
+        {
+            env.getLogger().warn("no file path is specified");
+            return;
+        }
 
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
     }
 
 }

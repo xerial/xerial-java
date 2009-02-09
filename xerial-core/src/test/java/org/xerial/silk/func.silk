@@ -1,11 +1,15 @@
-- @import(file.silk)
+@import(file.silk)
 
-# relative path
-- @import(src:../file.silk)
+# function option arguments
+@import(file.silk, head:1)
 
-# URL
-- @import("http://www.xerial.org/file.silk")
-
-- @import(file.silk, head:1)
-
+# inline import 
 - photo: @import(sample.jpg)
+
+# annotate tab-separated data
+- gene(id, name)|
+@import(gene.tab)
+
+# with indentation
+- gene
+ @import(gene.tab)

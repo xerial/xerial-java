@@ -143,9 +143,10 @@ LineBreak
 
 	
 NodeIndent: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
+FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? WhiteSpace* LineBreak;
 
-fragment DataLineBody: ~('-' | '%' | '#' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
+fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
 DataLine: { isHead() }? 
 	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText($DataLineBody.text); };
 
@@ -245,7 +246,7 @@ silkFile: silkLine* -> ^(Silk silkLine*)
 
 silkLine
 	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem) 
-	| NodeIndent function -> ^(Function NodeIndent function)  
+	| function
 	| Preamble
 	| DataLine
 	| BlankLine
@@ -255,19 +256,10 @@ silkLine
 
 nodeName: PlainOneLine | String;
 nodeValue
-	: function -> ^(Function function)
+	: function_i -> ^(Function function_i)
 	| (PlainOneLine | String) -> Value[$nodeValue.text]
 	| JSON 
 	; 
-
-/*
-node
-	: NodeIndent (coreNode | function);
-
-coreNode: nodeItem
-	-> ^(SilkNode nodeItem)
-	;
-	*/
 
 nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
@@ -292,9 +284,18 @@ plural
 	| TabSeq -> Occurrence["TABBED_SEQUENCE"]
 	;
 
-function: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
+function
+	: NodeIndent function_i
+	-> ^(Function NodeIndent function_i)
+	| FunctionIndent PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
+	-> ^(Function NodeIndent[$FunctionIndent.text] Name[$PlainOneLine.text] functionArg*)
+	;
+
+
+function_i: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
 	-> Name[$PlainOneLine.text] functionArg*
 	;
+
 
 functionArg
 	: nodeValue -> Argument[$functionArg.text]

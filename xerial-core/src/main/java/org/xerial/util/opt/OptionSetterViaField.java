@@ -35,6 +35,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Option setter that bind arguments directory to a field variable
@@ -100,23 +101,7 @@ public class OptionSetterViaField implements OptionSetter
 
     protected void setValue(Object bean, Object value)
     {
-        try
-        {
-            field.set(bean, value);
-        }
-        catch (IllegalAccessException e)
-        {
-            field.setAccessible(true);
-            try
-            {
-                field.set(bean, value);
-            }
-            catch (IllegalAccessException e1)
-            {
-                throw new IllegalAccessError(e1.getMessage());
-            }
-        }
-
+        ReflectionUtil.setValueViaField(bean, field, value);
     }
 
     public void setOption(Object bean, Object value) throws OptionParserException
@@ -168,11 +153,11 @@ public class OptionSetterViaField implements OptionSetter
         }
         catch (IllegalArgumentException e)
         {
-            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
+            throw new OptionParserException(XerialErrorCode.WRONG_DATA_TYPE, e);
         }
         catch (BeanException e)
         {
-            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
+            throw new OptionParserException(XerialErrorCode.WRONG_DATA_TYPE, e);
         }
 
     }

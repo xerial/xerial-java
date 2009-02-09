@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,42 +16,36 @@
 //--------------------------------------
 // XerialJ
 //
-// ShellError.java
-// Since: Oct 27, 2008 12:19:58 PM
+// ImportTest.java
+// Since: Feb 9, 2009 6:55:52 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.silk.plugin;
 
-import org.xerial.core.ErrorCode;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.xerial.silk.SilkWalker;
+import org.xerial.util.FileResource;
+import org.xerial.util.tree.TreeVisitorBase;
 
-public enum ShellError implements ErrorCode {
+public class ImportTest
+{
 
-    INACCESSIBLE_SETTER_METHOD(""), NO_OPTION_ANNOTATION_IS_FOUND
+    @Before
+    public void setUp() throws Exception
+    {}
 
-    ;
+    @After
+    public void tearDown() throws Exception
+    {}
 
-    private final String description;
-
-    private ShellError()
+    @Test
+    public void testEval() throws Exception
     {
-        this.description = "";
+        SilkWalker walker = new SilkWalker(FileResource.open(ImportTest.class, "import.silk"));
+        walker.walk(new TreeVisitorBase());
     }
-
-    private ShellError(String description)
-    {
-        this.description = description;
-    }
-
-    public String getCodeName()
-    {
-        return name();
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
 }

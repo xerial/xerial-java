@@ -35,6 +35,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -45,6 +46,7 @@ import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.log.Logger;
 
@@ -109,6 +111,7 @@ public class TypeInformationTest
         assertTrue(TypeInformation.isCollection(LinkedList.class));
         assertTrue(TypeInformation.isCollection(HashSet.class));
         assertTrue(TypeInformation.isCollection(TreeSet.class));
+        assertTrue(TypeInformation.isCollection(ArrayDeque.class));
 
     }
 
@@ -151,6 +154,14 @@ public class TypeInformationTest
         assertTrue(TypeInformation.isMap(TreeMap.class));
         assertFalse(TypeInformation.isMap(Collection.class));
 
+    }
+
+    @Test
+    public void testIsQueue() throws Exception
+    {
+        assertTrue(TypeInformation.isQueue(Queue.class));
+        assertTrue(TypeInformation.isQueue(ArrayDeque.class));
+        assertFalse(TypeInformation.isQueue(ArrayList.class));
     }
 
     @Test
@@ -197,6 +208,10 @@ public class TypeInformationTest
         assertTrue(TypeInformation.canInstantiate(TypeInformationTest.class));
         assertFalse(TypeInformation.canInstantiate(TypeInformation.class));
 
+        assertTrue(TypeInformation.canInstantiate(List.class));
+        assertTrue(TypeInformation.canInstantiate(Set.class));
+        assertTrue(TypeInformation.canInstantiate(Map.class));
+        assertTrue(TypeInformation.canInstantiate(Queue.class));
     }
 
     @Test

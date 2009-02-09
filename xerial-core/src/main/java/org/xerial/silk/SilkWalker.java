@@ -27,8 +27,8 @@ package org.xerial.silk;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
@@ -42,8 +42,10 @@ import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkNodeOccurrence;
 import org.xerial.silk.impl.SilkValue;
+import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
@@ -205,37 +207,9 @@ public class SilkWalker implements TreeWalker
                 break;
             case FUNCTION:
                 SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
-                if (function.getName().equals("import"))
+                SilkFunctionPlugin plugin = getPlugin(function.getName());
+                for (SilkFunctionArg each : function.getArgumentList())
                 {
-                    // import function
-                    String fileName = null;
-                    for (SilkFunctionArg each : function.getArgumentList())
-                    {
-                        if (!each.hasName())
-                            fileName = each.getValue().toString();
-                    }
-                    if (fileName == null)
-                    {
-                        _logger.warn("no input file is specified");
-                        break;
-                    }
-
-                    try
-                    {
-                        URL url = new URL(fileName);
-                        SilkWalker subWalker = new SilkWalker(url.openStream());
-                        subWalker.walkInternal(visitor);
-                    }
-                    catch (MalformedURLException e)
-                    {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    catch (IOException e)
-                    {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
 
                 }
                 break;
@@ -353,6 +327,49 @@ public class SilkWalker implements TreeWalker
             break;
         }
 
+    }
+
+    private static Map<String, Class<SilkFunctionPlugin>> pluginTable = null;
+
+    private SilkFunctionPlugin getPlugin(String name)
+    {
+        Class<SilkFunctionPlugin> pluginClass = getPluginTable().get(name);
+        if (pluginClass == null)
+            return null;
+
+        try
+        {
+            SilkFunctionPlugin pluginInstance = pluginClass.newInstance();
+            return pluginInstance;
+        }
+        catch (InstantiationException e)
+        {
+            _logger.warn(e);
+            return null;
+        }
+        catch (IllegalAccessException e)
+        {
+            _logger.warn(e);
+            return null;
+        }
+    }
+
+    private Map<String, Class<SilkFunctionPlugin>> getPluginTable()
+    {
+        if (pluginTable == null)
+        {
+            pluginTable = new TreeMap<String, Class<SilkFunctionPlugin>>();
+            // load plugins 
+            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
+                    SilkFunctionPlugin.class, SilkWalker.class.getClassLoader()))
+            {
+                String functionName = each.getName().toLowerCase();
+                _logger.info("loaded " + functionName);
+                pluginTable.put(functionName, each);
+            }
+        }
+
+        return pluginTable;
     }
 
     private SilkNode getContextNode()
