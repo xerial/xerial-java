@@ -38,4 +38,11 @@ public interface SilkEnv
     public TreeWalker getTreeWalker();
 
     public Logger getLogger();
+
+    /**
+     * Get the baseline indentation level
+     * 
+     * @return the baseline indentation
+     */
+    public int getIndentationLevel();
 }
