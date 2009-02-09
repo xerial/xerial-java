@@ -46,6 +46,8 @@ public class Import implements SilkFunctionPlugin
             return;
         }
 
+        env.getLogger().info("load " + filePath);
+
     }
 
 }

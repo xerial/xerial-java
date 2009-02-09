@@ -43,6 +43,23 @@ public class SilkFunction implements SilkElement, SilkValue
     private String indent;
     private ArrayList<SilkFunctionArg> argumentList = new ArrayList<SilkFunctionArg>();
 
+    public final static int NO_INDENT = Integer.MAX_VALUE; // must be higher than other indent levels
+
+    /**
+     * Return the indent level (the length of the leadning white spaces) of this
+     * node. If no indent is specified, return {@link SilkNode#NO_INDENT}.
+     * 
+     * @return the indent level of the node, or {@link SilkNode#NO_INDENT} if no
+     *         indent is specified.
+     */
+    public int getIndentLevel()
+    {
+        if (indent == null)
+            return NO_INDENT;
+        else
+            return indent.length() - 1;
+    }
+
     public void setName(String name)
     {
         this.name = name;

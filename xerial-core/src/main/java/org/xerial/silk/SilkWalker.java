@@ -53,6 +53,7 @@ import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.FileResource;
+import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 import org.xerial.util.tree.TreeNode;
@@ -210,6 +211,49 @@ public class SilkWalker implements TreeWalker
         visitor.finish(this);
     }
 
+    private class SilkEnvImpl implements SilkEnv
+    {
+        int indentationLevel;
+        TreeVisitor visitor;
+
+        private SilkEnvImpl(SilkFunction f, TreeVisitor visitor)
+        {
+            if (f.getIndentLevel() == SilkFunction.NO_INDENT)
+            {
+                SilkNode node = getContextNode();
+                if (node == null)
+                    this.indentationLevel = 0;
+                else
+                    this.indentationLevel = node.getIndentLevel();
+            }
+            else
+                this.indentationLevel = f.getIndentLevel();
+
+            this.visitor = visitor;
+        }
+
+        public int getIndentationLevel()
+        {
+            return 0;
+        }
+
+        public Logger getLogger()
+        {
+            return _logger;
+        }
+
+        public TreeWalker getTreeWalker()
+        {
+            return SilkWalker.this;
+        }
+
+        public TreeVisitor getTreeVisitor()
+        {
+            return visitor;
+        }
+
+    }
+
     private void walkInternal(TreeVisitor visitor) throws XerialException
     {
         // depth first search 
@@ -229,10 +273,14 @@ public class SilkWalker implements TreeWalker
             case FUNCTION:
                 SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
                 SilkFunctionPlugin plugin = getPlugin(function.getName());
-                for (SilkFunctionArg each : function.getArgumentList())
+                if (plugin == null)
                 {
-
+                    _logger.error(String.format("plugin %s not found", function.getName()));
+                    break;
                 }
+                populate(plugin, function.getArgumentList());
+                plugin.eval(new SilkEnvImpl(function, visitor));
+
                 break;
             case DATA_LINE:
                 if (contextNodeStack.isEmpty())
@@ -384,7 +432,7 @@ public class SilkWalker implements TreeWalker
             for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
                     SilkFunctionPlugin.class, SilkWalker.class.getClassLoader()))
             {
-                String functionName = each.getName().toLowerCase();
+                String functionName = each.getSimpleName().toLowerCase();
                 _logger.info("loaded " + functionName);
                 pluginTable.put(functionName, each);
             }
@@ -416,13 +464,13 @@ public class SilkWalker implements TreeWalker
             this.pluginClass = pluginClass;
 
             //ArrayList<SilkFunctionArgument> argDefs = new ArrayList<SilkFunctionArgument>();
-            for (Field eachField : pluginClass.getFields())
+            for (Field eachField : pluginClass.getDeclaredFields())
             {
                 SilkFunctionArgument argInfo = eachField.getAnnotation(SilkFunctionArgument.class);
                 if (argInfo != null)
                 {
                     PluginField pf = new PluginField(argInfo, eachField);
-                    if (argInfo.name() == SilkFunctionArgument.NO_VALUE)
+                    if (argInfo.name().equals(SilkFunctionArgument.NO_VALUE))
                         argumentFieldList.add(pf);
                     else
                         keyValueFieldTable.put(argInfo.name(), pf);
@@ -449,32 +497,37 @@ public class SilkWalker implements TreeWalker
          */
         public void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
         {
-            PluginHolder holder = new PluginHolder(plugin.getClass());
-
             int noNameArgCount = 0;
             for (SilkFunctionArg eachArgument : args)
             {
+                String argValue = eachArgument.getValue().toString();
                 try
                 {
                     if (eachArgument.hasName())
                     {
                         // key value arg
-                        PluginField f = holder.keyValueFieldTable.get(eachArgument.getName());
+                        PluginField f = keyValueFieldTable.get(eachArgument.getName());
                         if (f == null)
                         {
                             _logger.warn("unknown argument: " + eachArgument);
                             continue;
                         }
-                        ReflectionUtil.setFieldValue(plugin, f.field, eachArgument.getValue().toString());
+                        ReflectionUtil.setFieldValue(plugin, f.field, argValue);
                     }
                     else
                     {
                         // unnamed argument
                         // matching argument order
+                        if (noNameArgCount >= argumentFieldList.size())
+                        {
+                            _logger.warn("no corresponding field for the argument is found: " + eachArgument);
+                            continue;
+                        }
+                        PluginField f = argumentFieldList.get(noNameArgCount);
+                        ReflectionUtil.setFieldValue(plugin, f.field, argValue);
 
-                        //PluginField f = 
-
-                        noNameArgCount++;
+                        if (!TypeInformation.isCollection(f.field.getType()))
+                            noNameArgCount++;
                     }
                 }
                 catch (XerialException e)

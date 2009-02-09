@@ -25,6 +25,7 @@
 package org.xerial.silk;
 
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
 
 /**
@@ -36,6 +37,8 @@ import org.xerial.util.tree.TreeWalker;
 public interface SilkEnv
 {
     public TreeWalker getTreeWalker();
+
+    public TreeVisitor getTreeVisitor();
 
     public Logger getLogger();
 
