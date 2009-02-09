@@ -24,7 +24,13 @@
 //--------------------------------------
 package org.xerial.silk.plugin;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
+import org.xerial.silk.SilkWalker;
 
 /**
  * <em>import</em> function
@@ -38,7 +44,7 @@ public class Import implements SilkFunctionPlugin
     @SilkFunctionArgument
     String filePath = null;
 
-    public void eval(SilkEnv env)
+    public void eval(SilkEnv env) throws XerialException
     {
         if (filePath == null)
         {
@@ -46,7 +52,22 @@ public class Import implements SilkFunctionPlugin
             return;
         }
 
-        env.getLogger().info("load " + filePath);
+        try
+        {
+            env.getLogger().info("load " + filePath);
+            env.getLogger().info("resource path: " + env.getResourceBasePath());
+            String url = env.getResourceBasePath();
+            if (!env.getResourceBasePath().endsWith("/"))
+                url += "/";
+            url += filePath;
+
+            SilkWalker walker = new SilkWalker(new URL(url));
+            walker.walkWithoutInitAndFinish(env.getTreeVisitor());
+        }
+        catch (IOException e)
+        {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
 
     }
 

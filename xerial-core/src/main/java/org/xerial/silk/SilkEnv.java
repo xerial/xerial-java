@@ -48,4 +48,11 @@ public interface SilkEnv
      * @return the baseline indentation
      */
     public int getIndentationLevel();
+
+    /**
+     * Get the base path for finding resources, e.g. import files.
+     * 
+     * @return the resource base path
+     */
+    public String getResourceBasePath();
 }

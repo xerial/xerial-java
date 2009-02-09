@@ -24,10 +24,13 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -106,6 +109,15 @@ public class SilkWalker implements TreeWalker
             resourcePath += "/";
         resourcePath += resourceName;
         this.parser = new SilkPullParser(SilkWalker.class.getResourceAsStream(resourcePath));
+        init();
+    }
+
+    public SilkWalker(URL resource) throws IOException
+    {
+        String path = resource.toExternalForm();
+        int fileNamePos = path.lastIndexOf("/");
+        this.resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
+        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
         init();
     }
 
@@ -206,7 +218,7 @@ public class SilkWalker implements TreeWalker
         // initialize
         visitor.init(this);
 
-        walkInternal(visitor);
+        walkWithoutInitAndFinish(visitor);
 
         visitor.finish(this);
     }
@@ -234,7 +246,7 @@ public class SilkWalker implements TreeWalker
 
         public int getIndentationLevel()
         {
-            return 0;
+            return indentationLevel;
         }
 
         public Logger getLogger()
@@ -252,9 +264,14 @@ public class SilkWalker implements TreeWalker
             return visitor;
         }
 
+        public String getResourceBasePath()
+        {
+            return resourceBasePath;
+        }
+
     }
 
-    private void walkInternal(TreeVisitor visitor) throws XerialException
+    public void walkWithoutInitAndFinish(TreeVisitor visitor) throws XerialException
     {
         // depth first search 
         while (parser.hasNext())

@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.plugin;
 
+import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
 
 /**
@@ -40,6 +41,6 @@ public interface SilkFunctionPlugin
      * @param env
      *            the current environment
      */
-    public void eval(SilkEnv env);
+    public void eval(SilkEnv env) throws XerialException;
 
 }

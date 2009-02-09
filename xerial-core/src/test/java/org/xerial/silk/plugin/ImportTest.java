@@ -52,7 +52,7 @@ public class ImportTest
 
     public void compare(String silkFile, String jsonFile) throws IOException, XerialException
     {
-        SilkWalker walker = new SilkWalker(FileResource.open(ImportTest.class, silkFile));
+        SilkWalker walker = new SilkWalker(FileResource.find(ImportTest.class, silkFile));
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
 
@@ -67,7 +67,8 @@ public class ImportTest
     @Test
     public void testEval() throws Exception
     {
-        SilkWalker walker = new SilkWalker(FileResource.open(ImportTest.class, "import.silk"));
+
+        SilkWalker walker = new SilkWalker(FileResource.find(ImportTest.class, "import.silk"));
         walker.walk(new TreeVisitorBase());
     }
 
