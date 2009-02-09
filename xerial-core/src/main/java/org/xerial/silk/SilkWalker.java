@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
@@ -45,9 +44,6 @@ import org.xerial.silk.impl.SilkNodeOccurrence;
 import org.xerial.silk.impl.SilkValue;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.Pair;
-import org.xerial.util.graph.Automaton;
-import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
@@ -65,35 +61,6 @@ public class SilkWalker implements TreeWalker
 
     private final SilkPullParser parser;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
-    private final Deque<Integer> outputDataCountStack = new ArrayDeque<Integer>();
-
-    private static enum State {
-        INIT, PRESERVED_NODE, DATA_LINE
-    }
-
-    private static enum Symbol {
-        ChildNode, AncestorNode, SiblingNode, Data
-    }
-
-    private static Automaton<State, Symbol> stateMachine = new Automaton<State, Symbol>();
-    private AutomatonCursor<State, Symbol> stateCursor;
-
-    private static enum Action {
-        OUTPUT_NODE, OUTPUT_DATALINE,
-
-    }
-
-    private static HashMap<Pair<State, State>, Action> actionTable = new HashMap<Pair<State, State>, Action>();
-
-    static
-    {
-        stateMachine.addTransition(State.INIT, Symbol.ChildNode, State.PRESERVED_NODE);
-        stateMachine.addTransition(State.PRESERVED_NODE, Symbol.Data, State.DATA_LINE);
-        stateMachine.addTransition(State.DATA_LINE, Symbol.Data, State.DATA_LINE);
-        stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
-        stateMachine.addTransition(State.DATA_LINE, Symbol.ChildNode, State.PRESERVED_NODE);
-
-    }
 
     /**
      * Creates a new SilkWalker with the specified input stream
@@ -121,7 +88,6 @@ public class SilkWalker implements TreeWalker
 
     public void init()
     {
-        actionTable.put(new Pair<State, State>(State.PRESERVED_NODE, State.DATA_LINE), Action.OUTPUT_NODE);
 
     }
 
@@ -214,8 +180,6 @@ public class SilkWalker implements TreeWalker
     public void walk(TreeVisitor visitor) throws XerialException
     {
         // initialize
-        stateCursor = stateMachine.cursor(State.INIT);
-
         visitor.init(this);
 
         walkInternal(visitor);
