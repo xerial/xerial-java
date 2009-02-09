@@ -27,6 +27,12 @@ package org.xerial.silk;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -42,11 +48,13 @@ import org.xerial.silk.impl.SilkJSONValue;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkNodeOccurrence;
 import org.xerial.silk.impl.SilkValue;
+import org.xerial.silk.plugin.SilkFunctionArgument;
 import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
+import org.xerial.util.reflect.ReflectionUtil;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -62,13 +70,14 @@ public class SilkWalker implements TreeWalker
     private static Logger _logger = Logger.getLogger(SilkWalker.class);
 
     private final SilkPullParser parser;
+    private String resourceBasePath = null;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
 
     /**
      * Creates a new SilkWalker with the specified input stream
      * 
      * @param input
-     * @throws IOException
+     *            `@throws IOException
      */
     public SilkWalker(InputStream input) throws IOException
     {
@@ -88,9 +97,21 @@ public class SilkWalker implements TreeWalker
         init();
     }
 
+    public SilkWalker(String resourceBasePath, String resourceName) throws IOException
+    {
+        this.resourceBasePath = resourceBasePath;
+        String resourcePath = resourceBasePath;
+        if (!resourcePath.endsWith("/"))
+            resourcePath += "/";
+        resourcePath += resourceName;
+        this.parser = new SilkPullParser(SilkWalker.class.getResourceAsStream(resourcePath));
+        init();
+    }
+
     public void init()
     {
-
+        if (resourceBasePath == null)
+            resourceBasePath = System.getProperty("user.dir", "");
     }
 
     public TreeNode getSubTree() throws XerialException
@@ -370,6 +391,106 @@ public class SilkWalker implements TreeWalker
         }
 
         return pluginTable;
+    }
+
+    private static class PluginField
+    {
+        Field field;
+        SilkFunctionArgument argInfo;
+
+        private PluginField(SilkFunctionArgument argInfo, Field field)
+        {
+            this.argInfo = argInfo;
+            this.field = field;
+        }
+    }
+
+    private static class PluginHolder
+    {
+        Class< ? extends SilkFunctionPlugin> pluginClass;
+        ArrayList<PluginField> argumentFieldList = new ArrayList<PluginField>();
+        Map<String, PluginField> keyValueFieldTable = new HashMap<String, PluginField>();
+
+        public PluginHolder(Class< ? extends SilkFunctionPlugin> pluginClass)
+        {
+            this.pluginClass = pluginClass;
+
+            //ArrayList<SilkFunctionArgument> argDefs = new ArrayList<SilkFunctionArgument>();
+            for (Field eachField : pluginClass.getFields())
+            {
+                SilkFunctionArgument argInfo = eachField.getAnnotation(SilkFunctionArgument.class);
+                if (argInfo != null)
+                {
+                    PluginField pf = new PluginField(argInfo, eachField);
+                    if (argInfo.name() == SilkFunctionArgument.NO_VALUE)
+                        argumentFieldList.add(pf);
+                    else
+                        keyValueFieldTable.put(argInfo.name(), pf);
+                }
+            }
+
+            // sort arguments in the order of their ordinal
+            Collections.sort(argumentFieldList, new Comparator<PluginField>() {
+                public int compare(PluginField o1, PluginField o2)
+                {
+                    return o1.argInfo.ordinal() - o2.argInfo.ordinal();
+                }
+            });
+
+        }
+
+        /**
+         * Bind function arguments to the plug-in instance
+         * 
+         * @param plugin
+         *            the instance of the plug-in
+         * @param args
+         *            the function arguments
+         */
+        public void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
+        {
+            PluginHolder holder = new PluginHolder(plugin.getClass());
+
+            int noNameArgCount = 0;
+            for (SilkFunctionArg eachArgument : args)
+            {
+                try
+                {
+                    if (eachArgument.hasName())
+                    {
+                        // key value arg
+                        PluginField f = holder.keyValueFieldTable.get(eachArgument.getName());
+                        if (f == null)
+                        {
+                            _logger.warn("unknown argument: " + eachArgument);
+                            continue;
+                        }
+                        ReflectionUtil.setFieldValue(plugin, f.field, eachArgument.getValue().toString());
+                    }
+                    else
+                    {
+                        // unnamed argument
+                        // matching argument order
+
+                        //PluginField f = 
+
+                        noNameArgCount++;
+                    }
+                }
+                catch (XerialException e)
+                {
+                    _logger.error(e);
+                }
+
+            }
+        }
+
+    }
+
+    private void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
+    {
+        PluginHolder holder = new PluginHolder(plugin.getClass());
+        holder.populate(plugin, args);
     }
 
     private SilkNode getContextNode()

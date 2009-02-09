@@ -66,13 +66,14 @@ public class SilkReader
      * @throws IOException
      * @throws XerialException
      */
-    public void toJSON(Writer out) throws IOException, XerialException
+    public Writer toJSON(Writer out) throws IOException, XerialException
     {
         SilkWalker walker = new SilkWalker(input);
         JSONBuilder jsonBuilder = new JSONBuilder();
         walker.walk(jsonBuilder);
         JSONArray root = jsonBuilder.getRoot();
         out.append(root.toJSONString());
+        return out;
     }
 
     private class JSONBuilder implements TreeVisitor

@@ -25,15 +25,8 @@
 package org.xerial.util.opt;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
-import org.xerial.core.XerialError;
-import org.xerial.core.XerialErrorCode;
-import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.TypeConverter;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.reflect.ReflectionUtil;
 
@@ -57,114 +50,17 @@ public class OptionSetterViaField implements OptionSetter
         return field.getType();
     }
 
-    private Class< ? > getCollectionElementType()
-    {
-        if (!TypeInformation.isCollection(getOptionDataType()))
-            throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, field.toString());
-
-        Type optionFieldType = field.getGenericType();
-
-        if (ParameterizedType.class.isInstance(optionFieldType))
-        {
-            ParameterizedType pt = ParameterizedType.class.cast(optionFieldType);
-            Type elementType = pt.getActualTypeArguments()[0];
-            if (Class.class.isInstance(elementType))
-                return (Class< ? >) elementType;
-            else
-                return Object.class;
-        }
-        else
-            return Object.class;
-    }
-
-    protected Object getValue(Object bean)
-    {
-        Object value = null;
-        try
-        {
-            value = field.get(bean);
-        }
-        catch (IllegalAccessException e)
-        {
-            field.setAccessible(true);
-            try
-            {
-                value = field.get(bean);
-            }
-            catch (IllegalAccessException e1)
-            {
-                throw new IllegalAccessError(e1.getMessage());
-            }
-        }
-        return value;
-    }
-
-    protected void setValue(Object bean, Object value)
-    {
-        ReflectionUtil.setValueViaField(bean, field, value);
-    }
-
     public void setOption(Object bean, Object value) throws OptionParserException
     {
         try
         {
-            if (setterTakesMultipleArguments())
-            {
-                Object collection = getValue(bean);
-                if (collection == null)
-                {
-                    throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
-                }
-
-                // use adder
-                try
-                {
-                    Method adder = getOptionDataType().getMethod("add", Object.class);
-                    Class< ? > elementType = getCollectionElementType();
-
-                    Object convertedValue = TypeConverter.convertType(elementType, value);
-                    adder.invoke(collection, convertedValue);
-                }
-                catch (SecurityException e)
-                {
-                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add of "
-                            + getOptionDataType().toString());
-                }
-                catch (NoSuchMethodException e)
-                {
-                    throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, getOptionDataType().toString());
-                }
-                catch (IllegalAccessException e)
-                {
-                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add of "
-                            + getOptionDataType().toString());
-                }
-                catch (InvocationTargetException e)
-                {
-                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, e);
-                }
-            }
-            else
-            {
-                Class< ? > optionType = getOptionDataType();
-                Object convertedValue = TypeConverter.convertType(optionType, value);
-                setValue(bean, convertedValue);
-            }
+            ReflectionUtil.setFieldValue(bean, field, value);
         }
-        catch (IllegalArgumentException e)
+        catch (XerialException e)
         {
-            throw new OptionParserException(XerialErrorCode.WRONG_DATA_TYPE, e);
-        }
-        catch (BeanException e)
-        {
-            throw new OptionParserException(XerialErrorCode.WRONG_DATA_TYPE, e);
+            throw new OptionParserException(e.getErrorCode(), e.getMessage());
         }
 
-    }
-
-    boolean setterTakesMultipleArguments()
-    {
-        return TypeInformation.isCollection(getOptionDataType());
     }
 
     public boolean takesArgument()
@@ -177,21 +73,11 @@ public class OptionSetterViaField implements OptionSetter
     {
         try
         {
-            if (setterTakesMultipleArguments())
-            {
-                Object collection = getValue(bean);
-
-                // initialize the array
-                if (collection == null)
-                {
-                    collection = TypeInformation.createInstance(getOptionDataType());
-                    setValue(bean, collection);
-                }
-            }
+            ReflectionUtil.initializeCollectionField(bean, field);
         }
-        catch (BeanException e)
+        catch (XerialException e)
         {
-            throw new OptionParserException(e.getErrorCode());
+            throw new OptionParserException(e.getErrorCode(), e.getMessage());
         }
     }
 

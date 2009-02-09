@@ -54,7 +54,7 @@ import java.lang.annotation.Target;
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.FIELD, ElementType.METHOD })
+@Target( { ElementType.FIELD })
 public @interface SilkFunctionArgument {
 
     static final String NO_VALUE = "";
@@ -68,8 +68,8 @@ public @interface SilkFunctionArgument {
     String name() default NO_VALUE;
 
     /**
-     * The ordinal of the argument. When the name value is specified, this
-     * option will be ignored.
+     * The ordinal of the argument (0-origin). When the name value is specified,
+     * this option will be ignored.
      * 
      */
     int ordinal() default UNORDERED;

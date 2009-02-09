@@ -24,15 +24,23 @@
 //--------------------------------------
 package org.xerial.silk.plugin;
 
+import java.io.IOException;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWalker;
+import org.xerial.silk.TreeWalkLog;
 import org.xerial.util.FileResource;
+import org.xerial.util.bean.JSONStreamWalker;
+import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitorBase;
 
 public class ImportTest
 {
+    private static Logger _logger = Logger.getLogger(ImportTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -42,10 +50,30 @@ public class ImportTest
     public void tearDown() throws Exception
     {}
 
+    public void compare(String silkFile, String jsonFile) throws IOException, XerialException
+    {
+        SilkWalker walker = new SilkWalker(FileResource.open(ImportTest.class, silkFile));
+        TreeWalkLog l1 = new TreeWalkLog();
+        TreeWalkLog l2 = new TreeWalkLog();
+
+        walker.walk(l1);
+
+        JSONStreamWalker jWalker = new JSONStreamWalker(FileResource.open(ImportTest.class, jsonFile));
+        jWalker.walk(l2);
+
+        Assert.assertTrue(TreeWalkLog.compare(l1, l2));
+    }
+
     @Test
     public void testEval() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.open(ImportTest.class, "import.silk"));
         walker.walk(new TreeVisitorBase());
+    }
+
+    @Test
+    public void testImport() throws Exception
+    {
+        compare("import.silk", "import.json");
     }
 }

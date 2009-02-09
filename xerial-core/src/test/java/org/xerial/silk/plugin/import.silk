@@ -1,2 +1,2 @@
--gene(id, chromosome, name)|
+-gene(id, chr, name)|
 @import(gene.tab)

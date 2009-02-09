@@ -48,7 +48,7 @@ class OptionSetterViaMethod implements OptionSetter
 
     public void setOption(Object bean, Object value) throws OptionParserException
     {
-        ReflectionUtil.setValueViaSetter(bean, m, value);
+        ReflectionUtil.setValue(bean, m, value);
     }
 
     public Class< ? > getOptionDataType()
