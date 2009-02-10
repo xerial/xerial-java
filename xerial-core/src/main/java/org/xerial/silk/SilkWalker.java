@@ -66,6 +66,10 @@ import org.xerial.util.tree.TreeWalker;
 /**
  * {@link TreeWalker} implementation of the Silk format.
  * 
+ * <pre>
+ * &#064;
+ * </pre>
+ * 
  * @author leo
  * 
  */
@@ -74,8 +78,63 @@ public class SilkWalker implements TreeWalker
     private static Logger _logger = Logger.getLogger(SilkWalker.class);
 
     private final SilkPullParser parser;
+
+    private int indentationOffset = 0;
     private String resourceBasePath = null;
     private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
+
+    private class SilkEnvImpl implements SilkEnv
+    {
+        int offset = indentationOffset;
+        TreeVisitor visitor;
+
+        private SilkEnvImpl(SilkFunction f, TreeVisitor visitor)
+        {
+            if (f.getIndentLevel() == SilkFunction.NO_INDENT)
+            {
+                SilkNode node = getContextNode();
+                if (node == null)
+                    this.offset = indentationOffset;
+                else
+                    this.offset = node.getIndentLevel();
+            }
+            else
+                this.offset = f.getIndentLevel();
+
+            this.visitor = visitor;
+        }
+
+        public int getIndentationOffset()
+        {
+            return offset;
+        }
+
+        public Logger getLogger()
+        {
+            return _logger;
+        }
+
+        public TreeWalker getTreeWalker()
+        {
+            return SilkWalker.this;
+        }
+
+        public TreeVisitor getTreeVisitor()
+        {
+            return visitor;
+        }
+
+        public String getResourceBasePath()
+        {
+            return resourceBasePath;
+        }
+
+        public SilkNode getContextNode()
+        {
+            return contextNodeStack.peekLast();
+        }
+
+    }
 
     /**
      * Creates a new SilkWalker with the specified input stream
@@ -121,10 +180,28 @@ public class SilkWalker implements TreeWalker
         init();
     }
 
+    public SilkWalker(URL resource, SilkEnv env) throws IOException
+    {
+        String path = resource.toExternalForm();
+        int fileNamePos = path.lastIndexOf("/");
+        this.resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
+        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
+        init(env);
+    }
+
     public void init()
     {
         if (resourceBasePath == null)
             resourceBasePath = System.getProperty("user.dir", "");
+    }
+
+    public void init(SilkEnv env)
+    {
+        resourceBasePath = env.getResourceBasePath();
+        indentationOffset = env.getIndentationOffset();
+        SilkNode contextNode = env.getContextNode();
+        if (contextNode != null)
+            contextNodeStack.addLast(contextNode);
     }
 
     public TreeNode getSubTree() throws XerialException
@@ -146,7 +223,7 @@ public class SilkWalker implements TreeWalker
 
         while (!contextNodeStack.isEmpty())
         {
-            SilkNode node = contextNodeStack.peekLast();
+            SilkNode node = contextNodeStack.peek();
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
@@ -172,7 +249,7 @@ public class SilkWalker implements TreeWalker
 
     private void openContext(SilkNode node, TreeVisitor visitor) throws XerialException
     {
-        int indentLevel = node.getIndentLevel();
+        int indentLevel = node.getIndentLevel() + indentationOffset;
 
         closeUpTo(indentLevel, visitor);
 
@@ -221,54 +298,6 @@ public class SilkWalker implements TreeWalker
         walkWithoutInitAndFinish(visitor);
 
         visitor.finish(this);
-    }
-
-    private class SilkEnvImpl implements SilkEnv
-    {
-        int indentationLevel;
-        TreeVisitor visitor;
-
-        private SilkEnvImpl(SilkFunction f, TreeVisitor visitor)
-        {
-            if (f.getIndentLevel() == SilkFunction.NO_INDENT)
-            {
-                SilkNode node = getContextNode();
-                if (node == null)
-                    this.indentationLevel = 0;
-                else
-                    this.indentationLevel = node.getIndentLevel();
-            }
-            else
-                this.indentationLevel = f.getIndentLevel();
-
-            this.visitor = visitor;
-        }
-
-        public int getIndentationLevel()
-        {
-            return indentationLevel;
-        }
-
-        public Logger getLogger()
-        {
-            return _logger;
-        }
-
-        public TreeWalker getTreeWalker()
-        {
-            return SilkWalker.this;
-        }
-
-        public TreeVisitor getTreeVisitor()
-        {
-            return visitor;
-        }
-
-        public String getResourceBasePath()
-        {
-            return resourceBasePath;
-        }
-
     }
 
     public void walkWithoutInitAndFinish(TreeVisitor visitor) throws XerialException
@@ -359,7 +388,7 @@ public class SilkWalker implements TreeWalker
 
         }
 
-        closeUpTo(0, visitor);
+        closeUpTo(indentationOffset, visitor);
 
     }
 

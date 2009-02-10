@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import org.xerial.silk.impl.SilkNode;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -47,7 +48,7 @@ public interface SilkEnv
      * 
      * @return the baseline indentation
      */
-    public int getIndentationLevel();
+    public int getIndentationOffset();
 
     /**
      * Get the base path for finding resources, e.g. import files.
@@ -55,4 +56,6 @@ public interface SilkEnv
      * @return the resource base path
      */
     public String getResourceBasePath();
+
+    public SilkNode getContextNode();
 }

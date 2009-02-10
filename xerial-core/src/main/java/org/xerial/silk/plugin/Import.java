@@ -61,7 +61,7 @@ public class Import implements SilkFunctionPlugin
                 url += "/";
             url += filePath;
 
-            SilkWalker walker = new SilkWalker(new URL(url));
+            SilkWalker walker = new SilkWalker(new URL(url), env);
             walker.walkWithoutInitAndFinish(env.getTreeVisitor());
         }
         catch (IOException e)

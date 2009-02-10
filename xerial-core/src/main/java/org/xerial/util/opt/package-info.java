@@ -14,7 +14,58 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 /**
- * command-line argument parser
+ * Command-line argument parser.
+ * 
+ * 
+ * <p>Usage:</p>
+ * 
+ * <pre>
+ * <code>
+ *    class MyOption
+ *    {
+ *     &#064;Option(symbol = "h", longName = "help", description = "display help message")
+ *     private boolean      displayHelp;
+ *  
+ *     &#064;Argument(index = 0)
+ *     private String       subCommand;
+ *  
+ *     &#064;Argument(name = "input_file", index = 1, required = false)
+ *     private List<String> fileList;
+ *   }
+ *  
+ *   public void main(String[] args)
+ *   {
+ *     MyOption myOption = new MyOption();
+ *     OptionParser parser = new OptionParser(myOption);
+ *  
+ *     // parse the command line arguments e.g. "add -h 1.txt 2.txt"
+ *     try
+ *     {
+ *        parser.parse(args);
+ *        
+ *        // myOption instance's field values are initialized with command line argument
+ *        if(displayHelp)
+ *        {
+ *           parser.printUsage();   // display usage
+ *           return;
+ *        }
+ *  
+ *        // array argument is also initialized 
+ *        for(String each : fileList)
+ *        {
+ *            System.out.println(String.format("input file: %s", each));
+ *        }
+ *     }
+ *     catch(OptionParserException e)
+ *     {
+ *        System.err.println(e.getMessage()):
+ *        parser.printUsage();  // display usage
+ *     } 
+ *  
+ *   }
+ * </code>
+ * </pre>
+ * 
  */
 package org.xerial.util.opt;
 
