@@ -32,42 +32,38 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
- * XMLの入力元（ファイル、InputStreamなど）をそれぞれ同様に扱うためのinterface
+ * Common interface for various XML input sources
+ * 
  * @author leo
- *
+ * 
  */
 public class XMLInputSource
 {
     private Reader _reader = null;
-    
+
     public XMLInputSource(InputStream byteStream)
     {
         _reader = new InputStreamReader(byteStream);
     }
-    
+
     public XMLInputSource(Reader characterStream)
     {
         _reader = characterStream;
     }
-    
+
     /**
-     * URI (ファイルへのパスや、http:// ...など)からXMLを読むときに使う 
-     * @param fileName an URI of an XML resource
-     * @throws FileNotFoundException 
+     * @param fileName
+     *            an URI of an XML resource
+     * @throws FileNotFoundException
      */
     public XMLInputSource(String fileName) throws FileNotFoundException
     {
         _reader = new BufferedReader(new FileReader(fileName));
     }
-    
-    
+
     public Reader getReader()
     {
         return _reader;
     }
-    
+
 }
-
-
-
-
