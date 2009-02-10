@@ -36,6 +36,8 @@ import java.util.List;
  */
 public enum FileType {
 
+    UNKNOWN(""),
+
     // image formats
     JPEG("jpeg,jpg"),
     PNG("png"),
@@ -58,13 +60,14 @@ public enum FileType {
 
     // binary format
     PDF("pdf"),
+    PS("ps"),
     WORD("doc,docx"),
     EXCEL("xls,xlsx"),
     POWER_POINT("ppt,pptx"),
 
     // compressed format
     ZIP("zip"),
-    GZIP("gz"),
+    GZIP("gz,gzip"),
     TAR("tar"),
     TAR_GZ("tar.gz"),
     BZIP2("bz2")
@@ -82,6 +85,11 @@ public enum FileType {
     }
 
     private ArrayList<String> fileExtList;
+
+    private FileType()
+    {
+        fileExtList = new ArrayList<String>(0);
+    }
 
     private FileType(String fileExtCSV)
     {
@@ -105,8 +113,25 @@ public enum FileType {
      * @param fileExt
      * @return
      */
-    public static FileType getFileType(String fileExt)
+    public static FileType getFileTypeFromFileExt(String fileExt)
     {
-        return fileTypeTable.get(fileExt.toLowerCase());
+        FileType f = fileTypeTable.get(fileExt.toLowerCase());
+        if (f == null)
+            return UNKNOWN;
+        else
+            return f;
     }
+
+    public static FileType getFileType(String filePath)
+    {
+        if (filePath.endsWith("tar.gz"))
+            return getFileTypeFromFileExt("tar.gz");
+
+        int extPos = filePath.lastIndexOf(".");
+        if (extPos <= 0)
+            return UNKNOWN;
+        else
+            return getFileTypeFromFileExt(filePath.substring(extPos + 1));
+    }
+
 }

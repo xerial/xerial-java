@@ -77,4 +77,10 @@ public class ImportTest
     {
         compare("import.silk", "import.json");
     }
+
+    @Test
+    public void loadBinary() throws Exception
+    {
+        compare("load-binary.silk", "load-binary.json");
+    }
 }

@@ -81,7 +81,7 @@ public class SilkWalker implements TreeWalker
 
     private int indentationOffset = 0;
     private String resourceBasePath = null;
-    private final Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
+    private Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
 
     private class SilkEnvImpl implements SilkEnv
     {
@@ -129,9 +129,9 @@ public class SilkWalker implements TreeWalker
             return resourceBasePath;
         }
 
-        public SilkNode getContextNode()
+        public Deque<SilkNode> getContextNodeStack()
         {
-            return contextNodeStack.peekLast();
+            return contextNodeStack;
         }
 
     }
@@ -199,9 +199,7 @@ public class SilkWalker implements TreeWalker
     {
         resourceBasePath = env.getResourceBasePath();
         indentationOffset = env.getIndentationOffset();
-        SilkNode contextNode = env.getContextNode();
-        if (contextNode != null)
-            contextNodeStack.addLast(contextNode);
+        contextNodeStack = env.getContextNodeStack();
     }
 
     public TreeNode getSubTree() throws XerialException
@@ -241,15 +239,33 @@ public class SilkWalker implements TreeWalker
     {
         String nodeName = node.getName();
         SilkValue textValue = node.getValue();
-        if (textValue != null && !textValue.isJSON())
-            visitor.leaveNode(nodeName, textValue.toString(), this);
-        else
+        if (textValue == null)
+        {
             visitor.leaveNode(nodeName, null, null);
+            return;
+        }
+
+        if (textValue.isFunction())
+        {
+            SilkFunction function = SilkFunction.class.cast(textValue);
+            evalFunction(function, visitor);
+            return;
+        }
+
+        if (!textValue.isJSON())
+        {
+            visitor.leaveNode(nodeName, textValue.toString(), this);
+            return;
+        }
+
+        visitor.leaveNode(nodeName, null, null);
     }
 
     private void openContext(SilkNode node, TreeVisitor visitor) throws XerialException
     {
-        int indentLevel = node.getIndentLevel() + indentationOffset;
+        int indentLevel = node.getIndentLevel();
+        if (indentLevel != SilkNode.NO_INDENT)
+            indentLevel += indentationOffset;
 
         closeUpTo(indentLevel, visitor);
 
@@ -263,20 +279,22 @@ public class SilkWalker implements TreeWalker
         visitor.visitNode(nodeName, this);
 
         SilkValue textValue = node.getValue();
-        if (textValue != null && textValue.isJSON())
+        if (textValue != null)
         {
-            SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
-            if (jsonValue.isObject())
+            if (textValue.isJSON())
             {
-                JSONObject jsonObj = new JSONObject(jsonValue.getValue());
-                walkJSONObject(jsonObj, visitor);
+                SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
+                if (jsonValue.isObject())
+                {
+                    JSONObject jsonObj = new JSONObject(jsonValue.getValue());
+                    walkJSONObject(jsonObj, visitor);
+                }
+                else
+                {
+                    JSONArray jsonArray = new JSONArray(jsonValue.getValue());
+                    walkJSONAray(jsonArray, nodeName, visitor);
+                }
             }
-            else
-            {
-                JSONArray jsonArray = new JSONArray(jsonValue.getValue());
-                walkJSONAray(jsonArray, nodeName, visitor);
-            }
-
         }
 
         // traverse attribute nodes with text values
@@ -300,6 +318,19 @@ public class SilkWalker implements TreeWalker
         visitor.finish(this);
     }
 
+    private void evalFunction(SilkFunction function, TreeVisitor visitor) throws XerialException
+    {
+        SilkFunctionPlugin plugin = getPlugin(function.getName());
+        if (plugin == null)
+        {
+            _logger.error(String.format("plugin %s not found", function.getName()));
+            return;
+        }
+        populate(plugin, function.getArgumentList());
+        plugin.eval(new SilkEnvImpl(function, visitor));
+
+    }
+
     public void walkWithoutInitAndFinish(TreeVisitor visitor) throws XerialException
     {
         // depth first search 
@@ -318,15 +349,7 @@ public class SilkWalker implements TreeWalker
                 break;
             case FUNCTION:
                 SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
-                SilkFunctionPlugin plugin = getPlugin(function.getName());
-                if (plugin == null)
-                {
-                    _logger.error(String.format("plugin %s not found", function.getName()));
-                    break;
-                }
-                populate(plugin, function.getArgumentList());
-                plugin.eval(new SilkEnvImpl(function, visitor));
-
+                evalFunction(function, visitor);
                 break;
             case DATA_LINE:
                 if (contextNodeStack.isEmpty())
@@ -479,7 +502,7 @@ public class SilkWalker implements TreeWalker
                     SilkFunctionPlugin.class, SilkWalker.class.getClassLoader()))
             {
                 String functionName = each.getSimpleName().toLowerCase();
-                _logger.info("loaded " + functionName);
+                _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);
             }
         }

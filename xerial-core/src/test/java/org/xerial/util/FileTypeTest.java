@@ -44,15 +44,25 @@ public class FileTypeTest
     @Test
     public void testGetFileType()
     {
-        assertEquals(FileType.PNG, FileType.getFileType("png"));
-        assertEquals(FileType.JPEG, FileType.getFileType("jpg"));
-        assertEquals(FileType.JPEG, FileType.getFileType("jpeg"));
+        assertEquals(FileType.PNG, FileType.getFileTypeFromFileExt("png"));
+        assertEquals(FileType.JPEG, FileType.getFileTypeFromFileExt("jpg"));
+        assertEquals(FileType.JPEG, FileType.getFileTypeFromFileExt("jpeg"));
 
         for (FileType eachType : FileType.values())
         {
             for (String eachFileExt : eachType.getFileExtList())
-                assertEquals(eachType, FileType.getFileType(eachFileExt));
+                assertEquals(eachType, FileType.getFileTypeFromFileExt(eachFileExt));
         }
+
+    }
+
+    @Test
+    public void testGetFileTypeFromPath() throws Exception
+    {
+        assertEquals(FileType.PNG, FileType.getFileType("/home/leo/tmp/somefile.png"));
+        assertEquals(FileType.JPEG, FileType.getFileType("/home/leo/tmp/somefile.jpeg"));
+        assertEquals(FileType.SILK, FileType.getFileType("/home/leo/tmp.1/somefile.silk"));
+        assertEquals(FileType.TAR_GZ, FileType.getFileType("/home/leo/tmp.1/somefile.tar.gz"));
 
     }
 

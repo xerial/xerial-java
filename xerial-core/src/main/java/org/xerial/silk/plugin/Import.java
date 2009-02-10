@@ -24,13 +24,17 @@
 //--------------------------------------
 package org.xerial.silk.plugin;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
+import org.apache.commons.codec.binary.Base64;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
 import org.xerial.silk.SilkWalker;
+import org.xerial.util.FileType;
 
 /**
  * <em>import</em> function
@@ -54,19 +58,68 @@ public class Import implements SilkFunctionPlugin
 
         try
         {
-            env.getLogger().info("load " + filePath);
-            env.getLogger().info("resource path: " + env.getResourceBasePath());
             String url = env.getResourceBasePath();
             if (!env.getResourceBasePath().endsWith("/"))
                 url += "/";
             url += filePath;
 
-            SilkWalker walker = new SilkWalker(new URL(url), env);
-            walker.walkWithoutInitAndFinish(env.getTreeVisitor());
+            FileType f = FileType.getFileType(filePath);
+            switch (f)
+            {
+            case SILK:
+            case TAB:
+            {
+                SilkWalker walker = new SilkWalker(new URL(url), env);
+                walker.walkWithoutInitAndFinish(env.getTreeVisitor());
+                break;
+            }
+            case PNG:
+            {
+                loadBinary(new URL(url), env);
+
+            }
+                break;
+            default:
+            {
+                SilkWalker walker = new SilkWalker(new URL(url), env);
+                walker.walkWithoutInitAndFinish(env.getTreeVisitor());
+                break;
+            }
+            }
+
         }
         catch (IOException e)
         {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+
+    }
+
+    public void loadBinary(URL path, SilkEnv env) throws IOException, XerialException
+    {
+        env.getLogger().info("load binary: " + path);
+
+        InputStream source = path.openStream();
+        BufferedInputStream in = new BufferedInputStream(source);
+
+        byte[] buffer = new byte[1024];
+        int readBytes = 0;
+        while ((readBytes = in.read(buffer, 0, buffer.length)) > 0)
+        {
+            if (readBytes == buffer.length)
+            {
+                byte[] encoded = Base64.encodeBase64(buffer);
+                env.getTreeVisitor().text(new String(encoded));
+            }
+            else
+            {
+                byte[] tmp = new byte[readBytes];
+                for (int i = 0; i < readBytes; ++i)
+                    tmp[i] = buffer[i];
+
+                byte[] encoded = Base64.encodeBase64(tmp);
+                env.getTreeVisitor().text(new String(encoded));
+            }
         }
 
     }
