@@ -28,11 +28,10 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.commons.codec.binary.Base64;
 import org.xerial.util.Algorithm;
-import org.xerial.util.ArrayDeque;
-import org.xerial.util.Deque;
 
 /**
  * Base64 reader for encoding the input stream with Base64
@@ -43,12 +42,28 @@ import org.xerial.util.Deque;
 public class Base64Reader extends Reader
 {
     private BufferedInputStream in;
-    private Deque<byte[]> cache = new ArrayDeque<byte[]>();
-    private int offset = 0;
+
+    /**
+     * buffer for keeping the encoded data
+     */
+    private char[] buffer;
+    /**
+     * next read position on the buffer
+     */
+    private int pos = 0;
+
+    /**
+     * limit position on the buffer, to which the base64 data is filled
+     */
+    private int limitPos = 0;
+
+    private static final int DEFAULT_BUFFER_SIZE = 8024;
 
     public Base64Reader(InputStream in)
     {
         this.in = new BufferedInputStream(in);
+        buffer = new char[DEFAULT_BUFFER_SIZE];
+
     }
 
     @Override
@@ -59,10 +74,6 @@ public class Base64Reader extends Reader
 
     private int readNext(char[] buf, int offset, int remainingLength)
     {
-        if (cache.isEmpty())
-        {
-
-        }
 
         byte[] buffer = new byte[1024];
         int readBytes = 0;
@@ -86,13 +97,21 @@ public class Base64Reader extends Reader
 
     }
 
+    /**
+     * Read uncompressed data
+     * 
+     * @see java.io.Reader#read(char[], int, int)
+     */
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException
     {
-        final int maxSize = Algorithm.min(cbuf.length - off, len);
-        int readBytes = readNext(cbuf, offset, len);
+        final int maxReadableSize = Algorithm.min(cbuf.length - off, len);
 
-        while (readBytes < maxSize)
+        GZIPInputStream
+        
+        
+
+        while (readBytes < maxReadableSize)
         {
             if (readBytes == len)
                 return readBytes;
@@ -104,5 +123,4 @@ public class Base64Reader extends Reader
         // TODO Auto-generated method stub
         return 0;
     }
-
 }
