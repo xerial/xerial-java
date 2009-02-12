@@ -25,16 +25,17 @@
 package org.xerial.silk.plugin;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.commons.codec.binary.Base64;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.FileType;
+import org.xerial.util.io.Base64OutputStream;
 
 /**
  * <em>import</em> function
@@ -104,22 +105,13 @@ public class Import implements SilkFunctionPlugin
 
         byte[] buffer = new byte[1024];
         int readBytes = 0;
-        while ((readBytes = in.read(buffer, 0, buffer.length)) > 0)
+        while ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
         {
-            if (readBytes == buffer.length)
-            {
-                byte[] encoded = Base64.encodeBase64(buffer);
-                env.getTreeVisitor().text(new String(encoded));
-            }
-            else
-            {
-                byte[] tmp = new byte[readBytes];
-                for (int i = 0; i < readBytes; ++i)
-                    tmp[i] = buffer[i];
-
-                byte[] encoded = Base64.encodeBase64(tmp);
-                env.getTreeVisitor().text(new String(encoded));
-            }
+            ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
+            Base64OutputStream base64out = new Base64OutputStream(base64buffer);
+            base64out.write(buffer, 0, readBytes);
+            base64out.flush();
+            env.getTreeVisitor().text(new String(base64buffer.toByteArray()));
         }
 
     }
