@@ -96,6 +96,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testLoad() throws Exception
+    {
+        walk("plugin/load-binary.silk");
+    }
+
+    @Test
     public void testFunc() throws Exception
     {
         TreeWalkLog l = walk("func.silk");

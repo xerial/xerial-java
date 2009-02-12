@@ -106,6 +106,12 @@ public class SilkParserTest
     }
 
     @Test
+    public void testLoad() throws Exception
+    {
+        parse("../plugin/load-binary.silk");
+    }
+
+    @Test
     public void pullTest() throws Exception
     {
         String filePath = "../small.silk";
