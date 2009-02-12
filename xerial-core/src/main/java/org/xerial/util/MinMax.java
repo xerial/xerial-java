@@ -39,7 +39,7 @@ public class MinMax<E> extends Pair<E, E>
      * @param min
      * @param max
      */
-    public MinMax(E min, E max)
+    MinMax(E min, E max)
     {
         super(min, max);
     }

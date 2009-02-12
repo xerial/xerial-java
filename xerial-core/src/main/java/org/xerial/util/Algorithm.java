@@ -43,10 +43,9 @@ public class Algorithm
     /**
      * Å@ Compare the min and max of two values
      * 
-     * @param <E>
-     *            a class that implements {@link Comparable} interface
+     * @param <E> a class that implements {@link Comparable} interface
      * @param e1
-     *            Å@
+     * 
      * @param e2
      * @return MinMax
      */
@@ -59,11 +58,20 @@ public class Algorithm
             return new MinMax<E>(e2, e1);
     }
 
+    static public <E extends Comparable<E>> E min(E e1, E e2)
+    {
+        return minmax(e1, e2).min();
+    }
+
+    static public <E extends Comparable<E>> E max(E e1, E e2)
+    {
+        return minmax(e1, e2).min();
+    }
+
     /**
      * compare by lexicographical order
      * 
-     * @param <E>
-     *            a class that implements {@link Comparable} interface
+     * @param <E> a class that implements {@link Comparable} interface
      * @param f1
      * @param f2
      * @return negative value : f1 < f2, 0 : f1 == f2, positive value : f1 > f2

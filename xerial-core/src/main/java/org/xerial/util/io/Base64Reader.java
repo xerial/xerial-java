@@ -30,11 +30,12 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.apache.commons.codec.binary.Base64;
+import org.xerial.util.Algorithm;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 
 /**
- * Base64 reader, which encodes the input stream with Base64
+ * Base64 reader for encoding the input stream with Base64
  * 
  * @author leo
  * 
@@ -43,6 +44,7 @@ public class Base64Reader extends Reader
 {
     private BufferedInputStream in;
     private Deque<byte[]> cache = new ArrayDeque<byte[]>();
+    private int offset = 0;
 
     public Base64Reader(InputStream in)
     {
@@ -55,9 +57,13 @@ public class Base64Reader extends Reader
         in.close();
     }
 
-    @Override
-    public int read(char[] cbuf, int off, int len) throws IOException
+    private int readNext(char[] buf, int offset, int remainingLength)
     {
+        if (cache.isEmpty())
+        {
+
+        }
+
         byte[] buffer = new byte[1024];
         int readBytes = 0;
 
@@ -71,12 +77,26 @@ public class Base64Reader extends Reader
             else
             {
                 byte[] tmp = new byte[readBytes];
-                for (int i = 0; i < readBytes; ++i)
-                    tmp[i] = buffer[i];
+                System.arraycopy(buffer, 0, tmp, 0, readBytes);
 
                 byte[] encoded = Base64.encodeBase64(tmp);
                 cache.addLast(encoded);
             }
+        }
+
+    }
+
+    @Override
+    public int read(char[] cbuf, int off, int len) throws IOException
+    {
+        final int maxSize = Algorithm.min(cbuf.length - off, len);
+        int readBytes = readNext(cbuf, offset, len);
+
+        while (readBytes < maxSize)
+        {
+            if (readBytes == len)
+                return readBytes;
+
         }
 
         // TODO copy to the buffer
