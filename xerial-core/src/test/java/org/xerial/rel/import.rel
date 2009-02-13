@@ -1,6 +1,0 @@
-% rel(version:1.0)
-- coordinate(group:utgb, type:chromosome, species:human, revision:hg18, name:chr1)
-
-# import a file under the coordinate node
- - gene(name, strand, start, end)
- - @import(tab.rel)

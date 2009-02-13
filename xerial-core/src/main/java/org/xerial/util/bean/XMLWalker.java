@@ -66,11 +66,11 @@ public class XMLWalker implements TreeWalker
      */
     class XMLStreamWalker implements TreeWalker
     {
-        private final XmlPullParser             pullParser;
-        private final LinkedList<StringBuilder> textStack       = new LinkedList<StringBuilder>();
+        private final XmlPullParser pullParser;
+        private final LinkedList<StringBuilder> textStack = new LinkedList<StringBuilder>();
 
-        private boolean                         skipDescendants = false;
-        private int                             skipLevel       = Integer.MAX_VALUE;
+        private boolean skipDescendants = false;
+        private int skipLevel = Integer.MAX_VALUE;
 
         public XMLStreamWalker(Reader reader)
         {
@@ -108,19 +108,19 @@ public class XMLWalker implements TreeWalker
                         {
                             textStack.addLast(new StringBuilder());
                             String tagName = pullParser.getName();
-                            visitor.visitNode(tagName, this);
+                            visitor.visitNode(tagName, null, this);
                             // read attributes
                             for (int i = 0; i < pullParser.getAttributeCount(); i++)
                             {
                                 String attributeName = pullParser.getAttributeName(i);
                                 String attributeValue = pullParser.getAttributeValue(i);
-                                visitor.visitNode(attributeName, this);
+                                visitor.visitNode(attributeName, attributeValue, this);
                                 if (skipDescendants)
                                 {
                                     // attributes has no more descendants
                                     skipDescendants = false;
                                 }
-                                visitor.leaveNode(attributeName, attributeValue, this);
+                                visitor.leaveNode(attributeName, this);
                             }
 
                         }
@@ -136,7 +136,8 @@ public class XMLWalker implements TreeWalker
                                 break;
                         }
                         String text = textStack.getLast().toString();
-                        visitor.leaveNode(pullParser.getName(), text.trim(), this);
+                        visitor.text(text.trim());
+                        visitor.leaveNode(pullParser.getName(), this);
                         textStack.removeLast();
                     }
                         break;
@@ -206,7 +207,8 @@ public class XMLWalker implements TreeWalker
             currentElement = element;
             String tagName = element.getNodeName();
             // invoke visitor
-            visitor.visitNode(tagName, this);
+            String text = DOMUtil.getText(element);
+            visitor.visitNode(tagName, text.trim(), this);
 
             // visit attribute nodes
             NamedNodeMap attributeMap = element.getAttributes();
@@ -216,8 +218,8 @@ public class XMLWalker implements TreeWalker
                 String attributeName = attributeNode.getNodeName();
                 String attributeValue = attributeNode.getNodeValue();
 
-                visitor.visitNode(attributeName, this);
-                visitor.leaveNode(attributeName, attributeValue, this);
+                visitor.visitNode(attributeName, attributeValue, this);
+                visitor.leaveNode(attributeName, this);
             }
 
             // visit child nodes
@@ -236,8 +238,7 @@ public class XMLWalker implements TreeWalker
             }
 
             // leave the current element
-            String text = DOMUtil.getText(element);
-            visitor.leaveNode(tagName, text.trim(), this);
+            visitor.leaveNode(tagName, this);
         }
 
         public void skipDescendants()

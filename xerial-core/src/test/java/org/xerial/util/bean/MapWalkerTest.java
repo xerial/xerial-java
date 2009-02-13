@@ -79,19 +79,10 @@ public class MapWalkerTest
                 initialized = true;
             }
 
-            public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
-            {
-                if (nodeName.equals("A"))
-                {
-                    valueA = nodeValue;
-                }
-                else if (nodeName.equals("B"))
-                {
-                    valueB = nodeValue;
-                }
-            }
+            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+            {}
 
-            public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+            public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
                 if (nodeName.equals("A"))
                 {
@@ -100,6 +91,15 @@ public class MapWalkerTest
                 else if (nodeName.equals("B"))
                 {
                     visitB = true;
+                }
+
+                if (nodeName.equals("A"))
+                {
+                    valueA = nodeValue;
+                }
+                else if (nodeName.equals("B"))
+                {
+                    valueB = nodeValue;
                 }
 
             }

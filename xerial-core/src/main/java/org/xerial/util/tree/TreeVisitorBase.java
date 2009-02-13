@@ -46,7 +46,7 @@ public class TreeVisitorBase implements TreeVisitor
 
     }
 
-    public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
     {
 
     }
@@ -56,7 +56,7 @@ public class TreeVisitorBase implements TreeVisitor
 
     }
 
-    public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+    public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
     {
 
     }

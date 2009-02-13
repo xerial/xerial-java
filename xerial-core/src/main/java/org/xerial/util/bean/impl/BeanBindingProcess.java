@@ -29,9 +29,9 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.xerial.core.XerialError;
-import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
@@ -143,6 +143,8 @@ public class BeanBindingProcess implements TreeVisitor
 
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
     private final TreeMap<Integer, Map< ? , ? >> mapAssociatedWithBean = new TreeMap<Integer, Map< ? , ? >>();
+    private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
+    private final static StringBuilder EMPTY_TEXT_BUILDER = new StringBuilder(0);
 
     private int currentLevel = 0;
     private BindRuleGenerator bindRuleGenerator = new BindRuleGeneratorImpl();
@@ -210,17 +212,20 @@ public class BeanBindingProcess implements TreeVisitor
         return bindRuleGenerator.getBeanBinderSet(beanClass);
     }
 
-    public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+    public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
+        textStack.addLast(EMPTY_TEXT_BUILDER);
+
         int nodeLevel = currentLevel++;
         //_logger.trace("visit[" + nodeLevel + "] " + nodeName);
+
+        Object parentBean = getContextBean(nodeLevel - 1);
 
         // prepare the context bean for this depth
         Object bean = getContextBean(nodeLevel);
         if (bean == null)
         {
             assert (currentLevel > 0); // the bean cannot be null when level is 0
-            Object parentBean = getContextBean(nodeLevel - 1);
 
             BeanBinderSet parentBeanBindRuleSet = getBindRuleSet(parentBean.getClass());
             BeanUpdator updator = getUpdator(parentBeanBindRuleSet, nodeName);
@@ -249,11 +254,12 @@ public class BeanBindingProcess implements TreeVisitor
                             targetArgIndex = 1;
                         }
                     }
+
                     if (TypeInformation.isBasicType(elementType))
                     {
                         // this bean can be generated directly from the element text value, so
                         // there is no need to instantiate the object here.
-                        return;
+                        break;
                     }
                     else if (TypeInformation.isMap(elementType))
                     {
@@ -297,21 +303,20 @@ public class BeanBindingProcess implements TreeVisitor
                 // We can safely skip the descendants of this node, since there is
                 // no descendant nodes to bind
                 walker.skipDescendants();
-                return;
             }
+
         }
+
+        bindValue(parentBean, nodeName, nodeValue, nodeLevel);
 
     }
 
-    public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+    private void bindValue(Object parentBean, String nodeName, String nodeValue, int nodeLevel) throws BeanException
     {
-        int nodeLevel = --currentLevel;
-        //_logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
-
-        Object parentBean = getContextBean(nodeLevel - 1);
         if (parentBean == null)
             return;
 
+        // bind immediate text value
         BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
         BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
         if (updator != null)
@@ -359,7 +364,10 @@ public class BeanBindingProcess implements TreeVisitor
                 try
                 {
                     KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
-                    bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
+                    if (keyValuePair.hasKeyAndValue())
+                    {
+                        bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);
+                    }
                     mapAssociatedWithBean.remove(parentBean.hashCode());
                 }
                 catch (ClassCastException e)
@@ -371,10 +379,38 @@ public class BeanBindingProcess implements TreeVisitor
             default:
                 throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
             }
-
-            // clear the bean stack
-            removeContextBean(nodeLevel);
         }
+
+    }
+
+    public void text(String nodeValue) throws XerialException
+    {
+        StringBuilder textBuffer = textStack.peekLast();
+        if (textBuffer == EMPTY_TEXT_BUILDER)
+        {
+            textStack.removeLast();
+            textBuffer = new StringBuilder();
+            textStack.addLast(textBuffer);
+        }
+
+        textBuffer.append(nodeValue);
+    }
+
+    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+    {
+        int nodeLevel = --currentLevel;
+        //_logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
+
+        StringBuilder textBuffer = textStack.removeLast();
+        Object parentBean = getContextBean(nodeLevel - 1);
+        if (parentBean == null)
+            return;
+
+        //  if (textBuffer != EMPTY_TEXT_BUILDER)
+        bindValue(parentBean, nodeName, textBuffer.toString(), nodeLevel);
+
+        // clear the bean stack
+        removeContextBean(nodeLevel);
 
     }
 
@@ -465,11 +501,6 @@ public class BeanBindingProcess implements TreeVisitor
     public static Object convertType(Class targetType, Object value) throws BeanException
     {
         return TypeConverter.convertType(targetType, value);
-    }
-
-    public void text(String nodeValue) throws XerialException
-    {
-        throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
 }

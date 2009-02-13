@@ -47,7 +47,7 @@ public class TreeWalkLog implements TreeVisitor
     private static Logger _logger = Logger.getLogger(TreeWalkLog.class);
 
     public static enum Event {
-        INIT, FINISH, VISIT, LEAVE
+        INIT, FINISH, VISIT, LEAVE, TEXT
     }
 
     public static class EventLog
@@ -130,16 +130,15 @@ public class TreeWalkLog implements TreeVisitor
         textStack.addLast(EMPTY_BUFFER);
     }
 
-    public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
     {
         if (nodeName == null)
             return; // skip empty node leave (e.g. JSON Object root bracket)
 
         if (textStack.peekLast() != EMPTY_BUFFER)
-            log.add(new EventLog(Event.LEAVE, nodeName, textStack.peekLast().toString()));
-        else
-            log.add(new EventLog(Event.LEAVE, nodeName, immediateNodeValue));
+            log.add(new EventLog(Event.TEXT, null, textStack.peekLast().toString()));
 
+        log.add(new EventLog(Event.LEAVE, nodeName, null));
         textStack.removeLast();
     }
 
@@ -153,12 +152,12 @@ public class TreeWalkLog implements TreeVisitor
         textStack.peekLast().append(textDataFragment);
     }
 
-    public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+    public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
     {
         if (nodeName == null)
             return; // skip empty node visit (e.g. JSON Object root bracket)
 
-        log.add(new EventLog(Event.VISIT, nodeName, null));
+        log.add(new EventLog(Event.VISIT, nodeName, immediateNodeValue));
 
         textStack.addLast(EMPTY_BUFFER);
     }

@@ -114,7 +114,7 @@ public class SilkReader
         public void init(TreeWalker walker) throws XerialException
         {}
 
-        public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
         {
             JSONObject node = getContext();
             contextStack.removeLast();
@@ -125,8 +125,6 @@ public class SilkReader
                 JSONObject parent = getContext();
                 if (textStack.peekLast() != ZERO_CAPACITY_BUFFER)
                     parent.put(nodeName, textStack.peekLast().toString());
-                else
-                    parent.put(nodeName, immediateNodeValue);
 
                 if (contextStack.size() == 1)
                 {
@@ -176,7 +174,7 @@ public class SilkReader
             getTextBuilder().append(textDataFragment);
         }
 
-        public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
         {
             JSONObject newContext = new JSONObject();
 
@@ -190,6 +188,8 @@ public class SilkReader
 
             contextStack.addLast(newContext);
             textStack.addLast(ZERO_CAPACITY_BUFFER);
+            if (immediateNodeValue != null)
+                getTextBuilder().append(immediateNodeValue);
         }
 
     }

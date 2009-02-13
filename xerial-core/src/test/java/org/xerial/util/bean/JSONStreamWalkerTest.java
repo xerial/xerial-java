@@ -61,13 +61,13 @@ public class JSONStreamWalkerTest
 
         }
 
-        public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
         {
         // TODO Auto-generated method stub
 
         }
 
-        public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+        public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
         {
         // TODO Auto-generated method stub
 

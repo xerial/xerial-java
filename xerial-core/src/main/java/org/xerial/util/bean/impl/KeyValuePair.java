@@ -58,6 +58,11 @@ public class KeyValuePair
         this.valueClass = valueType;
     }
 
+    public boolean hasKeyAndValue()
+    {
+        return key != null && value != null;
+    }
+
     public Class keyType()
     {
         return keyClass;

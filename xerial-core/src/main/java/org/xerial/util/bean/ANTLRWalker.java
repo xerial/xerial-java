@@ -66,7 +66,7 @@ public class ANTLRWalker implements TreeWalker
         String nodeName = parserTokenNames[tokenType];
 
         // invoke visitor
-        visitor.visitNode(nodeName, this);
+        visitor.visitNode(nodeName, t.getText(), this);
 
         // visit child nodes
         if (!skipDescendants)
@@ -80,7 +80,7 @@ public class ANTLRWalker implements TreeWalker
         }
 
         // leave the current node
-        visitor.leaveNode(nodeName, t.getText(), this);
+        visitor.leaveNode(nodeName, this);
     }
 
     public void skipDescendants()

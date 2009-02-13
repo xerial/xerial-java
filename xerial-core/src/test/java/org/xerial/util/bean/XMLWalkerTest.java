@@ -68,7 +68,7 @@ public class XMLWalkerTest
 
             }
 
-            public void leaveNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
             {
                 _logger.debug("leave: " + nodeName);
 
@@ -76,10 +76,11 @@ public class XMLWalkerTest
                 Assert.assertEquals("tag name:", visitedNode, nodeName);
             }
 
-            public void visitNode(String nodeName, TreeWalker walker) throws XerialException
+            public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
-                _logger.debug("visit: " + nodeName);
+                _logger.debug(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
 
+                // skip description node
                 if (nodeName.equals("description"))
                 {
                     TreeNode subtree = walker.getSubTree();
@@ -93,7 +94,7 @@ public class XMLWalkerTest
 
             public void text(String nodeValue) throws XerialException
             {
-            // TODO Auto-generated method stub
+                _logger.debug("text:  " + nodeValue);
 
             }
         });

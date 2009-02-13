@@ -100,18 +100,18 @@ public class MapWalker implements TreeWalker
     {
         visitor.init(this);
         // visit the imaginary root node
-        visitor.visitNode("_root", this);
+        visitor.visitNode("_root", null, this);
 
         for (Object key : map.keySet())
         {
             currentKey = key;
             String nodeName = key.toString();
             Object value = map.get(key);
-            visitor.visitNode(nodeName, this);
-            visitor.leaveNode(nodeName, value != null ? value.toString() : null, this);
+            visitor.visitNode(nodeName, value != null ? value.toString() : null, this);
+            visitor.leaveNode(nodeName, this);
         }
         // leave the imaginary root node
-        visitor.leaveNode("_root", null, this);
+        visitor.leaveNode("_root", this);
         visitor.finish(this);
     }
 

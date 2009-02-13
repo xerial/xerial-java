@@ -45,16 +45,21 @@ public interface TreeVisitor
     /**
      * Invoked when a new node is found (in the depth-first manner)
      * 
+     * @param immediateNodeValue
+     *            immediate node value of the node. When no value is observed,
+     *            this value will be <tt>null</tt>.
+     * 
      * @param nodeName
-     *            the found node name
+     *            found node name
      */
-    public void visitNode(String nodeName, TreeWalker walker) throws XerialException;
+    public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException;
 
     /**
-     * When text data is found under the current node. This event might be
-     * invoked more than 2 times within a node.
+     * Invoked when text data attached to the current node is found. This event
+     * might be invoked one or more times for a node.
      * 
-     * @param nodeValue
+     * @param textDataFragment
+     *            text data fragment
      * @throws XerialException
      */
     public void text(String textDataFragment) throws XerialException;
@@ -63,13 +68,11 @@ public interface TreeVisitor
      * Invoked when leaving a node (in the depth-first manner)
      * 
      * @param nodeName
-     *            The node name to leave
-     * @param immediateNodeValue
-     *            The immediate node value of the node. When no value is
-     *            observed, this value will be <tt>null</tt>.
+     *            node name to leave
+     * 
      * @throws XerialException
      */
-    public void leaveNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException;
+    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException;
 
     /**
      * When the tree visit has finished

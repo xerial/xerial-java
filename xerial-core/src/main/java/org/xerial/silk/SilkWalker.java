@@ -238,28 +238,7 @@ public class SilkWalker implements TreeWalker
     private void closeContext(SilkNode node, TreeVisitor visitor) throws XerialException
     {
         String nodeName = node.getName();
-        SilkValue textValue = node.getValue();
-        if (textValue == null)
-        {
-            visitor.leaveNode(nodeName, null, null);
-            return;
-        }
-
-        if (textValue.isFunction())
-        {
-            SilkFunction function = SilkFunction.class.cast(textValue);
-            evalFunction(function, visitor);
-            visitor.leaveNode(nodeName, null, null);
-            return;
-        }
-
-        if (!textValue.isJSON())
-        {
-            visitor.leaveNode(nodeName, textValue.toString(), this);
-            return;
-        }
-
-        visitor.leaveNode(nodeName, null, null);
+        visitor.leaveNode(nodeName, null);
     }
 
     private void openContext(SilkNode node, TreeVisitor visitor) throws XerialException
@@ -277,13 +256,14 @@ public class SilkWalker implements TreeWalker
             return; // do not invoke visit events 
 
         String nodeName = node.getName();
-        visitor.visitNode(nodeName, this);
 
         SilkValue textValue = node.getValue();
+
         if (textValue != null)
         {
             if (textValue.isJSON())
             {
+                visitor.visitNode(nodeName, null, this);
                 SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
                 if (jsonValue.isObject())
                 {
@@ -296,7 +276,19 @@ public class SilkWalker implements TreeWalker
                     walkJSONAray(jsonArray, nodeName, visitor);
                 }
             }
+            else if (textValue.isFunction())
+            {
+                visitor.visitNode(nodeName, null, null);
+                SilkFunction function = SilkFunction.class.cast(textValue);
+                evalFunction(function, visitor);
+
+                return;
+            }
+            else
+                visitor.visitNode(nodeName, textValue.toString(), this);
         }
+        else
+            visitor.visitNode(nodeName, null, this);
 
         // traverse attribute nodes with text values
         for (SilkNode eachChild : node.getChildNodes())
@@ -359,14 +351,14 @@ public class SilkWalker implements TreeWalker
                     SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
                     String[] columns = line.getDataLine().trim().split("\t");
                     int index = 1;
-                    visitor.visitNode("row", this);
+                    visitor.visitNode("row", null, this);
                     for (String each : columns)
                     {
                         String columnName = String.format("c%d", index++);
-                        visitor.visitNode(columnName, this);
-                        visitor.leaveNode(columnName, each, this);
+                        visitor.visitNode(columnName, each, this);
+                        visitor.leaveNode(columnName, this);
                     }
-                    visitor.leaveNode("row", null, this);
+                    visitor.leaveNode("row", this);
                 }
                 else
                 {
@@ -382,27 +374,26 @@ public class SilkWalker implements TreeWalker
                     {
                         String[] columns = line.getDataLine().trim().split("\t");
                         int columnIndex = 0;
-                        visitor.visitNode(schema.getName(), this);
+                        visitor.visitNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null,
+                                this);
                         for (int i = 0; i < schema.getChildNodes().size(); i++)
                         {
                             SilkNode child = schema.getChildNodes().get(i);
                             if (child.hasValue())
                             {
-                                visitor.visitNode(child.getName(), this);
-                                visitor.leaveNode(child.getName(), child.getValue().toString(), this);
+                                visitor.visitNode(child.getName(), child.getValue().toString(), this);
+                                visitor.leaveNode(child.getName(), this);
                             }
                             else
                             {
                                 if (columnIndex < columns.length)
                                 {
-                                    visitor.visitNode(child.getName(), this);
-                                    visitor.leaveNode(child.getName(), columns[columnIndex++], this);
+                                    visitor.visitNode(child.getName(), columns[columnIndex++], this);
+                                    visitor.leaveNode(child.getName(), this);
                                 }
                             }
                         }
-
-                        visitor.leaveNode(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null,
-                                this);
+                        visitor.leaveNode(schema.getName(), this);
                         break;
                     }
                     }
@@ -448,24 +439,24 @@ public class SilkWalker implements TreeWalker
             walkJSONObject(value.getJSONObject(), visitor);
             break;
         case Boolean:
-            visitor.visitNode(parentNodeName, this);
-            visitor.leaveNode(parentNodeName, value.toString(), this);
+            visitor.visitNode(parentNodeName, value.toString(), this);
+            visitor.leaveNode(parentNodeName, this);
             break;
         case Double:
-            visitor.visitNode(parentNodeName, this);
-            visitor.leaveNode(parentNodeName, value.toString(), this);
+            visitor.visitNode(parentNodeName, value.toString(), this);
+            visitor.leaveNode(parentNodeName, this);
             break;
         case Integer:
-            visitor.visitNode(parentNodeName, this);
-            visitor.leaveNode(parentNodeName, value.toString(), this);
+            visitor.visitNode(parentNodeName, value.toString(), this);
+            visitor.leaveNode(parentNodeName, this);
             break;
         case Null:
-            visitor.visitNode(parentNodeName, this);
-            visitor.leaveNode(parentNodeName, value.toString(), this);
+            visitor.visitNode(parentNodeName, value.toString(), this);
+            visitor.leaveNode(parentNodeName, this);
             break;
         case String:
-            visitor.visitNode(parentNodeName, this);
-            visitor.leaveNode(parentNodeName, value.toString(), this);
+            visitor.visitNode(parentNodeName, value.toString(), this);
+            visitor.leaveNode(parentNodeName, this);
             break;
         }
 
