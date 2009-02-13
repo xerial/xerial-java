@@ -24,6 +24,10 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 
 import org.junit.After;
@@ -34,6 +38,7 @@ import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitorBase;
 import org.xerial.util.tree.TreeWalker;
 
@@ -131,15 +136,46 @@ public class SilkWalkerTest
                 if (nodeName.equals("data") || nodeName.equals("node2"))
                     walker.skipDescendants();
 
-                _logger.info("visit: " + nodeName);
+                _logger.debug("visit: " + nodeName);
             }
 
             @Override
             public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
             {
-                _logger.info("leave: " + nodeName);
+                _logger.debug("leave: " + nodeName);
             }
 
+        });
+
+    }
+
+    @Test
+    public void testGetSubtree() throws Exception
+    {
+        SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));
+        walker.walk(new TreeVisitorBase() {
+            @Override
+            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+            {
+                if (nodeName.equals("link"))
+                {
+                    TreeNode node = walker.getSubTree();
+                    assertNotNull(node);
+
+                    assertEquals("link", node.getNodeName());
+                    assertNull(node.getNodeValue());
+                    assertEquals(2, node.getChildren().size());
+
+                    TreeNode pageNameNode = node.getChildren().get(0);
+                    assertEquals("page name", pageNameNode.getNodeName());
+                    assertEquals("Welcome to Xerial", pageNameNode.getNodeValue());
+
+                    TreeNode urlNode = node.getChildren().get(1);
+                    assertEquals("url", urlNode.getNodeName());
+                    assertEquals("http://www.xerial.org/", urlNode.getNodeValue());
+
+                }
+            }
         });
 
     }

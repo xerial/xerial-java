@@ -61,8 +61,10 @@ import org.xerial.util.FileResource;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
+import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeVisitorBase;
 import org.xerial.util.tree.TreeWalker;
 
 /**
@@ -85,6 +87,8 @@ public class SilkWalker implements TreeWalker
     private String resourceBasePath = null;
     private Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
     private TreeVisitor visitor = null;
+    private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+    private TreeEvent currentEvent = null;
 
     private class SilkEnvImpl implements SilkEnv
     {
@@ -205,54 +209,138 @@ public class SilkWalker implements TreeWalker
         contextNodeStack = env.getContextNodeStack();
     }
 
+    private static class TreeNodeImpl implements TreeNode
+    {
+        String nodeName = null;
+        String nodeValue = null;
+        ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+
+        public TreeNodeImpl(String nodeName, String nodeValue)
+        {
+            this.nodeName = nodeName;
+            this.nodeValue = nodeValue;
+        }
+
+        public void setNodeValue(String text)
+        {
+            nodeValue = text;
+        }
+
+        public void addChild(TreeNode node)
+        {
+            children.add(node);
+        }
+
+        public List<TreeNode> getChildren()
+        {
+            return children;
+        }
+
+        public String getNodeName()
+        {
+            return nodeName;
+        }
+
+        public String getNodeValue()
+        {
+            return nodeValue;
+        }
+
+    }
+
+    private class SubtreeBuilder extends TreeVisitorBase
+    {
+        final TreeNodeImpl root;
+        final Deque<TreeNodeImpl> nodeStack = new ArrayDeque<TreeNodeImpl>();
+        boolean hasFinished = false;
+
+        SubtreeBuilder(String nodeName, String nodeValue)
+        {
+            root = new TreeNodeImpl(nodeName, nodeValue);
+            nodeStack.addLast(root);
+        }
+
+        @Override
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+        {
+            TreeNodeImpl child = new TreeNodeImpl(nodeName, immediateNodeValue);
+            nodeStack.peekLast().addChild(child);
+            nodeStack.addLast(child);
+        }
+
+        @Override
+        public void text(String textDataFragment, TreeWalker walker) throws XerialException
+        {
+            nodeStack.peekLast().setNodeValue(textDataFragment);
+        }
+
+        @Override
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+        {
+            nodeStack.removeLast();
+            if (nodeStack.isEmpty())
+            {
+                hasFinished = true;
+            }
+        }
+
+        public boolean hasFinished()
+        {
+            return hasFinished;
+        }
+
+        public TreeNode getSubtreeRoot()
+        {
+            return root;
+        }
+
+    }
+
     public TreeNode getSubTree() throws XerialException
     {
-        // TODO Auto-generated method stub
-        return null;
+        SubtreeBuilder builder;
+        if (currentEvent == null)
+            builder = new SubtreeBuilder("silk", null);
+        else
+            builder = new SubtreeBuilder(currentEvent.nodeName, currentEvent.nodeValue);
+
+        TreeVisitor parentVisitor = this.visitor;
+        this.visitor = builder;
+
+        while (!builder.hasFinished())
+        {
+            step();
+        }
+
+        this.visitor = parentVisitor;
+
+        return builder.getSubtreeRoot();
     }
 
     private ArrayDeque<String> skipNodeStack = new ArrayDeque<String>();
 
     public void skipDescendants()
     {
-        SilkNode context = getContextNode();
-        if (context == null)
-            skipNodeStack.addLast("__root");
+        if (currentEvent == null)
+            skipNodeStack.addLast("silk");
         else
-            skipNodeStack.addLast(context.getName());
+            skipNodeStack.addLast(currentEvent.nodeName);
     }
 
     private void visit(String nodeName, String immediateNodeValue) throws XerialException
     {
-        if (!skipNodeStack.isEmpty())
-        {
-            skipNodeStack.addLast(nodeName);
-            return;
-        }
-
-        visitor.visitNode(nodeName, immediateNodeValue, this);
-
+        eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName, immediateNodeValue));
     }
 
     private void leave(String nodeName) throws XerialException
     {
-        if (!skipNodeStack.isEmpty())
-        {
-            String skippedNode = skipNodeStack.removeLast();
-            if (skipNodeStack.isEmpty())
-                leave(skippedNode); // output skip start node
-            return;
-        }
-
-        visitor.leaveNode(nodeName, this);
+        eventQueue.addLast(new TreeEvent(TreeEvent.EventType.LEAVE, nodeName, null));
     }
 
     private void text(String textFragment) throws XerialException
     {
-        if (!skipNodeStack.isEmpty())
-            return;
+        eventQueue.addLast(new TreeEvent(TreeEvent.EventType.TEXT, null, textFragment));
 
-        visitor.text(textFragment, this);
     }
 
     private void closeUpTo(int newIndentLevel) throws XerialException
@@ -342,16 +430,6 @@ public class SilkWalker implements TreeWalker
 
     }
 
-    public void walk(TreeVisitor visitor) throws XerialException
-    {
-        // initialize
-        visitor.init(this);
-
-        walkWithoutInitAndFinish(visitor);
-
-        visitor.finish(this);
-    }
-
     private void evalFunction(SilkFunction function, TreeVisitor visitor) throws XerialException
     {
         if (!skipNodeStack.isEmpty())
@@ -368,134 +446,226 @@ public class SilkWalker implements TreeWalker
 
     }
 
+    public void walk(TreeVisitor visitor) throws XerialException
+    {
+        // initialize
+        visitor.init(this);
+
+        walkWithoutInitAndFinish(visitor);
+
+        visitor.finish(this);
+    }
+
     public void walkWithoutInitAndFinish(TreeVisitor visitor) throws XerialException
     {
         this.visitor = visitor;
+        // depth first search
 
-        // depth first search 
-        while (parser.hasNext())
+        while (hasNext())
         {
-            SilkEvent currentEvent = parser.next();
+            step();
+        }
 
-            if (_logger.isDebugEnabled())
+    }
+
+    private void step() throws XerialException
+    {
+        currentEvent = next();
+        _logger.info("step: " + currentEvent);
+
+        switch (currentEvent.event)
+        {
+        case INIT:
+            visitor.init(this);
+            break;
+        case FINISH:
+            visitor.finish(this);
+            break;
+
+        case VISIT:
+            if (!skipNodeStack.isEmpty())
             {
-                _logger.debug("stack: " + contextNodeStack);
-                _logger.debug(currentEvent);
+                skipNodeStack.addLast(currentEvent.nodeName);
+                return;
+            }
+            visitor.visitNode(currentEvent.nodeName, currentEvent.nodeValue, this);
+            break;
+
+        case LEAVE:
+            if (!skipNodeStack.isEmpty())
+            {
+                String skippedNode = skipNodeStack.removeLast();
+                if (skipNodeStack.isEmpty())
+                    leave(skippedNode); // output skip start node
+                return;
             }
 
-            switch (currentEvent.getType())
+            visitor.leaveNode(currentEvent.nodeName, this);
+            break;
+
+        case TEXT:
+            if (!skipNodeStack.isEmpty())
+                return;
+            visitor.text(currentEvent.nodeValue, this);
+            break;
+        }
+
+    }
+
+    private boolean hasFinished = false;
+
+    private boolean hasNext() throws XerialException
+    {
+        if (eventQueue.isEmpty())
+        {
+            if (hasFinished)
+                return false;
+
+            fillQueue();
+            return hasNext();
+        }
+        else
+            return true;
+    }
+
+    private TreeEvent next() throws XerialException
+    {
+        if (!eventQueue.isEmpty())
+            return eventQueue.removeFirst();
+
+        if (hasFinished)
+            return null;
+
+        fillQueue();
+        return next();
+    }
+
+    private void fillQueue() throws XerialException
+    {
+        if (!parser.hasNext())
+        {
+            closeUpTo(indentationOffset);
+            hasFinished = true;
+            return;
+        }
+
+        SilkEvent currentEvent = parser.next();
+
+        if (_logger.isDebugEnabled())
+        {
+            _logger.debug("stack: " + contextNodeStack);
+            _logger.debug(currentEvent);
+        }
+
+        switch (currentEvent.getType())
+        {
+        case NODE:
+            // push context node
+            SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
+            openContext(newContextNode, visitor);
+            break;
+        case FUNCTION:
+            SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
+            evalFunction(function, visitor);
+            break;
+        case DATA_LINE:
+
+            // pop the context stack up to the node with stream data node occurrence
+            while (!contextNodeStack.isEmpty())
             {
-            case NODE:
-                // push context node
-                SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
-                openContext(newContextNode, visitor);
-                break;
-            case FUNCTION:
-                SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
-                evalFunction(function, visitor);
-                break;
-            case DATA_LINE:
-
-                // pop the context stack up to the node with stream data node occurrence
-                while (!contextNodeStack.isEmpty())
+                SilkNode node = contextNodeStack.peekLast();
+                if (!node.getOccurrence().isFollowedByStreamData())
                 {
-                    SilkNode node = contextNodeStack.peekLast();
-                    if (!node.getOccurrence().isFollowedByStreamData())
-                    {
-                        contextNodeStack.removeLast();
-                        leave(node.getName());
-                    }
-                    else
-                        break;
-                }
-
-                if (contextNodeStack.isEmpty())
-                {
-                    // row(c1, c2, ...) 
-                    SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-                    String[] columns = line.getDataLine().trim().split("\t");
-                    int index = 1;
-                    visit("row", null);
-                    for (String each : columns)
-                    {
-                        String columnName = String.format("c%d", index++);
-                        visitor.visitNode(columnName, each, this);
-                        visitor.leaveNode(columnName, this);
-                    }
-                    leave("row");
+                    contextNodeStack.removeLast();
+                    leave(node.getName());
                 }
                 else
+                    break;
+            }
+
+            if (contextNodeStack.isEmpty())
+            {
+                // row(c1, c2, ...) 
+                SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
+                String[] columns = line.getDataLine().trim().split("\t");
+                int index = 1;
+                visit("row", null);
+                for (String each : columns)
                 {
+                    String columnName = String.format("c%d", index++);
+                    visitor.visitNode(columnName, each, this);
+                    visitor.leaveNode(columnName, this);
+                }
+                leave("row");
+            }
+            else
+            {
 
-                    SilkNode schema = contextNodeStack.peekLast();
-                    SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-                    switch (schema.getOccurrence())
+                SilkNode schema = contextNodeStack.peekLast();
+                SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
+                switch (schema.getOccurrence())
+                {
+                case SEQUENCE:
+                    text(line.getDataLine().trim());
+                    break;
+                case TABBED_SEQUENCE:
+                {
+                    String[] columns = line.getDataLine().trim().split("\t");
+                    int columnIndex = 0;
+                    visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
+                    for (int i = 0; i < schema.getChildNodes().size(); i++)
                     {
-                    case SEQUENCE:
-                        text(line.getDataLine().trim());
-                        break;
-                    case TABBED_SEQUENCE:
-                    {
-                        String[] columns = line.getDataLine().trim().split("\t");
-                        int columnIndex = 0;
-                        visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
-                        for (int i = 0; i < schema.getChildNodes().size(); i++)
+                        SilkNode child = schema.getChildNodes().get(i);
+                        if (child.hasValue())
                         {
-                            SilkNode child = schema.getChildNodes().get(i);
-                            if (child.hasValue())
+                            visit(child.getName(), child.getValue().toString());
+                            leave(child.getName());
+                        }
+                        else
+                        {
+                            if (columnIndex < columns.length)
                             {
-                                visit(child.getName(), child.getValue().toString());
-                                leave(child.getName());
-                            }
-                            else
-                            {
-                                if (columnIndex < columns.length)
+                                String columnData = columns[columnIndex++];
+                                String dataType = child.getDataType();
+                                if (dataType != null && dataType.equalsIgnoreCase("json"))
                                 {
-                                    String columnData = columns[columnIndex++];
-                                    String dataType = child.getDataType();
-                                    if (dataType != null && dataType.equalsIgnoreCase("json"))
+                                    try
                                     {
-                                        try
+                                        JSONValue json = JSONUtil.parseJSON(columnData);
+                                        if (json.getJSONObject() != null)
                                         {
-                                            JSONValue json = JSONUtil.parseJSON(columnData);
-                                            if (json.getJSONObject() != null)
-                                            {
-                                                visit(child.getName(), null);
-                                                walkJSONValue(json, child.getName());
-                                                leave(child.getName());
-                                            }
-                                            else
-                                                walkJSONValue(json, child.getName());
+                                            visit(child.getName(), null);
+                                            walkJSONValue(json, child.getName());
+                                            leave(child.getName());
                                         }
-                                        catch (JSONException e)
-                                        {
-                                            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s",
-                                                    parser.getLine(), e.getMessage()));
-                                        }
+                                        else
+                                            walkJSONValue(json, child.getName());
+                                    }
+                                    catch (JSONException e)
+                                    {
+                                        throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser
+                                                .getLine(), e.getMessage()));
+                                    }
 
-                                    }
-                                    else
-                                    {
-                                        visit(child.getName(), columnData);
-                                        leave(child.getName());
-                                    }
+                                }
+                                else
+                                {
+                                    visit(child.getName(), columnData);
+                                    leave(child.getName());
                                 }
                             }
                         }
-                        leave(schema.getName());
-                        break;
                     }
-                    }
+                    leave(schema.getName());
+                    break;
                 }
-                break;
-            case BLANK_LINE:
-                break;
-
+                }
             }
+            break;
+        case BLANK_LINE:
+            break;
 
         }
-
-        closeUpTo(indentationOffset);
 
     }
 
