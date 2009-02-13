@@ -28,8 +28,8 @@ package org.xerial.util.io;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.EncoderException;
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 
 /**
  * Provides Base64 encoding and decoding as defined by RFC 2045.
@@ -630,11 +630,12 @@ public class Base64
      * @throws DecoderException
      *             if the parameter supplied is not of type byte[]
      */
-    public Object decode(Object pObject) throws DecoderException
+    public Object decode(Object pObject) throws XerialException
     {
         if (!(pObject instanceof byte[]))
         {
-            throw new DecoderException("Parameter supplied to Base64 decode is not a byte[]");
+            throw new XerialException(XerialErrorCode.DECODE_ERROR,
+                    "Parameter supplied to Base64 decode is not a byte[]");
         }
         return decode((byte[]) pObject);
     }
@@ -828,11 +829,12 @@ public class Base64
      * @throws EncoderException
      *             if the parameter supplied is not of type byte[]
      */
-    public Object encode(Object pObject) throws EncoderException
+    public Object encode(Object pObject) throws XerialException
     {
         if (!(pObject instanceof byte[]))
         {
-            throw new EncoderException("Parameter supplied to Base64 encode is not a byte[]");
+            throw new XerialException(XerialErrorCode.ENCODE_ERROR,
+                    "Parameter supplied to Base64 encode is not a byte[]");
         }
         return encode((byte[]) pObject);
     }

@@ -49,9 +49,10 @@ public class SilkWalkerTest
 
     public static TreeWalkLog walk(String silkFile) throws IOException, XerialException
     {
-        SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, silkFile));
+        SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, silkFile));
         TreeWalkLog l1 = new TreeWalkLog();
         walker.walk(l1);
+        _logger.info(l1.toString());
         return l1;
     }
 

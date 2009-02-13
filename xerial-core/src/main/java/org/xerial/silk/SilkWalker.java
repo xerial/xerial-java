@@ -221,7 +221,7 @@ public class SilkWalker implements TreeWalker
 
         while (!contextNodeStack.isEmpty())
         {
-            SilkNode node = contextNodeStack.peek();
+            SilkNode node = contextNodeStack.peekLast();
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
