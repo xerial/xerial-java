@@ -33,9 +33,12 @@ import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.log.Logger;
 
 public class RedBlackTreeTest
 {
+    private static Logger _logger = Logger.getLogger(RedBlackTreeTest.class);
+
     RedBlackTree<Integer, String> t = new RedBlackTree<Integer, String>();
 
     @Before
@@ -114,7 +117,7 @@ public class RedBlackTreeTest
         StopWatch timer = new StopWatch();
         for (int i = 0; i < N; ++i)
             rt.put(r.nextInt(), null);
-        System.out.println("LLRB: " + timer.getElapsedTime());
+        _logger.debug("LLRB: " + timer.getElapsedTime());
         rt.clear();
 
         TreeMap<Integer, String> tm = new TreeMap<Integer, String>();
@@ -122,7 +125,7 @@ public class RedBlackTreeTest
         timer.reset();
         for (int i = 0; i < N; ++i)
             tm.put(r.nextInt(), null);
-        System.out.println("RB:   " + timer.getElapsedTime());
+        _logger.debug("RB:   " + timer.getElapsedTime());
 
     }
 

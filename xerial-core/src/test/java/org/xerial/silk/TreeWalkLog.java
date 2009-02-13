@@ -206,7 +206,7 @@ public class TreeWalkLog implements TreeVisitor
             EventLog e1 = i1.next();
             EventLog e2 = i2.next();
 
-            _logger.info(String.format("compare: %-20s %-20s", e1, e2));
+            _logger.debug(String.format("compare: %-20s %-20s", e1, e2));
             if (!e1.equals(e2) && compareFlag)
             {
                 _logger.warn("--- do not match");

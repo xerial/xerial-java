@@ -52,7 +52,7 @@ public class SilkPullParserTest
         while (p.hasNext())
         {
             SilkEvent e = p.next();
-            _logger.info(e);
+            _logger.debug(e);
         }
     }
 

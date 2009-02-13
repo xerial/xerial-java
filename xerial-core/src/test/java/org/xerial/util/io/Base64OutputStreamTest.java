@@ -61,7 +61,7 @@ public class Base64OutputStreamTest
             out.write(buffer, 0, readBytes);
         }
 
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
 
     }
 

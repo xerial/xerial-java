@@ -52,7 +52,7 @@ public class SilkReaderTest
         SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "suzaku-config.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class SilkReaderTest
         SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "example.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class SilkReaderTest
         SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "small.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
 }

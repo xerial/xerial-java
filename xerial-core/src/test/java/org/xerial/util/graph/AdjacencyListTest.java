@@ -201,7 +201,7 @@ public class AdjacencyListTest
     @Test
     public void testToGraphviz()
     {
-        _logger.info(al.toGraphViz());
+        _logger.debug(al.toGraphViz());
     }
 
 }

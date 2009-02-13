@@ -67,7 +67,7 @@ public class ImportTest
         TreeWalkLog l1 = new TreeWalkLog();
 
         walker.walk(l1);
-        _logger.info(l1);
+        _logger.debug(l1);
 
         return l1;
     }

@@ -52,7 +52,7 @@ public class SilkWalkerTest
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, silkFile));
         TreeWalkLog l1 = new TreeWalkLog();
         walker.walk(l1);
-        _logger.info(l1.toString());
+        _logger.debug(l1.toString());
         return l1;
     }
 

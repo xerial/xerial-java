@@ -98,7 +98,7 @@ public class Import implements SilkFunctionPlugin
 
     public void loadBinary(URL path, SilkEnv env) throws IOException, XerialException
     {
-        env.getLogger().info("load binary: " + path);
+        env.getLogger().debug("load binary: " + path);
 
         InputStream source = path.openStream();
         BufferedInputStream in = new BufferedInputStream(source);

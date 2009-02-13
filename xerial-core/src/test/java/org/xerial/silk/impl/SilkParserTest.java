@@ -57,10 +57,10 @@ public class SilkParserTest
         SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource.open(SilkParserTest.class, filePath)));
         CommonTokenStream token = new CommonTokenStream(lexer);
         Map<Integer, String> tokenTable = ANTLRUtil.getTokenTable(SilkLexer.class, "Silk.tokens");
-        _logger.info("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
+        _logger.debug("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
         SilkParser parser = new SilkParser(token);
         SilkParser.silkFile_return ret = parser.silkFile();
-        _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+        _logger.debug("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class SilkParserTest
         while (token.LT(1) != Token.EOF_TOKEN)
         {
             SilkParser.silkLine_return ret = parser.silkLine();
-            _logger.info("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
+            _logger.debug("\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), parser.getTokenNames()));
         }
 
     }
