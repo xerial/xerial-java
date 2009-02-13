@@ -125,6 +125,9 @@ public class SilkWalkerTest
             @Override
             public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
             {
+                if (nodeName.equals("p1") || nodeName.equals("p2") || nodeName.equals("id") || nodeName.equals("name"))
+                    Assert.fail("node " + nodeName + " must be skipped");
+
                 if (nodeName.equals("data") || nodeName.equals("node2"))
                     walker.skipDescendants();
 
