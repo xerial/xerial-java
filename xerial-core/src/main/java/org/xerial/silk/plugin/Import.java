@@ -111,7 +111,9 @@ public class Import implements SilkFunctionPlugin
             Base64OutputStream base64out = new Base64OutputStream(base64buffer);
             base64out.write(buffer, 0, readBytes);
             base64out.flush();
-            env.getTreeVisitor().text(new String(base64buffer.toByteArray()));
+            String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
+            for (String each : fragment)
+                env.getTreeVisitor().text(each);
         }
 
     }

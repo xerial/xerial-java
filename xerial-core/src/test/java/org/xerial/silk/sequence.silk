@@ -1,0 +1,13 @@
+
+-coordinate(group:utgb, type:chromosome, species:human, revision:hg18)
+ -coordinate.name:chr1
+  -sequence(name, start, strand, sequence, param[json])|
+TAG1	100	+	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	{"link":"http://somewhere.org/", description="reference sequence"}
+TAG2	100	-	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
+
+ -coordinate.name:chr2
+  -sequence(name, start, strand, sequence, param[json])|
+TAG3	100	-	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	
+TAG4	100	+	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
+
+ 

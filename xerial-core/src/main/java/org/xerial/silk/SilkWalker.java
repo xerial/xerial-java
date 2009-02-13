@@ -249,6 +249,7 @@ public class SilkWalker implements TreeWalker
         {
             SilkFunction function = SilkFunction.class.cast(textValue);
             evalFunction(function, visitor);
+            visitor.leaveNode(nodeName, null, null);
             return;
         }
 
@@ -392,8 +393,11 @@ public class SilkWalker implements TreeWalker
                             }
                             else
                             {
-                                visitor.visitNode(child.getName(), this);
-                                visitor.leaveNode(child.getName(), columns[columnIndex++], this);
+                                if (columnIndex < columns.length)
+                                {
+                                    visitor.visitNode(child.getName(), this);
+                                    visitor.leaveNode(child.getName(), columns[columnIndex++], this);
+                                }
                             }
                         }
 

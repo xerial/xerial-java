@@ -106,6 +106,12 @@ public class SilkWalkerTest
     public void testFunc() throws Exception
     {
         TreeWalkLog l = walk("func.silk");
-        _logger.info("\n" + l);
     }
+
+    @Test
+    public void testGeneSequence() throws Exception
+    {
+        TreeWalkLog l = walk("sequence.silk");
+    }
+
 }

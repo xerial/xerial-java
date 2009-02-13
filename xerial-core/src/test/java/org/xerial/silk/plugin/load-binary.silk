@@ -1,3 +1,4 @@
 -image
  -name: test image
  -binary: @import(icon.png)
+ -description: icon file

@@ -52,16 +52,24 @@ public class ImportTest
 
     public void compare(String silkFile, String jsonFile) throws IOException, XerialException
     {
-        SilkWalker walker = new SilkWalker(FileResource.find(ImportTest.class, silkFile));
-        TreeWalkLog l1 = new TreeWalkLog();
+        TreeWalkLog l1 = walk(silkFile);
         TreeWalkLog l2 = new TreeWalkLog();
-
-        walker.walk(l1);
 
         JSONStreamWalker jWalker = new JSONStreamWalker(FileResource.open(ImportTest.class, jsonFile));
         jWalker.walk(l2);
 
         Assert.assertTrue(TreeWalkLog.compare(l1, l2));
+    }
+
+    public TreeWalkLog walk(String silkFile) throws IOException, XerialException
+    {
+        SilkWalker walker = new SilkWalker(FileResource.find(ImportTest.class, silkFile));
+        TreeWalkLog l1 = new TreeWalkLog();
+
+        walker.walk(l1);
+        _logger.info(l1);
+
+        return l1;
     }
 
     @Test
@@ -83,4 +91,11 @@ public class ImportTest
     {
         compare("load-binary.silk", "load-binary.json");
     }
+
+    @Test
+    public void testBinary() throws Exception
+    {
+        walk("load-binary.silk");
+    }
+
 }
