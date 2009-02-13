@@ -476,7 +476,7 @@ public class SilkWalker implements TreeWalker
     private void step() throws XerialException
     {
         currentEvent = next();
-        _logger.info("step: " + currentEvent);
+        //_logger.info("step: " + currentEvent);
 
         switch (currentEvent.event)
         {
