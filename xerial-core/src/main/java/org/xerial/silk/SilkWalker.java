@@ -307,12 +307,17 @@ public class SilkWalker implements TreeWalker
         TreeVisitor parentVisitor = this.visitor;
         this.visitor = builder;
 
-        while (!builder.hasFinished())
+        try
         {
-            step();
+            while (!builder.hasFinished())
+            {
+                step();
+            }
         }
-
-        this.visitor = parentVisitor;
+        finally
+        {
+            this.visitor = parentVisitor;
+        }
 
         return builder.getSubtreeRoot();
     }
