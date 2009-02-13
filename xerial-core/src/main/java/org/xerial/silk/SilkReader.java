@@ -25,10 +25,8 @@
 package org.xerial.silk;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
@@ -47,16 +45,11 @@ import org.xerial.util.tree.TreeWalker;
  */
 public class SilkReader
 {
-    private Reader input;
+    private final URL url;
 
-    public SilkReader(InputStream input)
+    public SilkReader(URL url)
     {
-        this.input = new InputStreamReader(input);
-    }
-
-    public SilkReader(Reader input)
-    {
-        this.input = input;
+        this.url = url;
     }
 
     /**
@@ -68,7 +61,7 @@ public class SilkReader
      */
     public Writer toJSON(Writer out) throws IOException, XerialException
     {
-        SilkWalker walker = new SilkWalker(input);
+        SilkWalker walker = new SilkWalker(url);
         JSONBuilder jsonBuilder = new JSONBuilder();
         walker.walk(jsonBuilder);
         JSONArray root = jsonBuilder.getRoot();

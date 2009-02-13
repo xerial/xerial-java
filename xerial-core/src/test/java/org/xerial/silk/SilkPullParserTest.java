@@ -67,4 +67,10 @@ public class SilkPullParserTest
     {
         pull("func.silk");
     }
+
+    @Test
+    public void testGeneSequence() throws Exception
+    {
+        pull("sequence.silk");
+    }
 }

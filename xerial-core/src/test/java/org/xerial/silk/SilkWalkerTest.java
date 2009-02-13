@@ -58,7 +58,7 @@ public class SilkWalkerTest
 
     public void compare(String silkFile, String jsonFile) throws IOException, XerialException
     {
-        SilkWalker walker = new SilkWalker(FileResource.open(SilkWalkerTest.class, silkFile));
+        SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, silkFile));
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
 
@@ -93,6 +93,7 @@ public class SilkWalkerTest
     @Test
     public void testExample() throws Exception
     {
+        // TODO modify JSON stream walker to handle value as an immediate node value
         compare("example.silk", "example.json");
     }
 

@@ -32,6 +32,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.junit.Test;
+import org.xerial.core.XerialError;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
@@ -95,7 +96,7 @@ public class JSONWriterTest
         assertEquals("yyy", p.getPhoneList().get(1));
     }
 
-    @Test
+    @Test(expected = XerialError.class)
     public void testInvalidJSONData() throws IOException, JSONException, BeanException
     {
         StringWriter writer = new StringWriter();

@@ -1,15 +1,15 @@
-@import(file.silk)
+@import(small.silk)
 
 # function option arguments
-@import(file.silk, head:1)
+@import(small.silk, head:1)
 
 # inline import 
-- photo: @import(sample.jpg)
+- photo: @import(plugin/icon.png)
 
 # annotate tab-separated data
 - gene(id, name)|
-@import(gene.tab)
+@import(plugin/gene.tab)
 
 # with indentation
 - gene
- @import(gene.silk)
+ @import(tab.silk)

@@ -24,35 +24,48 @@
 //--------------------------------------
 package org.xerial.json;
 
+public class JSONUtil
+{
 
-public class JSONUtil {
+    // non constractable
+    private JSONUtil()
+    {}
 
-	// non constractable
-	private JSONUtil() {}
-	
-	public static JSONValue toJSONValue(Object value) throws JSONException
-	{
-		if(value == null)
-			return new JSONNull();
-		
-		if(value instanceof JSONValue)
-			return (JSONValue) value;
-		else if(value instanceof String)
-			return new JSONString((String) value);
-		else if(value instanceof Integer)
-			return new JSONInteger((Integer) value);
-		else if(value instanceof Double)
-			return new JSONDouble((Double) value);
-		else if(value instanceof Float)
-			return new JSONDouble((Float) value);
-		else
-			throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve " + value + " type as JSONValue");
-	
-	}
-	
-	
+    public static JSONValue toJSONValue(Object value) throws JSONException
+    {
+        if (value == null)
+            return new JSONNull();
+
+        if (value instanceof JSONValue)
+            return (JSONValue) value;
+        else if (value instanceof String)
+            return new JSONString((String) value);
+        else if (value instanceof Integer)
+            return new JSONInteger((Integer) value);
+        else if (value instanceof Double)
+            return new JSONDouble((Double) value);
+        else if (value instanceof Float)
+            return new JSONDouble((Float) value);
+        else
+            throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve " + value
+                    + " type as JSONValue");
+
+    }
+
+    public static JSONValue parseJSON(String jsonObjectOrArray) throws JSONException
+    {
+        String json = jsonObjectOrArray.trim();
+        if (json.startsWith("{"))
+        {
+            return new JSONObject(json);
+        }
+        else if (json.startsWith("["))
+        {
+            return new JSONArray(json);
+        }
+        else
+            throw new JSONException(JSONErrorCode.InvalidJSONData, "json data must start with { or [");
+
+    }
+
 }
-
-
-
-

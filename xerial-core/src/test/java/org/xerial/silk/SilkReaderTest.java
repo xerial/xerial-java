@@ -49,7 +49,7 @@ public class SilkReaderTest
     @Test
     public void testToJSON() throws IOException, XerialException
     {
-        SilkReader reader = new SilkReader(FileResource.open(SilkReaderTest.class, "suzaku-config.silk"));
+        SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "suzaku-config.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
         _logger.info(buf.toString());
@@ -58,7 +58,7 @@ public class SilkReaderTest
     @Test
     public void testToJSON2() throws IOException, XerialException
     {
-        SilkReader reader = new SilkReader(FileResource.open(SilkReaderTest.class, "example.silk"));
+        SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "example.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
         _logger.info(buf.toString());
@@ -67,7 +67,7 @@ public class SilkReaderTest
     @Test
     public void testToJSON3() throws IOException, XerialException
     {
-        SilkReader reader = new SilkReader(FileResource.open(SilkReaderTest.class, "small.silk"));
+        SilkReader reader = new SilkReader(FileResource.find(SilkReaderTest.class, "small.silk"));
         StringWriter buf = new StringWriter();
         reader.toJSON(buf);
         _logger.info(buf.toString());

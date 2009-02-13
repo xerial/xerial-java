@@ -41,13 +41,6 @@
   -gene(id, name)|
 4	gene4
 
-# describe nesting in a line
--chr:chr1(gene(id,name))|
-1	gene1
-2	gene2
-3	gene3
--chr:chr2(gene(id, name))|
-4	gene4
 
 # nested structure. relative depth of the indentation determines the nest level
 - paper(id:1)
@@ -119,7 +112,7 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 
 # array construct with indentation
 -gene
- - exon(start,end)[csv]>
+ - exon[csv](start,end)>
    850983, 851043
    851164, 851256
 
@@ -148,5 +141,5 @@ jnDIQN7zBfM0LePAue186X3+AB6A8ZbHAwAA
 -"long parameter name":"quoted value"
 
 # @-mark denotes function 
--@import(somefile.silk)
+#-@import(somefile.silk)
 

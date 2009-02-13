@@ -261,7 +261,7 @@ nodeValue
 	| JSON 
 	; 
 
-nodeItem: nodeName (Colon nodeValue)? (LParen attributeList RParen)? dataType? plural?
+nodeItem: nodeName dataType? (Colon nodeValue)? (LParen attributeList RParen)?  plural?
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
 	;
 

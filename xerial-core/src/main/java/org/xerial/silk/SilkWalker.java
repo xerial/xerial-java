@@ -41,7 +41,9 @@ import java.util.TreeMap;
 
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
+import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
+import org.xerial.json.JSONUtil;
 import org.xerial.json.JSONValue;
 import org.xerial.json.JSONValueType;
 import org.xerial.silk.impl.SilkDataLine;
@@ -331,7 +333,11 @@ public class SilkWalker implements TreeWalker
         {
             SilkEvent currentEvent = parser.next();
 
-            //_logger.info("stack: " + contextNodeStack);
+            if (_logger.isDebugEnabled())
+            {
+                _logger.debug("stack: " + contextNodeStack);
+                _logger.debug(currentEvent);
+            }
 
             switch (currentEvent.getType())
             {
@@ -345,6 +351,20 @@ public class SilkWalker implements TreeWalker
                 evalFunction(function, visitor);
                 break;
             case DATA_LINE:
+
+                // pop the context stack up to the node with stream data node occurrence
+                while (!contextNodeStack.isEmpty())
+                {
+                    SilkNode node = contextNodeStack.peekLast();
+                    if (!node.getOccurrence().isFollowedByStreamData())
+                    {
+                        contextNodeStack.removeLast();
+                        visitor.leaveNode(node.getName(), this);
+                    }
+                    else
+                        break;
+                }
+
                 if (contextNodeStack.isEmpty())
                 {
                     // row(c1, c2, ...) 
@@ -362,9 +382,9 @@ public class SilkWalker implements TreeWalker
                 }
                 else
                 {
+
                     SilkNode schema = contextNodeStack.peekLast();
                     SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-
                     switch (schema.getOccurrence())
                     {
                     case SEQUENCE:
@@ -388,8 +408,34 @@ public class SilkWalker implements TreeWalker
                             {
                                 if (columnIndex < columns.length)
                                 {
-                                    visitor.visitNode(child.getName(), columns[columnIndex++], this);
-                                    visitor.leaveNode(child.getName(), this);
+                                    String columnData = columns[columnIndex++];
+                                    String dataType = child.getDataType();
+                                    if (dataType != null && dataType.equalsIgnoreCase("json"))
+                                    {
+                                        try
+                                        {
+                                            JSONValue json = JSONUtil.parseJSON(columnData);
+                                            if (json.getJSONObject() != null)
+                                            {
+                                                visitor.visitNode(child.getName(), null, this);
+                                                walkJSONValue(json, child.getName(), visitor);
+                                                visitor.leaveNode(child.getName(), this);
+                                            }
+                                            else
+                                                walkJSONValue(json, child.getName(), visitor);
+                                        }
+                                        catch (JSONException e)
+                                        {
+                                            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s",
+                                                    parser.getLine(), e.getMessage()));
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        visitor.visitNode(child.getName(), columnData, this);
+                                        visitor.leaveNode(child.getName(), this);
+                                    }
                                 }
                             }
                         }

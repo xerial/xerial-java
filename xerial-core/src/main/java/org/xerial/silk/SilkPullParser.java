@@ -63,6 +63,7 @@ public class SilkPullParser
     private final SilkLexer lexer;
     private CommonTokenStream tokenStream;
     private SilkParser parser;
+    private int lineCount = 0;
 
     private boolean foundEOF = false;
 
@@ -127,6 +128,7 @@ public class SilkPullParser
         try
         {
             silkLine_return ret = parser.silkLine();
+            lineCount++;
             Tree t = (Tree) ret.getTree();
             switch (t.getType())
             {
@@ -162,6 +164,11 @@ public class SilkPullParser
             throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format("parse error line=%d: %s", e.line, e
                     .getMessage()));
         }
+    }
+
+    public int getLine()
+    {
+        return lineCount;
     }
 
 }

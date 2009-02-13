@@ -47,7 +47,7 @@ public class TreeWalkLog implements TreeVisitor
     private static Logger _logger = Logger.getLogger(TreeWalkLog.class);
 
     public static enum Event {
-        INIT, FINISH, VISIT, LEAVE, TEXT
+        INIT, FINISH, VISIT, LEAVE
     }
 
     public static class EventLog
@@ -118,6 +118,7 @@ public class TreeWalkLog implements TreeVisitor
 
     private Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
     private final StringBuilder EMPTY_BUFFER = new StringBuilder(0);
+    private String pendingVisitNode = null;
 
     public void finish(TreeWalker walker) throws XerialException
     {
@@ -135,8 +136,7 @@ public class TreeWalkLog implements TreeVisitor
         if (nodeName == null)
             return; // skip empty node leave (e.g. JSON Object root bracket)
 
-        if (textStack.peekLast() != EMPTY_BUFFER)
-            log.add(new EventLog(Event.TEXT, null, textStack.peekLast().toString()));
+        popPendingNode();
 
         log.add(new EventLog(Event.LEAVE, nodeName, null));
         textStack.removeLast();
@@ -152,14 +152,32 @@ public class TreeWalkLog implements TreeVisitor
         textStack.peekLast().append(textDataFragment);
     }
 
+    private void popPendingNode()
+    {
+        if (pendingVisitNode != null)
+        {
+            if (textStack.peekLast() != EMPTY_BUFFER)
+                log.add(new EventLog(Event.VISIT, pendingVisitNode, textStack.peekLast().toString()));
+            else
+                log.add(new EventLog(Event.VISIT, pendingVisitNode, null));
+
+            pendingVisitNode = null;
+        }
+    }
+
     public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
     {
+        popPendingNode();
+
         if (nodeName == null)
             return; // skip empty node visit (e.g. JSON Object root bracket)
 
-        log.add(new EventLog(Event.VISIT, nodeName, immediateNodeValue));
+        pendingVisitNode = nodeName;
 
-        textStack.addLast(EMPTY_BUFFER);
+        if (immediateNodeValue != null)
+            textStack.addLast(new StringBuilder(immediateNodeValue));
+        else
+            textStack.addLast(EMPTY_BUFFER);
     }
 
     public List<EventLog> getLog()
