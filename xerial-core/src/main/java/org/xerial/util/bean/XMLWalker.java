@@ -136,7 +136,7 @@ public class XMLWalker implements TreeWalker
                                 break;
                         }
                         String text = textStack.getLast().toString();
-                        visitor.text(text.trim());
+                        visitor.text(text.trim(), this);
                         visitor.leaveNode(pullParser.getName(), this);
                         textStack.removeLast();
                     }

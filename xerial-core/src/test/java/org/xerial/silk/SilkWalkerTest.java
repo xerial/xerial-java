@@ -34,6 +34,8 @@ import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitorBase;
+import org.xerial.util.tree.TreeWalker;
 
 public class SilkWalkerTest
 {
@@ -113,6 +115,30 @@ public class SilkWalkerTest
     public void testGeneSequence() throws Exception
     {
         TreeWalkLog l = walk("sequence.silk");
+    }
+
+    @Test
+    public void testSkipDescendants() throws Exception
+    {
+        SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));
+        walker.walk(new TreeVisitorBase() {
+            @Override
+            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+            {
+                if (nodeName.equals("data") || nodeName.equals("node2"))
+                    walker.skipDescendants();
+
+                _logger.info("visit: " + nodeName);
+            }
+
+            @Override
+            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+            {
+                _logger.info("leave: " + nodeName);
+            }
+
+        });
+
     }
 
 }

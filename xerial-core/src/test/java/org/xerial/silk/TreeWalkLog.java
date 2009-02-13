@@ -142,7 +142,7 @@ public class TreeWalkLog implements TreeVisitor
         textStack.removeLast();
     }
 
-    public void text(String textDataFragment) throws XerialException
+    public void text(String textDataFragment, TreeWalker walker) throws XerialException
     {
         if (textStack.peekLast() == EMPTY_BUFFER)
         {

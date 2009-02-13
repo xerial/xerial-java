@@ -62,7 +62,7 @@ public interface TreeVisitor
      *            text data fragment
      * @throws XerialException
      */
-    public void text(String textDataFragment) throws XerialException;
+    public void text(String textDataFragment, TreeWalker walker) throws XerialException;
 
     /**
      * Invoked when leaving a node (in the depth-first manner)

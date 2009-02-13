@@ -104,7 +104,7 @@ public class MapWalkerTest
 
             }
 
-            public void text(String nodeValue) throws XerialException
+            public void text(String nodeValue, TreeWalker walker) throws XerialException
             {
             // TODO Auto-generated method stub
 

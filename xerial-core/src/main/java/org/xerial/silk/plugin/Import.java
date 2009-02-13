@@ -74,10 +74,18 @@ public class Import implements SilkFunctionPlugin
                 walker.walkWithoutInitAndFinish(env.getTreeVisitor());
                 break;
             }
+            case JPEG:
+            case GIF:
+            case BMP:
+            case PDF:
+            case PS:
+            case TIFF:
+            case WORD:
+            case EXCEL:
+            case POWER_POINT:
             case PNG:
             {
                 loadBinary(new URL(url), env);
-
             }
                 break;
             default:
@@ -113,7 +121,7 @@ public class Import implements SilkFunctionPlugin
             base64out.flush();
             String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
             for (String each : fragment)
-                env.getTreeVisitor().text(each);
+                env.getTreeVisitor().text(each, env.getTreeWalker());
         }
 
     }

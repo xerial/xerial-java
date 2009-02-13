@@ -381,7 +381,7 @@ public class BeanBindingProcess implements TreeVisitor
 
     }
 
-    public void text(String nodeValue) throws XerialException
+    public void text(String nodeValue, TreeWalker walker) throws XerialException
     {
         StringBuilder textBuffer = textStack.peekLast();
         if (textBuffer == EMPTY_TEXT_BUILDER)

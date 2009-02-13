@@ -51,7 +51,7 @@ public class TreeVisitorBase implements TreeVisitor
 
     }
 
-    public void text(String textDataFragment) throws XerialException
+    public void text(String textDataFragment, TreeWalker walker) throws XerialException
     {
 
     }

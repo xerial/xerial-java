@@ -92,7 +92,7 @@ public class XMLWalkerTest
 
             }
 
-            public void text(String nodeValue) throws XerialException
+            public void text(String nodeValue, TreeWalker walker) throws XerialException
             {
                 _logger.debug("text:  " + nodeValue);
 

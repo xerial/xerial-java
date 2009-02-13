@@ -162,7 +162,7 @@ public class SilkReader
             textStack.removeLast();
         }
 
-        public void text(String textDataFragment) throws XerialException
+        public void text(String textDataFragment, TreeWalker walker) throws XerialException
         {
             getTextBuilder().append(textDataFragment);
         }
