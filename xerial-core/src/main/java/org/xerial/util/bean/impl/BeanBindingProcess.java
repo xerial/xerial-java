@@ -86,28 +86,24 @@ public class BeanBindingProcess implements TreeVisitor
      *  [1] visit(B)
      *  [1] leave(B) 
      *  [1] visit(D) 
-     *   [2] visit(key)
-     *   [2] leave(key) "k1"
+     *   [2] visit(key) "k1"
+     *   [2] leave(key) 
      *  
-     *   [2] visit(value)
-     *   [2] leave(value) "v1"
-     *   (or
-     *    [2] visit(D) 
-     *    [2] leave(D) "v1"
-     *   )
+     *   [2] visit(value) "v1"
+     *   [2] leave(value) 
      *  [1] leave(D) A.putD(KeyValue("k1", "v1"))
      * 
      *  [1] visit(D)
-     *   [2] visit(key) 
-     *   [2] leave(key) "k2"
-     *   [2] visit(value)
-     *   [2] leave(value) "v2"
+     *   [2] visit(key) "k2"
+     *   [2] leave(key) 
+     *   [2] visit(value) "v2"
+     *   [2] leave(value)
      *  [1] leave(D) A.putD(KeyValue("k2", "v2"))
      *  
-     *  [1] visit(G)
-     *  [1] leave(G) 1
-     *  [1] visit(G)
-     *  [1] leave(G) 2
+     *  [1] visit(G) 1
+     *  [1] leave(G) 
+     *  [1] visit(G) 2
+     *  [1] leave(G)
      * [0] leave(A)
      * 
      * 
@@ -222,13 +218,13 @@ public class BeanBindingProcess implements TreeVisitor
         Object parentBean = getContextBean(nodeLevel - 1);
 
         // prepare the context bean for this depth
-        Object bean = getContextBean(nodeLevel);
-        if (bean == null)
+        Object nodeValueBean = getContextBean(nodeLevel);
+        if (nodeValueBean == null)
         {
             assert (currentLevel > 0); // the bean cannot be null when level is 0
 
-            BeanBinderSet parentBeanBindRuleSet = getBindRuleSet(parentBean.getClass());
-            BeanUpdator updator = getUpdator(parentBeanBindRuleSet, nodeName);
+            BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
+            BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
             if (updator != null)
             {
                 int targetArgIndex = 0;
@@ -259,6 +255,7 @@ public class BeanBindingProcess implements TreeVisitor
                     {
                         // this bean can be generated directly from the element text value, so
                         // there is no need to instantiate the object here.
+                        bindValue(parentBean, nodeName, nodeValue, nodeLevel);
                         break;
                     }
                     else if (TypeInformation.isMap(elementType))
@@ -287,6 +284,9 @@ public class BeanBindingProcess implements TreeVisitor
                         Object newBean = BeanUtil.createInstance(elementType);
                         setContextBean(nodeLevel, newBean);
                     }
+                    else
+                        bindValue(parentBean, nodeName, nodeValue, nodeLevel);
+
                     break;
                 case MAP_PUTTER:
                     MapPutter mapPutter = MapPutter.class.cast(updator);
@@ -306,8 +306,6 @@ public class BeanBindingProcess implements TreeVisitor
             }
 
         }
-
-        bindValue(parentBean, nodeName, nodeValue, nodeLevel);
 
     }
 

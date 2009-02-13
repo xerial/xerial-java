@@ -58,6 +58,12 @@ public class KeyValuePair
         this.valueClass = valueType;
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("%s=>%s", key, value);
+    }
+
     public boolean hasKeyAndValue()
     {
         return key != null && value != null;
