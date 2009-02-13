@@ -670,6 +670,9 @@ public class SilkWalker implements TreeWalker
         case BLANK_LINE:
             break;
 
+        case PREAMBLE:
+            break;
+
         }
 
     }
