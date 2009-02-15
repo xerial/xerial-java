@@ -107,12 +107,19 @@ public class XMLGenerator
         }
     }
 
+    public static String replaceWhiteSpaces(String tagName)
+    {
+        return tagName.replaceAll("\\s+", "_");
+    }
+
     public XMLGenerator startTag(String tagName, XMLAttribute attribute)
     {
         beforeStartTag();
 
+        String tag = replaceWhiteSpaces(tagName);
+
         _out.print("<");
-        _out.print(tagName);
+        _out.print(tag);
 
         if (attribute != null && attribute.length() > 0)
         {
@@ -122,7 +129,7 @@ public class XMLGenerator
         _out.print(">");
 
         _currentLevel++;
-        _tagStack.add(tagName);
+        _tagStack.add(tag);
         _prevOut = PreviousOutput.StartTag;
 
         return this;

@@ -79,8 +79,9 @@ public class XMLAttribute
 
     public XMLAttribute add(String attributeName, String attributeValue)
     {
-        _attributeNameList.add(attributeName);
-        _attributeValue.put(attributeName, attributeValue);
+        String name = XMLGenerator.replaceWhiteSpaces(attributeName);
+        _attributeNameList.add(name);
+        _attributeValue.put(name, attributeValue);
         return this;
     }
 
@@ -119,7 +120,7 @@ public class XMLAttribute
         Set< ? > keySet = properties.keySet();
         for (Object attributeObj : keySet)
         {
-            String attribute = attributeObj.toString();
+            String attribute = XMLGenerator.replaceWhiteSpaces(attributeObj.toString());
             String value = properties.getProperty(attribute);
             this.add(attribute, value);
         }
@@ -130,7 +131,7 @@ public class XMLAttribute
         Set< ? > keySet = properties.keySet();
         for (Object attributeObj : keySet)
         {
-            String attribute = attributeObj.toString();
+            String attribute = XMLGenerator.replaceWhiteSpaces(attributeObj.toString());
             String value = properties.get(attribute).toString();
             this.add(attribute, value);
         }
@@ -181,6 +182,6 @@ public class XMLAttribute
             return returnString;
     }
 
-    protected LinkedList<String>      _attributeNameList = new LinkedList<String>();
-    protected HashMap<String, String> _attributeValue    = new HashMap<String, String>();
+    protected LinkedList<String> _attributeNameList = new LinkedList<String>();
+    protected HashMap<String, String> _attributeValue = new HashMap<String, String>();
 }

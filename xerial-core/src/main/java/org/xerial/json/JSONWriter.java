@@ -25,6 +25,7 @@
 package org.xerial.json;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.LinkedList;
@@ -42,7 +43,7 @@ import org.xerial.util.bean.BeanUtil;
  */
 public class JSONWriter
 {
-    private final Writer writer;
+    private final PrintWriter writer;
 
     enum JSONState {
         InObject, InArray, InString, Root, Unknown
@@ -53,7 +54,7 @@ public class JSONWriter
 
     public JSONWriter(Writer writer)
     {
-        this.writer = writer;
+        this.writer = new PrintWriter(writer);
         stateStack.add(JSONState.Root);
         elementCountStack.add(0);
     }
@@ -89,41 +90,41 @@ public class JSONWriter
         elementCountStack.add(++count);
     }
 
-    public void startObject() throws IOException
+    public void startObject()
     {
         if (getCurrentState() == JSONState.InArray)
             putComma();
-        writer.append("{");
+        writer.print("{");
         pushState(JSONState.InObject);
     }
 
-    public void endObject() throws IOException
+    public void endObject()
     {
         if (getCurrentState() != JSONState.InObject)
             throw new XerialError(JSONErrorCode.NotInAJSONObject, "cannot end the object outside of the JSON object");
-        writer.append("}");
+        writer.print("}");
         popState();
 
         if (getCurrentState() == JSONState.InArray)
             incrementElementCount();
     }
 
-    public void startArray() throws IOException
+    public void startArray()
     {
-        writer.append("[");
+        writer.print("[");
         pushState(JSONState.InArray);
     }
 
-    public void endArray() throws IOException
+    public void endArray()
     {
         if (getCurrentState() != JSONState.InArray)
             throw new XerialError(JSONErrorCode.NotInAJSONArray, "cannot end the arry outside of the JSON array");
 
-        writer.append("]");
+        writer.print("]");
         popState();
     }
 
-    public void startString() throws IOException
+    public void startString()
     {
         if (getCurrentState() == JSONState.InArray)
             throw new XerialError(JSONErrorCode.NotInAJSONArray,
@@ -133,14 +134,14 @@ public class JSONWriter
         pushState(JSONState.InString);
     }
 
-    public void startString(String key) throws IOException
+    public void startString(String key)
     {
         outputKeyPart(key);
         writer.append("\"");
         pushState(JSONState.InString);
     }
 
-    public void append(String stringFragment) throws IOException
+    public void append(String stringFragment)
     {
         if (getCurrentState() != JSONState.InString)
             throw new XerialError(JSONErrorCode.NotInAJSONString,
@@ -158,16 +159,16 @@ public class JSONWriter
         popState();
     }
 
-    public void startArray(String key) throws IOException
+    public void startArray(String key)
     {
         if (getCurrentState() != JSONState.InObject)
             throw new XerialError(JSONErrorCode.NotInAJSONObject,
                     "cannot start a keyed array outside of the JSON object");
 
         if (getPreviousElementCount() > 0)
-            writer.append(",");
-        writer.append(doubleQuote(key));
-        writer.append(":[");
+            writer.print(",");
+        writer.print(doubleQuote(key));
+        writer.print(":[");
         incrementElementCount();
         pushState(JSONState.InArray);
     }
@@ -233,10 +234,10 @@ public class JSONWriter
         incrementElementCount();
     }
 
-    private void putComma() throws IOException
+    private void putComma()
     {
         if (getPreviousElementCount() > 0)
-            writer.append(",");
+            writer.print(",");
     }
 
     public void put(String key, String value) throws IOException
@@ -283,6 +284,7 @@ public class JSONWriter
      * @param key
      * @param input
      * @throws IOException
+     * @throws IOException
      */
     public void putString(String key, Reader input) throws IOException
     {
@@ -302,7 +304,7 @@ public class JSONWriter
         incrementElementCount();
     }
 
-    private void outputKeyPart(String key) throws IOException
+    private void outputKeyPart(String key)
     {
         if (getCurrentState() != JSONState.InObject)
             throw new XerialError(JSONErrorCode.NotInAJSONObject,
@@ -313,12 +315,12 @@ public class JSONWriter
         writer.append(":");
     }
 
-    public void flush() throws IOException
+    public void flush()
     {
         writer.flush();
     }
 
-    public void endJSON() throws IOException
+    public void endJSON()
     {
         for (ListIterator<JSONState> it = stateStack.listIterator(stateStack.size()); it.hasPrevious();)
         {

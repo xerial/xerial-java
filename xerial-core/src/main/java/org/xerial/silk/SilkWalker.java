@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
@@ -69,10 +71,6 @@ import org.xerial.util.tree.TreeWalker;
 
 /**
  * {@link TreeWalker} implementation of the Silk format.
- * 
- * <pre>
- * &#064;
- * </pre>
  * 
  * @author leo
  * 
@@ -149,7 +147,7 @@ public class SilkWalker implements TreeWalker
      * @param input
      *            `@throws IOException
      */
-    public SilkWalker(InputStream input) throws IOException
+    protected SilkWalker(InputStream input) throws IOException
     {
         this.parser = new SilkPullParser(input);
         init();
@@ -161,7 +159,7 @@ public class SilkWalker implements TreeWalker
      * @param input
      * @throws IOException
      */
-    public SilkWalker(Reader input) throws IOException
+    protected SilkWalker(Reader input) throws IOException
     {
         this.parser = new SilkPullParser(input);
         init();
@@ -178,12 +176,12 @@ public class SilkWalker implements TreeWalker
         init();
     }
 
-    public SilkWalker(URL resource) throws IOException
+    public SilkWalker(URL resourcePath) throws IOException
     {
-        String path = resource.toExternalForm();
+        String path = resourcePath.toExternalForm();
         int fileNamePos = path.lastIndexOf("/");
         this.resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
-        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
+        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resourcePath.openStream())));
         init();
     }
 
@@ -311,7 +309,7 @@ public class SilkWalker implements TreeWalker
         {
             while (!builder.hasFinished())
             {
-                step();
+                stepNext();
             }
         }
         finally
@@ -322,6 +320,10 @@ public class SilkWalker implements TreeWalker
         return builder.getSubtreeRoot();
     }
 
+    /**
+     * If this stack is not empty, we must disable event reporting to the
+     * {@link TreeVisitor}
+     */
     private ArrayDeque<String> skipNodeStack = new ArrayDeque<String>();
 
     public void skipDescendants()
@@ -332,23 +334,48 @@ public class SilkWalker implements TreeWalker
             skipNodeStack.addLast(currentEvent.nodeName);
     }
 
+    /**
+     * Enqueues a visit event.
+     * 
+     * @param nodeName
+     * @param immediateNodeValue
+     * @throws XerialException
+     */
     private void visit(String nodeName, String immediateNodeValue) throws XerialException
     {
         eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName, immediateNodeValue));
     }
 
+    /**
+     * Enqueues a leave event
+     * 
+     * @param nodeName
+     * @throws XerialException
+     */
     private void leave(String nodeName) throws XerialException
     {
         eventQueue.addLast(new TreeEvent(TreeEvent.EventType.LEAVE, nodeName, null));
     }
 
+    /**
+     * Enqueues a text event
+     * 
+     * @param textFragment
+     * @throws XerialException
+     */
     private void text(String textFragment) throws XerialException
     {
         eventQueue.addLast(new TreeEvent(TreeEvent.EventType.TEXT, null, textFragment));
 
     }
 
-    private void closeUpTo(int newIndentLevel) throws XerialException
+    /**
+     * Closed pre-opened contexts up to the specified indent level
+     * 
+     * @param newIndentLevel
+     * @throws XerialException
+     */
+    private void closeContextUpTo(int newIndentLevel) throws XerialException
     {
         //        if (newIndentLevel == SilkNode.NO_INDENT)
         //            newIndentLevel = contextNodeStack.isEmpty() ? 0 : contextNodeStack.peekLast().getIndentLevel() + 1;
@@ -362,26 +389,32 @@ public class SilkWalker implements TreeWalker
                 //outputDataCountStack.removeLast();
 
                 if (node.getOccurrence() != SilkNodeOccurrence.TABBED_SEQUENCE)
-                    closeContext(node);
+                {
+                    // close context
+                    String nodeName = node.getName();
+                    leave(nodeName);
+                }
             }
             else
                 return;
         }
     }
 
-    private void closeContext(SilkNode node) throws XerialException
-    {
-        String nodeName = node.getName();
-        leave(nodeName);
-    }
-
-    private void openContext(SilkNode node, TreeVisitor visitor) throws XerialException
+    /**
+     * Opens a new context for the given node
+     * 
+     * @param node
+     *            new context node
+     * @param visitor
+     * @throws XerialException
+     */
+    private void openContext(SilkNode node) throws XerialException
     {
         int indentLevel = node.getIndentLevel();
         if (indentLevel != SilkNode.NO_INDENT)
             indentLevel += indentationOffset;
 
-        closeUpTo(indentLevel);
+        closeContextUpTo(indentLevel);
 
         contextNodeStack.addLast(node);
         //outputDataCountStack.addLast(0);
@@ -393,8 +426,10 @@ public class SilkWalker implements TreeWalker
 
         SilkValue textValue = node.getValue();
 
+        // process text values attached to the node
         if (textValue != null)
         {
+            // When the text data is JSON, traverses the JSON data 
             if (textValue.isJSON())
             {
                 visit(nodeName, null);
@@ -412,30 +447,44 @@ public class SilkWalker implements TreeWalker
             }
             else if (textValue.isFunction())
             {
+                // evaluate the function 
                 visit(nodeName, null);
                 SilkFunction function = SilkFunction.class.cast(textValue);
-                evalFunction(function, visitor);
+                evalFunction(function);
 
                 return;
             }
             else
+            {
+                // Simple text value will be reported as it is.
                 visit(nodeName, textValue.toString());
+            }
         }
         else
+        {
+            // Report a visit event without text value
             visit(nodeName, null);
+        }
 
-        // traverse attribute nodes with text values
+        // Traverse attribute nodes which have text values. If no text value is specified for an attribute, 
+        // this attribute is a schema element for the following DATA_LINE 
         for (SilkNode eachChild : node.getChildNodes())
         {
             if (eachChild.hasValue())
             {
-                openContext(eachChild, visitor);
+                openContext(eachChild);
             }
         }
 
     }
 
-    private void evalFunction(SilkFunction function, TreeVisitor visitor) throws XerialException
+    /**
+     * Evaluate the function
+     * 
+     * @param function
+     * @throws XerialException
+     */
+    private void evalFunction(SilkFunction function) throws XerialException
     {
         if (!skipNodeStack.isEmpty())
             return; // skip evaluation
@@ -446,6 +495,7 @@ public class SilkWalker implements TreeWalker
             _logger.error(String.format("plugin %s not found", function.getName()));
             return;
         }
+        // fill the function argument to the plugin instance
         populate(plugin, function.getArgumentList());
         plugin.eval(new SilkEnvImpl(function, visitor));
 
@@ -468,14 +518,19 @@ public class SilkWalker implements TreeWalker
 
         while (hasNext())
         {
-            step();
+            stepNext();
         }
 
     }
 
-    private void step() throws XerialException
+    /**
+     * Consume the next event, and call its corresponding visitor event.
+     * 
+     * @throws XerialException
+     */
+    private void stepNext() throws XerialException
     {
-        currentEvent = next();
+        currentEvent = getNextEvent();
         //_logger.info("step: " + currentEvent);
 
         switch (currentEvent.event)
@@ -517,8 +572,17 @@ public class SilkWalker implements TreeWalker
 
     }
 
+    /**
+     * Has finished reading the stream?
+     */
     private boolean hasFinished = false;
 
+    /**
+     * Is next event available?
+     * 
+     * @return true if there are remaining events, otherwise fales
+     * @throws XerialException
+     */
     private boolean hasNext() throws XerialException
     {
         if (eventQueue.isEmpty())
@@ -533,23 +597,37 @@ public class SilkWalker implements TreeWalker
             return true;
     }
 
-    private TreeEvent next() throws XerialException
+    /**
+     * Retrieves the next event from the queue. If the event queue is empty,
+     * fill the queue with the next event
+     * 
+     * @return the next event.
+     * @throws XerialException
+     */
+    private TreeEvent getNextEvent() throws XerialException
     {
         if (!eventQueue.isEmpty())
             return eventQueue.removeFirst();
 
         if (hasFinished)
-            return null;
+            throw new XerialError(XerialErrorCode.INVALID_STATE,
+                    "hasNext() value must be checked before calling getNextEvent()");
 
         fillQueue();
-        return next();
+        return getNextEvent();
     }
 
+    /**
+     * Fill the queue by retrieving the next event from the pull parser.
+     * 
+     * @throws XerialException
+     */
     private void fillQueue() throws XerialException
     {
         if (!parser.hasNext())
         {
-            closeUpTo(indentationOffset);
+            // no more input data
+            closeContextUpTo(indentationOffset);
             hasFinished = true;
             return;
         }
@@ -567,15 +645,15 @@ public class SilkWalker implements TreeWalker
         case NODE:
             // push context node
             SilkNode newContextNode = SilkNode.class.cast(currentEvent.getElement());
-            openContext(newContextNode, visitor);
+            openContext(newContextNode);
             break;
         case FUNCTION:
             SilkFunction function = SilkFunction.class.cast(currentEvent.getElement());
-            evalFunction(function, visitor);
+            evalFunction(function);
             break;
         case DATA_LINE:
 
-            // pop the context stack up to the node with stream data node occurrence
+            // pop the context stack until finding a node for stream data node occurrence
             while (!contextNodeStack.isEmpty())
             {
                 SilkNode node = contextNodeStack.peekLast();
@@ -729,8 +807,18 @@ public class SilkWalker implements TreeWalker
 
     }
 
+    /**
+     * Plugin holder
+     */
     private static Map<String, Class<SilkFunctionPlugin>> pluginTable = null;
 
+    /**
+     * Get the plugin of the specified name
+     * 
+     * @param name
+     *            plugin name
+     * @return plugin instance or null if no corresponding plugin is found.
+     */
     private SilkFunctionPlugin getPlugin(String name)
     {
         Class<SilkFunctionPlugin> pluginClass = getPluginTable().get(name);
@@ -772,6 +860,14 @@ public class SilkWalker implements TreeWalker
         return pluginTable;
     }
 
+    /**
+     * Information of the function (plugin) arguments (
+     * {@link SilkFunctionArgument}) described in the Class definition, which
+     * implements {@link SilkFunctionPlugin}.
+     * 
+     * @author leo
+     * 
+     */
     private static class PluginField
     {
         Field field;
@@ -871,12 +967,25 @@ public class SilkWalker implements TreeWalker
 
     }
 
-    private void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
+    /**
+     * Fill the plug-in argument fields with the given arguments
+     * 
+     * @param plugin
+     *            plug-in instance.
+     * @param args
+     *            function arguments.
+     */
+    private static void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
     {
         PluginHolder holder = new PluginHolder(plugin.getClass());
         holder.populate(plugin, args);
     }
 
+    /**
+     * Get the context node
+     * 
+     * @return
+     */
     private SilkNode getContextNode()
     {
         if (contextNodeStack.isEmpty())
