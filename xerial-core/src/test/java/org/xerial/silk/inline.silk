@@ -1,0 +1,3 @@
+-book(id, title, isbn, year, _[json])|
+1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
+2	Compilers: 2nd Edition	0321547985	2007	{"tags":["read later", "textbook"]}

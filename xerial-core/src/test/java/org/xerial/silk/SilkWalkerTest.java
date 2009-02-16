@@ -98,6 +98,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testInlineJSON() throws IOException, XerialException
+    {
+        compare("inline.silk", "inline.json");
+    }
+
+    @Test
     public void testExample() throws Exception
     {
         // TODO modify JSON stream walker to handle value as an immediate node value

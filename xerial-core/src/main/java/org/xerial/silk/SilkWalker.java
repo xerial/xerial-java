@@ -717,9 +717,16 @@ public class SilkWalker implements TreeWalker
                                         JSONValue json = JSONUtil.parseJSON(columnData);
                                         if (json.getJSONObject() != null)
                                         {
-                                            visit(child.getName(), null);
-                                            walkJSONValue(json, child.getName());
-                                            leave(child.getName());
+                                            if (child.getName().equals("_")) // no name object
+                                            {
+                                                walkJSONValue(json, child.getName());
+                                            }
+                                            else
+                                            {
+                                                visit(child.getName(), null);
+                                                walkJSONValue(json, child.getName());
+                                                leave(child.getName());
+                                            }
                                         }
                                         else
                                             walkJSONValue(json, child.getName());

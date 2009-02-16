@@ -265,6 +265,7 @@ nodeItem: nodeName dataType? (Colon nodeValue)? (LParen attributeList RParen)?  
 	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
 	;
 
+
 dataType: LBracket! dataTypeName RBracket!
 	;
 	

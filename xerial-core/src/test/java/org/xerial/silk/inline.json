@@ -1,0 +1,19 @@
+{
+ "book":[
+   {
+     "id":1, 
+     "title":"Database Management Systems", 
+     "isbn":"0071230572", 
+     "year":2002,
+     "star":5,
+     "comment":"good book"
+   },
+   {
+     "id":2, 
+     "title":"Compilers: 2nd Edition",
+     "isbn":"0321547985", 
+     "year":2007,
+     "tags":["read later", "textbook"]
+   }
+ ]
+}
