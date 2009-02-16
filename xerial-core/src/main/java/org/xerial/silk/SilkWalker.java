@@ -667,6 +667,117 @@ public class SilkWalker implements TreeWalker
         return getNextEvent();
     }
 
+    private void walkMicroFormatRoot(SilkNode schemaNode, JSONArray value) throws XerialException
+    {
+        // e.g., exon(start, name)
+
+        if (schemaNode.hasManyOccurrences())
+        {
+            // e.g., exon(start, name)*
+            // multiple occurrences: [[start, end], [start, end], ... ] 
+            for (int i = 0; i < value.size(); i++)
+            {
+                JSONArray eachElement = value.getJSONArray(i);
+                if (eachElement == null)
+                    continue;
+
+                visit(schemaNode.getName(), null);
+                int index = 0;
+                for (SilkNode eachSubSchema : schemaNode.getChildNodes())
+                {
+                    walkMicroFormatElement(eachSubSchema, eachElement.get(index++));
+                }
+                leave(schemaNode.getName());
+            }
+        }
+        else
+        {
+            // [e1, e2, ...]
+            visit(schemaNode.getName(), null);
+            int index = 0;
+            if (schemaNode.getChildNodes().size() != value.size())
+            {
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
+                        "data format doesn't match: schema=%s, value=%s", schemaNode, value));
+            }
+            for (SilkNode each : schemaNode.getChildNodes())
+            {
+                walkMicroFormatElement(each, value.get(index++));
+            }
+            leave(schemaNode.getName());
+        }
+    }
+
+    private void walkMicroFormatElement(SilkNode schemaNode, JSONValue value) throws XerialException
+    {
+        if (schemaNode.hasChildren())
+        {
+            JSONArray array = value.getJSONArray();
+            if (array != null)
+                walkMicroFormatRoot(schemaNode, array);
+            else
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
+                        "data format doesn't match: schema=%s, value=%s", schemaNode, value));
+        }
+        else
+        {
+            visit(schemaNode.getName(), value.toJSONString());
+            leave(schemaNode.getName());
+        }
+    }
+
+    private void evalColumnData(SilkNode node, String columnData) throws XerialException
+    {
+        try
+        {
+            if (node.hasChildren())
+            {
+                // micro-data format
+                JSONArray array = new JSONArray(columnData);
+                walkMicroFormatRoot(node, array);
+                return;
+            }
+
+            String dataType = node.getDataType();
+            if (dataType == null)
+            {
+                visit(node.getName(), columnData);
+                leave(node.getName());
+                return;
+            }
+
+            if (dataType.equalsIgnoreCase("json"))
+            {
+                JSONValue json = JSONUtil.parseJSON(columnData);
+                if (json.getJSONObject() != null)
+                {
+                    if (node.getName().equals("_")) // no name object
+                    {
+                        walkJSONValue(json, node.getName());
+                    }
+                    else
+                    {
+                        visit(node.getName(), null);
+                        walkJSONValue(json, node.getName());
+                        leave(node.getName());
+                    }
+                }
+                else
+                    walkJSONValue(json, node.getName());
+            }
+            else
+            {
+                visit(node.getName(), columnData);
+                leave(node.getName());
+            }
+        }
+        catch (JSONException e)
+        {
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser.getLine(), e.getMessage()));
+        }
+
+    }
+
     /**
      * Fill the queue by retrieving the next event from the pull parser.
      * 
@@ -728,6 +839,8 @@ public class SilkWalker implements TreeWalker
                 for (String each : columns)
                 {
                     String columnName = String.format("c%d", index++);
+
+                    // TODO use evalColumnData
                     visitor.visitNode(columnName, each, this);
                     visitor.leaveNode(columnName, this);
                 }
@@ -752,8 +865,7 @@ public class SilkWalker implements TreeWalker
                     for (String each : csv)
                     {
                         String value = each.trim();
-                        visit(name, value);
-                        leave(name);
+                        evalColumnData(schema, value);
                     }
                 }
                     break;
@@ -767,6 +879,7 @@ public class SilkWalker implements TreeWalker
                         SilkNode child = schema.getChildNodes().get(i);
                         if (child.hasValue())
                         {
+                            // output the default value for the column 
                             visit(child.getName(), child.getValue().toString());
                             leave(child.getName());
                         }
@@ -775,40 +888,7 @@ public class SilkWalker implements TreeWalker
                             if (columnIndex < columns.length)
                             {
                                 String columnData = columns[columnIndex++];
-                                String dataType = child.getDataType();
-                                if (dataType != null && dataType.equalsIgnoreCase("json"))
-                                {
-                                    try
-                                    {
-                                        JSONValue json = JSONUtil.parseJSON(columnData);
-                                        if (json.getJSONObject() != null)
-                                        {
-                                            if (child.getName().equals("_")) // no name object
-                                            {
-                                                walkJSONValue(json, child.getName());
-                                            }
-                                            else
-                                            {
-                                                visit(child.getName(), null);
-                                                walkJSONValue(json, child.getName());
-                                                leave(child.getName());
-                                            }
-                                        }
-                                        else
-                                            walkJSONValue(json, child.getName());
-                                    }
-                                    catch (JSONException e)
-                                    {
-                                        throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser
-                                                .getLine(), e.getMessage()));
-                                    }
-
-                                }
-                                else
-                                {
-                                    visit(child.getName(), columnData);
-                                    leave(child.getName());
-                                }
+                                evalColumnData(child, columnData);
                             }
                         }
                     }

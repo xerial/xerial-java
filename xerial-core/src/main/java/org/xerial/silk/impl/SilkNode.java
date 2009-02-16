@@ -53,6 +53,16 @@ public class SilkNode implements SilkElement
         return indent;
     }
 
+    public boolean hasManyOccurrences()
+    {
+        return occurrence == SilkNodeOccurrence.ZERO_OR_MORE || occurrence == SilkNodeOccurrence.ONE_OR_MORE;
+    }
+
+    public boolean hasChildren()
+    {
+        return childNodeList.size() > 0;
+    }
+
     public final static int NO_INDENT = Integer.MAX_VALUE; // must be higher than other indent levels
 
     /**
