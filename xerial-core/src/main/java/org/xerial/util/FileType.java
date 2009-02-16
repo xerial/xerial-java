@@ -51,7 +51,7 @@ public enum FileType {
     SILK("silk"),
     TAB("tab"),
     CSV("csv"),
-    FASTA("fasta"),
+    FASTA("fasta,fs"),
     TEX("tex"),
     TEXT("txt"),
 
