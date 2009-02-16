@@ -28,12 +28,12 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONWriter;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeVisitorBase;
