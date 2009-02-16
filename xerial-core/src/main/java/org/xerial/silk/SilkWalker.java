@@ -83,10 +83,28 @@ public class SilkWalker implements TreeWalker
 
     private int indentationOffset = 0;
     private String resourceBasePath = null;
-    private Deque<SilkNode> contextNodeStack = new ArrayDeque<SilkNode>();
+    private Deque<Context> contextNodeStack = new ArrayDeque<Context>();
     private TreeVisitor visitor = null;
     private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
     private TreeEvent currentEvent = null;
+
+    static class Context
+    {
+        final SilkNode contextNode;
+        boolean isOpen;
+
+        /**
+         * @param contextNode
+         * @param isOpen
+         *            if true this contest must be closed
+         */
+        public Context(SilkNode contextNode, boolean isOpen)
+        {
+            this.contextNode = contextNode;
+            this.isOpen = isOpen;
+        }
+
+    }
 
     private class SilkEnvImpl implements SilkEnv
     {
@@ -134,7 +152,7 @@ public class SilkWalker implements TreeWalker
             return resourceBasePath;
         }
 
-        public Deque<SilkNode> getContextNodeStack()
+        public Deque<Context> getContextNodeStack()
         {
             return contextNodeStack;
         }
@@ -382,17 +400,22 @@ public class SilkWalker implements TreeWalker
 
         while (!contextNodeStack.isEmpty())
         {
-            SilkNode node = contextNodeStack.peekLast();
+            Context context = contextNodeStack.peekLast();
+            SilkNode node = context.contextNode;
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
                 //outputDataCountStack.removeLast();
 
-                if (node.getOccurrence() != SilkNodeOccurrence.TABBED_SEQUENCE)
+                if (context.isOpen)
                 {
+                    //   SilkNodeOccurrence occurrence = node.getOccurrence();
+                    //if (occurrence != SilkNodeOccurrence.TABBED_SEQUENCE && occurrence != SilkNodeOccurrence.ZERO_OR_MORE)
+                    //{
                     // close context
                     String nodeName = node.getName();
                     leave(nodeName);
+                    //}
                 }
             }
             else
@@ -416,11 +439,17 @@ public class SilkWalker implements TreeWalker
 
         closeContextUpTo(indentLevel);
 
-        contextNodeStack.addLast(node);
         //outputDataCountStack.addLast(0);
 
-        if (node.getOccurrence() == SilkNodeOccurrence.TABBED_SEQUENCE)
-            return; // do not invoke visit events 
+        Context currentContext = new Context(node, true);
+        contextNodeStack.addLast(currentContext);
+
+        SilkNodeOccurrence occurrence = node.getOccurrence();
+        if (occurrence == SilkNodeOccurrence.TABBED_SEQUENCE || occurrence == SilkNodeOccurrence.ZERO_OR_MORE)
+        {
+            currentContext.isOpen = false;
+            return; // do not invoke visit events
+        }
 
         String nodeName = node.getName();
 
@@ -432,15 +461,17 @@ public class SilkWalker implements TreeWalker
             // When the text data is JSON, traverses the JSON data 
             if (textValue.isJSON())
             {
-                visit(nodeName, null);
+
                 SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
                 if (jsonValue.isObject())
                 {
+                    visit(nodeName, null);
                     JSONObject jsonObj = new JSONObject(jsonValue.getValue());
                     walkJSONObject(jsonObj);
                 }
                 else
                 {
+                    currentContext.isOpen = false;
                     JSONArray jsonArray = new JSONArray(jsonValue.getValue());
                     walkJSONAray(jsonArray, nodeName);
                 }
@@ -462,6 +493,12 @@ public class SilkWalker implements TreeWalker
         }
         else
         {
+            if (occurrence == SilkNodeOccurrence.ZERO_OR_MORE)
+            {
+                // CSV data
+                return; // do not invoke visit events
+            }
+
             // Report a visit event without text value
             visit(nodeName, null);
         }
@@ -669,11 +706,13 @@ public class SilkWalker implements TreeWalker
             // pop the context stack until finding a node for stream data node occurrence
             while (!contextNodeStack.isEmpty())
             {
-                SilkNode node = contextNodeStack.peekLast();
+                Context context = contextNodeStack.peekLast();
+                SilkNode node = context.contextNode;
                 if (!node.getOccurrence().isFollowedByStreamData())
                 {
                     contextNodeStack.removeLast();
-                    leave(node.getName());
+                    if (context.isOpen)
+                        leave(node.getName());
                 }
                 else
                     break;
@@ -697,12 +736,26 @@ public class SilkWalker implements TreeWalker
             else
             {
 
-                SilkNode schema = contextNodeStack.peekLast();
+                Context context = contextNodeStack.peekLast();
+                SilkNode schema = context.contextNode;
                 SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
                 switch (schema.getOccurrence())
                 {
                 case SEQUENCE:
                     text(line.getDataLine().trim());
+                    break;
+                case ZERO_OR_MORE:
+                    // CSV data
+                {
+                    String[] csv = line.getDataLine().split(",");
+                    String name = schema.getName();
+                    for (String each : csv)
+                    {
+                        String value = each.trim();
+                        visit(name, value);
+                        leave(name);
+                    }
+                }
                     break;
                 case TABBED_SEQUENCE:
                 {
@@ -1011,6 +1064,6 @@ public class SilkWalker implements TreeWalker
         if (contextNodeStack.isEmpty())
             return null;
         else
-            return contextNodeStack.getLast();
+            return contextNodeStack.getLast().contextNode;
     }
 }

@@ -104,6 +104,18 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testCSV() throws IOException, XerialException
+    {
+        compare("csv.silk", "csv.json");
+    }
+
+    @Test
+    public void testCSVOneLine() throws IOException, XerialException
+    {
+        compare("csv-oneline.silk", "csv.json");
+    }
+
+    @Test
     public void testExample() throws Exception
     {
         // TODO modify JSON stream walker to handle value as an immediate node value

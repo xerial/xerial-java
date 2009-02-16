@@ -43,7 +43,7 @@ public enum SilkNodeOccurrence {
 
     public boolean isFollowedByStreamData()
     {
-        return this == SEQUENCE || this == TABBED_SEQUENCE;
+        return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE;
     }
 
     @Override

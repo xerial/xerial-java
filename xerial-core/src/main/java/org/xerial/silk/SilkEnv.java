@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.SilkWalker.Context;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
@@ -58,5 +58,5 @@ public interface SilkEnv
      */
     public String getResourceBasePath();
 
-    public Deque<SilkNode> getContextNodeStack();
+    public Deque<Context> getContextNodeStack();
 }

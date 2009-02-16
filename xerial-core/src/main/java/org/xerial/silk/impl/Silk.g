@@ -191,7 +191,7 @@ fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>
 
 fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
 
-fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>'); 
+fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' | '*'); 
 fragment PlainSafeIn: ~(PlainUnsafeChar | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
