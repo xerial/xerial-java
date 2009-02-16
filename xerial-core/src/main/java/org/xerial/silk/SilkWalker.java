@@ -497,6 +497,15 @@ public class SilkWalker implements TreeWalker
         }
         // fill the function argument to the plugin instance
         populate(plugin, function.getArgumentList());
+
+        // before evaluating the function, event in the queue must be consumed
+        while (!eventQueue.isEmpty())
+        {
+            TreeEvent e = eventQueue.removeFirst();
+            evalEvent(e);
+        }
+
+        // evaluate the function
         plugin.eval(new SilkEnvImpl(function, visitor));
 
     }
@@ -530,8 +539,12 @@ public class SilkWalker implements TreeWalker
      */
     private void stepNext() throws XerialException
     {
-        currentEvent = getNextEvent();
-        //_logger.info("step: " + currentEvent);
+        evalEvent(getNextEvent());
+    }
+
+    private void evalEvent(TreeEvent e) throws XerialException
+    {
+        currentEvent = e;
 
         switch (currentEvent.event)
         {
