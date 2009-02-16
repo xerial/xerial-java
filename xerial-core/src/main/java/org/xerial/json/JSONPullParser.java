@@ -94,7 +94,8 @@ public class JSONPullParser
             if (ps == current)
                 return;
         }
-        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: " + current.name());
+        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: " + current.name() + " line = "
+                + _lexer.getLine());
     }
 
     private void popKeyStack()

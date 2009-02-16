@@ -116,6 +116,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testMicroFormat() throws IOException, XerialException
+    {
+        compare("microformat.silk", "microformat.json");
+    }
+
+    @Test
     public void testExample() throws Exception
     {
         // TODO modify JSON stream walker to handle value as an immediate node value

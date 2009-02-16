@@ -1,0 +1,16 @@
+{"gene":
+ [
+  {
+   "name":"gene1", 
+   "strand":"+", "start":357521, "end":358460, 
+   "cds":{"start":357521, "end":358460},
+   "exon":[{"start":357521, "end":358460}]
+  },
+  {
+   "name":"gene2", 
+   "strand":"+", "start":850983, "end":869824,
+   "cds":{"start":851184, "end":869396},
+   "exon":[{"start":850983, "end":851043}, {"start":851164, "end":851256}, {"start":855397, "end":855579}]
+   }
+ ]
+}
