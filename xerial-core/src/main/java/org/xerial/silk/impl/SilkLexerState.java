@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
 
@@ -45,14 +47,16 @@ import org.xerial.util.graph.AutomatonCursor;
 public class SilkLexerState
 {
     public static enum State {
-        INIT, OUT_KEY, OUT_VALUE, IN_VALUE, IN_KEY
+        INIT, OUT_KEY, OUT_VALUE, IN_VALUE, IN_KEY, IN_FUNC_NAME
     };
 
     public static enum Symbol {
-        NodeStart, Colon, EnterParen, LeaveValue
+        NodeStart, Colon, EnterParen, LeaveParen, LeaveValue, At
     }
 
     private static final Automaton<State, Symbol> automaton = new Automaton<State, Symbol>();
+    private Deque<State> stateStack = new ArrayDeque<State>();
+
     //private State beforeJSONState = State.INIT;
     //private int nestLevel = 0;
     private final AutomatonCursor<State, Symbol> cursor;
@@ -60,14 +64,12 @@ public class SilkLexerState
     static
     {
         automaton.addTransition(State.INIT, Symbol.NodeStart, State.OUT_KEY);
-        automaton.addTransition(State.OUT_KEY, Symbol.Colon, State.OUT_VALUE);
         automaton.addTransition(State.OUT_KEY, Symbol.EnterParen, State.IN_KEY);
-        automaton.addTransition(State.OUT_VALUE, Symbol.EnterParen, State.IN_KEY);
+        automaton.addTransition(State.OUT_KEY, Symbol.Colon, State.OUT_VALUE);
+        //automaton.addTransition(State.OUT_VALUE, Symbol.EnterParen, State.IN_KEY);
         automaton.addTransition(State.IN_KEY, Symbol.Colon, State.IN_VALUE);
         automaton.addTransition(State.IN_VALUE, Symbol.LeaveValue, State.IN_KEY);
-
-        //automaton.addTransition(State.IN_VALUE, Symbol.EnterJSONFragment, State.JSON);
-        //automaton.addTransition(State.OUT_VALUE, Symbol.EnterJSONFragment, State.JSON);
+        automaton.addTransition(State.IN_VALUE, Symbol.EnterParen, State.IN_KEY);
 
         for (State each : State.values())
             automaton.addStarTransition(each, each);
@@ -80,32 +82,25 @@ public class SilkLexerState
 
     public State transit(Symbol input)
     {
-        //
-        //        State current = getCurrentState();
-        //        if (current == State.JSON)
-        //        {
-        //            switch (input)
-        //            {
-        //            case EnterJSONFragment:
-        //                nestLevel++;
-        //                break;
-        //            case LeaveJSONFragment:
-        //                nestLevel--;
-        //                if (nestLevel <= 0)
-        //                {
-        //                    cursor.reset(beforeJSONState);
-        //                    return getCurrentState();
-        //                }
-        //                break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (input == Symbol.EnterJSONFragment)
-        //            {
-        //                beforeJSONState = current;
-        //            }
-        //        }
+        State current = getCurrentState();
+        switch (input)
+        {
+        case EnterParen:
+            if (current != State.OUT_VALUE)
+                stateStack.addLast(current);
+            break;
+        case LeaveParen:
+            if (current != State.OUT_VALUE)
+            {
+                if (!stateStack.isEmpty())
+                {
+                    State prevState = stateStack.removeLast();
+                    cursor.reset(prevState);
+                    return prevState;
+                }
+            }
+            break;
+        }
 
         return cursor.transit(input);
     }

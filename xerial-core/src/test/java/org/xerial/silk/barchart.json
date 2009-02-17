@@ -1,0 +1,27 @@
+[
+ {"track":{"name":"Transcript Frequency"}},
+ {"barchart":
+  {
+  	"title":"bar chart",
+   	"yMin":0,
+ 	"yMax":100,
+ 	"xTitle": "genome position (bp)",
+ 	"yTitle": "number of transcripts (log scale)",
+ 	"yLogScale": true,
+  }
+ },
+ { "coordinate":
+    {
+     "group":"utgb", "species":"human", "revison":"hg18", "name":"chr1",
+ 	 "offsetX":1,
+	 "plot":[0,0,0,0,0,0,0,3,5,10,2,0,8,4,0,23,0,0,0,0]
+	}
+ },
+ { "coordinate":
+    {
+     "group":"utgb", "species":"human", "revison":"hg18", "name":"chr1",
+     "plot":[{"x":8, "y":3}, {"x":9, "y":5},
+        {"x":10, "y":10},{"x":11, "y":2},{"x":12, "y":8},{"x":13, "y":4}, {"x":15, "y":23}]
+    }
+ }
+] 

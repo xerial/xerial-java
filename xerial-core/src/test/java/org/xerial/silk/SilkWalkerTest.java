@@ -122,6 +122,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testBarChart() throws IOException, XerialException
+    {
+        compare("barchart.silk", "barchart.json");
+    }
+
+    @Test
     public void testExample() throws Exception
     {
         // TODO modify JSON stream walker to handle value as an immediate node value

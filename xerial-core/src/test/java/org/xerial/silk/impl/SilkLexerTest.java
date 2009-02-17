@@ -24,10 +24,12 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +50,14 @@ public class SilkLexerTest
     public void tearDown() throws Exception
     {}
 
+    static void scan(String filePath) throws IOException, RecognitionException
+    {
+        SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource.open(SilkParserTest.class, filePath)));
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        Map<Integer, String> tokenTable = ANTLRUtil.getTokenTable(SilkLexer.class, "Silk.tokens");
+        _logger.debug("\n" + StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), tokenTable), "\n"));
+    }
+
     @Test
     public void tokenTest() throws Exception
     {
@@ -61,4 +71,17 @@ public class SilkLexerTest
                 .debug("\n"
                         + StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), tokenTable), "\n"));
     }
+
+    @Test
+    public void testOutValue() throws Exception
+    {
+        scan("outvalue.silk");
+    }
+
+    @Test
+    public void testBarChart() throws Exception
+    {
+        scan("../barchart.silk");
+    }
+
 }

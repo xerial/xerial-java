@@ -28,7 +28,7 @@ options
 	output=AST;
 	// some lexer & parser options
 	// number of look-ahead characters 
-	//k=3;	
+	k=3;	
 	//backtrack=true;
 }
 tokens {
@@ -151,8 +151,8 @@ DataLine: { isHead() }?
 	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText($DataLineBody.text); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
-RParen:	')';
-Comma: 	',';
+RParen:	')' { transit(Symbol.LeaveParen); };
+Comma: 	','; 
 Colon:	':' { transit(Symbol.Colon); } ;
 Seq: 	'>';
 TabSeq:	'|';
@@ -189,10 +189,10 @@ fragment FlowIndicator:  '[' | ']' | '{' | '}';
 fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '\'' | '"' | '@' | '%' | '\\';	
 
 
-fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | WhiteSpace | '#' | ScopeIndicator;
+fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | '#' ;
 
-fragment PlainSafeKey: ~(PlainUnsafeChar | FlowIndicator | ',' | ':' | '>' | '*'); 
-fragment PlainSafeIn: ~(PlainUnsafeChar | ',');
+fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*'); 
+fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
 
@@ -201,9 +201,8 @@ fragment PlainSafe
 	| { isInValue() }? => PlainSafeIn 
 	| { isOutValue() }? => PlainSafeOut
 	;
-
  
-PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }
+PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }  
 		;
 
 JSON
@@ -231,7 +230,7 @@ JSON
 	}  
 	;
 	 
-Separation: { currentState() != State.INIT }? WhiteSpace+ { $channel=HIDDEN; };
+Separation: { !isHead() }? WhiteSpace+ { $channel=HIDDEN; };
 
 WhiteSpace
 	:	(' ' | '\t') 
@@ -261,8 +260,8 @@ nodeValue
 	| JSON 
 	; 
 
-nodeItem: nodeName dataType? (Colon nodeValue)? (LParen attributeList RParen)?  plural?
-	-> Name[$nodeName.text] nodeValue? dataType? plural? attributeList? 
+nodeItem: nodeName dataType? (LParen attributeList RParen)? plural? (Colon nodeValue)? 
+	-> Name[$nodeName.text.trim()] nodeValue? dataType? plural? attributeList? 
 	;
 
 
@@ -289,7 +288,7 @@ function
 	: NodeIndent function_i
 	-> ^(Function NodeIndent function_i)
 	| FunctionIndent PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
-	-> ^(Function NodeIndent[$FunctionIndent.text] Name[$PlainOneLine.text] functionArg*)
+	-> ^(Function NodeIndent[$FunctionIndent.text] Name[$PlainOneLine.text.trim()] functionArg*)
 	;
 
 
@@ -300,7 +299,7 @@ function_i: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
 
 functionArg
 	: nodeValue -> Argument[$functionArg.text]
-	| nodeName Colon nodeValue -> ^(KeyValuePair Name[$nodeName.text] nodeValue)
+	| nodeName Colon nodeValue -> ^(KeyValuePair Name[$nodeName.text.trim()] nodeValue)
 	;
 
 
