@@ -70,6 +70,12 @@ public class SilkParserTest
     }
 
     @Test
+    public void testMicroformat() throws Exception
+    {
+        parse("../microformat.silk");
+    }
+
+    @Test
     public void testFunction() throws Exception
     {
         parse("../func.silk");

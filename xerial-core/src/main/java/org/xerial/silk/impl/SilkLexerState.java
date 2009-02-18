@@ -71,6 +71,8 @@ public class SilkLexerState
         automaton.addTransition(State.IN_VALUE, Symbol.LeaveValue, State.IN_KEY);
         automaton.addTransition(State.IN_VALUE, Symbol.EnterParen, State.IN_KEY);
 
+        automaton.addTransition(State.OUT_VALUE, Symbol.At, State.OUT_KEY);
+
         for (State each : State.values())
             automaton.addStarTransition(each, each);
     }
@@ -85,6 +87,9 @@ public class SilkLexerState
         State current = getCurrentState();
         switch (input)
         {
+        case At:
+            stateStack.addLast(current);
+            break;
         case EnterParen:
             if (current != State.OUT_VALUE)
                 stateStack.addLast(current);

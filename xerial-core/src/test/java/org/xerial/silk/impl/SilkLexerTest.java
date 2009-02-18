@@ -84,4 +84,16 @@ public class SilkLexerTest
         scan("../barchart.silk");
     }
 
+    @Test
+    public void testMicroFormat() throws Exception
+    {
+        scan("../microformat.silk");
+    }
+
+    @Test
+    public void testFunc() throws Exception
+    {
+        scan("../func.silk");
+    }
+
 }

@@ -104,6 +104,12 @@ public class SilkWalker implements TreeWalker
             this.isOpen = isOpen;
         }
 
+        @Override
+        public String toString()
+        {
+            return String.format("%s%s", contextNode, isOpen ? "(open)" : "");
+        }
+
     }
 
     private class SilkEnvImpl implements SilkEnv

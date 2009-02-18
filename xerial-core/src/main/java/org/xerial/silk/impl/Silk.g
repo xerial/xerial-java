@@ -157,7 +157,7 @@ Colon:	':' { transit(Symbol.Colon); } ;
 Seq: 	'>';
 TabSeq:	'|';
 Star: 	'*';
-At:		'@';
+At:		'@' { transit(Symbol.At); };
 Plus:	'+';
 LBracket:	'[' { transit(Symbol.EnterParen); };
 RBracket:	']';
@@ -186,7 +186,7 @@ fragment PlainFirst
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
-fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '\'' | '"' | '@' | '%' | '\\';	
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
 
 
 fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | '#' ;
@@ -293,7 +293,7 @@ function
 
 
 function_i: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
-	-> Name[$PlainOneLine.text] functionArg*
+	-> Name[$PlainOneLine.text.trim()] functionArg*
 	;
 
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-02-18 00:23:21
+// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-02-18 09:32:11
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -782,6 +782,7 @@ public class SilkLexer extends Lexer {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:6: '@'
             {
             match('@'); 
+             transit(Symbol.At); 
 
             }
 
@@ -1221,9 +1222,9 @@ public class SilkLexer extends Lexer {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
-            int sStart526 = getCharIndex();
+            int sStart528 = getCharIndex();
             mStringChar_s(); 
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart526, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart528, getCharIndex()-1);
             match('\"'); 
              setText((s!=null?s.getText():null)); 
 
@@ -1253,7 +1254,7 @@ public class SilkLexer extends Lexer {
                 else {
                     alt14=1;}
             }
-            else if ( ((LA14_0>='\u0000' && LA14_0<='\b')||(LA14_0>='\u000B' && LA14_0<='\f')||(LA14_0>='\u000E' && LA14_0<='\u001F')||LA14_0=='!'||LA14_0=='$'||LA14_0=='&'||(LA14_0>='*' && LA14_0<='+')||(LA14_0>='.' && LA14_0<='9')||(LA14_0>=';' && LA14_0<='=')||(LA14_0>='A' && LA14_0<='Z')||(LA14_0>='^' && LA14_0<='z')||(LA14_0>='~' && LA14_0<='\uFFFF')) ) {
+            else if ( ((LA14_0>='\u0000' && LA14_0<='\b')||(LA14_0>='\u000B' && LA14_0<='\f')||(LA14_0>='\u000E' && LA14_0<='\u001F')||LA14_0=='!'||LA14_0=='$'||LA14_0=='&'||LA14_0=='+'||(LA14_0>='.' && LA14_0<='9')||(LA14_0>=';' && LA14_0<='=')||(LA14_0>='A' && LA14_0<='Z')||(LA14_0>='^' && LA14_0<='z')||(LA14_0>='~' && LA14_0<='\uFFFF')) ) {
                 alt14=1;
             }
             else if ( (LA14_0==':') && (( isValue() ))) {
@@ -1269,7 +1270,7 @@ public class SilkLexer extends Lexer {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:4: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator )
                     {
-                    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
+                    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
 
                     }
@@ -1359,10 +1360,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '\\'' | '\"' | '@' | '%' | '\\\\' )
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
-            if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<=')')||(input.LA(1)>=',' && input.LA(1)<='-')||input.LA(1)==':'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
+            if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='-')||input.LA(1)==':'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
 
             }
@@ -1605,7 +1606,7 @@ public class SilkLexer extends Lexer {
             	        int alt16=2;
             	        int LA16_0 = input.LA(1);
 
-            	        if ( (LA16_0=='\t'||LA16_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))))) {
+            	        if ( (LA16_0=='\t'||LA16_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )))) {
             	            int LA16_1 = input.LA(2);
 
             	            if ( (!(((( isInValue() )||( isOutValue() )||( isKey() ))))) ) {
@@ -1986,37 +1987,36 @@ public class SilkLexer extends Lexer {
 
     protected DFA20 dfa20 = new DFA20(this);
     static final String DFA20_eotS =
-        "\3\uffff\1\31\1\32\1\33\1\uffff\1\40\1\33\1\41\1\42\1\43\1\45\1"+
-        "\47\1\50\1\51\1\56\1\57\1\60\1\62\1\uffff\1\71\1\72\1\uffff\1\73"+
-        "\4\uffff\1\75\1\uffff\1\75\4\uffff\1\100\1\uffff\1\100\3\uffff\4"+
-        "\71\3\uffff\1\112\1\uffff\2\112\2\uffff\1\130\11\uffff\10\100\2"+
-        "\uffff\4\112\12\uffff\1\130\23\uffff";
+        "\3\uffff\1\31\1\32\1\35\1\uffff\1\40\1\35\1\41\1\42\1\43\1\45\1"+
+        "\47\1\50\1\51\1\52\1\57\1\60\1\61\1\uffff\1\71\1\72\1\uffff\1\73"+
+        "\3\uffff\1\75\1\uffff\1\75\5\uffff\1\100\1\uffff\1\100\4\uffff\4"+
+        "\71\3\uffff\3\112\2\uffff\1\130\11\uffff\10\100\2\uffff\4\112\12"+
+        "\uffff\1\130\23\uffff";
     static final String DFA20_eofS =
         "\155\uffff";
     static final String DFA20_minS =
-        "\1\0\2\uffff\1\12\2\0\1\uffff\20\0\1\uffff\4\0\1\uffff\1\0\1\uffff"+
-        "\2\0\3\uffff\1\0\1\uffff\1\0\3\uffff\4\0\1\uffff\1\0\1\uffff\1\0"+
-        "\1\uffff\6\0\2\uffff\1\0\5\uffff\10\0\2\uffff\15\0\1\uffff\24\0";
+        "\1\0\2\uffff\1\12\2\0\1\uffff\20\0\1\uffff\3\0\1\uffff\3\0\1\uffff"+
+        "\1\0\3\uffff\1\0\1\uffff\1\0\4\uffff\5\0\2\uffff\7\0\2\uffff\1\0"+
+        "\5\uffff\10\0\2\uffff\15\0\1\uffff\24\0";
     static final String DFA20_maxS =
         "\1\uffff\2\uffff\1\12\1\0\1\uffff\1\uffff\1\0\17\uffff\1\uffff"+
-        "\4\0\1\uffff\1\uffff\1\uffff\1\uffff\1\0\3\uffff\1\uffff\1\uffff"+
-        "\1\uffff\3\uffff\4\uffff\1\uffff\1\0\1\uffff\1\uffff\1\uffff\6\uffff"+
-        "\2\uffff\1\0\5\uffff\10\uffff\2\uffff\15\uffff\1\uffff\24\uffff";
+        "\3\0\1\uffff\1\uffff\1\0\1\uffff\1\uffff\1\0\3\uffff\1\uffff\1\uffff"+
+        "\1\uffff\4\uffff\4\uffff\1\0\2\uffff\7\uffff\2\uffff\1\0\5\uffff"+
+        "\10\uffff\2\uffff\15\uffff\1\uffff\24\uffff";
     static final String DFA20_acceptS =
-        "\1\uffff\1\1\1\2\3\uffff\1\4\20\uffff\1\7\4\uffff\1\6\1\uffff\1"+
-        "\5\2\uffff\1\10\1\11\1\12\1\uffff\1\13\1\uffff\1\14\1\15\1\16\4"+
-        "\uffff\1\20\1\uffff\1\22\1\uffff\1\23\6\uffff\1\25\1\26\1\uffff"+
-        "\1\3\1\27\1\30\1\17\1\25\10\uffff\1\21\1\25\15\uffff\1\24\24\uffff";
+        "\1\uffff\1\1\1\2\3\uffff\1\4\20\uffff\1\7\3\uffff\1\5\3\uffff\1"+
+        "\6\1\uffff\1\10\1\11\1\12\1\uffff\1\13\1\uffff\1\14\1\15\1\16\1"+
+        "\20\5\uffff\1\22\1\23\7\uffff\1\25\1\26\1\uffff\1\3\1\27\1\30\1"+
+        "\17\1\25\10\uffff\1\21\1\25\15\uffff\1\24\24\uffff";
     static final String DFA20_specialS =
-        "\1\45\4\uffff\1\65\2\uffff\1\50\1\42\1\5\1\62\1\44\1\100\1\71\1"+
-        "\112\1\101\1\113\1\77\1\105\1\21\1\26\1\35\2\uffff\1\111\1\110\1"+
-        "\54\1\uffff\1\52\1\uffff\1\66\1\17\3\uffff\1\72\1\uffff\1\103\3"+
-        "\uffff\1\27\1\2\1\23\1\10\1\uffff\1\76\1\uffff\1\6\1\uffff\1\16"+
-        "\1\60\1\32\1\36\1\63\1\56\2\uffff\1\114\5\uffff\1\30\1\3\1\24\1"+
-        "\11\1\15\1\75\1\12\1\7\2\uffff\1\51\1\46\1\37\1\104\1\40\1\1\1\22"+
-        "\1\13\1\4\1\67\1\107\1\33\1\73\1\uffff\1\31\1\34\1\61\1\41\1\14"+
-        "\1\0\1\20\1\57\1\47\1\70\1\106\1\74\1\55\1\43\1\102\1\53\1\64\1"+
-        "\25\1\116\1\115}>";
+        "\1\30\4\uffff\1\40\2\uffff\1\52\1\111\1\51\1\27\1\22\1\75\1\13"+
+        "\1\36\1\60\1\25\1\41\1\101\1\11\1\0\1\103\2\uffff\1\62\1\61\1\uffff"+
+        "\1\53\1\72\1\24\1\uffff\1\10\3\uffff\1\46\1\uffff\1\33\4\uffff\1"+
+        "\105\1\45\1\77\1\112\1\2\2\uffff\1\35\1\5\1\17\1\64\1\42\1\20\1"+
+        "\102\2\uffff\1\63\5\uffff\1\106\1\47\1\100\1\113\1\71\1\57\1\116"+
+        "\1\70\2\uffff\1\73\1\23\1\6\1\37\1\43\1\55\1\76\1\4\1\67\1\21\1"+
+        "\56\1\32\1\26\1\uffff\1\15\1\114\1\66\1\115\1\104\1\16\1\44\1\1"+
+        "\1\7\1\3\1\14\1\50\1\54\1\74\1\65\1\31\1\110\1\34\1\12\1\107}>";
     static final String[] DFA20_transitionS = {
             "\11\25\1\10\1\4\2\25\1\3\22\25\1\5\1\25\1\24\1\1\1\25\1\2\1"+
             "\25\1\27\1\11\1\12\1\17\1\20\1\13\1\6\14\25\1\14\3\25\1\15\1"+
@@ -2025,11 +2025,11 @@ public class SilkLexer extends Lexer {
             "",
             "\1\30",
             "\1\uffff",
-            "\11\27\1\37\1\34\2\27\1\34\22\27\1\35\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\6\22\27\1\36\uffbf\27",
+            "\11\27\1\36\1\37\2\27\1\37\22\27\1\34\2\27\1\uffff\1\27\1"+
+            "\uffff\7\27\1\6\22\27\1\33\uffbf\27",
             "",
             "\1\uffff",
-            "\11\27\1\37\1\34\2\27\1\34\22\27\1\37\2\27\1\uffff\1\27\1"+
+            "\11\27\1\36\1\37\2\27\1\37\22\27\1\36\2\27\1\uffff\1\27\1"+
             "\uffff\7\27\1\uffff\22\27\1\uffff\uffbf\27",
             "\0\27",
             "\0\27",
@@ -2038,33 +2038,31 @@ public class SilkLexer extends Lexer {
             "\uffa3\44",
             "\0\27",
             "\0\27",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
+            "\0\27",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
             "\0\27",
             "\0\27",
-            "\11\61\1\52\1\27\2\61\1\27\22\61\1\52\1\61\1\27\1\46\4\61"+
-            "\2\64\1\63\1\61\1\64\15\61\1\63\3\61\1\63\34\61\1\63\1\27\1"+
-            "\63\35\61\1\63\1\61\1\63\uff82\61",
+            "\11\62\1\53\1\27\2\62\1\27\22\62\1\53\1\62\1\27\1\46\4\62"+
+            "\2\64\1\63\1\62\1\64\15\62\1\63\3\62\1\63\34\62\1\63\1\27\1"+
+            "\63\35\62\1\63\1\62\1\63\uff82\62",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
             "\0\27",
             "",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "",
+            "\11\27\1\36\1\37\2\27\1\37\22\27\1\34\2\27\1\uffff\1\27\1"+
+            "\uffff\7\27\1\6\22\27\1\33\uffbf\27",
             "\1\uffff",
-            "",
-            "\11\27\1\37\1\34\2\27\1\34\22\27\1\35\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\6\22\27\1\36\uffbf\27",
-            "",
-            "\11\27\1\37\1\34\2\27\1\34\22\27\1\37\2\27\1\uffff\1\27\1"+
+            "\11\27\1\36\1\37\2\27\1\37\22\27\1\36\2\27\1\uffff\1\27\1"+
             "\uffff\7\27\1\uffff\22\27\1\uffff\uffbf\27",
+            "",
             "\1\uffff",
             "",
             "",
@@ -2079,25 +2077,25 @@ public class SilkLexer extends Lexer {
             "",
             "",
             "",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
-            "\11\53\1\52\1\27\2\53\1\27\22\53\1\52\1\53\2\27\4\53\2\55"+
-            "\1\54\1\53\1\55\15\53\1\54\3\53\1\54\34\53\1\54\1\27\1\54\35"+
-            "\53\1\54\1\53\1\54\uff82\53",
             "",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
+            "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
+            "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
+            "\54\1\55\1\54\1\55\uff82\54",
             "\1\uffff",
+            "",
             "",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
             "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
-            "",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
             "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
@@ -2237,243 +2235,82 @@ public class SilkLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA20_94 = input.LA(1);
+                        int LA20_21 = input.LA(1);
 
                          
-                        int index20_94 = input.index();
+                        int index20_21 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_94=='\"') ) {s = 89;}
+                        if ( (LA20_21=='\t'||LA20_21==' ') ) {s = 43;}
 
-                        else if ( ((LA20_94>='\u0000' && LA20_94<='\t')||(LA20_94>='\u000B' && LA20_94<='\f')||(LA20_94>='\u000E' && LA20_94<='!')||(LA20_94>='#' && LA20_94<='[')||(LA20_94>=']' && LA20_94<='\uFFFF')) ) {s = 90;}
+                        else if ( ((LA20_21>='\u0000' && LA20_21<='\b')||(LA20_21>='\u000B' && LA20_21<='\f')||(LA20_21>='\u000E' && LA20_21<='\u001F')||LA20_21=='!'||(LA20_21>='$' && LA20_21<='\'')||LA20_21=='+'||(LA20_21>='-' && LA20_21<='9')||(LA20_21>=';' && LA20_21<='=')||(LA20_21>='?' && LA20_21<='Z')||(LA20_21>='^' && LA20_21<='z')||LA20_21=='|'||(LA20_21>='~' && LA20_21<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_94=='\\') ) {s = 91;}
+                        else if ( (LA20_21=='*'||LA20_21==':'||LA20_21=='>'||LA20_21=='['||LA20_21==']'||LA20_21=='{'||LA20_21=='}') ) {s = 45;}
 
-                        else if ( (LA20_94=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_21>='(' && LA20_21<=')')||LA20_21==',') ) {s = 46;}
+
+                        else if ( (LA20_21=='\n'||LA20_21=='\r'||(LA20_21>='\"' && LA20_21<='#')||LA20_21=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 57;
 
                          
-                        input.seek(index20_94);
+                        input.seek(index20_21);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA20_80 = input.LA(1);
+                        int LA20_96 = input.LA(1);
 
                          
-                        int index20_80 = input.index();
+                        int index20_96 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_80=='\"') ) {s = 55;}
+                        if ( (LA20_96=='\"') ) {s = 89;}
 
-                        else if ( (LA20_80=='#') ) {s = 56;}
+                        else if ( ((LA20_96>='\u0000' && LA20_96<='\t')||(LA20_96>='\u000B' && LA20_96<='\f')||(LA20_96>='\u000E' && LA20_96<='!')||(LA20_96>='#' && LA20_96<='[')||(LA20_96>=']' && LA20_96<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA20_80=='\\') ) {s = 54;}
+                        else if ( (LA20_96=='\\') ) {s = 91;}
 
-                        else if ( (LA20_80=='\n'||LA20_80=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_80>='\u0000' && LA20_80<='\t')||(LA20_80>='\u000B' && LA20_80<='\f')||(LA20_80>='\u000E' && LA20_80<='!')||(LA20_80>='$' && LA20_80<='[')||(LA20_80>=']' && LA20_80<='\uFFFF')) ) {s = 53;}
+                        else if ( (LA20_96=='\r') && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_80);
+                        input.seek(index20_96);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA20_43 = input.LA(1);
+                        int LA20_47 = input.LA(1);
 
                          
-                        int index20_43 = input.index();
+                        int index20_47 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_43=='\t'||LA20_43==' ') ) {s = 42;}
+                        if ( (!((( isValue() )))) ) {s = 73;}
 
-                        else if ( ((LA20_43>='\u0000' && LA20_43<='\b')||(LA20_43>='\u000B' && LA20_43<='\f')||(LA20_43>='\u000E' && LA20_43<='\u001F')||LA20_43=='!'||(LA20_43>='$' && LA20_43<='\'')||LA20_43=='+'||(LA20_43>='-' && LA20_43<='9')||(LA20_43>=';' && LA20_43<='=')||(LA20_43>='?' && LA20_43<='Z')||(LA20_43>='^' && LA20_43<='z')||LA20_43=='|'||(LA20_43>='~' && LA20_43<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_43=='*'||LA20_43==':'||LA20_43=='>'||LA20_43=='['||LA20_43==']'||LA20_43=='{'||LA20_43=='}') ) {s = 44;}
-
-                        else if ( ((LA20_43>='(' && LA20_43<=')')||LA20_43==',') ) {s = 45;}
-
-                        else if ( (LA20_43=='\n'||LA20_43=='\r'||(LA20_43>='\"' && LA20_43<='#')||LA20_43=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 57;
+                        else if ( (( isValue() )) ) {s = 58;}
 
                          
-                        input.seek(index20_43);
+                        input.seek(index20_47);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA20_66 = input.LA(1);
+                        int LA20_98 = input.LA(1);
 
                          
-                        int index20_66 = input.index();
+                        int index20_98 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_66=='\t'||LA20_66==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+                        if ( (LA20_98=='\"') ) {s = 89;}
 
-                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||(LA20_66>='$' && LA20_66<='\'')||LA20_66=='+'||(LA20_66>='-' && LA20_66<='9')||(LA20_66>=';' && LA20_66<='=')||(LA20_66>='?' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||LA20_66=='|'||(LA20_66>='~' && LA20_66<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_98>='\u0000' && LA20_98<='\t')||(LA20_98>='\u000B' && LA20_98<='\f')||(LA20_98>='\u000E' && LA20_98<='!')||(LA20_98>='#' && LA20_98<='[')||(LA20_98>=']' && LA20_98<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA20_66=='*'||LA20_66==':'||LA20_66=='>'||LA20_66=='['||LA20_66==']'||LA20_66=='{'||LA20_66=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_98=='\\') ) {s = 91;}
 
-                        else if ( ((LA20_66>='(' && LA20_66<=')')||LA20_66==',') && ((( isValue() )||( isHead() )))) {s = 68;}
-
-                        else if ( (LA20_66=='\n'||LA20_66=='\r'||(LA20_66>='\"' && LA20_66<='#')||LA20_66=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
+                        else if ( (LA20_98=='\r') && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_66);
+                        input.seek(index20_98);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA20_83 = input.LA(1);
-
-                         
-                        int index20_83 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_83=='\"') ) {s = 55;}
-
-                        else if ( (LA20_83=='#') ) {s = 56;}
-
-                        else if ( (LA20_83=='\\') ) {s = 54;}
-
-                        else if ( (LA20_83=='\n'||LA20_83=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_83>='\u0000' && LA20_83<='\t')||(LA20_83>='\u000B' && LA20_83<='\f')||(LA20_83>='\u000E' && LA20_83<='!')||(LA20_83>='$' && LA20_83<='[')||(LA20_83>=']' && LA20_83<='\uFFFF')) ) {s = 53;}
-
-                         
-                        input.seek(index20_83);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA20_10 = input.LA(1);
-
-                         
-                        int index20_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_10>='\u0000' && LA20_10<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 34;
-
-                         
-                        input.seek(index20_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA20_49 = input.LA(1);
-
-                         
-                        int index20_49 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_49=='\t'||LA20_49==' ') ) {s = 75;}
-
-                        else if ( ((LA20_49>='\u0000' && LA20_49<='\b')||(LA20_49>='\u000B' && LA20_49<='\f')||(LA20_49>='\u000E' && LA20_49<='\u001F')||LA20_49=='!'||(LA20_49>='$' && LA20_49<='\'')||LA20_49=='+'||(LA20_49>='-' && LA20_49<='9')||(LA20_49>=';' && LA20_49<='=')||(LA20_49>='?' && LA20_49<='Z')||(LA20_49>='^' && LA20_49<='z')||LA20_49=='|'||(LA20_49>='~' && LA20_49<='\uFFFF')) ) {s = 76;}
-
-                        else if ( (LA20_49=='*'||LA20_49==':'||LA20_49=='>'||LA20_49=='['||LA20_49==']'||LA20_49=='{'||LA20_49=='}') ) {s = 77;}
-
-                        else if ( ((LA20_49>='(' && LA20_49<=')')||LA20_49==',') ) {s = 78;}
-
-                        else if ( (LA20_49=='\n'||LA20_49=='\r'||(LA20_49>='\"' && LA20_49<='#')||LA20_49=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 74;
-
-                         
-                        input.seek(index20_49);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA20_72 = input.LA(1);
-
-                         
-                        int index20_72 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_72=='\t'||LA20_72==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
-
-                        else if ( ((LA20_72>='\u0000' && LA20_72<='\b')||(LA20_72>='\u000B' && LA20_72<='\f')||(LA20_72>='\u000E' && LA20_72<='\u001F')||LA20_72=='!'||(LA20_72>='$' && LA20_72<='\'')||LA20_72=='+'||(LA20_72>='-' && LA20_72<='9')||(LA20_72>=';' && LA20_72<='=')||(LA20_72>='?' && LA20_72<='Z')||(LA20_72>='^' && LA20_72<='z')||LA20_72=='|'||(LA20_72>='~' && LA20_72<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
-
-                        else if ( (LA20_72=='*'||LA20_72==':'||LA20_72=='>'||LA20_72=='['||LA20_72==']'||LA20_72=='{'||LA20_72=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
-
-                        else if ( ((LA20_72>='(' && LA20_72<=')')||LA20_72==',') && ((( isHead() )||( isValue() )))) {s = 72;}
-
-                        else if ( (LA20_72=='\r'||(LA20_72>='\"' && LA20_72<='#')||LA20_72=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_72);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA20_45 = input.LA(1);
-
-                         
-                        int index20_45 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_45=='\t'||LA20_45==' ') ) {s = 42;}
-
-                        else if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||(LA20_45>='$' && LA20_45<='\'')||LA20_45=='+'||(LA20_45>='-' && LA20_45<='9')||(LA20_45>=';' && LA20_45<='=')||(LA20_45>='?' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||LA20_45=='|'||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_45=='*'||LA20_45==':'||LA20_45=='>'||LA20_45=='['||LA20_45==']'||LA20_45=='{'||LA20_45=='}') ) {s = 44;}
-
-                        else if ( ((LA20_45>='(' && LA20_45<=')')||LA20_45==',') ) {s = 45;}
-
-                        else if ( (LA20_45=='\n'||LA20_45=='\r'||(LA20_45>='\"' && LA20_45<='#')||LA20_45=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 57;
-
-                         
-                        input.seek(index20_45);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA20_68 = input.LA(1);
-
-                         
-                        int index20_68 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_68=='\t'||LA20_68==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
-
-                        else if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||(LA20_68>='$' && LA20_68<='\'')||LA20_68=='+'||(LA20_68>='-' && LA20_68<='9')||(LA20_68>=';' && LA20_68<='=')||(LA20_68>='?' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||LA20_68=='|'||(LA20_68>='~' && LA20_68<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
-
-                        else if ( (LA20_68=='*'||LA20_68==':'||LA20_68=='>'||LA20_68=='['||LA20_68==']'||LA20_68=='{'||LA20_68=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
-
-                        else if ( ((LA20_68>='(' && LA20_68<=')')||LA20_68==',') && ((( isValue() )||( isHead() )))) {s = 68;}
-
-                        else if ( (LA20_68=='\n'||LA20_68=='\r'||(LA20_68>='\"' && LA20_68<='#')||LA20_68=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_68);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA20_71 = input.LA(1);
-
-                         
-                        int index20_71 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_71=='\t'||LA20_71==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
-
-                        else if ( ((LA20_71>='\u0000' && LA20_71<='\b')||(LA20_71>='\u000B' && LA20_71<='\f')||(LA20_71>='\u000E' && LA20_71<='\u001F')||LA20_71=='!'||(LA20_71>='$' && LA20_71<='\'')||LA20_71=='+'||(LA20_71>='-' && LA20_71<='9')||(LA20_71>=';' && LA20_71<='=')||(LA20_71>='?' && LA20_71<='Z')||(LA20_71>='^' && LA20_71<='z')||LA20_71=='|'||(LA20_71>='~' && LA20_71<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
-
-                        else if ( (LA20_71=='*'||LA20_71==':'||LA20_71=='>'||LA20_71=='['||LA20_71==']'||LA20_71=='{'||LA20_71=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
-
-                        else if ( ((LA20_71>='(' && LA20_71<=')')||LA20_71==',') && ((( isHead() )||( isValue() )))) {s = 72;}
-
-                        else if ( (LA20_71=='\r'||(LA20_71>='\"' && LA20_71<='#')||LA20_71=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_71);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
                         int LA20_82 = input.LA(1);
 
                          
@@ -2494,49 +2331,7 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_82);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA20_93 = input.LA(1);
-
-                         
-                        int index20_93 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_93=='\"') ) {s = 89;}
-
-                        else if ( ((LA20_93>='\u0000' && LA20_93<='\t')||(LA20_93>='\u000B' && LA20_93<='\f')||(LA20_93>='\u000E' && LA20_93<='!')||(LA20_93>='#' && LA20_93<='[')||(LA20_93>=']' && LA20_93<='\uFFFF')) ) {s = 90;}
-
-                        else if ( (LA20_93=='\\') ) {s = 91;}
-
-                        else if ( (LA20_93=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_93);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA20_69 = input.LA(1);
-
-                         
-                        int index20_69 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_69=='\t'||LA20_69==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
-
-                        else if ( ((LA20_69>='\u0000' && LA20_69<='\b')||(LA20_69>='\u000B' && LA20_69<='\f')||(LA20_69>='\u000E' && LA20_69<='\u001F')||LA20_69=='!'||(LA20_69>='$' && LA20_69<='\'')||LA20_69=='+'||(LA20_69>='-' && LA20_69<='9')||(LA20_69>=';' && LA20_69<='=')||(LA20_69>='?' && LA20_69<='Z')||(LA20_69>='^' && LA20_69<='z')||LA20_69=='|'||(LA20_69>='~' && LA20_69<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
-
-                        else if ( (LA20_69=='*'||LA20_69==':'||LA20_69=='>'||LA20_69=='['||LA20_69==']'||LA20_69=='{'||LA20_69=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
-
-                        else if ( ((LA20_69>='(' && LA20_69<=')')||LA20_69==',') && ((( isHead() )||( isValue() )))) {s = 72;}
-
-                        else if ( (LA20_69=='\r'||(LA20_69>='\"' && LA20_69<='#')||LA20_69=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_69);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
+                    case 5 : 
                         int LA20_51 = input.LA(1);
 
                          
@@ -2559,341 +2354,7 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_51);
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA20_32 = input.LA(1);
-
-                         
-                        int index20_32 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 30;}
-
-                        else if ( (true) ) {s = 63;}
-
-                         
-                        input.seek(index20_32);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA20_95 = input.LA(1);
-
-                         
-                        int index20_95 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_95=='\"') ) {s = 89;}
-
-                        else if ( ((LA20_95>='\u0000' && LA20_95<='\t')||(LA20_95>='\u000B' && LA20_95<='\f')||(LA20_95>='\u000E' && LA20_95<='!')||(LA20_95>='#' && LA20_95<='[')||(LA20_95>=']' && LA20_95<='\uFFFF')) ) {s = 90;}
-
-                        else if ( (LA20_95=='\\') ) {s = 91;}
-
-                        else if ( (LA20_95=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_95);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA20_20 = input.LA(1);
-
-                         
-                        int index20_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_20>='\u0000' && LA20_20<='\t')||(LA20_20>='\u000B' && LA20_20<='\f')||(LA20_20>='\u000E' && LA20_20<='!')||(LA20_20>='$' && LA20_20<='[')||(LA20_20>=']' && LA20_20<='\uFFFF')) ) {s = 53;}
-
-                        else if ( (LA20_20=='\\') ) {s = 54;}
-
-                        else if ( (LA20_20=='\"') ) {s = 55;}
-
-                        else if ( (LA20_20=='#') ) {s = 56;}
-
-                        else if ( (LA20_20=='\n'||LA20_20=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA20_81 = input.LA(1);
-
-                         
-                        int index20_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_81=='\"') ) {s = 55;}
-
-                        else if ( (LA20_81=='#') ) {s = 56;}
-
-                        else if ( (LA20_81=='\\') ) {s = 54;}
-
-                        else if ( (LA20_81=='\n'||LA20_81=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_81>='\u0000' && LA20_81<='\t')||(LA20_81>='\u000B' && LA20_81<='\f')||(LA20_81>='\u000E' && LA20_81<='!')||(LA20_81>='$' && LA20_81<='[')||(LA20_81>=']' && LA20_81<='\uFFFF')) ) {s = 53;}
-
-                         
-                        input.seek(index20_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA20_44 = input.LA(1);
-
-                         
-                        int index20_44 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_44=='\t'||LA20_44==' ') ) {s = 42;}
-
-                        else if ( ((LA20_44>='\u0000' && LA20_44<='\b')||(LA20_44>='\u000B' && LA20_44<='\f')||(LA20_44>='\u000E' && LA20_44<='\u001F')||LA20_44=='!'||(LA20_44>='$' && LA20_44<='\'')||LA20_44=='+'||(LA20_44>='-' && LA20_44<='9')||(LA20_44>=';' && LA20_44<='=')||(LA20_44>='?' && LA20_44<='Z')||(LA20_44>='^' && LA20_44<='z')||LA20_44=='|'||(LA20_44>='~' && LA20_44<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_44=='*'||LA20_44==':'||LA20_44=='>'||LA20_44=='['||LA20_44==']'||LA20_44=='{'||LA20_44=='}') ) {s = 44;}
-
-                        else if ( ((LA20_44>='(' && LA20_44<=')')||LA20_44==',') ) {s = 45;}
-
-                        else if ( (LA20_44=='\n'||LA20_44=='\r'||(LA20_44>='\"' && LA20_44<='#')||LA20_44=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 57;
-
-                         
-                        input.seek(index20_44);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA20_67 = input.LA(1);
-
-                         
-                        int index20_67 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_67=='\t'||LA20_67==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
-
-                        else if ( ((LA20_67>='\u0000' && LA20_67<='\b')||(LA20_67>='\u000B' && LA20_67<='\f')||(LA20_67>='\u000E' && LA20_67<='\u001F')||LA20_67=='!'||(LA20_67>='$' && LA20_67<='\'')||LA20_67=='+'||(LA20_67>='-' && LA20_67<='9')||(LA20_67>=';' && LA20_67<='=')||(LA20_67>='?' && LA20_67<='Z')||(LA20_67>='^' && LA20_67<='z')||LA20_67=='|'||(LA20_67>='~' && LA20_67<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
-
-                        else if ( (LA20_67=='*'||LA20_67==':'||LA20_67=='>'||LA20_67=='['||LA20_67==']'||LA20_67=='{'||LA20_67=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
-
-                        else if ( ((LA20_67>='(' && LA20_67<=')')||LA20_67==',') && ((( isValue() )||( isHead() )))) {s = 68;}
-
-                        else if ( (LA20_67=='\n'||LA20_67=='\r'||(LA20_67>='\"' && LA20_67<='#')||LA20_67=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_67);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA20_106 = input.LA(1);
-
-                         
-                        int index20_106 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_106=='\n'||LA20_106=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA20_106=='#') ) {s = 56;}
-
-                        else if ( (LA20_106=='\"') ) {s = 55;}
-
-                        else if ( ((LA20_106>='\u0000' && LA20_106<='\t')||(LA20_106>='\u000B' && LA20_106<='\f')||(LA20_106>='\u000E' && LA20_106<='!')||(LA20_106>='$' && LA20_106<='[')||(LA20_106>=']' && LA20_106<='\uFFFF')) ) {s = 53;}
-
-                        else if ( (LA20_106=='\\') ) {s = 54;}
-
-                         
-                        input.seek(index20_106);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA20_21 = input.LA(1);
-
-                         
-                        int index20_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_21=='\t'||LA20_21==' ') ) {s = 42;}
-
-                        else if ( (LA20_21=='\n'||LA20_21=='\r'||(LA20_21>='\"' && LA20_21<='#')||LA20_21=='\\') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_21>='\u0000' && LA20_21<='\b')||(LA20_21>='\u000B' && LA20_21<='\f')||(LA20_21>='\u000E' && LA20_21<='\u001F')||LA20_21=='!'||(LA20_21>='$' && LA20_21<='\'')||LA20_21=='+'||(LA20_21>='-' && LA20_21<='9')||(LA20_21>=';' && LA20_21<='=')||(LA20_21>='?' && LA20_21<='Z')||(LA20_21>='^' && LA20_21<='z')||LA20_21=='|'||(LA20_21>='~' && LA20_21<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_21=='*'||LA20_21==':'||LA20_21=='>'||LA20_21=='['||LA20_21==']'||LA20_21=='{'||LA20_21=='}') ) {s = 44;}
-
-                        else if ( ((LA20_21>='(' && LA20_21<=')')||LA20_21==',') ) {s = 45;}
-
-                        else s = 57;
-
-                         
-                        input.seek(index20_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA20_42 = input.LA(1);
-
-                         
-                        int index20_42 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_42=='\t'||LA20_42==' ') ) {s = 42;}
-
-                        else if ( ((LA20_42>='\u0000' && LA20_42<='\b')||(LA20_42>='\u000B' && LA20_42<='\f')||(LA20_42>='\u000E' && LA20_42<='\u001F')||LA20_42=='!'||(LA20_42>='$' && LA20_42<='\'')||LA20_42=='+'||(LA20_42>='-' && LA20_42<='9')||(LA20_42>=';' && LA20_42<='=')||(LA20_42>='?' && LA20_42<='Z')||(LA20_42>='^' && LA20_42<='z')||LA20_42=='|'||(LA20_42>='~' && LA20_42<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_42=='*'||LA20_42==':'||LA20_42=='>'||LA20_42=='['||LA20_42==']'||LA20_42=='{'||LA20_42=='}') ) {s = 44;}
-
-                        else if ( ((LA20_42>='(' && LA20_42<=')')||LA20_42==',') ) {s = 45;}
-
-                        else if ( (LA20_42=='\n'||LA20_42=='\r'||(LA20_42>='\"' && LA20_42<='#')||LA20_42=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 57;
-
-                         
-                        input.seek(index20_42);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA20_65 = input.LA(1);
-
-                         
-                        int index20_65 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_65=='\t'||LA20_65==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
-
-                        else if ( ((LA20_65>='\u0000' && LA20_65<='\b')||(LA20_65>='\u000B' && LA20_65<='\f')||(LA20_65>='\u000E' && LA20_65<='\u001F')||LA20_65=='!'||(LA20_65>='$' && LA20_65<='\'')||LA20_65=='+'||(LA20_65>='-' && LA20_65<='9')||(LA20_65>=';' && LA20_65<='=')||(LA20_65>='?' && LA20_65<='Z')||(LA20_65>='^' && LA20_65<='z')||LA20_65=='|'||(LA20_65>='~' && LA20_65<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
-
-                        else if ( (LA20_65=='*'||LA20_65==':'||LA20_65=='>'||LA20_65=='['||LA20_65==']'||LA20_65=='{'||LA20_65=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
-
-                        else if ( ((LA20_65>='(' && LA20_65<=')')||LA20_65==',') && ((( isValue() )||( isHead() )))) {s = 68;}
-
-                        else if ( (LA20_65=='\n'||LA20_65=='\r'||(LA20_65>='\"' && LA20_65<='#')||LA20_65=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_65);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA20_89 = input.LA(1);
-
-                         
-                        int index20_89 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_89>='\u0000' && LA20_89<='\t')||(LA20_89>='\u000B' && LA20_89<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 88;
-
-                         
-                        input.seek(index20_89);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA20_53 = input.LA(1);
-
-                         
-                        int index20_53 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_53=='\"') ) {s = 55;}
-
-                        else if ( (LA20_53=='#') ) {s = 56;}
-
-                        else if ( (LA20_53=='\\') ) {s = 54;}
-
-                        else if ( (LA20_53=='\n'||LA20_53=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_53>='\u0000' && LA20_53<='\t')||(LA20_53>='\u000B' && LA20_53<='\f')||(LA20_53>='\u000E' && LA20_53<='!')||(LA20_53>='$' && LA20_53<='[')||(LA20_53>=']' && LA20_53<='\uFFFF')) ) {s = 53;}
-
-                         
-                        input.seek(index20_53);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA20_86 = input.LA(1);
-
-                         
-                        int index20_86 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_86=='\"') ) {s = 55;}
-
-                        else if ( (LA20_86=='#') ) {s = 56;}
-
-                        else if ( (LA20_86=='\\') ) {s = 54;}
-
-                        else if ( (LA20_86=='\n'||LA20_86=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_86>='\u0000' && LA20_86<='\t')||(LA20_86>='\u000B' && LA20_86<='\f')||(LA20_86>='\u000E' && LA20_86<='!')||(LA20_86>='$' && LA20_86<='[')||(LA20_86>=']' && LA20_86<='\uFFFF')) ) {s = 53;}
-
-                         
-                        input.seek(index20_86);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA20_90 = input.LA(1);
-
-                         
-                        int index20_90 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_90=='\"') ) {s = 89;}
-
-                        else if ( ((LA20_90>='\u0000' && LA20_90<='\t')||(LA20_90>='\u000B' && LA20_90<='\f')||(LA20_90>='\u000E' && LA20_90<='!')||(LA20_90>='#' && LA20_90<='[')||(LA20_90>=']' && LA20_90<='\uFFFF')) ) {s = 90;}
-
-                        else if ( (LA20_90=='\\') ) {s = 91;}
-
-                        else if ( (LA20_90=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_90);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA20_22 = input.LA(1);
-
-                         
-                        int index20_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_22>='\u0000' && LA20_22<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 58;
-
-                         
-                        input.seek(index20_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA20_54 = input.LA(1);
-
-                         
-                        int index20_54 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_54>='\u0000' && LA20_54<='!')||(LA20_54>='#' && LA20_54<='.')||(LA20_54>='0' && LA20_54<='[')||(LA20_54>=']' && LA20_54<='a')||(LA20_54>='c' && LA20_54<='e')||(LA20_54>='g' && LA20_54<='m')||(LA20_54>='o' && LA20_54<='q')||LA20_54=='s'||(LA20_54>='v' && LA20_54<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA20_54=='\"') ) {s = 79;}
-
-                        else if ( (LA20_54=='\\') ) {s = 80;}
-
-                        else if ( (LA20_54=='/') ) {s = 81;}
-
-                        else if ( (LA20_54=='b') ) {s = 82;}
-
-                        else if ( (LA20_54=='f') ) {s = 83;}
-
-                        else if ( (LA20_54=='n') ) {s = 84;}
-
-                        else if ( (LA20_54=='r') ) {s = 85;}
-
-                        else if ( (LA20_54=='t') ) {s = 86;}
-
-                        else if ( (LA20_54=='u') ) {s = 87;}
-
-                         
-                        input.seek(index20_54);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
+                    case 6 : 
                         int LA20_77 = input.LA(1);
 
                          
@@ -2916,84 +2377,215 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_77);
                         if ( s>=0 ) return s;
                         break;
-                    case 32 : 
-                        int LA20_79 = input.LA(1);
+                    case 7 : 
+                        int LA20_97 = input.LA(1);
 
                          
-                        int index20_79 = input.index();
+                        int index20_97 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_79=='\n'||LA20_79=='\r') && (( isHead() ))) {s = 23;}
+                        if ( (LA20_97=='\"') ) {s = 89;}
 
-                        else if ( (LA20_79=='#') ) {s = 56;}
+                        else if ( ((LA20_97>='\u0000' && LA20_97<='\t')||(LA20_97>='\u000B' && LA20_97<='\f')||(LA20_97>='\u000E' && LA20_97<='!')||(LA20_97>='#' && LA20_97<='[')||(LA20_97>=']' && LA20_97<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA20_79=='\"') ) {s = 55;}
+                        else if ( (LA20_97=='\\') ) {s = 91;}
 
-                        else if ( ((LA20_79>='\u0000' && LA20_79<='\t')||(LA20_79>='\u000B' && LA20_79<='\f')||(LA20_79>='\u000E' && LA20_79<='!')||(LA20_79>='$' && LA20_79<='[')||(LA20_79>=']' && LA20_79<='\uFFFF')) ) {s = 53;}
-
-                        else if ( (LA20_79=='\\') ) {s = 54;}
+                        else if ( (LA20_97=='\r') && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_79);
+                        input.seek(index20_97);
                         if ( s>=0 ) return s;
                         break;
-                    case 33 : 
-                        int LA20_92 = input.LA(1);
+                    case 8 : 
+                        int LA20_32 = input.LA(1);
 
                          
-                        int index20_92 = input.index();
+                        int index20_32 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_92>='0' && LA20_92<='9')||(LA20_92>='A' && LA20_92<='F')||(LA20_92>='a' && LA20_92<='f')) ) {s = 102;}
+                        if ( (( isHead() )) ) {s = 27;}
 
-                        else if ( ((LA20_92>='\u0000' && LA20_92<='/')||(LA20_92>=':' && LA20_92<='@')||(LA20_92>='G' && LA20_92<='`')||(LA20_92>='g' && LA20_92<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( (true) ) {s = 63;}
 
                          
-                        input.seek(index20_92);
+                        input.seek(index20_32);
                         if ( s>=0 ) return s;
                         break;
-                    case 34 : 
-                        int LA20_9 = input.LA(1);
+                    case 9 : 
+                        int LA20_20 = input.LA(1);
 
                          
-                        int index20_9 = input.index();
+                        int index20_20 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_9>='\u0000' && LA20_9<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( ((LA20_20>='\u0000' && LA20_20<='\t')||(LA20_20>='\u000B' && LA20_20<='\f')||(LA20_20>='\u000E' && LA20_20<='!')||(LA20_20>='$' && LA20_20<='[')||(LA20_20>=']' && LA20_20<='\uFFFF')) ) {s = 53;}
 
-                        else s = 33;
+                        else if ( (LA20_20=='\\') ) {s = 54;}
+
+                        else if ( (LA20_20=='\"') ) {s = 55;}
+
+                        else if ( (LA20_20=='#') ) {s = 56;}
+
+                        else if ( (LA20_20=='\n'||LA20_20=='\r') && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_9);
+                        input.seek(index20_20);
                         if ( s>=0 ) return s;
                         break;
-                    case 35 : 
-                        int LA20_102 = input.LA(1);
+                    case 10 : 
+                        int LA20_107 = input.LA(1);
 
                          
-                        int index20_102 = input.index();
+                        int index20_107 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_102>='\u0000' && LA20_102<='/')||(LA20_102>=':' && LA20_102<='@')||(LA20_102>='G' && LA20_102<='`')||(LA20_102>='g' && LA20_102<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( ((LA20_107>='0' && LA20_107<='9')||(LA20_107>='A' && LA20_107<='F')||(LA20_107>='a' && LA20_107<='f')) ) {s = 108;}
 
-                        else if ( ((LA20_102>='0' && LA20_102<='9')||(LA20_102>='A' && LA20_102<='F')||(LA20_102>='a' && LA20_102<='f')) ) {s = 104;}
+                        else if ( ((LA20_107>='\u0000' && LA20_107<='\t')||(LA20_107>='\u000B' && LA20_107<='/')||(LA20_107>=':' && LA20_107<='@')||(LA20_107>='G' && LA20_107<='`')||(LA20_107>='g' && LA20_107<='\uFFFF')) && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_102);
+                        input.seek(index20_107);
                         if ( s>=0 ) return s;
                         break;
-                    case 36 : 
+                    case 11 : 
+                        int LA20_14 = input.LA(1);
+
+                         
+                        int index20_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_14>='\u0000' && LA20_14<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 40;
+
+                         
+                        input.seek(index20_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA20_99 = input.LA(1);
+
+                         
+                        int index20_99 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_99=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_99=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_99>='\u0000' && LA20_99<='\t')||(LA20_99>='\u000B' && LA20_99<='\f')||(LA20_99>='\u000E' && LA20_99<='!')||(LA20_99>='#' && LA20_99<='[')||(LA20_99>=']' && LA20_99<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_99=='\\') ) {s = 91;}
+
+                         
+                        input.seek(index20_99);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA20_89 = input.LA(1);
+
+                         
+                        int index20_89 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_89>='\u0000' && LA20_89<='\t')||(LA20_89>='\u000B' && LA20_89<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 88;
+
+                         
+                        input.seek(index20_89);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA20_94 = input.LA(1);
+
+                         
+                        int index20_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_94=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_94>='\u0000' && LA20_94<='\t')||(LA20_94>='\u000B' && LA20_94<='\f')||(LA20_94>='\u000E' && LA20_94<='!')||(LA20_94>='#' && LA20_94<='[')||(LA20_94>=']' && LA20_94<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_94=='\\') ) {s = 91;}
+
+                        else if ( (LA20_94=='\r') && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA20_52 = input.LA(1);
+
+                         
+                        int index20_52 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_52=='\t'||LA20_52==' ') ) {s = 75;}
+
+                        else if ( ((LA20_52>='\u0000' && LA20_52<='\b')||(LA20_52>='\u000B' && LA20_52<='\f')||(LA20_52>='\u000E' && LA20_52<='\u001F')||LA20_52=='!'||(LA20_52>='$' && LA20_52<='\'')||LA20_52=='+'||(LA20_52>='-' && LA20_52<='9')||(LA20_52>=';' && LA20_52<='=')||(LA20_52>='?' && LA20_52<='Z')||(LA20_52>='^' && LA20_52<='z')||LA20_52=='|'||(LA20_52>='~' && LA20_52<='\uFFFF')) ) {s = 76;}
+
+                        else if ( (LA20_52=='*'||LA20_52==':'||LA20_52=='>'||LA20_52=='['||LA20_52==']'||LA20_52=='{'||LA20_52=='}') ) {s = 77;}
+
+                        else if ( ((LA20_52>='(' && LA20_52<=')')||LA20_52==',') ) {s = 78;}
+
+                        else if ( (LA20_52=='\n'||LA20_52=='\r'||(LA20_52>='\"' && LA20_52<='#')||LA20_52=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 74;
+
+                         
+                        input.seek(index20_52);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA20_55 = input.LA(1);
+
+                         
+                        int index20_55 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_55>='\u0000' && LA20_55<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 88;
+
+                         
+                        input.seek(index20_55);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA20_84 = input.LA(1);
+
+                         
+                        int index20_84 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_84=='\"') ) {s = 55;}
+
+                        else if ( (LA20_84=='#') ) {s = 56;}
+
+                        else if ( (LA20_84=='\\') ) {s = 54;}
+
+                        else if ( (LA20_84=='\n'||LA20_84=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( ((LA20_84>='\u0000' && LA20_84<='\t')||(LA20_84>='\u000B' && LA20_84<='\f')||(LA20_84>='\u000E' && LA20_84<='!')||(LA20_84>='$' && LA20_84<='[')||(LA20_84>=']' && LA20_84<='\uFFFF')) ) {s = 53;}
+
+                         
+                        input.seek(index20_84);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
                         int LA20_12 = input.LA(1);
 
                          
                         int index20_12 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_12>='\u0000' && LA20_12<='\b')||(LA20_12>='\u000B' && LA20_12<='\f')||(LA20_12>='\u000E' && LA20_12<='\u001F')||LA20_12=='!'||(LA20_12>='$' && LA20_12<='[')||(LA20_12>=']' && LA20_12<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 36;}
-
-                        else if ( (LA20_12=='#') && ((( isHead() )||( isValue() )))) {s = 38;}
+                        if ( ((LA20_12>='\u0000' && LA20_12<='\b')||(LA20_12>='\u000B' && LA20_12<='\f')||(LA20_12>='\u000E' && LA20_12<='\u001F')||LA20_12=='!'||(LA20_12>='$' && LA20_12<='[')||(LA20_12>=']' && LA20_12<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 36;}
 
                         else if ( ((LA20_12>='\t' && LA20_12<='\n')||LA20_12=='\r'||LA20_12==' '||LA20_12=='\"'||LA20_12=='\\') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_12=='#') && ((( isValue() )||( isHead() )))) {s = 38;}
 
                         else s = 37;
 
@@ -3001,7 +2593,94 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 37 : 
+                    case 19 : 
+                        int LA20_76 = input.LA(1);
+
+                         
+                        int index20_76 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_76=='\t'||LA20_76==' ') ) {s = 75;}
+
+                        else if ( ((LA20_76>='\u0000' && LA20_76<='\b')||(LA20_76>='\u000B' && LA20_76<='\f')||(LA20_76>='\u000E' && LA20_76<='\u001F')||LA20_76=='!'||(LA20_76>='$' && LA20_76<='\'')||LA20_76=='+'||(LA20_76>='-' && LA20_76<='9')||(LA20_76>=';' && LA20_76<='=')||(LA20_76>='?' && LA20_76<='Z')||(LA20_76>='^' && LA20_76<='z')||LA20_76=='|'||(LA20_76>='~' && LA20_76<='\uFFFF')) ) {s = 76;}
+
+                        else if ( (LA20_76=='*'||LA20_76==':'||LA20_76=='>'||LA20_76=='['||LA20_76==']'||LA20_76=='{'||LA20_76=='}') ) {s = 77;}
+
+                        else if ( ((LA20_76>='(' && LA20_76<=')')||LA20_76==',') ) {s = 78;}
+
+                        else if ( (LA20_76=='\n'||LA20_76=='\r'||(LA20_76>='\"' && LA20_76<='#')||LA20_76=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 74;
+
+                         
+                        input.seek(index20_76);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA20_30 = input.LA(1);
+
+                         
+                        int index20_30 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_30>='\u0000' && LA20_30<='\b')||(LA20_30>='\u000B' && LA20_30<='\f')||(LA20_30>='\u000E' && LA20_30<='\u001F')||(LA20_30>='!' && LA20_30<='\"')||LA20_30=='$'||(LA20_30>='&' && LA20_30<=',')||(LA20_30>='.' && LA20_30<='?')||(LA20_30>='A' && LA20_30<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_30=='\t'||LA20_30==' ') ) {s = 30;}
+
+                        else if ( (LA20_30=='\n'||LA20_30=='\r') ) {s = 31;}
+
+                        else s = 61;
+
+                         
+                        input.seek(index20_30);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA20_17 = input.LA(1);
+
+                         
+                        int index20_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_17>='\u0000' && LA20_17<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 47;
+
+                         
+                        input.seek(index20_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA20_87 = input.LA(1);
+
+                         
+                        int index20_87 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_87>='0' && LA20_87<='9')||(LA20_87>='A' && LA20_87<='F')||(LA20_87>='a' && LA20_87<='f')) ) {s = 92;}
+
+                        else if ( ((LA20_87>='\u0000' && LA20_87<='/')||(LA20_87>=':' && LA20_87<='@')||(LA20_87>='G' && LA20_87<='`')||(LA20_87>='g' && LA20_87<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_87);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA20_11 = input.LA(1);
+
+                         
+                        int index20_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_11>='\u0000' && LA20_11<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 35;
+
+                         
+                        input.seek(index20_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
                         int LA20_0 = input.LA(1);
 
                          
@@ -3058,116 +2737,7 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 38 : 
-                        int LA20_76 = input.LA(1);
-
-                         
-                        int index20_76 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_76=='\t'||LA20_76==' ') ) {s = 75;}
-
-                        else if ( ((LA20_76>='\u0000' && LA20_76<='\b')||(LA20_76>='\u000B' && LA20_76<='\f')||(LA20_76>='\u000E' && LA20_76<='\u001F')||LA20_76=='!'||(LA20_76>='$' && LA20_76<='\'')||LA20_76=='+'||(LA20_76>='-' && LA20_76<='9')||(LA20_76>=';' && LA20_76<='=')||(LA20_76>='?' && LA20_76<='Z')||(LA20_76>='^' && LA20_76<='z')||LA20_76=='|'||(LA20_76>='~' && LA20_76<='\uFFFF')) ) {s = 76;}
-
-                        else if ( (LA20_76=='*'||LA20_76==':'||LA20_76=='>'||LA20_76=='['||LA20_76==']'||LA20_76=='{'||LA20_76=='}') ) {s = 77;}
-
-                        else if ( ((LA20_76>='(' && LA20_76<=')')||LA20_76==',') ) {s = 78;}
-
-                        else if ( (LA20_76=='\n'||LA20_76=='\r'||(LA20_76>='\"' && LA20_76<='#')||LA20_76=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 74;
-
-                         
-                        input.seek(index20_76);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA20_97 = input.LA(1);
-
-                         
-                        int index20_97 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_97=='\"') ) {s = 89;}
-
-                        else if ( ((LA20_97>='\u0000' && LA20_97<='\t')||(LA20_97>='\u000B' && LA20_97<='\f')||(LA20_97>='\u000E' && LA20_97<='!')||(LA20_97>='#' && LA20_97<='[')||(LA20_97>=']' && LA20_97<='\uFFFF')) ) {s = 90;}
-
-                        else if ( (LA20_97=='\\') ) {s = 91;}
-
-                        else if ( (LA20_97=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_97);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
-                        int LA20_8 = input.LA(1);
-
-                         
-                        int index20_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_8=='\n'||LA20_8=='\r') ) {s = 28;}
-
-                        else if ( (LA20_8=='\t'||LA20_8==' ') ) {s = 31;}
-
-                        else if ( ((LA20_8>='\u0000' && LA20_8<='\b')||(LA20_8>='\u000B' && LA20_8<='\f')||(LA20_8>='\u000E' && LA20_8<='\u001F')||(LA20_8>='!' && LA20_8<='\"')||LA20_8=='$'||(LA20_8>='&' && LA20_8<=',')||(LA20_8>='.' && LA20_8<='?')||(LA20_8>='A' && LA20_8<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 27;
-
-                         
-                        input.seek(index20_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 41 : 
-                        int LA20_75 = input.LA(1);
-
-                         
-                        int index20_75 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_75=='\t'||LA20_75==' ') ) {s = 75;}
-
-                        else if ( ((LA20_75>='\u0000' && LA20_75<='\b')||(LA20_75>='\u000B' && LA20_75<='\f')||(LA20_75>='\u000E' && LA20_75<='\u001F')||LA20_75=='!'||(LA20_75>='$' && LA20_75<='\'')||LA20_75=='+'||(LA20_75>='-' && LA20_75<='9')||(LA20_75>=';' && LA20_75<='=')||(LA20_75>='?' && LA20_75<='Z')||(LA20_75>='^' && LA20_75<='z')||LA20_75=='|'||(LA20_75>='~' && LA20_75<='\uFFFF')) ) {s = 76;}
-
-                        else if ( (LA20_75=='*'||LA20_75==':'||LA20_75=='>'||LA20_75=='['||LA20_75==']'||LA20_75=='{'||LA20_75=='}') ) {s = 77;}
-
-                        else if ( ((LA20_75>='(' && LA20_75<=')')||LA20_75==',') ) {s = 78;}
-
-                        else if ( (LA20_75=='\n'||LA20_75=='\r'||(LA20_75>='\"' && LA20_75<='#')||LA20_75=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 74;
-
-                         
-                        input.seek(index20_75);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 42 : 
-                        int LA20_29 = input.LA(1);
-
-                         
-                        int index20_29 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_29=='\n'||LA20_29=='\r') ) {s = 28;}
-
-                        else if ( (LA20_29==' ') ) {s = 29;}
-
-                        else if ( (LA20_29=='@') && (( isHead() ))) {s = 30;}
-
-                        else if ( (LA20_29=='\t') ) {s = 31;}
-
-                        else if ( ((LA20_29>='\u0000' && LA20_29<='\b')||(LA20_29>='\u000B' && LA20_29<='\f')||(LA20_29>='\u000E' && LA20_29<='\u001F')||(LA20_29>='!' && LA20_29<='\"')||LA20_29=='$'||(LA20_29>='&' && LA20_29<=',')||(LA20_29>='.' && LA20_29<='?')||(LA20_29>='A' && LA20_29<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA20_29=='-') ) {s = 6;}
-
-                        else s = 61;
-
-                         
-                        input.seek(index20_29);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 43 : 
+                    case 25 : 
                         int LA20_104 = input.LA(1);
 
                          
@@ -3182,22 +2752,391 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_104);
                         if ( s>=0 ) return s;
                         break;
-                    case 44 : 
-                        int LA20_27 = input.LA(1);
+                    case 26 : 
+                        int LA20_86 = input.LA(1);
 
                          
-                        int index20_27 = input.index();
+                        int index20_86 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( !isHead() )) ) {s = 61;}
+                        if ( (LA20_86=='\n'||LA20_86=='\r') && (( isHead() ))) {s = 23;}
 
-                        else if ( (true) ) {s = 62;}
+                        else if ( (LA20_86=='#') ) {s = 56;}
+
+                        else if ( (LA20_86=='\"') ) {s = 55;}
+
+                        else if ( ((LA20_86>='\u0000' && LA20_86<='\t')||(LA20_86>='\u000B' && LA20_86<='\f')||(LA20_86>='\u000E' && LA20_86<='!')||(LA20_86>='$' && LA20_86<='[')||(LA20_86>=']' && LA20_86<='\uFFFF')) ) {s = 53;}
+
+                        else if ( (LA20_86=='\\') ) {s = 54;}
 
                          
-                        input.seek(index20_27);
+                        input.seek(index20_86);
                         if ( s>=0 ) return s;
                         break;
-                    case 45 : 
+                    case 27 : 
+                        int LA20_38 = input.LA(1);
+
+                         
+                        int index20_38 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_38=='\t'||LA20_38==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
+
+                        else if ( ((LA20_38>='\u0000' && LA20_38<='\b')||(LA20_38>='\u000B' && LA20_38<='\f')||(LA20_38>='\u000E' && LA20_38<='\u001F')||LA20_38=='!'||(LA20_38>='$' && LA20_38<='\'')||LA20_38=='+'||(LA20_38>='-' && LA20_38<='9')||(LA20_38>=';' && LA20_38<='=')||(LA20_38>='?' && LA20_38<='Z')||(LA20_38>='^' && LA20_38<='z')||LA20_38=='|'||(LA20_38>='~' && LA20_38<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+
+                        else if ( (LA20_38=='*'||LA20_38==':'||LA20_38=='>'||LA20_38=='['||LA20_38==']'||LA20_38=='{'||LA20_38=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+
+                        else if ( ((LA20_38>='(' && LA20_38<=')')||LA20_38==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+
+                        else if ( (LA20_38=='\r'||(LA20_38>='\"' && LA20_38<='#')||LA20_38=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_38);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA20_106 = input.LA(1);
+
+                         
+                        int index20_106 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_106=='\"') ) {s = 55;}
+
+                        else if ( (LA20_106=='#') ) {s = 56;}
+
+                        else if ( (LA20_106=='\\') ) {s = 54;}
+
+                        else if ( (LA20_106=='\n'||LA20_106=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( ((LA20_106>='\u0000' && LA20_106<='\t')||(LA20_106>='\u000B' && LA20_106<='\f')||(LA20_106>='\u000E' && LA20_106<='!')||(LA20_106>='$' && LA20_106<='[')||(LA20_106>=']' && LA20_106<='\uFFFF')) ) {s = 53;}
+
+                         
+                        input.seek(index20_106);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA20_50 = input.LA(1);
+
+                         
+                        int index20_50 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_50=='\t'||LA20_50==' ') ) {s = 75;}
+
+                        else if ( ((LA20_50>='\u0000' && LA20_50<='\b')||(LA20_50>='\u000B' && LA20_50<='\f')||(LA20_50>='\u000E' && LA20_50<='\u001F')||LA20_50=='!'||(LA20_50>='$' && LA20_50<='\'')||LA20_50=='+'||(LA20_50>='-' && LA20_50<='9')||(LA20_50>=';' && LA20_50<='=')||(LA20_50>='?' && LA20_50<='Z')||(LA20_50>='^' && LA20_50<='z')||LA20_50=='|'||(LA20_50>='~' && LA20_50<='\uFFFF')) ) {s = 76;}
+
+                        else if ( (LA20_50=='*'||LA20_50==':'||LA20_50=='>'||LA20_50=='['||LA20_50==']'||LA20_50=='{'||LA20_50=='}') ) {s = 77;}
+
+                        else if ( ((LA20_50>='(' && LA20_50<=')')||LA20_50==',') ) {s = 78;}
+
+                        else if ( (LA20_50=='\n'||LA20_50=='\r'||(LA20_50>='\"' && LA20_50<='#')||LA20_50=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 74;
+
+                         
+                        input.seek(index20_50);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA20_15 = input.LA(1);
+
+                         
+                        int index20_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_15>='\u0000' && LA20_15<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 41;
+
+                         
+                        input.seek(index20_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA20_78 = input.LA(1);
+
+                         
+                        int index20_78 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_78=='\n'||LA20_78=='\r'||(LA20_78>='\"' && LA20_78<='#')||LA20_78=='\\') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_78=='\t'||LA20_78==' ') ) {s = 75;}
+
+                        else if ( ((LA20_78>='\u0000' && LA20_78<='\b')||(LA20_78>='\u000B' && LA20_78<='\f')||(LA20_78>='\u000E' && LA20_78<='\u001F')||LA20_78=='!'||(LA20_78>='$' && LA20_78<='\'')||LA20_78=='+'||(LA20_78>='-' && LA20_78<='9')||(LA20_78>=';' && LA20_78<='=')||(LA20_78>='?' && LA20_78<='Z')||(LA20_78>='^' && LA20_78<='z')||LA20_78=='|'||(LA20_78>='~' && LA20_78<='\uFFFF')) ) {s = 76;}
+
+                        else if ( (LA20_78=='*'||LA20_78==':'||LA20_78=='>'||LA20_78=='['||LA20_78==']'||LA20_78=='{'||LA20_78=='}') ) {s = 77;}
+
+                        else if ( ((LA20_78>='(' && LA20_78<=')')||LA20_78==',') ) {s = 78;}
+
+                        else s = 74;
+
+                         
+                        input.seek(index20_78);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA20_5 = input.LA(1);
+
+                         
+                        int index20_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_5=='@') && (( isHead() ))) {s = 27;}
+
+                        else if ( (LA20_5==' ') ) {s = 28;}
+
+                        else if ( ((LA20_5>='\u0000' && LA20_5<='\b')||(LA20_5>='\u000B' && LA20_5<='\f')||(LA20_5>='\u000E' && LA20_5<='\u001F')||(LA20_5>='!' && LA20_5<='\"')||LA20_5=='$'||(LA20_5>='&' && LA20_5<=',')||(LA20_5>='.' && LA20_5<='?')||(LA20_5>='A' && LA20_5<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_5=='\t') ) {s = 30;}
+
+                        else if ( (LA20_5=='-') ) {s = 6;}
+
+                        else if ( (LA20_5=='\n'||LA20_5=='\r') ) {s = 31;}
+
+                        else s = 29;
+
+                         
+                        input.seek(index20_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA20_18 = input.LA(1);
+
+                         
+                        int index20_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_18>='\u0000' && LA20_18<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 48;
+
+                         
+                        input.seek(index20_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA20_54 = input.LA(1);
+
+                         
+                        int index20_54 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_54=='\"') ) {s = 79;}
+
+                        else if ( (LA20_54=='\\') ) {s = 80;}
+
+                        else if ( (LA20_54=='/') ) {s = 81;}
+
+                        else if ( (LA20_54=='b') ) {s = 82;}
+
+                        else if ( (LA20_54=='f') ) {s = 83;}
+
+                        else if ( (LA20_54=='n') ) {s = 84;}
+
+                        else if ( (LA20_54=='r') ) {s = 85;}
+
+                        else if ( (LA20_54=='t') ) {s = 86;}
+
+                        else if ( (LA20_54=='u') ) {s = 87;}
+
+                        else if ( ((LA20_54>='\u0000' && LA20_54<='!')||(LA20_54>='#' && LA20_54<='.')||(LA20_54>='0' && LA20_54<='[')||(LA20_54>=']' && LA20_54<='a')||(LA20_54>='c' && LA20_54<='e')||(LA20_54>='g' && LA20_54<='m')||(LA20_54>='o' && LA20_54<='q')||LA20_54=='s'||(LA20_54>='v' && LA20_54<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_54);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA20_79 = input.LA(1);
+
+                         
+                        int index20_79 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_79=='\"') ) {s = 55;}
+
+                        else if ( (LA20_79=='#') ) {s = 56;}
+
+                        else if ( (LA20_79=='\\') ) {s = 54;}
+
+                        else if ( (LA20_79=='\n'||LA20_79=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( ((LA20_79>='\u0000' && LA20_79<='\t')||(LA20_79>='\u000B' && LA20_79<='\f')||(LA20_79>='\u000E' && LA20_79<='!')||(LA20_79>='$' && LA20_79<='[')||(LA20_79>=']' && LA20_79<='\uFFFF')) ) {s = 53;}
+
+                         
+                        input.seek(index20_79);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA20_95 = input.LA(1);
+
+                         
+                        int index20_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_95=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_95>='\u0000' && LA20_95<='\t')||(LA20_95>='\u000B' && LA20_95<='\f')||(LA20_95>='\u000E' && LA20_95<='!')||(LA20_95>='#' && LA20_95<='[')||(LA20_95>=']' && LA20_95<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_95=='\\') ) {s = 91;}
+
+                        else if ( (LA20_95=='\r') && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA20_44 = input.LA(1);
+
+                         
+                        int index20_44 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_44=='\t'||LA20_44==' ') ) {s = 43;}
+
+                        else if ( ((LA20_44>='\u0000' && LA20_44<='\b')||(LA20_44>='\u000B' && LA20_44<='\f')||(LA20_44>='\u000E' && LA20_44<='\u001F')||LA20_44=='!'||(LA20_44>='$' && LA20_44<='\'')||LA20_44=='+'||(LA20_44>='-' && LA20_44<='9')||(LA20_44>=';' && LA20_44<='=')||(LA20_44>='?' && LA20_44<='Z')||(LA20_44>='^' && LA20_44<='z')||LA20_44=='|'||(LA20_44>='~' && LA20_44<='\uFFFF')) ) {s = 44;}
+
+                        else if ( (LA20_44=='*'||LA20_44==':'||LA20_44=='>'||LA20_44=='['||LA20_44==']'||LA20_44=='{'||LA20_44=='}') ) {s = 45;}
+
+                        else if ( ((LA20_44>='(' && LA20_44<=')')||LA20_44==',') ) {s = 46;}
+
+                        else if ( (LA20_44=='\n'||LA20_44=='\r'||(LA20_44>='\"' && LA20_44<='#')||LA20_44=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 57;
+
+                         
+                        input.seek(index20_44);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA20_36 = input.LA(1);
+
+                         
+                        int index20_36 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_36=='\t'||LA20_36==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+
+                        else if ( ((LA20_36>='\u0000' && LA20_36<='\b')||(LA20_36>='\u000B' && LA20_36<='\f')||(LA20_36>='\u000E' && LA20_36<='\u001F')||LA20_36=='!'||(LA20_36>='$' && LA20_36<='\'')||LA20_36=='+'||(LA20_36>='-' && LA20_36<='9')||(LA20_36>=';' && LA20_36<='=')||(LA20_36>='?' && LA20_36<='Z')||(LA20_36>='^' && LA20_36<='z')||LA20_36=='|'||(LA20_36>='~' && LA20_36<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+
+                        else if ( (LA20_36=='*'||LA20_36==':'||LA20_36=='>'||LA20_36=='['||LA20_36==']'||LA20_36=='{'||LA20_36=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+
+                        else if ( ((LA20_36>='(' && LA20_36<=')')||LA20_36==',') && ((( isValue() )||( isHead() )))) {s = 68;}
+
+                        else if ( (LA20_36=='\n'||LA20_36=='\r'||(LA20_36>='\"' && LA20_36<='#')||LA20_36=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_36);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA20_66 = input.LA(1);
+
+                         
+                        int index20_66 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_66=='\t'||LA20_66==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+
+                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||(LA20_66>='$' && LA20_66<='\'')||LA20_66=='+'||(LA20_66>='-' && LA20_66<='9')||(LA20_66>=';' && LA20_66<='=')||(LA20_66>='?' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||LA20_66=='|'||(LA20_66>='~' && LA20_66<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+
+                        else if ( (LA20_66=='*'||LA20_66==':'||LA20_66=='>'||LA20_66=='['||LA20_66==']'||LA20_66=='{'||LA20_66=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+
+                        else if ( ((LA20_66>='(' && LA20_66<=')')||LA20_66==',') && ((( isValue() )||( isHead() )))) {s = 68;}
+
+                        else if ( (LA20_66=='\n'||LA20_66=='\r'||(LA20_66>='\"' && LA20_66<='#')||LA20_66=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_66);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA20_100 = input.LA(1);
+
+                         
+                        int index20_100 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_100=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_100=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_100>='\u0000' && LA20_100<='\t')||(LA20_100>='\u000B' && LA20_100<='\f')||(LA20_100>='\u000E' && LA20_100<='!')||(LA20_100>='#' && LA20_100<='[')||(LA20_100>=']' && LA20_100<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_100=='\\') ) {s = 91;}
+
+                         
+                        input.seek(index20_100);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA20_10 = input.LA(1);
+
+                         
+                        int index20_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_10>='\u0000' && LA20_10<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 34;
+
+                         
+                        input.seek(index20_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA20_8 = input.LA(1);
+
+                         
+                        int index20_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_8>='\u0000' && LA20_8<='\b')||(LA20_8>='\u000B' && LA20_8<='\f')||(LA20_8>='\u000E' && LA20_8<='\u001F')||(LA20_8>='!' && LA20_8<='\"')||LA20_8=='$'||(LA20_8>='&' && LA20_8<=',')||(LA20_8>='.' && LA20_8<='?')||(LA20_8>='A' && LA20_8<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_8=='\t'||LA20_8==' ') ) {s = 30;}
+
+                        else if ( (LA20_8=='\n'||LA20_8=='\r') ) {s = 31;}
+
+                        else s = 29;
+
+                         
+                        input.seek(index20_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA20_28 = input.LA(1);
+
+                         
+                        int index20_28 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_28=='@') && (( isHead() ))) {s = 27;}
+
+                        else if ( (LA20_28==' ') ) {s = 28;}
+
+                        else if ( ((LA20_28>='\u0000' && LA20_28<='\b')||(LA20_28>='\u000B' && LA20_28<='\f')||(LA20_28>='\u000E' && LA20_28<='\u001F')||(LA20_28>='!' && LA20_28<='\"')||LA20_28=='$'||(LA20_28>='&' && LA20_28<=',')||(LA20_28>='.' && LA20_28<='?')||(LA20_28>='A' && LA20_28<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_28=='\t') ) {s = 30;}
+
+                        else if ( (LA20_28=='-') ) {s = 6;}
+
+                        else if ( (LA20_28=='\n'||LA20_28=='\r') ) {s = 31;}
+
+                        else s = 61;
+
+                         
+                        input.seek(index20_28);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
                         int LA20_101 = input.LA(1);
 
                          
@@ -3212,68 +3151,176 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_101);
                         if ( s>=0 ) return s;
                         break;
-                    case 46 : 
-                        int LA20_56 = input.LA(1);
+                    case 45 : 
+                        int LA20_80 = input.LA(1);
 
                          
-                        int index20_56 = input.index();
+                        int index20_80 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_56=='\"') ) {s = 89;}
+                        if ( (LA20_80=='\"') ) {s = 55;}
 
-                        else if ( ((LA20_56>='\u0000' && LA20_56<='\t')||(LA20_56>='\u000B' && LA20_56<='\f')||(LA20_56>='\u000E' && LA20_56<='!')||(LA20_56>='#' && LA20_56<='[')||(LA20_56>=']' && LA20_56<='\uFFFF')) ) {s = 90;}
+                        else if ( (LA20_80=='#') ) {s = 56;}
 
-                        else if ( (LA20_56=='\\') ) {s = 91;}
+                        else if ( (LA20_80=='\\') ) {s = 54;}
 
-                        else if ( (LA20_56=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( (LA20_80=='\n'||LA20_80=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( ((LA20_80>='\u0000' && LA20_80<='\t')||(LA20_80>='\u000B' && LA20_80<='\f')||(LA20_80>='\u000E' && LA20_80<='!')||(LA20_80>='$' && LA20_80<='[')||(LA20_80>=']' && LA20_80<='\uFFFF')) ) {s = 53;}
 
                          
-                        input.seek(index20_56);
+                        input.seek(index20_80);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA20_85 = input.LA(1);
+
+                         
+                        int index20_85 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_85=='\n'||LA20_85=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_85=='#') ) {s = 56;}
+
+                        else if ( (LA20_85=='\"') ) {s = 55;}
+
+                        else if ( ((LA20_85>='\u0000' && LA20_85<='\t')||(LA20_85>='\u000B' && LA20_85<='\f')||(LA20_85>='\u000E' && LA20_85<='!')||(LA20_85>='$' && LA20_85<='[')||(LA20_85>=']' && LA20_85<='\uFFFF')) ) {s = 53;}
+
+                        else if ( (LA20_85=='\\') ) {s = 54;}
+
+                         
+                        input.seek(index20_85);
                         if ( s>=0 ) return s;
                         break;
                     case 47 : 
-                        int LA20_96 = input.LA(1);
+                        int LA20_70 = input.LA(1);
 
                          
-                        int index20_96 = input.index();
+                        int index20_70 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_96=='\"') ) {s = 89;}
+                        if ( (LA20_70=='\t'||LA20_70==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_96>='\u0000' && LA20_96<='\t')||(LA20_96>='\u000B' && LA20_96<='\f')||(LA20_96>='\u000E' && LA20_96<='!')||(LA20_96>='#' && LA20_96<='[')||(LA20_96>=']' && LA20_96<='\uFFFF')) ) {s = 90;}
+                        else if ( ((LA20_70>='\u0000' && LA20_70<='\b')||(LA20_70>='\u000B' && LA20_70<='\f')||(LA20_70>='\u000E' && LA20_70<='\u001F')||LA20_70=='!'||(LA20_70>='$' && LA20_70<='\'')||LA20_70=='+'||(LA20_70>='-' && LA20_70<='9')||(LA20_70>=';' && LA20_70<='=')||(LA20_70>='?' && LA20_70<='Z')||(LA20_70>='^' && LA20_70<='z')||LA20_70=='|'||(LA20_70>='~' && LA20_70<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_96=='\\') ) {s = 91;}
+                        else if ( (LA20_70=='*'||LA20_70==':'||LA20_70=='>'||LA20_70=='['||LA20_70==']'||LA20_70=='{'||LA20_70=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
 
-                        else if ( (LA20_96=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_70>='(' && LA20_70<=')')||LA20_70==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+
+                        else if ( (LA20_70=='\r'||(LA20_70>='\"' && LA20_70<='#')||LA20_70=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
 
                          
-                        input.seek(index20_96);
+                        input.seek(index20_70);
                         if ( s>=0 ) return s;
                         break;
                     case 48 : 
-                        int LA20_52 = input.LA(1);
+                        int LA20_16 = input.LA(1);
 
                          
-                        int index20_52 = input.index();
+                        int index20_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_52=='\t'||LA20_52==' ') ) {s = 75;}
+                        if ( (LA20_16=='\t'||LA20_16==' ') ) {s = 43;}
 
-                        else if ( ((LA20_52>='\u0000' && LA20_52<='\b')||(LA20_52>='\u000B' && LA20_52<='\f')||(LA20_52>='\u000E' && LA20_52<='\u001F')||LA20_52=='!'||(LA20_52>='$' && LA20_52<='\'')||LA20_52=='+'||(LA20_52>='-' && LA20_52<='9')||(LA20_52>=';' && LA20_52<='=')||(LA20_52>='?' && LA20_52<='Z')||(LA20_52>='^' && LA20_52<='z')||LA20_52=='|'||(LA20_52>='~' && LA20_52<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_16>='\u0000' && LA20_16<='\b')||(LA20_16>='\u000B' && LA20_16<='\f')||(LA20_16>='\u000E' && LA20_16<='\u001F')||LA20_16=='!'||(LA20_16>='$' && LA20_16<='\'')||LA20_16=='+'||(LA20_16>='-' && LA20_16<='9')||(LA20_16>=';' && LA20_16<='=')||(LA20_16>='?' && LA20_16<='Z')||(LA20_16>='^' && LA20_16<='z')||LA20_16=='|'||(LA20_16>='~' && LA20_16<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_52=='*'||LA20_52==':'||LA20_52=='>'||LA20_52=='['||LA20_52==']'||LA20_52=='{'||LA20_52=='}') ) {s = 77;}
+                        else if ( (LA20_16=='*'||LA20_16==':'||LA20_16=='>'||LA20_16=='['||LA20_16==']'||LA20_16=='{'||LA20_16=='}') ) {s = 45;}
 
-                        else if ( ((LA20_52>='(' && LA20_52<=')')||LA20_52==',') ) {s = 78;}
+                        else if ( ((LA20_16>='(' && LA20_16<=')')||LA20_16==',') ) {s = 46;}
 
-                        else if ( (LA20_52=='\n'||LA20_52=='\r'||(LA20_52>='\"' && LA20_52<='#')||LA20_52=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( (LA20_16=='\n'||LA20_16=='\r'||(LA20_16>='\"' && LA20_16<='#')||LA20_16=='\\') && (( isHead() ))) {s = 23;}
 
-                        else s = 74;
+                        else s = 42;
 
                          
-                        input.seek(index20_52);
+                        input.seek(index20_16);
                         if ( s>=0 ) return s;
                         break;
                     case 49 : 
+                        int LA20_26 = input.LA(1);
+
+                         
+                        int index20_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((( isHead() )))) ) {s = 60;}
+
+                        else if ( (( isHead() )) ) {s = 31;}
+
+                         
+                        input.seek(index20_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA20_25 = input.LA(1);
+
+                         
+                        int index20_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((( isHead() )))) ) {s = 60;}
+
+                        else if ( (( isHead() )) ) {s = 31;}
+
+                         
+                        input.seek(index20_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA20_59 = input.LA(1);
+
+                         
+                        int index20_59 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((( isHead() )))) ) {s = 60;}
+
+                        else if ( (( isHead() )) ) {s = 31;}
+
+                         
+                        input.seek(index20_59);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA20_53 = input.LA(1);
+
+                         
+                        int index20_53 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_53=='\n'||LA20_53=='\r') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_53=='#') ) {s = 56;}
+
+                        else if ( (LA20_53=='\"') ) {s = 55;}
+
+                        else if ( ((LA20_53>='\u0000' && LA20_53<='\t')||(LA20_53>='\u000B' && LA20_53<='\f')||(LA20_53>='\u000E' && LA20_53<='!')||(LA20_53>='$' && LA20_53<='[')||(LA20_53>=']' && LA20_53<='\uFFFF')) ) {s = 53;}
+
+                        else if ( (LA20_53=='\\') ) {s = 54;}
+
+                         
+                        input.seek(index20_53);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA20_103 = input.LA(1);
+
+                         
+                        int index20_103 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_103>='0' && LA20_103<='9')||(LA20_103>='A' && LA20_103<='F')||(LA20_103>='a' && LA20_103<='f')) ) {s = 105;}
+
+                        else if ( ((LA20_103>='\u0000' && LA20_103<='\t')||(LA20_103>='\u000B' && LA20_103<='/')||(LA20_103>=':' && LA20_103<='@')||(LA20_103>='G' && LA20_103<='`')||(LA20_103>='g' && LA20_103<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_103);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 54 : 
                         int LA20_91 = input.LA(1);
 
                          
@@ -3304,261 +3351,127 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_91);
                         if ( s>=0 ) return s;
                         break;
-                    case 50 : 
-                        int LA20_11 = input.LA(1);
-
-                         
-                        int index20_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_11>='\u0000' && LA20_11<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 35;
-
-                         
-                        input.seek(index20_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 51 : 
-                        int LA20_55 = input.LA(1);
-
-                         
-                        int index20_55 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_55>='\u0000' && LA20_55<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 88;
-
-                         
-                        input.seek(index20_55);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 52 : 
-                        int LA20_105 = input.LA(1);
-
-                         
-                        int index20_105 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_105>='0' && LA20_105<='9')||(LA20_105>='A' && LA20_105<='F')||(LA20_105>='a' && LA20_105<='f')) ) {s = 107;}
-
-                        else if ( ((LA20_105>='\u0000' && LA20_105<='\t')||(LA20_105>='\u000B' && LA20_105<='/')||(LA20_105>=':' && LA20_105<='@')||(LA20_105>='G' && LA20_105<='`')||(LA20_105>='g' && LA20_105<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index20_105);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 53 : 
-                        int LA20_5 = input.LA(1);
-
-                         
-                        int index20_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_5=='\n'||LA20_5=='\r') ) {s = 28;}
-
-                        else if ( (LA20_5==' ') ) {s = 29;}
-
-                        else if ( (LA20_5=='@') && (( isHead() ))) {s = 30;}
-
-                        else if ( (LA20_5=='\t') ) {s = 31;}
-
-                        else if ( ((LA20_5>='\u0000' && LA20_5<='\b')||(LA20_5>='\u000B' && LA20_5<='\f')||(LA20_5>='\u000E' && LA20_5<='\u001F')||(LA20_5>='!' && LA20_5<='\"')||LA20_5=='$'||(LA20_5>='&' && LA20_5<=',')||(LA20_5>='.' && LA20_5<='?')||(LA20_5>='A' && LA20_5<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA20_5=='-') ) {s = 6;}
-
-                        else s = 27;
-
-                         
-                        input.seek(index20_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 54 : 
-                        int LA20_31 = input.LA(1);
-
-                         
-                        int index20_31 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_31=='\n'||LA20_31=='\r') ) {s = 28;}
-
-                        else if ( (LA20_31=='\t'||LA20_31==' ') ) {s = 31;}
-
-                        else if ( ((LA20_31>='\u0000' && LA20_31<='\b')||(LA20_31>='\u000B' && LA20_31<='\f')||(LA20_31>='\u000E' && LA20_31<='\u001F')||(LA20_31>='!' && LA20_31<='\"')||LA20_31=='$'||(LA20_31>='&' && LA20_31<=',')||(LA20_31>='.' && LA20_31<='?')||(LA20_31>='A' && LA20_31<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 61;
-
-                         
-                        input.seek(index20_31);
-                        if ( s>=0 ) return s;
-                        break;
                     case 55 : 
-                        int LA20_84 = input.LA(1);
+                        int LA20_83 = input.LA(1);
 
                          
-                        int index20_84 = input.index();
+                        int index20_83 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_84=='\n'||LA20_84=='\r') && (( isHead() ))) {s = 23;}
+                        if ( (LA20_83=='\n'||LA20_83=='\r') && (( isHead() ))) {s = 23;}
 
-                        else if ( (LA20_84=='#') ) {s = 56;}
+                        else if ( (LA20_83=='#') ) {s = 56;}
 
-                        else if ( (LA20_84=='\"') ) {s = 55;}
+                        else if ( (LA20_83=='\"') ) {s = 55;}
 
-                        else if ( ((LA20_84>='\u0000' && LA20_84<='\t')||(LA20_84>='\u000B' && LA20_84<='\f')||(LA20_84>='\u000E' && LA20_84<='!')||(LA20_84>='$' && LA20_84<='[')||(LA20_84>=']' && LA20_84<='\uFFFF')) ) {s = 53;}
+                        else if ( ((LA20_83>='\u0000' && LA20_83<='\t')||(LA20_83>='\u000B' && LA20_83<='\f')||(LA20_83>='\u000E' && LA20_83<='!')||(LA20_83>='$' && LA20_83<='[')||(LA20_83>=']' && LA20_83<='\uFFFF')) ) {s = 53;}
 
-                        else if ( (LA20_84=='\\') ) {s = 54;}
+                        else if ( (LA20_83=='\\') ) {s = 54;}
 
                          
-                        input.seek(index20_84);
+                        input.seek(index20_83);
                         if ( s>=0 ) return s;
                         break;
                     case 56 : 
-                        int LA20_98 = input.LA(1);
+                        int LA20_72 = input.LA(1);
 
                          
-                        int index20_98 = input.index();
+                        int index20_72 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_98=='\"') ) {s = 89;}
+                        if ( (LA20_72=='\t'||LA20_72==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_98>='\u0000' && LA20_98<='\t')||(LA20_98>='\u000B' && LA20_98<='\f')||(LA20_98>='\u000E' && LA20_98<='!')||(LA20_98>='#' && LA20_98<='[')||(LA20_98>=']' && LA20_98<='\uFFFF')) ) {s = 90;}
+                        else if ( ((LA20_72>='\u0000' && LA20_72<='\b')||(LA20_72>='\u000B' && LA20_72<='\f')||(LA20_72>='\u000E' && LA20_72<='\u001F')||LA20_72=='!'||(LA20_72>='$' && LA20_72<='\'')||LA20_72=='+'||(LA20_72>='-' && LA20_72<='9')||(LA20_72>=';' && LA20_72<='=')||(LA20_72>='?' && LA20_72<='Z')||(LA20_72>='^' && LA20_72<='z')||LA20_72=='|'||(LA20_72>='~' && LA20_72<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_98=='\\') ) {s = 91;}
+                        else if ( (LA20_72=='*'||LA20_72==':'||LA20_72=='>'||LA20_72=='['||LA20_72==']'||LA20_72=='{'||LA20_72=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
 
-                        else if ( (LA20_98=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_72>='(' && LA20_72<=')')||LA20_72==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+
+                        else if ( (LA20_72=='\r'||(LA20_72>='\"' && LA20_72<='#')||LA20_72=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
 
                          
-                        input.seek(index20_98);
+                        input.seek(index20_72);
                         if ( s>=0 ) return s;
                         break;
                     case 57 : 
-                        int LA20_14 = input.LA(1);
+                        int LA20_69 = input.LA(1);
 
                          
-                        int index20_14 = input.index();
+                        int index20_69 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_14>='\u0000' && LA20_14<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( (LA20_69=='\t'||LA20_69==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else s = 40;
+                        else if ( ((LA20_69>='\u0000' && LA20_69<='\b')||(LA20_69>='\u000B' && LA20_69<='\f')||(LA20_69>='\u000E' && LA20_69<='\u001F')||LA20_69=='!'||(LA20_69>='$' && LA20_69<='\'')||LA20_69=='+'||(LA20_69>='-' && LA20_69<='9')||(LA20_69>=';' && LA20_69<='=')||(LA20_69>='?' && LA20_69<='Z')||(LA20_69>='^' && LA20_69<='z')||LA20_69=='|'||(LA20_69>='~' && LA20_69<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+
+                        else if ( (LA20_69=='*'||LA20_69==':'||LA20_69=='>'||LA20_69=='['||LA20_69==']'||LA20_69=='{'||LA20_69=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+
+                        else if ( ((LA20_69>='(' && LA20_69<=')')||LA20_69==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+
+                        else if ( (LA20_69=='\r'||(LA20_69>='\"' && LA20_69<='#')||LA20_69=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
 
                          
-                        input.seek(index20_14);
+                        input.seek(index20_69);
                         if ( s>=0 ) return s;
                         break;
                     case 58 : 
-                        int LA20_36 = input.LA(1);
+                        int LA20_29 = input.LA(1);
 
                          
-                        int index20_36 = input.index();
+                        int index20_29 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_36=='\t'||LA20_36==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+                        if ( (( !isHead() )) ) {s = 61;}
 
-                        else if ( ((LA20_36>='\u0000' && LA20_36<='\b')||(LA20_36>='\u000B' && LA20_36<='\f')||(LA20_36>='\u000E' && LA20_36<='\u001F')||LA20_36=='!'||(LA20_36>='$' && LA20_36<='\'')||LA20_36=='+'||(LA20_36>='-' && LA20_36<='9')||(LA20_36>=';' && LA20_36<='=')||(LA20_36>='?' && LA20_36<='Z')||(LA20_36>='^' && LA20_36<='z')||LA20_36=='|'||(LA20_36>='~' && LA20_36<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
-
-                        else if ( (LA20_36=='*'||LA20_36==':'||LA20_36=='>'||LA20_36=='['||LA20_36==']'||LA20_36=='{'||LA20_36=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
-
-                        else if ( ((LA20_36>='(' && LA20_36<=')')||LA20_36==',') && ((( isValue() )||( isHead() )))) {s = 68;}
-
-                        else if ( (LA20_36=='\n'||LA20_36=='\r'||(LA20_36>='\"' && LA20_36<='#')||LA20_36=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
+                        else if ( (true) ) {s = 62;}
 
                          
-                        input.seek(index20_36);
+                        input.seek(index20_29);
                         if ( s>=0 ) return s;
                         break;
                     case 59 : 
-                        int LA20_87 = input.LA(1);
+                        int LA20_75 = input.LA(1);
 
                          
-                        int index20_87 = input.index();
+                        int index20_75 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_87>='0' && LA20_87<='9')||(LA20_87>='A' && LA20_87<='F')||(LA20_87>='a' && LA20_87<='f')) ) {s = 92;}
+                        if ( (LA20_75=='\t'||LA20_75==' ') ) {s = 75;}
 
-                        else if ( ((LA20_87>='\u0000' && LA20_87<='/')||(LA20_87>=':' && LA20_87<='@')||(LA20_87>='G' && LA20_87<='`')||(LA20_87>='g' && LA20_87<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_75>='\u0000' && LA20_75<='\b')||(LA20_75>='\u000B' && LA20_75<='\f')||(LA20_75>='\u000E' && LA20_75<='\u001F')||LA20_75=='!'||(LA20_75>='$' && LA20_75<='\'')||LA20_75=='+'||(LA20_75>='-' && LA20_75<='9')||(LA20_75>=';' && LA20_75<='=')||(LA20_75>='?' && LA20_75<='Z')||(LA20_75>='^' && LA20_75<='z')||LA20_75=='|'||(LA20_75>='~' && LA20_75<='\uFFFF')) ) {s = 76;}
+
+                        else if ( (LA20_75=='*'||LA20_75==':'||LA20_75=='>'||LA20_75=='['||LA20_75==']'||LA20_75=='{'||LA20_75=='}') ) {s = 77;}
+
+                        else if ( ((LA20_75>='(' && LA20_75<=')')||LA20_75==',') ) {s = 78;}
+
+                        else if ( (LA20_75=='\n'||LA20_75=='\r'||(LA20_75>='\"' && LA20_75<='#')||LA20_75=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 74;
 
                          
-                        input.seek(index20_87);
+                        input.seek(index20_75);
                         if ( s>=0 ) return s;
                         break;
                     case 60 : 
-                        int LA20_100 = input.LA(1);
+                        int LA20_102 = input.LA(1);
 
                          
-                        int index20_100 = input.index();
+                        int index20_102 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_100=='\"') ) {s = 89;}
+                        if ( ((LA20_102>='0' && LA20_102<='9')||(LA20_102>='A' && LA20_102<='F')||(LA20_102>='a' && LA20_102<='f')) ) {s = 104;}
 
-                        else if ( ((LA20_100>='\u0000' && LA20_100<='\t')||(LA20_100>='\u000B' && LA20_100<='\f')||(LA20_100>='\u000E' && LA20_100<='!')||(LA20_100>='#' && LA20_100<='[')||(LA20_100>=']' && LA20_100<='\uFFFF')) ) {s = 90;}
-
-                        else if ( (LA20_100=='\\') ) {s = 91;}
-
-                        else if ( (LA20_100=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_102>='\u0000' && LA20_102<='/')||(LA20_102>=':' && LA20_102<='@')||(LA20_102>='G' && LA20_102<='`')||(LA20_102>='g' && LA20_102<='\uFFFF')) && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_100);
+                        input.seek(index20_102);
                         if ( s>=0 ) return s;
                         break;
                     case 61 : 
-                        int LA20_70 = input.LA(1);
-
-                         
-                        int index20_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_70=='\t'||LA20_70==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
-
-                        else if ( ((LA20_70>='\u0000' && LA20_70<='\b')||(LA20_70>='\u000B' && LA20_70<='\f')||(LA20_70>='\u000E' && LA20_70<='\u001F')||LA20_70=='!'||(LA20_70>='$' && LA20_70<='\'')||LA20_70=='+'||(LA20_70>='-' && LA20_70<='9')||(LA20_70>=';' && LA20_70<='=')||(LA20_70>='?' && LA20_70<='Z')||(LA20_70>='^' && LA20_70<='z')||LA20_70=='|'||(LA20_70>='~' && LA20_70<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
-
-                        else if ( (LA20_70=='*'||LA20_70==':'||LA20_70=='>'||LA20_70=='['||LA20_70==']'||LA20_70=='{'||LA20_70=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
-
-                        else if ( ((LA20_70>='(' && LA20_70<=')')||LA20_70==',') && ((( isHead() )||( isValue() )))) {s = 72;}
-
-                        else if ( (LA20_70=='\r'||(LA20_70>='\"' && LA20_70<='#')||LA20_70=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 64;
-
-                         
-                        input.seek(index20_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 62 : 
-                        int LA20_47 = input.LA(1);
-
-                         
-                        int index20_47 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (!((( isValue() )))) ) {s = 73;}
-
-                        else if ( (( isValue() )) ) {s = 58;}
-
-                         
-                        input.seek(index20_47);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 63 : 
-                        int LA20_18 = input.LA(1);
-
-                         
-                        int index20_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_18>='\u0000' && LA20_18<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 48;
-
-                         
-                        input.seek(index20_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 64 : 
                         int LA20_13 = input.LA(1);
 
                          
@@ -3573,239 +3486,198 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 65 : 
-                        int LA20_16 = input.LA(1);
+                    case 62 : 
+                        int LA20_81 = input.LA(1);
 
                          
-                        int index20_16 = input.index();
+                        int index20_81 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_16=='\t'||LA20_16==' ') ) {s = 42;}
+                        if ( (LA20_81=='\"') ) {s = 55;}
 
-                        else if ( (LA20_16=='\n'||LA20_16=='\r'||(LA20_16>='\"' && LA20_16<='#')||LA20_16=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( (LA20_81=='#') ) {s = 56;}
 
-                        else if ( ((LA20_16>='\u0000' && LA20_16<='\b')||(LA20_16>='\u000B' && LA20_16<='\f')||(LA20_16>='\u000E' && LA20_16<='\u001F')||LA20_16=='!'||(LA20_16>='$' && LA20_16<='\'')||LA20_16=='+'||(LA20_16>='-' && LA20_16<='9')||(LA20_16>=';' && LA20_16<='=')||(LA20_16>='?' && LA20_16<='Z')||(LA20_16>='^' && LA20_16<='z')||LA20_16=='|'||(LA20_16>='~' && LA20_16<='\uFFFF')) ) {s = 43;}
+                        else if ( (LA20_81=='\\') ) {s = 54;}
 
-                        else if ( (LA20_16=='*'||LA20_16==':'||LA20_16=='>'||LA20_16=='['||LA20_16==']'||LA20_16=='{'||LA20_16=='}') ) {s = 44;}
+                        else if ( (LA20_81=='\n'||LA20_81=='\r') && (( isHead() ))) {s = 23;}
 
-                        else if ( ((LA20_16>='(' && LA20_16<=')')||LA20_16==',') ) {s = 45;}
-
-                        else s = 46;
+                        else if ( ((LA20_81>='\u0000' && LA20_81<='\t')||(LA20_81>='\u000B' && LA20_81<='\f')||(LA20_81>='\u000E' && LA20_81<='!')||(LA20_81>='$' && LA20_81<='[')||(LA20_81>=']' && LA20_81<='\uFFFF')) ) {s = 53;}
 
                          
-                        input.seek(index20_16);
+                        input.seek(index20_81);
                         if ( s>=0 ) return s;
                         break;
-                    case 66 : 
-                        int LA20_103 = input.LA(1);
+                    case 63 : 
+                        int LA20_45 = input.LA(1);
 
                          
-                        int index20_103 = input.index();
+                        int index20_45 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_103>='0' && LA20_103<='9')||(LA20_103>='A' && LA20_103<='F')||(LA20_103>='a' && LA20_103<='f')) ) {s = 105;}
+                        if ( (LA20_45=='\t'||LA20_45==' ') ) {s = 43;}
 
-                        else if ( ((LA20_103>='\u0000' && LA20_103<='\t')||(LA20_103>='\u000B' && LA20_103<='/')||(LA20_103>=':' && LA20_103<='@')||(LA20_103>='G' && LA20_103<='`')||(LA20_103>='g' && LA20_103<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||(LA20_45>='$' && LA20_45<='\'')||LA20_45=='+'||(LA20_45>='-' && LA20_45<='9')||(LA20_45>=';' && LA20_45<='=')||(LA20_45>='?' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||LA20_45=='|'||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 44;}
+
+                        else if ( (LA20_45=='*'||LA20_45==':'||LA20_45=='>'||LA20_45=='['||LA20_45==']'||LA20_45=='{'||LA20_45=='}') ) {s = 45;}
+
+                        else if ( ((LA20_45>='(' && LA20_45<=')')||LA20_45==',') ) {s = 46;}
+
+                        else if ( (LA20_45=='\n'||LA20_45=='\r'||(LA20_45>='\"' && LA20_45<='#')||LA20_45=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 57;
 
                          
-                        input.seek(index20_103);
+                        input.seek(index20_45);
                         if ( s>=0 ) return s;
                         break;
-                    case 67 : 
-                        int LA20_38 = input.LA(1);
+                    case 64 : 
+                        int LA20_67 = input.LA(1);
 
                          
-                        int index20_38 = input.index();
+                        int index20_67 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_38=='\t'||LA20_38==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
+                        if ( (LA20_67=='\t'||LA20_67==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_38>='\u0000' && LA20_38<='\b')||(LA20_38>='\u000B' && LA20_38<='\f')||(LA20_38>='\u000E' && LA20_38<='\u001F')||LA20_38=='!'||(LA20_38>='$' && LA20_38<='\'')||LA20_38=='+'||(LA20_38>='-' && LA20_38<='9')||(LA20_38>=';' && LA20_38<='=')||(LA20_38>='?' && LA20_38<='Z')||(LA20_38>='^' && LA20_38<='z')||LA20_38=='|'||(LA20_38>='~' && LA20_38<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_67>='\u0000' && LA20_67<='\b')||(LA20_67>='\u000B' && LA20_67<='\f')||(LA20_67>='\u000E' && LA20_67<='\u001F')||LA20_67=='!'||(LA20_67>='$' && LA20_67<='\'')||LA20_67=='+'||(LA20_67>='-' && LA20_67<='9')||(LA20_67>=';' && LA20_67<='=')||(LA20_67>='?' && LA20_67<='Z')||(LA20_67>='^' && LA20_67<='z')||LA20_67=='|'||(LA20_67>='~' && LA20_67<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_38=='*'||LA20_38==':'||LA20_38=='>'||LA20_38=='['||LA20_38==']'||LA20_38=='{'||LA20_38=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_67=='*'||LA20_67==':'||LA20_67=='>'||LA20_67=='['||LA20_67==']'||LA20_67=='{'||LA20_67=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
 
-                        else if ( ((LA20_38>='(' && LA20_38<=')')||LA20_38==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+                        else if ( ((LA20_67>='(' && LA20_67<=')')||LA20_67==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
-                        else if ( (LA20_38=='\r'||(LA20_38>='\"' && LA20_38<='#')||LA20_38=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( (LA20_67=='\n'||LA20_67=='\r'||(LA20_67>='\"' && LA20_67<='#')||LA20_67=='\\') && (( isHead() ))) {s = 23;}
 
                         else s = 64;
 
                          
-                        input.seek(index20_38);
+                        input.seek(index20_67);
                         if ( s>=0 ) return s;
                         break;
-                    case 68 : 
-                        int LA20_78 = input.LA(1);
-
-                         
-                        int index20_78 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_78=='\t'||LA20_78==' ') ) {s = 75;}
-
-                        else if ( ((LA20_78>='\u0000' && LA20_78<='\b')||(LA20_78>='\u000B' && LA20_78<='\f')||(LA20_78>='\u000E' && LA20_78<='\u001F')||LA20_78=='!'||(LA20_78>='$' && LA20_78<='\'')||LA20_78=='+'||(LA20_78>='-' && LA20_78<='9')||(LA20_78>=';' && LA20_78<='=')||(LA20_78>='?' && LA20_78<='Z')||(LA20_78>='^' && LA20_78<='z')||LA20_78=='|'||(LA20_78>='~' && LA20_78<='\uFFFF')) ) {s = 76;}
-
-                        else if ( (LA20_78=='*'||LA20_78==':'||LA20_78=='>'||LA20_78=='['||LA20_78==']'||LA20_78=='{'||LA20_78=='}') ) {s = 77;}
-
-                        else if ( ((LA20_78>='(' && LA20_78<=')')||LA20_78==',') ) {s = 78;}
-
-                        else if ( (LA20_78=='\n'||LA20_78=='\r'||(LA20_78>='\"' && LA20_78<='#')||LA20_78=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 74;
-
-                         
-                        input.seek(index20_78);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 69 : 
+                    case 65 : 
                         int LA20_19 = input.LA(1);
 
                          
                         int index20_19 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_19>='\u0000' && LA20_19<='\b')||(LA20_19>='\u000B' && LA20_19<='\f')||(LA20_19>='\u000E' && LA20_19<='\u001F')||LA20_19=='!'||(LA20_19>='$' && LA20_19<='\'')||LA20_19=='+'||(LA20_19>='-' && LA20_19<='9')||(LA20_19>=';' && LA20_19<='=')||(LA20_19>='?' && LA20_19<='Z')||(LA20_19>='^' && LA20_19<='z')||LA20_19=='|'||(LA20_19>='~' && LA20_19<='\uFFFF')) ) {s = 49;}
+                        if ( (LA20_19=='\t'||LA20_19==' ') ) {s = 43;}
 
-                        else if ( (LA20_19=='#') && ((( isHead() )||( isValue() )))) {s = 38;}
-
-                        else if ( (LA20_19=='\t'||LA20_19==' ') ) {s = 42;}
-
-                        else if ( (LA20_19=='\n'||LA20_19=='\r'||LA20_19=='\"'||LA20_19=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_19>='\u0000' && LA20_19<='\b')||(LA20_19>='\u000B' && LA20_19<='\f')||(LA20_19>='\u000E' && LA20_19<='\u001F')||LA20_19=='!'||(LA20_19>='$' && LA20_19<='\'')||LA20_19=='+'||(LA20_19>='-' && LA20_19<='9')||(LA20_19>=';' && LA20_19<='=')||(LA20_19>='?' && LA20_19<='Z')||(LA20_19>='^' && LA20_19<='z')||LA20_19=='|'||(LA20_19>='~' && LA20_19<='\uFFFF')) ) {s = 50;}
 
                         else if ( (LA20_19=='*'||LA20_19==':'||LA20_19=='>'||LA20_19=='['||LA20_19==']'||LA20_19=='{'||LA20_19=='}') ) {s = 51;}
 
                         else if ( ((LA20_19>='(' && LA20_19<=')')||LA20_19==',') ) {s = 52;}
 
-                        else s = 50;
+                        else if ( (LA20_19=='\n'||LA20_19=='\r'||LA20_19=='\"'||LA20_19=='\\') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_19=='#') && ((( isValue() )||( isHead() )))) {s = 38;}
+
+                        else s = 49;
 
                          
                         input.seek(index20_19);
                         if ( s>=0 ) return s;
                         break;
-                    case 70 : 
-                        int LA20_99 = input.LA(1);
+                    case 66 : 
+                        int LA20_56 = input.LA(1);
 
                          
-                        int index20_99 = input.index();
+                        int index20_56 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA20_99=='\"') ) {s = 89;}
+                        if ( (LA20_56=='\"') ) {s = 89;}
 
-                        else if ( ((LA20_99>='\u0000' && LA20_99<='\t')||(LA20_99>='\u000B' && LA20_99<='\f')||(LA20_99>='\u000E' && LA20_99<='!')||(LA20_99>='#' && LA20_99<='[')||(LA20_99>=']' && LA20_99<='\uFFFF')) ) {s = 90;}
+                        else if ( (LA20_56=='\r') && (( isHead() ))) {s = 23;}
 
-                        else if ( (LA20_99=='\\') ) {s = 91;}
+                        else if ( ((LA20_56>='\u0000' && LA20_56<='\t')||(LA20_56>='\u000B' && LA20_56<='\f')||(LA20_56>='\u000E' && LA20_56<='!')||(LA20_56>='#' && LA20_56<='[')||(LA20_56>=']' && LA20_56<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA20_99=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( (LA20_56=='\\') ) {s = 91;}
 
                          
-                        input.seek(index20_99);
+                        input.seek(index20_56);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 67 : 
+                        int LA20_22 = input.LA(1);
+
+                         
+                        int index20_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_22>='\u0000' && LA20_22<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 58;
+
+                         
+                        input.seek(index20_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 68 : 
+                        int LA20_93 = input.LA(1);
+
+                         
+                        int index20_93 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_93=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_93>='\u0000' && LA20_93<='\t')||(LA20_93>='\u000B' && LA20_93<='\f')||(LA20_93>='\u000E' && LA20_93<='!')||(LA20_93>='#' && LA20_93<='[')||(LA20_93>=']' && LA20_93<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_93=='\\') ) {s = 91;}
+
+                        else if ( (LA20_93=='\r') && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 69 : 
+                        int LA20_43 = input.LA(1);
+
+                         
+                        int index20_43 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_43=='\t'||LA20_43==' ') ) {s = 43;}
+
+                        else if ( ((LA20_43>='\u0000' && LA20_43<='\b')||(LA20_43>='\u000B' && LA20_43<='\f')||(LA20_43>='\u000E' && LA20_43<='\u001F')||LA20_43=='!'||(LA20_43>='$' && LA20_43<='\'')||LA20_43=='+'||(LA20_43>='-' && LA20_43<='9')||(LA20_43>=';' && LA20_43<='=')||(LA20_43>='?' && LA20_43<='Z')||(LA20_43>='^' && LA20_43<='z')||LA20_43=='|'||(LA20_43>='~' && LA20_43<='\uFFFF')) ) {s = 44;}
+
+                        else if ( (LA20_43=='*'||LA20_43==':'||LA20_43=='>'||LA20_43=='['||LA20_43==']'||LA20_43=='{'||LA20_43=='}') ) {s = 45;}
+
+                        else if ( ((LA20_43>='(' && LA20_43<=')')||LA20_43==',') ) {s = 46;}
+
+                        else if ( (LA20_43=='\n'||LA20_43=='\r'||(LA20_43>='\"' && LA20_43<='#')||LA20_43=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 57;
+
+                         
+                        input.seek(index20_43);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 70 : 
+                        int LA20_65 = input.LA(1);
+
+                         
+                        int index20_65 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_65=='\t'||LA20_65==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+
+                        else if ( ((LA20_65>='\u0000' && LA20_65<='\b')||(LA20_65>='\u000B' && LA20_65<='\f')||(LA20_65>='\u000E' && LA20_65<='\u001F')||LA20_65=='!'||(LA20_65>='$' && LA20_65<='\'')||LA20_65=='+'||(LA20_65>='-' && LA20_65<='9')||(LA20_65>=';' && LA20_65<='=')||(LA20_65>='?' && LA20_65<='Z')||(LA20_65>='^' && LA20_65<='z')||LA20_65=='|'||(LA20_65>='~' && LA20_65<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+
+                        else if ( (LA20_65=='*'||LA20_65==':'||LA20_65=='>'||LA20_65=='['||LA20_65==']'||LA20_65=='{'||LA20_65=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+
+                        else if ( ((LA20_65>='(' && LA20_65<=')')||LA20_65==',') && ((( isValue() )||( isHead() )))) {s = 68;}
+
+                        else if ( (LA20_65=='\n'||LA20_65=='\r'||(LA20_65>='\"' && LA20_65<='#')||LA20_65=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_65);
                         if ( s>=0 ) return s;
                         break;
                     case 71 : 
-                        int LA20_85 = input.LA(1);
-
-                         
-                        int index20_85 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_85=='\"') ) {s = 55;}
-
-                        else if ( (LA20_85=='#') ) {s = 56;}
-
-                        else if ( (LA20_85=='\\') ) {s = 54;}
-
-                        else if ( (LA20_85=='\n'||LA20_85=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_85>='\u0000' && LA20_85<='\t')||(LA20_85>='\u000B' && LA20_85<='\f')||(LA20_85>='\u000E' && LA20_85<='!')||(LA20_85>='$' && LA20_85<='[')||(LA20_85>=']' && LA20_85<='\uFFFF')) ) {s = 53;}
-
-                         
-                        input.seek(index20_85);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 72 : 
-                        int LA20_26 = input.LA(1);
-
-                         
-                        int index20_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (!((( isHead() )))) ) {s = 60;}
-
-                        else if ( (( isHead() )) ) {s = 28;}
-
-                         
-                        input.seek(index20_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 73 : 
-                        int LA20_25 = input.LA(1);
-
-                         
-                        int index20_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (!((( isHead() )))) ) {s = 60;}
-
-                        else if ( (( isHead() )) ) {s = 28;}
-
-                         
-                        input.seek(index20_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 74 : 
-                        int LA20_15 = input.LA(1);
-
-                         
-                        int index20_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA20_15=='\t'||LA20_15==' ') ) {s = 42;}
-
-                        else if ( (LA20_15=='\n'||LA20_15=='\r'||(LA20_15>='\"' && LA20_15<='#')||LA20_15=='\\') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA20_15>='\u0000' && LA20_15<='\b')||(LA20_15>='\u000B' && LA20_15<='\f')||(LA20_15>='\u000E' && LA20_15<='\u001F')||LA20_15=='!'||(LA20_15>='$' && LA20_15<='\'')||LA20_15=='+'||(LA20_15>='-' && LA20_15<='9')||(LA20_15>=';' && LA20_15<='=')||(LA20_15>='?' && LA20_15<='Z')||(LA20_15>='^' && LA20_15<='z')||LA20_15=='|'||(LA20_15>='~' && LA20_15<='\uFFFF')) ) {s = 43;}
-
-                        else if ( (LA20_15=='*'||LA20_15==':'||LA20_15=='>'||LA20_15=='['||LA20_15==']'||LA20_15=='{'||LA20_15=='}') ) {s = 44;}
-
-                        else if ( ((LA20_15>='(' && LA20_15<=')')||LA20_15==',') ) {s = 45;}
-
-                        else s = 41;
-
-                         
-                        input.seek(index20_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 75 : 
-                        int LA20_17 = input.LA(1);
-
-                         
-                        int index20_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA20_17>='\u0000' && LA20_17<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 47;
-
-                         
-                        input.seek(index20_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 76 : 
-                        int LA20_59 = input.LA(1);
-
-                         
-                        int index20_59 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (!((( isHead() )))) ) {s = 60;}
-
-                        else if ( (( isHead() )) ) {s = 28;}
-
-                         
-                        input.seek(index20_59);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 77 : 
                         int LA20_108 = input.LA(1);
 
                          
@@ -3824,19 +3696,137 @@ public class SilkLexer extends Lexer {
                         input.seek(index20_108);
                         if ( s>=0 ) return s;
                         break;
-                    case 78 : 
-                        int LA20_107 = input.LA(1);
+                    case 72 : 
+                        int LA20_105 = input.LA(1);
 
                          
-                        int index20_107 = input.index();
+                        int index20_105 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA20_107>='0' && LA20_107<='9')||(LA20_107>='A' && LA20_107<='F')||(LA20_107>='a' && LA20_107<='f')) ) {s = 108;}
+                        if ( ((LA20_105>='0' && LA20_105<='9')||(LA20_105>='A' && LA20_105<='F')||(LA20_105>='a' && LA20_105<='f')) ) {s = 107;}
 
-                        else if ( ((LA20_107>='\u0000' && LA20_107<='\t')||(LA20_107>='\u000B' && LA20_107<='/')||(LA20_107>=':' && LA20_107<='@')||(LA20_107>='G' && LA20_107<='`')||(LA20_107>='g' && LA20_107<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA20_105>='\u0000' && LA20_105<='\t')||(LA20_105>='\u000B' && LA20_105<='/')||(LA20_105>=':' && LA20_105<='@')||(LA20_105>='G' && LA20_105<='`')||(LA20_105>='g' && LA20_105<='\uFFFF')) && (( isHead() ))) {s = 23;}
 
                          
-                        input.seek(index20_107);
+                        input.seek(index20_105);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 73 : 
+                        int LA20_9 = input.LA(1);
+
+                         
+                        int index20_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_9>='\u0000' && LA20_9<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else s = 33;
+
+                         
+                        input.seek(index20_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 74 : 
+                        int LA20_46 = input.LA(1);
+
+                         
+                        int index20_46 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_46=='\n'||LA20_46=='\r'||(LA20_46>='\"' && LA20_46<='#')||LA20_46=='\\') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_46=='\t'||LA20_46==' ') ) {s = 43;}
+
+                        else if ( ((LA20_46>='\u0000' && LA20_46<='\b')||(LA20_46>='\u000B' && LA20_46<='\f')||(LA20_46>='\u000E' && LA20_46<='\u001F')||LA20_46=='!'||(LA20_46>='$' && LA20_46<='\'')||LA20_46=='+'||(LA20_46>='-' && LA20_46<='9')||(LA20_46>=';' && LA20_46<='=')||(LA20_46>='?' && LA20_46<='Z')||(LA20_46>='^' && LA20_46<='z')||LA20_46=='|'||(LA20_46>='~' && LA20_46<='\uFFFF')) ) {s = 44;}
+
+                        else if ( (LA20_46=='*'||LA20_46==':'||LA20_46=='>'||LA20_46=='['||LA20_46==']'||LA20_46=='{'||LA20_46=='}') ) {s = 45;}
+
+                        else if ( ((LA20_46>='(' && LA20_46<=')')||LA20_46==',') ) {s = 46;}
+
+                        else s = 57;
+
+                         
+                        input.seek(index20_46);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 75 : 
+                        int LA20_68 = input.LA(1);
+
+                         
+                        int index20_68 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_68=='\n'||LA20_68=='\r'||(LA20_68>='\"' && LA20_68<='#')||LA20_68=='\\') && (( isHead() ))) {s = 23;}
+
+                        else if ( (LA20_68=='\t'||LA20_68==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
+
+                        else if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||(LA20_68>='$' && LA20_68<='\'')||LA20_68=='+'||(LA20_68>='-' && LA20_68<='9')||(LA20_68>=';' && LA20_68<='=')||(LA20_68>='?' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||LA20_68=='|'||(LA20_68>='~' && LA20_68<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+
+                        else if ( (LA20_68=='*'||LA20_68==':'||LA20_68=='>'||LA20_68=='['||LA20_68==']'||LA20_68=='{'||LA20_68=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+
+                        else if ( ((LA20_68>='(' && LA20_68<=')')||LA20_68==',') && ((( isValue() )||( isHead() )))) {s = 68;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_68);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 76 : 
+                        int LA20_90 = input.LA(1);
+
+                         
+                        int index20_90 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_90=='\"') ) {s = 89;}
+
+                        else if ( ((LA20_90>='\u0000' && LA20_90<='\t')||(LA20_90>='\u000B' && LA20_90<='\f')||(LA20_90>='\u000E' && LA20_90<='!')||(LA20_90>='#' && LA20_90<='[')||(LA20_90>=']' && LA20_90<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA20_90=='\\') ) {s = 91;}
+
+                        else if ( (LA20_90=='\r') && (( isHead() ))) {s = 23;}
+
+                         
+                        input.seek(index20_90);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 77 : 
+                        int LA20_92 = input.LA(1);
+
+                         
+                        int index20_92 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA20_92>='\u0000' && LA20_92<='/')||(LA20_92>=':' && LA20_92<='@')||(LA20_92>='G' && LA20_92<='`')||(LA20_92>='g' && LA20_92<='\uFFFF')) && (( isHead() ))) {s = 23;}
+
+                        else if ( ((LA20_92>='0' && LA20_92<='9')||(LA20_92>='A' && LA20_92<='F')||(LA20_92>='a' && LA20_92<='f')) ) {s = 102;}
+
+                         
+                        input.seek(index20_92);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 78 : 
+                        int LA20_71 = input.LA(1);
+
+                         
+                        int index20_71 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA20_71=='\t'||LA20_71==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
+
+                        else if ( ((LA20_71>='\u0000' && LA20_71<='\b')||(LA20_71>='\u000B' && LA20_71<='\f')||(LA20_71>='\u000E' && LA20_71<='\u001F')||LA20_71=='!'||(LA20_71>='$' && LA20_71<='\'')||LA20_71=='+'||(LA20_71>='-' && LA20_71<='9')||(LA20_71>=';' && LA20_71<='=')||(LA20_71>='?' && LA20_71<='Z')||(LA20_71>='^' && LA20_71<='z')||LA20_71=='|'||(LA20_71>='~' && LA20_71<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+
+                        else if ( (LA20_71=='*'||LA20_71==':'||LA20_71=='>'||LA20_71=='['||LA20_71==']'||LA20_71=='{'||LA20_71=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+
+                        else if ( ((LA20_71>='(' && LA20_71<=')')||LA20_71==',') && ((( isHead() )||( isValue() )))) {s = 72;}
+
+                        else if ( (LA20_71=='\r'||(LA20_71>='\"' && LA20_71<='#')||LA20_71=='\\') && (( isHead() ))) {s = 23;}
+
+                        else s = 64;
+
+                         
+                        input.seek(index20_71);
                         if ( s>=0 ) return s;
                         break;
             }
