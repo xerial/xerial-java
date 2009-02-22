@@ -24,11 +24,14 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.StringReader;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
@@ -62,6 +65,18 @@ public class SilkUtilTest
         {
 
         }
+
+    }
+
+    @Ignore
+    @Test
+    public void testMapping() throws Exception
+    {
+        Coordinate c = SilkUtil.createBean(Coordinate.class, FileResource.find(SilkUtilTest.class, "sequence.silk"));
+        assertEquals("utgb", c.group);
+        assertEquals("human", c.species);
+        assertEquals("hg18", c.revision);
+        assertEquals("chr1", c.name);
 
     }
 

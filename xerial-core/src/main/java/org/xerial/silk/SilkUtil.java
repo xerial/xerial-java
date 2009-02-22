@@ -34,6 +34,7 @@ import org.xerial.core.XerialException;
 import org.xerial.json.JSONWriter;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeVisitorBase;
@@ -50,6 +51,56 @@ import org.xerial.util.xml.XMLGenerator;
  */
 public class SilkUtil
 {
+    /**
+     * Silk to Object mapping. Create a bean object from a given Silk file. The
+     * parameter values of the specified bean class will be populated with the
+     * content of the Silk file.
+     * 
+     * 
+     * @param <E>
+     * @param beanType
+     *            object type to generate
+     * @param silkSource
+     *            Silk file address
+     * @return object generated from the Silk source file
+     * @throws XerialException
+     * @throws IOException
+     *             when failed to open the specified Silk file.
+     */
+    public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException, IOException
+    {
+        return BeanUtilImpl.createBeanFromSilk(beanType, silkSource);
+    }
+
+    /**
+     * Populate the parameter values of the given bean using the content of the
+     * Silk file.
+     * 
+     * @param <E>
+     * @param bean
+     *            object to populate
+     * @param silkSource
+     *            Silk file address
+     * @return
+     * @throws XerialException
+     * @throws IOException
+     *             when failed to open the specified Silk file
+     */
+    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException
+    {
+        return BeanUtilImpl.populateBeanWithSilk(bean, silkSource);
+    }
+
+    /**
+     * Convert the given Silk file into XML data. Since Silk's data model is
+     * forest, while XML is tree, the root element (&lt;silk&gt; tag) for the
+     * XML data will be generated.
+     * 
+     * @param silkSource
+     * @return
+     * @throws IOException
+     * @throws XerialException
+     */
     public static String toXML(URL silkSource) throws IOException, XerialException
     {
         StringWriter buf = new StringWriter();
@@ -163,6 +214,16 @@ public class SilkUtil
         }
     }
 
+    /**
+     * Convert the Silk data into JSON.
+     * 
+     * TODO implementation
+     * 
+     * @param silkSource
+     * @param out
+     * @throws IOException
+     * @throws XerialException
+     */
     public static void toJSON(URL silkSource, Writer out) throws IOException, XerialException
     {
         SilkWalker walker = new SilkWalker(silkSource);
