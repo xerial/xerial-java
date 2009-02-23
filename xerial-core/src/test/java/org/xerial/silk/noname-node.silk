@@ -1,3 +1,6 @@
 - (group:utgb, species:human)
  - chromosome:chr1
- 
+  - gene(id:1)
+ - chromosome:chr2
+  - gene(id:2)
+

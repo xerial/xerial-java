@@ -3,6 +3,12 @@
    {
      "value":"utgb", 
      "species":
-       {"value":"human", "chromosome":"chr1"}
+       {"value":"human",
+         "chromosome":
+         [ 
+           {"value":"chr1", "gene":{"id":1}}, 
+           {"value":"chr2", "gene":{"id":2}}
+         ]
+       }
    }
 }
