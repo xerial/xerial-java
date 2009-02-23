@@ -1,0 +1,8 @@
+{ 
+ "group":
+   {
+     "value":"utgb", 
+     "species":
+       {"value":"human", "chromosome":"chr1"}
+   }
+}
