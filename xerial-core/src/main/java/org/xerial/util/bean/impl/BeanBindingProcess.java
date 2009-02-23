@@ -163,6 +163,13 @@ public class BeanBindingProcess implements TreeVisitor
         setContextBean(0, bean);
     }
 
+    /**
+     * 
+     * 
+     * @param bean
+     * @param bindRuleGenerator
+     *            set the context bean corresponding to the root node
+     */
     public BeanBindingProcess(Object bean, BindRuleGenerator bindRuleGenerator)
     {
         setContextBean(0, bean);
@@ -216,6 +223,8 @@ public class BeanBindingProcess implements TreeVisitor
         //_logger.trace("visit[" + nodeLevel + "] " + nodeName);
 
         Object parentBean = getContextBean(nodeLevel - 1);
+        if (parentBean == null)
+            return;
 
         // prepare the context bean for this depth
         Object nodeValueBean = getContextBean(nodeLevel);

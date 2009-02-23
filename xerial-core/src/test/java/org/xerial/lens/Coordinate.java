@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.lens;
 
 public class Coordinate
 {
@@ -49,6 +49,12 @@ public class Coordinate
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("group=%s, species=%s, revision=%s, name=%s", group, species, revision, name);
     }
 
 }

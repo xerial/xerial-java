@@ -46,6 +46,13 @@ import org.xerial.util.bean.TypeInformation;
 public class ReflectionUtil
 {
 
+    /**
+     * Set the value of the bean using the given setter
+     * 
+     * @param bean
+     * @param setter
+     * @param value
+     */
     public static void setValue(Object bean, Method setter, Object value)
     {
         try
