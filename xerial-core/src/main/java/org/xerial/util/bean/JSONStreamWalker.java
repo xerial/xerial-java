@@ -36,9 +36,13 @@ import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONPullParser;
 import org.xerial.json.JSONValue;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
+import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.tree.TreeEvent.EventType;
 
 /**
  * A walker that traverses JSON streams
@@ -51,6 +55,7 @@ public class JSONStreamWalker implements TreeWalker
     private final JSONPullParser jsonPullParser;
     private boolean skipDescendants = false;
     private int skipLevel = Integer.MAX_VALUE;
+    private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
     public JSONStreamWalker(Reader jsonStream) throws IOException
     {
@@ -76,8 +81,10 @@ public class JSONStreamWalker implements TreeWalker
             {
                 if (!skipDescendants)
                 {
+                    outputAllEventsInQueue(visitor);
                     String key = jsonPullParser.getKeyName();
-                    visitor.visitNode(key, null, this);
+                    eventQueue.addLast(new TreeEvent(EventType.VISIT, key, null));
+                    //visitor.visitNode(key, null, this);
                 }
                 break;
             }
@@ -90,8 +97,10 @@ public class JSONStreamWalker implements TreeWalker
                     else
                         break;
                 }
+                outputAllEventsInQueue(visitor);
                 String key = jsonPullParser.getKeyName();
-                visitor.leaveNode(key, this);
+                eventQueue.addLast(new TreeEvent(EventType.LEAVE, key, null));
+                //visitor.leaveNode(key, this);
                 break;
             }
             case String:
@@ -104,16 +113,33 @@ public class JSONStreamWalker implements TreeWalker
 
                 String key = jsonPullParser.getKeyName();
                 String value = jsonPullParser.getText();
+
+                if (key.equals("value") && !eventQueue.isEmpty())
+                {
+                    TreeEvent e = eventQueue.peekLast();
+                    if (e.event == EventType.VISIT)
+                    {
+                        eventQueue.removeLast();
+                        eventQueue.addLast(new TreeEvent(EventType.VISIT, e.nodeName, value));
+                        break;
+                    }
+                }
+
+                outputAllEventsInQueue(visitor);
+
                 visitor.visitNode(key, value, this);
                 if (skipDescendants)
                     skipDescendants = false;
                 visitor.leaveNode(key, this);
+
                 break;
             }
             case Null:
             {
                 if (skipDescendants)
                     break;
+
+                outputAllEventsInQueue(visitor);
 
                 String key = jsonPullParser.getKeyName();
                 visitor.visitNode(key, null, this);
@@ -131,6 +157,25 @@ public class JSONStreamWalker implements TreeWalker
             }
         }
 
+        outputAllEventsInQueue(visitor);
+
+    }
+
+    private void outputAllEventsInQueue(TreeVisitor visitor) throws XerialException
+    {
+        while (!eventQueue.isEmpty())
+        {
+            TreeEvent e = eventQueue.removeFirst();
+            switch (e.event)
+            {
+            case VISIT:
+                visitor.visitNode(e.nodeName, e.nodeValue, this);
+                break;
+            case LEAVE:
+                visitor.leaveNode(e.nodeName, this);
+                break;
+            }
+        }
     }
 
     public void skipDescendants()
@@ -155,6 +200,7 @@ public class JSONStreamWalker implements TreeWalker
     {
         String key;
         JSONValue value;
+        String objectValue = null;
 
         public JSONTreeNodeImpl(String key, JSONValue value)
         {
@@ -170,7 +216,14 @@ public class JSONStreamWalker implements TreeWalker
             case Object:
                 JSONObject obj = value.getJSONObject();
                 for (String entryKey : obj.keys())
-                    childList.add(new JSONTreeNodeImpl(entryKey, obj.get(entryKey)));
+                {
+                    if (entryKey.equals("value"))
+                    {
+                        this.objectValue = obj.get(entryKey).toString();
+                    }
+                    else
+                        childList.add(new JSONTreeNodeImpl(entryKey, obj.get(entryKey)));
+                }
                 break;
             case Array:
                 JSONArray array = value.getJSONArray();
@@ -192,6 +245,7 @@ public class JSONStreamWalker implements TreeWalker
             switch (value.getValueType())
             {
             case Object:
+                return objectValue;
             case Array:
             case Null:
                 return null;

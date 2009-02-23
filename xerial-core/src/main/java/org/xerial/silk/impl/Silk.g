@@ -244,7 +244,8 @@ silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
 silkLine
-	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem) 
+	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem)
+	| noNameNode 
 	| function
 	| Preamble
 	| DataLine
@@ -252,30 +253,43 @@ silkLine
 	| WhiteSpace -> BlankLine
 	;
 
-
+fragment
 nodeName: PlainOneLine | String;
+
+fragment
 nodeValue
 	: function_i -> ^(Function function_i)
 	| (PlainOneLine | String) -> Value[$nodeValue.text]
 	| JSON 
 	; 
 
-nodeItem: nodeName dataType? (LParen attributeList RParen)? plural? (Colon nodeValue)? 
-	-> Name[$nodeName.text.trim()] nodeValue? dataType? plural? attributeList? 
+
+fragment
+noNameNode: NodeIndent (LParen attributeList RParen)? plural? (Colon nodeValue)?
+	-> ^(SilkNode NodeIndent attributeList? plural? nodeValue?)  
 	;
 
+fragment
+nodeItem: nodeName dataType?  (LParen attributeList RParen)? plural? (Colon nodeValue)?
+	-> Name[$nodeName.text.trim()] dataType? attributeList? plural? nodeValue?  
+	;
 
+fragment
 dataType: LBracket! dataTypeName RBracket!
 	;
-	
+
+fragment	
 dataTypeName: PlainOneLine
 	-> DataType[$dataTypeName.text]
 	; 	
 	
+fragment
 attributeList: attributeItem (Comma! attributeItem)* ;	
+
+fragment
 attributeItem: nodeItem -> ^(SilkNode nodeItem);
 
-
+fragment
 plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
 	| Plus -> Occurrence["ONE_OR_MORE"]
@@ -291,12 +305,12 @@ function
 	-> ^(Function NodeIndent[$FunctionIndent.text] Name[$PlainOneLine.text.trim()] functionArg*)
 	;
 
-
+fragment
 function_i: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
 	-> Name[$PlainOneLine.text.trim()] functionArg*
 	;
 
-
+fragment
 functionArg
 	: nodeValue -> Argument[$functionArg.text]
 	| nodeName Colon nodeValue -> ^(KeyValuePair Name[$nodeName.text.trim()] nodeValue)

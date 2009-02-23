@@ -153,6 +153,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testNoNameNode() throws Exception
+    {
+        compare("noname-node.silk", "noname-node.json");
+    }
+
+    @Test
     public void testSkipDescendants() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));

@@ -35,6 +35,115 @@ import java.util.List;
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
  * data including XML, JSON, Silk, etc.
  * 
+ * <p>
+ * gene.silk
+ * </p>
+ * 
+ * <pre>
+ * -coordinate(group:utgb, species:human, revision:hg18, name:chr1)
+ *  - gene
+ *   -id: 1
+ *   -name: gene1
+ *   -start: 100
+ *   -sequence: ACGGTTAGCGTATT
+ * -coordinate(group:utgb, species:human, revision:hg18, name:chr2)
+ *  - gene
+ *   -id: 2
+ *   -name: gene2
+ *   -start: 250
+ *   -exon(start, end)*: [[250, 255], [260, 265]]  
+ *   -sequence: TAGCGTATTAAATT
+ * </pre>
+ * 
+ * <p>
+ * gene-alt.silk (Alternative data description)
+ * </p>
+ * 
+ * <pre>
+ * -(group:utgb, species:human, revision:hg18)
+ *  - coordinate(name:chr1)
+ *   - gene(id:1, name: gene1, start: 100, sequence: ACGGTTAGCGTATT)
+ *  -coordinate(name:chr2)
+ *   - gene(id:2, name: gene2, start: 250, exon(start, end): [[250, 255], [260, 265]], sequence: TAGCGTATTAAATT)
+ * </pre>
+ * 
+ * <pre>
+ * class Coordinate
+ * {
+ *     public String group;
+ *     public String species;
+ *     public String revision;
+ *     public String name;
+ * }
+ * 
+ * class Gene
+ * {
+ *     public int id;
+ *     public String name;
+ *     public long start;
+ *     public String sequence;
+ *     public List&lt;Exon&gt; exonList;
+ * }
+ * 
+ * class Exon
+ * {
+ *     public start;
+ *     public end;
+ * }
+ * 
+ * </pre>
+ * 
+ * 
+ * <p>
+ * Query Class
+ * </p>
+ * 
+ * <pre>
+ * class GeneList
+ * {
+ *     // map of List value type corresponds to two-argument adder 
+ *     public Map&lt;Coordinate, List&lt;Gene&gt;&gt; geneTable;
+ * 
+ *     // for adding unknown parameters 
+ *     public Map&lt;String, String&gt; properties;
+ * 
+ * }
+ * 
+ * </pre>
+ * 
+ * <pre>
+ * class GeneList
+ * {
+ * 
+ *     // map of List value type corresponds to two-argument adder 
+ *     public Map&lt;Coordinate, List&lt;Gene&gt;&gt; geneTable;
+ * 
+ *     // add gene to the geneList table (if you use public Map field, no need to write the following method)
+ *     public void add(Coordinate coordinate, Gene gene)
+ *     {
+ *         List&lt;Gene&gt; geneList = geneTable.get(coordinate);
+ *         if (geneList == null)
+ *         {
+ *             geneList = new ArrayList&lt;Gene&gt;();
+ *             geneTable.put(coordinate, geneList);
+ *         }
+ * 
+ *         geneList.add(gene);
+ *     }
+ * 
+ *     // for adding unknown parameters 
+ *     public Map&lt;String, String&gt; properties;
+ * 
+ *     public void put(String key, String value)
+ *     {
+ *         this.properties.put(key, value);
+ *     }
+ * 
+ * }
+ * 
+ * </pre>
+ * 
+ * 
  * @author leo
  * 
  */
@@ -54,7 +163,7 @@ public class Lens
      */
     public static <Result> Result translateSilk(URL silkFileResource, Class<Result> targetClass)
     {
-
+        retrievesObjectAttributes(targetClass);
         // TODO impl
         return null;
     }

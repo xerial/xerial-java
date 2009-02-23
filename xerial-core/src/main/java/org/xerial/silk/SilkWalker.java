@@ -401,9 +401,6 @@ public class SilkWalker implements TreeWalker
      */
     private void closeContextUpTo(int newIndentLevel) throws XerialException
     {
-        //        if (newIndentLevel == SilkNode.NO_INDENT)
-        //            newIndentLevel = contextNodeStack.isEmpty() ? 0 : contextNodeStack.peekLast().getIndentLevel() + 1;
-
         while (!contextNodeStack.isEmpty())
         {
             Context context = contextNodeStack.peekLast();
@@ -411,17 +408,12 @@ public class SilkWalker implements TreeWalker
             if (node.getIndentLevel() >= newIndentLevel)
             {
                 contextNodeStack.removeLast();
-                //outputDataCountStack.removeLast();
 
                 if (context.isOpen)
                 {
-                    //   SilkNodeOccurrence occurrence = node.getOccurrence();
-                    //if (occurrence != SilkNodeOccurrence.TABBED_SEQUENCE && occurrence != SilkNodeOccurrence.ZERO_OR_MORE)
-                    //{
                     // close context
                     String nodeName = node.getName();
                     leave(nodeName);
-                    //}
                 }
             }
             else
@@ -444,8 +436,21 @@ public class SilkWalker implements TreeWalker
             indentLevel += indentationOffset;
 
         closeContextUpTo(indentLevel);
+        openContext_internal(node);
+    }
 
-        //outputDataCountStack.addLast(0);
+    private void openContext_internal(SilkNode node) throws XerialException
+    {
+        if (node.getName() == null)
+        {
+            // no name nodes must hierarchically organize attriubte nodes
+            for (SilkNode eachChild : node.getChildNodes())
+            {
+                eachChild.setNodeIndent(node.getNodeIndent());
+                openContext_internal(eachChild);
+            }
+            return;
+        }
 
         Context currentContext = new Context(node, true);
         contextNodeStack.addLast(currentContext);
@@ -458,7 +463,6 @@ public class SilkWalker implements TreeWalker
         }
 
         String nodeName = node.getName();
-
         SilkValue textValue = node.getValue();
 
         // process text values attached to the node
@@ -509,8 +513,8 @@ public class SilkWalker implements TreeWalker
             visit(nodeName, null);
         }
 
-        // Traverse attribute nodes which have text values. If no text value is specified for an attribute, 
-        // this attribute is a schema element for the following DATA_LINE 
+        // Traverse attribute nodes having text values. If no text value is specified for these attributes, 
+        // they are schema elements for the following DATA_LINE. 
         for (SilkNode eachChild : node.getChildNodes())
         {
             if (eachChild.hasValue())
