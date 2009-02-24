@@ -32,36 +32,36 @@ package org.xerial.util;
  */
 public class Pair<X, Y>
 {
-    private X x;
-    private Y y;
+    private X first;
+    private Y second;
 
     /**
      * 
      */
     public Pair(X x, Y y)
     {
-        this.x = x;
-        this.y = y;
+        this.first = x;
+        this.second = y;
     }
 
     public X getFirst()
     {
-        return x;
+        return first;
     }
 
     public Y getSecond()
     {
-        return y;
+        return second;
     }
 
     public void setFirst(X x)
     {
-        this.x = x;
+        this.first = x;
     }
 
     public void setSecond(Y y)
     {
-        this.y = y;
+        this.second = y;
     }
 
     public static <X, Y> Pair<X, Y> newPair(X x, Y y)
@@ -72,6 +72,6 @@ public class Pair<X, Y>
     @Override
     public String toString()
     {
-        return String.format("(%s, %s)", x, y);
+        return String.format("(%s, %s)", first, second);
     }
 }
