@@ -24,12 +24,22 @@
 //--------------------------------------
 package org.xerial.lens;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.xerial.core.XerialException;
+import org.xerial.silk.SilkWalker;
+import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -160,17 +170,107 @@ public class Lens
      *            target class to which the input Silk format will be converted
      * 
      * @return translated object of the targetClass type
+     * @throws IOException
+     *             when failed to read resources
+     * @throws XerialException
+     *             when failed to parse the input Silk file
      */
-    public static <Result> Result translateSilk(URL silkFileResource, Class<Result> targetClass)
+    public static <Result> Result translateSilk(URL silkFileResource, Class<Result> targetClass) throws IOException,
+            XerialException
     {
         retrievesObjectAttributes(targetClass);
-        // TODO impl
+
+        if (silkFileResource == null)
+            throw new NullPointerException("silkFileResource");
+
+        SilkWalker walker = new SilkWalker(silkFileResource);
+        RelationScanner scanner = new RelationScanner();
+        walker.walk(scanner);
+
         return null;
     }
 
+    private static class RelationScanner implements TreeVisitor
+    {
+
+        public void finish(TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void init(TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+        public void text(String textDataFragment, TreeWalker walker) throws XerialException
+        {
+        // TODO Auto-generated method stub
+
+        }
+
+    }
+
+    private enum SetterType {
+        ADDER, SETTER, GETTER, PUTTER, APPENDER
+    };
+
+    private static class FieldSetter
+    {
+        SetterType type;
+        Field target;
+        Method seetter;
+        String parameterName;
+
+        private FieldSetter(String parameterName, Method seetter, SetterType type)
+        {
+            this.parameterName = parameterName;
+            this.seetter = seetter;
+            this.target = null;
+            this.type = type;
+        }
+
+        private FieldSetter(String parameterName, Field target, SetterType type)
+        {
+            this.parameterName = parameterName;
+            this.seetter = null;
+            this.target = target;
+            this.type = type;
+        }
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            FieldSetter other = FieldSetter.class.cast(obj);
+            return parameterName.equals(other.seetter);
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return parameterName.hashCode();
+        }
+    }
+
+    private static Map<Class< ? >, Set<FieldSetter>> classSetterTable = new HashMap<Class< ? >, Set<FieldSetter>>();
+
     private static void retrievesObjectAttributes(Class< ? > type)
     {
-        List<Field> publicFieldList = new ArrayList<Field>();
+        List<FieldSetter> setterContainer = new ArrayList<FieldSetter>();
 
         // look for all super classes
         for (Class< ? > eachClass = type; eachClass != null; eachClass = type.getSuperclass())
@@ -181,8 +281,28 @@ public class Lens
                 int fieldModifier = eachField.getModifiers();
                 if (Modifier.isPublic(fieldModifier) || !Modifier.isTransient(fieldModifier))
                 {
-                    publicFieldList.add(eachField);
+                    Class< ? > fieldType = eachField.getType();
+                    String paramName = getCanonicalParameterName(eachField.getName());
+                    SetterType setterType = SetterType.SETTER;
+
+                    if (TypeInformation.isArray(fieldType))
+                    {
+                        // ignore the array field
+                        continue;
+                    }
+                    else if (TypeInformation.isMap(fieldType))
+                    {
+                        setterType = SetterType.PUTTER;
+                    }
+                    if (TypeInformation.isCollection(fieldType))
+                    {
+                        setterType = SetterType.ADDER;
+                    }
+
+                    setterContainer.add(new FieldSetter(paramName, eachField, setterType));
+
                 }
+
             }
 
             // scan methods
@@ -192,6 +312,8 @@ public class Lens
                 if (methodName.startsWith("add"))
                 {
                     // adder
+                    String paramName = getCanonicalParameterName(methodName.substring(3));
+                    setterContainer.add(new FieldSetter(paramName, eachMethod, SetterType.ADDER));
                 }
                 else if (methodName.startsWith("set"))
                 {
@@ -200,6 +322,10 @@ public class Lens
                 }
                 else if (methodName.startsWith("get"))
                 {
+                    // we cannot use the getter requring some arguments
+                    Class< ? >[] parameterType = eachMethod.getParameterTypes();
+                    if (parameterType.length != 0)
+                        continue;
 
                 }
                 else if (methodName.startsWith("put"))
@@ -216,4 +342,11 @@ public class Lens
         }
 
     }
+
+    public static String getCanonicalParameterName(String paramName)
+    {
+        paramName = paramName.replaceAll("\\s", "_");
+        return paramName.toLowerCase();
+    }
+
 }

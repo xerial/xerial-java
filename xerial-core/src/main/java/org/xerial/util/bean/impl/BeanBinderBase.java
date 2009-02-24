@@ -89,7 +89,7 @@ abstract class BeanBinderBase implements BeanBinder
         return ((JSONObject) json).getJSONArray(key);
     }
 
-    public static void constractableTest(Class c) throws BeanException
+    public static void constractableTest(Class< ? > c) throws BeanException
     {
         if (!TypeInformation.canInstantiate(c))
         {

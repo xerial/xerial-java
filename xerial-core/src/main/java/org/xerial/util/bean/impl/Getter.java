@@ -26,13 +26,11 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.BeanErrorCode;
-import org.xerial.util.bean.BeanException;
-
-public class Getter extends BeanBinderBase {
-    public Getter(Method method, String parameterName) {
+public class Getter extends BeanBinderBase
+{
+    public Getter(Method method, String parameterName)
+    {
         super(method, parameterName);
     }
-
 
 }
