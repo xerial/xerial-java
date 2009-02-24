@@ -24,23 +24,24 @@
 package org.xerial.util;
 
 /**
- * Triplet structure  
+ * Triplet structure
  * 
  * @author leo
- *
+ * 
  */
-public class Triplet<E, F, J> 
+public class Triplet<E, F, J>
 {
     private E first;
     private F second;
     private J third;
+
     public Triplet(E first, F second, J third)
     {
         this.first = first;
         this.second = second;
         this.third = third;
     }
-    
+
     /**
      * @return Returns the first.
      */
@@ -48,13 +49,16 @@ public class Triplet<E, F, J>
     {
         return first;
     }
+
     /**
-     * @param first The first to set.
+     * @param first
+     *            The first to set.
      */
     public void setFirst(E first)
     {
         this.first = first;
     }
+
     /**
      * @return Returns the second.
      */
@@ -62,13 +66,16 @@ public class Triplet<E, F, J>
     {
         return second;
     }
+
     /**
-     * @param second The second to set.
+     * @param second
+     *            The second to set.
      */
     public void setSecond(F second)
     {
         this.second = second;
     }
+
     /**
      * @return Returns the third.
      */
@@ -76,12 +83,25 @@ public class Triplet<E, F, J>
     {
         return third;
     }
+
     /**
-     * @param third The third to set.
+     * @param third
+     *            The third to set.
      */
     public void setThird(J third)
     {
         this.third = third;
     }
-}
 
+    public static <E, F, J> Triplet<E, F, J> newTriplet(E first, F second, J third)
+    {
+        return new Triplet<E, F, J>(first, second, third);
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("(%s, %s, %s)", first, second, third);
+    }
+
+}

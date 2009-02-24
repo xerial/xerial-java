@@ -25,8 +25,8 @@
 package org.xerial.lens;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
+import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
 public class LensTest
@@ -51,13 +52,53 @@ public class LensTest
 
     @Test
     public void testTranslateSilk()
+    {}
+
+    static class GeneTableOneToMany
     {
-        fail("Not yet implemented");
+        @Relation(key = "coordinate", value = "gene")
+        public Map<Coordinate, List<GeneSequence>> sequenceTable;
     }
 
-    static class GeneTable
+    /**
+     * Example of showing that adder with two arguments corresponds to a
+     * Map<Key, Collection<Value>> parameter.
+     * 
+     * @author leo
+     * 
+     */
+    static class GeneTableWithMapAdder
     {
         private Map<Coordinate, List<GeneSequence>> sequenceTable;
+
+        @Relation(key = "coordinate", value = "gene")
+        public void add(Coordinate coordinate, GeneSequence gene)
+        {
+            List<GeneSequence> geneList = sequenceTable.get(coordinate);
+            if (geneList == null)
+            {
+                geneList = new ArrayList<GeneSequence>();
+                sequenceTable.put(coordinate, geneList);
+            }
+            geneList.add(gene);
+        }
+    }
+
+    static class GeneTableOneToOne
+    {
+        @Relation(key = "coordinate", value = "gene")
+        public List<Pair<Coordinate, GeneSequence>> geneList;
+    }
+
+    static class GeneTableOneToOneWithAdder
+    {
+        public List<Pair<Coordinate, GeneSequence>> geneList;
+
+        @Relation(key = "coordinate", value = "gene")
+        public void add(Coordinate coordinate, GeneSequence gene)
+        {
+            geneList.add(Pair.newPair(coordinate, gene));
+        }
     }
 
     static class GeneSequence

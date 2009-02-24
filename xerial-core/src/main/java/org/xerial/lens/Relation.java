@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2004 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,62 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Pair.java
-// Since: 2004/12/27
+// Relation.java
+// Since: Feb 24, 2009 4:08:00 PM
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util;
+package org.xerial.lens;
 
-/**
- * Pair of two objects
- * 
- * @author leo
- * 
- */
-public class Pair<X, Y>
-{
-    private X x;
-    private Y y;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    /**
-     * 
-     */
-    public Pair(X x, Y y)
-    {
-        this.x = x;
-        this.y = y;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target( { ElementType.FIELD, ElementType.METHOD })
+public @interface Relation {
+    String key() default "key";
 
-    public X getFirst()
-    {
-        return x;
-    }
-
-    public Y getSecond()
-    {
-        return y;
-    }
-
-    public void setFirst(X x)
-    {
-        this.x = x;
-    }
-
-    public void setSecond(Y y)
-    {
-        this.y = y;
-    }
-
-    public static <X, Y> Pair<X, Y> newPair(X x, Y y)
-    {
-        return new Pair<X, Y>(x, y);
-    }
-
-    @Override
-    public String toString()
-    {
-        return String.format("(%s, %s)", x, y);
-    }
+    String value() default "value";
 }

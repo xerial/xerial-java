@@ -47,6 +47,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 import org.xerial.util.ArrayDeque;
+import org.xerial.util.Pair;
+import org.xerial.util.Triplet;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.log.Logger;
 
@@ -154,6 +156,20 @@ public class TypeInformationTest
         assertTrue(TypeInformation.isMap(TreeMap.class));
         assertFalse(TypeInformation.isMap(Collection.class));
 
+    }
+
+    @Test
+    public void testIsPair()
+    {
+        assertTrue(TypeInformation.isPair(Pair.class));
+        assertTrue(!TypeInformation.isPair(Triplet.class));
+    }
+
+    @Test
+    public void testIsTriplet()
+    {
+        assertTrue(!TypeInformation.isTriplet(Pair.class));
+        assertTrue(TypeInformation.isTriplet(Triplet.class));
     }
 
     @Test

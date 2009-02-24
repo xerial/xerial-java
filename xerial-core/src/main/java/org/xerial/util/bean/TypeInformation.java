@@ -44,6 +44,8 @@ import java.util.TreeSet;
 
 import org.w3c.dom.Element;
 import org.xerial.util.ArrayDeque;
+import org.xerial.util.Pair;
+import org.xerial.util.Triplet;
 
 /**
  * BasicType class holds information of standard types that can be directly
@@ -141,6 +143,16 @@ public class TypeInformation
     public static boolean isDOMElement(Class< ? > c)
     {
         return Element.class.isAssignableFrom(c);
+    }
+
+    public static boolean isPair(Class< ? > c)
+    {
+        return Pair.class.isAssignableFrom(c);
+    }
+
+    public static boolean isTriplet(Class< ? > c)
+    {
+        return Triplet.class.isAssignableFrom(c);
     }
 
     public static boolean hasPublicConstructor(Class< ? > c)

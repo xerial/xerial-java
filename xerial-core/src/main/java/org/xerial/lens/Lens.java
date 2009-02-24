@@ -38,8 +38,6 @@ import java.util.Set;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.bean.TypeInformation;
-import org.xerial.util.tree.TreeVisitor;
-import org.xerial.util.tree.TreeWalker;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -184,45 +182,8 @@ public class Lens
             throw new NullPointerException("silkFileResource");
 
         SilkWalker walker = new SilkWalker(silkFileResource);
-        RelationScanner scanner = new RelationScanner();
-        walker.walk(scanner);
 
         return null;
-    }
-
-    private static class RelationScanner implements TreeVisitor
-    {
-
-        public void finish(TreeWalker walker) throws XerialException
-        {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void init(TreeWalker walker) throws XerialException
-        {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-        {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-        {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void text(String textDataFragment, TreeWalker walker) throws XerialException
-        {
-        // TODO Auto-generated method stub
-
-        }
-
     }
 
     private enum SetterType {
@@ -273,7 +234,7 @@ public class Lens
         List<FieldSetter> setterContainer = new ArrayList<FieldSetter>();
 
         // look for all super classes
-        for (Class< ? > eachClass = type; eachClass != null; eachClass = type.getSuperclass())
+        for (Class< ? > eachClass = type; eachClass != null; eachClass = eachClass.getSuperclass())
         {
             // scan fields
             for (Field eachField : eachClass.getFields())
