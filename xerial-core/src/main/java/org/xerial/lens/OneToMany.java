@@ -31,8 +31,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.FIELD, ElementType.METHOD })
-public @interface Relation {
+public @interface OneToMany {
     String key() default "key";
 
     String value() default "value";
+
 }

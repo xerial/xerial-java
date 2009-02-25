@@ -56,7 +56,7 @@ public class LensTest
 
     static class GeneTableOneToMany
     {
-        @Relation(key = "coordinate", value = "gene")
+        @OneToMany(key = "coordinate", value = "gene")
         public Map<Coordinate, List<GeneSequence>> sequenceTable;
     }
 
@@ -71,7 +71,7 @@ public class LensTest
     {
         private Map<Coordinate, List<GeneSequence>> sequenceTable;
 
-        @Relation(key = "coordinate", value = "gene")
+        @OneToMany(key = "coordinate", value = "gene")
         public void add(Coordinate coordinate, GeneSequence gene)
         {
             List<GeneSequence> geneList = sequenceTable.get(coordinate);
@@ -86,7 +86,7 @@ public class LensTest
 
     static class GeneTableOneToOne
     {
-        @Relation(key = "coordinate", value = "gene")
+        @OneToMany(key = "coordinate", value = "gene")
         public List<Pair<Coordinate, GeneSequence>> geneList;
     }
 
@@ -94,7 +94,7 @@ public class LensTest
     {
         public List<Pair<Coordinate, GeneSequence>> geneList;
 
-        @Relation(key = "coordinate", value = "gene")
+        @OneToMany(key = "coordinate", value = "gene")
         public void add(Coordinate coordinate, GeneSequence gene)
         {
             geneList.add(Pair.newPair(coordinate, gene));
