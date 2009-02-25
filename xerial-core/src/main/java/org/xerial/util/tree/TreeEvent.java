@@ -40,6 +40,21 @@ public class TreeEvent
     public final String nodeName;
     public final String nodeValue;
 
+    public static TreeEvent newVisitEvent(String nodeName, String value)
+    {
+        return new TreeEvent(EventType.VISIT, nodeName, value);
+    }
+
+    public static TreeEvent newLeaveEvent(String nodeName, String value)
+    {
+        return new TreeEvent(EventType.LEAVE, nodeName, value);
+    }
+
+    public static TreeEvent newTextEvent(String value)
+    {
+        return new TreeEvent(EventType.TEXT, null, value);
+    }
+
     public TreeEvent(EventType event, String nodeName, String value)
     {
         this.event = event;

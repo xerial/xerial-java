@@ -38,7 +38,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xerial.core.XerialException;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.bean.impl.XMLTreeNode;
+import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -68,6 +71,7 @@ public class XMLWalker implements TreeWalker
     {
         private final XmlPullParser pullParser;
         private final LinkedList<StringBuilder> textStack = new LinkedList<StringBuilder>();
+        private final StringBuilder EMPTY_STRING = new StringBuilder(0);
 
         private boolean skipDescendants = false;
         private int skipLevel = Integer.MAX_VALUE;
@@ -97,6 +101,7 @@ public class XMLWalker implements TreeWalker
             int state;
             try
             {
+                Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
                 while ((state = pullParser.next()) != END_DOCUMENT)
                 {
                     // int handlerIndex = 0;
@@ -106,22 +111,33 @@ public class XMLWalker implements TreeWalker
                     {
                         if (!skipDescendants)
                         {
-                            textStack.addLast(new StringBuilder());
+                            textStack.addLast(EMPTY_STRING);
                             String tagName = pullParser.getName();
-                            visitor.visitNode(tagName, null, this);
+                            String immediateNodeValue = null;
+
                             // read attributes
                             for (int i = 0; i < pullParser.getAttributeCount(); i++)
                             {
                                 String attributeName = pullParser.getAttributeName(i);
                                 String attributeValue = pullParser.getAttributeValue(i);
+
+                                if (attributeName.equals("value"))
+                                {
+                                    immediateNodeValue = attributeValue;
+                                    continue;
+                                }
+
+                                eventQueue.addLast(TreeEvent.newVisitEvent(attributeName, attributeValue));
                                 visitor.visitNode(attributeName, attributeValue, this);
                                 if (skipDescendants)
                                 {
                                     // attributes has no more descendants
                                     skipDescendants = false;
                                 }
-                                visitor.leaveNode(attributeName, this);
+                                eventQueue.addLast(TreeEvent.newLeaveEvent(attributeName, null));
                             }
+                            // push a new start tag event to the front of the queue
+                            eventQueue.addFirst(TreeEvent.newVisitEvent(tagName, immediateNodeValue));
 
                         }
                     }
@@ -143,7 +159,17 @@ public class XMLWalker implements TreeWalker
                         break;
                     case TEXT:
                         if (!skipDescendants)
-                            textStack.getLast().append(pullParser.getText());
+                        {
+                            StringBuilder textBuffer = textStack.getLast();
+                            if (textBuffer == EMPTY_STRING)
+                            {
+                                textStack.removeLast();
+                                textBuffer = new StringBuilder();
+                                textStack.addLast(textBuffer);
+                            }
+                            textBuffer.append(pullParser.getText());
+                        }
+
                         break;
                     }
                 }

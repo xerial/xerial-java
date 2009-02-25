@@ -25,19 +25,11 @@
 package org.xerial.lens;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.xerial.core.XerialException;
+import org.xerial.lens.impl.TreeToObjectLens;
 import org.xerial.silk.SilkWalker;
-import org.xerial.util.bean.TypeInformation;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -176,138 +168,15 @@ public class Lens
     public static <Result> Result translateSilk(URL silkFileResource, Class<Result> targetClass) throws IOException,
             XerialException
     {
-        retrievesObjectAttributes(targetClass);
+        //retrievesObjectAttributes(targetClass);
 
         if (silkFileResource == null)
             throw new NullPointerException("silkFileResource");
 
         SilkWalker walker = new SilkWalker(silkFileResource);
-
+        TreeToObjectLens lens = new TreeToObjectLens();
+        lens.process(walker);
         return null;
-    }
-
-    private enum SetterType {
-        ADDER, SETTER, GETTER, PUTTER, APPENDER
-    };
-
-    private static class FieldSetter
-    {
-        SetterType type;
-        Field target;
-        Method seetter;
-        String parameterName;
-
-        private FieldSetter(String parameterName, Method seetter, SetterType type)
-        {
-            this.parameterName = parameterName;
-            this.seetter = seetter;
-            this.target = null;
-            this.type = type;
-        }
-
-        private FieldSetter(String parameterName, Field target, SetterType type)
-        {
-            this.parameterName = parameterName;
-            this.seetter = null;
-            this.target = target;
-            this.type = type;
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            FieldSetter other = FieldSetter.class.cast(obj);
-            return parameterName.equals(other.seetter);
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return parameterName.hashCode();
-        }
-    }
-
-    private static Map<Class< ? >, Set<FieldSetter>> classSetterTable = new HashMap<Class< ? >, Set<FieldSetter>>();
-
-    private static void retrievesObjectAttributes(Class< ? > type)
-    {
-        List<FieldSetter> setterContainer = new ArrayList<FieldSetter>();
-
-        // look for all super classes
-        for (Class< ? > eachClass = type; eachClass != null; eachClass = eachClass.getSuperclass())
-        {
-            // scan fields
-            for (Field eachField : eachClass.getFields())
-            {
-                int fieldModifier = eachField.getModifiers();
-                if (Modifier.isPublic(fieldModifier) || !Modifier.isTransient(fieldModifier))
-                {
-                    Class< ? > fieldType = eachField.getType();
-                    String paramName = getCanonicalParameterName(eachField.getName());
-                    SetterType setterType = SetterType.SETTER;
-
-                    if (TypeInformation.isArray(fieldType))
-                    {
-                        // ignore the array field
-                        continue;
-                    }
-                    else if (TypeInformation.isMap(fieldType))
-                    {
-                        setterType = SetterType.PUTTER;
-                    }
-                    if (TypeInformation.isCollection(fieldType))
-                    {
-                        setterType = SetterType.ADDER;
-                    }
-
-                    setterContainer.add(new FieldSetter(paramName, eachField, setterType));
-
-                }
-
-            }
-
-            // scan methods
-            for (Method eachMethod : eachClass.getMethods())
-            {
-                String methodName = eachMethod.getName();
-                if (methodName.startsWith("add"))
-                {
-                    // adder
-                    String paramName = getCanonicalParameterName(methodName.substring(3));
-                    setterContainer.add(new FieldSetter(paramName, eachMethod, SetterType.ADDER));
-                }
-                else if (methodName.startsWith("set"))
-                {
-                    // setter
-
-                }
-                else if (methodName.startsWith("get"))
-                {
-                    // we cannot use the getter requring some arguments
-                    Class< ? >[] parameterType = eachMethod.getParameterTypes();
-                    if (parameterType.length != 0)
-                        continue;
-
-                }
-                else if (methodName.startsWith("put"))
-                {
-
-                }
-                else if (methodName.startsWith("append"))
-                {
-                    // appender 
-                }
-
-            }
-
-        }
-
-    }
-
-    public static String getCanonicalParameterName(String paramName)
-    {
-        paramName = paramName.replaceAll("\\s", "_");
-        return paramName.toLowerCase();
     }
 
 }

@@ -26,6 +26,7 @@ package org.xerial.lens;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.core.XerialException;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
@@ -50,14 +52,10 @@ public class LensTest
     public void tearDown() throws Exception
     {}
 
-    @Test
-    public void testTranslateSilk()
-    {}
-
     static class GeneTableOneToMany
     {
-        @OneToMany(key = "coordinate", value = "gene")
-        public Map<Coordinate, List<GeneSequence>> sequenceTable;
+        public String trackName;
+        public Map<Coordinate, List<Gene>> sequenceTable;
     }
 
     /**
@@ -69,15 +67,15 @@ public class LensTest
      */
     static class GeneTableWithMapAdder
     {
-        private Map<Coordinate, List<GeneSequence>> sequenceTable;
+        private Map<Coordinate, List<Gene>> sequenceTable;
 
         @OneToMany(key = "coordinate", value = "gene")
-        public void add(Coordinate coordinate, GeneSequence gene)
+        public void add(Coordinate coordinate, Gene gene)
         {
-            List<GeneSequence> geneList = sequenceTable.get(coordinate);
+            List<Gene> geneList = sequenceTable.get(coordinate);
             if (geneList == null)
             {
-                geneList = new ArrayList<GeneSequence>();
+                geneList = new ArrayList<Gene>();
                 sequenceTable.put(coordinate, geneList);
             }
             geneList.add(gene);
@@ -86,27 +84,35 @@ public class LensTest
 
     static class GeneTableOneToOne
     {
-        @OneToMany(key = "coordinate", value = "gene")
-        public List<Pair<Coordinate, GeneSequence>> geneList;
+        public List<Pair<Coordinate, Gene>> geneList;
     }
 
     static class GeneTableOneToOneWithAdder
     {
-        public List<Pair<Coordinate, GeneSequence>> geneList;
+        public List<Pair<Coordinate, Gene>> geneList;
 
         @OneToMany(key = "coordinate", value = "gene")
-        public void add(Coordinate coordinate, GeneSequence gene)
+        public void add(Coordinate coordinate, Gene gene)
         {
             geneList.add(Pair.newPair(coordinate, gene));
         }
     }
 
-    static class GeneSequence
+    static class Gene
     {
         private String name;
         private long start;
         private String strand;
         private String sequence;
+    }
+
+    @Test
+    public void testTranslateSilk() throws IOException, XerialException
+    {
+        GeneTableOneToMany g = Lens.translateSilk(FileResource.find(LensTest.class, "sequence.silk"),
+                GeneTableOneToMany.class);
+        assertEquals(2, g.sequenceTable.size());
+
     }
 
     @Test
