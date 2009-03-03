@@ -25,6 +25,7 @@
 package org.xerial.lens;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -109,8 +110,10 @@ public class LensTest
     @Test
     public void testTranslateSilk() throws IOException, XerialException
     {
-        GeneTableOneToMany g = Lens.translateSilk(FileResource.find(LensTest.class, "sequence.silk"),
+        GeneTableOneToMany g = Lens.translateSilk(FileResource.find(LensTest.class, "../silk/sequence.silk"),
                 GeneTableOneToMany.class);
+
+        assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
 
     }
@@ -118,8 +121,10 @@ public class LensTest
     @Test
     public void testMapping() throws Exception
     {
-        Coordinate c = Lens.translateSilk(FileResource.find(SilkUtilTest.class, "sequence.silk"), Coordinate.class);
+        Coordinate c = Lens.translateSilk(FileResource.find(SilkUtilTest.class, "../silk/sequence.silk"),
+                Coordinate.class);
         _logger.info(c);
+        assertNotNull(c);
         assertEquals("utgb", c.group);
         assertEquals("human", c.species);
         assertEquals("hg18", c.revision);
