@@ -45,9 +45,9 @@ public class TreeEvent
         return new TreeEvent(EventType.VISIT, nodeName, value);
     }
 
-    public static TreeEvent newLeaveEvent(String nodeName, String value)
+    public static TreeEvent newLeaveEvent(String nodeName)
     {
-        return new TreeEvent(EventType.LEAVE, nodeName, value);
+        return new TreeEvent(EventType.LEAVE, nodeName, null);
     }
 
     public static TreeEvent newTextEvent(String value)

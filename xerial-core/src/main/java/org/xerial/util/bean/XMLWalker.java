@@ -45,6 +45,7 @@ import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.XMLErrorCode;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.dom.DOMUtil;
@@ -75,6 +76,7 @@ public class XMLWalker implements TreeWalker
 
         private boolean skipDescendants = false;
         private int skipLevel = Integer.MAX_VALUE;
+        private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
         public XMLStreamWalker(Reader reader)
         {
@@ -101,7 +103,7 @@ public class XMLWalker implements TreeWalker
             int state;
             try
             {
-                Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+
                 while ((state = pullParser.next()) != END_DOCUMENT)
                 {
                     // int handlerIndex = 0;
@@ -115,6 +117,8 @@ public class XMLWalker implements TreeWalker
                             String tagName = pullParser.getName();
                             String immediateNodeValue = null;
 
+                            Deque<TreeEvent> startEventQueue = new ArrayDeque<TreeEvent>(
+                                    pullParser.getAttributeCount() + 1);
                             // read attributes
                             for (int i = 0; i < pullParser.getAttributeCount(); i++)
                             {
@@ -127,18 +131,19 @@ public class XMLWalker implements TreeWalker
                                     continue;
                                 }
 
-                                eventQueue.addLast(TreeEvent.newVisitEvent(attributeName, attributeValue));
-                                visitor.visitNode(attributeName, attributeValue, this);
+                                startEventQueue.addLast(TreeEvent.newVisitEvent(attributeName, attributeValue));
                                 if (skipDescendants)
                                 {
                                     // attributes has no more descendants
                                     skipDescendants = false;
                                 }
-                                eventQueue.addLast(TreeEvent.newLeaveEvent(attributeName, null));
+                                startEventQueue.addLast(TreeEvent.newLeaveEvent(attributeName));
                             }
-                            // push a new start tag event to the front of the queue
-                            eventQueue.addFirst(TreeEvent.newVisitEvent(tagName, immediateNodeValue));
 
+                            // push a new start tag event to the front of the queue
+                            startEventQueue.addFirst(TreeEvent.newVisitEvent(tagName, immediateNodeValue));
+
+                            eventQueue.addAll(startEventQueue);
                         }
                     }
                         break;
@@ -151,10 +156,25 @@ public class XMLWalker implements TreeWalker
                             else
                                 break;
                         }
-                        String text = textStack.getLast().toString();
-                        visitor.text(text.trim(), this);
-                        visitor.leaveNode(pullParser.getName(), this);
+
+                        if (textStack.getLast() == EMPTY_STRING)
+                        {
+                            eventQueue.add(TreeEvent.newLeaveEvent(pullParser.getName()));
+                        }
+                        else
+                        {
+                            String text = textStack.getLast().toString().trim();
+                            if (!eventQueue.isEmpty() && eventQueue.getLast().event == EventType.VISIT)
+                            {
+                                eventQueue.removeLast();
+                                eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), text));
+                            }
+                            else
+                                eventQueue.add(TreeEvent.newTextEvent(text));
+                            eventQueue.add(TreeEvent.newLeaveEvent(pullParser.getName()));
+                        }
                         textStack.removeLast();
+                        flushEventQueue(visitor);
                     }
                         break;
                     case TEXT:
@@ -178,6 +198,8 @@ public class XMLWalker implements TreeWalker
             {
                 throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
             }
+
+            flushEventQueue(visitor);
 
         }
 
@@ -205,10 +227,39 @@ public class XMLWalker implements TreeWalker
             }
         }
 
+        private void flushEventQueue(TreeVisitor visitor) throws XerialException
+        {
+            while (!eventQueue.isEmpty())
+            {
+                TreeEvent e = eventQueue.removeFirst();
+                switch (e.event)
+                {
+                case VISIT:
+                    visitor.visitNode(e.nodeName, e.nodeValue, this);
+                    break;
+                case LEAVE:
+                    visitor.leaveNode(e.nodeName, this);
+                    break;
+                case TEXT:
+                    visitor.text(e.nodeValue, this);
+                    break;
+                case FINISH:
+                    visitor.finish(this);
+                    break;
+                case INIT:
+                    visitor.init(this);
+                    break;
+                }
+            }
+
+        }
+
     }
 
     /**
      * An walker implementation for XML DOM model
+     * 
+     * TODO extend this to handle value attribute as an immediate node value
      * 
      * @author leo
      * 
