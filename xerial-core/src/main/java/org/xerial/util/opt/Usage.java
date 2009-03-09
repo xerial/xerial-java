@@ -36,13 +36,15 @@ import java.lang.annotation.Target;
  * description and optionList, each of them is enclosed by $ mark. The following
  * is an example of help message template.
  * 
+ * templatePath=org/xerial/util/opt/help-message.template
+ * 
  * <pre>
- * usage: $command$ $argumentList$
- *      $description$
+ * 
+ * usage: $COMMAND$ $ARGUMENT_LIST$
+ *   $DESCRIPTION$
  * 
  * [options]
- * $optionList$
- * 
+ * $OPTION_LIST$
  * </pre>
  * 
  * @author leo
