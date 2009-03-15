@@ -39,7 +39,7 @@ public class StringUtil
 {
     public static final String SINGLE_QUOTE = "\'";
     public static final String DOUBLE_QUOTE = "\"";
-    public static final String NEW_LINE     = System.getProperty("line.separator");
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
     private StringUtil()
     {}
@@ -67,11 +67,17 @@ public class StringUtil
         for (int i = 0; it.hasNext() && i < size - 1; i++)
         {
             Object data = it.next();
-            buf.append(data.toString());
+            if (data != null)
+                buf.append(data.toString());
+            else
+                buf.append("null");
             buf.append(concatinator);
         }
         Object lastData = it.next();
-        buf.append(lastData.toString());
+        if (lastData != null)
+            buf.append(lastData.toString());
+        else
+            buf.append("null");
         return buf.toString();
     }
 
