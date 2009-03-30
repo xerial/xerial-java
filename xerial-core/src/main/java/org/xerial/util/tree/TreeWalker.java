@@ -49,8 +49,9 @@ public interface TreeWalker
 
     /**
      * Skip the descendants of the current node
+     * @throws XerialException TODO
      */
-    public void skipDescendants();
+    public void skipDescendants() throws XerialException;
 
     /**
      * Gets the entire subtree beginning from the current node, and skips all
