@@ -40,6 +40,19 @@ public class TreeEvent
     public final String nodeName;
     public final String nodeValue;
 
+    private static final TreeEvent FINISH_EVENT = new TreeEvent(EventType.FINISH, null, null);
+    private static final TreeEvent INIT_EVENT = new TreeEvent(EventType.FINISH, null, null);
+
+    public static TreeEvent getFinishEvent()
+    {
+        return FINISH_EVENT;
+    }
+
+    public static TreeEvent getInitEvent()
+    {
+        return INIT_EVENT;
+    }
+
     public static TreeEvent newVisitEvent(String nodeName, String value)
     {
         return new TreeEvent(EventType.VISIT, nodeName, value);
