@@ -203,7 +203,7 @@ public class XMLWalker implements TreeWalker
 
         }
 
-        public void skipDescendants()
+        public void skipDescendants() throws XerialException
         {
             skipDescendants = true;
             skipLevel = pullParser.getDepth();
@@ -318,7 +318,7 @@ public class XMLWalker implements TreeWalker
             visitor.leaveNode(tagName, this);
         }
 
-        public void skipDescendants()
+        public void skipDescendants() throws XerialException
         {
             this.skipDesendants = true;
         }
@@ -361,7 +361,7 @@ public class XMLWalker implements TreeWalker
         return impl.getSubTree();
     }
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
         impl.skipDescendants();
     }

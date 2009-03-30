@@ -178,7 +178,7 @@ public class JSONStreamWalker implements TreeWalker
         }
     }
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
         skipDescendants = true;
     }

@@ -89,7 +89,7 @@ public class MapWalker implements TreeWalker
             throw new BeanException(BeanErrorCode.NoMoreSubtree);
     }
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
     // there is nothing to do
     }

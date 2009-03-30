@@ -83,7 +83,7 @@ public class ANTLRWalker implements TreeWalker
         visitor.leaveNode(nodeName, this);
     }
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
         skipDescendants = true;
     }

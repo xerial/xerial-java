@@ -51,7 +51,7 @@ public class CommandLineArgumentWalker implements TreeWalker
         return null;
     }
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
     // TODO Auto-generated method stub
 
