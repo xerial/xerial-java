@@ -71,11 +71,21 @@ public class XMLStreamWalker implements TreeStreamWalker
 
     public TreeEvent next() throws XerialException
     {
+        if (!eventQueue.isEmpty())
+            return eventQueue.removeFirst();
+
         if (parseState == END_DOCUMENT)
             return TreeEvent.getFinishEvent();
 
-        if (!eventQueue.isEmpty())
-            return eventQueue.removeFirst();
+        readNext();
+
+        return next();
+    }
+
+    public void readNext() throws XerialException
+    {
+        if (parseState == END_DOCUMENT)
+            return;
 
         try
         {
@@ -113,6 +123,9 @@ public class XMLStreamWalker implements TreeStreamWalker
                 // push a new start tag event to the front of the queue
                 startEventQueue.addFirst(TreeEvent.newVisitEvent(tagName, immediateNodeValue));
                 eventQueue.addAll(startEventQueue);
+
+                // pre-fetch the next event
+                readNext();
             }
                 break;
             case END_TAG:
@@ -123,14 +136,16 @@ public class XMLStreamWalker implements TreeStreamWalker
                 }
                 else
                 {
+                    StringBuilder textBuffer = textStack.getLast();
                     if (!eventQueue.isEmpty() && eventQueue.getLast().event == EventType.VISIT)
                     {
+                        // attach the text value to the the previous visit event
                         eventQueue.removeLast();
-                        eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), createTextEvent(textStack
-                                .getLast()).nodeValue));
+                        eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), sanitize(textBuffer)));
                     }
                     else
-                        eventQueue.add(createTextEvent(textStack.getLast()));
+                        reportTextEvent(textBuffer);
+
                     eventQueue.add(TreeEvent.newLeaveEvent(pullParser.getName()));
                 }
                 textStack.removeLast();
@@ -146,27 +161,25 @@ public class XMLStreamWalker implements TreeStreamWalker
                     textStack.removeLast();
                     textBuffer = new StringBuilder();
                     textStack.addLast(textBuffer);
-
-                    if (textData.length() < TEXT_BUFFER_MAX)
-                        textBuffer.append(textData);
-                    else
-                        eventQueue.add(createTextEvent(textBuffer));
                 }
                 else
                 {
                     if (textBuffer.length() + textData.length() > TEXT_BUFFER_MAX)
                     {
                         // add the previous text data to the event queue
-                        eventQueue.add(createTextEvent(textBuffer));
+                        reportTextEvent(textBuffer);
 
                         // replace the text buffer
                         textStack.removeLast();
                         textBuffer = new StringBuilder();
                         textStack.addLast(textBuffer);
                     }
-
-                    textBuffer.append(textData);
                 }
+                reportTextEvent(textData);
+
+                // prefetch
+                readNext();
+
             }
                 break;
             default:
@@ -184,12 +197,28 @@ public class XMLStreamWalker implements TreeStreamWalker
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
 
-        return next();
     }
 
-    private TreeEvent createTextEvent(StringBuilder buffer)
+    private String sanitize(StringBuilder buffer)
     {
-        return TreeEvent.newTextEvent(buffer.toString().trim());
+        return sanitize(buffer.toString());
+    }
+
+    private String sanitize(String s)
+    {
+        return s.trim();
+    }
+
+    private void reportTextEvent(StringBuilder buffer)
+    {
+        reportTextEvent(buffer.toString());
+    }
+
+    private void reportTextEvent(String str)
+    {
+        String textData = sanitize(str);
+        if (textData.length() > 0)
+            eventQueue.add(TreeEvent.newTextEvent(textData));
     }
 
 }
