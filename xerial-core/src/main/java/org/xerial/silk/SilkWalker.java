@@ -350,7 +350,7 @@ public class SilkWalker implements TreeWalker
      */
     private ArrayDeque<String> skipNodeStack = new ArrayDeque<String>();
 
-    public void skipDescendants()
+    public void skipDescendants() throws XerialException
     {
         if (currentEvent == null)
             skipNodeStack.addLast("silk");
