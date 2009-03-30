@@ -44,16 +44,27 @@ public class XMLStreamWalkerTest
     public void tearDown() throws Exception
     {}
 
-    @Test
-    public void testParse() throws Exception
+    public void parse(String xml) throws Exception
     {
-        XMLStreamWalker walker = new XMLStreamWalker(FileResource.open(XMLStreamWalkerTest.class, "../bean/skip.xml"));
+        XMLStreamWalker walker = new XMLStreamWalker(FileResource.open(XMLStreamWalkerTest.class, xml));
         TreeEvent e = null;
         while ((e = walker.next()).event != EventType.FINISH)
         {
             _logger.info(e);
         }
 
+    }
+
+    @Test
+    public void testParse() throws Exception
+    {
+        parse("../bean/skip.xml");
+    }
+
+    @Test
+    public void testSimple() throws Exception
+    {
+        parse("simple.xml");
     }
 
 }
