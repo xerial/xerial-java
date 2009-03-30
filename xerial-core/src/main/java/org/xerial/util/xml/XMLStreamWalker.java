@@ -58,7 +58,7 @@ public class XMLStreamWalker implements TreeStreamWalker
     private int TEXT_BUFFER_MAX = 8192;
 
     private int parseState = START_DOCUMENT;
-    private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+    private ArrayDeque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
     public XMLStreamWalker(Reader reader)
     {
@@ -141,7 +141,7 @@ public class XMLStreamWalker implements TreeStreamWalker
                     {
                         // attach the text value to the the previous visit event
                         eventQueue.removeLast();
-                        eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), sanitize(textBuffer)));
+                        eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), textBuffer.toString()));
                     }
                     else
                         reportTextEvent(textBuffer);
@@ -153,33 +153,29 @@ public class XMLStreamWalker implements TreeStreamWalker
                 break;
             case TEXT:
             {
-                String textData = pullParser.getText();
+                String textData = sanitize(pullParser.getText());
                 StringBuilder textBuffer = textStack.getLast();
+
+                if (textData.length() <= 0)
+                    break;
 
                 if (textBuffer == EMPTY_STRING)
                 {
-                    textStack.removeLast();
-                    textBuffer = new StringBuilder();
-                    textStack.addLast(textBuffer);
+                    textBuffer = replaceLastTextBuffer();
                 }
-                else
+                else if (textBuffer.length() + textData.length() > TEXT_BUFFER_MAX)
                 {
-                    if (textBuffer.length() + textData.length() > TEXT_BUFFER_MAX)
-                    {
-                        // add the previous text data to the event queue
-                        reportTextEvent(textBuffer);
+                    // add the previous text data to the event queue
+                    reportTextEvent(textBuffer);
 
-                        // replace the text buffer
-                        textStack.removeLast();
-                        textBuffer = new StringBuilder();
-                        textStack.addLast(textBuffer);
-                    }
+                    // replace the text buffer
+                    textBuffer = replaceLastTextBuffer();
                 }
-                reportTextEvent(textData);
+                textBuffer.append(textData);
 
-                // prefetch
-                readNext();
-
+                boolean needPrefetch = eventQueue.isEmpty() ? false : eventQueue.getLast().event == EventType.VISIT;
+                if (needPrefetch)
+                    readNext();
             }
                 break;
             default:
@@ -199,9 +195,12 @@ public class XMLStreamWalker implements TreeStreamWalker
 
     }
 
-    private String sanitize(StringBuilder buffer)
+    private StringBuilder replaceLastTextBuffer()
     {
-        return sanitize(buffer.toString());
+        textStack.removeLast();
+        StringBuilder textBuffer = new StringBuilder();
+        textStack.addLast(textBuffer);
+        return textBuffer;
     }
 
     private String sanitize(String s)
@@ -214,9 +213,8 @@ public class XMLStreamWalker implements TreeStreamWalker
         reportTextEvent(buffer.toString());
     }
 
-    private void reportTextEvent(String str)
+    private void reportTextEvent(String textData)
     {
-        String textData = sanitize(str);
         if (textData.length() > 0)
             eventQueue.add(TreeEvent.newTextEvent(textData));
     }

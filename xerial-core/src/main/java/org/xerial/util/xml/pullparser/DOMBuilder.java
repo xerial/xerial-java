@@ -45,8 +45,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 /**
- * DOMBuilder generates DOM elements from an input XML data
- * PROCESSING_INSTRUCTION, COMMENT‚Í–³Ž‹‚³‚ê‚é
+ * DOMBuilder generates DOM elements from an input XML data.
+ * PROCESSING_INSTRUCTION and COMMENT will be ignored.
  * 
  * @author leo
  * 
@@ -89,7 +89,7 @@ public class DOMBuilder
     protected Element parseElement(XmlPullParser pullParser, Document document) throws XmlPullParserException,
             IOException, XMLException
     {
-        pullParser.require(START_TAG, null, null); // START_TAG‚©‚ç‚Å‚È‚¢‚Æelement‚Ìparse‚Í‚Å‚«‚È‚¢
+        pullParser.require(START_TAG, null, null); // we cannot start parsing of an element from other than START_TAG
         String tagName = pullParser.getName();
         //String nameSpace = pullParser.getNamespace();
         //String prefix = pullParser.getPrefix();
