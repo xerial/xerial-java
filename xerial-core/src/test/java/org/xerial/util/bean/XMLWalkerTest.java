@@ -24,11 +24,13 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 import java.util.LinkedList;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
@@ -73,7 +75,7 @@ public class XMLWalkerTest
                 _logger.debug("leave: " + nodeName);
 
                 String visitedNode = nodeStack.removeLast();
-                Assert.assertEquals("tag name:", visitedNode, nodeName);
+                assertEquals("tag name:", visitedNode, nodeName);
             }
 
             public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
@@ -84,6 +86,14 @@ public class XMLWalkerTest
                 if (nodeName.equals("description"))
                 {
                     TreeNode subtree = walker.getSubTree();
+                    assertEquals("description", subtree.getNodeName());
+                    assertNull(subtree.getNodeValue());
+
+                    assertEquals(1, subtree.getChildren());
+                    assertEquals("text", subtree.getChildren().get(0).getNodeName());
+                    assertEquals("page", subtree.getChildren().get(0).getNodeValue());
+
+                    _logger.debug(String.format("subtree: %s", subtree));
                 }
                 else
                 {
