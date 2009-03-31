@@ -54,7 +54,7 @@ public class XMLStreamReaderTest
         HashMap<String, String> data = new HashMap<String, String>();
         while ((e = walker.next()) != null)
         {
-            _logger.info(e);
+            _logger.debug(e);
             if (e.isVisit() || e.isText())
                 data.put(e.nodeName, e.nodeValue);
 
