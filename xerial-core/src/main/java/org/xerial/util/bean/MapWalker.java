@@ -25,6 +25,7 @@
 package org.xerial.util.bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -99,20 +100,55 @@ public class MapWalker implements TreeWalker
     public void walk(TreeVisitor visitor) throws XerialException
     {
         visitor.init(this);
-        // visit the imaginary root node
-        visitor.visitNode("_root", null, this);
+        walk(null, map, visitor);
+        visitor.finish(this);
+    }
 
-        for (Object key : map.keySet())
+    private void walk(String nodeName, Object value, TreeVisitor visitor) throws XerialException
+    {
+        if (value == null)
         {
-            currentKey = key;
-            String nodeName = key.toString();
-            Object value = map.get(key);
-            visitor.visitNode(nodeName, value != null ? value.toString() : null, this);
+            visitor.visitNode(nodeName, null, this);
+            visitor.leaveNode(nodeName, this);
+            return;
+        }
+
+        assert value != null;
+
+        Class< ? > valueType = value.getClass();
+        if (TypeInformation.isArray(valueType))
+        {
+            for (Object each : (Object[]) value)
+            {
+                walk(nodeName, each, visitor);
+            }
+        }
+        else if (TypeInformation.isCollection(valueType))
+        {
+            for (Object each : (Collection< ? >) value)
+            {
+                walk(nodeName, each, visitor);
+            }
+        }
+        else if (TypeInformation.isMap(valueType))
+        {
+            visitor.visitNode(nodeName, null, this);
+            Map< ? , ? > mapValue = (Map< ? , ? >) value;
+            for (Object key : mapValue.keySet())
+            {
+                currentKey = key;
+                String entryName = key.toString();
+                Object entryValue = map.get(key);
+                walk(entryName, entryValue, visitor);
+            }
             visitor.leaveNode(nodeName, this);
         }
-        // leave the imaginary root node
-        visitor.leaveNode("_root", this);
-        visitor.finish(this);
+        else
+        {
+            visitor.visitNode(nodeName, value.toString(), this);
+            visitor.leaveNode(nodeName, this);
+        }
+
     }
 
 }

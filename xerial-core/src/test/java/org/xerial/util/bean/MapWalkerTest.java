@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Properties;
 
@@ -84,6 +83,9 @@ public class MapWalkerTest
 
             public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
+                if (nodeName == null)
+                    return; // skip the root
+
                 if (nodeName.equals("A"))
                 {
                     visitA = true;
