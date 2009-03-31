@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.tree.TreeEvent.EventType;
@@ -41,6 +42,8 @@ import org.xerial.util.xml.impl.TreeEventQueue;
  */
 public class JSONStreamReader implements TreeStreamReader
 {
+    private static Logger _logger = Logger.getLogger(JSONStreamReader.class);
+
     private final JSONPullParser jsonPullParser;
     private final TreeEventQueue eventQueue = new TreeEventQueue();
     private JSONEvent lastEvent = null;
@@ -53,7 +56,12 @@ public class JSONStreamReader implements TreeStreamReader
     public TreeEvent next() throws XerialException
     {
         if (!eventQueue.isEmpty())
-            return eventQueue.pop();
+        {
+            TreeEvent e = eventQueue.pop();
+            //            if (_logger.isTraceEnabled())
+            //                _logger.trace(e);
+            return e;
+        }
 
         if (lastEvent == JSONEvent.EndJSON)
             return null;
@@ -74,15 +82,13 @@ public class JSONStreamReader implements TreeStreamReader
         case StartObject:
         {
             String key = jsonPullParser.getKeyName();
-            if (key != null)
-                eventQueue.push(TreeEvent.newVisitEvent(key, null));
+            eventQueue.push(TreeEvent.newVisitEvent(key, null));
             break;
         }
         case EndObject:
         {
             String key = jsonPullParser.getKeyName();
-            if (key != null)
-                eventQueue.push(TreeEvent.newLeaveEvent(key));
+            eventQueue.push(TreeEvent.newLeaveEvent(key));
             break;
         }
         case String:

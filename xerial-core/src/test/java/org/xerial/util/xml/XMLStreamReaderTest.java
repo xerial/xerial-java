@@ -35,9 +35,9 @@ import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 
-public class XMLStreamWalkerTest
+public class XMLStreamReaderTest
 {
-    private static Logger _logger = Logger.getLogger(XMLStreamWalkerTest.class);
+    private static Logger _logger = Logger.getLogger(XMLStreamReaderTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -49,7 +49,7 @@ public class XMLStreamWalkerTest
 
     public HashMap<String, String> parse(String xml) throws Exception
     {
-        XMLStreamReader walker = new XMLStreamReader(FileResource.open(XMLStreamWalkerTest.class, xml));
+        XMLStreamReader walker = new XMLStreamReader(FileResource.open(XMLStreamReaderTest.class, xml));
         TreeEvent e = null;
         HashMap<String, String> data = new HashMap<String, String>();
         while ((e = walker.next()) != null)

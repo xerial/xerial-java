@@ -27,159 +27,25 @@ package org.xerial.util.xml;
 import java.io.Reader;
 
 import org.w3c.dom.Element;
-import org.xerial.core.XerialException;
-import org.xerial.util.ArrayDeque;
-import org.xerial.util.Deque;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeNode;
-import org.xerial.util.tree.TreeStreamReader;
-import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
-import org.xerial.util.tree.impl.TreeNodeImpl;
+import org.xerial.util.tree.TreeWalkerImpl;
 
-public class XMLTreeWalker implements TreeWalker
+/**
+ * An {@link TreeWalker} implementation for XML data
+ * 
+ * @author leo
+ * 
+ */
+public class XMLTreeWalker extends TreeWalkerImpl
 {
-    private final TreeStreamReader walker;
-    private final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
-
-    private int currentLevel = 0;
-
     public XMLTreeWalker(Reader xmlReader)
     {
-        walker = new XMLStreamReader(xmlReader);
+        super(new XMLStreamReader(xmlReader));
     }
 
     public XMLTreeWalker(Element domElement)
     {
-        walker = new DOMStreamReader(domElement);
-    }
-
-    private static class TreeBuilder
-    {
-        public final TreeNodeImpl root;
-        public Deque<TreeNodeImpl> nodeStack = new ArrayDeque<TreeNodeImpl>();
-
-        public TreeBuilder(TreeEvent rootNode)
-        {
-            root = new TreeNodeImpl(rootNode.nodeName, rootNode.nodeValue);
-            nodeStack.add(root);
-        }
-
-        public void startNode(TreeEvent e)
-        {
-            TreeNodeImpl newNode = new TreeNodeImpl(e.nodeName, e.nodeValue);
-            TreeNodeImpl parent = nodeStack.getLast();
-            parent.addNode(newNode);
-            nodeStack.addLast(newNode);
-        }
-
-        public void endNode(TreeEvent e)
-        {
-            nodeStack.removeLast();
-        }
-
-        public void text(TreeEvent e)
-        {
-            TreeNodeImpl current = nodeStack.getLast();
-            if (current.getNodeValue() == null)
-                current.setNodeValue(e.nodeValue);
-            else
-                current.setNodeValue(current.getNodeValue() + e.nodeValue);
-        }
-
-    }
-
-    public TreeNode getSubTree() throws XerialException
-    {
-        int base = currentLevel;
-        int level = currentLevel;
-
-        TreeBuilder builder = new TreeBuilder(eventQueue.peekFirst());
-
-        TreeEvent e = null;
-        while ((e = walker.next()) != null)
-        {
-            switch (e.event)
-            {
-            case VISIT:
-                level++;
-                builder.startNode(e);
-                break;
-            case LEAVE:
-                builder.endNode(e);
-                if (level == base)
-                {
-                    return builder.root;
-                }
-                level--;
-                break;
-            case TEXT:
-                builder.text(e);
-                break;
-            }
-        }
-
-        return builder.root;
-    }
-
-    public void skipDescendants() throws XerialException
-    {
-        int base = currentLevel;
-        int level = currentLevel;
-        TreeEvent e = null;
-        while ((e = walker.next()) != null)
-        {
-            switch (e.event)
-            {
-            case VISIT:
-                level++;
-                break;
-            case LEAVE:
-                if (level == base)
-                {
-                    eventQueue.addLast(e);
-                    return;
-                }
-                level--;
-                break;
-            }
-        }
-    }
-
-    public void walk(TreeVisitor visitor) throws XerialException
-    {
-        visitor.init(this);
-
-        TreeEvent e = null;
-        while ((e = walker.next()) != null)
-        {
-            processEvent(e, visitor);
-        }
-
-        while (!eventQueue.isEmpty())
-            processEvent(eventQueue.removeFirst(), visitor);
-
-        visitor.finish(this);
-    }
-
-    private void processEvent(TreeEvent e, TreeVisitor visitor) throws XerialException
-    {
-        eventQueue.addLast(e);
-        switch (e.event)
-        {
-        case VISIT:
-            visitor.visitNode(e.nodeName, e.nodeValue, this);
-            currentLevel++;
-            break;
-        case LEAVE:
-            visitor.leaveNode(e.nodeName, this);
-            currentLevel--;
-            break;
-        case TEXT:
-            visitor.text(e.nodeValue, this);
-            break;
-        }
-        eventQueue.removeLast();
+        super(new DOMStreamReader(domElement));
     }
 
 }

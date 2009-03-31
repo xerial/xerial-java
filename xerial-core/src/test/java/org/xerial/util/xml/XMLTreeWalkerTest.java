@@ -73,7 +73,7 @@ public class XMLTreeWalkerTest
 
             public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
             {
-                _logger.info("leave: " + nodeName);
+                _logger.debug("leave: " + nodeName);
 
                 String visitedNode = nodeStack.removeLast();
                 Assert.assertEquals("tag name:", visitedNode, nodeName);
@@ -81,7 +81,7 @@ public class XMLTreeWalkerTest
 
             public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
-                _logger.info(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
+                _logger.debug(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
 
                 // skip description node
                 if (nodeName.equals("description"))
@@ -94,18 +94,16 @@ public class XMLTreeWalkerTest
                     assertEquals("text", subtree.getChildren().get(0).getNodeName());
                     assertEquals("page", subtree.getChildren().get(0).getNodeValue());
 
-                    _logger.info(String.format("subtree: %s", subtree));
+                    _logger.debug(String.format("subtree: %s", subtree));
                 }
-                else
-                {
-                    nodeStack.add(nodeName);
-                }
+
+                nodeStack.add(nodeName);
 
             }
 
             public void text(String nodeValue, TreeWalker walker) throws XerialException
             {
-                _logger.info("text:  " + nodeValue);
+                _logger.debug("text:  " + nodeValue);
 
             }
         });
@@ -132,7 +130,7 @@ public class XMLTreeWalkerTest
 
             public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
             {
-                _logger.info("leave: " + nodeName);
+                _logger.debug("leave: " + nodeName);
 
                 String visitedNode = nodeStack.removeLast();
                 Assert.assertEquals("tag name:", visitedNode, nodeName);
@@ -140,7 +138,7 @@ public class XMLTreeWalkerTest
 
             public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
-                _logger.info(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
+                _logger.debug(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
 
                 data.put(nodeName, nodeValue);
 
@@ -149,20 +147,17 @@ public class XMLTreeWalkerTest
                 {
                     walker.skipDescendants();
                 }
-                else
-                {
-                    nodeStack.add(nodeName);
-                }
+
+                nodeStack.add(nodeName);
 
             }
 
             public void text(String nodeValue, TreeWalker walker) throws XerialException
             {
-                _logger.info("text:  " + nodeValue);
+                _logger.debug("text:  " + nodeValue);
 
             }
         });
 
     }
-
 }

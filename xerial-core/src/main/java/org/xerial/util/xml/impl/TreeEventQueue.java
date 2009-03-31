@@ -43,12 +43,14 @@ public class TreeEventQueue
     private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
     private Deque<String> nodeNameStack = new ArrayDeque<String>();
 
+    private static final String EMPTY_STRING = new String();
+
     public void push(TreeEvent e)
     {
         switch (e.event)
         {
         case VISIT:
-            nodeNameStack.addLast(e.nodeName);
+            nodeNameStack.addLast(e.nodeName == null ? EMPTY_STRING : e.nodeName);
             break;
         case LEAVE:
             nodeNameStack.removeLast();
@@ -86,7 +88,13 @@ public class TreeEventQueue
         if (nodeNameStack.isEmpty())
             return null;
         else
-            return nodeNameStack.getLast();
+        {
+            String str = nodeNameStack.getLast();
+            if (str == EMPTY_STRING)
+                return null;
+            else
+                return str;
+        }
     }
 
     public TreeEvent pop()
