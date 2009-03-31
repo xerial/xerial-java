@@ -328,9 +328,16 @@ public class Logger
     {
         if (_threshold == LogLevel.UNSPECIFIED)
         {
-            if (_parentLogger != null)
-                return _parentLogger.isEnabled(logLevel);
-            else
+            Logger parent = this;
+            while ((parent = parent._parentLogger) != null)
+            {
+                if (parent.getLogLevel() == LogLevel.UNSPECIFIED)
+                    continue;
+
+                _threshold = parent.getLogLevel();
+                break;
+            }
+            if (_threshold == LogLevel.UNSPECIFIED)
                 return false;
         }
         return _threshold.ordinal() <= logLevel.ordinal();

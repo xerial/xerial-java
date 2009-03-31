@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.util.log;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -32,6 +32,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
+import org.xerial.util.StopWatch;
 
 public class LoggerTest
 {
@@ -55,5 +56,30 @@ public class LoggerTest
         Logger logger2 = Logger.getLogger(LoggerTest.class);
         assertEquals(LogLevel.DEBUG, logger2.getLogLevel());
         assertEquals(true, logger2.isColorEnabled());
+    }
+
+    @Test
+    public void testIsEnabled() throws Exception
+    {
+        Logger logger = Logger.getLogger(LoggerTest.class);
+        StopWatch s = new StopWatch();
+        int N = 100000000;
+        for (int i = 0; i < N; i++)
+        {
+            if (logger.isDebugEnabled())
+                logger.debug("hello");
+        }
+        logger.info(s.getElapsedTime());
+        s.reset();
+        for (int i = 0; i < N; i++)
+        {
+            logger.debug("hello");
+        }
+        logger.info(s.getElapsedTime());
+
+        s.reset();
+        for (int i = 0; i < N; i++)
+        {}
+        logger.info(s.getElapsedTime());
     }
 }
