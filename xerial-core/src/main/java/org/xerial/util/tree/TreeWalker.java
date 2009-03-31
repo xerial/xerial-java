@@ -43,13 +43,15 @@ public interface TreeWalker
      * @param visitor
      *            A {@link TreeVisitor} that handles tree visit events
      * @throws XerialException
-     *             when we have to stop the walking
+     *             when we have to stop the walking due to some read error
      */
     public void walk(TreeVisitor visitor) throws XerialException;
 
     /**
      * Skip the descendants of the current node
-     * @throws XerialException TODO
+     * 
+     * @throws XerialException
+     *             when we have to stop the walking due to some read error
      */
     public void skipDescendants() throws XerialException;
 
@@ -61,7 +63,7 @@ public interface TreeWalker
      * @return {@link TreeNode} representation of the tree structured data
      *         beginning from the current node
      * @throws XerialException
-     *             when we have to stop the walking
+     *             when we have to stop the walking due to some read error
      * 
      */
     public TreeNode getSubTree() throws XerialException;
