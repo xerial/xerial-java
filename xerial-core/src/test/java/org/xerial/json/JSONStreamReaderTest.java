@@ -16,28 +16,27 @@
 //--------------------------------------
 // XerialJ
 //
-// XMLStreamWalkerTest.java
-// Since: Mar 30, 2009 7:02:29 PM
+// JSONStreamReaderTest.java
+// Since: Mar 31, 2009 2:49:53 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.xml;
+package org.xerial.json;
 
 import static org.junit.Assert.*;
-
-import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
+import org.xerial.util.HashedChainMap;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 
-public class XMLStreamWalkerTest
+public class JSONStreamReaderTest
 {
-    private static Logger _logger = Logger.getLogger(XMLStreamWalkerTest.class);
+    private static Logger _logger = Logger.getLogger(JSONStreamReaderTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -47,39 +46,44 @@ public class XMLStreamWalkerTest
     public void tearDown() throws Exception
     {}
 
-    public HashMap<String, String> parse(String xml) throws Exception
+    HashedChainMap<String, String> parse(String file) throws Exception
     {
-        XMLStreamReader walker = new XMLStreamReader(FileResource.open(XMLStreamWalkerTest.class, xml));
-        TreeEvent e = null;
-        HashMap<String, String> data = new HashMap<String, String>();
-        while ((e = walker.next()) != null)
+        JSONStreamReader reader = new JSONStreamReader(FileResource.open(JSONStreamReaderTest.class, file));
+        TreeEvent e;
+
+        HashedChainMap<String, String> data = new HashedChainMap<String, String>();
+
+        while ((e = reader.next()) != null)
         {
             _logger.info(e);
-            if (e.isVisit() || e.isText())
+
+            if (e.isVisit())
                 data.put(e.nodeName, e.nodeValue);
-
         }
+
         return data;
-
     }
 
     @Test
-    public void testParse() throws Exception
+    public void testNext() throws Exception
     {
-        HashMap<String, String> data = parse("../bean/skip.xml");
+        HashedChainMap<String, String> data = parse("sample.json");
 
-        assertEquals("Will ship internationally, See description for charges", data.get("shipping"));
-        assertEquals("page", data.get("text"));
-        assertNull(data.get("item"));
+        assertEquals("Leo", data.get("name").get(0));
+        assertEquals("100", data.get("id").get(0));
     }
 
     @Test
-    public void testSimple() throws Exception
+    public void testArray() throws Exception
     {
-        HashMap<String, String> data = parse("simple.xml");
+        HashedChainMap<String, String> data = parse("array.json");
 
-        assertEquals("Leo", data.get("author"));
-        assertEquals("Hello World!  Nice to meet you", data.get("wiki"));
+        assertEquals(2, data.get("author").size());
+        assertEquals("leo", data.get("author").get(0));
+        assertEquals("yui", data.get("author").get(1));
+
+        assertEquals("Relational-Style XML Query", data.get("title").get(0));
+        assertNull(data.get("paper").get(0));
 
     }
 

@@ -28,15 +28,13 @@ import static org.xmlpull.v1.XmlPullParser.*;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Collection;
 
-import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeStreamWalker;
+import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.impl.TreeEventQueue;
 import org.xerial.util.xml.pullparser.PullParserUtil;
@@ -44,12 +42,12 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * {@link TreeStreamWalker} of XML data
+ * {@link TreeStreamReader} of XML data
  * 
  * @author leo
  * 
  */
-public class XMLStreamWalker implements TreeStreamWalker
+public class XMLStreamReader implements TreeStreamReader
 {
     private final XmlPullParser pullParser;
     private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
@@ -60,7 +58,7 @@ public class XMLStreamWalker implements TreeStreamWalker
 
     private final TreeEventQueue eventQueue = new TreeEventQueue();
 
-    public XMLStreamWalker(Reader reader)
+    public XMLStreamReader(Reader reader)
     {
         if (reader == null)
             throw new IllegalArgumentException("XML reader is null");
@@ -95,9 +93,6 @@ public class XMLStreamWalker implements TreeStreamWalker
 
             switch (parseState)
             {
-            case START_DOCUMENT:
-                eventQueue.push(TreeEvent.getInitEvent());
-                break;
             case START_TAG:
             {
                 textStack.addLast(EMPTY_STRING);

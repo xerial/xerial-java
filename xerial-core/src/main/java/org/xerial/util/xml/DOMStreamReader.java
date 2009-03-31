@@ -34,7 +34,7 @@ import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeStreamWalker;
+import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.xml.dom.DOMUtil;
 import org.xerial.util.xml.impl.TreeEventQueue;
 
@@ -44,7 +44,7 @@ import org.xerial.util.xml.impl.TreeEventQueue;
  * @author leo
  * 
  */
-public class DOMWalker implements TreeStreamWalker
+public class DOMStreamReader implements TreeStreamReader
 {
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private Deque<Context> contextStack = new ArrayDeque<Context>();
@@ -102,7 +102,7 @@ public class DOMWalker implements TreeStreamWalker
         }
     }
 
-    public DOMWalker(Element element)
+    public DOMStreamReader(Element element)
     {
         contextStack.addLast(new Context(element));
     }

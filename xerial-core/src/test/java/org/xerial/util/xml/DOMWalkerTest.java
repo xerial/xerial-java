@@ -54,7 +54,7 @@ public class DOMWalkerTest
     public void testWalk() throws Exception
     {
         DOMBuilder builder = new DOMBuilder();
-        DOMWalker walker = new DOMWalker(builder.parse(FileResource.open(DOMWalkerTest.class, "domtest.xml")));
+        DOMStreamReader walker = new DOMStreamReader(builder.parse(FileResource.open(DOMWalkerTest.class, "domtest.xml")));
 
         HashMap<String, String> nodeData = new HashMap<String, String>();
 

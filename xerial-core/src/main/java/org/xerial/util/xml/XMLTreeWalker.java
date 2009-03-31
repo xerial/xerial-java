@@ -32,26 +32,26 @@ import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
-import org.xerial.util.tree.TreeStreamWalker;
+import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
 import org.xerial.util.tree.impl.TreeNodeImpl;
 
 public class XMLTreeWalker implements TreeWalker
 {
-    private final TreeStreamWalker walker;
+    private final TreeStreamReader walker;
     private final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
     private int currentLevel = 0;
 
     public XMLTreeWalker(Reader xmlReader)
     {
-        walker = new XMLStreamWalker(xmlReader);
+        walker = new XMLStreamReader(xmlReader);
     }
 
     public XMLTreeWalker(Element domElement)
     {
-        walker = new DOMWalker(domElement);
+        walker = new DOMStreamReader(domElement);
     }
 
     private static class TreeBuilder
@@ -148,6 +148,8 @@ public class XMLTreeWalker implements TreeWalker
 
     public void walk(TreeVisitor visitor) throws XerialException
     {
+        visitor.init(this);
+
         TreeEvent e = null;
         while ((e = walker.next()) != null)
         {
@@ -175,9 +177,6 @@ public class XMLTreeWalker implements TreeWalker
             break;
         case TEXT:
             visitor.text(e.nodeValue, this);
-            break;
-        case INIT:
-            visitor.init(this);
             break;
         }
         eventQueue.removeLast();

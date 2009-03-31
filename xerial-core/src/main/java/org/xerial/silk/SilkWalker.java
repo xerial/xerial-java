@@ -595,9 +595,6 @@ public class SilkWalker implements TreeWalker
 
         switch (currentEvent.event)
         {
-        case INIT:
-            visitor.init(this);
-            break;
 
         case VISIT:
             if (!skipNodeStack.isEmpty())

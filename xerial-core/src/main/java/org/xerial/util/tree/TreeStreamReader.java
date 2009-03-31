@@ -29,10 +29,21 @@ import org.xerial.core.XerialException;
 /**
  * A common interface for the stream parser of structured data.
  * 
+ * TreeStreamReader retrieves the following types of {@link TreeEvent}:
+ * <ul>
+ * 
+ * <li>VISIT (nodeName, nodeValue) when visiting a node
+ * <li>TEXT (nodeName, text) when observing a text data. The text events might
+ * be occurred more than once.
+ * <li>LEAVE (nodeName) when leaving a node
+ * 
+ * </ul>
+ * 
+ * 
  * @author leo
  * 
  */
-public interface TreeStreamWalker
+public interface TreeStreamReader
 {
     /**
      * Fetches the next event from the tree stream

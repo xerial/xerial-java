@@ -41,9 +41,9 @@ import org.xerial.util.tree.TreeWalker;
  */
 public class MapWalker implements TreeWalker
 {
-    private final Map map;
+    private final Map< ? , ? > map;
 
-    public MapWalker(Map map)
+    public MapWalker(Map< ? , ? > map)
     {
         if (map == null)
             throw new NullPointerException("map cannot be null");

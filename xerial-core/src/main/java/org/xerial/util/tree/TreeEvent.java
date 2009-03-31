@@ -33,28 +33,16 @@ package org.xerial.util.tree;
 public class TreeEvent
 {
     public static enum EventType {
-        INIT, VISIT, TEXT, LEAVE
+        VISIT, TEXT, LEAVE
     };
 
     public final EventType event;
     public final String nodeName;
     public final String nodeValue;
 
-    private static final TreeEvent INIT_EVENT = new TreeEvent(EventType.INIT, null, null);
-
-    public static TreeEvent getInitEvent()
-    {
-        return INIT_EVENT;
-    }
-
     public boolean isVisit()
     {
         return event == EventType.VISIT;
-    }
-
-    public boolean isInit()
-    {
-        return event == EventType.INIT;
     }
 
     public boolean isText()
