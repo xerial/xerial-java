@@ -598,9 +598,6 @@ public class SilkWalker implements TreeWalker
         case INIT:
             visitor.init(this);
             break;
-        case FINISH:
-            visitor.finish(this);
-            break;
 
         case VISIT:
             if (!skipNodeStack.isEmpty())

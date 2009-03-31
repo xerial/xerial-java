@@ -24,15 +24,13 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
-import static org.xmlpull.v1.XmlPullParser.END_TAG;
-import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
-import static org.xmlpull.v1.XmlPullParser.START_TAG;
-import static org.xmlpull.v1.XmlPullParser.TEXT;
+import static org.xmlpull.v1.XmlPullParser.*;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Collection;
 
+import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
@@ -40,6 +38,7 @@ import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamWalker;
 import org.xerial.util.tree.TreeEvent.EventType;
+import org.xerial.util.xml.impl.TreeEventQueue;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -58,7 +57,8 @@ public class XMLStreamWalker implements TreeStreamWalker
     private int TEXT_BUFFER_MAX = 8192;
 
     private int parseState = START_DOCUMENT;
-    private ArrayDeque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+
+    private final TreeEventQueue eventQueue = new TreeEventQueue();
 
     public XMLStreamWalker(Reader reader)
     {
@@ -72,10 +72,12 @@ public class XMLStreamWalker implements TreeStreamWalker
     public TreeEvent next() throws XerialException
     {
         if (!eventQueue.isEmpty())
-            return eventQueue.removeFirst();
+        {
+            return eventQueue.pop();
+        }
 
         if (parseState == END_DOCUMENT)
-            return TreeEvent.getFinishEvent();
+            return null;
 
         readNext();
 
@@ -94,7 +96,7 @@ public class XMLStreamWalker implements TreeStreamWalker
             switch (parseState)
             {
             case START_DOCUMENT:
-                eventQueue.add(TreeEvent.getInitEvent());
+                eventQueue.push(TreeEvent.getInitEvent());
                 break;
             case START_TAG:
             {
@@ -122,7 +124,7 @@ public class XMLStreamWalker implements TreeStreamWalker
 
                 // push a new start tag event to the front of the queue
                 startEventQueue.addFirst(TreeEvent.newVisitEvent(tagName, immediateNodeValue));
-                eventQueue.addAll(startEventQueue);
+                eventQueue.push(startEventQueue);
 
                 // pre-fetch the next event
                 readNext();
@@ -132,28 +134,28 @@ public class XMLStreamWalker implements TreeStreamWalker
             {
                 if (textStack.getLast() == EMPTY_STRING)
                 {
-                    eventQueue.add(TreeEvent.newLeaveEvent(pullParser.getName()));
+                    eventQueue.push(TreeEvent.newLeaveEvent(pullParser.getName()));
                 }
                 else
                 {
                     StringBuilder textBuffer = textStack.getLast();
-                    if (!eventQueue.isEmpty() && eventQueue.getLast().event == EventType.VISIT)
+                    if (!eventQueue.isEmpty() && eventQueue.peekLast().event == EventType.VISIT)
                     {
                         // attach the text value to the the previous visit event
-                        eventQueue.removeLast();
-                        eventQueue.add(TreeEvent.newVisitEvent(pullParser.getName(), textBuffer.toString()));
+                        eventQueue.replaceLast(TreeEvent.newVisitEvent(pullParser.getName(), sanitize(textBuffer
+                                .toString())));
                     }
                     else
                         reportTextEvent(textBuffer);
 
-                    eventQueue.add(TreeEvent.newLeaveEvent(pullParser.getName()));
+                    eventQueue.push(TreeEvent.newLeaveEvent(pullParser.getName()));
                 }
                 textStack.removeLast();
             }
                 break;
             case TEXT:
             {
-                String textData = sanitize(pullParser.getText());
+                String textData = pullParser.getText();
                 StringBuilder textBuffer = textStack.getLast();
 
                 if (textData.length() <= 0)
@@ -173,7 +175,7 @@ public class XMLStreamWalker implements TreeStreamWalker
                 }
                 textBuffer.append(textData);
 
-                boolean needPrefetch = eventQueue.isEmpty() ? false : eventQueue.getLast().event == EventType.VISIT;
+                boolean needPrefetch = eventQueue.isEmpty() ? false : eventQueue.peekLast().event == EventType.VISIT;
                 if (needPrefetch)
                     readNext();
             }
@@ -215,8 +217,10 @@ public class XMLStreamWalker implements TreeStreamWalker
 
     private void reportTextEvent(String textData)
     {
+        textData = sanitize(textData);
+
         if (textData.length() > 0)
-            eventQueue.add(TreeEvent.newTextEvent(textData));
+            eventQueue.push(TreeEvent.newTextEvent(eventQueue.getContextNodeName(), textData));
     }
 
 }

@@ -24,13 +24,16 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeEvent.EventType;
 
 public class XMLStreamWalkerTest
 {
@@ -44,27 +47,40 @@ public class XMLStreamWalkerTest
     public void tearDown() throws Exception
     {}
 
-    public void parse(String xml) throws Exception
+    public HashMap<String, String> parse(String xml) throws Exception
     {
         XMLStreamWalker walker = new XMLStreamWalker(FileResource.open(XMLStreamWalkerTest.class, xml));
         TreeEvent e = null;
-        while ((e = walker.next()).event != EventType.FINISH)
+        HashMap<String, String> data = new HashMap<String, String>();
+        while ((e = walker.next()) != null)
         {
             _logger.info(e);
+            if (e.isVisit() || e.isText())
+                data.put(e.nodeName, e.nodeValue);
+
         }
+        return data;
 
     }
 
     @Test
     public void testParse() throws Exception
     {
-        parse("../bean/skip.xml");
+        HashMap<String, String> data = parse("../bean/skip.xml");
+
+        assertEquals("Will ship internationally, See description for charges", data.get("shipping"));
+        assertEquals("page", data.get("text"));
+        assertNull(data.get("item"));
     }
 
     @Test
     public void testSimple() throws Exception
     {
-        parse("simple.xml");
+        HashMap<String, String> data = parse("simple.xml");
+
+        assertEquals("Leo", data.get("author"));
+        assertEquals("Hello World!  Nice to meet you", data.get("wiki"));
+
     }
 
 }

@@ -24,11 +24,10 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.junit.After;
@@ -113,9 +112,57 @@ public class XMLTreeWalkerTest
     }
 
     @Test
-    public void testSkipDescendants()
+    public void testSkipDescendants() throws Exception
     {
-        fail("Not yet implemented");
+        XMLTreeWalker walker = new XMLTreeWalker(FileResource.open(XMLTreeWalkerTest.class, "../bean/skip.xml"));
+        walker.walk(new TreeVisitor() {
+
+            LinkedList<String> nodeStack = new LinkedList<String>();
+            HashMap<String, String> data = new HashMap<String, String>();
+
+            public void finish(TreeWalker walker) throws XerialException
+            {
+                assertNull(data.get("page"));
+            }
+
+            public void init(TreeWalker walker) throws XerialException
+            {
+
+            }
+
+            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+            {
+                _logger.info("leave: " + nodeName);
+
+                String visitedNode = nodeStack.removeLast();
+                Assert.assertEquals("tag name:", visitedNode, nodeName);
+            }
+
+            public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+            {
+                _logger.info(String.format("visit: %s %s", nodeName, nodeValue != null ? nodeValue : ""));
+
+                data.put(nodeName, nodeValue);
+
+                // skip description node
+                if (nodeName.equals("description"))
+                {
+                    walker.skipDescendants();
+                }
+                else
+                {
+                    nodeStack.add(nodeName);
+                }
+
+            }
+
+            public void text(String nodeValue, TreeWalker walker) throws XerialException
+            {
+                _logger.info("text:  " + nodeValue);
+
+            }
+        });
+
     }
 
 }

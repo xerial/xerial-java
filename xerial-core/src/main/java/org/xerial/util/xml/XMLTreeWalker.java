@@ -26,19 +26,20 @@ package org.xerial.util.xml;
 
 import java.io.Reader;
 
+import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
+import org.xerial.util.tree.TreeStreamWalker;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
-import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.tree.impl.TreeNodeImpl;
 
 public class XMLTreeWalker implements TreeWalker
 {
-    private final XMLStreamWalker walker;
+    private final TreeStreamWalker walker;
     private final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
     private int currentLevel = 0;
@@ -46,6 +47,11 @@ public class XMLTreeWalker implements TreeWalker
     public XMLTreeWalker(Reader xmlReader)
     {
         walker = new XMLStreamWalker(xmlReader);
+    }
+
+    public XMLTreeWalker(Element domElement)
+    {
+        walker = new DOMWalker(domElement);
     }
 
     private static class TreeBuilder
@@ -91,7 +97,7 @@ public class XMLTreeWalker implements TreeWalker
         TreeBuilder builder = new TreeBuilder(eventQueue.peekFirst());
 
         TreeEvent e = null;
-        while ((e = walker.next()).event != EventType.FINISH)
+        while ((e = walker.next()) != null)
         {
             switch (e.event)
             {
@@ -121,7 +127,7 @@ public class XMLTreeWalker implements TreeWalker
         int base = currentLevel;
         int level = currentLevel;
         TreeEvent e = null;
-        while ((e = walker.next()).event != EventType.FINISH)
+        while ((e = walker.next()) != null)
         {
             switch (e.event)
             {
@@ -143,13 +149,15 @@ public class XMLTreeWalker implements TreeWalker
     public void walk(TreeVisitor visitor) throws XerialException
     {
         TreeEvent e = null;
-        while ((e = walker.next()).event != EventType.FINISH)
+        while ((e = walker.next()) != null)
         {
             processEvent(e, visitor);
         }
 
         while (!eventQueue.isEmpty())
             processEvent(eventQueue.removeFirst(), visitor);
+
+        visitor.finish(this);
     }
 
     private void processEvent(TreeEvent e, TreeVisitor visitor) throws XerialException
@@ -167,9 +175,6 @@ public class XMLTreeWalker implements TreeWalker
             break;
         case TEXT:
             visitor.text(e.nodeValue, this);
-            break;
-        case FINISH:
-            visitor.finish(this);
             break;
         case INIT:
             visitor.init(this);

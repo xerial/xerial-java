@@ -33,24 +33,38 @@ package org.xerial.util.tree;
 public class TreeEvent
 {
     public static enum EventType {
-        INIT, VISIT, TEXT, LEAVE, FINISH
+        INIT, VISIT, TEXT, LEAVE
     };
 
     public final EventType event;
     public final String nodeName;
     public final String nodeValue;
 
-    private static final TreeEvent FINISH_EVENT = new TreeEvent(EventType.FINISH, null, null);
-    private static final TreeEvent INIT_EVENT = new TreeEvent(EventType.FINISH, null, null);
-
-    public static TreeEvent getFinishEvent()
-    {
-        return FINISH_EVENT;
-    }
+    private static final TreeEvent INIT_EVENT = new TreeEvent(EventType.INIT, null, null);
 
     public static TreeEvent getInitEvent()
     {
         return INIT_EVENT;
+    }
+
+    public boolean isVisit()
+    {
+        return event == EventType.VISIT;
+    }
+
+    public boolean isInit()
+    {
+        return event == EventType.INIT;
+    }
+
+    public boolean isText()
+    {
+        return event == EventType.TEXT;
+    }
+
+    public boolean isLeave()
+    {
+        return event == EventType.LEAVE;
     }
 
     public static TreeEvent newVisitEvent(String nodeName, String value)
@@ -63,9 +77,9 @@ public class TreeEvent
         return new TreeEvent(EventType.LEAVE, nodeName, null);
     }
 
-    public static TreeEvent newTextEvent(String value)
+    public static TreeEvent newTextEvent(String nodeName, String value)
     {
-        return new TreeEvent(EventType.TEXT, null, value);
+        return new TreeEvent(EventType.TEXT, nodeName, value);
     }
 
     public TreeEvent(EventType event, String nodeName, String value)
@@ -80,16 +94,16 @@ public class TreeEvent
         if (nodeName != null)
         {
             if (nodeValue != null)
-                return String.format("%s:%s=%s", event, nodeName, nodeValue);
+                return String.format("%5s:%s=%s", event, nodeName, nodeValue);
             else
-                return String.format("%s:%s", event, nodeName);
+                return String.format("%5s:%s", event, nodeName);
         }
         else
         {
             if (nodeValue != null)
-                return String.format("%s:%s", event, nodeValue);
+                return String.format("%5s:%s", event, nodeValue);
             else
-                return String.format("%s", event);
+                return String.format("%5s", event);
         }
     }
 

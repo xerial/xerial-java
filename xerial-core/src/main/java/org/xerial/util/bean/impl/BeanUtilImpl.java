@@ -36,8 +36,8 @@ import org.xerial.silk.SilkWalker;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.MapWalker;
-import org.xerial.util.bean.XMLWalker;
 import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.xml.XMLTreeWalker;
 
 /**
  * Implementations of BeanUtil
@@ -106,23 +106,23 @@ public class BeanUtilImpl
     // XML Stream
     public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException
     {
-        return createTypedBean(new XMLWalker(xmlReader), beanType);
+        return createTypedBean(new XMLTreeWalker(xmlReader), beanType);
     }
 
     public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException
     {
-        return createBean(new XMLWalker(xmlReader), bean);
+        return createBean(new XMLTreeWalker(xmlReader), bean);
     }
 
     // XML DOM
     public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement) throws XerialException
     {
-        return createTypedBean(new XMLWalker(xmlElement), beanType);
+        return createTypedBean(new XMLTreeWalker(xmlElement), beanType);
     }
 
     public static Object populateBeanWithXML(Object bean, Element xmlElement) throws XerialException
     {
-        return createBean(new XMLWalker(xmlElement), new BeanBindingProcess(bean));
+        return createBean(new XMLTreeWalker(xmlElement), new BeanBindingProcess(bean));
     }
 
     // ANTLR ParseTree

@@ -34,5 +34,12 @@ import org.xerial.core.XerialException;
  */
 public interface TreeStreamWalker
 {
+    /**
+     * Fetches the next event from the tree stream
+     * 
+     * @return next event or null if no more event exists
+     * @throws XerialException
+     */
     public TreeEvent next() throws XerialException;
+
 }

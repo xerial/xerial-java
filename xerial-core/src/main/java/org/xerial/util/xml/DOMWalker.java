@@ -36,6 +36,7 @@ import org.xerial.util.Deque;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamWalker;
 import org.xerial.util.xml.dom.DOMUtil;
+import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
  * Stream walker for DOM data
@@ -45,7 +46,7 @@ import org.xerial.util.xml.dom.DOMUtil;
  */
 public class DOMWalker implements TreeStreamWalker
 {
-    private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+    private TreeEventQueue eventQueue = new TreeEventQueue();
     private Deque<Context> contextStack = new ArrayDeque<Context>();
 
     private static class Context
@@ -109,7 +110,7 @@ public class DOMWalker implements TreeStreamWalker
     public TreeEvent next() throws XerialException
     {
         if (!eventQueue.isEmpty())
-            return eventQueue.removeFirst();
+            return eventQueue.pop();
 
         if (contextStack.isEmpty())
             return null;
@@ -171,14 +172,14 @@ public class DOMWalker implements TreeStreamWalker
             {
                 subEventQueue.addFirst(TreeEvent.newVisitEvent(tagName, nodeValue));
                 if (text != null)
-                    subEventQueue.addLast(TreeEvent.newTextEvent(text));
+                    subEventQueue.addLast(TreeEvent.newTextEvent(tagName, text));
             }
             else
             {
                 subEventQueue.addFirst(TreeEvent.newVisitEvent(tagName, text));
             }
 
-            eventQueue.addAll(subEventQueue);
+            eventQueue.push(subEventQueue);
         }
 
         for (;;)
@@ -197,7 +198,7 @@ public class DOMWalker implements TreeStreamWalker
             else
             {
                 context.setFinished();
-                eventQueue.add(TreeEvent.newLeaveEvent(context.element.getNodeName()));
+                eventQueue.push(TreeEvent.newLeaveEvent(context.element.getNodeName()));
                 break;
             }
         }
