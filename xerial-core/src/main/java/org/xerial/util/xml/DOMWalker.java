@@ -37,6 +37,12 @@ import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamWalker;
 import org.xerial.util.xml.dom.DOMUtil;
 
+/**
+ * Stream walker for DOM data
+ * 
+ * @author leo
+ * 
+ */
 public class DOMWalker implements TreeStreamWalker
 {
     private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
@@ -45,7 +51,7 @@ public class DOMWalker implements TreeStreamWalker
     private static class Context
     {
         Element element;
-        int childCursor = -1;
+        private int childCursor = -1;
         private boolean hasVisited = false;
         private boolean hasFinished = false;
 
@@ -76,7 +82,7 @@ public class DOMWalker implements TreeStreamWalker
 
         public boolean hasNextChild()
         {
-            return childCursor + 1 <= element.getChildNodes().getLength();
+            return childCursor + 1 < element.getChildNodes().getLength();
         }
 
         public Node nextChild()
@@ -89,10 +95,7 @@ public class DOMWalker implements TreeStreamWalker
             else
             {
                 Node childNode = nodeList.item(childCursor);
-
-                    return childNode;
-                else
-                    return nextChild();
+                return childNode;
             }
 
         }
@@ -111,13 +114,13 @@ public class DOMWalker implements TreeStreamWalker
         if (contextStack.isEmpty())
             return null;
 
-        while (eventQueue.isEmpty() && !contextStack.isEmpty())
+        if (!contextStack.isEmpty())
         {
             Context context = contextStack.getLast();
             if (context.hasFinished())
             {
                 contextStack.removeLast();
-                continue;
+                return next();
             }
             parse(context);
         }
@@ -158,7 +161,11 @@ public class DOMWalker implements TreeStreamWalker
             }
 
             if (text != null)
+            {
                 text = text.trim();
+                if (text.length() <= 0)
+                    text = null;
+            }
 
             if (nodeValue != null)
             {
@@ -174,16 +181,25 @@ public class DOMWalker implements TreeStreamWalker
             eventQueue.addAll(subEventQueue);
         }
 
-        if (context.hasNextChild())
+        for (;;)
         {
-            Node childNode = context.nextChild();
-            if (childNode.getNodeType() == Node.ELEMENT_NODE)
-                contextStack.addLast(new Context((Element) childNode));
+            if (context.hasNextChild())
+            {
+                Node childNode = context.nextChild();
+                if (childNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    contextStack.addLast(new Context((Element) childNode));
+                    break;
+                }
+                else
+                    continue;
+            }
             else
-        }
-        else
-        {
-            context.setFinished();
+            {
+                context.setFinished();
+                eventQueue.add(TreeEvent.newLeaveEvent(context.element.getNodeName()));
+                break;
+            }
         }
 
     }
