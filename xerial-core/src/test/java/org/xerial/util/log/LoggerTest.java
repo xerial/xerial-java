@@ -62,6 +62,7 @@ public class LoggerTest
     public void testIsEnabled() throws Exception
     {
         Logger logger = Logger.getLogger(LoggerTest.class);
+        logger.setLogLevel(LogLevel.INFO);
         StopWatch s = new StopWatch();
         int N = 100000000;
         for (int i = 0; i < N; i++)
