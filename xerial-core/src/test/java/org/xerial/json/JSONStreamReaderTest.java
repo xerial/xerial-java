@@ -55,7 +55,7 @@ public class JSONStreamReaderTest
 
         while ((e = reader.next()) != null)
         {
-            _logger.info(e);
+            _logger.debug(e);
 
             if (e.isVisit())
                 data.put(e.nodeName, e.nodeValue);

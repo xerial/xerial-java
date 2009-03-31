@@ -67,20 +67,20 @@ public class LoggerTest
         int N = 100000000;
         for (int i = 0; i < N; i++)
         {
-            if (logger.isDebugEnabled())
-                logger.debug("hello");
+            if (logger.isTraceEnabled())
+                logger.trace("hello");
         }
-        logger.info(s.getElapsedTime());
+        logger.debug(s.getElapsedTime());
         s.reset();
         for (int i = 0; i < N; i++)
         {
-            logger.debug("hello");
+            logger.trace("hello");
         }
-        logger.info(s.getElapsedTime());
+        logger.debug(s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++)
         {}
-        logger.info(s.getElapsedTime());
+        logger.debug(s.getElapsedTime());
     }
 }
