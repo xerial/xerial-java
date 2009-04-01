@@ -24,11 +24,9 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import org.xerial.silk.SilkWalker.Context;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
-import org.xerial.util.tree.TreeWalker;
 
 /**
  * Environment variable holder for evaluating Silk functions.
@@ -38,8 +36,6 @@ import org.xerial.util.tree.TreeWalker;
  */
 public interface SilkEnv
 {
-    public TreeWalker getTreeWalker();
-
     public TreeVisitor getTreeVisitor();
 
     public Logger getLogger();
@@ -58,5 +54,5 @@ public interface SilkEnv
      */
     public String getResourceBasePath();
 
-    public Deque<Context> getContextNodeStack();
+    public Deque<SilkContext> getContextNodeStack();
 }

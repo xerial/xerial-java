@@ -83,34 +83,10 @@ public class SilkWalker implements TreeWalker
 
     private int indentationOffset = 0;
     private String resourceBasePath = null;
-    private Deque<Context> contextNodeStack = new ArrayDeque<Context>();
+    private Deque<SilkContext> contextNodeStack = new ArrayDeque<SilkContext>();
     private TreeVisitor visitor = null;
     private Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
     private TreeEvent currentEvent = null;
-
-    static class Context
-    {
-        final SilkNode contextNode;
-        boolean isOpen;
-
-        /**
-         * @param contextNode
-         * @param isOpen
-         *            if true this contest must be closed
-         */
-        public Context(SilkNode contextNode, boolean isOpen)
-        {
-            this.contextNode = contextNode;
-            this.isOpen = isOpen;
-        }
-
-        @Override
-        public String toString()
-        {
-            return String.format("%s%s", contextNode, isOpen ? "(open)" : "");
-        }
-
-    }
 
     private class SilkEnvImpl implements SilkEnv
     {
@@ -158,7 +134,7 @@ public class SilkWalker implements TreeWalker
             return resourceBasePath;
         }
 
-        public Deque<Context> getContextNodeStack()
+        public Deque<SilkContext> getContextNodeStack()
         {
             return contextNodeStack;
         }
@@ -403,7 +379,7 @@ public class SilkWalker implements TreeWalker
     {
         while (!contextNodeStack.isEmpty())
         {
-            Context context = contextNodeStack.peekLast();
+            SilkContext context = contextNodeStack.peekLast();
             SilkNode node = context.contextNode;
             if (node.getIndentLevel() >= newIndentLevel)
             {
@@ -452,7 +428,7 @@ public class SilkWalker implements TreeWalker
             return;
         }
 
-        Context currentContext = new Context(node, true);
+        SilkContext currentContext = new SilkContext(node, true);
         contextNodeStack.addLast(currentContext);
 
         SilkNodeOccurrence occurrence = node.getOccurrence();
@@ -821,7 +797,7 @@ public class SilkWalker implements TreeWalker
             // pop the context stack until finding a node for stream data node occurrence
             while (!contextNodeStack.isEmpty())
             {
-                Context context = contextNodeStack.peekLast();
+                SilkContext context = contextNodeStack.peekLast();
                 SilkNode node = context.contextNode;
                 if (!node.getOccurrence().isFollowedByStreamData())
                 {
@@ -853,7 +829,7 @@ public class SilkWalker implements TreeWalker
             else
             {
 
-                Context context = contextNodeStack.peekLast();
+                SilkContext context = contextNodeStack.peekLast();
                 SilkNode schema = context.contextNode;
                 SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
                 switch (schema.getOccurrence())
