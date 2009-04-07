@@ -182,13 +182,13 @@ public class SilkStreamReader implements TreeStreamReader
         init(env);
     }
 
-    public void init()
+    private void init()
     {
         if (resourceBasePath == null)
             resourceBasePath = System.getProperty("user.dir", "");
     }
 
-    public void init(SilkEnv env)
+    private void init(SilkEnv env)
     {
         resourceBasePath = env.getResourceBasePath();
         indentationOffset = env.getIndentationOffset();
@@ -293,7 +293,7 @@ public class SilkStreamReader implements TreeStreamReader
     {
         if (node.getName() == null)
         {
-            // no name nodes must hierarchically organize attriubte nodes
+            // no name nodes must hierarchically organize attribute nodes
             for (SilkNode eachChild : node.getChildNodes())
             {
                 eachChild.setNodeIndent(node.getNodeIndent());
@@ -403,8 +403,12 @@ public class SilkStreamReader implements TreeStreamReader
         }
 
         // evaluate the function
-        plugin.eval(new SilkEnvImpl(function, visitor));
-
+        SilkEnv env = new SilkEnvImpl(function, visitor);
+        TreeEvent e;
+        while ((e = plugin.next(env)) != null)
+        {
+            evalEvent(e);
+        }
     }
 
     /**
