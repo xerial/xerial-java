@@ -26,6 +26,7 @@ package org.xerial.silk.plugin;
 
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
+import org.xerial.util.tree.TreeEvent;
 
 /**
  * The common interface of pluggable functions that can be used in Silk format.
@@ -36,11 +37,13 @@ import org.xerial.silk.SilkEnv;
 public interface SilkFunctionPlugin
 {
     /**
-     * Execute this function using the given environment (if necessary)
+     * Retrieves a next stream event.
      * 
      * @param env
-     *            the current environment
+     *            contains current context for parsing
+     * @return next tree event, or null when no more events
+     * @throws XerialException
      */
-    public void eval(SilkEnv env) throws XerialException;
+    public TreeEvent next(SilkEnv env) throws XerialException;
 
 }
