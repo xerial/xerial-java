@@ -24,9 +24,18 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
+import org.xerial.silk.impl.SilkFunction;
+import org.xerial.silk.impl.SilkNode;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
  * Environment variable holder for evaluating Silk functions.
@@ -34,25 +43,163 @@ import org.xerial.util.tree.TreeVisitor;
  * @author leo
  * 
  */
-public interface SilkEnv
+public class SilkEnv
 {
-    public TreeVisitor getTreeVisitor();
+    private static Logger _logger = Logger.getLogger(SilkEnv.class);
 
-    public Logger getLogger();
+    private int indentationOffset = 0;
+    private String resourceBasePath = null;
+    private Deque<SilkContext> contextNodeStack = new ArrayDeque<SilkContext>();
+    private TreeEventQueue eventQueue = new TreeEventQueue();
+    private TreeEvent currentEvent = null;
+
+    private SilkEnv(SilkEnv parent, int indentationOffset)
+    {
+        this.resourceBasePath = parent.resourceBasePath;
+        this.contextNodeStack = parent.contextNodeStack;
+        this.eventQueue = parent.eventQueue;
+        this.currentEvent = parent.currentEvent;
+
+        this.indentationOffset = indentationOffset;
+    }
+
+    private SilkEnv(SilkEnv parent, String resourceBasePath)
+    {
+
+        this.contextNodeStack = parent.contextNodeStack;
+        this.eventQueue = parent.eventQueue;
+        this.currentEvent = parent.currentEvent;
+        this.indentationOffset = parent.indentationOffset;
+
+        // use input resource base path
+        this.resourceBasePath = resourceBasePath;
+    }
+
+    private SilkEnv(String resourceBasePath)
+    {
+        this.resourceBasePath = resourceBasePath;
+    }
+
+    public static SilkEnv newEnv()
+    {
+        return newEnv(null);
+    }
+
+    public static SilkEnv newEnv(SilkEnv parent, String resourceBasePath)
+    {
+        return new SilkEnv(parent, resourceBasePath);
+    }
+
+    public static SilkEnv newEnv(String resourceBasePath)
+    {
+        if (resourceBasePath != null)
+            return new SilkEnv(resourceBasePath);
+        else
+        {
+            File base = new File(System.getProperty("user.dir", ""));
+            try
+            {
+                return new SilkEnv(base.toURL().toExternalForm());
+            }
+            catch (MalformedURLException e)
+            {
+                throw new XerialError(XerialErrorCode.INVALID_STATE, e);
+            }
+        }
+    }
+
+    public SilkEnv newEnvFor(SilkFunction f)
+    {
+        int offset = indentationOffset;
+
+        if (f.getIndentLevel() == SilkFunction.NO_INDENT)
+        {
+            SilkNode contextNode = getContextNode();
+            if (contextNode != null)
+                offset = contextNode.getIndentLevel();
+        }
+        else
+            offset = f.getIndentLevel();
+
+        return new SilkEnv(this, offset);
+    }
+
+    public Logger getLogger()
+    {
+        return _logger;
+    }
 
     /**
      * Get the baseline indentation level
      * 
      * @return the baseline indentation
      */
-    public int getIndentationOffset();
+    public int getIndentationOffset()
+    {
+        return indentationOffset;
+    }
 
     /**
      * Get the base path for finding resources, e.g. import files.
      * 
      * @return the resource base path
      */
-    public String getResourceBasePath();
+    public String getResourceBasePath()
+    {
+        return resourceBasePath;
+    }
 
-    public Deque<SilkContext> getContextNodeStack();
+    Deque<SilkContext> getContextNodeStack()
+    {
+        return contextNodeStack;
+    }
+
+    public void push(TreeEvent e)
+    {
+        eventQueue.push(e);
+    }
+
+    public void pushContext(SilkContext context)
+    {
+        contextNodeStack.addLast(context);
+    }
+
+    public boolean isContextNodeStackEmpty()
+    {
+        return contextNodeStack.isEmpty();
+    }
+
+    public boolean hasNextTreeEvent()
+    {
+        return !eventQueue.isEmpty();
+    }
+
+    public TreeEvent nextEvent()
+    {
+        return eventQueue.pop();
+    }
+
+    public SilkContext peekLastContext()
+    {
+        return contextNodeStack.peekLast();
+    }
+
+    public SilkContext popLastContext()
+    {
+        return contextNodeStack.removeLast();
+    }
+
+    /**
+     * Get the context node
+     * 
+     * @return
+     */
+    public SilkNode getContextNode()
+    {
+        if (contextNodeStack.isEmpty())
+            return null;
+        else
+            return contextNodeStack.getLast().contextNode;
+    }
+
 }

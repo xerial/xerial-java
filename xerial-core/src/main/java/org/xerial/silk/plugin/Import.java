@@ -39,6 +39,7 @@ import org.xerial.util.FileType;
 import org.xerial.util.io.Base64OutputStream;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
+import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
  * <em>import</em> function
@@ -52,88 +53,84 @@ public class Import implements SilkFunctionPlugin
     @SilkFunctionArgument
     String filePath = null;
 
-    private enum State {
-        INIT, READY
-    }
-
-    private State currentState = State.INIT;
     private TreeStreamReader reader = null;
+    private SilkEnv env;
 
-    public TreeEvent next(SilkEnv env) throws XerialException
+    public void init(SilkEnv env) throws XerialException
     {
-        switch (currentState)
-        {
-        case INIT:
-        {
-            if (filePath == null)
-            {
-                env.getLogger().warn("no file path is specified");
-                return null;
-            }
+        this.env = env;
 
-            try
-            {
-                String url = env.getResourceBasePath();
-                if (!env.getResourceBasePath().endsWith("/"))
-                    url += "/";
-                url += filePath;
+        try
+        {
+            String url = env.getResourceBasePath();
+            if (!env.getResourceBasePath().endsWith("/"))
+                url += "/";
+            url += filePath;
 
-                FileType f = FileType.getFileType(filePath);
-                switch (f)
-                {
-                case SILK:
-                case TAB:
-                {
-                    reader = new SilkStreamReader(new URL(url), env);
-                    currentState = State.READY;
-                    break;
-                }
-                case JPEG:
-                case GIF:
-                case BMP:
-                case PDF:
-                case PS:
-                case TIFF:
-                case WORD:
-                case EXCEL:
-                case POWER_POINT:
-                case PNG:
-                {
-                    reader = new BinaryReader(new URL(url), env);
-                    currentState = State.READY;
-                }
-                    break;
-                default:
-                {
-                    reader = new SilkStreamReader(new URL(url), env);
-                    currentState = State.READY;
-                    break;
-                }
-                }
-                return next(env);
-            }
-            catch (IOException e)
+            FileType f = FileType.getFileType(filePath);
+            switch (f)
             {
-                throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+            case SILK:
+            case TAB:
+            {
+                reader = new SilkStreamReader(new URL(url), env);
+                break;
+            }
+            case JPEG:
+            case GIF:
+            case BMP:
+            case PDF:
+            case PS:
+            case TIFF:
+            case WORD:
+            case EXCEL:
+            case POWER_POINT:
+            case PNG:
+            {
+                reader = new BinaryReader(new URL(url), env);
+            }
+                break;
+            default:
+            {
+                reader = new SilkStreamReader(new URL(url), env);
+                break;
+            }
             }
         }
-        case READY:
-        default:
-            if (reader == null)
-                throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
-
-            return reader.next();
+        catch (IOException e)
+        {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
+
     }
 
-    private class BinaryReader implements TreeStreamReader
+    public TreeEvent next() throws XerialException
+    {
+        if (env == null)
+            throw new XerialError(XerialErrorCode.INVALID_STATE, "env is null");
+
+        if (filePath == null)
+        {
+            env.getLogger().warn("no file path is specified");
+            return null;
+        }
+
+        if (reader == null)
+            throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
+
+        return reader.next();
+    }
+
+    private static class BinaryReader implements TreeStreamReader
     {
         private URL resourceURL;
         private SilkEnv env;
         private InputStream source;
         private BufferedInputStream in;
-        byte[] buffer = new byte[1024];
-        int readBytes = 0;
+        private byte[] buffer = new byte[1024];
+
+        private TreeEventQueue eventQueue = new TreeEventQueue();
+        private boolean hasFinished = false;
 
         private BinaryReader(URL resourceURL, SilkEnv env)
         {
@@ -147,6 +144,7 @@ public class Import implements SilkFunctionPlugin
             {
                 this.source = this.resourceURL.openStream();
                 this.in = new BufferedInputStream(source);
+
             }
             catch (IOException e)
             {
@@ -156,24 +154,57 @@ public class Import implements SilkFunctionPlugin
 
         public TreeEvent next() throws XerialException
         {
-
-            while ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
+            if (eventQueue.isEmpty())
             {
-                ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
-                Base64OutputStream base64out = new Base64OutputStream(base64buffer);
-                base64out.write(buffer, 0, readBytes);
-                base64out.flush();
-                String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
-                for (String each : fragment)
-                    env.getTreeVisitor().text(each, env.getTreeWalker());
+                if (hasFinished)
+                    return null;
+
+                fillQueue();
+                return next();
+            }
+            else
+            {
+                return eventQueue.pop();
             }
         }
 
-    }
+        public void fillQueue() throws XerialException
+        {
+            if (hasFinished)
+                return;
 
-    public void loadBinary(URL path, SilkEnv env) throws IOException, XerialException
-    {
-        env.getLogger().debug("load binary: " + path);
+            String nodeName = env.getContextNode().getName();
+
+            try
+            {
+                int readBytes = 0;
+                if ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
+                {
+                    // encode buffer data with Base64
+                    ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
+                    Base64OutputStream base64out = new Base64OutputStream(base64buffer);
+                    base64out.write(buffer, 0, readBytes);
+                    base64out.flush();
+
+                    String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
+                    if (fragment == null)
+                        return;
+                    for (String each : fragment)
+                    {
+                        eventQueue.push(TreeEvent.newTextEvent(nodeName, each));
+                    }
+                }
+
+                if (readBytes == -1)
+                    hasFinished = true;
+
+            }
+            catch (IOException e)
+            {
+                throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+            }
+
+        }
 
     }
 

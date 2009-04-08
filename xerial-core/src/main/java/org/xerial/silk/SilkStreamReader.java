@@ -58,155 +58,135 @@ import org.xerial.silk.impl.SilkValue;
 import org.xerial.silk.plugin.SilkFunctionArgument;
 import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
-import org.xerial.util.Deque;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
-import org.xerial.util.tree.TreeVisitor;
-import org.xerial.util.xml.impl.TreeEventQueue;
 
+/**
+ * {@link TreeStreamReader} implementation for the Silk data format.
+ * 
+ * @author leo
+ * 
+ */
 public class SilkStreamReader implements TreeStreamReader
 {
     private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
 
     private final SilkPullParser parser;
-
-    private int indentationOffset = 0;
-    private String resourceBasePath = null;
-    private Deque<SilkContext> contextNodeStack = new ArrayDeque<SilkContext>();
-    private TreeVisitor visitor = null;
-    private TreeEventQueue eventQueue = new TreeEventQueue();
-    private TreeEvent currentEvent = null;
-
-    private class SilkEnvImpl implements SilkEnv
-    {
-        int offset = indentationOffset;
-        TreeVisitor visitor;
-
-        private SilkEnvImpl(SilkFunction f, TreeVisitor visitor)
-        {
-            if (f.getIndentLevel() == SilkFunction.NO_INDENT)
-            {
-                SilkNode node = getContextNode();
-                if (node == null)
-                    this.offset = indentationOffset;
-                else
-                    this.offset = node.getIndentLevel();
-            }
-            else
-                this.offset = f.getIndentLevel();
-
-            this.visitor = visitor;
-        }
-
-        public int getIndentationOffset()
-        {
-            return offset;
-        }
-
-        public Logger getLogger()
-        {
-            return _logger;
-        }
-
-        public TreeVisitor getTreeVisitor()
-        {
-            return visitor;
-        }
-
-        public String getResourceBasePath()
-        {
-            return resourceBasePath;
-        }
-
-        public Deque<SilkContext> getContextNodeStack()
-        {
-            return contextNodeStack;
-        }
-
-    }
+    private final SilkEnv parseContext;
+    private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
 
     /**
-     * Creates a new SilkWalker with the specified input stream
+     * Creates a new reader with the specified input stream
      * 
      * @param input
      *            `@throws IOException
      */
     protected SilkStreamReader(InputStream input) throws IOException
     {
-        this.parser = new SilkPullParser(input);
-        init();
+        this(new InputStreamReader(input));
     }
 
     /**
-     * Creates a new SilkWalker with the specified reader
+     * Creates a new reader with the specified reader
      * 
      * @param input
      * @throws IOException
      */
     protected SilkStreamReader(Reader input) throws IOException
     {
-        this.parser = new SilkPullParser(input);
-        init();
+        this(input, SilkEnv.newEnv());
     }
 
-    public SilkStreamReader(String resourceBasePath, String resourceName) throws IOException
+    /**
+     * Creates a new reader inherited the given environment
+     * 
+     * @param input
+     * @param env
+     * @throws IOException
+     */
+    public SilkStreamReader(Reader input, SilkEnv env) throws IOException
     {
-        this.resourceBasePath = resourceBasePath;
+        this.parser = new SilkPullParser(input);
+        this.parseContext = env;
+    }
+
+    /**
+     * Concatenates the base path and the resource name
+     * 
+     * @param resourceBasePath
+     * @param resourceName
+     * @return
+     */
+    private static String getResourcePath(String resourceBasePath, String resourceName)
+    {
         String resourcePath = resourceBasePath;
         if (!resourcePath.endsWith("/"))
             resourcePath += "/";
         resourcePath += resourceName;
-        this.parser = new SilkPullParser(SilkWalker.class.getResourceAsStream(resourcePath));
-        init();
+        return resourcePath;
     }
 
+    /**
+     * Create a new reader for reading local resources
+     * 
+     * @param resourceBasePath
+     * @param resourceName
+     * @throws IOException
+     */
+    public SilkStreamReader(String resourceBasePath, String resourceName) throws IOException
+    {
+        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(SilkWalker.class
+                .getResourceAsStream(getResourcePath(resourceBasePath, resourceName)))));
+        this.parseContext = SilkEnv.newEnv(resourceBasePath);
+    }
+
+    /**
+     * Create a new reader for reading the specified resource URL
+     * 
+     * @param resourcePath
+     * @throws IOException
+     */
     public SilkStreamReader(URL resourcePath) throws IOException
     {
-        String path = resourcePath.toExternalForm();
-        int fileNamePos = path.lastIndexOf("/");
-        this.resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
-        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resourcePath.openStream())));
-        init();
+        this(resourcePath, SilkEnv.newEnv());
     }
 
     public SilkStreamReader(URL resource, SilkEnv env) throws IOException
     {
         String path = resource.toExternalForm();
         int fileNamePos = path.lastIndexOf("/");
-        this.resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
+        String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
+
         this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
-        init(env);
+        this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
-
-    private void init()
-    {
-        if (resourceBasePath == null)
-            resourceBasePath = System.getProperty("user.dir", "");
-    }
-
-    private void init(SilkEnv env)
-    {
-        resourceBasePath = env.getResourceBasePath();
-        indentationOffset = env.getIndentationOffset();
-        contextNodeStack = env.getContextNodeStack();
-    }
-
-    /**
-     * If this stack is not empty, we must disable event reporting to the
-     * {@link TreeVisitor}
-     */
-    private ArrayDeque<String> skipNodeStack = new ArrayDeque<String>();
 
     public TreeEvent next() throws XerialException
     {
-        if (hasNext())
-            return getNextEvent();
+        if (readerStack.isEmpty())
+        {
+            if (hasNext())
+                return getNextEvent();
+            else
+                return null;
+        }
         else
-            return null;
+        {
+            TreeStreamReader reader = readerStack.peekLast();
+            TreeEvent e = reader.next();
+            if (e == null)
+            {
+                readerStack.removeLast();
+                return next();
+            }
+            else
+                return e;
+        }
+
     }
 
     /**
@@ -218,7 +198,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void visit(String nodeName, String immediateNodeValue) throws XerialException
     {
-        eventQueue.push(TreeEvent.newVisitEvent(nodeName, immediateNodeValue));
+        parseContext.push(TreeEvent.newVisitEvent(nodeName, immediateNodeValue));
     }
 
     /**
@@ -229,7 +209,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void leave(String nodeName) throws XerialException
     {
-        eventQueue.push(TreeEvent.newLeaveEvent(nodeName));
+        parseContext.push(TreeEvent.newLeaveEvent(nodeName));
     }
 
     /**
@@ -240,7 +220,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void text(String textFragment) throws XerialException
     {
-        eventQueue.push(TreeEvent.newTextEvent(getContextNode().getName(), textFragment));
+        parseContext.push(TreeEvent.newTextEvent(parseContext.getContextNode().getName(), textFragment));
     }
 
     /**
@@ -251,13 +231,13 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void closeContextUpTo(int newIndentLevel) throws XerialException
     {
-        while (!contextNodeStack.isEmpty())
+        while (!parseContext.isContextNodeStackEmpty())
         {
-            SilkContext context = contextNodeStack.peekLast();
+            SilkContext context = parseContext.peekLastContext();
             SilkNode node = context.contextNode;
             if (node.getIndentLevel() >= newIndentLevel)
             {
-                contextNodeStack.removeLast();
+                parseContext.popLastContext();
 
                 if (context.isOpen)
                 {
@@ -283,7 +263,7 @@ public class SilkStreamReader implements TreeStreamReader
     {
         int indentLevel = node.getIndentLevel();
         if (indentLevel != SilkNode.NO_INDENT)
-            indentLevel += indentationOffset;
+            indentLevel += parseContext.getIndentationOffset();
 
         closeContextUpTo(indentLevel);
         openContext_internal(node);
@@ -303,7 +283,7 @@ public class SilkStreamReader implements TreeStreamReader
         }
 
         SilkContext currentContext = new SilkContext(node, true);
-        contextNodeStack.addLast(currentContext);
+        parseContext.pushContext(currentContext);
 
         SilkNodeOccurrence occurrence = node.getOccurrence();
         if (occurrence == SilkNodeOccurrence.TABBED_SEQUENCE || occurrence == SilkNodeOccurrence.ZERO_OR_MORE)
@@ -375,6 +355,21 @@ public class SilkStreamReader implements TreeStreamReader
 
     }
 
+    private static class FunctionReader implements TreeStreamReader
+    {
+        SilkFunctionPlugin plugin;
+
+        public FunctionReader(SilkFunctionPlugin plugin)
+        {
+            this.plugin = plugin;
+        }
+
+        public TreeEvent next() throws XerialException
+        {
+            return plugin.next();
+        }
+    }
+
     /**
      * Evaluate the function
      * 
@@ -383,9 +378,6 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void evalFunction(SilkFunction function) throws XerialException
     {
-        if (!skipNodeStack.isEmpty())
-            return; // skip evaluation
-
         SilkFunctionPlugin plugin = getPlugin(function.getName());
         if (plugin == null)
         {
@@ -395,20 +387,11 @@ public class SilkStreamReader implements TreeStreamReader
         // fill the function argument to the plugin instance
         populate(plugin, function.getArgumentList());
 
-        // before evaluating the function, event in the queue must be consumed
-        while (!eventQueue.isEmpty())
-        {
-            TreeEvent e = eventQueue.pop();
-            evalEvent(e);
-        }
-
         // evaluate the function
-        SilkEnv env = new SilkEnvImpl(function, visitor);
-        TreeEvent e;
-        while ((e = plugin.next(env)) != null)
-        {
-            evalEvent(e);
-        }
+        SilkEnv env = parseContext.newEnvFor(function);
+        plugin.init(env);
+
+        readerStack.addLast(new FunctionReader(plugin));
     }
 
     /**
@@ -423,39 +406,20 @@ public class SilkStreamReader implements TreeStreamReader
 
     private void evalEvent(TreeEvent e) throws XerialException
     {
-        currentEvent = e;
+        TreeEvent currentEvent = e;
 
         switch (currentEvent.event)
         {
-
         case VISIT:
-            if (!skipNodeStack.isEmpty())
-            {
-                skipNodeStack.addLast(currentEvent.nodeName);
-                return;
-            }
             visit(currentEvent.nodeName, currentEvent.nodeValue);
             break;
-
         case LEAVE:
-            if (!skipNodeStack.isEmpty())
-            {
-                String skippedNode = skipNodeStack.removeLast();
-                if (skipNodeStack.isEmpty())
-                    leave(skippedNode); // output skip start node
-                return;
-            }
-
             leave(currentEvent.nodeName);
             break;
-
         case TEXT:
-            if (!skipNodeStack.isEmpty())
-                return;
             text(currentEvent.nodeValue);
             break;
         }
-
     }
 
     /**
@@ -471,7 +435,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private boolean hasNext() throws XerialException
     {
-        if (eventQueue.isEmpty())
+        if (!parseContext.hasNextTreeEvent())
         {
             if (hasFinished)
                 return false;
@@ -492,8 +456,8 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private TreeEvent getNextEvent() throws XerialException
     {
-        if (!eventQueue.isEmpty())
-            return eventQueue.pop();
+        if (parseContext.hasNextTreeEvent())
+            return parseContext.nextEvent();
 
         if (hasFinished)
             throw new XerialError(XerialErrorCode.INVALID_STATE,
@@ -624,7 +588,7 @@ public class SilkStreamReader implements TreeStreamReader
         if (!parser.hasNext())
         {
             // no more input data
-            closeContextUpTo(indentationOffset);
+            closeContextUpTo(parseContext.getIndentationOffset());
             hasFinished = true;
             return;
         }
@@ -633,7 +597,7 @@ public class SilkStreamReader implements TreeStreamReader
 
         if (_logger.isDebugEnabled())
         {
-            _logger.debug("stack: " + contextNodeStack);
+            _logger.debug("stack: " + parseContext.getContextNodeStack());
             _logger.debug(currentEvent);
         }
 
@@ -651,13 +615,13 @@ public class SilkStreamReader implements TreeStreamReader
         case DATA_LINE:
 
             // pop the context stack until finding a node for stream data node occurrence
-            while (!contextNodeStack.isEmpty())
+            while (!parseContext.isContextNodeStackEmpty())
             {
-                SilkContext context = contextNodeStack.peekLast();
+                SilkContext context = parseContext.peekLastContext();
                 SilkNode node = context.contextNode;
                 if (!node.getOccurrence().isFollowedByStreamData())
                 {
-                    contextNodeStack.removeLast();
+                    parseContext.popLastContext();
                     if (context.isOpen)
                         leave(node.getName());
                 }
@@ -665,9 +629,9 @@ public class SilkStreamReader implements TreeStreamReader
                     break;
             }
 
-            if (contextNodeStack.isEmpty())
+            if (parseContext.isContextNodeStackEmpty())
             {
-                // row(c1, c2, ...) 
+                // use default column names(c1, c2, ...) 
                 SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
                 String[] columns = line.getDataLine().trim().split("\t");
                 int index = 1;
@@ -684,8 +648,7 @@ public class SilkStreamReader implements TreeStreamReader
             }
             else
             {
-
-                SilkContext context = contextNodeStack.peekLast();
+                SilkContext context = parseContext.peekLastContext();
                 SilkNode schema = context.contextNode;
                 SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
                 switch (schema.getOccurrence())
@@ -968,19 +931,6 @@ public class SilkStreamReader implements TreeStreamReader
     {
         PluginHolder holder = new PluginHolder(plugin.getClass());
         holder.populate(plugin, args);
-    }
-
-    /**
-     * Get the context node
-     * 
-     * @return
-     */
-    private SilkNode getContextNode()
-    {
-        if (contextNodeStack.isEmpty())
-            return null;
-        else
-            return contextNodeStack.getLast().contextNode;
     }
 
 }

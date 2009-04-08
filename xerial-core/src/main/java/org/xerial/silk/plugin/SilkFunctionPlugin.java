@@ -37,13 +37,18 @@ import org.xerial.util.tree.TreeEvent;
 public interface SilkFunctionPlugin
 {
     /**
-     * Retrieves a next stream event.
-     * 
      * @param env
      *            contains current context for parsing
+     * @throws XerialException
+     */
+    public void init(SilkEnv env) throws XerialException;
+
+    /**
+     * Retrieves a next stream event.
+     * 
      * @return next tree event, or null when no more events
      * @throws XerialException
      */
-    public TreeEvent next(SilkEnv env) throws XerialException;
+    public TreeEvent next() throws XerialException;
 
 }
