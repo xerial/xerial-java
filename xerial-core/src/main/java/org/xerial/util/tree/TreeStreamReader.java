@@ -46,6 +46,14 @@ import org.xerial.core.XerialException;
 public interface TreeStreamReader
 {
     /**
+     * Peek the next event from the tree stream without moving the cursor
+     * 
+     * @return next event
+     * @throws XerialException
+     */
+    public TreeEvent peekNext() throws XerialException;
+
+    /**
      * Fetches the next event from the tree stream
      * 
      * @return next event or null if no more event exists

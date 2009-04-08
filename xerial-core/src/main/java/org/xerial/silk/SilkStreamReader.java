@@ -165,6 +165,30 @@ public class SilkStreamReader implements TreeStreamReader
         this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
 
+    public TreeEvent peekNext() throws XerialException
+    {
+        if (readerStack.isEmpty())
+        {
+            if (hasNext())
+                return parseContext.peekFirstEvent();
+            else
+                return null;
+        }
+        else
+        {
+            TreeStreamReader reader = readerStack.peekLast();
+            TreeEvent e = reader.peekNext();
+            if (e == null)
+            {
+                readerStack.removeLast();
+                return peekNext();
+            }
+            else
+                return e;
+        }
+
+    }
+
     public TreeEvent next() throws XerialException
     {
         if (readerStack.isEmpty())
@@ -362,6 +386,11 @@ public class SilkStreamReader implements TreeStreamReader
         public FunctionReader(SilkFunctionPlugin plugin)
         {
             this.plugin = plugin;
+        }
+
+        public TreeEvent peekNext() throws XerialException
+        {
+            return plugin.peekNext();
         }
 
         public TreeEvent next() throws XerialException

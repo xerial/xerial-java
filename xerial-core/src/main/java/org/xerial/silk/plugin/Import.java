@@ -56,9 +56,31 @@ public class Import implements SilkFunctionPlugin
     private TreeStreamReader reader = null;
     private SilkEnv env;
 
+    private static class EmptyReader implements TreeStreamReader
+    {
+
+        public TreeEvent next() throws XerialException
+        {
+            return null;
+        }
+
+        public TreeEvent peekNext() throws XerialException
+        {
+            return null;
+        }
+
+    }
+
     public void init(SilkEnv env) throws XerialException
     {
         this.env = env;
+
+        if (filePath == null)
+        {
+            env.getLogger().warn("no file path is specified");
+            reader = new EmptyReader();
+            return;
+        }
 
         try
         {
@@ -104,20 +126,25 @@ public class Import implements SilkFunctionPlugin
 
     }
 
-    public TreeEvent next() throws XerialException
+    private void validate()
     {
         if (env == null)
             throw new XerialError(XerialErrorCode.INVALID_STATE, "env is null");
 
-        if (filePath == null)
-        {
-            env.getLogger().warn("no file path is specified");
-            return null;
-        }
-
         if (reader == null)
             throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
 
+    }
+
+    public TreeEvent peekNext() throws XerialException
+    {
+        validate();
+        return reader.peekNext();
+    }
+
+    public TreeEvent next() throws XerialException
+    {
+        validate();
         return reader.next();
     }
 
@@ -149,6 +176,22 @@ public class Import implements SilkFunctionPlugin
             catch (IOException e)
             {
                 throw new XerialError(XerialErrorCode.IO_EXCEPTION, e);
+            }
+        }
+
+        public TreeEvent peekNext() throws XerialException
+        {
+            if (eventQueue.isEmpty())
+            {
+                if (hasFinished)
+                    return null;
+
+                fillQueue();
+                return peekNext();
+            }
+            else
+            {
+                return eventQueue.peekFirst();
             }
         }
 

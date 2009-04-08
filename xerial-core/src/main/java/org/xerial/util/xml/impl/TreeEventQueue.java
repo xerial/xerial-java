@@ -59,6 +59,11 @@ public class TreeEventQueue
         eventQueue.addLast(e);
     }
 
+    public TreeEvent peekFirst()
+    {
+        return eventQueue.peekFirst();
+    }
+
     public TreeEvent peekLast()
     {
         return eventQueue.peekLast();

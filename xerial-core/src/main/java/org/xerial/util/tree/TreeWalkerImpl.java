@@ -95,7 +95,7 @@ public class TreeWalkerImpl implements TreeWalker
         TreeBuilder builder = new TreeBuilder(last);
 
         TreeEvent e = null;
-        while ((e = walker.next()) != null)
+        while ((e = walker.peekNext()) != null)
         {
             switch (e.event)
             {
@@ -104,18 +104,18 @@ public class TreeWalkerImpl implements TreeWalker
                 builder.startNode(e);
                 break;
             case LEAVE:
-                builder.endNode(e);
                 currentLevel--;
-                if (currentLevel == base)
-                {
+                if (currentLevel < base)
                     return builder.root;
-                }
-
+                else
+                    builder.endNode(e);
                 break;
             case TEXT:
                 builder.text(e);
                 break;
             }
+
+            walker.next();
         }
 
         return builder.root;

@@ -67,6 +67,21 @@ public class XMLStreamReader implements TreeStreamReader
 
     }
 
+    public TreeEvent peekNext() throws XerialException
+    {
+        if (!eventQueue.isEmpty())
+        {
+            return eventQueue.peekFirst();
+        }
+
+        if (parseState == END_DOCUMENT)
+            return null;
+
+        readNext();
+
+        return peekNext();
+    }
+
     public TreeEvent next() throws XerialException
     {
         if (!eventQueue.isEmpty())

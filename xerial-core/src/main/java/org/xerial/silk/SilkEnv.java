@@ -202,4 +202,9 @@ public class SilkEnv
             return contextNodeStack.getLast().contextNode;
     }
 
+    public TreeEvent peekFirstEvent()
+    {
+        return eventQueue.peekFirst();
+    }
+
 }

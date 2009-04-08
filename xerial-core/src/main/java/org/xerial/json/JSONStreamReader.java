@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
@@ -48,9 +49,26 @@ public class JSONStreamReader implements TreeStreamReader
     private final TreeEventQueue eventQueue = new TreeEventQueue();
     private JSONEvent lastEvent = null;
 
+    private ArrayDeque<TreeEvent> pendingEventQueue = new ArrayDeque<TreeEvent>();
+
     public JSONStreamReader(Reader jsonStream) throws IOException
     {
         jsonPullParser = new JSONPullParser(jsonStream);
+    }
+
+    public TreeEvent peekNext() throws XerialException
+    {
+        if (!eventQueue.isEmpty())
+        {
+            return eventQueue.peekFirst();
+        }
+
+        if (lastEvent == JSONEvent.EndJSON)
+            return null;
+
+        readNext();
+
+        return peekNext();
     }
 
     public TreeEvent next() throws XerialException
@@ -58,8 +76,6 @@ public class JSONStreamReader implements TreeStreamReader
         if (!eventQueue.isEmpty())
         {
             TreeEvent e = eventQueue.pop();
-            //            if (_logger.isTraceEnabled())
-            //                _logger.trace(e);
             return e;
         }
 
@@ -69,6 +85,14 @@ public class JSONStreamReader implements TreeStreamReader
         readNext();
 
         return next();
+
+    }
+
+    private void flushPendingEvent()
+    {
+        while (!pendingEventQueue.isEmpty())
+            eventQueue.push(pendingEventQueue.removeFirst());
+
     }
 
     private void readNext() throws XerialException
@@ -81,12 +105,15 @@ public class JSONStreamReader implements TreeStreamReader
         {
         case StartObject:
         {
+            flushPendingEvent();
+
             String key = jsonPullParser.getKeyName();
-            eventQueue.push(TreeEvent.newVisitEvent(key, null));
+            pendingEventQueue.addLast(TreeEvent.newVisitEvent(key, null));
             break;
         }
         case EndObject:
         {
+            flushPendingEvent();
             String key = jsonPullParser.getKeyName();
             eventQueue.push(TreeEvent.newLeaveEvent(key));
             break;
@@ -95,29 +122,25 @@ public class JSONStreamReader implements TreeStreamReader
         case Integer:
         case Double:
         case Boolean:
+        case Null:
         {
             String key = jsonPullParser.getKeyName();
-            String value = jsonPullParser.getText();
+            String value = lastEvent != JSONEvent.Null ? jsonPullParser.getText() : null;
 
             // if first child element is value attribute
-            if (key.equals("value") && !eventQueue.isEmpty())
+            if (key.equals("value") && !pendingEventQueue.isEmpty())
             {
-                TreeEvent e = eventQueue.peekLast();
+                TreeEvent e = pendingEventQueue.peekLast();
                 if (e.event == EventType.VISIT)
                 {
-                    eventQueue.replaceLast(TreeEvent.newVisitEvent(e.nodeName, value));
+                    pendingEventQueue.removeLast();
+                    pendingEventQueue.addLast(TreeEvent.newVisitEvent(e.nodeName, value));
                     break;
                 }
             }
 
+            flushPendingEvent();
             eventQueue.push(TreeEvent.newVisitEvent(key, value));
-            eventQueue.push(TreeEvent.newLeaveEvent(key));
-            break;
-        }
-        case Null:
-        {
-            String key = jsonPullParser.getKeyName();
-            eventQueue.push(TreeEvent.newVisitEvent(key, null));
             eventQueue.push(TreeEvent.newLeaveEvent(key));
             break;
         }

@@ -107,6 +107,30 @@ public class DOMStreamReader implements TreeStreamReader
         contextStack.addLast(new Context(element));
     }
 
+    public TreeEvent peekNext() throws XerialException
+    {
+        if (!eventQueue.isEmpty())
+        {
+            return eventQueue.peekFirst();
+        }
+
+        if (contextStack.isEmpty())
+            return null;
+
+        if (!contextStack.isEmpty())
+        {
+            Context context = contextStack.getLast();
+            if (context.hasFinished())
+            {
+                contextStack.removeLast();
+                return peekNext();
+            }
+            parse(context);
+        }
+
+        return peekNext();
+    }
+
     public TreeEvent next() throws XerialException
     {
         if (!eventQueue.isEmpty())
