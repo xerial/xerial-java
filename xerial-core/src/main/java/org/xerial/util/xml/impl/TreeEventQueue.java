@@ -112,4 +112,10 @@ public class TreeEventQueue
         return eventQueue.isEmpty();
     }
 
+    @Override
+    public String toString()
+    {
+        return eventQueue.toString();
+    }
+
 }

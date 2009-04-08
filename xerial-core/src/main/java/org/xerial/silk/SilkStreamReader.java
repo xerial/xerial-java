@@ -64,6 +64,7 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
+import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
  * {@link TreeStreamReader} implementation for the Silk data format.
@@ -77,6 +78,7 @@ public class SilkStreamReader implements TreeStreamReader
 
     private final SilkPullParser parser;
     private final SilkEnv parseContext;
+    private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
 
     /**
@@ -167,50 +169,18 @@ public class SilkStreamReader implements TreeStreamReader
 
     public TreeEvent peekNext() throws XerialException
     {
-        if (readerStack.isEmpty())
-        {
-            if (hasNext())
-                return parseContext.peekFirstEvent();
-            else
-                return null;
-        }
+        if (hasNext())
+            return eventQueue.peekFirst();
         else
-        {
-            TreeStreamReader reader = readerStack.peekLast();
-            TreeEvent e = reader.peekNext();
-            if (e == null)
-            {
-                readerStack.removeLast();
-                return peekNext();
-            }
-            else
-                return e;
-        }
-
+            return null;
     }
 
     public TreeEvent next() throws XerialException
     {
-        if (readerStack.isEmpty())
-        {
-            if (hasNext())
-                return getNextEvent();
-            else
-                return null;
-        }
+        if (hasNext())
+            return getNextEvent();
         else
-        {
-            TreeStreamReader reader = readerStack.peekLast();
-            TreeEvent e = reader.next();
-            if (e == null)
-            {
-                readerStack.removeLast();
-                return next();
-            }
-            else
-                return e;
-        }
-
+            return null;
     }
 
     /**
@@ -222,7 +192,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void visit(String nodeName, String immediateNodeValue) throws XerialException
     {
-        parseContext.push(TreeEvent.newVisitEvent(nodeName, immediateNodeValue));
+        eventQueue.push(TreeEvent.newVisitEvent(nodeName, immediateNodeValue));
     }
 
     /**
@@ -233,7 +203,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void leave(String nodeName) throws XerialException
     {
-        parseContext.push(TreeEvent.newLeaveEvent(nodeName));
+        eventQueue.push(TreeEvent.newLeaveEvent(nodeName));
     }
 
     /**
@@ -244,7 +214,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void text(String textFragment) throws XerialException
     {
-        parseContext.push(TreeEvent.newTextEvent(parseContext.getContextNode().getName(), textFragment));
+        eventQueue.push(TreeEvent.newTextEvent(parseContext.getContextNode().getName(), textFragment));
     }
 
     /**
@@ -424,34 +394,6 @@ public class SilkStreamReader implements TreeStreamReader
     }
 
     /**
-     * Consume the next event, and call its corresponding visitor event.
-     * 
-     * @throws XerialException
-     */
-    private void stepNext() throws XerialException
-    {
-        evalEvent(getNextEvent());
-    }
-
-    private void evalEvent(TreeEvent e) throws XerialException
-    {
-        TreeEvent currentEvent = e;
-
-        switch (currentEvent.event)
-        {
-        case VISIT:
-            visit(currentEvent.nodeName, currentEvent.nodeValue);
-            break;
-        case LEAVE:
-            leave(currentEvent.nodeName);
-            break;
-        case TEXT:
-            text(currentEvent.nodeValue);
-            break;
-        }
-    }
-
-    /**
      * Has finished reading the stream?
      */
     private boolean hasFinished = false;
@@ -464,7 +406,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private boolean hasNext() throws XerialException
     {
-        if (!parseContext.hasNextTreeEvent())
+        if (eventQueue.isEmpty())
         {
             if (hasFinished)
                 return false;
@@ -485,8 +427,8 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private TreeEvent getNextEvent() throws XerialException
     {
-        if (parseContext.hasNextTreeEvent())
-            return parseContext.nextEvent();
+        if (!eventQueue.isEmpty())
+            return eventQueue.pop();
 
         if (hasFinished)
             throw new XerialError(XerialErrorCode.INVALID_STATE,
@@ -614,6 +556,21 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private void fillQueue() throws XerialException
     {
+        if (!readerStack.isEmpty())
+        {
+            TreeEvent e = readerStack.peekLast().next();
+            if (e == null)
+            {
+                readerStack.removeLast();
+                fillQueue();
+            }
+            else
+            {
+                eventQueue.push(e);
+                return;
+            }
+        }
+
         if (!parser.hasNext())
         {
             // no more input data

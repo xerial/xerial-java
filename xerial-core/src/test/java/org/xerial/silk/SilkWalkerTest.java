@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -137,7 +135,7 @@ public class SilkWalkerTest
     @Test
     public void testLoad() throws Exception
     {
-        walk("plugin/load-binary.silk");
+        compare("plugin/load-binary.silk", "plugin/load-binary.json");
     }
 
     @Test

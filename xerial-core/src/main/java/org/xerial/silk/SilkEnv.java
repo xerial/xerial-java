@@ -34,8 +34,6 @@ import org.xerial.silk.impl.SilkNode;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
  * Environment variable holder for evaluating Silk functions.
@@ -50,29 +48,24 @@ public class SilkEnv
     private int indentationOffset = 0;
     private String resourceBasePath = null;
     private Deque<SilkContext> contextNodeStack = new ArrayDeque<SilkContext>();
-    private TreeEventQueue eventQueue = new TreeEventQueue();
-    private TreeEvent currentEvent = null;
 
     private SilkEnv(SilkEnv parent, int indentationOffset)
     {
+        this.indentationOffset = indentationOffset;
         this.resourceBasePath = parent.resourceBasePath;
         this.contextNodeStack = parent.contextNodeStack;
-        this.eventQueue = parent.eventQueue;
-        this.currentEvent = parent.currentEvent;
+        //this.eventQueue = parent.eventQueue;
 
-        this.indentationOffset = indentationOffset;
     }
 
     private SilkEnv(SilkEnv parent, String resourceBasePath)
     {
-
-        this.contextNodeStack = parent.contextNodeStack;
-        this.eventQueue = parent.eventQueue;
-        this.currentEvent = parent.currentEvent;
         this.indentationOffset = parent.indentationOffset;
-
         // use input resource base path
         this.resourceBasePath = resourceBasePath;
+        this.contextNodeStack = parent.contextNodeStack;
+        //this.eventQueue = parent.eventQueue;
+
     }
 
     private SilkEnv(String resourceBasePath)
@@ -154,11 +147,6 @@ public class SilkEnv
         return contextNodeStack;
     }
 
-    public void push(TreeEvent e)
-    {
-        eventQueue.push(e);
-    }
-
     public void pushContext(SilkContext context)
     {
         contextNodeStack.addLast(context);
@@ -167,16 +155,6 @@ public class SilkEnv
     public boolean isContextNodeStackEmpty()
     {
         return contextNodeStack.isEmpty();
-    }
-
-    public boolean hasNextTreeEvent()
-    {
-        return !eventQueue.isEmpty();
-    }
-
-    public TreeEvent nextEvent()
-    {
-        return eventQueue.pop();
     }
 
     public SilkContext peekLastContext()
@@ -200,11 +178,6 @@ public class SilkEnv
             return null;
         else
             return contextNodeStack.getLast().contextNode;
-    }
-
-    public TreeEvent peekFirstEvent()
-    {
-        return eventQueue.peekFirst();
     }
 
 }
