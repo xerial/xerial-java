@@ -885,7 +885,8 @@ public class SilkStreamReader implements TreeStreamReader
                         // matching argument order
                         if (noNameArgCount >= argumentFieldList.size())
                         {
-                            _logger.warn("no corresponding field for the argument is found: " + eachArgument);
+                            _logger.warn(String.format("no corresponding field for the argument %s is found",
+                                    eachArgument));
                             continue;
                         }
                         PluginField f = argumentFieldList.get(noNameArgCount);

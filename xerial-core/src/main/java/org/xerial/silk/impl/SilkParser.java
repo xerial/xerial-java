@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-03-30 17:06:14
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-08 17:42:18
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -274,7 +274,7 @@ public class SilkParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeItem, NodeIndent
+                    // elements: NodeIndent, nodeItem
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -767,7 +767,7 @@ public class SilkParser extends Parser {
 
 
             // AST REWRITE
-            // elements: attributeList, NodeIndent, nodeValue, plural
+            // elements: NodeIndent, plural, nodeValue, attributeList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -965,7 +965,7 @@ public class SilkParser extends Parser {
 
 
             // AST REWRITE
-            // elements: nodeValue, plural, dataType, attributeList
+            // elements: attributeList, nodeValue, dataType, plural
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1599,7 +1599,7 @@ public class SilkParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: NodeIndent, function_i
+                    // elements: function_i, NodeIndent
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1910,7 +1910,7 @@ public class SilkParser extends Parser {
     };
 
     // $ANTLR start "functionArg"
-    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:313:1: fragment functionArg : ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Name[$nodeName.text.trim()] nodeValue ) );
+    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:313:1: fragment functionArg : ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()] ) );
     public final SilkParser.functionArg_return functionArg() throws RecognitionException {
         SilkParser.functionArg_return retval = new SilkParser.functionArg_return();
         retval.start = input.LT(1);
@@ -1930,7 +1930,7 @@ public class SilkParser extends Parser {
         RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:315:2: ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Name[$nodeName.text.trim()] nodeValue ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:315:2: ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()] ) )
             int alt19=2;
             alt19 = dfa19.predict(input);
             switch (alt19) {
@@ -1985,7 +1985,7 @@ public class SilkParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeValue
+                    // elements: 
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1994,15 +1994,15 @@ public class SilkParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"token retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 316:29: -> ^( KeyValuePair Name[$nodeName.text.trim()] nodeValue )
+                    // 316:29: -> ^( KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()] )
                     {
-                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:316:32: ^( KeyValuePair Name[$nodeName.text.trim()] nodeValue )
+                        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:316:32: ^( KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(KeyValuePair, "KeyValuePair"), root_1);
 
-                        adaptor.addChild(root_1, (Object)adaptor.create(Name, (nodeName60!=null?input.toString(nodeName60.start,nodeName60.stop):null).trim()));
-                        adaptor.addChild(root_1, stream_nodeValue.nextTree());
+                        adaptor.addChild(root_1, (Object)adaptor.create(Key, (nodeName60!=null?input.toString(nodeName60.start,nodeName60.stop):null).trim()));
+                        adaptor.addChild(root_1, (Object)adaptor.create(Value, (nodeValue62!=null?input.toString(nodeValue62.start,nodeValue62.stop):null).trim()));
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -2554,7 +2554,7 @@ public class SilkParser extends Parser {
             this.transition = DFA19_transition;
         }
         public String getDescription() {
-            return "313:1: fragment functionArg : ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Name[$nodeName.text.trim()] nodeValue ) );";
+            return "313:1: fragment functionArg : ( nodeValue -> Argument[$functionArg.text] | nodeName Colon nodeValue -> ^( KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()] ) );";
         }
     }
  

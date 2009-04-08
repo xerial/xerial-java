@@ -313,7 +313,7 @@ function_i: At PlainOneLine LParen (functionArg (Comma functionArg)*)? RParen
 fragment
 functionArg
 	: nodeValue -> Argument[$functionArg.text]
-	| nodeName Colon nodeValue -> ^(KeyValuePair Name[$nodeName.text.trim()] nodeValue)
+	| nodeName Colon nodeValue -> ^(KeyValuePair Key[$nodeName.text.trim()] Value[$nodeValue.text.trim()])
 	;
 
 
