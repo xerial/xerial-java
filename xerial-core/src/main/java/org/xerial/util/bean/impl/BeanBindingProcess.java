@@ -163,6 +163,13 @@ public class BeanBindingProcess implements TreeVisitor
         setContextBean(0, bean);
     }
 
+    public static BeanBindingProcess newBinderWithRootContext(Object rootNode)
+    {
+        BeanBindingProcess proc = new BeanBindingProcess(rootNode);
+        proc.currentLevel = 1;
+        return proc;
+    }
+
     /**
      * 
      * 
@@ -206,7 +213,6 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void init(TreeWalker walker) throws XerialException
     {
-        currentLevel = 0;
 
     }
 

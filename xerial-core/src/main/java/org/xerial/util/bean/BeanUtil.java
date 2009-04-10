@@ -33,6 +33,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONBoolean;
@@ -54,6 +56,7 @@ import org.xerial.json.JSONLong;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
+import org.xerial.silk.SilkWalker;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.impl.ArraySetter;
 import org.xerial.util.bean.impl.BeanBindingProcess;
@@ -1138,45 +1141,23 @@ public class BeanUtil
         return bean;
     }
 
-    // public static Object createXMLBean(Class valueType, Object xmlValue)
-    // throws BeanException
-    // {
-    // if (xmlValue == null)
-    // return null;
-    //
-    // // input xmlValue is a general Object
-    // if (TypeInformation.isBasicType(valueType))
-    // return populateBasicTypeWithXML(valueType, xmlValue);
-    // else
-    // {
-    // Object bean = createInstance(valueType);
-    // populateBeanWithXML(bean, xmlValue);
-    // return bean;
-    // }
-    // }
+    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation) throws XerialException
+    {
+        T bean = TypeInformation.createInstance(beanClass);
+        BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
 
-    // public static Object populateBasicTypeWithXML(Class valueType, Object
-    // xmlValue)
-    // {
-    // assert (TypeInformation.isBasicType(valueType));
-    //
-    // String xmlValueStr;
-    // if (TypeInformation.isDOMElement(xmlValue.getClass()))
-    // xmlValueStr = DOMUtil.getText((Element) xmlValue);
-    // else
-    // xmlValueStr = xmlValue.toString();
-    // if (valueType == String.class)
-    // return xmlValueStr;
-    // else if (valueType == int.class || valueType == Integer.class)
-    // return new Integer(xmlValueStr);
-    // else if (valueType == double.class || valueType == Double.class)
-    // return new Double(xmlValueStr);
-    // else if (valueType == float.class || valueType == Float.class)
-    // return new Float(xmlValueStr);
-    // else if (valueType == boolean.class || valueType == Boolean.class)
-    // return new Boolean(xmlValueStr);
-    // return xmlValue;
-    // }
+        try
+        {
+            SilkWalker walker = new SilkWalker(silkFileLocation);
+            walker.walk(bindingProcess);
+        }
+        catch (IOException e)
+        {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+
+        return bean;
+    }
 
     public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, BeanHandler<T> beanHandler)
             throws IOException, BeanException
