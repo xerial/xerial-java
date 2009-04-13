@@ -16,7 +16,7 @@
 //--------------------------------------
 // XerialJ
 //
-// ChainMapBase.java
+// ChainBase.java
 // Since: Mar 30, 2009 6:47:58 PM
 //
 // $URL$
@@ -25,29 +25,28 @@
 package org.xerial.util.impl;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.xerial.util.HashedChainMap;
+import org.xerial.util.HashedArrayList;
 
 /**
- * A base implementation of {@link HashedChainMap}
+ * A base implementation of {@link HashedArrayList}
  * 
  * @author leo
  * 
  * @param <Key>
  * @param <Value>
  */
-public abstract class ChainMapBase<Key, Value>
+public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>>
 {
-    private Map<Key, List<Value>> map;
+    private Map<Key, ValueChain> map;
 
-    protected abstract Map<Key, List<Value>> newMap();
+    protected abstract Map<Key, ValueChain> newMap();
 
-    protected abstract List<Value> newValueList();
+    protected abstract ValueChain newValueChain();
 
-    public ChainMapBase()
+    public ChainBase()
     {
         map = newMap();
     }
@@ -57,12 +56,12 @@ public abstract class ChainMapBase<Key, Value>
         return map.containsKey(key);
     }
 
-    public List<Value> put(Key key, Value value)
+    public ValueChain put(Key key, Value value)
     {
-        List<Value> target = map.get(key);
+        ValueChain target = map.get(key);
         if (target == null)
         {
-            target = newValueList();
+            target = newValueChain();
             map.put(key, target);
         }
         target.add(value);
@@ -70,7 +69,7 @@ public abstract class ChainMapBase<Key, Value>
         return target;
     }
 
-    public List<Value> remove(Key key)
+    public ValueChain remove(Key key)
     {
         return map.remove(key);
     }
@@ -80,7 +79,7 @@ public abstract class ChainMapBase<Key, Value>
         return map.size();
     }
 
-    public List<Value> get(Key key)
+    public ValueChain get(Key key)
     {
         return map.get(key);
     }
@@ -90,7 +89,7 @@ public abstract class ChainMapBase<Key, Value>
         return map.keySet();
     }
 
-    public Collection<List<Value>> values()
+    public Collection<ValueChain> values()
     {
         return map.values();
     }

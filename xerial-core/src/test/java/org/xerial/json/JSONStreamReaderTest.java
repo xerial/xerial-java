@@ -30,7 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
-import org.xerial.util.HashedChainMap;
+import org.xerial.util.HashedArrayList;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 
@@ -46,12 +46,12 @@ public class JSONStreamReaderTest
     public void tearDown() throws Exception
     {}
 
-    HashedChainMap<String, String> parse(String file) throws Exception
+    HashedArrayList<String, String> parse(String file) throws Exception
     {
         JSONStreamReader reader = new JSONStreamReader(FileResource.open(JSONStreamReaderTest.class, file));
         TreeEvent e;
 
-        HashedChainMap<String, String> data = new HashedChainMap<String, String>();
+        HashedArrayList<String, String> data = new HashedArrayList<String, String>();
 
         while ((e = reader.next()) != null)
         {
@@ -67,7 +67,7 @@ public class JSONStreamReaderTest
     @Test
     public void testNext() throws Exception
     {
-        HashedChainMap<String, String> data = parse("sample.json");
+        HashedArrayList<String, String> data = parse("sample.json");
 
         assertEquals("Leo", data.get("name").get(0));
         assertEquals("100", data.get("id").get(0));
@@ -76,7 +76,7 @@ public class JSONStreamReaderTest
     @Test
     public void testArray() throws Exception
     {
-        HashedChainMap<String, String> data = parse("array.json");
+        HashedArrayList<String, String> data = parse("array.json");
 
         assertEquals(2, data.get("author").size());
         assertEquals("leo", data.get("author").get(0));

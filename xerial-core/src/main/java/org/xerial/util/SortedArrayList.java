@@ -16,8 +16,8 @@
 //--------------------------------------
 // XerialJ
 //
-// ChainMap.java
-// Since: Mar 30, 2009 6:38:46 PM
+// SortedArrayList.java
+// Since: Mar 30, 2009 6:55:18 PM
 //
 // $URL$
 // $Author$
@@ -25,33 +25,32 @@
 package org.xerial.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-import org.xerial.util.impl.ChainMapBase;
+import org.xerial.util.impl.ChainBase;
 
 /**
- * Map structure key -> [value1, value2, ...]
+ * sorted key -> [value1, value2, .. ]
  * 
  * 
  * @author leo
  * 
+ * @param <Key>
+ * @param <Value>
  */
-public class HashedChainMap<Key, Value> extends ChainMapBase<Key, Value>
+public class SortedArrayList<Key extends Comparable<Key>, Value> extends ChainBase<Key, Value, ArrayList<Value>>
 {
-    private Map<Key, List<Value>> map = new HashMap<Key, List<Value>>();
 
     @Override
-    protected Map<Key, List<Value>> newMap()
+    protected Map<Key, ArrayList<Value>> newMap()
     {
-        return new HashMap<Key, List<Value>>();
+        return new TreeMap<Key, ArrayList<Value>>();
     }
 
     @Override
-    protected List<Value> newValueList()
+    protected ArrayList<Value> newValueChain()
     {
         return new ArrayList<Value>();
     }
-
 }
