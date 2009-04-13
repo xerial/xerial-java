@@ -208,12 +208,12 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void finish(TreeWalker walker) throws XerialException
     {
-
+    // do nothing
     }
 
     public void init(TreeWalker walker) throws XerialException
     {
-
+    // do nothing
     }
 
     protected <T> BeanBinderSet getBindRuleSet(Class<T> beanClass) throws BeanException

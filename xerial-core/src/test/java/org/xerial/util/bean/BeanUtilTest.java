@@ -24,10 +24,7 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -789,6 +786,6 @@ public class BeanUtilTest
     public void testSilkBean() throws Exception
     {
         ReadSet r = BeanUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
-        _logger.info(r.toString());
+        _logger.debug(r.toString());
     }
 }
