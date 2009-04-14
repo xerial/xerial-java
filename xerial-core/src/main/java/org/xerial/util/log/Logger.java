@@ -259,34 +259,40 @@ public class Logger
         this._out = writer;
     }
 
-    public void trace(Object message)
+    public boolean trace(Object message)
     {
         log(LogLevel.TRACE, message);
+        return true;
     }
 
-    public void debug(Object message)
+    public boolean debug(Object message)
     {
         log(LogLevel.DEBUG, message);
+        return true;
     }
 
-    public void info(Object message)
+    public boolean info(Object message)
     {
         log(LogLevel.INFO, message);
+        return true;
     }
 
-    public void warn(Object message)
+    public boolean warn(Object message)
     {
         log(LogLevel.WARN, message);
+        return true;
     }
 
-    public void error(Object message)
+    public boolean error(Object message)
     {
         log(LogLevel.ERROR, message);
+        return true;
     }
 
-    public void fatal(Object message)
+    public boolean fatal(Object message)
     {
         log(LogLevel.FATAL, message);
+        return true;
     }
 
     /**

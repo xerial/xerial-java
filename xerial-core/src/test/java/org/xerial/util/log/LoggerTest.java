@@ -70,17 +70,24 @@ public class LoggerTest
             if (logger.isTraceEnabled())
                 logger.trace("hello");
         }
-        logger.debug(s.getElapsedTime());
+        logger.info(s.getElapsedTime());
         s.reset();
         for (int i = 0; i < N; i++)
         {
             logger.trace("hello");
         }
-        logger.debug(s.getElapsedTime());
+        logger.info(s.getElapsedTime());
+
+        s.reset();
+        for (int i = 0; i < N; i++)
+        {
+            assert logger.trace("hello");
+        }
+        logger.info(s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++)
         {}
-        logger.debug(s.getElapsedTime());
+        logger.info(s.getElapsedTime());
     }
 }
