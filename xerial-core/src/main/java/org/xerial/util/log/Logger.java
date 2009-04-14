@@ -36,6 +36,12 @@ import java.util.TreeMap;
 
 import org.xerial.util.StringUtil;
 
+/**
+ * Logger
+ * 
+ * @author leo
+ * 
+ */
 public class Logger
 {
     private static String[] logPrefix = { "", // ALL
@@ -137,6 +143,14 @@ public class Logger
         return getLogger(c.getName());
     }
 
+    public static Logger getLogger(Class< ? > c, String suffix)
+    {
+        if (suffix == null || suffix.length() <= 0)
+            return getLogger(c);
+        else
+            return getLogger(String.format("%s-%s", c.getName(), suffix));
+    }
+
     public static Logger getLogger(Package p)
     {
         return getLogger(p.getName());
@@ -225,14 +239,14 @@ public class Logger
     {
         for (LogLevel l : LogLevel.values())
         {
-            if (l.name().toLowerCase().equals(logLevel.toLowerCase()))
+            if (l.name().equalsIgnoreCase(logLevel))
             {
                 setLogLevel(l);
                 return;
             }
         }
 
-        throw new IllegalArgumentException("unknown log level: " + logLevel);
+        warn("unknown log level: " + logLevel);
     }
 
     public LogLevel getLogLevel()
