@@ -46,11 +46,24 @@ public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>
 
     protected abstract ValueChain newValueChain();
 
-    public ChainBase()
+    protected ChainBase()
     {
         map = newMap();
     }
 
+    protected Map<Key, ValueChain> getMap()
+    {
+        return map;
+    }
+
+    /**
+     * Returns true when ValueChain for the specified key exists, otherwise
+     * returns false.
+     * 
+     * @param key
+     *            key value of the chain
+     * @return
+     */
     public boolean containsKey(Key key)
     {
         return map.containsKey(key);
@@ -58,12 +71,7 @@ public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>
 
     public ValueChain put(Key key, Value value)
     {
-        ValueChain target = map.get(key);
-        if (target == null)
-        {
-            target = newValueChain();
-            map.put(key, target);
-        }
+        ValueChain target = this.get(key);
         target.add(value);
 
         return target;
@@ -79,9 +87,22 @@ public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>
         return map.size();
     }
 
+    /**
+     * Returns the chain of the specified key
+     * 
+     * @param key
+     *            key value of the chain
+     * @return chain corresponding to the specified key
+     */
     public ValueChain get(Key key)
     {
-        return map.get(key);
+        ValueChain target = map.get(key);
+        if (target == null)
+        {
+            target = newValueChain();
+            map.put(key, target);
+        }
+        return target;
     }
 
     public Set<Key> keySet()
