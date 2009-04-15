@@ -32,7 +32,13 @@ package org.xerial.silk.impl;
  */
 public enum SilkNodeOccurrence {
 
-    ONE("."), ZERO_OR_MORE("*"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), SEQUENCE(">"), TABBED_SEQUENCE("|");
+    ONE("."),
+    ZERO_OR_MORE("*"),
+    ONE_OR_MORE("+"),
+    ZERO_OR_ONE("?"),
+    SEQUENCE(">"),
+    TABBED_SEQUENCE("|"),
+    MULTILINE_SEQUENCE(">>");
 
     private String symbol;
 
@@ -43,7 +49,7 @@ public enum SilkNodeOccurrence {
 
     public boolean isFollowedByStreamData()
     {
-        return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE;
+        return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE || this == MULTILINE_SEQUENCE;
     }
 
     @Override

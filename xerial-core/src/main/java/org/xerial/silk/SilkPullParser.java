@@ -153,6 +153,10 @@ public class SilkPullParser
             }
             case SilkParser.Preamble:
                 return new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(t.getText()));
+            case SilkParser.MultiLineEntrySeparator:
+                return new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null);
+            case SilkParser.MultiLineSeparator:
+                return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
             default:
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "invalid data type: "
                         + parser.getTokenNames()[t.getType()]);

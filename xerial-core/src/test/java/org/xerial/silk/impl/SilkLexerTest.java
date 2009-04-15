@@ -96,4 +96,9 @@ public class SilkLexerTest
         scan("../func.silk");
     }
 
+    @Test
+    public void testHeredoc() throws Exception
+    {
+        scan("../heredoc.silk");
+    }
 }

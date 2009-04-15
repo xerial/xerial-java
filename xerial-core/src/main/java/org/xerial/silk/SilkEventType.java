@@ -31,5 +31,13 @@ package org.xerial.silk;
  * 
  */
 public enum SilkEventType {
-    UNKNOWN, NODE, FUNCTION, BLANK_LINE, DATA_LINE, END_OF_FILE, PREAMBLE;
+    UNKNOWN,
+    NODE,
+    FUNCTION,
+    BLANK_LINE,
+    DATA_LINE,
+    END_OF_FILE,
+    PREAMBLE,
+    MULTILINE_ENTRY_SEPARATOR,
+    MULTILINE_SEPARATOR;
 }

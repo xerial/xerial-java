@@ -1,5 +1,13 @@
--sequence(seq1, seq2)|<<EOF
+-sequence(seq1, seq2)>> 
 ABCD
-EFGHI	JKLMN
-OP
-EOF
+EFGHI
+--
+EFGHI
+JKLMN
+>>
+0000
+--
+1234
+
+
+

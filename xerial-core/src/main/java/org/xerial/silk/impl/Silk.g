@@ -141,10 +141,12 @@ LineBreak
 	{ $channel=HIDDEN; resetContext(); }
 	;		
 
-	
+MultiLineSeparator: { isHead() }? => '--' WhiteSpace* LineBreak;
+MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace* LineBreak;
+ 	
 NodeIndent: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
 FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
-BlankLine: { isHead() }? WhiteSpace* LineBreak;
+BlankLine: { isHead() }? => WhiteSpace* LineBreak;
 
 fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
 DataLine: { isHead() }? 
@@ -154,6 +156,8 @@ LParen: '(' { transit(Symbol.EnterParen); };
 RParen:	')' { transit(Symbol.LeaveParen); };
 Comma: 	','; 
 Colon:	':' { transit(Symbol.Colon); } ;
+
+
 Seq: 	'>';
 TabSeq:	'|';
 Star: 	'*';
@@ -250,6 +254,8 @@ silkLine
 	| Preamble
 	| DataLine
 	| BlankLine
+	| MultiLineSeparator
+	| MultiLineEntrySeparator
 	| WhiteSpace -> BlankLine
 	;
 
@@ -290,10 +296,14 @@ fragment
 attributeItem: nodeItem -> ^(SilkNode nodeItem);
 
 fragment
+seqseq: Seq Seq;
+
+fragment
 plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
 	| Plus -> Occurrence["ONE_OR_MORE"]
 	| Question -> Occurrence["ZERO_OR_ONE"]
+	| seqseq -> Occurrence["MULTILINE_SEQUENCE"]
 	| Seq -> Occurrence["SEQUENCE"]
 	| TabSeq -> Occurrence["TABBED_SEQUENCE"]
 	;
