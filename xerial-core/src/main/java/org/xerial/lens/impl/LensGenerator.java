@@ -85,6 +85,7 @@ public class LensGenerator
                     // adder
                     String paramName = getCanonicalParameterName(methodName.substring(3));
                     setterContainer.add(new FieldSetter(paramName, eachMethod, SetterType.ADDER));
+
                 }
                 else if (methodName.startsWith("set"))
                 {

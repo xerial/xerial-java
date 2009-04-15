@@ -70,8 +70,7 @@ public class LensTest
     {
         private Map<Coordinate, List<Gene>> sequenceTable;
 
-        @OneToMany(key = "coordinate", value = "gene")
-        public void add(Coordinate coordinate, Gene gene)
+        public void add(@Name("coordinate") Coordinate coordinate, @Name("gene") Gene gene)
         {
             List<Gene> geneList = sequenceTable.get(coordinate);
             if (geneList == null)
@@ -92,8 +91,7 @@ public class LensTest
     {
         public List<Pair<Coordinate, Gene>> geneList;
 
-        @OneToMany(key = "coordinate", value = "gene")
-        public void add(Coordinate coordinate, Gene gene)
+        public void add(@Name(aliases = { "coordinate" }) Coordinate coordinate, @Name("gene") Gene gene)
         {
             geneList.add(Pair.newPair(coordinate, gene));
         }
