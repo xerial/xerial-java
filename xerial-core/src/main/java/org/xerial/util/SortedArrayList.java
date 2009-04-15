@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.xerial.util.impl.ChainBase;
+import org.xerial.util.impl.Chain;
 
 /**
  * sorted key -> [value1, value2, .. ]
@@ -39,7 +39,7 @@ import org.xerial.util.impl.ChainBase;
  * @param <Key>
  * @param <Value>
  */
-public class SortedArrayList<Key extends Comparable<Key>, Value> extends ChainBase<Key, Value, ArrayList<Value>>
+public class SortedArrayList<Key extends Comparable<Key>, Value> extends Chain<Key, Value, ArrayList<Value>>
 {
 
     @Override

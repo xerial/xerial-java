@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-08 19:50:19
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-15 16:49:33
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -118,18 +118,18 @@ public class SilkLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g"; }
+    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g"; }
 
     // $ANTLR start "LineComment"
     public final void mLineComment() throws RecognitionException {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:12: ( '#' (~ ( '\\n' | '\\r' ) )* '\\r' '\\n' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:14: '#' (~ ( '\\n' | '\\r' ) )* '\\r' '\\n'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:12: ( '#' (~ ( '\\n' | '\\r' ) )* '\\r' '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:14: '#' (~ ( '\\n' | '\\r' ) )* '\\r' '\\n'
             {
             match('#'); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:18: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:18: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -142,7 +142,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:18: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:133:18: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -181,11 +181,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Preamble;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:9: ( '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:11: '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:9: ( '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:11: '%' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match('%'); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:15: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:15: (~ ( '\\n' | '\\r' ) )*
             loop2:
             do {
                 int alt2=2;
@@ -198,7 +198,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:15: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:15: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -218,7 +218,7 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:29: ( '\\r' )?
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:29: ( '\\r' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -227,7 +227,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:29: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:134:29: '\\r'
                     {
                     match('\r'); 
 
@@ -251,8 +251,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:23: ( '\\n' | '\\r' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:137:23: ( '\\n' | '\\r' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -277,10 +277,10 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt4=3;
             int LA4_0 = input.LA(1);
 
@@ -304,7 +304,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:5: '\\r' '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:5: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -312,14 +312,14 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:17: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:17: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:24: '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:140:24: '\\n'
                     {
                     match('\n'); 
 
@@ -345,13 +345,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = NodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:11: ({...}? ( ' ' )* '-' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:13: {...}? ( ' ' )* '-'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:11: ({...}? ( ' ' )* '-' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:13: {...}? ( ' ' )* '-'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
             }
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:27: ( ' ' )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:27: ( ' ' )*
             loop5:
             do {
                 int alt5=2;
@@ -364,7 +364,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:28: ' '
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:145:28: ' '
             	    {
             	    match(' '); 
 
@@ -394,13 +394,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = FunctionIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:15: ({...}? => ( ' ' )* '@' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:17: {...}? => ( ' ' )* '@'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:15: ({...}? => ( ' ' )* '@' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:17: {...}? => ( ' ' )* '@'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "FunctionIndent", " isHead() ");
             }
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:34: ( ' ' )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:34: ( ' ' )*
             loop6:
             do {
                 int alt6=2;
@@ -413,7 +413,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:35: ' '
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:146:35: ' '
             	    {
             	    match(' '); 
 
@@ -443,13 +443,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = BlankLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:10: ({...}? ( WhiteSpace )* LineBreak )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:12: {...}? ( WhiteSpace )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:10: ({...}? ( WhiteSpace )* LineBreak )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:12: {...}? ( WhiteSpace )* LineBreak
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlankLine", " isHead() ");
             }
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:26: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:26: ( WhiteSpace )*
             loop7:
             do {
                 int alt7=2;
@@ -462,7 +462,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:26: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:147:26: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -489,8 +489,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "DataLineBody"
     public final void mDataLineBody() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:22: (~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:24: ~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:22: (~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:24: ~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )*
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||(input.LA(1)>='!' && input.LA(1)<='\"')||input.LA(1)=='$'||(input.LA(1)>='&' && input.LA(1)<=',')||(input.LA(1)>='.' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -501,7 +501,7 @@ public class SilkLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:78: (~ ( '#' | '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:78: (~ ( '#' | '\\n' | '\\r' ) )*
             loop8:
             do {
                 int alt8=2;
@@ -514,7 +514,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:78: ~ ( '#' | '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:149:78: ~ ( '#' | '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\"')||(input.LA(1)>='$' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -550,13 +550,13 @@ public class SilkLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token DataLineBody1=null;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:9: ({...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:11: {...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:9: ({...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:150:11: {...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment )
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "DataLine", " isHead() ");
             }
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:5: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:5: ( WhiteSpace )*
             loop9:
             do {
                 int alt9=2;
@@ -569,7 +569,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:5: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:5: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -584,7 +584,7 @@ public class SilkLexer extends Lexer {
             int DataLineBody1Start229 = getCharIndex();
             mDataLineBody(); 
             DataLineBody1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, DataLineBody1Start229, getCharIndex()-1);
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:30: ( LineBreak | LineComment )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:30: ( LineBreak | LineComment )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -602,14 +602,14 @@ public class SilkLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:31: LineBreak
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:31: LineBreak
                     {
                     mLineBreak(); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:41: LineComment
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:151:41: LineComment
                     {
                     mLineComment(); 
 
@@ -635,8 +635,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:7: ( '(' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:9: '('
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:7: ( '(' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:153:9: '('
             {
             match('('); 
              transit(Symbol.EnterParen); 
@@ -656,8 +656,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:7: ( ')' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:9: ')'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:7: ( ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:9: ')'
             {
             match(')'); 
              transit(Symbol.LeaveParen); 
@@ -677,8 +677,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:6: ( ',' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:9: ','
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:6: ( ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:9: ','
             {
             match(','); 
 
@@ -697,8 +697,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:6: ( ':' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:8: ':'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:6: ( ':' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:8: ':'
             {
             match(':'); 
              transit(Symbol.Colon); 
@@ -718,8 +718,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Seq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:4: ( '>' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:7: '>'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:4: ( '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:157:7: '>'
             {
             match('>'); 
 
@@ -738,8 +738,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = TabSeq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:7: ( '|' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:9: '|'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:7: ( '|' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:9: '|'
             {
             match('|'); 
 
@@ -758,8 +758,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:5: ( '*' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:8: '*'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:5: ( '*' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:159:8: '*'
             {
             match('*'); 
 
@@ -778,8 +778,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:3: ( '@' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:6: '@'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:3: ( '@' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:6: '@'
             {
             match('@'); 
              transit(Symbol.At); 
@@ -799,8 +799,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:5: ( '+' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:7: '+'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:5: ( '+' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:7: '+'
             {
             match('+'); 
 
@@ -819,8 +819,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:9: ( '[' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:11: '['
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:9: ( '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:162:11: '['
             {
             match('['); 
              transit(Symbol.EnterParen); 
@@ -840,8 +840,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:9: ( ']' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:11: ']'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:9: ( ']' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:163:11: ']'
             {
             match(']'); 
 
@@ -860,8 +860,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:9: ( '?' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:11: '?'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:9: ( '?' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:11: '?'
             {
             match('?'); 
 
@@ -878,8 +878,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:15: ( '0' .. '9' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:17: '0' .. '9'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:15: ( '0' .. '9' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -894,8 +894,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -918,8 +918,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:18: ( Digit | Letter )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:18: ( Digit | Letter )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -942,8 +942,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:21: (~ ( '\"' | '\\\\' | LineBreakChar ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:23: ~ ( '\"' | '\\\\' | LineBreakChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:21: (~ ( '\"' | '\\\\' | LineBreakChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:23: ~ ( '\"' | '\\\\' | LineBreakChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -966,11 +966,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt11=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -1027,63 +1027,63 @@ public class SilkLexer extends Lexer {
 
             switch (alt11) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:10: '\\\"'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:17: '\\\\'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:24: '/'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:30: 'b'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:36: 'f'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:42: 'n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:48: 'r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:54: 't'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -1108,7 +1108,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:21: ( UnicodeChar | EscapeSequence )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:21: ( UnicodeChar | EscapeSequence )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1126,14 +1126,14 @@ public class SilkLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:24: UnicodeChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:38: EscapeSequence
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -1150,8 +1150,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "NonSpaceChar"
     public final void mNonSpaceChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:22: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:24: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:22: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:24: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1174,10 +1174,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:22: ( ( StringChar )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:22: ( ( StringChar )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: ( StringChar )*
             {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: ( StringChar )*
             loop13:
             do {
                 int alt13=2;
@@ -1190,7 +1190,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: StringChar
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -1218,8 +1218,8 @@ public class SilkLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:7: ( '\"' s= StringChar_s '\"' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:9: '\"' s= StringChar_s '\"'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:7: ( '\"' s= StringChar_s '\"' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart528 = getCharIndex();
@@ -1241,7 +1241,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:2: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator ) | {...}? => ( ':' | '?' ) NonSpaceChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:2: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator ) | {...}? => ( ':' | '?' ) NonSpaceChar )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1268,7 +1268,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:4: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator )
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:4: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace | Indicator )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -1283,7 +1283,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:4: {...}? => ( ':' | '?' ) NonSpaceChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:4: {...}? => ( ':' | '?' ) NonSpaceChar
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
@@ -1312,8 +1312,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "ScopeIndicator"
     public final void mScopeIndicator() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:24: ( '(' | ')' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:24: ( '(' | ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='(' && input.LA(1)<=')') ) {
                 input.consume();
@@ -1336,8 +1336,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "FlowIndicator"
     public final void mFlowIndicator() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:23: ( '[' | ']' | '{' | '}' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:23: ( '[' | ']' | '{' | '}' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='{'||input.LA(1)=='}' ) {
                 input.consume();
@@ -1360,8 +1360,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:19: ( FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='-')||input.LA(1)==':'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1384,8 +1384,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainUnsafeChar"
     public final void mPlainUnsafeChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:25: ( '\"' | '\\\\' | LineBreakChar | '#' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:25: ( '\"' | '\\\\' | LineBreakChar | '#' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r'||(input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='\\' ) {
                 input.consume();
@@ -1408,10 +1408,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeKey"
     public final void mPlainSafeKey() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||input.LA(1)=='|'||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -1432,8 +1432,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeIn"
     public final void mPlainSafeIn() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1456,8 +1456,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeOut"
     public final void mPlainSafeOut() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:22: (~ ( PlainUnsafeChar ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:24: ~ ( PlainUnsafeChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:22: (~ ( PlainUnsafeChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:24: ~ ( PlainUnsafeChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1480,11 +1480,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafe"
     public final void mPlainSafe() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
             int alt15=3;
             int LA15_0 = input.LA(1);
 
-            if ( ((LA15_0>='\u0000' && LA15_0<='\t')||(LA15_0>='\u000B' && LA15_0<='\f')||(LA15_0>='\u000E' && LA15_0<='!')||(LA15_0>='$' && LA15_0<='\'')||LA15_0=='+'||(LA15_0>='-' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='=')||(LA15_0>='?' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||LA15_0=='|'||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
+            if ( ((LA15_0>='\u0000' && LA15_0<='\t')||(LA15_0>='\u000B' && LA15_0<='\f')||(LA15_0>='\u000E' && LA15_0<='!')||(LA15_0>='$' && LA15_0<='\'')||LA15_0=='+'||(LA15_0>='-' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='=')||(LA15_0>='?' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
                 int LA15_1 = input.LA(2);
 
                 if ( (( isKey() )) ) {
@@ -1503,7 +1503,7 @@ public class SilkLexer extends Lexer {
                     throw nvae;
                 }
             }
-            else if ( (LA15_0=='*'||LA15_0==':'||LA15_0=='>'||LA15_0=='['||LA15_0==']'||LA15_0=='{'||LA15_0=='}') && ((( isInValue() )||( isOutValue() )))) {
+            else if ( (LA15_0=='*'||LA15_0==':'||LA15_0=='>'||LA15_0=='['||LA15_0==']'||(LA15_0>='{' && LA15_0<='}')) && ((( isInValue() )||( isOutValue() )))) {
                 int LA15_2 = input.LA(2);
 
                 if ( (( isInValue() )) ) {
@@ -1530,7 +1530,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:4: {...}? => PlainSafeKey
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:4: {...}? => PlainSafeKey
                     {
                     if ( !(( isKey() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isKey() ");
@@ -1540,7 +1540,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:201:4: {...}? => PlainSafeIn
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:201:4: {...}? => PlainSafeIn
                     {
                     if ( !(( isInValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isInValue() ");
@@ -1550,7 +1550,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:4: {...}? => PlainSafeOut
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:4: {...}? => PlainSafeOut
                     {
                     if ( !(( isOutValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isOutValue() ");
@@ -1572,11 +1572,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = PlainOneLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:13: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:15: PlainFirst ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:13: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:15: PlainFirst ( ( WhiteSpace )* PlainSafe )*
             {
             mPlainFirst(); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:26: ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:26: ( ( WhiteSpace )* PlainSafe )*
             loop17:
             do {
                 int alt17=2;
@@ -1585,10 +1585,10 @@ public class SilkLexer extends Lexer {
                 if ( (LA17_0=='\t'||LA17_0==' ') ) {
                     alt17=1;
                 }
-                else if ( ((LA17_0>='\u0000' && LA17_0<='\b')||(LA17_0>='\u000B' && LA17_0<='\f')||(LA17_0>='\u000E' && LA17_0<='\u001F')||LA17_0=='!'||(LA17_0>='$' && LA17_0<='\'')||LA17_0=='+'||(LA17_0>='-' && LA17_0<='9')||(LA17_0>=';' && LA17_0<='=')||(LA17_0>='?' && LA17_0<='Z')||(LA17_0>='^' && LA17_0<='z')||LA17_0=='|'||(LA17_0>='~' && LA17_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
+                else if ( ((LA17_0>='\u0000' && LA17_0<='\b')||(LA17_0>='\u000B' && LA17_0<='\f')||(LA17_0>='\u000E' && LA17_0<='\u001F')||LA17_0=='!'||(LA17_0>='$' && LA17_0<='\'')||LA17_0=='+'||(LA17_0>='-' && LA17_0<='9')||(LA17_0>=';' && LA17_0<='=')||(LA17_0>='?' && LA17_0<='Z')||(LA17_0>='^' && LA17_0<='z')||(LA17_0>='~' && LA17_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
                     alt17=1;
                 }
-                else if ( (LA17_0=='*'||LA17_0==':'||LA17_0=='>'||LA17_0=='['||LA17_0==']'||LA17_0=='{'||LA17_0=='}') && ((( isInValue() )||( isOutValue() )))) {
+                else if ( (LA17_0=='*'||LA17_0==':'||LA17_0=='>'||LA17_0=='['||LA17_0==']'||(LA17_0>='{' && LA17_0<='}')) && ((( isInValue() )||( isOutValue() )))) {
                     alt17=1;
                 }
                 else if ( ((LA17_0>='(' && LA17_0<=')')||LA17_0==',') && (( isOutValue() ))) {
@@ -1598,15 +1598,15 @@ public class SilkLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )* PlainSafe
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )* PlainSafe
             	    {
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )*
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: ( WhiteSpace )*
             	    loop16:
             	    do {
             	        int alt16=2;
             	        int LA16_0 = input.LA(1);
 
-            	        if ( (LA16_0=='\t'||LA16_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))))) {
+            	        if ( (LA16_0=='\t'||LA16_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))))) {
             	            int LA16_1 = input.LA(2);
 
             	            if ( (!(((( isInValue() )||( isOutValue() )||( isKey() ))))) ) {
@@ -1619,7 +1619,7 @@ public class SilkLexer extends Lexer {
 
             	        switch (alt16) {
             	    	case 1 :
-            	    	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: WhiteSpace
+            	    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:27: WhiteSpace
             	    	    {
             	    	    mWhiteSpace(); 
 
@@ -1658,7 +1658,7 @@ public class SilkLexer extends Lexer {
         try {
             int _type = JSON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:2: ({...}? => '{' | {...}? => '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:2: ({...}? => '{' | {...}? => '[' )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1676,7 +1676,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt18) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:4: {...}? => '{'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:4: {...}? => '{'
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1696,7 +1696,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:4: {...}? => '['
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:4: {...}? => '['
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1730,13 +1730,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Separation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:11: ({...}? ( WhiteSpace )+ )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:13: {...}? ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:11: ({...}? ( WhiteSpace )+ )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:13: {...}? ( WhiteSpace )+
             {
             if ( !(( !isHead() )) ) {
                 throw new FailedPredicateException(input, "Separation", " !isHead() ");
             }
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:28: ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:28: ( WhiteSpace )+
             int cnt19=0;
             loop19:
             do {
@@ -1750,7 +1750,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:28: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:28: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1783,8 +1783,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = WhiteSpace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:2: ( ( ' ' | '\\t' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:4: ( ' ' | '\\t' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:2: ( ( ' ' | '\\t' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:4: ( ' ' | '\\t' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1807,173 +1807,173 @@ public class SilkLexer extends Lexer {
     // $ANTLR end "WhiteSpace"
 
     public void mTokens() throws RecognitionException {
-        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace )
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace )
         int alt20=24;
         alt20 = dfa20.predict(input);
         switch (alt20) {
             case 1 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:10: LineComment
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:10: LineComment
                 {
                 mLineComment(); 
 
                 }
                 break;
             case 2 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:22: Preamble
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:22: Preamble
                 {
                 mPreamble(); 
 
                 }
                 break;
             case 3 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:31: LineBreak
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:31: LineBreak
                 {
                 mLineBreak(); 
 
                 }
                 break;
             case 4 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:41: NodeIndent
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:41: NodeIndent
                 {
                 mNodeIndent(); 
 
                 }
                 break;
             case 5 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:52: FunctionIndent
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:52: FunctionIndent
                 {
                 mFunctionIndent(); 
 
                 }
                 break;
             case 6 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:67: BlankLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:67: BlankLine
                 {
                 mBlankLine(); 
 
                 }
                 break;
             case 7 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:77: DataLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:77: DataLine
                 {
                 mDataLine(); 
 
                 }
                 break;
             case 8 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:86: LParen
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:86: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 9 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:93: RParen
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:93: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 10 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:100: Comma
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:100: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 11 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:106: Colon
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:106: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 12 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:112: Seq
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:112: Seq
                 {
                 mSeq(); 
 
                 }
                 break;
             case 13 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:116: TabSeq
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:116: TabSeq
                 {
                 mTabSeq(); 
 
                 }
                 break;
             case 14 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:123: Star
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:123: Star
                 {
                 mStar(); 
 
                 }
                 break;
             case 15 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:128: At
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:128: At
                 {
                 mAt(); 
 
                 }
                 break;
             case 16 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:131: Plus
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:131: Plus
                 {
                 mPlus(); 
 
                 }
                 break;
             case 17 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:136: LBracket
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:136: LBracket
                 {
                 mLBracket(); 
 
                 }
                 break;
             case 18 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:145: RBracket
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:145: RBracket
                 {
                 mRBracket(); 
 
                 }
                 break;
             case 19 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:154: Question
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:154: Question
                 {
                 mQuestion(); 
 
                 }
                 break;
             case 20 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:163: String
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:163: String
                 {
                 mString(); 
 
                 }
                 break;
             case 21 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:170: PlainOneLine
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:170: PlainOneLine
                 {
                 mPlainOneLine(); 
 
                 }
                 break;
             case 22 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:183: JSON
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:183: JSON
                 {
                 mJSON(); 
 
                 }
                 break;
             case 23 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:188: Separation
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:188: Separation
                 {
                 mSeparation(); 
 
                 }
                 break;
             case 24 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:199: WhiteSpace
+                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:199: WhiteSpace
                 {
                 mWhiteSpace(); 
 
@@ -2041,16 +2041,16 @@ public class SilkLexer extends Lexer {
             "\0\27",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\0\27",
             "\0\27",
             "\11\62\1\53\1\27\2\62\1\27\22\62\1\53\1\62\1\27\1\46\4\62"+
             "\2\64\1\63\1\62\1\64\15\62\1\63\3\62\1\63\34\62\1\63\1\27\1"+
-            "\63\35\62\1\63\1\62\1\63\uff82\62",
+            "\63\35\62\3\63\uff82\62",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\0\27",
             "",
             "\1\uffff",
@@ -2069,39 +2069,39 @@ public class SilkLexer extends Lexer {
             "",
             "\11\102\1\101\1\27\2\102\1\27\22\102\1\101\1\102\2\27\4\102"+
             "\2\104\1\103\1\102\1\104\15\102\1\103\3\102\1\103\34\102\1\103"+
-            "\1\27\1\103\35\102\1\103\1\102\1\103\uff82\102",
+            "\1\27\1\103\35\102\3\103\uff82\102",
             "",
             "\11\106\1\105\1\uffff\2\106\1\27\22\106\1\105\1\106\2\27\4"+
             "\106\2\110\1\107\1\106\1\110\15\106\1\107\3\106\1\107\34\106"+
-            "\1\107\1\27\1\107\35\106\1\107\1\106\1\107\uff82\106",
+            "\1\107\1\27\1\107\35\106\3\107\uff82\106",
             "",
             "",
             "",
             "",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\11\54\1\53\1\27\2\54\1\27\22\54\1\53\1\54\2\27\4\54\2\56"+
             "\1\55\1\54\1\56\15\54\1\55\3\54\1\55\34\54\1\55\1\27\1\55\35"+
-            "\54\1\55\1\54\1\55\uff82\54",
+            "\54\3\55\uff82\54",
             "\1\uffff",
             "",
             "",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
             "\42\27\1\117\14\27\1\121\54\27\1\120\5\27\1\122\3\27\1\123"+
             "\7\27\1\124\3\27\1\125\1\27\1\126\1\127\uff8a\27",
@@ -2118,42 +2118,42 @@ public class SilkLexer extends Lexer {
             "",
             "\11\102\1\101\1\27\2\102\1\27\22\102\1\101\1\102\2\27\4\102"+
             "\2\104\1\103\1\102\1\104\15\102\1\103\3\102\1\103\34\102\1\103"+
-            "\1\27\1\103\35\102\1\103\1\102\1\103\uff82\102",
+            "\1\27\1\103\35\102\3\103\uff82\102",
             "\11\102\1\101\1\27\2\102\1\27\22\102\1\101\1\102\2\27\4\102"+
             "\2\104\1\103\1\102\1\104\15\102\1\103\3\102\1\103\34\102\1\103"+
-            "\1\27\1\103\35\102\1\103\1\102\1\103\uff82\102",
+            "\1\27\1\103\35\102\3\103\uff82\102",
             "\11\102\1\101\1\27\2\102\1\27\22\102\1\101\1\102\2\27\4\102"+
             "\2\104\1\103\1\102\1\104\15\102\1\103\3\102\1\103\34\102\1\103"+
-            "\1\27\1\103\35\102\1\103\1\102\1\103\uff82\102",
+            "\1\27\1\103\35\102\3\103\uff82\102",
             "\11\102\1\101\1\27\2\102\1\27\22\102\1\101\1\102\2\27\4\102"+
             "\2\104\1\103\1\102\1\104\15\102\1\103\3\102\1\103\34\102\1\103"+
-            "\1\27\1\103\35\102\1\103\1\102\1\103\uff82\102",
+            "\1\27\1\103\35\102\3\103\uff82\102",
             "\11\106\1\105\1\uffff\2\106\1\27\22\106\1\105\1\106\2\27\4"+
             "\106\2\110\1\107\1\106\1\110\15\106\1\107\3\106\1\107\34\106"+
-            "\1\107\1\27\1\107\35\106\1\107\1\106\1\107\uff82\106",
+            "\1\107\1\27\1\107\35\106\3\107\uff82\106",
             "\11\106\1\105\1\uffff\2\106\1\27\22\106\1\105\1\106\2\27\4"+
             "\106\2\110\1\107\1\106\1\110\15\106\1\107\3\106\1\107\34\106"+
-            "\1\107\1\27\1\107\35\106\1\107\1\106\1\107\uff82\106",
+            "\1\107\1\27\1\107\35\106\3\107\uff82\106",
             "\11\106\1\105\1\uffff\2\106\1\27\22\106\1\105\1\106\2\27\4"+
             "\106\2\110\1\107\1\106\1\110\15\106\1\107\3\106\1\107\34\106"+
-            "\1\107\1\27\1\107\35\106\1\107\1\106\1\107\uff82\106",
+            "\1\107\1\27\1\107\35\106\3\107\uff82\106",
             "\11\106\1\105\1\uffff\2\106\1\27\22\106\1\105\1\106\2\27\4"+
             "\106\2\110\1\107\1\106\1\110\15\106\1\107\3\106\1\107\34\106"+
-            "\1\107\1\27\1\107\35\106\1\107\1\106\1\107\uff82\106",
+            "\1\107\1\27\1\107\35\106\3\107\uff82\106",
             "",
             "",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
             "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\1\115\1\114\1\115\uff82\114",
+            "\1\27\1\115\35\114\3\115\uff82\114",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
             "\12\65\1\27\2\65\1\27\24\65\1\67\1\70\70\65\1\66\uffa3\65",
@@ -2243,9 +2243,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_21=='\t'||LA20_21==' ') ) {s = 43;}
 
-                        else if ( ((LA20_21>='\u0000' && LA20_21<='\b')||(LA20_21>='\u000B' && LA20_21<='\f')||(LA20_21>='\u000E' && LA20_21<='\u001F')||LA20_21=='!'||(LA20_21>='$' && LA20_21<='\'')||LA20_21=='+'||(LA20_21>='-' && LA20_21<='9')||(LA20_21>=';' && LA20_21<='=')||(LA20_21>='?' && LA20_21<='Z')||(LA20_21>='^' && LA20_21<='z')||LA20_21=='|'||(LA20_21>='~' && LA20_21<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_21>='\u0000' && LA20_21<='\b')||(LA20_21>='\u000B' && LA20_21<='\f')||(LA20_21>='\u000E' && LA20_21<='\u001F')||LA20_21=='!'||(LA20_21>='$' && LA20_21<='\'')||LA20_21=='+'||(LA20_21>='-' && LA20_21<='9')||(LA20_21>=';' && LA20_21<='=')||(LA20_21>='?' && LA20_21<='Z')||(LA20_21>='^' && LA20_21<='z')||(LA20_21>='~' && LA20_21<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_21=='*'||LA20_21==':'||LA20_21=='>'||LA20_21=='['||LA20_21==']'||LA20_21=='{'||LA20_21=='}') ) {s = 45;}
+                        else if ( (LA20_21=='*'||LA20_21==':'||LA20_21=='>'||LA20_21=='['||LA20_21==']'||(LA20_21>='{' && LA20_21<='}')) ) {s = 45;}
 
                         else if ( ((LA20_21>='(' && LA20_21<=')')||LA20_21==',') ) {s = 46;}
 
@@ -2340,9 +2340,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_51=='\t'||LA20_51==' ') ) {s = 75;}
 
-                        else if ( ((LA20_51>='\u0000' && LA20_51<='\b')||(LA20_51>='\u000B' && LA20_51<='\f')||(LA20_51>='\u000E' && LA20_51<='\u001F')||LA20_51=='!'||(LA20_51>='$' && LA20_51<='\'')||LA20_51=='+'||(LA20_51>='-' && LA20_51<='9')||(LA20_51>=';' && LA20_51<='=')||(LA20_51>='?' && LA20_51<='Z')||(LA20_51>='^' && LA20_51<='z')||LA20_51=='|'||(LA20_51>='~' && LA20_51<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_51>='\u0000' && LA20_51<='\b')||(LA20_51>='\u000B' && LA20_51<='\f')||(LA20_51>='\u000E' && LA20_51<='\u001F')||LA20_51=='!'||(LA20_51>='$' && LA20_51<='\'')||LA20_51=='+'||(LA20_51>='-' && LA20_51<='9')||(LA20_51>=';' && LA20_51<='=')||(LA20_51>='?' && LA20_51<='Z')||(LA20_51>='^' && LA20_51<='z')||(LA20_51>='~' && LA20_51<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_51=='*'||LA20_51==':'||LA20_51=='>'||LA20_51=='['||LA20_51==']'||LA20_51=='{'||LA20_51=='}') ) {s = 77;}
+                        else if ( (LA20_51=='*'||LA20_51==':'||LA20_51=='>'||LA20_51=='['||LA20_51==']'||(LA20_51>='{' && LA20_51<='}')) ) {s = 77;}
 
                         else if ( ((LA20_51>='(' && LA20_51<=')')||LA20_51==',') ) {s = 78;}
 
@@ -2363,9 +2363,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_77=='\t'||LA20_77==' ') ) {s = 75;}
 
-                        else if ( ((LA20_77>='\u0000' && LA20_77<='\b')||(LA20_77>='\u000B' && LA20_77<='\f')||(LA20_77>='\u000E' && LA20_77<='\u001F')||LA20_77=='!'||(LA20_77>='$' && LA20_77<='\'')||LA20_77=='+'||(LA20_77>='-' && LA20_77<='9')||(LA20_77>=';' && LA20_77<='=')||(LA20_77>='?' && LA20_77<='Z')||(LA20_77>='^' && LA20_77<='z')||LA20_77=='|'||(LA20_77>='~' && LA20_77<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_77>='\u0000' && LA20_77<='\b')||(LA20_77>='\u000B' && LA20_77<='\f')||(LA20_77>='\u000E' && LA20_77<='\u001F')||LA20_77=='!'||(LA20_77>='$' && LA20_77<='\'')||LA20_77=='+'||(LA20_77>='-' && LA20_77<='9')||(LA20_77>=';' && LA20_77<='=')||(LA20_77>='?' && LA20_77<='Z')||(LA20_77>='^' && LA20_77<='z')||(LA20_77>='~' && LA20_77<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_77=='*'||LA20_77==':'||LA20_77=='>'||LA20_77=='['||LA20_77==']'||LA20_77=='{'||LA20_77=='}') ) {s = 77;}
+                        else if ( (LA20_77=='*'||LA20_77==':'||LA20_77=='>'||LA20_77=='['||LA20_77==']'||(LA20_77>='{' && LA20_77<='}')) ) {s = 77;}
 
                         else if ( ((LA20_77>='(' && LA20_77<=')')||LA20_77==',') ) {s = 78;}
 
@@ -2524,9 +2524,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_52=='\t'||LA20_52==' ') ) {s = 75;}
 
-                        else if ( ((LA20_52>='\u0000' && LA20_52<='\b')||(LA20_52>='\u000B' && LA20_52<='\f')||(LA20_52>='\u000E' && LA20_52<='\u001F')||LA20_52=='!'||(LA20_52>='$' && LA20_52<='\'')||LA20_52=='+'||(LA20_52>='-' && LA20_52<='9')||(LA20_52>=';' && LA20_52<='=')||(LA20_52>='?' && LA20_52<='Z')||(LA20_52>='^' && LA20_52<='z')||LA20_52=='|'||(LA20_52>='~' && LA20_52<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_52>='\u0000' && LA20_52<='\b')||(LA20_52>='\u000B' && LA20_52<='\f')||(LA20_52>='\u000E' && LA20_52<='\u001F')||LA20_52=='!'||(LA20_52>='$' && LA20_52<='\'')||LA20_52=='+'||(LA20_52>='-' && LA20_52<='9')||(LA20_52>=';' && LA20_52<='=')||(LA20_52>='?' && LA20_52<='Z')||(LA20_52>='^' && LA20_52<='z')||(LA20_52>='~' && LA20_52<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_52=='*'||LA20_52==':'||LA20_52=='>'||LA20_52=='['||LA20_52==']'||LA20_52=='{'||LA20_52=='}') ) {s = 77;}
+                        else if ( (LA20_52=='*'||LA20_52==':'||LA20_52=='>'||LA20_52=='['||LA20_52==']'||(LA20_52>='{' && LA20_52<='}')) ) {s = 77;}
 
                         else if ( ((LA20_52>='(' && LA20_52<=')')||LA20_52==',') ) {s = 78;}
 
@@ -2602,9 +2602,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_76=='\t'||LA20_76==' ') ) {s = 75;}
 
-                        else if ( ((LA20_76>='\u0000' && LA20_76<='\b')||(LA20_76>='\u000B' && LA20_76<='\f')||(LA20_76>='\u000E' && LA20_76<='\u001F')||LA20_76=='!'||(LA20_76>='$' && LA20_76<='\'')||LA20_76=='+'||(LA20_76>='-' && LA20_76<='9')||(LA20_76>=';' && LA20_76<='=')||(LA20_76>='?' && LA20_76<='Z')||(LA20_76>='^' && LA20_76<='z')||LA20_76=='|'||(LA20_76>='~' && LA20_76<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_76>='\u0000' && LA20_76<='\b')||(LA20_76>='\u000B' && LA20_76<='\f')||(LA20_76>='\u000E' && LA20_76<='\u001F')||LA20_76=='!'||(LA20_76>='$' && LA20_76<='\'')||LA20_76=='+'||(LA20_76>='-' && LA20_76<='9')||(LA20_76>=';' && LA20_76<='=')||(LA20_76>='?' && LA20_76<='Z')||(LA20_76>='^' && LA20_76<='z')||(LA20_76>='~' && LA20_76<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_76=='*'||LA20_76==':'||LA20_76=='>'||LA20_76=='['||LA20_76==']'||LA20_76=='{'||LA20_76=='}') ) {s = 77;}
+                        else if ( (LA20_76=='*'||LA20_76==':'||LA20_76=='>'||LA20_76=='['||LA20_76==']'||(LA20_76>='{' && LA20_76<='}')) ) {s = 77;}
 
                         else if ( ((LA20_76>='(' && LA20_76<=')')||LA20_76==',') ) {s = 78;}
 
@@ -2782,9 +2782,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_38=='\t'||LA20_38==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_38>='\u0000' && LA20_38<='\b')||(LA20_38>='\u000B' && LA20_38<='\f')||(LA20_38>='\u000E' && LA20_38<='\u001F')||LA20_38=='!'||(LA20_38>='$' && LA20_38<='\'')||LA20_38=='+'||(LA20_38>='-' && LA20_38<='9')||(LA20_38>=';' && LA20_38<='=')||(LA20_38>='?' && LA20_38<='Z')||(LA20_38>='^' && LA20_38<='z')||LA20_38=='|'||(LA20_38>='~' && LA20_38<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_38>='\u0000' && LA20_38<='\b')||(LA20_38>='\u000B' && LA20_38<='\f')||(LA20_38>='\u000E' && LA20_38<='\u001F')||LA20_38=='!'||(LA20_38>='$' && LA20_38<='\'')||LA20_38=='+'||(LA20_38>='-' && LA20_38<='9')||(LA20_38>=';' && LA20_38<='=')||(LA20_38>='?' && LA20_38<='Z')||(LA20_38>='^' && LA20_38<='z')||(LA20_38>='~' && LA20_38<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_38=='*'||LA20_38==':'||LA20_38=='>'||LA20_38=='['||LA20_38==']'||LA20_38=='{'||LA20_38=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_38=='*'||LA20_38==':'||LA20_38=='>'||LA20_38=='['||LA20_38==']'||(LA20_38>='{' && LA20_38<='}')) && ((( isHead() )||( isValue() )))) {s = 71;}
 
                         else if ( ((LA20_38>='(' && LA20_38<=')')||LA20_38==',') && ((( isHead() )||( isValue() )))) {s = 72;}
 
@@ -2826,9 +2826,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_50=='\t'||LA20_50==' ') ) {s = 75;}
 
-                        else if ( ((LA20_50>='\u0000' && LA20_50<='\b')||(LA20_50>='\u000B' && LA20_50<='\f')||(LA20_50>='\u000E' && LA20_50<='\u001F')||LA20_50=='!'||(LA20_50>='$' && LA20_50<='\'')||LA20_50=='+'||(LA20_50>='-' && LA20_50<='9')||(LA20_50>=';' && LA20_50<='=')||(LA20_50>='?' && LA20_50<='Z')||(LA20_50>='^' && LA20_50<='z')||LA20_50=='|'||(LA20_50>='~' && LA20_50<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_50>='\u0000' && LA20_50<='\b')||(LA20_50>='\u000B' && LA20_50<='\f')||(LA20_50>='\u000E' && LA20_50<='\u001F')||LA20_50=='!'||(LA20_50>='$' && LA20_50<='\'')||LA20_50=='+'||(LA20_50>='-' && LA20_50<='9')||(LA20_50>=';' && LA20_50<='=')||(LA20_50>='?' && LA20_50<='Z')||(LA20_50>='^' && LA20_50<='z')||(LA20_50>='~' && LA20_50<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_50=='*'||LA20_50==':'||LA20_50=='>'||LA20_50=='['||LA20_50==']'||LA20_50=='{'||LA20_50=='}') ) {s = 77;}
+                        else if ( (LA20_50=='*'||LA20_50==':'||LA20_50=='>'||LA20_50=='['||LA20_50==']'||(LA20_50>='{' && LA20_50<='}')) ) {s = 77;}
 
                         else if ( ((LA20_50>='(' && LA20_50<=')')||LA20_50==',') ) {s = 78;}
 
@@ -2866,9 +2866,9 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA20_78=='\t'||LA20_78==' ') ) {s = 75;}
 
-                        else if ( ((LA20_78>='\u0000' && LA20_78<='\b')||(LA20_78>='\u000B' && LA20_78<='\f')||(LA20_78>='\u000E' && LA20_78<='\u001F')||LA20_78=='!'||(LA20_78>='$' && LA20_78<='\'')||LA20_78=='+'||(LA20_78>='-' && LA20_78<='9')||(LA20_78>=';' && LA20_78<='=')||(LA20_78>='?' && LA20_78<='Z')||(LA20_78>='^' && LA20_78<='z')||LA20_78=='|'||(LA20_78>='~' && LA20_78<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_78>='\u0000' && LA20_78<='\b')||(LA20_78>='\u000B' && LA20_78<='\f')||(LA20_78>='\u000E' && LA20_78<='\u001F')||LA20_78=='!'||(LA20_78>='$' && LA20_78<='\'')||LA20_78=='+'||(LA20_78>='-' && LA20_78<='9')||(LA20_78>=';' && LA20_78<='=')||(LA20_78>='?' && LA20_78<='Z')||(LA20_78>='^' && LA20_78<='z')||(LA20_78>='~' && LA20_78<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_78=='*'||LA20_78==':'||LA20_78=='>'||LA20_78=='['||LA20_78==']'||LA20_78=='{'||LA20_78=='}') ) {s = 77;}
+                        else if ( (LA20_78=='*'||LA20_78==':'||LA20_78=='>'||LA20_78=='['||LA20_78==']'||(LA20_78>='{' && LA20_78<='}')) ) {s = 77;}
 
                         else if ( ((LA20_78>='(' && LA20_78<=')')||LA20_78==',') ) {s = 78;}
 
@@ -2998,9 +2998,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_44=='\t'||LA20_44==' ') ) {s = 43;}
 
-                        else if ( ((LA20_44>='\u0000' && LA20_44<='\b')||(LA20_44>='\u000B' && LA20_44<='\f')||(LA20_44>='\u000E' && LA20_44<='\u001F')||LA20_44=='!'||(LA20_44>='$' && LA20_44<='\'')||LA20_44=='+'||(LA20_44>='-' && LA20_44<='9')||(LA20_44>=';' && LA20_44<='=')||(LA20_44>='?' && LA20_44<='Z')||(LA20_44>='^' && LA20_44<='z')||LA20_44=='|'||(LA20_44>='~' && LA20_44<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_44>='\u0000' && LA20_44<='\b')||(LA20_44>='\u000B' && LA20_44<='\f')||(LA20_44>='\u000E' && LA20_44<='\u001F')||LA20_44=='!'||(LA20_44>='$' && LA20_44<='\'')||LA20_44=='+'||(LA20_44>='-' && LA20_44<='9')||(LA20_44>=';' && LA20_44<='=')||(LA20_44>='?' && LA20_44<='Z')||(LA20_44>='^' && LA20_44<='z')||(LA20_44>='~' && LA20_44<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_44=='*'||LA20_44==':'||LA20_44=='>'||LA20_44=='['||LA20_44==']'||LA20_44=='{'||LA20_44=='}') ) {s = 45;}
+                        else if ( (LA20_44=='*'||LA20_44==':'||LA20_44=='>'||LA20_44=='['||LA20_44==']'||(LA20_44>='{' && LA20_44<='}')) ) {s = 45;}
 
                         else if ( ((LA20_44>='(' && LA20_44<=')')||LA20_44==',') ) {s = 46;}
 
@@ -3021,9 +3021,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_36=='\t'||LA20_36==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_36>='\u0000' && LA20_36<='\b')||(LA20_36>='\u000B' && LA20_36<='\f')||(LA20_36>='\u000E' && LA20_36<='\u001F')||LA20_36=='!'||(LA20_36>='$' && LA20_36<='\'')||LA20_36=='+'||(LA20_36>='-' && LA20_36<='9')||(LA20_36>=';' && LA20_36<='=')||(LA20_36>='?' && LA20_36<='Z')||(LA20_36>='^' && LA20_36<='z')||LA20_36=='|'||(LA20_36>='~' && LA20_36<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_36>='\u0000' && LA20_36<='\b')||(LA20_36>='\u000B' && LA20_36<='\f')||(LA20_36>='\u000E' && LA20_36<='\u001F')||LA20_36=='!'||(LA20_36>='$' && LA20_36<='\'')||LA20_36=='+'||(LA20_36>='-' && LA20_36<='9')||(LA20_36>=';' && LA20_36<='=')||(LA20_36>='?' && LA20_36<='Z')||(LA20_36>='^' && LA20_36<='z')||(LA20_36>='~' && LA20_36<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_36=='*'||LA20_36==':'||LA20_36=='>'||LA20_36=='['||LA20_36==']'||LA20_36=='{'||LA20_36=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_36=='*'||LA20_36==':'||LA20_36=='>'||LA20_36=='['||LA20_36==']'||(LA20_36>='{' && LA20_36<='}')) && ((( isValue() )||( isHead() )))) {s = 67;}
 
                         else if ( ((LA20_36>='(' && LA20_36<=')')||LA20_36==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
@@ -3044,9 +3044,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_66=='\t'||LA20_66==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||(LA20_66>='$' && LA20_66<='\'')||LA20_66=='+'||(LA20_66>='-' && LA20_66<='9')||(LA20_66>=';' && LA20_66<='=')||(LA20_66>='?' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||LA20_66=='|'||(LA20_66>='~' && LA20_66<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||(LA20_66>='$' && LA20_66<='\'')||LA20_66=='+'||(LA20_66>='-' && LA20_66<='9')||(LA20_66>=';' && LA20_66<='=')||(LA20_66>='?' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||(LA20_66>='~' && LA20_66<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_66=='*'||LA20_66==':'||LA20_66=='>'||LA20_66=='['||LA20_66==']'||LA20_66=='{'||LA20_66=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_66=='*'||LA20_66==':'||LA20_66=='>'||LA20_66=='['||LA20_66==']'||(LA20_66>='{' && LA20_66<='}')) && ((( isValue() )||( isHead() )))) {s = 67;}
 
                         else if ( ((LA20_66>='(' && LA20_66<=')')||LA20_66==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
@@ -3202,9 +3202,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_70=='\t'||LA20_70==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_70>='\u0000' && LA20_70<='\b')||(LA20_70>='\u000B' && LA20_70<='\f')||(LA20_70>='\u000E' && LA20_70<='\u001F')||LA20_70=='!'||(LA20_70>='$' && LA20_70<='\'')||LA20_70=='+'||(LA20_70>='-' && LA20_70<='9')||(LA20_70>=';' && LA20_70<='=')||(LA20_70>='?' && LA20_70<='Z')||(LA20_70>='^' && LA20_70<='z')||LA20_70=='|'||(LA20_70>='~' && LA20_70<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_70>='\u0000' && LA20_70<='\b')||(LA20_70>='\u000B' && LA20_70<='\f')||(LA20_70>='\u000E' && LA20_70<='\u001F')||LA20_70=='!'||(LA20_70>='$' && LA20_70<='\'')||LA20_70=='+'||(LA20_70>='-' && LA20_70<='9')||(LA20_70>=';' && LA20_70<='=')||(LA20_70>='?' && LA20_70<='Z')||(LA20_70>='^' && LA20_70<='z')||(LA20_70>='~' && LA20_70<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_70=='*'||LA20_70==':'||LA20_70=='>'||LA20_70=='['||LA20_70==']'||LA20_70=='{'||LA20_70=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_70=='*'||LA20_70==':'||LA20_70=='>'||LA20_70=='['||LA20_70==']'||(LA20_70>='{' && LA20_70<='}')) && ((( isHead() )||( isValue() )))) {s = 71;}
 
                         else if ( ((LA20_70>='(' && LA20_70<=')')||LA20_70==',') && ((( isHead() )||( isValue() )))) {s = 72;}
 
@@ -3225,9 +3225,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_16=='\t'||LA20_16==' ') ) {s = 43;}
 
-                        else if ( ((LA20_16>='\u0000' && LA20_16<='\b')||(LA20_16>='\u000B' && LA20_16<='\f')||(LA20_16>='\u000E' && LA20_16<='\u001F')||LA20_16=='!'||(LA20_16>='$' && LA20_16<='\'')||LA20_16=='+'||(LA20_16>='-' && LA20_16<='9')||(LA20_16>=';' && LA20_16<='=')||(LA20_16>='?' && LA20_16<='Z')||(LA20_16>='^' && LA20_16<='z')||LA20_16=='|'||(LA20_16>='~' && LA20_16<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_16>='\u0000' && LA20_16<='\b')||(LA20_16>='\u000B' && LA20_16<='\f')||(LA20_16>='\u000E' && LA20_16<='\u001F')||LA20_16=='!'||(LA20_16>='$' && LA20_16<='\'')||LA20_16=='+'||(LA20_16>='-' && LA20_16<='9')||(LA20_16>=';' && LA20_16<='=')||(LA20_16>='?' && LA20_16<='Z')||(LA20_16>='^' && LA20_16<='z')||(LA20_16>='~' && LA20_16<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_16=='*'||LA20_16==':'||LA20_16=='>'||LA20_16=='['||LA20_16==']'||LA20_16=='{'||LA20_16=='}') ) {s = 45;}
+                        else if ( (LA20_16=='*'||LA20_16==':'||LA20_16=='>'||LA20_16=='['||LA20_16==']'||(LA20_16>='{' && LA20_16<='}')) ) {s = 45;}
 
                         else if ( ((LA20_16>='(' && LA20_16<=')')||LA20_16==',') ) {s = 46;}
 
@@ -3381,9 +3381,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_72=='\t'||LA20_72==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_72>='\u0000' && LA20_72<='\b')||(LA20_72>='\u000B' && LA20_72<='\f')||(LA20_72>='\u000E' && LA20_72<='\u001F')||LA20_72=='!'||(LA20_72>='$' && LA20_72<='\'')||LA20_72=='+'||(LA20_72>='-' && LA20_72<='9')||(LA20_72>=';' && LA20_72<='=')||(LA20_72>='?' && LA20_72<='Z')||(LA20_72>='^' && LA20_72<='z')||LA20_72=='|'||(LA20_72>='~' && LA20_72<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_72>='\u0000' && LA20_72<='\b')||(LA20_72>='\u000B' && LA20_72<='\f')||(LA20_72>='\u000E' && LA20_72<='\u001F')||LA20_72=='!'||(LA20_72>='$' && LA20_72<='\'')||LA20_72=='+'||(LA20_72>='-' && LA20_72<='9')||(LA20_72>=';' && LA20_72<='=')||(LA20_72>='?' && LA20_72<='Z')||(LA20_72>='^' && LA20_72<='z')||(LA20_72>='~' && LA20_72<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_72=='*'||LA20_72==':'||LA20_72=='>'||LA20_72=='['||LA20_72==']'||LA20_72=='{'||LA20_72=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_72=='*'||LA20_72==':'||LA20_72=='>'||LA20_72=='['||LA20_72==']'||(LA20_72>='{' && LA20_72<='}')) && ((( isHead() )||( isValue() )))) {s = 71;}
 
                         else if ( ((LA20_72>='(' && LA20_72<=')')||LA20_72==',') && ((( isHead() )||( isValue() )))) {s = 72;}
 
@@ -3404,9 +3404,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_69=='\t'||LA20_69==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_69>='\u0000' && LA20_69<='\b')||(LA20_69>='\u000B' && LA20_69<='\f')||(LA20_69>='\u000E' && LA20_69<='\u001F')||LA20_69=='!'||(LA20_69>='$' && LA20_69<='\'')||LA20_69=='+'||(LA20_69>='-' && LA20_69<='9')||(LA20_69>=';' && LA20_69<='=')||(LA20_69>='?' && LA20_69<='Z')||(LA20_69>='^' && LA20_69<='z')||LA20_69=='|'||(LA20_69>='~' && LA20_69<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_69>='\u0000' && LA20_69<='\b')||(LA20_69>='\u000B' && LA20_69<='\f')||(LA20_69>='\u000E' && LA20_69<='\u001F')||LA20_69=='!'||(LA20_69>='$' && LA20_69<='\'')||LA20_69=='+'||(LA20_69>='-' && LA20_69<='9')||(LA20_69>=';' && LA20_69<='=')||(LA20_69>='?' && LA20_69<='Z')||(LA20_69>='^' && LA20_69<='z')||(LA20_69>='~' && LA20_69<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_69=='*'||LA20_69==':'||LA20_69=='>'||LA20_69=='['||LA20_69==']'||LA20_69=='{'||LA20_69=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_69=='*'||LA20_69==':'||LA20_69=='>'||LA20_69=='['||LA20_69==']'||(LA20_69>='{' && LA20_69<='}')) && ((( isHead() )||( isValue() )))) {s = 71;}
 
                         else if ( ((LA20_69>='(' && LA20_69<=')')||LA20_69==',') && ((( isHead() )||( isValue() )))) {s = 72;}
 
@@ -3442,9 +3442,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_75=='\t'||LA20_75==' ') ) {s = 75;}
 
-                        else if ( ((LA20_75>='\u0000' && LA20_75<='\b')||(LA20_75>='\u000B' && LA20_75<='\f')||(LA20_75>='\u000E' && LA20_75<='\u001F')||LA20_75=='!'||(LA20_75>='$' && LA20_75<='\'')||LA20_75=='+'||(LA20_75>='-' && LA20_75<='9')||(LA20_75>=';' && LA20_75<='=')||(LA20_75>='?' && LA20_75<='Z')||(LA20_75>='^' && LA20_75<='z')||LA20_75=='|'||(LA20_75>='~' && LA20_75<='\uFFFF')) ) {s = 76;}
+                        else if ( ((LA20_75>='\u0000' && LA20_75<='\b')||(LA20_75>='\u000B' && LA20_75<='\f')||(LA20_75>='\u000E' && LA20_75<='\u001F')||LA20_75=='!'||(LA20_75>='$' && LA20_75<='\'')||LA20_75=='+'||(LA20_75>='-' && LA20_75<='9')||(LA20_75>=';' && LA20_75<='=')||(LA20_75>='?' && LA20_75<='Z')||(LA20_75>='^' && LA20_75<='z')||(LA20_75>='~' && LA20_75<='\uFFFF')) ) {s = 76;}
 
-                        else if ( (LA20_75=='*'||LA20_75==':'||LA20_75=='>'||LA20_75=='['||LA20_75==']'||LA20_75=='{'||LA20_75=='}') ) {s = 77;}
+                        else if ( (LA20_75=='*'||LA20_75==':'||LA20_75=='>'||LA20_75=='['||LA20_75==']'||(LA20_75>='{' && LA20_75<='}')) ) {s = 77;}
 
                         else if ( ((LA20_75>='(' && LA20_75<=')')||LA20_75==',') ) {s = 78;}
 
@@ -3516,9 +3516,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_45=='\t'||LA20_45==' ') ) {s = 43;}
 
-                        else if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||(LA20_45>='$' && LA20_45<='\'')||LA20_45=='+'||(LA20_45>='-' && LA20_45<='9')||(LA20_45>=';' && LA20_45<='=')||(LA20_45>='?' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||LA20_45=='|'||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||(LA20_45>='$' && LA20_45<='\'')||LA20_45=='+'||(LA20_45>='-' && LA20_45<='9')||(LA20_45>=';' && LA20_45<='=')||(LA20_45>='?' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_45=='*'||LA20_45==':'||LA20_45=='>'||LA20_45=='['||LA20_45==']'||LA20_45=='{'||LA20_45=='}') ) {s = 45;}
+                        else if ( (LA20_45=='*'||LA20_45==':'||LA20_45=='>'||LA20_45=='['||LA20_45==']'||(LA20_45>='{' && LA20_45<='}')) ) {s = 45;}
 
                         else if ( ((LA20_45>='(' && LA20_45<=')')||LA20_45==',') ) {s = 46;}
 
@@ -3539,9 +3539,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_67=='\t'||LA20_67==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_67>='\u0000' && LA20_67<='\b')||(LA20_67>='\u000B' && LA20_67<='\f')||(LA20_67>='\u000E' && LA20_67<='\u001F')||LA20_67=='!'||(LA20_67>='$' && LA20_67<='\'')||LA20_67=='+'||(LA20_67>='-' && LA20_67<='9')||(LA20_67>=';' && LA20_67<='=')||(LA20_67>='?' && LA20_67<='Z')||(LA20_67>='^' && LA20_67<='z')||LA20_67=='|'||(LA20_67>='~' && LA20_67<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_67>='\u0000' && LA20_67<='\b')||(LA20_67>='\u000B' && LA20_67<='\f')||(LA20_67>='\u000E' && LA20_67<='\u001F')||LA20_67=='!'||(LA20_67>='$' && LA20_67<='\'')||LA20_67=='+'||(LA20_67>='-' && LA20_67<='9')||(LA20_67>=';' && LA20_67<='=')||(LA20_67>='?' && LA20_67<='Z')||(LA20_67>='^' && LA20_67<='z')||(LA20_67>='~' && LA20_67<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_67=='*'||LA20_67==':'||LA20_67=='>'||LA20_67=='['||LA20_67==']'||LA20_67=='{'||LA20_67=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_67=='*'||LA20_67==':'||LA20_67=='>'||LA20_67=='['||LA20_67==']'||(LA20_67>='{' && LA20_67<='}')) && ((( isValue() )||( isHead() )))) {s = 67;}
 
                         else if ( ((LA20_67>='(' && LA20_67<=')')||LA20_67==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
@@ -3562,9 +3562,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_19=='\t'||LA20_19==' ') ) {s = 43;}
 
-                        else if ( ((LA20_19>='\u0000' && LA20_19<='\b')||(LA20_19>='\u000B' && LA20_19<='\f')||(LA20_19>='\u000E' && LA20_19<='\u001F')||LA20_19=='!'||(LA20_19>='$' && LA20_19<='\'')||LA20_19=='+'||(LA20_19>='-' && LA20_19<='9')||(LA20_19>=';' && LA20_19<='=')||(LA20_19>='?' && LA20_19<='Z')||(LA20_19>='^' && LA20_19<='z')||LA20_19=='|'||(LA20_19>='~' && LA20_19<='\uFFFF')) ) {s = 50;}
+                        else if ( ((LA20_19>='\u0000' && LA20_19<='\b')||(LA20_19>='\u000B' && LA20_19<='\f')||(LA20_19>='\u000E' && LA20_19<='\u001F')||LA20_19=='!'||(LA20_19>='$' && LA20_19<='\'')||LA20_19=='+'||(LA20_19>='-' && LA20_19<='9')||(LA20_19>=';' && LA20_19<='=')||(LA20_19>='?' && LA20_19<='Z')||(LA20_19>='^' && LA20_19<='z')||(LA20_19>='~' && LA20_19<='\uFFFF')) ) {s = 50;}
 
-                        else if ( (LA20_19=='*'||LA20_19==':'||LA20_19=='>'||LA20_19=='['||LA20_19==']'||LA20_19=='{'||LA20_19=='}') ) {s = 51;}
+                        else if ( (LA20_19=='*'||LA20_19==':'||LA20_19=='>'||LA20_19=='['||LA20_19==']'||(LA20_19>='{' && LA20_19<='}')) ) {s = 51;}
 
                         else if ( ((LA20_19>='(' && LA20_19<=')')||LA20_19==',') ) {s = 52;}
 
@@ -3640,9 +3640,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_43=='\t'||LA20_43==' ') ) {s = 43;}
 
-                        else if ( ((LA20_43>='\u0000' && LA20_43<='\b')||(LA20_43>='\u000B' && LA20_43<='\f')||(LA20_43>='\u000E' && LA20_43<='\u001F')||LA20_43=='!'||(LA20_43>='$' && LA20_43<='\'')||LA20_43=='+'||(LA20_43>='-' && LA20_43<='9')||(LA20_43>=';' && LA20_43<='=')||(LA20_43>='?' && LA20_43<='Z')||(LA20_43>='^' && LA20_43<='z')||LA20_43=='|'||(LA20_43>='~' && LA20_43<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_43>='\u0000' && LA20_43<='\b')||(LA20_43>='\u000B' && LA20_43<='\f')||(LA20_43>='\u000E' && LA20_43<='\u001F')||LA20_43=='!'||(LA20_43>='$' && LA20_43<='\'')||LA20_43=='+'||(LA20_43>='-' && LA20_43<='9')||(LA20_43>=';' && LA20_43<='=')||(LA20_43>='?' && LA20_43<='Z')||(LA20_43>='^' && LA20_43<='z')||(LA20_43>='~' && LA20_43<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_43=='*'||LA20_43==':'||LA20_43=='>'||LA20_43=='['||LA20_43==']'||LA20_43=='{'||LA20_43=='}') ) {s = 45;}
+                        else if ( (LA20_43=='*'||LA20_43==':'||LA20_43=='>'||LA20_43=='['||LA20_43==']'||(LA20_43>='{' && LA20_43<='}')) ) {s = 45;}
 
                         else if ( ((LA20_43>='(' && LA20_43<=')')||LA20_43==',') ) {s = 46;}
 
@@ -3663,9 +3663,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_65=='\t'||LA20_65==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_65>='\u0000' && LA20_65<='\b')||(LA20_65>='\u000B' && LA20_65<='\f')||(LA20_65>='\u000E' && LA20_65<='\u001F')||LA20_65=='!'||(LA20_65>='$' && LA20_65<='\'')||LA20_65=='+'||(LA20_65>='-' && LA20_65<='9')||(LA20_65>=';' && LA20_65<='=')||(LA20_65>='?' && LA20_65<='Z')||(LA20_65>='^' && LA20_65<='z')||LA20_65=='|'||(LA20_65>='~' && LA20_65<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_65>='\u0000' && LA20_65<='\b')||(LA20_65>='\u000B' && LA20_65<='\f')||(LA20_65>='\u000E' && LA20_65<='\u001F')||LA20_65=='!'||(LA20_65>='$' && LA20_65<='\'')||LA20_65=='+'||(LA20_65>='-' && LA20_65<='9')||(LA20_65>=';' && LA20_65<='=')||(LA20_65>='?' && LA20_65<='Z')||(LA20_65>='^' && LA20_65<='z')||(LA20_65>='~' && LA20_65<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_65=='*'||LA20_65==':'||LA20_65=='>'||LA20_65=='['||LA20_65==']'||LA20_65=='{'||LA20_65=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_65=='*'||LA20_65==':'||LA20_65=='>'||LA20_65=='['||LA20_65==']'||(LA20_65>='{' && LA20_65<='}')) && ((( isValue() )||( isHead() )))) {s = 67;}
 
                         else if ( ((LA20_65>='(' && LA20_65<=')')||LA20_65==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
@@ -3737,9 +3737,9 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA20_46=='\t'||LA20_46==' ') ) {s = 43;}
 
-                        else if ( ((LA20_46>='\u0000' && LA20_46<='\b')||(LA20_46>='\u000B' && LA20_46<='\f')||(LA20_46>='\u000E' && LA20_46<='\u001F')||LA20_46=='!'||(LA20_46>='$' && LA20_46<='\'')||LA20_46=='+'||(LA20_46>='-' && LA20_46<='9')||(LA20_46>=';' && LA20_46<='=')||(LA20_46>='?' && LA20_46<='Z')||(LA20_46>='^' && LA20_46<='z')||LA20_46=='|'||(LA20_46>='~' && LA20_46<='\uFFFF')) ) {s = 44;}
+                        else if ( ((LA20_46>='\u0000' && LA20_46<='\b')||(LA20_46>='\u000B' && LA20_46<='\f')||(LA20_46>='\u000E' && LA20_46<='\u001F')||LA20_46=='!'||(LA20_46>='$' && LA20_46<='\'')||LA20_46=='+'||(LA20_46>='-' && LA20_46<='9')||(LA20_46>=';' && LA20_46<='=')||(LA20_46>='?' && LA20_46<='Z')||(LA20_46>='^' && LA20_46<='z')||(LA20_46>='~' && LA20_46<='\uFFFF')) ) {s = 44;}
 
-                        else if ( (LA20_46=='*'||LA20_46==':'||LA20_46=='>'||LA20_46=='['||LA20_46==']'||LA20_46=='{'||LA20_46=='}') ) {s = 45;}
+                        else if ( (LA20_46=='*'||LA20_46==':'||LA20_46=='>'||LA20_46=='['||LA20_46==']'||(LA20_46>='{' && LA20_46<='}')) ) {s = 45;}
 
                         else if ( ((LA20_46>='(' && LA20_46<=')')||LA20_46==',') ) {s = 46;}
 
@@ -3760,9 +3760,9 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA20_68=='\t'||LA20_68==' ') && ((( isValue() )||( isHead() )))) {s = 65;}
 
-                        else if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||(LA20_68>='$' && LA20_68<='\'')||LA20_68=='+'||(LA20_68>='-' && LA20_68<='9')||(LA20_68>=';' && LA20_68<='=')||(LA20_68>='?' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||LA20_68=='|'||(LA20_68>='~' && LA20_68<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
+                        else if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||(LA20_68>='$' && LA20_68<='\'')||LA20_68=='+'||(LA20_68>='-' && LA20_68<='9')||(LA20_68>=';' && LA20_68<='=')||(LA20_68>='?' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||(LA20_68>='~' && LA20_68<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA20_68=='*'||LA20_68==':'||LA20_68=='>'||LA20_68=='['||LA20_68==']'||LA20_68=='{'||LA20_68=='}') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        else if ( (LA20_68=='*'||LA20_68==':'||LA20_68=='>'||LA20_68=='['||LA20_68==']'||(LA20_68>='{' && LA20_68<='}')) && ((( isValue() )||( isHead() )))) {s = 67;}
 
                         else if ( ((LA20_68>='(' && LA20_68<=')')||LA20_68==',') && ((( isValue() )||( isHead() )))) {s = 68;}
 
@@ -3815,9 +3815,9 @@ public class SilkLexer extends Lexer {
                         s = -1;
                         if ( (LA20_71=='\t'||LA20_71==' ') && ((( isHead() )||( isValue() )))) {s = 69;}
 
-                        else if ( ((LA20_71>='\u0000' && LA20_71<='\b')||(LA20_71>='\u000B' && LA20_71<='\f')||(LA20_71>='\u000E' && LA20_71<='\u001F')||LA20_71=='!'||(LA20_71>='$' && LA20_71<='\'')||LA20_71=='+'||(LA20_71>='-' && LA20_71<='9')||(LA20_71>=';' && LA20_71<='=')||(LA20_71>='?' && LA20_71<='Z')||(LA20_71>='^' && LA20_71<='z')||LA20_71=='|'||(LA20_71>='~' && LA20_71<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
+                        else if ( ((LA20_71>='\u0000' && LA20_71<='\b')||(LA20_71>='\u000B' && LA20_71<='\f')||(LA20_71>='\u000E' && LA20_71<='\u001F')||LA20_71=='!'||(LA20_71>='$' && LA20_71<='\'')||LA20_71=='+'||(LA20_71>='-' && LA20_71<='9')||(LA20_71>=';' && LA20_71<='=')||(LA20_71>='?' && LA20_71<='Z')||(LA20_71>='^' && LA20_71<='z')||(LA20_71>='~' && LA20_71<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 70;}
 
-                        else if ( (LA20_71=='*'||LA20_71==':'||LA20_71=='>'||LA20_71=='['||LA20_71==']'||LA20_71=='{'||LA20_71=='}') && ((( isHead() )||( isValue() )))) {s = 71;}
+                        else if ( (LA20_71=='*'||LA20_71==':'||LA20_71=='>'||LA20_71=='['||LA20_71==']'||(LA20_71>='{' && LA20_71<='}')) && ((( isHead() )||( isValue() )))) {s = 71;}
 
                         else if ( ((LA20_71>='(' && LA20_71<=')')||LA20_71==',') && ((( isHead() )||( isValue() )))) {s = 72;}
 

@@ -487,12 +487,12 @@ public class BeanUtil
      *            getSomething
      * @param patternType
      *            set(ter) or get(ter)
-     * @return 
-     *         $B%a%=%C%IL>$+$i@hF,$Nset/getを取り除いた文字列の先頭をlower
-     *         caseに変換したString. 切り出せない場合は、null
-     *         $B$rJV$9/
+     * @return property name of the method name
+     * 
+     * 
+     * 
      */
-    static String pickPropertyName(String methodName)
+    public static String pickPropertyName(String methodName)
     {
         Matcher m = null;
         m = _setGetAddMethodPattern.matcher(methodName);
@@ -507,7 +507,7 @@ public class BeanUtil
         }
     }
 
-    static private Pattern _setGetAddMethodPattern = Pattern.compile("^(set|get|add|put)((\\S)(\\S*))?");
+    static private Pattern _setGetAddMethodPattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
 
     private static class BeanToXMLProcess
     {

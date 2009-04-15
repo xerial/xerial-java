@@ -28,17 +28,22 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.xerial.util.HashedArrayList;
-
 /**
- * A base implementation of {@link HashedArrayList}
+ * Base implementation of the table of collections:
+ * 
+ * <pre>
+ *  {
+ *   key1 =&gt; [v1, v2, ...],
+ *   key2 =&gt; [v3, ...]
+ *  }
+ * </pre>
  * 
  * @author leo
  * 
  * @param <Key>
  * @param <Value>
  */
-public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>>
+public abstract class Chain<Key, Value, ValueChain extends Collection<Value>>
 {
     private Map<Key, ValueChain> map;
 
@@ -46,7 +51,7 @@ public abstract class ChainBase<Key, Value, ValueChain extends Collection<Value>
 
     protected abstract ValueChain newValueChain();
 
-    protected ChainBase()
+    protected Chain()
     {
         map = newMap();
     }

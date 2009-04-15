@@ -33,18 +33,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInformation;
 
 public class LensGenerator
 {
     private static Map<Class< ? >, Set<FieldSetter>> classSetterTable = new HashMap<Class< ? >, Set<FieldSetter>>();
 
-    private static void retrievesObjectAttributes(Class< ? > type)
+    private static void createBindRules(Class< ? > targetType)
     {
         List<FieldSetter> setterContainer = new ArrayList<FieldSetter>();
 
         // look for all super classes
-        for (Class< ? > eachClass = type; eachClass != null; eachClass = eachClass.getSuperclass())
+        for (Class< ? > eachClass = targetType; eachClass != null; eachClass = eachClass.getSuperclass())
         {
             // scan fields
             for (Field eachField : eachClass.getFields())
@@ -80,6 +81,7 @@ public class LensGenerator
             for (Method eachMethod : eachClass.getMethods())
             {
                 String methodName = eachMethod.getName();
+                String parametrName = BeanUtil.pickPropertyName(methodName);
                 if (methodName.startsWith("add"))
                 {
                     // adder

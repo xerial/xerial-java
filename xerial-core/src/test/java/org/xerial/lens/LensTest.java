@@ -27,9 +27,6 @@ package org.xerial.lens;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +35,7 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
-import org.xerial.util.Pair;
+import org.xerial.util.HashedArrayList;
 import org.xerial.util.log.Logger;
 
 public class LensTest
@@ -53,47 +50,13 @@ public class LensTest
     public void tearDown() throws Exception
     {}
 
-    static class GeneTableOneToMany
+    static class GeneTable
     {
-        public String trackName;
-        public Map<Coordinate, List<Gene>> sequenceTable;
-    }
+        private HashedArrayList<Coordinate, Gene> sequenceTable;
 
-    /**
-     * Example of showing that adder with two arguments corresponds to a
-     * Map<Key, Collection<Value>> parameter.
-     * 
-     * @author leo
-     * 
-     */
-    static class GeneTableWithMapAdder
-    {
-        private Map<Coordinate, List<Gene>> sequenceTable;
-
-        public void add(@Name("coordinate") Coordinate coordinate, @Name("gene") Gene gene)
+        public void add(Coordinate coordinate, Gene gene)
         {
-            List<Gene> geneList = sequenceTable.get(coordinate);
-            if (geneList == null)
-            {
-                geneList = new ArrayList<Gene>();
-                sequenceTable.put(coordinate, geneList);
-            }
-            geneList.add(gene);
-        }
-    }
-
-    static class GeneTableOneToOne
-    {
-        public List<Pair<Coordinate, Gene>> geneList;
-    }
-
-    static class GeneTableOneToOneWithAdder
-    {
-        public List<Pair<Coordinate, Gene>> geneList;
-
-        public void add(@Name(aliases = { "coordinate" }) Coordinate coordinate, @Name("gene") Gene gene)
-        {
-            geneList.add(Pair.newPair(coordinate, gene));
+            sequenceTable.put(coordinate, gene);
         }
     }
 
@@ -102,15 +65,17 @@ public class LensTest
         private String name;
         private long start;
         private String strand;
-        private String sequence;
+        private StringBuilder sequence = new StringBuilder();
+
+        public void appendSequence(String sequence)
+        {}
     }
 
     @Ignore
     @Test
     public void testTranslateSilk() throws IOException, XerialException
     {
-        GeneTableOneToMany g = Lens.translateSilk(FileResource.find(LensTest.class, "../silk/sequence.silk"),
-                GeneTableOneToMany.class);
+        GeneTable g = Lens.translateSilk(FileResource.find(LensTest.class, "../silk/sequence.silk"), GeneTable.class);
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());

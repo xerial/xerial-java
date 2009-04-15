@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.xerial.util.impl.ChainBase;
+import org.xerial.util.impl.Chain;
 
 /**
  * Map structure key -> [value1, value2, ...]
@@ -37,7 +37,7 @@ import org.xerial.util.impl.ChainBase;
  * @author leo
  * 
  */
-public class HashedArrayList<Key, Value> extends ChainBase<Key, Value, ArrayList<Value>>
+public class HashedArrayList<Key, Value> extends Chain<Key, Value, ArrayList<Value>>
 {
     @Override
     protected Map<Key, ArrayList<Value>> newMap()

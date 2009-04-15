@@ -157,6 +157,18 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testHereDocument() throws Exception
+    {
+        compare("heredoc.silk", "heredoc.json");
+    }
+
+    @Test
+    public void testNullMultiline() throws Exception
+    {
+        compare("null-multiline.silk", "null-multiline.json");
+    }
+
+    @Test
     public void testSkipDescendants() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));

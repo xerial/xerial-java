@@ -1,0 +1,5 @@
+-sequence(seq1, seq2)|<<EOF
+ABCD
+EFGHI	JKLMN
+OP
+EOF

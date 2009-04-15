@@ -27,7 +27,7 @@ package org.xerial.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.xerial.util.impl.ChainBase;
+import org.xerial.util.impl.Chain;
 
 /**
  * Hash table of deques.
@@ -38,7 +38,7 @@ import org.xerial.util.impl.ChainBase;
  * @param <Key>
  * @param <Value>
  */
-public class HashedDeque<Key, Value> extends ChainBase<Key, Value, Deque<Value>>
+public class HashedDeque<Key, Value> extends Chain<Key, Value, Deque<Value>>
 {
 
     @Override
