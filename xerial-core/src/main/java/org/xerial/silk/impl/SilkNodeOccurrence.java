@@ -52,6 +52,11 @@ public enum SilkNodeOccurrence {
         return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE || this == MULTILINE_SEQUENCE;
     }
 
+    public boolean isSchemaOnlyNode()
+    {
+        return this == TABBED_SEQUENCE || this == ZERO_OR_MORE || this == MULTILINE_SEQUENCE;
+    }
+
     @Override
     public String toString()
     {

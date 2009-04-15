@@ -233,6 +233,15 @@ public class SilkStreamReader implements TreeStreamReader
             {
                 parseContext.popLastContext();
 
+                if (parseContext.isAttributeOpen)
+                {
+                    // close attribute 
+                    SilkNode attribute = node.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                    leave(attribute.getName());
+                    leave(node.getName());
+                    parseContext.isAttributeOpen = false;
+                }
+
                 if (context.isOpen)
                 {
                     // close context
@@ -280,9 +289,12 @@ public class SilkStreamReader implements TreeStreamReader
         parseContext.pushContext(currentContext);
 
         SilkNodeOccurrence occurrence = node.getOccurrence();
-        if (occurrence == SilkNodeOccurrence.TABBED_SEQUENCE || occurrence == SilkNodeOccurrence.ZERO_OR_MORE)
+        if (occurrence.isSchemaOnlyNode())
         {
             currentContext.isOpen = false;
+            // reset the attribute cursor
+            parseContext.contextNodeAttributeCursor = 0;
+            parseContext.isAttributeOpen = false;
             return; // do not invoke visit events
         }
 
@@ -599,7 +611,6 @@ public class SilkStreamReader implements TreeStreamReader
             evalFunction(function);
             break;
         case DATA_LINE:
-
             // pop the context stack until finding a node for stream data node occurrence
             while (!parseContext.isContextNodeStackEmpty())
             {
@@ -680,9 +691,61 @@ public class SilkStreamReader implements TreeStreamReader
                     leave(schema.getName());
                     break;
                 }
+                case MULTILINE_SEQUENCE:
+                {
+                    int cursor = parseContext.contextNodeAttributeCursor;
+
+                    if (cursor >= schema.getChildNodes().size())
+                        break;
+
+                    SilkNode attributeNode = schema.getChildNodes().get(cursor);
+                    if (cursor == 0 && !parseContext.isAttributeOpen)
+                    {
+                        visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
+                    }
+                    if (!parseContext.isAttributeOpen)
+                    {
+                        if (attributeNode.hasValue())
+                            visit(attributeNode.getName(), attributeNode.getValue().toString());
+                        else
+                            visit(attributeNode.getName(), null);
+
+                        parseContext.isAttributeOpen = true;
+                    }
+                    text(line.getDataLine().trim());
+                    break;
+                }
                 }
             }
             break;
+        case MULTILINE_ENTRY_SEPARATOR: // >>
+        {
+            SilkContext context = parseContext.peekLastContext();
+            SilkNode schema = context.contextNode;
+            if (parseContext.isAttributeOpen)
+            {
+                SilkNode attributeNode = schema.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                leave(attributeNode.getName());
+            }
+            leave(schema.getName());
+            // reset
+            parseContext.contextNodeAttributeCursor = 0;
+            parseContext.isAttributeOpen = false;
+            break;
+        }
+        case MULTILINE_SEPARATOR: // --
+        {
+            SilkContext context = parseContext.peekLastContext();
+            SilkNode schema = context.contextNode;
+            if (parseContext.isAttributeOpen)
+            {
+                SilkNode attributeNode = schema.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                leave(attributeNode.getName());
+            }
+            parseContext.contextNodeAttributeCursor++;
+            parseContext.isAttributeOpen = false;
+            break;
+        }
         case BLANK_LINE:
             break;
 
