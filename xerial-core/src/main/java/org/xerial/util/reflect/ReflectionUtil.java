@@ -111,8 +111,13 @@ public class ReflectionUtil
 
     /**
      * Get the generic element type of the field that has a collection type. For
-     * example, for a field <em>f</em> List<String>,
-     * getGenericCollectionElementType(f) returns String.
+     * example, for a field <em>f</em>
+     * 
+     * <pre>
+     * List&lt;String&gt;
+     * </pre>
+     * 
+     * getGenericCollectionElementType(f) returns String.class.
      * 
      * @param field
      * @return the generic element type

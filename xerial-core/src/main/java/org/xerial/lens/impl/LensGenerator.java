@@ -47,7 +47,7 @@ public class LensGenerator
         // look for all super classes
         for (Class< ? > eachClass = targetType; eachClass != null; eachClass = eachClass.getSuperclass())
         {
-            // scan fields
+            // scan public fields
             for (Field eachField : eachClass.getFields())
             {
                 int fieldModifier = eachField.getModifiers();
