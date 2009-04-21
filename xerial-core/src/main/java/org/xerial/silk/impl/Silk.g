@@ -196,7 +196,7 @@ fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
 fragment PlainFirst
-	: { isInValue()? } => ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
+	: { isInValue() }? => ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
 	| ~('"'| '\\' | '-' | LineBreakChar | WhiteSpace | Indicator ) 
 	| { isValue() }? => (':' | '?') NonSpaceChar
 	;
