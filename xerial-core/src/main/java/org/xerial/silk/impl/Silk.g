@@ -183,10 +183,6 @@ fragment StringChar_s: StringChar*;
 String: '"' s=StringChar_s '"' { setText($s.text); };
 
  
-fragment PlainFirst
-	: ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
-	| { isValue() }? => (':' | '?') NonSpaceChar
-	;
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
@@ -199,6 +195,11 @@ fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' 
 fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
+fragment PlainFirst
+	: { isInValue()? } => ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
+	| ~('"'| '\\' | '-' | LineBreakChar | WhiteSpace | Indicator ) 
+	| { isValue() }? => (':' | '?') NonSpaceChar
+	;
 
 fragment PlainSafe
 	: { isKey() }? => PlainSafeKey
