@@ -101,4 +101,10 @@ public class SilkLexerTest
     {
         scan("../heredoc.silk");
     }
+
+    @Test
+    public void testScaffold() throws Exception
+    {
+        scan("../scaffold5001.silk");
+    }
 }

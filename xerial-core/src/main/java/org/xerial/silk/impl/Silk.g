@@ -130,8 +130,8 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
 // lexer rules
 
 // comment 
-LineComment: '#' ~('\n'|'\r')* '\r' '\n' { $channel=HIDDEN; }; 
-Preamble: '%' ~('\n'|'\r')* '\r'? '\n'; 
+LineComment: '#' ~('\n'|'\r')* LineBreak { $channel=HIDDEN; }; 
+Preamble: '%' ~('\n'|'\r')* LineBreak; 
 
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
@@ -190,7 +190,7 @@ fragment PlainFirst
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
-fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | '-' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
 
 
 fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | '#' ;

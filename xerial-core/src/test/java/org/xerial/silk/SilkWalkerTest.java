@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -169,6 +167,12 @@ public class SilkWalkerTest
     public void testNullMultiline() throws Exception
     {
         compare("null-multiline.silk", "null-multiline.json");
+    }
+
+    @Test
+    public void testScaffold() throws Exception
+    {
+        TreeWalkLog l = walk("scaffold5001.silk");
     }
 
     @Test
