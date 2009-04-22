@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-22 20:18:50
+// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-23 01:32:21
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -35,63 +35,58 @@ import org.antlr.runtime.tree.*;
 
 public class SilkParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Silk", "SilkNode", "SilkLine", "Name", "Value", "Occurrence", "DataType", "Function", "Argument", "KeyValuePair", "Key", "WhiteSpace", "LineBreakChar", "LineComment", "Preamble", "MultiLineSeparator", "MultiLineEntrySeparator", "NodeIndent", "FunctionIndent", "BlankLine", "DataLineBody", "DataLine", "LParen", "RParen", "Comma", "Colon", "Seq", "TabSeq", "Star", "At", "Plus", "LBracket", "RBracket", "Question", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "ScopeIndicator", "FlowIndicator", "Indicator", "PlainUnsafeChar", "PlainSafeKey", "PlainSafeIn", "PlainSafeOut", "NonSpaceChar", "PlainFirst", "PlainOneLine", "JSON", "Separation"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Silk", "SilkNode", "SilkLine", "Name", "Value", "Occurrence", "DataType", "Function", "Argument", "KeyValuePair", "Key", "WhiteSpace", "LineBreakChar", "LineComment", "NodeIndent", "FunctionIndent", "BlankLine", "LParen", "RParen", "Comma", "Colon", "Seq", "TabSeq", "Star", "At", "Plus", "LBracket", "RBracket", "Question", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "ScopeIndicator", "FlowIndicator", "Indicator", "PlainUnsafeChar", "PlainSafeKey", "PlainSafeIn", "PlainSafeOut", "NonSpaceChar", "PlainFirst", "PlainOneLine", "JSON", "Separation"
     };
     public static final int Key=14;
-    public static final int PlainUnsafeChar=49;
-    public static final int PlainSafeKey=50;
+    public static final int PlainUnsafeChar=44;
+    public static final int PlainSafeKey=45;
     public static final int DataType=10;
     public static final int SilkNode=5;
     public static final int SilkLine=6;
-    public static final int LBracket=35;
-    public static final int NodeIndent=21;
-    public static final int Digit=38;
-    public static final int HexDigit=40;
-    public static final int PlainOneLine=55;
-    public static final int Plus=34;
+    public static final int LBracket=30;
+    public static final int NodeIndent=18;
+    public static final int Digit=33;
+    public static final int HexDigit=35;
+    public static final int PlainOneLine=50;
+    public static final int Plus=29;
     public static final int Occurrence=9;
     public static final int Argument=12;
-    public static final int Separation=57;
-    public static final int FlowIndicator=47;
-    public static final int Letter=39;
-    public static final int PlainSafeIn=51;
-    public static final int Comma=28;
-    public static final int TabSeq=31;
-    public static final int NonSpaceChar=53;
-    public static final int EscapeSequence=42;
-    public static final int DataLine=25;
-    public static final int PlainFirst=54;
+    public static final int Separation=52;
+    public static final int FlowIndicator=42;
+    public static final int Letter=34;
+    public static final int PlainSafeIn=46;
+    public static final int Comma=23;
+    public static final int TabSeq=26;
+    public static final int NonSpaceChar=48;
+    public static final int EscapeSequence=37;
+    public static final int PlainFirst=49;
     public static final int WhiteSpace=15;
-    public static final int MultiLineEntrySeparator=20;
-    public static final int PlainSafeOut=52;
-    public static final int JSON=56;
-    public static final int Question=37;
+    public static final int PlainSafeOut=47;
+    public static final int JSON=51;
+    public static final int Question=32;
     public static final int LineComment=17;
-    public static final int Colon=29;
-    public static final int At=33;
-    public static final int DataLineBody=24;
+    public static final int Colon=24;
+    public static final int At=28;
     public static final int KeyValuePair=13;
-    public static final int Star=32;
-    public static final int Preamble=18;
-    public static final int Seq=30;
-    public static final int FunctionIndent=22;
-    public static final int Indicator=48;
-    public static final int RParen=27;
-    public static final int UnicodeChar=41;
-    public static final int MultiLineSeparator=19;
+    public static final int Star=27;
+    public static final int Seq=25;
+    public static final int FunctionIndent=19;
+    public static final int RParen=22;
+    public static final int Indicator=43;
+    public static final int UnicodeChar=36;
     public static final int Silk=4;
-    public static final int BlankLine=23;
-    public static final int StringChar=43;
+    public static final int BlankLine=20;
+    public static final int StringChar=38;
     public static final int Function=11;
     public static final int Name=7;
-    public static final int LParen=26;
-    public static final int String=45;
+    public static final int LParen=21;
+    public static final int String=40;
     public static final int LineBreakChar=16;
-    public static final int ScopeIndicator=46;
+    public static final int ScopeIndicator=41;
     public static final int EOF=-1;
-    public static final int StringChar_s=44;
+    public static final int StringChar_s=39;
     public static final int Value=8;
-    public static final int RBracket=36;
+    public static final int RBracket=31;
 
     // delegates
     // delegators
@@ -143,12 +138,18 @@ public class SilkParser extends Parser {
             loop1:
             do {
                 int alt1=2;
-                alt1 = dfa1.predict(input);
+                int LA1_0 = input.LA(1);
+
+                if ( (LA1_0==WhiteSpace||(LA1_0>=LineComment && LA1_0<=FunctionIndent)) ) {
+                    alt1=1;
+                }
+
+
                 switch (alt1) {
             	case 1 :
             	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:266:11: silkLine
             	    {
-            	    pushFollow(FOLLOW_silkLine_in_silkFile957);
+            	    pushFollow(FOLLOW_silkLine_in_silkFile861);
             	    silkLine1=silkLine();
 
             	    state._fsp--;
@@ -221,7 +222,7 @@ public class SilkParser extends Parser {
     };
 
     // $ANTLR start "silkLine"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:269:1: silkLine : ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | Preamble | DataLine | BlankLine | LineComment | MultiLineSeparator | MultiLineEntrySeparator | WhiteSpace -> BlankLine );
+    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:269:1: silkLine : ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | LineComment | WhiteSpace -> BlankLine );
     public final SilkParser.silkLine_return silkLine() throws RecognitionException {
         SilkParser.silkLine_return retval = new SilkParser.silkLine_return();
         retval.start = input.LT(1);
@@ -229,13 +230,8 @@ public class SilkParser extends Parser {
         Object root_0 = null;
 
         Token NodeIndent2=null;
-        Token Preamble6=null;
-        Token DataLine7=null;
-        Token BlankLine8=null;
-        Token LineComment9=null;
-        Token MultiLineSeparator10=null;
-        Token MultiLineEntrySeparator11=null;
-        Token WhiteSpace12=null;
+        Token LineComment6=null;
+        Token WhiteSpace7=null;
         SilkParser.nodeItem_return nodeItem3 = null;
 
         SilkParser.noNameNode_return noNameNode4 = null;
@@ -244,28 +240,23 @@ public class SilkParser extends Parser {
 
 
         Object NodeIndent2_tree=null;
-        Object Preamble6_tree=null;
-        Object DataLine7_tree=null;
-        Object BlankLine8_tree=null;
-        Object LineComment9_tree=null;
-        Object MultiLineSeparator10_tree=null;
-        Object MultiLineEntrySeparator11_tree=null;
-        Object WhiteSpace12_tree=null;
+        Object LineComment6_tree=null;
+        Object WhiteSpace7_tree=null;
         RewriteRuleTokenStream stream_WhiteSpace=new RewriteRuleTokenStream(adaptor,"token WhiteSpace");
         RewriteRuleTokenStream stream_NodeIndent=new RewriteRuleTokenStream(adaptor,"token NodeIndent");
         RewriteRuleSubtreeStream stream_nodeItem=new RewriteRuleSubtreeStream(adaptor,"rule nodeItem");
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:270:2: ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | Preamble | DataLine | BlankLine | LineComment | MultiLineSeparator | MultiLineEntrySeparator | WhiteSpace -> BlankLine )
-            int alt2=10;
+            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:270:2: ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | LineComment | WhiteSpace -> BlankLine )
+            int alt2=5;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:270:4: NodeIndent nodeItem
                     {
-                    NodeIndent2=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_silkLine978);  
+                    NodeIndent2=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_silkLine882);  
                     stream_NodeIndent.add(NodeIndent2);
 
-                    pushFollow(FOLLOW_nodeItem_in_silkLine980);
+                    pushFollow(FOLLOW_nodeItem_in_silkLine884);
                     nodeItem3=nodeItem();
 
                     state._fsp--;
@@ -274,7 +265,7 @@ public class SilkParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: NodeIndent, nodeItem
+                    // elements: nodeItem, NodeIndent
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -306,7 +297,7 @@ public class SilkParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_noNameNode_in_silkLine995);
+                    pushFollow(FOLLOW_noNameNode_in_silkLine899);
                     noNameNode4=noNameNode();
 
                     state._fsp--;
@@ -320,7 +311,7 @@ public class SilkParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_function_in_silkLine1001);
+                    pushFollow(FOLLOW_function_in_silkLine905);
                     function5=function();
 
                     state._fsp--;
@@ -330,82 +321,22 @@ public class SilkParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:273:4: Preamble
+                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:276:4: LineComment
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    Preamble6=(Token)match(input,Preamble,FOLLOW_Preamble_in_silkLine1006); 
-                    Preamble6_tree = (Object)adaptor.create(Preamble6);
-                    adaptor.addChild(root_0, Preamble6_tree);
+                    LineComment6=(Token)match(input,LineComment,FOLLOW_LineComment_in_silkLine913); 
+                    LineComment6_tree = (Object)adaptor.create(LineComment6);
+                    adaptor.addChild(root_0, LineComment6_tree);
 
 
                     }
                     break;
                 case 5 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:274:4: DataLine
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    DataLine7=(Token)match(input,DataLine,FOLLOW_DataLine_in_silkLine1011); 
-                    DataLine7_tree = (Object)adaptor.create(DataLine7);
-                    adaptor.addChild(root_0, DataLine7_tree);
-
-
-                    }
-                    break;
-                case 6 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:275:4: BlankLine
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    BlankLine8=(Token)match(input,BlankLine,FOLLOW_BlankLine_in_silkLine1016); 
-                    BlankLine8_tree = (Object)adaptor.create(BlankLine8);
-                    adaptor.addChild(root_0, BlankLine8_tree);
-
-
-                    }
-                    break;
-                case 7 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:276:4: LineComment
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    LineComment9=(Token)match(input,LineComment,FOLLOW_LineComment_in_silkLine1021); 
-                    LineComment9_tree = (Object)adaptor.create(LineComment9);
-                    adaptor.addChild(root_0, LineComment9_tree);
-
-
-                    }
-                    break;
-                case 8 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:277:4: MultiLineSeparator
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    MultiLineSeparator10=(Token)match(input,MultiLineSeparator,FOLLOW_MultiLineSeparator_in_silkLine1026); 
-                    MultiLineSeparator10_tree = (Object)adaptor.create(MultiLineSeparator10);
-                    adaptor.addChild(root_0, MultiLineSeparator10_tree);
-
-
-                    }
-                    break;
-                case 9 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:278:4: MultiLineEntrySeparator
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    MultiLineEntrySeparator11=(Token)match(input,MultiLineEntrySeparator,FOLLOW_MultiLineEntrySeparator_in_silkLine1031); 
-                    MultiLineEntrySeparator11_tree = (Object)adaptor.create(MultiLineEntrySeparator11);
-                    adaptor.addChild(root_0, MultiLineEntrySeparator11_tree);
-
-
-                    }
-                    break;
-                case 10 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:279:4: WhiteSpace
                     {
-                    WhiteSpace12=(Token)match(input,WhiteSpace,FOLLOW_WhiteSpace_in_silkLine1036);  
-                    stream_WhiteSpace.add(WhiteSpace12);
+                    WhiteSpace7=(Token)match(input,WhiteSpace,FOLLOW_WhiteSpace_in_silkLine920);  
+                    stream_WhiteSpace.add(WhiteSpace7);
 
 
 
@@ -461,9 +392,9 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token set13=null;
+        Token set8=null;
 
-        Object set13_tree=null;
+        Object set8_tree=null;
 
         try {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:283:9: ( PlainOneLine | String )
@@ -471,10 +402,10 @@ public class SilkParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            set13=(Token)input.LT(1);
+            set8=(Token)input.LT(1);
             if ( input.LA(1)==String||input.LA(1)==PlainOneLine ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set13));
+                adaptor.addChild(root_0, (Object)adaptor.create(set8));
                 state.errorRecovery=false;
             }
             else {
@@ -516,15 +447,15 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token PlainOneLine15=null;
-        Token String16=null;
-        Token JSON17=null;
-        SilkParser.function_i_return function_i14 = null;
+        Token PlainOneLine10=null;
+        Token String11=null;
+        Token JSON12=null;
+        SilkParser.function_i_return function_i9 = null;
 
 
-        Object PlainOneLine15_tree=null;
-        Object String16_tree=null;
-        Object JSON17_tree=null;
+        Object PlainOneLine10_tree=null;
+        Object String11_tree=null;
+        Object JSON12_tree=null;
         RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
         RewriteRuleSubtreeStream stream_function_i=new RewriteRuleSubtreeStream(adaptor,"rule function_i");
@@ -559,12 +490,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:287:4: function_i
                     {
-                    pushFollow(FOLLOW_function_i_in_nodeValue1066);
-                    function_i14=function_i();
+                    pushFollow(FOLLOW_function_i_in_nodeValue950);
+                    function_i9=function_i();
 
                     state._fsp--;
 
-                    stream_function_i.add(function_i14.getTree());
+                    stream_function_i.add(function_i9.getTree());
 
 
                     // AST REWRITE
@@ -617,8 +548,8 @@ public class SilkParser extends Parser {
                         case 1 :
                             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:288:5: PlainOneLine
                             {
-                            PlainOneLine15=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_nodeValue1080);  
-                            stream_PlainOneLine.add(PlainOneLine15);
+                            PlainOneLine10=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_nodeValue964);  
+                            stream_PlainOneLine.add(PlainOneLine10);
 
 
                             }
@@ -626,8 +557,8 @@ public class SilkParser extends Parser {
                         case 2 :
                             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:288:20: String
                             {
-                            String16=(Token)match(input,String,FOLLOW_String_in_nodeValue1084);  
-                            stream_String.add(String16);
+                            String11=(Token)match(input,String,FOLLOW_String_in_nodeValue968);  
+                            stream_String.add(String11);
 
 
                             }
@@ -661,9 +592,9 @@ public class SilkParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    JSON17=(Token)match(input,JSON,FOLLOW_JSON_in_nodeValue1095); 
-                    JSON17_tree = (Object)adaptor.create(JSON17);
-                    adaptor.addChild(root_0, JSON17_tree);
+                    JSON12=(Token)match(input,JSON,FOLLOW_JSON_in_nodeValue979); 
+                    JSON12_tree = (Object)adaptor.create(JSON12);
+                    adaptor.addChild(root_0, JSON12_tree);
 
 
                     }
@@ -701,21 +632,21 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token NodeIndent18=null;
-        Token LParen19=null;
-        Token RParen21=null;
-        Token Colon23=null;
-        SilkParser.attributeList_return attributeList20 = null;
+        Token NodeIndent13=null;
+        Token LParen14=null;
+        Token RParen16=null;
+        Token Colon18=null;
+        SilkParser.attributeList_return attributeList15 = null;
 
-        SilkParser.plural_return plural22 = null;
+        SilkParser.plural_return plural17 = null;
 
-        SilkParser.nodeValue_return nodeValue24 = null;
+        SilkParser.nodeValue_return nodeValue19 = null;
 
 
-        Object NodeIndent18_tree=null;
-        Object LParen19_tree=null;
-        Object RParen21_tree=null;
-        Object Colon23_tree=null;
+        Object NodeIndent13_tree=null;
+        Object LParen14_tree=null;
+        Object RParen16_tree=null;
+        Object Colon18_tree=null;
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_NodeIndent=new RewriteRuleTokenStream(adaptor,"token NodeIndent");
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
@@ -727,8 +658,8 @@ public class SilkParser extends Parser {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:11: ( NodeIndent ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )? -> ^( SilkNode NodeIndent ( attributeList )? ( plural )? ( nodeValue )? ) )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:13: NodeIndent ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )?
             {
-            NodeIndent18=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_noNameNode1109);  
-            stream_NodeIndent.add(NodeIndent18);
+            NodeIndent13=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_noNameNode993);  
+            stream_NodeIndent.add(NodeIndent13);
 
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:24: ( LParen attributeList RParen )?
             int alt5=2;
@@ -737,17 +668,17 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:25: LParen attributeList RParen
                     {
-                    LParen19=(Token)match(input,LParen,FOLLOW_LParen_in_noNameNode1112);  
-                    stream_LParen.add(LParen19);
+                    LParen14=(Token)match(input,LParen,FOLLOW_LParen_in_noNameNode996);  
+                    stream_LParen.add(LParen14);
 
-                    pushFollow(FOLLOW_attributeList_in_noNameNode1114);
-                    attributeList20=attributeList();
+                    pushFollow(FOLLOW_attributeList_in_noNameNode998);
+                    attributeList15=attributeList();
 
                     state._fsp--;
 
-                    stream_attributeList.add(attributeList20.getTree());
-                    RParen21=(Token)match(input,RParen,FOLLOW_RParen_in_noNameNode1116);  
-                    stream_RParen.add(RParen21);
+                    stream_attributeList.add(attributeList15.getTree());
+                    RParen16=(Token)match(input,RParen,FOLLOW_RParen_in_noNameNode1000);  
+                    stream_RParen.add(RParen16);
 
 
                     }
@@ -762,12 +693,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:55: plural
                     {
-                    pushFollow(FOLLOW_plural_in_noNameNode1120);
-                    plural22=plural();
+                    pushFollow(FOLLOW_plural_in_noNameNode1004);
+                    plural17=plural();
 
                     state._fsp--;
 
-                    stream_plural.add(plural22.getTree());
+                    stream_plural.add(plural17.getTree());
 
                     }
                     break;
@@ -776,20 +707,24 @@ public class SilkParser extends Parser {
 
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:63: ( Colon nodeValue )?
             int alt7=2;
-            alt7 = dfa7.predict(input);
+            int LA7_0 = input.LA(1);
+
+            if ( (LA7_0==Colon) ) {
+                alt7=1;
+            }
             switch (alt7) {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:294:64: Colon nodeValue
                     {
-                    Colon23=(Token)match(input,Colon,FOLLOW_Colon_in_noNameNode1124);  
-                    stream_Colon.add(Colon23);
+                    Colon18=(Token)match(input,Colon,FOLLOW_Colon_in_noNameNode1008);  
+                    stream_Colon.add(Colon18);
 
-                    pushFollow(FOLLOW_nodeValue_in_noNameNode1126);
-                    nodeValue24=nodeValue();
+                    pushFollow(FOLLOW_nodeValue_in_noNameNode1010);
+                    nodeValue19=nodeValue();
 
                     state._fsp--;
 
-                    stream_nodeValue.add(nodeValue24.getTree());
+                    stream_nodeValue.add(nodeValue19.getTree());
 
                     }
                     break;
@@ -799,7 +734,7 @@ public class SilkParser extends Parser {
 
 
             // AST REWRITE
-            // elements: nodeValue, NodeIndent, plural, attributeList
+            // elements: attributeList, NodeIndent, nodeValue, plural
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -874,23 +809,23 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token LParen27=null;
-        Token RParen29=null;
-        Token Colon31=null;
-        SilkParser.nodeName_return nodeName25 = null;
+        Token LParen22=null;
+        Token RParen24=null;
+        Token Colon26=null;
+        SilkParser.nodeName_return nodeName20 = null;
 
-        SilkParser.dataType_return dataType26 = null;
+        SilkParser.dataType_return dataType21 = null;
 
-        SilkParser.attributeList_return attributeList28 = null;
+        SilkParser.attributeList_return attributeList23 = null;
 
-        SilkParser.plural_return plural30 = null;
+        SilkParser.plural_return plural25 = null;
 
-        SilkParser.nodeValue_return nodeValue32 = null;
+        SilkParser.nodeValue_return nodeValue27 = null;
 
 
-        Object LParen27_tree=null;
-        Object RParen29_tree=null;
-        Object Colon31_tree=null;
+        Object LParen22_tree=null;
+        Object RParen24_tree=null;
+        Object Colon26_tree=null;
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
@@ -903,12 +838,12 @@ public class SilkParser extends Parser {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:9: ( nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )? -> Name[$nodeName.text.trim()] ( dataType )? ( attributeList )? ( plural )? ( nodeValue )? )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:11: nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )?
             {
-            pushFollow(FOLLOW_nodeName_in_nodeItem1159);
-            nodeName25=nodeName();
+            pushFollow(FOLLOW_nodeName_in_nodeItem1043);
+            nodeName20=nodeName();
 
             state._fsp--;
 
-            stream_nodeName.add(nodeName25.getTree());
+            stream_nodeName.add(nodeName20.getTree());
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:20: ( dataType )?
             int alt8=2;
             alt8 = dfa8.predict(input);
@@ -916,12 +851,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:20: dataType
                     {
-                    pushFollow(FOLLOW_dataType_in_nodeItem1161);
-                    dataType26=dataType();
+                    pushFollow(FOLLOW_dataType_in_nodeItem1045);
+                    dataType21=dataType();
 
                     state._fsp--;
 
-                    stream_dataType.add(dataType26.getTree());
+                    stream_dataType.add(dataType21.getTree());
 
                     }
                     break;
@@ -935,17 +870,17 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:32: LParen attributeList RParen
                     {
-                    LParen27=(Token)match(input,LParen,FOLLOW_LParen_in_nodeItem1166);  
-                    stream_LParen.add(LParen27);
+                    LParen22=(Token)match(input,LParen,FOLLOW_LParen_in_nodeItem1050);  
+                    stream_LParen.add(LParen22);
 
-                    pushFollow(FOLLOW_attributeList_in_nodeItem1168);
-                    attributeList28=attributeList();
+                    pushFollow(FOLLOW_attributeList_in_nodeItem1052);
+                    attributeList23=attributeList();
 
                     state._fsp--;
 
-                    stream_attributeList.add(attributeList28.getTree());
-                    RParen29=(Token)match(input,RParen,FOLLOW_RParen_in_nodeItem1170);  
-                    stream_RParen.add(RParen29);
+                    stream_attributeList.add(attributeList23.getTree());
+                    RParen24=(Token)match(input,RParen,FOLLOW_RParen_in_nodeItem1054);  
+                    stream_RParen.add(RParen24);
 
 
                     }
@@ -960,12 +895,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:62: plural
                     {
-                    pushFollow(FOLLOW_plural_in_nodeItem1174);
-                    plural30=plural();
+                    pushFollow(FOLLOW_plural_in_nodeItem1058);
+                    plural25=plural();
 
                     state._fsp--;
 
-                    stream_plural.add(plural30.getTree());
+                    stream_plural.add(plural25.getTree());
 
                     }
                     break;
@@ -974,20 +909,24 @@ public class SilkParser extends Parser {
 
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:70: ( Colon nodeValue )?
             int alt11=2;
-            alt11 = dfa11.predict(input);
+            int LA11_0 = input.LA(1);
+
+            if ( (LA11_0==Colon) ) {
+                alt11=1;
+            }
             switch (alt11) {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:299:71: Colon nodeValue
                     {
-                    Colon31=(Token)match(input,Colon,FOLLOW_Colon_in_nodeItem1178);  
-                    stream_Colon.add(Colon31);
+                    Colon26=(Token)match(input,Colon,FOLLOW_Colon_in_nodeItem1062);  
+                    stream_Colon.add(Colon26);
 
-                    pushFollow(FOLLOW_nodeValue_in_nodeItem1180);
-                    nodeValue32=nodeValue();
+                    pushFollow(FOLLOW_nodeValue_in_nodeItem1064);
+                    nodeValue27=nodeValue();
 
                     state._fsp--;
 
-                    stream_nodeValue.add(nodeValue32.getTree());
+                    stream_nodeValue.add(nodeValue27.getTree());
 
                     }
                     break;
@@ -997,7 +936,7 @@ public class SilkParser extends Parser {
 
 
             // AST REWRITE
-            // elements: nodeValue, attributeList, dataType, plural
+            // elements: plural, attributeList, dataType, nodeValue
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1008,7 +947,7 @@ public class SilkParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 300:2: -> Name[$nodeName.text.trim()] ( dataType )? ( attributeList )? ( plural )? ( nodeValue )?
             {
-                adaptor.addChild(root_0, (Object)adaptor.create(Name, (nodeName25!=null?input.toString(nodeName25.start,nodeName25.stop):null).trim()));
+                adaptor.addChild(root_0, (Object)adaptor.create(Name, (nodeName20!=null?input.toString(nodeName20.start,nodeName20.stop):null).trim()));
                 // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:300:33: ( dataType )?
                 if ( stream_dataType.hasNext() ) {
                     adaptor.addChild(root_0, stream_dataType.nextTree());
@@ -1070,13 +1009,13 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token LBracket33=null;
-        Token RBracket35=null;
-        SilkParser.dataTypeName_return dataTypeName34 = null;
+        Token LBracket28=null;
+        Token RBracket30=null;
+        SilkParser.dataTypeName_return dataTypeName29 = null;
 
 
-        Object LBracket33_tree=null;
-        Object RBracket35_tree=null;
+        Object LBracket28_tree=null;
+        Object RBracket30_tree=null;
 
         try {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:304:9: ( LBracket dataTypeName RBracket )
@@ -1084,14 +1023,14 @@ public class SilkParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            LBracket33=(Token)match(input,LBracket,FOLLOW_LBracket_in_dataType1213); 
-            pushFollow(FOLLOW_dataTypeName_in_dataType1216);
-            dataTypeName34=dataTypeName();
+            LBracket28=(Token)match(input,LBracket,FOLLOW_LBracket_in_dataType1097); 
+            pushFollow(FOLLOW_dataTypeName_in_dataType1100);
+            dataTypeName29=dataTypeName();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, dataTypeName34.getTree());
-            RBracket35=(Token)match(input,RBracket,FOLLOW_RBracket_in_dataType1218); 
+            adaptor.addChild(root_0, dataTypeName29.getTree());
+            RBracket30=(Token)match(input,RBracket,FOLLOW_RBracket_in_dataType1102); 
 
             }
 
@@ -1126,17 +1065,17 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token PlainOneLine36=null;
+        Token PlainOneLine31=null;
 
-        Object PlainOneLine36_tree=null;
+        Object PlainOneLine31_tree=null;
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
 
         try {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:308:13: ( PlainOneLine -> DataType[$dataTypeName.text] )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:308:15: PlainOneLine
             {
-            PlainOneLine36=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_dataTypeName1231);  
-            stream_PlainOneLine.add(PlainOneLine36);
+            PlainOneLine31=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_dataTypeName1115);  
+            stream_PlainOneLine.add(PlainOneLine31);
 
 
 
@@ -1190,13 +1129,13 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token Comma38=null;
-        SilkParser.attributeItem_return attributeItem37 = null;
+        Token Comma33=null;
+        SilkParser.attributeItem_return attributeItem32 = null;
 
-        SilkParser.attributeItem_return attributeItem39 = null;
+        SilkParser.attributeItem_return attributeItem34 = null;
 
 
-        Object Comma38_tree=null;
+        Object Comma33_tree=null;
 
         try {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:313:14: ( attributeItem ( Comma attributeItem )* )
@@ -1204,12 +1143,12 @@ public class SilkParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_attributeItem_in_attributeList1251);
-            attributeItem37=attributeItem();
+            pushFollow(FOLLOW_attributeItem_in_attributeList1135);
+            attributeItem32=attributeItem();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, attributeItem37.getTree());
+            adaptor.addChild(root_0, attributeItem32.getTree());
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:313:30: ( Comma attributeItem )*
             loop12:
             do {
@@ -1225,13 +1164,13 @@ public class SilkParser extends Parser {
             	case 1 :
             	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:313:31: Comma attributeItem
             	    {
-            	    Comma38=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList1254); 
-            	    pushFollow(FOLLOW_attributeItem_in_attributeList1257);
-            	    attributeItem39=attributeItem();
+            	    Comma33=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList1138); 
+            	    pushFollow(FOLLOW_attributeItem_in_attributeList1141);
+            	    attributeItem34=attributeItem();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, attributeItem39.getTree());
+            	    adaptor.addChild(root_0, attributeItem34.getTree());
 
             	    }
             	    break;
@@ -1275,7 +1214,7 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        SilkParser.nodeItem_return nodeItem40 = null;
+        SilkParser.nodeItem_return nodeItem35 = null;
 
 
         RewriteRuleSubtreeStream stream_nodeItem=new RewriteRuleSubtreeStream(adaptor,"rule nodeItem");
@@ -1283,12 +1222,12 @@ public class SilkParser extends Parser {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:316:14: ( nodeItem -> ^( SilkNode nodeItem ) )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:316:16: nodeItem
             {
-            pushFollow(FOLLOW_nodeItem_in_attributeItem1270);
-            nodeItem40=nodeItem();
+            pushFollow(FOLLOW_nodeItem_in_attributeItem1154);
+            nodeItem35=nodeItem();
 
             state._fsp--;
 
-            stream_nodeItem.add(nodeItem40.getTree());
+            stream_nodeItem.add(nodeItem35.getTree());
 
 
             // AST REWRITE
@@ -1349,11 +1288,11 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token Seq41=null;
-        Token Seq42=null;
+        Token Seq36=null;
+        Token Seq37=null;
 
-        Object Seq41_tree=null;
-        Object Seq42_tree=null;
+        Object Seq36_tree=null;
+        Object Seq37_tree=null;
 
         try {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:319:7: ( Seq Seq )
@@ -1361,13 +1300,13 @@ public class SilkParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            Seq41=(Token)match(input,Seq,FOLLOW_Seq_in_seqseq1287); 
-            Seq41_tree = (Object)adaptor.create(Seq41);
-            adaptor.addChild(root_0, Seq41_tree);
+            Seq36=(Token)match(input,Seq,FOLLOW_Seq_in_seqseq1171); 
+            Seq36_tree = (Object)adaptor.create(Seq36);
+            adaptor.addChild(root_0, Seq36_tree);
 
-            Seq42=(Token)match(input,Seq,FOLLOW_Seq_in_seqseq1289); 
-            Seq42_tree = (Object)adaptor.create(Seq42);
-            adaptor.addChild(root_0, Seq42_tree);
+            Seq37=(Token)match(input,Seq,FOLLOW_Seq_in_seqseq1173); 
+            Seq37_tree = (Object)adaptor.create(Seq37);
+            adaptor.addChild(root_0, Seq37_tree);
 
 
             }
@@ -1403,19 +1342,19 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token Star43=null;
-        Token Plus44=null;
-        Token Question45=null;
-        Token Seq47=null;
-        Token TabSeq48=null;
-        SilkParser.seqseq_return seqseq46 = null;
+        Token Star38=null;
+        Token Plus39=null;
+        Token Question40=null;
+        Token Seq42=null;
+        Token TabSeq43=null;
+        SilkParser.seqseq_return seqseq41 = null;
 
 
-        Object Star43_tree=null;
-        Object Plus44_tree=null;
-        Object Question45_tree=null;
-        Object Seq47_tree=null;
-        Object TabSeq48_tree=null;
+        Object Star38_tree=null;
+        Object Plus39_tree=null;
+        Object Question40_tree=null;
+        Object Seq42_tree=null;
+        Object TabSeq43_tree=null;
         RewriteRuleTokenStream stream_Plus=new RewriteRuleTokenStream(adaptor,"token Plus");
         RewriteRuleTokenStream stream_TabSeq=new RewriteRuleTokenStream(adaptor,"token TabSeq");
         RewriteRuleTokenStream stream_Question=new RewriteRuleTokenStream(adaptor,"token Question");
@@ -1430,8 +1369,8 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:323:4: Star
                     {
-                    Star43=(Token)match(input,Star,FOLLOW_Star_in_plural1300);  
-                    stream_Star.add(Star43);
+                    Star38=(Token)match(input,Star,FOLLOW_Star_in_plural1184);  
+                    stream_Star.add(Star38);
 
 
 
@@ -1457,8 +1396,8 @@ public class SilkParser extends Parser {
                 case 2 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:324:4: Plus
                     {
-                    Plus44=(Token)match(input,Plus,FOLLOW_Plus_in_plural1310);  
-                    stream_Plus.add(Plus44);
+                    Plus39=(Token)match(input,Plus,FOLLOW_Plus_in_plural1194);  
+                    stream_Plus.add(Plus39);
 
 
 
@@ -1484,8 +1423,8 @@ public class SilkParser extends Parser {
                 case 3 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:325:4: Question
                     {
-                    Question45=(Token)match(input,Question,FOLLOW_Question_in_plural1320);  
-                    stream_Question.add(Question45);
+                    Question40=(Token)match(input,Question,FOLLOW_Question_in_plural1204);  
+                    stream_Question.add(Question40);
 
 
 
@@ -1511,12 +1450,12 @@ public class SilkParser extends Parser {
                 case 4 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:326:4: seqseq
                     {
-                    pushFollow(FOLLOW_seqseq_in_plural1330);
-                    seqseq46=seqseq();
+                    pushFollow(FOLLOW_seqseq_in_plural1214);
+                    seqseq41=seqseq();
 
                     state._fsp--;
 
-                    stream_seqseq.add(seqseq46.getTree());
+                    stream_seqseq.add(seqseq41.getTree());
 
 
                     // AST REWRITE
@@ -1541,8 +1480,8 @@ public class SilkParser extends Parser {
                 case 5 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:327:4: Seq
                     {
-                    Seq47=(Token)match(input,Seq,FOLLOW_Seq_in_plural1340);  
-                    stream_Seq.add(Seq47);
+                    Seq42=(Token)match(input,Seq,FOLLOW_Seq_in_plural1224);  
+                    stream_Seq.add(Seq42);
 
 
 
@@ -1568,8 +1507,8 @@ public class SilkParser extends Parser {
                 case 6 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:328:4: TabSeq
                     {
-                    TabSeq48=(Token)match(input,TabSeq,FOLLOW_TabSeq_in_plural1350);  
-                    stream_TabSeq.add(TabSeq48);
+                    TabSeq43=(Token)match(input,TabSeq,FOLLOW_TabSeq_in_plural1234);  
+                    stream_TabSeq.add(TabSeq43);
 
 
 
@@ -1625,25 +1564,25 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token NodeIndent49=null;
-        Token FunctionIndent51=null;
-        Token PlainOneLine52=null;
-        Token LParen53=null;
-        Token Comma55=null;
-        Token RParen57=null;
-        SilkParser.function_i_return function_i50 = null;
+        Token NodeIndent44=null;
+        Token FunctionIndent46=null;
+        Token PlainOneLine47=null;
+        Token LParen48=null;
+        Token Comma50=null;
+        Token RParen52=null;
+        SilkParser.function_i_return function_i45 = null;
 
-        SilkParser.functionArg_return functionArg54 = null;
+        SilkParser.functionArg_return functionArg49 = null;
 
-        SilkParser.functionArg_return functionArg56 = null;
+        SilkParser.functionArg_return functionArg51 = null;
 
 
-        Object NodeIndent49_tree=null;
-        Object FunctionIndent51_tree=null;
-        Object PlainOneLine52_tree=null;
-        Object LParen53_tree=null;
-        Object Comma55_tree=null;
-        Object RParen57_tree=null;
+        Object NodeIndent44_tree=null;
+        Object FunctionIndent46_tree=null;
+        Object PlainOneLine47_tree=null;
+        Object LParen48_tree=null;
+        Object Comma50_tree=null;
+        Object RParen52_tree=null;
         RewriteRuleTokenStream stream_FunctionIndent=new RewriteRuleTokenStream(adaptor,"token FunctionIndent");
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
@@ -1673,15 +1612,15 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:332:4: NodeIndent function_i
                     {
-                    NodeIndent49=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_function1366);  
-                    stream_NodeIndent.add(NodeIndent49);
+                    NodeIndent44=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_function1250);  
+                    stream_NodeIndent.add(NodeIndent44);
 
-                    pushFollow(FOLLOW_function_i_in_function1368);
-                    function_i50=function_i();
+                    pushFollow(FOLLOW_function_i_in_function1252);
+                    function_i45=function_i();
 
                     state._fsp--;
 
-                    stream_function_i.add(function_i50.getTree());
+                    stream_function_i.add(function_i45.getTree());
 
 
                     // AST REWRITE
@@ -1715,14 +1654,14 @@ public class SilkParser extends Parser {
                 case 2 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:334:4: FunctionIndent PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen
                     {
-                    FunctionIndent51=(Token)match(input,FunctionIndent,FOLLOW_FunctionIndent_in_function1384);  
-                    stream_FunctionIndent.add(FunctionIndent51);
+                    FunctionIndent46=(Token)match(input,FunctionIndent,FOLLOW_FunctionIndent_in_function1268);  
+                    stream_FunctionIndent.add(FunctionIndent46);
 
-                    PlainOneLine52=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function1386);  
-                    stream_PlainOneLine.add(PlainOneLine52);
+                    PlainOneLine47=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function1270);  
+                    stream_PlainOneLine.add(PlainOneLine47);
 
-                    LParen53=(Token)match(input,LParen,FOLLOW_LParen_in_function1388);  
-                    stream_LParen.add(LParen53);
+                    LParen48=(Token)match(input,LParen,FOLLOW_LParen_in_function1272);  
+                    stream_LParen.add(LParen48);
 
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:334:39: ( functionArg ( Comma functionArg )* )?
                     int alt15=2;
@@ -1735,12 +1674,12 @@ public class SilkParser extends Parser {
                         case 1 :
                             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:334:40: functionArg ( Comma functionArg )*
                             {
-                            pushFollow(FOLLOW_functionArg_in_function1391);
-                            functionArg54=functionArg();
+                            pushFollow(FOLLOW_functionArg_in_function1275);
+                            functionArg49=functionArg();
 
                             state._fsp--;
 
-                            stream_functionArg.add(functionArg54.getTree());
+                            stream_functionArg.add(functionArg49.getTree());
                             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:334:52: ( Comma functionArg )*
                             loop14:
                             do {
@@ -1756,15 +1695,15 @@ public class SilkParser extends Parser {
                             	case 1 :
                             	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:334:53: Comma functionArg
                             	    {
-                            	    Comma55=(Token)match(input,Comma,FOLLOW_Comma_in_function1394);  
-                            	    stream_Comma.add(Comma55);
+                            	    Comma50=(Token)match(input,Comma,FOLLOW_Comma_in_function1278);  
+                            	    stream_Comma.add(Comma50);
 
-                            	    pushFollow(FOLLOW_functionArg_in_function1396);
-                            	    functionArg56=functionArg();
+                            	    pushFollow(FOLLOW_functionArg_in_function1280);
+                            	    functionArg51=functionArg();
 
                             	    state._fsp--;
 
-                            	    stream_functionArg.add(functionArg56.getTree());
+                            	    stream_functionArg.add(functionArg51.getTree());
 
                             	    }
                             	    break;
@@ -1780,8 +1719,8 @@ public class SilkParser extends Parser {
 
                     }
 
-                    RParen57=(Token)match(input,RParen,FOLLOW_RParen_in_function1402);  
-                    stream_RParen.add(RParen57);
+                    RParen52=(Token)match(input,RParen,FOLLOW_RParen_in_function1286);  
+                    stream_RParen.add(RParen52);
 
 
 
@@ -1802,8 +1741,8 @@ public class SilkParser extends Parser {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(Function, "Function"), root_1);
 
-                        adaptor.addChild(root_1, (Object)adaptor.create(NodeIndent, (FunctionIndent51!=null?FunctionIndent51.getText():null)));
-                        adaptor.addChild(root_1, (Object)adaptor.create(Name, (PlainOneLine52!=null?PlainOneLine52.getText():null).trim()));
+                        adaptor.addChild(root_1, (Object)adaptor.create(NodeIndent, (FunctionIndent46!=null?FunctionIndent46.getText():null)));
+                        adaptor.addChild(root_1, (Object)adaptor.create(Name, (PlainOneLine47!=null?PlainOneLine47.getText():null).trim()));
                         // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:335:81: ( functionArg )*
                         while ( stream_functionArg.hasNext() ) {
                             adaptor.addChild(root_1, stream_functionArg.nextTree());
@@ -1852,21 +1791,21 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token At58=null;
-        Token PlainOneLine59=null;
-        Token LParen60=null;
-        Token Comma62=null;
-        Token RParen64=null;
-        SilkParser.functionArg_return functionArg61 = null;
+        Token At53=null;
+        Token PlainOneLine54=null;
+        Token LParen55=null;
+        Token Comma57=null;
+        Token RParen59=null;
+        SilkParser.functionArg_return functionArg56 = null;
 
-        SilkParser.functionArg_return functionArg63 = null;
+        SilkParser.functionArg_return functionArg58 = null;
 
 
-        Object At58_tree=null;
-        Object PlainOneLine59_tree=null;
-        Object LParen60_tree=null;
-        Object Comma62_tree=null;
-        Object RParen64_tree=null;
+        Object At53_tree=null;
+        Object PlainOneLine54_tree=null;
+        Object LParen55_tree=null;
+        Object Comma57_tree=null;
+        Object RParen59_tree=null;
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
@@ -1877,14 +1816,14 @@ public class SilkParser extends Parser {
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:11: ( At PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen -> Name[$PlainOneLine.text.trim()] ( functionArg )* )
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:13: At PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen
             {
-            At58=(Token)match(input,At,FOLLOW_At_in_function_i1429);  
-            stream_At.add(At58);
+            At53=(Token)match(input,At,FOLLOW_At_in_function_i1313);  
+            stream_At.add(At53);
 
-            PlainOneLine59=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function_i1431);  
-            stream_PlainOneLine.add(PlainOneLine59);
+            PlainOneLine54=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function_i1315);  
+            stream_PlainOneLine.add(PlainOneLine54);
 
-            LParen60=(Token)match(input,LParen,FOLLOW_LParen_in_function_i1433);  
-            stream_LParen.add(LParen60);
+            LParen55=(Token)match(input,LParen,FOLLOW_LParen_in_function_i1317);  
+            stream_LParen.add(LParen55);
 
             // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:36: ( functionArg ( Comma functionArg )* )?
             int alt18=2;
@@ -1897,12 +1836,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:37: functionArg ( Comma functionArg )*
                     {
-                    pushFollow(FOLLOW_functionArg_in_function_i1436);
-                    functionArg61=functionArg();
+                    pushFollow(FOLLOW_functionArg_in_function_i1320);
+                    functionArg56=functionArg();
 
                     state._fsp--;
 
-                    stream_functionArg.add(functionArg61.getTree());
+                    stream_functionArg.add(functionArg56.getTree());
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:49: ( Comma functionArg )*
                     loop17:
                     do {
@@ -1918,15 +1857,15 @@ public class SilkParser extends Parser {
                     	case 1 :
                     	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:339:50: Comma functionArg
                     	    {
-                    	    Comma62=(Token)match(input,Comma,FOLLOW_Comma_in_function_i1439);  
-                    	    stream_Comma.add(Comma62);
+                    	    Comma57=(Token)match(input,Comma,FOLLOW_Comma_in_function_i1323);  
+                    	    stream_Comma.add(Comma57);
 
-                    	    pushFollow(FOLLOW_functionArg_in_function_i1441);
-                    	    functionArg63=functionArg();
+                    	    pushFollow(FOLLOW_functionArg_in_function_i1325);
+                    	    functionArg58=functionArg();
 
                     	    state._fsp--;
 
-                    	    stream_functionArg.add(functionArg63.getTree());
+                    	    stream_functionArg.add(functionArg58.getTree());
 
                     	    }
                     	    break;
@@ -1942,8 +1881,8 @@ public class SilkParser extends Parser {
 
             }
 
-            RParen64=(Token)match(input,RParen,FOLLOW_RParen_in_function_i1447);  
-            stream_RParen.add(RParen64);
+            RParen59=(Token)match(input,RParen,FOLLOW_RParen_in_function_i1331);  
+            stream_RParen.add(RParen59);
 
 
 
@@ -1959,7 +1898,7 @@ public class SilkParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 340:2: -> Name[$PlainOneLine.text.trim()] ( functionArg )*
             {
-                adaptor.addChild(root_0, (Object)adaptor.create(Name, (PlainOneLine59!=null?PlainOneLine59.getText():null).trim()));
+                adaptor.addChild(root_0, (Object)adaptor.create(Name, (PlainOneLine54!=null?PlainOneLine54.getText():null).trim()));
                 // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:340:37: ( functionArg )*
                 while ( stream_functionArg.hasNext() ) {
                     adaptor.addChild(root_0, stream_functionArg.nextTree());
@@ -2003,15 +1942,15 @@ public class SilkParser extends Parser {
 
         Object root_0 = null;
 
-        Token Colon67=null;
-        SilkParser.nodeValue_return nodeValue65 = null;
+        Token Colon62=null;
+        SilkParser.nodeValue_return nodeValue60 = null;
 
-        SilkParser.nodeName_return nodeName66 = null;
+        SilkParser.nodeName_return nodeName61 = null;
 
-        SilkParser.nodeValue_return nodeValue68 = null;
+        SilkParser.nodeValue_return nodeValue63 = null;
 
 
-        Object Colon67_tree=null;
+        Object Colon62_tree=null;
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
@@ -2023,12 +1962,12 @@ public class SilkParser extends Parser {
                 case 1 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:345:4: nodeValue
                     {
-                    pushFollow(FOLLOW_nodeValue_in_functionArg1469);
-                    nodeValue65=nodeValue();
+                    pushFollow(FOLLOW_nodeValue_in_functionArg1353);
+                    nodeValue60=nodeValue();
 
                     state._fsp--;
 
-                    stream_nodeValue.add(nodeValue65.getTree());
+                    stream_nodeValue.add(nodeValue60.getTree());
 
 
                     // AST REWRITE
@@ -2053,21 +1992,21 @@ public class SilkParser extends Parser {
                 case 2 :
                     // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:346:4: nodeName Colon nodeValue
                     {
-                    pushFollow(FOLLOW_nodeName_in_functionArg1479);
-                    nodeName66=nodeName();
+                    pushFollow(FOLLOW_nodeName_in_functionArg1363);
+                    nodeName61=nodeName();
 
                     state._fsp--;
 
-                    stream_nodeName.add(nodeName66.getTree());
-                    Colon67=(Token)match(input,Colon,FOLLOW_Colon_in_functionArg1481);  
-                    stream_Colon.add(Colon67);
+                    stream_nodeName.add(nodeName61.getTree());
+                    Colon62=(Token)match(input,Colon,FOLLOW_Colon_in_functionArg1365);  
+                    stream_Colon.add(Colon62);
 
-                    pushFollow(FOLLOW_nodeValue_in_functionArg1483);
-                    nodeValue68=nodeValue();
+                    pushFollow(FOLLOW_nodeValue_in_functionArg1367);
+                    nodeValue63=nodeValue();
 
                     state._fsp--;
 
-                    stream_nodeValue.add(nodeValue68.getTree());
+                    stream_nodeValue.add(nodeValue63.getTree());
 
 
                     // AST REWRITE
@@ -2087,8 +2026,8 @@ public class SilkParser extends Parser {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(KeyValuePair, "KeyValuePair"), root_1);
 
-                        adaptor.addChild(root_1, (Object)adaptor.create(Key, (nodeName66!=null?input.toString(nodeName66.start,nodeName66.stop):null).trim()));
-                        adaptor.addChild(root_1, (Object)adaptor.create(Value, (nodeValue68!=null?input.toString(nodeValue68.start,nodeValue68.stop):null).trim()));
+                        adaptor.addChild(root_1, (Object)adaptor.create(Key, (nodeName61!=null?input.toString(nodeName61.start,nodeName61.stop):null).trim()));
+                        adaptor.addChild(root_1, (Object)adaptor.create(Value, (nodeValue63!=null?input.toString(nodeValue63.start,nodeValue63.stop):null).trim()));
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -2121,102 +2060,30 @@ public class SilkParser extends Parser {
     // Delegated rules
 
 
-    protected DFA1 dfa1 = new DFA1(this);
     protected DFA2 dfa2 = new DFA2(this);
     protected DFA5 dfa5 = new DFA5(this);
     protected DFA6 dfa6 = new DFA6(this);
-    protected DFA7 dfa7 = new DFA7(this);
     protected DFA8 dfa8 = new DFA8(this);
     protected DFA9 dfa9 = new DFA9(this);
     protected DFA10 dfa10 = new DFA10(this);
-    protected DFA11 dfa11 = new DFA11(this);
     protected DFA13 dfa13 = new DFA13(this);
     protected DFA19 dfa19 = new DFA19(this);
-    static final String DFA1_eotS =
-        "\13\uffff";
-    static final String DFA1_eofS =
-        "\1\1\12\uffff";
-    static final String DFA1_minS =
-        "\1\17\12\uffff";
-    static final String DFA1_maxS =
-        "\1\31\12\uffff";
-    static final String DFA1_acceptS =
-        "\1\uffff\1\2\1\1\10\uffff";
-    static final String DFA1_specialS =
-        "\13\uffff}>";
-    static final String[] DFA1_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\1\2",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA1_eot = DFA.unpackEncodedString(DFA1_eotS);
-    static final short[] DFA1_eof = DFA.unpackEncodedString(DFA1_eofS);
-    static final char[] DFA1_min = DFA.unpackEncodedStringToUnsignedChars(DFA1_minS);
-    static final char[] DFA1_max = DFA.unpackEncodedStringToUnsignedChars(DFA1_maxS);
-    static final short[] DFA1_accept = DFA.unpackEncodedString(DFA1_acceptS);
-    static final short[] DFA1_special = DFA.unpackEncodedString(DFA1_specialS);
-    static final short[][] DFA1_transition;
-
-    static {
-        int numStates = DFA1_transitionS.length;
-        DFA1_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA1_transition[i] = DFA.unpackEncodedString(DFA1_transitionS[i]);
-        }
-    }
-
-    class DFA1 extends DFA {
-
-        public DFA1(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 1;
-            this.eot = DFA1_eot;
-            this.eof = DFA1_eof;
-            this.min = DFA1_min;
-            this.max = DFA1_max;
-            this.accept = DFA1_accept;
-            this.special = DFA1_special;
-            this.transition = DFA1_transition;
-        }
-        public String getDescription() {
-            return "()* loopback of 266:11: ( silkLine )*";
-        }
-    }
     static final String DFA2_eotS =
-        "\35\uffff";
+        "\23\uffff";
     static final String DFA2_eofS =
-        "\1\uffff\1\12\33\uffff";
+        "\1\uffff\1\5\21\uffff";
     static final String DFA2_minS =
-        "\2\17\33\uffff";
+        "\2\17\21\uffff";
     static final String DFA2_maxS =
-        "\1\31\1\67\33\uffff";
+        "\1\23\1\62\21\uffff";
     static final String DFA2_acceptS =
-        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\2\21\uffff\1\1";
+        "\2\uffff\1\3\1\4\1\5\1\2\14\uffff\1\1";
     static final String DFA2_specialS =
-        "\35\uffff}>";
+        "\23\uffff}>";
     static final String[] DFA2_transitionS = {
-            "\1\11\1\uffff\1\6\1\3\1\7\1\10\1\1\1\2\1\5\1\uffff\1\4",
-            "\1\12\1\uffff\7\12\1\uffff\2\12\2\uffff\4\12\1\2\1\12\2\uffff"+
-            "\1\12\7\uffff\1\34\11\uffff\1\34",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\4\1\uffff\1\3\1\1\1\2",
+            "\1\5\1\uffff\3\5\1\uffff\1\5\2\uffff\4\5\1\2\1\5\2\uffff\1"+
+            "\5\7\uffff\1\22\11\uffff\1\22",
             "",
             "",
             "",
@@ -2266,29 +2133,24 @@ public class SilkParser extends Parser {
             this.transition = DFA2_transition;
         }
         public String getDescription() {
-            return "269:1: silkLine : ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | Preamble | DataLine | BlankLine | LineComment | MultiLineSeparator | MultiLineEntrySeparator | WhiteSpace -> BlankLine );";
+            return "269:1: silkLine : ( NodeIndent nodeItem -> ^( SilkNode NodeIndent nodeItem ) | noNameNode | function | LineComment | WhiteSpace -> BlankLine );";
         }
     }
     static final String DFA5_eotS =
-        "\22\uffff";
+        "\15\uffff";
     static final String DFA5_eofS =
-        "\1\2\21\uffff";
+        "\1\2\14\uffff";
     static final String DFA5_minS =
-        "\1\17\21\uffff";
+        "\1\17\14\uffff";
     static final String DFA5_maxS =
-        "\1\45\21\uffff";
+        "\1\40\14\uffff";
     static final String DFA5_acceptS =
-        "\1\uffff\1\1\1\2\17\uffff";
+        "\1\uffff\1\1\1\2\12\uffff";
     static final String DFA5_specialS =
-        "\22\uffff}>";
+        "\15\uffff}>";
     static final String[] DFA5_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\1\2\1\1\2\uffff\4\2\1\uffff\1\2\2"+
-            "\uffff\1\2",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\2\1\uffff\3\2\1\uffff\1\1\2\uffff\4\2\1\uffff\1\2\2\uffff"+
+            "\1\2",
             "",
             "",
             "",
@@ -2337,25 +2199,19 @@ public class SilkParser extends Parser {
         }
     }
     static final String DFA6_eotS =
-        "\21\uffff";
+        "\14\uffff";
     static final String DFA6_eofS =
-        "\1\6\20\uffff";
+        "\1\6\13\uffff";
     static final String DFA6_minS =
-        "\1\17\20\uffff";
+        "\1\17\13\uffff";
     static final String DFA6_maxS =
-        "\1\45\20\uffff";
+        "\1\40\13\uffff";
     static final String DFA6_acceptS =
-        "\1\uffff\1\1\4\uffff\1\2\12\uffff";
+        "\1\uffff\1\1\4\uffff\1\2\5\uffff";
     static final String DFA6_specialS =
-        "\21\uffff}>";
+        "\14\uffff}>";
     static final String[] DFA6_transitionS = {
-            "\1\6\1\uffff\7\6\1\uffff\1\6\3\uffff\1\6\3\1\1\uffff\1\1\2"+
-            "\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\6\1\uffff\3\6\4\uffff\1\6\3\1\1\uffff\1\1\2\uffff\1\1",
             "",
             "",
             "",
@@ -2402,85 +2258,20 @@ public class SilkParser extends Parser {
             return "294:55: ( plural )?";
         }
     }
-    static final String DFA7_eotS =
-        "\14\uffff";
-    static final String DFA7_eofS =
-        "\1\2\13\uffff";
-    static final String DFA7_minS =
-        "\1\17\13\uffff";
-    static final String DFA7_maxS =
-        "\1\35\13\uffff";
-    static final String DFA7_acceptS =
-        "\1\uffff\1\1\1\2\11\uffff";
-    static final String DFA7_specialS =
-        "\14\uffff}>";
-    static final String[] DFA7_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\1\2\3\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA7_eot = DFA.unpackEncodedString(DFA7_eotS);
-    static final short[] DFA7_eof = DFA.unpackEncodedString(DFA7_eofS);
-    static final char[] DFA7_min = DFA.unpackEncodedStringToUnsignedChars(DFA7_minS);
-    static final char[] DFA7_max = DFA.unpackEncodedStringToUnsignedChars(DFA7_maxS);
-    static final short[] DFA7_accept = DFA.unpackEncodedString(DFA7_acceptS);
-    static final short[] DFA7_special = DFA.unpackEncodedString(DFA7_specialS);
-    static final short[][] DFA7_transition;
-
-    static {
-        int numStates = DFA7_transitionS.length;
-        DFA7_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA7_transition[i] = DFA.unpackEncodedString(DFA7_transitionS[i]);
-        }
-    }
-
-    class DFA7 extends DFA {
-
-        public DFA7(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 7;
-            this.eot = DFA7_eot;
-            this.eof = DFA7_eof;
-            this.min = DFA7_min;
-            this.max = DFA7_max;
-            this.accept = DFA7_accept;
-            this.special = DFA7_special;
-            this.transition = DFA7_transition;
-        }
-        public String getDescription() {
-            return "294:63: ( Colon nodeValue )?";
-        }
-    }
     static final String DFA8_eotS =
-        "\25\uffff";
+        "\20\uffff";
     static final String DFA8_eofS =
-        "\1\2\24\uffff";
+        "\1\2\17\uffff";
     static final String DFA8_minS =
-        "\1\17\24\uffff";
+        "\1\17\17\uffff";
     static final String DFA8_maxS =
-        "\1\45\24\uffff";
+        "\1\40\17\uffff";
     static final String DFA8_acceptS =
-        "\1\uffff\1\1\1\2\22\uffff";
+        "\1\uffff\1\1\1\2\15\uffff";
     static final String DFA8_specialS =
-        "\25\uffff}>";
+        "\20\uffff}>";
     static final String[] DFA8_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\10\2\1\uffff\1\2\1\1\1\uffff\1\2",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\2\1\uffff\3\2\1\uffff\7\2\1\uffff\1\2\1\1\1\uffff\1\2",
             "",
             "",
             "",
@@ -2532,25 +2323,19 @@ public class SilkParser extends Parser {
         }
     }
     static final String DFA9_eotS =
-        "\24\uffff";
+        "\17\uffff";
     static final String DFA9_eofS =
-        "\1\2\23\uffff";
+        "\1\2\16\uffff";
     static final String DFA9_minS =
-        "\1\17\23\uffff";
+        "\1\17\16\uffff";
     static final String DFA9_maxS =
-        "\1\45\23\uffff";
+        "\1\40\16\uffff";
     static final String DFA9_acceptS =
-        "\1\uffff\1\1\1\2\21\uffff";
+        "\1\uffff\1\1\1\2\14\uffff";
     static final String DFA9_specialS =
-        "\24\uffff}>";
+        "\17\uffff}>";
     static final String[] DFA9_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\1\2\1\1\6\2\1\uffff\1\2\2\uffff\1"+
-            "\2",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\2\1\uffff\3\2\1\uffff\1\1\6\2\1\uffff\1\2\2\uffff\1\2",
             "",
             "",
             "",
@@ -2601,25 +2386,19 @@ public class SilkParser extends Parser {
         }
     }
     static final String DFA10_eotS =
-        "\23\uffff";
+        "\16\uffff";
     static final String DFA10_eofS =
-        "\1\6\22\uffff";
+        "\1\6\15\uffff";
     static final String DFA10_minS =
-        "\1\17\22\uffff";
+        "\1\17\15\uffff";
     static final String DFA10_maxS =
-        "\1\45\22\uffff";
+        "\1\40\15\uffff";
     static final String DFA10_acceptS =
-        "\1\uffff\1\1\4\uffff\1\2\14\uffff";
+        "\1\uffff\1\1\4\uffff\1\2\7\uffff";
     static final String DFA10_specialS =
-        "\23\uffff}>";
+        "\16\uffff}>";
     static final String[] DFA10_transitionS = {
-            "\1\6\1\uffff\7\6\1\uffff\1\6\1\uffff\3\6\3\1\1\uffff\1\1\2"+
-            "\uffff\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\6\1\uffff\3\6\2\uffff\3\6\3\1\1\uffff\1\1\2\uffff\1\1",
             "",
             "",
             "",
@@ -2668,91 +2447,24 @@ public class SilkParser extends Parser {
             return "299:62: ( plural )?";
         }
     }
-    static final String DFA11_eotS =
-        "\16\uffff";
-    static final String DFA11_eofS =
-        "\1\2\15\uffff";
-    static final String DFA11_minS =
-        "\1\17\15\uffff";
-    static final String DFA11_maxS =
-        "\1\35\15\uffff";
-    static final String DFA11_acceptS =
-        "\1\uffff\1\1\1\2\13\uffff";
-    static final String DFA11_specialS =
-        "\16\uffff}>";
-    static final String[] DFA11_transitionS = {
-            "\1\2\1\uffff\7\2\1\uffff\1\2\1\uffff\2\2\1\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
-    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
-    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
-    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
-    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
-    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
-    static final short[][] DFA11_transition;
-
-    static {
-        int numStates = DFA11_transitionS.length;
-        DFA11_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
-        }
-    }
-
-    class DFA11 extends DFA {
-
-        public DFA11(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 11;
-            this.eot = DFA11_eot;
-            this.eof = DFA11_eof;
-            this.min = DFA11_min;
-            this.max = DFA11_max;
-            this.accept = DFA11_accept;
-            this.special = DFA11_special;
-            this.transition = DFA11_transition;
-        }
-        public String getDescription() {
-            return "299:70: ( Colon nodeValue )?";
-        }
-    }
     static final String DFA13_eotS =
-        "\24\uffff";
+        "\17\uffff";
     static final String DFA13_eofS =
-        "\4\uffff\1\7\17\uffff";
+        "\4\uffff\1\7\12\uffff";
     static final String DFA13_minS =
-        "\1\36\3\uffff\1\17\17\uffff";
+        "\1\31\3\uffff\1\17\12\uffff";
     static final String DFA13_maxS =
-        "\1\45\3\uffff\1\36\17\uffff";
+        "\1\40\3\uffff\1\31\12\uffff";
     static final String DFA13_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\1\4\1\5\14\uffff";
+        "\1\uffff\1\1\1\2\1\3\1\uffff\1\6\1\4\1\5\7\uffff";
     static final String DFA13_specialS =
-        "\24\uffff}>";
+        "\17\uffff}>";
     static final String[] DFA13_transitionS = {
             "\1\4\1\5\1\1\1\uffff\1\2\2\uffff\1\3",
             "",
             "",
             "",
-            "\1\7\1\uffff\7\7\1\uffff\1\7\1\uffff\3\7\1\6",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\7\1\uffff\3\7\2\uffff\3\7\1\6",
             "",
             "",
             "",
@@ -2803,9 +2515,9 @@ public class SilkParser extends Parser {
     static final String DFA19_eofS =
         "\13\uffff";
     static final String DFA19_minS =
-        "\1\41\1\uffff\2\33\7\uffff";
+        "\1\34\1\uffff\2\26\7\uffff";
     static final String DFA19_maxS =
-        "\1\70\1\uffff\2\35\7\uffff";
+        "\1\63\1\uffff\2\30\7\uffff";
     static final String DFA19_acceptS =
         "\1\uffff\1\1\3\uffff\1\2\5\uffff";
     static final String DFA19_specialS =
@@ -2859,73 +2571,68 @@ public class SilkParser extends Parser {
     }
  
 
-    public static final BitSet FOLLOW_silkLine_in_silkFile957 = new BitSet(new long[]{0x0000000002FE8002L});
-    public static final BitSet FOLLOW_NodeIndent_in_silkLine978 = new BitSet(new long[]{0x0080200000000000L});
-    public static final BitSet FOLLOW_nodeItem_in_silkLine980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_noNameNode_in_silkLine995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_function_in_silkLine1001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Preamble_in_silkLine1006 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DataLine_in_silkLine1011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BlankLine_in_silkLine1016 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LineComment_in_silkLine1021 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MultiLineSeparator_in_silkLine1026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MultiLineEntrySeparator_in_silkLine1031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WhiteSpace_in_silkLine1036 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_silkLine_in_silkFile861 = new BitSet(new long[]{0x00000000000E8002L});
+    public static final BitSet FOLLOW_NodeIndent_in_silkLine882 = new BitSet(new long[]{0x0004010000000000L});
+    public static final BitSet FOLLOW_nodeItem_in_silkLine884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_noNameNode_in_silkLine899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_function_in_silkLine905 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LineComment_in_silkLine913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WhiteSpace_in_silkLine920 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_nodeName0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_function_i_in_nodeValue1066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlainOneLine_in_nodeValue1080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_nodeValue1084 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_JSON_in_nodeValue1095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NodeIndent_in_noNameNode1109 = new BitSet(new long[]{0x00000025E4000002L});
-    public static final BitSet FOLLOW_LParen_in_noNameNode1112 = new BitSet(new long[]{0x0080200000000000L});
-    public static final BitSet FOLLOW_attributeList_in_noNameNode1114 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_RParen_in_noNameNode1116 = new BitSet(new long[]{0x00000025E0000002L});
-    public static final BitSet FOLLOW_plural_in_noNameNode1120 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_Colon_in_noNameNode1124 = new BitSet(new long[]{0x0180200200000000L});
-    public static final BitSet FOLLOW_nodeValue_in_noNameNode1126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_nodeItem1159 = new BitSet(new long[]{0x0000002DE4000002L});
-    public static final BitSet FOLLOW_dataType_in_nodeItem1161 = new BitSet(new long[]{0x00000025E4000002L});
-    public static final BitSet FOLLOW_LParen_in_nodeItem1166 = new BitSet(new long[]{0x0080200000000000L});
-    public static final BitSet FOLLOW_attributeList_in_nodeItem1168 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_RParen_in_nodeItem1170 = new BitSet(new long[]{0x00000025E0000002L});
-    public static final BitSet FOLLOW_plural_in_nodeItem1174 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_Colon_in_nodeItem1178 = new BitSet(new long[]{0x0180200200000000L});
-    public static final BitSet FOLLOW_nodeValue_in_nodeItem1180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBracket_in_dataType1213 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_dataTypeName_in_dataType1216 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_RBracket_in_dataType1218 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlainOneLine_in_dataTypeName1231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attributeItem_in_attributeList1251 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_Comma_in_attributeList1254 = new BitSet(new long[]{0x0080200000000000L});
-    public static final BitSet FOLLOW_attributeItem_in_attributeList1257 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_nodeItem_in_attributeItem1270 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Seq_in_seqseq1287 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_Seq_in_seqseq1289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Star_in_plural1300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Plus_in_plural1310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Question_in_plural1320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seqseq_in_plural1330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Seq_in_plural1340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TabSeq_in_plural1350 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NodeIndent_in_function1366 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_function_i_in_function1368 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FunctionIndent_in_function1384 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_PlainOneLine_in_function1386 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_LParen_in_function1388 = new BitSet(new long[]{0x0180200208000000L});
-    public static final BitSet FOLLOW_functionArg_in_function1391 = new BitSet(new long[]{0x0000000018000000L});
-    public static final BitSet FOLLOW_Comma_in_function1394 = new BitSet(new long[]{0x0180200200000000L});
-    public static final BitSet FOLLOW_functionArg_in_function1396 = new BitSet(new long[]{0x0000000018000000L});
-    public static final BitSet FOLLOW_RParen_in_function1402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_At_in_function_i1429 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_PlainOneLine_in_function_i1431 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_LParen_in_function_i1433 = new BitSet(new long[]{0x0180200208000000L});
-    public static final BitSet FOLLOW_functionArg_in_function_i1436 = new BitSet(new long[]{0x0000000018000000L});
-    public static final BitSet FOLLOW_Comma_in_function_i1439 = new BitSet(new long[]{0x0180200200000000L});
-    public static final BitSet FOLLOW_functionArg_in_function_i1441 = new BitSet(new long[]{0x0000000018000000L});
-    public static final BitSet FOLLOW_RParen_in_function_i1447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeValue_in_functionArg1469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_functionArg1479 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_Colon_in_functionArg1481 = new BitSet(new long[]{0x0180200200000000L});
-    public static final BitSet FOLLOW_nodeValue_in_functionArg1483 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_function_i_in_nodeValue950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlainOneLine_in_nodeValue964 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_nodeValue968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_JSON_in_nodeValue979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NodeIndent_in_noNameNode993 = new BitSet(new long[]{0x000000012F200002L});
+    public static final BitSet FOLLOW_LParen_in_noNameNode996 = new BitSet(new long[]{0x0004010000000000L});
+    public static final BitSet FOLLOW_attributeList_in_noNameNode998 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_RParen_in_noNameNode1000 = new BitSet(new long[]{0x000000012F000002L});
+    public static final BitSet FOLLOW_plural_in_noNameNode1004 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_Colon_in_noNameNode1008 = new BitSet(new long[]{0x000C010010000000L});
+    public static final BitSet FOLLOW_nodeValue_in_noNameNode1010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_nodeItem1043 = new BitSet(new long[]{0x000000016F200002L});
+    public static final BitSet FOLLOW_dataType_in_nodeItem1045 = new BitSet(new long[]{0x000000012F200002L});
+    public static final BitSet FOLLOW_LParen_in_nodeItem1050 = new BitSet(new long[]{0x0004010000000000L});
+    public static final BitSet FOLLOW_attributeList_in_nodeItem1052 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_RParen_in_nodeItem1054 = new BitSet(new long[]{0x000000012F000002L});
+    public static final BitSet FOLLOW_plural_in_nodeItem1058 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_Colon_in_nodeItem1062 = new BitSet(new long[]{0x000C010010000000L});
+    public static final BitSet FOLLOW_nodeValue_in_nodeItem1064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBracket_in_dataType1097 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_dataTypeName_in_dataType1100 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_RBracket_in_dataType1102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlainOneLine_in_dataTypeName1115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attributeItem_in_attributeList1135 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_Comma_in_attributeList1138 = new BitSet(new long[]{0x0004010000000000L});
+    public static final BitSet FOLLOW_attributeItem_in_attributeList1141 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_nodeItem_in_attributeItem1154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Seq_in_seqseq1171 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_Seq_in_seqseq1173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Star_in_plural1184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Plus_in_plural1194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Question_in_plural1204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seqseq_in_plural1214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Seq_in_plural1224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TabSeq_in_plural1234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NodeIndent_in_function1250 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_function_i_in_function1252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FunctionIndent_in_function1268 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_PlainOneLine_in_function1270 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_LParen_in_function1272 = new BitSet(new long[]{0x000C010010400000L});
+    public static final BitSet FOLLOW_functionArg_in_function1275 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_Comma_in_function1278 = new BitSet(new long[]{0x000C010010000000L});
+    public static final BitSet FOLLOW_functionArg_in_function1280 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_RParen_in_function1286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_At_in_function_i1313 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_PlainOneLine_in_function_i1315 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_LParen_in_function_i1317 = new BitSet(new long[]{0x000C010010400000L});
+    public static final BitSet FOLLOW_functionArg_in_function_i1320 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_Comma_in_function_i1323 = new BitSet(new long[]{0x000C010010000000L});
+    public static final BitSet FOLLOW_functionArg_in_function_i1325 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_RParen_in_function_i1331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeValue_in_functionArg1353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_functionArg1363 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_Colon_in_functionArg1365 = new BitSet(new long[]{0x000C010010000000L});
+    public static final BitSet FOLLOW_nodeValue_in_functionArg1367 = new BitSet(new long[]{0x0000000000000002L});
 
 }

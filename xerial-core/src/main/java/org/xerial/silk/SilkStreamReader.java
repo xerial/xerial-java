@@ -711,7 +711,7 @@ public class SilkStreamReader implements TreeStreamReader
                 switch (schema.getOccurrence())
                 {
                 case SEQUENCE:
-                    text(line.getDataLine().trim());
+                    text(line.getDataLine());
                     break;
                 case ZERO_OR_MORE:
                     // CSV data

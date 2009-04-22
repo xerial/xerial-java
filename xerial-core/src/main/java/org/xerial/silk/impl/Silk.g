@@ -157,7 +157,7 @@ WhiteSpace
 
 // comment 
 LineComment: '#' ~(LineBreakChar)* ;
-Preamble: { isHead() }? => '%' ~(LineBreakChar)* ; 
+// Preamble: { isHead() }? => '%' ~(LineBreakChar)* ; 
 
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
@@ -169,16 +169,16 @@ LineBreak
 	;
 	*/
 
-MultiLineSeparator: { isHead() }? => '--' WhiteSpace*; 
-MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace*;
+// MultiLineSeparator: { isHead() }? => '--' WhiteSpace*; 
+// MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace*;
  	
 NodeIndent: { isHead() }? => (' ')* '-' { transit(Symbol.NodeStart); } ;
 FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? => WhiteSpace*;
 
-fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace) ~('#' | LineBreakChar)*;
-DataLine: { isHead() }? 
-	=> WhiteSpace* DataLineBody LineComment? { setText(sanitizeDataLine($DataLineBody.text)); };
+// fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace) ~('#' | LineBreakChar)*;
+// DataLine: { isHead() }? 
+//	=> WhiteSpace* DataLineBody LineComment? { setText(sanitizeDataLine($DataLineBody.text)); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')' { transit(Symbol.LeaveParen); };
@@ -270,12 +270,12 @@ silkLine
 	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem)
 	| noNameNode 
 	| function
-	| Preamble
-	| DataLine
-	| BlankLine
+//	| Preamble
+//	| DataLine
+//	| BlankLine
 	| LineComment
-	| MultiLineSeparator
-	| MultiLineEntrySeparator
+//	| MultiLineSeparator
+//	| MultiLineEntrySeparator
 	| WhiteSpace -> BlankLine
 	;
 
