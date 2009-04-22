@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Random;
 import java.util.TreeMap;
@@ -111,7 +110,7 @@ public class RedBlackTreeTest
     {
         RedBlackTree<Integer, String> rt = new RedBlackTree<Integer, String>();
 
-        final int N = 1000000;
+        final int N = 10000;
 
         Random r = new Random(0);
         StopWatch timer = new StopWatch();
