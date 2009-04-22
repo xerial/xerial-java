@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-22 13:14:35
+// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g 2009-04-22 16:57:26
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -39,8 +39,8 @@ import java.util.ArrayList;
 
 public class SilkLexer extends Lexer {
     public static final int Key=14;
-    public static final int PlainUnsafeChar=51;
-    public static final int PlainSafeKey=52;
+    public static final int PlainUnsafeChar=50;
+    public static final int PlainSafeKey=51;
     public static final int DataType=10;
     public static final int SilkNode=5;
     public static final int SilkLine=6;
@@ -52,46 +52,46 @@ public class SilkLexer extends Lexer {
     public static final int Plus=35;
     public static final int Occurrence=9;
     public static final int Argument=12;
-    public static final int FlowIndicator=49;
+    public static final int FlowIndicator=48;
     public static final int Separation=59;
     public static final int Letter=40;
-    public static final int PlainSafeIn=53;
+    public static final int PlainSafeIn=52;
     public static final int Comma=29;
     public static final int TabSeq=32;
-    public static final int NonSpaceChar=45;
+    public static final int NonSpaceChar=54;
     public static final int EscapeSequence=43;
     public static final int DataLine=26;
     public static final int PlainFirst=55;
-    public static final int WhiteSpace=19;
+    public static final int WhiteSpace=15;
     public static final int MultiLineEntrySeparator=21;
-    public static final int PlainSafeOut=54;
+    public static final int PlainSafeOut=53;
     public static final int JSON=58;
     public static final int Question=38;
-    public static final int LineComment=16;
+    public static final int LineComment=17;
     public static final int Colon=30;
     public static final int At=34;
     public static final int DataLineBody=25;
     public static final int KeyValuePair=13;
     public static final int Star=33;
-    public static final int Preamble=17;
+    public static final int Preamble=18;
     public static final int Seq=31;
     public static final int FunctionIndent=23;
-    public static final int Indicator=50;
+    public static final int Indicator=49;
     public static final int RParen=28;
     public static final int UnicodeChar=42;
     public static final int BlankLine=24;
     public static final int MultiLineSeparator=20;
     public static final int Silk=4;
     public static final int StringChar=44;
-    public static final int LineBreak=15;
+    public static final int LineBreak=19;
     public static final int Name=7;
     public static final int Function=11;
     public static final int LParen=27;
-    public static final int String=47;
-    public static final int LineBreakChar=18;
-    public static final int ScopeIndicator=48;
+    public static final int String=46;
+    public static final int LineBreakChar=16;
+    public static final int ScopeIndicator=47;
     public static final int EOF=-1;
-    public static final int StringChar_s=46;
+    public static final int StringChar_s=45;
     public static final int Value=8;
     public static final int RBracket=37;
     public static final int PlainSafe=56;
@@ -103,13 +103,13 @@ public class SilkLexer extends Lexer {
 
     private State currentState() { return lexerContext.getCurrentState(); } 
     private void transit(Symbol token) { lexerContext.transit(token); } 
-    private void resetContext() { lexerContext.reset(); }
     private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
     private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
     private boolean isInValue() { return currentState() == State.IN_VALUE; }
     private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
     private boolean isHead() { return getCharPositionInLine() == 0; }
 
+      public void resetContext() { lexerContext.reset(); }
 
       @Override
       public void reportError(RecognitionException e) {
@@ -142,16 +142,40 @@ public class SilkLexer extends Lexer {
     }
     public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g"; }
 
+    // $ANTLR start "WhiteSpace"
+    public final void mWhiteSpace() throws RecognitionException {
+        try {
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:2: ( ( ' ' | '\\t' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:156:4: ( ' ' | '\\t' )
+            {
+            if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "WhiteSpace"
+
     // $ANTLR start "LineComment"
     public final void mLineComment() throws RecognitionException {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:12: ( '#' (~ ( '\\n' | '\\r' ) )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:14: '#' (~ ( '\\n' | '\\r' ) )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:12: ( '#' (~ ( LineBreakChar ) )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:18: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -164,7 +188,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:154:18: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:160:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -184,8 +208,6 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            mLineBreak(); 
-             _channel=HIDDEN; 
 
             }
 
@@ -202,14 +224,14 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Preamble;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:9: ({...}? => '%' (~ ( '\\n' | '\\r' ) )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:11: {...}? => '%' (~ ( '\\n' | '\\r' ) )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:9: ({...}? => '%' (~ ( LineBreakChar ) )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:11: {...}? => '%' (~ ( LineBreakChar ) )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "Preamble", " isHead() ");
             }
             match('%'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:32: (~ ( '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:32: (~ ( LineBreakChar ) )*
             loop2:
             do {
                 int alt2=2;
@@ -222,7 +244,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:155:32: ~ ( '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:32: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -242,7 +264,6 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            mLineBreak(); 
 
             }
 
@@ -257,7 +278,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:158:23: ( '\\n' | '\\r' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:164:23: ( '\\n' | '\\r' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -283,10 +304,10 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:2: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:4: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:4: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt3=3;
             int LA3_0 = input.LA(1);
 
@@ -310,7 +331,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:5: '\\r' '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:5: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -318,14 +339,14 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:17: '\\r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:17: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:161:24: '\\n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:167:24: '\\n'
                     {
                     match('\n'); 
 
@@ -351,15 +372,15 @@ public class SilkLexer extends Lexer {
         try {
             int _type = MultiLineSeparator;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:19: ({...}? => '--' ( WhiteSpace )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:21: {...}? => '--' ( WhiteSpace )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:19: ({...}? => '--' ( WhiteSpace )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:21: {...}? => '--' ( WhiteSpace )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "MultiLineSeparator", " isHead() ");
             }
             match("--"); 
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:43: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:43: ( WhiteSpace )*
             loop4:
             do {
                 int alt4=2;
@@ -372,7 +393,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:165:43: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:171:43: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -384,7 +405,6 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            mLineBreak(); 
 
             }
 
@@ -401,15 +421,15 @@ public class SilkLexer extends Lexer {
         try {
             int _type = MultiLineEntrySeparator;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:24: ({...}? => '>>' ( WhiteSpace )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:26: {...}? => '>>' ( WhiteSpace )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:24: ({...}? => '>>' ( WhiteSpace )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:26: {...}? => '>>' ( WhiteSpace )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "MultiLineEntrySeparator", " isHead() ");
             }
             match(">>"); 
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:48: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:48: ( WhiteSpace )*
             loop5:
             do {
                 int alt5=2;
@@ -422,7 +442,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:166:48: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:48: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -434,7 +454,6 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            mLineBreak(); 
 
             }
 
@@ -451,13 +470,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = NodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:11: ({...}? => ( ' ' )* '-' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:13: {...}? => ( ' ' )* '-'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:11: ({...}? => ( ' ' )* '-' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:13: {...}? => ( ' ' )* '-'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:30: ( ' ' )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:30: ( ' ' )*
             loop6:
             do {
                 int alt6=2;
@@ -470,7 +489,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:168:31: ' '
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:31: ' '
             	    {
             	    match(' '); 
 
@@ -500,13 +519,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = FunctionIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:15: ({...}? => ( ' ' )* '@' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:17: {...}? => ( ' ' )* '@'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:15: ({...}? => ( ' ' )* '@' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:17: {...}? => ( ' ' )* '@'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "FunctionIndent", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:34: ( ' ' )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:34: ( ' ' )*
             loop7:
             do {
                 int alt7=2;
@@ -519,7 +538,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:169:35: ' '
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:175:35: ' '
             	    {
             	    match(' '); 
 
@@ -549,13 +568,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = BlankLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:10: ({...}? => ( WhiteSpace )* LineBreak )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:12: {...}? => ( WhiteSpace )* LineBreak
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:10: ({...}? => ( WhiteSpace )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:12: {...}? => ( WhiteSpace )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlankLine", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:29: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:29: ( WhiteSpace )*
             loop8:
             do {
                 int alt8=2;
@@ -568,7 +587,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:170:29: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:29: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -580,7 +599,6 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            mLineBreak(); 
 
             }
 
@@ -595,10 +613,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "DataLineBody"
     public final void mDataLineBody() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:22: (~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:24: ~ ( '-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar ) (~ ( '#' | '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:22: (~ ( '-' | '%' | '#' | '@' | WhiteSpace ) (~ ( '#' | LineBreakChar ) )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:24: ~ ( '-' | '%' | '#' | '@' | WhiteSpace ) (~ ( '#' | LineBreakChar ) )*
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||(input.LA(1)>='!' && input.LA(1)<='\"')||input.LA(1)=='$'||(input.LA(1)>='&' && input.LA(1)<=',')||(input.LA(1)>='.' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||(input.LA(1)>='!' && input.LA(1)<='\"')||input.LA(1)=='$'||(input.LA(1)>='&' && input.LA(1)<=',')||(input.LA(1)>='.' && input.LA(1)<='?')||(input.LA(1)>='A' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -607,7 +625,7 @@ public class SilkLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:78: (~ ( '#' | '\\n' | '\\r' ) )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:62: (~ ( '#' | LineBreakChar ) )*
             loop9:
             do {
                 int alt9=2;
@@ -620,7 +638,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:172:78: ~ ( '#' | '\\n' | '\\r' )
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:62: ~ ( '#' | LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\"')||(input.LA(1)>='$' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -656,13 +674,13 @@ public class SilkLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token DataLineBody1=null;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:173:9: ({...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:173:11: {...}? => ( WhiteSpace )* DataLineBody ( LineBreak | LineComment )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:9: ({...}? => ( WhiteSpace )* DataLineBody ( LineComment )? )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:11: {...}? => ( WhiteSpace )* DataLineBody ( LineComment )?
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "DataLine", " isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:5: ( WhiteSpace )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:180:5: ( WhiteSpace )*
             loop10:
             do {
                 int alt10=2;
@@ -675,7 +693,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:5: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:180:5: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -687,35 +705,19 @@ public class SilkLexer extends Lexer {
                 }
             } while (true);
 
-            int DataLineBody1Start265 = getCharIndex();
+            int DataLineBody1Start267 = getCharIndex();
             mDataLineBody(); 
-            DataLineBody1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, DataLineBody1Start265, getCharIndex()-1);
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:30: ( LineBreak | LineComment )
+            DataLineBody1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, DataLineBody1Start267, getCharIndex()-1);
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:180:30: ( LineComment )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( (LA11_0=='\n'||LA11_0=='\r') ) {
+            if ( (LA11_0=='#') ) {
                 alt11=1;
-            }
-            else if ( (LA11_0=='#') ) {
-                alt11=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 11, 0, input);
-
-                throw nvae;
             }
             switch (alt11) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:31: LineBreak
-                    {
-                    mLineBreak(); 
-
-                    }
-                    break;
-                case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:174:41: LineComment
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:180:30: LineComment
                     {
                     mLineComment(); 
 
@@ -741,8 +743,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:7: ( '(' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:176:9: '('
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:7: ( '(' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:9: '('
             {
             match('('); 
              transit(Symbol.EnterParen); 
@@ -762,8 +764,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:7: ( ')' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:177:9: ')'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:7: ( ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:9: ')'
             {
             match(')'); 
              transit(Symbol.LeaveParen); 
@@ -783,8 +785,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:6: ( ',' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:178:9: ','
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:6: ( ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:9: ','
             {
             match(','); 
 
@@ -803,8 +805,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:6: ( ':' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:179:8: ':'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:185:6: ( ':' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:185:8: ':'
             {
             match(':'); 
              transit(Symbol.Colon); 
@@ -824,8 +826,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Seq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:4: ( '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:182:7: '>'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:4: ( '>' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:7: '>'
             {
             match('>'); 
 
@@ -844,8 +846,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = TabSeq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:7: ( '|' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:183:9: '|'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:7: ( '|' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:9: '|'
             {
             match('|'); 
 
@@ -864,8 +866,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:5: ( '*' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:184:8: '*'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:190:5: ( '*' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:190:8: '*'
             {
             match('*'); 
 
@@ -884,8 +886,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:185:3: ( '@' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:185:6: '@'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:3: ( '@' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:6: '@'
             {
             match('@'); 
              transit(Symbol.At); 
@@ -905,8 +907,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:5: ( '+' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:186:7: '+'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:5: ( '+' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:7: '+'
             {
             match('+'); 
 
@@ -925,8 +927,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:9: ( '[' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:187:11: '['
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:9: ( '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:11: '['
             {
             match('['); 
              transit(Symbol.EnterParen); 
@@ -946,8 +948,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:9: ( ']' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:188:11: ']'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:9: ( ']' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:11: ']'
             {
             match(']'); 
 
@@ -966,8 +968,8 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:9: ( '?' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:189:11: '?'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:9: ( '?' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:195:11: '?'
             {
             match('?'); 
 
@@ -984,8 +986,8 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:15: ( '0' .. '9' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:191:17: '0' .. '9'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:197:15: ( '0' .. '9' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:197:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -1000,7 +1002,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:192:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:198:16: ( 'A' .. 'F' | 'a' .. 'f' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -1024,7 +1026,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:193:18: ( Digit | Letter )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:199:18: ( Digit | Letter )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -1048,10 +1050,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:21: (~ ( '\"' | '\\\\' | LineBreakChar ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:194:23: ~ ( '\"' | '\\\\' | LineBreakChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:21: (~ ( '\"' | '\\\\' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:23: ~ ( '\"' | '\\\\' )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -1072,11 +1074,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt12=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -1133,63 +1135,63 @@ public class SilkLexer extends Lexer {
 
             switch (alt12) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:10: '\\\"'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:17: '\\\\'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:24: '/'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:30: 'b'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:36: 'f'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:42: 'n'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:48: 'r'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:54: 't'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:196:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:202:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -1214,11 +1216,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:21: ( UnicodeChar | EscapeSequence )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:21: ( UnicodeChar | EscapeSequence )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( ((LA13_0>='\u0000' && LA13_0<='\t')||(LA13_0>='\u000B' && LA13_0<='\f')||(LA13_0>='\u000E' && LA13_0<='!')||(LA13_0>='#' && LA13_0<='[')||(LA13_0>=']' && LA13_0<='\uFFFF')) ) {
+            if ( ((LA13_0>='\u0000' && LA13_0<='!')||(LA13_0>='#' && LA13_0<='[')||(LA13_0>=']' && LA13_0<='\uFFFF')) ) {
                 alt13=1;
             }
             else if ( (LA13_0=='\\') ) {
@@ -1232,14 +1234,14 @@ public class SilkLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:24: UnicodeChar
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:200:38: EscapeSequence
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -1253,50 +1255,26 @@ public class SilkLexer extends Lexer {
     }
     // $ANTLR end "StringChar"
 
-    // $ANTLR start "NonSpaceChar"
-    public final void mNonSpaceChar() throws RecognitionException {
-        try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:201:22: (~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:201:24: ~ ( '\"' | '\\\\' | LineBreakChar | WhiteSpace )
-            {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "NonSpaceChar"
-
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:203:22: ( ( StringChar )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:203:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:22: ( ( StringChar )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:24: ( StringChar )*
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:203:24: ( StringChar )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:24: ( StringChar )*
             loop14:
             do {
                 int alt14=2;
                 int LA14_0 = input.LA(1);
 
-                if ( ((LA14_0>='\u0000' && LA14_0<='\t')||(LA14_0>='\u000B' && LA14_0<='\f')||(LA14_0>='\u000E' && LA14_0<='!')||(LA14_0>='#' && LA14_0<='\uFFFF')) ) {
+                if ( ((LA14_0>='\u0000' && LA14_0<='!')||(LA14_0>='#' && LA14_0<='\uFFFF')) ) {
                     alt14=1;
                 }
 
 
                 switch (alt14) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:203:24: StringChar
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:205:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -1324,13 +1302,13 @@ public class SilkLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:7: ( '\"' s= StringChar_s '\"' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:204:9: '\"' s= StringChar_s '\"'
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:206:7: ( '\"' s= StringChar_s '\"' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:206:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
-            int sStart566 = getCharIndex();
+            int sStart534 = getCharIndex();
             mStringChar_s(); 
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart566, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart534, getCharIndex()-1);
             match('\"'); 
              setText((s!=null?s.getText():null)); 
 
@@ -1347,7 +1325,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "ScopeIndicator"
     public final void mScopeIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:208:24: ( '(' | ')' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:24: ( '(' | ')' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='(' && input.LA(1)<=')') ) {
@@ -1371,7 +1349,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "FlowIndicator"
     public final void mFlowIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:209:23: ( '[' | ']' | '{' | '}' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:210:23: ( '[' | ']' | '{' | '}' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='{'||input.LA(1)=='}' ) {
@@ -1395,7 +1373,7 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:210:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:211:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||input.LA(1)==','||input.LA(1)==':'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
@@ -1419,10 +1397,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainUnsafeChar"
     public final void mPlainUnsafeChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:213:25: ( '\"' | '\\\\' | LineBreakChar | '#' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:214:25: ( '\"' | '\\\\' | '#' )
             // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:
             {
-            if ( input.LA(1)=='\n'||input.LA(1)=='\r'||(input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='\\' ) {
+            if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='\\' ) {
                 input.consume();
 
             }
@@ -1443,10 +1421,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeKey"
     public final void mPlainSafeKey() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:215:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:215:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:216:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:216:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -1467,10 +1445,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeIn"
     public final void mPlainSafeIn() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:216:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:216:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:217:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:217:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -1491,10 +1469,10 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafeOut"
     public final void mPlainSafeOut() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:217:22: (~ ( PlainUnsafeChar ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:217:24: ~ ( PlainUnsafeChar )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:218:22: (~ ( PlainUnsafeChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:218:24: ~ ( PlainUnsafeChar )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
 
             }
@@ -1512,27 +1490,42 @@ public class SilkLexer extends Lexer {
     }
     // $ANTLR end "PlainSafeOut"
 
+    // $ANTLR start "NonSpaceChar"
+    public final void mNonSpaceChar() throws RecognitionException {
+        try {
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:22: (~ ( '\"' | '\\\\' | WhiteSpace ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:24: ~ ( '\"' | '\\\\' | WhiteSpace )
+            {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "NonSpaceChar"
+
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:2: (~ ( '-' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | ( ':' | '?' ) NonSpaceChar ) )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:222:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
-            if ( (LA16_0=='?') ) {
-                int LA16_1 = input.LA(2);
-
-                if ( ((LA16_1>='\u0000' && LA16_1<='\b')||(LA16_1>='\u000B' && LA16_1<='\f')||(LA16_1>='\u000E' && LA16_1<='\u001F')||LA16_1=='!'||(LA16_1>='#' && LA16_1<='[')||(LA16_1>=']' && LA16_1<='\uFFFF')) && (( isValue() ))) {
-                    alt16=2;
-                }
-                else {
-                    alt16=1;}
-            }
-            else if ( (LA16_0=='-'||LA16_0==':') && (( isValue() ))) {
-                alt16=2;
-            }
-            else if ( ((LA16_0>='\u0000' && LA16_0<='\b')||(LA16_0>='\u000B' && LA16_0<='\f')||(LA16_0>='\u000E' && LA16_0<='\u001F')||LA16_0=='!'||LA16_0=='$'||LA16_0=='&'||LA16_0=='+'||(LA16_0>='.' && LA16_0<='9')||(LA16_0>=';' && LA16_0<='=')||(LA16_0>='A' && LA16_0<='Z')||(LA16_0>='^' && LA16_0<='z')||(LA16_0>='~' && LA16_0<='\uFFFF')) ) {
+            if ( ((LA16_0>='\u0000' && LA16_0<='\b')||(LA16_0>='\n' && LA16_0<='\u001F')||LA16_0=='!'||LA16_0=='$'||LA16_0=='&'||(LA16_0>='.' && LA16_0<='9')||(LA16_0>=';' && LA16_0<='=')||(LA16_0>='A' && LA16_0<='Z')||(LA16_0>='^' && LA16_0<='z')||(LA16_0>='~' && LA16_0<='\uFFFF')) ) {
                 alt16=1;
+            }
+            else if ( (LA16_0=='+'||LA16_0=='-'||LA16_0==':'||LA16_0=='?') && (( isValue() ))) {
+                alt16=2;
             }
             else {
                 NoViableAltException nvae =
@@ -1542,9 +1535,9 @@ public class SilkLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:220:5: ~ ( '-' | PlainUnsafeChar | WhiteSpace | Indicator )
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:222:5: ~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator )
                     {
-                    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
+                    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='=')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
 
                     }
@@ -1557,37 +1550,54 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:221:4: {...}? => ( '-' | ( ':' | '?' ) NonSpaceChar )
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:223:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
                     }
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:221:22: ( '-' | ( ':' | '?' ) NonSpaceChar )
-                    int alt15=2;
-                    int LA15_0 = input.LA(1);
-
-                    if ( (LA15_0=='-') ) {
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:223:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    int alt15=3;
+                    switch ( input.LA(1) ) {
+                    case '-':
+                        {
                         alt15=1;
-                    }
-                    else if ( (LA15_0==':'||LA15_0=='?') ) {
+                        }
+                        break;
+                    case '+':
+                        {
                         alt15=2;
-                    }
-                    else {
+                        }
+                        break;
+                    case ':':
+                    case '?':
+                        {
+                        alt15=3;
+                        }
+                        break;
+                    default:
                         NoViableAltException nvae =
                             new NoViableAltException("", 15, 0, input);
 
                         throw nvae;
                     }
+
                     switch (alt15) {
                         case 1 :
-                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:221:23: '-'
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:223:23: '-'
                             {
                             match('-'); 
 
                             }
                             break;
                         case 2 :
-                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:221:29: ( ':' | '?' ) NonSpaceChar
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:223:29: '+'
+                            {
+                            match('+'); 
+
+                            }
+                            break;
+                        case 3 :
+                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:223:35: ( ':' | '?' ) NonSpaceChar
                             {
                             if ( input.LA(1)==':'||input.LA(1)=='?' ) {
                                 input.consume();
@@ -1619,11 +1629,11 @@ public class SilkLexer extends Lexer {
     // $ANTLR start "PlainSafe"
     public final void mPlainSafe() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:225:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:227:2: ({...}? => PlainSafeKey | {...}? => PlainSafeIn | {...}? => PlainSafeOut )
             int alt17=3;
             int LA17_0 = input.LA(1);
 
-            if ( ((LA17_0>='\u0000' && LA17_0<='\t')||(LA17_0>='\u000B' && LA17_0<='\f')||(LA17_0>='\u000E' && LA17_0<='!')||(LA17_0>='$' && LA17_0<='\'')||LA17_0=='+'||(LA17_0>='-' && LA17_0<='9')||(LA17_0>=';' && LA17_0<='=')||(LA17_0>='?' && LA17_0<='Z')||(LA17_0>='^' && LA17_0<='z')||(LA17_0>='~' && LA17_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
+            if ( ((LA17_0>='\u0000' && LA17_0<='!')||(LA17_0>='$' && LA17_0<='\'')||LA17_0=='+'||(LA17_0>='-' && LA17_0<='9')||(LA17_0>=';' && LA17_0<='=')||(LA17_0>='?' && LA17_0<='Z')||(LA17_0>='^' && LA17_0<='z')||(LA17_0>='~' && LA17_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
                 int LA17_1 = input.LA(2);
 
                 if ( (( isKey() )) ) {
@@ -1669,7 +1679,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:225:4: {...}? => PlainSafeKey
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:227:4: {...}? => PlainSafeKey
                     {
                     if ( !(( isKey() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isKey() ");
@@ -1679,7 +1689,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:226:4: {...}? => PlainSafeIn
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:228:4: {...}? => PlainSafeIn
                     {
                     if ( !(( isInValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isInValue() ");
@@ -1689,7 +1699,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:227:4: {...}? => PlainSafeOut
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:229:4: {...}? => PlainSafeOut
                     {
                     if ( !(( isOutValue() )) ) {
                         throw new FailedPredicateException(input, "PlainSafe", " isOutValue() ");
@@ -1711,11 +1721,11 @@ public class SilkLexer extends Lexer {
         try {
             int _type = PlainOneLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:2: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:4: PlainFirst ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:2: ( PlainFirst ( ( WhiteSpace )* PlainSafe )* )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:4: PlainFirst ( ( WhiteSpace )* PlainSafe )*
             {
             mPlainFirst(); 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:15: ( ( WhiteSpace )* PlainSafe )*
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:15: ( ( WhiteSpace )* PlainSafe )*
             loop19:
             do {
                 int alt19=2;
@@ -1724,7 +1734,7 @@ public class SilkLexer extends Lexer {
                 if ( (LA19_0=='\t'||LA19_0==' ') ) {
                     alt19=1;
                 }
-                else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='\u001F')||LA19_0=='!'||(LA19_0>='$' && LA19_0<='\'')||LA19_0=='+'||(LA19_0>='-' && LA19_0<='9')||(LA19_0>=';' && LA19_0<='=')||(LA19_0>='?' && LA19_0<='Z')||(LA19_0>='^' && LA19_0<='z')||(LA19_0>='~' && LA19_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
+                else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\n' && LA19_0<='\u001F')||LA19_0=='!'||(LA19_0>='$' && LA19_0<='\'')||LA19_0=='+'||(LA19_0>='-' && LA19_0<='9')||(LA19_0>=';' && LA19_0<='=')||(LA19_0>='?' && LA19_0<='Z')||(LA19_0>='^' && LA19_0<='z')||(LA19_0>='~' && LA19_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
                     alt19=1;
                 }
                 else if ( (LA19_0=='*'||LA19_0==':'||LA19_0=='>'||LA19_0=='['||LA19_0==']'||(LA19_0>='{' && LA19_0<='}')) && ((( isInValue() )||( isOutValue() )))) {
@@ -1737,15 +1747,15 @@ public class SilkLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:16: ( WhiteSpace )* PlainSafe
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:16: ( WhiteSpace )* PlainSafe
             	    {
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:16: ( WhiteSpace )*
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:16: ( WhiteSpace )*
             	    loop18:
             	    do {
             	        int alt18=2;
             	        int LA18_0 = input.LA(1);
 
-            	        if ( (LA18_0=='\t'||LA18_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))))) {
+            	        if ( (LA18_0=='\t'||LA18_0==' ') && ((!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isOutValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isInValue() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))||( isKey() )||!(((( isInValue() )||( isOutValue() )||( isKey() ))))))) {
             	            int LA18_1 = input.LA(2);
 
             	            if ( (!(((( isInValue() )||( isOutValue() )||( isKey() ))))) ) {
@@ -1758,7 +1768,7 @@ public class SilkLexer extends Lexer {
 
             	        switch (alt18) {
             	    	case 1 :
-            	    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:231:16: WhiteSpace
+            	    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:233:16: WhiteSpace
             	    	    {
             	    	    mWhiteSpace(); 
 
@@ -1797,7 +1807,7 @@ public class SilkLexer extends Lexer {
         try {
             int _type = JSON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:2: ({...}? => '{' | {...}? => '[' )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:238:2: ({...}? => '{' | {...}? => '[' )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1815,7 +1825,7 @@ public class SilkLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:236:4: {...}? => '{'
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:238:4: {...}? => '{'
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1835,7 +1845,7 @@ public class SilkLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:247:4: {...}? => '['
+                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:249:4: {...}? => '['
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1869,13 +1879,13 @@ public class SilkLexer extends Lexer {
         try {
             int _type = Separation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:260:11: ({...}? => ( WhiteSpace )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:260:13: {...}? => ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:262:11: ({...}? => ( WhiteSpace )+ )
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:262:13: {...}? => ( WhiteSpace )+
             {
             if ( !(( !isHead() )) ) {
                 throw new FailedPredicateException(input, "Separation", " !isHead() ");
             }
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:260:31: ( WhiteSpace )+
+            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:262:31: ( WhiteSpace )+
             int cnt21=0;
             loop21:
             do {
@@ -1889,7 +1899,7 @@ public class SilkLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:260:31: WhiteSpace
+            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:262:31: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1917,37 +1927,9 @@ public class SilkLexer extends Lexer {
     }
     // $ANTLR end "Separation"
 
-    // $ANTLR start "WhiteSpace"
-    public final void mWhiteSpace() throws RecognitionException {
-        try {
-            int _type = WhiteSpace;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:263:2: ( ( ' ' | '\\t' ) )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:263:4: ( ' ' | '\\t' )
-            {
-            if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "WhiteSpace"
-
     public void mTokens() throws RecognitionException {
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | MultiLineSeparator | MultiLineEntrySeparator | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace )
-        int alt22=26;
+        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:8: ( LineComment | Preamble | LineBreak | MultiLineSeparator | MultiLineEntrySeparator | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation )
+        int alt22=25;
         alt22 = dfa22.predict(input);
         switch (alt22) {
             case 1 :
@@ -2125,13 +2107,6 @@ public class SilkLexer extends Lexer {
 
                 }
                 break;
-            case 26 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\Silk.g:1:242: WhiteSpace
-                {
-                mWhiteSpace(); 
-
-                }
-                break;
 
         }
 
@@ -2140,225 +2115,212 @@ public class SilkLexer extends Lexer {
 
     protected DFA22 dfa22 = new DFA22(this);
     static final String DFA22_eotS =
-        "\3\uffff\1\31\1\32\1\34\1\37\1\40\1\46\1\40\1\47\1\50\1\51\1\54"+
-        "\1\55\1\56\1\57\1\64\1\65\1\66\1\uffff\1\76\1\77\1\uffff\1\100\2"+
-        "\uffff\1\102\6\uffff\1\110\1\uffff\1\110\5\uffff\2\102\4\uffff\4"+
-        "\76\3\uffff\3\124\2\uffff\1\142\6\uffff\1\102\2\uffff\2\150\3\uffff"+
-        "\10\102\2\uffff\4\124\12\uffff\1\142\3\uffff\1\150\23\uffff";
+        "\1\12\2\uffff\2\33\1\41\1\44\1\47\1\50\1\47\1\uffff\1\51\1\52\1"+
+        "\53\1\55\1\57\1\60\1\62\1\66\1\67\1\70\1\30\1\76\1\77\1\uffff\1"+
+        "\33\1\76\1\uffff\2\76\1\uffff\1\76\1\101\2\uffff\1\104\10\uffff"+
+        "\1\114\1\uffff\1\114\2\uffff\1\114\1\uffff\3\114\3\uffff\3\30\1"+
+        "\uffff\1\145\4\uffff\1\101\2\uffff\1\104\10\uffff\4\114\7\uffff"+
+        "\1\145\13\30\3\uffff\21\30";
     static final String DFA22_eofS =
-        "\173\uffff";
+        "\171\uffff";
     static final String DFA22_minS =
-        "\1\0\2\uffff\1\12\23\0\1\uffff\3\0\1\11\1\0\1\uffff\1\0\1\uffff"+
-        "\1\0\1\uffff\1\0\1\uffff\1\0\1\uffff\1\0\3\uffff\2\0\4\uffff\5\0"+
-        "\2\uffff\7\0\2\uffff\1\0\2\uffff\1\0\1\uffff\1\0\1\12\1\0\3\uffff"+
-        "\10\0\2\uffff\15\0\1\uffff\3\0\1\uffff\14\0\1\uffff\7\0";
+        "\1\0\2\uffff\7\0\1\uffff\15\0\1\uffff\2\0\1\uffff\2\0\1\uffff\3"+
+        "\0\1\uffff\2\0\2\uffff\24\0\1\42\1\uffff\3\0\1\uffff\2\0\1\uffff"+
+        "\2\0\6\uffff\1\0\1\uffff\4\0\7\uffff\2\0\1\42\10\0\1\60\1\0\2\uffff"+
+        "\10\0\7\60\2\0";
     static final String DFA22_maxS =
-        "\1\uffff\2\uffff\1\12\1\0\3\uffff\1\0\16\uffff\1\uffff\3\0\1\40"+
-        "\1\0\1\uffff\1\uffff\1\uffff\1\0\1\uffff\1\uffff\1\uffff\1\uffff"+
-        "\1\uffff\1\0\3\uffff\2\uffff\4\uffff\4\uffff\1\0\2\uffff\7\uffff"+
-        "\2\uffff\1\0\2\uffff\1\uffff\1\uffff\1\uffff\1\12\1\0\3\uffff\10"+
-        "\uffff\2\uffff\15\uffff\1\uffff\3\uffff\1\uffff\2\0\12\uffff\1\uffff"+
-        "\7\uffff";
+        "\1\uffff\2\uffff\5\uffff\1\0\1\uffff\1\uffff\15\uffff\1\uffff\2"+
+        "\uffff\1\uffff\2\uffff\1\uffff\2\uffff\1\0\1\uffff\1\uffff\1\0\2"+
+        "\uffff\5\0\1\uffff\1\0\1\uffff\2\0\1\uffff\1\0\3\uffff\3\0\2\uffff"+
+        "\1\165\1\uffff\1\uffff\2\0\1\uffff\1\0\1\uffff\1\uffff\1\0\1\uffff"+
+        "\6\uffff\1\0\1\uffff\4\uffff\7\uffff\2\uffff\1\165\10\uffff\1\146"+
+        "\1\0\2\uffff\10\uffff\7\146\2\uffff";
     static final String DFA22_acceptS =
-        "\1\uffff\1\1\1\2\24\uffff\1\11\5\uffff\1\27\1\uffff\1\16\1\uffff"+
-        "\1\10\1\uffff\1\6\1\uffff\1\7\1\uffff\1\12\1\13\1\14\2\uffff\1\15"+
-        "\1\17\1\20\1\22\5\uffff\1\24\1\25\7\uffff\1\27\1\30\1\uffff\1\3"+
-        "\1\27\1\uffff\1\4\3\uffff\1\31\1\32\1\21\10\uffff\1\23\1\27\15\uffff"+
-        "\1\26\3\uffff\1\27\14\uffff\1\5\7\uffff";
+        "\1\uffff\1\1\1\2\7\uffff\1\10\15\uffff\1\11\2\uffff\1\3\2\uffff"+
+        "\1\27\3\uffff\1\27\2\uffff\1\7\1\6\25\uffff\1\26\3\uffff\1\27\2"+
+        "\uffff\1\27\2\uffff\1\16\1\31\1\21\1\12\1\13\1\14\1\uffff\1\15\4"+
+        "\uffff\1\17\1\20\1\22\1\23\1\30\1\24\1\25\15\uffff\1\4\1\5\21\uffff";
     static final String DFA22_specialS =
-        "\1\53\4\uffff\1\77\1\51\1\27\1\uffff\1\55\1\115\1\106\1\15\1\14"+
-        "\1\24\1\26\1\116\1\110\1\64\1\13\1\104\1\46\1\61\2\uffff\1\4\1\3"+
-        "\1\54\1\63\1\uffff\1\23\1\uffff\1\45\1\uffff\1\72\1\uffff\1\10\1"+
-        "\uffff\1\30\3\uffff\1\75\1\111\4\uffff\1\44\1\125\1\0\1\65\1\120"+
-        "\2\uffff\1\73\1\35\1\52\1\76\1\70\1\43\1\17\2\uffff\1\5\2\uffff"+
-        "\1\71\1\uffff\1\40\1\32\1\20\3\uffff\1\47\1\126\1\1\1\66\1\12\1"+
-        "\42\1\11\1\113\2\uffff\1\60\1\21\1\130\1\103\1\56\1\57\1\124\1\100"+
-        "\1\114\1\121\1\74\1\50\1\36\1\uffff\1\117\1\31\1\6\1\uffff\1\105"+
-        "\1\2\1\123\1\62\1\41\1\25\1\112\1\127\1\102\1\33\1\34\1\122\1\uffff"+
-        "\1\67\1\7\1\101\1\16\1\22\1\37\1\107}>";
+        "\1\101\2\uffff\1\41\1\6\1\40\1\114\1\26\1\uffff\1\31\1\uffff\1"+
+        "\76\1\65\1\35\1\70\1\111\1\23\1\45\1\44\1\32\1\27\1\47\1\16\1\64"+
+        "\1\uffff\1\50\1\125\1\uffff\1\17\1\120\1\uffff\1\33\1\54\1\74\1"+
+        "\uffff\1\52\1\42\2\uffff\1\100\1\60\1\113\1\77\1\2\1\14\1\106\1"+
+        "\122\1\57\1\130\1\126\1\105\1\20\1\121\1\34\1\116\1\75\1\107\1\12"+
+        "\1\133\1\110\1\uffff\1\15\1\24\1\102\1\uffff\1\13\1\124\1\uffff"+
+        "\1\55\1\22\6\uffff\1\25\1\uffff\1\112\1\10\1\103\1\37\7\uffff\1"+
+        "\21\1\71\1\61\1\4\1\11\1\63\1\43\1\73\1\132\1\36\1\67\1\0\1\30\2"+
+        "\uffff\1\1\1\7\1\117\1\66\1\123\1\51\1\3\1\5\1\104\1\115\1\46\1"+
+        "\56\1\72\1\131\1\62\1\53\1\127}>";
     static final String[] DFA22_transitionS = {
-            "\11\25\1\11\1\4\2\25\1\3\22\25\1\7\1\25\1\24\1\1\1\25\1\2\1"+
-            "\25\1\27\1\12\1\13\1\17\1\20\1\14\1\5\14\25\1\15\3\25\1\6\1"+
-            "\23\1\10\32\25\1\21\1\27\1\22\35\25\1\26\1\16\1\27\uff82\25",
+            "\11\26\1\11\1\4\2\26\1\3\22\26\1\7\1\26\1\25\1\1\1\26\1\2\1"+
+            "\26\1\30\1\13\1\14\1\20\1\21\1\15\1\5\14\26\1\16\3\26\1\6\1"+
+            "\24\1\10\32\26\1\22\1\30\1\23\35\26\1\27\1\17\1\30\uff82\26",
             "",
             "",
-            "\1\30",
+            "\11\34\1\32\1\31\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
+            "\42\42\2\uffff\11\42\1\40\56\42\1\uffff\uffa3\42",
+            "\12\30\1\uffff\2\30\1\uffff\60\30\1\43\uffc1\30",
+            "\11\30\1\11\26\30\1\7\2\30\1\uffff\1\30\1\uffff\7\30\1\46"+
+            "\22\30\1\45\uffbf\30",
             "\1\uffff",
-            "\12\35\1\uffff\2\35\1\uffff\24\35\2\uffff\11\35\1\33\56\35"+
-            "\1\uffff\uffa3\35",
-            "\76\27\1\36\uffc1\27",
-            "\11\27\1\44\1\41\2\27\1\41\22\27\1\42\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\43\22\27\1\45\uffbf\27",
-            "\1\uffff",
-            "\11\27\1\44\1\41\2\27\1\41\22\27\1\44\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\uffff\22\27\1\uffff\uffbf\27",
-            "\0\27",
-            "\0\27",
-            "\0\27",
-            "\11\52\2\27\2\52\1\27\22\52\1\27\1\52\1\27\1\53\70\52\1\27"+
-            "\uffa3\52",
-            "\0\27",
-            "\0\27",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
-            "\0\27",
-            "\0\27",
-            "\11\67\1\60\1\27\2\67\1\27\22\67\1\60\1\67\1\27\1\53\4\67"+
-            "\2\71\1\70\1\67\1\71\15\67\1\70\3\67\1\70\34\67\1\70\1\27\1"+
-            "\70\35\67\3\70\uff82\67",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
-            "\0\27",
+            "\11\30\1\11\26\30\1\11\2\30\1\uffff\1\30\1\uffff\7\30\1\uffff"+
+            "\22\30\1\uffff\uffbf\30",
             "",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\uffff",
-            "\1\103\1\104\2\uffff\1\104\22\uffff\1\103",
-            "\1\uffff",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\11\54\1\30\1\42\2\54\1\42\22\54\1\30\1\54\1\30\1\56\70\54"+
+            "\1\30\uffa3\54",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\11\63\1\61\1\42\2\63\1\42\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\11\54\1\30\1\42\2\54\1\42\22\54\1\30\1\54\1\30\1\56\70\54"+
+            "\1\30\uffa3\54",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
             "",
-            "\11\27\1\105\1\107\2\27\1\106\22\27\1\105\uffdf\27",
+            "\11\36\1\100\26\36\1\100\1\36\2\uffff\4\36\3\100\1\36\1\100"+
+            "\15\36\1\100\3\36\1\100\34\36\1\100\1\uffff\1\100\35\36\3\100"+
+            "\uff82\36",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
             "",
-            "\1\uffff",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
             "",
-            "\11\27\1\44\1\41\2\27\1\41\22\27\1\42\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\43\22\27\1\45\uffbf\27",
-            "",
-            "\11\27\1\44\1\41\2\27\1\41\22\27\1\44\2\27\1\uffff\1\27\1"+
-            "\uffff\7\27\1\uffff\22\27\1\uffff\uffbf\27",
-            "",
+            "\11\34\1\32\1\36\2\34\1\36\22\34\1\32\1\34\2\30\4\34\2\37"+
+            "\1\35\1\34\1\37\15\34\1\35\3\34\1\35\34\34\1\35\1\30\1\35\35"+
+            "\34\3\35\uff82\34",
+            "\11\103\1\102\26\103\1\102\1\103\2\uffff\70\103\1\uffff\uffa3"+
+            "\103",
             "\1\uffff",
             "",
-            "",
-            "",
-            "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
-            "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\3\115\uff82\114",
-            "\11\120\1\117\1\27\2\120\1\27\22\120\1\117\1\120\2\27\4\120"+
-            "\2\122\1\121\1\120\1\122\15\120\1\121\3\120\1\121\34\120\1\121"+
-            "\1\27\1\121\35\120\3\121\uff82\120",
-            "",
-            "",
-            "",
-            "",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
-            "\11\61\1\60\1\27\2\61\1\27\22\61\1\60\1\61\2\27\4\61\2\63"+
-            "\1\62\1\61\1\63\15\61\1\62\3\61\1\62\34\61\1\62\1\27\1\62\35"+
-            "\61\3\62\uff82\61",
+            "\11\30\1\105\1\uffff\2\30\1\uffff\22\30\1\105\uffdf\30",
             "\1\uffff",
             "",
             "",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\42\27\1\131\14\27\1\133\54\27\1\132\5\27\1\134\3\27\1\135"+
-            "\7\27\1\136\3\27\1\137\1\27\1\140\1\141\uff8a\27",
-            "\0\27",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\11\63\1\61\1\103\2\63\1\103\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\1\uffff",
+            "\11\117\1\116\1\103\2\117\1\103\22\117\1\116\1\117\2\30\4"+
+            "\117\2\121\1\120\1\117\1\121\15\117\1\120\3\117\1\120\34\117"+
+            "\1\120\1\30\1\120\35\117\3\120\uff82\117",
+            "\1\uffff",
+            "\1\uffff",
+            "\11\63\1\61\1\103\2\63\1\103\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\1\uffff",
+            "\11\63\1\61\1\103\2\63\1\103\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\11\63\1\61\1\103\2\63\1\103\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\11\63\1\61\1\103\2\63\1\103\22\63\1\61\1\63\2\30\4\63\2\65"+
+            "\1\64\1\63\1\65\15\63\1\64\3\63\1\64\34\63\1\64\1\30\1\64\35"+
+            "\63\3\64\uff82\63",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\1\134\14\uffff\1\136\54\uffff\1\135\5\uffff\1\137\3\uffff"+
+            "\1\140\7\uffff\1\141\3\uffff\1\142\1\uffff\1\143\1\144",
+            "",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\1\uffff",
+            "\1\uffff",
+            "",
+            "\1\uffff",
+            "\11\103\1\102\26\103\1\102\1\103\2\uffff\70\103\1\uffff\uffa3"+
+            "\103",
+            "",
+            "\1\uffff",
+            "\11\30\1\105\1\uffff\2\30\1\uffff\22\30\1\105\uffdf\30",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "\1\uffff",
             "",
+            "\11\117\1\116\1\103\2\117\1\103\22\117\1\116\1\117\2\30\4"+
+            "\117\2\121\1\120\1\117\1\121\15\117\1\120\3\117\1\120\34\117"+
+            "\1\120\1\30\1\120\35\117\3\120\uff82\117",
+            "\11\117\1\116\1\103\2\117\1\103\22\117\1\116\1\117\2\30\4"+
+            "\117\2\121\1\120\1\117\1\121\15\117\1\120\3\117\1\120\34\117"+
+            "\1\120\1\30\1\120\35\117\3\120\uff82\117",
+            "\11\117\1\116\1\103\2\117\1\103\22\117\1\116\1\117\2\30\4"+
+            "\117\2\121\1\120\1\117\1\121\15\117\1\120\3\117\1\120\34\117"+
+            "\1\120\1\30\1\120\35\117\3\120\uff82\117",
+            "\11\117\1\116\1\103\2\117\1\103\22\117\1\116\1\117\2\30\4"+
+            "\117\2\121\1\120\1\117\1\121\15\117\1\120\3\117\1\120\34\117"+
+            "\1\120\1\30\1\120\35\117\3\120\uff82\117",
             "",
-            "\11\146\1\103\1\104\2\146\1\104\22\146\1\103\1\146\2\uffff"+
-            "\70\146\1\uffff\uffa3\146",
             "",
-            "\11\27\1\105\1\107\2\27\1\106\22\27\1\105\uffdf\27",
-            "\1\147",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\12\30\1\uffff\2\30\1\uffff\ufff2\30",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\1\150\14\uffff\1\152\54\uffff\1\151\5\uffff\1\153\3\uffff"+
+            "\1\154\7\uffff\1\155\3\uffff\1\156\1\uffff\1\157\1\160",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\161\7\uffff\6\161\32\uffff\6\161",
             "\1\uffff",
             "",
             "",
-            "",
-            "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
-            "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\3\115\uff82\114",
-            "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
-            "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\3\115\uff82\114",
-            "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
-            "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\3\115\uff82\114",
-            "\11\114\1\113\1\27\2\114\1\27\22\114\1\113\1\114\2\27\4\114"+
-            "\2\116\1\115\1\114\1\116\15\114\1\115\3\114\1\115\34\114\1\115"+
-            "\1\27\1\115\35\114\3\115\uff82\114",
-            "\11\120\1\117\1\27\2\120\1\27\22\120\1\117\1\120\2\27\4\120"+
-            "\2\122\1\121\1\120\1\122\15\120\1\121\3\120\1\121\34\120\1\121"+
-            "\1\27\1\121\35\120\3\121\uff82\120",
-            "\11\120\1\117\1\27\2\120\1\27\22\120\1\117\1\120\2\27\4\120"+
-            "\2\122\1\121\1\120\1\122\15\120\1\121\3\120\1\121\34\120\1\121"+
-            "\1\27\1\121\35\120\3\121\uff82\120",
-            "\11\120\1\117\1\27\2\120\1\27\22\120\1\117\1\120\2\27\4\120"+
-            "\2\122\1\121\1\120\1\122\15\120\1\121\3\120\1\121\34\120\1\121"+
-            "\1\27\1\121\35\120\3\121\uff82\120",
-            "\11\120\1\117\1\27\2\120\1\27\22\120\1\117\1\120\2\27\4\120"+
-            "\2\122\1\121\1\120\1\122\15\120\1\121\3\120\1\121\34\120\1\121"+
-            "\1\27\1\121\35\120\3\121\uff82\120",
-            "",
-            "",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\11\126\1\125\1\27\2\126\1\27\22\126\1\125\1\126\2\27\4\126"+
-            "\2\130\1\127\1\126\1\130\15\126\1\127\3\126\1\127\34\126\1\127"+
-            "\1\27\1\127\35\126\3\127\uff82\126",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\60\27\12\151\7\27\6\151\32\27\6\151\uff99\27",
-            "",
-            "\0\27",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\42\27\1\152\14\27\1\154\54\27\1\153\5\27\1\155\3\27\1\156"+
-            "\7\27\1\157\3\27\1\160\1\27\1\161\1\162\uff8a\27",
-            "",
-            "\1\uffff",
-            "\1\uffff",
-            "\60\27\12\164\7\27\6\164\32\27\6\164\uff99\27",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144",
-            "\60\27\12\165\7\27\6\165\32\27\6\165\uff99\27",
-            "",
-            "\60\27\12\166\7\27\6\166\32\27\6\166\uff99\27",
-            "\60\27\12\167\7\27\6\167\32\27\6\167\uff99\27",
-            "\60\27\12\170\7\27\6\170\32\27\6\170\uff99\27",
-            "\60\27\12\171\7\27\6\171\32\27\6\171\uff99\27",
-            "\12\72\1\27\2\72\1\27\24\72\1\74\1\75\70\72\1\73\uffa3\72",
-            "\60\27\12\172\7\27\6\172\32\27\6\172\uff99\27",
-            "\12\144\1\27\2\144\1\27\24\144\1\143\71\144\1\145\uffa3\144"
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132",
+            "\12\162\7\uffff\6\162\32\uffff\6\162",
+            "\12\163\7\uffff\6\163\32\uffff\6\163",
+            "\12\164\7\uffff\6\164\32\uffff\6\164",
+            "\12\165\7\uffff\6\165\32\uffff\6\165",
+            "\12\166\7\uffff\6\166\32\uffff\6\166",
+            "\12\167\7\uffff\6\167\32\uffff\6\167",
+            "\12\170\7\uffff\6\170\32\uffff\6\170",
+            "\12\71\1\74\2\71\1\74\24\71\1\75\1\72\70\71\1\73\uffa3\71",
+            "\12\132\1\74\2\132\1\74\24\132\1\131\71\132\1\133\uffa3\132"
     };
 
     static final short[] DFA22_eot = DFA.unpackEncodedString(DFA22_eotS);
@@ -2391,406 +2353,1123 @@ public class SilkLexer extends Lexer {
             this.transition = DFA22_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( LineComment | Preamble | LineBreak | MultiLineSeparator | MultiLineEntrySeparator | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation | WhiteSpace );";
+            return "1:1: Tokens : ( LineComment | Preamble | LineBreak | MultiLineSeparator | MultiLineEntrySeparator | NodeIndent | FunctionIndent | BlankLine | DataLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA22_50 = input.LA(1);
+                        int LA22_100 = input.LA(1);
 
                          
-                        int index22_50 = input.index();
+                        int index22_100 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_50=='\t'||LA22_50==' ') ) {s = 48;}
+                        if ( ((LA22_100>='0' && LA22_100<='9')||(LA22_100>='A' && LA22_100<='F')||(LA22_100>='a' && LA22_100<='f')) ) {s = 113;}
 
-                        else if ( ((LA22_50>='\u0000' && LA22_50<='\b')||(LA22_50>='\u000B' && LA22_50<='\f')||(LA22_50>='\u000E' && LA22_50<='\u001F')||LA22_50=='!'||(LA22_50>='$' && LA22_50<='\'')||LA22_50=='+'||(LA22_50>='-' && LA22_50<='9')||(LA22_50>=';' && LA22_50<='=')||(LA22_50>='?' && LA22_50<='Z')||(LA22_50>='^' && LA22_50<='z')||(LA22_50>='~' && LA22_50<='\uFFFF')) ) {s = 49;}
-
-                        else if ( (LA22_50=='*'||LA22_50==':'||LA22_50=='>'||LA22_50=='['||LA22_50==']'||(LA22_50>='{' && LA22_50<='}')) ) {s = 50;}
-
-                        else if ( ((LA22_50>='(' && LA22_50<=')')||LA22_50==',') ) {s = 51;}
-
-                        else if ( (LA22_50=='\n'||LA22_50=='\r'||(LA22_50>='\"' && LA22_50<='#')||LA22_50=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 62;
+                        else s = 24;
 
                          
-                        input.seek(index22_50);
+                        input.seek(index22_100);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA22_77 = input.LA(1);
-
-                         
-                        int index22_77 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_77=='\t'||LA22_77==' ') && ((( isValue() )||( isHead() )))) {s = 75;}
-
-                        else if ( ((LA22_77>='\u0000' && LA22_77<='\b')||(LA22_77>='\u000B' && LA22_77<='\f')||(LA22_77>='\u000E' && LA22_77<='\u001F')||LA22_77=='!'||(LA22_77>='$' && LA22_77<='\'')||LA22_77=='+'||(LA22_77>='-' && LA22_77<='9')||(LA22_77>=';' && LA22_77<='=')||(LA22_77>='?' && LA22_77<='Z')||(LA22_77>='^' && LA22_77<='z')||(LA22_77>='~' && LA22_77<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 76;}
-
-                        else if ( (LA22_77=='*'||LA22_77==':'||LA22_77=='>'||LA22_77=='['||LA22_77==']'||(LA22_77>='{' && LA22_77<='}')) && ((( isValue() )||( isHead() )))) {s = 77;}
-
-                        else if ( ((LA22_77>='(' && LA22_77<=')')||LA22_77==',') && ((( isValue() )||( isHead() )))) {s = 78;}
-
-                        else if ( (LA22_77=='\n'||LA22_77=='\r'||(LA22_77>='\"' && LA22_77<='#')||LA22_77=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_77);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA22_104 = input.LA(1);
 
                          
                         int index22_104 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( isHead() )) ) {s = 115;}
+                        if ( (LA22_104=='\"') ) {s = 89;}
 
-                        else if ( (( isHead() )) ) {s = 23;}
+                        else if ( ((LA22_104>='\u0000' && LA22_104<='\t')||(LA22_104>='\u000B' && LA22_104<='\f')||(LA22_104>='\u000E' && LA22_104<='!')||(LA22_104>='#' && LA22_104<='[')||(LA22_104>=']' && LA22_104<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_104=='\\') ) {s = 91;}
+
+                        else if ( (LA22_104=='\n'||LA22_104=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
                         input.seek(index22_104);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
-                        int LA22_26 = input.LA(1);
+                    case 2 : 
+                        int LA22_43 = input.LA(1);
 
                          
-                        int index22_26 = input.index();
+                        int index22_43 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((( isHead() )))) ) {s = 65;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( (( isHead() )) ) {s = 33;}
+                        else if ( (true) ) {s = 75;}
 
                          
-                        input.seek(index22_26);
+                        input.seek(index22_43);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA22_110 = input.LA(1);
+
+                         
+                        int index22_110 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_110=='\"') ) {s = 89;}
+
+                        else if ( ((LA22_110>='\u0000' && LA22_110<='\t')||(LA22_110>='\u000B' && LA22_110<='\f')||(LA22_110>='\u000E' && LA22_110<='!')||(LA22_110>='#' && LA22_110<='[')||(LA22_110>=']' && LA22_110<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_110=='\\') ) {s = 91;}
+
+                        else if ( (LA22_110=='\n'||LA22_110=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_110);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA22_25 = input.LA(1);
+                        int LA22_92 = input.LA(1);
 
                          
-                        int index22_25 = input.index();
+                        int index22_92 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((( isHead() )))) ) {s = 65;}
+                        if ( (LA22_92=='#') ) {s = 58;}
 
-                        else if ( (( isHead() )) ) {s = 33;}
+                        else if ( (LA22_92=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_92>='\u0000' && LA22_92<='\t')||(LA22_92>='\u000B' && LA22_92<='\f')||(LA22_92>='\u000E' && LA22_92<='!')||(LA22_92>='$' && LA22_92<='[')||(LA22_92>=']' && LA22_92<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_92=='\\') ) {s = 59;}
+
+                        else if ( (LA22_92=='\n'||LA22_92=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_25);
+                        input.seek(index22_92);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA22_64 = input.LA(1);
+                        int LA22_111 = input.LA(1);
 
                          
-                        int index22_64 = input.index();
+                        int index22_111 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((( isHead() )))) ) {s = 65;}
+                        if ( (LA22_111=='\"') ) {s = 89;}
 
-                        else if ( (( isHead() )) ) {s = 33;}
+                        else if ( ((LA22_111>='\u0000' && LA22_111<='\t')||(LA22_111>='\u000B' && LA22_111<='\f')||(LA22_111>='\u000E' && LA22_111<='!')||(LA22_111>='#' && LA22_111<='[')||(LA22_111>=']' && LA22_111<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_111=='\\') ) {s = 91;}
+
+                        else if ( (LA22_111=='\n'||LA22_111=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_64);
+                        input.seek(index22_111);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA22_101 = input.LA(1);
+                        int LA22_4 = input.LA(1);
 
                          
-                        int index22_101 = input.index();
+                        int index22_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_101>='\u0000' && LA22_101<='!')||(LA22_101>='#' && LA22_101<='.')||(LA22_101>='0' && LA22_101<='[')||(LA22_101>=']' && LA22_101<='a')||(LA22_101>='c' && LA22_101<='e')||(LA22_101>='g' && LA22_101<='m')||(LA22_101>='o' && LA22_101<='q')||LA22_101=='s'||(LA22_101>='v' && LA22_101<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( (LA22_4=='\t'||LA22_4==' ') ) {s = 26;}
 
-                        else if ( (LA22_101=='\"') ) {s = 106;}
+                        else if ( ((LA22_4>='\"' && LA22_4<='#')||LA22_4=='\\') && (( isHead() ))) {s = 24;}
 
-                        else if ( (LA22_101=='\\') ) {s = 107;}
+                        else if ( ((LA22_4>='\u0000' && LA22_4<='\b')||(LA22_4>='\u000B' && LA22_4<='\f')||(LA22_4>='\u000E' && LA22_4<='\u001F')||LA22_4=='!'||(LA22_4>='$' && LA22_4<='\'')||LA22_4=='+'||(LA22_4>='-' && LA22_4<='9')||(LA22_4>=';' && LA22_4<='=')||(LA22_4>='?' && LA22_4<='Z')||(LA22_4>='^' && LA22_4<='z')||(LA22_4>='~' && LA22_4<='\uFFFF')) ) {s = 28;}
 
-                        else if ( (LA22_101=='/') ) {s = 108;}
+                        else if ( (LA22_4=='*'||LA22_4==':'||LA22_4=='>'||LA22_4=='['||LA22_4==']'||(LA22_4>='{' && LA22_4<='}')) ) {s = 29;}
 
-                        else if ( (LA22_101=='b') ) {s = 109;}
+                        else if ( (LA22_4=='\n'||LA22_4=='\r') ) {s = 30;}
 
-                        else if ( (LA22_101=='f') ) {s = 110;}
+                        else if ( ((LA22_4>='(' && LA22_4<=')')||LA22_4==',') ) {s = 31;}
 
-                        else if ( (LA22_101=='n') ) {s = 111;}
-
-                        else if ( (LA22_101=='r') ) {s = 112;}
-
-                        else if ( (LA22_101=='t') ) {s = 113;}
-
-                        else if ( (LA22_101=='u') ) {s = 114;}
+                        else s = 27;
 
                          
-                        input.seek(index22_101);
+                        input.seek(index22_4);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA22_117 = input.LA(1);
+                        int LA22_105 = input.LA(1);
 
                          
-                        int index22_117 = input.index();
+                        int index22_105 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_117>='0' && LA22_117<='9')||(LA22_117>='A' && LA22_117<='F')||(LA22_117>='a' && LA22_117<='f')) ) {s = 119;}
+                        if ( (LA22_105=='\"') ) {s = 89;}
 
-                        else if ( ((LA22_117>='\u0000' && LA22_117<='/')||(LA22_117>=':' && LA22_117<='@')||(LA22_117>='G' && LA22_117<='`')||(LA22_117>='g' && LA22_117<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA22_105>='\u0000' && LA22_105<='\t')||(LA22_105>='\u000B' && LA22_105<='\f')||(LA22_105>='\u000E' && LA22_105<='!')||(LA22_105>='#' && LA22_105<='[')||(LA22_105>=']' && LA22_105<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_105=='\\') ) {s = 91;}
+
+                        else if ( (LA22_105=='\n'||LA22_105=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_117);
+                        input.seek(index22_105);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA22_36 = input.LA(1);
-
-                         
-                        int index22_36 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_36=='\n'||LA22_36=='\r') && (( isHead() ))) {s = 33;}
-
-                        else if ( (LA22_36=='\t'||LA22_36==' ') && ((( !isHead() )||( isHead() )))) {s = 36;}
-
-                        else if ( ((LA22_36>='\u0000' && LA22_36<='\b')||(LA22_36>='\u000B' && LA22_36<='\f')||(LA22_36>='\u000E' && LA22_36<='\u001F')||(LA22_36>='!' && LA22_36<='\"')||LA22_36=='$'||(LA22_36>='&' && LA22_36<=',')||(LA22_36>='.' && LA22_36<='?')||(LA22_36>='A' && LA22_36<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 72;
-
-                         
-                        input.seek(index22_36);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA22_81 = input.LA(1);
-
-                         
-                        int index22_81 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_81=='\t'||LA22_81==' ') && ((( isHead() )||( isValue() )))) {s = 79;}
-
-                        else if ( ((LA22_81>='\u0000' && LA22_81<='\b')||(LA22_81>='\u000B' && LA22_81<='\f')||(LA22_81>='\u000E' && LA22_81<='\u001F')||LA22_81=='!'||(LA22_81>='$' && LA22_81<='\'')||LA22_81=='+'||(LA22_81>='-' && LA22_81<='9')||(LA22_81>=';' && LA22_81<='=')||(LA22_81>='?' && LA22_81<='Z')||(LA22_81>='^' && LA22_81<='z')||(LA22_81>='~' && LA22_81<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 80;}
-
-                        else if ( (LA22_81=='*'||LA22_81==':'||LA22_81=='>'||LA22_81=='['||LA22_81==']'||(LA22_81>='{' && LA22_81<='}')) && ((( isHead() )||( isValue() )))) {s = 81;}
-
-                        else if ( ((LA22_81>='(' && LA22_81<=')')||LA22_81==',') && ((( isHead() )||( isValue() )))) {s = 82;}
-
-                        else if ( (LA22_81=='\n'||LA22_81=='\r'||(LA22_81>='\"' && LA22_81<='#')||LA22_81=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_81);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
                         int LA22_79 = input.LA(1);
 
                          
                         int index22_79 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_79=='\t'||LA22_79==' ') && ((( isHead() )||( isValue() )))) {s = 79;}
+                        if ( (LA22_79=='\t'||LA22_79==' ') && ((( isHead() )||( isValue() )))) {s = 78;}
 
-                        else if ( (LA22_79=='*'||LA22_79==':'||LA22_79=='>'||LA22_79=='['||LA22_79==']'||(LA22_79>='{' && LA22_79<='}')) && ((( isHead() )||( isValue() )))) {s = 81;}
+                        else if ( ((LA22_79>='\u0000' && LA22_79<='\b')||(LA22_79>='\u000B' && LA22_79<='\f')||(LA22_79>='\u000E' && LA22_79<='\u001F')||LA22_79=='!'||(LA22_79>='$' && LA22_79<='\'')||LA22_79=='+'||(LA22_79>='-' && LA22_79<='9')||(LA22_79>=';' && LA22_79<='=')||(LA22_79>='?' && LA22_79<='Z')||(LA22_79>='^' && LA22_79<='z')||(LA22_79>='~' && LA22_79<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 79;}
 
-                        else if ( ((LA22_79>='(' && LA22_79<=')')||LA22_79==',') && ((( isHead() )||( isValue() )))) {s = 82;}
+                        else if ( (LA22_79=='*'||LA22_79==':'||LA22_79=='>'||LA22_79=='['||LA22_79==']'||(LA22_79>='{' && LA22_79<='}')) && ((( isHead() )||( isValue() )))) {s = 80;}
 
-                        else if ( ((LA22_79>='\u0000' && LA22_79<='\b')||(LA22_79>='\u000B' && LA22_79<='\f')||(LA22_79>='\u000E' && LA22_79<='\u001F')||LA22_79=='!'||(LA22_79>='$' && LA22_79<='\'')||LA22_79=='+'||(LA22_79>='-' && LA22_79<='9')||(LA22_79>=';' && LA22_79<='=')||(LA22_79>='?' && LA22_79<='Z')||(LA22_79>='^' && LA22_79<='z')||(LA22_79>='~' && LA22_79<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 80;}
+                        else if ( ((LA22_79>='(' && LA22_79<=')')||LA22_79==',') && ((( isValue() )||( isHead() )))) {s = 81;}
 
-                        else if ( (LA22_79=='\n'||LA22_79=='\r'||(LA22_79>='\"' && LA22_79<='#')||LA22_79=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_79=='\n'||LA22_79=='\r') && (( isValue() ))) {s = 67;}
 
-                        else s = 66;
+                        else if ( ((LA22_79>='\"' && LA22_79<='#')||LA22_79=='\\') && (( isHead() ))) {s = 24;}
+
+                        else s = 76;
 
                          
                         input.seek(index22_79);
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
-                        int LA22_19 = input.LA(1);
+                    case 9 : 
+                        int LA22_93 = input.LA(1);
 
                          
-                        int index22_19 = input.index();
+                        int index22_93 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_19=='\t'||LA22_19==' ') ) {s = 48;}
+                        if ( (LA22_93=='#') ) {s = 58;}
 
-                        else if ( ((LA22_19>='\u0000' && LA22_19<='\b')||(LA22_19>='\u000B' && LA22_19<='\f')||(LA22_19>='\u000E' && LA22_19<='\u001F')||LA22_19=='!'||(LA22_19>='$' && LA22_19<='\'')||LA22_19=='+'||(LA22_19>='-' && LA22_19<='9')||(LA22_19>=';' && LA22_19<='=')||(LA22_19>='?' && LA22_19<='Z')||(LA22_19>='^' && LA22_19<='z')||(LA22_19>='~' && LA22_19<='\uFFFF')) ) {s = 55;}
+                        else if ( (LA22_93=='\"') ) {s = 61;}
 
-                        else if ( (LA22_19=='*'||LA22_19==':'||LA22_19=='>'||LA22_19=='['||LA22_19==']'||(LA22_19>='{' && LA22_19<='}')) ) {s = 56;}
+                        else if ( ((LA22_93>='\u0000' && LA22_93<='\t')||(LA22_93>='\u000B' && LA22_93<='\f')||(LA22_93>='\u000E' && LA22_93<='!')||(LA22_93>='$' && LA22_93<='[')||(LA22_93>=']' && LA22_93<='\uFFFF')) ) {s = 57;}
 
-                        else if ( ((LA22_19>='(' && LA22_19<=')')||LA22_19==',') ) {s = 57;}
+                        else if ( (LA22_93=='\\') ) {s = 59;}
 
-                        else if ( (LA22_19=='#') && ((( isValue() )||( isHead() )))) {s = 43;}
+                        else if ( (LA22_93=='\n'||LA22_93=='\r') ) {s = 60;}
 
-                        else if ( (LA22_19=='\n'||LA22_19=='\r'||LA22_19=='\"'||LA22_19=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 54;
+                        else s = 24;
 
                          
-                        input.seek(index22_19);
+                        input.seek(index22_93);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA22_57 = input.LA(1);
+
+                         
+                        int index22_57 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_57=='#') ) {s = 58;}
+
+                        else if ( (LA22_57=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_57>='\u0000' && LA22_57<='\t')||(LA22_57>='\u000B' && LA22_57<='\f')||(LA22_57>='\u000E' && LA22_57<='!')||(LA22_57>='$' && LA22_57<='[')||(LA22_57>=']' && LA22_57<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_57=='\\') ) {s = 59;}
+
+                        else if ( (LA22_57=='\n'||LA22_57=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_57);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA22_65 = input.LA(1);
+
+                         
+                        int index22_65 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 102;}
+
+                        else if ( (( isValue() )) ) {s = 67;}
+
+                         
+                        input.seek(index22_65);
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA22_13 = input.LA(1);
+                        int LA22_44 = input.LA(1);
 
                          
-                        int index22_13 = input.index();
+                        int index22_44 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_13>='\u0000' && LA22_13<='\b')||(LA22_13>='\u000B' && LA22_13<='\f')||(LA22_13>='\u000E' && LA22_13<='\u001F')||LA22_13=='!'||(LA22_13>='$' && LA22_13<='[')||(LA22_13>=']' && LA22_13<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 42;}
+                        if ( ((LA22_44>='\"' && LA22_44<='#')||LA22_44=='\\') && (( isHead() ))) {s = 24;}
 
-                        else if ( (LA22_13=='#') && ((( isValue() )||( isHead() )))) {s = 43;}
+                        else if ( (LA22_44=='\t'||LA22_44==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
 
-                        else if ( ((LA22_13>='\t' && LA22_13<='\n')||LA22_13=='\r'||LA22_13==' '||LA22_13=='\"'||LA22_13=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA22_44>='\u0000' && LA22_44<='\b')||(LA22_44>='\u000B' && LA22_44<='\f')||(LA22_44>='\u000E' && LA22_44<='\u001F')||LA22_44=='!'||(LA22_44>='$' && LA22_44<='\'')||LA22_44=='+'||(LA22_44>='-' && LA22_44<='9')||(LA22_44>=';' && LA22_44<='=')||(LA22_44>='?' && LA22_44<='Z')||(LA22_44>='^' && LA22_44<='z')||(LA22_44>='~' && LA22_44<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
 
-                        else s = 44;
+                        else if ( (LA22_44=='*'||LA22_44==':'||LA22_44=='>'||LA22_44=='['||LA22_44==']'||(LA22_44>='{' && LA22_44<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
+
+                        else if ( (LA22_44=='\n'||LA22_44=='\r') && (( isValue() ))) {s = 67;}
+
+                        else if ( ((LA22_44>='(' && LA22_44<=')')||LA22_44==',') && ((( isValue() )||( isHead() )))) {s = 53;}
+
+                        else s = 76;
 
                          
-                        input.seek(index22_13);
+                        input.seek(index22_44);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA22_12 = input.LA(1);
-
-                         
-                        int index22_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_12>='\u0000' && LA22_12<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 41;
-
-                         
-                        input.seek(index22_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA22_119 = input.LA(1);
-
-                         
-                        int index22_119 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_119>='\u0000' && LA22_119<='/')||(LA22_119>=':' && LA22_119<='@')||(LA22_119>='G' && LA22_119<='`')||(LA22_119>='g' && LA22_119<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_119>='0' && LA22_119<='9')||(LA22_119>='A' && LA22_119<='F')||(LA22_119>='a' && LA22_119<='f')) ) {s = 121;}
-
-                         
-                        input.seek(index22_119);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
                         int LA22_61 = input.LA(1);
 
                          
                         int index22_61 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_61=='\"') ) {s = 99;}
+                        if ( ((LA22_61>='\u0000' && LA22_61<='\t')||(LA22_61>='\u000B' && LA22_61<='\f')||(LA22_61>='\u000E' && LA22_61<='\uFFFF')) && (( isHead() ))) {s = 24;}
 
-                        else if ( ((LA22_61>='\u0000' && LA22_61<='\t')||(LA22_61>='\u000B' && LA22_61<='\f')||(LA22_61>='\u000E' && LA22_61<='!')||(LA22_61>='#' && LA22_61<='[')||(LA22_61>=']' && LA22_61<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_61=='\\') ) {s = 101;}
-
-                        else if ( (LA22_61=='\n'||LA22_61=='\r') && (( isHead() ))) {s = 23;}
+                        else s = 101;
 
                          
                         input.seek(index22_61);
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
-                        int LA22_71 = input.LA(1);
+                    case 14 : 
+                        int LA22_22 = input.LA(1);
 
                          
-                        int index22_71 = input.index();
+                        int index22_22 = input.index();
                         input.rewind();
                         s = -1;
-                        s = 104;
+                        if ( (LA22_22=='\t'||LA22_22==' ') ) {s = 26;}
+
+                        else if ( ((LA22_22>='\"' && LA22_22<='#')||LA22_22=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( ((LA22_22>='\u0000' && LA22_22<='\b')||(LA22_22>='\u000B' && LA22_22<='\f')||(LA22_22>='\u000E' && LA22_22<='\u001F')||LA22_22=='!'||(LA22_22>='$' && LA22_22<='\'')||LA22_22=='+'||(LA22_22>='-' && LA22_22<='9')||(LA22_22>=';' && LA22_22<='=')||(LA22_22>='?' && LA22_22<='Z')||(LA22_22>='^' && LA22_22<='z')||(LA22_22>='~' && LA22_22<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_22=='*'||LA22_22==':'||LA22_22=='>'||LA22_22=='['||LA22_22==']'||(LA22_22>='{' && LA22_22<='}')) ) {s = 29;}
+
+                        else if ( (LA22_22=='\n'||LA22_22=='\r') ) {s = 30;}
+
+                        else if ( ((LA22_22>='(' && LA22_22<=')')||LA22_22==',') ) {s = 31;}
+
+                        else s = 62;
 
                          
-                        input.seek(index22_71);
+                        input.seek(index22_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA22_28 = input.LA(1);
+
+                         
+                        int index22_28 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_28=='\t'||LA22_28==' ') ) {s = 26;}
+
+                        else if ( ((LA22_28>='\u0000' && LA22_28<='\b')||(LA22_28>='\u000B' && LA22_28<='\f')||(LA22_28>='\u000E' && LA22_28<='\u001F')||LA22_28=='!'||(LA22_28>='$' && LA22_28<='\'')||LA22_28=='+'||(LA22_28>='-' && LA22_28<='9')||(LA22_28>=';' && LA22_28<='=')||(LA22_28>='?' && LA22_28<='Z')||(LA22_28>='^' && LA22_28<='z')||(LA22_28>='~' && LA22_28<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_28=='*'||LA22_28==':'||LA22_28=='>'||LA22_28=='['||LA22_28==']'||(LA22_28>='{' && LA22_28<='}')) ) {s = 29;}
+
+                        else if ( ((LA22_28>='(' && LA22_28<=')')||LA22_28==',') ) {s = 31;}
+
+                        else if ( ((LA22_28>='\"' && LA22_28<='#')||LA22_28=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_28=='\n'||LA22_28=='\r') ) {s = 30;}
+
+                        else s = 62;
+
+                         
+                        input.seek(index22_28);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA22_51 = input.LA(1);
+
+                         
+                        int index22_51 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_51=='\t'||LA22_51==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
+
+                        else if ( ((LA22_51>='\u0000' && LA22_51<='\b')||(LA22_51>='\u000B' && LA22_51<='\f')||(LA22_51>='\u000E' && LA22_51<='\u001F')||LA22_51=='!'||(LA22_51>='$' && LA22_51<='\'')||LA22_51=='+'||(LA22_51>='-' && LA22_51<='9')||(LA22_51>=';' && LA22_51<='=')||(LA22_51>='?' && LA22_51<='Z')||(LA22_51>='^' && LA22_51<='z')||(LA22_51>='~' && LA22_51<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
+
+                        else if ( (LA22_51=='*'||LA22_51==':'||LA22_51=='>'||LA22_51=='['||LA22_51==']'||(LA22_51>='{' && LA22_51<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
+
+                        else if ( ((LA22_51>='(' && LA22_51<=')')||LA22_51==',') && ((( isValue() )||( isHead() )))) {s = 53;}
+
+                        else if ( ((LA22_51>='\"' && LA22_51<='#')||LA22_51=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_51=='\n'||LA22_51=='\r') && (( isValue() ))) {s = 67;}
+
+                        else s = 76;
+
+                         
+                        input.seek(index22_51);
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA22_86 = input.LA(1);
+                        int LA22_89 = input.LA(1);
 
                          
-                        int index22_86 = input.index();
+                        int index22_89 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_86=='\t'||LA22_86==' ') ) {s = 85;}
+                        if ( ((LA22_89>='\u0000' && LA22_89<='\t')||(LA22_89>='\u000B' && LA22_89<='\f')||(LA22_89>='\u000E' && LA22_89<='\uFFFF')) && (( isHead() ))) {s = 24;}
 
-                        else if ( ((LA22_86>='\u0000' && LA22_86<='\b')||(LA22_86>='\u000B' && LA22_86<='\f')||(LA22_86>='\u000E' && LA22_86<='\u001F')||LA22_86=='!'||(LA22_86>='$' && LA22_86<='\'')||LA22_86=='+'||(LA22_86>='-' && LA22_86<='9')||(LA22_86>=';' && LA22_86<='=')||(LA22_86>='?' && LA22_86<='Z')||(LA22_86>='^' && LA22_86<='z')||(LA22_86>='~' && LA22_86<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_86=='*'||LA22_86==':'||LA22_86=='>'||LA22_86=='['||LA22_86==']'||(LA22_86>='{' && LA22_86<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_86>='(' && LA22_86<=')')||LA22_86==',') ) {s = 88;}
-
-                        else if ( (LA22_86=='\n'||LA22_86=='\r'||(LA22_86>='\"' && LA22_86<='#')||LA22_86=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
+                        else s = 101;
 
                          
-                        input.seek(index22_86);
+                        input.seek(index22_89);
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA22_120 = input.LA(1);
+                        int LA22_69 = input.LA(1);
 
                          
-                        int index22_120 = input.index();
+                        int index22_69 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_120=='\n'||LA22_120=='\r') && (( isHead() ))) {s = 23;}
+                        if ( ((LA22_69>='\u0000' && LA22_69<='\b')||(LA22_69>='\u000B' && LA22_69<='\f')||(LA22_69>='\u000E' && LA22_69<='\u001F')||(LA22_69>='!' && LA22_69<='\uFFFF')) && (( isHead() ))) {s = 24;}
 
-                        else if ( (LA22_120=='#') ) {s = 61;}
+                        else if ( (LA22_69=='\t'||LA22_69==' ') && (( isHead() ))) {s = 69;}
 
-                        else if ( (LA22_120=='\"') ) {s = 60;}
-
-                        else if ( ((LA22_120>='\u0000' && LA22_120<='\t')||(LA22_120>='\u000B' && LA22_120<='\f')||(LA22_120>='\u000E' && LA22_120<='!')||(LA22_120>='$' && LA22_120<='[')||(LA22_120>=']' && LA22_120<='\uFFFF')) ) {s = 58;}
-
-                        else if ( (LA22_120=='\\') ) {s = 59;}
+                        else s = 68;
 
                          
-                        input.seek(index22_120);
+                        input.seek(index22_69);
                         if ( s>=0 ) return s;
                         break;
                     case 19 : 
-                        int LA22_30 = input.LA(1);
+                        int LA22_16 = input.LA(1);
 
                          
-                        int index22_30 = input.index();
+                        int index22_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_30=='\t'||LA22_30==' ') && (( isHead() ))) {s = 69;}
+                        if ( ((LA22_16>='\u0000' && LA22_16<='\t')||(LA22_16>='\u000B' && LA22_16<='\f')||(LA22_16>='\u000E' && LA22_16<='\uFFFF')) && (( isHead() ))) {s = 24;}
 
-                        else if ( (LA22_30=='\r') && (( isHead() ))) {s = 70;}
-
-                        else if ( (LA22_30=='\n') && (( isHead() ))) {s = 71;}
-
-                        else if ( ((LA22_30>='\u0000' && LA22_30<='\b')||(LA22_30>='\u000B' && LA22_30<='\f')||(LA22_30>='\u000E' && LA22_30<='\u001F')||(LA22_30>='!' && LA22_30<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else s = 48;
 
                          
-                        input.seek(index22_30);
+                        input.seek(index22_16);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
+                        int LA22_62 = input.LA(1);
+
+                         
+                        int index22_62 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 67;}
+
+                         
+                        input.seek(index22_62);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA22_76 = input.LA(1);
+
+                         
+                        int index22_76 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (( isValue() )) ) {s = 67;}
+
+                         
+                        input.seek(index22_76);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA22_7 = input.LA(1);
+
+                         
+                        int index22_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_7=='@') && (( isHead() ))) {s = 37;}
+
+                        else if ( (LA22_7==' ') && ((( !isHead() )||( isHead() )))) {s = 7;}
+
+                        else if ( (LA22_7=='-') && (( isHead() ))) {s = 38;}
+
+                        else if ( (LA22_7=='\t') && ((( !isHead() )||( isHead() )))) {s = 9;}
+
+                        else if ( ((LA22_7>='\u0000' && LA22_7<='\b')||(LA22_7>='\n' && LA22_7<='\u001F')||(LA22_7>='!' && LA22_7<='\"')||LA22_7=='$'||(LA22_7>='&' && LA22_7<=',')||(LA22_7>='.' && LA22_7<='?')||(LA22_7>='A' && LA22_7<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 39;
+
+                         
+                        input.seek(index22_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA22_20 = input.LA(1);
+
+                         
+                        int index22_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_20>='\u0000' && LA22_20<='\b')||(LA22_20>='\u000B' && LA22_20<='\f')||(LA22_20>='\u000E' && LA22_20<='\u001F')||LA22_20=='!'||(LA22_20>='$' && LA22_20<='[')||(LA22_20>=']' && LA22_20<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 44;}
+
+                        else if ( (LA22_20=='#') && ((( isValue() )||( isHead() )))) {s = 46;}
+
+                        else if ( (LA22_20=='\t'||LA22_20==' '||LA22_20=='\"'||LA22_20=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_20=='\n'||LA22_20=='\r') && (( isValue() ))) {s = 34;}
+
+                        else s = 56;
+
+                         
+                        input.seek(index22_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA22_101 = input.LA(1);
+
+                         
+                        int index22_101 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 60;}
+
+                         
+                        input.seek(index22_101);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA22_9 = input.LA(1);
+
+                         
+                        int index22_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_9=='\t'||LA22_9==' ') && ((( !isHead() )||( isHead() )))) {s = 9;}
+
+                        else if ( ((LA22_9>='\u0000' && LA22_9<='\b')||(LA22_9>='\n' && LA22_9<='\u001F')||(LA22_9>='!' && LA22_9<='\"')||LA22_9=='$'||(LA22_9>='&' && LA22_9<=',')||(LA22_9>='.' && LA22_9<='?')||(LA22_9>='A' && LA22_9<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 39;
+
+                         
+                        input.seek(index22_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA22_19 = input.LA(1);
+
+                         
+                        int index22_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_19>='\u0000' && LA22_19<='\t')||(LA22_19>='\u000B' && LA22_19<='\f')||(LA22_19>='\u000E' && LA22_19<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 55;
+
+                         
+                        input.seek(index22_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA22_31 = input.LA(1);
+
+                         
+                        int index22_31 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_31=='\t'||LA22_31==' ') ) {s = 26;}
+
+                        else if ( ((LA22_31>='\u0000' && LA22_31<='\b')||(LA22_31>='\u000B' && LA22_31<='\f')||(LA22_31>='\u000E' && LA22_31<='\u001F')||LA22_31=='!'||(LA22_31>='$' && LA22_31<='\'')||LA22_31=='+'||(LA22_31>='-' && LA22_31<='9')||(LA22_31>=';' && LA22_31<='=')||(LA22_31>='?' && LA22_31<='Z')||(LA22_31>='^' && LA22_31<='z')||(LA22_31>='~' && LA22_31<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_31=='*'||LA22_31==':'||LA22_31=='>'||LA22_31=='['||LA22_31==']'||(LA22_31>='{' && LA22_31<='}')) ) {s = 29;}
+
+                        else if ( ((LA22_31>='(' && LA22_31<=')')||LA22_31==',') ) {s = 31;}
+
+                        else if ( ((LA22_31>='\"' && LA22_31<='#')||LA22_31=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_31=='\n'||LA22_31=='\r') ) {s = 30;}
+
+                        else s = 62;
+
+                         
+                        input.seek(index22_31);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
+                        int LA22_53 = input.LA(1);
+
+                         
+                        int index22_53 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_53=='\t'||LA22_53==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
+
+                        else if ( ((LA22_53>='\u0000' && LA22_53<='\b')||(LA22_53>='\u000B' && LA22_53<='\f')||(LA22_53>='\u000E' && LA22_53<='\u001F')||LA22_53=='!'||(LA22_53>='$' && LA22_53<='\'')||LA22_53=='+'||(LA22_53>='-' && LA22_53<='9')||(LA22_53>=';' && LA22_53<='=')||(LA22_53>='?' && LA22_53<='Z')||(LA22_53>='^' && LA22_53<='z')||(LA22_53>='~' && LA22_53<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
+
+                        else if ( (LA22_53=='*'||LA22_53==':'||LA22_53=='>'||LA22_53=='['||LA22_53==']'||(LA22_53>='{' && LA22_53<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
+
+                        else if ( ((LA22_53>='(' && LA22_53<=')')||LA22_53==',') && ((( isValue() )||( isHead() )))) {s = 53;}
+
+                        else if ( ((LA22_53>='\"' && LA22_53<='#')||LA22_53=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_53=='\n'||LA22_53=='\r') && (( isValue() ))) {s = 67;}
+
+                        else s = 76;
+
+                         
+                        input.seek(index22_53);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA22_13 = input.LA(1);
+
+                         
+                        int index22_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_13>='\u0000' && LA22_13<='\t')||(LA22_13>='\u000B' && LA22_13<='\f')||(LA22_13>='\u000E' && LA22_13<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 43;
+
+                         
+                        input.seek(index22_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA22_98 = input.LA(1);
+
+                         
+                        int index22_98 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_98=='\"') ) {s = 61;}
+
+                        else if ( (LA22_98=='#') ) {s = 58;}
+
+                        else if ( (LA22_98=='\\') ) {s = 59;}
+
+                        else if ( ((LA22_98>='\u0000' && LA22_98<='\t')||(LA22_98>='\u000B' && LA22_98<='\f')||(LA22_98>='\u000E' && LA22_98<='!')||(LA22_98>='$' && LA22_98<='[')||(LA22_98>=']' && LA22_98<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_98=='\n'||LA22_98=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_98);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA22_81 = input.LA(1);
+
+                         
+                        int index22_81 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_81=='\t'||LA22_81==' ') && ((( isHead() )||( isValue() )))) {s = 78;}
+
+                        else if ( ((LA22_81>='\u0000' && LA22_81<='\b')||(LA22_81>='\u000B' && LA22_81<='\f')||(LA22_81>='\u000E' && LA22_81<='\u001F')||LA22_81=='!'||(LA22_81>='$' && LA22_81<='\'')||LA22_81=='+'||(LA22_81>='-' && LA22_81<='9')||(LA22_81>=';' && LA22_81<='=')||(LA22_81>='?' && LA22_81<='Z')||(LA22_81>='^' && LA22_81<='z')||(LA22_81>='~' && LA22_81<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 79;}
+
+                        else if ( (LA22_81=='*'||LA22_81==':'||LA22_81=='>'||LA22_81=='['||LA22_81==']'||(LA22_81>='{' && LA22_81<='}')) && ((( isHead() )||( isValue() )))) {s = 80;}
+
+                        else if ( ((LA22_81>='(' && LA22_81<=')')||LA22_81==',') && ((( isValue() )||( isHead() )))) {s = 81;}
+
+                        else if ( (LA22_81=='\n'||LA22_81=='\r') && (( isValue() ))) {s = 67;}
+
+                        else if ( ((LA22_81>='\"' && LA22_81<='#')||LA22_81=='\\') && (( isHead() ))) {s = 24;}
+
+                        else s = 76;
+
+                         
+                        input.seek(index22_81);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA22_5 = input.LA(1);
+
+                         
+                        int index22_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_5=='-') && ((( isHead() )||( isValue() )))) {s = 32;}
+
+                        else if ( ((LA22_5>='\u0000' && LA22_5<='!')||(LA22_5>='$' && LA22_5<=',')||(LA22_5>='.' && LA22_5<='[')||(LA22_5>=']' && LA22_5<='\uFFFF')) && (( isValue() ))) {s = 34;}
+
+                        else s = 33;
+
+                         
+                        input.seek(index22_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA22_3 = input.LA(1);
+
+                         
+                        int index22_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_3=='\n') ) {s = 25;}
+
+                        else if ( (LA22_3=='\t'||LA22_3==' ') ) {s = 26;}
+
+                        else if ( ((LA22_3>='\"' && LA22_3<='#')||LA22_3=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( ((LA22_3>='\u0000' && LA22_3<='\b')||(LA22_3>='\u000B' && LA22_3<='\f')||(LA22_3>='\u000E' && LA22_3<='\u001F')||LA22_3=='!'||(LA22_3>='$' && LA22_3<='\'')||LA22_3=='+'||(LA22_3>='-' && LA22_3<='9')||(LA22_3>=';' && LA22_3<='=')||(LA22_3>='?' && LA22_3<='Z')||(LA22_3>='^' && LA22_3<='z')||(LA22_3>='~' && LA22_3<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_3=='*'||LA22_3==':'||LA22_3=='>'||LA22_3=='['||LA22_3==']'||(LA22_3>='{' && LA22_3<='}')) ) {s = 29;}
+
+                        else if ( (LA22_3=='\r') ) {s = 30;}
+
+                        else if ( ((LA22_3>='(' && LA22_3<=')')||LA22_3==',') ) {s = 31;}
+
+                        else s = 27;
+
+                         
+                        input.seek(index22_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA22_36 = input.LA(1);
+
+                         
+                        int index22_36 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 70;}
+
+                         
+                        input.seek(index22_36);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 35 : 
+                        int LA22_95 = input.LA(1);
+
+                         
+                        int index22_95 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_95=='#') ) {s = 58;}
+
+                        else if ( (LA22_95=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_95>='\u0000' && LA22_95<='\t')||(LA22_95>='\u000B' && LA22_95<='\f')||(LA22_95>='\u000E' && LA22_95<='!')||(LA22_95>='$' && LA22_95<='[')||(LA22_95>=']' && LA22_95<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_95=='\\') ) {s = 59;}
+
+                        else if ( (LA22_95=='\n'||LA22_95=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_95);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 36 : 
+                        int LA22_18 = input.LA(1);
+
+                         
+                        int index22_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_18>='\u0000' && LA22_18<='\t')||(LA22_18>='\u000B' && LA22_18<='\f')||(LA22_18>='\u000E' && LA22_18<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 54;
+
+                         
+                        input.seek(index22_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 37 : 
+                        int LA22_17 = input.LA(1);
+
+                         
+                        int index22_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_17=='\t'||LA22_17==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
+
+                        else if ( ((LA22_17>='\"' && LA22_17<='#')||LA22_17=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( ((LA22_17>='\u0000' && LA22_17<='\b')||(LA22_17>='\u000B' && LA22_17<='\f')||(LA22_17>='\u000E' && LA22_17<='\u001F')||LA22_17=='!'||(LA22_17>='$' && LA22_17<='\'')||LA22_17=='+'||(LA22_17>='-' && LA22_17<='9')||(LA22_17>=';' && LA22_17<='=')||(LA22_17>='?' && LA22_17<='Z')||(LA22_17>='^' && LA22_17<='z')||(LA22_17>='~' && LA22_17<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
+
+                        else if ( (LA22_17=='*'||LA22_17==':'||LA22_17=='>'||LA22_17=='['||LA22_17==']'||(LA22_17>='{' && LA22_17<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
+
+                        else if ( (LA22_17=='\n'||LA22_17=='\r') && (( isValue() ))) {s = 34;}
+
+                        else if ( ((LA22_17>='(' && LA22_17<=')')||LA22_17==',') && ((( isValue() )||( isHead() )))) {s = 53;}
+
+                        else s = 50;
+
+                         
+                        input.seek(index22_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 38 : 
+                        int LA22_114 = input.LA(1);
+
+                         
+                        int index22_114 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_114>='0' && LA22_114<='9')||(LA22_114>='A' && LA22_114<='F')||(LA22_114>='a' && LA22_114<='f')) ) {s = 116;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_114);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 39 : 
+                        int LA22_21 = input.LA(1);
+
+                         
+                        int index22_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_21>='\u0000' && LA22_21<='\t')||(LA22_21>='\u000B' && LA22_21<='\f')||(LA22_21>='\u000E' && LA22_21<='!')||(LA22_21>='$' && LA22_21<='[')||(LA22_21>=']' && LA22_21<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_21=='#') ) {s = 58;}
+
+                        else if ( (LA22_21=='\\') ) {s = 59;}
+
+                        else if ( (LA22_21=='\n'||LA22_21=='\r') ) {s = 60;}
+
+                        else if ( (LA22_21=='\"') ) {s = 61;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 40 : 
+                        int LA22_25 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA22_25=='\t'||LA22_25==' '||(LA22_25>='(' && LA22_25<='*')||LA22_25==','||LA22_25==':'||LA22_25=='>'||LA22_25=='['||LA22_25==']'||(LA22_25>='{' && LA22_25<='}')) ) {s = 64;}
+
+                        else if ( ((LA22_25>='\u0000' && LA22_25<='\b')||(LA22_25>='\n' && LA22_25<='\u001F')||LA22_25=='!'||(LA22_25>='$' && LA22_25<='\'')||LA22_25=='+'||(LA22_25>='-' && LA22_25<='9')||(LA22_25>=';' && LA22_25<='=')||(LA22_25>='?' && LA22_25<='Z')||(LA22_25>='^' && LA22_25<='z')||(LA22_25>='~' && LA22_25<='\uFFFF')) ) {s = 30;}
+
+                        else s = 27;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 41 : 
+                        int LA22_109 = input.LA(1);
+
+                         
+                        int index22_109 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_109=='\"') ) {s = 89;}
+
+                        else if ( ((LA22_109>='\u0000' && LA22_109<='\t')||(LA22_109>='\u000B' && LA22_109<='\f')||(LA22_109>='\u000E' && LA22_109<='!')||(LA22_109>='#' && LA22_109<='[')||(LA22_109>=']' && LA22_109<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_109=='\\') ) {s = 91;}
+
+                        else if ( (LA22_109=='\n'||LA22_109=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_109);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 42 : 
+                        int LA22_35 = input.LA(1);
+
+                         
+                        int index22_35 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_35>='\u0000' && LA22_35<='\b')||(LA22_35>='\u000B' && LA22_35<='\f')||(LA22_35>='\u000E' && LA22_35<='\u001F')||(LA22_35>='!' && LA22_35<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_35=='\t'||LA22_35==' ') && (( isHead() ))) {s = 69;}
+
+                        else s = 68;
+
+                         
+                        input.seek(index22_35);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 43 : 
+                        int LA22_119 = input.LA(1);
+
+                         
+                        int index22_119 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_119=='#') ) {s = 58;}
+
+                        else if ( (LA22_119=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_119>='\u0000' && LA22_119<='\t')||(LA22_119>='\u000B' && LA22_119<='\f')||(LA22_119>='\u000E' && LA22_119<='!')||(LA22_119>='$' && LA22_119<='[')||(LA22_119>=']' && LA22_119<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_119=='\\') ) {s = 59;}
+
+                        else if ( (LA22_119=='\n'||LA22_119=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_119);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 44 : 
+                        int LA22_32 = input.LA(1);
+
+                         
+                        int index22_32 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_32=='\t'||LA22_32==' ') && ((( isValue() )||( isHead() )))) {s = 66;}
+
+                        else if ( ((LA22_32>='\u0000' && LA22_32<='\b')||(LA22_32>='\n' && LA22_32<='\u001F')||LA22_32=='!'||(LA22_32>='$' && LA22_32<='[')||(LA22_32>=']' && LA22_32<='\uFFFF')) && (( isValue() ))) {s = 67;}
+
+                        else s = 65;
+
+                         
+                        input.seek(index22_32);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 45 : 
+                        int LA22_68 = input.LA(1);
+
+                         
+                        int index22_68 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 103;}
+
+                        else if ( (( isHead() )) ) {s = 24;}
+
+                         
+                        input.seek(index22_68);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 46 : 
+                        int LA22_115 = input.LA(1);
+
+                         
+                        int index22_115 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_115>='0' && LA22_115<='9')||(LA22_115>='A' && LA22_115<='F')||(LA22_115>='a' && LA22_115<='f')) ) {s = 117;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_115);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 47 : 
+                        int LA22_47 = input.LA(1);
+
+                         
+                        int index22_47 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 82;}
+
+                         
+                        input.seek(index22_47);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 48 : 
+                        int LA22_40 = input.LA(1);
+
+                         
+                        int index22_40 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 37;}
+
+                        else if ( (true) ) {s = 72;}
+
+                         
+                        input.seek(index22_40);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 49 : 
+                        int LA22_91 = input.LA(1);
+
+                         
+                        int index22_91 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_91=='\"') ) {s = 104;}
+
+                        else if ( (LA22_91=='\\') ) {s = 105;}
+
+                        else if ( (LA22_91=='/') ) {s = 106;}
+
+                        else if ( (LA22_91=='b') ) {s = 107;}
+
+                        else if ( (LA22_91=='f') ) {s = 108;}
+
+                        else if ( (LA22_91=='n') ) {s = 109;}
+
+                        else if ( (LA22_91=='r') ) {s = 110;}
+
+                        else if ( (LA22_91=='t') ) {s = 111;}
+
+                        else if ( (LA22_91=='u') ) {s = 112;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_91);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 50 : 
+                        int LA22_118 = input.LA(1);
+
+                         
+                        int index22_118 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_118>='0' && LA22_118<='9')||(LA22_118>='A' && LA22_118<='F')||(LA22_118>='a' && LA22_118<='f')) ) {s = 120;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_118);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 51 : 
+                        int LA22_94 = input.LA(1);
+
+                         
+                        int index22_94 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_94=='#') ) {s = 58;}
+
+                        else if ( (LA22_94=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_94>='\u0000' && LA22_94<='\t')||(LA22_94>='\u000B' && LA22_94<='\f')||(LA22_94>='\u000E' && LA22_94<='!')||(LA22_94>='$' && LA22_94<='[')||(LA22_94>=']' && LA22_94<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_94=='\\') ) {s = 59;}
+
+                        else if ( (LA22_94=='\n'||LA22_94=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_94);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 52 : 
+                        int LA22_23 = input.LA(1);
+
+                         
+                        int index22_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_23>='\u0000' && LA22_23<='\t')||(LA22_23>='\u000B' && LA22_23<='\f')||(LA22_23>='\u000E' && LA22_23<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 63;
+
+                         
+                        input.seek(index22_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 53 : 
+                        int LA22_12 = input.LA(1);
+
+                         
+                        int index22_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_12>='\u0000' && LA22_12<='\t')||(LA22_12>='\u000B' && LA22_12<='\f')||(LA22_12>='\u000E' && LA22_12<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 42;
+
+                         
+                        input.seek(index22_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 54 : 
+                        int LA22_107 = input.LA(1);
+
+                         
+                        int index22_107 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_107=='\"') ) {s = 89;}
+
+                        else if ( ((LA22_107>='\u0000' && LA22_107<='\t')||(LA22_107>='\u000B' && LA22_107<='\f')||(LA22_107>='\u000E' && LA22_107<='!')||(LA22_107>='#' && LA22_107<='[')||(LA22_107>=']' && LA22_107<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_107=='\\') ) {s = 91;}
+
+                        else if ( (LA22_107=='\n'||LA22_107=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_107);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 55 : 
+                        int LA22_99 = input.LA(1);
+
+                         
+                        int index22_99 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_99=='#') ) {s = 58;}
+
+                        else if ( (LA22_99=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_99>='\u0000' && LA22_99<='\t')||(LA22_99>='\u000B' && LA22_99<='\f')||(LA22_99>='\u000E' && LA22_99<='!')||(LA22_99>='$' && LA22_99<='[')||(LA22_99>=']' && LA22_99<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_99=='\\') ) {s = 59;}
+
+                        else if ( (LA22_99=='\n'||LA22_99=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_99);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 56 : 
                         int LA22_14 = input.LA(1);
 
                          
                         int index22_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_14>='\u0000' && LA22_14<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( ((LA22_14>='\u0000' && LA22_14<='\b')||(LA22_14>='\u000B' && LA22_14<='\f')||(LA22_14>='\u000E' && LA22_14<='\u001F')||LA22_14=='!'||(LA22_14>='$' && LA22_14<='[')||(LA22_14>=']' && LA22_14<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 44;}
+
+                        else if ( (LA22_14=='#') && ((( isValue() )||( isHead() )))) {s = 46;}
+
+                        else if ( (LA22_14=='\t'||LA22_14==' '||LA22_14=='\"'||LA22_14=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_14=='\n'||LA22_14=='\r') && (( isValue() ))) {s = 34;}
 
                         else s = 45;
 
@@ -2798,427 +3477,141 @@ public class SilkLexer extends Lexer {
                         input.seek(index22_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
-                        int LA22_108 = input.LA(1);
+                    case 57 : 
+                        int LA22_90 = input.LA(1);
 
                          
-                        int index22_108 = input.index();
+                        int index22_90 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_108=='\"') ) {s = 99;}
+                        if ( (LA22_90=='\"') ) {s = 89;}
 
-                        else if ( ((LA22_108>='\u0000' && LA22_108<='\t')||(LA22_108>='\u000B' && LA22_108<='\f')||(LA22_108>='\u000E' && LA22_108<='!')||(LA22_108>='#' && LA22_108<='[')||(LA22_108>=']' && LA22_108<='\uFFFF')) ) {s = 100;}
+                        else if ( ((LA22_90>='\u0000' && LA22_90<='\t')||(LA22_90>='\u000B' && LA22_90<='\f')||(LA22_90>='\u000E' && LA22_90<='!')||(LA22_90>='#' && LA22_90<='[')||(LA22_90>=']' && LA22_90<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA22_108=='\\') ) {s = 101;}
+                        else if ( (LA22_90=='\\') ) {s = 91;}
 
-                        else if ( (LA22_108=='\n'||LA22_108=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_90=='\n'||LA22_90=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_108);
+                        input.seek(index22_90);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
-                        int LA22_15 = input.LA(1);
+                    case 58 : 
+                        int LA22_116 = input.LA(1);
 
                          
-                        int index22_15 = input.index();
+                        int index22_116 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_15>='\u0000' && LA22_15<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( ((LA22_116>='0' && LA22_116<='9')||(LA22_116>='A' && LA22_116<='F')||(LA22_116>='a' && LA22_116<='f')) ) {s = 118;}
 
-                        else s = 46;
+                        else s = 24;
 
                          
-                        input.seek(index22_15);
+                        input.seek(index22_116);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA22_7 = input.LA(1);
-
-                         
-                        int index22_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_7=='\n'||LA22_7=='\r') && (( isHead() ))) {s = 33;}
-
-                        else if ( (LA22_7==' ') && ((( !isHead() )||( isHead() )))) {s = 34;}
-
-                        else if ( (LA22_7=='-') && (( isHead() ))) {s = 35;}
-
-                        else if ( (LA22_7=='\t') && ((( !isHead() )||( isHead() )))) {s = 36;}
-
-                        else if ( ((LA22_7>='\u0000' && LA22_7<='\b')||(LA22_7>='\u000B' && LA22_7<='\f')||(LA22_7>='\u000E' && LA22_7<='\u001F')||(LA22_7>='!' && LA22_7<='\"')||LA22_7=='$'||(LA22_7>='&' && LA22_7<=',')||(LA22_7>='.' && LA22_7<='?')||(LA22_7>='A' && LA22_7<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA22_7=='@') && (( isHead() ))) {s = 37;}
-
-                        else s = 32;
-
-                         
-                        input.seek(index22_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA22_38 = input.LA(1);
-
-                         
-                        int index22_38 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 37;}
-
-                        else if ( (true) ) {s = 74;}
-
-                         
-                        input.seek(index22_38);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA22_100 = input.LA(1);
-
-                         
-                        int index22_100 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_100=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_100>='\u0000' && LA22_100<='\t')||(LA22_100>='\u000B' && LA22_100<='\f')||(LA22_100>='\u000E' && LA22_100<='!')||(LA22_100>='#' && LA22_100<='[')||(LA22_100>=']' && LA22_100<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_100=='\\') ) {s = 101;}
-
-                        else if ( (LA22_100=='\n'||LA22_100=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_100);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA22_70 = input.LA(1);
-
-                         
-                        int index22_70 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_70=='\n') && (( isHead() ))) {s = 103;}
-
-                        else s = 104;
-
-                         
-                        input.seek(index22_70);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA22_112 = input.LA(1);
-
-                         
-                        int index22_112 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_112=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_112>='\u0000' && LA22_112<='\t')||(LA22_112>='\u000B' && LA22_112<='\f')||(LA22_112>='\u000E' && LA22_112<='!')||(LA22_112>='#' && LA22_112<='[')||(LA22_112>=']' && LA22_112<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_112=='\\') ) {s = 101;}
-
-                        else if ( (LA22_112=='\n'||LA22_112=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_112);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA22_113 = input.LA(1);
-
-                         
-                        int index22_113 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_113=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_113>='\u0000' && LA22_113<='\t')||(LA22_113>='\u000B' && LA22_113<='\f')||(LA22_113>='\u000E' && LA22_113<='!')||(LA22_113>='#' && LA22_113<='[')||(LA22_113>=']' && LA22_113<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_113=='\\') ) {s = 101;}
-
-                        else if ( (LA22_113=='\n'||LA22_113=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_113);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA22_56 = input.LA(1);
-
-                         
-                        int index22_56 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_56=='\t'||LA22_56==' ') ) {s = 85;}
-
-                        else if ( ((LA22_56>='\u0000' && LA22_56<='\b')||(LA22_56>='\u000B' && LA22_56<='\f')||(LA22_56>='\u000E' && LA22_56<='\u001F')||LA22_56=='!'||(LA22_56>='$' && LA22_56<='\'')||LA22_56=='+'||(LA22_56>='-' && LA22_56<='9')||(LA22_56>=';' && LA22_56<='=')||(LA22_56>='?' && LA22_56<='Z')||(LA22_56>='^' && LA22_56<='z')||(LA22_56>='~' && LA22_56<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_56=='*'||LA22_56==':'||LA22_56=='>'||LA22_56=='['||LA22_56==']'||(LA22_56>='{' && LA22_56<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_56>='(' && LA22_56<=')')||LA22_56==',') ) {s = 88;}
-
-                        else if ( (LA22_56=='\n'||LA22_56=='\r'||(LA22_56>='\"' && LA22_56<='#')||LA22_56=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index22_56);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA22_97 = input.LA(1);
-
-                         
-                        int index22_97 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_97>='0' && LA22_97<='9')||(LA22_97>='A' && LA22_97<='F')||(LA22_97>='a' && LA22_97<='f')) ) {s = 105;}
-
-                        else if ( ((LA22_97>='\u0000' && LA22_97<='/')||(LA22_97>=':' && LA22_97<='@')||(LA22_97>='G' && LA22_97<='`')||(LA22_97>='g' && LA22_97<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_97);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA22_121 = input.LA(1);
-
-                         
-                        int index22_121 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_121>='0' && LA22_121<='9')||(LA22_121>='A' && LA22_121<='F')||(LA22_121>='a' && LA22_121<='f')) ) {s = 122;}
-
-                        else if ( ((LA22_121>='\u0000' && LA22_121<='/')||(LA22_121>=':' && LA22_121<='@')||(LA22_121>='G' && LA22_121<='`')||(LA22_121>='g' && LA22_121<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_121);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
-                        int LA22_69 = input.LA(1);
-
-                         
-                        int index22_69 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_69=='\r') && (( isHead() ))) {s = 70;}
-
-                        else if ( (LA22_69=='\n') && (( isHead() ))) {s = 71;}
-
-                        else if ( ((LA22_69>='\u0000' && LA22_69<='\b')||(LA22_69>='\u000B' && LA22_69<='\f')||(LA22_69>='\u000E' && LA22_69<='\u001F')||(LA22_69>='!' && LA22_69<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA22_69=='\t'||LA22_69==' ') && (( isHead() ))) {s = 69;}
-
-                         
-                        input.seek(index22_69);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 33 : 
-                        int LA22_107 = input.LA(1);
-
-                         
-                        int index22_107 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_107=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_107>='\u0000' && LA22_107<='\t')||(LA22_107>='\u000B' && LA22_107<='\f')||(LA22_107>='\u000E' && LA22_107<='!')||(LA22_107>='#' && LA22_107<='[')||(LA22_107>=']' && LA22_107<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_107=='\\') ) {s = 101;}
-
-                        else if ( (LA22_107=='\n'||LA22_107=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_107);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 34 : 
-                        int LA22_80 = input.LA(1);
-
-                         
-                        int index22_80 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_80=='\t'||LA22_80==' ') && ((( isHead() )||( isValue() )))) {s = 79;}
-
-                        else if ( ((LA22_80>='\u0000' && LA22_80<='\b')||(LA22_80>='\u000B' && LA22_80<='\f')||(LA22_80>='\u000E' && LA22_80<='\u001F')||LA22_80=='!'||(LA22_80>='$' && LA22_80<='\'')||LA22_80=='+'||(LA22_80>='-' && LA22_80<='9')||(LA22_80>=';' && LA22_80<='=')||(LA22_80>='?' && LA22_80<='Z')||(LA22_80>='^' && LA22_80<='z')||(LA22_80>='~' && LA22_80<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 80;}
-
-                        else if ( (LA22_80=='*'||LA22_80==':'||LA22_80=='>'||LA22_80=='['||LA22_80==']'||(LA22_80>='{' && LA22_80<='}')) && ((( isHead() )||( isValue() )))) {s = 81;}
-
-                        else if ( ((LA22_80>='(' && LA22_80<=')')||LA22_80==',') && ((( isHead() )||( isValue() )))) {s = 82;}
-
-                        else if ( (LA22_80=='\n'||LA22_80=='\r'||(LA22_80>='\"' && LA22_80<='#')||LA22_80=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_80);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 35 : 
-                        int LA22_60 = input.LA(1);
-
-                         
-                        int index22_60 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_60>='\u0000' && LA22_60<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 98;
-
-                         
-                        input.seek(index22_60);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 36 : 
-                        int LA22_48 = input.LA(1);
-
-                         
-                        int index22_48 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_48=='\t'||LA22_48==' ') ) {s = 48;}
-
-                        else if ( (LA22_48=='*'||LA22_48==':'||LA22_48=='>'||LA22_48=='['||LA22_48==']'||(LA22_48>='{' && LA22_48<='}')) ) {s = 50;}
-
-                        else if ( ((LA22_48>='(' && LA22_48<=')')||LA22_48==',') ) {s = 51;}
-
-                        else if ( ((LA22_48>='\u0000' && LA22_48<='\b')||(LA22_48>='\u000B' && LA22_48<='\f')||(LA22_48>='\u000E' && LA22_48<='\u001F')||LA22_48=='!'||(LA22_48>='$' && LA22_48<='\'')||LA22_48=='+'||(LA22_48>='-' && LA22_48<='9')||(LA22_48>=';' && LA22_48<='=')||(LA22_48>='?' && LA22_48<='Z')||(LA22_48>='^' && LA22_48<='z')||(LA22_48>='~' && LA22_48<='\uFFFF')) ) {s = 49;}
-
-                        else if ( (LA22_48=='\n'||LA22_48=='\r'||(LA22_48>='\"' && LA22_48<='#')||LA22_48=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 62;
-
-                         
-                        input.seek(index22_48);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 37 : 
-                        int LA22_32 = input.LA(1);
-
-                         
-                        int index22_32 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( !isHead() )) ) {s = 72;}
-
-                        else if ( (true) ) {s = 73;}
-
-                         
-                        input.seek(index22_32);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 38 : 
-                        int LA22_21 = input.LA(1);
-
-                         
-                        int index22_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_21=='\t'||LA22_21==' ') ) {s = 48;}
-
-                        else if ( ((LA22_21>='\u0000' && LA22_21<='\b')||(LA22_21>='\u000B' && LA22_21<='\f')||(LA22_21>='\u000E' && LA22_21<='\u001F')||LA22_21=='!'||(LA22_21>='$' && LA22_21<='\'')||LA22_21=='+'||(LA22_21>='-' && LA22_21<='9')||(LA22_21>=';' && LA22_21<='=')||(LA22_21>='?' && LA22_21<='Z')||(LA22_21>='^' && LA22_21<='z')||(LA22_21>='~' && LA22_21<='\uFFFF')) ) {s = 49;}
-
-                        else if ( (LA22_21=='*'||LA22_21==':'||LA22_21=='>'||LA22_21=='['||LA22_21==']'||(LA22_21>='{' && LA22_21<='}')) ) {s = 50;}
-
-                        else if ( ((LA22_21>='(' && LA22_21<=')')||LA22_21==',') ) {s = 51;}
-
-                        else if ( (LA22_21=='\n'||LA22_21=='\r'||(LA22_21>='\"' && LA22_21<='#')||LA22_21=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 62;
-
-                         
-                        input.seek(index22_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 39 : 
-                        int LA22_75 = input.LA(1);
-
-                         
-                        int index22_75 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_75=='\t'||LA22_75==' ') && ((( isValue() )||( isHead() )))) {s = 75;}
-
-                        else if ( (LA22_75=='*'||LA22_75==':'||LA22_75=='>'||LA22_75=='['||LA22_75==']'||(LA22_75>='{' && LA22_75<='}')) && ((( isValue() )||( isHead() )))) {s = 77;}
-
-                        else if ( ((LA22_75>='(' && LA22_75<=')')||LA22_75==',') && ((( isValue() )||( isHead() )))) {s = 78;}
-
-                        else if ( ((LA22_75>='\u0000' && LA22_75<='\b')||(LA22_75>='\u000B' && LA22_75<='\f')||(LA22_75>='\u000E' && LA22_75<='\u001F')||LA22_75=='!'||(LA22_75>='$' && LA22_75<='\'')||LA22_75=='+'||(LA22_75>='-' && LA22_75<='9')||(LA22_75>=';' && LA22_75<='=')||(LA22_75>='?' && LA22_75<='Z')||(LA22_75>='^' && LA22_75<='z')||(LA22_75>='~' && LA22_75<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 76;}
-
-                        else if ( (LA22_75=='\n'||LA22_75=='\r'||(LA22_75>='\"' && LA22_75<='#')||LA22_75=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_75);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 40 : 
+                    case 59 : 
                         int LA22_96 = input.LA(1);
 
                          
                         int index22_96 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_96=='\"') ) {s = 60;}
+                        if ( (LA22_96=='#') ) {s = 58;}
 
-                        else if ( (LA22_96=='#') ) {s = 61;}
+                        else if ( (LA22_96=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_96>='\u0000' && LA22_96<='\t')||(LA22_96>='\u000B' && LA22_96<='\f')||(LA22_96>='\u000E' && LA22_96<='!')||(LA22_96>='$' && LA22_96<='[')||(LA22_96>=']' && LA22_96<='\uFFFF')) ) {s = 57;}
 
                         else if ( (LA22_96=='\\') ) {s = 59;}
 
-                        else if ( (LA22_96=='\n'||LA22_96=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_96=='\n'||LA22_96=='\r') ) {s = 60;}
 
-                        else if ( ((LA22_96>='\u0000' && LA22_96<='\t')||(LA22_96>='\u000B' && LA22_96<='\f')||(LA22_96>='\u000E' && LA22_96<='!')||(LA22_96>='$' && LA22_96<='[')||(LA22_96>=']' && LA22_96<='\uFFFF')) ) {s = 58;}
+                        else s = 24;
 
                          
                         input.seek(index22_96);
                         if ( s>=0 ) return s;
                         break;
-                    case 41 : 
-                        int LA22_6 = input.LA(1);
+                    case 60 : 
+                        int LA22_33 = input.LA(1);
 
                          
-                        int index22_6 = input.index();
+                        int index22_33 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_6=='>') && (( isHead() ))) {s = 30;}
+                        if ( (( isHead() )) ) {s = 38;}
 
-                        else if ( ((LA22_6>='\u0000' && LA22_6<='=')||(LA22_6>='?' && LA22_6<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 31;
+                        else if ( (( isValue() )) ) {s = 67;}
 
                          
-                        input.seek(index22_6);
+                        input.seek(index22_33);
                         if ( s>=0 ) return s;
                         break;
-                    case 42 : 
-                        int LA22_57 = input.LA(1);
+                    case 61 : 
+                        int LA22_55 = input.LA(1);
 
                          
-                        int index22_57 = input.index();
+                        int index22_55 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_57=='\t'||LA22_57==' ') ) {s = 85;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( ((LA22_57>='\u0000' && LA22_57<='\b')||(LA22_57>='\u000B' && LA22_57<='\f')||(LA22_57>='\u000E' && LA22_57<='\u001F')||LA22_57=='!'||(LA22_57>='$' && LA22_57<='\'')||LA22_57=='+'||(LA22_57>='-' && LA22_57<='9')||(LA22_57>=';' && LA22_57<='=')||(LA22_57>='?' && LA22_57<='Z')||(LA22_57>='^' && LA22_57<='z')||(LA22_57>='~' && LA22_57<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_57=='*'||LA22_57==':'||LA22_57=='>'||LA22_57=='['||LA22_57==']'||(LA22_57>='{' && LA22_57<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_57>='(' && LA22_57<=')')||LA22_57==',') ) {s = 88;}
-
-                        else if ( (LA22_57=='\n'||LA22_57=='\r'||(LA22_57>='\"' && LA22_57<='#')||LA22_57=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
+                        else if ( (true) ) {s = 87;}
 
                          
-                        input.seek(index22_57);
+                        input.seek(index22_55);
                         if ( s>=0 ) return s;
                         break;
-                    case 43 : 
+                    case 62 : 
+                        int LA22_11 = input.LA(1);
+
+                         
+                        int index22_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_11>='\u0000' && LA22_11<='\t')||(LA22_11>='\u000B' && LA22_11<='\f')||(LA22_11>='\u000E' && LA22_11<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 41;
+
+                         
+                        input.seek(index22_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 63 : 
+                        int LA22_42 = input.LA(1);
+
+                         
+                        int index22_42 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 74;}
+
+                         
+                        input.seek(index22_42);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 64 : 
+                        int LA22_39 = input.LA(1);
+
+                         
+                        int index22_39 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 10;}
+
+                        else if ( (( !isHead() )) ) {s = 71;}
+
+                         
+                        input.seek(index22_39);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 65 : 
                         int LA22_0 = input.LA(1);
 
                          
@@ -3237,923 +3630,560 @@ public class SilkLexer extends Lexer {
 
                         else if ( (LA22_0=='>') ) {s = 6;}
 
-                        else if ( (LA22_0==' ') ) {s = 7;}
+                        else if ( (LA22_0==' ') && ((( !isHead() )||( isHead() )))) {s = 7;}
 
                         else if ( (LA22_0=='@') ) {s = 8;}
 
-                        else if ( (LA22_0=='\t') ) {s = 9;}
+                        else if ( (LA22_0=='\t') && ((( !isHead() )||( isHead() )))) {s = 9;}
 
-                        else if ( (LA22_0=='(') ) {s = 10;}
+                        else if ( (LA22_0=='(') ) {s = 11;}
 
-                        else if ( (LA22_0==')') ) {s = 11;}
+                        else if ( (LA22_0==')') ) {s = 12;}
 
-                        else if ( (LA22_0==',') ) {s = 12;}
+                        else if ( (LA22_0==',') ) {s = 13;}
 
-                        else if ( (LA22_0==':') ) {s = 13;}
+                        else if ( (LA22_0==':') ) {s = 14;}
 
-                        else if ( (LA22_0=='|') ) {s = 14;}
+                        else if ( (LA22_0=='|') ) {s = 15;}
 
-                        else if ( (LA22_0=='*') ) {s = 15;}
+                        else if ( (LA22_0=='*') ) {s = 16;}
 
-                        else if ( (LA22_0=='+') ) {s = 16;}
+                        else if ( (LA22_0=='+') ) {s = 17;}
 
-                        else if ( (LA22_0=='[') ) {s = 17;}
+                        else if ( (LA22_0=='[') ) {s = 18;}
 
-                        else if ( (LA22_0==']') ) {s = 18;}
+                        else if ( (LA22_0==']') ) {s = 19;}
 
-                        else if ( (LA22_0=='?') ) {s = 19;}
+                        else if ( (LA22_0=='?') ) {s = 20;}
 
-                        else if ( (LA22_0=='\"') ) {s = 20;}
+                        else if ( (LA22_0=='\"') ) {s = 21;}
 
-                        else if ( ((LA22_0>='\u0000' && LA22_0<='\b')||(LA22_0>='\u000B' && LA22_0<='\f')||(LA22_0>='\u000E' && LA22_0<='\u001F')||LA22_0=='!'||LA22_0=='$'||LA22_0=='&'||(LA22_0>='.' && LA22_0<='9')||(LA22_0>=';' && LA22_0<='=')||(LA22_0>='A' && LA22_0<='Z')||(LA22_0>='^' && LA22_0<='z')||(LA22_0>='~' && LA22_0<='\uFFFF')) ) {s = 21;}
+                        else if ( ((LA22_0>='\u0000' && LA22_0<='\b')||(LA22_0>='\u000B' && LA22_0<='\f')||(LA22_0>='\u000E' && LA22_0<='\u001F')||LA22_0=='!'||LA22_0=='$'||LA22_0=='&'||(LA22_0>='.' && LA22_0<='9')||(LA22_0>=';' && LA22_0<='=')||(LA22_0>='A' && LA22_0<='Z')||(LA22_0>='^' && LA22_0<='z')||(LA22_0>='~' && LA22_0<='\uFFFF')) ) {s = 22;}
 
-                        else if ( (LA22_0=='{') && ((( isValue() )||( isHead() )))) {s = 22;}
+                        else if ( (LA22_0=='{') && ((( isHead() )||( isValue() )))) {s = 23;}
 
-                        else if ( (LA22_0=='\''||LA22_0=='\\'||LA22_0=='}') && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_0=='\''||LA22_0=='\\'||LA22_0=='}') && (( isHead() ))) {s = 24;}
+
+                        else s = 10;
 
                          
                         input.seek(index22_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 44 : 
-                        int LA22_27 = input.LA(1);
+                    case 66 : 
+                        int LA22_63 = input.LA(1);
 
                          
-                        int index22_27 = input.index();
+                        int index22_63 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_27=='\t'||LA22_27==' ') && ((( isValue() )||( isHead() )))) {s = 67;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( (LA22_27=='\n'||LA22_27=='\r') && (( isHead() ))) {s = 68;}
-
-                        else s = 66;
+                        else if ( (( isValue() )) ) {s = 86;}
 
                          
-                        input.seek(index22_27);
+                        input.seek(index22_63);
                         if ( s>=0 ) return s;
                         break;
-                    case 45 : 
-                        int LA22_9 = input.LA(1);
+                    case 67 : 
+                        int LA22_80 = input.LA(1);
 
                          
-                        int index22_9 = input.index();
+                        int index22_80 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_9=='\n'||LA22_9=='\r') && (( isHead() ))) {s = 33;}
+                        if ( (LA22_80=='\t'||LA22_80==' ') && ((( isHead() )||( isValue() )))) {s = 78;}
 
-                        else if ( (LA22_9=='\t'||LA22_9==' ') && ((( !isHead() )||( isHead() )))) {s = 36;}
+                        else if ( ((LA22_80>='\u0000' && LA22_80<='\b')||(LA22_80>='\u000B' && LA22_80<='\f')||(LA22_80>='\u000E' && LA22_80<='\u001F')||LA22_80=='!'||(LA22_80>='$' && LA22_80<='\'')||LA22_80=='+'||(LA22_80>='-' && LA22_80<='9')||(LA22_80>=';' && LA22_80<='=')||(LA22_80>='?' && LA22_80<='Z')||(LA22_80>='^' && LA22_80<='z')||(LA22_80>='~' && LA22_80<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 79;}
 
-                        else if ( ((LA22_9>='\u0000' && LA22_9<='\b')||(LA22_9>='\u000B' && LA22_9<='\f')||(LA22_9>='\u000E' && LA22_9<='\u001F')||(LA22_9>='!' && LA22_9<='\"')||LA22_9=='$'||(LA22_9>='&' && LA22_9<=',')||(LA22_9>='.' && LA22_9<='?')||(LA22_9>='A' && LA22_9<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_80=='*'||LA22_80==':'||LA22_80=='>'||LA22_80=='['||LA22_80==']'||(LA22_80>='{' && LA22_80<='}')) && ((( isHead() )||( isValue() )))) {s = 80;}
 
-                        else s = 32;
+                        else if ( ((LA22_80>='(' && LA22_80<=')')||LA22_80==',') && ((( isValue() )||( isHead() )))) {s = 81;}
+
+                        else if ( (LA22_80=='\n'||LA22_80=='\r') && (( isValue() ))) {s = 67;}
+
+                        else if ( ((LA22_80>='\"' && LA22_80<='#')||LA22_80=='\\') && (( isHead() ))) {s = 24;}
+
+                        else s = 76;
 
                          
-                        input.seek(index22_9);
+                        input.seek(index22_80);
                         if ( s>=0 ) return s;
                         break;
-                    case 46 : 
-                        int LA22_89 = input.LA(1);
+                    case 68 : 
+                        int LA22_112 = input.LA(1);
 
                          
-                        int index22_89 = input.index();
+                        int index22_112 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_89=='\n'||LA22_89=='\r') && (( isHead() ))) {s = 23;}
+                        if ( ((LA22_112>='0' && LA22_112<='9')||(LA22_112>='A' && LA22_112<='F')||(LA22_112>='a' && LA22_112<='f')) ) {s = 114;}
 
-                        else if ( (LA22_89=='#') ) {s = 61;}
-
-                        else if ( (LA22_89=='\"') ) {s = 60;}
-
-                        else if ( ((LA22_89>='\u0000' && LA22_89<='\t')||(LA22_89>='\u000B' && LA22_89<='\f')||(LA22_89>='\u000E' && LA22_89<='!')||(LA22_89>='$' && LA22_89<='[')||(LA22_89>=']' && LA22_89<='\uFFFF')) ) {s = 58;}
-
-                        else if ( (LA22_89=='\\') ) {s = 59;}
+                        else s = 24;
 
                          
-                        input.seek(index22_89);
+                        input.seek(index22_112);
                         if ( s>=0 ) return s;
                         break;
-                    case 47 : 
-                        int LA22_90 = input.LA(1);
+                    case 69 : 
+                        int LA22_50 = input.LA(1);
 
                          
-                        int index22_90 = input.index();
+                        int index22_50 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_90=='\"') ) {s = 60;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( (LA22_90=='#') ) {s = 61;}
+                        else if ( (!(((( isValue() )||( isHead() ))))) ) {s = 84;}
 
-                        else if ( (LA22_90=='\\') ) {s = 59;}
-
-                        else if ( (LA22_90=='\n'||LA22_90=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_90>='\u0000' && LA22_90<='\t')||(LA22_90>='\u000B' && LA22_90<='\f')||(LA22_90>='\u000E' && LA22_90<='!')||(LA22_90>='$' && LA22_90<='[')||(LA22_90>=']' && LA22_90<='\uFFFF')) ) {s = 58;}
+                        else if ( (( isValue() )) ) {s = 67;}
 
                          
-                        input.seek(index22_90);
+                        input.seek(index22_50);
                         if ( s>=0 ) return s;
                         break;
-                    case 48 : 
-                        int LA22_85 = input.LA(1);
+                    case 70 : 
+                        int LA22_45 = input.LA(1);
 
                          
-                        int index22_85 = input.index();
+                        int index22_45 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_85=='\t'||LA22_85==' ') ) {s = 85;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( (LA22_85=='*'||LA22_85==':'||LA22_85=='>'||LA22_85=='['||LA22_85==']'||(LA22_85>='{' && LA22_85<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_85>='(' && LA22_85<=')')||LA22_85==',') ) {s = 88;}
-
-                        else if ( ((LA22_85>='\u0000' && LA22_85<='\b')||(LA22_85>='\u000B' && LA22_85<='\f')||(LA22_85>='\u000E' && LA22_85<='\u001F')||LA22_85=='!'||(LA22_85>='$' && LA22_85<='\'')||LA22_85=='+'||(LA22_85>='-' && LA22_85<='9')||(LA22_85>=';' && LA22_85<='=')||(LA22_85>='?' && LA22_85<='Z')||(LA22_85>='^' && LA22_85<='z')||(LA22_85>='~' && LA22_85<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_85=='\n'||LA22_85=='\r'||(LA22_85>='\"' && LA22_85<='#')||LA22_85=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
+                        else if ( (true) ) {s = 77;}
 
                          
-                        input.seek(index22_85);
+                        input.seek(index22_45);
                         if ( s>=0 ) return s;
                         break;
-                    case 49 : 
-                        int LA22_22 = input.LA(1);
+                    case 71 : 
+                        int LA22_56 = input.LA(1);
 
                          
-                        int index22_22 = input.index();
+                        int index22_56 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_22>='\u0000' && LA22_22<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else s = 63;
+                        else if ( (true) ) {s = 88;}
 
                          
-                        input.seek(index22_22);
+                        input.seek(index22_56);
                         if ( s>=0 ) return s;
                         break;
-                    case 50 : 
-                        int LA22_106 = input.LA(1);
-
-                         
-                        int index22_106 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_106=='\n'||LA22_106=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA22_106=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_106>='\u0000' && LA22_106<='\t')||(LA22_106>='\u000B' && LA22_106<='\f')||(LA22_106>='\u000E' && LA22_106<='!')||(LA22_106>='#' && LA22_106<='[')||(LA22_106>=']' && LA22_106<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_106=='\\') ) {s = 101;}
-
-                         
-                        input.seek(index22_106);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 51 : 
-                        int LA22_28 = input.LA(1);
-
-                         
-                        int index22_28 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 35;}
-
-                        else if ( (( isValue() )) ) {s = 66;}
-
-                         
-                        input.seek(index22_28);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 52 : 
-                        int LA22_18 = input.LA(1);
-
-                         
-                        int index22_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_18>='\u0000' && LA22_18<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 53;
-
-                         
-                        input.seek(index22_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 53 : 
-                        int LA22_51 = input.LA(1);
-
-                         
-                        int index22_51 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_51=='\t'||LA22_51==' ') ) {s = 48;}
-
-                        else if ( ((LA22_51>='\u0000' && LA22_51<='\b')||(LA22_51>='\u000B' && LA22_51<='\f')||(LA22_51>='\u000E' && LA22_51<='\u001F')||LA22_51=='!'||(LA22_51>='$' && LA22_51<='\'')||LA22_51=='+'||(LA22_51>='-' && LA22_51<='9')||(LA22_51>=';' && LA22_51<='=')||(LA22_51>='?' && LA22_51<='Z')||(LA22_51>='^' && LA22_51<='z')||(LA22_51>='~' && LA22_51<='\uFFFF')) ) {s = 49;}
-
-                        else if ( (LA22_51=='*'||LA22_51==':'||LA22_51=='>'||LA22_51=='['||LA22_51==']'||(LA22_51>='{' && LA22_51<='}')) ) {s = 50;}
-
-                        else if ( ((LA22_51>='(' && LA22_51<=')')||LA22_51==',') ) {s = 51;}
-
-                        else if ( (LA22_51=='\n'||LA22_51=='\r'||(LA22_51>='\"' && LA22_51<='#')||LA22_51=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 62;
-
-                         
-                        input.seek(index22_51);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 54 : 
-                        int LA22_78 = input.LA(1);
-
-                         
-                        int index22_78 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_78=='\t'||LA22_78==' ') && ((( isValue() )||( isHead() )))) {s = 75;}
-
-                        else if ( ((LA22_78>='\u0000' && LA22_78<='\b')||(LA22_78>='\u000B' && LA22_78<='\f')||(LA22_78>='\u000E' && LA22_78<='\u001F')||LA22_78=='!'||(LA22_78>='$' && LA22_78<='\'')||LA22_78=='+'||(LA22_78>='-' && LA22_78<='9')||(LA22_78>=';' && LA22_78<='=')||(LA22_78>='?' && LA22_78<='Z')||(LA22_78>='^' && LA22_78<='z')||(LA22_78>='~' && LA22_78<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 76;}
-
-                        else if ( (LA22_78=='*'||LA22_78==':'||LA22_78=='>'||LA22_78=='['||LA22_78==']'||(LA22_78>='{' && LA22_78<='}')) && ((( isValue() )||( isHead() )))) {s = 77;}
-
-                        else if ( ((LA22_78>='(' && LA22_78<=')')||LA22_78==',') && ((( isValue() )||( isHead() )))) {s = 78;}
-
-                        else if ( (LA22_78=='\n'||LA22_78=='\r'||(LA22_78>='\"' && LA22_78<='#')||LA22_78=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_78);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 55 : 
-                        int LA22_116 = input.LA(1);
-
-                         
-                        int index22_116 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_116>='\u0000' && LA22_116<='/')||(LA22_116>=':' && LA22_116<='@')||(LA22_116>='G' && LA22_116<='`')||(LA22_116>='g' && LA22_116<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_116>='0' && LA22_116<='9')||(LA22_116>='A' && LA22_116<='F')||(LA22_116>='a' && LA22_116<='f')) ) {s = 118;}
-
-                         
-                        input.seek(index22_116);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 56 : 
+                    case 72 : 
                         int LA22_59 = input.LA(1);
 
                          
                         int index22_59 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_59>='\u0000' && LA22_59<='!')||(LA22_59>='#' && LA22_59<='.')||(LA22_59>='0' && LA22_59<='[')||(LA22_59>=']' && LA22_59<='a')||(LA22_59>='c' && LA22_59<='e')||(LA22_59>='g' && LA22_59<='m')||(LA22_59>='o' && LA22_59<='q')||LA22_59=='s'||(LA22_59>='v' && LA22_59<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( (LA22_59=='\"') ) {s = 92;}
 
-                        else if ( (LA22_59=='\"') ) {s = 89;}
+                        else if ( (LA22_59=='\\') ) {s = 93;}
 
-                        else if ( (LA22_59=='\\') ) {s = 90;}
+                        else if ( (LA22_59=='/') ) {s = 94;}
 
-                        else if ( (LA22_59=='/') ) {s = 91;}
+                        else if ( (LA22_59=='b') ) {s = 95;}
 
-                        else if ( (LA22_59=='b') ) {s = 92;}
+                        else if ( (LA22_59=='f') ) {s = 96;}
 
-                        else if ( (LA22_59=='f') ) {s = 93;}
+                        else if ( (LA22_59=='n') ) {s = 97;}
 
-                        else if ( (LA22_59=='n') ) {s = 94;}
+                        else if ( (LA22_59=='r') ) {s = 98;}
 
-                        else if ( (LA22_59=='r') ) {s = 95;}
+                        else if ( (LA22_59=='t') ) {s = 99;}
 
-                        else if ( (LA22_59=='t') ) {s = 96;}
+                        else if ( (LA22_59=='u') ) {s = 100;}
 
-                        else if ( (LA22_59=='u') ) {s = 97;}
+                        else s = 24;
 
                          
                         input.seek(index22_59);
                         if ( s>=0 ) return s;
                         break;
-                    case 57 : 
-                        int LA22_67 = input.LA(1);
-
-                         
-                        int index22_67 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_67=='\t'||LA22_67==' ') && ((( isValue() )||( isHead() )))) {s = 67;}
-
-                        else if ( ((LA22_67>='\u0000' && LA22_67<='\b')||(LA22_67>='\u000B' && LA22_67<='\f')||(LA22_67>='\u000E' && LA22_67<='\u001F')||LA22_67=='!'||(LA22_67>='$' && LA22_67<='[')||(LA22_67>=']' && LA22_67<='\uFFFF')) && (( isValue() ))) {s = 102;}
-
-                        else if ( (LA22_67=='\n'||LA22_67=='\r') && (( isHead() ))) {s = 68;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_67);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 58 : 
-                        int LA22_34 = input.LA(1);
-
-                         
-                        int index22_34 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_34=='\n'||LA22_34=='\r') && (( isHead() ))) {s = 33;}
-
-                        else if ( (LA22_34==' ') && ((( !isHead() )||( isHead() )))) {s = 34;}
-
-                        else if ( (LA22_34=='-') && (( isHead() ))) {s = 35;}
-
-                        else if ( (LA22_34=='\t') && ((( !isHead() )||( isHead() )))) {s = 36;}
-
-                        else if ( ((LA22_34>='\u0000' && LA22_34<='\b')||(LA22_34>='\u000B' && LA22_34<='\f')||(LA22_34>='\u000E' && LA22_34<='\u001F')||(LA22_34>='!' && LA22_34<='\"')||LA22_34=='$'||(LA22_34>='&' && LA22_34<=',')||(LA22_34>='.' && LA22_34<='?')||(LA22_34>='A' && LA22_34<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA22_34=='@') && (( isHead() ))) {s = 37;}
-
-                        else s = 72;
-
-                         
-                        input.seek(index22_34);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 59 : 
-                        int LA22_55 = input.LA(1);
-
-                         
-                        int index22_55 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_55=='\t'||LA22_55==' ') ) {s = 85;}
-
-                        else if ( ((LA22_55>='\u0000' && LA22_55<='\b')||(LA22_55>='\u000B' && LA22_55<='\f')||(LA22_55>='\u000E' && LA22_55<='\u001F')||LA22_55=='!'||(LA22_55>='$' && LA22_55<='\'')||LA22_55=='+'||(LA22_55>='-' && LA22_55<='9')||(LA22_55>=';' && LA22_55<='=')||(LA22_55>='?' && LA22_55<='Z')||(LA22_55>='^' && LA22_55<='z')||(LA22_55>='~' && LA22_55<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_55=='*'||LA22_55==':'||LA22_55=='>'||LA22_55=='['||LA22_55==']'||(LA22_55>='{' && LA22_55<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_55>='(' && LA22_55<=')')||LA22_55==',') ) {s = 88;}
-
-                        else if ( (LA22_55=='\n'||LA22_55=='\r'||(LA22_55>='\"' && LA22_55<='#')||LA22_55=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index22_55);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 60 : 
-                        int LA22_95 = input.LA(1);
-
-                         
-                        int index22_95 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_95=='\"') ) {s = 60;}
-
-                        else if ( (LA22_95=='#') ) {s = 61;}
-
-                        else if ( (LA22_95=='\\') ) {s = 59;}
-
-                        else if ( (LA22_95=='\n'||LA22_95=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_95>='\u0000' && LA22_95<='\t')||(LA22_95>='\u000B' && LA22_95<='\f')||(LA22_95>='\u000E' && LA22_95<='!')||(LA22_95>='$' && LA22_95<='[')||(LA22_95>=']' && LA22_95<='\uFFFF')) ) {s = 58;}
-
-                         
-                        input.seek(index22_95);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 61 : 
-                        int LA22_42 = input.LA(1);
-
-                         
-                        int index22_42 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_42=='\t'||LA22_42==' ') && ((( isValue() )||( isHead() )))) {s = 75;}
-
-                        else if ( ((LA22_42>='\u0000' && LA22_42<='\b')||(LA22_42>='\u000B' && LA22_42<='\f')||(LA22_42>='\u000E' && LA22_42<='\u001F')||LA22_42=='!'||(LA22_42>='$' && LA22_42<='\'')||LA22_42=='+'||(LA22_42>='-' && LA22_42<='9')||(LA22_42>=';' && LA22_42<='=')||(LA22_42>='?' && LA22_42<='Z')||(LA22_42>='^' && LA22_42<='z')||(LA22_42>='~' && LA22_42<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 76;}
-
-                        else if ( (LA22_42=='*'||LA22_42==':'||LA22_42=='>'||LA22_42=='['||LA22_42==']'||(LA22_42>='{' && LA22_42<='}')) && ((( isValue() )||( isHead() )))) {s = 77;}
-
-                        else if ( ((LA22_42>='(' && LA22_42<=')')||LA22_42==',') && ((( isValue() )||( isHead() )))) {s = 78;}
-
-                        else if ( (LA22_42=='\n'||LA22_42=='\r'||(LA22_42>='\"' && LA22_42<='#')||LA22_42=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_42);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 62 : 
-                        int LA22_58 = input.LA(1);
-
-                         
-                        int index22_58 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_58=='\"') ) {s = 60;}
-
-                        else if ( (LA22_58=='#') ) {s = 61;}
-
-                        else if ( (LA22_58=='\\') ) {s = 59;}
-
-                        else if ( (LA22_58=='\n'||LA22_58=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_58>='\u0000' && LA22_58<='\t')||(LA22_58>='\u000B' && LA22_58<='\f')||(LA22_58>='\u000E' && LA22_58<='!')||(LA22_58>='$' && LA22_58<='[')||(LA22_58>=']' && LA22_58<='\uFFFF')) ) {s = 58;}
-
-                         
-                        input.seek(index22_58);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 63 : 
-                        int LA22_5 = input.LA(1);
-
-                         
-                        int index22_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_5=='-') && ((( isHead() )||( isValue() )))) {s = 27;}
-
-                        else if ( ((LA22_5>='\u0000' && LA22_5<='\t')||(LA22_5>='\u000B' && LA22_5<='\f')||(LA22_5>='\u000E' && LA22_5<='!')||(LA22_5>='$' && LA22_5<=',')||(LA22_5>='.' && LA22_5<='[')||(LA22_5>=']' && LA22_5<='\uFFFF')) && (( isValue() ))) {s = 29;}
-
-                        else s = 28;
-
-                         
-                        input.seek(index22_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 64 : 
-                        int LA22_92 = input.LA(1);
-
-                         
-                        int index22_92 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_92=='\"') ) {s = 60;}
-
-                        else if ( (LA22_92=='#') ) {s = 61;}
-
-                        else if ( (LA22_92=='\\') ) {s = 59;}
-
-                        else if ( (LA22_92=='\n'||LA22_92=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_92>='\u0000' && LA22_92<='\t')||(LA22_92>='\u000B' && LA22_92<='\f')||(LA22_92>='\u000E' && LA22_92<='!')||(LA22_92>='$' && LA22_92<='[')||(LA22_92>=']' && LA22_92<='\uFFFF')) ) {s = 58;}
-
-                         
-                        input.seek(index22_92);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 65 : 
-                        int LA22_118 = input.LA(1);
-
-                         
-                        int index22_118 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_118>='0' && LA22_118<='9')||(LA22_118>='A' && LA22_118<='F')||(LA22_118>='a' && LA22_118<='f')) ) {s = 120;}
-
-                        else if ( ((LA22_118>='\u0000' && LA22_118<='/')||(LA22_118>=':' && LA22_118<='@')||(LA22_118>='G' && LA22_118<='`')||(LA22_118>='g' && LA22_118<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_118);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 66 : 
-                        int LA22_111 = input.LA(1);
-
-                         
-                        int index22_111 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_111=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_111>='\u0000' && LA22_111<='\t')||(LA22_111>='\u000B' && LA22_111<='\f')||(LA22_111>='\u000E' && LA22_111<='!')||(LA22_111>='#' && LA22_111<='[')||(LA22_111>=']' && LA22_111<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_111=='\\') ) {s = 101;}
-
-                        else if ( (LA22_111=='\n'||LA22_111=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_111);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 67 : 
-                        int LA22_88 = input.LA(1);
-
-                         
-                        int index22_88 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_88=='\t'||LA22_88==' ') ) {s = 85;}
-
-                        else if ( ((LA22_88>='\u0000' && LA22_88<='\b')||(LA22_88>='\u000B' && LA22_88<='\f')||(LA22_88>='\u000E' && LA22_88<='\u001F')||LA22_88=='!'||(LA22_88>='$' && LA22_88<='\'')||LA22_88=='+'||(LA22_88>='-' && LA22_88<='9')||(LA22_88>=';' && LA22_88<='=')||(LA22_88>='?' && LA22_88<='Z')||(LA22_88>='^' && LA22_88<='z')||(LA22_88>='~' && LA22_88<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_88=='*'||LA22_88==':'||LA22_88=='>'||LA22_88=='['||LA22_88==']'||(LA22_88>='{' && LA22_88<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_88>='(' && LA22_88<=')')||LA22_88==',') ) {s = 88;}
-
-                        else if ( (LA22_88=='\n'||LA22_88=='\r'||(LA22_88>='\"' && LA22_88<='#')||LA22_88=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
-
-                         
-                        input.seek(index22_88);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 68 : 
-                        int LA22_20 = input.LA(1);
-
-                         
-                        int index22_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_20>='\u0000' && LA22_20<='\t')||(LA22_20>='\u000B' && LA22_20<='\f')||(LA22_20>='\u000E' && LA22_20<='!')||(LA22_20>='$' && LA22_20<='[')||(LA22_20>=']' && LA22_20<='\uFFFF')) ) {s = 58;}
-
-                        else if ( (LA22_20=='\\') ) {s = 59;}
-
-                        else if ( (LA22_20=='\"') ) {s = 60;}
-
-                        else if ( (LA22_20=='#') ) {s = 61;}
-
-                        else if ( (LA22_20=='\n'||LA22_20=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 69 : 
-                        int LA22_103 = input.LA(1);
-
-                         
-                        int index22_103 = input.index();
-                        input.rewind();
-                        s = -1;
-                        s = 104;
-
-                         
-                        input.seek(index22_103);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 70 : 
-                        int LA22_11 = input.LA(1);
-
-                         
-                        int index22_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_11>='\u0000' && LA22_11<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 40;
-
-                         
-                        input.seek(index22_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 71 : 
-                        int LA22_122 = input.LA(1);
-
-                         
-                        int index22_122 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_122=='\n'||LA22_122=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( (LA22_122=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_122>='\u0000' && LA22_122<='\t')||(LA22_122>='\u000B' && LA22_122<='\f')||(LA22_122>='\u000E' && LA22_122<='!')||(LA22_122>='#' && LA22_122<='[')||(LA22_122>=']' && LA22_122<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_122=='\\') ) {s = 101;}
-
-                         
-                        input.seek(index22_122);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 72 : 
-                        int LA22_17 = input.LA(1);
-
-                         
-                        int index22_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_17>='\u0000' && LA22_17<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 52;
-
-                         
-                        input.seek(index22_17);
-                        if ( s>=0 ) return s;
-                        break;
                     case 73 : 
-                        int LA22_43 = input.LA(1);
+                        int LA22_15 = input.LA(1);
 
                          
-                        int index22_43 = input.index();
+                        int index22_15 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_43=='\t'||LA22_43==' ') && ((( isHead() )||( isValue() )))) {s = 79;}
-
-                        else if ( ((LA22_43>='\u0000' && LA22_43<='\b')||(LA22_43>='\u000B' && LA22_43<='\f')||(LA22_43>='\u000E' && LA22_43<='\u001F')||LA22_43=='!'||(LA22_43>='$' && LA22_43<='\'')||LA22_43=='+'||(LA22_43>='-' && LA22_43<='9')||(LA22_43>=';' && LA22_43<='=')||(LA22_43>='?' && LA22_43<='Z')||(LA22_43>='^' && LA22_43<='z')||(LA22_43>='~' && LA22_43<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 80;}
-
-                        else if ( (LA22_43=='*'||LA22_43==':'||LA22_43=='>'||LA22_43=='['||LA22_43==']'||(LA22_43>='{' && LA22_43<='}')) && ((( isHead() )||( isValue() )))) {s = 81;}
-
-                        else if ( ((LA22_43>='(' && LA22_43<=')')||LA22_43==',') && ((( isHead() )||( isValue() )))) {s = 82;}
-
-                        else if ( (LA22_43=='\n'||LA22_43=='\r'||(LA22_43>='\"' && LA22_43<='#')||LA22_43=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_43);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 74 : 
-                        int LA22_109 = input.LA(1);
-
-                         
-                        int index22_109 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_109=='\"') ) {s = 99;}
-
-                        else if ( ((LA22_109>='\u0000' && LA22_109<='\t')||(LA22_109>='\u000B' && LA22_109<='\f')||(LA22_109>='\u000E' && LA22_109<='!')||(LA22_109>='#' && LA22_109<='[')||(LA22_109>=']' && LA22_109<='\uFFFF')) ) {s = 100;}
-
-                        else if ( (LA22_109=='\\') ) {s = 101;}
-
-                        else if ( (LA22_109=='\n'||LA22_109=='\r') && (( isHead() ))) {s = 23;}
-
-                         
-                        input.seek(index22_109);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 75 : 
-                        int LA22_82 = input.LA(1);
-
-                         
-                        int index22_82 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_82=='\t'||LA22_82==' ') && ((( isHead() )||( isValue() )))) {s = 79;}
-
-                        else if ( ((LA22_82>='\u0000' && LA22_82<='\b')||(LA22_82>='\u000B' && LA22_82<='\f')||(LA22_82>='\u000E' && LA22_82<='\u001F')||LA22_82=='!'||(LA22_82>='$' && LA22_82<='\'')||LA22_82=='+'||(LA22_82>='-' && LA22_82<='9')||(LA22_82>=';' && LA22_82<='=')||(LA22_82>='?' && LA22_82<='Z')||(LA22_82>='^' && LA22_82<='z')||(LA22_82>='~' && LA22_82<='\uFFFF')) && ((( isHead() )||( isValue() )))) {s = 80;}
-
-                        else if ( (LA22_82=='*'||LA22_82==':'||LA22_82=='>'||LA22_82=='['||LA22_82==']'||(LA22_82>='{' && LA22_82<='}')) && ((( isHead() )||( isValue() )))) {s = 81;}
-
-                        else if ( ((LA22_82>='(' && LA22_82<=')')||LA22_82==',') && ((( isHead() )||( isValue() )))) {s = 82;}
-
-                        else if ( (LA22_82=='\n'||LA22_82=='\r'||(LA22_82>='\"' && LA22_82<='#')||LA22_82=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_82);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 76 : 
-                        int LA22_93 = input.LA(1);
-
-                         
-                        int index22_93 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_93=='\"') ) {s = 60;}
-
-                        else if ( (LA22_93=='#') ) {s = 61;}
-
-                        else if ( (LA22_93=='\\') ) {s = 59;}
-
-                        else if ( (LA22_93=='\n'||LA22_93=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_93>='\u0000' && LA22_93<='\t')||(LA22_93>='\u000B' && LA22_93<='\f')||(LA22_93>='\u000E' && LA22_93<='!')||(LA22_93>='$' && LA22_93<='[')||(LA22_93>=']' && LA22_93<='\uFFFF')) ) {s = 58;}
-
-                         
-                        input.seek(index22_93);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 77 : 
-                        int LA22_10 = input.LA(1);
-
-                         
-                        int index22_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA22_10>='\u0000' && LA22_10<='\uFFFF')) && (( isHead() ))) {s = 23;}
-
-                        else s = 39;
-
-                         
-                        input.seek(index22_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 78 : 
-                        int LA22_16 = input.LA(1);
-
-                         
-                        int index22_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_16=='\t'||LA22_16==' ') ) {s = 48;}
-
-                        else if ( ((LA22_16>='\u0000' && LA22_16<='\b')||(LA22_16>='\u000B' && LA22_16<='\f')||(LA22_16>='\u000E' && LA22_16<='\u001F')||LA22_16=='!'||(LA22_16>='$' && LA22_16<='\'')||LA22_16=='+'||(LA22_16>='-' && LA22_16<='9')||(LA22_16>=';' && LA22_16<='=')||(LA22_16>='?' && LA22_16<='Z')||(LA22_16>='^' && LA22_16<='z')||(LA22_16>='~' && LA22_16<='\uFFFF')) ) {s = 49;}
-
-                        else if ( (LA22_16=='*'||LA22_16==':'||LA22_16=='>'||LA22_16=='['||LA22_16==']'||(LA22_16>='{' && LA22_16<='}')) ) {s = 50;}
-
-                        else if ( ((LA22_16>='(' && LA22_16<=')')||LA22_16==',') ) {s = 51;}
-
-                        else if ( (LA22_16=='\n'||LA22_16=='\r'||(LA22_16>='\"' && LA22_16<='#')||LA22_16=='\\') && (( isHead() ))) {s = 23;}
+                        if ( ((LA22_15>='\u0000' && LA22_15<='\t')||(LA22_15>='\u000B' && LA22_15<='\f')||(LA22_15>='\u000E' && LA22_15<='\uFFFF')) && (( isHead() ))) {s = 24;}
 
                         else s = 47;
 
                          
-                        input.seek(index22_16);
+                        input.seek(index22_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 74 : 
+                        int LA22_78 = input.LA(1);
+
+                         
+                        int index22_78 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_78=='\t'||LA22_78==' ') && ((( isHead() )||( isValue() )))) {s = 78;}
+
+                        else if ( ((LA22_78>='\u0000' && LA22_78<='\b')||(LA22_78>='\u000B' && LA22_78<='\f')||(LA22_78>='\u000E' && LA22_78<='\u001F')||LA22_78=='!'||(LA22_78>='$' && LA22_78<='\'')||LA22_78=='+'||(LA22_78>='-' && LA22_78<='9')||(LA22_78>=';' && LA22_78<='=')||(LA22_78>='?' && LA22_78<='Z')||(LA22_78>='^' && LA22_78<='z')||(LA22_78>='~' && LA22_78<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 79;}
+
+                        else if ( (LA22_78=='*'||LA22_78==':'||LA22_78=='>'||LA22_78=='['||LA22_78==']'||(LA22_78>='{' && LA22_78<='}')) && ((( isHead() )||( isValue() )))) {s = 80;}
+
+                        else if ( ((LA22_78>='(' && LA22_78<=')')||LA22_78==',') && ((( isValue() )||( isHead() )))) {s = 81;}
+
+                        else if ( (LA22_78=='\n'||LA22_78=='\r') && (( isValue() ))) {s = 67;}
+
+                        else if ( ((LA22_78>='\"' && LA22_78<='#')||LA22_78=='\\') && (( isHead() ))) {s = 24;}
+
+                        else s = 76;
+
+                         
+                        input.seek(index22_78);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 75 : 
+                        int LA22_41 = input.LA(1);
+
+                         
+                        int index22_41 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (true) ) {s = 73;}
+
+                         
+                        input.seek(index22_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 76 : 
+                        int LA22_6 = input.LA(1);
+
+                         
+                        int index22_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_6=='>') && (( isHead() ))) {s = 35;}
+
+                        else if ( ((LA22_6>='\u0000' && LA22_6<='\t')||(LA22_6>='\u000B' && LA22_6<='\f')||(LA22_6>='\u000E' && LA22_6<='=')||(LA22_6>='?' && LA22_6<='\uFFFF')) && (( isHead() ))) {s = 24;}
+
+                        else s = 36;
+
+                         
+                        input.seek(index22_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 77 : 
+                        int LA22_113 = input.LA(1);
+
+                         
+                        int index22_113 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_113>='0' && LA22_113<='9')||(LA22_113>='A' && LA22_113<='F')||(LA22_113>='a' && LA22_113<='f')) ) {s = 115;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_113);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 78 : 
+                        int LA22_54 = input.LA(1);
+
+                         
+                        int index22_54 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 24;}
+
+                        else if ( (!(((( isValue() )||( isHead() ))))) ) {s = 85;}
+
+                        else if ( (( isValue() )) ) {s = 86;}
+
+                         
+                        input.seek(index22_54);
                         if ( s>=0 ) return s;
                         break;
                     case 79 : 
-                        int LA22_99 = input.LA(1);
+                        int LA22_106 = input.LA(1);
 
                          
-                        int index22_99 = input.index();
+                        int index22_106 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_99>='\u0000' && LA22_99<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        if ( (LA22_106=='\"') ) {s = 89;}
 
-                        else s = 98;
+                        else if ( ((LA22_106>='\u0000' && LA22_106<='\t')||(LA22_106>='\u000B' && LA22_106<='\f')||(LA22_106>='\u000E' && LA22_106<='!')||(LA22_106>='#' && LA22_106<='[')||(LA22_106>=']' && LA22_106<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_106=='\\') ) {s = 91;}
+
+                        else if ( (LA22_106=='\n'||LA22_106=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_99);
+                        input.seek(index22_106);
                         if ( s>=0 ) return s;
                         break;
                     case 80 : 
+                        int LA22_29 = input.LA(1);
+
+                         
+                        int index22_29 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_29=='\t'||LA22_29==' ') ) {s = 26;}
+
+                        else if ( ((LA22_29>='\u0000' && LA22_29<='\b')||(LA22_29>='\u000B' && LA22_29<='\f')||(LA22_29>='\u000E' && LA22_29<='\u001F')||LA22_29=='!'||(LA22_29>='$' && LA22_29<='\'')||LA22_29=='+'||(LA22_29>='-' && LA22_29<='9')||(LA22_29>=';' && LA22_29<='=')||(LA22_29>='?' && LA22_29<='Z')||(LA22_29>='^' && LA22_29<='z')||(LA22_29>='~' && LA22_29<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_29=='*'||LA22_29==':'||LA22_29=='>'||LA22_29=='['||LA22_29==']'||(LA22_29>='{' && LA22_29<='}')) ) {s = 29;}
+
+                        else if ( ((LA22_29>='(' && LA22_29<=')')||LA22_29==',') ) {s = 31;}
+
+                        else if ( ((LA22_29>='\"' && LA22_29<='#')||LA22_29=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_29=='\n'||LA22_29=='\r') ) {s = 30;}
+
+                        else s = 62;
+
+                         
+                        input.seek(index22_29);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 81 : 
                         int LA22_52 = input.LA(1);
 
                          
                         int index22_52 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((( isValue() )))) ) {s = 83;}
+                        if ( (LA22_52=='\t'||LA22_52==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
 
-                        else if ( (( isValue() )) ) {s = 63;}
+                        else if ( ((LA22_52>='\u0000' && LA22_52<='\b')||(LA22_52>='\u000B' && LA22_52<='\f')||(LA22_52>='\u000E' && LA22_52<='\u001F')||LA22_52=='!'||(LA22_52>='$' && LA22_52<='\'')||LA22_52=='+'||(LA22_52>='-' && LA22_52<='9')||(LA22_52>=';' && LA22_52<='=')||(LA22_52>='?' && LA22_52<='Z')||(LA22_52>='^' && LA22_52<='z')||(LA22_52>='~' && LA22_52<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
+
+                        else if ( (LA22_52=='*'||LA22_52==':'||LA22_52=='>'||LA22_52=='['||LA22_52==']'||(LA22_52>='{' && LA22_52<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
+
+                        else if ( ((LA22_52>='(' && LA22_52<=')')||LA22_52==',') && ((( isValue() )||( isHead() )))) {s = 53;}
+
+                        else if ( ((LA22_52>='\"' && LA22_52<='#')||LA22_52=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_52=='\n'||LA22_52=='\r') && (( isValue() ))) {s = 67;}
+
+                        else s = 76;
 
                          
                         input.seek(index22_52);
                         if ( s>=0 ) return s;
                         break;
-                    case 81 : 
-                        int LA22_94 = input.LA(1);
-
-                         
-                        int index22_94 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_94=='\"') ) {s = 60;}
-
-                        else if ( (LA22_94=='#') ) {s = 61;}
-
-                        else if ( (LA22_94=='\\') ) {s = 59;}
-
-                        else if ( (LA22_94=='\n'||LA22_94=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_94>='\u0000' && LA22_94<='\t')||(LA22_94>='\u000B' && LA22_94<='\f')||(LA22_94>='\u000E' && LA22_94<='!')||(LA22_94>='$' && LA22_94<='[')||(LA22_94>=']' && LA22_94<='\uFFFF')) ) {s = 58;}
-
-                         
-                        input.seek(index22_94);
-                        if ( s>=0 ) return s;
-                        break;
                     case 82 : 
-                        int LA22_114 = input.LA(1);
+                        int LA22_46 = input.LA(1);
 
                          
-                        int index22_114 = input.index();
+                        int index22_46 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_114>='0' && LA22_114<='9')||(LA22_114>='A' && LA22_114<='F')||(LA22_114>='a' && LA22_114<='f')) ) {s = 117;}
+                        if ( (LA22_46=='\t'||LA22_46==' ') && ((( isHead() )||( isValue() )))) {s = 78;}
 
-                        else if ( ((LA22_114>='\u0000' && LA22_114<='/')||(LA22_114>=':' && LA22_114<='@')||(LA22_114>='G' && LA22_114<='`')||(LA22_114>='g' && LA22_114<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA22_46>='\u0000' && LA22_46<='\b')||(LA22_46>='\u000B' && LA22_46<='\f')||(LA22_46>='\u000E' && LA22_46<='\u001F')||LA22_46=='!'||(LA22_46>='$' && LA22_46<='\'')||LA22_46=='+'||(LA22_46>='-' && LA22_46<='9')||(LA22_46>=';' && LA22_46<='=')||(LA22_46>='?' && LA22_46<='Z')||(LA22_46>='^' && LA22_46<='z')||(LA22_46>='~' && LA22_46<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 79;}
+
+                        else if ( (LA22_46=='*'||LA22_46==':'||LA22_46=='>'||LA22_46=='['||LA22_46==']'||(LA22_46>='{' && LA22_46<='}')) && ((( isHead() )||( isValue() )))) {s = 80;}
+
+                        else if ( (LA22_46=='\n'||LA22_46=='\r') && (( isValue() ))) {s = 67;}
+
+                        else if ( ((LA22_46>='(' && LA22_46<=')')||LA22_46==',') && ((( isValue() )||( isHead() )))) {s = 81;}
+
+                        else if ( ((LA22_46>='\"' && LA22_46<='#')||LA22_46=='\\') && (( isHead() ))) {s = 24;}
+
+                        else s = 76;
 
                          
-                        input.seek(index22_114);
+                        input.seek(index22_46);
                         if ( s>=0 ) return s;
                         break;
                     case 83 : 
-                        int LA22_105 = input.LA(1);
+                        int LA22_108 = input.LA(1);
 
                          
-                        int index22_105 = input.index();
+                        int index22_108 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA22_105>='0' && LA22_105<='9')||(LA22_105>='A' && LA22_105<='F')||(LA22_105>='a' && LA22_105<='f')) ) {s = 116;}
+                        if ( (LA22_108=='\"') ) {s = 89;}
 
-                        else if ( ((LA22_105>='\u0000' && LA22_105<='/')||(LA22_105>=':' && LA22_105<='@')||(LA22_105>='G' && LA22_105<='`')||(LA22_105>='g' && LA22_105<='\uFFFF')) && (( isHead() ))) {s = 23;}
+                        else if ( ((LA22_108>='\u0000' && LA22_108<='\t')||(LA22_108>='\u000B' && LA22_108<='\f')||(LA22_108>='\u000E' && LA22_108<='!')||(LA22_108>='#' && LA22_108<='[')||(LA22_108>=']' && LA22_108<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_108=='\\') ) {s = 91;}
+
+                        else if ( (LA22_108=='\n'||LA22_108=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_105);
+                        input.seek(index22_108);
                         if ( s>=0 ) return s;
                         break;
                     case 84 : 
-                        int LA22_91 = input.LA(1);
+                        int LA22_66 = input.LA(1);
 
                          
-                        int index22_91 = input.index();
+                        int index22_66 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_91=='\"') ) {s = 60;}
+                        if ( (LA22_66=='\t'||LA22_66==' ') && ((( isValue() )||( isHead() )))) {s = 66;}
 
-                        else if ( (LA22_91=='#') ) {s = 61;}
+                        else if ( ((LA22_66>='\u0000' && LA22_66<='\b')||(LA22_66>='\n' && LA22_66<='\u001F')||LA22_66=='!'||(LA22_66>='$' && LA22_66<='[')||(LA22_66>=']' && LA22_66<='\uFFFF')) && (( isValue() ))) {s = 67;}
 
-                        else if ( (LA22_91=='\\') ) {s = 59;}
-
-                        else if ( (LA22_91=='\n'||LA22_91=='\r') && (( isHead() ))) {s = 23;}
-
-                        else if ( ((LA22_91>='\u0000' && LA22_91<='\t')||(LA22_91>='\u000B' && LA22_91<='\f')||(LA22_91>='\u000E' && LA22_91<='!')||(LA22_91>='$' && LA22_91<='[')||(LA22_91>=']' && LA22_91<='\uFFFF')) ) {s = 58;}
+                        else s = 65;
 
                          
-                        input.seek(index22_91);
+                        input.seek(index22_66);
                         if ( s>=0 ) return s;
                         break;
                     case 85 : 
+                        int LA22_26 = input.LA(1);
+
+                         
+                        int index22_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_26=='\t'||LA22_26==' ') ) {s = 26;}
+
+                        else if ( ((LA22_26>='\u0000' && LA22_26<='\b')||(LA22_26>='\u000B' && LA22_26<='\f')||(LA22_26>='\u000E' && LA22_26<='\u001F')||LA22_26=='!'||(LA22_26>='$' && LA22_26<='\'')||LA22_26=='+'||(LA22_26>='-' && LA22_26<='9')||(LA22_26>=';' && LA22_26<='=')||(LA22_26>='?' && LA22_26<='Z')||(LA22_26>='^' && LA22_26<='z')||(LA22_26>='~' && LA22_26<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA22_26=='*'||LA22_26==':'||LA22_26=='>'||LA22_26=='['||LA22_26==']'||(LA22_26>='{' && LA22_26<='}')) ) {s = 29;}
+
+                        else if ( ((LA22_26>='(' && LA22_26<=')')||LA22_26==',') ) {s = 31;}
+
+                        else if ( ((LA22_26>='\"' && LA22_26<='#')||LA22_26=='\\') && (( isHead() ))) {s = 24;}
+
+                        else if ( (LA22_26=='\n'||LA22_26=='\r') ) {s = 30;}
+
+                        else s = 62;
+
+                         
+                        input.seek(index22_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 86 : 
                         int LA22_49 = input.LA(1);
 
                          
                         int index22_49 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_49=='\t'||LA22_49==' ') ) {s = 48;}
+                        if ( (LA22_49=='\t'||LA22_49==' ') && ((( isHead() )||( isValue() )))) {s = 49;}
 
-                        else if ( ((LA22_49>='\u0000' && LA22_49<='\b')||(LA22_49>='\u000B' && LA22_49<='\f')||(LA22_49>='\u000E' && LA22_49<='\u001F')||LA22_49=='!'||(LA22_49>='$' && LA22_49<='\'')||LA22_49=='+'||(LA22_49>='-' && LA22_49<='9')||(LA22_49>=';' && LA22_49<='=')||(LA22_49>='?' && LA22_49<='Z')||(LA22_49>='^' && LA22_49<='z')||(LA22_49>='~' && LA22_49<='\uFFFF')) ) {s = 49;}
+                        else if ( ((LA22_49>='\u0000' && LA22_49<='\b')||(LA22_49>='\u000B' && LA22_49<='\f')||(LA22_49>='\u000E' && LA22_49<='\u001F')||LA22_49=='!'||(LA22_49>='$' && LA22_49<='\'')||LA22_49=='+'||(LA22_49>='-' && LA22_49<='9')||(LA22_49>=';' && LA22_49<='=')||(LA22_49>='?' && LA22_49<='Z')||(LA22_49>='^' && LA22_49<='z')||(LA22_49>='~' && LA22_49<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 51;}
 
-                        else if ( (LA22_49=='*'||LA22_49==':'||LA22_49=='>'||LA22_49=='['||LA22_49==']'||(LA22_49>='{' && LA22_49<='}')) ) {s = 50;}
+                        else if ( (LA22_49=='*'||LA22_49==':'||LA22_49=='>'||LA22_49=='['||LA22_49==']'||(LA22_49>='{' && LA22_49<='}')) && ((( isHead() )||( isValue() )))) {s = 52;}
 
-                        else if ( ((LA22_49>='(' && LA22_49<=')')||LA22_49==',') ) {s = 51;}
+                        else if ( ((LA22_49>='(' && LA22_49<=')')||LA22_49==',') && ((( isValue() )||( isHead() )))) {s = 53;}
 
-                        else if ( (LA22_49=='\n'||LA22_49=='\r'||(LA22_49>='\"' && LA22_49<='#')||LA22_49=='\\') && (( isHead() ))) {s = 23;}
+                        else if ( ((LA22_49>='\"' && LA22_49<='#')||LA22_49=='\\') && (( isHead() ))) {s = 24;}
 
-                        else s = 62;
+                        else if ( (LA22_49=='\n'||LA22_49=='\r') && (( isValue() ))) {s = 67;}
+
+                        else s = 76;
 
                          
                         input.seek(index22_49);
                         if ( s>=0 ) return s;
                         break;
-                    case 86 : 
-                        int LA22_76 = input.LA(1);
-
-                         
-                        int index22_76 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA22_76=='\t'||LA22_76==' ') && ((( isValue() )||( isHead() )))) {s = 75;}
-
-                        else if ( ((LA22_76>='\u0000' && LA22_76<='\b')||(LA22_76>='\u000B' && LA22_76<='\f')||(LA22_76>='\u000E' && LA22_76<='\u001F')||LA22_76=='!'||(LA22_76>='$' && LA22_76<='\'')||LA22_76=='+'||(LA22_76>='-' && LA22_76<='9')||(LA22_76>=';' && LA22_76<='=')||(LA22_76>='?' && LA22_76<='Z')||(LA22_76>='^' && LA22_76<='z')||(LA22_76>='~' && LA22_76<='\uFFFF')) && ((( isValue() )||( isHead() )))) {s = 76;}
-
-                        else if ( (LA22_76=='*'||LA22_76==':'||LA22_76=='>'||LA22_76=='['||LA22_76==']'||(LA22_76>='{' && LA22_76<='}')) && ((( isValue() )||( isHead() )))) {s = 77;}
-
-                        else if ( ((LA22_76>='(' && LA22_76<=')')||LA22_76==',') && ((( isValue() )||( isHead() )))) {s = 78;}
-
-                        else if ( (LA22_76=='\n'||LA22_76=='\r'||(LA22_76>='\"' && LA22_76<='#')||LA22_76=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 66;
-
-                         
-                        input.seek(index22_76);
-                        if ( s>=0 ) return s;
-                        break;
                     case 87 : 
-                        int LA22_110 = input.LA(1);
+                        int LA22_120 = input.LA(1);
 
                          
-                        int index22_110 = input.index();
+                        int index22_120 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_110=='\"') ) {s = 99;}
+                        if ( (LA22_120=='\"') ) {s = 89;}
 
-                        else if ( ((LA22_110>='\u0000' && LA22_110<='\t')||(LA22_110>='\u000B' && LA22_110<='\f')||(LA22_110>='\u000E' && LA22_110<='!')||(LA22_110>='#' && LA22_110<='[')||(LA22_110>=']' && LA22_110<='\uFFFF')) ) {s = 100;}
+                        else if ( ((LA22_120>='\u0000' && LA22_120<='\t')||(LA22_120>='\u000B' && LA22_120<='\f')||(LA22_120>='\u000E' && LA22_120<='!')||(LA22_120>='#' && LA22_120<='[')||(LA22_120>=']' && LA22_120<='\uFFFF')) ) {s = 90;}
 
-                        else if ( (LA22_110=='\\') ) {s = 101;}
+                        else if ( (LA22_120=='\\') ) {s = 91;}
 
-                        else if ( (LA22_110=='\n'||LA22_110=='\r') && (( isHead() ))) {s = 23;}
+                        else if ( (LA22_120=='\n'||LA22_120=='\r') ) {s = 60;}
+
+                        else s = 24;
 
                          
-                        input.seek(index22_110);
+                        input.seek(index22_120);
                         if ( s>=0 ) return s;
                         break;
                     case 88 : 
-                        int LA22_87 = input.LA(1);
+                        int LA22_48 = input.LA(1);
 
                          
-                        int index22_87 = input.index();
+                        int index22_48 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA22_87=='\t'||LA22_87==' ') ) {s = 85;}
+                        if ( (( isHead() )) ) {s = 24;}
 
-                        else if ( ((LA22_87>='\u0000' && LA22_87<='\b')||(LA22_87>='\u000B' && LA22_87<='\f')||(LA22_87>='\u000E' && LA22_87<='\u001F')||LA22_87=='!'||(LA22_87>='$' && LA22_87<='\'')||LA22_87=='+'||(LA22_87>='-' && LA22_87<='9')||(LA22_87>=';' && LA22_87<='=')||(LA22_87>='?' && LA22_87<='Z')||(LA22_87>='^' && LA22_87<='z')||(LA22_87>='~' && LA22_87<='\uFFFF')) ) {s = 86;}
-
-                        else if ( (LA22_87=='*'||LA22_87==':'||LA22_87=='>'||LA22_87=='['||LA22_87==']'||(LA22_87>='{' && LA22_87<='}')) ) {s = 87;}
-
-                        else if ( ((LA22_87>='(' && LA22_87<=')')||LA22_87==',') ) {s = 88;}
-
-                        else if ( (LA22_87=='\n'||LA22_87=='\r'||(LA22_87>='\"' && LA22_87<='#')||LA22_87=='\\') && (( isHead() ))) {s = 23;}
-
-                        else s = 84;
+                        else if ( (true) ) {s = 83;}
 
                          
-                        input.seek(index22_87);
+                        input.seek(index22_48);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 89 : 
+                        int LA22_117 = input.LA(1);
+
+                         
+                        int index22_117 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA22_117>='0' && LA22_117<='9')||(LA22_117>='A' && LA22_117<='F')||(LA22_117>='a' && LA22_117<='f')) ) {s = 119;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_117);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 90 : 
+                        int LA22_97 = input.LA(1);
+
+                         
+                        int index22_97 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_97=='#') ) {s = 58;}
+
+                        else if ( (LA22_97=='\"') ) {s = 61;}
+
+                        else if ( ((LA22_97>='\u0000' && LA22_97<='\t')||(LA22_97>='\u000B' && LA22_97<='\f')||(LA22_97>='\u000E' && LA22_97<='!')||(LA22_97>='$' && LA22_97<='[')||(LA22_97>=']' && LA22_97<='\uFFFF')) ) {s = 57;}
+
+                        else if ( (LA22_97=='\\') ) {s = 59;}
+
+                        else if ( (LA22_97=='\n'||LA22_97=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_97);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 91 : 
+                        int LA22_58 = input.LA(1);
+
+                         
+                        int index22_58 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA22_58=='\"') ) {s = 89;}
+
+                        else if ( ((LA22_58>='\u0000' && LA22_58<='\t')||(LA22_58>='\u000B' && LA22_58<='\f')||(LA22_58>='\u000E' && LA22_58<='!')||(LA22_58>='#' && LA22_58<='[')||(LA22_58>=']' && LA22_58<='\uFFFF')) ) {s = 90;}
+
+                        else if ( (LA22_58=='\\') ) {s = 91;}
+
+                        else if ( (LA22_58=='\n'||LA22_58=='\r') ) {s = 60;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index22_58);
                         if ( s>=0 ) return s;
                         break;
             }

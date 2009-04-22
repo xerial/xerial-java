@@ -635,10 +635,10 @@ public class SilkStreamReader implements TreeStreamReader
 
         SilkEvent currentEvent = parser.next();
 
-        if (_logger.isDebugEnabled())
+        if (_logger.isTraceEnabled())
         {
-            _logger.debug("stack: " + parseContext.getContextNodeStack());
-            _logger.debug(currentEvent);
+            _logger.trace("stack: " + parseContext.getContextNodeStack());
+            _logger.trace(currentEvent);
         }
 
         switch (currentEvent.getType())

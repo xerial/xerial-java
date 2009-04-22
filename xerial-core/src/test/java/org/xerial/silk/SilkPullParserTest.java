@@ -73,4 +73,34 @@ public class SilkPullParserTest
     {
         pull("sequence.silk");
     }
+
+    @Test
+    public void testOutValue() throws Exception
+    {
+        pull("impl/outvalue.silk");
+    }
+
+    @Test
+    public void testBarChart() throws Exception
+    {
+        pull("barchart.silk");
+    }
+
+    @Test
+    public void testMicroFormat() throws Exception
+    {
+        pull("microformat.silk");
+    }
+
+    @Test
+    public void testHeredoc() throws Exception
+    {
+        pull("heredoc.silk");
+    }
+
+    @Test
+    public void testScaffold() throws Exception
+    {
+        pull("scaffold5001.silk");
+    }
 }

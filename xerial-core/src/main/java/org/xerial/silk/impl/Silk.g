@@ -120,13 +120,13 @@ private SilkLexerState lexerContext = new SilkLexerState();
 
 private State currentState() { return lexerContext.getCurrentState(); } 
 private void transit(Symbol token) { lexerContext.transit(token); } 
-private void resetContext() { lexerContext.reset(); }
 private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
 private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
 
+  public void resetContext() { lexerContext.reset(); }
 
   @Override
   public void reportError(RecognitionException e) {
@@ -150,9 +150,15 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
 
 // lexer rules
 
+
+fragment
+WhiteSpace
+	:	(' ' | '\t') 
+	;		
+
 // comment 
-LineComment: '#' ~('\n'|'\r')* LineBreak { $channel=HIDDEN; }; 
-Preamble: { isHead() }? => '%' ~('\n'|'\r')* LineBreak; 
+LineComment: '#' ~(LineBreakChar)* ;
+Preamble: { isHead() }? => '%' ~(LineBreakChar)* ; 
 
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
@@ -160,18 +166,18 @@ fragment LineBreakChar: '\n' | '\r';
 LineBreak
 	: ('\r' '\n' | '\r' | '\n' ) 
 	{ $channel=HIDDEN; resetContext(); }
-	;		
+	;
 
-MultiLineSeparator: { isHead() }? => '--' WhiteSpace* LineBreak;
-MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace* LineBreak;
+MultiLineSeparator: { isHead() }? => '--' WhiteSpace*; 
+MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace*;
  	
 NodeIndent: { isHead() }? => (' ')* '-' { transit(Symbol.NodeStart); } ;
 FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
-BlankLine: { isHead() }? => WhiteSpace* LineBreak;
+BlankLine: { isHead() }? => WhiteSpace*;
 
-fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
+fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace) ~('#' | LineBreakChar)*;
 DataLine: { isHead() }? 
-	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText(sanitizeDataLine($DataLineBody.text)); };
+	=> WhiteSpace* DataLineBody LineComment? { setText(sanitizeDataLine($DataLineBody.text)); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')' { transit(Symbol.LeaveParen); };
@@ -191,18 +197,13 @@ Question:	'?';
 fragment Digit: '0' .. '9';
 fragment Letter: 'A' .. 'F' | 'a' .. 'f';
 fragment HexDigit: Digit | Letter;
-fragment UnicodeChar: ~('"'| '\\' | LineBreakChar);
+fragment UnicodeChar: ~('"'| '\\');
 fragment EscapeSequence
 	: '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
 	; 
-
-
 fragment StringChar :  UnicodeChar | EscapeSequence;
-fragment NonSpaceChar: ~('"'| '\\' | LineBreakChar | WhiteSpace );
-
 fragment StringChar_s: StringChar*;
 String: '"' s=StringChar_s '"' { setText($s.text); };
-
  
 
 fragment ScopeIndicator: '(' | ')';
@@ -210,15 +211,16 @@ fragment FlowIndicator:  '[' | ']' | '{' | '}';
 fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
 
 
-fragment PlainUnsafeChar: '"'| '\\' | LineBreakChar | '#' ;
+fragment PlainUnsafeChar: '"'| '\\' | '#' ;
 
 fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|'); 
 fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
+fragment NonSpaceChar: ~('"'| '\\' | WhiteSpace );
 fragment PlainFirst
-	:  ~('-' | PlainUnsafeChar | WhiteSpace | Indicator ) 
-	| { isValue() }? => ('-' | (':' | '?') NonSpaceChar)
+	:  ~('-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) 
+	| { isValue() }? => ('-' | '+' | (':' | '?') NonSpaceChar)
 	;
  
 fragment PlainSafe
@@ -259,9 +261,6 @@ JSON
 	 
 Separation: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
 
-WhiteSpace
-	:	(' ' | '\t') 
-	;		
 
 
 // parser rules	
@@ -277,6 +276,7 @@ silkLine
 	| Preamble
 	| DataLine
 	| BlankLine
+	| LineComment
 	| MultiLineSeparator
 	| MultiLineEntrySeparator
 	| WhiteSpace -> BlankLine
