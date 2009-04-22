@@ -182,6 +182,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testMultiLineEscape() throws Exception
+    {
+        compare("multiline.silk", "multiline.json");
+    }
+
+    @Test
     public void testSkipDescendants() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));

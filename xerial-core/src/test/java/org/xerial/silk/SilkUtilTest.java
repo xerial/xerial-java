@@ -26,6 +26,7 @@ package org.xerial.silk;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,7 +63,30 @@ public class SilkUtilTest
         {
 
         }
+    }
 
+    @Test
+    public void testToJSON() throws IOException, XerialException
+    {
+        StringWriter buf = new StringWriter();
+        SilkUtil.toJSON(FileResource.find(SilkUtilTest.class, "suzaku-config.silk"), buf);
+        _logger.debug(buf.toString());
+    }
+
+    @Test
+    public void testToJSON2() throws IOException, XerialException
+    {
+        StringWriter buf = new StringWriter();
+        SilkUtil.toJSON(FileResource.find(SilkUtilTest.class, "example.silk"), buf);
+        _logger.debug(buf.toString());
+    }
+
+    @Test
+    public void testToJSON3() throws IOException, XerialException
+    {
+        StringWriter buf = new StringWriter();
+        SilkUtil.toJSON(FileResource.find(SilkUtilTest.class, "small.silk"), buf);
+        _logger.debug(buf.toString());
     }
 
 }
