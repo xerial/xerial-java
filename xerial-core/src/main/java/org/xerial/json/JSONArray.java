@@ -32,10 +32,9 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.xerial.json.impl.JSONLexer;
 import org.xerial.json.impl.JSONParser;
-import org.xerial.json.impl.JSONWalker;
+import org.xerial.json.impl.JSONTokener;
 
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 {
@@ -51,22 +50,79 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
             _array.add(v);
     }
 
+    public JSONArray(JSONTokener x) throws JSONException
+    {
+        char c = x.nextClean();
+        char q;
+        if (c == '[')
+        {
+            q = ']';
+        }
+        else if (c == '(')
+        {
+            q = ')';
+        }
+        else
+        {
+            throw x.syntaxError("A JSONArray text must start with '['");
+        }
+        if (x.nextClean() == ']')
+        {
+            return;
+        }
+        x.back();
+        for (;;)
+        {
+            if (x.nextClean() == ',')
+            {
+                x.back();
+                _array.add(null);
+            }
+            else
+            {
+                x.back();
+                _array.add(x.nextValue());
+            }
+            c = x.nextClean();
+            switch (c)
+            {
+            case ';':
+            case ',':
+                if (x.nextClean() == ']')
+                {
+                    return;
+                }
+                x.back();
+                break;
+            case ']':
+            case ')':
+                if (q != c)
+                {
+                    throw x.syntaxError("Expected a '" + new Character(q) + "'");
+                }
+                return;
+            default:
+                throw x.syntaxError("Expected a ',' or ']'");
+            }
+        }
+    }
+
     public JSONArray(String jsonStr) throws JSONException
     {
-
-        CommonTree t = parse(jsonStr);
-        CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
-        JSONWalker walker = new JSONWalker(ts);
-        try
-        {
-            JSONArray array = walker.jsonArray();
-            this._array = array._array;
-        }
-        catch (RecognitionException e)
-        {
-            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
-                    + e.charPositionInLine + ")");
-        }
+        this(new JSONTokener(jsonStr));
+        //        CommonTree t = parse(jsonStr);
+        //        CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
+        //        JSONWalker walker = new JSONWalker(ts);
+        //        try
+        //        {
+        //            JSONArray array = walker.jsonArray();
+        //            this._array = array._array;
+        //        }
+        //        catch (RecognitionException e)
+        //        {
+        //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
+        //                    + e.charPositionInLine + ")");
+        //        }
     }
 
     public static CommonTree parse(String jsonStr) throws JSONException

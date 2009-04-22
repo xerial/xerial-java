@@ -81,6 +81,8 @@ public class SilkStreamReader implements TreeStreamReader
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
 
+    private int numReadLine = 0;
+
     /**
      * Creates a new reader with the specified input stream
      * 
@@ -418,16 +420,16 @@ public class SilkStreamReader implements TreeStreamReader
      */
     private boolean hasNext() throws XerialException
     {
-        if (eventQueue.isEmpty())
-        {
-            if (hasFinished)
-                return false;
-
-            fillQueue();
-            return hasNext();
-        }
-        else
+        if (!eventQueue.isEmpty())
             return true;
+
+        if (hasFinished)
+            return false;
+
+        while (!hasFinished && eventQueue.isEmpty())
+            fillQueue();
+
+        return hasNext();
     }
 
     /**
@@ -523,6 +525,8 @@ public class SilkStreamReader implements TreeStreamReader
 
     private void evalDatalineColumn(SilkNode node, String columnData) throws XerialException
     {
+        // 7600 lines/sec
+
         if (node.hasChildren())
         {
             JSONArray array = new JSONArray(columnData);
@@ -537,7 +541,19 @@ public class SilkStreamReader implements TreeStreamReader
             if (columnData.startsWith("["))
             {
                 // micro-data format
+
+                // 7900 lines/sec 
+
                 JSONArray array = new JSONArray(columnData);
+                // 1400 lines/sec
+
+                //                // dummy code 
+                //                if (true)
+                //                {
+                //                    visit(node.getName(), null);
+                //                    leave(node.getName());
+                //                    return;
+                //                }
                 walkMicroFormatRoot(node, array);
                 return;
             }
@@ -634,6 +650,7 @@ public class SilkStreamReader implements TreeStreamReader
         }
 
         SilkEvent currentEvent = parser.next();
+        numReadLine = parser.getLine();
 
         if (_logger.isTraceEnabled())
         {
@@ -1016,6 +1033,11 @@ public class SilkStreamReader implements TreeStreamReader
     {
         PluginHolder holder = new PluginHolder(plugin.getClass());
         holder.populate(plugin, args);
+    }
+
+    public int getNumReadLine()
+    {
+        return numReadLine;
     }
 
 }

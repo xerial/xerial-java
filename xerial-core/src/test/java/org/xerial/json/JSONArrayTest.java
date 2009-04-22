@@ -24,43 +24,73 @@
 //--------------------------------------
 package org.xerial.json;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.StopWatch;
+import org.xerial.util.log.Logger;
 
-public class JSONArrayTest {
+public class JSONArrayTest
+{
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    private static Logger _logger = Logger.getLogger(JSONArrayTest.class);
 
-	@After
-	public void tearDown() throws Exception {
-	}
-	
-	
-	@Test
-	public void constructor() throws JSONException
-	{
-		JSONArray array = new JSONArray("[1, 2, 3]");
-		assertEquals(1, array.getJSONInteger(0).getIntValue());
-		assertEquals(2, array.getJSONInteger(1).getIntValue());
-		assertEquals(3, array.getJSONInteger(2).getIntValue());
-	}
+    @Before
+    public void setUp() throws Exception
+    {}
 
-	@Test
-	public void objectInAnArray() throws JSONException 
-	{
-		JSONArray array = new JSONArray("[{\"id\":1, \"name\":\"leo\"}]");
-		JSONObject p = array.getJSONObject(0);
-		assertEquals(1, p.getInt("id"));
-		assertEquals("leo", p.getString("name"));
-	}
+    @After
+    public void tearDown() throws Exception
+    {}
+
+    @Test
+    public void constructor() throws JSONException
+    {
+        JSONArray array = new JSONArray("[1, 2, 3]");
+        assertEquals(1, array.getJSONInteger(0).getIntValue());
+        assertEquals(2, array.getJSONInteger(1).getIntValue());
+        assertEquals(3, array.getJSONInteger(2).getIntValue());
+    }
+
+    @Test
+    public void objectInAnArray() throws JSONException
+    {
+        JSONArray array = new JSONArray("[{\"id\":1, \"name\":\"leo\"}]");
+        JSONObject p = array.getJSONObject(0);
+        assertEquals(1, p.getInt("id"));
+        assertEquals("leo", p.getString("name"));
+    }
+
+    @Test
+    public void testParse() throws JSONException
+    {
+        // generate a sample JSON array
+        StringBuilder sample = new StringBuilder();
+        sample.append("[");
+        int i = 0;
+        for (; i < 1000; i++)
+        {
+            sample.append(i);
+            sample.append(",");
+        }
+        sample.append(i);
+        sample.append("]");
+
+        String json = sample.toString();
+
+        StopWatch timer = new StopWatch();
+        for (int n = 0; n < 1000; n++)
+        {
+            JSONArray array = new JSONArray(json);
+            assertEquals(1001, array.size());
+        }
+        _logger.debug("time: " + timer.getElapsedTime());
+
+        // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
+        // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
+
+    }
+
 }
-
-
-
-

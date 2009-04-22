@@ -103,7 +103,7 @@ public class SilkPullParser
 
     public SilkPullParser(Reader input) throws IOException
     {
-        buffer = new BufferedReader(input);
+        buffer = new BufferedReader(input, 1024 * 1024); // use 1MB buffer size
         lexer = new SilkLexer();
     }
 
@@ -115,7 +115,8 @@ public class SilkPullParser
         if (foundEOF)
             return false;
 
-        fillQueue();
+        while (!foundEOF && eventQueue.isEmpty())
+            fillQueue();
 
         return hasNext();
     }
@@ -128,7 +129,8 @@ public class SilkPullParser
         if (foundEOF)
             return null;
 
-        fillQueue();
+        while (!foundEOF && eventQueue.isEmpty())
+            fillQueue();
 
         return next();
     }
@@ -227,12 +229,16 @@ public class SilkPullParser
             return;
         }
 
+        // 40000 lines / sec
+
         if (!(trimmedLine.startsWith("-") || trimmedLine.startsWith("@")))
         {
             SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
             push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
             return;
         }
+
+        // 17000 lines / sec
 
         // lexical analysis
         lexer.resetContext();
@@ -244,6 +250,9 @@ public class SilkPullParser
             SilkParser parser = new SilkParser(tokenStream);
             silkLine_return ret = parser.silkLine();
             Tree t = (Tree) ret.getTree();
+
+            // 8500 lines/sec
+
             switch (t.getType())
             {
             case SilkParser.Function:
@@ -258,36 +267,12 @@ public class SilkPullParser
                 push(new SilkEvent(SilkEventType.NODE, node));
                 break;
             }
-                /*
-                case SilkParser.BlankLine:
-                {
-                    push(BlankLineEvent);
-                    break;
-                }
-                case SilkParser.DataLine:
-                {
-                    SilkDataLine dataLine = new SilkDataLine(t.getText());
-                    push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
-                    break;
-                }
-                case SilkParser.Preamble:
-                    push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(t.getText())));
-                    break;
-                case SilkParser.MultiLineEntrySeparator:
-                    push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
-                    break;
-                case SilkParser.MultiLineSeparator:
-                    push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
-                    break;
-                case SilkParser.LineComment:
-                    // ignore the comment line
-                    break;
-                 */
             default:
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
                         "line=%d: invalid data type: %s", lineCount, parser.getTokenNames()[t.getType()]));
             }
 
+            // 1500 lines/sec
         }
         catch (RecognitionException e)
         {
