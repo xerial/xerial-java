@@ -108,15 +108,15 @@ public class VisitorTest
     {
         public void visit(File file)
         {
-            _logger.info("visit file: " + file);
+            _logger.debug("visit file: " + file);
         }
 
         public void visit(Directory dir)
         {
-            _logger.info("visit dir: " + dir);
+            _logger.debug("visit dir: " + dir);
             for (FileObject each : dir.children)
                 each.accept(this);
-            _logger.info("leave dir: " + dir);
+            _logger.debug("leave dir: " + dir);
         }
     }
 

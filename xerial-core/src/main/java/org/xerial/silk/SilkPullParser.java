@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.Map;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -46,7 +45,6 @@ import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkPreamble;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
 import org.xerial.util.ArrayDeque;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
 
@@ -64,28 +62,13 @@ public class SilkPullParser
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
     private final SilkLexer lexer;
-    private CommonTokenStream tokenStream;
     private SilkParser parser;
     private int lineCount = 0;
 
     private final BufferedReader buffer;
 
     private boolean foundEOF = false;
-
     private ArrayDeque<SilkEvent> eventQueue = new ArrayDeque<SilkEvent>();
-    private static Map<Integer, String> tokenTable;
-
-    static
-    {
-        try
-        {
-            tokenTable = ANTLRUtil.getTokenTable(SilkPullParser.class, "impl/Silk.tokens");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * SilkEvents

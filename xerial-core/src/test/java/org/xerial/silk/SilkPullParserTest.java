@@ -103,4 +103,47 @@ public class SilkPullParserTest
     {
         pull("scaffold5001.silk");
     }
+
+    @Test
+    public void testSuzakuConfig() throws Exception
+    {
+        pull("suzaku-config.silk");
+    }
+
+    @Test
+    public void testExample() throws Exception
+    {
+        pull("example.silk");
+    }
+
+    @Test
+    public void testMicroformat() throws Exception
+    {
+        pull("microformat.silk");
+    }
+
+    @Test
+    public void testTab() throws Exception
+    {
+        pull("tab.silk");
+    }
+
+    @Test
+    public void testJSON() throws Exception
+    {
+        pull("json.silk");
+    }
+
+    @Test
+    public void testType() throws Exception
+    {
+        pull("type.silk");
+    }
+
+    @Test
+    public void testLoad() throws Exception
+    {
+        pull("plugin/load-binary.silk");
+    }
+
 }
