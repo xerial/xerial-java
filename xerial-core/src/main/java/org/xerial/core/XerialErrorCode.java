@@ -62,7 +62,11 @@ public enum XerialErrorCode implements ErrorCode {
     INACCESSIBLE_METHOD,
     WRONG_DATA_TYPE,
     DECODE_ERROR,
-    ENCODE_ERROR
+    ENCODE_ERROR,
+
+    // parse error
+    INVALID_TOKEN,
+    PARSE_ERROR
 
     ;
 

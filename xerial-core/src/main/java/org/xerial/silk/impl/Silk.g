@@ -76,6 +76,8 @@ Key;
 //--------------------------------------
 
 package org.xerial.silk.impl;
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.util.log.Logger;
 import org.xerial.silk.impl.SilkLexerState;
 import org.xerial.silk.impl.SilkLexerState.State;
@@ -124,14 +126,24 @@ private boolean isValue() { return currentState() == State.IN_VALUE || currentSt
 private boolean isInValue() { return currentState() == State.IN_VALUE; }
 private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
 private boolean isHead() { return getCharPositionInLine() == 0; }
+
+
+  @Override
+  public void reportError(RecognitionException e) {
+        String message = "line=" + getLine() + "(" + getCharPositionInLine() + "): " + e.toString();;
+        throw new XerialError(XerialErrorCode.INVALID_TOKEN, message);
+  } 
+ 
+  
 }
+ 
 
 
 // lexer rules
 
 // comment 
 LineComment: '#' ~('\n'|'\r')* LineBreak { $channel=HIDDEN; }; 
-Preamble: '%' ~('\n'|'\r')* LineBreak; 
+Preamble: { isHead() }? => '%' ~('\n'|'\r')* LineBreak; 
 
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
@@ -144,7 +156,7 @@ LineBreak
 MultiLineSeparator: { isHead() }? => '--' WhiteSpace* LineBreak;
 MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace* LineBreak;
  	
-NodeIndent: { isHead() }? (' ')* '-' { transit(Symbol.NodeStart); } ;
+NodeIndent: { isHead() }? => (' ')* '-' { transit(Symbol.NodeStart); } ;
 FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? => WhiteSpace* LineBreak;
 
@@ -196,19 +208,20 @@ fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
 fragment PlainFirst
-	: { isInValue() }? => ~('"'| '\\' | LineBreakChar | WhiteSpace | Indicator ) 
-	| ~('"'| '\\' | '-' | LineBreakChar | WhiteSpace | Indicator ) 
-	| { isValue() }? => (':' | '?') NonSpaceChar
+	:  ~('-' | PlainUnsafeChar | WhiteSpace | Indicator ) 
+	| { isValue() }? => ('-' | ':' | '?') NonSpaceChar
 	;
-
+ 
 fragment PlainSafe
 	: { isKey() }? => PlainSafeKey
 	| { isInValue() }? => PlainSafeIn 
 	| { isOutValue() }? => PlainSafeOut
 	;
  
-PlainOneLine: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }  
-		;
+PlainOneLine
+	: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }  
+	;
+
 
 JSON
 	: { isValue() }? => '{'
@@ -235,7 +248,7 @@ JSON
 	}  
 	;
 	 
-Separation: { !isHead() }? WhiteSpace+ { $channel=HIDDEN; };
+Separation: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
 
 WhiteSpace
 	:	(' ' | '\t') 
