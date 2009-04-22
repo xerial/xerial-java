@@ -133,7 +133,16 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
         String message = "line=" + getLine() + "(" + getCharPositionInLine() + "): " + e.toString();;
         throw new XerialError(XerialErrorCode.INVALID_TOKEN, message);
   } 
- 
+  
+  public static String sanitizeDataLine(String line)
+  {
+      line = line.trim();
+      if (line.startsWith("\\"))
+          return line.substring(1);
+      else
+          return line;
+  }
+  
   
 }
  
@@ -162,7 +171,7 @@ BlankLine: { isHead() }? => WhiteSpace* LineBreak;
 
 fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace | LineBreakChar) ~('#' | '\n'|'\r')*;
 DataLine: { isHead() }? 
-	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText($DataLineBody.text); };
+	=> WhiteSpace* DataLineBody (LineBreak|LineComment) { setText(sanitizeDataLine($DataLineBody.text)); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')' { transit(Symbol.LeaveParen); };
@@ -209,7 +218,7 @@ fragment PlainSafeOut: ~(PlainUnsafeChar);
 
 fragment PlainFirst
 	:  ~('-' | PlainUnsafeChar | WhiteSpace | Indicator ) 
-	| { isValue() }? => ('-' | ':' | '?') NonSpaceChar
+	| { isValue() }? => ('-' | (':' | '?') NonSpaceChar)
 	;
  
 fragment PlainSafe
