@@ -49,6 +49,7 @@ public enum XerialErrorCode implements ErrorCode {
     READ_ERROR,
     OUTPUT_ERROR,
     IO_EXCEPTION,
+    INTERRUPTED,
 
     // option parser error
     DUPLICATE_OPTION,
@@ -66,7 +67,7 @@ public enum XerialErrorCode implements ErrorCode {
 
     // parse error
     INVALID_TOKEN,
-    PARSE_ERROR
+    PARSE_ERROR,
 
     ;
 

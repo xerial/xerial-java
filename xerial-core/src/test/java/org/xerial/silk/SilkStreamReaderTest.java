@@ -84,7 +84,7 @@ public class SilkStreamReaderTest
         while ((e = reader.next()) != null)
         {
             count++;
-            if (count % 100000 == 0)
+            if (count % 1000000 == 0)
             {
                 int line = reader.getNumReadLine();
                 double percentage = (line / 10145176.0) * 100;
@@ -97,6 +97,7 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // best time: 4200 lines/sec (2009 Apr. 23)
+        // 6585 lines/sec (after threading SilkPullParser)
     }
 
     @Test
@@ -122,6 +123,7 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // best time: 13000 lines/sec
+        // 12500 lines/sec (after threading SilkPullParser)
     }
 
 }
