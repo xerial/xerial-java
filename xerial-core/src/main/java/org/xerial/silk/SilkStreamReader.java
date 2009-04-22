@@ -545,8 +545,9 @@ public class SilkStreamReader implements TreeStreamReader
                 // 7900 lines/sec 
 
                 JSONArray array = new JSONArray(columnData);
-                // 1400 lines/sec
+                // 1400 lines/sec (ANTLR)   4200 lines/sec (JSONTokener)
 
+                // 5233 lines/sec w/o traversing JSONArray
                 //                // dummy code 
                 //                if (true)
                 //                {

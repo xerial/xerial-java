@@ -70,6 +70,7 @@ public class SilkStreamReaderTest
         }
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
+        // best time: 60,000 lines/sec
     }
 
     @Test
@@ -82,7 +83,7 @@ public class SilkStreamReaderTest
         while ((e = reader.next()) != null)
         {
             count++;
-            if (count % 10000 == 0)
+            if (count % 100000 == 0)
             {
                 int line = reader.getNumReadLine();
                 double percentage = (line / 10145176.0) * 100;
@@ -93,6 +94,8 @@ public class SilkStreamReaderTest
             }
         }
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
+
+        // best time: 4200 lines/sec (2009 Apr. 23)
     }
 
 }
