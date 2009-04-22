@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -136,6 +138,31 @@ public class SilkPullParser
         eventQueue.addLast(e);
     }
 
+    public static String sanitizeDataLine(String line)
+    {
+        if (line.startsWith("\\"))
+            return removeLineComment(line.substring(1));
+        else
+            return removeLineComment(line);
+    }
+
+    private static Pattern lineCommentPattern = Pattern.compile("[^\"]*(\\\"[^\"]*\\\")*[^\"]*(#.*)");
+
+    public static String removeLineComment(String line)
+    {
+        if (!line.contains("#"))
+            return line;
+
+        Matcher m = lineCommentPattern.matcher(line);
+        if (m.matches())
+        {
+            int lineCommentStart = m.start(2);
+            if (lineCommentStart != -1)
+                line = line.substring(0, lineCommentStart);
+        }
+        return line;
+    }
+
     public void fillQueue() throws XerialException
     {
         if (foundEOF)
@@ -145,6 +172,7 @@ public class SilkPullParser
         String line = null;
         try
         {
+            // line without newline characters, '\n' and '\r' 
             line = buffer.readLine();
             lineCount++;
         }
@@ -165,6 +193,44 @@ public class SilkPullParser
         if (line.length() <= 0)
         {
             push(BlankLineEvent);
+            return;
+        }
+
+        if (line.startsWith("%"))
+        {
+            push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line)));
+            return;
+        }
+        else if (line.startsWith("--"))
+        {
+            push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
+            return;
+        }
+        else if (line.startsWith(">>"))
+        {
+            push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
+            return;
+        }
+
+        // remove leading and trailing white spaces (' ') 
+        String trimmedLine = line.trim();
+        if (trimmedLine.length() <= 0)
+        {
+            push(BlankLineEvent);
+            return;
+        }
+
+        // comment line 
+        if (trimmedLine.startsWith("#"))
+        {
+            // ignore the comment line
+            return;
+        }
+
+        if (!(trimmedLine.startsWith("-") || trimmedLine.startsWith("@")))
+        {
+            SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
+            push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
             return;
         }
 
@@ -192,29 +258,31 @@ public class SilkPullParser
                 push(new SilkEvent(SilkEventType.NODE, node));
                 break;
             }
-            case SilkParser.BlankLine:
-            {
-                push(BlankLineEvent);
-                break;
-            }
-            case SilkParser.DataLine:
-            {
-                SilkDataLine dataLine = new SilkDataLine(t.getText());
-                push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
-                break;
-            }
-            case SilkParser.Preamble:
-                push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(t.getText())));
-                break;
-            case SilkParser.MultiLineEntrySeparator:
-                push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
-                break;
-            case SilkParser.MultiLineSeparator:
-                push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
-                break;
-            case SilkParser.LineComment:
-                // ignore the comment line
-                break;
+                /*
+                case SilkParser.BlankLine:
+                {
+                    push(BlankLineEvent);
+                    break;
+                }
+                case SilkParser.DataLine:
+                {
+                    SilkDataLine dataLine = new SilkDataLine(t.getText());
+                    push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
+                    break;
+                }
+                case SilkParser.Preamble:
+                    push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(t.getText())));
+                    break;
+                case SilkParser.MultiLineEntrySeparator:
+                    push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
+                    break;
+                case SilkParser.MultiLineSeparator:
+                    push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
+                    break;
+                case SilkParser.LineComment:
+                    // ignore the comment line
+                    break;
+                 */
             default:
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
                         "line=%d: invalid data type: %s", lineCount, parser.getTokenNames()[t.getType()]));

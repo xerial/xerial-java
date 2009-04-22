@@ -118,12 +118,11 @@ private static Logger _logger = Logger.getLogger(SilkLexer.class);
 
 private SilkLexerState lexerContext = new SilkLexerState();
 
-private State currentState() { return lexerContext.getCurrentState(); } 
 private void transit(Symbol token) { lexerContext.transit(token); } 
-private boolean isKey() { return currentState() == State.IN_KEY || currentState() == State.OUT_KEY; }
-private boolean isValue() { return currentState() == State.IN_VALUE || currentState() == State.OUT_VALUE; }
-private boolean isInValue() { return currentState() == State.IN_VALUE; }
-private boolean isOutValue() { return currentState() == State.OUT_VALUE; }
+private boolean isKey() { return lexerContext.isInKey(); }
+private boolean isValue() { return lexerContext.isValue(); }
+private boolean isInValue() { return lexerContext.isInValue(); }
+private boolean isOutValue() { return lexerContext.isOutValue(); }
 private boolean isHead() { return getCharPositionInLine() == 0; }
 
   public void resetContext() { lexerContext.reset(); }
@@ -148,7 +147,7 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
  
 
 
-// lexer rules
+// lexer rules for one-line Silk data
 
 
 fragment
@@ -163,10 +162,12 @@ Preamble: { isHead() }? => '%' ~(LineBreakChar)* ;
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
 
+/*
 LineBreak
 	: ('\r' '\n' | '\r' | '\n' ) 
 	{ $channel=HIDDEN; resetContext(); }
 	;
+	*/
 
 MultiLineSeparator: { isHead() }? => '--' WhiteSpace*; 
 MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace*;
@@ -222,15 +223,11 @@ fragment PlainFirst
 	:  ~('-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) 
 	| { isValue() }? => ('-' | '+' | (':' | '?') NonSpaceChar)
 	;
- 
-fragment PlainSafe
-	: { isKey() }? => PlainSafeKey
-	| { isInValue() }? => PlainSafeIn 
-	| { isOutValue() }? => PlainSafeOut
-	;
- 
+
 PlainOneLine
-	: PlainFirst (WhiteSpace* PlainSafe)* { transit(Symbol.LeaveValue); }  
+	: { isKey() }? =>  PlainFirst PlainSafeKey* { transit(Symbol.LeaveValue); }  
+  | { isInValue() }? => PlainFirst  PlainSafeIn* { transit(Symbol.LeaveValue); }  
+  | { isOutValue() }? => PlainFirst  PlainSafeOut* { transit(Symbol.LeaveValue); }  
 	;
 
 

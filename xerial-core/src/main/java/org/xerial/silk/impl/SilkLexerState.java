@@ -115,9 +115,32 @@ public class SilkLexerState
         return cursor.getState();
     }
 
+    public boolean isInKey()
+    {
+        State current = cursor.getState();
+        return current == State.IN_KEY || current == State.OUT_KEY;
+    }
+
+    public boolean isValue()
+    {
+        State current = cursor.getState();
+        return current == State.IN_VALUE || current == State.OUT_VALUE;
+    }
+
+    public boolean isInValue()
+    {
+        return getCurrentState() == State.IN_VALUE;
+    }
+
+    public boolean isOutValue()
+    {
+        return getCurrentState() == State.OUT_VALUE;
+    }
+
     public void reset()
     {
         cursor.reset(State.INIT);
+        stateStack.clear();
         //        beforeJSONState = State.INIT;
         //        nestLevel = 0;
     }
