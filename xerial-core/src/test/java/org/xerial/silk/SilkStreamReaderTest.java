@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -96,6 +97,31 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // best time: 4200 lines/sec (2009 Apr. 23)
+    }
+
+    @Test
+    public void pullParserPerformanceTest() throws Exception
+    {
+        SilkPullParser reader = new SilkPullParser(new BufferedInputStream(new URL(largeFile).openStream()));
+        StopWatch timer = new StopWatch();
+        int count = 0;
+        SilkEvent e;
+        while ((e = reader.next()) != null)
+        {
+            count++;
+            if (count % 100000 == 0)
+            {
+                int line = reader.getLine();
+                double percentage = (line / 10145176.0) * 100;
+                double time = timer.getElapsedTime();
+                double speed = line / time;
+                _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage, line,
+                        count, time, speed));
+            }
+        }
+        _logger.info(String.format("time=%s", timer.getElapsedTime()));
+
+        // best time: 13000 lines/sec
     }
 
 }

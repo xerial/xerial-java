@@ -64,7 +64,7 @@ public class SilkPullParser
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
     private final SilkLexer lexer;
-    private SilkParser parser;
+    private final SilkParser parser;
     private int lineCount = 0;
 
     private final BufferedReader buffer;
@@ -105,6 +105,7 @@ public class SilkPullParser
     {
         buffer = new BufferedReader(input, 1024 * 1024); // use 1MB buffer size
         lexer = new SilkLexer();
+        parser = new SilkParser(null);
     }
 
     public boolean hasNext() throws XerialException
@@ -192,6 +193,19 @@ public class SilkPullParser
             return;
         }
 
+        // 40000 lines/sec
+
+        //        // dummy
+        //        if (true)
+        //        {
+        //            SilkNode node = new SilkNode();
+        //            node.setName("dummy");
+        //            node.setNodeIndent("-");
+        //            push(new SilkEvent(SilkEventType.NODE, node));
+        //            //push(BlankLineEvent);
+        //            return;
+        //        }
+
         if (line.length() <= 0)
         {
             push(BlankLineEvent);
@@ -214,6 +228,8 @@ public class SilkPullParser
             return;
         }
 
+        // 39000 lines/sec
+
         // remove leading and trailing white spaces (' ') 
         String trimmedLine = line.trim();
         if (trimmedLine.length() <= 0)
@@ -229,7 +245,7 @@ public class SilkPullParser
             return;
         }
 
-        // 40000 lines / sec
+        // 36000 lines / sec
 
         if (!(trimmedLine.startsWith("-") || trimmedLine.startsWith("@")))
         {
@@ -238,20 +254,25 @@ public class SilkPullParser
             return;
         }
 
-        // 17000 lines / sec
+        // 17000 lines/sec
 
         // lexical analysis
         lexer.resetContext();
         lexer.setCharStream(new ANTLRStringStream(line));
 
+        // 17500 lines/sec
+
         try
         {
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            SilkParser parser = new SilkParser(tokenStream);
+            parser.setTokenStream(tokenStream);
+
+            // 17000 lines/sec 
+
             silkLine_return ret = parser.silkLine();
             Tree t = (Tree) ret.getTree();
 
-            // 8500 lines/sec
+            // 8500 -> 12000 lines/sec
 
             switch (t.getType())
             {
@@ -259,13 +280,13 @@ public class SilkPullParser
             {
                 SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t, SilkParser.tokenNames);
                 push(new SilkEvent(SilkEventType.FUNCTION, func));
-                break;
+                return;
             }
             case SilkParser.SilkNode:
             {
                 SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
                 push(new SilkEvent(SilkEventType.NODE, node));
-                break;
+                return;
             }
             default:
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
