@@ -176,6 +176,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testQV() throws Exception
+    {
+        compare("qv.silk", "qv.json");
+    }
+
+    @Test
     public void testSkipDescendants() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));

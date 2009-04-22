@@ -456,21 +456,33 @@ public class SilkStreamReader implements TreeStreamReader
 
         if (schemaNode.hasManyOccurrences())
         {
-            // e.g., exon(start, name)*
-            // multiple occurrences: [[start, end], [start, end], ... ] 
-            for (int i = 0; i < value.size(); i++)
+            if (schemaNode.hasChildren())
             {
-                JSONArray eachElement = value.getJSONArray(i);
-                if (eachElement == null)
-                    continue;
-
-                visit(schemaNode.getName(), null);
-                int index = 0;
-                for (SilkNode eachSubSchema : schemaNode.getChildNodes())
+                // e.g., exon(start, name)*
+                // multiple occurrences: [[start, end], [start, end], ... ] 
+                for (int i = 0; i < value.size(); i++)
                 {
-                    walkMicroFormatElement(eachSubSchema, eachElement.get(index++));
+                    JSONArray eachElement = value.getJSONArray(i);
+                    if (eachElement == null)
+                        continue;
+
+                    visit(schemaNode.getName(), null);
+                    int index = 0;
+                    for (SilkNode eachSubSchema : schemaNode.getChildNodes())
+                    {
+                        walkMicroFormatElement(eachSubSchema, eachElement.get(index++));
+                    }
+                    leave(schemaNode.getName());
                 }
-                leave(schemaNode.getName());
+            }
+            else
+            {
+                // e.g. QV*: [20, 50, 50]
+                for (int i = 0; i < value.size(); i++)
+                {
+                    visit(schemaNode.getName(), value.get(i).toString());
+                    leave(schemaNode.getName());
+                }
             }
         }
         else
@@ -504,9 +516,46 @@ public class SilkStreamReader implements TreeStreamReader
         }
         else
         {
-            visit(schemaNode.getName(), value.toJSONString());
+            visit(schemaNode.getName(), value.toString());
             leave(schemaNode.getName());
         }
+    }
+
+    private void evalDatalineColumn(SilkNode node, String columnData) throws XerialException
+    {
+        if (node.hasChildren())
+        {
+            JSONArray array = new JSONArray(columnData);
+            walkMicroFormatRoot(node, array);
+            return;
+        }
+
+        switch (node.getOccurrence())
+        {
+        case ZERO_OR_MORE:
+        case ONE_OR_MORE:
+            if (columnData.startsWith("["))
+            {
+                // micro-data format
+                JSONArray array = new JSONArray(columnData);
+                walkMicroFormatRoot(node, array);
+                return;
+            }
+            else
+            {
+                String[] csv = columnData.split(",");
+                for (String each : csv)
+                {
+                    String value = each.trim();
+                    evalColumnData(node, value);
+                }
+                return;
+            }
+        default:
+            evalColumnData(node, columnData);
+            return;
+        }
+
     }
 
     private void evalColumnData(SilkNode node, String columnData) throws XerialException
@@ -522,14 +571,7 @@ public class SilkStreamReader implements TreeStreamReader
             }
 
             String dataType = node.getDataType();
-            if (dataType == null)
-            {
-                visit(node.getName(), columnData);
-                leave(node.getName());
-                return;
-            }
-
-            if (dataType.equalsIgnoreCase("json"))
+            if (dataType != null && dataType.equalsIgnoreCase("json"))
             {
                 JSONValue json = JSONUtil.parseJSON(columnData);
                 if (json.getJSONObject() != null)
@@ -656,13 +698,7 @@ public class SilkStreamReader implements TreeStreamReader
                 case ZERO_OR_MORE:
                     // CSV data
                 {
-                    String[] csv = line.getDataLine().split(",");
-                    String name = schema.getName();
-                    for (String each : csv)
-                    {
-                        String value = each.trim();
-                        evalColumnData(schema, value);
-                    }
+                    evalDatalineColumn(schema, line.getDataLine());
                 }
                     break;
                 case TABBED_SEQUENCE:
@@ -676,15 +712,16 @@ public class SilkStreamReader implements TreeStreamReader
                         if (child.hasValue())
                         {
                             // output the default value for the column 
-                            visit(child.getName(), child.getValue().toString());
-                            leave(child.getName());
+                            evalDatalineColumn(child, child.getValue().toString());
+                            //visit(child.getName(), child.getValue().toString());
+                            //leave(child.getName());
                         }
                         else
                         {
                             if (columnIndex < columns.length)
                             {
                                 String columnData = columns[columnIndex++];
-                                evalColumnData(child, columnData);
+                                evalDatalineColumn(child, columnData);
                             }
                         }
                     }
