@@ -713,8 +713,6 @@ public class SilkStreamReader implements TreeStreamReader
                         {
                             // output the default value for the column 
                             evalDatalineColumn(child, child.getValue().toString());
-                            //visit(child.getName(), child.getValue().toString());
-                            //leave(child.getName());
                         }
                         else
                         {
