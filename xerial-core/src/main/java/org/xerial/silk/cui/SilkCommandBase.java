@@ -16,34 +16,39 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkMainTest.java
-// Since: Apr 9, 2009 5:29:18 PM
+// SilkCommandBase.java
+// Since: Apr 23, 2009 6:22:16 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk.cui;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.xerial.util.log.LogLevel;
+import org.xerial.util.opt.Option;
 
-public class SilkMainTest
+/**
+ * Base implementation of {@link SilkCommand}
+ * 
+ * @author leo
+ * 
+ */
+public abstract class SilkCommandBase implements SilkCommand
 {
+    @Option(symbol = "h", longName = "help", description = "display help messages")
+    protected boolean displayHelp = false;
 
-    @Before
-    public void setUp() throws Exception
-    {}
+    @Option(longName = "loglevel", description = "set loglevel to one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL or ALL")
+    protected LogLevel logLevel = LogLevel.INFO;
 
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testMain() throws Exception
+    public boolean displayHelp()
     {
-        SilkMain.main(new String[] { "help" });
-        SilkMain.main(new String[] { "scan", "input.silk" });
+        return displayHelp;
+    }
+
+    public LogLevel getLogLevel()
+    {
+        return logLevel;
     }
 
 }

@@ -31,14 +31,14 @@ public class SilkPerformanceTest extends HyadesTestCase
     }
 
     /**
-     * Returns the JUnit test suite that implements the
-     * <b>SilkPerformanceTest</b> definition.
+     * Returns the JUnit test suite that implements the <b>SilkPerformanceTest</b> definition.
      */
     public static Test suite()
     {
         HyadesTestSuite silkPerformanceTest = new HyadesTestSuite("SilkPerformanceTest");
         silkPerformanceTest.setArbiter(DefaultTestArbiter.INSTANCE).setId("A1DE2F2467B7CB00CB86B76331623361");
-
+        silkPerformanceTest.addTest(new SilkPerformanceTest("testPullParser").setId("A1DE2FBDD882AAA0CD61E36235633235")
+                .setTestInvocationId("A1DE2FBE66931320CD61E36235633235"));
         return silkPerformanceTest;
     }
 
@@ -54,14 +54,17 @@ public class SilkPerformanceTest extends HyadesTestCase
     protected void tearDown() throws Exception
     {}
 
-    public void testLoad() throws Exception
+    /**
+     * testPullParser
+     */
+    public void testPullParser() throws Exception
     {
-        SilkStreamReader reader = new SilkStreamReader(new URL(
+        SilkPullParser reader = new SilkPullParser(new URL(
                 "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk"));
 
         StopWatch timer = new StopWatch();
         int count = 0;
-        TreeEvent e;
+        SilkEvent e;
         while ((e = reader.next()) != null)
         {
             count++;

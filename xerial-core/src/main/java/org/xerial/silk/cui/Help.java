@@ -16,34 +16,38 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkMainTest.java
-// Since: Apr 9, 2009 5:29:18 PM
+// Help.java
+// Since: Apr 23, 2009 6:16:11 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk.cui;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.xerial.util.opt.OptionParser;
 
-public class SilkMainTest
+/**
+ * Help command
+ * 
+ * @author leo
+ * 
+ */
+public class Help extends SilkCommandBase
 {
 
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testMain() throws Exception
+    public String getName()
     {
-        SilkMain.main(new String[] { "help" });
-        SilkMain.main(new String[] { "scan", "input.silk" });
+        return "help";
+    }
+
+    public String getOneLineDescription()
+    {
+        return "display help message";
+    }
+
+    public void execute(OptionParser optionParser) throws Exception
+    {
+        System.out.println("silk help");
     }
 
 }

@@ -24,10 +24,16 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
+import java.io.OutputStreamWriter;
+import java.util.List;
+
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
+import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.OptionParser;
-import org.xerial.util.opt.OptionParserException;
 
 /**
  * Command-line interface for managing Silk data format.
@@ -37,30 +43,9 @@ import org.xerial.util.opt.OptionParserException;
  */
 public class SilkMain
 {
-    public SilkMain(SilkOption option)
-    {
+    private static Logger _logger = Logger.getLogger(SilkMain.class);
 
-    }
-
-    public void run()
-    {
-
-    }
-
-    public static void main(String[] args)
-    {
-        SilkOption option = new SilkOption();
-        OptionParser parser = new OptionParser(option);
-        try
-        {
-            parser.parse(args);
-            new SilkMain(option).run();
-        }
-        catch (OptionParserException e)
-        {
-            System.err.println(e);
-        }
-    }
+    private static List<Class<SilkCommand>> availableCommands;
 
     public static class SilkOption
     {
@@ -69,6 +54,62 @@ public class SilkMain
 
         @Argument(index = 0, name = "sub command", required = false)
         String subCommand = "help";
+    }
+
+    public static void main(String[] args)
+    {
+        Logger.getRootLogger().setOutputWriter(new OutputStreamWriter(System.err));
+
+        availableCommands = FileResource.findClasses(SilkMain.class.getPackage(), SilkCommand.class, SilkMain.class
+                .getClassLoader());
+
+        SilkOption option = new SilkOption();
+        OptionParser parser = new OptionParser(option);
+        parser.setIgnoreUnknownOption(true);
+        try
+        {
+            parser.parse(args);
+
+            if (option.subCommand == null)
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
+
+            SilkCommand command = null;
+            for (Class<SilkCommand> each : availableCommands)
+            {
+                try
+                {
+                    command = each.newInstance();
+                    if (command.getName() != null && command.getName().equals(option.subCommand))
+                        break;
+                }
+                catch (InstantiationException e)
+                {
+                    _logger.warn(e);
+                }
+                catch (IllegalAccessException e)
+                {
+                    _logger.warn(e);
+                }
+            }
+
+            if (command == null)
+            {
+                _logger.error("command is not specified");
+                return;
+            }
+
+            // run the sub command
+            OptionParser subCommandOptionParser = new OptionParser(command);
+            subCommandOptionParser.parse(parser.getUnusedArguments());
+            command.execute(subCommandOptionParser);
+
+        }
+        catch (Exception e)
+        {
+            _logger.error(e);
+            e.printStackTrace();
+        }
+
     }
 
 }

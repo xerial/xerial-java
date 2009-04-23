@@ -16,34 +16,39 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkMainTest.java
-// Since: Apr 9, 2009 5:29:18 PM
+// SilkCommand.java
+// Since: Apr 23, 2009 6:00:29 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk.cui;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.xerial.util.opt.OptionParser;
 
-public class SilkMainTest
+/**
+ * Common interface for Silk CUI commands
+ * 
+ * @author leo
+ * 
+ */
+public interface SilkCommand
 {
 
-    @Before
-    public void setUp() throws Exception
-    {}
+    public void execute(OptionParser optionParser) throws Exception;
 
-    @After
-    public void tearDown() throws Exception
-    {}
+    /**
+     * command name
+     * 
+     * @return command name
+     */
+    public String getName();
 
-    @Test
-    public void testMain() throws Exception
-    {
-        SilkMain.main(new String[] { "help" });
-        SilkMain.main(new String[] { "scan", "input.silk" });
-    }
+    /**
+     * one-line description of the command
+     * 
+     * @return one-line description of the command
+     */
+    public String getOneLineDescription();
 
 }
