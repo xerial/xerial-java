@@ -24,8 +24,6 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
-import org.xerial.util.opt.OptionParser;
-
 /**
  * Common interface for Silk CUI commands
  * 
@@ -35,7 +33,13 @@ import org.xerial.util.opt.OptionParser;
 public interface SilkCommand
 {
 
-    public void execute(OptionParser optionParser) throws Exception;
+    /**
+     * Execute the command. Command line arguments are processed before the
+     * invocation of this method.
+     * 
+     * @throws Exception
+     */
+    public void execute() throws Exception;
 
     /**
      * command name

@@ -92,6 +92,12 @@ public class OptionParser
         return buf.toString();
     }
 
+    /**
+     * Return the unused option arguments after the invocation of the
+     * {@link #parse(String[])} method
+     * 
+     * @return
+     */
     public String[] getUnusedArguments()
     {
         String[] result = new String[unusedArgument.size()];
@@ -100,6 +106,30 @@ public class OptionParser
         return result;
     }
 
+    /**
+     * Parse the command-line arguments and bind them to the field value of the
+     * optionHolder
+     * 
+     * @param args
+     * @param ignoreUnknownOption
+     *            when true, the option parser ignore unknown commands. When
+     *            false, OptionParserException will be thrown when unknown
+     *            options are found.
+     * @throws OptionParserException
+     */
+    public void parse(String[] args, boolean ignoreUnknownOption) throws OptionParserException
+    {
+        setIgnoreUnknownOption(ignoreUnknownOption);
+        parse(args);
+    }
+
+    /**
+     * Parse the command-line arguments and bind them to the field value of the
+     * optionHolder
+     * 
+     * @param args
+     * @throws OptionParserException
+     */
     public void parse(String[] args) throws OptionParserException
     {
         // clear

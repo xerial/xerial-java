@@ -62,9 +62,12 @@ public class SilkStreamReaderTest
     public void tearDown() throws Exception
     {}
 
+    private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+
     //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
     //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-    private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
+    //private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
+    //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
 
     @Ignore
     @Test
@@ -272,7 +275,9 @@ public class SilkStreamReaderTest
 
         // best time: 4200 lines/sec (2009 Apr. 23)
         // 6585 lines/sec (after threading SilkPullParser)
-        // 7738 lines/sec (PullParser implementation using PushPaser)
+        // 6200 lines/sec (2009 Apr.23 Push+Pull)
+
+        // 7738 lines/sec (PullParser implementation using PushPaser on Xeon 3.0GHz dual)
     }
 
     @Ignore
@@ -299,7 +304,8 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // best time: 13000 lines/sec
-        // 12500 lines/sec (after threading SilkPullParser)
+        // 12500 - 14700 lines/sec (after threading SilkPullParser)
+        // 12800 lines/sec (SilkPushParser + SilkPullParser)
 
         // 18500 lines/sec (Xeon 3.0 * dual) 
         // 17411 lines/sec (Xeon 3.0 * dual) (PullParser implementation using PushPaser)

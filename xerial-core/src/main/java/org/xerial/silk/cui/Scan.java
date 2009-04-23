@@ -30,7 +30,6 @@ import org.xerial.silk.SilkStreamReader;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
-import org.xerial.util.opt.OptionParser;
 import org.xerial.util.tree.TreeEvent;
 
 /**
@@ -39,14 +38,14 @@ import org.xerial.util.tree.TreeEvent;
  * @author leo
  * 
  */
-public class Scan extends SilkCommandBase
+public class Scan implements SilkCommand
 {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
     @Argument(index = 0, name = "silk file")
     private String inputSilkFile = null;
 
-    public void execute(OptionParser optionParser) throws Exception
+    public void execute() throws Exception
     {
         SilkStreamReader reader = new SilkStreamReader(new File(inputSilkFile).toURL());
         TreeEvent e;

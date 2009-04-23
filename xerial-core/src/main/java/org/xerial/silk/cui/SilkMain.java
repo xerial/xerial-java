@@ -24,12 +24,18 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.List;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
+import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
@@ -45,32 +51,39 @@ public class SilkMain
 {
     private static Logger _logger = Logger.getLogger(SilkMain.class);
 
-    private static List<Class<SilkCommand>> availableCommands;
-
-    public static class SilkOption
+    public static class SilkGlobalOption
     {
         @Option(symbol = "h", longName = "help", description = "display help message")
         boolean displayHelp = false;
 
+        @Option(longName = "loglevel", description = "set loglevel to one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL or ALL")
+        protected LogLevel logLevel = LogLevel.INFO;
+
         @Argument(index = 0, name = "sub command", required = false)
         String subCommand = "help";
+    }
+
+    static Set<Class<SilkCommand>> availableCommands = new HashSet<Class<SilkCommand>>();
+
+    static
+    {
+        availableCommands.addAll(FileResource.findClasses(SilkMain.class.getPackage(), SilkCommand.class,
+                SilkMain.class.getClassLoader()));
+
     }
 
     public static void main(String[] args)
     {
         Logger.getRootLogger().setOutputWriter(new OutputStreamWriter(System.err));
 
-        availableCommands = FileResource.findClasses(SilkMain.class.getPackage(), SilkCommand.class, SilkMain.class
-                .getClassLoader());
-
-        SilkOption option = new SilkOption();
-        OptionParser parser = new OptionParser(option);
-        parser.setIgnoreUnknownOption(true);
+        SilkGlobalOption globalOption = new SilkGlobalOption();
+        OptionParser parser = new OptionParser(globalOption);
+        Logger.getRootLogger().setLogLevel(globalOption.logLevel);
         try
         {
-            parser.parse(args);
+            parser.parse(args, true);
 
-            if (option.subCommand == null)
+            if (globalOption.subCommand == null)
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
 
             SilkCommand command = null;
@@ -79,7 +92,7 @@ public class SilkMain
                 try
                 {
                     command = each.newInstance();
-                    if (command.getName() != null && command.getName().equals(option.subCommand))
+                    if (command.getName() != null && command.getName().equals(globalOption.subCommand))
                         break;
                 }
                 catch (InstantiationException e)
@@ -98,15 +111,39 @@ public class SilkMain
                 return;
             }
 
-            // run the sub command
+            // 
             OptionParser subCommandOptionParser = new OptionParser(command);
             subCommandOptionParser.parse(parser.getUnusedArguments());
-            command.execute(subCommandOptionParser);
+
+            // run the sub command
+
+            if (globalOption.displayHelp)
+            {
+                // display help messsage of the command
+                String helpFileName = String.format("help-%s.txt", command.getName());
+                URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
+                if (helpFileAddr == null)
+                    throw new XerialError(XerialErrorCode.RESOURCE_NOT_FOUND, "help file not found: " + helpFileName);
+
+                BufferedReader helpReader = new BufferedReader(new InputStreamReader(helpFileAddr.openStream()));
+                String line;
+                while ((line = helpReader.readLine()) != null)
+                {
+                    System.out.println(line);
+                }
+                subCommandOptionParser.printUsage();
+
+                return;
+            }
+            command.execute();
 
         }
         catch (Exception e)
         {
             _logger.error(e);
+        }
+        catch (Error e)
+        {
             e.printStackTrace();
         }
 
