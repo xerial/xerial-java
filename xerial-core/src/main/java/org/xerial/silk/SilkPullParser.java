@@ -29,9 +29,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URL;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +45,6 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkDataLine;
-import org.xerial.silk.impl.SilkElement;
 import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
@@ -74,31 +75,12 @@ public class SilkPullParser
 
     private ArrayBlockingQueue<SilkEvent> eventQueue = new ArrayBlockingQueue<SilkEvent>(eventQueueMax);
 
-    /**
-     * SilkEvents
-     * 
-     * @author leo
-     * 
-     */
-    private static class EventItem
-    {
-        SilkEventType event;
-        SilkElement element;
-
-        public EventItem(SilkEventType event, SilkElement element)
-        {
-            this.event = event;
-            this.element = element;
-        }
-
-        public EventItem(SilkEventType event)
-        {
-            this.event = event;
-            this.element = null;
-        }
-    }
-
     private ExecutorService threadPool;
+
+    public SilkPullParser(URL resourceUrl) throws IOException
+    {
+        this(resourceUrl.openStream());
+    }
 
     public SilkPullParser(InputStream input) throws IOException
     {
@@ -297,7 +279,13 @@ public class SilkPullParser
 
         try
         {
-            prefetchedEventQueue.addLast(eventQueue.take());
+            SilkEvent e = null;
+            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
+            {
+
+            }
+            if (e != null)
+                prefetchedEventQueue.addLast(e);
         }
         catch (InterruptedException e)
         {
@@ -311,12 +299,19 @@ public class SilkPullParser
         if (!prefetchedEventQueue.isEmpty())
             return prefetchedEventQueue.removeFirst();
 
-        if (foundEOF && eventQueue.isEmpty())
-            return null;
+        if (foundEOF)
+            return eventQueue.poll();
 
         try
         {
-            prefetchedEventQueue.addLast(eventQueue.take());
+
+            SilkEvent e = null;
+            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
+            {
+
+            }
+            if (e != null)
+                prefetchedEventQueue.addLast(e);
         }
         catch (InterruptedException e1)
         {
