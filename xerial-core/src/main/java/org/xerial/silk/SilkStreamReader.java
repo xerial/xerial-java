@@ -651,6 +651,7 @@ public class SilkStreamReader implements TreeStreamReader
         }
 
         SilkEvent currentEvent = parser.next();
+
         numReadLine = parser.getLine();
 
         if (_logger.isTraceEnabled())

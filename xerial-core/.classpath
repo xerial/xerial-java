@@ -6,6 +6,8 @@
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.1/junit-4.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
+	<classpathentry kind="con" path="org.eclipse.hyades.test.tools.core.TPTP_LIBRARIES/org.eclipse.hyades.test.tools.core"/>
 	<classpathentry kind="var" path="M2_REPO/org/xerial/thirdparty/org.antlr.antlr3/3.1.1/org.antlr.antlr3-3.1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="output" path="target/classes"/>

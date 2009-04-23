@@ -48,7 +48,8 @@ public class SilkStreamReaderTest
     public void tearDown() throws Exception
     {}
 
-    private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+    //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+    private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
 
     @Test
     public void maxReadSpeedTest() throws Exception
@@ -124,6 +125,34 @@ public class SilkStreamReaderTest
 
         // best time: 13000 lines/sec
         // 12500 lines/sec (after threading SilkPullParser)
+
+        // 18500 lines/sec (Xeon 3.0 * dual) 
+    }
+
+    @Test
+    public void pushParserPerformanceTest() throws Exception
+    {
+        final SilkPushParser reader = new SilkPushParser(new URL(largeFile));
+        final StopWatch timer = new StopWatch();
+
+        reader.parse(new SilkEventHandler() {
+            int count = 0;
+
+            public void handle(SilkEvent event)
+            {
+                count++;
+                if (count % 100000 == 0)
+                {
+                    int line = reader.getNumReadLine();
+                    double percentage = (line / 10145176.0) * 100;
+                    double time = timer.getElapsedTime();
+                    double speed = line / time;
+                    _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage,
+                            line, count, time, speed));
+                }
+            }
+        });
+        _logger.info(String.format("time=%s", timer.getElapsedTime()));
     }
 
 }
