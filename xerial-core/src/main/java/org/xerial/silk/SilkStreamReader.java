@@ -615,7 +615,8 @@ public class SilkStreamReader implements TreeStreamReader
         }
         catch (JSONException e)
         {
-            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser.getLine(), e.getMessage()));
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser.getNumReadLine(), e
+                    .getMessage()));
         }
 
     }
@@ -652,7 +653,7 @@ public class SilkStreamReader implements TreeStreamReader
 
         SilkEvent currentEvent = parser.next();
 
-        numReadLine = parser.getLine();
+        numReadLine = parser.getNumReadLine();
 
         if (_logger.isTraceEnabled())
         {

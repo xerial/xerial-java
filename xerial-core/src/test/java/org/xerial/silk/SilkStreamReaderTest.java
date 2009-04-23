@@ -73,6 +73,8 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // best time: 60,000 lines/sec
+        // 80000 lines/sec (Xeon 3.0 * dual) 
+
     }
 
     @Test
@@ -99,6 +101,7 @@ public class SilkStreamReaderTest
 
         // best time: 4200 lines/sec (2009 Apr. 23)
         // 6585 lines/sec (after threading SilkPullParser)
+        // 7738 lines/sec (PullParser implementation using PushPaser)
     }
 
     @Test
@@ -113,7 +116,7 @@ public class SilkStreamReaderTest
             count++;
             if (count % 100000 == 0)
             {
-                int line = reader.getLine();
+                int line = reader.getNumReadLine();
                 double percentage = (line / 10145176.0) * 100;
                 double time = timer.getElapsedTime();
                 double speed = line / time;
@@ -127,6 +130,7 @@ public class SilkStreamReaderTest
         // 12500 lines/sec (after threading SilkPullParser)
 
         // 18500 lines/sec (Xeon 3.0 * dual) 
+        // 17411 lines/sec (Xeon 3.0 * dual) (PullParser implementation using PushPaser)
     }
 
     @Test
@@ -153,6 +157,8 @@ public class SilkStreamReaderTest
             }
         });
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
+
+        // 20000 lines/sec (Xeon 3.0 * dual) 
     }
 
 }

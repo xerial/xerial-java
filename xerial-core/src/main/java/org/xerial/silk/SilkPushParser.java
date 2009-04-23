@@ -27,6 +27,7 @@ package org.xerial.silk;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,12 +67,21 @@ public class SilkPushParser
 
     public SilkPushParser(URL resourceURL) throws IOException
     {
-        buffer = new BufferedReader(new InputStreamReader(resourceURL.openStream())); // use 1MB buffer size
+        this(new InputStreamReader(resourceURL.openStream()));
+    }
+
+    public SilkPushParser(Reader reader)
+    {
+        if (reader.getClass().isAssignableFrom(BufferedReader.class))
+            buffer = BufferedReader.class.cast(reader);
+        else
+            buffer = new BufferedReader(reader);
+
         lexer = new SilkLexer();
         parser = new SilkParser(null);
     }
 
-    private void push(SilkEvent e)
+    private void push(SilkEvent e) throws XerialException
     {
         handler.handle(e);
     }
