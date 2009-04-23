@@ -32,6 +32,7 @@ import java.io.Reader;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -297,7 +298,13 @@ public class SilkPullParser
 
         try
         {
-            prefetchedEventQueue.addLast(eventQueue.take());
+            SilkEvent e = null;
+            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
+            {
+
+            }
+            if (e != null)
+                prefetchedEventQueue.addLast(e);
         }
         catch (InterruptedException e)
         {
@@ -311,12 +318,19 @@ public class SilkPullParser
         if (!prefetchedEventQueue.isEmpty())
             return prefetchedEventQueue.removeFirst();
 
-        if (foundEOF && eventQueue.isEmpty())
-            return null;
+        if (foundEOF)
+            return eventQueue.poll();
 
         try
         {
-            prefetchedEventQueue.addLast(eventQueue.take());
+
+            SilkEvent e = null;
+            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
+            {
+
+            }
+            if (e != null)
+                prefetchedEventQueue.addLast(e);
         }
         catch (InterruptedException e1)
         {
