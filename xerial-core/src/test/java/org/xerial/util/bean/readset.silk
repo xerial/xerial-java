@@ -13,7 +13,7 @@ seq1	1043	+	A010012113	20.1
 seq2	1047	+	C01232103011	24.5
 
 # start data for another reference
--reference(name:scaffold1034, start:0, strand:+)
+-reference(name:scaffold1034, start:0, strand:-)
  -sequence>
 C4323423434101323100110111112123333312111
 21312031230132003110001320202020123012

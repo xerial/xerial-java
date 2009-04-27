@@ -30,6 +30,7 @@ import org.xerial.silk.SilkStreamReader;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Usage;
 import org.xerial.util.tree.TreeEvent;
 
 /**
@@ -38,11 +39,12 @@ import org.xerial.util.tree.TreeEvent;
  * @author leo
  * 
  */
+@Usage(command = "silk scan", description = "silk file scanner")
 public class Scan implements SilkCommand
 {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
-    @Argument(index = 0, name = "silk file")
+    @Argument(index = 0)
     private String inputSilkFile = null;
 
     public void execute() throws Exception
@@ -57,11 +59,10 @@ public class Scan implements SilkCommand
             if (count % 1000000 == 0)
             {
                 int line = reader.getNumReadLine();
-                double percentage = (line / 10145176.0) * 100;
+
                 double time = timer.getElapsedTime();
                 double speed = line / time;
-                _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage, line,
-                        count, time, speed));
+                _logger.info(String.format("line=%d, count=%d, time=%s, %2.2f lines/sec", line, count, time, speed));
             }
 
         }

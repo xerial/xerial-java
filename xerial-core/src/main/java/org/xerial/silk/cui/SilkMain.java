@@ -113,10 +113,7 @@ public class SilkMain
 
             // 
             OptionParser subCommandOptionParser = new OptionParser(command);
-            subCommandOptionParser.parse(parser.getUnusedArguments());
-
             // run the sub command
-
             if (globalOption.displayHelp)
             {
                 // display help messsage of the command
@@ -135,6 +132,8 @@ public class SilkMain
 
                 return;
             }
+
+            subCommandOptionParser.parse(parser.getUnusedArguments());
             command.execute();
 
         }

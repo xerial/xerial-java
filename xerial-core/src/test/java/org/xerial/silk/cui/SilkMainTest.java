@@ -44,6 +44,7 @@ public class SilkMainTest
     {
         SilkMain.main(new String[] { "help" });
         SilkMain.main(new String[] { "scan", "input.silk" });
+        SilkMain.main(new String[] { "scan", "--help" });
     }
 
 }
