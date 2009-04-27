@@ -524,7 +524,12 @@ public class BeanBindingProcess implements TreeVisitor
         }
         catch (InvocationTargetException e)
         {
-            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
+            Throwable cause = e.getCause();
+            if (cause == null)
+                throw new BeanException(BeanErrorCode.InvocationTargetException, String.format(
+                        "node=%s, value=%s, updator=%s", nodeStack.getLast(), value, updator.getMethod().getName()));
+            else
+                throw new BeanException(BeanErrorCode.InvocationTargetException, cause);
         }
 
     }

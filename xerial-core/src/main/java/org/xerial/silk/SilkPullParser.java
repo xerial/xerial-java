@@ -129,6 +129,7 @@ public class SilkPullParser
         {
             parser.parse(this);
             foundEOF = true;
+            threadPool.shutdownNow();
             return true;
         }
 
@@ -142,7 +143,9 @@ public class SilkPullParser
             return true;
 
         if (foundEOF)
+        {
             return !eventQueue.isEmpty();
+        }
 
         fetchNext();
 
@@ -156,8 +159,6 @@ public class SilkPullParser
 
         if (foundEOF)
             return eventQueue.poll();
-
-        fetchNext();
 
         return next();
     }
