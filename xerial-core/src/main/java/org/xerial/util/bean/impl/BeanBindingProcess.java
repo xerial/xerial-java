@@ -38,6 +38,7 @@ import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUpdatorType;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInformation;
@@ -140,6 +141,8 @@ public class BeanBindingProcess implements TreeVisitor
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
     private final TreeMap<Integer, Map< ? , ? >> mapAssociatedWithBean = new TreeMap<Integer, Map< ? , ? >>();
     private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
+    private final Deque<String> nodeStack = new ArrayDeque<String>();
+    private final static String EMPTY_STRING = new String();
     private final static StringBuilder EMPTY_TEXT_BUILDER = new StringBuilder(0);
 
     private int currentLevel = 0;
@@ -223,6 +226,7 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
+        nodeStack.addLast(nodeName != null ? nodeName : EMPTY_STRING);
         textStack.addLast(EMPTY_TEXT_BUILDER);
 
         int nodeLevel = currentLevel++;
@@ -249,6 +253,7 @@ public class BeanBindingProcess implements TreeVisitor
                 {
                 case SETTER:
                 case COLLECTION_ADDER:
+                case APPENDER:
                     Class< ? > elementType = updator.getInputType();
                     if (parentBean instanceof KeyValuePair)
                     {
@@ -351,6 +356,7 @@ public class BeanBindingProcess implements TreeVisitor
             {
             case SETTER:
             case COLLECTION_ADDER:
+            case APPENDER:
                 try
                 {
                     if (parentBean instanceof KeyValuePair)
@@ -398,19 +404,37 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void text(String nodeValue, TreeWalker walker) throws XerialException
     {
-        StringBuilder textBuffer = textStack.peekLast();
-        if (textBuffer == EMPTY_TEXT_BUILDER)
+        Object parentBean = getContextBean(currentLevel - 2);
+        if (parentBean != null)
         {
-            textStack.removeLast();
-            textBuffer = new StringBuilder();
-            textStack.addLast(textBuffer);
+            String nodeName = nodeStack.getLast();
+            BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
+            BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
+            if (updator != null && updator.getType() == BeanUpdatorType.APPENDER)
+            {
+                // use appender
+                bindValue(parentBean, updator, nodeValue);
+            }
+            else
+            {
+                // use internal string buffer
+                StringBuilder textBuffer = textStack.peekLast();
+                if (textBuffer == EMPTY_TEXT_BUILDER)
+                {
+                    textStack.removeLast();
+                    textBuffer = new StringBuilder();
+                    textStack.addLast(textBuffer);
+                }
+                textBuffer.append(nodeValue);
+            }
+
         }
 
-        textBuffer.append(nodeValue);
     }
 
     public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
     {
+        nodeStack.removeLast();
         int nodeLevel = --currentLevel;
         //_logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
 

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,14 +16,44 @@
 //--------------------------------------
 // XerialJ
 //
-// BeanUpdatorType.java
-// Since: Mar 31, 2008 11:03:31 AM
+// Appender.java
+// Since: Apr 27, 2009 2:35:52 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.bean.impl;
 
-public enum BeanUpdatorType {
-    SETTER, COLLECTION_ADDER, MAP_PUTTER, APPENDER
+import java.lang.reflect.Method;
+
+import org.xerial.util.bean.BeanUpdator;
+import org.xerial.util.bean.BeanUpdatorType;
+
+/**
+ * 
+ * {@link BeanUpdator} for append(...) methods
+ * 
+ * @author leo
+ * 
+ */
+public class Appender extends BeanBinderBase implements BeanUpdator
+{
+    private final Class< ? > inputType;
+
+    public Appender(Class< ? > inputType, Method appender, String parameterName)
+    {
+        super(appender, parameterName);
+        this.inputType = inputType;
+    }
+
+    public Class getInputType()
+    {
+        return inputType;
+    }
+
+    public BeanUpdatorType getType()
+    {
+        return BeanUpdatorType.APPENDER;
+    }
+
 }

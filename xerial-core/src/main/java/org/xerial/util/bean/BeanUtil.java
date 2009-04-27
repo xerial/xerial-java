@@ -58,6 +58,7 @@ import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.Pair;
+import org.xerial.util.bean.impl.Appender;
 import org.xerial.util.bean.impl.ArraySetter;
 import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanStreamReader;
@@ -311,6 +312,16 @@ public class BeanUtil
                     // bean.addSomething(E element)
                     inputRuleSet.addRule(new CollectionAdder(method, parameterName, addType));
                 }
+                continue;
+            }
+
+            if (methodName.startsWith("append"))
+            {
+                if (parameterType.length != 1)
+                    continue;
+
+                Class< ? > addType = resolveActualTypeOfCollectionElement(beanClass, parameterType[0]);
+                inputRuleSet.addRule(new Appender(addType, method, parameterName));
                 continue;
             }
 

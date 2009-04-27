@@ -788,4 +788,27 @@ public class BeanUtilTest
         ReadSet r = BeanUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
         _logger.debug(r.toString());
     }
+
+    public static class Sequence
+    {
+        private StringBuilder buf = new StringBuilder();
+
+        public void appendSeq(String sequence)
+        {
+            buf.append(sequence);
+        }
+
+        public String getSeq()
+        {
+            return buf.toString();
+        }
+    }
+
+    @Test
+    public void appenderTest() throws Exception
+    {
+        Sequence seq = new Sequence();
+        BeanUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
+        assertEquals("ABCDEFGHIJ", seq.getSeq());
+    }
 }
