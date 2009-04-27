@@ -989,6 +989,23 @@ public class BeanUtil
         }
     }
 
+    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation) throws XerialException
+    {
+        BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
+
+        try
+        {
+            SilkWalker walker = new SilkWalker(silkResourceLocation);
+            walker.walk(bindingProcess);
+        }
+        catch (IOException e)
+        {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+
+        return bean;
+    }
+
     public static Object createBeanFromJSON(Class< ? > beanType, Reader jsonReader) throws IOException, BeanException
     {
         try
@@ -1016,104 +1033,6 @@ public class BeanUtil
             throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
         }
     }
-
-    /*
-    public static Object createBeanFromJSON(Class valueType, Object jsonValue) throws BeanException
-    {
-        
-        if (jsonValue == null)
-            return null;
-
-        if (jsonValue.getClass() == JSONObject.class)
-        {
-            Object bean = createInstance(valueType);
-            populateBean(bean, (JSONObject) jsonValue);
-            return bean;
-        }
-        else if (jsonValue.getClass() == JSONArray.class)
-        {
-            Object bean = createInstance(valueType);
-            populateBean(bean, (JSONArray) jsonValue);
-            return bean;
-        }
-        else if (jsonValue.getClass() == JSONNull.class)
-            return null;
-        else if (jsonValue.getClass() == JSONInteger.class)
-        {
-            int value = ((JSONInteger) jsonValue).getIntValue();
-            if (valueType == int.class || valueType == Integer.class)
-                return new Integer(value);
-            if (valueType == long.class || valueType == Long.class)
-                return new Long(value);
-            else if (valueType == double.class || valueType == Double.class)
-                return new Double(value);
-            else if (valueType == float.class || valueType == Float.class)
-                return new Float(value);
-            else
-            {
-                // if the valueType is unknown (e.g., Object class), return int
-                // value since input JSON data has JSONInteger type
-                return new Integer(value);
-            }
-        }
-        else if (jsonValue.getClass() == JSONDouble.class)
-        {
-            double value = ((JSONDouble) jsonValue).getDoubleValue();
-            if (valueType == int.class || valueType == Integer.class)
-                return new Integer((int) value);
-            if (valueType == long.class || valueType == Long.class)
-                return new Long((long) value);
-            else if (valueType == double.class || valueType == Double.class)
-                return new Double(value);
-            else if (valueType == float.class || valueType == Float.class)
-                return new Float(value);
-            else
-                return new Double(value);
-        }
-        else if (jsonValue.getClass() == JSONBoolean.class)
-        {
-            boolean value = ((JSONBoolean) jsonValue).getValue();
-            return new Boolean(value);
-        }
-        else if (jsonValue.getClass() == JSONString.class)
-        {
-            String value = ((JSONString) jsonValue).getValue();
-            if (valueType == int.class || valueType == Integer.class)
-                return new Integer(value);
-            if (valueType == long.class || valueType == Long.class)
-                return new Long(value);
-            else if (valueType == double.class || valueType == Double.class)
-                return new Double(value);
-            else if (valueType == float.class || valueType == Float.class)
-                return new Float(value);
-            else
-                return value;
-        }
-        else
-        {
-            // input JSON data is a general Object
-            Class beanClass = valueType;
-            if (TypeInformation.isBasicType(beanClass))
-            {
-                String jsonStr = jsonValue.toString();
-                if (beanClass == String.class)
-                    return jsonStr;
-                else if (beanClass == int.class || beanClass == Integer.class)
-                    return new Integer(jsonStr);
-                else if (beanClass == long.class || beanClass == Long.class)
-                    return new Long(jsonStr);
-                else if (beanClass == double.class || beanClass == Double.class)
-                    return new Double(jsonStr);
-                else if (beanClass == float.class || beanClass == Float.class)
-                    return new Float(jsonStr);
-                else if (beanClass == boolean.class || beanClass == Boolean.class)
-                    return new Boolean(jsonStr);
-            }
-
-            return jsonValue;
-        }
-    }
-    */
 
     public static Object createInstance(Class< ? > c) throws BeanException
     {
