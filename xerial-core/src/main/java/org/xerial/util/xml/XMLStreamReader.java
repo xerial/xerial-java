@@ -55,6 +55,7 @@ public class XMLStreamReader implements TreeStreamReader
     private int TEXT_BUFFER_MAX = 8192;
 
     private int parseState = START_DOCUMENT;
+    private boolean convertValueAttribute = false;
 
     private final TreeEventQueue eventQueue = new TreeEventQueue();
 
@@ -65,6 +66,11 @@ public class XMLStreamReader implements TreeStreamReader
 
         pullParser = PullParserUtil.newParser(reader);
 
+    }
+
+    public void useValueAttributeAsNodeValue(boolean enable)
+    {
+        this.convertValueAttribute = enable;
     }
 
     public TreeEvent peekNext() throws XerialException
@@ -122,7 +128,7 @@ public class XMLStreamReader implements TreeStreamReader
                     String attributeValue = pullParser.getAttributeValue(i);
 
                     // assign the value attribute as a node value of the start tag 
-                    if (attributeName.equals("value"))
+                    if (convertValueAttribute && attributeName.equals("value"))
                     {
                         immediateNodeValue = attributeValue;
                         continue;
