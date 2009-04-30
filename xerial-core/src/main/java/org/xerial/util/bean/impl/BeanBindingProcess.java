@@ -311,7 +311,10 @@ public class BeanBindingProcess implements TreeVisitor
                 case MAP_PUTTER:
                     MapPutter mapPutter = MapPutter.class.cast(updator);
                     // prepare the key and value pair instance
-                    setContextBean(nodeLevel, new KeyValuePair(mapPutter));
+                    KeyValuePair keyVal = new KeyValuePair(mapPutter);
+                    if (nodeValue != null)
+                        keyVal.setValue(nodeValue);
+                    setContextBean(nodeLevel, keyVal);
                     break;
                 default:
                     throw new BeanException(BeanErrorCode.UnknownBeanUpdator);
@@ -383,6 +386,8 @@ public class BeanBindingProcess implements TreeVisitor
                 try
                 {
                     KeyValuePair keyValuePair = KeyValuePair.class.cast(valueBean);
+                    if (keyValuePair.getValue() == null)
+                        keyValuePair.setValue(nodeValue);
                     if (keyValuePair.hasKeyAndValue())
                     {
                         bindMapElement(parentBean, MapPutter.class.cast(updator), keyValuePair);

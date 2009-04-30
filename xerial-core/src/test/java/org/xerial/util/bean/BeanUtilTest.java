@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -810,5 +811,25 @@ public class BeanUtilTest
         Sequence seq = new Sequence();
         BeanUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
         assertEquals("ABCDEFGHIJ", seq.getSeq());
+    }
+
+    public static class PropertyData
+    {
+        HashMap<String, String> map = new HashMap<String, String>();
+
+        public void putProperty(String key, String value)
+        {
+            map.put(key, value);
+        }
+    }
+
+    @Test
+    public void putterTestForXML() throws Exception
+    {
+        PropertyData data = BeanUtil.createXMLBean(PropertyData.class, FileResource.open(BeanUtilTest.class,
+                "sample/prop.xml"));
+        assertEquals("value1", data.map.get("key1"));
+        assertEquals("hello", data.map.get("message"));
+
     }
 }
