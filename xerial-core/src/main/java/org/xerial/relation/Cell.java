@@ -34,14 +34,14 @@ package org.xerial.relation;
  * @author leo
  * 
  */
-public interface Cell
+public interface Cell<NodeType>
 {
     /**
      * Returns true if this cell is a singleton node
      * 
      * @return
      */
-    public boolean isAtom();
+    public boolean isNode();
 
     /**
      * Returns true if this cell is a node tuple
@@ -65,7 +65,7 @@ public interface Cell
      * @param index
      * @return
      */
-    Cell get(TupleIndex index);
+    Cell<NodeType> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,
@@ -74,27 +74,27 @@ public interface Cell
      * @param index
      * @return node
      */
-    Node getNode(TupleIndex index);
+    NodeType getNode(TupleIndex index);
 
     /**
      * if this cell is node, then return node. otherwise return null
      * 
      * @return
      */
-    Node getNode();
+    NodeType getNode();
 
     /**
      * If this cell is tuple, then return tuple. otherwise return null
      * 
      * @return
      */
-    Tuple getTuple();
+    Tuple<NodeType> getTuple();
 
     /**
      * Accept the visitor
      * 
      * @param visitor
      */
-    void accept(CellVisitor visitor);
+    void accept(CellVisitor<NodeType> visitor);
 
 }

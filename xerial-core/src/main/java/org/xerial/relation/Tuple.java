@@ -41,30 +41,30 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class Tuple implements Cell
+public class Tuple<NodeType> implements Cell<NodeType>
 {
 
-    private final List<Cell> nodeList;
+    private final List<Cell<NodeType>> nodeList;
 
     public Tuple()
     {
-        this.nodeList = new ArrayList<Cell>();
+        this.nodeList = new ArrayList<Cell<NodeType>>();
     }
 
-    public Tuple(Tuple other)
+    public Tuple(Tuple<NodeType> other)
     {
         this(other.nodeList);
     }
 
     public Tuple(int tupleSize)
     {
-        this.nodeList = new ArrayList<Cell>(tupleSize);
+        this.nodeList = new ArrayList<Cell<NodeType>>(tupleSize);
     }
 
-    public Tuple(List<Cell> nodeList)
+    public Tuple(List<Cell<NodeType>> nodeList)
     {
-        this.nodeList = new ArrayList<Cell>(nodeList.size());
-        for (Cell each : nodeList)
+        this.nodeList = new ArrayList<Cell<NodeType>>(nodeList.size());
+        for (Cell<NodeType> each : nodeList)
         {
             this.nodeList.add(each);
         }
@@ -84,17 +84,17 @@ public class Tuple implements Cell
     //        return new Tuple(nodeList);
     //    }
 
-    public void add(Cell node)
+    public void add(Cell<NodeType> node)
     {
         nodeList.add(node);
     }
 
-    public void set(int index, Cell node)
+    public void set(int index, Cell<NodeType> node)
     {
         nodeList.set(index, node);
     }
 
-    public void set(TupleIndex index, Cell node)
+    public void set(TupleIndex index, Cell<NodeType> node)
     {
         if (!index.hasTail())
         {
@@ -103,12 +103,12 @@ public class Tuple implements Cell
         }
 
         // nested node
-        Cell target = get(index.get(0));
+        Cell<NodeType> target = get(index.get(0));
         if (target == null || !target.isTuple())
             throw new XerialError(XerialErrorCode.INVALID_STATE, String.format(
                     "set to invalid element: index = %s in %s", index, this));
 
-        ((Tuple) target).set(index.tail(), node);
+        ((Tuple<NodeType>) target).set(index.tail(), node);
     }
 
     public int size()
@@ -126,17 +126,17 @@ public class Tuple implements Cell
         return nodeList.isEmpty();
     }
 
-    public void sort(Comparator<Cell> comparator)
+    public void sort(Comparator<Cell<NodeType>> comparator)
     {
         Collections.sort(nodeList, comparator);
     }
 
-    public Iterator<Cell> iterator()
+    public Iterator<Cell<NodeType>> iterator()
     {
         return nodeList.iterator();
     }
 
-    public Cell get(int index)
+    public Cell<NodeType> get(int index)
     {
         return nodeList.get(index);
     }
@@ -174,22 +174,22 @@ public class Tuple implements Cell
         return String.format("[%s]", join(nodeList, ", "));
     }
 
-    public boolean addAll(List<Cell> relationFragment)
+    public boolean addAll(List<Cell<NodeType>> relationFragment)
     {
         return nodeList.addAll(relationFragment);
     }
 
-    public Node getNode()
+    public NodeType getNode()
     {
         throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
-    public List<Cell> getNodeList()
+    public List<Cell<NodeType>> getNodeList()
     {
         return nodeList;
     }
 
-    public boolean isAtom()
+    public boolean isNode()
     {
         return true;
     }
@@ -199,32 +199,34 @@ public class Tuple implements Cell
         return true;
     }
 
-    public Cell get(TupleIndex index)
+    public Cell<NodeType> get(TupleIndex index)
     {
-        Cell cell = nodeList.get(index.get(0));
+        Cell<NodeType> cell = nodeList.get(index.get(0));
         if (index.hasTail())
             return cell.get(index.tail());
         else
             return cell;
     }
 
-    public Node getNode(int index)
+    @SuppressWarnings("unchecked")
+    public NodeType getNode(int index)
     {
-        Cell node = get(index);
-        if (node.isAtom())
-            return Node.class.cast(node);
+        Cell<NodeType> node = get(index);
+        if (node.isNode())
+            return (NodeType) node;
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
     }
 
-    public Node getNode(TupleIndex index)
+    @SuppressWarnings("unchecked")
+    public NodeType getNode(TupleIndex index)
     {
-        Cell node = get(index);
+        Cell<NodeType> node = get(index);
         if (node == null)
             return null;
 
-        if (node.isAtom())
-            return Node.class.cast(node);
+        if (node.isNode())
+            return (NodeType) node;
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
 
@@ -235,7 +237,7 @@ public class Tuple implements Cell
         visitor.visitTuple(this);
     }
 
-    public Tuple getTuple()
+    public Tuple<NodeType> getTuple()
     {
         return this;
     }

@@ -24,8 +24,6 @@
 //--------------------------------------
 package org.xerial.relation;
 
-import org.xerial.core.XerialError;
-import org.xerial.core.XerialErrorCode;
 
 /**
  * Node is an element ({@link Cell}) of a relation.
@@ -33,7 +31,7 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class Node implements Cell
+public class Node extends NodeBase<Node>
 {
     public static final int INVALID_ID = -1;
     public static final String NULL_TEXT = null;
@@ -92,16 +90,6 @@ public class Node implements Cell
 
     }
 
-    public boolean isAtom()
-    {
-        return true;
-    }
-
-    public boolean isTuple()
-    {
-        return false;
-    }
-
     public static Node newNode(String nodeName, int nodeID)
     {
         return new Node(nodeName, nodeID, null);
@@ -124,47 +112,6 @@ public class Node implements Cell
             builder.append("\"");
         }
         return builder.toString();
-    }
-
-    /**
-     * Always return 1
-     * 
-     * @return
-     */
-    public int size()
-    {
-        return 1;
-    }
-
-    public void accept(CellVisitor visitor)
-    {
-        visitor.visitNode(this);
-    }
-
-    public Cell get(TupleIndex index)
-    {
-        if (index.size() == 0 && index.get(0) == 0)
-            return this;
-        else
-            return null;
-    }
-
-    public Node getNode(TupleIndex index)
-    {
-        if (!(index.size() == 1 && index.get(0) == 0))
-            throw new XerialError(XerialErrorCode.INVALID_STATE);
-        else
-            return this;
-    }
-
-    public Node getNode()
-    {
-        return this;
-    }
-
-    public Tuple getTuple()
-    {
-        throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
 }

@@ -24,13 +24,15 @@
 //--------------------------------------
 package org.xerial.relation.schema;
 
+import org.xerial.relation.Tuple;
+
 /**
  * non-1NF relational schema
  * 
  * @author leo
  * 
  */
-public class RelationalSchema
+public class RelationalSchema extends Tuple<SchemaNode>
 {
 
 }

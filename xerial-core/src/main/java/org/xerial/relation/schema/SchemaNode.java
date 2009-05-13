@@ -16,24 +16,34 @@
 //--------------------------------------
 // XerialJ
 //
-// CellVisitor.java
-// Since: 2009/05/13 9:32:39
+// SchemaNode.java
+// Since: 2009/05/13 22:24:31
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.relation.schema;
+
+import org.xerial.relation.NodeBase;
 
 /**
- * Visitor interface for traversing Tuple
+ * SchemaNode
  * 
  * @author leo
  * 
  */
-public interface CellVisitor<NodeType>
+public class SchemaNode extends NodeBase<SchemaNode>
 {
-    public void visitNode(NodeType node);
+    private String name;
 
-    public void visitTuple(Tuple<NodeType> tuple);
+    public SchemaNode(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
 
 }
