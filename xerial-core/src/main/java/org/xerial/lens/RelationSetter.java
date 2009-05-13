@@ -16,35 +16,24 @@
 //--------------------------------------
 // XerialJ
 //
-// LensGeneratorTest.java
-// Since: 2009/04/10 21:12:00
+// RelationSetter.java
+// Since: 2009/05/12 20:14:43
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.impl;
+package org.xerial.lens;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.xerial.core.XerialException;
 
-public class LensGeneratorTest
+/**
+ * RelationSetter is for setting a node tuple to an object
+ * 
+ * @author leo
+ * 
+ */
+public abstract class RelationSetter
 {
-
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testGetCanonicalParameterName()
-    {
-    //        assertEquals("param", LensGenerator.getCanonicalParameterName("Param"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param 1"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param-1"));
-    }
+    public abstract void bind(Object object, Object value) throws XerialException;
 
 }

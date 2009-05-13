@@ -16,7 +16,7 @@
 //--------------------------------------
 // XerialJ
 //
-// Setter.java
+// ParameterSetter.java
 // Since: Aug 9, 2007 9:42:31 AM
 //
 // $URL$

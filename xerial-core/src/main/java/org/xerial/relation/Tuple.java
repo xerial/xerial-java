@@ -16,35 +16,65 @@
 //--------------------------------------
 // XerialJ
 //
-// LensGeneratorTest.java
-// Since: 2009/04/10 21:12:00
+// Tuple.java
+// Since: 2009/05/13 9:19:34
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.impl;
+package org.xerial.relation;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import java.util.ArrayList;
 
-public class LensGeneratorTest
+public class Tuple implements Cell
 {
+    private final static ArrayList<Cell> EMPTY_TUPLE = new ArrayList<Cell>(0);
 
-    @Before
-    public void setUp() throws Exception
-    {}
+    private final ArrayList<Cell> tuple;
 
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testGetCanonicalParameterName()
+    public Tuple()
     {
-    //        assertEquals("param", LensGenerator.getCanonicalParameterName("Param"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param 1"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param-1"));
+        this.tuple = EMPTY_TUPLE;
+    }
+
+    public boolean isAtom()
+    {
+        return false;
+    }
+
+    public boolean isTuple()
+    {
+        return true;
+    }
+
+    public int size()
+    {
+        return tuple.size();
+    }
+
+    public void accept(CellVisitor visitor)
+    {
+        visitor.visitTuple(this);
+    }
+
+    public Cell get(TupleIndex index)
+    {
+        return null;
+    }
+
+    public Node getNode(TupleIndex index)
+    {
+        return null;
+    }
+
+    public Node getNode()
+    {
+        return null;
+    }
+
+    public Tuple getTuple()
+    {
+        return this;
     }
 
 }

@@ -26,6 +26,12 @@ package org.xerial.util.tree;
 
 import java.util.List;
 
+/**
+ * TreeNode
+ * 
+ * @author leo
+ * 
+ */
 public interface TreeNode
 {
     public List<TreeNode> getChildren();

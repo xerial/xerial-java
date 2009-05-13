@@ -16,35 +16,66 @@
 //--------------------------------------
 // XerialJ
 //
-// LensGeneratorTest.java
-// Since: 2009/04/10 21:12:00
+// Node.java
+// Since: 2009/05/13 9:18:34
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.impl;
+package org.xerial.relation;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-public class LensGeneratorTest
+/**
+ * Node is a relation element.
+ * 
+ * @author leo
+ * 
+ */
+public class Node implements Cell
 {
 
-    @Before
-    public void setUp() throws Exception
-    {}
-
-    @After
-    public void tearDown() throws Exception
-    {}
-
-    @Test
-    public void testGetCanonicalParameterName()
+    public boolean isAtom()
     {
-    //        assertEquals("param", LensGenerator.getCanonicalParameterName("Param"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param 1"));
-    //assertEquals("param_1", LensGenerator.getCanonicalParameterName("Param-1"));
+        return true;
+    }
+
+    public boolean isTuple()
+    {
+        return false;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int size()
+    {
+        return 1;
+    }
+
+    public void accept(CellVisitor visitor)
+    {
+        visitor.visitNode(this);
+    }
+
+    public Cell get(TupleIndex index)
+    {
+        return null;
+    }
+
+    public Node getNode(TupleIndex index)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Node getNode()
+    {
+        return this;
+    }
+
+    public Tuple getTuple()
+    {
+        return null;
     }
 
 }
