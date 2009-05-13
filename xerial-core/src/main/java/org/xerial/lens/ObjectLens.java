@@ -33,7 +33,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xerial.util.bean.TypeInformation;
-import org.xerial.util.bean.impl.Setter;
 
 public class ObjectLens
 {
@@ -44,7 +43,7 @@ public class ObjectLens
 
     private static void createBindRules(Class< ? > targetType)
     {
-        List<Setter> setterContainer = new ArrayList<Setter>();
+        List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
 
         // look for all super classes
         for (Class< ? > eachClass = targetType; eachClass != null; eachClass = eachClass.getSuperclass())
@@ -73,7 +72,7 @@ public class ObjectLens
                         setterType = SetterType.ADDER;
                     }
 
-                    setterContainer.add(new Setter(eachClass, paramName, eachField, setterType));
+                    setterContainer.add(ParameterSetter.newSetter(eachClass, paramName, eachField));
 
                 }
 
@@ -88,7 +87,7 @@ public class ObjectLens
                 {
                     // adder
                     String paramName = getCanonicalParameterName(methodName.substring(3));
-                    setterContainer.add(ParameterSetter.newSetter(paramName, eachMethod, SetterType.ADDER));
+                    setterContainer.add(ParameterSetter.newSetter(eachClass, paramName, eachMethod));
 
                 }
                 else if (methodName.startsWith("set"))
@@ -132,7 +131,7 @@ public class ObjectLens
         else
         {
             if (m.group(2) != null)
-                return m.group(3).toLowerCase() + m.group(4);
+                return getCanonicalParameterName(m.group(3) + m.group(4));
             else
                 return "";
         }
@@ -140,8 +139,8 @@ public class ObjectLens
 
     public static String getCanonicalParameterName(String paramName)
     {
-        paramName = paramName.replaceAll("\\s", "_");
-        paramName = paramName.replaceAll("-", "_");
+        paramName = paramName.replaceAll("\\s", "");
+        paramName = paramName.replaceAll("-", "");
         return paramName.toLowerCase();
     }
 

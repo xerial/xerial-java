@@ -54,7 +54,7 @@ public class LensTest
     {
         private HashedArrayList<Coordinate, Gene> sequenceTable;
 
-        public void add(Coordinate coordinate, Gene gene)
+        public void addCoordinate_Gene(Coordinate coordinate, Gene gene)
         {
             sequenceTable.put(coordinate, gene);
         }

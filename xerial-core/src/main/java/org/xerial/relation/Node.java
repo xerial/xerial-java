@@ -24,14 +24,73 @@
 //--------------------------------------
 package org.xerial.relation;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
+
 /**
- * Node is a relation element.
+ * Node is an element ({@link Cell}) of a relation.
  * 
  * @author leo
  * 
  */
 public class Node implements Cell
 {
+    public static final int INVALID_ID = -1;
+    public static final String NULL_TEXT = null;
+
+    public final int nodeID;
+    public final String nodeName;
+    public final String nodeValue;
+
+    private Node(String nodeName, int nodeID, String nodeValue)
+    {
+        this.nodeID = nodeID;
+        this.nodeName = nodeName;
+        this.nodeValue = nodeValue;
+    }
+
+    /**
+     * Builder class for {@link Node}
+     * 
+     * @author leo
+     * 
+     */
+    public static class NodeBuilder
+    {
+        private int nodeID = INVALID_ID;
+        private String nodeValue = NULL_TEXT;
+        private final String nodeName;
+
+        public NodeBuilder(String nodeName)
+        {
+            this.nodeName = nodeName;
+        }
+
+        public NodeBuilder(Node node)
+        {
+            this.nodeID = node.nodeID;
+            this.nodeName = node.nodeName;
+            this.nodeValue = node.nodeValue;
+        }
+
+        public NodeBuilder nodeID(int nodeID)
+        {
+            this.nodeID = nodeID;
+            return this;
+        }
+
+        public NodeBuilder nodeValue(String nodeValue)
+        {
+            this.nodeValue = nodeValue;
+            return this;
+        }
+
+        public Node build()
+        {
+            return new Node(nodeName, nodeID, nodeValue);
+        }
+
+    }
 
     public boolean isAtom()
     {
@@ -43,7 +102,32 @@ public class Node implements Cell
         return false;
     }
 
+    public static Node newNode(String nodeName, int nodeID)
+    {
+        return new Node(nodeName, nodeID, null);
+    }
+
+    public static Node newNodeWithValue(String nodeName, int nodeID, String nodeValue)
+    {
+        return new Node(nodeName, nodeID, nodeValue);
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("%s(%d)", nodeName, nodeID));
+        if (nodeValue != null)
+        {
+            builder.append("=\"");
+            builder.append(nodeValue);
+            builder.append("\"");
+        }
+        return builder.toString();
+    }
+
     /**
+     * Always return 1
      * 
      * @return
      */
@@ -59,13 +143,18 @@ public class Node implements Cell
 
     public Cell get(TupleIndex index)
     {
-        return null;
+        if (index.size() == 0 && index.get(0) == 0)
+            return this;
+        else
+            return null;
     }
 
     public Node getNode(TupleIndex index)
     {
-        // TODO Auto-generated method stub
-        return null;
+        if (!(index.size() == 1 && index.get(0) == 0))
+            throw new XerialError(XerialErrorCode.INVALID_STATE);
+        else
+            return this;
     }
 
     public Node getNode()
@@ -75,7 +164,7 @@ public class Node implements Cell
 
     public Tuple getTuple()
     {
-        return null;
+        throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
 }
