@@ -32,7 +32,7 @@ public interface IndexAccess<NodeType>
      * @param index
      * @return
      */
-    TupleCell<NodeType> get(TupleIndex index);
+    Cell<NodeType> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,

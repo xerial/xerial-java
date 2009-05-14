@@ -24,7 +24,11 @@
 //--------------------------------------
 package org.xerial.relation.schema;
 
-import org.xerial.relation.Tuple;
+import java.util.List;
+
+import org.xerial.relation.FD;
+import org.xerial.relation.TupleIndex;
+import org.xerial.util.Functor;
 
 /**
  * non-1NF relational schema
@@ -32,21 +36,48 @@ import org.xerial.relation.Tuple;
  * @author leo
  * 
  */
-public class RelationalSchema
+/**
+ * The interface of relational schema
+ * 
+ * @author leo
+ * 
+ */
+public interface Schema
 {
-    public final String name;
-    public final Tuple<SchemaNode> schema;
+    public String getName();
 
-    public RelationalSchema(String name, Tuple<SchemaNode> schema)
-    {
-        this.name = name;
-        this.schema = schema;
-    }
+    public int size();
 
-    @Override
-    public String toString()
-    {
-        return String.format("schema %s %s", name, schema);
-    }
+    public boolean isAtom();
 
+    public boolean isNested();
+
+    public boolean isOneToMany();
+
+    public boolean isOneToOne();
+
+    public FD getFD();
+
+    public Schema get(TupleIndex index);
+
+    public Schema get(int index);
+
+    public Schema flatten();
+
+    public List<String> getNodeNameList();
+
+    public String selfLoopNode();
+
+    public TupleIndex getNodeIndex(String nodeName);
+
+    /**
+     * Iterates over nested elements
+     * 
+     * @param <Output>
+     * @param functor
+     * @return
+     */
+    public void forEachNestedNodeName(Functor<String, ? > functor);
+
+    public void accept(SchemaVisitor visitor);
 }

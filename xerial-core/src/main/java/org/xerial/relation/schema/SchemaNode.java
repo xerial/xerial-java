@@ -27,6 +27,7 @@ package org.xerial.relation.schema;
 import java.io.Serializable;
 
 import org.xerial.relation.DataType;
+import org.xerial.relation.FD;
 import org.xerial.relation.NodeBase;
 
 /**
@@ -44,22 +45,29 @@ public class SchemaNode extends NodeBase<SchemaNode> implements Serializable
 
     public final String name;
     public final DataType type;
+    public final FD fd;
+
+    public SchemaNode(String name)
+    {
+        this(name, DataType.STRING, FD.ONE_TO_ONE);
+    }
 
     public SchemaNode(String name, DataType type)
     {
-        this.name = name;
-        this.type = type;
+        this(name, type, FD.ONE_TO_ONE);
     }
 
-    public String getName()
+    public SchemaNode(String name, DataType type, FD fd)
     {
-        return name;
+        this.name = name;
+        this.type = type;
+        this.fd = fd;
     }
 
     @Override
     public String toString()
     {
-        return String.format("%s %s", name, type.name().toLowerCase());
+        return String.format("%s %s%s", name, type.name().toLowerCase(), fd);
     }
 
 }

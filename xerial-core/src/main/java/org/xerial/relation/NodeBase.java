@@ -35,7 +35,7 @@ import org.xerial.core.XerialErrorCode;
  * 
  * @param <NodeType>
  */
-public abstract class NodeBase<NodeType> implements TupleCell<NodeType>
+public abstract class NodeBase<NodeType> implements Cell<NodeType>
 {
     protected NodeBase()
     {}
@@ -65,10 +65,10 @@ public abstract class NodeBase<NodeType> implements TupleCell<NodeType>
         throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
-    public TupleCell<NodeType> get(TupleIndex index)
+    public Cell<NodeType> get(TupleIndex index)
     {
         if (index.size() == 0 && index.get(0) == 0)
-            return (TupleCell<NodeType>) this;
+            return (Cell<NodeType>) this;
         else
             throw new XerialError(XerialErrorCode.INVALID_STATE);
     }

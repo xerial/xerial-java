@@ -34,7 +34,7 @@ package org.xerial.relation;
  * @author leo
  * 
  */
-public interface TupleCell<NodeType>
+public interface Cell<NodeType>
 {
     /**
      * Returns true if this cell is a singleton
@@ -65,7 +65,7 @@ public interface TupleCell<NodeType>
      * @param index
      * @return
      */
-    TupleCell<NodeType> get(TupleIndex index);
+    Cell<NodeType> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,
