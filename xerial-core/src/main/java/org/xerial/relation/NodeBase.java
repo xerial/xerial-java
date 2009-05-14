@@ -29,13 +29,13 @@ import org.xerial.core.XerialErrorCode;
 
 /**
  * 
- * Base implementation of the Node
+ * Base implementation of the TreeNode
  * 
  * @author leo
  * 
  * @param <NodeType>
  */
-public abstract class NodeBase<NodeType> implements Cell<NodeType>
+public abstract class NodeBase<NodeType> implements TupleCell<NodeType, IndexAccess<NodeType>>
 {
     protected NodeBase()
     {}
@@ -65,10 +65,10 @@ public abstract class NodeBase<NodeType> implements Cell<NodeType>
         throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
-    public Cell<NodeType> get(TupleIndex index)
+    public TupleCell<NodeType> get(TupleIndex index)
     {
         if (index.size() == 0 && index.get(0) == 0)
-            return (Cell<NodeType>) this;
+            return (TupleCell<NodeType>) this;
         else
             throw new XerialError(XerialErrorCode.INVALID_STATE);
     }

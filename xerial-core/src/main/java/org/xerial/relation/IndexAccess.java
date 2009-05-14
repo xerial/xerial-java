@@ -16,56 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Cell.java
-// Since: 2009/05/13 9:20:19
+// IndexAccess.java
+// Since: 2009/05/14 9:24:54
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.relation;
 
-/**
- * Table element
- * 
- * @author leo
- * 
- */
-/**
- * @author leo
- * 
- */
-public interface Cell<NodeType>
+public interface IndexAccess<NodeType>
 {
-    /**
-     * Returns true if this cell is a singleton node
-     * 
-     * @return
-     */
-    public boolean isNode();
-
-    /**
-     * Returns true if this cell is a node tuple
-     * 
-     * @return
-     */
-    public boolean isTuple();
-
-    /**
-     * Get the number of elements contained in this cell. When this cell is an
-     * atom, the size will be 1. When a tuple, the returned size is the tuple
-     * size.
-     * 
-     * @return
-     */
-    public int size();
-
     /**
      * Get the cell at the specified index
      * 
      * @param index
      * @return
      */
-    Cell<NodeType> get(TupleIndex index);
+    TupleCell<NodeType> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,
@@ -88,7 +55,7 @@ public interface Cell<NodeType>
      * 
      * @return
      */
-    Tuple<NodeType> getTuple();
+    IndexAccess<NodeType> getTuple();
 
     /**
      * Accept the visitor

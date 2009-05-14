@@ -35,20 +35,20 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 
 /**
- * Tuple is a list of {@link Cell}s. Tuple class allows Non-1NF representation
- * of the data.
+ * Tuple is a list of {@link TupleCell}s. Tuple class allows Non-1NF
+ * representation of the data.
  * 
  * @author leo
  * 
  */
-public class Tuple<NodeType> implements Cell<NodeType>
+public class Tuple<NodeType> implements IndexAccess<NodeType>
 {
 
-    private final List<Cell<NodeType>> nodeList;
+    private final List<TupleCell<NodeType, Tuple<NodeType>>> nodeList;
 
     public Tuple()
     {
-        this.nodeList = new ArrayList<Cell<NodeType>>();
+        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeType>>>();
     }
 
     public Tuple(Tuple<NodeType> other)
@@ -58,13 +58,13 @@ public class Tuple<NodeType> implements Cell<NodeType>
 
     public Tuple(int tupleSize)
     {
-        this.nodeList = new ArrayList<Cell<NodeType>>(tupleSize);
+        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeType>>>(tupleSize);
     }
 
-    public Tuple(List<Cell<NodeType>> nodeList)
+    public Tuple(List<TupleCell<NodeType, Tuple<NodeType>>> nodeList)
     {
-        this.nodeList = new ArrayList<Cell<NodeType>>(nodeList.size());
-        for (Cell<NodeType> each : nodeList)
+        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeTpe>>>(nodeList.size());
+        for (TupleCell<NodeType, Tuple<NodeType>> each : nodeList)
         {
             this.nodeList.add(each);
         }
@@ -72,7 +72,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
 
     //    public static Tuple emptyTuple(Schema schema)
     //    {
-    //        List<Cell> nodeList = new ArrayList<Cell>(schema.size());
+    //        List<TupleCell> nodeList = new ArrayList<TupleCell>(schema.size());
     //        for (int i = 0; i < schema.size(); i++)
     //        {
     //            Schema subSchema = schema.get(i);
@@ -84,17 +84,17 @@ public class Tuple<NodeType> implements Cell<NodeType>
     //        return new Tuple(nodeList);
     //    }
 
-    public void add(Cell<NodeType> node)
+    public void add(TupleCell<NodeType> node)
     {
         nodeList.add(node);
     }
 
-    public void set(int index, Cell<NodeType> node)
+    public void set(int index, TupleCell<NodeType> node)
     {
         nodeList.set(index, node);
     }
 
-    public void set(TupleIndex index, Cell<NodeType> node)
+    public void set(TupleIndex index, TupleCell<NodeType> node)
     {
         if (!index.hasTail())
         {
@@ -103,7 +103,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
         }
 
         // nested node
-        Cell<NodeType> target = get(index.get(0));
+        TupleCell<NodeType> target = get(index.get(0));
         if (target == null || !target.isTuple())
             throw new XerialError(XerialErrorCode.INVALID_STATE, String.format(
                     "set to invalid element: index = %s in %s", index, this));
@@ -126,17 +126,17 @@ public class Tuple<NodeType> implements Cell<NodeType>
         return nodeList.isEmpty();
     }
 
-    public void sort(Comparator<Cell<NodeType>> comparator)
+    public void sort(Comparator<TupleCell<NodeType>> comparator)
     {
         Collections.sort(nodeList, comparator);
     }
 
-    public Iterator<Cell<NodeType>> iterator()
+    public Iterator<TupleCell<NodeType>> iterator()
     {
         return nodeList.iterator();
     }
 
-    public Cell<NodeType> get(int index)
+    public TupleCell<NodeType> get(int index)
     {
         return nodeList.get(index);
     }
@@ -174,7 +174,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
         return String.format("[%s]", join(nodeList, ", "));
     }
 
-    public boolean addAll(List<Cell<NodeType>> relationFragment)
+    public boolean addAll(List<TupleCell<NodeType>> relationFragment)
     {
         return nodeList.addAll(relationFragment);
     }
@@ -184,7 +184,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
         throw new XerialError(XerialErrorCode.UNSUPPORTED);
     }
 
-    public List<Cell<NodeType>> getNodeList()
+    public List<TupleCell<NodeType>> getNodeList()
     {
         return nodeList;
     }
@@ -199,9 +199,9 @@ public class Tuple<NodeType> implements Cell<NodeType>
         return true;
     }
 
-    public Cell<NodeType> get(TupleIndex index)
+    public TupleCell<NodeType> get(TupleIndex index)
     {
-        Cell<NodeType> cell = nodeList.get(index.get(0));
+        TupleCell<NodeType> cell = nodeList.get(index.get(0));
         if (index.hasTail())
             return cell.get(index.tail());
         else
@@ -211,7 +211,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
     @SuppressWarnings("unchecked")
     public NodeType getNode(int index)
     {
-        Cell<NodeType> node = get(index);
+        TupleCell<NodeType> node = get(index);
         if (node.isNode())
             return (NodeType) node;
         else
@@ -221,7 +221,7 @@ public class Tuple<NodeType> implements Cell<NodeType>
     @SuppressWarnings("unchecked")
     public NodeType getNode(TupleIndex index)
     {
-        Cell<NodeType> node = get(index);
+        TupleCell<NodeType> node = get(index);
         if (node == null)
             return null;
 
