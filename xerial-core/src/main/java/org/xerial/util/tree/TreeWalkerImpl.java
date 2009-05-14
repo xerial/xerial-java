@@ -192,7 +192,7 @@ public class TreeWalkerImpl implements TreeWalker
             currentLevel--;
             break;
         case TEXT:
-            visitor.text(e.nodeValue, this);
+            visitor.text(e.nodeName, e.nodeValue, this);
             break;
         }
     }

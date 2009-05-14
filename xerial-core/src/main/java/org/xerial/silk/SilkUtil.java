@@ -176,7 +176,7 @@ public class SilkUtil
         }
 
         @Override
-        public void text(String textDataFragment, TreeWalker walker) throws XerialException
+        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
         {
             popQueue();
             xout.text(textDataFragment);
@@ -329,7 +329,7 @@ public class SilkUtil
             textStack.removeLast();
         }
 
-        public void text(String textDataFragment, TreeWalker walker) throws XerialException
+        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
         {
             getTextBuilder().append(textDataFragment);
         }

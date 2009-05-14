@@ -28,9 +28,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -74,8 +72,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoin.class);
 
-    //final SchemaGraph fdGraph;
-    QuerySet query;
+    final QuerySet query;
+    final RelationEventHandler handler;
 
     // for running amoeba join
     int nodeCount = 0;
@@ -91,24 +89,23 @@ public class StreamAmoebaJoin implements TreeVisitor
     HashMap<Integer, Set<RelationFragmentHolder>> popListOfNodeID = new HashMap<Integer, Set<RelationFragmentHolder>>();
 
     // relation cache
-    IndexedSet<RelationFragmentHolder> relationContainer = new IndexedSet<RelationFragmentHolder>();
-
-    RelationEventHandler handler;
+    IndexedSet<RelationFragmentHolder> fragmentHolders = new IndexedSet<RelationFragmentHolder>();
 
     public StreamAmoebaJoin(QuerySet query, RelationEventHandler handler) throws IOException
     {
         this.query = query;
+        this.handler = handler;
 
         // prepare relation fragment holder for each schema element
         for (Schema eachSchema : query.getTargetQuerySet())
         {
-            relationContainer.add(new RelationFragmentHolder(eachSchema, handler));
+            fragmentHolders.add(new RelationFragmentHolder(eachSchema, handler));
         }
 
     }
 
     /**
-     * Defines an operation assigned to an edge of the node name lattice
+     * Defines an operation assigned to an currentEdge of the node name lattice
      * 
      * @author leo
      * 
@@ -139,19 +136,21 @@ public class StreamAmoebaJoin implements TreeVisitor
             if (_logger.isTraceEnabled())
                 _logger.trace(String.format("push:(%s, %s)", knownNode, newNode));
 
-            boolean isChanged = container.push(knownNode);
-            if (isChanged)
-            {
-                Set<RelationFragmentHolder> stackListToExecutePop = popListOfNodeID.get(knownNode.nodeID);
-                if (stackListToExecutePop == null)
-                {
-                    stackListToExecutePop = new HashSet<RelationFragmentHolder>();
-                    popListOfNodeID.put(knownNode.nodeID, stackListToExecutePop);
-                }
-                stackListToExecutePop.add(container);
-            }
+            handler.newRelationFragment(container.getRelation(), knownNode, newNode);
 
-            container.push(newNode);
+            //            boolean isChanged = container.push(knownNode);
+            //            if (isChanged)
+            //            {
+            //                Set<RelationFragmentHolder> stackListToExecutePop = popListOfNodeID.get(knownNode.nodeID);
+            //                if (stackListToExecutePop == null)
+            //                {
+            //                    stackListToExecutePop = new HashSet<RelationFragmentHolder>();
+            //                    popListOfNodeID.put(knownNode.nodeID, stackListToExecutePop);
+            //                }
+            //                stackListToExecutePop.add(container);
+            //            }
+            //
+            //            container.push(newNode);
         }
     }
 
@@ -169,8 +168,7 @@ public class StreamAmoebaJoin implements TreeVisitor
         public void execute()
         {
             Node poppedNode = getNodeStack(poppedTag).getLast();
-            //_logger.debug(String.format("pop:(%s)", poppedNode));
-            container.pop(poppedNode);
+            //container.pop(poppedNode);
         }
 
     }
@@ -234,10 +232,9 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     }
 
-    public void text(String textDataFragment, TreeWalker walker) throws XerialException
+    public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
     {
-
-    //handler.text(schema, nodeName, textDataFragment);
+        handler.text(nodeName, textDataFragment);
     }
 
     public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
@@ -268,13 +265,13 @@ public class StreamAmoebaJoin implements TreeVisitor
         int prevNodeID = prevNode.getID();
         int nextNodeID = nextNode.getID();
 
-        Edge edge = new Edge(prevNodeID, nextNodeID);
-        List<Operation> actionList = operationSetOnForward.get(edge);
+        Edge currentEdge = new Edge(prevNodeID, nextNodeID);
+        List<Operation> actionList = operationSetOnForward.get(currentEdge);
         if (actionList == null)
         {
             // lazily prepare the action list
             actionList = new ArrayList<Operation>();
-            operationSetOnForward.put(edge, actionList);
+            operationSetOnForward.put(currentEdge, actionList);
             List<Operation> backActionList = new ArrayList<Operation>();
             operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
 
@@ -284,7 +281,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             // TODO this part consider node pairs (core node, attribute node)
             if (prevNode != nextNode)
             {
-                for (RelationFragmentHolder each : relationContainer)
+                for (RelationFragmentHolder each : fragmentHolders)
                 {
                     Schema r = each.getRelation();
                     if (r.getNodeIndex(newlyFoundTag) != null)
@@ -312,7 +309,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             else
             {
                 // loop back e.g. A -> A
-                for (RelationFragmentHolder each : relationContainer)
+                for (RelationFragmentHolder each : fragmentHolders)
                 {
                     Schema r = each.getRelation();
                     String selfLoopNode = r.selfLoopNode();
@@ -374,23 +371,17 @@ public class StreamAmoebaJoin implements TreeVisitor
         }
     }
 
-    private Collection<String> getAttributeNodes(Schema element)
-    {
-        AttributeNodeFinder finder = new AttributeNodeFinder();
-        element.accept(finder);
-
-        // remove the core node name
-        finder.nodeName.removeFirst();
-
-        return finder.nodeName;
-    }
-
     public void sweepXML(Reader xml) throws XerialException
     {
         if (_logger.isDebugEnabled())
             _logger.debug("sweep XML");
         XMLTreeWalker xmlStreamReader = new XMLTreeWalker(xml);
         xmlStreamReader.walk(this);
+    }
+
+    public void sweep(TreeWalker walker) throws XerialException
+    {
+        walker.walk(this);
     }
 
     public QuerySet getQuerySet()

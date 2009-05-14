@@ -39,12 +39,12 @@ import org.xerial.util.IndexedSet;
  */
 public class Lattice<T>
 {
-    private IndexedSet<T>                         elementSet        = new IndexedSet<T>();
-    private IndexedSet<LatticeNode<T>>            latticeNodeSet    = new IndexedSet<LatticeNode<T>>();
+    private IndexedSet<T> elementSet = new IndexedSet<T>();
+    private IndexedSet<LatticeNode<T>> latticeNodeSet = new IndexedSet<LatticeNode<T>>();
     private ArrayList<HashMap<T, LatticeNode<T>>> outEdgeIndexTable = new ArrayList<HashMap<T, LatticeNode<T>>>();
-    private ArrayList<HashMap<T, LatticeNode<T>>> inEdgeIndexTable  = new ArrayList<HashMap<T, LatticeNode<T>>>();
+    private ArrayList<HashMap<T, LatticeNode<T>>> inEdgeIndexTable = new ArrayList<HashMap<T, LatticeNode<T>>>();
 
-    private final LatticeNode<T>                  emptySet;
+    private final LatticeNode<T> emptySet;
 
     public Lattice()
     {

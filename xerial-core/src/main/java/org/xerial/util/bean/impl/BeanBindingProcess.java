@@ -141,8 +141,6 @@ public class BeanBindingProcess implements TreeVisitor
     private final TreeMap<Integer, Object> contextBeanOfEachLevel = new TreeMap<Integer, Object>();
     private final TreeMap<Integer, Map< ? , ? >> mapAssociatedWithBean = new TreeMap<Integer, Map< ? , ? >>();
     private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
-    private final Deque<String> nodeStack = new ArrayDeque<String>();
-    private final static String EMPTY_STRING = new String();
     private final static StringBuilder EMPTY_TEXT_BUILDER = new StringBuilder(0);
 
     private int currentLevel = 0;
@@ -226,7 +224,6 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
-        nodeStack.addLast(nodeName != null ? nodeName : EMPTY_STRING);
         textStack.addLast(EMPTY_TEXT_BUILDER);
 
         int nodeLevel = currentLevel++;
@@ -407,12 +404,11 @@ public class BeanBindingProcess implements TreeVisitor
 
     }
 
-    public void text(String nodeValue, TreeWalker walker) throws XerialException
+    public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
         Object parentBean = getContextBean(currentLevel - 2);
         if (parentBean != null)
         {
-            String nodeName = nodeStack.getLast();
             BeanBinderSet bindRuleSet = getBindRuleSet(parentBean.getClass());
             BeanUpdator updator = getUpdator(bindRuleSet, nodeName);
             if (updator != null && updator.getType() == BeanUpdatorType.APPENDER)
@@ -439,7 +435,6 @@ public class BeanBindingProcess implements TreeVisitor
 
     public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
     {
-        nodeStack.removeLast();
         int nodeLevel = --currentLevel;
         //_logger.trace("leave[" + nodeLevel + "] " + nodeName + " value = " + nodeValue);
 
@@ -531,8 +526,8 @@ public class BeanBindingProcess implements TreeVisitor
         {
             Throwable cause = e.getCause();
             if (cause == null)
-                throw new BeanException(BeanErrorCode.InvocationTargetException, String.format(
-                        "node=%s, value=%s, updator=%s", nodeStack.getLast(), value, updator.getMethod().getName()));
+                throw new BeanException(BeanErrorCode.InvocationTargetException, String.format("value=%s, updator=%s",
+                        value, updator.getMethod().getName()));
             else
                 throw new BeanException(BeanErrorCode.InvocationTargetException, cause);
         }

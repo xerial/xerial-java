@@ -30,7 +30,9 @@ import org.xerial.relation.schema.Schema;
 
 public interface RelationEventHandler
 {
+    public void newRelationFragment(Schema schema, Node n1, Node n2);
+
     public void newRelation(Schema schema, Tuple<Node> newRelation);
 
-    public void text(Schema schema, String nodeName, String text);
+    public void text(String nodeName, String text);
 }

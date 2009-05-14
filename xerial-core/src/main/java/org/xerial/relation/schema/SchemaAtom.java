@@ -27,6 +27,7 @@ package org.xerial.relation.schema;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xerial.relation.DataType;
 import org.xerial.relation.FD;
 import org.xerial.relation.TupleIndex;
 import org.xerial.util.Functor;
@@ -39,8 +40,9 @@ import org.xerial.util.Functor;
  */
 public class SchemaAtom implements Schema
 {
-    private final String nodeName;
-    private final FD fd;
+    public final String nodeName;
+    public final FD fd;
+    public final DataType type;
 
     public SchemaAtom(String nodeName)
     {
@@ -49,7 +51,13 @@ public class SchemaAtom implements Schema
 
     public SchemaAtom(String nodeName, FD fd)
     {
+        this(nodeName, DataType.STRING, fd);
+    }
+
+    public SchemaAtom(String nodeName, DataType type, FD fd)
+    {
         this.nodeName = nodeName;
+        this.type = type;
         this.fd = fd;
     }
 

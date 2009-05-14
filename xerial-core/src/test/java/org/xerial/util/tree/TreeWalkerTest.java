@@ -77,7 +77,7 @@ public class TreeWalkerTest
 
             }
 
-            public void text(String textDataFragment, TreeWalker walker) throws XerialException
+            public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
             {
             // TODO Auto-generated method stub
 

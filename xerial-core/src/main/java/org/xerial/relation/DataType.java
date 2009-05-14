@@ -32,6 +32,6 @@ package org.xerial.relation;
  */
 public enum DataType {
 
-    BOOL, BYTE, I16, I32, I64, STRING, DOUBLE, BINARY;
+    BOOL, BYTE, I16, I32, I64, STRING, DOUBLE, BINARY, STRUCT;
 
 }

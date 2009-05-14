@@ -36,7 +36,7 @@ import org.xerial.relation.Node;
 import org.xerial.relation.Tuple;
 import org.xerial.relation.TupleIndex;
 import org.xerial.relation.schema.Schema;
-import org.xerial.relation.schema.SchemaArray.SchemaBuilder;
+import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;
@@ -171,6 +171,7 @@ public class RelationFragmentHolder
 
     public Schema getRelation()
     {
+
         return relation;
     }
 

@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -101,7 +102,7 @@ public class XMLTreeWalkerTest
 
             }
 
-            public void text(String nodeValue, TreeWalker walker) throws XerialException
+            public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
                 _logger.debug("text:  " + nodeValue);
 
@@ -152,7 +153,7 @@ public class XMLTreeWalkerTest
 
             }
 
-            public void text(String nodeValue, TreeWalker walker) throws XerialException
+            public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
             {
                 _logger.debug("text:  " + nodeValue);
 

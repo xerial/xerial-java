@@ -44,6 +44,12 @@ import org.xerial.util.Functor;
  */
 public interface Schema
 {
+    /**
+     * If this schema element is an atom, return the atom node name. If this
+     * schema element is a tuple, return the core node name at index position 0.
+     * 
+     * @return
+     */
     public String getName();
 
     public int size();

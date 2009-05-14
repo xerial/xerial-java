@@ -59,7 +59,7 @@ public class SchemaArray implements Schema, Iterable<Schema>
         this(other.parent, other.column, other.fd);
     }
 
-    private SchemaArray(Schema parent, List<Schema> schemaElementList, FD fd)
+    SchemaArray(Schema parent, List<Schema> schemaElementList, FD fd)
     {
         if (schemaElementList.size() < 1)
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "schema element list must be size of one or more");
@@ -173,59 +173,6 @@ public class SchemaArray implements Schema, Iterable<Schema>
         buf.append(fd);
 
         return buf.toString();
-    }
-
-    public static class SchemaBuilder
-    {
-        Schema parent = null;
-        ArrayList<Schema> element = new ArrayList<Schema>();
-        FD occurrence = FD.ONE_TO_ONE;
-
-        public SchemaBuilder()
-        {
-
-        }
-
-        public SchemaBuilder(Schema parent)
-        {
-            setParent(parent);
-        }
-
-        public SchemaBuilder setParent(Schema parent)
-        {
-            this.parent = parent;
-            return this;
-        }
-
-        public SchemaBuilder setFD(FD fd)
-        {
-            this.occurrence = fd;
-            return this;
-        }
-
-        public SchemaBuilder add(Schema elem)
-        {
-            this.element.add(elem);
-            return this;
-        }
-
-        public SchemaBuilder add(String attribute)
-        {
-            this.element.add(new SchemaAtom(attribute));
-            return this;
-        }
-
-        public SchemaBuilder add(String attribute, FD fd)
-        {
-            this.element.add(new SchemaAtom(attribute, fd));
-            return this;
-        }
-
-        public SchemaArray build()
-        {
-            return new SchemaArray(parent, element, occurrence);
-        }
-
     }
 
     public int size()

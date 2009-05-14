@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.impl.TreeToObjectLens;
 import org.xerial.silk.SilkWalker;
 
 /**
@@ -174,8 +173,8 @@ public class Lens
             throw new NullPointerException("silkFileResource");
 
         SilkWalker walker = new SilkWalker(silkFileResource);
-        TreeToObjectLens lens = new TreeToObjectLens();
-        lens.process(walker);
+        //TreeToObjectLens lens = new TreeToObjectLens();
+        //lens.process(walker);
         return null;
     }
 
