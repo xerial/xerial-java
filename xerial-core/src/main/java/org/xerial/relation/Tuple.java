@@ -41,14 +41,14 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class Tuple<NodeType> implements IndexAccess<NodeType>
+public class Tuple<NodeType> implements TupleCell<NodeType>, Iterable<TupleCell<NodeType>>
 {
 
-    private final List<TupleCell<NodeType, Tuple<NodeType>>> nodeList;
+    private final List<TupleCell<NodeType>> nodeList;
 
     public Tuple()
     {
-        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeType>>>();
+        this.nodeList = new ArrayList<TupleCell<NodeType>>();
     }
 
     public Tuple(Tuple<NodeType> other)
@@ -58,13 +58,13 @@ public class Tuple<NodeType> implements IndexAccess<NodeType>
 
     public Tuple(int tupleSize)
     {
-        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeType>>>(tupleSize);
+        this.nodeList = new ArrayList<TupleCell<NodeType>>(tupleSize);
     }
 
-    public Tuple(List<TupleCell<NodeType, Tuple<NodeType>>> nodeList)
+    public Tuple(List<TupleCell<NodeType>> nodeList)
     {
-        this.nodeList = new ArrayList<TupleCell<NodeType, Tuple<NodeTpe>>>(nodeList.size());
-        for (TupleCell<NodeType, Tuple<NodeType>> each : nodeList)
+        this.nodeList = new ArrayList<TupleCell<NodeType>>(nodeList.size());
+        for (TupleCell<NodeType> each : nodeList)
         {
             this.nodeList.add(each);
         }
@@ -232,14 +232,14 @@ public class Tuple<NodeType> implements IndexAccess<NodeType>
 
     }
 
-    public void accept(CellVisitor visitor)
-    {
-        visitor.visitTuple(this);
-    }
-
     public Tuple<NodeType> getTuple()
     {
         return this;
+    }
+
+    public void accept(CellVisitor<NodeType> visitor)
+    {
+        visitor.visitTuple(this);
     }
 
 }

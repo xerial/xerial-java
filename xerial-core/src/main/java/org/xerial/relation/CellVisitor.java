@@ -34,6 +34,6 @@ public interface CellVisitor<NodeType>
 {
     public void visitNode(NodeType node);
 
-    public void visitTuple(IndexAccess<NodeType> tuple);
+    public void visitTuple(Tuple<NodeType> tuple);
 
 }

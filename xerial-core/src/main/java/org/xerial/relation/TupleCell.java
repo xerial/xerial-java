@@ -37,14 +37,14 @@ package org.xerial.relation;
 public interface TupleCell<NodeType>
 {
     /**
-     * Returns true if this cell is a singleton node
+     * Returns true if this cell is a singleton
      * 
      * @return
      */
     public boolean isNode();
 
     /**
-     * Returns true if this cell is a node tuple
+     * Returns true if this cell is a tuple
      * 
      * @return
      */
@@ -82,6 +82,13 @@ public interface TupleCell<NodeType>
      * @return
      */
     NodeType getNode();
+
+    /**
+     * If this cell is tuple, then return tuple. otherwise return null
+     * 
+     * @return
+     */
+    Tuple<NodeType> getTuple();
 
     /**
      * Accept the visitor

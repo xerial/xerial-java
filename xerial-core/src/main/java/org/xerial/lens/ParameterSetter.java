@@ -92,6 +92,9 @@ public abstract class ParameterSetter
         {
             super(targetClass, parameterName);
             this.targetField = targetField;
+
+            if (!targetField.isAccessible())
+                targetField.setAccessible(true);
         }
 
         @Override

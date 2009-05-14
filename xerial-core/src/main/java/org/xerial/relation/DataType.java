@@ -16,37 +16,22 @@
 //--------------------------------------
 // XerialJ
 //
-// RelationalSchema.java
-// Since: May 13, 2009 6:03:45 PM
+// DataType.java
+// Since: May 14, 2009 11:26:50 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
-
-import org.xerial.relation.Tuple;
+package org.xerial.relation;
 
 /**
- * non-1NF relational schema
+ * Definition of the data types for schema node
  * 
  * @author leo
  * 
  */
-public class RelationalSchema
-{
-    public final String name;
-    public final Tuple<SchemaNode> schema;
+public enum DataType {
 
-    public RelationalSchema(String name, Tuple<SchemaNode> schema)
-    {
-        this.name = name;
-        this.schema = schema;
-    }
-
-    @Override
-    public String toString()
-    {
-        return String.format("schema %s %s", name, schema);
-    }
+    BOOL, BYTE, I16, I32, I64, STRING, DOUBLE, BINARY;
 
 }

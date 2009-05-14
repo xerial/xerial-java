@@ -35,7 +35,7 @@ import org.xerial.core.XerialErrorCode;
  * 
  * @param <NodeType>
  */
-public abstract class NodeBase<NodeType> implements TupleCell<NodeType, IndexAccess<NodeType>>
+public abstract class NodeBase<NodeType> implements TupleCell<NodeType>
 {
     protected NodeBase()
     {}
