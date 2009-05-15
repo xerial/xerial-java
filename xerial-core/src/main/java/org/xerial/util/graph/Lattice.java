@@ -193,6 +193,12 @@ public class Lattice<T>
             this.currentLatticeNode = latticeNode;
         }
 
+        public LatticeNode<T> reset(LatticeNode<T> node)
+        {
+            this.currentLatticeNode = node;
+            return currentLatticeNode;
+        }
+
         public LatticeNode<T> back(T elementToRemove)
         {
             currentLatticeNode = currentLatticeNode.back(elementToRemove);

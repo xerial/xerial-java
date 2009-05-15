@@ -78,6 +78,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     int nodeCount = 0;
     Lattice<String> nodeNameLattice = new Lattice<String>();
     LatticeCursor<String> latticeCursor;
+    Deque<LatticeNode<String>> stateStack = new ArrayDeque<LatticeNode<String>>();
 
     //  HashedChainMap<String, XMLNode> nodeStackOfEachTag = new HashedChainMap<String, XMLNode>();
     HashedDeque<String, Node> nodeStackOfEachTag = new HashedDeque<String, Node>();
@@ -89,6 +90,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         this.query = query;
         this.handler = handler;
+
     }
 
     /**
@@ -197,6 +199,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         nodeCount = 0;
         latticeCursor = nodeNameLattice.cursor();
+        stateStack.addLast(latticeCursor.getNode());
     }
 
     public Deque<Node> getNodeStack(String nodeName)
@@ -244,6 +247,8 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         LatticeNode<String> prevNode = latticeCursor.getNode();
         LatticeNode<String> nextNode = latticeCursor.next(node.nodeName);
+
+        stateStack.addLast(nextNode);
 
         int prevNodeID = prevNode.getID();
         int nextNodeID = nextNode.getID();
@@ -318,10 +323,11 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     void back(Node node)
     {
+        stateStack.removeLast();
         int prevState = latticeCursor.getNodeID();
-        int nextState = latticeCursor.back(node.nodeName).getID();
-
+        int nextState = latticeCursor.reset(stateStack.peekLast()).getID();
         Edge edge = new Edge(prevState, nextState);
+
         List<Operation> actionList = operationSetOnBack.get(edge);
         if (actionList == null)
         {

@@ -47,6 +47,8 @@ public interface LatticeCursor<T>
      */
     LatticeNode<T> back(T elementToRemove);
 
+    LatticeNode<T> reset(LatticeNode<T> node);
+
     /**
      * test the current lattice node contains the specified element
      * 
@@ -56,7 +58,7 @@ public interface LatticeCursor<T>
     boolean contains(T element);
 
     LatticeNode<T> getNode();
-    
+
     int getNodeID();
-    
+
 }
