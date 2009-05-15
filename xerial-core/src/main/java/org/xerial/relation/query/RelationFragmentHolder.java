@@ -267,8 +267,7 @@ public class RelationFragmentHolder
         for (Cell<Node> each : fragment.relationFragment)
             rel.add(each);
 
-        handler.newRelation(relation, rel);
-
+        //handler.newRelation(relation, rel);
     }
 
     public RelationFragment getTargetRelationFragmentFromStack()

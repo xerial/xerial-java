@@ -29,8 +29,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -45,7 +45,6 @@ import org.xerial.relation.schema.SchemaVisitor;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.HashedDeque;
-import org.xerial.util.IndexedSet;
 import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Lattice;
 import org.xerial.util.graph.LatticeCursor;
@@ -86,22 +85,10 @@ public class StreamAmoebaJoin implements TreeVisitor
     HashMap<Edge, List<Operation>> operationSetOnForward = new HashMap<Edge, List<Operation>>();
     HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
 
-    HashMap<Integer, Set<RelationFragmentHolder>> popListOfNodeID = new HashMap<Integer, Set<RelationFragmentHolder>>();
-
-    // relation cache
-    IndexedSet<RelationFragmentHolder> fragmentHolders = new IndexedSet<RelationFragmentHolder>();
-
     public StreamAmoebaJoin(QuerySet query, RelationEventHandler handler) throws IOException
     {
         this.query = query;
         this.handler = handler;
-
-        // prepare relation fragment holder for each schema element
-        for (Schema eachSchema : query.getTargetQuerySet())
-        {
-            fragmentHolders.add(new RelationFragmentHolder(eachSchema, handler));
-        }
-
     }
 
     /**
@@ -117,13 +104,13 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     class PushRelation implements Operation
     {
-        final RelationFragmentHolder container;
+        final Schema schema;
         final String previouslyFoundTag;
         final String newlyFoundTag;
 
-        public PushRelation(RelationFragmentHolder container, String previouslyFoundTag, String newlyFoundTag)
+        public PushRelation(Schema schema, String previouslyFoundTag, String newlyFoundTag)
         {
-            this.container = container;
+            this.schema = schema;
             this.previouslyFoundTag = previouslyFoundTag;
             this.newlyFoundTag = newlyFoundTag;
         }
@@ -136,7 +123,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             if (_logger.isTraceEnabled())
                 _logger.trace(String.format("push:(%s, %s)", knownNode, newNode));
 
-            handler.newRelationFragment(container.getRelation(), knownNode, newNode);
+            handler.newRelationFragment(schema, knownNode, newNode);
 
             //            boolean isChanged = container.push(knownNode);
             //            if (isChanged)
@@ -156,18 +143,19 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     class PopRelation implements Operation
     {
-        final RelationFragmentHolder container;
+        final Schema schema;
         final String poppedTag;
 
-        public PopRelation(RelationFragmentHolder container, String poppedTag)
+        public PopRelation(Schema schema, String poppedTag)
         {
-            this.container = container;
+            this.schema = schema;
             this.poppedTag = poppedTag;
         }
 
         public void execute()
         {
             Node poppedNode = getNodeStack(poppedTag).getLast();
+            handler.leaveNode(schema, poppedNode);
             //container.pop(poppedNode);
         }
 
@@ -175,21 +163,27 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     class PushLoopedRelation implements Operation
     {
-        final RelationFragmentHolder container;
+        final Schema schema;
         final String tagName;
 
-        public PushLoopedRelation(RelationFragmentHolder container, String tagName)
+        public PushLoopedRelation(Schema schema, String tagName)
         {
-            this.container = container;
+            this.schema = schema;
             this.tagName = tagName;
         }
 
         public void execute()
         {
             Deque<Node> nodeStack = getNodeStack(tagName);
-            Node newlyFoundNode = nodeStack.getLast();
-            _logger.debug("loop back: " + newlyFoundNode);
-            //container.push(newlyFoundNode);
+            if (nodeStack.size() < 2)
+                throw new XerialError(XerialErrorCode.INVALID_STATE);
+
+            Iterator<Node> reverseCursor = nodeStack.descendingIterator();
+            Node newlyFoundNode = reverseCursor.next();
+            Node previouslyFoundNode = reverseCursor.next();
+
+            _logger.debug(String.format("loop back: %s and %s", previouslyFoundNode, newlyFoundNode));
+            handler.newRelationFragment(schema, previouslyFoundNode, newlyFoundNode);
         }
 
     }
@@ -243,17 +237,6 @@ public class StreamAmoebaJoin implements TreeVisitor
         Node currentNode = nodeStack.getLast();
 
         back(currentNode);
-
-        Set<RelationFragmentHolder> popList = popListOfNodeID.get(currentNode.nodeID);
-        if (popList != null)
-        {
-            for (RelationFragmentHolder each : popList)
-            {
-                each.pop(currentNode);
-            }
-            popListOfNodeID.remove(currentNode.nodeID);
-        }
-
         nodeStack.removeLast();
     }
 
@@ -281,9 +264,8 @@ public class StreamAmoebaJoin implements TreeVisitor
             // TODO this part consider node pairs (core node, attribute node)
             if (prevNode != nextNode)
             {
-                for (RelationFragmentHolder each : fragmentHolders)
+                for (Schema r : query.getTargetQuerySet())
                 {
-                    Schema r = each.getRelation();
                     if (r.getNodeIndex(newlyFoundTag) != null)
                     {
                         for (String previouslyFoundTag : nextNode)
@@ -298,27 +280,24 @@ public class StreamAmoebaJoin implements TreeVisitor
                             if (_logger.isTraceEnabled())
                                 _logger.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundTag, pi,
                                         newlyFoundTag, r));
-                            actionList.add(new PushRelation(each, previouslyFoundTag, newlyFoundTag));
-                            backActionList.add(new PopRelation(each, newlyFoundTag));
+                            actionList.add(new PushRelation(r, previouslyFoundTag, newlyFoundTag));
+                            backActionList.add(new PopRelation(r, newlyFoundTag));
                             break;
                         }
                     }
-
                 }
             }
             else
             {
                 // loop back e.g. A -> A
-                for (RelationFragmentHolder each : fragmentHolders)
+                for (Schema r : query.getTargetQuerySet())
                 {
-                    Schema r = each.getRelation();
                     String selfLoopNode = r.selfLoopNode();
                     if (selfLoopNode == null)
                         continue;
                     else
                     {
-                        actionList.add(new PushLoopedRelation(each, selfLoopNode));
-                        //backActionList.add(new PopRelation(each, selfLoopNode));
+                        actionList.add(new PushLoopedRelation(r, selfLoopNode));
                         break;
                     }
                 }

@@ -25,14 +25,13 @@
 package org.xerial.relation.query;
 
 import org.xerial.relation.Node;
-import org.xerial.relation.Tuple;
 import org.xerial.relation.schema.Schema;
 
 public interface RelationEventHandler
 {
     public void newRelationFragment(Schema schema, Node n1, Node n2);
 
-    public void newRelation(Schema schema, Tuple<Node> newRelation);
+    public void leaveNode(Schema schema, Node node);
 
     public void text(String nodeName, String text);
 }

@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.xerial.relation.DataType;
 import org.xerial.relation.FD;
 import org.xerial.relation.Node;
-import org.xerial.relation.Tuple;
 import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.silk.SilkWalker;
@@ -60,14 +59,14 @@ public class StreamAmoebaJoinTest
 
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new RelationEventHandler() {
 
-            public void newRelation(Schema schema, Tuple<Node> newRelation)
-            {
-
-            }
-
             public void newRelationFragment(Schema schema, Node n1, Node n2)
             {
-                _logger.info(String.format("schema %10s: (%s, %s)", schema.getName(), n1, n2));
+                _logger.info(String.format("relation (%s, %s)", n1, n2));
+            }
+
+            public void leaveNode(Schema schema, Node node)
+            {
+            //_logger.info(String.format("leave %s in %s", node, schema));
             }
 
             public void text(String nodeName, String text)
@@ -79,5 +78,4 @@ public class StreamAmoebaJoinTest
 
         aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "sample.silk")));
     }
-
 }
