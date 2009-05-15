@@ -245,13 +245,13 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     void forward(Node node)
     {
-        LatticeNode<String> prevNode = latticeCursor.getNode();
-        LatticeNode<String> nextNode = latticeCursor.next(node.nodeName);
+        LatticeNode<String> prevState = latticeCursor.getNode();
+        LatticeNode<String> nextState = latticeCursor.next(node.nodeName);
 
-        stateStack.addLast(nextNode);
+        stateStack.addLast(nextState);
 
-        int prevNodeID = prevNode.getID();
-        int nextNodeID = nextNode.getID();
+        int prevNodeID = prevState.getID();
+        int nextNodeID = nextState.getID();
 
         Edge currentEdge = new Edge(prevNodeID, nextNodeID);
         List<Operation> actionList = operationSetOnForward.get(currentEdge);
@@ -266,30 +266,31 @@ public class StreamAmoebaJoin implements TreeVisitor
             // search for the corresponding relations to newly found two node pair 
             String newlyFoundTag = node.nodeName;
 
-            // TODO this part consider node pairs (core node, attribute node)
-            if (prevNode != nextNode)
+            if (prevState != nextState)
             {
+                // (core node, attribute node)
                 for (Schema r : query.getTargetQuerySet())
                 {
-                    if (r.getNodeIndex(newlyFoundTag) != null)
+                    if (r.getNodeIndex(newlyFoundTag) == null)
+                        continue;
+
+                    for (String previouslyFoundNode : nextState)
                     {
-                        for (String previouslyFoundTag : nextNode)
-                        {
-                            TupleIndex pi = r.getNodeIndex(previouslyFoundTag);
-                            if (r.getNodeIndex(previouslyFoundTag) == null)
-                                continue;
+                        TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
+                        if (pi == null)
+                            continue;
 
-                            if (previouslyFoundTag.equals(newlyFoundTag))
-                                continue;
+                        if (previouslyFoundNode.equals(newlyFoundTag))
+                            continue;
 
-                            if (_logger.isTraceEnabled())
-                                _logger.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundTag, pi,
-                                        newlyFoundTag, r));
-                            actionList.add(new PushRelation(r, previouslyFoundTag, newlyFoundTag));
-                            backActionList.add(new PopRelation(r, newlyFoundTag));
-                            break;
-                        }
+                        if (_logger.isTraceEnabled())
+                            _logger.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundNode, pi,
+                                    newlyFoundTag, r));
+                        actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
+                        backActionList.add(new PopRelation(r, newlyFoundTag));
+                        break;
                     }
+
                 }
             }
             else
