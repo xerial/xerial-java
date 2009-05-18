@@ -55,7 +55,8 @@ public class StreamAmoebaJoinTest
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("group").add("species").add("revision").add("name")
                 .build());
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT, FD.ONE_OR_MORE).build());
-        qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").build());
+        qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").add("sequence")
+                .build());
 
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandler() {
 
@@ -69,10 +70,9 @@ public class StreamAmoebaJoinTest
                 _logger.info(String.format("leave %s in %s", node, schema));
             }
 
-            public void text(String nodeName, String text)
+            public void text(Schema schema, String nodeName, String text)
             {
-            // TODO Auto-generated method stub
-
+                _logger.info(String.format("text %s in %s: %s", text, nodeName, schema));
             }
         });
 
