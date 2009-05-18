@@ -66,7 +66,7 @@ public class StreamAmoebaJoinTest
 
             public void leaveNode(Schema schema, Node node)
             {
-            //_logger.info(String.format("leave %s in %s", node, schema));
+                _logger.info(String.format("leave %s in %s", node, schema));
             }
 
             public void text(String nodeName, String text)

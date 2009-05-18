@@ -180,6 +180,38 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     }
 
+    class ScopedPopRelation implements Operation
+    {
+        final HashMap<String, PopRelation> coreNode_action = new HashMap<String, PopRelation>();
+
+        public ScopedPopRelation(List<PushRelation> candidates)
+        {
+            for (PushRelation each : candidates)
+            {
+                Schema s = each.schema;
+
+                coreNode_action.put(each.previouslyFoundTag, new PopRelation(s, each.newlyFoundTag));
+            }
+        }
+
+        public void execute()
+        {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
+            {
+                String contextNode = it.next();
+                if (coreNode_action.containsKey(contextNode))
+                {
+                    coreNode_action.get(contextNode).execute();
+                    return;
+                }
+            }
+
+            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
+                    currentPath, coreNode_action));
+        }
+
+    }
+
     class PopRelation implements Operation
     {
         final Schema schema;
@@ -358,6 +390,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             if (foundAction.size() > 1)
             {
                 actionList.add(new ScopedPushRelation(foundAction));
+                backActionList.add(new ScopedPopRelation(foundAction));
             }
             else
             {
