@@ -79,6 +79,8 @@ public class StreamAmoebaJoin implements TreeVisitor
     int nodeCount = 0;
     Lattice<String> nodeNameLattice = new Lattice<String>();
     LatticeCursor<String> latticeCursor;
+
+    Deque<String> currentPath = new ArrayDeque<String>();
     Deque<LatticeNode<String>> stateStack = new ArrayDeque<LatticeNode<String>>();
 
     //  HashedChainMap<String, XMLNode> nodeStackOfEachTag = new HashedChainMap<String, XMLNode>();
@@ -129,6 +131,53 @@ public class StreamAmoebaJoin implements TreeVisitor
             handler.newRelationFragment(schema, knownNode, newNode);
 
         }
+
+        @Override
+        public String toString()
+        {
+            return String.format("push: %s for (%s, %s)", schema, previouslyFoundTag, newlyFoundTag);
+        }
+    }
+
+    class ScopedPushRelation implements Operation
+    {
+        final HashMap<String, PushRelation> coreNode_action = new HashMap<String, PushRelation>();
+
+        public ScopedPushRelation(List<PushRelation> candidates)
+        {
+            for (PushRelation each : candidates)
+            {
+                Schema s = each.schema;
+
+                if (isCoreNodeIndex(s.getNodeIndex(each.previouslyFoundTag)))
+                {
+                    coreNode_action.put(each.previouslyFoundTag, each);
+                }
+                else if (isCoreNodeIndex(s.getNodeIndex(each.newlyFoundTag)))
+                {
+                    coreNode_action.put(each.newlyFoundTag, each);
+                }
+                else
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node is found");
+            }
+        }
+
+        public void execute()
+        {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
+            {
+                String contextNode = it.next();
+                if (coreNode_action.containsKey(contextNode))
+                {
+                    coreNode_action.get(contextNode).execute();
+                    return;
+                }
+            }
+
+            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
+                    currentPath, coreNode_action));
+        }
+
     }
 
     class PopRelation implements Operation
@@ -203,6 +252,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         forward(currentNode);
 
+        currentPath.addLast(nodeName);
+
         // for tree nodes
         if (query.isTreeNode(nodeName))
         {
@@ -226,6 +277,8 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         Deque<Node> nodeStack = getNodeStack(nodeName);
         Node currentNode = nodeStack.getLast();
+
+        currentPath.removeLast();
 
         back(currentNode);
         nodeStack.removeLast();
@@ -271,10 +324,12 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         if (prevState != nextState)
         {
+            List<PushRelation> foundAction = new ArrayList<PushRelation>();
             // (core node, attribute node)
             for (Schema r : query.getTargetQuerySet())
             {
-                if (r.getNodeIndex(newlyFoundTag) == null)
+                TupleIndex ni = r.getNodeIndex(newlyFoundTag);
+                if (ni == null)
                     continue;
 
                 for (String previouslyFoundNode : nextState)
@@ -286,15 +341,33 @@ public class StreamAmoebaJoin implements TreeVisitor
                     if (previouslyFoundNode.equals(newlyFoundTag))
                         continue;
 
+                    if (!(isCoreNodeIndex(ni) || isCoreNodeIndex(pi)))
+                        continue;
+
                     if (_logger2.isTraceEnabled())
-                        _logger2.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundNode, pi,
-                                newlyFoundTag, r));
-                    actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
-                    backActionList.add(new PopRelation(r, newlyFoundTag));
+                        _logger2
+                                .trace(String.format("new pair: %s, %s (in %s)", previouslyFoundNode, newlyFoundTag, r));
+
+                    foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
+                    //actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
+                    //backActionList.add(new PopRelation(r, newlyFoundTag));
                     break;
                 }
-
             }
+
+            if (foundAction.size() > 1)
+            {
+                actionList.add(new ScopedPushRelation(foundAction));
+            }
+            else
+            {
+                for (PushRelation each : foundAction)
+                {
+                    actionList.add(each);
+                    backActionList.add(new PopRelation(each.schema, each.newlyFoundTag));
+                }
+            }
+
         }
         else
         {
@@ -316,6 +389,11 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         return actionList;
 
+    }
+
+    private boolean isCoreNodeIndex(TupleIndex ti)
+    {
+        return ti.size() == 1 && ti.get(0) == 0;
     }
 
     void back(Node node)
