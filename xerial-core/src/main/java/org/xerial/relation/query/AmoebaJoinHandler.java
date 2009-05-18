@@ -33,5 +33,5 @@ public interface AmoebaJoinHandler
 
     public void leaveNode(Schema schema, Node node);
 
-    public void text(Schema schema, String nodeName, String text);
+    public void text(Schema schema, Node contextNode, String nodeName, String text);
 }

@@ -106,20 +106,35 @@ public class StreamAmoebaJoin implements TreeVisitor
     class SimpleTextOperation implements TextOperation
     {
         final Schema schema;
+        final String contextNodeName;
 
-        public SimpleTextOperation(Schema schema)
+        public SimpleTextOperation(Schema schema, String contextNodeName)
         {
             this.schema = schema;
+            this.contextNodeName = contextNodeName;
         }
 
         public SimpleTextOperation(PushRelation pr)
         {
             this.schema = pr.schema;
+            if (isCoreNodeIndex(schema.getNodeIndex(pr.previouslyFoundTag)))
+            {
+                this.contextNodeName = pr.previouslyFoundTag;
+            }
+            else if (isCoreNodeIndex(schema.getNodeIndex(pr.newlyFoundTag)))
+            {
+                this.contextNodeName = pr.newlyFoundTag;
+            }
+            else
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node in action: " + pr);
+
         }
 
         public void execute(String nodeName, String textData)
         {
-            handler.text(schema, nodeName, textData);
+            Deque<Node> nodeStack = getNodeStack(contextNodeName);
+            Node contextNode = nodeStack.getLast();
+            handler.text(schema, contextNode, nodeName, textData);
         }
     }
 

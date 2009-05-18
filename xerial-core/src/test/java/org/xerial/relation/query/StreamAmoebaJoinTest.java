@@ -53,7 +53,7 @@ public class StreamAmoebaJoinTest
     {
         QuerySet qs = new QuerySet();
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("group").add("species").add("revision").add("name")
-                .build());
+                .add("sequence").build());
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT, FD.ONE_OR_MORE).build());
         qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").add("sequence")
                 .build());
@@ -62,17 +62,17 @@ public class StreamAmoebaJoinTest
 
             public void newAmoeba(Schema schema, Node n1, Node n2)
             {
-                _logger.info(String.format("relation (%s, %s)", n1, n2));
+                _logger.debug(String.format("relation (%s, %s)", n1, n2));
             }
 
             public void leaveNode(Schema schema, Node node)
             {
-                _logger.info(String.format("leave %s in %s", node, schema));
+                _logger.trace(String.format("leave %s in %s", node, schema));
             }
 
-            public void text(Schema schema, String nodeName, String text)
+            public void text(Schema schema, Node contextNode, String nodeName, String text)
             {
-                _logger.info(String.format("text %s in %s: %s", text, nodeName, schema));
+                _logger.debug(String.format("text %s:%s of %s in %s", nodeName, text, contextNode, schema));
             }
         });
 

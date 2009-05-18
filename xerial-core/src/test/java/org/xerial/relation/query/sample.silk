@@ -1,4 +1,7 @@
 -coordinate(group:utgb, species:human, revision:hg18, name:chr1)
+ -sequence>
+  AACCGG
+  CCCCGG
  -gene(id:1, name:gene1, start:100000, end:200000)
  -gene(id:2, name:gene2, start:500000, end:700000)
   -sequence>
