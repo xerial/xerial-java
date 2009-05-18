@@ -70,6 +70,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     public static final String ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
 
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoin.class);
+    private static Logger _logger2 = Logger.getLogger(StreamAmoebaJoin.class, "lattice");
 
     final QuerySet query;
     final RelationEventHandler handler;
@@ -127,19 +128,6 @@ public class StreamAmoebaJoin implements TreeVisitor
 
             handler.newRelationFragment(schema, knownNode, newNode);
 
-            //            boolean isChanged = container.push(knownNode);
-            //            if (isChanged)
-            //            {
-            //                Set<RelationFragmentHolder> stackListToExecutePop = popListOfNodeID.get(knownNode.nodeID);
-            //                if (stackListToExecutePop == null)
-            //                {
-            //                    stackListToExecutePop = new HashSet<RelationFragmentHolder>();
-            //                    popListOfNodeID.put(knownNode.nodeID, stackListToExecutePop);
-            //                }
-            //                stackListToExecutePop.add(container);
-            //            }
-            //
-            //            container.push(newNode);
         }
     }
 
@@ -245,80 +233,88 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     void forward(Node node)
     {
-        LatticeNode<String> prevState = latticeCursor.getNode();
-        LatticeNode<String> nextState = latticeCursor.next(node.nodeName);
-
-        stateStack.addLast(nextState);
-
-        int prevNodeID = prevState.getID();
-        int nextNodeID = nextState.getID();
-
-        Edge currentEdge = new Edge(prevNodeID, nextNodeID);
-        List<Operation> actionList = operationSetOnForward.get(currentEdge);
-        if (actionList == null)
-        {
-            // lazily prepare the action list
-            actionList = new ArrayList<Operation>();
-            operationSetOnForward.put(currentEdge, actionList);
-            List<Operation> backActionList = new ArrayList<Operation>();
-            operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
-
-            // search for the corresponding relations to newly found two node pair 
-            String newlyFoundTag = node.nodeName;
-
-            if (prevState != nextState)
-            {
-                // (core node, attribute node)
-                for (Schema r : query.getTargetQuerySet())
-                {
-                    if (r.getNodeIndex(newlyFoundTag) == null)
-                        continue;
-
-                    for (String previouslyFoundNode : nextState)
-                    {
-                        TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
-                        if (pi == null)
-                            continue;
-
-                        if (previouslyFoundNode.equals(newlyFoundTag))
-                            continue;
-
-                        if (_logger.isTraceEnabled())
-                            _logger.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundNode, pi,
-                                    newlyFoundTag, r));
-                        actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
-                        backActionList.add(new PopRelation(r, newlyFoundTag));
-                        break;
-                    }
-
-                }
-            }
-            else
-            {
-                // loop back e.g. A -> A
-                for (Schema r : query.getTargetQuerySet())
-                {
-                    String selfLoopNode = r.selfLoopNode();
-                    if (selfLoopNode == null)
-                        continue;
-                    else
-                    {
-                        actionList.add(new PushLoopedRelation(r, selfLoopNode));
-                        break;
-                    }
-                }
-            }
-
-            // TODO handling cross edge (adding ClearRelation operation) 
-
-        }
-
+        List<Operation> actionList = getActionList(node);
         assert actionList != null;
 
         for (Operation each : actionList)
         {
             each.execute();
         }
+    }
+
+    private List<Operation> getActionList(Node nextNode)
+    {
+        LatticeNode<String> prevState = latticeCursor.getNode();
+        LatticeNode<String> nextState = latticeCursor.next(nextNode.nodeName);
+
+        stateStack.addLast(nextState);
+
+        Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
+        List<Operation> actionList = operationSetOnForward.get(currentEdge);
+        if (actionList != null)
+            return actionList;
+
+        int prevNodeID = prevState.getID();
+        int nextNodeID = nextState.getID();
+
+        // lazily prepare the action list
+        actionList = new ArrayList<Operation>();
+        operationSetOnForward.put(currentEdge, actionList);
+        List<Operation> backActionList = new ArrayList<Operation>();
+        operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
+
+        // search for the corresponding relations to newly found two node pair 
+        String newlyFoundTag = nextNode.nodeName;
+
+        if (_logger2.isTraceEnabled())
+            _logger2.trace("crate actions for " + newlyFoundTag);
+
+        if (prevState != nextState)
+        {
+            // (core node, attribute node)
+            for (Schema r : query.getTargetQuerySet())
+            {
+                if (r.getNodeIndex(newlyFoundTag) == null)
+                    continue;
+
+                for (String previouslyFoundNode : nextState)
+                {
+                    TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
+                    if (pi == null)
+                        continue;
+
+                    if (previouslyFoundNode.equals(newlyFoundTag))
+                        continue;
+
+                    if (_logger2.isTraceEnabled())
+                        _logger2.trace(String.format("new pair: %s(%s), %s (in %s)", previouslyFoundNode, pi,
+                                newlyFoundTag, r));
+                    actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
+                    backActionList.add(new PopRelation(r, newlyFoundTag));
+                    break;
+                }
+
+            }
+        }
+        else
+        {
+            // loop back e.g. A -> A
+            for (Schema r : query.getTargetQuerySet())
+            {
+                String selfLoopNode = r.selfLoopNode();
+                if (selfLoopNode == null)
+                    continue;
+                else
+                {
+                    actionList.add(new PushLoopedRelation(r, selfLoopNode));
+                    break;
+                }
+            }
+        }
+
+        // TODO handling cross edge (adding ClearRelation operation) 
+
+        return actionList;
 
     }
 
