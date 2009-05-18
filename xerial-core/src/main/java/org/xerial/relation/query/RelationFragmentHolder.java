@@ -62,7 +62,7 @@ public class RelationFragmentHolder
 
     private final int relationSize;
 
-    private RelationEventHandler handler;
+    private AmoebaJoinHandler handler;
 
     private class RelationFragment
     {
@@ -154,7 +154,7 @@ public class RelationFragmentHolder
 
     }
 
-    public RelationFragmentHolder(Schema targetRelation, RelationEventHandler handler)
+    public RelationFragmentHolder(Schema targetRelation, AmoebaJoinHandler handler)
     {
         this.relation = targetRelation;
 

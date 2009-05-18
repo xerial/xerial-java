@@ -57,9 +57,9 @@ public class StreamAmoebaJoinTest
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT, FD.ONE_OR_MORE).build());
         qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").build());
 
-        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new RelationEventHandler() {
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandler() {
 
-            public void newRelationFragment(Schema schema, Node n1, Node n2)
+            public void newAmoeba(Schema schema, Node n1, Node n2)
             {
                 _logger.info(String.format("relation (%s, %s)", n1, n2));
             }

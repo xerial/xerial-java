@@ -27,11 +27,11 @@ package org.xerial.relation.query;
 import org.xerial.relation.Node;
 import org.xerial.relation.schema.Schema;
 
-public interface RelationEventHandler
+public interface AmoebaJoinHandler
 {
-    public void newRelationFragment(Schema schema, Node n1, Node n2);
+    public void newAmoeba(Schema schema, Node n1, Node n2);
 
     public void leaveNode(Schema schema, Node node);
 
-    public void text(String nodeName, String text);
+    public void text(Schema schema, String nodeName, String text);
 }

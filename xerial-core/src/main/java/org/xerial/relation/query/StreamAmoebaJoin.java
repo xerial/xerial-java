@@ -73,7 +73,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     private static Logger _logger2 = Logger.getLogger(StreamAmoebaJoin.class, "lattice");
 
     final QuerySet query;
-    final RelationEventHandler handler;
+    final AmoebaJoinHandler handler;
 
     // for running amoeba join
     int nodeCount = 0;
@@ -89,7 +89,9 @@ public class StreamAmoebaJoin implements TreeVisitor
     HashMap<Edge, List<Operation>> operationSetOnForward = new HashMap<Edge, List<Operation>>();
     HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
 
-    public StreamAmoebaJoin(QuerySet query, RelationEventHandler handler) throws IOException
+    List<Operation> forwardActionList = null;
+
+    public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException
     {
         this.query = query;
         this.handler = handler;
@@ -128,7 +130,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             if (_logger.isTraceEnabled())
                 _logger.trace(String.format("push:(%s, %s)", knownNode, newNode));
 
-            handler.newRelationFragment(schema, knownNode, newNode);
+            handler.newAmoeba(schema, knownNode, newNode);
 
         }
 
@@ -254,8 +256,13 @@ public class StreamAmoebaJoin implements TreeVisitor
             Node previouslyFoundNode = reverseCursor.next();
 
             _logger.debug(String.format("loop back: %s and %s", previouslyFoundNode, newlyFoundNode));
-            handler.newRelationFragment(schema, previouslyFoundNode, newlyFoundNode);
+            handler.newAmoeba(schema, previouslyFoundNode, newlyFoundNode);
         }
+
+    }
+
+    class ReportText
+    {
 
     }
 
@@ -302,6 +309,15 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
     {
+        if (forwardActionList == null)
+            throw new XerialError(XerialErrorCode.INVALID_STATE, "null action list: for text node " + nodeName);
+
+        Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
+        LatticeNode<String> currentState = it.next();
+        LatticeNode<String> prevState = it.next();
+
+        Edge currentEdge = new Edge(prevState.getID(), currentState.getID());
+
         handler.text(nodeName, textDataFragment);
     }
 
@@ -318,16 +334,16 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     void forward(Node node)
     {
-        List<Operation> actionList = getActionList(node);
-        assert actionList != null;
+        forwardActionList = getForwardActionList(node);
+        assert forwardActionList != null;
 
-        for (Operation each : actionList)
+        for (Operation each : forwardActionList)
         {
             each.execute();
         }
     }
 
-    private List<Operation> getActionList(Node nextNode)
+    private List<Operation> getForwardActionList(Node nextNode)
     {
         LatticeNode<String> prevState = latticeCursor.getNode();
         LatticeNode<String> nextState = latticeCursor.next(nextNode.nodeName);
@@ -381,19 +397,20 @@ public class StreamAmoebaJoin implements TreeVisitor
                                 .trace(String.format("new pair: %s, %s (in %s)", previouslyFoundNode, newlyFoundTag, r));
 
                     foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
-                    //actionList.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
-                    //backActionList.add(new PopRelation(r, newlyFoundTag));
                     break;
                 }
             }
 
+            // set the action list
             if (foundAction.size() > 1)
             {
+                // context-dependent actions
                 actionList.add(new ScopedPushRelation(foundAction));
                 backActionList.add(new ScopedPopRelation(foundAction));
             }
             else
             {
+                // a single action
                 for (PushRelation each : foundAction)
                 {
                     actionList.add(each);
@@ -417,8 +434,6 @@ public class StreamAmoebaJoin implements TreeVisitor
                 }
             }
         }
-
-        // TODO handling cross edge (adding ClearRelation operation) 
 
         return actionList;
 
