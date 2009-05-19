@@ -44,7 +44,7 @@ class ExceptionHelper
         if (message == null)
             return errorCodeDisplay;
         else
-            return String.format("%s:%s", errorCodeDisplay, message);
+            return String.format("%s %s", errorCodeDisplay, message);
     }
 
 }

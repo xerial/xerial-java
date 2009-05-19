@@ -66,6 +66,16 @@ public class ObjectLens
     private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
     private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
 
+    public List<ParameterSetter> getSetterList()
+    {
+        return setterContainer;
+    }
+
+    public List<RelationSetter> getRelationSetterList()
+    {
+        return relationSetterContainer;
+    }
+
     protected ObjectLens(Class< ? > targetType)
     {
         createBindRules(targetType);
@@ -167,7 +177,7 @@ public class ObjectLens
     static private Pattern propertyNamePattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
     static private Pattern pairedNamePattern = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
 
-    public static String pickPropertyName(String methodName)
+    static String pickPropertyName(String methodName)
     {
         Matcher m = null;
         m = propertyNamePattern.matcher(methodName);
@@ -182,7 +192,7 @@ public class ObjectLens
         }
     }
 
-    public static Pair<String, String> pickRelationName(String pairedName)
+    static Pair<String, String> pickRelationName(String pairedName)
     {
         Matcher m = null;
         m = pairedNamePattern.matcher(pairedName);
@@ -193,7 +203,7 @@ public class ObjectLens
                     getCanonicalParameterName(m.group(2)));
     }
 
-    public static String getCanonicalParameterName(String paramName)
+    static String getCanonicalParameterName(String paramName)
     {
         paramName = paramName.replaceAll("\\s", "");
         paramName = paramName.replaceAll("-", "");
@@ -203,13 +213,5 @@ public class ObjectLens
     private enum SetterType {
         ADDER, SETTER, PUTTER, APPENDER
     };
-
-    private static class Getter
-    {
-        Field target;
-        Method setter;
-        String paremterName;
-
-    }
 
 }

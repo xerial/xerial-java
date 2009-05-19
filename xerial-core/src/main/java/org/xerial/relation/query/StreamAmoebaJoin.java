@@ -96,6 +96,8 @@ public class StreamAmoebaJoin implements TreeVisitor
         this.query = query;
         this.handler = handler;
 
+        if (query == null)
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, "query set is null");
     }
 
     static interface TextOperation
