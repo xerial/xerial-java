@@ -54,6 +54,26 @@ public abstract class RelationSetter
         this.attributeNodeName = attributeNodeName;
     }
 
+    public Class< ? > getCoreNodeType()
+    {
+        return coreNodeType;
+    }
+
+    public Class< ? > getAttributeNodeType()
+    {
+        return attributeNodeType;
+    }
+
+    public String getCoreNodeName()
+    {
+        return coreNodeName;
+    }
+
+    public String getAttributeNodeName()
+    {
+        return attributeNodeName;
+    }
+
     @Override
     public String toString()
     {

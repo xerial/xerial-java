@@ -72,4 +72,10 @@ public class QuerySet
     {
         return treeNodeSet.contains(nodeName);
     }
+
+    @Override
+    public String toString()
+    {
+        return queryTarget.toString();
+    }
 }

@@ -41,12 +41,12 @@ public class ObjectMapperTest
     public void tearDown() throws Exception
     {}
 
-    public static class Coordinate
+    public static class CoordinateData
     {
         public final String name;
         public final String species;
 
-        public Coordinate(String name, String species)
+        public CoordinateData(String name, String species)
         {
             this.name = name;
             this.species = species;
@@ -54,14 +54,14 @@ public class ObjectMapperTest
 
     }
 
-    public static class Gene
+    public static class GeneData
     {
         public final String name;
         public final long start;
         public final long end;
         public final String strand;
 
-        public Gene(String name, long start, long end, String strand)
+        public GeneData(String name, long start, long end, String strand)
         {
             this.name = name;
             this.start = start;
@@ -74,7 +74,7 @@ public class ObjectMapperTest
     {
         public final String name = null;
 
-        public void addCoordinate_Gene(Coordinate c, Gene g)
+        public void addCoordinate_Gene(CoordinateData c, GeneData g)
         {}
     }
 

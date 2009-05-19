@@ -26,6 +26,8 @@ package org.xerial.lens;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -35,6 +37,7 @@ import org.xerial.relation.query.AmoebaJoinHandler;
 import org.xerial.relation.query.QuerySet;
 import org.xerial.relation.query.StreamAmoebaJoin;
 import org.xerial.relation.schema.Schema;
+import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeWalker;
@@ -70,6 +73,9 @@ public class ObjectMapper
 
             QuerySet qs = buildQuery(object.getClass());
 
+            if (_logger.isDebugEnabled())
+                _logger.debug("query set: " + qs);
+
             // set the root object
             objectHolder.put(0L, object);
 
@@ -88,15 +94,58 @@ public class ObjectMapper
     {
         QuerySet qs = new QuerySet();
 
+        Set<Class< ? >> relatedClasses = findRelatedClasses(targetType);
+        for (Class< ? > eachClass : relatedClasses)
+        {
+            ObjectLens lens = ObjectLens.getObjectLens(eachClass);
+
+            for (ParameterSetter each : lens.getSetterList())
+            {
+
+            }
+
+            for (RelationSetter each : lens.getRelationSetterList())
+            {
+                qs.addQueryTarget(new SchemaBuilder().add(each.getCoreNodeName()).add(each.getAttributeNodeName())
+                        .build());
+            }
+        }
+
+        return qs;
+    }
+
+    private Set<Class< ? >> findRelatedClasses(Class< ? > targetType)
+    {
+        HashSet<Class< ? >> foundClasses = new HashSet<Class< ? >>();
+        findRelatedClasses_internal(foundClasses, targetType);
+        return foundClasses;
+    }
+
+    private void findRelatedClasses_internal(Set<Class< ? >> foundClasses, Class< ? > targetType)
+    {
+        if (TypeInformation.isBasicType(targetType))
+            return;
+
+        if (foundClasses.contains(targetType))
+            return;
+
+        foundClasses.add(targetType);
+
         ObjectLens lens = ObjectLens.getObjectLens(targetType);
         if (_logger.isDebugEnabled())
             _logger.debug(String.format("class %s\n%s", targetType.getSimpleName(), lens));
+
         for (ParameterSetter each : lens.getSetterList())
         {
-
+            findRelatedClasses_internal(foundClasses, each.getTargetClass());
         }
 
-        return null;
+        for (RelationSetter each : lens.getRelationSetterList())
+        {
+            findRelatedClasses_internal(foundClasses, each.getCoreNodeType());
+            findRelatedClasses_internal(foundClasses, each.getAttributeNodeType());
+        }
+
     }
 
     private class RelationExtracter implements AmoebaJoinHandler
@@ -109,12 +158,12 @@ public class ObjectMapper
 
         public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
         {
-
+            if (_logger.isDebugEnabled())
+                _logger.debug(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
         }
 
         public void text(Schema schema, Node coreNode, String nodeName, String text)
         {
-        // TODO Auto-generated method stub
 
         }
 
