@@ -43,36 +43,32 @@ public class ObjectMapperTest
 
     public static class CoordinateData
     {
-        public final String name;
-        public final String species;
-
-        public CoordinateData(String name, String species)
-        {
-            this.name = name;
-            this.species = species;
-        }
+        public String group;
+        public String name;
+        public String species;
+        public String revision;
 
     }
 
+    // query: (gene, name, start, end, strand)
     public static class GeneData
     {
-        public final String name;
-        public final long start;
-        public final long end;
-        public final String strand;
+        public String name;
+        public long start;
+        public long end;
+        public String strand;
 
-        public GeneData(String name, long start, long end, String strand)
+        private StringBuilder sequence = new StringBuilder();
+
+        public void appendSequence(String seq)
         {
-            this.name = name;
-            this.start = start;
-            this.end = end;
-            this.strand = strand;
+            sequence.append(seq);
         }
     }
 
     public static class GeneDB
     {
-        public final String name = null;
+        public String name;
 
         public void addCoordinate_Gene(CoordinateData c, GeneData g)
         {}

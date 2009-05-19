@@ -69,7 +69,8 @@ public enum XerialErrorCode implements ErrorCode {
     INVALID_TOKEN,
     PARSE_ERROR,
 
-    ;
+    // general exception
+    INHERITED, ;
 
     private final String description;
 

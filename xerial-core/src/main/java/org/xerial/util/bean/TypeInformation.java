@@ -155,7 +155,19 @@ public class TypeInformation
         return Triplet.class.isAssignableFrom(c);
     }
 
-    public static boolean hasPublicConstructor(Class< ? > c)
+    public static boolean hasDefaultConstructor(Class< ? > c)
+    {
+        for (Constructor< ? > constructor : c.getConstructors())
+        {
+            if (constructor.getParameterTypes().length == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasPublicDefaultConstructor(Class< ? > c)
     {
         for (Constructor< ? > constructor : c.getConstructors())
         {
@@ -186,7 +198,7 @@ public class TypeInformation
     // type cast is tested
     private static <T> Class<T> alternateConstractableClassFor(Class<T> c)
     {
-        if (hasPublicConstructor(c))
+        if (hasPublicDefaultConstructor(c))
             return c;
 
         if (isCollection(c))
@@ -221,8 +233,8 @@ public class TypeInformation
 
         Class<T> constractableClass = alternateConstractableClassFor(c);
         if (constractableClass == null)
-            throw new BeanException(BeanErrorCode.NoPublicConstructor, "public constructor for the class: "
-                    + c.getName() + " is not available");
+            throw new BeanException(BeanErrorCode.NoPublicConstructor, "No public constructor for the class: "
+                    + c.getName() + " is available");
 
         try
         {

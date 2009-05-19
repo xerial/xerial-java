@@ -24,8 +24,10 @@
 //--------------------------------------
 package org.xerial.relation.query;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.xerial.relation.schema.Schema;
@@ -42,25 +44,15 @@ public class QuerySet
     private IndexedSet<Schema> queryTarget = new IndexedSet<Schema>();
     private Set<String> treeNodeSet = new HashSet<String>();
 
-    public QuerySet()
+    private QuerySet()
     {}
 
-    public QuerySet(Collection<Schema> schemaSet)
+    private QuerySet(Collection<Schema> schemaSet)
     {
         for (Schema eachSchema : schemaSet)
         {
             queryTarget.add(eachSchema);
         }
-    }
-
-    public void addTreeNode(String treeNode)
-    {
-        treeNodeSet.add(treeNode);
-    }
-
-    public void addQueryTarget(Schema schema)
-    {
-        queryTarget.add(schema);
     }
 
     public Set<Schema> getTargetQuerySet()
@@ -78,4 +70,27 @@ public class QuerySet
     {
         return queryTarget.toString();
     }
+
+    public static class QuerySetBuilder
+    {
+        List<Schema> schemaList = new ArrayList<Schema>();
+        Set<String> treeNodeSet = new HashSet<String>();
+
+        public void addTreeNode(String treeNode)
+        {
+            treeNodeSet.add(treeNode);
+        }
+
+        public void addQueryTarget(Schema schema)
+        {
+            schemaList.add(schema);
+        }
+
+        public QuerySet build()
+        {
+            return new QuerySet(schemaList);
+        }
+
+    }
+
 }

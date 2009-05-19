@@ -38,20 +38,20 @@ import org.xerial.util.reflect.ReflectionUtil;
  */
 public abstract class ParameterSetter
 {
-    private final Class< ? > targetClass;
+    private final Class< ? > parameterType;
     private final String parameterName;
 
-    public ParameterSetter(Class< ? > targetClass, String parameterName)
+    public ParameterSetter(Class< ? > parameterType, String parameterName)
     {
-        this.targetClass = targetClass;
+        this.parameterType = parameterType;
         this.parameterName = parameterName;
     }
 
     public abstract void bind(Object object, Object value) throws XerialException;
 
-    public Class< ? > getTargetClass()
+    public Class< ? > getParameterType()
     {
-        return targetClass;
+        return parameterType;
     }
 
     @Override

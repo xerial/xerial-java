@@ -212,9 +212,9 @@ public class TypeInformationTest
     @Test
     public void testHasPublicConstructor()
     {
-        assertTrue(TypeInformation.hasPublicConstructor(Book.class));
-        assertTrue(TypeInformation.hasPublicConstructor(TypeInformationTest.class));
-        assertFalse(TypeInformation.hasPublicConstructor(TypeInformation.class));
+        assertTrue(TypeInformation.hasPublicDefaultConstructor(Book.class));
+        assertTrue(TypeInformation.hasPublicDefaultConstructor(TypeInformationTest.class));
+        assertFalse(TypeInformation.hasPublicDefaultConstructor(TypeInformation.class));
     }
 
     @Test

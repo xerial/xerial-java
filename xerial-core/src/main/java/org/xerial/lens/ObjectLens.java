@@ -63,6 +63,7 @@ public class ObjectLens
         }
     }
 
+    private Class< ? > targetType;
     private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
     private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
 
@@ -78,7 +79,23 @@ public class ObjectLens
 
     protected ObjectLens(Class< ? > targetType)
     {
+        this.targetType = targetType;
         createBindRules(targetType);
+    }
+
+    public Class< ? > getTargetType()
+    {
+        return targetType;
+    }
+
+    public void bindParameter(Object target, String parameterName, Object value)
+    {
+
+    }
+
+    public void bindRelation(Object target, String relationName, Object coreNode, Object attributeNode)
+    {
+
     }
 
     @Override
@@ -135,7 +152,7 @@ public class ObjectLens
                     {
                     case 1:
                     {
-                        addNewSetter(eachClass, paramPart, eachMethod);
+                        addNewSetter(setterContainer, eachClass, paramPart, eachMethod);
                         break;
                     }
                     case 2:
@@ -153,7 +170,7 @@ public class ObjectLens
                 }
                 else if (methodName.startsWith("append"))
                 {
-                    addNewSetter(eachClass, paramPart, eachMethod);
+                    addNewSetter(setterContainer, eachClass, paramPart, eachMethod);
                 }
 
             }
@@ -162,7 +179,7 @@ public class ObjectLens
 
     }
 
-    private void addNewSetter(Class< ? > c, String paramPart, Method m)
+    private static void addNewSetter(List<ParameterSetter> setterContainer, Class< ? > c, String paramPart, Method m)
     {
         Class< ? >[] argTypes = m.getParameterTypes();
         if (argTypes.length != 1)

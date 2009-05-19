@@ -36,17 +36,17 @@ import org.xerial.relation.schema.Schema;
 public class AmoebaJoinHandlerBase implements AmoebaJoinHandler
 {
 
-    public void leaveNode(Schema schema, Node node)
+    public void leaveNode(Schema schema, Node node) throws Exception
     {
 
     }
 
-    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
+    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
     {
 
     }
 
-    public void text(Schema schema, Node coreNode, String nodeName, String text)
+    public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception
     {
 
     }

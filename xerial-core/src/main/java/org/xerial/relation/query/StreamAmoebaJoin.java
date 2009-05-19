@@ -102,7 +102,7 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     static interface TextOperation
     {
-        void execute(String nodeName, String textData);
+        void execute(String nodeName, String textData) throws Exception;
     }
 
     class SimpleTextOperation implements TextOperation
@@ -122,7 +122,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             this.coreNodeName = pr.coreNodeName;
         }
 
-        public void execute(String nodeName, String textData)
+        public void execute(String nodeName, String textData) throws Exception
         {
             Deque<Node> nodeStack = getNodeStack(coreNodeName);
             Node contextNode = nodeStack.getLast();
@@ -142,7 +142,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             }
         }
 
-        public void execute(String nodeName, String textData)
+        public void execute(String nodeName, String textData) throws Exception
         {
             for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
             {
@@ -165,7 +165,7 @@ public class StreamAmoebaJoin implements TreeVisitor
      */
     static interface Operation
     {
-        void execute();
+        void execute() throws Exception;
     }
 
     class PushRelation implements Operation
@@ -194,7 +194,7 @@ public class StreamAmoebaJoin implements TreeVisitor
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node in " + schema);
         }
 
-        public void execute()
+        public void execute() throws Exception
         {
             Node coreNode = getNodeStack(coreNodeName).getLast();
             Node attributeNode = getNodeStack(attributeNodeName).getLast();
@@ -225,7 +225,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             }
         }
 
-        public void execute()
+        public void execute() throws Exception
         {
             for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
             {
@@ -257,7 +257,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             }
         }
 
-        public void execute()
+        public void execute() throws Exception
         {
             for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
             {
@@ -286,7 +286,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             this.poppedTag = poppedTag;
         }
 
-        public void execute()
+        public void execute() throws Exception
         {
             Node poppedNode = getNodeStack(poppedTag).getLast();
             handler.leaveNode(schema, poppedNode);
@@ -306,7 +306,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             this.tagName = tagName;
         }
 
-        public void execute()
+        public void execute() throws Exception
         {
             Deque<Node> nodeStack = getNodeStack(tagName);
             if (nodeStack.size() < 2)
@@ -399,8 +399,15 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         assert textOperation != null;
 
-        for (TextOperation each : textOperation)
-            each.execute(nodeName, textDataFragment);
+        try
+        {
+            for (TextOperation each : textOperation)
+                each.execute(nodeName, textDataFragment);
+        }
+        catch (Exception e)
+        {
+            throw new XerialError(XerialErrorCode.INHERITED, e);
+        }
     }
 
     public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
@@ -410,7 +417,15 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         currentPath.removeLast();
 
-        back(currentNode);
+        try
+        {
+            back(currentNode);
+        }
+        catch (Exception e)
+        {
+            throw new XerialException(XerialErrorCode.INHERITED, e);
+        }
+
         nodeStack.removeLast();
     }
 
@@ -420,13 +435,13 @@ public class StreamAmoebaJoin implements TreeVisitor
         LatticeNode<String> nextState = latticeCursor.next(node.nodeName);
         stateStack.addLast(nextState);
 
-        List<Operation> forwardActionList = getForwardActionList(prevState, nextState, node.nodeName);
-        assert forwardActionList != null;
-
-        for (Operation each : forwardActionList)
-        {
-            each.execute();
-        }
+        //        List<Operation> forwardActionList = getForwardActionList(prevState, nextState, node.nodeName);
+        //        assert forwardActionList != null;
+        //
+        //        for (Operation each : forwardActionList)
+        //        {
+        //            each.execute();
+        //        }
     }
 
     private List<Operation> getForwardActionList(LatticeNode<String> prevState, LatticeNode<String> nextState,
@@ -527,19 +542,29 @@ public class StreamAmoebaJoin implements TreeVisitor
         return ti.size() == 1 && ti.get(0) == 0;
     }
 
-    void back(Node node)
+    void back(Node node) throws Exception
     {
+
+        Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
+        LatticeNode<String> current = it.next();
+        LatticeNode<String> prev = it.next();
         stateStack.removeLast();
+
+        // process forward edge
+        for (Operation each : getForwardActionList(prev, current, node.nodeName))
+        {
+            each.execute();
+        }
+
+        // process back edge
         int prevState = latticeCursor.getNodeID();
         int nextState = latticeCursor.reset(stateStack.peekLast()).getID();
-        Edge edge = new Edge(prevState, nextState);
-
-        List<Operation> actionList = operationSetOnBack.get(edge);
+        Edge backEdge = new Edge(prevState, nextState);
+        List<Operation> actionList = operationSetOnBack.get(backEdge);
         if (actionList == null)
         {
             throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
         }
-
         for (Operation each : actionList)
         {
             each.execute();

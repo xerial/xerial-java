@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.xerial.relation.DataType;
 import org.xerial.relation.FD;
 import org.xerial.relation.Node;
+import org.xerial.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.silk.SilkWalker;
@@ -51,14 +52,14 @@ public class StreamAmoebaJoinTest
     @Test
     public void query() throws Exception
     {
-        QuerySet qs = new QuerySet();
+        QuerySetBuilder qs = new QuerySetBuilder();
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("group").add("species").add("revision").add("name")
                 .add("sequence").build());
         qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT, FD.ONE_OR_MORE).build());
         qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").add("sequence")
                 .build());
 
-        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandler() {
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs.build(), new AmoebaJoinHandler() {
 
             public void newAmoeba(Schema schema, Node n1, Node n2)
             {

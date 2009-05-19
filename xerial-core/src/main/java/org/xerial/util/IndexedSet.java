@@ -244,7 +244,7 @@ public class IndexedSet<T> implements Set<T>
         TreeSet<Integer> sortedIDSet = new TreeSet<Integer>(getIDSet());
         for (int elementID : sortedIDSet)
         {
-            elementList.add(String.format("%s(%d)", getByID(elementID), elementID));
+            elementList.add(String.format("%d:%s", elementID, getByID(elementID)));
         }
 
         return String.format("{%s}", StringUtil.join(elementList, ", "));
