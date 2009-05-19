@@ -653,6 +653,7 @@ public class SilkStreamReader implements TreeStreamReader
 
         SilkEvent currentEvent = parser.next();
 
+        // update the line count
         numReadLine = parser.getNumReadLine();
 
         if (_logger.isTraceEnabled())

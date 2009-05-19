@@ -28,23 +28,51 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.xerial.util.Pair;
 import org.xerial.util.bean.TypeInformation;
 
+/**
+ * Tree to Object lens
+ * 
+ * @author leo
+ * 
+ */
 public class ObjectLens
 {
-    public ObjectLens(Class< ? > targetType)
+    private static HashMap<Class< ? >, ObjectLens> cache = new HashMap<Class< ? >, ObjectLens>();
+
+    /**
+     * Get the lens of the target type
+     * 
+     * @param target
+     * @return lens of the target type
+     */
+    public static ObjectLens getObjectLens(Class< ? > target)
+    {
+        if (cache.containsKey(target))
+            return cache.get(target);
+        else
+        {
+            cache.put(target, new ObjectLens(target));
+            return getObjectLens(target);
+        }
+    }
+
+    private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
+    private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
+
+    protected ObjectLens(Class< ? > targetType)
     {
         createBindRules(targetType);
     }
 
-    private static void createBindRules(Class< ? > targetType)
+    private void createBindRules(Class< ? > targetType)
     {
-        List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
-
         // look for all super classes
         for (Class< ? > eachClass = targetType; eachClass != null; eachClass = eachClass.getSuperclass())
         {
@@ -82,36 +110,34 @@ public class ObjectLens
             for (Method eachMethod : eachClass.getMethods())
             {
                 String methodName = eachMethod.getName();
-                String parametrName = pickPropertyName(methodName);
-                if (methodName.startsWith("add"))
-                {
-                    // adder
-                    String paramName = getCanonicalParameterName(methodName.substring(3));
-                    setterContainer.add(ParameterSetter.newSetter(eachClass, paramName, eachMethod));
+                String paramPart = pickPropertyName(methodName);
 
-                }
-                else if (methodName.startsWith("set"))
+                if (methodName.startsWith("add") || methodName.startsWith("set") || methodName.startsWith("put"))
                 {
-                    // setter
-                    String paramName = getCanonicalParameterName(methodName.substring(3));
-
-                }
-                else if (methodName.startsWith("get"))
-                {
-                    // we cannot use any getter that requires some arguments
-                    Class< ? >[] parameterType = eachMethod.getParameterTypes();
-                    if (parameterType.length != 0)
+                    Class< ? >[] argTypes = eachMethod.getParameterTypes();
+                    switch (argTypes.length)
+                    {
+                    case 1:
+                    {
+                        addNewSetter(eachClass, paramPart, eachMethod);
+                        break;
+                    }
+                    case 2:
+                    {
+                        // relation adder
+                        Pair<String, String> relName = pickRelationName(paramPart);
+                        relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
+                                .getSecond(), eachMethod));
+                        break;
+                    }
+                    default:
                         continue;
-
-                }
-                else if (methodName.startsWith("put"))
-                {
+                    }
 
                 }
                 else if (methodName.startsWith("append"))
                 {
-                    // appender for a large text value split into chunks
-
+                    addNewSetter(eachClass, paramPart, eachMethod);
                 }
 
             }
@@ -120,7 +146,26 @@ public class ObjectLens
 
     }
 
+    private void addNewSetter(Class< ? > c, String paramPart, Method m)
+    {
+        Class< ? >[] argTypes = m.getParameterTypes();
+        if (argTypes.length != 1)
+            return;
+
+        assert (argTypes.length == 1);
+
+        String paramName = getCanonicalParameterName(paramPart);
+        if (paramName.length() <= 0)
+        {
+            // infer parameter name from argument type
+            paramName = getCanonicalParameterName(argTypes[0].getName());
+        }
+        setterContainer.add(ParameterSetter.newSetter(c, paramName, m));
+        return;
+    }
+
     static private Pattern propertyNamePattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
+    static private Pattern pairedNamePattern = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
 
     public static String pickPropertyName(String methodName)
     {
@@ -131,10 +176,21 @@ public class ObjectLens
         else
         {
             if (m.group(2) != null)
-                return getCanonicalParameterName(m.group(3) + m.group(4));
+                return getCanonicalParameterName(m.group(2));
             else
                 return "";
         }
+    }
+
+    public static Pair<String, String> pickRelationName(String pairedName)
+    {
+        Matcher m = null;
+        m = pairedNamePattern.matcher(pairedName);
+        if (!m.matches())
+            return null;
+        else
+            return new Pair<String, String>(getCanonicalParameterName(m.group(1)),
+                    getCanonicalParameterName(m.group(2)));
     }
 
     public static String getCanonicalParameterName(String paramName)
