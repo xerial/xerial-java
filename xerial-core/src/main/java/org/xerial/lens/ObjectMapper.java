@@ -36,6 +36,7 @@ import org.xerial.relation.query.QuerySet;
 import org.xerial.relation.query.StreamAmoebaJoin;
 import org.xerial.relation.schema.Schema;
 import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeWalker;
 
 /**
@@ -46,6 +47,7 @@ import org.xerial.util.tree.TreeWalker;
  */
 public class ObjectMapper
 {
+    private static Logger _logger = Logger.getLogger(ObjectMapper.class);
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
 
     public ObjectMapper()
@@ -67,6 +69,10 @@ public class ObjectMapper
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
 
             QuerySet qs = buildQuery(object.getClass());
+
+            // set the root object
+            objectHolder.put(0L, object);
+
             StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new RelationExtracter());
             aj.sweep(walker);
             return object;
@@ -83,6 +89,8 @@ public class ObjectMapper
         QuerySet qs = new QuerySet();
 
         ObjectLens lens = ObjectLens.getObjectLens(targetType);
+        if (_logger.isDebugEnabled())
+            _logger.debug(String.format("class %s\n%s", targetType.getSimpleName(), lens));
         for (ParameterSetter each : lens.getSetterList())
         {
 

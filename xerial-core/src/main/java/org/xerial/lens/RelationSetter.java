@@ -55,6 +55,12 @@ public abstract class RelationSetter
     }
 
     @Override
+    public String toString()
+    {
+        return String.format("[%s, %s]", coreNodeName, attributeNodeName);
+    }
+
+    @Override
     public boolean equals(Object obj)
     {
         RelationSetter other = RelationSetter.class.cast(obj);

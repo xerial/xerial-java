@@ -54,6 +54,12 @@ public abstract class ParameterSetter
         return targetClass;
     }
 
+    @Override
+    public String toString()
+    {
+        return parameterName;
+    }
+
     public String getParameterName()
     {
         return parameterName;

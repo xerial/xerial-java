@@ -81,6 +81,12 @@ public class ObjectLens
         createBindRules(targetType);
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("parameter setter:\n%s\nrelation setter:\n%s", setterContainer, relationSetterContainer);
+    }
+
     private void createBindRules(Class< ? > targetType)
     {
         // look for all super classes
@@ -168,7 +174,7 @@ public class ObjectLens
         if (paramName.length() <= 0)
         {
             // infer parameter name from argument type
-            paramName = getCanonicalParameterName(argTypes[0].getName());
+            paramName = getCanonicalParameterName(argTypes[0].getSimpleName());
         }
         setterContainer.add(ParameterSetter.newSetter(c, paramName, m));
         return;
