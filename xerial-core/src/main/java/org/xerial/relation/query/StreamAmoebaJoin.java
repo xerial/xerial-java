@@ -77,7 +77,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     final AmoebaJoinHandler handler;
 
     // for running amoeba join
-    int nodeCount = 0;
+    long nodeCount = 0;
     Lattice<String> nodeNameLattice = new Lattice<String>();
     LatticeCursor<String> latticeCursor;
 
@@ -106,33 +106,23 @@ public class StreamAmoebaJoin implements TreeVisitor
     class SimpleTextOperation implements TextOperation
     {
         final Schema schema;
-        final String contextNodeName;
+        final String coreNodeName;
 
         public SimpleTextOperation(Schema schema, String contextNodeName)
         {
             this.schema = schema;
-            this.contextNodeName = contextNodeName;
+            this.coreNodeName = contextNodeName;
         }
 
         public SimpleTextOperation(PushRelation pr)
         {
             this.schema = pr.schema;
-            if (isCoreNodeIndex(schema.getNodeIndex(pr.previouslyFoundTag)))
-            {
-                this.contextNodeName = pr.previouslyFoundTag;
-            }
-            else if (isCoreNodeIndex(schema.getNodeIndex(pr.newlyFoundTag)))
-            {
-                this.contextNodeName = pr.newlyFoundTag;
-            }
-            else
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node in action: " + pr);
-
+            this.coreNodeName = pr.coreNodeName;
         }
 
         public void execute(String nodeName, String textData)
         {
-            Deque<Node> nodeStack = getNodeStack(contextNodeName);
+            Deque<Node> nodeStack = getNodeStack(coreNodeName);
             Node contextNode = nodeStack.getLast();
             handler.text(schema, contextNode, nodeName, textData);
         }
@@ -158,6 +148,7 @@ public class StreamAmoebaJoin implements TreeVisitor
                 if (coreNode_action.containsKey(contextNode))
                 {
                     coreNode_action.get(contextNode).execute(nodeName, textData);
+                    return;
                 }
             }
         }
@@ -178,32 +169,44 @@ public class StreamAmoebaJoin implements TreeVisitor
     class PushRelation implements Operation
     {
         final Schema schema;
-        final String previouslyFoundTag;
-        final String newlyFoundTag;
+        final String coreNodeName;
+        final String attributeNodeName;
+        final String newlyFoundNodeName;
 
         public PushRelation(Schema schema, String previouslyFoundTag, String newlyFoundTag)
         {
             this.schema = schema;
-            this.previouslyFoundTag = previouslyFoundTag;
-            this.newlyFoundTag = newlyFoundTag;
+            this.newlyFoundNodeName = newlyFoundTag;
+
+            if (isCoreNodeIndex(schema.getNodeIndex(previouslyFoundTag)))
+            {
+                this.coreNodeName = previouslyFoundTag;
+                this.attributeNodeName = newlyFoundTag;
+            }
+            else if (isCoreNodeIndex(schema.getNodeIndex(newlyFoundTag)))
+            {
+                this.coreNodeName = newlyFoundTag;
+                this.attributeNodeName = previouslyFoundTag;
+            }
+            else
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node in " + schema);
         }
 
         public void execute()
         {
-            Node knownNode = getNodeStack(previouslyFoundTag).getLast();
-            Node newNode = getNodeStack(newlyFoundTag).getLast();
+            Node coreNode = getNodeStack(coreNodeName).getLast();
+            Node attributeNode = getNodeStack(attributeNodeName).getLast();
 
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("push:(%s, %s)", knownNode, newNode));
+                _logger.trace(String.format("push:(%s, %s)", coreNode, attributeNode));
 
-            handler.newAmoeba(schema, knownNode, newNode);
-
+            handler.newAmoeba(schema, coreNode, attributeNode);
         }
 
         @Override
         public String toString()
         {
-            return String.format("push: %s for (%s, %s)", schema, previouslyFoundTag, newlyFoundTag);
+            return String.format("push: %s for (%s, %s)", schema, coreNodeName, attributeNodeName);
         }
     }
 
@@ -216,17 +219,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             for (PushRelation each : candidates)
             {
                 Schema s = each.schema;
-
-                if (isCoreNodeIndex(s.getNodeIndex(each.previouslyFoundTag)))
-                {
-                    coreNode_action.put(each.previouslyFoundTag, each);
-                }
-                else if (isCoreNodeIndex(s.getNodeIndex(each.newlyFoundTag)))
-                {
-                    coreNode_action.put(each.newlyFoundTag, each);
-                }
-                else
-                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node is found");
+                coreNode_action.put(each.coreNodeName, each);
             }
         }
 
@@ -258,7 +251,7 @@ public class StreamAmoebaJoin implements TreeVisitor
             {
                 Schema s = each.schema;
 
-                coreNode_action.put(each.previouslyFoundTag, new PopRelation(s, each.newlyFoundTag));
+                coreNode_action.put(each.coreNodeName, new PopRelation(s, each.newlyFoundNodeName));
             }
         }
 
@@ -502,7 +495,7 @@ public class StreamAmoebaJoin implements TreeVisitor
                 for (PushRelation each : foundAction)
                 {
                     actionList.add(each);
-                    backActionList.add(new PopRelation(each.schema, each.newlyFoundTag));
+                    backActionList.add(new PopRelation(each.schema, each.newlyFoundNodeName));
                 }
             }
 

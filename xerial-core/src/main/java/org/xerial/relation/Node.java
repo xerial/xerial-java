@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.relation;
 
-
 /**
  * Node is an element ({@link Cell}) of a relation.
  * 
@@ -36,11 +35,11 @@ public class Node extends NodeBase<Node>
     public static final int INVALID_ID = -1;
     public static final String NULL_TEXT = null;
 
-    public final int nodeID;
+    public final long nodeID;
     public final String nodeName;
     public final String nodeValue;
 
-    private Node(String nodeName, int nodeID, String nodeValue)
+    private Node(String nodeName, long nodeID, String nodeValue)
     {
         this.nodeID = nodeID;
         this.nodeName = nodeName;
@@ -55,7 +54,7 @@ public class Node extends NodeBase<Node>
      */
     public static class NodeBuilder
     {
-        private int nodeID = INVALID_ID;
+        private long nodeID = INVALID_ID;
         private String nodeValue = NULL_TEXT;
         private final String nodeName;
 
@@ -71,7 +70,7 @@ public class Node extends NodeBase<Node>
             this.nodeValue = node.nodeValue;
         }
 
-        public NodeBuilder nodeID(int nodeID)
+        public NodeBuilder nodeID(long nodeID)
         {
             this.nodeID = nodeID;
             return this;

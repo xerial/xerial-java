@@ -32,13 +32,13 @@ package org.xerial.relation;
  */
 public class LNode extends NodeBase<LNode>
 {
-    private final static int INVALID_ID = -1;
+    private final static long INVALID_ID = -1;
     private final static String NULL_TEXT = null;
 
-    public final int nodeID;
+    public final long nodeID;
     public final String nodeValue;
 
-    public LNode(int nodeID, String nodeValue)
+    public LNode(long nodeID, String nodeValue)
     {
         this.nodeID = nodeID;
         this.nodeValue = nodeValue;
@@ -52,7 +52,7 @@ public class LNode extends NodeBase<LNode>
      */
     public static class NodeBuilder
     {
-        private int nodeID = INVALID_ID;
+        private long nodeID = INVALID_ID;
         private String nodeValue = NULL_TEXT;
 
         public NodeBuilder()
@@ -64,7 +64,7 @@ public class LNode extends NodeBase<LNode>
             this.nodeValue = node.nodeValue;
         }
 
-        public NodeBuilder nodeID(int nodeID)
+        public NodeBuilder nodeID(long nodeID)
         {
             this.nodeID = nodeID;
             return this;

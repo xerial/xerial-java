@@ -29,9 +29,9 @@ import org.xerial.relation.schema.Schema;
 
 public interface AmoebaJoinHandler
 {
-    public void newAmoeba(Schema schema, Node n1, Node n2);
+    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode);
 
     public void leaveNode(Schema schema, Node node);
 
-    public void text(Schema schema, Node contextNode, String nodeName, String text);
+    public void text(Schema schema, Node coreNode, String nodeName, String text);
 }
