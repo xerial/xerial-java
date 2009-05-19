@@ -133,7 +133,7 @@ public class ObjectLens
                         setterType = SetterType.ADDER;
                     }
 
-                    setterContainer.add(ParameterSetter.newSetter(eachClass, paramName, eachField));
+                    setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
 
                 }
 
@@ -152,7 +152,7 @@ public class ObjectLens
                     {
                     case 1:
                     {
-                        addNewSetter(setterContainer, eachClass, paramPart, eachMethod);
+                        addNewSetter(setterContainer, paramPart, eachMethod);
                         break;
                     }
                     case 2:
@@ -170,7 +170,7 @@ public class ObjectLens
                 }
                 else if (methodName.startsWith("append"))
                 {
-                    addNewSetter(setterContainer, eachClass, paramPart, eachMethod);
+                    addNewSetter(setterContainer, paramPart, eachMethod);
                 }
 
             }
@@ -179,7 +179,7 @@ public class ObjectLens
 
     }
 
-    private static void addNewSetter(List<ParameterSetter> setterContainer, Class< ? > c, String paramPart, Method m)
+    private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart, Method m)
     {
         Class< ? >[] argTypes = m.getParameterTypes();
         if (argTypes.length != 1)
@@ -193,7 +193,7 @@ public class ObjectLens
             // infer parameter name from argument type
             paramName = getCanonicalParameterName(argTypes[0].getSimpleName());
         }
-        setterContainer.add(ParameterSetter.newSetter(c, paramName, m));
+        setterContainer.add(ParameterSetter.newSetter(argTypes[0], paramName, m));
         return;
     }
 

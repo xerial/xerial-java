@@ -27,6 +27,7 @@ package org.xerial.lens;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.xerial.core.XerialError;
@@ -66,53 +67,80 @@ public class ObjectMapper
     {
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException;
 
+        public void bindText(Schema schema, Node coreNode, String attributeValue) throws XerialException;
+
     }
 
     private class RelationBinder implements Binder
     {
-        RelationSetter setter;
+        final ObjectLens lens;
+        final RelationSetter setter;
 
-        public RelationBinder(Schema schema)
+        public RelationBinder(ObjectLens lens, RelationSetter setter)
         {
-
-        }
-
-        public RelationBinder(String coreNodeName, String attributeNodeName, ObjectLens lens)
-        {
-            for (RelationSetter each : lens.getRelationSetterList())
-            {
-                if (coreNodeName.equals(each.getCoreNodeName())
-                        && attributeNodeName.equals(each.getAttributeNodeName()))
-                {
-                    this.setter = each;
-                    break;
-                }
-
-            }
+            this.lens = lens;
+            this.setter = setter;
         }
 
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException
         {
-            Object coreNodeInstance = getNodeInstance(coreNode, schema);
-            Object attributeNodeInstance = getNodeInstance(attributeNode, schema);
+            Object coreNodeInstance = getNodeInstance(coreNode, setter.getCoreNodeType());
+            Object attributeNodeInstance = getNodeInstance(attributeNode, setter.getAttributeNodeType());
 
-            ObjectLens lens = schema2lens.get(schema);
-            Class< ? > contextNodeType = lens.getTargetType();
+            Object contextNode = findContextNode(lens.getTargetType());
+            if (contextNode == null)
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "no context node for " + setter);
 
-            //setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
+            if (attributeNodeInstance != null)
+                setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
+        }
+
+        public Object findContextNode(Class< ? > targetType)
+        {
+            for (Iterator<Object> it = contextNodeStack.descendingIterator(); it.hasNext();)
+            {
+                Object node = it.next();
+                if (targetType.equals(node.getClass()))
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        public void bindText(Schema schema, Node coreNode, String attributeValue) throws XerialException
+        {
+            throw new XerialError(XerialErrorCode.UNSUPPORTED);
         }
     }
 
     private class AttributeBinder implements Binder
     {
-        public AttributeBinder(Schema schema, String attributeName)
-        {
+        final ParameterSetter setter;
+        final Class< ? > coreNodeType;
+        final Class< ? > attributeNodeType;
 
+        public AttributeBinder(Class< ? > coreNodeType, ParameterSetter setter)
+        {
+            this.setter = setter;
+            this.coreNodeType = coreNodeType;
+            this.attributeNodeType = setter.getParameterType();
         }
 
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException
         {
+            Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
+            Object attributeNodeInstance = getNodeInstance(attributeNode, attributeNodeType);
 
+            if (attributeNodeInstance != null)
+                setter.bind(coreNodeInstance, attributeNodeInstance);
+        }
+
+        public void bindText(Schema schema, Node coreNode, String textFragment) throws XerialException
+        {
+            Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
+
+            setter.bind(coreNodeInstance, textFragment);
         }
     }
 
@@ -185,21 +213,20 @@ public class ObjectMapper
             if (_logger.isDebugEnabled())
                 _logger.debug(String.format("class %s\n%s", targetType.getSimpleName(), lens));
 
-            if (!lens.getSetterList().isEmpty())
+            for (ParameterSetter each : lens.getSetterList())
             {
+                build(each.getParameterType(), each.getParameterName());
+
                 SchemaBuilder builder = new SchemaBuilder();
                 builder.add(alias);
-                for (ParameterSetter each : lens.getSetterList())
-                {
-                    build(each.getParameterType(), each.getParameterName());
-                    builder.add(each.getParameterName());
-                }
+                builder.add(each.getParameterName());
+
                 Schema s = builder.build();
                 qs.addQueryTarget(s);
-
                 //schema2type.put(s, targetType);
-                schema2lens.put(s, lens);
 
+                schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
+                schema2lens.put(s, lens);
             }
 
             for (RelationSetter each : lens.getRelationSetterList())
@@ -211,6 +238,7 @@ public class ObjectMapper
                 qs.addQueryTarget(s);
 
                 //schema2type.put(s, targetType);
+                schema2binder.put(s, new RelationBinder(lens, each));
                 schema2lens.put(s, lens);
 
                 relationSchema.add(s);
@@ -220,93 +248,79 @@ public class ObjectMapper
 
     }
 
-    private Object getNodeInstance(Node node, Schema schema) throws XerialException
+    public Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException
     {
         Object instance = objectHolder.get(node.nodeID);
         if (instance != null)
             return instance;
 
-        ObjectLens lens = schema2lens.get(schema);
-        if (lens == null)
+        if (TypeInformation.isBasicType(nodeType))
         {
-            throw new XerialException(XerialErrorCode.INVALID_STATE, String.format(
-                    "no corresponding type for schema %s", schema));
-        }
-
-        Class< ? > nodeType = null;
-        if (node.nodeName.equals(schema.getName()))
-        {
-            // core node
-            nodeType = lens.getTargetType();
+            instance = node.nodeValue;
         }
         else
         {
-            // attribute node
-            for (ParameterSetter setter : lens.getSetterList())
-            {
-                if (node.nodeName.equals(setter.getParameterName()))
-                {
-                    nodeType = setter.getParameterType();
-                    break;
-                }
-            }
+            instance = TypeInformation.createInstance(nodeType);
         }
-
-        if (nodeType == null)
-            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("unknown type for %s in %s", node,
-                    schema));
-
-        instance = TypeInformation.createInstance(nodeType);
         objectHolder.put(node.nodeID, instance);
         return instance;
 
     }
 
-    private Binder getBinder(Schema schema, String attributeNodeName) throws XerialException
-    {
-        Binder binder = schema2binder.get(schema);
-        if (binder != null)
-            return binder;
-
-        if (relationSchema.contains(schema))
-        {
-            binder = new RelationBinder(schema);
-        }
-        else
-        {
-            binder = new AttributeBinder(schema, attributeNodeName);
-        }
-        schema2binder.put(schema, binder);
-
-        return binder;
-    }
+    //    private Binder getBinder(Schema schema, Node coreNode, Node attriubuteNode) throws XerialException
+    //    {
+    //        Binder binder = schema2binder.get(schema);
+    //        if (binder != null)
+    //            return binder;
+    //
+    //        if (relationSchema.contains(schema))
+    //        {
+    //            binder = new RelationBinder(schema);
+    //        }
+    //        else
+    //        {
+    //            binder = new AttributeBinder(schema, attributeNodeName);
+    //        }
+    //        schema2binder.put(schema, binder);
+    //
+    //        return binder;
+    //    }
 
     private class RelationExtracter implements AmoebaJoinHandler
     {
 
         public void leaveNode(Schema schema, Node node) throws Exception
         {
-            if (_logger.isDebugEnabled())
-                _logger.debug(String.format("leave: %s in %s", node, schema));
-            objectHolder.remove(node.nodeID);
+            Object obj = objectHolder.remove(node.nodeID);
+
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("leave: %s in %s. object = %s", node, schema, obj));
+
         }
 
         public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
         {
-            if (_logger.isDebugEnabled())
-                _logger.debug(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
 
-            Object coreNodeObject = getNodeInstance(coreNode, schema);
+            Binder binder = schema2binder.get(schema);
+            if (binder == null)
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
 
-            Binder binder = getBinder(schema, attributeNode.nodeName);
             binder.bind(schema, coreNode, attributeNode);
 
         }
 
         public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception
         {
-            if (_logger.isDebugEnabled())
-                _logger.debug(String.format("text:   (%s, %s:%s) in %s", coreNode, nodeName, text, coreNode, schema));
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, nodeName, text, coreNode, schema));
+
+            Binder binder = schema2binder.get(schema);
+            if (binder == null)
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
+
+            binder.bindText(schema, coreNode, text);
         }
 
     }

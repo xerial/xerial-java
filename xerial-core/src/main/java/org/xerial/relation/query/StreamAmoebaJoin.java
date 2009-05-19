@@ -77,7 +77,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     final AmoebaJoinHandler handler;
 
     // for running amoeba join
-    long nodeCount = 0;
+    long nodeCount = -1;
     Lattice<String> nodeNameLattice = new Lattice<String>();
     LatticeCursor<String> latticeCursor;
 
@@ -329,14 +329,17 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     public void finish(TreeWalker walker) throws XerialException
     {
+        leaveNode("root", walker);
         _logger.debug("sweep finished");
     }
 
     public void init(TreeWalker walker) throws XerialException
     {
-        nodeCount = 0;
+        nodeCount = -1;
         latticeCursor = nodeNameLattice.cursor();
         stateStack.addLast(latticeCursor.getNode());
+
+        visitNode("root", null, walker);
     }
 
     public Deque<Node> getNodeStack(String nodeName)
@@ -544,7 +547,6 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     void back(Node node) throws Exception
     {
-
         Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
         LatticeNode<String> current = it.next();
         LatticeNode<String> prev = it.next();
@@ -565,10 +567,15 @@ public class StreamAmoebaJoin implements TreeVisitor
         {
             throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
         }
-        for (Operation each : actionList)
+        if (actionList.isEmpty())
         {
-            each.execute();
+            Node poppedNode = getNodeStack(node.nodeName).getLast();
+            handler.leaveNode(null, poppedNode);
         }
+        else
+            for (Operation each : actionList)
+                each.execute();
+
     }
 
     static class AttributeNodeFinder implements SchemaVisitor

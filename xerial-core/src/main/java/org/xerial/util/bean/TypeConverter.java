@@ -111,7 +111,7 @@ public class TypeConverter
         }
         catch (NumberFormatException e)
         {
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, String.format("%s %s", targetType.getName(), e
+            throw new BeanException(BeanErrorCode.InvalidFormat, String.format("%s %s", targetType.getName(), e
                     .getMessage()));
         }
         catch (ParseException e)

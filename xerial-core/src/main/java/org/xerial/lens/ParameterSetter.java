@@ -57,7 +57,7 @@ public abstract class ParameterSetter
     @Override
     public String toString()
     {
-        return parameterName;
+        return String.format("%s[%s]", parameterName, parameterType.getSimpleName());
     }
 
     public String getParameterName()
@@ -80,23 +80,23 @@ public abstract class ParameterSetter
         return parameterName.hashCode();
     }
 
-    public static ParameterSetter newSetter(Class< ? > targetClass, String parameterName, Field targetField)
+    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName, Field targetField)
     {
-        return new FieldSetter(targetClass, parameterName, targetField);
+        return new FieldSetter(parameterType, parameterName, targetField);
     }
 
-    public static ParameterSetter newSetter(Class< ? > targetClass, String parameterName, Method setterMethod)
+    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName, Method setterMethod)
     {
-        return new MethodSetter(targetClass, parameterName, setterMethod);
+        return new MethodSetter(parameterType, parameterName, setterMethod);
     }
 
     private static class FieldSetter extends ParameterSetter
     {
         private final Field targetField;
 
-        public FieldSetter(Class< ? > targetClass, String parameterName, Field targetField)
+        public FieldSetter(Class< ? > parameterType, String parameterName, Field targetField)
         {
-            super(targetClass, parameterName);
+            super(parameterType, parameterName);
             this.targetField = targetField;
 
             if (!targetField.isAccessible())
@@ -115,9 +115,9 @@ public abstract class ParameterSetter
     {
         private final Method setterMethod;
 
-        public MethodSetter(Class< ? > targetClass, String parameterName, Method setterMethod)
+        public MethodSetter(Class< ? > parameterType, String parameterName, Method setterMethod)
         {
-            super(targetClass, parameterName);
+            super(parameterType, parameterName);
             this.setterMethod = setterMethod;
         }
 

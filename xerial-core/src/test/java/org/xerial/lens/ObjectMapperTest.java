@@ -24,14 +24,18 @@
 //--------------------------------------
 package org.xerial.lens;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
 
 public class ObjectMapperTest
 {
+    private static Logger _logger = Logger.getLogger(ObjectMapperTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -47,6 +51,12 @@ public class ObjectMapperTest
         public String name;
         public String species;
         public String revision;
+
+        @Override
+        public String toString()
+        {
+            return String.format("group=%s, name=%s, species=%s, revision=%s", group, name, species, revision);
+        }
 
     }
 
@@ -64,14 +74,29 @@ public class ObjectMapperTest
         {
             sequence.append(seq);
         }
+
+        @Override
+        public String toString()
+        {
+            return String.format("name=%s, start=%s, end=%s, strand=%s, sequence=%s", name, start, end, strand,
+                    sequence.toString());
+        }
     }
 
     public static class GeneDB
     {
-        public String name;
+        public final String description = null;
 
         public void addCoordinate_Gene(CoordinateData c, GeneData g)
-        {}
+        {
+            _logger.debug(String.format("c(%s), g(%s)", c, g));
+        }
+
+        public void addCoordinate(CoordinateData c)
+        {
+            _logger.debug(c);
+        }
+
     }
 
     @Test
@@ -80,5 +105,6 @@ public class ObjectMapperTest
         ObjectMapper mapper = new ObjectMapper();
         GeneDB gdb = mapper.map(GeneDB.class, new SilkWalker(FileResource.find(ObjectMapperTest.class, "gene.silk")));
 
+        assertEquals("gene data", gdb.description);
     }
 }
