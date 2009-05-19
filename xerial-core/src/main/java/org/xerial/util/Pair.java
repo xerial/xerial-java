@@ -83,6 +83,6 @@ public class Pair<X, Y>
     @Override
     public int hashCode()
     {
-        return first.hashCode() + second.hashCode() % 1987;
+        return (first.hashCode() + second.hashCode()) % 1987;
     }
 }
