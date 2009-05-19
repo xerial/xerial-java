@@ -24,8 +24,8 @@
 //--------------------------------------
 package org.xerial.util.xml.index;
 
-import java.util.Stack;
-
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.Pair;
 import org.xerial.util.StringUtil;
 import org.xerial.util.xml.XMLException;
@@ -40,7 +40,7 @@ import org.xmlpull.v1.XmlPullParser;
  */
 public class IntervalIndexer extends AbstractSAXEventHandler
 {
-    Stack<Pair<Integer, String>> _startOrderStack; // (start, text data) のスタック
+    Deque<Pair<Integer, String>> _startOrderStack; // (start, text data) のスタック
     int _currentDepth = 0;
     int _startOrder = 0;
     LWIndexWriter _writer;
@@ -94,7 +94,7 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     public void startDocument(XmlPullParser parser) throws XMLException
     {
         // initialize 
-        _startOrderStack = new Stack<Pair<Integer, String>>();
+        _startOrderStack = new ArrayDeque<Pair<Integer, String>>();
         _startOrder = 0;
         _currentDepth = 0;
         pushStack();
@@ -109,14 +109,15 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     @Override
     public void text(XmlPullParser parser) throws XMLException
     {
-        Pair<Integer, String> currentNode = _startOrderStack.peek();
+        Pair<Integer, String> currentNode = _startOrderStack.removeLast();
         String text = parser.getText();
-        currentNode.setSecond(currentNode.getSecond() == null ? text : currentNode.getSecond() + text);
+        _startOrderStack.addLast(new Pair<Integer, String>(currentNode.getFirst(),
+                currentNode.getSecond() == null ? text : currentNode.getSecond() + text));
     }
 
     private void pushStack()
     {
-        _startOrderStack.push(new Pair<Integer, String>(_startOrder, null));
+        _startOrderStack.addLast(new Pair<Integer, String>(_startOrder, null));
         _startOrder += STARTORDER_INCREMENT;
         _currentDepth++;
     }
@@ -125,7 +126,7 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     {
         int endOrder = _startOrder + MINIMUM_INTERAVAL;
 
-        Pair<Integer, String> currentNode = _startOrderStack.pop();
+        Pair<Integer, String> currentNode = _startOrderStack.removeLast();
         // output node data
         _writer.write(new LWIndex(currentNode.getFirst(), endOrder, _currentDepth), parser.getName(), currentNode
                 .getSecond());

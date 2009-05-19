@@ -39,8 +39,8 @@ import org.xerial.relation.query.StreamAmoebaJoin;
 import org.xerial.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.HashedDeque;
 import org.xerial.util.bean.TypeInformation;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeWalker;
@@ -56,12 +56,11 @@ public class ObjectMapper
     private static Logger _logger = Logger.getLogger(ObjectMapper.class);
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
 
-    private HashMap<Schema, Class< ? >> schema2type = new HashMap<Schema, Class< ? >>();
     private HashMap<Schema, ObjectLens> schema2lens = new HashMap<Schema, ObjectLens>();
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
     private HashSet<Schema> relationSchema = new HashSet<Schema>();
 
-    private HashedDeque<Schema, Object> contextNodeStack = new HashedDeque<Schema, Object>();
+    private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
 
     private static interface Binder
     {
@@ -98,14 +97,9 @@ public class ObjectMapper
             Object attributeNodeInstance = getNodeInstance(attributeNode, schema);
 
             ObjectLens lens = schema2lens.get(schema);
-            lens.getTargetType()
-            
-            Deque<Object> stack = contextNodeStack.get(schema);
-            if (stack.isEmpty())
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no context node for the relation " + schema);
-            Object contextNode = stack.getLast();
+            Class< ? > contextNodeType = lens.getTargetType();
 
-            setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
+            //setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
         }
     }
 
@@ -147,6 +141,7 @@ public class ObjectMapper
 
             // set the root object
             objectHolder.put(0L, object);
+            contextNodeStack.addLast(object);
 
             StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new RelationExtracter());
             aj.sweep(walker);
@@ -202,7 +197,7 @@ public class ObjectMapper
                 Schema s = builder.build();
                 qs.addQueryTarget(s);
 
-                schema2type.put(s, targetType);
+                //schema2type.put(s, targetType);
                 schema2lens.put(s, lens);
 
             }
@@ -215,7 +210,7 @@ public class ObjectMapper
                 Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(each.getAttributeNodeName()).build();
                 qs.addQueryTarget(s);
 
-                schema2type.put(s, each.getCoreNodeType());
+                //schema2type.put(s, targetType);
                 schema2lens.put(s, lens);
 
                 relationSchema.add(s);
@@ -231,24 +226,22 @@ public class ObjectMapper
         if (instance != null)
             return instance;
 
-        Class< ? > schemaType = schema2type.get(schema);
-        if (schemaType == null)
+        ObjectLens lens = schema2lens.get(schema);
+        if (lens == null)
         {
             throw new XerialException(XerialErrorCode.INVALID_STATE, String.format(
                     "no corresponding type for schema %s", schema));
         }
 
         Class< ? > nodeType = null;
-
         if (node.nodeName.equals(schema.getName()))
         {
             // core node
-            nodeType = schemaType;
+            nodeType = lens.getTargetType();
         }
         else
         {
             // attribute node
-            ObjectLens lens = ObjectLens.getObjectLens(schemaType);
             for (ParameterSetter setter : lens.getSetterList())
             {
                 if (node.nodeName.equals(setter.getParameterName()))

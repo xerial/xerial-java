@@ -32,14 +32,17 @@ package org.xerial.util;
  */
 public class Pair<X, Y>
 {
-    private X first;
-    private Y second;
+    private final X first;
+    private final Y second;
 
     /**
      * 
      */
     public Pair(X x, Y y)
     {
+        if (x == null || y == null)
+            throw new NullPointerException();
+
         this.first = x;
         this.second = y;
     }
@@ -54,16 +57,6 @@ public class Pair<X, Y>
         return second;
     }
 
-    public void setFirst(X x)
-    {
-        this.first = x;
-    }
-
-    public void setSecond(Y y)
-    {
-        this.second = y;
-    }
-
     public static <X, Y> Pair<X, Y> newPair(X x, Y y)
     {
         return new Pair<X, Y>(x, y);
@@ -73,5 +66,23 @@ public class Pair<X, Y>
     public String toString()
     {
         return String.format("(%s, %s)", first, second);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Pair)
+        {
+            Pair other = (Pair) obj;
+            return first.equals(other.first) && second.equals(other.second);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return first.hashCode() + second.hashCode() % 1987;
     }
 }

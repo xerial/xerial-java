@@ -26,8 +26,9 @@ package org.xerial.util.xml.index;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.Stack;
 
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.Pair;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.pullparser.AbstractSAXEventHandler;
@@ -43,7 +44,7 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
 {
     private int _preOrder = 0;
     private int _postOrder = 0;
-    private Stack<Pair<Integer, String>> _nodeStack;
+    private Deque<Pair<Integer, String>> _nodeStack;
 
     private final PrintStream out;
 
@@ -58,7 +59,7 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
     @Override
     public void startDocument(XmlPullParser parser) throws XMLException
     {
-        _nodeStack = new Stack<Pair<Integer, String>>();
+        _nodeStack = new ArrayDeque<Pair<Integer, String>>();
         _preOrder = 0;
         _postOrder = 0;
         pushStack();
@@ -71,7 +72,7 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
 
     private void popStack(String tagName)
     {
-        Pair<Integer, String> node = _nodeStack.pop();
+        Pair<Integer, String> node = _nodeStack.removeLast();
         int preOrder = node.getFirst();
         int postOrder = _postOrder++;
         // output node info
@@ -100,8 +101,8 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
     @Override
     public void text(XmlPullParser parser) throws XMLException
     {
-        Pair<Integer, String> currentNode = _nodeStack.peek();
-        currentNode.setSecond(parser.getText());
+        Pair<Integer, String> currentNode = _nodeStack.removeLast();
+        _nodeStack.addLast(new Pair<Integer, String>(currentNode.getFirst(), parser.getText()));
     }
 
 }
