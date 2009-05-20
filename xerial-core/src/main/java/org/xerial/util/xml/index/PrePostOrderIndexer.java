@@ -42,6 +42,7 @@ import org.xmlpull.v1.XmlPullParser;
  */
 public class PrePostOrderIndexer extends AbstractSAXEventHandler
 {
+    private final static String EMPTY_STR = "";
     private int _preOrder = 0;
     private int _postOrder = 0;
     private Deque<Pair<Integer, String>> _nodeStack;
@@ -67,7 +68,7 @@ public class PrePostOrderIndexer extends AbstractSAXEventHandler
 
     private void pushStack()
     {
-        _nodeStack.add(new Pair<Integer, String>(_preOrder++, null));
+        _nodeStack.add(new Pair<Integer, String>(_preOrder++, EMPTY_STR));
     }
 
     private void popStack(String tagName)

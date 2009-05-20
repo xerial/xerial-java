@@ -75,10 +75,11 @@ public class LensTest
     @Test
     public void testTranslateSilk() throws IOException, XerialException
     {
-        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class, "../silk/sequence.silk"));
+        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class, "sequence.silk"));
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
+        assertEquals(4, g.sequenceTable.values().size());
 
     }
 
@@ -86,7 +87,7 @@ public class LensTest
     @Test
     public void testMapping() throws Exception
     {
-        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class, "../silk/sequence.silk"));
+        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class, "sequence.silk"));
 
         _logger.info(c);
         assertNotNull(c);

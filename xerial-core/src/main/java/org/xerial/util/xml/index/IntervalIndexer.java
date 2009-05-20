@@ -40,6 +40,8 @@ import org.xmlpull.v1.XmlPullParser;
  */
 public class IntervalIndexer extends AbstractSAXEventHandler
 {
+    private final static String EMPTY_STRING = "";
+
     Deque<Pair<Integer, String>> _startOrderStack; // (start, text data) のスタック
     int _currentDepth = 0;
     int _startOrder = 0;
@@ -117,7 +119,7 @@ public class IntervalIndexer extends AbstractSAXEventHandler
 
     private void pushStack()
     {
-        _startOrderStack.addLast(new Pair<Integer, String>(_startOrder, null));
+        _startOrderStack.addLast(new Pair<Integer, String>(_startOrder, EMPTY_STRING));
         _startOrder += STARTORDER_INCREMENT;
         _currentDepth++;
     }
