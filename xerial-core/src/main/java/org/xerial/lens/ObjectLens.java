@@ -169,14 +169,15 @@ public class ObjectLens
                                 .getSecond(), eachMethod));
                         break;
                     }
-                    default:
-                        continue;
                     }
+
+                    continue;
 
                 }
                 else if (methodName.startsWith("append"))
                 {
                     addNewSetter(setterContainer, paramPart, eachMethod);
+                    continue;
                 }
 
             }

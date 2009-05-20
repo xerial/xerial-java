@@ -55,6 +55,7 @@ import org.xerial.json.JSONLong;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
+import org.xerial.lens.Lens;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.impl.Appender;
@@ -1000,14 +1001,11 @@ public class BeanUtil
         }
     }
 
-    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation) throws XerialException
+    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation) throws XerialException, IOException
     {
-        BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
-
         try
         {
-            SilkWalker walker = new SilkWalker(silkResourceLocation);
-            walker.walk(bindingProcess);
+            Lens.loadSilk(bean, silkResourceLocation);
         }
         catch (IOException e)
         {

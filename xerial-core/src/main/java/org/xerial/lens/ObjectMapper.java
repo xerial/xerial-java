@@ -209,7 +209,7 @@ public class ObjectMapper
 
             ObjectLens lens = ObjectLens.getObjectLens(targetType);
             if (_logger.isDebugEnabled())
-                _logger.debug(String.format("class %s\n%s", targetType.getSimpleName(), lens));
+                _logger.debug(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
 
             for (ParameterSetter each : lens.getSetterList())
             {
@@ -249,7 +249,10 @@ public class ObjectMapper
 
         if (TypeInfo.isBasicType(nodeType))
         {
-            instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
+            if (node.nodeValue == null)
+                return null;
+            else
+                instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
         }
         else
         {

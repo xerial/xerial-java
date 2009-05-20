@@ -438,6 +438,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         LatticeNode<String> prevState = latticeCursor.getNode();
         LatticeNode<String> nextState = latticeCursor.next(node.nodeName);
+
         stateStack.addLast(nextState);
 
         //        List<Operation> forwardActionList = getForwardActionList(prevState, nextState, node.nodeName);
@@ -471,7 +472,7 @@ public class StreamAmoebaJoin implements TreeVisitor
         String newlyFoundTag = nodeName;
 
         if (_logger2.isTraceEnabled())
-            _logger2.trace("crate actions for " + newlyFoundTag);
+            _logger2.trace("create actions for " + newlyFoundTag);
 
         if (prevNodeID != nextNodeID)
         {
