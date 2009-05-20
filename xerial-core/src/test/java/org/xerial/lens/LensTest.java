@@ -36,6 +36,7 @@ import org.xerial.core.XerialException;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
+import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
 public class LensTest
@@ -103,26 +104,49 @@ public class LensTest
     @Test
     public void testBED() throws Exception
     {
-        BEDGene g = Lens.loadSilk(BEDGene.class, FileResource.find(LensTest.class, "sample.bed.silk"));
+        BEDQuery g = Lens.loadSilk(BEDQuery.class, FileResource.find(LensTest.class, "sample.bed.silk"));
+        _logger.info(StringUtil.join(g.gene, "\n"));
     }
 
-    public static class CDS
+    public static class Locus
     {
         public long start;
         public long end;
+
+        @Override
+        public String toString()
+        {
+            return String.format("(%s, %s)", start, end);
+        }
     }
 
-    public static class Exon extends CDS
+    public static class CDS extends Locus
     {
 
     }
 
-    public static class BEDGene
+    public static class Exon extends Locus
     {
 
+    }
+
+    public static class BEDGene extends Locus
+    {
+        public String coordinate;
+        public String name;
         public List<CDS> cds;
         public List<Exon> exon;
 
+        @Override
+        public String toString()
+        {
+            return String.format("%s %s (%s, %s), cds=%s, exon=%s", coordinate, name, start, end, cds, exon);
+        }
+    }
+
+    public static class BEDQuery
+    {
+        public List<BEDGene> gene;
     }
 
 }

@@ -108,82 +108,78 @@ public class ObjectLens
     private void createBindRules(Class< ? > targetType)
     {
         // look for all super classes
-        for (Class< ? > eachClass = targetType; eachClass != null; eachClass = eachClass.getSuperclass())
+        // scan public fields
+        for (Field eachField : targetType.getFields())
         {
-            // scan public fields
-            for (Field eachField : eachClass.getFields())
+            int fieldModifier = eachField.getModifiers();
+            if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier))
             {
-                int fieldModifier = eachField.getModifiers();
-                if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier))
+                Class< ? > fieldType = eachField.getType();
+                String paramName = getCanonicalParameterName(eachField.getName());
+
+                if (TypeInfo.isArray(fieldType))
                 {
-                    Class< ? > fieldType = eachField.getType();
-                    String paramName = getCanonicalParameterName(eachField.getName());
+                    // ignore the array field
+                    continue;
+                }
+                else if (TypeInfo.isMap(fieldType))
+                {
 
-                    if (TypeInfo.isArray(fieldType))
-                    {
-                        // ignore the array field
-                        continue;
-                    }
-                    else if (TypeInfo.isMap(fieldType))
-                    {
-
-                        // TODO map putter
-
-                    }
-                    if (TypeInfo.isCollection(fieldType))
-                    {
-                        Class< ? > elementType = ReflectionUtil.getGenericCollectionElementType(eachField);
-                        setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
-                    }
-                    else
-                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
+                    // TODO map putter
 
                 }
+                if (TypeInfo.isCollection(fieldType))
+                {
+                    Class< ? > elementType = ReflectionUtil.getGenericCollectionElementType(eachField);
+                    setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
+                }
+                else
+                    setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
 
             }
 
-            // scan methods
-            for (Method eachMethod : eachClass.getMethods())
+        }
+
+        // scan methods
+        for (Method eachMethod : targetType.getMethods())
+        {
+            String methodName = eachMethod.getName();
+            String paramPart = pickPropertyName(methodName);
+
+            if (methodName.startsWith("add") || methodName.startsWith("set") || methodName.startsWith("put"))
             {
-                String methodName = eachMethod.getName();
-                String paramPart = pickPropertyName(methodName);
-
-                if (methodName.startsWith("add") || methodName.startsWith("set") || methodName.startsWith("put"))
+                Class< ? >[] argTypes = eachMethod.getParameterTypes();
+                switch (argTypes.length)
                 {
-                    Class< ? >[] argTypes = eachMethod.getParameterTypes();
-                    switch (argTypes.length)
-                    {
-                    case 1:
-                    {
-                        addNewSetter(setterContainer, paramPart, eachMethod);
-                        break;
-                    }
-                    case 2:
-                    {
-                        // relation adder
-                        Pair<String, String> relName = pickRelationName(paramPart);
-                        if (relName == null)
-                        {
-                            // infer relation node names
-                            relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
-                                    getCanonicalParameterName(argTypes[1].getSimpleName()));
-                        }
-
-                        relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
-                                .getSecond(), eachMethod));
-                        break;
-                    }
-                    }
-
-                    continue;
-
-                }
-                else if (methodName.startsWith("append"))
+                case 1:
                 {
                     addNewSetter(setterContainer, paramPart, eachMethod);
-                    continue;
+                    break;
+                }
+                case 2:
+                {
+                    // relation adder
+                    Pair<String, String> relName = pickRelationName(paramPart);
+                    if (relName == null)
+                    {
+                        // infer relation node names
+                        relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
+                                getCanonicalParameterName(argTypes[1].getSimpleName()));
+                    }
+
+                    relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
+                            .getSecond(), eachMethod));
+                    break;
+                }
                 }
 
+                continue;
+
+            }
+            else if (methodName.startsWith("append"))
+            {
+                addNewSetter(setterContainer, paramPart, eachMethod);
+                continue;
             }
 
         }
