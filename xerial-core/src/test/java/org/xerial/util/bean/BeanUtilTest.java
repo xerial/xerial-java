@@ -129,14 +129,14 @@ public class BeanUtilTest
         Class< ? >[] basicType = { int.class, double.class, float.class, boolean.class, String.class, Integer.class,
                 Double.class, Float.class, Boolean.class };
         for (Class c : basicType)
-            assertTrue(TypeInformation.isBasicType(c));
+            assertTrue(TypeInfo.isBasicType(c));
 
         Class< ? >[] basicArrayType = { int[].class, double[].class, float[].class, boolean[].class, String[].class,
                 Integer[].class, Double[].class, Float[].class, Boolean[].class };
 
         for (Class c : basicArrayType)
         {
-            assertTrue(TypeInformation.isBasicType(c));
+            assertTrue(TypeInfo.isBasicType(c));
         }
     }
 

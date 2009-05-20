@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.reflect.ReflectionUtil;
 
 /**
@@ -64,7 +64,7 @@ class OptionSetterViaMethod implements OptionSetter
 
     public boolean takesArgument()
     {
-        return !TypeInformation.isBoolean(getOptionDataType());
+        return !TypeInfo.isBoolean(getOptionDataType());
     }
 
     public void initialize(Object bean) throws OptionParserException

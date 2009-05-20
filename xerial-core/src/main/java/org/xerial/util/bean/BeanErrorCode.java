@@ -68,7 +68,8 @@ public enum BeanErrorCode implements ErrorCode {
     MapContainerIsNotFound,
     MapElementConstructionFailed,
     InvalidDateFormat,
-    InvalidFormat;
+    InvalidFormat,
+    InvalidType;
 
     private final String description;
 

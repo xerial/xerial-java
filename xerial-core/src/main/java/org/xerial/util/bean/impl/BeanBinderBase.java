@@ -32,7 +32,7 @@ import org.xerial.json.JSONObject;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * A Binder holds a getter/setter method and its parameter type.
@@ -91,7 +91,7 @@ abstract class BeanBinderBase implements BeanBinder
 
     public static void constractableTest(Class< ? > c) throws BeanException
     {
-        if (!TypeInformation.canInstantiate(c))
+        if (!TypeInfo.canInstantiate(c))
         {
             throw new BeanException(BeanErrorCode.NoPublicConstructor, c + " has no public constructor");
         }

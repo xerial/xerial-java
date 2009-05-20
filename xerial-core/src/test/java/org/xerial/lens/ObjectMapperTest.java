@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -108,4 +108,5 @@ public class ObjectMapperTest
 
         assertEquals("gene data", gdb.description);
     }
+
 }

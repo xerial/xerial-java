@@ -82,7 +82,7 @@ public class TypeConverter
      */
     public static Object convertToBasicType(Class< ? > targetType, Object input) throws BeanException
     {
-        assert (TypeInformation.isBasicType(targetType));
+        assert (TypeInfo.isBasicType(targetType));
 
         try
         {

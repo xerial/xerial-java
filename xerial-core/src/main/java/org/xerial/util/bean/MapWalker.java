@@ -116,21 +116,21 @@ public class MapWalker implements TreeWalker
         assert value != null;
 
         Class< ? > valueType = value.getClass();
-        if (TypeInformation.isArray(valueType))
+        if (TypeInfo.isArray(valueType))
         {
             for (Object each : (Object[]) value)
             {
                 walk(nodeName, each, visitor);
             }
         }
-        else if (TypeInformation.isCollection(valueType))
+        else if (TypeInfo.isCollection(valueType))
         {
             for (Object each : (Collection< ? >) value)
             {
                 walk(nodeName, each, visitor);
             }
         }
-        else if (TypeInformation.isMap(valueType))
+        else if (TypeInfo.isMap(valueType))
         {
             visitor.visitNode(nodeName, null, this);
             Map< ? , ? > mapValue = (Map< ? , ? >) value;

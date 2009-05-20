@@ -41,7 +41,7 @@ import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUpdatorType;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
@@ -268,14 +268,14 @@ public class BeanBindingProcess implements TreeVisitor
                         }
                     }
 
-                    if (TypeInformation.isBasicType(elementType))
+                    if (TypeInfo.isBasicType(elementType))
                     {
                         // this bean can be generated directly from the element text value, so
                         // there is no need to instantiate the object here.
                         bindValue(parentBean, nodeName, nodeValue, nodeLevel);
                         break;
                     }
-                    else if (TypeInformation.isMap(elementType))
+                    else if (TypeInfo.isMap(elementType))
                     {
                         // when input of setter/ or K, V of putSomthing(K, V) is map
                         Pair<Class< ? >, Class< ? >> keyValueClassPair = BeanUtil.getGenericMapTypesOfMethodArgument(
@@ -494,7 +494,7 @@ public class BeanBindingProcess implements TreeVisitor
     {
         try
         {
-            if (value.getClass() == KeyValuePair.class && TypeInformation.isMap(targetType))
+            if (value.getClass() == KeyValuePair.class && TypeInfo.isMap(targetType))
             {
                 Map map = null;
                 if (mapAssociatedWithBean.containsKey(bean.hashCode()))

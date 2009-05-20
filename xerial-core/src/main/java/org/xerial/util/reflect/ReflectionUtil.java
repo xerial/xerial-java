@@ -35,7 +35,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * Reflection utilities
@@ -124,7 +124,7 @@ public class ReflectionUtil
      */
     public static Class< ? > getGenericCollectionElementType(Field field)
     {
-        if (!TypeInformation.isCollection(field.getType()))
+        if (!TypeInfo.isCollection(field.getType()))
             throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, field.getType().getName());
 
         Type optionFieldType = field.getGenericType();
@@ -156,7 +156,7 @@ public class ReflectionUtil
     public static void initializeCollectionField(Object bean, Field field) throws XerialException
     {
         Class< ? > t = field.getType();
-        if (!TypeInformation.isCollection(t))
+        if (!TypeInfo.isCollection(t))
             return; // not a collection field
 
         try
@@ -164,7 +164,7 @@ public class ReflectionUtil
             Object collection = getFieldValue(bean, field);
             if (collection == null)
             {
-                collection = TypeInformation.createInstance(t);
+                collection = TypeInfo.createInstance(t);
                 ReflectionUtil.setFieldValue_internal(bean, field, collection);
             }
         }
@@ -190,12 +190,12 @@ public class ReflectionUtil
         try
         {
             Class< ? > t = field.getType();
-            if (TypeInformation.isCollection(t))
+            if (TypeInfo.isCollection(t))
             {
                 Object collection = getFieldValue(bean, field);
                 if (collection == null)
                 {
-                    collection = TypeInformation.createInstance(t);
+                    collection = TypeInfo.createInstance(t);
                     ReflectionUtil.setFieldValue_internal(bean, field, collection);
                 }
 

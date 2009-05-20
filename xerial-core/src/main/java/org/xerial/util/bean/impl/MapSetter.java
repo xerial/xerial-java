@@ -30,7 +30,7 @@ import java.util.Map;
 import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 
 public class MapSetter extends BeanBinderBase {
@@ -49,7 +49,7 @@ public class MapSetter extends BeanBinderBase {
         constractableTest(mapType);
         constractableTest(keyType);
         constractableTest(valueType);
-        assert (TypeInformation.isMap(mapType));
+        assert (TypeInfo.isMap(mapType));
     }
 
 }

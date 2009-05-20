@@ -27,7 +27,7 @@ package org.xerial.util.opt;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * OptionItem
@@ -100,7 +100,7 @@ public class OptionItem
 
     public boolean takesMultipleArguments()
     {
-        return TypeInformation.isCollection(optionSetter.getOptionDataType());
+        return TypeInfo.isCollection(optionSetter.getOptionDataType());
     }
 
     public void setOption(Object bean, String value) throws OptionParserException

@@ -30,7 +30,7 @@ import java.util.Collection;
 import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 
 public class CollectionSetter extends BeanBinderBase {
@@ -46,7 +46,7 @@ public class CollectionSetter extends BeanBinderBase {
         constractableTest(collectionType);
         constractableTest(elementType);
 
-        assert (TypeInformation.isCollection(collectionType));
+        assert (TypeInfo.isCollection(collectionType));
     }
 
 

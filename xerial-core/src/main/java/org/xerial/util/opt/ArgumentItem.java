@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.xerial.util.Range;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * ArgumentItem
@@ -79,7 +79,7 @@ public class ArgumentItem
 
     public boolean takesMultipleArguments()
     {
-        return TypeInformation.isCollection(argumentSetter.getOptionDataType());
+        return TypeInfo.isCollection(argumentSetter.getOptionDataType());
     }
 
     public static Range getRangeOf(ArgumentItem arg)

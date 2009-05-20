@@ -282,7 +282,7 @@ public class BeanUtil
 
                 Class< ? >[] mapElementType = resolveActualTypeOfMapElement(beanClass, parameterType);
 
-                if (parameterName.length() == 0 && TypeInformation.isMap(beanClass))
+                if (parameterName.length() == 0 && TypeInfo.isMap(beanClass))
                 {
                     // bean.put(Key k, Value v)
                     inputRuleSet.addRule(new MapPutter(method, "elem", mapElementType[0], mapElementType[1]));
@@ -302,7 +302,7 @@ public class BeanUtil
 
                 Class< ? > addType = resolveActualTypeOfCollectionElement(beanClass, parameterType[0]);
 
-                if (parameterName.length() == 0 && TypeInformation.isCollection(beanClass))
+                if (parameterName.length() == 0 && TypeInfo.isCollection(beanClass))
                 {
                     // bean.add(E element)
                     inputRuleSet.addRule(new CollectionAdder(method, "elem", addType));
@@ -338,7 +338,7 @@ public class BeanUtil
                     Class< ? > componentType = inputTypeOfTheSetter.getComponentType();
                     inputRuleSet.addRule(new ArraySetter(method, parameterName, componentType));
                 }
-                else if (TypeInformation.isCollection(inputTypeOfTheSetter))
+                else if (TypeInfo.isCollection(inputTypeOfTheSetter))
                 {
                     if (method.getGenericParameterTypes()[0] instanceof ParameterizedType)
                     {
@@ -355,7 +355,7 @@ public class BeanUtil
                     // setSomething(Collection) method wihtout any type
                     // parameter cannot be used to bind JSON data, thus skip
                 }
-                else if (TypeInformation.isMap(inputTypeOfTheSetter))
+                else if (TypeInfo.isMap(inputTypeOfTheSetter))
                 {
                     // setSomething(Map<K, V> map) method
                     Pair<Class< ? >, Class< ? >> keyValueTypePair = getGenericMapTypesOfMethodArgument(method, 0);
@@ -564,13 +564,13 @@ public class BeanUtil
                 }
                 toXML(tagName, array[i]);
             }
-            else if (TypeInformation.isBasicType(beanClass))
+            else if (TypeInfo.isBasicType(beanClass))
             {
                 _out.element(tagName, bean.toString());
             }
             else
             {
-                if (TypeInformation.isCollection(beanClass))
+                if (TypeInfo.isCollection(beanClass))
                 {
                     Collection< ? > collection = (Collection< ? >) bean;
                     for (Object elem : collection)
@@ -578,7 +578,7 @@ public class BeanUtil
                         toXML(tagName, elem);
                     }
                 }
-                else if (TypeInformation.isMap(beanClass))
+                else if (TypeInfo.isMap(beanClass))
                 {
                     Map< ? , ? > map = (Map< ? , ? >) bean;
 
@@ -680,7 +680,7 @@ public class BeanUtil
                 jsonArray.add(outputAsJSONValue(obj));
             return jsonArray;
         }
-        else if (TypeInformation.isBasicType(beanClass))
+        else if (TypeInfo.isBasicType(beanClass))
         {
             String jsonStr = bean.toString();
             JSONValue value = null;
@@ -703,7 +703,7 @@ public class BeanUtil
         else
         {
 
-            if (TypeInformation.isCollection(beanClass))
+            if (TypeInfo.isCollection(beanClass))
             {
                 Collection< ? > collection = (Collection< ? >) bean;
                 JSONArray jsonArray = new JSONArray();
@@ -720,7 +720,7 @@ public class BeanUtil
                 else
                     return jsonArray;
             }
-            else if (TypeInformation.isMap(beanClass))
+            else if (TypeInfo.isMap(beanClass))
             {
                 Map< ? , ? > map = (Map< ? , ? >) bean;
                 JSONArray jsonArray = new JSONArray();
@@ -981,7 +981,7 @@ public class BeanUtil
         {
             // the object is a JSONValue
             Class< ? > beanClass = bean.getClass();
-            if (TypeInformation.isBasicType(beanClass))
+            if (TypeInfo.isBasicType(beanClass))
             {
                 String jsonStr = jsonValue.toString();
                 if (beanClass == String.class)
@@ -1047,7 +1047,7 @@ public class BeanUtil
 
     public static Object createInstance(Class< ? > c) throws BeanException
     {
-        return TypeInformation.createInstance(c);
+        return TypeInfo.createInstance(c);
     }
 
     public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws BeanException, IOException,
@@ -1073,7 +1073,7 @@ public class BeanUtil
 
     public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation) throws XerialException
     {
-        T bean = TypeInformation.createInstance(beanClass);
+        T bean = TypeInfo.createInstance(beanClass);
         BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
 
         try

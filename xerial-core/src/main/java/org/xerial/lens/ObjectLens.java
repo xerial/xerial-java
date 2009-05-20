@@ -34,7 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xerial.util.Pair;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * Tree to Object lens
@@ -119,16 +119,16 @@ public class ObjectLens
                     String paramName = getCanonicalParameterName(eachField.getName());
                     SetterType setterType = SetterType.SETTER;
 
-                    if (TypeInformation.isArray(fieldType))
+                    if (TypeInfo.isArray(fieldType))
                     {
                         // ignore the array field
                         continue;
                     }
-                    else if (TypeInformation.isMap(fieldType))
+                    else if (TypeInfo.isMap(fieldType))
                     {
                         setterType = SetterType.PUTTER;
                     }
-                    if (TypeInformation.isCollection(fieldType))
+                    if (TypeInfo.isCollection(fieldType))
                     {
                         setterType = SetterType.ADDER;
                     }

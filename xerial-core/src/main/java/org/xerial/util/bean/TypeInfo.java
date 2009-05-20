@@ -41,6 +41,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.w3c.dom.Element;
 import org.xerial.util.ArrayDeque;
@@ -48,14 +49,14 @@ import org.xerial.util.Pair;
 import org.xerial.util.Triplet;
 
 /**
- * BasicType class holds information of standard types that can be directly
+ * TypeInfo holds the information of standard types that can be directly
  * assignable as Bean parameter values. For example, int/Integer, double/Double,
  * String, etc. and their arrays are basic types.
  * 
  * @author leo
  * 
  */
-public class TypeInformation
+public class TypeInfo
 {
     static private Class< ? >[] _parameterClass = { int.class, double.class, float.class, long.class, boolean.class,
             char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class, Boolean.class,
@@ -69,9 +70,9 @@ public class TypeInformation
     }
 
     /**
-     * non-constractable
+     * non-constructable
      */
-    private TypeInformation()
+    private TypeInfo()
     {}
 
     /**
@@ -169,6 +170,11 @@ public class TypeInformation
 
     public static boolean hasPublicDefaultConstructor(Class< ? > c)
     {
+        return getPublicDefaultConstructor(c) != null;
+    }
+
+    public static Constructor< ? > getPublicDefaultConstructor(Class< ? > c)
+    {
         for (Constructor< ? > constructor : c.getConstructors())
         {
             if (constructor.getParameterTypes().length == 0)
@@ -176,11 +182,11 @@ public class TypeInformation
                 // the default constructor is public?
                 if (Modifier.isPublic(constructor.getModifiers()))
                 {
-                    return true;
+                    return constructor;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static boolean canInstantiate(Class< ? > c)
@@ -228,17 +234,120 @@ public class TypeInformation
         return null;
     }
 
+    public static <T> Object createPrimitiveTypeInstance(Class<T> c) throws BeanException
+    {
+        if (!c.isPrimitive())
+            throw new BeanException(BeanErrorCode.InvalidType, String
+                    .format("%s is not a primitive", c.getSimpleName()));
+
+        // Boolean.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Void.TYPE
+        if (c == int.class)
+            return 0;
+        else if (c == long.class)
+            return 1L;
+        else if (c == double.class)
+            return (double) 0;
+        else if (c == boolean.class)
+            return false;
+        else if (c == float.class)
+            return (float) 0;
+        else if (c == short.class)
+            return (short) 0;
+        else if (c == byte.class)
+            return (byte) 0;
+        else if (c == char.class)
+            return (char) 0;
+        else
+            return null;
+
+    }
+
+    //    public static <T> Object createInstance(Class<T> c) throws BeanException
+    //    {
+    //        if (c.isPrimitive())
+    //            return createPrimitiveTypeInstance(c);
+    //
+    //        try
+    //        {
+    //            Class<T> constractableClass = alternateConstractableClassFor(c);
+    //            if (constractableClass == null)
+    //                throw new BeanException(BeanErrorCode.NoPublicConstructor, "No public constructor for the class: "
+    //                        + c.getName() + " is available");
+    //            
+    //            return constractableClass.newInstance();
+    //        }
+    //        catch (InstantiationException e)
+    //        {
+    //            throw new BeanException(BeanErrorCode.InstantiationFailure, e);
+    //        }
+    //        catch (IllegalAccessException e)
+    //        {
+    //            throw new BeanException(BeanErrorCode.IllegalAccess, e);
+    //        }
+    //    }
+
+    private static ConcurrentHashMap<Class< ? >, Constructor< ? >> constructorTable = new ConcurrentHashMap<Class< ? >, Constructor< ? >>();
+
+    private static <T> Object createInstance(Constructor< ? > cons) throws BeanException
+    {
+        try
+        {
+            Class< ? >[] argType = cons.getParameterTypes();
+            Object[] args = new Object[argType.length];
+            for (int i = 0; i < argType.length; ++i)
+                args[i] = createInstance(argType[i]);
+            return cons.newInstance(args);
+        }
+        catch (Exception e)
+        {
+            throw new BeanException(BeanErrorCode.InstantiationFailure, e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public static <T> T createInstance(Class<T> c) throws BeanException
     {
-
-        Class<T> constractableClass = alternateConstractableClassFor(c);
-        if (constractableClass == null)
-            throw new BeanException(BeanErrorCode.NoPublicConstructor, "No public constructor for the class: "
-                    + c.getName() + " is available");
+        if (c.isPrimitive())
+            return (T) createPrimitiveTypeInstance(c);
 
         try
         {
-            return constractableClass.newInstance();
+            Constructor< ? > cons = constructorTable.get(c);
+            if (cons != null)
+            {
+                return (T) createInstance(cons);
+            }
+
+            assert cons == null;
+
+            Class<T> constractableClass = alternateConstractableClassFor(c);
+            if (constractableClass != null)
+            {
+                cons = getPublicDefaultConstructor(constractableClass);
+                constructorTable.put(c, cons);
+                return constractableClass.newInstance();
+            }
+            else
+            {
+                // search other public constructors
+                for (Constructor< ? > publicConstructor : c.getConstructors())
+                {
+                    try
+                    {
+                        Object instance = createInstance(publicConstructor);
+                        constructorTable.put(c, publicConstructor);
+                        return (T) instance;
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+
+                throw new BeanException(BeanErrorCode.NoPublicConstructor, "No public constructor for the class: "
+                        + c.getName() + " is available");
+
+            }
         }
         catch (InstantiationException e)
         {

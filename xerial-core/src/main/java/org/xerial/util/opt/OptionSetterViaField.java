@@ -27,7 +27,7 @@ package org.xerial.util.opt;
 import java.lang.reflect.Field;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.reflect.ReflectionUtil;
 
 /**
@@ -66,7 +66,7 @@ public class OptionSetterViaField implements OptionSetter
     public boolean takesArgument()
     {
         Class< ? > type = getOptionDataType();
-        return !TypeInformation.isBoolean(type);
+        return !TypeInfo.isBoolean(type);
     }
 
     public void initialize(Object bean) throws OptionParserException

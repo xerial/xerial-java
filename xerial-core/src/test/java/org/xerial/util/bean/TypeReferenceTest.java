@@ -68,7 +68,7 @@ public class TypeReferenceTest
         {
             try
             {
-                return TypeInformation.createInstance(c);
+                return TypeInfo.createInstance(c);
             }
             catch (BeanException e)
             {

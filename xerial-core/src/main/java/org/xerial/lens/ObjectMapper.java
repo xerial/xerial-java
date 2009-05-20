@@ -42,7 +42,7 @@ import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.bean.TypeInformation;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeWalker;
 
@@ -148,7 +148,7 @@ public class ObjectMapper
 
     public <T> T map(Class<T> targetType, TreeWalker walker) throws XerialException
     {
-        T object = TypeInformation.createInstance(targetType);
+        T object = TypeInfo.createInstance(targetType);
         return map(object, walker);
     }
 
@@ -198,7 +198,7 @@ public class ObjectMapper
 
         public void build(Class< ? > targetType, String alias)
         {
-            if (TypeInformation.isBasicType(targetType))
+            if (TypeInfo.isBasicType(targetType))
                 return;
 
             if (processedClasses.contains(targetType))
@@ -246,37 +246,18 @@ public class ObjectMapper
         if (instance != null)
             return instance;
 
-        if (TypeInformation.isBasicType(nodeType))
+        if (TypeInfo.isBasicType(nodeType))
         {
             instance = node.nodeValue;
         }
         else
         {
-            instance = TypeInformation.createInstance(nodeType);
+            instance = TypeInfo.createInstance(nodeType);
         }
         objectHolder.put(node.nodeID, instance);
         return instance;
 
     }
-
-    //    private Binder getBinder(Schema schema, Node coreNode, Node attriubuteNode) throws XerialException
-    //    {
-    //        Binder binder = schema2binder.get(schema);
-    //        if (binder != null)
-    //            return binder;
-    //
-    //        if (relationSchema.contains(schema))
-    //        {
-    //            binder = new RelationBinder(schema);
-    //        }
-    //        else
-    //        {
-    //            binder = new AttributeBinder(schema, attributeNodeName);
-    //        }
-    //        schema2binder.put(schema, binder);
-    //
-    //        return binder;
-    //    }
 
     private class RelationExtracter implements AmoebaJoinHandler
     {
