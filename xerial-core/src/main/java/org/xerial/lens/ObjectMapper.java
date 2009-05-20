@@ -34,7 +34,7 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.relation.Node;
-import org.xerial.relation.query.AmoebaJoinHandler;
+import org.xerial.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.relation.query.QuerySet;
 import org.xerial.relation.query.StreamAmoebaJoin;
 import org.xerial.relation.query.QuerySet.QuerySetBuilder;
@@ -199,7 +199,7 @@ public class ObjectMapper
 
         public void build(Class< ? > targetType, String alias)
         {
-            if (TypeInfo.isBasicType(targetType))
+            if (TypeInfo.isBasicType(targetType) || TypeInfo.isCollection(targetType))
                 return;
 
             if (processedClasses.contains(targetType))
@@ -208,8 +208,8 @@ public class ObjectMapper
             processedClasses.add(targetType);
 
             ObjectLens lens = ObjectLens.getObjectLens(targetType);
-            if (_logger.isDebugEnabled())
-                _logger.debug(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
 
             for (ParameterSetter each : lens.getSetterList())
             {
@@ -263,7 +263,7 @@ public class ObjectMapper
 
     }
 
-    private class RelationExtracter implements AmoebaJoinHandler
+    private class RelationExtracter extends AmoebaJoinHandlerBase
     {
 
         public void leaveNode(Schema schema, Node node) throws Exception
@@ -277,8 +277,8 @@ public class ObjectMapper
 
         public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
         {
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
+            if (_logger.isDebugEnabled())
+                _logger.debug(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)

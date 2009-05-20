@@ -58,7 +58,7 @@ public class SilkWalker extends TreeWalkerImpl
      * @param input
      * @throws IOException
      */
-    protected SilkWalker(Reader input) throws IOException
+    public SilkWalker(Reader input) throws IOException
     {
         super(new SilkStreamReader(input));
     }

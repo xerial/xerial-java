@@ -189,6 +189,17 @@ public class Lens
         return load(result, new SilkWalker(silkResource));
     }
 
+    public static <Result> Result loadSilk(Result result, Reader silkReader) throws XerialException, IOException
+    {
+        return load(result, new SilkWalker(silkReader));
+    }
+
+    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader) throws XerialException,
+            IOException
+    {
+        return loadSilk(TypeInfo.createInstance(resultType), silkReader);
+    }
+
     public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException, XerialException
     {
         if (xmlResource == null)

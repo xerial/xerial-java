@@ -324,6 +324,7 @@ public class TypeInfo
             if (constractableClass != null)
             {
                 cons = getPublicDefaultConstructor(constractableClass);
+                assert cons != null;
                 constructorTable.put(c, cons);
                 return constractableClass.newInstance();
             }
@@ -336,6 +337,22 @@ public class TypeInfo
                     {
                         Object instance = createInstance(publicConstructor);
                         constructorTable.put(c, publicConstructor);
+                        return (T) instance;
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+
+                // search hidden constructors
+                for (Constructor< ? > constructor : c.getDeclaredConstructors())
+                {
+                    try
+                    {
+                        constructor.setAccessible(true);
+                        Object instance = createInstance(constructor);
+                        constructorTable.put(c, constructor);
                         return (T) instance;
                     }
                     catch (Exception e)

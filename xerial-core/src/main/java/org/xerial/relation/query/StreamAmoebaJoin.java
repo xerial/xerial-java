@@ -333,6 +333,7 @@ public class StreamAmoebaJoin implements TreeVisitor
     {
         leaveNode("root", walker);
         _logger.debug("sweep finished");
+        handler.finish();
     }
 
     public void init(TreeWalker walker) throws XerialException
@@ -340,6 +341,8 @@ public class StreamAmoebaJoin implements TreeVisitor
         nodeCount = -1;
         latticeCursor = nodeNameLattice.cursor();
         stateStack.addLast(latticeCursor.getNode());
+
+        handler.init();
 
         visitNode("root", null, walker);
     }
@@ -411,7 +414,10 @@ public class StreamAmoebaJoin implements TreeVisitor
         }
         catch (Exception e)
         {
-            throw new XerialError(XerialErrorCode.INHERITED, e);
+            if (e instanceof XerialException)
+                throw (XerialException) e;
+            else
+                throw new XerialException(XerialErrorCode.INHERITED, e);
         }
     }
 
@@ -420,16 +426,21 @@ public class StreamAmoebaJoin implements TreeVisitor
         Deque<Node> nodeStack = getNodeStack(nodeName);
         Node currentNode = nodeStack.getLast();
 
-        currentPath.removeLast();
-
         try
         {
             back(currentNode);
         }
         catch (Exception e)
         {
-            throw new XerialException(XerialErrorCode.INHERITED, e);
+            if (e instanceof XerialException)
+                throw (XerialException) e;
+            else if (e instanceof XerialError)
+                throw (XerialError) e;
+            else
+                throw new XerialException(XerialErrorCode.INHERITED, e);
         }
+
+        currentPath.removeLast();
 
         nodeStack.removeLast();
     }

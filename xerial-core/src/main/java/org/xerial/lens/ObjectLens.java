@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 
 import org.xerial.util.Pair;
 import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Tree to Object lens
@@ -117,7 +118,6 @@ public class ObjectLens
                 {
                     Class< ? > fieldType = eachField.getType();
                     String paramName = getCanonicalParameterName(eachField.getName());
-                    SetterType setterType = SetterType.SETTER;
 
                     if (TypeInfo.isArray(fieldType))
                     {
@@ -126,14 +126,17 @@ public class ObjectLens
                     }
                     else if (TypeInfo.isMap(fieldType))
                     {
-                        setterType = SetterType.PUTTER;
+
+                        // TODO map putter
+
                     }
                     if (TypeInfo.isCollection(fieldType))
                     {
-                        setterType = SetterType.ADDER;
+                        Class< ? > elementType = ReflectionUtil.getGenericCollectionElementType(eachField);
+                        setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
                     }
-
-                    setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
+                    else
+                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
 
                 }
 
@@ -162,7 +165,8 @@ public class ObjectLens
                         if (relName == null)
                         {
                             // infer relation node names
-                            relName = new Pair<String, String>(argTypes[0].getSimpleName(), argTypes[1].getSimpleName());
+                            relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
+                                    getCanonicalParameterName(argTypes[1].getSimpleName()));
                         }
 
                         relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
@@ -239,9 +243,5 @@ public class ObjectLens
         paramName = paramName.replaceAll("-", "");
         return paramName.toLowerCase();
     }
-
-    private enum SetterType {
-        ADDER, SETTER, PUTTER, APPENDER
-    };
 
 }

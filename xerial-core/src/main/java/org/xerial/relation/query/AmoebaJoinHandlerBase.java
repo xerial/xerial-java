@@ -51,4 +51,14 @@ public class AmoebaJoinHandlerBase implements AmoebaJoinHandler
 
     }
 
+    public void finish()
+    {
+
+    }
+
+    public void init()
+    {
+
+    }
+
 }

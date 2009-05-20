@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.relation.query;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +61,7 @@ public class StreamAmoebaJoinTest
         qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").add("sequence")
                 .build());
 
-        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs.build(), new AmoebaJoinHandler() {
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs.build(), new AmoebaJoinHandlerBase() {
 
             public void newAmoeba(Schema schema, Node n1, Node n2)
             {
@@ -79,4 +81,32 @@ public class StreamAmoebaJoinTest
 
         aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "sample.silk")));
     }
+
+    @Test
+    public void amoebaTest() throws Exception
+    {
+        QuerySetBuilder qs = new QuerySetBuilder();
+        qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("revision").build());
+
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs.build(), new AmoebaJoinHandlerBase() {
+
+            int count = 0;
+
+            public void newAmoeba(Schema schema, Node n1, Node n2)
+            {
+                _logger.debug(String.format("relation (%s, %s)", n1, n2));
+                count++;
+            }
+
+            public void finish()
+            {
+                assertEquals(2, count);
+            }
+
+        });
+
+        aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "gene.silk")));
+
+    }
+
 }

@@ -27,10 +27,10 @@ package org.xerial.lens;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkUtilTest;
@@ -52,7 +52,7 @@ public class LensTest
 
     static class GeneTable
     {
-        private HashedArrayList<Coordinate, Gene> sequenceTable;
+        private HashedArrayList<Coordinate, Gene> sequenceTable = new HashedArrayList<Coordinate, Gene>();
 
         public void add(Coordinate coordinate, Gene gene)
         {
@@ -71,7 +71,6 @@ public class LensTest
         {}
     }
 
-    @Ignore
     @Test
     public void testTranslateSilk() throws IOException, XerialException
     {
@@ -79,11 +78,14 @@ public class LensTest
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
-        assertEquals(4, g.sequenceTable.values().size());
+        for (Coordinate each : g.sequenceTable.keySet())
+        {
+            List<Gene> gl = g.sequenceTable.get(each);
+            assertEquals(2, gl.size());
+        }
 
     }
 
-    @Ignore
     @Test
     public void testMapping() throws Exception
     {
@@ -97,4 +99,30 @@ public class LensTest
         assertEquals("chr1", c.name);
 
     }
+
+    @Test
+    public void testBED() throws Exception
+    {
+        BEDGene g = Lens.loadSilk(BEDGene.class, FileResource.find(LensTest.class, "sample.bed.silk"));
+    }
+
+    public static class CDS
+    {
+        public long start;
+        public long end;
+    }
+
+    public static class Exon extends CDS
+    {
+
+    }
+
+    public static class BEDGene
+    {
+
+        public List<CDS> cds;
+        public List<Exon> exon;
+
+    }
+
 }
