@@ -101,7 +101,7 @@ public class ObjectLens
     @Override
     public String toString()
     {
-        return String.format("parameter setter:\n%s\nrelation setter:\n%s", setterContainer, relationSetterContainer);
+        return String.format("(%s, %s)", setterContainer, relationSetterContainer);
     }
 
     private void createBindRules(Class< ? > targetType)

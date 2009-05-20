@@ -57,10 +57,7 @@ public class ObjectMapper
     private static Logger _logger = Logger.getLogger(ObjectMapper.class);
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
 
-    private HashMap<Schema, ObjectLens> schema2lens = new HashMap<Schema, ObjectLens>();
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
-    private HashSet<Schema> relationSchema = new HashSet<Schema>();
-
     private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
 
     private static interface Binder
@@ -223,10 +220,8 @@ public class ObjectMapper
 
                 Schema s = builder.build();
                 qs.addQueryTarget(s);
-                //schema2type.put(s, targetType);
 
                 schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
-                schema2lens.put(s, lens);
             }
 
             for (RelationSetter each : lens.getRelationSetterList())
@@ -237,11 +232,8 @@ public class ObjectMapper
                 Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(each.getAttributeNodeName()).build();
                 qs.addQueryTarget(s);
 
-                //schema2type.put(s, targetType);
                 schema2binder.put(s, new RelationBinder(lens, each));
-                schema2lens.put(s, lens);
 
-                relationSchema.add(s);
             }
 
         }
@@ -314,7 +306,7 @@ public class ObjectMapper
         public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception
         {
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, nodeName, text, coreNode, schema));
+                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, nodeName, text, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)

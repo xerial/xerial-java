@@ -3,7 +3,7 @@
  -sequence>
   AACCGG
   CCCCGG
- -gene(id:1, name:gene1, start:100000, end:200000, strand:+)
+ -gene(id:1, name:gene1, start:100000, end:200000, strand:+, _[json]:{"memo":"hello"} )
  -gene(id:2, name:gene2, start:500000, end:700000, strand:-)
   -sequence>
  ACCGCTT

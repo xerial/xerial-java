@@ -77,7 +77,8 @@ public abstract class RelationSetter
     @Override
     public String toString()
     {
-        return String.format("[%s, %s]", coreNodeName, attributeNodeName);
+        return String.format("(%s[%s], %s[%s])", coreNodeName, coreNodeType.getSimpleName(), attributeNodeName,
+                attributeNodeType.getSimpleName());
     }
 
     @Override

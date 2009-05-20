@@ -63,6 +63,7 @@ public class ObjectMapperTest
     // query: (gene, name, start, end, strand)
     public static class GeneData
     {
+        public int id;
         public String name;
         public long start;
         public long end;
@@ -78,8 +79,8 @@ public class ObjectMapperTest
         @Override
         public String toString()
         {
-            return String.format("name=%s, start=%s, end=%s, strand=%s, sequence=%s", name, start, end, strand,
-                    sequence.toString());
+            return String.format("id=%d, name=%s, start=%s, end=%s, strand=%s, sequence=%s", id, name, start, end,
+                    strand, sequence.toString());
         }
     }
 

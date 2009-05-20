@@ -101,6 +101,7 @@ public abstract class ParameterSetter
 
             if (!targetField.isAccessible())
                 targetField.setAccessible(true);
+
         }
 
         @Override

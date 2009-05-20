@@ -67,7 +67,7 @@ public class Logger
     static
     {
         _rootLogger.setLogLevel(LogLevel.INFO);
-        _rootLogger.setOutputWriter(new OutputStreamWriter(System.out));
+        _rootLogger.setOutputWriter(new OutputStreamWriter(System.err));
         _rootLogger._loggerFullName = "root";
         _rootLogger._loggerShortName = "root";
 
