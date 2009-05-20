@@ -42,6 +42,7 @@ import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeWalker;
@@ -248,7 +249,7 @@ public class ObjectMapper
 
         if (TypeInfo.isBasicType(nodeType))
         {
-            instance = node.nodeValue;
+            instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
         }
         else
         {

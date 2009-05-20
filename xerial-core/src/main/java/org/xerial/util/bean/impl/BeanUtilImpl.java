@@ -32,6 +32,7 @@ import java.util.Map;
 import org.antlr.runtime.tree.Tree;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
+import org.xerial.lens.ObjectMapper;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
@@ -68,7 +69,8 @@ public class BeanUtilImpl
      */
     protected static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType) throws XerialException
     {
-        return beanType.cast(createBean(treeWalker, new BeanBindingProcess(beanType)));
+        //return beanType.cast(createBean(treeWalker, new BeanBindingProcess(beanType)));
+        return new ObjectMapper().map(beanType, treeWalker);
     }
 
     /**
@@ -81,7 +83,8 @@ public class BeanUtilImpl
      */
     protected static Object createBean(TreeWalker treeWalker, Object bean) throws XerialException
     {
-        return createBean(treeWalker, new BeanBindingProcess(bean));
+        //return createBean(treeWalker, new BeanBindingProcess(bean));
+        return new ObjectMapper().map(bean, treeWalker);
     }
 
     protected static Object createBean(TreeWalker treeWalker, BeanBindingProcess beanBindingVisitor)

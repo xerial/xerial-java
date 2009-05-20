@@ -185,7 +185,7 @@ public class BeanUtilTest
     }
 
     @Test
-    public void populate() throws JSONException, BeanException
+    public void populate() throws JSONException, BeanException, IOException
     {
         Person s = new Person(10, "leo");
         Person s2 = new Person();
@@ -195,7 +195,7 @@ public class BeanUtilTest
     }
 
     @Test
-    public void populateArray() throws JSONException, BeanException
+    public void populateArray() throws JSONException, BeanException, IOException
     {
         Book s1 = new Book("Data on the Web", new String[] { "Abiteboul", "Buneman" });
         Book s2 = new Book();
@@ -205,7 +205,7 @@ public class BeanUtilTest
     }
 
     @Test
-    public void doNotUsePrivateSetter() throws JSONException, BeanException
+    public void doNotUsePrivateSetter() throws JSONException, BeanException, IOException
     {
         PrivateGetterSetter p = new PrivateGetterSetter(0.0);
         BeanUtil.populateBeanWithJSON(p, "{\"value\" : 1.34}");
@@ -213,7 +213,7 @@ public class BeanUtilTest
     }
 
     @Test
-    public void beanWithCollectionParameters() throws BeanException
+    public void beanWithCollectionParameters() throws BeanException, IOException
     {
         String[] name = { "taro", "leo" };
         Vector<String> v = new Vector<String>();

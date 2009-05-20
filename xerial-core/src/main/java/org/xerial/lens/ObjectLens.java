@@ -113,7 +113,7 @@ public class ObjectLens
             for (Field eachField : eachClass.getFields())
             {
                 int fieldModifier = eachField.getModifiers();
-                if (Modifier.isPublic(fieldModifier) || !Modifier.isTransient(fieldModifier))
+                if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier))
                 {
                     Class< ? > fieldType = eachField.getType();
                     String paramName = getCanonicalParameterName(eachField.getName());
@@ -159,6 +159,12 @@ public class ObjectLens
                     {
                         // relation adder
                         Pair<String, String> relName = pickRelationName(paramPart);
+                        if (relName == null)
+                        {
+                            // infer relation node names
+                            relName = new Pair<String, String>(argTypes[0].getSimpleName(), argTypes[1].getSimpleName());
+                        }
+
                         relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
                                 .getSecond(), eachMethod));
                         break;

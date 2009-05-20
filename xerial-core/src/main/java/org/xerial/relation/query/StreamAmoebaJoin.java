@@ -76,20 +76,22 @@ public class StreamAmoebaJoin implements TreeVisitor
     final QuerySet query;
     final AmoebaJoinHandler handler;
 
-    // for running amoeba join
-    long nodeCount = -1;
-    Lattice<String> nodeNameLattice = new Lattice<String>();
-    LatticeCursor<String> latticeCursor;
+    private final static String EMPTY_NODE_NAME = "";
 
-    Deque<String> currentPath = new ArrayDeque<String>();
-    Deque<LatticeNode<String>> stateStack = new ArrayDeque<LatticeNode<String>>();
+    // for running amoeba join
+    private long nodeCount = -1;
+    private Lattice<String> nodeNameLattice = new Lattice<String>();
+    private LatticeCursor<String> latticeCursor;
+
+    private Deque<String> currentPath = new ArrayDeque<String>();
+    private Deque<LatticeNode<String>> stateStack = new ArrayDeque<LatticeNode<String>>();
 
     //  HashedChainMap<String, XMLNode> nodeStackOfEachTag = new HashedChainMap<String, XMLNode>();
-    HashedDeque<String, Node> nodeStackOfEachTag = new HashedDeque<String, Node>();
+    private HashedDeque<String, Node> nodeStackOfEachTag = new HashedDeque<String, Node>();
 
-    HashMap<Edge, List<Operation>> operationSetOnForward = new HashMap<Edge, List<Operation>>();
-    HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
-    HashMap<Edge, List<TextOperation>> operatSetOnText = new HashMap<Edge, List<TextOperation>>();
+    private HashMap<Edge, List<Operation>> operationSetOnForward = new HashMap<Edge, List<Operation>>();
+    private HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
+    private HashMap<Edge, List<TextOperation>> operatSetOnText = new HashMap<Edge, List<TextOperation>>();
 
     public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException
     {
@@ -355,7 +357,7 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         forward(currentNode);
 
-        currentPath.addLast(nodeName);
+        currentPath.addLast(nodeName != null ? nodeName : EMPTY_NODE_NAME);
 
         // for tree nodes
         if (query.isTreeNode(nodeName))

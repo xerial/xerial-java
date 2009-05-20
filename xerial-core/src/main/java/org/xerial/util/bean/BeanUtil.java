@@ -50,7 +50,6 @@ import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONBoolean;
 import org.xerial.json.JSONDouble;
-import org.xerial.json.JSONException;
 import org.xerial.json.JSONInteger;
 import org.xerial.json.JSONLong;
 import org.xerial.json.JSONObject;
@@ -872,6 +871,7 @@ public class BeanUtil
      *            a bean class
      * @param jsonData
      *            a string representation of a JSON data
+     * @throws IOException
      * @throws InvalidJSONDataException
      *             when the input json data is invalid (cannot interpret as a
      *             JSON object)
@@ -883,13 +883,13 @@ public class BeanUtil
         // parse the input JSON data
         try
         {
-            JSONObject inputJson = new JSONObject(jsonData);
-            populateBean(bean, inputJson);
+            populateBeanWithJSON(bean, new StringReader(jsonData));
         }
-        catch (JSONException e)
+        catch (IOException e)
         {
-            throw new BeanException(BeanErrorCode.InvalidJSONData, e);
+            throw new BeanException(BeanErrorCode.IOError, e);
         }
+
     }
 
     /**
