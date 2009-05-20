@@ -188,6 +188,12 @@ public class SilkWalkerTest
     }
 
     @Test
+    public void testBED() throws Exception
+    {
+        TreeWalkLog l = walk("sample.bed.silk");
+    }
+
+    @Test
     public void testSkipDescendants() throws Exception
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, "small.silk"));

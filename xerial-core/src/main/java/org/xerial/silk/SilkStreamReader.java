@@ -740,7 +740,8 @@ public class SilkStreamReader implements TreeStreamReader
                             if (columnIndex < columns.length)
                             {
                                 String columnData = columns[columnIndex++];
-                                evalDatalineColumn(child, columnData);
+                                if (columnData.length() > 0)
+                                    evalDatalineColumn(child, columnData);
                             }
                         }
                     }

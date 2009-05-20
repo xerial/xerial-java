@@ -28,7 +28,7 @@ options
 	output=AST;
 	// some lexer & parser options
 	// number of look-ahead characters 
-	k=3;	
+	// k=3;	
 	//backtrack=true;
 }
 tokens {
@@ -204,7 +204,7 @@ fragment EscapeSequence
 	; 
 fragment StringChar :  UnicodeChar | EscapeSequence;
 fragment StringChar_s: StringChar*;
-String: '"' s=StringChar_s '"' { setText($s.text); };
+String: '"' s=StringChar_s '"' { setText($s.text);  transit(Symbol.LeaveValue); };
  
 
 fragment ScopeIndicator: '(' | ')';

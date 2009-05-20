@@ -46,7 +46,10 @@ import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkPreamble;
 import org.xerial.silk.impl.SilkParser.silkLine_return;
+import org.xerial.util.StringUtil;
+import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.util.log.Logger;
 
 /**
  * Push-style Silk Parser
@@ -56,6 +59,8 @@ import org.xerial.util.bean.impl.BeanUtilImpl;
  */
 public class SilkPushParser
 {
+    private static Logger _logger = Logger.getLogger(SilkPushParser.class);
+
     private final SilkLexer lexer;
     private final SilkParser parser;
     private final BufferedReader buffer;
@@ -189,6 +194,11 @@ public class SilkPushParser
                 // 17500 lines/sec
 
                 CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+
+                if (_logger.isTraceEnabled())
+                    _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), ANTLRUtil
+                            .getTokenTable(SilkLexer.class, "Silk.tokens")), "\n"));
+
                 parser.setTokenStream(tokenStream);
 
                 // 17000 lines/sec 
@@ -202,6 +212,7 @@ public class SilkPushParser
                 {
                 case SilkParser.Function:
                 {
+
                     SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t,
                             SilkParser.tokenNames);
                     push(new SilkEvent(SilkEventType.FUNCTION, func));

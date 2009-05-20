@@ -146,4 +146,10 @@ public class SilkPullParserTest
         pull("plugin/load-binary.silk");
     }
 
+    @Test
+    public void testBED() throws Exception
+    {
+        pull("sample.bed.silk");
+    }
+
 }
