@@ -277,8 +277,8 @@ public class ObjectMapper
 
         public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
         {
-            if (_logger.isDebugEnabled())
-                _logger.debug(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)

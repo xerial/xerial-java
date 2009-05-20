@@ -27,6 +27,7 @@ package org.xerial.lens;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -110,14 +111,30 @@ public class LensTest
     @Test
     public void testBED() throws Exception
     {
-        BEDQuery g = Lens.loadSilk(BEDQuery.class, FileResource.find(LensTest.class, "sample.bed.silk"));
-        _logger.info(StringUtil.join(g.gene, "\n"));
+        BEDQuery result = new BEDQuery("chr22", 1L, 10000L);
+        Lens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
+
+        _logger.info(StringUtil.join(result.geneList, "\n"));
     }
 
     public static class Locus
     {
         public long start;
         public long end;
+
+        public Locus()
+        {}
+
+        public Locus(long start, long end)
+        {
+            this.start = start;
+            this.end = end;
+        }
+
+        public boolean hasOverlap(Locus other)
+        {
+            return (this.start <= other.end) && (this.end >= other.start);
+        }
 
         @Override
         public String toString()
@@ -152,7 +169,26 @@ public class LensTest
 
     public static class BEDQuery
     {
-        public List<BEDGene> gene;
+        private String coordinate;
+        private Locus queryRange;
+
+        private List<BEDGene> geneList = new ArrayList<BEDGene>();
+
+        public BEDQuery(String coordinate, long startOnGenome, long endOnGenome)
+        {
+            this.coordinate = coordinate;
+            this.queryRange = new Locus(startOnGenome, endOnGenome);
+        }
+
+        public void addGene(BEDGene gene)
+        {
+            // where conditions
+            if (coordinate.equals(gene.coordinate) && queryRange.hasOverlap(gene))
+            {
+                // draw the gene on the canvas
+                geneList.add(gene);
+            }
+        }
     }
 
 }
