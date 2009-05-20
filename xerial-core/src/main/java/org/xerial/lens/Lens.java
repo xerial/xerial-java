@@ -24,11 +24,22 @@
 //--------------------------------------
 package org.xerial.lens;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
+import java.util.Map;
 
+import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWalker;
+import org.xerial.util.bean.ANTLRWalker;
+import org.xerial.util.bean.JSONStreamWalker;
+import org.xerial.util.bean.MapWalker;
+import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.xml.XMLTreeWalker;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -164,18 +175,85 @@ public class Lens
      * @throws XerialException
      *             when failed to parse the input Silk file
      */
-    public static <Result> Result translateSilk(URL silkFileResource, Class<Result> targetClass) throws IOException,
+    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource) throws IOException,
             XerialException
     {
-        //retrievesObjectAttributes(targetClass);
+        return loadSilk(TypeInfo.createInstance(targetType), silkResource);
+    }
 
-        if (silkFileResource == null)
-            throw new NullPointerException("silkFileResource");
+    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException, XerialException
+    {
+        if (silkResource == null)
+            throw new NullPointerException("silk resouce is null");
 
-        SilkWalker walker = new SilkWalker(silkFileResource);
-        //TreeToObjectLens lens = new TreeToObjectLens();
-        //lens.process(walker);
-        return null;
+        return load(result, new SilkWalker(silkResource));
+    }
+
+    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException, XerialException
+    {
+        if (xmlResource == null)
+            throw new NullPointerException("XML resource is null");
+
+        return load(result, new XMLTreeWalker(new BufferedReader(new InputStreamReader(xmlResource.openStream()))));
+    }
+
+    public static <Result> Result loadXML(Class<Result> result, URL xmlResource) throws IOException, XerialException
+    {
+        return loadXML(TypeInfo.createInstance(result), xmlResource);
+    }
+
+    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader) throws IOException, XerialException
+    {
+        return loadXML(TypeInfo.createInstance(result), xmlReader);
+    }
+
+    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException, XerialException
+    {
+        return load(result, new XMLTreeWalker(xmlReader));
+    }
+
+    public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader) throws XerialException,
+            IOException
+    {
+        return loadJSON(TypeInfo.createInstance(targetType), jsonReader);
+    }
+
+    public static <Result> Result loadJSON(Result result, Reader jsonReader) throws XerialException, IOException
+    {
+        return load(result, new JSONStreamWalker(jsonReader));
+    }
+
+    public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
+            final String[] parserTokenNames) throws XerialException
+    {
+        return loadANTLRParseTree(TypeInfo.createInstance(resultType), tree, parserTokenNames);
+    }
+
+    public static <Result> Result loadANTLRParseTree(Result result, Tree tree, final String[] parserTokenNames)
+            throws XerialException
+    {
+        return load(result, new ANTLRWalker(parserTokenNames, tree));
+    }
+
+    public static <Result> Result loadMap(Class<Result> resultType, Map< ? , ? > map) throws XerialException
+    {
+        return loadMap(TypeInfo.createInstance(resultType), map);
+    }
+
+    public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException
+    {
+        return load(result, new MapWalker(map));
+    }
+
+    public static <Result> Result load(Class<Result> targetType, TreeWalker walker) throws XerialException
+    {
+        return load(TypeInfo.createInstance(targetType), walker);
+    }
+
+    public static <Result> Result load(Result result, TreeWalker walker) throws XerialException
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.map(result, walker);
     }
 
 }

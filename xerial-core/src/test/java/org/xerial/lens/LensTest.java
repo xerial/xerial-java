@@ -54,7 +54,7 @@ public class LensTest
     {
         private HashedArrayList<Coordinate, Gene> sequenceTable;
 
-        public void addCoordinate_Gene(Coordinate coordinate, Gene gene)
+        public void add(Coordinate coordinate, Gene gene)
         {
             sequenceTable.put(coordinate, gene);
         }
@@ -75,7 +75,7 @@ public class LensTest
     @Test
     public void testTranslateSilk() throws IOException, XerialException
     {
-        GeneTable g = Lens.translateSilk(FileResource.find(LensTest.class, "../silk/sequence.silk"), GeneTable.class);
+        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class, "../silk/sequence.silk"));
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
@@ -86,8 +86,8 @@ public class LensTest
     @Test
     public void testMapping() throws Exception
     {
-        Coordinate c = Lens.translateSilk(FileResource.find(SilkUtilTest.class, "../silk/sequence.silk"),
-                Coordinate.class);
+        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class, "../silk/sequence.silk"));
+
         _logger.info(c);
         assertNotNull(c);
         assertEquals("utgb", c.group);

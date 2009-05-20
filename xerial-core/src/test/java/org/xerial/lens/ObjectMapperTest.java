@@ -63,13 +63,22 @@ public class ObjectMapperTest
     // query: (gene, name, start, end, strand)
     public static class GeneData
     {
-        public int id;
-        public String name;
-        public long start;
-        public long end;
-        public String strand;
+        public final int id;
+        public final String name;
+        public final long start;
+        public final long end;
+        public final String strand;
 
         private StringBuilder sequence = new StringBuilder();
+
+        public GeneData(int id, String name, long start, long end, String strand)
+        {
+            this.id = id;
+            this.name = name;
+            this.start = start;
+            this.end = end;
+            this.strand = strand;
+        }
 
         public void appendSequence(String seq)
         {
@@ -86,7 +95,12 @@ public class ObjectMapperTest
 
     public static class GeneDB
     {
-        public final String description = null;
+        public final String description;
+
+        public GeneDB(String description)
+        {
+            this.description = description;
+        }
 
         public void addCoordinate_Gene(CoordinateData c, GeneData g)
         {
@@ -96,6 +110,11 @@ public class ObjectMapperTest
         public void addCoordinate(CoordinateData c)
         {
             _logger.debug(c);
+        }
+
+        public void addGene(GeneData g)
+        {
+            _logger.debug(g);
         }
 
     }
