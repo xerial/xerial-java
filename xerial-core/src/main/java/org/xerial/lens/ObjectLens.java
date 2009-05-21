@@ -27,6 +27,7 @@ package org.xerial.lens;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,13 +125,20 @@ public class ObjectLens
                 }
                 else if (TypeInfo.isMap(fieldType))
                 {
-
                     // TODO map putter
+                    Pair<Type, Type> keyValueTypes = ReflectionUtil.getGenericMapElementType(eachField);
+                    Pair<String, String> keyValueNames = pickRelationName(eachField.getName());
+                    if (keyValueNames == null)
+                    {
+                        // infer key and value names from type parameters in Map<Key, Value>
+
+                    }
 
                 }
-                if (TypeInfo.isCollection(fieldType))
+                else if (TypeInfo.isCollection(fieldType))
                 {
-                    Class< ? > elementType = ReflectionUtil.getGenericCollectionElementType(eachField);
+                    Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil
+                            .getGenericCollectionElementType(eachField));
                     setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
                 }
                 else

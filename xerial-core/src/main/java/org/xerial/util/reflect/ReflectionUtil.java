@@ -33,6 +33,7 @@ import java.lang.reflect.Type;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.Pair;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
@@ -122,24 +123,94 @@ public class ReflectionUtil
      * @param field
      * @return the generic element type
      */
-    public static Class< ? > getGenericCollectionElementType(Field field)
+    public static Type getGenericCollectionElementType(Field field)
     {
         if (!TypeInfo.isCollection(field.getType()))
             throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, field.getType().getName());
 
-        Type optionFieldType = field.getGenericType();
+        Type fieldType = field.getGenericType();
+
+        if (hasGenericTypes(fieldType))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(fieldType);
+            return pt.getActualTypeArguments()[0];
+        }
+        else
+            return Object.class;
+    }
+
+    public static boolean hasGenericTypes(Type t)
+    {
+        return ParameterizedType.class.isInstance(t);
+    }
+
+    public static Type[] getGenericParameterTypes(Type t)
+    {
+        if (ParameterizedType.class.isInstance(t))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(t);
+            return pt.getActualTypeArguments();
+        }
+        else
+            return null;
+    }
+
+    public static Type getGenericCollectionElementRawType(Field collectionType)
+    {
+        if (!TypeInfo.isCollection(collectionType.getType()))
+            throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, collectionType.getType().getName());
+
+        Type optionFieldType = collectionType.getGenericType();
 
         if (ParameterizedType.class.isInstance(optionFieldType))
         {
             ParameterizedType pt = ParameterizedType.class.cast(optionFieldType);
-            Type elementType = pt.getActualTypeArguments()[0];
-            if (Class.class.isInstance(elementType))
-                return (Class< ? >) elementType;
-            else
-                return Object.class;
+            return pt.getActualTypeArguments()[0];
         }
         else
             return Object.class;
+
+    }
+
+    private static Class< ? > toClassType(Type genericType)
+    {
+        if (Class.class.isInstance(genericType))
+            return (Class< ? >) genericType;
+        else
+            return Object.class;
+    }
+
+    public static Class< ? > getRawClass(Type type)
+    {
+        if (ParameterizedType.class.isInstance(type))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(type);
+            return toClassType(pt.getRawType());
+        }
+        else
+            return toClassType(type);
+    }
+
+    public static Pair<Type, Type> getGenericMapElementType(Field field)
+    {
+        if (!TypeInfo.isMap(field.getType()))
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, "not a map type: " + field);
+
+        Type fieldType = field.getGenericType();
+
+        if (ParameterizedType.class.isInstance(fieldType))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(fieldType);
+            Type[] keyValueType = pt.getActualTypeArguments();
+
+            // TODO look up parent classes?
+            if (keyValueType.length != 2)
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "not a Map<Key, Value> type: " + field);
+
+            return new Pair<Type, Type>(keyValueType[0], keyValueType[1]);
+        }
+
+        return new Pair<Type, Type>(Object.class, Object.class);
     }
 
     /**
@@ -203,9 +274,9 @@ public class ReflectionUtil
                 try
                 {
                     Method adder = field.getType().getMethod("add", Object.class);
-                    Class< ? > elementType = getGenericCollectionElementType(field);
+                    Type elementType = getGenericCollectionElementType(field);
 
-                    Object convertedValue = TypeConverter.convertType(elementType, value);
+                    Object convertedValue = TypeConverter.convertType(getRawClass(elementType), value);
                     adder.invoke(collection, convertedValue);
                 }
                 catch (SecurityException e)
