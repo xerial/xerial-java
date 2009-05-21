@@ -26,13 +26,18 @@ package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
+import java.util.TreeMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.Pair;
+import org.xerial.util.log.Logger;
 
 public class ObjectLensTest
 {
+
+    private static Logger _logger = Logger.getLogger(ObjectLensTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -81,6 +86,20 @@ public class ObjectLensTest
         assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello World"));
         assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello-World"));
 
+    }
+
+    public static class ExtMap extends TreeMap<Integer, String>
+    {
+        public String name = "ext-map";
+    }
+
+    @Test
+    public void toJSONTest() throws Exception
+    {
+        ExtMap extMap = new ExtMap();
+        extMap.put(1, "hello");
+        extMap.put(10, "world");
+        _logger.info(ObjectLens.toJSON(extMap));
     }
 
 }

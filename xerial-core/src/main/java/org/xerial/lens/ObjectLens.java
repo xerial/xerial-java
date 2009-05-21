@@ -96,6 +96,11 @@ public class ObjectLens
         return Collections.unmodifiableList(getterContainer);
     }
 
+    public boolean hasParameters()
+    {
+        return !getterContainer.isEmpty();
+    }
+
     protected ObjectLens(Class< ? > targetType)
     {
         this.targetType = targetType;
@@ -304,20 +309,44 @@ public class ObjectLens
     private static void toJSON(JSONWriter json, Object obj)
     {
         Class< ? > c = obj.getClass();
+        ObjectLens lens = getObjectLens(obj.getClass());
 
         if (TypeInfo.isCollection(c))
         {
-            json.startArray();
+            if (lens.hasParameters())
+            {
+                json.startObject();
+                outputParemters(json, obj);
+
+                json.startArray("entry");
+            }
+            else
+                json.startArray();
+
             Collection< ? > collection = (Collection< ? >) obj;
             for (Object elem : collection)
             {
                 toJSON(json, elem);
             }
+
             json.endArray();
+
+            if (lens.hasParameters())
+                json.endObject();
+
         }
         else if (TypeInfo.isMap(c))
         {
-            json.startArray();
+            if (lens.hasParameters())
+            {
+                json.startObject();
+                outputParemters(json, obj);
+
+                json.startArray("entry");
+            }
+            else
+                json.startArray();
+
             Map< ? , ? > map = (Map< ? , ? >) obj;
 
             json.startArray();
@@ -329,18 +358,25 @@ public class ObjectLens
                 json.endObject();
             }
             json.endArray();
-
             json.endArray();
+
+            if (lens.hasParameters())
+                json.endObject();
         }
         else
         {
-            ObjectLens lens = getObjectLens(obj.getClass());
             json.startObject();
-            for (ParameterGetter getter : lens.getGetterContainer())
-            {
-                json.putObject(getter.getParamName(), getter.get(obj));
-            }
+            outputParemters(json, obj);
             json.endObject();
+        }
+    }
+
+    private static void outputParemters(JSONWriter json, Object obj)
+    {
+        ObjectLens lens = getObjectLens(obj.getClass());
+        for (ParameterGetter getter : lens.getGetterContainer())
+        {
+            json.putObject(getter.getParamName(), getter.get(obj));
         }
     }
 

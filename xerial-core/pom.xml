@@ -9,7 +9,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <description>Xerial Core: standard utilities for XerialJ project</description>
 
   <build>
