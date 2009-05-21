@@ -99,6 +99,7 @@ public abstract class ParameterSetter
             super(parameterType, parameterName);
             this.targetField = targetField;
 
+            // make the final fields accessible
             if (!targetField.isAccessible())
                 targetField.setAccessible(true);
 
@@ -108,6 +109,11 @@ public abstract class ParameterSetter
         public void bind(Object object, Object value) throws XerialException
         {
             ReflectionUtil.setFieldValue(object, targetField, value);
+        }
+
+        public Object get(Object object) throws XerialException
+        {
+            return ReflectionUtil.getFieldValue(object, targetField);
         }
 
     }

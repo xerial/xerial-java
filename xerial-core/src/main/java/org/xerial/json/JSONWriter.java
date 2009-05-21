@@ -268,7 +268,7 @@ public class JSONWriter
     public void putObject(String key, Object obj)
     {
         if (obj == null)
-            putNull(key);
+            return; // output nothing
         else
         {
             putInternal(key, ObjectLens.toJSON(obj));

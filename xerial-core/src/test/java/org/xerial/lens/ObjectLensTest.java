@@ -73,4 +73,14 @@ public class ObjectLensTest
 
     }
 
+    @Test
+    public void canonicalNameTest() throws Exception
+    {
+        assertEquals("itemrgb", ObjectLens.getCanonicalParameterName("itemRgb"));
+        assertEquals("itemref", ObjectLens.getCanonicalParameterName("item_ref"));
+        assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello World"));
+        assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello-World"));
+
+    }
+
 }

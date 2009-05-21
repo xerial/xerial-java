@@ -36,6 +36,7 @@ import java.util.Map.Entry;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.ObjectLens;
 import org.xerial.relation.Node;
 import org.xerial.relation.TupleIndex;
 import org.xerial.relation.Node.NodeBuilder;
@@ -352,8 +353,15 @@ public class StreamAmoebaJoin implements TreeVisitor
         return nodeStackOfEachTag.get(nodeName);
     }
 
+    public static String sanitize(String nodeName)
+    {
+        return ObjectLens.getCanonicalParameterName(nodeName);
+    }
+
     public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
     {
+        nodeName = sanitize(nodeName);
+
         Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue).build();
         Deque<Node> nodeStack = getNodeStack(nodeName);
         nodeStack.add(currentNode);
@@ -378,6 +386,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
     {
+        nodeName = sanitize(nodeName);
+
         Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
         LatticeNode<String> currentState = it.next();
         LatticeNode<String> prevState = it.next();
@@ -423,6 +433,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
     {
+        nodeName = sanitize(nodeName);
+
         Deque<Node> nodeStack = getNodeStack(nodeName);
         Node currentNode = nodeStack.getLast();
 

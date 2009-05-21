@@ -111,10 +111,18 @@ public class LensTest
     @Test
     public void testBED() throws Exception
     {
-        BEDQuery result = new BEDQuery("chr22", 1L, 10000L);
+        BEDQuery result = new BEDQuery("chr7", 1L, 1000000000L);
         Lens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
 
         _logger.info(StringUtil.join(result.geneList, "\n"));
+
+        assertEquals("Item,RGB,Demo2", result.track.name);
+        assertEquals("Item RGBdemonstration2", result.track.description);
+        assertEquals(2, result.track.visibility);
+        assertEquals("On", result.track.itemRgb);
+        assertEquals(1, result.track.useScore);
+        assertEquals("0,128,0", result.track.color);
+        assertEquals("http://genome.ucsc.edu/goldenPath/help/clones.html#$$", result.track.url);
     }
 
     public static class Locus
@@ -157,22 +165,36 @@ public class LensTest
     {
         public String coordinate;
         public String name;
+        public String color;
+        public String strand;
         public List<CDS> cds;
         public List<Exon> exon;
 
         @Override
         public String toString()
         {
-            return String.format("%s %s (%s, %s), cds=%s, exon=%s", coordinate, name, start, end, cds, exon);
+            return ObjectLens.toJSON(this);
         }
+    }
+
+    public static class BEDTrack
+    {
+        public String name;
+        public String description;
+        public String itemRgb;
+        public int visibility;
+        public String color;
+        public int useScore;
+        public String url;
     }
 
     public static class BEDQuery
     {
         private String coordinate;
         private Locus queryRange;
-
         private List<BEDGene> geneList = new ArrayList<BEDGene>();
+
+        public BEDTrack track;
 
         public BEDQuery(String coordinate, long startOnGenome, long endOnGenome)
         {

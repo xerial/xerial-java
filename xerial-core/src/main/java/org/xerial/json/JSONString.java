@@ -26,49 +26,57 @@ package org.xerial.json;
 
 import org.xerial.util.StringUtil;
 
+public class JSONString extends JSONValueBase
+{
 
-public class JSONString extends JSONValueBase {
+    private String s;
 
-	private String s;
-	public JSONString() {}
-	public JSONString(String s)
-	{
-		this.s = StringUtil.unquote(s);
-	}
-	
-	public String toString()
-	{
-		return s;
-	}
-	
-	public String toJSONString()
-	{
-		return "\"" + s + "\"";
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof JSONString) {
-			return s.equals(((JSONString) obj).s);
-		}
-		return false;
-	}
-	
-	@Override
-	public JSONString getJSONString() {
-		return this;
-	}
-	
-	public String getValue()
-	{
-		return s;
-	}
+    public JSONString()
+    {}
+
+    public JSONString(String s)
+    {
+        this.s = StringUtil.unquote(s);
+    }
+
+    public String toString()
+    {
+        return s;
+    }
+
+    public String toJSONString()
+    {
+        return toJSONString(s);
+    }
+
+    public static String toJSONString(String s)
+    {
+        return "\"" + s + "\"";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof JSONString)
+        {
+            return s.equals(((JSONString) obj).s);
+        }
+        return false;
+    }
+
+    @Override
+    public JSONString getJSONString()
+    {
+        return this;
+    }
+
+    public String getValue()
+    {
+        return s;
+    }
+
     public JSONValueType getValueType()
     {
         return JSONValueType.String;
     }
 }
-
-
-
-

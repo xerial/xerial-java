@@ -59,6 +59,7 @@ import org.xerial.silk.plugin.SilkFunctionArgument;
 import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.FileResource;
+import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
@@ -609,7 +610,7 @@ public class SilkStreamReader implements TreeStreamReader
             }
             else
             {
-                visit(node.getName(), columnData);
+                visit(node.getName(), StringUtil.unquote(columnData));
                 leave(node.getName());
             }
         }
