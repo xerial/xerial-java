@@ -129,7 +129,23 @@ public class ObjectLensTest
 
     public static class ExtList extends ArrayList<Integer>
     {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
         public String name = "ext-list";
+
+        @Override
+        public boolean equals(Object o)
+        {
+            if (!(o instanceof ExtList))
+                return false;
+
+            ExtList other = (ExtList) o;
+
+            return name.equals(other.name) && super.equals(other);
+
+        }
     }
 
     @Test
@@ -141,10 +157,10 @@ public class ObjectLensTest
         extList.add(14);
 
         String json = ObjectLens.toJSON(extList);
-        _logger.info(json);
+        _logger.debug(json);
 
         ExtList extList2 = Lens.loadJSON(ExtList.class, new StringReader(json));
-        _logger.info(ObjectLens.toJSON(extList2));
+        _logger.debug(ObjectLens.toJSON(extList2));
 
         assertEquals(extList, extList2);
 
