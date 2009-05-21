@@ -450,7 +450,7 @@ public class BeanUtil
         return orig;
     }
 
-    private static Class< ? >[] resolveActualTypeOfMapElement(Type type, Class< ? >[] orig)
+    public static Class< ? >[] resolveActualTypeOfMapElement(Type type, Class< ? >[] orig)
     {
         ParameterizedType pt = getParentParameterizedType(type, Map.class);
         if (pt != null)

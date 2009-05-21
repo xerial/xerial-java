@@ -26,6 +26,7 @@ package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
+import java.io.StringReader;
 import java.util.TreeMap;
 
 import org.junit.After;
@@ -90,7 +91,24 @@ public class ObjectLensTest
 
     public static class ExtMap extends TreeMap<Integer, String>
     {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
         public String name = "ext-map";
+
+        @Override
+        public boolean equals(Object o)
+        {
+            if (!(o instanceof ExtMap))
+                return false;
+
+            ExtMap other = (ExtMap) o;
+
+            return name.equals(other.name) && super.equals(other);
+
+        }
     }
 
     @Test
@@ -99,7 +117,13 @@ public class ObjectLensTest
         ExtMap extMap = new ExtMap();
         extMap.put(1, "hello");
         extMap.put(10, "world");
-        _logger.info(ObjectLens.toJSON(extMap));
+        String json = ObjectLens.toJSON(extMap);
+        _logger.debug(json);
+
+        ExtMap extMap2 = Lens.loadJSON(ExtMap.class, new StringReader(json));
+        _logger.debug(ObjectLens.toJSON(extMap2));
+
+        assertEquals(extMap, extMap2);
     }
 
 }

@@ -26,8 +26,12 @@ package org.xerial.lens;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 
 /**
@@ -38,6 +42,8 @@ import org.xerial.util.reflect.ReflectionUtil;
  */
 public abstract class ParameterSetter
 {
+    private static Logger _logger = Logger.getLogger(ParameterSetter.class);
+
     private final Class< ? > parameterType;
     private final String parameterName;
 
@@ -90,6 +96,21 @@ public abstract class ParameterSetter
         return new MethodSetter(parameterType, parameterName, setterMethod);
     }
 
+    public static ParameterSetter newKeySetter(Class< ? > keyType)
+    {
+        return new MapEntryBinder(keyType, "key");
+    }
+
+    public static ParameterSetter newValueSetter(Class< ? > valueType)
+    {
+        return new MapEntryBinder(valueType, "value");
+    }
+
+    public static ParameterSetter newMapEntrySetter(Class< ? > keyType, Class< ? > valueType)
+    {
+        return new MapEntrySetter(keyType, valueType);
+    }
+
     private static class FieldSetter extends ParameterSetter
     {
         private final Field targetField;
@@ -132,6 +153,78 @@ public abstract class ParameterSetter
         public void bind(Object object, Object value) throws XerialException
         {
             ReflectionUtil.setValue(object, setterMethod, value);
+        }
+
+    }
+
+    static class MapEntryBinder extends ParameterSetter
+    {
+        private final Field targetField;
+
+        public MapEntryBinder(Class< ? > parameterType, String parameterName)
+        {
+            super(parameterType, parameterName);
+
+            try
+            {
+                targetField = MapEntry.class.getField(parameterName);
+            }
+            catch (Exception e)
+            {
+                throw new XerialError(XerialErrorCode.INVALID_STATE, e);
+            }
+
+        }
+
+        @Override
+        public void bind(Object entry, Object key) throws XerialException
+        {
+            ReflectionUtil.setFieldValue(entry, targetField, key);
+        }
+
+    }
+
+    private static class MapEntrySetter extends ParameterSetter
+    {
+        final Class< ? > keyType;
+        final Class< ? > valueType;
+
+        public MapEntrySetter(Class< ? > keyType, Class< ? > valueType)
+        {
+            super(MapEntry.class, "entry");
+
+            this.keyType = keyType;
+            this.valueType = valueType;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void bind(Object mapObject, Object entryObject) throws XerialException
+        {
+            Map map = Map.class.cast(mapObject);
+            if (map == null)
+            {
+                _logger.warn("not a map type: " + mapObject);
+                return;
+            }
+
+            MapEntry entry = MapEntry.class.cast(entryObject);
+            if (entry == null)
+            {
+                _logger.warn("not a map entry type: " + entryObject);
+                return;
+            }
+
+            try
+            {
+                if (entry.key != null)
+                    map.put(keyType.cast(entry.key), valueType.cast(entry.value));
+            }
+            catch (ClassCastException e)
+            {
+                _logger.warn("cannot convert type: " + e);
+                return;
+            }
         }
 
     }

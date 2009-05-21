@@ -33,6 +33,7 @@ import java.util.Set;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.ParameterSetter.MapEntryBinder;
 import org.xerial.relation.Node;
 import org.xerial.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.relation.query.QuerySet;
@@ -199,7 +200,9 @@ public class ObjectMapper
 
         public void build(Class< ? > targetType, String alias)
         {
-            if (TypeInfo.isBasicType(targetType) || TypeInfo.isCollection(targetType))
+            // TODO use context-based schema -> binder mapping
+
+            if (TypeInfo.isBasicType(targetType) || TypeInfo.isCollection(targetType) || targetType == MapEntry.class)
                 return;
 
             if (processedClasses.contains(targetType))
@@ -213,6 +216,17 @@ public class ObjectMapper
 
             for (ParameterSetter each : lens.getSetterList())
             {
+                if (each.getClass() == MapEntryBinder.class)
+                {
+                    SchemaBuilder builder = new SchemaBuilder();
+                    builder.add("entry");
+                    builder.add(each.getParameterName());
+                    Schema s = builder.build();
+                    qs.addQueryTarget(s);
+                    schema2binder.put(s, new AttributeBinder(MapEntry.class, each));
+                    continue;
+                }
+
                 build(each.getParameterType(), each.getParameterName());
 
                 SchemaBuilder builder = new SchemaBuilder();

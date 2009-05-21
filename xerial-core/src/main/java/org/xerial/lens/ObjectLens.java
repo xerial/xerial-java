@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONWriter;
 import org.xerial.util.Pair;
+import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
@@ -96,7 +97,7 @@ public class ObjectLens
         return Collections.unmodifiableList(getterContainer);
     }
 
-    public boolean hasParameters()
+    public boolean hasAttributes()
     {
         return !getterContainer.isEmpty();
     }
@@ -171,7 +172,6 @@ public class ObjectLens
         // scan methods
         for (Method eachMethod : targetType.getMethods())
         {
-
             String methodName = eachMethod.getName();
             String paramName = pickPropertyName(methodName);
 
@@ -182,6 +182,10 @@ public class ObjectLens
                 {
                 case 1:
                 {
+                    Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
+                    if (TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
+                        break;
+
                     addNewSetter(setterContainer, paramName, eachMethod);
                     break;
                 }
@@ -192,8 +196,27 @@ public class ObjectLens
                     if (relName == null)
                     {
                         // infer relation node names
-                        relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
-                                getCanonicalParameterName(argTypes[1].getSimpleName()));
+                        if (TypeInfo.isMap(eachMethod.getDeclaringClass()))
+                        {
+
+                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
+                                    .getParameterTypes());
+
+                            // map.put(Key, Value)
+                            setterContainer
+                                    .add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
+
+                            // (entry, key)
+                            setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
+                            // (entry, value)
+                            setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
+                            continue;
+                        }
+                        else
+                        {
+                            relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
+                                    getCanonicalParameterName(argTypes[1].getSimpleName()));
+                        }
                     }
 
                     relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
@@ -224,7 +247,6 @@ public class ObjectLens
             }
 
         }
-
     }
 
     private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart, Method m)
@@ -278,6 +300,9 @@ public class ObjectLens
 
     public static String getCanonicalParameterName(String paramName)
     {
+        if (paramName == null)
+            return paramName;
+
         Matcher m = paramNameReplacePattern.matcher(paramName);
         return m.replaceAll("").toLowerCase();
     }
@@ -313,43 +338,48 @@ public class ObjectLens
 
         if (TypeInfo.isCollection(c))
         {
-            if (lens.hasParameters())
+            Collection< ? > collection = (Collection< ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+
+            if (hasAttributes)
             {
                 json.startObject();
                 outputParemters(json, obj);
 
-                json.startArray("entry");
+                if (!collection.isEmpty())
+                    json.startArray("entry");
             }
-            else
+            else if (!collection.isEmpty())
                 json.startArray();
 
-            Collection< ? > collection = (Collection< ? >) obj;
             for (Object elem : collection)
             {
                 toJSON(json, elem);
             }
 
-            json.endArray();
+            if (!collection.isEmpty())
+                json.endArray();
 
-            if (lens.hasParameters())
+            if (hasAttributes)
                 json.endObject();
 
         }
         else if (TypeInfo.isMap(c))
         {
-            if (lens.hasParameters())
+            Map< ? , ? > map = (Map< ? , ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+
+            if (hasAttributes)
             {
                 json.startObject();
                 outputParemters(json, obj);
 
-                json.startArray("entry");
+                if (!map.isEmpty())
+                    json.startArray("entry");
             }
-            else
+            else if (!map.isEmpty())
                 json.startArray();
 
-            Map< ? , ? > map = (Map< ? , ? >) obj;
-
-            json.startArray();
             for (Entry< ? , ? > each : map.entrySet())
             {
                 json.startObject();
@@ -357,10 +387,11 @@ public class ObjectLens
                 json.putObject("value", each.getValue());
                 json.endObject();
             }
-            json.endArray();
-            json.endArray();
 
-            if (lens.hasParameters())
+            if (!map.isEmpty())
+                json.endArray();
+
+            if (hasAttributes)
                 json.endObject();
         }
         else
