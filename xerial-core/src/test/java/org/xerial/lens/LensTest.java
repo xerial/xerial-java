@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class LensTest
         BEDQuery result = new BEDQuery("chr7", 1L, 1000000000L);
         Lens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
 
-        _logger.info(StringUtil.join(result.geneList, "\n"));
+        _logger.debug(StringUtil.join(result.geneList, "\n"));
 
         assertEquals("Item,RGB,Demo2", result.track.name);
         assertEquals("Item RGBdemonstration2", result.track.description);
@@ -211,6 +212,84 @@ public class LensTest
                 geneList.add(gene);
             }
         }
+    }
+
+    public static class DASFeature
+    {
+        public DASGFF gff;
+        public Segment segment;
+        public List<Feature> feature;
+    }
+
+    public static class DASGFF
+    {
+        public String version;
+        public String href;
+
+    }
+
+    public static class Segment
+    {
+        public String id;
+        public long start;
+        public long stop;
+    }
+
+    public static class Feature
+    {
+        public String id;
+        public long start;
+        public long end;
+
+        public String score;
+        public String orientation;
+
+        public FeatureType type;
+        public Segment target;
+    }
+
+    public static class FeatureType
+    {
+        public String id;
+        public String category;
+        public String value;
+
+    }
+
+    /*
+     * <pre>
+    <SEGMENT id="13" start="1800000" stop="18100000"> 
+    <FEATURE id="ENSE00001471274"> 
+    <START>17957458</START> 
+    <END>17957578</END> 
+    <TYPE id="exon:coding:ensembl" category="transcription">exon:coding:ensembl</TYPE> 
+    <METHOD id="ensembl">ensembl</METHOD> 
+    <SCORE>-</SCORE> 
+    <ORIENTATION>-</ORIENTATION> 
+    <GROUP id="ENST00000342944" type="transcript:ensembl" label="ENST00000342944 (AL138715.11-201)"> 
+      <LINK href="http://www.ensembl.org/Homo_sapiens/Transcript/Summary?t=ENST00000342944;db=core">TransView ENST00000342944</LINK> 
+    </GROUP> 
+    <TARGET id="ENST00000342944" start="1" stop="121" /> 
+    </FEATURE> 
+    </SEGMENT> 
+    </pre>
+     */
+    @Test
+    public void dasTest() throws Exception
+    {
+        DASFeature das = Lens.loadXML(DASFeature.class, FileResource.find(LensTest.class, "das.xml"));
+        assertEquals(1, das.feature.size());
+        Feature f = das.feature.get(0);
+        assertEquals("ENSE00001471274", f.id);
+        assertEquals(17957458, f.start);
+        assertEquals(17957578, f.end);
+        assertEquals("-", f.score);
+        assertEquals("-", f.orientation);
+        Segment t = f.target;
+        assertEquals("ENST00000342944", t.id);
+        assertEquals(1, t.start);
+        assertEquals(121, t.stop);
+
     }
 
 }

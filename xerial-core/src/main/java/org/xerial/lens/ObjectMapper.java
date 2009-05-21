@@ -124,6 +124,7 @@ public class ObjectMapper
             this.setter = setter;
             this.coreNodeType = coreNodeType;
             this.attributeNodeType = setter.getParameterType();
+
         }
 
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException

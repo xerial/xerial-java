@@ -1,0 +1,19 @@
+<!DOCTYPE DASGFF SYSTEM "http://www.biodas.org/dtd/dasgff.dtd"> 
+<DASGFF> 
+<GFF version="1.01" href="http://www.ensembl.org/das/Homo_sapiens.NCBI36.transcript/features?segment=13:1800000,18100000"> 
+<SEGMENT id="13" start="1800000" stop="18100000"> 
+  <FEATURE id="ENSE00001471274"> 
+    <START>17957458</START> 
+    <END>17957578</END> 
+    <TYPE id="exon:coding:ensembl" category="transcription">exon:coding:ensembl</TYPE> 
+    <METHOD id="ensembl">ensembl</METHOD> 
+    <SCORE>-</SCORE> 
+    <ORIENTATION>-</ORIENTATION> 
+    <GROUP id="ENST00000342944" type="transcript:ensembl" label="ENST00000342944 (AL138715.11-201)"> 
+      <LINK href="http://www.ensembl.org/Homo_sapiens/Transcript/Summary?t=ENST00000342944;db=core">TransView ENST00000342944</LINK> 
+    </GROUP> 
+    <TARGET id="ENST00000342944" start="1" stop="121" /> 
+  </FEATURE> 
+</SEGMENT> 
+</GFF> 
+</DASGFF> 
