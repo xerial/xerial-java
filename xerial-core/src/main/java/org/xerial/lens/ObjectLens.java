@@ -126,12 +126,15 @@ public class ObjectLens
         for (Field eachField : targetType.getFields())
         {
             // ignore fields defined in the Object class
-            if (eachField.getDeclaringClass() == Object.class)
+            Class< ? > parentClassOfTheField = eachField.getDeclaringClass();
+            if (parentClassOfTheField == Object.class)
                 continue;
 
             int fieldModifier = eachField.getModifiers();
-            if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier))
+            if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier)
+                    && !Modifier.isStatic(fieldModifier))
             {
+
                 Class< ? > fieldType = eachField.getType();
                 String paramName = getCanonicalParameterName(eachField.getName());
 
@@ -183,14 +186,26 @@ public class ObjectLens
                 case 1:
                 {
                     Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
-                    if (TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
+                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
+                            && paramName.equals("all"))
                         break;
 
-                    addNewSetter(setterContainer, paramName, eachMethod);
+                    if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter))
+                    {
+                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(targetType, argTypes[0]);
+                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry", eachMethod));
+                    }
+                    else
+                        addNewSetter(setterContainer, paramName, eachMethod);
                     break;
                 }
                 case 2:
                 {
+                    if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
+                    {
+                        break;
+                    }
+
                     // relation adder
                     Pair<String, String> relName = pickRelationName(paramName);
                     if (relName == null)
@@ -334,6 +349,13 @@ public class ObjectLens
     private static void toJSON(JSONWriter json, Object obj)
     {
         Class< ? > c = obj.getClass();
+
+        if (TypeInfo.isBasicType(c))
+        {
+            json.addObject(obj);
+            return;
+        }
+
         ObjectLens lens = getObjectLens(obj.getClass());
 
         if (TypeInfo.isCollection(c))

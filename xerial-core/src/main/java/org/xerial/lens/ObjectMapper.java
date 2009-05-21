@@ -202,7 +202,7 @@ public class ObjectMapper
         {
             // TODO use context-based schema -> binder mapping
 
-            if (TypeInfo.isBasicType(targetType) || TypeInfo.isCollection(targetType) || targetType == MapEntry.class)
+            if (TypeInfo.isBasicType(targetType) || TypeInfo.isMap(targetType) || targetType == MapEntry.class)
                 return;
 
             if (processedClasses.contains(targetType))

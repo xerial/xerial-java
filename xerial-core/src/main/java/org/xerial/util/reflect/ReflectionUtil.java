@@ -175,6 +175,22 @@ public class ReflectionUtil
             return null;
     }
 
+    public static Class< ? > getGenericArgumentType(Method method, int argIndex)
+    {
+        Type[] argTypes = method.getGenericParameterTypes();
+        if (argTypes.length < argIndex)
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, method.toGenericString());
+
+        if (ParameterizedType.class.isInstance(argTypes[argIndex]))
+        {
+            ParameterizedType pt = ParameterizedType.class.cast(argTypes[argIndex]);
+            return toClassType(pt.getActualTypeArguments()[0]);
+        }
+        else
+            return Object.class;
+
+    }
+
     public static Type getGenericCollectionElementRawType(Field collectionType)
     {
         if (!TypeInfo.isCollection(collectionType.getType()))

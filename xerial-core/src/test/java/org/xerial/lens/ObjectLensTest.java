@@ -27,6 +27,7 @@ package org.xerial.lens;
 import static org.junit.Assert.*;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import org.junit.After;
@@ -112,7 +113,7 @@ public class ObjectLensTest
     }
 
     @Test
-    public void toJSONTest() throws Exception
+    public void mapTest() throws Exception
     {
         ExtMap extMap = new ExtMap();
         extMap.put(1, "hello");
@@ -124,6 +125,29 @@ public class ObjectLensTest
         _logger.debug(ObjectLens.toJSON(extMap2));
 
         assertEquals(extMap, extMap2);
+    }
+
+    public static class ExtList extends ArrayList<Integer>
+    {
+        public String name = "ext-list";
+    }
+
+    @Test
+    public void arrayTest() throws Exception
+    {
+        ExtList extList = new ExtList();
+
+        extList.add(10);
+        extList.add(14);
+
+        String json = ObjectLens.toJSON(extList);
+        _logger.info(json);
+
+        ExtList extList2 = Lens.loadJSON(ExtList.class, new StringReader(json));
+        _logger.info(ObjectLens.toJSON(extList2));
+
+        assertEquals(extList, extList2);
+
     }
 
 }

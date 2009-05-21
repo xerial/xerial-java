@@ -438,7 +438,7 @@ public class BeanUtil
             return null;
     }
 
-    private static Class< ? > resolveActualTypeOfCollectionElement(Type type, Class< ? > orig)
+    public static Class< ? > resolveActualTypeOfCollectionElement(Type type, Class< ? > orig)
     {
         ParameterizedType pt = getParentParameterizedType(type, Collection.class);
         if (pt != null)
