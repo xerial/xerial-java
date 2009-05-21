@@ -32,8 +32,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import org.xerial.core.XerialError;
-import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.BeanUtil;
+import org.xerial.lens.ObjectLens;
 
 /**
  * A support class for generating JSON data
@@ -173,32 +172,32 @@ public class JSONWriter
         pushState(JSONState.InArray);
     }
 
-    public void add(String value) throws IOException
+    public void add(String value)
     {
         addInternal(doubleQuote(value));
     }
 
-    public void add(int value) throws IOException
+    public void add(int value)
     {
         addInternal(value);
     }
 
-    public void add(long value) throws IOException
+    public void add(long value)
     {
         addInternal(value);
     }
 
-    public void add(double value) throws IOException
+    public void add(double value)
     {
         addInternal(value);
     }
 
-    public void add(float value) throws IOException
+    public void add(float value)
     {
         addInternal(value);
     }
 
-    public void add(boolean bool) throws IOException
+    public void add(boolean bool)
     {
         if (bool)
             addInternal("true");
@@ -206,25 +205,18 @@ public class JSONWriter
             addInternal("false");
     }
 
-    public void addNull() throws IOException
+    public void addNull()
     {
         addInternal("null");
     }
 
-    public void addObject(Object bean) throws IOException
+    public void addObject(Object bean)
     {
-        try
-        {
-            String jsonObject = BeanUtil.toJSON(bean);
-            addInternal(jsonObject);
-        }
-        catch (BeanException e)
-        {
-            throw new XerialError(JSONErrorCode.InvalidBeanClass, "cannot generate a JSON data from the given object");
-        }
+        String jsonObject = ObjectLens.toJSON(bean);
+        addInternal(jsonObject);
     }
 
-    private void addInternal(Object value) throws IOException
+    private void addInternal(Object value)
     {
         putComma();
         if (value != null)
@@ -240,32 +232,32 @@ public class JSONWriter
             writer.print(",");
     }
 
-    public void put(String key, String value) throws IOException
+    public void put(String key, String value)
     {
         putInternal(key, doubleQuote(value));
     }
 
-    public void put(String key, int value) throws IOException
+    public void put(String key, int value)
     {
         putInternal(key, value);
     }
 
-    public void put(String key, float value) throws IOException
+    public void put(String key, float value)
     {
         putInternal(key, value);
     }
 
-    public void put(String key, double value) throws IOException
+    public void put(String key, double value)
     {
         putInternal(key, value);
     }
 
-    public void put(String key, long value) throws IOException
+    public void put(String key, long value)
     {
         putInternal(key, value);
     }
 
-    public void put(String key, boolean value) throws IOException
+    public void put(String key, boolean value)
     {
         if (value)
             putInternal(key, "true");
@@ -273,7 +265,18 @@ public class JSONWriter
             putInternal(key, "false");
     }
 
-    public void putNull(String key) throws IOException
+    public void putObject(String key, Object obj)
+    {
+        if (obj == null)
+            putNull(key);
+        else
+        {
+            putInternal(key, ObjectLens.toJSON(obj));
+        }
+
+    }
+
+    public void putNull(String key)
     {
         putInternal(key, "null");
     }
@@ -297,7 +300,7 @@ public class JSONWriter
         writer.append("\"");
     }
 
-    private void putInternal(String key, Object value) throws IOException
+    private void putInternal(String key, Object value)
     {
         outputKeyPart(key);
         writer.append(value.toString());
