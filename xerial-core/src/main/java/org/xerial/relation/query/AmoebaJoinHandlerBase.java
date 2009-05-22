@@ -46,17 +46,17 @@ public class AmoebaJoinHandlerBase implements AmoebaJoinHandler
 
     }
 
-    public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception
-    {
-
-    }
-
     public void finish()
     {
 
     }
 
     public void init()
+    {
+
+    }
+
+    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception
     {
 
     }

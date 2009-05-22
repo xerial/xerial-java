@@ -35,7 +35,16 @@ public interface AmoebaJoinHandler
 
     public void leaveNode(Schema schema, Node node) throws Exception;
 
-    public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception;
+    /**
+     * @param schema
+     * @param coreNode
+     * @param textNode
+     *            text node may not contain a text value
+     * @param text
+     *            text fragment data of the text node
+     * @throws Exception
+     */
+    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception;
 
     public void finish();
 }

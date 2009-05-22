@@ -105,7 +105,7 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     static interface TextOperation
     {
-        void execute(String nodeName, String textData) throws Exception;
+        void execute(String testNodeName, String textData) throws Exception;
     }
 
     class SimpleTextOperation implements TextOperation
@@ -125,11 +125,15 @@ public class StreamAmoebaJoin implements TreeVisitor
             this.coreNodeName = pr.coreNodeName;
         }
 
-        public void execute(String nodeName, String textData) throws Exception
+        public void execute(String textNodeName, String textData) throws Exception
         {
             Deque<Node> nodeStack = getNodeStack(coreNodeName);
             Node contextNode = nodeStack.getLast();
-            handler.text(schema, contextNode, nodeName, textData);
+
+            Deque<Node> textNodeStack = getNodeStack(textNodeName);
+            Node textNode = textNodeStack.getLast();
+
+            handler.text(schema, contextNode, textNode, textData);
         }
     }
 
@@ -395,6 +399,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         Edge currentEdge = new Edge(prevState.getID(), currentState.getID());
         List<TextOperation> textOperation = operatSetOnText.get(currentEdge);
+
+        // generate a text operation set
         if (textOperation == null)
         {
             textOperation = new ArrayList<TextOperation>();

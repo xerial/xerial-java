@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -218,7 +217,13 @@ public class LensTest
     {
         public DASGFF gff;
         public Segment segment;
-        public List<Feature> feature;
+
+        @Override
+        public String toString()
+        {
+            return ObjectLens.toJSON(this);
+        }
+
     }
 
     public static class DASGFF
@@ -233,6 +238,7 @@ public class LensTest
         public String id;
         public long start;
         public long stop;
+        public List<Feature> feature;
     }
 
     public static class Feature
@@ -244,8 +250,18 @@ public class LensTest
         public String score;
         public String orientation;
 
+        public Method method;
         public FeatureType type;
-        public Segment target;
+        public Group group;
+        public Target target;
+
+    }
+
+    public static class Target
+    {
+        public String id;
+        public long start;
+        public long stop;
     }
 
     public static class FeatureType
@@ -254,6 +270,27 @@ public class LensTest
         public String category;
         public String value;
 
+    }
+
+    public static class Group
+    {
+        public String id;
+        public String type;
+        public String label;
+        public Link link;
+
+    }
+
+    public static class Link
+    {
+        public String href;
+        public String value;
+    }
+
+    public static class Method
+    {
+        public String id;
+        public String value;
     }
 
     /*
@@ -278,17 +315,18 @@ public class LensTest
     public void dasTest() throws Exception
     {
         DASFeature das = Lens.loadXML(DASFeature.class, FileResource.find(LensTest.class, "das.xml"));
-        assertEquals(1, das.feature.size());
-        Feature f = das.feature.get(0);
+        assertEquals(1, das.segment.feature.size());
+        Feature f = das.segment.feature.get(0);
+        _logger.debug(das);
         assertEquals("ENSE00001471274", f.id);
-        assertEquals(17957458, f.start);
-        assertEquals(17957578, f.end);
+        assertEquals(17957458L, f.start);
+        assertEquals(17957578L, f.end);
         assertEquals("-", f.score);
         assertEquals("-", f.orientation);
-        Segment t = f.target;
+        Target t = f.target;
         assertEquals("ENST00000342944", t.id);
-        assertEquals(1, t.start);
-        assertEquals(121, t.stop);
+        assertEquals(1L, t.start);
+        assertEquals(121L, t.stop);
 
     }
 

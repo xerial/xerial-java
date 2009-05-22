@@ -66,7 +66,7 @@ public class ObjectMapper
     {
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException;
 
-        public void bindText(Schema schema, Node coreNode, String attributeValue) throws XerialException;
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException;
 
     }
 
@@ -109,7 +109,7 @@ public class ObjectMapper
             return null;
         }
 
-        public void bindText(Schema schema, Node coreNode, String attributeValue) throws XerialException
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException
         {
             throw new XerialError(XerialErrorCode.UNSUPPORTED);
         }
@@ -138,11 +138,15 @@ public class ObjectMapper
                 setter.bind(coreNodeInstance, attributeNodeInstance);
         }
 
-        public void bindText(Schema schema, Node coreNode, String textFragment) throws XerialException
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException
         {
             Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
+            Object textNodeInstance = getNodeInstance(textNode, attributeNodeType);
 
-            setter.bind(coreNodeInstance, textFragment);
+            if (textValue != null && !TypeInfo.isBasicType(attributeNodeType))
+                setTextValue(textNodeInstance, attributeNodeType, textValue);
+            else
+                setter.bind(coreNodeInstance, textValue);
         }
     }
 
@@ -194,7 +198,9 @@ public class ObjectMapper
     private class QueryBuilder
     {
         QuerySetBuilder qs = new QuerySetBuilder();
-        private Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
+        private HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
+
+        //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
 
         public QueryBuilder()
         {
@@ -208,10 +214,22 @@ public class ObjectMapper
             if (TypeInfo.isBasicType(targetType) || targetType == MapEntry.class)
                 return;
 
-            if (processedClasses.contains(targetType))
-                return;
+            Set<Class< ? >> processed = processedClassTable.get(alias);
+            if (processed == null)
+            {
+                processed = new HashSet<Class< ? >>();
+                processedClassTable.put(alias, processed);
+            }
 
-            processedClasses.add(targetType);
+            if (processed.contains(targetType))
+                return;
+            else
+                processed.add(targetType);
+
+            //            if (processedClasses.contains(targetType))
+            //                return;
+            //
+            //            processedClasses.add(targetType);
 
             ObjectLens lens = ObjectLens.getObjectLens(targetType);
             if (_logger.isTraceEnabled())
@@ -258,7 +276,7 @@ public class ObjectMapper
 
     }
 
-    public Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException
+    private Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException
     {
         Object instance = objectHolder.get(node.nodeID);
         if (instance != null)
@@ -274,12 +292,55 @@ public class ObjectMapper
         else
         {
             instance = TypeInfo.createInstance(nodeType);
-            // TODO bind the node value to the instance
+
+            if (node.nodeValue != null)
+            {
+                setTextValue(instance, nodeType, node.nodeValue);
+            }
 
         }
         objectHolder.put(node.nodeID, instance);
         return instance;
+    }
 
+    private void setTextValue(Object instance, Class< ? > textNodeType, String textValue) throws XerialException
+    {
+        // bind the node value to the instance
+        ObjectLens lens = ObjectLens.getObjectLens(textNodeType);
+        ParameterSetter valueSetter = lens.getValueSetter();
+        if (valueSetter != null)
+            valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter.getParameterType(), textValue));
+
+    }
+
+    private Object getTextNodeInstance(String nodeName, String nodeValue, Class< ? > nodeType) throws XerialException
+    {
+        Object instance = null;
+
+        if (TypeInfo.isBasicType(nodeType))
+        {
+            if (nodeValue == null)
+                return null;
+            else
+                instance = TypeConverter.convertToBasicType(nodeType, nodeValue);
+        }
+        else
+        {
+            instance = TypeInfo.createInstance(nodeType);
+
+            if (nodeValue != null)
+            {
+                // bind the node value to the instance
+                ObjectLens lens = ObjectLens.getObjectLens(nodeType);
+                ParameterSetter valueSetter = lens.getValueSetter();
+                if (valueSetter != null)
+                    valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter.getParameterType(),
+                            nodeValue));
+            }
+
+        }
+
+        return instance;
     }
 
     private class RelationExtracter extends AmoebaJoinHandlerBase
@@ -315,10 +376,10 @@ public class ObjectMapper
 
         }
 
-        public void text(Schema schema, Node coreNode, String nodeName, String text) throws Exception
+        public void text(Schema schema, Node coreNode, Node textNode, String textFragment) throws Exception
         {
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, nodeName, text, schema));
+                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode, textFragment, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)
@@ -326,12 +387,12 @@ public class ObjectMapper
 
             try
             {
-                binder.bindText(schema, coreNode, text);
+                binder.bindText(schema, coreNode, textNode, textFragment);
             }
             catch (XerialException e)
             {
                 _logger.warn(String.format("failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
-                        coreNode, nodeName, text, e));
+                        coreNode, textNode, textFragment, e));
             }
         }
 

@@ -81,6 +81,7 @@ public class ObjectLens
     private List<ParameterGetter> getterContainer = new ArrayList<ParameterGetter>();
     private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
     private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
+    private ParameterSetter valueSetter = null;
 
     public List<ParameterSetter> getSetterList()
     {
@@ -95,6 +96,11 @@ public class ObjectLens
     public List<ParameterGetter> getGetterContainer()
     {
         return Collections.unmodifiableList(getterContainer);
+    }
+
+    public ParameterSetter getValueSetter()
+    {
+        return valueSetter;
     }
 
     public boolean hasAttributes()
@@ -164,7 +170,10 @@ public class ObjectLens
                 }
                 else
                 {
-                    setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
+                    if (!paramName.equals("value"))
+                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
+                    else
+                        valueSetter = ParameterSetter.newSetter(fieldType, paramName, eachField);
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
 
