@@ -333,7 +333,8 @@ public class StreamAmoebaJoin implements TreeVisitor
     public void finish(TreeWalker walker) throws XerialException
     {
         leaveNode("root", walker);
-        _logger.debug("sweep finished");
+        if (_logger.isTraceEnabled())
+            _logger.trace("sweep finished");
         handler.finish();
     }
 

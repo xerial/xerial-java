@@ -344,7 +344,7 @@ public class ReflectionUtil
         }
         catch (BeanException e)
         {
-            throw new XerialException(XerialErrorCode.WRONG_DATA_TYPE, e);
+            throw new XerialException(e);
         }
     }
 

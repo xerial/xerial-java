@@ -292,4 +292,22 @@ public class LensTest
 
     }
 
+    public static class Text
+    {
+        public String value;
+    }
+
+    public static class TextQuery
+    {
+        public Text text;
+    }
+
+    @Test
+    public void textData() throws Exception
+    {
+        TextQuery q = Lens.loadSilk(TextQuery.class, FileResource.find(LensTest.class, "text.silk"));
+        assertNotNull(q.text);
+        assertEquals("hello world", q.text.value);
+    }
+
 }

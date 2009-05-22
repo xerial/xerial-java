@@ -107,7 +107,8 @@ public class TypeConverter
             {
                 return DateFormat.getDateTimeInstance().parse(value);
             }
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, targetType.getName());
+            throw new BeanException(BeanErrorCode.InvalidBeanClass, String.format("%s is not a basic type", targetType
+                    .getSimpleName()));
         }
         catch (NumberFormatException e)
         {

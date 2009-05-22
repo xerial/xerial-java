@@ -88,10 +88,12 @@ public class ObjectMapper
 
             Object contextNode = findContextNode(lens.getTargetType());
             if (contextNode == null)
-                throw new XerialError(XerialErrorCode.INVALID_INPUT, "no context node for " + setter);
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for " + setter);
 
             if (attributeNodeInstance != null)
+            {
                 setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
+            }
         }
 
         public Object findContextNode(Class< ? > targetType)
@@ -272,6 +274,8 @@ public class ObjectMapper
         else
         {
             instance = TypeInfo.createInstance(nodeType);
+            // TODO bind the node value to the instance
+
         }
         objectHolder.put(node.nodeID, instance);
         return instance;
@@ -285,21 +289,29 @@ public class ObjectMapper
         {
             Object obj = objectHolder.remove(node.nodeID);
 
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("leave: %s in %s. object = %s", node, schema, obj));
+            if (_logger.isDebugEnabled())
+                _logger.debug(String.format("leave: %s in %s. object = %s", node, schema, obj));
 
         }
 
         public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
         {
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
+            if (_logger.isDebugEnabled())
+                _logger.debug(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
 
-            binder.bind(schema, coreNode, attributeNode);
+            try
+            {
+                binder.bind(schema, coreNode, attributeNode);
+            }
+            catch (XerialException e)
+            {
+                _logger.warn(String.format("failed to bind: core node=%s, attribute node=%s, schema=%s\n%s", coreNode,
+                        attributeNode, schema, e));
+            }
 
         }
 
@@ -312,7 +324,15 @@ public class ObjectMapper
             if (binder == null)
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
 
-            binder.bindText(schema, coreNode, text);
+            try
+            {
+                binder.bindText(schema, coreNode, text);
+            }
+            catch (XerialException e)
+            {
+                _logger.warn(String.format("failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
+                        coreNode, nodeName, text, e));
+            }
         }
 
     }
