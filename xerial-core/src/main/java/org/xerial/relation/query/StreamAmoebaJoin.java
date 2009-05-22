@@ -94,6 +94,8 @@ public class StreamAmoebaJoin implements TreeVisitor
     private HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
     private HashMap<Edge, List<TextOperation>> operatSetOnText = new HashMap<Edge, List<TextOperation>>();
 
+    private int attributeAmoebaSize = 1;
+
     public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException
     {
         this.query = query;
@@ -151,7 +153,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         public void execute(String nodeName, String textData) throws Exception
         {
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
+            int hop = 0;
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
             {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode))
@@ -234,7 +237,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         public void execute() throws Exception
         {
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
+            int hop = 0;
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
             {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode))
@@ -244,8 +248,8 @@ public class StreamAmoebaJoin implements TreeVisitor
                 }
             }
 
-            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
-                    currentPath, coreNode_action));
+            //            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
+            //                    currentPath, coreNode_action));
         }
 
     }
@@ -266,7 +270,8 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         public void execute() throws Exception
         {
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext();)
+            int hop = 0;
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
             {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode))
@@ -276,8 +281,8 @@ public class StreamAmoebaJoin implements TreeVisitor
                 }
             }
 
-            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
-                    currentPath, coreNode_action));
+            //            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
+            //                    currentPath, coreNode_action));
         }
 
     }
