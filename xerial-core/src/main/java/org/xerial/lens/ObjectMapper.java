@@ -61,6 +61,9 @@ public class ObjectMapper
 
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
     private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
+    private final QuerySet qs;
+
+    private static HashMap<Class< ? >, ObjectMapper> prebuildMapper = new HashMap<Class< ? >, ObjectMapper>();
 
     private static interface Binder
     {
@@ -150,13 +153,26 @@ public class ObjectMapper
         }
     }
 
-    public ObjectMapper()
+    public <T> ObjectMapper(Class<T> targetType) throws XerialException
     {
+        qs = buildQuery(targetType);
+    }
 
+    public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException
+    {
+        if (prebuildMapper.containsKey(targetType))
+            return prebuildMapper.get(targetType);
+        else
+        {
+            ObjectMapper newInstance = new ObjectMapper(targetType);
+            prebuildMapper.put(targetType, newInstance);
+            return newInstance;
+        }
     }
 
     public <T> T map(Class<T> targetType, TreeWalker walker) throws XerialException
     {
+
         T object = TypeInfo.createInstance(targetType);
         return map(object, walker);
     }
@@ -167,8 +183,6 @@ public class ObjectMapper
         {
             if (object == null)
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
-
-            QuerySet qs = buildQuery(object.getClass());
 
             if (_logger.isDebugEnabled())
                 _logger.debug("query set: " + qs);

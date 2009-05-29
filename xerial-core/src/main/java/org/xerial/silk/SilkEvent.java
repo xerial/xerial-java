@@ -35,7 +35,7 @@ import org.xerial.silk.impl.SilkElement;
 public class SilkEvent
 {
     private final SilkEventType type;
-    private SilkElement element;
+    private final SilkElement element;
 
     public SilkEvent(SilkEventType type, SilkElement element)
     {

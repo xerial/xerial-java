@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -122,10 +124,27 @@ public class ObjectMapperTest
     @Test
     public void map() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper(GeneDB.class);
         GeneDB gdb = mapper.map(GeneDB.class, new SilkWalker(FileResource.find(ObjectMapperTest.class, "gene.silk")));
 
         assertEquals("gene data", gdb.description);
+    }
+
+    public static enum MARK {
+        SPADE, HEART, CLOVER, DIAMOND
+    }
+
+    public static class EnumData
+    {
+        public List<MARK> mark;
+    }
+
+    @Test
+    public void enumBind() throws Exception
+    {
+        EnumData ret = Lens.loadSilk(EnumData.class, FileResource.find(ObjectMapperTest.class, "enum.silk"));
+        assertEquals(6, ret.mark.size());
+
     }
 
 }

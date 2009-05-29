@@ -141,19 +141,20 @@ public class SilkPushParser
                     continue;
                 }
 
-                if (line.startsWith("%"))
+                char c = line.charAt(0);
+                if (c == '%')
                 {
                     push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line)));
                     continue;
                 }
 
-                if (line.startsWith("--"))
+                if (c == '-' && line.charAt(1) == '-')
                 {
                     push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
                     continue;
                 }
 
-                if (line.startsWith(">>"))
+                if (c == '>' && line.charAt(1) == '>')
                 {
                     push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
                     continue;
@@ -169,8 +170,9 @@ public class SilkPushParser
                     continue;
                 }
 
+                c = trimmedLine.charAt(0);
                 // comment line 
-                if (trimmedLine.startsWith("#"))
+                if (c == '#')
                 {
                     // ignore the comment line
                     continue;
@@ -178,7 +180,7 @@ public class SilkPushParser
 
                 // 36000 lines / sec
 
-                if (!(trimmedLine.startsWith("-") || trimmedLine.startsWith("@")))
+                if (!(c == '-' || c == '@'))
                 {
                     SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
                     push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
@@ -186,7 +188,6 @@ public class SilkPushParser
                 }
 
                 // 17000 lines/sec
-
                 // lexical analysis
                 lexer.resetContext();
                 lexer.setCharStream(new ANTLRStringStream(line));
@@ -221,7 +222,9 @@ public class SilkPushParser
                 case SilkParser.SilkNode:
                 {
                     SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
+                    //SilkNode node = Lens.loadANTLRParseTree(SilkNode.class, t, SilkParser.tokenNames);
                     push(new SilkEvent(SilkEventType.NODE, node));
+
                     continue;
                 }
                 default:

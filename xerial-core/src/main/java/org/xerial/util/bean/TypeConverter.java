@@ -42,8 +42,6 @@ public class TypeConverter
     {
         if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
             return (T) value;
-        else if (targetType.isEnum())
-            return (T) convertToEnum((Class<Enum>) targetType, value);
         else
             return (T) convertToBasicType(targetType, value);
     }
@@ -80,13 +78,18 @@ public class TypeConverter
      * @return
      * @throws BeanException
      */
+    @SuppressWarnings("unchecked")
     public static Object convertToBasicType(Class< ? > targetType, Object input) throws BeanException
     {
         assert (TypeInfo.isBasicType(targetType));
 
+        if (targetType.isEnum())
+            return convertToEnum((Class<Enum>) targetType, input);
+
         try
         {
             String value = input.toString();
+
             if (targetType == String.class)
                 return value;
             else if (targetType == int.class || targetType == Integer.class)

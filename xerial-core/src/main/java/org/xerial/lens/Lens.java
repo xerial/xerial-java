@@ -263,7 +263,7 @@ public class Lens
 
     public static <Result> Result load(Result result, TreeWalker walker) throws XerialException
     {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = ObjectMapper.getMapper(result.getClass());
         return mapper.map(result, walker);
     }
 
