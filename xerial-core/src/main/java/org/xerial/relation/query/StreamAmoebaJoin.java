@@ -376,11 +376,14 @@ public class StreamAmoebaJoin implements TreeVisitor
         Deque<Node> nodeStack = getNodeStack(nodeName);
         nodeStack.add(currentNode);
 
-        forward(currentNode);
-
+        // forward
+        LatticeNode<String> prevState = latticeCursor.getNode();
+        LatticeNode<String> nextState = latticeCursor.next(nodeName);
+        stateStack.addLast(nextState);
         currentPath.addLast(nodeName != null ? nodeName : EMPTY_NODE_NAME);
 
         // for tree nodes
+
         if (query.isTreeNode(nodeName))
         {
             // retrieve the entire subtree
@@ -467,22 +470,6 @@ public class StreamAmoebaJoin implements TreeVisitor
         currentPath.removeLast();
 
         nodeStack.removeLast();
-    }
-
-    void forward(Node node)
-    {
-        LatticeNode<String> prevState = latticeCursor.getNode();
-        LatticeNode<String> nextState = latticeCursor.next(node.nodeName);
-
-        stateStack.addLast(nextState);
-
-        //        List<Operation> forwardActionList = getForwardActionList(prevState, nextState, node.nodeName);
-        //        assert forwardActionList != null;
-        //
-        //        for (Operation each : forwardActionList)
-        //        {
-        //            each.execute();
-        //        }
     }
 
     private List<Operation> getForwardActionList(LatticeNode<String> prevState, LatticeNode<String> nextState,
@@ -599,6 +586,7 @@ public class StreamAmoebaJoin implements TreeVisitor
         // process back edge
         int prevState = latticeCursor.getNodeID();
         int nextState = latticeCursor.reset(stateStack.peekLast()).getID();
+
         Edge backEdge = new Edge(prevState, nextState);
         List<Operation> actionList = operationSetOnBack.get(backEdge);
         if (actionList == null)
@@ -612,7 +600,9 @@ public class StreamAmoebaJoin implements TreeVisitor
         }
         else
             for (Operation each : actionList)
+            {
                 each.execute();
+            }
 
     }
 

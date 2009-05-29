@@ -82,7 +82,7 @@ public class SilkStreamReader implements TreeStreamReader
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
 
-    private int numReadLine = 0;
+    private long numReadLine = 0;
 
     /**
      * Creates a new reader with the specified input stream
@@ -1041,7 +1041,7 @@ public class SilkStreamReader implements TreeStreamReader
         holder.populate(plugin, args);
     }
 
-    public int getNumReadLine()
+    public long getNumReadLine()
     {
         return numReadLine;
     }

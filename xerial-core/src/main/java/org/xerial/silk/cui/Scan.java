@@ -58,7 +58,7 @@ public class Scan implements SilkCommand
             count++;
             if (count % 1000000 == 0)
             {
-                int line = reader.getNumReadLine();
+                long line = reader.getNumReadLine();
 
                 double time = timer.getElapsedTime();
                 double speed = line / time;

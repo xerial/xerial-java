@@ -180,7 +180,7 @@ public class SilkPullParser
         return;
     }
 
-    public int getNumReadLine()
+    public long getNumReadLine()
     {
         return parser.getNumReadLine();
     }

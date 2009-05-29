@@ -45,7 +45,7 @@ import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkPreamble;
-import org.xerial.silk.impl.SilkParser.silkLine_return;
+import org.xerial.silk.impl.SilkParser.silkNode_return;
 import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.bean.impl.BeanUtilImpl;
@@ -64,7 +64,7 @@ public class SilkPushParser
     private final SilkLexer lexer;
     private final SilkParser parser;
     private final BufferedReader buffer;
-    private int lineCount = 0;
+    private long lineCount = 0;
     private SilkEventHandler handler = null;
 
     private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
@@ -91,7 +91,7 @@ public class SilkPushParser
         handler.handle(e);
     }
 
-    public static String sanitizeDataLine(String line)
+    private static String sanitizeDataLine(String line)
     {
         if (line.startsWith("\\"))
             return removeLineComment(line.substring(1));
@@ -142,18 +142,22 @@ public class SilkPushParser
                 }
 
                 char c = line.charAt(0);
+
+                // preamble
                 if (c == '%')
                 {
                     push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line)));
                     continue;
                 }
 
+                // multi-line separator
                 if (c == '-' && line.charAt(1) == '-')
                 {
                     push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
                     continue;
                 }
 
+                // multi-line entry separator
                 if (c == '>' && line.charAt(1) == '>')
                 {
                     push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
@@ -180,6 +184,7 @@ public class SilkPushParser
 
                 // 36000 lines / sec
 
+                // data line 
                 if (!(c == '-' || c == '@'))
                 {
                     SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
@@ -202,9 +207,11 @@ public class SilkPushParser
 
                 parser.setTokenStream(tokenStream);
 
-                // 17000 lines/sec 
+                // 100,000 lines/sec (SilkPushParser)
+                // 60,000 lines/sec (SilkPushParser after consuming the lexer input)
 
-                silkLine_return ret = parser.silkLine();
+                // 17000 lines/sec 
+                silkNode_return ret = parser.silkNode();
                 Tree t = (Tree) ret.getTree();
 
                 // 8500 -> 12000 lines/sec
@@ -213,7 +220,6 @@ public class SilkPushParser
                 {
                 case SilkParser.Function:
                 {
-
                     SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t,
                             SilkParser.tokenNames);
                     push(new SilkEvent(SilkEventType.FUNCTION, func));
@@ -221,16 +227,17 @@ public class SilkPushParser
                 }
                 case SilkParser.SilkNode:
                 {
-                    SilkNode node = BeanUtilImpl.createBeanFromParseTree(SilkNode.class, t, SilkParser.tokenNames);
+                    SilkNode node = BeanUtilImpl.populateBeanWithParseTree(new SilkNode(), t, SilkParser.tokenNames);
                     //SilkNode node = Lens.loadANTLRParseTree(SilkNode.class, t, SilkParser.tokenNames);
                     push(new SilkEvent(SilkEventType.NODE, node));
-
                     continue;
                 }
                 default:
                     throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
                             "line=%d: invalid data type: %s", lineCount, parser.getTokenNames()[t.getType()]));
                 }
+
+                // 17,000 lines/sec (SilkPushParser)
 
                 // 1500 lines/sec
             }
@@ -248,10 +255,14 @@ public class SilkPushParser
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, String.format("line=%d: %s", lineCount, e
                     .getMessage()));
         }
+        finally
+        {
+
+        }
 
     }
 
-    public int getNumReadLine()
+    public long getNumReadLine()
     {
         return lineCount;
     }

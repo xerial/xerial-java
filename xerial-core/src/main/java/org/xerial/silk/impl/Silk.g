@@ -267,15 +267,8 @@ silkFile: silkLine* -> ^(Silk silkLine*)
 	;
 
 silkLine
-	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem)
-	| noNameNode 
-	| function
-//	| Preamble
-//	| DataLine
-//	| BlankLine
+	: silkNode 
 	| LineComment
-//	| MultiLineSeparator
-//	| MultiLineEntrySeparator
 	| WhiteSpace -> BlankLine
 	;
 
@@ -290,9 +283,11 @@ nodeValue
 	; 
 
 
-fragment
-noNameNode: NodeIndent (LParen attributeList RParen)? plural? (Colon nodeValue)?
-	-> ^(SilkNode NodeIndent attributeList? plural? nodeValue?)  
+silkNode
+	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem)
+	| NodeIndent (LParen attributeList RParen)? plural? (Colon nodeValue)?
+	-> ^(SilkNode NodeIndent attributeList? plural? nodeValue?)
+	| function  
 	;
 
 fragment

@@ -37,7 +37,10 @@ import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.FileResource;
+import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeVisitorBase;
+import org.xerial.util.tree.TreeWalker;
 
 public class StreamAmoebaJoinTest
 {
@@ -107,6 +110,25 @@ public class StreamAmoebaJoinTest
 
         aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "gene.silk")));
 
+    }
+
+    @Test
+    public void loadScaffold1() throws Exception
+    {
+        QuerySet qs = new QuerySetBuilder().build();
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase());
+        StopWatch sw = new StopWatch();
+        aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk")));
+        _logger.info("time: " + sw.getElapsedTime());
+    }
+
+    @Test
+    public void silkWalkPerformance() throws Exception
+    {
+        TreeWalker walker = new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"));
+        StopWatch sw = new StopWatch();
+        walker.walk(new TreeVisitorBase());
+        _logger.info("time: " + sw.getElapsedTime());
     }
 
 }

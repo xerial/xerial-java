@@ -35,6 +35,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ParameterSetter.MapEntryBinder;
 import org.xerial.relation.Node;
+import org.xerial.relation.query.AmoebaJoinHandler;
 import org.xerial.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.relation.query.QuerySet;
 import org.xerial.relation.query.StreamAmoebaJoin;
@@ -191,7 +192,9 @@ public class ObjectMapper
             objectHolder.put(0L, object);
             contextNodeStack.addLast(object);
 
-            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new RelationExtracter());
+            AmoebaJoinHandler mapper = new RelationExtracter();
+
+            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
             aj.sweep(walker);
             return object;
         }

@@ -61,7 +61,10 @@ public class SilkPushParserTest
 
                 }
             });
-            _logger.info("time: " + timer.getElapsedTime());
+            double t = timer.getElapsedTime();
+            long lines = parser.getNumReadLine();
+            _logger.info(String.format("time = %.2f sec. %.0f lines/sec", t, lines / t));
+
         }
 
     }

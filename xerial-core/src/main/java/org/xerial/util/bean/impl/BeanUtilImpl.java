@@ -80,9 +80,10 @@ public class BeanUtilImpl
      * @return
      * @throws XerialException
      */
-    protected static Object createBean(TreeWalker treeWalker, Object bean) throws XerialException
+    @SuppressWarnings("unchecked")
+    protected static <E> E createBean(TreeWalker treeWalker, E bean) throws XerialException
     {
-        return createBean(treeWalker, new BeanBindingProcess(bean));
+        return (E) createBean(treeWalker, new BeanBindingProcess(bean));
         //return new ObjectMapper().map(bean, treeWalker);
     }
 
@@ -134,7 +135,7 @@ public class BeanUtilImpl
         return createTypedBean(new ANTLRWalker(parserTokenNames, parseTree), beanType);
     }
 
-    public static Object populateBeanWithParseTree(Object bean, Tree parseTree, final String[] parserTokenNames)
+    public static <E> E populateBeanWithParseTree(E bean, Tree parseTree, final String[] parserTokenNames)
             throws XerialException
     {
         return createBean(new ANTLRWalker(parserTokenNames, parseTree), bean);

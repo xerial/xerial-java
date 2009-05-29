@@ -262,7 +262,7 @@ public class SilkStreamReaderTest
             count++;
             if (count % 1000000 == 0)
             {
-                int line = reader.getNumReadLine();
+                long line = reader.getNumReadLine();
                 double percentage = (line / 10145176.0) * 100;
                 double time = timer.getElapsedTime();
                 double speed = line / time;
@@ -292,7 +292,7 @@ public class SilkStreamReaderTest
             count++;
             if (count % 100000 == 0)
             {
-                int line = reader.getNumReadLine();
+                long line = reader.getNumReadLine();
                 double percentage = (line / 10145176.0) * 100;
                 double time = timer.getElapsedTime();
                 double speed = line / time;
@@ -325,7 +325,7 @@ public class SilkStreamReaderTest
                 count++;
                 if (count % 100000 == 0)
                 {
-                    int line = reader.getNumReadLine();
+                    long line = reader.getNumReadLine();
                     double percentage = (line / 10145176.0) * 100;
                     double time = timer.getElapsedTime();
                     double speed = line / time;
