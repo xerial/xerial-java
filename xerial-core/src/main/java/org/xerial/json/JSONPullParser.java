@@ -27,13 +27,14 @@ package org.xerial.json;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.LinkedList;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CharStream;
 import org.antlr.runtime.Token;
 import org.xerial.json.impl.JSONLexer;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 
 /**
@@ -49,35 +50,65 @@ public class JSONPullParser
     }
 
     private static Logger _logger = Logger.getLogger(JSONPullParser.class);
-    private JSONLexer _lexer;
-    private LinkedList<ParseState> parseStateStack = new LinkedList<ParseState>();
+    private JSONLexer _lexer = new JSONLexer();
+
+    private ArrayDeque<ParseState> parseStateStack = new ArrayDeque<ParseState>();
+    private ArrayDeque<String> keyStack = new ArrayDeque<String>();
+
     private JSONPullParserEvent lastReportedEvent = null;
-    private LinkedList<String> keyStack = new LinkedList<String>();
     private int currentDepth = 0;
 
     public JSONPullParser(String jsonString)
     {
-        this(new JSONLexer(new ANTLRStringStream(jsonString)));
+        reset(jsonString);
     }
 
     public JSONPullParser(JSONObject jsonObject)
     {
-        this(new JSONLexer(new ANTLRStringStream(jsonObject.toJSONString())));
+        reset(jsonObject);
     }
 
     public JSONPullParser(InputStream jsonStream) throws IOException
     {
-        this(new JSONLexer(new ANTLRInputStream(jsonStream)));
+        reset(jsonStream);
     }
 
     public JSONPullParser(Reader reader) throws IOException
     {
-        this(new JSONLexer(new ANTLRReaderStream(reader)));
+        reset(reader);
     }
 
-    protected JSONPullParser(JSONLexer lexer)
+    public void reset(String jsonString)
     {
-        _lexer = lexer;
+        reset(new ANTLRStringStream(jsonString));
+    }
+
+    public void reset(JSONObject jsonObject)
+    {
+        reset(new ANTLRStringStream(jsonObject.toJSONString()));
+    }
+
+    public void reset(InputStream jsonStream) throws IOException
+    {
+        reset(new ANTLRInputStream(jsonStream));
+    }
+
+    public void reset(Reader reader) throws IOException
+    {
+        reset(new ANTLRReaderStream(reader));
+    }
+
+    private void reset(CharStream newStream)
+    {
+        _lexer.reset();
+        _lexer.setCharStream(newStream);
+
+        parseStateStack.clear();
+        keyStack.clear();
+
+        lastReportedEvent = null;
+        currentDepth = 0;
+
         parseStateStack.addLast(ParseState.Root);
     }
 
@@ -116,7 +147,7 @@ public class JSONPullParser
         // _logger.trace("pop : " + StringUtil.join(parseStateStack, ", "));
     }
 
-    private void keyedValueTest()
+    private void valueWithKeyTest()
     {
         if (getCurrentParseState() == ParseState.Key)
             pushParseState(ParseState.KeyedValue);
@@ -259,7 +290,7 @@ public class JSONPullParser
             switch (tokenType)
             {
             case JSONLexer.LBrace:
-                keyedValueTest();
+                valueWithKeyTest();
                 currentDepth++;
                 pushParseState(ParseState.InObject);
                 return reportEvent(token, JSONEvent.StartObject);
@@ -270,7 +301,7 @@ public class JSONPullParser
                 popKeyStack();
                 return reportEvent(token, JSONEvent.EndObject);
             case JSONLexer.LBracket:
-                keyedValueTest();
+                valueWithKeyTest();
                 currentDepth++;
                 pushParseState(ParseState.InArray);
                 return reportEvent(token, JSONEvent.StartArray);
@@ -295,20 +326,20 @@ public class JSONPullParser
                     keyStack.addLast(removeDoubleQuotation(token.getText()));
                     continue;
                 }
-                keyedValueTest();
+                valueWithKeyTest();
                 return reportEvent(token, JSONEvent.String);
             case JSONLexer.Integer:
-                keyedValueTest();
+                valueWithKeyTest();
                 return reportEvent(token, JSONEvent.Integer);
             case JSONLexer.Double:
-                keyedValueTest();
+                valueWithKeyTest();
                 return reportEvent(token, JSONEvent.Double);
             case JSONLexer.TRUE:
             case JSONLexer.FALSE:
-                keyedValueTest();
+                valueWithKeyTest();
                 return reportEvent(token, JSONEvent.Boolean);
             case JSONLexer.NULL:
-                keyedValueTest();
+                valueWithKeyTest();
                 return reportEvent(token, JSONEvent.Null);
             }
         }

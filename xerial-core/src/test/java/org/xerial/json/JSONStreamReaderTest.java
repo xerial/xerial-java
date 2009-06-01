@@ -26,8 +26,6 @@ package org.xerial.json;
 
 import static org.junit.Assert.*;
 
-import java.io.StringReader;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -111,12 +109,13 @@ public class JSONStreamReaderTest
 
         StopWatch timer = new StopWatch();
 
+        JSONPullParser parser = new JSONPullParser(json);
         for (int n = 0; n < 500; n++)
         {
-            JSONStreamReader reader = new JSONStreamReader(new StringReader(json));
+            parser.reset(json);
 
-            TreeEvent e;
-            while ((e = reader.next()) != null)
+            JSONEvent e;
+            while ((e = parser.next()) != JSONEvent.EndJSON)
             {}
 
         }
