@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.json;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,7 +86,7 @@ public class JSONArrayTest
             JSONArray array = new JSONArray(json);
             assertEquals(1001, array.size());
         }
-        _logger.debug("time: " + timer.getElapsedTime());
+        _logger.info("time: " + timer.getElapsedTime());
 
         // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
         // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
