@@ -81,7 +81,7 @@ public class SilkLinePushParser
         lexer = new SilkLexer();
     }
 
-    private void push(SilkEvent e) throws XerialException
+    private void push(SilkEvent e) throws Exception
     {
         handler.handle(e);
     }
@@ -111,7 +111,7 @@ public class SilkLinePushParser
         return line;
     }
 
-    public void parse(SilkEventHandler handler) throws XerialException
+    public void parse(SilkEventHandler handler) throws Exception
     {
         if (handler == null)
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "null handler");

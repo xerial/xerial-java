@@ -16,23 +16,46 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkEventHandler.java
-// Since: Apr 23, 2009 10:37:17 AM
+// TreeEventHandlerBase.java
+// Since: Jun 1, 2009 3:27:53 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
-
+package org.xerial.util.tree;
 
 /**
- * {@link SilkEvent} handler for push-style Silk parser:
- * {@link SilkLinePushParser}.
+ * Empty implementation of the {@link TreeEventHandler}
  * 
  * @author leo
  * 
  */
-public interface SilkEventHandler
+public class TreeEventHandlerBase implements TreeEventHandler
 {
-    public void handle(SilkEvent event) throws Exception;
+
+    public void finish() throws Exception
+    {
+
+    }
+
+    public void init() throws Exception
+    {
+
+    }
+
+    public void leaveNode(String nodeName) throws Exception
+    {
+
+    }
+
+    public void text(String nodeName, String textDataFragment) throws Exception
+    {
+
+    }
+
+    public void visitNode(String nodeName, String immediateNodeValue) throws Exception
+    {
+
+    }
+
 }

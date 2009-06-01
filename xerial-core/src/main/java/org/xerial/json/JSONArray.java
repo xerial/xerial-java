@@ -110,19 +110,6 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
     public JSONArray(String jsonStr) throws JSONException
     {
         this(new JSONTokener(jsonStr));
-        //        CommonTree t = parse(jsonStr);
-        //        CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
-        //        JSONWalker walker = new JSONWalker(ts);
-        //        try
-        //        {
-        //            JSONArray array = walker.jsonArray();
-        //            this._array = array._array;
-        //        }
-        //        catch (RecognitionException e)
-        //        {
-        //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
-        //                    + e.charPositionInLine + ")");
-        //        }
     }
 
     public static CommonTree parse(String jsonStr) throws JSONException
