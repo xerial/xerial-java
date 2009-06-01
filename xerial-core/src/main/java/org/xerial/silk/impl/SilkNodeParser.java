@@ -37,7 +37,7 @@ import org.xerial.util.Functor;
 import org.xerial.util.StringUtil;
 
 /**
- * 
+ * Recursive descent parser for {@link SilkNode} and {@link SilkFunction}
  * 
  * @author leo
  * 
@@ -56,7 +56,10 @@ public class SilkNodeParser
         switch (tokenStream.LA(1))
         {
         case NodeIndent:
-            return parseSilkNode();
+            if (tokenStream.LA(2) == At)
+                return parseFunction();
+            else
+                return parseSilkNode();
         case FunctionIndent:
             SilkFunction func = parseFunction();
             return func;
@@ -94,7 +97,9 @@ public class SilkNodeParser
         switch (tokenStream.LA(1))
         {
         case LParen:
+            consume();
             parseAttributeList(node);
+            testAndConsume(RParen);
             break;
         default:
         {
@@ -145,7 +150,7 @@ public class SilkNodeParser
         switch (nextToken)
         {
         case At:
-            SilkFunction func = parseFunctionInternal();
+            SilkFunction func = parseFunctionInternal(new SilkFunction());
             node.setFunction(func);
             break;
         case PlainOneLine:
@@ -164,15 +169,32 @@ public class SilkNodeParser
             break;
         }
         default:
-            throw unexpectedToken(tokenStream.LT(1));
+            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String, JSON);
         }
 
     }
 
-    private SilkFunction parseFunctionInternal()
+    private String parseNodeValue() throws XerialException
     {
-        // TODO
-        return null;
+        int nextToken = tokenStream.LA(1);
+
+        switch (nextToken)
+        {
+        case At:
+            // TODO
+            throw new XerialException(XerialErrorCode.PARSE_ERROR, "nested function is not yet supported");
+        case PlainOneLine:
+        case String:
+        case JSON:
+        {
+            Token t = getToken(1);
+            consume();
+            return t.getText();
+        }
+        default:
+            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String, JSON);
+        }
+
     }
 
     private void parsePlural(SilkNode node)
@@ -300,15 +322,90 @@ public class SilkNodeParser
         case PlainOneLine:
         case String:
             consume();
-            return t.getText();
+            return t.getText().trim();
         default:
             throw unexpectedToken(t, PlainOneLine, String);
         }
     }
 
-    private SilkFunction parseFunction()
+    private SilkFunction parseFunction() throws XerialException
     {
-        return null;
+        SilkFunction func = new SilkFunction();
+        switch (tokenStream.LA(1))
+        {
+        case NodeIndent:
+        {
+            Token t = getToken(1);
+            func.setNodeIndent(t.getText());
+            consume();
+            parseFunctionInternal(func);
+            return func;
+        }
+        case FunctionIndent:
+        {
+            Token t = getToken(1); // function indent
+            func.setNodeIndent(t.getText());
+            consume();
+
+            Token funcName = testAndConsume(PlainOneLine);
+            func.setName(funcName.getText().trim());
+
+            parseFunctionArgs(func);
+
+            return func;
+        }
+        default:
+
+            throw unexpectedToken(tokenStream.LT(1), NodeIndent, FunctionIndent);
+        }
+
+    }
+
+    private void parseFunctionArgs(SilkFunction func) throws XerialException
+    {
+        testAndConsume(LParen);
+        if (!nextTokenIs(RParen))
+        {
+            parseFunctionArg(func);
+            while (nextTokenIs(Comma))
+            {
+                consume();
+                parseFunctionArg(func);
+            }
+        }
+
+        testAndConsume(RParen);
+
+    }
+
+    private void parseFunctionArg(SilkFunction func) throws XerialException
+    {
+        if (nextTokenIs(String) || nextTokenIs(PlainOneLine))
+        {
+            if (tokenStream.LA(2) == Colon)
+            {
+                Token key = getToken(1);
+                consume();
+                consume();
+                String value = parseNodeValue();
+                func.addKeyAndValue(key.getText().trim(), value.trim());
+                return;
+            }
+        }
+
+        String value = parseNodeValue();
+        func.addArgument(value);
+    }
+
+    private SilkFunction parseFunctionInternal(SilkFunction func) throws XerialException
+    {
+        testAndConsume(At);
+        Token funcName = testAndConsume(PlainOneLine);
+        func.setName(funcName.getText().trim());
+
+        parseFunctionArgs(func);
+
+        return func;
     }
 
     private XerialException unexpectedToken(Token t) throws XerialException

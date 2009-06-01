@@ -43,7 +43,7 @@ public class SilkFunctionArg
     public SilkFunctionArg()
     {}
 
-    private SilkFunctionArg(String argName, String value)
+    public SilkFunctionArg(String argName, String value)
     {
         this.argName = argName;
         setValue(value);

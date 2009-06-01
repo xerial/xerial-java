@@ -80,6 +80,11 @@ public class SilkFunction implements SilkElement, SilkValue
         argumentList.add(argument);
     }
 
+    public void addKeyAndValue(String key, String value)
+    {
+        argumentList.add(new SilkFunctionArg(key, value));
+    }
+
     public List<SilkFunctionArg> getArgumentList()
     {
         return argumentList;

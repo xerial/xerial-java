@@ -34,21 +34,19 @@ import java.util.regex.Pattern;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkDataLine;
+import org.xerial.silk.impl.SilkElement;
 import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.impl.SilkNodeParser;
 import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkPreamble;
-import org.xerial.silk.impl.SilkParser.silkNode_return;
 import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
-import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.log.Logger;
 
 /**
@@ -211,33 +209,33 @@ public class SilkPushParser
                 // 60,000 lines/sec (SilkPushParser after consuming the lexer input)
 
                 // 17000 lines/sec 
-                silkNode_return ret = parser.silkNode();
-                Tree t = (Tree) ret.getTree();
 
-                // 8500 -> 12000 lines/sec
+                try
+                {
+                    SilkNodeParser nodeParser = new SilkNodeParser(tokenStream);
+                    SilkElement elem = nodeParser.parse();
+                    if (elem instanceof SilkNode)
+                        push(new SilkEvent(SilkEventType.NODE, (SilkNode) elem));
+                    else if (elem instanceof SilkFunction)
+                        push(new SilkEvent(SilkEventType.FUNCTION, (SilkFunction) elem));
 
-                switch (t.getType())
-                {
-                case SilkParser.Function:
-                {
-                    SilkFunction func = BeanUtilImpl.createBeanFromParseTree(SilkFunction.class, t,
-                            SilkParser.tokenNames);
-                    push(new SilkEvent(SilkEventType.FUNCTION, func));
-                    continue;
                 }
-                case SilkParser.SilkNode:
+                catch (XerialException e)
                 {
-                    SilkNode node = BeanUtilImpl.populateBeanWithParseTree(new SilkNode(), t, SilkParser.tokenNames);
-                    //SilkNode node = Lens.loadANTLRParseTree(SilkNode.class, t, SilkParser.tokenNames);
-                    push(new SilkEvent(SilkEventType.NODE, node));
-                    continue;
-                }
-                default:
-                    throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
-                            "line=%d: invalid data type: %s", lineCount, parser.getTokenNames()[t.getType()]));
+                    if (e.getErrorCode() == XerialErrorCode.PARSE_ERROR)
+                    {
+                        // only report warning message
+                        _logger.warn(String.format("parse error at line=%d: %s", lineCount, e));
+                    }
+                    else
+                        throw e;
                 }
 
-                // 17,000 lines/sec (SilkPushParser)
+                continue;
+
+                // 50,000 lines/sec (SilkPushParser when using recursive descent parser)
+
+                // 17,000 lines/sec (SilkPushParser when using ANTLR parser)
 
                 // 1500 lines/sec
             }
@@ -245,11 +243,11 @@ public class SilkPushParser
             // EOF
             push(EOFEvent);
         }
-        catch (RecognitionException e)
-        {
-            throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format("parse error line=%d: %s",
-                    lineCount, e.getMessage()));
-        }
+        //        catch (RecognitionException e)
+        //        {
+        //            throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format("parse error line=%d: %s",
+        //                    lineCount, e.getMessage()));
+        //        }
         catch (IOException e)
         {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, String.format("line=%d: %s", lineCount, e
