@@ -26,10 +26,15 @@ package org.xerial.silk.impl;
 
 import static org.xerial.silk.impl.SilkLexer.*;
 
+import java.util.List;
+
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Token;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.CollectionUtil;
+import org.xerial.util.Functor;
+import org.xerial.util.StringUtil;
 
 /**
  * 
@@ -56,7 +61,7 @@ public class SilkNodeParser
             SilkFunction func = parseFunction();
             return func;
         default:
-            throw new XerialException(XerialErrorCode.PARSE_ERROR, "invalid token: " + toString(tokenStream.LT(1)));
+            throw unexpectedToken(tokenStream.LT(1), NodeIndent, FunctionIndent);
         }
     }
 
@@ -78,7 +83,7 @@ public class SilkNodeParser
 
     private SilkNode parseSilkNode(SilkNode node) throws XerialException
     {
-        if (tokenStream.LA(1) != NodeIndent)
+        if (!nextTokenIs(NodeIndent))
             throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected a node indent, but "
                     + toString(tokenStream.LT(1)));
 
@@ -89,12 +94,11 @@ public class SilkNodeParser
         switch (tokenStream.LA(1))
         {
         case LParen:
-            parseAttributeList();
+            parseAttributeList(node);
             break;
         default:
         {
-            SilkNode child = parseNodeItem();
-            node.addSilkNode(child);
+            parseNodeItem(node);
             break;
         }
         }
@@ -103,42 +107,140 @@ public class SilkNodeParser
 
     private SilkNode parseNodeItem() throws XerialException
     {
-        // node name
         SilkNode newNode = new SilkNode();
-        String nodeName = parseNodeName();
-        newNode.setName(nodeName);
-
-        parseDataType(newNode);
-        parseNodeItemAttr(newNode);
-
-        // TODO
-
-        return newNode;
+        return parseNodeItem(newNode);
     }
 
-    private void parseNodeItemAttr(SilkNode node) throws XerialException
+    private SilkNode parseNodeItem(SilkNode contextNode) throws XerialException
     {
-        if (tokenStream.LA(1) != LParen)
+        // node name
+        String nodeName = parseNodeName();
+        contextNode.setName(nodeName);
+
+        parseDataType(contextNode);
+
+        parseNodeItemAttr(contextNode);
+
+        parsePlural(contextNode);
+
+        parseNodeValueOpt(contextNode);
+
+        return contextNode;
+    }
+
+    private void parseNodeValueOpt(SilkNode node) throws XerialException
+    {
+        if (!nextTokenIs(Colon))
             return;
 
         consume();
 
-        parseAttributeList();
+        parseNodeValue(node);
+    }
 
-        match(RParen);
+    private void parseNodeValue(SilkNode node) throws XerialException
+    {
+        int nextToken = tokenStream.LA(1);
+
+        switch (nextToken)
+        {
+        case At:
+            SilkFunction func = parseFunctionInternal();
+            node.setFunction(func);
+            break;
+        case PlainOneLine:
+        case String:
+        {
+            Token t = getToken(1);
+            consume();
+            node.setValue(t.getText());
+            break;
+        }
+        case JSON:
+        {
+            Token t = getToken(1);
+            consume();
+            node.setJSON(t.getText());
+            break;
+        }
+        default:
+            throw unexpectedToken(tokenStream.LT(1));
+        }
 
     }
 
-    private void parseAttributeList() throws XerialException
+    private SilkFunction parseFunctionInternal()
     {
         // TODO
-        parseAttributeItem();
+        return null;
     }
 
-    private SilkNode parseAttributeItem() throws XerialException
+    private void parsePlural(SilkNode node)
     {
-        SilkNode node = parseNodeItem();
-        return node;
+        int nextTokenType = tokenStream.LA(1);
+        switch (nextTokenType)
+        {
+        case Star:
+            node.setOccurrence(SilkNodeOccurrence.ZERO_OR_MORE);
+            consume();
+            break;
+        case Plus:
+            node.setOccurrence(SilkNodeOccurrence.ONE_OR_MORE);
+            consume();
+            break;
+        case Question:
+            node.setOccurrence(SilkNodeOccurrence.ZERO_OR_ONE);
+            consume();
+            break;
+        case Seq:
+            if (tokenStream.LA(2) == Seq)
+            {
+                node.setOccurrence(SilkNodeOccurrence.MULTILINE_SEQUENCE);
+                consume();
+                break;
+            }
+            else
+            {
+                node.setOccurrence(SilkNodeOccurrence.SEQUENCE);
+                consume();
+                break;
+            }
+        case TabSeq:
+            node.setOccurrence(SilkNodeOccurrence.TABBED_SEQUENCE);
+            consume();
+            break;
+        default:
+            // do nothing
+            break;
+        }
+
+    }
+
+    private void parseNodeItemAttr(SilkNode node) throws XerialException
+    {
+        if (!nextTokenIs(LParen))
+            return;
+
+        consume();
+
+        parseAttributeList(node);
+
+        testAndConsume(RParen);
+
+    }
+
+    private void parseAttributeList(SilkNode contextNode) throws XerialException
+    {
+        SilkNode attributeNode = parseNodeItem();
+        contextNode.addSilkNode(attributeNode);
+
+        while (nextTokenIs(Comma))
+        {
+            consume();
+            attributeNode = parseNodeItem();
+            contextNode.addSilkNode(attributeNode);
+        }
+
     }
 
     /**
@@ -149,7 +251,7 @@ public class SilkNodeParser
      * @return matched token
      * @throws XerialException
      */
-    private Token match(int tokenType) throws XerialException
+    private Token testAndConsume(int tokenType) throws XerialException
     {
         Token t = getToken(1);
         if (t.getType() == tokenType)
@@ -159,25 +261,34 @@ public class SilkNodeParser
         }
         else
         {
-            throw new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("expected %s, but %s",
-                    SilkParser.tokenNames[tokenType], toString(t)));
+            throw unexpectedToken(t, tokenType);
         }
+    }
+
+    /**
+     * @param tokenType
+     * @return true when the next token has the specified token type, otherwise
+     *         false
+     */
+    private boolean nextTokenIs(int tokenType)
+    {
+        return tokenStream.LA(1) == tokenType;
     }
 
     private void parseDataType(SilkNode node) throws XerialException
     {
-        if (tokenStream.LA(1) != LBracket)
+        if (!nextTokenIs(LBracket))
             return;
 
         consume();
 
-        Token dtToken = getToken(1);
         // dataTypeName
+        Token dtToken = getToken(1);
 
-        String nodeName = match(PlainOneLine).getText();
+        String nodeName = testAndConsume(PlainOneLine).getText();
         node.setDataType(nodeName);
 
-        match(RBracket);
+        testAndConsume(RBracket);
 
     }
 
@@ -191,8 +302,7 @@ public class SilkNodeParser
             consume();
             return t.getText();
         default:
-            throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected PlainOneLine or String, but "
-                    + toString(t));
+            throw unexpectedToken(t, PlainOneLine, String);
         }
     }
 
@@ -201,9 +311,29 @@ public class SilkNodeParser
         return null;
     }
 
+    private XerialException unexpectedToken(Token t) throws XerialException
+    {
+        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("unexpected token %s",
+                SilkParser.tokenNames[t.getType()], toString(t)));
+
+    }
+
+    private XerialException unexpectedToken(Token t, Integer... expectedTokenTypes)
+    {
+        List<String> expectedTokenNames = CollectionUtil.collect(expectedTokenTypes, new Functor<Integer, String>() {
+            public String apply(Integer input)
+            {
+                return SilkParser.tokenNames[input.intValue()];
+            }
+        });
+
+        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("expected %s, but %s",
+                StringUtil.join(expectedTokenNames, " or "), toString(t)));
+    }
+
     private String toString(Token t)
     {
-        return java.lang.String.format("[%s(%d), %s]", SilkParser.tokenNames[t.getType()], t.getCharPositionInLine(), t
-                .getText());
+        return java.lang.String.format("[%s at char %d: %s]", SilkParser.tokenNames[t.getType()], t
+                .getCharPositionInLine(), t.getText());
     }
 }
