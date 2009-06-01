@@ -39,19 +39,108 @@ import org.xerial.json.impl.JSONTokenizer;
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 {
 
-    private ArrayList<JSONValue> _array = new ArrayList<JSONValue>();
+    private final ArrayList<JSONValue> _array;
 
     public JSONArray()
-    {}
+    {
+        _array = new ArrayList<JSONValue>();
+    }
 
     public JSONArray(List<JSONValue> elemList)
     {
+        _array = new ArrayList<JSONValue>(elemList.size());
         for (JSONValue v : elemList)
             _array.add(v);
     }
 
+    JSONArray(JSONPullParser parser) throws JSONException
+    {
+        this._array = new ArrayList<JSONValue>();
+
+        JSONEvent e = parser.next();
+        if (e != JSONEvent.StartArray)
+            throw new JSONException(JSONErrorCode.ParseError, "expected [, but " + e);
+
+        parseArray(this, parser);
+    }
+
+    private static JSONArray parseArray(JSONArray array, JSONPullParser parser) throws JSONException
+    {
+        JSONEvent e;
+
+        while ((e = parser.next()) != JSONEvent.EndJSON)
+        {
+            switch (e)
+            {
+            case Integer:
+            case Double:
+            case Boolean:
+            case Null:
+            case String:
+                array.add(parser.getValue());
+                break;
+            case StartObject:
+                array.add(parseObject(parser));
+                break;
+            case EndObject:
+                break;
+            case StartArray:
+                array.add(parseArray(new JSONArray(), parser));
+                break;
+            case EndArray:
+                return array;
+            }
+
+        }
+
+        return array;
+
+    }
+
+    private static JSONObject parseObject(JSONPullParser parser) throws JSONException
+    {
+        JSONEvent e = parser.next();
+
+        JSONObject obj = new JSONObject();
+
+        while ((e = parser.next()) != JSONEvent.EndJSON)
+        {
+            switch (e)
+            {
+            case Integer:
+            case Double:
+            case Boolean:
+            case Null:
+            case String:
+                String key = parser.getKeyName();
+
+                // if first child element is value attribute
+                if (key != null)
+                {
+                    obj.put(key, parser.getValue());
+                }
+                break;
+            case StartObject:
+                obj.put(parser.getKeyName(), parseObject(parser));
+                break;
+            case EndObject:
+                return obj;
+            case StartArray:
+                obj.put(parser.getKeyName(), parseArray(new JSONArray(), parser));
+                break;
+            case EndArray:
+                break;
+            }
+
+        }
+        return obj;
+
+    }
+
     public JSONArray(JSONTokenizer tokenizer) throws JSONException
     {
+        _array = new ArrayList<JSONValue>();
+
         char c = tokenizer.nextClean();
         char q;
         if (c == '[')

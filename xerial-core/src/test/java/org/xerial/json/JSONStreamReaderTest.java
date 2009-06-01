@@ -26,9 +26,13 @@ package org.xerial.json;
 
 import static org.junit.Assert.*;
 
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.Token;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.json.impl.JSONLexer;
+import org.xerial.json.impl.JSONTokenizer;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
 import org.xerial.util.StopWatch;
@@ -109,10 +113,9 @@ public class JSONStreamReaderTest
 
         StopWatch timer = new StopWatch();
 
-        JSONPullParser parser = new JSONPullParser(json);
         for (int n = 0; n < 500; n++)
         {
-            parser.reset(json);
+            JSONPullParser parser = new JSONPullParser(json);
 
             JSONEvent e;
             while ((e = parser.next()) != JSONEvent.EndJSON)
@@ -121,9 +124,133 @@ public class JSONStreamReaderTest
         }
         _logger.info("time: " + timer.getElapsedTime());
 
+    }
+
+    @Test
+    public void testLexerPerformance() throws Exception
+    {
+
+        // generate a sample JSON array
+        StringBuilder sample = new StringBuilder();
+        sample.append("[");
+        int i = 0;
+        final int N = 5000;
+        for (; i < N; i++)
+        {
+            sample.append(i);
+            sample.append(",");
+        }
+        sample.append(i);
+        sample.append("]");
+
+        String json = sample.toString();
+
+        StopWatch timer = new StopWatch();
+
+        for (int n = 0; n < 500; n++)
+        {
+            JSONLexer lexer = new JSONLexer(new ANTLRStringStream(json));
+
+            Token t;
+            while ((t = lexer.nextToken()).getType() != Token.EOF)
+            {}
+
+        }
+        _logger.info("time: " + timer.getElapsedTime());
+
+    }
+
+    @Test
+    public void testJSONTokenerPeformance() throws Exception
+    {
+
+        // generate a sample JSON array
+        StringBuilder sample = new StringBuilder();
+        sample.append("[");
+        int i = 0;
+        final int N = 5000;
+        for (; i < N; i++)
+        {
+            sample.append(i);
+            sample.append(",");
+        }
+        sample.append(i);
+        sample.append("]");
+
+        String json = sample.toString();
+
+        StopWatch timer = new StopWatch();
+
+        for (int n = 0; n < 500; n++)
+        {
+            JSONTokenizer tokenizer = new JSONTokenizer(json);
+
+            parseArray(tokenizer);
+
+        }
+        _logger.info("time: " + timer.getElapsedTime());
+
         // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
         // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
 
+    }
+
+    public void parseArray(JSONTokenizer tokenizer) throws JSONException
+    {
+        char c = tokenizer.nextClean();
+        char q;
+        if (c == '[')
+        {
+            q = ']';
+        }
+        else if (c == '(')
+        {
+            q = ')';
+        }
+        else
+        {
+            throw tokenizer.syntaxError("A JSONArray text must start with '['");
+        }
+        if (tokenizer.nextClean() == ']')
+        {
+            return;
+        }
+        tokenizer.back();
+        for (;;)
+        {
+            if (tokenizer.nextClean() == ',')
+            {
+                tokenizer.back();
+                //_array.add(null);
+            }
+            else
+            {
+                tokenizer.back();
+                tokenizer.nextValue();
+                //_array.add(tokenizer.nextValue());
+            }
+            c = tokenizer.nextClean();
+            switch (c)
+            {
+            case ';':
+            case ',':
+                if (tokenizer.nextClean() == ']')
+                {
+                    return;
+                }
+                tokenizer.back();
+                break;
+            case ']':
+            case ')':
+                if (q != c)
+                {
+                    throw tokenizer.syntaxError("Expected a '" + new Character(q) + "'");
+                }
+                return;
+            default:
+                throw tokenizer.syntaxError("Expected a ',' or ']'");
+            }
+        }
     }
 
 }

@@ -689,6 +689,9 @@ public class SilkParser implements SilkEventHandler
 
                 // TODO this part is the bottle neck of the parsing
                 JSONArray array = new JSONArray(columnData);
+                //                JSONPullParser parser = new JSONPullParser(columnData);
+                //                while (parser.next() != JSONEvent.EndJSON)
+                //                {}
 
                 // 10000 lines/sec
 
@@ -714,6 +717,75 @@ public class SilkParser implements SilkEventHandler
         }
 
     }
+
+    //    private class EvalJSON 
+    //    {
+    //        JSONPullParser parser;
+    //        
+    //        EvalJSON(String json)
+    //        {
+    //            this.parser = new JSONPullParser(json);
+    //        }
+    //        
+    //        void evalJSONArray(SilkNode schemaNode)
+    //        {
+    //            if (schemaNode.hasManyOccurrences())
+    //            {
+    //                if (schemaNode.hasChildren())
+    //                {
+    //                    // e.g., exon(start, name)*
+    //                    // multiple occurrences: [[start, end], [start, end], ... ]
+    //                    
+    //                    JSONEvent e = parser.next();                    
+    //                    if(e != JSONEvent.StartArray)
+    //                        throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected [ but " + e);
+    //                    
+    //                    
+    //                    for (int i = 0; i < value.size(); i++)
+    //                    {
+    //                        JSONArray eachElement = value.getJSONArray(i);
+    //                        if (eachElement == null)
+    //                            continue;
+    //
+    //                        visit(schemaNode.getName(), null);
+    //                        int index = 0;
+    //                        for (SilkNode eachSubSchema : schemaNode.getChildNodes())
+    //                        {
+    //                            evalJSONArray(eachSubSchema);
+    //                        }
+    //                        leave(schemaNode.getName());
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    // e.g. QV*: [20, 50, 50]
+    //                    for (int i = 0; i < value.size(); i++)
+    //                    {
+    //                        visit(schemaNode.getName(), value.get(i).toString());
+    //                        leave(schemaNode.getName());
+    //                    }
+    //                }
+    //            }
+    //            else
+    //            {
+    //                // [e1, e2, ...]
+    //                visit(schemaNode.getName(), null);
+    //                int index = 0;
+    //                if (schemaNode.getChildNodes().size() != value.size())
+    //                {
+    //                    throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
+    //                            "data format doesn't match: schema=%s, value=%s", schemaNode, value));
+    //                }
+    //                for (SilkNode each : schemaNode.getChildNodes())
+    //                {
+    //                    walkMicroFormatElement(each, value.get(index++));
+    //                }
+    //                leave(schemaNode.getName());
+    //            }
+    //   
+    //        }
+    //        
+    //    }
 
     private void evalColumnData(SilkNode node, String columnData) throws Exception
     {
