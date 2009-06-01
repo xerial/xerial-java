@@ -39,24 +39,20 @@ import org.xerial.json.impl.JSONTokenizer;
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 {
 
-    private final ArrayList<JSONValue> _array;
+    private final ArrayList<JSONValue> _array = new ArrayList<JSONValue>();
 
     public JSONArray()
-    {
-        _array = new ArrayList<JSONValue>();
-    }
+    {}
 
     public JSONArray(List<JSONValue> elemList)
     {
-        _array = new ArrayList<JSONValue>(elemList.size());
+        _array.ensureCapacity(elemList.size());
         for (JSONValue v : elemList)
             _array.add(v);
     }
 
     JSONArray(JSONPullParser parser) throws JSONException
     {
-        this._array = new ArrayList<JSONValue>();
-
         JSONEvent e = parser.next();
         if (e != JSONEvent.StartArray)
             throw new JSONException(JSONErrorCode.ParseError, "expected [, but " + e);
@@ -139,7 +135,6 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 
     public JSONArray(JSONTokenizer tokenizer) throws JSONException
     {
-        _array = new ArrayList<JSONValue>();
 
         char c = tokenizer.nextClean();
         char q;
