@@ -70,7 +70,8 @@ public class JSONArrayTest
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
-        for (; i < 1000; i++)
+        final int N = 5000;
+        for (; i < N - 1; i++)
         {
             sample.append(i);
             sample.append(",");
@@ -81,10 +82,10 @@ public class JSONArrayTest
         String json = sample.toString();
 
         StopWatch timer = new StopWatch();
-        for (int n = 0; n < 1000; n++)
+        for (int n = 0; n < 500; n++)
         {
             JSONArray array = new JSONArray(json);
-            assertEquals(1001, array.size());
+            assertEquals(N, array.size());
         }
         _logger.info("time: " + timer.getElapsedTime());
 

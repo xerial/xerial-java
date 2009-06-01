@@ -683,7 +683,7 @@ public class SilkParser implements SilkEventHandler
         case ONE_OR_MORE:
             if (columnData.startsWith("["))
             {
-                // micro-data format
+                // process JSON array
 
                 // 40000 lines/sec
 

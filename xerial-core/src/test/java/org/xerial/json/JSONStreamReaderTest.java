@@ -26,11 +26,14 @@ package org.xerial.json;
 
 import static org.junit.Assert.*;
 
+import java.io.StringReader;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
+import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 
@@ -84,6 +87,43 @@ public class JSONStreamReaderTest
 
         assertEquals("Relational-Style XML Query", data.get("title").get(0));
         assertNull(data.get("paper").get(0));
+
+    }
+
+    @Test
+    public void testParse() throws Exception
+    {
+
+        // generate a sample JSON array
+        StringBuilder sample = new StringBuilder();
+        sample.append("[");
+        int i = 0;
+        final int N = 5000;
+        for (; i < N; i++)
+        {
+            sample.append(i);
+            sample.append(",");
+        }
+        sample.append(i);
+        sample.append("]");
+
+        String json = sample.toString();
+
+        StopWatch timer = new StopWatch();
+
+        for (int n = 0; n < 500; n++)
+        {
+            JSONStreamReader reader = new JSONStreamReader(new StringReader(json));
+
+            TreeEvent e;
+            while ((e = reader.next()) != null)
+            {}
+
+        }
+        _logger.info("time: " + timer.getElapsedTime());
+
+        // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
+        // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
 
     }
 

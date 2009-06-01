@@ -73,7 +73,7 @@ SOFTWARE.
  * @author JSON.org
  * @version 2008-09-18
  */
-public class JSONTokener
+public class JSONTokenizer
 {
 
     private int index;
@@ -87,7 +87,7 @@ public class JSONTokener
      * @param reader
      *            A reader.
      */
-    public JSONTokener(Reader reader)
+    public JSONTokenizer(Reader reader)
     {
         this.reader = reader.markSupported() ? reader : new BufferedReader(reader);
         this.useLastChar = false;
@@ -100,7 +100,7 @@ public class JSONTokener
      * @param s
      *            A source string.
      */
-    public JSONTokener(String s)
+    public JSONTokenizer(String s)
     {
         this(new StringReader(s));
     }

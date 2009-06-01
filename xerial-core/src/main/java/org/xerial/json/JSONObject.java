@@ -39,7 +39,7 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.xerial.json.impl.JSONLexer;
 import org.xerial.json.impl.JSONParser;
-import org.xerial.json.impl.JSONTokener;
+import org.xerial.json.impl.JSONTokenizer;
 import org.xerial.json.impl.JSONWalker;
 
 /**
@@ -66,7 +66,7 @@ public class JSONObject extends JSONValueBase
 
     }
 
-    public JSONObject(JSONTokener x) throws JSONException
+    public JSONObject(JSONTokenizer x) throws JSONException
     {
         this();
         char c;

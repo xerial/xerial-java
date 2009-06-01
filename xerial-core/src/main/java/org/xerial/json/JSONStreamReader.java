@@ -128,14 +128,17 @@ public class JSONStreamReader implements TreeStreamReader
             String value = lastEvent != JSONEvent.Null ? jsonPullParser.getText() : null;
 
             // if first child element is value attribute
-            if (key.equals("value") && !pendingEventQueue.isEmpty())
+            if (key != null)
             {
-                TreeEvent e = pendingEventQueue.peekLast();
-                if (e.event == EventType.VISIT)
+                if (key.equals("value") && !pendingEventQueue.isEmpty())
                 {
-                    pendingEventQueue.removeLast();
-                    pendingEventQueue.addLast(TreeEvent.newVisitEvent(e.nodeName, value));
-                    break;
+                    TreeEvent e = pendingEventQueue.peekLast();
+                    if (e.event == EventType.VISIT)
+                    {
+                        pendingEventQueue.removeLast();
+                        pendingEventQueue.addLast(TreeEvent.newVisitEvent(e.nodeName, value));
+                        break;
+                    }
                 }
             }
 

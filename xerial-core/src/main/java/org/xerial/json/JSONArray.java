@@ -34,7 +34,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.xerial.json.impl.JSONLexer;
 import org.xerial.json.impl.JSONParser;
-import org.xerial.json.impl.JSONTokener;
+import org.xerial.json.impl.JSONTokenizer;
 
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 {
@@ -50,9 +50,9 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
             _array.add(v);
     }
 
-    public JSONArray(JSONTokener x) throws JSONException
+    public JSONArray(JSONTokenizer tokenizer) throws JSONException
     {
-        char c = x.nextClean();
+        char c = tokenizer.nextClean();
         char q;
         if (c == '[')
         {
@@ -64,52 +64,52 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
         }
         else
         {
-            throw x.syntaxError("A JSONArray text must start with '['");
+            throw tokenizer.syntaxError("A JSONArray text must start with '['");
         }
-        if (x.nextClean() == ']')
+        if (tokenizer.nextClean() == ']')
         {
             return;
         }
-        x.back();
+        tokenizer.back();
         for (;;)
         {
-            if (x.nextClean() == ',')
+            if (tokenizer.nextClean() == ',')
             {
-                x.back();
+                tokenizer.back();
                 _array.add(null);
             }
             else
             {
-                x.back();
-                _array.add(x.nextValue());
+                tokenizer.back();
+                _array.add(tokenizer.nextValue());
             }
-            c = x.nextClean();
+            c = tokenizer.nextClean();
             switch (c)
             {
             case ';':
             case ',':
-                if (x.nextClean() == ']')
+                if (tokenizer.nextClean() == ']')
                 {
                     return;
                 }
-                x.back();
+                tokenizer.back();
                 break;
             case ']':
             case ')':
                 if (q != c)
                 {
-                    throw x.syntaxError("Expected a '" + new Character(q) + "'");
+                    throw tokenizer.syntaxError("Expected a '" + new Character(q) + "'");
                 }
                 return;
             default:
-                throw x.syntaxError("Expected a ',' or ']'");
+                throw tokenizer.syntaxError("Expected a ',' or ']'");
             }
         }
     }
 
     public JSONArray(String jsonStr) throws JSONException
     {
-        this(new JSONTokener(jsonStr));
+        this(new JSONTokenizer(jsonStr));
     }
 
     public static CommonTree parse(String jsonStr) throws JSONException
