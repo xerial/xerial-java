@@ -27,7 +27,7 @@ package org.xerial.silk;
 import org.xerial.core.XerialException;
 
 /**
- * {@link SilkEvent} handler for push-style Silk parser: {@link SilkPushParser}.
+ * {@link SilkEvent} handler for push-style Silk parser: {@link SilkLinePushParser}.
  * 
  * @author leo
  * 

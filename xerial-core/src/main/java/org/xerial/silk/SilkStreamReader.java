@@ -77,7 +77,7 @@ public class SilkStreamReader implements TreeStreamReader
 {
     private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
 
-    private final SilkPullParser parser;
+    private final SilkLinePullParser parser;
     private final SilkEnv parseContext;
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
@@ -115,7 +115,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     public SilkStreamReader(Reader input, SilkEnv env) throws IOException
     {
-        this.parser = new SilkPullParser(input);
+        this.parser = new SilkLinePullParser(input);
         this.parseContext = env;
     }
 
@@ -144,7 +144,7 @@ public class SilkStreamReader implements TreeStreamReader
      */
     public SilkStreamReader(String resourceBasePath, String resourceName) throws IOException
     {
-        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(SilkWalker.class
+        this.parser = new SilkLinePullParser(new BufferedReader(new InputStreamReader(SilkWalker.class
                 .getResourceAsStream(getResourcePath(resourceBasePath, resourceName)))));
         this.parseContext = SilkEnv.newEnv(resourceBasePath);
     }
@@ -166,7 +166,7 @@ public class SilkStreamReader implements TreeStreamReader
         int fileNamePos = path.lastIndexOf("/");
         String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
 
-        this.parser = new SilkPullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
+        this.parser = new SilkLinePullParser(new BufferedReader(new InputStreamReader(resource.openStream())));
         this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
 

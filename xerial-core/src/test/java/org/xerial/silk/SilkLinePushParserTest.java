@@ -32,9 +32,9 @@ import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 
-public class SilkPushParserTest
+public class SilkLinePushParserTest
 {
-    private static Logger _logger = Logger.getLogger(SilkPushParserTest.class);
+    private static Logger _logger = Logger.getLogger(SilkLinePushParserTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -51,7 +51,7 @@ public class SilkPushParserTest
 
         for (int i = 0; i < 2; i++)
         {
-            SilkPushParser parser = new SilkPushParser(FileResource.find(SilkPushParserTest.class, "scaffold1.silk"));
+            SilkLinePushParser parser = new SilkLinePushParser(FileResource.find(SilkLinePushParserTest.class, "scaffold1.silk"));
             _logger.info("parsing start");
             timer.reset();
             parser.parse(new SilkEventHandler() {

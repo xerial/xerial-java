@@ -43,7 +43,6 @@ import org.xerial.silk.impl.SilkFunction;
 import org.xerial.silk.impl.SilkLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkNodeParser;
-import org.xerial.silk.impl.SilkParser;
 import org.xerial.silk.impl.SilkPreamble;
 import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
@@ -55,12 +54,11 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkPushParser
+public class SilkLinePushParser
 {
-    private static Logger _logger = Logger.getLogger(SilkPushParser.class);
+    private static Logger _logger = Logger.getLogger(SilkLinePushParser.class);
 
     private final SilkLexer lexer;
-    private final SilkParser parser;
     private final BufferedReader buffer;
     private long lineCount = 0;
     private SilkEventHandler handler = null;
@@ -68,12 +66,12 @@ public class SilkPushParser
     private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
-    public SilkPushParser(URL resourceURL) throws IOException
+    public SilkLinePushParser(URL resourceURL) throws IOException
     {
         this(new InputStreamReader(resourceURL.openStream()));
     }
 
-    public SilkPushParser(Reader reader)
+    public SilkLinePushParser(Reader reader)
     {
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
@@ -81,7 +79,6 @@ public class SilkPushParser
             buffer = new BufferedReader(reader);
 
         lexer = new SilkLexer();
-        parser = new SilkParser(null);
     }
 
     private void push(SilkEvent e) throws XerialException
@@ -202,8 +199,6 @@ public class SilkPushParser
                 if (_logger.isTraceEnabled())
                     _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), ANTLRUtil
                             .getTokenTable(SilkLexer.class, "Silk.tokens")), "\n"));
-
-                parser.setTokenStream(tokenStream);
 
                 // 100,000 lines/sec (SilkPushParser)
                 // 60,000 lines/sec (SilkPushParser after consuming the lexer input)

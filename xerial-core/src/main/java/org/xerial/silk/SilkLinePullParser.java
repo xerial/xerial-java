@@ -48,9 +48,9 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkPullParser
+public class SilkLinePullParser
 {
-    private static Logger _logger = Logger.getLogger(SilkPullParser.class);
+    private static Logger _logger = Logger.getLogger(SilkLinePullParser.class);
     private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
@@ -85,25 +85,25 @@ public class SilkPullParser
         }
     }
 
-    private SilkPushParser parser;
+    private SilkLinePushParser parser;
     private ExecutorService threadPool;
     private Future<Boolean> future;
 
-    public SilkPullParser(URL silkURL) throws IOException
+    public SilkLinePullParser(URL silkURL) throws IOException
     {
         this(silkURL.openStream());
     }
 
-    public SilkPullParser(InputStream input) throws IOException
+    public SilkLinePullParser(InputStream input) throws IOException
     {
         this(new InputStreamReader(input));
     }
 
-    public SilkPullParser(Reader input) throws IOException
+    public SilkLinePullParser(Reader input) throws IOException
     {
         threadPool = Executors.newFixedThreadPool(1);
 
-        parser = new SilkPushParser(input);
+        parser = new SilkLinePushParser(input);
         future = threadPool.submit(new SilkEventProducer());
     }
 
@@ -159,6 +159,8 @@ public class SilkPullParser
 
         if (foundEOF)
             return eventQueue.poll();
+
+        fetchNext();
 
         return next();
     }

@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -62,11 +63,18 @@ public class SilkStreamReaderTest
     public void tearDown() throws Exception
     {}
 
-    private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+    //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
 
-    //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+    private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+
     //private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
     //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+
+    @Test
+    public void dummy()
+    {
+
+    }
 
     @Ignore
     @Test
@@ -172,7 +180,7 @@ public class SilkStreamReaderTest
     public void maxReadSpeedTest() throws Exception
     {
         int unit = 1024 * 1024;
-        BufferedReader reader = new BufferedReader(new FileReader(new File("d:/tmp/xmark-1.0.xml")), unit);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(largeFile).openStream()));
         int lineCount = 0;
         String line = null;
         StopWatch timer = new StopWatch();
@@ -277,13 +285,16 @@ public class SilkStreamReaderTest
         // 6200 lines/sec (2009 Apr.23 Push+Pull)
 
         // 7738 lines/sec (PullParser implementation using PushPaser on Xeon 3.0GHz dual)
+
+        // 8000 lines/sec (Recursive Parser on Xeon 3.0GHz dual)
+
     }
 
     @Ignore
     @Test
     public void pullParserPerformanceTest() throws Exception
     {
-        SilkPullParser reader = new SilkPullParser(new BufferedInputStream(new URL(largeFile).openStream()));
+        SilkLinePullParser reader = new SilkLinePullParser(new BufferedInputStream(new URL(largeFile).openStream()));
         StopWatch timer = new StopWatch();
         int count = 0;
         SilkEvent e;
@@ -308,13 +319,15 @@ public class SilkStreamReaderTest
 
         // 18500 lines/sec (Xeon 3.0 * dual) 
         // 17411 lines/sec (Xeon 3.0 * dual) (PullParser implementation using PushPaser)
+
+        // 30000 lines/sec (Xeon 3.0 * dual) (PullParser using SilkNodeParser (recursive descent parser)) 
     }
 
     @Ignore
     @Test
     public void pushParserPerformanceTest() throws Exception
     {
-        final SilkPushParser reader = new SilkPushParser(new URL(largeFile));
+        final SilkLinePushParser reader = new SilkLinePushParser(new URL(largeFile));
         final StopWatch timer = new StopWatch();
 
         reader.parse(new SilkEventHandler() {
@@ -337,6 +350,7 @@ public class SilkStreamReaderTest
         _logger.info(String.format("time=%s", timer.getElapsedTime()));
 
         // 20000 lines/sec (Xeon 3.0 * dual) 
+        // 45000 lines/sec (Xeon 3.0 * dual when using recursive descent parser)
     }
 
 }

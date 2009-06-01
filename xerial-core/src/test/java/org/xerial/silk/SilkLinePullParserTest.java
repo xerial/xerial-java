@@ -33,9 +33,9 @@ import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
-public class SilkPullParserTest
+public class SilkLinePullParserTest
 {
-    private static Logger _logger = Logger.getLogger(SilkPullParserTest.class);
+    private static Logger _logger = Logger.getLogger(SilkLinePullParserTest.class);
 
     @Before
     public void setUp() throws Exception
@@ -47,7 +47,7 @@ public class SilkPullParserTest
 
     public void pull(String silkFile) throws IOException, XerialException
     {
-        SilkPullParser p = new SilkPullParser(FileResource.open(SilkPullParserTest.class, silkFile));
+        SilkLinePullParser p = new SilkLinePullParser(FileResource.open(SilkLinePullParserTest.class, silkFile));
 
         while (p.hasNext())
         {
