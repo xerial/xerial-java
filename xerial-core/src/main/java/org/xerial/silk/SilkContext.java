@@ -26,7 +26,7 @@ package org.xerial.silk;
 
 import org.xerial.silk.impl.SilkNode;
 
-public class SilkContext
+class SilkContext
 {
     public final SilkNode contextNode;
     boolean isOpen;

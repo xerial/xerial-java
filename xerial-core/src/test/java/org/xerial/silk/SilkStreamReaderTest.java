@@ -60,9 +60,14 @@ public class SilkStreamReaderTest
     private static final double largeFileLines = 111965;
     private static final int numNodes = 5826313;
 
+    private SilkParserConfig config;
+
     @Before
     public void setUp() throws Exception
-    {}
+    {
+        config = new SilkParserConfig();
+        config.bufferSize = 1024 * 1024 * 16; // 16MB
+    }
 
     @After
     public void tearDown() throws Exception
@@ -203,12 +208,10 @@ public class SilkStreamReaderTest
                 speedPerNode, speedInMBS, speedPerLine));
     }
 
-    private final int bufferSize = 1024 * 1024 * 16;
-
     @Test
     public void maxReadSpeed() throws Exception
     {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()), bufferSize);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()), config.bufferSize);
         int lineCount = 0;
         String line = null;
         StopWatch timer = new StopWatch();
@@ -238,10 +241,10 @@ public class SilkStreamReaderTest
         int lineCount = 0;
 
         StopWatch timer = new StopWatch();
-        char[] buf = new char[bufferSize];
+        char[] buf = new char[config.bufferSize];
         int numBytes = 0;
         int numReadBytes = 0;
-        while ((numReadBytes = reader.read(buf, 0, bufferSize)) != -1)
+        while ((numReadBytes = reader.read(buf, 0, config.bufferSize)) != -1)
         {
             numBytes += numReadBytes;
         }
@@ -312,11 +315,10 @@ public class SilkStreamReaderTest
 
     int count = 0;
 
-    @Ignore
     @Test
     public void parserPerformance() throws Exception
     {
-        SilkParser parser = new SilkParser(largeFile, bufferSize);
+        SilkParser parser = new SilkParser(largeFile, config);
         final StopWatch timer = new StopWatch();
 
         count = 0;
@@ -363,7 +365,7 @@ public class SilkStreamReaderTest
     @Test
     public void pushParserPerformance() throws Exception
     {
-        final SilkLinePushParser reader = new SilkLinePushParser(largeFile, bufferSize);
+        final SilkLinePushParser reader = new SilkLinePushParser(largeFile, config);
         final StopWatch timer = new StopWatch();
 
         reader.parse(new SilkEventHandler() {
@@ -389,7 +391,7 @@ public class SilkStreamReaderTest
     @Test
     public void fastPushParserPerformance() throws Exception
     {
-        SilkLineFastParser parser = new SilkLineFastParser(largeFile, bufferSize);
+        SilkLineFastParser parser = new SilkLineFastParser(largeFile, config);
         StopWatch timer = new StopWatch();
         parser.parse(new SilkEventHandler() {
 

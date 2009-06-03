@@ -53,39 +53,36 @@ public class SilkLineFastParser
     private static Logger _logger = Logger.getLogger(SilkLineFastParser.class);
 
     private final BufferedReader buffer;
-
-    private int numLinesPerJob = 5000;
-    private int numWorkers = 4;
     private final ExecutorService threadManager;
-
-    private final LinkedBlockingQueue<Future<List<SilkEvent>>> eventContainer = new LinkedBlockingQueue<Future<List<SilkEvent>>>(
-            numWorkers);
-
-    private static final int DEFAULT_BUFFER_SIZE = 1024 * 1024; // 1M
+    private final LinkedBlockingQueue<Future<List<SilkEvent>>> eventContainer;
+    private final SilkParserConfig config;
 
     public SilkLineFastParser(URL resourceURL) throws IOException
     {
-        this(resourceURL, DEFAULT_BUFFER_SIZE);
+        this(resourceURL, new SilkParserConfig());
     }
 
-    public SilkLineFastParser(URL resourceURL, int bufferSize) throws IOException
+    public SilkLineFastParser(URL resourceURL, SilkParserConfig config) throws IOException
     {
-        this(new InputStreamReader(resourceURL.openStream()), bufferSize);
+        this(new InputStreamReader(resourceURL.openStream()), config);
     }
 
     public SilkLineFastParser(Reader reader)
     {
-        this(reader, DEFAULT_BUFFER_SIZE);
+        this(reader, new SilkParserConfig());
     }
 
-    public SilkLineFastParser(Reader reader, int bufferSize)
+    public SilkLineFastParser(Reader reader, SilkParserConfig config)
     {
+        this.config = config;
+        this.eventContainer = new LinkedBlockingQueue<Future<List<SilkEvent>>>(config.numWorkers);
+
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
         else
-            buffer = new BufferedReader(reader, bufferSize);
+            buffer = new BufferedReader(reader, config.bufferSize);
 
-        threadManager = Executors.newFixedThreadPool(numWorkers + 1);
+        threadManager = Executors.newFixedThreadPool(config.numWorkers + 1);
     }
 
     private volatile boolean foundEOF = false;
@@ -102,9 +99,9 @@ public class SilkLineFastParser
 
             while (!foundEOF)
             {
-                ArrayList<String> cache = new ArrayList<String>(numLinesPerJob);
+                ArrayList<String> cache = new ArrayList<String>(config.numLinesInBlock);
                 int lineCount = 0;
-                while (lineCount < numLinesPerJob)
+                while (lineCount < config.numLinesInBlock)
                 {
                     lineCount++;
                     String line = buffer.readLine();

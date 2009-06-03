@@ -62,6 +62,7 @@ public class SilkLinePushParser
     private final BufferedReader buffer;
     private long lineCount = 0;
     private SilkEventHandler handler = null;
+    private final SilkParserConfig config;
 
     private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
@@ -71,22 +72,24 @@ public class SilkLinePushParser
         this(new InputStreamReader(resourceURL.openStream()));
     }
 
-    public SilkLinePushParser(URL resourceURL, int bufferSize) throws IOException
+    public SilkLinePushParser(URL resourceURL, SilkParserConfig config) throws IOException
     {
-        this(new InputStreamReader(resourceURL.openStream()), bufferSize);
+        this(new InputStreamReader(resourceURL.openStream()), config);
     }
 
     public SilkLinePushParser(Reader reader)
     {
-        this(reader, 1024 * 1024); // 1MB
+        this(reader, new SilkParserConfig()); // 1MB
     }
 
-    public SilkLinePushParser(Reader reader, int bufferSize)
+    public SilkLinePushParser(Reader reader, SilkParserConfig config)
     {
+        this.config = config;
+
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
         else
-            buffer = new BufferedReader(reader, bufferSize);
+            buffer = new BufferedReader(reader, config.bufferSize);
 
         lexer = new SilkLexer();
     }

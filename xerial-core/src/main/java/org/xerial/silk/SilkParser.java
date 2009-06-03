@@ -78,12 +78,14 @@ public class SilkParser implements SilkEventHandler
 {
     private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
 
-    private final SilkLinePushParser parser;
+    private final SilkLineFastParser parser;
     private final SilkEnv parseContext;
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
 
     private long numReadLine = 0;
+
+    private final SilkParserConfig config;
 
     /**
      * Creates a new reader with the specified reader
@@ -105,7 +107,8 @@ public class SilkParser implements SilkEventHandler
      */
     private SilkParser(Reader input, SilkEnv env) throws IOException
     {
-        this.parser = new SilkLinePushParser(input);
+        this.config = new SilkParserConfig();
+        this.parser = new SilkLineFastParser(input);
         this.parseContext = env;
     }
 
@@ -120,23 +123,24 @@ public class SilkParser implements SilkEventHandler
         this(resourcePath, SilkEnv.newEnv());
     }
 
-    public SilkParser(URL resourcePath, int bufferSize) throws IOException
+    public SilkParser(URL resourcePath, SilkParserConfig config) throws IOException
     {
-        this(resourcePath, SilkEnv.newEnv(), bufferSize);
+        this(resourcePath, SilkEnv.newEnv(), config);
     }
 
     public SilkParser(URL resource, SilkEnv env) throws IOException
     {
-        this(resource, env, 1024 * 1024);
+        this(resource, env, new SilkParserConfig());
     }
 
-    public SilkParser(URL resource, SilkEnv env, int bufferSize) throws IOException
+    public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException
     {
+        this.config = config;
         String path = resource.toExternalForm();
         int fileNamePos = path.lastIndexOf("/");
         String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
 
-        this.parser = new SilkLinePushParser(new InputStreamReader(resource.openStream()), bufferSize);
+        this.parser = new SilkLineFastParser(new InputStreamReader(resource.openStream()), config);
         this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
 
@@ -824,8 +828,7 @@ public class SilkParser implements SilkEventHandler
         }
         catch (JSONException e)
         {
-            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", parser.getNumReadLine(), e
-                    .getMessage()));
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine, e.getMessage()));
         }
 
     }
