@@ -1,33 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>xerial-core</name>
-	<comment>Xerial Core: standard utilities for XerialJ project</comment>
-	<projects>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.hyades.probekit.probekitbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.hyades.probekit.probekitbundler</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.hyades.test.tools.core.java.junit.builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
-	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.eclipse.hyades.probekit.probekitnature</nature>
-	</natures>
+  <name>xerial-core</name>
+  <comment>xerial-core is a common utilities for the Xerial project.</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.hyades.probekit.probekitbuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.hyades.probekit.probekitbundler</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.hyades.test.tools.core.java.junit.builder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>org.eclipse.hyades.probekit.probekitnature</nature>
+  </natures>
 </projectDescription>
