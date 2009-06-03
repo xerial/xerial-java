@@ -685,19 +685,31 @@ public class SilkParser implements SilkEventHandler
             {
                 // process JSON array
 
-                // 40000 lines/sec
+                // 40000 lines/s
+                //       
+
+                // 37,079 nodes/s, 9.58 MB/s
 
                 // TODO this part is the bottle neck of the parsing
-                JSONArray array = new JSONArray(columnData);
-                //                JSONPullParser parser = new JSONPullParser(columnData);
-                //                while (parser.next() != JSONEvent.EndJSON)
-                //                {}
 
-                // 10000 lines/sec
+                // 12,912 nodes/s, 3.33 MB/s (with PullParsing)
+                //                JSONPullParser jsonPull = new JSONPullParser(columnData);
+                //                while (jsonPull.next() != JSONEvent.EndJSON)
+                //                {
+                //
+                //                }
+
+                JSONArray array = new JSONArray(columnData);
+
+                //  9,645 nodes/s, 2.49 MB/s
+
+                // 10000 lines/s
 
                 walkMicroFormatRoot(node, array);
 
-                // 9000 lines/sec
+                // 453,073 nodes/s, 2.26 MB/s
+
+                // 9000 lines/s
 
                 return;
             }
@@ -718,16 +730,16 @@ public class SilkParser implements SilkEventHandler
 
     }
 
-    //    private class EvalJSON 
+    //    private class EvalJSON
     //    {
     //        JSONPullParser parser;
-    //        
+    //
     //        EvalJSON(String json)
     //        {
     //            this.parser = new JSONPullParser(json);
     //        }
-    //        
-    //        void evalJSONArray(SilkNode schemaNode)
+    //
+    //        void parseJSONArray(SilkNode schemaNode)
     //        {
     //            if (schemaNode.hasManyOccurrences())
     //            {
@@ -735,11 +747,13 @@ public class SilkParser implements SilkEventHandler
     //                {
     //                    // e.g., exon(start, name)*
     //                    // multiple occurrences: [[start, end], [start, end], ... ]
-    //                    
-    //                    JSONEvent e = parser.next();                    
-    //                    if(e != JSONEvent.StartArray)
+    //
+    //                    JSONEvent e = parser.next();
+    //                    if (e != JSONEvent.StartArray)
     //                        throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected [ but " + e);
+    //
     //                    
+    //                    parseJSON
     //                    
     //                    for (int i = 0; i < value.size(); i++)
     //                    {
@@ -782,9 +796,22 @@ public class SilkParser implements SilkEventHandler
     //                }
     //                leave(schemaNode.getName());
     //            }
-    //   
+    //
     //        }
     //        
+    //        void parseJSONArray2(SilkNode node) throws XerialException
+    //        {
+    //            JSONEvent e = parser.next();
+    //            if (e != JSONEvent.StartArray)
+    //                throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected [ but " + e);
+    //
+    //            
+    //            
+    //            
+    //        }
+    //        
+    //
+    //
     //    }
 
     private void evalColumnData(SilkNode node, String columnData) throws Exception

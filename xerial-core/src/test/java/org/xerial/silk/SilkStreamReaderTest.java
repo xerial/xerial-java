@@ -24,11 +24,8 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -42,9 +39,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEventHandlerBase;
+import org.xerial.util.tree.TreeEvent.EventType;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -65,7 +65,12 @@ public class SilkStreamReaderTest
 
     //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
 
-    private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+    //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
+
+    private static final URL largeFile = FileResource.find(SilkStreamReaderTest.class, "scaffold1.silk");
+    private static final int largeFileSize = 30593075;
+    private static final double largeFileLines = 111965;
+    private static final int numNodes = 5826313;
 
     //private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
     //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
@@ -175,12 +180,33 @@ public class SilkStreamReaderTest
         _logger.info("time: " + timer.getElapsedTime());
     }
 
-    @Ignore
+    public static void reportNodeCountStat(int count, double time)
+    {
+        double percentage = ((double) count / numNodes) * 100;
+        double speed = numNodes / time;
+
+        _logger.info(String.format("%2.2f%%, time=%.2f, %,10.0f nodes/s", percentage, time, speed));
+
+    }
+
+    public static void reportTotalSpeed(String name, double time)
+    {
+        reportTotalSpeed(name, numNodes, time);
+    }
+
+    public static void reportTotalSpeed(String name, int count, double time)
+    {
+        double speedPerNode = ((double) count) / time;
+        double speedInMBS = largeFileSize / 1024 / 1024 / time;
+        _logger.info(String.format("[%-15s] time=%.2f, %,10.0f nodes/s, %3.2f MB/s", name, time, speedPerNode,
+                speedInMBS));
+    }
+
     @Test
     public void maxReadSpeedTest() throws Exception
     {
         int unit = 1024 * 1024;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(largeFile).openStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()));
         int lineCount = 0;
         String line = null;
         StopWatch timer = new StopWatch();
@@ -189,28 +215,26 @@ public class SilkStreamReaderTest
             lineCount++;
             if (lineCount % 100000 == 0)
             {
-                double percentage = (lineCount / 10145176.0) * 100;
+                double percentage = (lineCount / largeFileLines) * 100;
                 double time = timer.getElapsedTime();
                 double speed = lineCount / time;
-                _logger.info(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/sec", percentage, lineCount, time,
+                _logger.info(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/s", percentage, lineCount, time,
                         speed));
             }
         }
-        double speed = 1192676224 / 1024 / 1024 / timer.getElapsedTime();
-        _logger.info(String.format("time=%s, %3.2fMB/s", timer.getElapsedTime(), speed));
+        reportTotalSpeed("BufferedReader", timer.getElapsedTime());
 
         // best time: 60,000 lines/sec
         // 80000 lines/sec (Xeon 3.0 * dual) 
 
     }
 
-    @Ignore
     @Test
     public void maxReadSpeedTest2() throws Exception
     {
         int unit = 1024 * 1024 * 16;
 
-        Reader reader = new FileReader(new File("d:/tmp/xmark-1.0.xml"));
+        Reader reader = new InputStreamReader(largeFile.openStream());
         int lineCount = 0;
 
         StopWatch timer = new StopWatch();
@@ -221,8 +245,7 @@ public class SilkStreamReaderTest
         {
             numBytes += numReadBytes;
         }
-        double speed = 1192676224 / 1024 / 1024 / timer.getElapsedTime();
-        _logger.info(String.format("time=%s, %3.2fMB/s", timer.getElapsedTime(), speed));
+        reportTotalSpeed("Reader", timer.getElapsedTime());
 
         // best time: 60,000 lines/sec
         // 80000 lines/sec (Xeon 3.0 * dual) 
@@ -235,7 +258,8 @@ public class SilkStreamReaderTest
     {
         int unit = 1024 * 1024;
 
-        FileInputStream fin = new FileInputStream(new File("f:/cygwin/home/leo/work/t2k/xmark-1.0.xml"));
+        FileInputStream fin = new FileInputStream("scaffold1.txt");
+
         FileChannel channel = fin.getChannel();
         int lineCount = 0;
 
@@ -250,35 +274,30 @@ public class SilkStreamReaderTest
                 break;
             }
         }
-        double speed = 1192676224 / 1024 / 1024 / timer.getElapsedTime();
-        _logger.info(String.format("time=%s, %3.2fMB/s", timer.getElapsedTime(), speed));
+        reportTotalSpeed("", timer.getElapsedTime());
 
         channel.close();
 
     }
 
-    @Ignore
     @Test
-    public void performanceTest() throws Exception
+    public void silkStreamReaderPerformance() throws Exception
     {
-        SilkStreamReader reader = new SilkStreamReader(new URL(largeFile));
+        SilkStreamReader reader = new SilkStreamReader(largeFile);
         StopWatch timer = new StopWatch();
         int count = 0;
         TreeEvent e;
         while ((e = reader.next()) != null)
         {
-            count++;
-            if (count % 1000000 == 0)
+            if (e.event == EventType.VISIT)
             {
-                long line = reader.getNumReadLine();
-                double percentage = (line / 10145176.0) * 100;
-                double time = timer.getElapsedTime();
-                double speed = line / time;
-                _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage, line,
-                        count, time, speed));
+                count++;
+                if (count % 1000000 == 0)
+                    reportNodeCountStat(count, timer.getElapsedTime());
             }
+
         }
-        _logger.info(String.format("time=%s", timer.getElapsedTime()));
+        reportTotalSpeed("SilkStreamReader", count, timer.getElapsedTime());
 
         // best time: 4200 lines/sec (2009 Apr. 23)
         // 6585 lines/sec (after threading SilkPullParser)
@@ -290,28 +309,43 @@ public class SilkStreamReaderTest
 
     }
 
-    @Ignore
+    int count = 0;
+
+    @Test
+    public void parserPerformance() throws Exception
+    {
+        SilkParser parser = new SilkParser(largeFile);
+        final StopWatch timer = new StopWatch();
+
+        count = 0;
+        parser.parse(new TreeEventHandlerBase() {
+
+            @Override
+            public void visitNode(String nodeName, String immediateNodeValue) throws Exception
+            {
+                count++;
+                if (count % 1000000 == 0)
+                    reportNodeCountStat(count, timer.getElapsedTime());
+            }
+
+        });
+
+        reportTotalSpeed("SilkParser", count, timer.getElapsedTime());
+
+    }
+
     @Test
     public void pullParserPerformanceTest() throws Exception
     {
-        SilkLinePullParser reader = new SilkLinePullParser(new BufferedInputStream(new URL(largeFile).openStream()));
+        SilkLinePullParser reader = new SilkLinePullParser(largeFile);
         StopWatch timer = new StopWatch();
         int count = 0;
         SilkEvent e;
         while ((e = reader.next()) != null)
         {
-            count++;
-            if (count % 100000 == 0)
-            {
-                long line = reader.getNumReadLine();
-                double percentage = (line / 10145176.0) * 100;
-                double time = timer.getElapsedTime();
-                double speed = line / time;
-                _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage, line,
-                        count, time, speed));
-            }
+
         }
-        _logger.info(String.format("time=%s", timer.getElapsedTime()));
+        reportTotalSpeed("SilkLinePullParser", timer.getElapsedTime());
 
         // best time: 13000 lines/sec
         // 12500 - 14700 lines/sec (after threading SilkPullParser)
@@ -323,11 +357,10 @@ public class SilkStreamReaderTest
         // 30000 lines/sec (Xeon 3.0 * dual) (PullParser using SilkNodeParser (recursive descent parser)) 
     }
 
-    @Ignore
     @Test
     public void pushParserPerformanceTest() throws Exception
     {
-        final SilkLinePushParser reader = new SilkLinePushParser(new URL(largeFile));
+        final SilkLinePushParser reader = new SilkLinePushParser(largeFile);
         final StopWatch timer = new StopWatch();
 
         reader.parse(new SilkEventHandler() {
@@ -335,19 +368,10 @@ public class SilkStreamReaderTest
 
             public void handle(SilkEvent event)
             {
-                count++;
-                if (count % 100000 == 0)
-                {
-                    long line = reader.getNumReadLine();
-                    double percentage = (line / 10145176.0) * 100;
-                    double time = timer.getElapsedTime();
-                    double speed = line / time;
-                    _logger.info(String.format("%2.2f%%, line=%d, count=%d, time=%s, %2.2f lines/sec", percentage,
-                            line, count, time, speed));
-                }
+
             }
         });
-        _logger.info(String.format("time=%s", timer.getElapsedTime()));
+        reportTotalSpeed("SilkLinePushParser", timer.getElapsedTime());
 
         // 20000 lines/sec (Xeon 3.0 * dual) 
         // 45000 lines/sec (Xeon 3.0 * dual when using recursive descent parser)
