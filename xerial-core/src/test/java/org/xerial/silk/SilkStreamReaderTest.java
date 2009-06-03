@@ -185,7 +185,7 @@ public class SilkStreamReaderTest
         double percentage = ((double) count / numNodes) * 100;
         double speed = numNodes / time;
 
-        _logger.info(String.format("%2.2f%%, time=%.2f, %,10.0f nodes/s", percentage, time, speed));
+        _logger.info(String.format("%2.2f%%, time=%5.2f, %,10.0f nodes/s", percentage, time, speed));
 
     }
 
