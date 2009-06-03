@@ -55,6 +55,11 @@ public class SilkStreamReaderTest
 {
     private static Logger _logger = Logger.getLogger(SilkStreamReaderTest.class);
 
+    private static final URL largeFile = FileResource.find(SilkStreamReaderTest.class, "scaffold1.silk");
+    private static final int largeFileSize = 30593075;
+    private static final double largeFileLines = 111965;
+    private static final int numNodes = 5826313;
+
     @Before
     public void setUp() throws Exception
     {}
@@ -66,11 +71,6 @@ public class SilkStreamReaderTest
     //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
 
     //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-
-    private static final URL largeFile = FileResource.find(SilkStreamReaderTest.class, "scaffold1.silk");
-    private static final int largeFileSize = 30593075;
-    private static final double largeFileLines = 111965;
-    private static final int numNodes = 5826313;
 
     //private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
     //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
@@ -185,7 +185,7 @@ public class SilkStreamReaderTest
         double percentage = ((double) count / numNodes) * 100;
         double speed = numNodes / time;
 
-        _logger.info(String.format("%2.2f%%, time=%5.2f, %,10.0f nodes/s", percentage, time, speed));
+        _logger.debug(String.format("%2.2f%%, time=%5.2f, %,10.0f nodes/s", percentage, time, speed));
 
     }
 
@@ -197,16 +197,18 @@ public class SilkStreamReaderTest
     public static void reportTotalSpeed(String name, int count, double time)
     {
         double speedPerNode = ((double) count) / time;
+        double speedPerLine = ((double) largeFileLines) / time;
         double speedInMBS = largeFileSize / 1024 / 1024 / time;
-        _logger.info(String.format("[%-15s] time=%.2f, %,10.0f nodes/s, %3.2f MB/s", name, time, speedPerNode,
-                speedInMBS));
+        _logger.info(String.format("[%-20s] time=%5.2f %,10.0f nodes/s, %5.2f MB/s %7.0f lines/s", name, time,
+                speedPerNode, speedInMBS, speedPerLine));
     }
 
+    private final int bufferSize = 1024 * 1024 * 16;
+
     @Test
-    public void maxReadSpeedTest() throws Exception
+    public void maxReadSpeed() throws Exception
     {
-        int unit = 1024 * 1024;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()), bufferSize);
         int lineCount = 0;
         String line = null;
         StopWatch timer = new StopWatch();
@@ -218,7 +220,7 @@ public class SilkStreamReaderTest
                 double percentage = (lineCount / largeFileLines) * 100;
                 double time = timer.getElapsedTime();
                 double speed = lineCount / time;
-                _logger.info(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/s", percentage, lineCount, time,
+                _logger.debug(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/s", percentage, lineCount, time,
                         speed));
             }
         }
@@ -230,18 +232,16 @@ public class SilkStreamReaderTest
     }
 
     @Test
-    public void maxReadSpeedTest2() throws Exception
+    public void maxReadSpeedWithoutParsingNewLine() throws Exception
     {
-        int unit = 1024 * 1024 * 16;
-
         Reader reader = new InputStreamReader(largeFile.openStream());
         int lineCount = 0;
 
         StopWatch timer = new StopWatch();
-        char[] buf = new char[unit];
+        char[] buf = new char[bufferSize];
         int numBytes = 0;
         int numReadBytes = 0;
-        while ((numReadBytes = reader.read(buf, 0, unit)) != -1)
+        while ((numReadBytes = reader.read(buf, 0, bufferSize)) != -1)
         {
             numBytes += numReadBytes;
         }
@@ -280,6 +280,7 @@ public class SilkStreamReaderTest
 
     }
 
+    @Ignore
     @Test
     public void silkStreamReaderPerformance() throws Exception
     {
@@ -311,10 +312,11 @@ public class SilkStreamReaderTest
 
     int count = 0;
 
+    @Ignore
     @Test
     public void parserPerformance() throws Exception
     {
-        SilkParser parser = new SilkParser(largeFile);
+        SilkParser parser = new SilkParser(largeFile, bufferSize);
         final StopWatch timer = new StopWatch();
 
         count = 0;
@@ -334,6 +336,7 @@ public class SilkStreamReaderTest
 
     }
 
+    @Ignore
     @Test
     public void pullParserPerformanceTest() throws Exception
     {
@@ -358,16 +361,22 @@ public class SilkStreamReaderTest
     }
 
     @Test
-    public void pushParserPerformanceTest() throws Exception
+    public void pushParserPerformance() throws Exception
     {
-        final SilkLinePushParser reader = new SilkLinePushParser(largeFile);
+        final SilkLinePushParser reader = new SilkLinePushParser(largeFile, bufferSize);
         final StopWatch timer = new StopWatch();
 
         reader.parse(new SilkEventHandler() {
-            int count = 0;
+            int lineCount = 0;
 
             public void handle(SilkEvent event)
             {
+                lineCount++;
+
+                if (event.getType() == SilkEventType.END_OF_FILE)
+                {
+                    _logger.info("line count = " + lineCount);
+                }
 
             }
         });
@@ -375,6 +384,29 @@ public class SilkStreamReaderTest
 
         // 20000 lines/sec (Xeon 3.0 * dual) 
         // 45000 lines/sec (Xeon 3.0 * dual when using recursive descent parser)
+    }
+
+    @Test
+    public void fastPushParserPerformance() throws Exception
+    {
+        SilkLineFastParser parser = new SilkLineFastParser(largeFile, bufferSize);
+        StopWatch timer = new StopWatch();
+        parser.parse(new SilkEventHandler() {
+
+            long lineCount = 0;
+
+            public void handle(SilkEvent event) throws Exception
+            {
+                lineCount++;
+
+                if (event.getType() == SilkEventType.END_OF_FILE)
+                {
+                    _logger.info("line count = " + lineCount);
+                }
+            }
+        });
+
+        reportTotalSpeed("SilkFastPushParser", timer.getElapsedTime());
     }
 
 }

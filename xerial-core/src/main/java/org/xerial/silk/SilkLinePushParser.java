@@ -71,12 +71,22 @@ public class SilkLinePushParser
         this(new InputStreamReader(resourceURL.openStream()));
     }
 
+    public SilkLinePushParser(URL resourceURL, int bufferSize) throws IOException
+    {
+        this(new InputStreamReader(resourceURL.openStream()), bufferSize);
+    }
+
     public SilkLinePushParser(Reader reader)
+    {
+        this(reader, 1024 * 1024); // 1MB
+    }
+
+    public SilkLinePushParser(Reader reader, int bufferSize)
     {
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
         else
-            buffer = new BufferedReader(reader);
+            buffer = new BufferedReader(reader, bufferSize);
 
         lexer = new SilkLexer();
     }
@@ -111,6 +121,96 @@ public class SilkLinePushParser
         return line;
     }
 
+    public static SilkEvent parseLine(SilkLexer lexer, String line) throws IOException, XerialException
+    {
+        if (line.length() <= 0)
+        {
+            return BlankLineEvent;
+        }
+
+        char c = line.charAt(0);
+
+        // preamble
+        if (c == '%')
+        {
+            return new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line));
+        }
+
+        // multi-line separator
+        if (c == '-' && line.charAt(1) == '-')
+        {
+            return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
+        }
+
+        // multi-line entry separator
+        if (c == '>' && line.charAt(1) == '>')
+        {
+            return new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null);
+        }
+
+        // 39000 lines/sec
+
+        // remove leading and trailing white spaces (' ') 
+        String trimmedLine = line.trim();
+        if (trimmedLine.length() <= 0)
+        {
+            return BlankLineEvent;
+        }
+
+        c = trimmedLine.charAt(0);
+        // comment line 
+        if (c == '#')
+        {
+            // ignore the comment line
+            return null;
+
+        }
+
+        // 36000 lines / sec
+
+        // data line 
+        if (!(c == '-' || c == '@'))
+        {
+            SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
+            return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
+        }
+
+        // 17000 lines/sec
+        // lexical analysis
+        lexer.resetContext();
+        lexer.setCharStream(new ANTLRStringStream(line));
+
+        // 17500 lines/sec
+
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+
+        if (_logger.isTraceEnabled())
+            _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), ANTLRUtil
+                    .getTokenTable(SilkLexer.class, "Silk.tokens")), "\n"));
+
+        // 100,000 lines/sec (SilkPushParser)
+        // 60,000 lines/sec (SilkPushParser after consuming the lexer input)
+
+        // 17000 lines/sec 
+
+        SilkNodeParser nodeParser = new SilkNodeParser(tokenStream);
+        SilkElement elem = nodeParser.parse();
+
+        if (elem instanceof SilkNode)
+            return new SilkEvent(SilkEventType.NODE, (SilkNode) elem);
+        else if (elem instanceof SilkFunction)
+            return new SilkEvent(SilkEventType.FUNCTION, (SilkFunction) elem);
+
+        return null;
+
+        // 50,000 lines/sec (SilkPushParser when using recursive descent parser)
+
+        // 17,000 lines/sec (SilkPushParser when using ANTLR parser)
+
+        // 1500 lines/sec
+
+    }
+
     public void parse(SilkEventHandler handler) throws Exception
     {
         if (handler == null)
@@ -125,95 +225,11 @@ public class SilkLinePushParser
             {
                 lineCount++;
 
-                if (line == null)
-                {
-                    return;
-                }
-
-                if (line.length() <= 0)
-                {
-                    push(BlankLineEvent);
-                    continue;
-                }
-
-                char c = line.charAt(0);
-
-                // preamble
-                if (c == '%')
-                {
-                    push(new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line)));
-                    continue;
-                }
-
-                // multi-line separator
-                if (c == '-' && line.charAt(1) == '-')
-                {
-                    push(new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null));
-                    continue;
-                }
-
-                // multi-line entry separator
-                if (c == '>' && line.charAt(1) == '>')
-                {
-                    push(new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null));
-                    continue;
-                }
-
-                // 39000 lines/sec
-
-                // remove leading and trailing white spaces (' ') 
-                String trimmedLine = line.trim();
-                if (trimmedLine.length() <= 0)
-                {
-                    push(BlankLineEvent);
-                    continue;
-                }
-
-                c = trimmedLine.charAt(0);
-                // comment line 
-                if (c == '#')
-                {
-                    // ignore the comment line
-                    continue;
-                }
-
-                // 36000 lines / sec
-
-                // data line 
-                if (!(c == '-' || c == '@'))
-                {
-                    SilkDataLine dataLine = new SilkDataLine(sanitizeDataLine(trimmedLine));
-                    push(new SilkEvent(SilkEventType.DATA_LINE, dataLine));
-                    continue;
-                }
-
-                // 17000 lines/sec
-                // lexical analysis
-                lexer.resetContext();
-                lexer.setCharStream(new ANTLRStringStream(line));
-
-                // 17500 lines/sec
-
-                CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-
-                if (_logger.isTraceEnabled())
-                    _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), ANTLRUtil
-                            .getTokenTable(SilkLexer.class, "Silk.tokens")), "\n"));
-
-                // 100,000 lines/sec (SilkPushParser)
-                // 60,000 lines/sec (SilkPushParser after consuming the lexer input)
-
-                // 17000 lines/sec 
-
                 try
                 {
-                    SilkNodeParser nodeParser = new SilkNodeParser(tokenStream);
-                    SilkElement elem = nodeParser.parse();
-                    if (elem instanceof SilkNode)
-                        push(new SilkEvent(SilkEventType.NODE, (SilkNode) elem));
-                    else if (elem instanceof SilkFunction)
-                        push(new SilkEvent(SilkEventType.FUNCTION, (SilkFunction) elem));
-
+                    SilkEvent e = parseLine(lexer, line);
+                    if (e != null)
+                        push(e);
                 }
                 catch (XerialException e)
                 {
@@ -225,24 +241,11 @@ public class SilkLinePushParser
                     else
                         throw e;
                 }
-
-                continue;
-
-                // 50,000 lines/sec (SilkPushParser when using recursive descent parser)
-
-                // 17,000 lines/sec (SilkPushParser when using ANTLR parser)
-
-                // 1500 lines/sec
             }
 
             // EOF
             push(EOFEvent);
         }
-        //        catch (RecognitionException e)
-        //        {
-        //            throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format("parse error line=%d: %s",
-        //                    lineCount, e.getMessage()));
-        //        }
         catch (IOException e)
         {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, String.format("line=%d: %s", lineCount, e

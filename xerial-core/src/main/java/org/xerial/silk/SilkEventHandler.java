@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.silk;
 
-
 /**
  * {@link SilkEvent} handler for push-style Silk parser:
  * {@link SilkLinePushParser}.
@@ -35,4 +34,5 @@ package org.xerial.silk;
 public interface SilkEventHandler
 {
     public void handle(SilkEvent event) throws Exception;
+
 }

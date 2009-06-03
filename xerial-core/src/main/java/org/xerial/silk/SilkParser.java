@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
@@ -88,17 +86,6 @@ public class SilkParser implements SilkEventHandler
     private long numReadLine = 0;
 
     /**
-     * Creates a new reader with the specified input stream
-     * 
-     * @param input
-     *            `@throws IOException
-     */
-    public SilkParser(InputStream input) throws IOException
-    {
-        this(new InputStreamReader(input));
-    }
-
-    /**
      * Creates a new reader with the specified reader
      * 
      * @param input
@@ -116,10 +103,41 @@ public class SilkParser implements SilkEventHandler
      * @param env
      * @throws IOException
      */
-    public SilkParser(Reader input, SilkEnv env) throws IOException
+    private SilkParser(Reader input, SilkEnv env) throws IOException
     {
         this.parser = new SilkLinePushParser(input);
         this.parseContext = env;
+    }
+
+    /**
+     * Create a new reader for reading the specified resource URL
+     * 
+     * @param resourcePath
+     * @throws IOException
+     */
+    public SilkParser(URL resourcePath) throws IOException
+    {
+        this(resourcePath, SilkEnv.newEnv());
+    }
+
+    public SilkParser(URL resourcePath, int bufferSize) throws IOException
+    {
+        this(resourcePath, SilkEnv.newEnv(), bufferSize);
+    }
+
+    public SilkParser(URL resource, SilkEnv env) throws IOException
+    {
+        this(resource, env, 1024 * 1024);
+    }
+
+    public SilkParser(URL resource, SilkEnv env, int bufferSize) throws IOException
+    {
+        String path = resource.toExternalForm();
+        int fileNamePos = path.lastIndexOf("/");
+        String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
+
+        this.parser = new SilkLinePushParser(new InputStreamReader(resource.openStream()), bufferSize);
+        this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
 
     /**
@@ -136,41 +154,6 @@ public class SilkParser implements SilkEventHandler
             resourcePath += "/";
         resourcePath += resourceName;
         return resourcePath;
-    }
-
-    /**
-     * Create a new reader for reading local resources
-     * 
-     * @param resourceBasePath
-     * @param resourceName
-     * @throws IOException
-     */
-    public SilkParser(String resourceBasePath, String resourceName) throws IOException
-    {
-        this.parser = new SilkLinePushParser(new BufferedReader(new InputStreamReader(SilkWalker.class
-                .getResourceAsStream(getResourcePath(resourceBasePath, resourceName)))));
-        this.parseContext = SilkEnv.newEnv(resourceBasePath);
-    }
-
-    /**
-     * Create a new reader for reading the specified resource URL
-     * 
-     * @param resourcePath
-     * @throws IOException
-     */
-    public SilkParser(URL resourcePath) throws IOException
-    {
-        this(resourcePath, SilkEnv.newEnv());
-    }
-
-    public SilkParser(URL resource, SilkEnv env) throws IOException
-    {
-        String path = resource.toExternalForm();
-        int fileNamePos = path.lastIndexOf("/");
-        String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
-
-        this.parser = new SilkLinePushParser(new BufferedReader(new InputStreamReader(resource.openStream())));
-        this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
     }
 
     TreeEventHandler handler;
