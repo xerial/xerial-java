@@ -165,7 +165,6 @@ public class JSONPullParser
      */
     public JSONValue getValue() throws JSONException
     {
-        JSONValue value = null;
         if (lastReportedEvent == null)
             next();
 
@@ -173,10 +172,6 @@ public class JSONPullParser
         {
             switch (lastReportedEvent.getEvent())
             {
-            case StartObject:
-                return readJSONObject(new JSONObject(), getDepth());
-            case StartArray:
-                return readJSONArray(new JSONArray(), getDepth());
             case String:
                 return new JSONString(getText());
             case Integer:
@@ -187,11 +182,48 @@ public class JSONPullParser
                 return new JSONBoolean(getText());
             case Null:
                 return new JSONNull();
+            case StartObject:
+                return readJSONObject(new JSONObject(), getDepth());
+            case StartArray:
+                return readJSONArray(new JSONArray(), getDepth());
             default:
                 next();
             }
         }
         throw new JSONException(JSONErrorCode.JSONValueIsNotFound);
+    }
+
+    /**
+     * Reads the current JSONValue as String data
+     * 
+     * @return
+     * @throws JSONException
+     */
+    public String getValueAsText() throws JSONException
+    {
+        if (lastReportedEvent == null)
+            next();
+
+        while (lastReportedEvent.getEvent() != JSONEvent.EndJSON)
+        {
+            switch (lastReportedEvent.getEvent())
+            {
+            case String:
+            case Integer:
+            case Double:
+            case Boolean:
+                return getText();
+            case Null:
+            case StartObject:
+                return readJSONObject(new JSONObject(), getDepth()).toJSONString();
+            case StartArray:
+                return readJSONArray(new JSONArray(), getDepth()).toJSONString();
+            default:
+                next();
+            }
+        }
+        throw new JSONException(JSONErrorCode.JSONValueIsNotFound);
+
     }
 
     private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException

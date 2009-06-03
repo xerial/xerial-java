@@ -688,6 +688,7 @@ public class SilkParser implements SilkEventHandler
                 // process JSON array
 
                 // 500,080 nodes/s, 2.49 MB/s
+                // 591,824 nodes/s, 2.95 MB/s (when using JSONPullParser.getValueAsText())
                 new EvalJSON(columnData).parseJSONArray(node);
 
                 // 431,197 nodes/s, 2.15 MB/s
@@ -762,8 +763,7 @@ public class SilkParser implements SilkEventHandler
                     // e.g. QV*: [20, 50, 50]
                     while ((e = parser.next()) != JSONEvent.EndArray)
                     {
-                        JSONValue value = parser.getValue();
-                        visit(schemaNode.getName(), value.toString());
+                        visit(schemaNode.getName(), parser.getValueAsText());
                         leave(schemaNode.getName());
                     }
 
