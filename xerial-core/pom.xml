@@ -50,6 +50,24 @@
           <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <finalName>silk</finalName>
+          <appendAssemblyId>false</appendAssemblyId>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>org.xerial.silk.cui.SilkMain</mainClass>
+            </manifest>
+            <index>true</index>
+          </archive>
+        </configuration>
+      </plugin>
+      
     </plugins>
   </build>
 

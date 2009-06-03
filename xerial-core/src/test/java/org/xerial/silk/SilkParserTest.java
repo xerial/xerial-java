@@ -24,15 +24,10 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import java.net.URL;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.util.FileResource;
-import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEventHandlerBase;
 
 public class SilkParserTest
 {
@@ -47,60 +42,7 @@ public class SilkParserTest
     {}
 
     @Test
-    public void testParse() throws Exception
-    {
-        final StopWatch timer = new StopWatch();
-
-        final SilkParser parser = new SilkParser(FileResource.open(SilkParserTest.class, "example.silk"));
-        parser.parse(new TreeEventHandlerBase() {
-
-            long count = 0;
-
-            public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-            {
-                count++;
-                if (count % 100000 == 0)
-                {
-                    double t = timer.getElapsedTime();
-                    long lines = parser.getNumReadLine();
-                    _logger.info(String.format("node count=%d, time = %.2f sec. %.0f lines/sec", count, t, lines / t));
-                }
-            }
-        });
-    }
-
-    @Test
-    public void testPerformance() throws Exception
-    {
-        //String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-        String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-
-        final SilkParser parser = new SilkParser(new URL(largeFile));
-        parser.parse(new TreeEventHandlerBase() {
-
-            long count = 0;
-            StopWatch timer = new StopWatch();
-
-            @Override
-            public void init() throws Exception
-            {
-                timer.reset();
-            }
-
-            public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-            {
-                count++;
-                if (count % 100000 == 0)
-                {
-                    double t = timer.getElapsedTime();
-                    long lines = parser.getNumReadLine();
-                    _logger.info(String.format("node count=%d, time = %.2f sec. %.0f lines/sec", count, t, lines / t));
-                }
-            }
-        });
-
-        // 8700 lines/sec (Recursive Parser on Xeon 3.0GHz dual)
-
-    }
+    public void dummy()
+    {}
 
 }

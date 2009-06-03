@@ -24,14 +24,20 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
-import org.xerial.silk.SilkStreamReader;
+import org.xerial.silk.SilkEvent;
+import org.xerial.silk.SilkEventHandler;
+import org.xerial.silk.SilkLinePushParser;
+import org.xerial.silk.SilkParser;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
-import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEventHandlerBase;
 
 /**
  * Scan command
@@ -44,29 +50,111 @@ public class Scan implements SilkCommand
 {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
+    public static enum ScanMode {
+        LINE, NODE, READONLY
+    }
+
     @Argument(index = 0)
     private String inputSilkFile = null;
 
+    @Option(symbol = "m", longName = "mode", description = "scan mode: line, node, readonly")
+    private ScanMode mode = ScanMode.NODE;
+
     public void execute() throws Exception
     {
-        SilkStreamReader reader = new SilkStreamReader(new File(inputSilkFile).toURL());
-        TreeEvent e;
-        int count = 0;
-        StopWatch timer = new StopWatch();
-        while ((e = reader.next()) != null)
-        {
-            count++;
-            if (count % 1000000 == 0)
-            {
-                long line = reader.getNumReadLine();
+        File f = new File(inputSilkFile);
+        final long fileSize = f.length();
 
-                double time = timer.getElapsedTime();
-                double speed = line / time;
-                _logger.info(String.format("line=%d, count=%d, time=%s, %2.2f lines/sec", line, count, time, speed));
+        switch (mode)
+        {
+        case NODE:
+        {
+            SilkParser parser = new SilkParser(f.toURL());
+
+            parser.parse(new TreeEventHandlerBase() {
+
+                int count = 0;
+                StopWatch timer = new StopWatch();
+
+                @Override
+                public void init() throws Exception
+                {
+                    timer.reset();
+                }
+
+                @Override
+                public void visitNode(String nodeName, String immediateNodeValue) throws Exception
+                {
+                    count++;
+                    if (count % 1000000 == 0)
+                    {
+                        double time = timer.getElapsedTime();
+                        double speed = count / time;
+                        _logger.info(String.format("time=%5.2f, %,10.0f nodes/s", time, speed));
+                    }
+
+                }
+
+                @Override
+                public void finish() throws Exception
+                {
+                    double time = timer.getElapsedTime();
+                    double speedPerNode = ((double) count) / time;
+                    double speedInMBS = fileSize / 1024 / 1024 / time;
+                    _logger.info(String
+                            .format("time=%.2f, %,10.0f nodes/s, %3.2f MB/s", time, speedPerNode, speedInMBS));
+                }
+
+            });
+            break;
+        }
+        case LINE:
+        {
+            SilkLinePushParser parser = new SilkLinePushParser(f.toURL());
+            parser.parse(new SilkEventHandler() {
+
+                int lineCount = 0;
+                StopWatch timer = new StopWatch();
+
+                public void handle(SilkEvent event) throws Exception
+                {
+                    lineCount++;
+                    if (lineCount % 100000 == 0)
+                    {
+                        double time = timer.getElapsedTime();
+                        double speed = lineCount / time;
+                        _logger.info(String.format("time=%5.2f, line=%,10d, %,10.0f lines/s", time, lineCount, speed));
+                    }
+
+                }
+            });
+
+            break;
+        }
+        case READONLY:
+        {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String line;
+
+            int lineCount = 0;
+            StopWatch timer = new StopWatch();
+
+            while ((line = reader.readLine()) != null)
+            {
+                lineCount++;
+                if (lineCount % 100000 == 0)
+                {
+                    double time = timer.getElapsedTime();
+                    double speed = lineCount / time;
+                    _logger.info(String.format("time=%5.2f, line=%,10d, %,10.0f lines/s", time, lineCount, speed));
+                }
+
             }
 
+            break;
         }
-        _logger.info(String.format("elapsed time: %.1f sec.", timer.getElapsedTime()));
+        }
+
     }
 
     public String getName()
