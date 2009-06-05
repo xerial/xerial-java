@@ -40,6 +40,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkLexer;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 
 /**
@@ -54,7 +55,7 @@ public class SilkLineFastParser
 
     private final BufferedReader buffer;
     private final ExecutorService threadManager;
-    private final LinkedBlockingQueue<Future<List<SilkEvent>>> eventContainer;
+    private final LinkedBlockingQueue<Future<ArrayDeque<SilkEvent>>> eventContainer;
     private final SilkParserConfig config;
 
     public SilkLineFastParser(URL resourceURL) throws IOException
@@ -75,7 +76,7 @@ public class SilkLineFastParser
     public SilkLineFastParser(Reader reader, SilkParserConfig config)
     {
         this.config = config;
-        this.eventContainer = new LinkedBlockingQueue<Future<List<SilkEvent>>>(config.numWorkers);
+        this.eventContainer = new LinkedBlockingQueue<Future<ArrayDeque<SilkEvent>>>(config.numWorkers);
 
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
@@ -103,13 +104,14 @@ public class SilkLineFastParser
                 int lineCount = 0;
                 while (lineCount < config.numLinesInBlock)
                 {
-                    lineCount++;
+
                     String line = buffer.readLine();
                     if (line == null)
                     {
                         foundEOF = true;
                         break;
                     }
+                    lineCount++;
                     cache.add(line);
                 }
 
@@ -118,7 +120,7 @@ public class SilkLineFastParser
                     // map the input
                     Mapper map = new Mapper(workerCount++, cache);
 
-                    Future<List<SilkEvent>> future = threadManager.submit(map);
+                    Future<ArrayDeque<SilkEvent>> future = threadManager.submit(map);
                     eventContainer.put(future);
                 }
             }
@@ -128,6 +130,7 @@ public class SilkLineFastParser
             {
                 Thread.sleep(1);
             }
+
             reducerTask.cancel(true);
 
         }
@@ -146,10 +149,10 @@ public class SilkLineFastParser
 
     }
 
-    private class Mapper implements Callable<List<SilkEvent>>
+    private class Mapper implements Callable<ArrayDeque<SilkEvent>>
     {
         final List<String> cache;
-        final List<SilkEvent> eventQueue;
+        final ArrayDeque<SilkEvent> eventQueue;
         final SilkLexer lexer = new SilkLexer();
         final int lsn;
 
@@ -157,10 +160,10 @@ public class SilkLineFastParser
         {
             this.lsn = lsn;
             this.cache = cache;
-            eventQueue = new ArrayList<SilkEvent>(cache.size());
+            eventQueue = new ArrayDeque<SilkEvent>(cache.size());
         }
 
-        public List<SilkEvent> call() throws Exception
+        public ArrayDeque<SilkEvent> call() throws Exception
         {
             for (int cursor = 0; cursor < cache.size(); cursor++)
             {
@@ -198,6 +201,7 @@ public class SilkLineFastParser
     private class Reducer implements Callable<Void>
     {
         private SilkEventHandler handler;
+        private ArrayDeque<SilkEvent> eventQueue;
 
         public Reducer(SilkEventHandler handler)
         {
@@ -210,20 +214,41 @@ public class SilkLineFastParser
             {
                 while (true)
                 {
-                    Future<List<SilkEvent>> container = eventContainer.take();
-                    List<SilkEvent> eventQueue = container.get();
-                    for (SilkEvent e : eventQueue)
+                    try
                     {
-                        handler.handle(e);
+                        Future<ArrayDeque<SilkEvent>> container = eventContainer.take();
+                        eventQueue = container.get();
+                    }
+                    catch (InterruptedException e)
+                    {
+                        _logger.info("interrupted");
+                        return null;
+                    }
+
+                    while (!eventQueue.isEmpty())
+                    {
+                        SilkEvent e = null;
+                        try
+                        {
+                            e = eventQueue.getFirst();
+                        }
+                        finally
+                        {
+                            if (e != null)
+                                handler.handle(e);
+                            eventQueue.removeFirst();
+                        }
                     }
                 }
             }
-            catch (InterruptedException e)
+            finally
             {
+                // handle the remaining events
+                for (SilkEvent e : eventQueue)
+                    handler.handle(e);
+
                 handler.handle(new SilkEvent(SilkEventType.END_OF_FILE, null));
             }
-
-            return null;
         }
     }
 

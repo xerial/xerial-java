@@ -66,25 +66,13 @@ public class SilkStreamReaderTest
     public void setUp() throws Exception
     {
         config = new SilkParserConfig();
-        config.bufferSize = 1024 * 1024 * 16; // 16MB
+        config.bufferSize = 1024 * 1024 * 8; // 8MB
+        config.numWorkers = 1;
     }
 
     @After
     public void tearDown() throws Exception
     {}
-
-    //private static final String largeFile = "file:///c:/Users/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-
-    //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-
-    //private static final String largeFile = "file:///d:/tmp/hdrr_hni_allaxt_revised.silk";
-    //private static final String largeFile = "file:///f:/cygwin/home/leo/work/t2k/hdrr_hni_allaxt_revised.silk";
-
-    @Test
-    public void dummy()
-    {
-
-    }
 
     @Ignore
     @Test
@@ -313,31 +301,6 @@ public class SilkStreamReaderTest
 
     }
 
-    int count = 0;
-
-    @Test
-    public void parserPerformance() throws Exception
-    {
-        SilkParser parser = new SilkParser(largeFile, config);
-        final StopWatch timer = new StopWatch();
-
-        count = 0;
-        parser.parse(new TreeEventHandlerBase() {
-
-            @Override
-            public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-            {
-                count++;
-                if (count % 1000000 == 0)
-                    reportNodeCountStat(count, timer.getElapsedTime());
-            }
-
-        });
-
-        reportTotalSpeed("SilkParser", count, timer.getElapsedTime());
-
-    }
-
     @Ignore
     @Test
     public void pullParserPerformanceTest() throws Exception
@@ -409,6 +372,31 @@ public class SilkStreamReaderTest
         });
 
         reportTotalSpeed("SilkFastPushParser", timer.getElapsedTime());
+    }
+
+    int count = 0;
+
+    @Test
+    public void parserPerformance() throws Exception
+    {
+        SilkParser parser = new SilkParser(largeFile, config);
+        final StopWatch timer = new StopWatch();
+
+        count = 0;
+        parser.parse(new TreeEventHandlerBase() {
+
+            @Override
+            public void visitNode(String nodeName, String immediateNodeValue) throws Exception
+            {
+                count++;
+                if (count % 1000000 == 0)
+                    reportNodeCountStat(count, timer.getElapsedTime());
+            }
+
+        });
+
+        reportTotalSpeed("SilkParser", count, timer.getElapsedTime());
+
     }
 
 }

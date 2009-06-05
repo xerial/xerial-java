@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.json;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,14 +63,15 @@ public class JSONArrayTest
         assertEquals("leo", p.getString("name"));
     }
 
-    @Test
-    public void testParse() throws JSONException
+    final int N = 5000;
+
+    public String createSampleJSONArrayData()
     {
         // generate a sample JSON array
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
-        final int N = 5000;
+
         for (; i < N - 1; i++)
         {
             sample.append(i);
@@ -79,8 +80,13 @@ public class JSONArrayTest
         sample.append(i);
         sample.append("]");
 
-        String json = sample.toString();
+        return sample.toString();
+    }
 
+    @Test
+    public void testParse() throws JSONException
+    {
+        String json = createSampleJSONArrayData();
         StopWatch timer = new StopWatch();
         for (int n = 0; n < 500; n++)
         {
@@ -89,28 +95,12 @@ public class JSONArrayTest
         }
         _logger.info("time: " + timer.getElapsedTime());
 
-        // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
-        // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
-
     }
 
     @Test
     public void testParseANTLRLexer() throws JSONException
     {
-        // generate a sample JSON array
-        StringBuilder sample = new StringBuilder();
-        sample.append("[");
-        int i = 0;
-        final int N = 5000;
-        for (; i < N - 1; i++)
-        {
-            sample.append(i);
-            sample.append(",");
-        }
-        sample.append(i);
-        sample.append("]");
-
-        String json = sample.toString();
+        String json = createSampleJSONArrayData();
 
         StopWatch timer = new StopWatch();
         for (int n = 0; n < 500; n++)
@@ -119,9 +109,6 @@ public class JSONArrayTest
             assertEquals(N, array.size());
         }
         _logger.info("time: " + timer.getElapsedTime());
-
-        // i:1000, n:100   time=18.4 sec (2009.4.23 using ANTLR JSON.g)
-        // i:1000, n:100   time=2.248 (2009. 4.23 using JSONTokener)
 
     }
 
