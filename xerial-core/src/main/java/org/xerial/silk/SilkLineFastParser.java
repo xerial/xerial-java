@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -86,7 +87,8 @@ public class SilkLineFastParser
         threadManager = Executors.newFixedThreadPool(config.numWorkers + 1);
     }
 
-    private volatile boolean foundEOF = false;
+    private boolean foundEOF = false;
+    private boolean noMoreJob = false;
 
     public void parse(SilkEventHandler handler) throws XerialException
     {
@@ -125,13 +127,9 @@ public class SilkLineFastParser
                 }
             }
 
-            // await termination
-            while (!eventContainer.isEmpty())
-            {
-                Thread.sleep(1);
-            }
-
-            reducerTask.cancel(true);
+            // wake up the reducer thread
+            noMoreJob = true;
+            reducerTask.cancel(false);
 
         }
         catch (IOException e)
@@ -202,6 +200,7 @@ public class SilkLineFastParser
     {
         private SilkEventHandler handler;
         private ArrayDeque<SilkEvent> eventQueue;
+        private int eventCount = 0;
 
         public Reducer(SilkEventHandler handler)
         {
@@ -212,44 +211,65 @@ public class SilkLineFastParser
         {
             try
             {
-                while (true)
+                consumeEvent();
+            }
+            finally
+            {
+                consumeEvent();
+
+                handler.handle(new SilkEvent(SilkEventType.END_OF_FILE, null));
+            }
+
+            return null;
+        }
+
+        public void consumeEvent() throws Exception
+        {
+            while ((eventQueue = getNext()) != null)
+            {
+                while (!eventQueue.isEmpty())
                 {
+                    SilkEvent e = null;
                     try
                     {
-                        Future<ArrayDeque<SilkEvent>> container = eventContainer.take();
-                        eventQueue = container.get();
+                        e = eventQueue.getFirst();
                     }
-                    catch (InterruptedException e)
+                    finally
                     {
-                        _logger.info("interrupted");
-                        return null;
-                    }
-
-                    while (!eventQueue.isEmpty())
-                    {
-                        SilkEvent e = null;
-                        try
+                        if (e != null)
                         {
-                            e = eventQueue.getFirst();
-                        }
-                        finally
-                        {
-                            if (e != null)
-                                handler.handle(e);
                             eventQueue.removeFirst();
+                            handler.handle(e);
+                            eventCount++;
                         }
                     }
                 }
             }
-            finally
-            {
-                // handle the remaining events
-                for (SilkEvent e : eventQueue)
-                    handler.handle(e);
-
-                handler.handle(new SilkEvent(SilkEventType.END_OF_FILE, null));
-            }
         }
+
+        public ArrayDeque<SilkEvent> getNext() throws ExecutionException
+        {
+            if (eventQueue != null && !eventQueue.isEmpty())
+                return eventQueue;
+
+            if (noMoreJob && eventContainer.isEmpty())
+                return null;
+
+            try
+            {
+                Future<ArrayDeque<SilkEvent>> container = eventContainer.take();
+                return container.get();
+            }
+            catch (InterruptedException e)
+            {
+                if (eventContainer.isEmpty())
+                    return null;
+                else
+                    return getNext();
+            }
+
+        }
+
     }
 
 }
