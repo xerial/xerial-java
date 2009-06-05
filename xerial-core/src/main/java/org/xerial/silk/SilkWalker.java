@@ -73,6 +73,11 @@ public class SilkWalker extends TreeWalkerImpl
         super(new SilkPullParser(resourcePath));
     }
 
+    public SilkWalker(URL resourcePath, SilkParserConfig config) throws IOException
+    {
+        super(new SilkPullParser(resourcePath, config));
+    }
+
     public SilkWalker(URL resource, SilkEnv env) throws IOException
     {
         super(new SilkPullParser(resource, env));

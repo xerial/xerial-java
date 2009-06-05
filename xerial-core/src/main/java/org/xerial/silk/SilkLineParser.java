@@ -16,8 +16,8 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkParserConfig.java
-// Since: Jun 3, 2009 5:33:54 PM
+// SilkPushParser.java
+// Since: Jun 5, 2009 3:17:54 PM
 //
 // $URL$
 // $Author$
@@ -25,15 +25,12 @@
 package org.xerial.silk;
 
 /**
- * SilkParserConfig
+ * Push-parser interface
  * 
  * @author leo
  * 
  */
-public class SilkParserConfig
+public interface SilkLineParser
 {
-    public int bufferSize = 1024 * 1024; // 1M
-    public int numWorkers = 1;
-    public int numLinesInBlock = 1000;
-
+    public void parse(SilkEventHandler handler) throws Exception;
 }

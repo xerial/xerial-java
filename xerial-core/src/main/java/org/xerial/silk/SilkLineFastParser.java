@@ -37,6 +37,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
@@ -52,7 +53,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLineFastParser
+public class SilkLineFastParser implements SilkLineParser
 {
     private static Logger _logger = Logger.getLogger(SilkLineFastParser.class);
 
@@ -90,7 +91,7 @@ public class SilkLineFastParser
     }
 
     private boolean foundEOF = false;
-    private boolean noMoreJob = false;
+    private volatile boolean noMoreJob = false;
 
     public void parse(SilkEventHandler handler) throws XerialException
     {
@@ -98,53 +99,57 @@ public class SilkLineFastParser
         {
             // start up the reducer
             Future<Void> reducerTask = threadManager.submit(new Reducer(handler));
-
-            int workerCount = 0;
-            foundEOF = false;
-
-            while (!foundEOF)
+            try
             {
-                ArrayList<String> cache = new ArrayList<String>(config.numLinesInBlock);
-                int lineCount = 0;
-                while (lineCount < config.numLinesInBlock)
-                {
+                int workerCount = 0;
+                foundEOF = false;
 
-                    String line = buffer.readLine();
-                    if (line == null)
+                while (!foundEOF)
+                {
+                    ArrayList<String> cache = new ArrayList<String>(config.numLinesInBlock);
+                    int lineCount = 0;
+                    while (lineCount < config.numLinesInBlock)
                     {
-                        foundEOF = true;
-                        break;
+
+                        String line = buffer.readLine();
+                        if (line == null)
+                        {
+                            foundEOF = true;
+                            break;
+                        }
+                        lineCount++;
+                        cache.add(line);
                     }
-                    lineCount++;
-                    cache.add(line);
+
+                    if (!cache.isEmpty())
+                    {
+                        // map the input
+                        Mapper map = new Mapper(workerCount++, cache);
+
+                        Future<ArrayDeque<SilkEvent>> future = threadManager.submit(map);
+                        eventContainer.put(future);
+                    }
                 }
 
-                if (!cache.isEmpty())
-                {
-                    // map the input
-                    Mapper map = new Mapper(workerCount++, cache);
+                // wake up the reducer thread
+                noMoreJob = true;
 
-                    Future<ArrayDeque<SilkEvent>> future = threadManager.submit(map);
-                    eventContainer.put(future);
-                }
             }
-
-            // wake up the reducer thread
-            noMoreJob = true;
-            reducerTask.cancel(false);
-
-        }
-        catch (IOException e)
-        {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+            catch (IOException e)
+            {
+                reducerTask.cancel(true);
+                throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+            }
+            finally
+            {
+                threadManager.shutdown();
+                while (!threadManager.awaitTermination(1, TimeUnit.MILLISECONDS))
+                {}
+            }
         }
         catch (InterruptedException e)
         {
             throw new XerialException(XerialErrorCode.INTERRUPTED, e);
-        }
-        finally
-        {
-            threadManager.shutdown();
         }
 
     }
@@ -187,6 +192,9 @@ public class SilkLineFastParser
             // finished the parsing
             cache.clear();
 
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("finished workder=%d. event queue size = %d", lsn, eventQueue.size()));
+
             return eventQueue;
         }
 
@@ -200,8 +208,8 @@ public class SilkLineFastParser
      */
     private class Reducer implements Callable<Void>
     {
-        private SilkEventHandler handler;
-        private ArrayDeque<SilkEvent> eventQueue;
+        private final SilkEventHandler handler;
+        private ArrayDeque<SilkEvent> eventQueue = null;
         private int eventCount = 0;
 
         public Reducer(SilkEventHandler handler)

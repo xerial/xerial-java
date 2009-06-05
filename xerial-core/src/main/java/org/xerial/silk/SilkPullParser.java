@@ -81,7 +81,12 @@ public class SilkPullParser implements TreeStreamReader
      */
     protected SilkPullParser(Reader input) throws IOException
     {
-        this(input, SilkEnv.newEnv());
+        this(input, SilkEnv.newEnv(), new SilkParserConfig());
+    }
+
+    public SilkPullParser(Reader input, SilkEnv env) throws IOException
+    {
+        this(input, env, new SilkParserConfig());
     }
 
     /**
@@ -91,13 +96,54 @@ public class SilkPullParser implements TreeStreamReader
      * @param env
      * @throws IOException
      */
-    public SilkPullParser(Reader input, SilkEnv env) throws IOException
+    public SilkPullParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException
     {
-        this.parser = new SilkParser(input, env);
+        this.parser = new SilkParser(input, env, config);
 
         this.threadManager = Executors.newFixedThreadPool(1);
         threadManager.submit(new BackgroundParser());
 
+    }
+
+    /**
+     * Create a new reader for reading local resources
+     * 
+     * @param resourceBasePath
+     * @param resourceName
+     * @throws IOException
+     */
+    public SilkPullParser(String resourceBasePath, String resourceName) throws IOException
+    {
+        this(new BufferedReader(new InputStreamReader(SilkWalker.class.getResourceAsStream(SilkParser.getResourcePath(
+                resourceBasePath, resourceName)))), SilkEnv.newEnv(resourceBasePath));
+    }
+
+    /**
+     * Create a new reader for reading the specified resource URL
+     * 
+     * @param resourcePath
+     * @throws IOException
+     */
+    public SilkPullParser(URL resourcePath) throws IOException
+    {
+        this(resourcePath, SilkEnv.newEnv());
+    }
+
+    public SilkPullParser(URL resource, SilkEnv env) throws IOException
+    {
+        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
+                .getResourceBasePath(resource)));
+    }
+
+    public SilkPullParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException
+    {
+        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
+                .getResourceBasePath(resource)), config);
+    }
+
+    public SilkPullParser(URL resource, SilkParserConfig config) throws IOException
+    {
+        this(resource, SilkEnv.newEnv(), config);
     }
 
     private class BackgroundParser implements Callable<Void>
@@ -143,36 +189,6 @@ public class SilkPullParser implements TreeStreamReader
             }
         }
 
-    }
-
-    /**
-     * Create a new reader for reading local resources
-     * 
-     * @param resourceBasePath
-     * @param resourceName
-     * @throws IOException
-     */
-    public SilkPullParser(String resourceBasePath, String resourceName) throws IOException
-    {
-        this(new BufferedReader(new InputStreamReader(SilkWalker.class.getResourceAsStream(SilkParser.getResourcePath(
-                resourceBasePath, resourceName)))), SilkEnv.newEnv(resourceBasePath));
-    }
-
-    /**
-     * Create a new reader for reading the specified resource URL
-     * 
-     * @param resourcePath
-     * @throws IOException
-     */
-    public SilkPullParser(URL resourcePath) throws IOException
-    {
-        this(resourcePath, SilkEnv.newEnv());
-    }
-
-    public SilkPullParser(URL resource, SilkEnv env) throws IOException
-    {
-        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
-                .getResourceBasePath(resource)));
     }
 
     public TreeEvent peekNext() throws XerialException

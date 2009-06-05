@@ -61,7 +61,7 @@ public class SilkWalkerTest
         return l1;
     }
 
-    public void compare(String silkFile, String jsonFile) throws IOException, XerialException
+    public static void compare(String silkFile, String jsonFile) throws IOException, XerialException
     {
         SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, silkFile));
         TreeWalkLog l1 = new TreeWalkLog();

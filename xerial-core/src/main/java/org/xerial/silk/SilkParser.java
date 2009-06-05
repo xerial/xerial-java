@@ -73,9 +73,9 @@ import org.xerial.util.xml.impl.TreeEventQueue;
  */
 public class SilkParser implements SilkEventHandler
 {
-    private static Logger _logger = Logger.getLogger(SilkPullParser.class);
+    private static Logger _logger = Logger.getLogger(SilkParser.class);
 
-    private final SilkLinePushParser parser;
+    private final SilkLineParser parser;
     private final SilkEnv parseContext;
     private final SilkParserConfig config;
 
@@ -134,7 +134,10 @@ public class SilkParser implements SilkEventHandler
     public SilkParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException
     {
         this.config = config;
-        this.parser = new SilkLinePushParser(input);
+        if (config.numWorkers > 1)
+            this.parser = new SilkLineFastParser(input);
+        else
+            this.parser = new SilkLinePushParser(input);
         this.parseContext = env;
     }
 
