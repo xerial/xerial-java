@@ -35,6 +35,7 @@ import org.xerial.relation.Node;
 import org.xerial.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
+import org.xerial.silk.SilkParserConfig;
 import org.xerial.silk.SilkWalker;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
@@ -125,7 +126,11 @@ public class StreamAmoebaJoinTest
     @Test
     public void silkWalkPerformance() throws Exception
     {
-        TreeWalker walker = new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"));
+        SilkParserConfig config = new SilkParserConfig();
+        config.bufferSize = 1024 * 1024 * 8; // 8MB
+        config.numWorkers = 2;
+        TreeWalker walker = new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"),
+                config);
         StopWatch sw = new StopWatch();
         walker.walk(new TreeVisitorBase());
         _logger.info("time: " + sw.getElapsedTime());

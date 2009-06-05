@@ -290,7 +290,6 @@ public class SilkParserPerformanceTest
 
     }
 
-    @Ignore
     @Test
     public void pullParserPerformanceTest() throws Exception
     {
@@ -329,7 +328,7 @@ public class SilkParserPerformanceTest
 
                 if (event.getType() == SilkEventType.END_OF_FILE)
                 {
-                    _logger.info("line count = " + lineCount);
+                    _logger.debug("line count = " + lineCount);
                 }
 
             }
@@ -355,7 +354,7 @@ public class SilkParserPerformanceTest
 
                 if (event.getType() == SilkEventType.END_OF_FILE)
                 {
-                    _logger.info("line count = " + lineCount);
+                    _logger.debug("line count = " + lineCount);
                 }
             }
         });
@@ -385,7 +384,28 @@ public class SilkParserPerformanceTest
         });
 
         reportTotalSpeed("SilkParser", count, timer.getElapsedTime());
+    }
 
+    @Ignore
+    @Test
+    public void pullParserPerformance() throws Exception
+    {
+        SilkPullParser parser = new SilkPullParser(largeFile, config);
+        final StopWatch timer = new StopWatch();
+
+        int count = 0;
+        TreeEvent e = null;
+        while ((e = parser.next()) != null)
+        {
+            if (e.event == EventType.VISIT)
+            {
+                count++;
+                if (count % 1000000 == 0)
+                    reportNodeCountStat(count, timer.getElapsedTime());
+            }
+        }
+
+        reportTotalSpeed("SilkPullParser", count, timer.getElapsedTime());
     }
 
 }

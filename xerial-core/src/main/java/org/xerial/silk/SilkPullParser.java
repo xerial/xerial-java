@@ -227,16 +227,12 @@ public class SilkPullParser implements TreeStreamReader
         if (!prefetchedEventQueue.isEmpty())
             return true;
 
-        assert (prefetchedEventQueue.isEmpty());
-
         if (hasPrefetchFinished)
             return false;
 
         if (hasParsingFinished)
         {
             int count = eventQueue.drainTo(prefetchedEventQueue);
-            //_logger.debug("prefetch: " + count);
-            //_logger.debug("eventQueue size: " + eventQueue.size());
             hasPrefetchFinished = true;
             return hasNext();
         }
@@ -244,11 +240,14 @@ public class SilkPullParser implements TreeStreamReader
         try
         {
             TreeEvent e = null;
-            while (!hasParsingFinished && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
+            while (!hasParsingFinished && (e = eventQueue.poll(1, TimeUnit.SECONDS)) == null)
             {}
 
             if (e != null)
+            {
                 prefetchedEventQueue.addLast(e);
+                return true;
+            }
 
             return hasNext();
         }
