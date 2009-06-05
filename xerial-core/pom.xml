@@ -59,18 +59,29 @@
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-          <finalName>xerial</finalName>
+          <!-- <finalName>xerial</finalName>-->
           <appendAssemblyId>true</appendAssemblyId>
           <descriptors>
-            <descriptor>src/assembly/silk.xml</descriptor>
+            <descriptor>src/assembly/standalone.xml</descriptor>
           </descriptors>
           <archive>
+          <!-- 
             <manifest>
               <mainClass>org.xerial.silk.cui.SilkMain</mainClass>
             </manifest>
+             -->
             <index>true</index>
           </archive>
         </configuration>
+        <executions>
+          <execution>
+            <id>silk</id> 
+            <phase>package</phase> 
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       
     </plugins>
