@@ -215,6 +215,7 @@ public class SilkLineFastParser
             }
             finally
             {
+                // process remaining events
                 consumeEvent();
 
                 handler.handle(new SilkEvent(SilkEventType.END_OF_FILE, null));
