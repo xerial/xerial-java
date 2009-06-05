@@ -30,16 +30,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
-import org.xerial.silk.SilkStreamReader;
+import org.xerial.silk.SilkParser;
 import org.xerial.util.FileType;
 import org.xerial.util.io.Base64OutputStream;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeStreamReader;
-import org.xerial.util.xml.impl.TreeEventQueue;
+import org.xerial.util.tree.TreeEventHandler;
 
 /**
  * <em>import</em> function
@@ -53,32 +50,16 @@ public class Import implements SilkFunctionPlugin
     @SilkFunctionArgument
     String filePath = null;
 
-    private TreeStreamReader reader = null;
-    private SilkEnv env;
-
-    private static class EmptyReader implements TreeStreamReader
+    public void init(SilkEnv env) throws XerialException
     {
-
-        public TreeEvent next() throws XerialException
-        {
-            return null;
-        }
-
-        public TreeEvent peekNext() throws XerialException
-        {
-            return null;
-        }
 
     }
 
-    public void init(SilkEnv env) throws XerialException
+    public void eval(SilkEnv env, TreeEventHandler handler) throws Exception
     {
-        this.env = env;
-
         if (filePath == null)
         {
             env.getLogger().warn("no file path is specified");
-            reader = new EmptyReader();
             return;
         }
 
@@ -95,7 +76,8 @@ public class Import implements SilkFunctionPlugin
             case SILK:
             case TAB:
             {
-                reader = new SilkStreamReader(new URL(url), env);
+                SilkParser parser = new SilkParser(new URL(url), env);
+                parser.parseWithoutInitAndFinish(handler);
                 break;
             }
             case JPEG:
@@ -109,15 +91,17 @@ public class Import implements SilkFunctionPlugin
             case POWER_POINT:
             case PNG:
             {
-                reader = new BinaryReader(new URL(url), env);
+                loadBinary(new URL(url), env, handler);
             }
                 break;
             default:
             {
-                reader = new SilkStreamReader(new URL(url), env);
+                SilkParser parser = new SilkParser(new URL(url), env);
+                parser.parseWithoutInitAndFinish(handler);
                 break;
             }
             }
+
         }
         catch (IOException e)
         {
@@ -126,127 +110,26 @@ public class Import implements SilkFunctionPlugin
 
     }
 
-    private void validate()
+    public void loadBinary(URL path, SilkEnv env, TreeEventHandler handler) throws Exception
     {
-        if (env == null)
-            throw new XerialError(XerialErrorCode.INVALID_STATE, "env is null");
+        env.getLogger().debug("load binary: " + path);
 
-        if (reader == null)
-            throw new XerialError(XerialErrorCode.NOT_INITIALIZED);
+        InputStream source = path.openStream();
+        BufferedInputStream in = new BufferedInputStream(source);
 
-    }
-
-    public TreeEvent peekNext() throws XerialException
-    {
-        validate();
-        return reader.peekNext();
-    }
-
-    public TreeEvent next() throws XerialException
-    {
-        validate();
-        return reader.next();
-    }
-
-    private static class BinaryReader implements TreeStreamReader
-    {
-        private URL resourceURL;
-        private SilkEnv env;
-        private InputStream source;
-        private BufferedInputStream in;
-        private byte[] buffer = new byte[1024];
-
-        private TreeEventQueue eventQueue = new TreeEventQueue();
-        private boolean hasFinished = false;
-
-        private BinaryReader(URL resourceURL, SilkEnv env)
+        byte[] buffer = new byte[1024];
+        int readBytes = 0;
+        while ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
         {
-            if (resourceURL == null)
-                throw new XerialError(XerialErrorCode.INVALID_INPUT);
-
-            this.resourceURL = resourceURL;
-            this.env = env;
-
-            try
+            ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
+            Base64OutputStream base64out = new Base64OutputStream(base64buffer);
+            base64out.write(buffer, 0, readBytes);
+            base64out.flush();
+            String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
+            for (String each : fragment)
             {
-                this.source = this.resourceURL.openStream();
-                this.in = new BufferedInputStream(source);
-
+                handler.text(env.getContextNode().getName(), each);
             }
-            catch (IOException e)
-            {
-                throw new XerialError(XerialErrorCode.IO_EXCEPTION, e);
-            }
-        }
-
-        public TreeEvent peekNext() throws XerialException
-        {
-            if (eventQueue.isEmpty())
-            {
-                if (hasFinished)
-                    return null;
-
-                fillQueue();
-                return peekNext();
-            }
-            else
-            {
-                return eventQueue.peekFirst();
-            }
-        }
-
-        public TreeEvent next() throws XerialException
-        {
-            if (eventQueue.isEmpty())
-            {
-                if (hasFinished)
-                    return null;
-
-                fillQueue();
-                return next();
-            }
-            else
-            {
-                return eventQueue.pop();
-            }
-        }
-
-        public void fillQueue() throws XerialException
-        {
-            if (hasFinished)
-                return;
-
-            String nodeName = env.getContextNode().getName();
-
-            try
-            {
-                int readBytes = 0;
-                if ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
-                {
-                    // encode buffer data with Base64
-                    ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
-                    Base64OutputStream base64out = new Base64OutputStream(base64buffer);
-                    base64out.write(buffer, 0, readBytes);
-                    base64out.flush();
-
-                    String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
-                    if (fragment == null)
-                        return;
-                    for (String each : fragment)
-                    {
-                        eventQueue.push(TreeEvent.newTextEvent(nodeName, each));
-                    }
-                }
-
-                if (readBytes == -1)
-                    hasFinished = true;
-
-            }
-            catch (IOException e)
-            {
-                throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-            }
-
         }
 
     }

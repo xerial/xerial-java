@@ -57,15 +57,12 @@ import org.xerial.silk.impl.SilkNodeOccurrence;
 import org.xerial.silk.impl.SilkValue;
 import org.xerial.silk.plugin.SilkFunctionArgument;
 import org.xerial.silk.plugin.SilkFunctionPlugin;
-import org.xerial.util.ArrayDeque;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
-import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
@@ -76,16 +73,14 @@ import org.xerial.util.xml.impl.TreeEventQueue;
  */
 public class SilkParser implements SilkEventHandler
 {
-    private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
+    private static Logger _logger = Logger.getLogger(SilkPullParser.class);
 
     private final SilkLinePushParser parser;
     private final SilkEnv parseContext;
-    private TreeEventQueue eventQueue = new TreeEventQueue();
-    private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
-
-    private long numReadLine = 0;
-
     private final SilkParserConfig config;
+
+    private TreeEventQueue eventQueue = new TreeEventQueue();
+    private long numReadLine = 0;
 
     /**
      * Creates a new reader with the specified reader
@@ -175,10 +170,17 @@ public class SilkParser implements SilkEventHandler
 
         handler.init();
         parser.parse(this);
-
         closeContextUpTo(parseContext.getIndentationOffset());
 
         handler.finish();
+    }
+
+    public void parseWithoutInitAndFinish(TreeEventHandler handler) throws Exception
+    {
+        this.handler = handler;
+
+        parser.parse(this);
+        closeContextUpTo(parseContext.getIndentationOffset());
     }
 
     public void handle(SilkEvent event) throws Exception
@@ -539,33 +541,13 @@ public class SilkParser implements SilkEventHandler
 
     }
 
-    private static class FunctionReader implements TreeStreamReader
-    {
-        SilkFunctionPlugin plugin;
-
-        public FunctionReader(SilkFunctionPlugin plugin)
-        {
-            this.plugin = plugin;
-        }
-
-        public TreeEvent peekNext() throws XerialException
-        {
-            return plugin.peekNext();
-        }
-
-        public TreeEvent next() throws XerialException
-        {
-            return plugin.next();
-        }
-    }
-
     /**
      * Evaluate the function
      * 
      * @param function
-     * @throws XerialException
+     * @throws Exception
      */
-    private void evalFunction(SilkFunction function) throws XerialException
+    private void evalFunction(SilkFunction function) throws Exception
     {
         SilkFunctionPlugin plugin = getPlugin(function.getName());
         if (plugin == null)
@@ -579,8 +561,7 @@ public class SilkParser implements SilkEventHandler
         // evaluate the function
         SilkEnv env = parseContext.newEnvFor(function);
         plugin.init(env);
-
-        readerStack.addLast(new FunctionReader(plugin));
+        plugin.eval(env, handler);
     }
 
     /**

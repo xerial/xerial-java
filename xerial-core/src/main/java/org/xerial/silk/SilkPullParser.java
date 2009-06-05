@@ -49,9 +49,9 @@ import org.xerial.util.tree.TreeStreamReader;
  * @author leo
  * 
  */
-public class SilkStreamReader implements TreeStreamReader
+public class SilkPullParser implements TreeStreamReader
 {
-    private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
+    private static Logger _logger = Logger.getLogger(SilkPullParser.class);
 
     private final SilkParser parser;
     private final ArrayBlockingQueue<TreeEvent> eventQueue = new ArrayBlockingQueue<TreeEvent>(10000);
@@ -68,7 +68,7 @@ public class SilkStreamReader implements TreeStreamReader
      * @param input
      *            `@throws IOException
      */
-    protected SilkStreamReader(InputStream input) throws IOException
+    protected SilkPullParser(InputStream input) throws IOException
     {
         this(new InputStreamReader(input));
     }
@@ -79,7 +79,7 @@ public class SilkStreamReader implements TreeStreamReader
      * @param input
      * @throws IOException
      */
-    protected SilkStreamReader(Reader input) throws IOException
+    protected SilkPullParser(Reader input) throws IOException
     {
         this(input, SilkEnv.newEnv());
     }
@@ -91,7 +91,7 @@ public class SilkStreamReader implements TreeStreamReader
      * @param env
      * @throws IOException
      */
-    public SilkStreamReader(Reader input, SilkEnv env) throws IOException
+    public SilkPullParser(Reader input, SilkEnv env) throws IOException
     {
         this.parser = new SilkParser(input, env);
 
@@ -152,7 +152,7 @@ public class SilkStreamReader implements TreeStreamReader
      * @param resourceName
      * @throws IOException
      */
-    public SilkStreamReader(String resourceBasePath, String resourceName) throws IOException
+    public SilkPullParser(String resourceBasePath, String resourceName) throws IOException
     {
         this(new BufferedReader(new InputStreamReader(SilkWalker.class.getResourceAsStream(SilkParser.getResourcePath(
                 resourceBasePath, resourceName)))), SilkEnv.newEnv(resourceBasePath));
@@ -164,12 +164,12 @@ public class SilkStreamReader implements TreeStreamReader
      * @param resourcePath
      * @throws IOException
      */
-    public SilkStreamReader(URL resourcePath) throws IOException
+    public SilkPullParser(URL resourcePath) throws IOException
     {
         this(resourcePath, SilkEnv.newEnv());
     }
 
-    public SilkStreamReader(URL resource, SilkEnv env) throws IOException
+    public SilkPullParser(URL resource, SilkEnv env) throws IOException
     {
         this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
                 .getResourceBasePath(resource)));

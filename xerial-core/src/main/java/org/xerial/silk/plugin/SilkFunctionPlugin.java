@@ -26,7 +26,7 @@ package org.xerial.silk.plugin;
 
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkEnv;
-import org.xerial.util.tree.TreeStreamReader;
+import org.xerial.util.tree.TreeEventHandler;
 
 /**
  * The common interface of pluggable functions that can be used in Silk format.
@@ -34,7 +34,7 @@ import org.xerial.util.tree.TreeStreamReader;
  * @author leo
  * 
  */
-public interface SilkFunctionPlugin extends TreeStreamReader
+public interface SilkFunctionPlugin
 {
     /**
      * @param env
@@ -42,5 +42,7 @@ public interface SilkFunctionPlugin extends TreeStreamReader
      * @throws XerialException
      */
     public void init(SilkEnv env) throws XerialException;
+
+    public void eval(SilkEnv env, TreeEventHandler handler) throws Exception;
 
 }

@@ -49,7 +49,7 @@ public class SilkWalker extends TreeWalkerImpl
      */
     protected SilkWalker(InputStream input) throws IOException
     {
-        super(new SilkStreamReader(input));
+        super(new SilkPullParser(input));
     }
 
     /**
@@ -60,22 +60,22 @@ public class SilkWalker extends TreeWalkerImpl
      */
     public SilkWalker(Reader input) throws IOException
     {
-        super(new SilkStreamReader(input));
+        super(new SilkPullParser(input));
     }
 
     public SilkWalker(String resourceBasePath, String resourceName) throws IOException
     {
-        super(new SilkStreamReader(resourceBasePath, resourceName));
+        super(new SilkPullParser(resourceBasePath, resourceName));
     }
 
     public SilkWalker(URL resourcePath) throws IOException
     {
-        super(new SilkStreamReader(resourcePath));
+        super(new SilkPullParser(resourcePath));
     }
 
     public SilkWalker(URL resource, SilkEnv env) throws IOException
     {
-        super(new SilkStreamReader(resource, env));
+        super(new SilkPullParser(resource, env));
     }
 
 }

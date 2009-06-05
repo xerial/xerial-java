@@ -51,11 +51,11 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class SilkStreamReaderTest
+public class SilkParserPerformanceTest
 {
-    private static Logger _logger = Logger.getLogger(SilkStreamReaderTest.class);
+    private static Logger _logger = Logger.getLogger(SilkParserPerformanceTest.class);
 
-    private static final URL largeFile = FileResource.find(SilkStreamReaderTest.class, "scaffold1.silk");
+    private static final URL largeFile = FileResource.find(SilkParserPerformanceTest.class, "scaffold1.silk");
     private static final int largeFileSize = 30593075;
     private static final double largeFileLines = 111965;
     private static final int numNodes = 5826313;
@@ -264,7 +264,7 @@ public class SilkStreamReaderTest
     @Test
     public void silkStreamReaderPerformance() throws Exception
     {
-        SilkStreamReader reader = new SilkStreamReader(largeFile);
+        SilkPullParser reader = new SilkPullParser(largeFile);
         StopWatch timer = new StopWatch();
         int count = 0;
         TreeEvent e;
