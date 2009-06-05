@@ -59,11 +59,11 @@
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-          <finalName>silk</finalName>
-          <appendAssemblyId>false</appendAssemblyId>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <finalName>xerial</finalName>
+          <appendAssemblyId>true</appendAssemblyId>
+          <descriptors>
+            <descriptor>src/assembly/silk.xml</descriptor>
+          </descriptors>
           <archive>
             <manifest>
               <mainClass>org.xerial.silk.cui.SilkMain</mainClass>

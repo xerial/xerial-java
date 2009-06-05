@@ -1,0 +1,26 @@
+<assembly>
+  <id>silk</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <unpack>true</unpack>
+      <scope>runtime</scope>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>${project.build.outputDirectory}</directory>
+    </fileSet>
+    <fileSet>
+      <useStrictFiltering>true</useStrictFiltering>
+      <outputDirectory>META-INF</outputDirectory>
+      <includes>
+        <include>LICENSE.txt</include>
+        <include>NOTICE</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>
