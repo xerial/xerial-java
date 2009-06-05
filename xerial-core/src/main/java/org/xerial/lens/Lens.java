@@ -33,13 +33,13 @@ import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
-import org.xerial.silk.SilkWalker;
-import org.xerial.util.bean.ANTLRWalker;
-import org.xerial.util.bean.JSONStreamWalker;
-import org.xerial.util.bean.MapWalker;
+import org.xerial.json.JSONPushParser;
+import org.xerial.silk.SilkParser;
+import org.xerial.util.bean.ANTLRTreeParser;
+import org.xerial.util.bean.MapParser;
 import org.xerial.util.bean.TypeInfo;
-import org.xerial.util.tree.TreeWalker;
-import org.xerial.util.xml.XMLTreeWalker;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.xml.XMLTreeParser;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -186,12 +186,12 @@ public class Lens
         if (silkResource == null)
             throw new NullPointerException("silk resouce is null");
 
-        return load(result, new SilkWalker(silkResource));
+        return load(result, new SilkParser(silkResource));
     }
 
     public static <Result> Result loadSilk(Result result, Reader silkReader) throws XerialException, IOException
     {
-        return load(result, new SilkWalker(silkReader));
+        return load(result, new SilkParser(silkReader));
     }
 
     public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader) throws XerialException,
@@ -205,7 +205,7 @@ public class Lens
         if (xmlResource == null)
             throw new NullPointerException("XML resource is null");
 
-        return load(result, new XMLTreeWalker(new BufferedReader(new InputStreamReader(xmlResource.openStream()))));
+        return load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(xmlResource.openStream()))));
     }
 
     public static <Result> Result loadXML(Class<Result> result, URL xmlResource) throws IOException, XerialException
@@ -220,7 +220,7 @@ public class Lens
 
     public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException, XerialException
     {
-        return load(result, new XMLTreeWalker(xmlReader));
+        return load(result, new XMLTreeParser(xmlReader));
     }
 
     public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader) throws XerialException,
@@ -231,7 +231,7 @@ public class Lens
 
     public static <Result> Result loadJSON(Result result, Reader jsonReader) throws XerialException, IOException
     {
-        return load(result, new JSONStreamWalker(jsonReader));
+        return load(result, new JSONPushParser(jsonReader));
     }
 
     public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
@@ -243,7 +243,7 @@ public class Lens
     public static <Result> Result loadANTLRParseTree(Result result, Tree tree, final String[] parserTokenNames)
             throws XerialException
     {
-        return load(result, new ANTLRWalker(parserTokenNames, tree));
+        return load(result, new ANTLRTreeParser(parserTokenNames, tree));
     }
 
     public static <Result> Result loadMap(Class<Result> resultType, Map< ? , ? > map) throws XerialException
@@ -253,18 +253,18 @@ public class Lens
 
     public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException
     {
-        return load(result, new MapWalker(map));
+        return load(result, new MapParser(map));
     }
 
-    public static <Result> Result load(Class<Result> targetType, TreeWalker walker) throws XerialException
+    public static <Result> Result load(Class<Result> targetType, TreeParser parser) throws XerialException
     {
-        return load(TypeInfo.createInstance(targetType), walker);
+        return load(TypeInfo.createInstance(targetType), parser);
     }
 
-    public static <Result> Result load(Result result, TreeWalker walker) throws XerialException
+    public static <Result> Result load(Result result, TreeParser parser) throws XerialException
     {
         ObjectMapper mapper = ObjectMapper.getMapper(result.getClass());
-        return mapper.map(result, walker);
+        return mapper.map(result, parser);
     }
 
 }

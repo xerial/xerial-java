@@ -47,7 +47,7 @@ import org.xerial.util.Deque;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.tree.TreeParser;
 
 /**
  * Object-Tree mapping processor
@@ -171,14 +171,14 @@ public class ObjectMapper
         }
     }
 
-    public <T> T map(Class<T> targetType, TreeWalker walker) throws XerialException
+    public <T> T map(Class<T> targetType, TreeParser parser) throws XerialException
     {
 
         T object = TypeInfo.createInstance(targetType);
-        return map(object, walker);
+        return map(object, parser);
     }
 
-    public <T> T map(T object, TreeWalker walker) throws XerialException
+    public <T> T map(T object, TreeParser parser) throws XerialException
     {
         try
         {
@@ -195,12 +195,16 @@ public class ObjectMapper
             AmoebaJoinHandler mapper = new RelationExtracter();
 
             StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
-            aj.sweep(walker);
+            aj.sweep(parser);
             return object;
         }
         catch (IOException e)
         {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+        catch (Exception e)
+        {
+            throw new XerialException(XerialErrorCode.INHERITED, e);
         }
 
     }

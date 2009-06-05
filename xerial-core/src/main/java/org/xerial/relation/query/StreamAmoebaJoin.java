@@ -25,7 +25,6 @@
 package org.xerial.relation.query;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,12 +51,11 @@ import org.xerial.util.graph.Lattice;
 import org.xerial.util.graph.LatticeCursor;
 import org.xerial.util.graph.LatticeNode;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeNode;
-import org.xerial.util.tree.TreeVisitor;
-import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.tree.TreeParser;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.XMLTreeWalker;
 
 /**
  * 
@@ -67,7 +65,7 @@ import org.xerial.util.xml.XMLTreeWalker;
  * @author leo
  * 
  */
-public class StreamAmoebaJoin implements TreeVisitor
+public class StreamAmoebaJoin implements TreeEventHandler
 {
     public static final String ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
 
@@ -339,15 +337,15 @@ public class StreamAmoebaJoin implements TreeVisitor
 
     }
 
-    public void finish(TreeWalker walker) throws XerialException
+    public void finish() throws Exception
     {
-        leaveNode("root", walker);
+        leaveNode("root");
         if (_logger.isTraceEnabled())
             _logger.trace("sweep finished");
         handler.finish();
     }
 
-    public void init(TreeWalker walker) throws XerialException
+    public void init() throws Exception
     {
         nodeCount = -1;
         latticeCursor = nodeNameLattice.cursor();
@@ -355,7 +353,7 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         handler.init();
 
-        visitNode("root", null, walker);
+        visitNode("root", null);
     }
 
     public Deque<Node> getNodeStack(String nodeName)
@@ -368,7 +366,7 @@ public class StreamAmoebaJoin implements TreeVisitor
         return ObjectLens.getCanonicalParameterName(nodeName);
     }
 
-    public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
+    public void visitNode(String nodeName, String nodeValue) throws Exception
     {
         nodeName = sanitize(nodeName);
 
@@ -386,18 +384,12 @@ public class StreamAmoebaJoin implements TreeVisitor
 
         if (query.isTreeNode(nodeName))
         {
-            // retrieve the entire subtree
-            TreeNode subTree = walker.getSubTree();
-            String xml = new XMLBuilder().build(subTree).getXML();
-            nodeStack.removeLast();
-            nodeStack.addLast(new NodeBuilder(currentNode).nodeValue(xml).build());
-            //leaveNode(nodeName, walker);
-            return;
+            throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not supported yet");
         }
 
     }
 
-    public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
+    public void text(String nodeName, String textDataFragment) throws Exception
     {
         nodeName = sanitize(nodeName);
 
@@ -446,7 +438,7 @@ public class StreamAmoebaJoin implements TreeVisitor
         }
     }
 
-    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
+    public void leaveNode(String nodeName) throws Exception
     {
         nodeName = sanitize(nodeName);
 
@@ -622,17 +614,9 @@ public class StreamAmoebaJoin implements TreeVisitor
         }
     }
 
-    public void sweepXML(Reader xml) throws XerialException
+    public void sweep(TreeParser parser) throws Exception
     {
-        if (_logger.isDebugEnabled())
-            _logger.debug("sweep XML");
-        XMLTreeWalker xmlStreamReader = new XMLTreeWalker(xml);
-        xmlStreamReader.walk(this);
-    }
-
-    public void sweep(TreeWalker walker) throws XerialException
-    {
-        walker.walk(this);
+        parser.parse(this);
     }
 
     public QuerySet getQuerySet()

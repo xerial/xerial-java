@@ -24,14 +24,14 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.silk.SilkWalker;
+import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -125,7 +125,7 @@ public class ObjectMapperTest
     public void map() throws Exception
     {
         ObjectMapper mapper = new ObjectMapper(GeneDB.class);
-        GeneDB gdb = mapper.map(GeneDB.class, new SilkWalker(FileResource.find(ObjectMapperTest.class, "gene.silk")));
+        GeneDB gdb = mapper.map(GeneDB.class, new SilkParser(FileResource.find(ObjectMapperTest.class, "gene.silk")));
 
         assertEquals("gene data", gdb.description);
     }

@@ -35,13 +35,12 @@ import org.xerial.relation.Node;
 import org.xerial.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.relation.schema.Schema;
 import org.xerial.relation.schema.SchemaBuilder;
+import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkParserConfig;
-import org.xerial.silk.SilkWalker;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeVisitorBase;
-import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.tree.TreeEventHandlerBase;
 
 public class StreamAmoebaJoinTest
 {
@@ -83,7 +82,7 @@ public class StreamAmoebaJoinTest
             }
         });
 
-        aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "sample.silk")));
+        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "sample.silk")));
     }
 
     @Test
@@ -109,7 +108,7 @@ public class StreamAmoebaJoinTest
 
         });
 
-        aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "gene.silk")));
+        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "gene.silk")));
 
     }
 
@@ -119,7 +118,7 @@ public class StreamAmoebaJoinTest
         QuerySet qs = new QuerySetBuilder().build();
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase());
         StopWatch sw = new StopWatch();
-        aj.sweep(new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk")));
+        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk")));
         _logger.info("time: " + sw.getElapsedTime());
     }
 
@@ -129,10 +128,10 @@ public class StreamAmoebaJoinTest
         SilkParserConfig config = new SilkParserConfig();
         config.bufferSize = 1024 * 1024 * 8; // 8MB
         config.numWorkers = 2;
-        TreeWalker walker = new SilkWalker(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"),
+        SilkParser parser = new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"),
                 config);
         StopWatch sw = new StopWatch();
-        walker.walk(new TreeVisitorBase());
+        parser.parse(new TreeEventHandlerBase());
         _logger.info("time: " + sw.getElapsedTime());
     }
 

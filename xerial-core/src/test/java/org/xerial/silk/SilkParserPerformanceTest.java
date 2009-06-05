@@ -26,6 +26,7 @@ package org.xerial.silk;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -45,11 +46,13 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeEventHandlerBase;
 import org.xerial.util.tree.TreeEvent.EventType;
+import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xmlpull.v1.XmlPullParser;
 
 public class SilkParserPerformanceTest
 {
@@ -160,6 +163,24 @@ public class SilkParserPerformanceTest
         StopWatch timer = new StopWatch();
         xmlReader.parse("f:/cygwin/home/leo/work/t2k/xmark-1.0.xml");
         _logger.info("time: " + timer.getElapsedTime());
+
+        // 104.5 sec. (Xeon)
+    }
+
+    @Ignore
+    @Test
+    public void xmlPullPerformance() throws Exception
+    {
+        XmlPullParser parser = PullParserUtil.newParser(new BufferedReader(new FileReader(
+                "f:/cygwin/home/leo/work/t2k/xmark-1.0.xml")));
+
+        StopWatch timer = new StopWatch();
+        while (parser.next() != XmlPullParser.END_DOCUMENT)
+        {}
+        _logger.info("time: " + timer.getElapsedTime());
+
+        // 125.3 sec. (Xeon)
+
     }
 
     public static void reportNodeCountStat(int count, double time)

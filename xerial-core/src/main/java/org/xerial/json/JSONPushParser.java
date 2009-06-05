@@ -24,15 +24,14 @@
 //--------------------------------------
 package org.xerial.json;
 
-import static org.xerial.json.impl.JSONLexer.*;
-
 import java.io.IOException;
 import java.io.Reader;
 
-import org.antlr.runtime.ANTLRReaderStream;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.Token;
-import org.xerial.json.impl.JSONLexer;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEventHandler;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.tree.TreeEvent.EventType;
 
 /**
  * Push-style JSON parser
@@ -40,56 +39,108 @@ import org.xerial.json.impl.JSONLexer;
  * @author leo
  * 
  */
-public class JSONPushParser
+public class JSONPushParser implements TreeParser
 {
-    private JSONLexer lexer;
+    private final JSONPullParser jsonPullParser;
+    private JSONEvent lastEvent = null;
+
+    private ArrayDeque<TreeEvent> pendingEventQueue = new ArrayDeque<TreeEvent>();
 
     public JSONPushParser(String json)
     {
-        lexer = new JSONLexer(new ANTLRStringStream(json));
+        jsonPullParser = new JSONPullParser(json);
     }
 
     public JSONPushParser(Reader input) throws IOException
     {
-        lexer = new JSONLexer(new ANTLRReaderStream(input));
+        jsonPullParser = new JSONPullParser(input);
     }
 
-    private JSONEventHandler handler;
-
-    public void parse(JSONEventHandler handler)
+    public void parse(TreeEventHandler handler) throws Exception
     {
-        this.handler = handler;
-
-        Token t = lexer.nextToken();
-
-        switch (t.getType())
-        {
-        case Integer:
-            break;
-        case Double:
-            break;
-        case String:
-            break;
-        case LBracket:
-            break;
-        case RBracket:
-            break;
-        case LBrace:
-            break;
-        case RBrace:
-            break;
-        case Comma:
-            break;
-        case Colon:
-            break;
-        case TRUE:
-            break;
-        case FALSE:
-            break;
-        case NULL:
-            break;
-        }
-
+        handler.init();
+        parseJSON(handler);
+        handler.finish();
     }
 
+    private void flushPendingEvent(TreeEventHandler handler) throws Exception
+    {
+        while (!pendingEventQueue.isEmpty())
+        {
+            TreeEvent e = pendingEventQueue.removeFirst();
+            switch (e.event)
+            {
+            case VISIT:
+                handler.visitNode(e.nodeName, e.nodeValue);
+                break;
+            case LEAVE:
+                handler.leaveNode(e.nodeName);
+                break;
+            case TEXT:
+                handler.text(e.nodeName, e.nodeValue);
+                break;
+            }
+        }
+    }
+
+    private void parseJSON(TreeEventHandler handler) throws Exception
+    {
+        while (lastEvent != JSONEvent.EndJSON)
+        {
+            lastEvent = jsonPullParser.next();
+            switch (lastEvent)
+            {
+            case StartObject:
+            {
+                flushPendingEvent(handler);
+
+                String key = jsonPullParser.getKeyName();
+                pendingEventQueue.addLast(TreeEvent.newVisitEvent(key, null));
+                break;
+            }
+            case EndObject:
+            {
+                flushPendingEvent(handler);
+                String key = jsonPullParser.getKeyName();
+                handler.leaveNode(key);
+                break;
+            }
+            case String:
+            case Integer:
+            case Double:
+            case Boolean:
+            case Null:
+            {
+                String key = jsonPullParser.getKeyName();
+                String value = lastEvent != JSONEvent.Null ? jsonPullParser.getText() : null;
+
+                // if first child element is value attribute
+                if (key != null)
+                {
+                    if (key.equals("value") && !pendingEventQueue.isEmpty())
+                    {
+                        TreeEvent e = pendingEventQueue.peekLast();
+                        if (e.event == EventType.VISIT)
+                        {
+                            pendingEventQueue.removeLast();
+                            pendingEventQueue.addLast(TreeEvent.newVisitEvent(e.nodeName, value));
+                            break;
+                        }
+                    }
+                }
+
+                flushPendingEvent(handler);
+                handler.visitNode(key, value);
+                handler.leaveNode(key);
+                break;
+            }
+            case StartArray:
+            case EndArray:
+            case EndJSON:
+                // do nothing
+                break;
+            }
+
+        }
+    }
 }
