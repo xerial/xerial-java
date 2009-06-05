@@ -78,7 +78,7 @@ public class SilkParser implements SilkEventHandler
 {
     private static Logger _logger = Logger.getLogger(SilkStreamReader.class);
 
-    private final SilkLineFastParser parser;
+    private final SilkLinePushParser parser;
     private final SilkEnv parseContext;
     private TreeEventQueue eventQueue = new TreeEventQueue();
     private final ArrayDeque<TreeStreamReader> readerStack = new ArrayDeque<TreeStreamReader>();
@@ -105,11 +105,9 @@ public class SilkParser implements SilkEventHandler
      * @param env
      * @throws IOException
      */
-    private SilkParser(Reader input, SilkEnv env) throws IOException
+    public SilkParser(Reader input, SilkEnv env) throws IOException
     {
-        this.config = new SilkParserConfig();
-        this.parser = new SilkLineFastParser(input);
-        this.parseContext = env;
+        this(input, env, new SilkParserConfig());
     }
 
     /**
@@ -135,13 +133,22 @@ public class SilkParser implements SilkEventHandler
 
     public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException
     {
+        this(new InputStreamReader(resource.openStream()), SilkEnv.newEnv(env, getResourceBasePath(resource)), config);
+    }
+
+    public SilkParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException
+    {
         this.config = config;
+        this.parser = new SilkLinePushParser(input);
+        this.parseContext = env;
+    }
+
+    static String getResourceBasePath(URL resource)
+    {
         String path = resource.toExternalForm();
         int fileNamePos = path.lastIndexOf("/");
         String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
-
-        this.parser = new SilkLineFastParser(new InputStreamReader(resource.openStream()), config);
-        this.parseContext = SilkEnv.newEnv(env, resourceBasePath);
+        return resourceBasePath;
     }
 
     /**
@@ -151,7 +158,7 @@ public class SilkParser implements SilkEventHandler
      * @param resourceName
      * @return
      */
-    private static String getResourcePath(String resourceBasePath, String resourceName)
+    static String getResourcePath(String resourceBasePath, String resourceName)
     {
         String resourcePath = resourceBasePath;
         if (!resourcePath.endsWith("/"))
@@ -315,7 +322,7 @@ public class SilkParser implements SilkEventHandler
                     {
                         if (columnIndex < columns.length)
                         {
-                            String columnData = columns[columnIndex++];
+                            String columnData = columns[columnIndex++].trim();
                             if (columnData.length() > 0)
                                 evalDatalineColumn(child, columnData);
                         }
@@ -685,7 +692,7 @@ public class SilkParser implements SilkEventHandler
             }
             else
             {
-                String[] csv = tabSplit.split(columnData, 0);
+                String[] csv = commaSplit.split(columnData, 0);
                 for (String each : csv)
                 {
                     String value = each.trim();

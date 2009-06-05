@@ -47,6 +47,8 @@ import org.xerial.util.log.Logger;
 /**
  * Parsing Silk using threads.
  * 
+ * TODO fix a bug that does not properly report some nodes, for some timing
+ * 
  * @author leo
  * 
  */
