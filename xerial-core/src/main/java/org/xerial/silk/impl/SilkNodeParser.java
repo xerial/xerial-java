@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
-import static org.xerial.silk.impl.SilkLexer.*;
+import static org.xerial.silk.impl.SilkLineLexer.*;
 
 import java.util.List;
 
@@ -411,7 +411,7 @@ public class SilkNodeParser
     private XerialException unexpectedToken(Token t) throws XerialException
     {
         return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("unexpected token %s",
-                SilkParser.tokenNames[t.getType()], toString(t)));
+                SilkLineParser.tokenNames[t.getType()], toString(t)));
 
     }
 
@@ -420,7 +420,7 @@ public class SilkNodeParser
         List<String> expectedTokenNames = CollectionUtil.collect(expectedTokenTypes, new Functor<Integer, String>() {
             public String apply(Integer input)
             {
-                return SilkParser.tokenNames[input.intValue()];
+                return SilkLineParser.tokenNames[input.intValue()];
             }
         });
 
@@ -430,7 +430,7 @@ public class SilkNodeParser
 
     private String toString(Token t)
     {
-        return java.lang.String.format("[%s at char %d: %s]", SilkParser.tokenNames[t.getType()], t
+        return java.lang.String.format("[%s at char %d: %s]", SilkLineParser.tokenNames[t.getType()], t
                 .getCharPositionInLine(), t.getText());
     }
 }

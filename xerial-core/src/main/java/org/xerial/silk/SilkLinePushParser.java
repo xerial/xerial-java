@@ -40,7 +40,7 @@ import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkDataLine;
 import org.xerial.silk.impl.SilkElement;
 import org.xerial.silk.impl.SilkFunction;
-import org.xerial.silk.impl.SilkLexer;
+import org.xerial.silk.impl.SilkLineLexer;
 import org.xerial.silk.impl.SilkNode;
 import org.xerial.silk.impl.SilkNodeParser;
 import org.xerial.silk.impl.SilkPreamble;
@@ -58,7 +58,7 @@ public class SilkLinePushParser implements SilkLineParser
 {
     private static Logger _logger = Logger.getLogger(SilkLinePushParser.class);
 
-    private final SilkLexer lexer;
+    private final SilkLineLexer lexer;
     private final BufferedReader buffer;
     private long lineCount = 0;
     private SilkEventHandler handler = null;
@@ -91,7 +91,7 @@ public class SilkLinePushParser implements SilkLineParser
         else
             buffer = new BufferedReader(reader, config.bufferSize);
 
-        lexer = new SilkLexer();
+        lexer = new SilkLineLexer();
     }
 
     private void push(SilkEvent e) throws Exception
@@ -124,7 +124,7 @@ public class SilkLinePushParser implements SilkLineParser
         return line;
     }
 
-    public static SilkEvent parseLine(SilkLexer lexer, String line) throws IOException, XerialException
+    public static SilkEvent parseLine(SilkLineLexer lexer, String line) throws IOException, XerialException
     {
         if (line.length() <= 0)
         {
@@ -189,7 +189,7 @@ public class SilkLinePushParser implements SilkLineParser
 
         if (_logger.isTraceEnabled())
             _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(), ANTLRUtil
-                    .getTokenTable(SilkLexer.class, "Silk.tokens")), "\n"));
+                    .getTokenTable(SilkLineLexer.class, "Silk.tokens")), "\n"));
 
         // 100,000 lines/sec (SilkPushParser)
         // 60,000 lines/sec (SilkPushParser after consuming the lexer input)

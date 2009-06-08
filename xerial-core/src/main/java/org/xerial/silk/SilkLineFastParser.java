@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.silk.impl.SilkLexer;
+import org.xerial.silk.impl.SilkLineLexer;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 
@@ -158,7 +158,7 @@ public class SilkLineFastParser implements SilkLineParser
     {
         final List<String> cache;
         final ArrayDeque<SilkEvent> eventQueue;
-        final SilkLexer lexer = new SilkLexer();
+        final SilkLineLexer lexer = new SilkLineLexer();
         final int lsn;
 
         Mapper(int lsn, List<String> cache)

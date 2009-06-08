@@ -16,12 +16,12 @@
 //--------------------------------------
 // XerialJ
 //
-// Silk.g
+// SilkLine.g
 // Since: Jan 28, 2009 1:00:02 PM
 //
 //--------------------------------------
  
-grammar Silk;
+grammar SilkLine;
 options 
 {
 	language=Java;
@@ -84,7 +84,7 @@ import org.xerial.silk.impl.SilkLexerState.State;
 import org.xerial.silk.impl.SilkLexerState.Symbol;
 }
 
-
+ 
 @header
 {
 /*--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ package org.xerial.silk.impl;
 
 @lexer::members {
 
-private static Logger _logger = Logger.getLogger(SilkLexer.class);
+private static Logger _logger = Logger.getLogger(SilkLineLexer.class);
 
 private SilkLexerState lexerContext = new SilkLexerState();
 

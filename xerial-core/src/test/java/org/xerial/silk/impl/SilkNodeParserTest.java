@@ -49,7 +49,7 @@ public class SilkNodeParserTest
     @Test
     public void testParser() throws Exception
     {
-        SilkLexer lexer = new SilkLexer(new ANTLRReaderStream(FileResource.open(SilkNodeParserTest.class, "node.silk")));
+        SilkLineLexer lexer = new SilkLineLexer(new ANTLRReaderStream(FileResource.open(SilkNodeParserTest.class, "node.silk")));
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         SilkNodeParser parser = new SilkNodeParser(tokenStream);
