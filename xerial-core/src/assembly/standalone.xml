@@ -12,9 +12,6 @@
   </dependencySets>
   <fileSets>
     <fileSet>
-      <directory>${project.build.outputDirectory}</directory>
-    </fileSet>
-    <fileSet>
       <useStrictFiltering>true</useStrictFiltering>
       <outputDirectory>META-INF</outputDirectory>
       <includes>

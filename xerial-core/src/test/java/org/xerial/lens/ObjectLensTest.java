@@ -28,11 +28,13 @@ import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
@@ -164,6 +166,26 @@ public class ObjectLensTest
 
         assertEquals(extList, extList2);
 
+    }
+
+    public static class PropReader
+    {
+        Properties prop = new Properties();
+
+        public void put(String key, String value)
+        {
+            prop.put(key, value);
+        }
+    }
+
+    @Test
+    public void property() throws Exception
+    {
+        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectLensTest.class, "property.silk"));
+
+        assertEquals(2, p.prop.size());
+        assertEquals("hello", p.prop.get("db.name"));
+        assertEquals("sqlite", p.prop.get("db.type"));
     }
 
 }

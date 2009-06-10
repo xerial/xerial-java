@@ -61,6 +61,7 @@ public class ObjectMapper
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
 
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
+
     private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
     private final QuerySet qs;
 
@@ -369,6 +370,17 @@ public class ObjectMapper
 
         public void leaveNode(Schema schema, Node node) throws Exception
         {
+            if (schema == null && node.nodeValue != null)
+            {
+                // if putter is defined, set (node.nodeName, node.nodeValue) as (key, value)
+                if (_logger.isTraceEnabled())
+                    _logger.trace("put: " + node);
+
+                Object contextNode = contextNodeStack.getLast();
+                ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
+                lens.setProperty(contextNode, node.nodeName, node.nodeValue);
+            }
+
             Object obj = objectHolder.remove(node.nodeID);
 
             if (_logger.isDebugEnabled())

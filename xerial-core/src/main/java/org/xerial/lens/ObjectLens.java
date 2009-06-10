@@ -39,6 +39,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.xerial.core.XerialException;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONWriter;
 import org.xerial.util.Pair;
@@ -82,6 +83,16 @@ public class ObjectLens
     private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
     private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
     private ParameterSetter valueSetter = null;
+
+    private RelationSetter propertySetter = null;
+
+    public void setProperty(Object target, Object key, Object value) throws XerialException
+    {
+        if (propertySetter == null)
+            return;
+
+        propertySetter.bind(target, key, value);
+    }
 
     public List<ParameterSetter> getSetterList()
     {
@@ -187,7 +198,7 @@ public class ObjectLens
             String methodName = eachMethod.getName();
             String paramName = pickPropertyName(methodName);
 
-            if (methodName.startsWith("add") || methodName.startsWith("set") || methodName.startsWith("put"))
+            if (methodName.startsWith("add") || methodName.startsWith("set"))
             {
                 Class< ? >[] argTypes = eachMethod.getParameterTypes();
                 switch (argTypes.length)
@@ -251,6 +262,47 @@ public class ObjectLens
 
                 continue;
 
+            }
+            else if (methodName.startsWith("put"))
+            {
+                Class< ? >[] argTypes = eachMethod.getParameterTypes();
+                if (argTypes.length != 2)
+                    continue;
+
+                if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
+                    continue;
+
+                // relation adder
+                Pair<String, String> relName = pickRelationName(paramName);
+                if (relName == null)
+                {
+                    // infer relation node names
+                    if (TypeInfo.isMap(eachMethod.getDeclaringClass()))
+                    {
+
+                        Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
+                                .getParameterTypes());
+
+                        // map.put(Key, Value)
+                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
+
+                        // (entry, key)
+                        setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
+                        // (entry, value)
+                        setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
+                        continue;
+                    }
+                    else
+                    {
+                        propertySetter = RelationSetter.newRelationSetter("key", "value", eachMethod);
+                        continue;
+                    }
+                }
+
+                relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName.getSecond(),
+                        eachMethod));
+
+                continue;
             }
             else if (methodName.startsWith("append"))
             {

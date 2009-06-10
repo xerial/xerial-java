@@ -46,9 +46,14 @@ public class StreamAmoebaJoinTest
 {
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoinTest.class);
 
+    SilkParserConfig config = new SilkParserConfig();
+
     @Before
     public void setUp() throws Exception
-    {}
+    {
+        config.bufferSize = 1024 * 1024 * 8; // 8MB
+        config.numWorkers = 2;
+    }
 
     @After
     public void tearDown() throws Exception
@@ -118,16 +123,13 @@ public class StreamAmoebaJoinTest
         QuerySet qs = new QuerySetBuilder().build();
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase());
         StopWatch sw = new StopWatch();
-        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk")));
+        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"), config));
         _logger.info("time: " + sw.getElapsedTime());
     }
 
     @Test
     public void silkWalkPerformance() throws Exception
     {
-        SilkParserConfig config = new SilkParserConfig();
-        config.bufferSize = 1024 * 1024 * 8; // 8MB
-        config.numWorkers = 2;
         SilkParser parser = new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"),
                 config);
         StopWatch sw = new StopWatch();
