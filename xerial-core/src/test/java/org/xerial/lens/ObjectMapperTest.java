@@ -147,4 +147,17 @@ public class ObjectMapperTest
 
     }
 
+    public static class Read
+    {
+        public long viewstart;
+        public long viewend;
+    }
+
+    @Test
+    public void primitiveTypeBind() throws Exception
+    {
+        Read r = Lens.loadSilk(Read.class, FileResource.find(ObjectMapperTest.class, "long.silk"));
+        assertEquals(1721L, r.viewstart);
+        assertEquals(2871L, r.viewend);
+    }
 }
