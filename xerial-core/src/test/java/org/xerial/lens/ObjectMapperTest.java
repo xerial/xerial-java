@@ -26,11 +26,13 @@ package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.LensTest.Gene;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
@@ -160,4 +162,29 @@ public class ObjectMapperTest
         assertEquals(1721L, r.viewstart);
         assertEquals(2871L, r.viewend);
     }
+
+    public static class MyGene extends Gene
+    {
+
+    }
+
+    public static class Rename
+    {
+        ArrayList<MyGene> genes = new ArrayList<MyGene>();
+
+        public void addCoordinate_Gene(Coordinate c, MyGene g)
+        {
+            genes.add(g);
+        }
+
+    }
+
+    @Test
+    public void rename() throws Exception
+    {
+        Rename r = Lens.loadSilk(Rename.class, FileResource.find(ObjectMapperTest.class, "gene.silk"));
+        assertEquals(2, r.genes.size());
+
+    }
+
 }

@@ -196,7 +196,6 @@ public class ObjectLens
         for (Method eachMethod : targetType.getMethods())
         {
             String methodName = eachMethod.getName();
-            String paramName = pickPropertyName(methodName);
 
             if (methodName.startsWith("add") || methodName.startsWith("set"))
             {
@@ -205,6 +204,7 @@ public class ObjectLens
                 {
                 case 1:
                 {
+                    String paramName = pickPropertyName(methodName);
                     Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
                     if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
                             && paramName.equals("all"))
@@ -227,6 +227,9 @@ public class ObjectLens
                     }
 
                     // relation adder
+                    // TODO do not canonicalize
+                    String paramName = pickPropertyName(methodName);
+
                     Pair<String, String> relName = pickRelationName(paramName);
                     if (relName == null)
                     {
@@ -272,6 +275,8 @@ public class ObjectLens
                 if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
                     continue;
 
+                String paramName = pickPropertyName(methodName);
+
                 // relation adder
                 Pair<String, String> relName = pickRelationName(paramName);
                 if (relName == null)
@@ -306,6 +311,7 @@ public class ObjectLens
             }
             else if (methodName.startsWith("append"))
             {
+                String paramName = pickPropertyName(methodName);
                 addNewSetter(setterContainer, paramName, eachMethod);
                 continue;
             }
@@ -317,6 +323,7 @@ public class ObjectLens
                     if (Object.class == eachMethod.getDeclaringClass())
                         continue;
 
+                    String paramName = pickPropertyName(methodName);
                     getterContainer.add(ParameterGetter.newGetter(eachMethod, paramName));
                 }
 
@@ -345,6 +352,22 @@ public class ObjectLens
 
     static private Pattern propertyNamePattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
     static private Pattern pairedNamePattern = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
+
+    static String pickPropertyName(String methodName, boolean canonicalize)
+    {
+        Matcher m = null;
+        m = propertyNamePattern.matcher(methodName);
+        if (!m.matches())
+            return null;
+        else
+        {
+            if (m.group(2) != null)
+                return canonicalize ? getCanonicalParameterName(m.group(2)) : m.group(2);
+            else
+                return "";
+        }
+
+    }
 
     static String pickPropertyName(String methodName)
     {
