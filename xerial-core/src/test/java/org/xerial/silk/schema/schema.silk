@@ -1,0 +1,34 @@
+module org.utgenome.
+
+class Coordinate
+  group
+  species
+  revision
+  name
+end
+
+class Locus
+  start: integer
+  end: integer 
+end
+
+class Gene < Locus
+  id: integer 
+  name
+end
+
+
+class Reference
+  mix in Locus  
+  sequence: string
+  read*: Read
+end
+
+class Read 
+  include Locus
+  sequence: string
+  qv*: integer
+end 
+
+
+

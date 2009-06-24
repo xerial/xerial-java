@@ -25,12 +25,10 @@
 package org.xerial.relation;
 
 /**
- * Table element
+ * A composite pattern interface for representing tree node and tuple structure.
+ * Tuples containing this cell element allow non 1-NF (tuples can contain
+ * tuples) data representation.
  * 
- * @author leo
- * 
- */
-/**
  * @author leo
  * 
  */
