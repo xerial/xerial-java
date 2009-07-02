@@ -227,10 +227,8 @@ public class ObjectLens
                     }
 
                     // relation adder
-                    // TODO do not canonicalize
-                    String paramName = pickPropertyName(methodName);
 
-                    Pair<String, String> relName = pickRelationName(paramName);
+                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
                     if (relName == null)
                     {
                         // infer relation node names
@@ -275,10 +273,8 @@ public class ObjectLens
                 if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
                     continue;
 
-                String paramName = pickPropertyName(methodName);
-
                 // relation adder
-                Pair<String, String> relName = pickRelationName(paramName);
+                Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
                 if (relName == null)
                 {
                     // infer relation node names
