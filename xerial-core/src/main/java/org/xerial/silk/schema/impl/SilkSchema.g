@@ -95,13 +95,21 @@ package org.xerial.silk.schema.impl;
 }
  
 
-// lexer rules 
+// lexer rules
 
+
+// Line Comment
+fragment LineBreakChar: '\n' | '\r'; // r: <CR> n : <LF>
+LineComment: '#' ~(LineBreakChar)* { $channel=HIDDEN; };
+
+
+LineBreak: ('\r' '\n' | '\r' | '\n' ); 
 WhiteSpace: (' ' | '\r' | '\t' | '\u000C' | '\n') { $channel=HIDDEN; };
 
 fragment Digit: '0' .. '9';
 fragment Letter: 'A' .. 'F' | 'a' .. 'f';
 fragment HexDigit: Digit | Letter;
+fragment NonWhiteUnicodeChar: ~('"' | '\\' | 
 fragment UnicodeChar: ~('"'| '\\');
 fragment EscapeSequence
   : '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
@@ -113,7 +121,6 @@ fragment StringChar_s: StringChar*;
 String: '"' s=StringChar_s '"' { setText($s.text); };
 
 
-Colon: ':';
 Comma: ',';
 Integer: '-'? ('0' | '1'..'9' Digit*);
 fragment Frac: '.' Digit+;
@@ -125,18 +132,55 @@ RBrace: '}' ;
 LBracket: '[' ;
 RBracket: ']' ;
 
+Lt: '<';
+Eq: '=';
+
 LParen: '(';
 RParen: ')';
 
+Star: '*';
+
+fragment
+UnsafeUnicodeChar: '(' | ')' | [' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
+
+fragment:
+NonWhiteSpaceChar: ~(UnsafeUncodeChar | WhiteSpace);
+
+
+Symbol: { ':' NonWhiteSpaceChar} =>  ':' NonWhiteSpaceChar+ ;
+
 Class: 'class';
+Includes: 'includes';
+End: 'end';
+
+fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
+fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
+
+ModuleDef: 'module' WhiteSpace* SafeFistLetter SafeLetter* ('.' SafeFirstLetter SafeLetter)*; 
+
+QName: ~(UnsafeUnicodeChar | WhiteSpace);
+
 
 // parser rules 
 
 schema
-  : (classDefinition)*
+  : (classDefinition | moduleDefinition )*
   ;  
   
+moduleDefinition:
+	ModuleDef LineBreak 
+	;  
+  
 classDefinition 
-  : Class LBrace RBrace
-  ;
+  :  Class LineBreak
+      ((includeStatment | attributes) LineBreak)* 
+     End LineBreak
+  ; 
+  
+includeStatement: Includes QName (',' QName);   
+	
+
+
+
+
 

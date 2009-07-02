@@ -5,6 +5,9 @@
 TAG1	100	+	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	{"link":"http://somewhere.org/", "description":"reference sequence"}
 TAG2	100	-	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
 
+
+
+
 -(group:utgb, type:chromosome, species:human, revision:hg18)
  -coordinate(name:chr2)
   -gene(name, start, strand, sequence, param[json])|
