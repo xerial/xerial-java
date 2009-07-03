@@ -38,4 +38,6 @@ public class SilkAttribute
     public String name;
     public boolean isArray = false;
 
+    public String value = null;
+
 }

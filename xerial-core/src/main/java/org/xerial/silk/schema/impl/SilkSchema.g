@@ -28,6 +28,7 @@ options
   output=AST;
 }
 tokens {
+  Schema;
   Module;
   ClassDef;
   Name;
@@ -36,6 +37,7 @@ tokens {
   Attribute;
   IsArray;
   TypeName;
+  Value;
 }
 
 
@@ -117,7 +119,6 @@ LineBreak: ('\r' '\n' | '\r' | '\n' ) { $channel = HIDDEN; };
 fragment Digit: '0' .. '9';
 fragment Letter: 'A' .. 'F' | 'a' .. 'f';
 fragment HexDigit: Digit | Letter;
-fragment NonWhiteSpaceUnicodeChar: ~('"' | '\\' | WhiteSpace); 
 fragment UnicodeChar: ~('"'| '\\');
 fragment EscapeSequence
   : '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
@@ -153,10 +154,10 @@ fragment
 UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-';	
 
 fragment
-NonWhiteSpaceChar: ~(UnsafeUnicodeChar | ' ' | '\t' | '\u000C');
+NonWhiteSpaceChar: ~(UnsafeUnicodeChar | '\r' | '\n' | ' ' | '\t' | '\u000C');
 
 
-Symbol: (':' NonWhiteSpaceChar) =>  ':' NonWhiteSpaceUnicodeChar+ ;
+Symbol: (':' NonWhiteSpaceChar) =>  ':' NonWhiteSpaceChar+;
 
 Class: 'class';
 Includes: 'includes';
@@ -180,9 +181,14 @@ WhiteSpaces: WhiteSpace+ { $channel = HIDDEN; };
  
 // parser rules 
  
-schema
-  : preamble? (classDefinition | moduleDefinition )*
-  ;  
+schema:  Preamble? schemaElement*  -> ^(Schema Preamble? schemaElement*) ;
+  
+
+schemaElement
+  : classDefinition 
+  | moduleDefinition
+  ;
+
 
 moduleDefinition:
 	ModuleDef classDefinition* End 
@@ -208,10 +214,12 @@ fragment attributes: attribute (Comma attribute)*
   ; 
 	
 fragment attribute:
-  attributeType? Symbol 
-  -> ^(Attribute Name[$Symbol.text] attributeType?)  
+  attributeType? Symbol (Eq attributeValue)?  
+  -> ^(Attribute Name[$Symbol.text] attributeType? attributeValue?)  
   ; 
 
+attributeValue
+  : (String | Double | Integer) -> Value[$attributeValue.text]; 
   
 fragment attributeType
   : QName -> TypeName[$QName.text] 

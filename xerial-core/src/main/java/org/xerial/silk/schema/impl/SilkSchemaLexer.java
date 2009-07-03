@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-03 15:24:41
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-03 15:58:02
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -39,52 +39,53 @@ public class SilkSchemaLexer extends Lexer {
     public static final int NonWhiteSpaceChar=42;
     public static final int LBracket=32;
     public static final int Class=44;
-    public static final int Digit=16;
+    public static final int Digit=18;
     public static final int Frac=27;
-    public static final int HexDigit=18;
+    public static final int HexDigit=20;
     public static final int Symbol=43;
-    public static final int Module=4;
-    public static final int Letter=17;
+    public static final int Module=5;
+    public static final int Letter=19;
     public static final int Comma=37;
-    public static final int Attribute=9;
+    public static final int Attribute=10;
+    public static final int Schema=4;
     public static final int Dot=36;
-    public static final int EscapeSequence=22;
     public static final int End=46;
-    public static final int NonWhiteSpaceUnicodeChar=20;
+    public static final int EscapeSequence=22;
     public static final int Integer=26;
     public static final int Relation=47;
-    public static final int Mixin=8;
-    public static final int WhiteSpace=19;
-    public static final int ClassDef=5;
-    public static final int LineComment=14;
+    public static final int Mixin=9;
+    public static final int WhiteSpace=53;
+    public static final int ClassDef=6;
+    public static final int LineComment=16;
     public static final int ModuleName=50;
     public static final int SafeFirstLetter=48;
     public static final int Star=40;
     public static final int Eq=35;
-    public static final int Preamble=13;
+    public static final int Preamble=15;
     public static final int Exp=28;
-    public static final int QNameChar=53;
+    public static final int QNameChar=54;
     public static final int RParen=39;
     public static final int UnicodeChar=21;
     public static final int StringChar=23;
-    public static final int LineBreak=15;
-    public static final int Name=6;
+    public static final int LineBreak=17;
+    public static final int Name=7;
     public static final int ModuleDef=52;
     public static final int LParen=38;
     public static final int String=25;
     public static final int SafeLetter=49;
-    public static final int LineBreakChar=12;
-    public static final int IsArray=10;
-    public static final int QName=54;
+    public static final int LineBreakChar=14;
+    public static final int IsArray=11;
+    public static final int QName=55;
     public static final int EOF=-1;
     public static final int StringChar_s=24;
     public static final int UnsafeUnicodeChar=41;
+    public static final int Value=13;
     public static final int LBrace=30;
     public static final int Double=29;
     public static final int Lt=34;
     public static final int RBracket=33;
-    public static final int Parent=7;
-    public static final int TypeName=11;
+    public static final int Parent=8;
+    public static final int TypeName=12;
     public static final int WhiteSpaces=51;
 
       
@@ -108,15 +109,15 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Preamble;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:107:9: ({...}? => '%' (~ ( LineBreakChar ) )* )
-            // SilkSchema.g:107:11: {...}? => '%' (~ ( LineBreakChar ) )*
+            // SilkSchema.g:109:9: ({...}? => '%' (~ ( LineBreakChar ) )* )
+            // SilkSchema.g:109:11: {...}? => '%' (~ ( LineBreakChar ) )*
             {
             if ( !(( getCharPositionInLine() == 0 )) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "Preamble", " getCharPositionInLine() == 0 ");
             }
             match('%'); if (state.failed) return ;
-            // SilkSchema.g:107:52: (~ ( LineBreakChar ) )*
+            // SilkSchema.g:109:52: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -129,7 +130,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // SilkSchema.g:107:52: ~ ( LineBreakChar )
+            	    // SilkSchema.g:109:52: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -164,7 +165,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // SilkSchema.g:110:23: ( '\\n' | '\\r' )
+            // SilkSchema.g:112:23: ( '\\n' | '\\r' )
             // SilkSchema.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -191,11 +192,11 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:111:12: ( '#' (~ ( LineBreakChar ) )* )
-            // SilkSchema.g:111:14: '#' (~ ( LineBreakChar ) )*
+            // SilkSchema.g:113:12: ( '#' (~ ( LineBreakChar ) )* )
+            // SilkSchema.g:113:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); if (state.failed) return ;
-            // SilkSchema.g:111:18: (~ ( LineBreakChar ) )*
+            // SilkSchema.g:113:18: (~ ( LineBreakChar ) )*
             loop2:
             do {
                 int alt2=2;
@@ -208,7 +209,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // SilkSchema.g:111:18: ~ ( LineBreakChar )
+            	    // SilkSchema.g:113:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -248,10 +249,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:114:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // SilkSchema.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // SilkSchema.g:116:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // SilkSchema.g:116:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // SilkSchema.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // SilkSchema.g:116:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt3=3;
             int LA3_0 = input.LA(1);
 
@@ -276,7 +277,7 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // SilkSchema.g:114:13: '\\r' '\\n'
+                    // SilkSchema.g:116:13: '\\r' '\\n'
                     {
                     match('\r'); if (state.failed) return ;
                     match('\n'); if (state.failed) return ;
@@ -284,14 +285,14 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:114:25: '\\r'
+                    // SilkSchema.g:116:25: '\\r'
                     {
                     match('\r'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:114:32: '\\n'
+                    // SilkSchema.g:116:32: '\\n'
                     {
                     match('\n'); if (state.failed) return ;
 
@@ -317,8 +318,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // SilkSchema.g:117:15: ( '0' .. '9' )
-            // SilkSchema.g:117:17: '0' .. '9'
+            // SilkSchema.g:119:15: ( '0' .. '9' )
+            // SilkSchema.g:119:17: '0' .. '9'
             {
             matchRange('0','9'); if (state.failed) return ;
 
@@ -333,7 +334,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:118:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // SilkSchema.g:120:16: ( 'A' .. 'F' | 'a' .. 'f' )
             // SilkSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -358,7 +359,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // SilkSchema.g:119:18: ( Digit | Letter )
+            // SilkSchema.g:121:18: ( Digit | Letter )
             // SilkSchema.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -380,36 +381,11 @@ public class SilkSchemaLexer extends Lexer {
     }
     // $ANTLR end "HexDigit"
 
-    // $ANTLR start "NonWhiteSpaceUnicodeChar"
-    public final void mNonWhiteSpaceUnicodeChar() throws RecognitionException {
-        try {
-            // SilkSchema.g:120:34: (~ ( '\"' | '\\\\' | WhiteSpace ) )
-            // SilkSchema.g:120:36: ~ ( '\"' | '\\\\' | WhiteSpace )
-            {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
-                input.consume();
-            state.failed=false;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return ;}
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "NonWhiteSpaceUnicodeChar"
-
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // SilkSchema.g:121:21: (~ ( '\"' | '\\\\' ) )
-            // SilkSchema.g:121:23: ~ ( '\"' | '\\\\' )
+            // SilkSchema.g:122:21: (~ ( '\"' | '\\\\' ) )
+            // SilkSchema.g:122:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -433,11 +409,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // SilkSchema.g:123:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // SilkSchema.g:123:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // SilkSchema.g:124:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // SilkSchema.g:124:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); if (state.failed) return ;
-            // SilkSchema.g:123:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // SilkSchema.g:124:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt4=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -495,63 +471,63 @@ public class SilkSchemaLexer extends Lexer {
 
             switch (alt4) {
                 case 1 :
-                    // SilkSchema.g:123:11: '\\\"'
+                    // SilkSchema.g:124:11: '\\\"'
                     {
                     match('\"'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:123:18: '\\\\'
+                    // SilkSchema.g:124:18: '\\\\'
                     {
                     match('\\'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:123:25: '/'
+                    // SilkSchema.g:124:25: '/'
                     {
                     match('/'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // SilkSchema.g:123:31: 'b'
+                    // SilkSchema.g:124:31: 'b'
                     {
                     match('b'); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // SilkSchema.g:123:37: 'f'
+                    // SilkSchema.g:124:37: 'f'
                     {
                     match('f'); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // SilkSchema.g:123:43: 'n'
+                    // SilkSchema.g:124:43: 'n'
                     {
                     match('n'); if (state.failed) return ;
 
                     }
                     break;
                 case 7 :
-                    // SilkSchema.g:123:49: 'r'
+                    // SilkSchema.g:124:49: 'r'
                     {
                     match('r'); if (state.failed) return ;
 
                     }
                     break;
                 case 8 :
-                    // SilkSchema.g:123:55: 't'
+                    // SilkSchema.g:124:55: 't'
                     {
                     match('t'); if (state.failed) return ;
 
                     }
                     break;
                 case 9 :
-                    // SilkSchema.g:123:61: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // SilkSchema.g:124:61: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); if (state.failed) return ;
                     mHexDigit(); if (state.failed) return ;
@@ -576,7 +552,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // SilkSchema.g:126:21: ( UnicodeChar | EscapeSequence )
+            // SilkSchema.g:127:21: ( UnicodeChar | EscapeSequence )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -595,14 +571,14 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // SilkSchema.g:126:24: UnicodeChar
+                    // SilkSchema.g:127:24: UnicodeChar
                     {
                     mUnicodeChar(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:126:38: EscapeSequence
+                    // SilkSchema.g:127:38: EscapeSequence
                     {
                     mEscapeSequence(); if (state.failed) return ;
 
@@ -619,10 +595,10 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // SilkSchema.g:127:22: ( ( StringChar )* )
-            // SilkSchema.g:127:24: ( StringChar )*
+            // SilkSchema.g:128:22: ( ( StringChar )* )
+            // SilkSchema.g:128:24: ( StringChar )*
             {
-            // SilkSchema.g:127:24: ( StringChar )*
+            // SilkSchema.g:128:24: ( StringChar )*
             loop6:
             do {
                 int alt6=2;
@@ -635,7 +611,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // SilkSchema.g:127:24: StringChar
+            	    // SilkSchema.g:128:24: StringChar
             	    {
             	    mStringChar(); if (state.failed) return ;
 
@@ -663,13 +639,13 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:129:7: ( '\"' s= StringChar_s '\"' )
-            // SilkSchema.g:129:9: '\"' s= StringChar_s '\"'
+            // SilkSchema.g:130:7: ( '\"' s= StringChar_s '\"' )
+            // SilkSchema.g:130:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); if (state.failed) return ;
-            int sStart285 = getCharIndex();
+            int sStart264 = getCharIndex();
             mStringChar_s(); if (state.failed) return ;
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart285, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart264, getCharIndex()-1);
             match('\"'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                setText((s!=null?s.getText():null)); 
@@ -690,10 +666,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:132:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // SilkSchema.g:132:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // SilkSchema.g:133:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // SilkSchema.g:133:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // SilkSchema.g:132:10: ( '-' )?
+            // SilkSchema.g:133:10: ( '-' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -702,7 +678,7 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // SilkSchema.g:132:10: '-'
+                    // SilkSchema.g:133:10: '-'
                     {
                     match('-'); if (state.failed) return ;
 
@@ -711,7 +687,7 @@ public class SilkSchemaLexer extends Lexer {
 
             }
 
-            // SilkSchema.g:132:15: ( '0' | '1' .. '9' ( Digit )* )
+            // SilkSchema.g:133:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -730,17 +706,17 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // SilkSchema.g:132:16: '0'
+                    // SilkSchema.g:133:16: '0'
                     {
                     match('0'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:132:22: '1' .. '9' ( Digit )*
+                    // SilkSchema.g:133:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); if (state.failed) return ;
-                    // SilkSchema.g:132:31: ( Digit )*
+                    // SilkSchema.g:133:31: ( Digit )*
                     loop8:
                     do {
                         int alt8=2;
@@ -753,7 +729,7 @@ public class SilkSchemaLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // SilkSchema.g:132:31: Digit
+                    	    // SilkSchema.g:133:31: Digit
                     	    {
                     	    mDigit(); if (state.failed) return ;
 
@@ -785,11 +761,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // SilkSchema.g:133:14: ( '.' ( Digit )+ )
-            // SilkSchema.g:133:16: '.' ( Digit )+
+            // SilkSchema.g:134:14: ( '.' ( Digit )+ )
+            // SilkSchema.g:134:16: '.' ( Digit )+
             {
             match('.'); if (state.failed) return ;
-            // SilkSchema.g:133:20: ( Digit )+
+            // SilkSchema.g:134:20: ( Digit )+
             int cnt10=0;
             loop10:
             do {
@@ -803,7 +779,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // SilkSchema.g:133:20: Digit
+            	    // SilkSchema.g:134:20: Digit
             	    {
             	    mDigit(); if (state.failed) return ;
 
@@ -832,8 +808,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // SilkSchema.g:134:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // SilkSchema.g:134:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // SilkSchema.g:135:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // SilkSchema.g:135:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -845,7 +821,7 @@ public class SilkSchemaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // SilkSchema.g:134:27: ( '+' | '-' )?
+            // SilkSchema.g:135:27: ( '+' | '-' )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -872,7 +848,7 @@ public class SilkSchemaLexer extends Lexer {
 
             }
 
-            // SilkSchema.g:134:40: ( Digit )+
+            // SilkSchema.g:135:40: ( Digit )+
             int cnt12=0;
             loop12:
             do {
@@ -886,7 +862,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // SilkSchema.g:134:40: Digit
+            	    // SilkSchema.g:135:40: Digit
             	    {
             	    mDigit(); if (state.failed) return ;
 
@@ -917,11 +893,11 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:135:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // SilkSchema.g:135:9: Integer ( Frac ( Exp )? | Exp )
+            // SilkSchema.g:136:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // SilkSchema.g:136:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); if (state.failed) return ;
-            // SilkSchema.g:135:17: ( Frac ( Exp )? | Exp )
+            // SilkSchema.g:136:17: ( Frac ( Exp )? | Exp )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -940,10 +916,10 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // SilkSchema.g:135:18: Frac ( Exp )?
+                    // SilkSchema.g:136:18: Frac ( Exp )?
                     {
                     mFrac(); if (state.failed) return ;
-                    // SilkSchema.g:135:23: ( Exp )?
+                    // SilkSchema.g:136:23: ( Exp )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -952,7 +928,7 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // SilkSchema.g:135:23: Exp
+                            // SilkSchema.g:136:23: Exp
                             {
                             mExp(); if (state.failed) return ;
 
@@ -965,7 +941,7 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:135:30: Exp
+                    // SilkSchema.g:136:30: Exp
                     {
                     mExp(); if (state.failed) return ;
 
@@ -990,8 +966,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:137:7: ( '{' )
-            // SilkSchema.g:137:9: '{'
+            // SilkSchema.g:138:7: ( '{' )
+            // SilkSchema.g:138:9: '{'
             {
             match('{'); if (state.failed) return ;
 
@@ -1010,8 +986,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:138:7: ( '}' )
-            // SilkSchema.g:138:9: '}'
+            // SilkSchema.g:139:7: ( '}' )
+            // SilkSchema.g:139:9: '}'
             {
             match('}'); if (state.failed) return ;
 
@@ -1030,8 +1006,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:139:9: ( '[' )
-            // SilkSchema.g:139:11: '['
+            // SilkSchema.g:140:9: ( '[' )
+            // SilkSchema.g:140:11: '['
             {
             match('['); if (state.failed) return ;
 
@@ -1050,8 +1026,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:140:9: ( ']' )
-            // SilkSchema.g:140:11: ']'
+            // SilkSchema.g:141:9: ( ']' )
+            // SilkSchema.g:141:11: ']'
             {
             match(']'); if (state.failed) return ;
 
@@ -1070,8 +1046,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Lt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:142:3: ( '<' )
-            // SilkSchema.g:142:5: '<'
+            // SilkSchema.g:143:3: ( '<' )
+            // SilkSchema.g:143:5: '<'
             {
             match('<'); if (state.failed) return ;
 
@@ -1090,8 +1066,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Eq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:143:3: ( '=' )
-            // SilkSchema.g:143:5: '='
+            // SilkSchema.g:144:3: ( '=' )
+            // SilkSchema.g:144:5: '='
             {
             match('='); if (state.failed) return ;
 
@@ -1110,8 +1086,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:144:4: ( '.' )
-            // SilkSchema.g:144:6: '.'
+            // SilkSchema.g:145:4: ( '.' )
+            // SilkSchema.g:145:6: '.'
             {
             match('.'); if (state.failed) return ;
 
@@ -1130,8 +1106,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:145:6: ( ',' )
-            // SilkSchema.g:145:8: ','
+            // SilkSchema.g:146:6: ( ',' )
+            // SilkSchema.g:146:8: ','
             {
             match(','); if (state.failed) return ;
 
@@ -1150,8 +1126,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:147:7: ( '(' )
-            // SilkSchema.g:147:9: '('
+            // SilkSchema.g:148:7: ( '(' )
+            // SilkSchema.g:148:9: '('
             {
             match('('); if (state.failed) return ;
 
@@ -1170,8 +1146,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:148:7: ( ')' )
-            // SilkSchema.g:148:9: ')'
+            // SilkSchema.g:149:7: ( ')' )
+            // SilkSchema.g:149:9: ')'
             {
             match(')'); if (state.failed) return ;
 
@@ -1190,8 +1166,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:150:5: ( '*' )
-            // SilkSchema.g:150:7: '*'
+            // SilkSchema.g:151:5: ( '*' )
+            // SilkSchema.g:151:7: '*'
             {
             match('*'); if (state.failed) return ;
 
@@ -1208,7 +1184,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "UnsafeUnicodeChar"
     public final void mUnsafeUnicodeChar() throws RecognitionException {
         try {
-            // SilkSchema.g:153:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
+            // SilkSchema.g:154:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
             // SilkSchema.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='.')||input.LA(1)==':'||input.LA(1)=='<'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
@@ -1233,10 +1209,10 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "NonWhiteSpaceChar"
     public final void mNonWhiteSpaceChar() throws RecognitionException {
         try {
-            // SilkSchema.g:156:18: (~ ( UnsafeUnicodeChar | ' ' | '\\t' | '\\u000C' ) )
-            // SilkSchema.g:156:20: ~ ( UnsafeUnicodeChar | ' ' | '\\t' | '\\u000C' )
+            // SilkSchema.g:157:18: (~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' ) )
+            // SilkSchema.g:157:20: ~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' )
             {
-            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u000B')||(input.LA(1)>='\r' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||input.LA(1)=='\u000B'||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
             state.failed=false;
             }
@@ -1260,27 +1236,27 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Symbol;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:159:7: ( ( ':' NonWhiteSpaceChar )=> ':' ( NonWhiteSpaceUnicodeChar )+ )
-            // SilkSchema.g:159:9: ( ':' NonWhiteSpaceChar )=> ':' ( NonWhiteSpaceUnicodeChar )+
+            // SilkSchema.g:160:7: ( ( ':' NonWhiteSpaceChar )=> ':' ( NonWhiteSpaceChar )+ )
+            // SilkSchema.g:160:9: ( ':' NonWhiteSpaceChar )=> ':' ( NonWhiteSpaceChar )+
             {
             match(':'); if (state.failed) return ;
-            // SilkSchema.g:159:41: ( NonWhiteSpaceUnicodeChar )+
+            // SilkSchema.g:160:41: ( NonWhiteSpaceChar )+
             int cnt15=0;
             loop15:
             do {
                 int alt15=2;
                 int LA15_0 = input.LA(1);
 
-                if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\n' && LA15_0<='\u001F')||LA15_0=='!'||(LA15_0>='#' && LA15_0<='[')||(LA15_0>=']' && LA15_0<='\uFFFF')) ) {
+                if ( ((LA15_0>='\u0000' && LA15_0<='\b')||LA15_0=='\u000B'||(LA15_0>='\u000E' && LA15_0<='\u001F')||LA15_0=='!'||LA15_0=='$'||LA15_0=='&'||LA15_0=='+'||(LA15_0>='/' && LA15_0<='9')||LA15_0==';'||LA15_0=='='||LA15_0=='?'||(LA15_0>='A' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) ) {
                     alt15=1;
                 }
 
 
                 switch (alt15) {
             	case 1 :
-            	    // SilkSchema.g:159:41: NonWhiteSpaceUnicodeChar
+            	    // SilkSchema.g:160:41: NonWhiteSpaceChar
             	    {
-            	    mNonWhiteSpaceUnicodeChar(); if (state.failed) return ;
+            	    mNonWhiteSpaceChar(); if (state.failed) return ;
 
             	    }
             	    break;
@@ -1311,8 +1287,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Class;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:161:6: ( 'class' )
-            // SilkSchema.g:161:8: 'class'
+            // SilkSchema.g:162:6: ( 'class' )
+            // SilkSchema.g:162:8: 'class'
             {
             match("class"); if (state.failed) return ;
 
@@ -1332,8 +1308,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Includes;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:162:9: ( 'includes' )
-            // SilkSchema.g:162:11: 'includes'
+            // SilkSchema.g:163:9: ( 'includes' )
+            // SilkSchema.g:163:11: 'includes'
             {
             match("includes"); if (state.failed) return ;
 
@@ -1353,8 +1329,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = End;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:163:4: ( 'end' )
-            // SilkSchema.g:163:6: 'end'
+            // SilkSchema.g:164:4: ( 'end' )
+            // SilkSchema.g:164:6: 'end'
             {
             match("end"); if (state.failed) return ;
 
@@ -1374,8 +1350,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Relation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:164:9: ( 'relation' )
-            // SilkSchema.g:164:11: 'relation'
+            // SilkSchema.g:165:9: ( 'relation' )
+            // SilkSchema.g:165:11: 'relation'
             {
             match("relation"); if (state.failed) return ;
 
@@ -1393,7 +1369,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:166:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // SilkSchema.g:167:25: ( 'A' .. 'Z' | 'a' .. 'z' )
             // SilkSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1418,7 +1394,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:167:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // SilkSchema.g:168:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
             // SilkSchema.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1443,11 +1419,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "ModuleName"
     public final void mModuleName() throws RecognitionException {
         try {
-            // SilkSchema.g:169:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
-            // SilkSchema.g:169:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // SilkSchema.g:170:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
+            // SilkSchema.g:170:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
             {
             mSafeFirstLetter(); if (state.failed) return ;
-            // SilkSchema.g:169:38: ( SafeLetter )*
+            // SilkSchema.g:170:38: ( SafeLetter )*
             loop16:
             do {
                 int alt16=2;
@@ -1460,7 +1436,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // SilkSchema.g:169:38: SafeLetter
+            	    // SilkSchema.g:170:38: SafeLetter
             	    {
             	    mSafeLetter(); if (state.failed) return ;
 
@@ -1472,7 +1448,7 @@ public class SilkSchemaLexer extends Lexer {
                 }
             } while (true);
 
-            // SilkSchema.g:169:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // SilkSchema.g:170:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
             loop18:
             do {
                 int alt18=2;
@@ -1485,11 +1461,11 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // SilkSchema.g:169:51: '.' SafeFirstLetter ( SafeLetter )*
+            	    // SilkSchema.g:170:51: '.' SafeFirstLetter ( SafeLetter )*
             	    {
             	    match('.'); if (state.failed) return ;
             	    mSafeFirstLetter(); if (state.failed) return ;
-            	    // SilkSchema.g:169:71: ( SafeLetter )*
+            	    // SilkSchema.g:170:71: ( SafeLetter )*
             	    loop17:
             	    do {
             	        int alt17=2;
@@ -1502,7 +1478,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt17) {
             	    	case 1 :
-            	    	    // SilkSchema.g:169:71: SafeLetter
+            	    	    // SilkSchema.g:170:71: SafeLetter
             	    	    {
             	    	    mSafeLetter(); if (state.failed) return ;
 
@@ -1539,15 +1515,15 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:170:10: ( 'module' WhiteSpaces s= ModuleName )
-            // SilkSchema.g:170:12: 'module' WhiteSpaces s= ModuleName
+            // SilkSchema.g:171:10: ( 'module' WhiteSpaces s= ModuleName )
+            // SilkSchema.g:171:12: 'module' WhiteSpaces s= ModuleName
             {
             match("module"); if (state.failed) return ;
 
             mWhiteSpaces(); if (state.failed) return ;
-            int sStart703 = getCharIndex();
+            int sStart689 = getCharIndex();
             mModuleName(); if (state.failed) return ;
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart703, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart689, getCharIndex()-1);
             if ( state.backtracking==0 ) {
                setText((s!=null?s.getText():null)); 
             }
@@ -1565,8 +1541,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // SilkSchema.g:172:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
-            // SilkSchema.g:172:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
+            // SilkSchema.g:173:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
+            // SilkSchema.g:173:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1592,10 +1568,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:173:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
-            // SilkSchema.g:173:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
+            // SilkSchema.g:174:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
+            // SilkSchema.g:174:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
             {
-            // SilkSchema.g:173:8: ( QNameChar )+
+            // SilkSchema.g:174:8: ( QNameChar )+
             int cnt19=0;
             loop19:
             do {
@@ -1609,7 +1585,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // SilkSchema.g:173:8: QNameChar
+            	    // SilkSchema.g:174:8: QNameChar
             	    {
             	    mQNameChar(); if (state.failed) return ;
 
@@ -1626,7 +1602,7 @@ public class SilkSchemaLexer extends Lexer {
                 cnt19++;
             } while (true);
 
-            // SilkSchema.g:173:19: ( Dot ( QNameChar )+ )*
+            // SilkSchema.g:174:19: ( Dot ( QNameChar )+ )*
             loop21:
             do {
                 int alt21=2;
@@ -1639,10 +1615,10 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // SilkSchema.g:173:20: Dot ( QNameChar )+
+            	    // SilkSchema.g:174:20: Dot ( QNameChar )+
             	    {
             	    mDot(); if (state.failed) return ;
-            	    // SilkSchema.g:173:24: ( QNameChar )+
+            	    // SilkSchema.g:174:24: ( QNameChar )+
             	    int cnt20=0;
             	    loop20:
             	    do {
@@ -1656,7 +1632,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt20) {
             	    	case 1 :
-            	    	    // SilkSchema.g:173:24: QNameChar
+            	    	    // SilkSchema.g:174:24: QNameChar
             	    	    {
             	    	    mQNameChar(); if (state.failed) return ;
 
@@ -1696,7 +1672,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // SilkSchema.g:176:11: ( ' ' | '\\t' )
+            // SilkSchema.g:177:11: ( ' ' | '\\t' )
             // SilkSchema.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
@@ -1723,10 +1699,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:178:12: ( ( WhiteSpace )+ )
-            // SilkSchema.g:178:14: ( WhiteSpace )+
+            // SilkSchema.g:179:12: ( ( WhiteSpace )+ )
+            // SilkSchema.g:179:14: ( WhiteSpace )+
             {
-            // SilkSchema.g:178:14: ( WhiteSpace )+
+            // SilkSchema.g:179:14: ( WhiteSpace )+
             int cnt22=0;
             loop22:
             do {
@@ -1740,7 +1716,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // SilkSchema.g:178:14: WhiteSpace
+            	    // SilkSchema.g:179:14: WhiteSpace
             	    {
             	    mWhiteSpace(); if (state.failed) return ;
 
@@ -1984,9 +1960,9 @@ public class SilkSchemaLexer extends Lexer {
         "\1\14\5\uffff\1\6\14\uffff\1\25\10\uffff\1\23\5\uffff\1\27\2\uffff"+
         "\1\24\1\26";
     static final String DFA23_specialS =
-        "\1\1\5\uffff\1\2\1\0\5\uffff\1\7\20\uffff\1\6\1\uffff\1\12\10\uffff"+
-        "\1\4\1\uffff\1\5\2\uffff\1\13\11\uffff\1\3\1\14\12\uffff\1\11\1"+
-        "\10\2\uffff}>";
+        "\1\4\5\uffff\1\3\1\10\5\uffff\1\2\20\uffff\1\0\1\uffff\1\11\10"+
+        "\uffff\1\1\1\uffff\1\7\2\uffff\1\5\11\uffff\1\13\1\6\12\uffff\1"+
+        "\14\1\12\2\uffff}>";
     static final String[] DFA23_transitionS = {
             "\11\31\1\32\1\3\2\31\1\3\22\31\1\32\1\31\1\4\1\2\1\31\1\1\1"+
             "\31\1\uffff\1\20\1\21\1\22\1\31\1\17\1\5\1\16\1\31\1\6\11\7"+
@@ -2139,22 +2115,54 @@ public class SilkSchemaLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA23_7 = input.LA(1);
+                        int LA23_30 = input.LA(1);
 
                         s = -1;
-                        if ( (LA23_7=='.') ) {s = 30;}
+                        if ( ((LA23_30>='0' && LA23_30<='9')) ) {s = 41;}
 
-                        else if ( ((LA23_7>='0' && LA23_7<='9')) ) {s = 32;}
+                        else if ( ((LA23_30>='\u0000' && LA23_30<='\b')||(LA23_30>='\u000B' && LA23_30<='\f')||(LA23_30>='\u000E' && LA23_30<='\u001F')||LA23_30=='!'||LA23_30=='$'||LA23_30=='&'||LA23_30=='+'||LA23_30=='/'||LA23_30==';'||LA23_30=='='||LA23_30=='?'||(LA23_30>='A' && LA23_30<='Z')||(LA23_30>='^' && LA23_30<='z')||(LA23_30>='~' && LA23_30<='\uFFFF')) ) {s = 25;}
 
-                        else if ( (LA23_7=='E'||LA23_7=='e') ) {s = 31;}
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA23_41 = input.LA(1);
 
-                        else if ( ((LA23_7>='\u0000' && LA23_7<='\b')||(LA23_7>='\u000B' && LA23_7<='\f')||(LA23_7>='\u000E' && LA23_7<='\u001F')||LA23_7=='!'||LA23_7=='$'||LA23_7=='&'||LA23_7=='+'||LA23_7=='/'||LA23_7==';'||LA23_7=='='||LA23_7=='?'||(LA23_7>='A' && LA23_7<='D')||(LA23_7>='F' && LA23_7<='Z')||(LA23_7>='^' && LA23_7<='d')||(LA23_7>='f' && LA23_7<='z')||(LA23_7>='~' && LA23_7<='\uFFFF')) ) {s = 25;}
+                        s = -1;
+                        if ( ((LA23_41>='\u0000' && LA23_41<='\b')||(LA23_41>='\u000B' && LA23_41<='\f')||(LA23_41>='\u000E' && LA23_41<='\u001F')||LA23_41=='!'||LA23_41=='$'||LA23_41=='&'||LA23_41=='+'||(LA23_41>='.' && LA23_41<='/')||LA23_41==';'||LA23_41=='='||LA23_41=='?'||(LA23_41>='A' && LA23_41<='D')||(LA23_41>='F' && LA23_41<='Z')||(LA23_41>='^' && LA23_41<='d')||(LA23_41>='f' && LA23_41<='z')||(LA23_41>='~' && LA23_41<='\uFFFF')) ) {s = 25;}
+
+                        else if ( (LA23_41=='E'||LA23_41=='e') ) {s = 49;}
+
+                        else if ( ((LA23_41>='0' && LA23_41<='9')) ) {s = 41;}
+
+                        else s = 39;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA23_13 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_13>='\u0000' && LA23_13<='\b')||(LA23_13>='\u000B' && LA23_13<='\f')||(LA23_13>='\u000E' && LA23_13<='\u001F')||LA23_13=='!'||LA23_13=='$'||LA23_13=='&'||LA23_13=='+'||(LA23_13>='.' && LA23_13<='9')||LA23_13==';'||LA23_13=='='||LA23_13=='?'||(LA23_13>='A' && LA23_13<='Z')||(LA23_13>='^' && LA23_13<='z')||(LA23_13>='~' && LA23_13<='\uFFFF')) ) {s = 25;}
+
+                        else s = 33;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA23_6 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA23_6=='.') ) {s = 30;}
+
+                        else if ( (LA23_6=='E'||LA23_6=='e') ) {s = 31;}
+
+                        else if ( ((LA23_6>='\u0000' && LA23_6<='\b')||(LA23_6>='\u000B' && LA23_6<='\f')||(LA23_6>='\u000E' && LA23_6<='\u001F')||LA23_6=='!'||LA23_6=='$'||LA23_6=='&'||LA23_6=='+'||(LA23_6>='/' && LA23_6<='9')||LA23_6==';'||LA23_6=='='||LA23_6=='?'||(LA23_6>='A' && LA23_6<='D')||(LA23_6>='F' && LA23_6<='Z')||(LA23_6>='^' && LA23_6<='d')||(LA23_6>='f' && LA23_6<='z')||(LA23_6>='~' && LA23_6<='\uFFFF')) ) {s = 25;}
 
                         else s = 29;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
+                    case 4 : 
                         int LA23_0 = input.LA(1);
 
                          
@@ -2217,21 +2225,81 @@ public class SilkSchemaLexer extends Lexer {
                         input.seek(index23_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA23_6 = input.LA(1);
+                    case 5 : 
+                        int LA23_46 = input.LA(1);
 
                         s = -1;
-                        if ( (LA23_6=='.') ) {s = 30;}
+                        if ( ((LA23_46>='\u0000' && LA23_46<='\b')||(LA23_46>='\u000B' && LA23_46<='\f')||(LA23_46>='\u000E' && LA23_46<='\u001F')||LA23_46=='!'||LA23_46=='$'||LA23_46=='&'||LA23_46=='+'||(LA23_46>='.' && LA23_46<='9')||LA23_46==';'||LA23_46=='='||LA23_46=='?'||(LA23_46>='A' && LA23_46<='Z')||(LA23_46>='^' && LA23_46<='z')||(LA23_46>='~' && LA23_46<='\uFFFF')) ) {s = 25;}
 
-                        else if ( (LA23_6=='E'||LA23_6=='e') ) {s = 31;}
+                        else s = 52;
 
-                        else if ( ((LA23_6>='\u0000' && LA23_6<='\b')||(LA23_6>='\u000B' && LA23_6<='\f')||(LA23_6>='\u000E' && LA23_6<='\u001F')||LA23_6=='!'||LA23_6=='$'||LA23_6=='&'||LA23_6=='+'||(LA23_6>='/' && LA23_6<='9')||LA23_6==';'||LA23_6=='='||LA23_6=='?'||(LA23_6>='A' && LA23_6<='D')||(LA23_6>='F' && LA23_6<='Z')||(LA23_6>='^' && LA23_6<='d')||(LA23_6>='f' && LA23_6<='z')||(LA23_6>='~' && LA23_6<='\uFFFF')) ) {s = 25;}
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA23_57 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_57>='\u0000' && LA23_57<='\b')||(LA23_57>='\u000B' && LA23_57<='\f')||(LA23_57>='\u000E' && LA23_57<='\u001F')||LA23_57=='!'||LA23_57=='$'||LA23_57=='&'||LA23_57=='+'||(LA23_57>='.' && LA23_57<='9')||LA23_57==';'||LA23_57=='='||LA23_57=='?'||(LA23_57>='A' && LA23_57<='Z')||(LA23_57>='^' && LA23_57<='z')||(LA23_57>='~' && LA23_57<='\uFFFF')) ) {s = 25;}
+
+                        else s = 61;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA23_43 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_43>='0' && LA23_43<='9')) ) {s = 43;}
+
+                        else if ( ((LA23_43>='\u0000' && LA23_43<='\b')||(LA23_43>='\u000B' && LA23_43<='\f')||(LA23_43>='\u000E' && LA23_43<='\u001F')||LA23_43=='!'||LA23_43=='$'||LA23_43=='&'||LA23_43=='+'||(LA23_43>='.' && LA23_43<='/')||LA23_43==';'||LA23_43=='='||LA23_43=='?'||(LA23_43>='A' && LA23_43<='Z')||(LA23_43>='^' && LA23_43<='z')||(LA23_43>='~' && LA23_43<='\uFFFF')) ) {s = 25;}
+
+                        else s = 39;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA23_7 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_7>='0' && LA23_7<='9')) ) {s = 32;}
+
+                        else if ( (LA23_7=='.') ) {s = 30;}
+
+                        else if ( (LA23_7=='E'||LA23_7=='e') ) {s = 31;}
+
+                        else if ( ((LA23_7>='\u0000' && LA23_7<='\b')||(LA23_7>='\u000B' && LA23_7<='\f')||(LA23_7>='\u000E' && LA23_7<='\u001F')||LA23_7=='!'||LA23_7=='$'||LA23_7=='&'||LA23_7=='+'||LA23_7=='/'||LA23_7==';'||LA23_7=='='||LA23_7=='?'||(LA23_7>='A' && LA23_7<='D')||(LA23_7>='F' && LA23_7<='Z')||(LA23_7>='^' && LA23_7<='d')||(LA23_7>='f' && LA23_7<='z')||(LA23_7>='~' && LA23_7<='\uFFFF')) ) {s = 25;}
 
                         else s = 29;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
+                    case 9 : 
+                        int LA23_32 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA23_32=='.') ) {s = 30;}
+
+                        else if ( (LA23_32=='E'||LA23_32=='e') ) {s = 31;}
+
+                        else if ( ((LA23_32>='0' && LA23_32<='9')) ) {s = 32;}
+
+                        else if ( ((LA23_32>='\u0000' && LA23_32<='\b')||(LA23_32>='\u000B' && LA23_32<='\f')||(LA23_32>='\u000E' && LA23_32<='\u001F')||LA23_32=='!'||LA23_32=='$'||LA23_32=='&'||LA23_32=='+'||LA23_32=='/'||LA23_32==';'||LA23_32=='='||LA23_32=='?'||(LA23_32>='A' && LA23_32<='D')||(LA23_32>='F' && LA23_32<='Z')||(LA23_32>='^' && LA23_32<='d')||(LA23_32>='f' && LA23_32<='z')||(LA23_32>='~' && LA23_32<='\uFFFF')) ) {s = 25;}
+
+                        else s = 29;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA23_69 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_69>='\u0000' && LA23_69<='\b')||(LA23_69>='\u000B' && LA23_69<='\f')||(LA23_69>='\u000E' && LA23_69<='\u001F')||LA23_69=='!'||LA23_69=='$'||LA23_69=='&'||LA23_69=='+'||(LA23_69>='.' && LA23_69<='9')||LA23_69==';'||LA23_69=='='||LA23_69=='?'||(LA23_69>='A' && LA23_69<='Z')||(LA23_69>='^' && LA23_69<='z')||(LA23_69>='~' && LA23_69<='\uFFFF')) ) {s = 25;}
+
+                        else s = 71;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
                         int LA23_56 = input.LA(1);
 
                         s = -1;
@@ -2243,105 +2311,13 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
-                        int LA23_41 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA23_41=='E'||LA23_41=='e') ) {s = 49;}
-
-                        else if ( ((LA23_41>='0' && LA23_41<='9')) ) {s = 41;}
-
-                        else if ( ((LA23_41>='\u0000' && LA23_41<='\b')||(LA23_41>='\u000B' && LA23_41<='\f')||(LA23_41>='\u000E' && LA23_41<='\u001F')||LA23_41=='!'||LA23_41=='$'||LA23_41=='&'||LA23_41=='+'||(LA23_41>='.' && LA23_41<='/')||LA23_41==';'||LA23_41=='='||LA23_41=='?'||(LA23_41>='A' && LA23_41<='D')||(LA23_41>='F' && LA23_41<='Z')||(LA23_41>='^' && LA23_41<='d')||(LA23_41>='f' && LA23_41<='z')||(LA23_41>='~' && LA23_41<='\uFFFF')) ) {s = 25;}
-
-                        else s = 39;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA23_43 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_43>='\u0000' && LA23_43<='\b')||(LA23_43>='\u000B' && LA23_43<='\f')||(LA23_43>='\u000E' && LA23_43<='\u001F')||LA23_43=='!'||LA23_43=='$'||LA23_43=='&'||LA23_43=='+'||(LA23_43>='.' && LA23_43<='/')||LA23_43==';'||LA23_43=='='||LA23_43=='?'||(LA23_43>='A' && LA23_43<='Z')||(LA23_43>='^' && LA23_43<='z')||(LA23_43>='~' && LA23_43<='\uFFFF')) ) {s = 25;}
-
-                        else if ( ((LA23_43>='0' && LA23_43<='9')) ) {s = 43;}
-
-                        else s = 39;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA23_30 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_30>='0' && LA23_30<='9')) ) {s = 41;}
-
-                        else if ( ((LA23_30>='\u0000' && LA23_30<='\b')||(LA23_30>='\u000B' && LA23_30<='\f')||(LA23_30>='\u000E' && LA23_30<='\u001F')||LA23_30=='!'||LA23_30=='$'||LA23_30=='&'||LA23_30=='+'||LA23_30=='/'||LA23_30==';'||LA23_30=='='||LA23_30=='?'||(LA23_30>='A' && LA23_30<='Z')||(LA23_30>='^' && LA23_30<='z')||(LA23_30>='~' && LA23_30<='\uFFFF')) ) {s = 25;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA23_13 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_13>='\u0000' && LA23_13<='\b')||(LA23_13>='\u000B' && LA23_13<='\f')||(LA23_13>='\u000E' && LA23_13<='\u001F')||LA23_13=='!'||LA23_13=='$'||LA23_13=='&'||LA23_13=='+'||(LA23_13>='.' && LA23_13<='9')||LA23_13==';'||LA23_13=='='||LA23_13=='?'||(LA23_13>='A' && LA23_13<='Z')||(LA23_13>='^' && LA23_13<='z')||(LA23_13>='~' && LA23_13<='\uFFFF')) ) {s = 25;}
-
-                        else s = 33;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA23_69 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_69>='\u0000' && LA23_69<='\b')||(LA23_69>='\u000B' && LA23_69<='\f')||(LA23_69>='\u000E' && LA23_69<='\u001F')||LA23_69=='!'||LA23_69=='$'||LA23_69=='&'||LA23_69=='+'||(LA23_69>='.' && LA23_69<='9')||LA23_69==';'||LA23_69=='='||LA23_69=='?'||(LA23_69>='A' && LA23_69<='Z')||(LA23_69>='^' && LA23_69<='z')||(LA23_69>='~' && LA23_69<='\uFFFF')) ) {s = 25;}
-
-                        else s = 71;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
+                    case 12 : 
                         int LA23_68 = input.LA(1);
 
                         s = -1;
                         if ( ((LA23_68>='\u0000' && LA23_68<='\b')||(LA23_68>='\u000B' && LA23_68<='\f')||(LA23_68>='\u000E' && LA23_68<='\u001F')||LA23_68=='!'||LA23_68=='$'||LA23_68=='&'||LA23_68=='+'||(LA23_68>='.' && LA23_68<='9')||LA23_68==';'||LA23_68=='='||LA23_68=='?'||(LA23_68>='A' && LA23_68<='Z')||(LA23_68>='^' && LA23_68<='z')||(LA23_68>='~' && LA23_68<='\uFFFF')) ) {s = 25;}
 
                         else s = 70;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA23_32 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_32>='0' && LA23_32<='9')) ) {s = 32;}
-
-                        else if ( (LA23_32=='.') ) {s = 30;}
-
-                        else if ( (LA23_32=='E'||LA23_32=='e') ) {s = 31;}
-
-                        else if ( ((LA23_32>='\u0000' && LA23_32<='\b')||(LA23_32>='\u000B' && LA23_32<='\f')||(LA23_32>='\u000E' && LA23_32<='\u001F')||LA23_32=='!'||LA23_32=='$'||LA23_32=='&'||LA23_32=='+'||LA23_32=='/'||LA23_32==';'||LA23_32=='='||LA23_32=='?'||(LA23_32>='A' && LA23_32<='D')||(LA23_32>='F' && LA23_32<='Z')||(LA23_32>='^' && LA23_32<='d')||(LA23_32>='f' && LA23_32<='z')||(LA23_32>='~' && LA23_32<='\uFFFF')) ) {s = 25;}
-
-                        else s = 29;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA23_46 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_46>='\u0000' && LA23_46<='\b')||(LA23_46>='\u000B' && LA23_46<='\f')||(LA23_46>='\u000E' && LA23_46<='\u001F')||LA23_46=='!'||LA23_46=='$'||LA23_46=='&'||LA23_46=='+'||(LA23_46>='.' && LA23_46<='9')||LA23_46==';'||LA23_46=='='||LA23_46=='?'||(LA23_46>='A' && LA23_46<='Z')||(LA23_46>='^' && LA23_46<='z')||(LA23_46>='~' && LA23_46<='\uFFFF')) ) {s = 25;}
-
-                        else s = 52;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA23_57 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_57>='\u0000' && LA23_57<='\b')||(LA23_57>='\u000B' && LA23_57<='\f')||(LA23_57>='\u000E' && LA23_57<='\u001F')||LA23_57=='!'||LA23_57=='$'||LA23_57=='&'||LA23_57=='+'||(LA23_57>='.' && LA23_57<='9')||LA23_57==';'||LA23_57=='='||LA23_57=='?'||(LA23_57>='A' && LA23_57<='Z')||(LA23_57>='^' && LA23_57<='z')||(LA23_57>='~' && LA23_57<='\uFFFF')) ) {s = 25;}
-
-                        else s = 61;
 
                         if ( s>=0 ) return s;
                         break;
