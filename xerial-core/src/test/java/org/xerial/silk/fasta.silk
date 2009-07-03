@@ -1,0 +1,28 @@
+
+-group:A 
+
+ -name:s1.b1
+  -sequence>
+ACCTTTTCTTAGGG
+ACCGGg
+
+
+ -name:s1.g1
+  -info
+   -link: http://werwwerw/
+   -sequence>
+AACCCCCCCCCTTTTTTTTT
+
+-group: B
+ -name:s2.b1
+  -info
+   -link: http://werwwerw/
+   -sequence>
+AACCCCCCCCCTTTTTTTTT
+
+
+
+
+
+
+
