@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g 2009-01-30 21:13:12
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 InLineJSON.g 2009-07-03 13:56:28
 
 //--------------------------------------
 // XerialJ Project
@@ -54,15 +54,15 @@ public class InLineJSONLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g"; }
+    public String getGrammarFileName() { return "InLineJSON.g"; }
 
     // $ANTLR start "T__23"
     public final void mT__23() throws RecognitionException {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:21:7: ( 'true' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:21:9: 'true'
+            // InLineJSON.g:21:7: ( 'true' )
+            // InLineJSON.g:21:9: 'true'
             {
             match("true"); 
 
@@ -82,8 +82,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:22:7: ( 'false' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:22:9: 'false'
+            // InLineJSON.g:22:7: ( 'false' )
+            // InLineJSON.g:22:9: 'false'
             {
             match("false"); 
 
@@ -103,8 +103,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:23:7: ( 'null' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:23:9: 'null'
+            // InLineJSON.g:23:7: ( 'null' )
+            // InLineJSON.g:23:9: 'null'
             {
             match("null"); 
 
@@ -124,8 +124,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = WhiteSpace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:61:11: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:61:13: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+            // InLineJSON.g:61:11: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
+            // InLineJSON.g:61:13: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -151,8 +151,8 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:63:15: ( '0' .. '9' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:63:17: '0' .. '9'
+            // InLineJSON.g:63:15: ( '0' .. '9' )
+            // InLineJSON.g:63:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -167,8 +167,8 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:64:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:
+            // InLineJSON.g:64:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // InLineJSON.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -191,8 +191,8 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:65:18: ( Digit | Letter )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:
+            // InLineJSON.g:65:18: ( Digit | Letter )
+            // InLineJSON.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -215,8 +215,8 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:66:21: (~ ( '\"' | '\\\\' ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:66:23: ~ ( '\"' | '\\\\' )
+            // InLineJSON.g:66:21: (~ ( '\"' | '\\\\' ) )
+            // InLineJSON.g:66:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -239,11 +239,11 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // InLineJSON.g:68:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // InLineJSON.g:68:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // InLineJSON.g:68:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt1=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -300,63 +300,63 @@ public class InLineJSONLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:10: '\\\"'
+                    // InLineJSON.g:68:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:17: '\\\\'
+                    // InLineJSON.g:68:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:24: '/'
+                    // InLineJSON.g:68:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:30: 'b'
+                    // InLineJSON.g:68:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:36: 'f'
+                    // InLineJSON.g:68:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:42: 'n'
+                    // InLineJSON.g:68:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:48: 'r'
+                    // InLineJSON.g:68:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:54: 't'
+                    // InLineJSON.g:68:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:68:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // InLineJSON.g:68:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -381,7 +381,7 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:71:21: ( UnicodeChar | EscapeSequence )
+            // InLineJSON.g:71:21: ( UnicodeChar | EscapeSequence )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -399,14 +399,14 @@ public class InLineJSONLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:71:24: UnicodeChar
+                    // InLineJSON.g:71:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:71:38: EscapeSequence
+                    // InLineJSON.g:71:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -423,10 +423,10 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:73:22: ( ( StringChar )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:73:24: ( StringChar )*
+            // InLineJSON.g:73:22: ( ( StringChar )* )
+            // InLineJSON.g:73:24: ( StringChar )*
             {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:73:24: ( StringChar )*
+            // InLineJSON.g:73:24: ( StringChar )*
             loop3:
             do {
                 int alt3=2;
@@ -439,7 +439,7 @@ public class InLineJSONLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:73:24: StringChar
+            	    // InLineJSON.g:73:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -467,8 +467,8 @@ public class InLineJSONLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:74:7: ( '\"' s= StringChar_s '\"' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:74:9: '\"' s= StringChar_s '\"'
+            // InLineJSON.g:74:7: ( '\"' s= StringChar_s '\"' )
+            // InLineJSON.g:74:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart239 = getCharIndex();
@@ -492,8 +492,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:77:6: ( ':' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:77:8: ':'
+            // InLineJSON.g:77:6: ( ':' )
+            // InLineJSON.g:77:8: ':'
             {
             match(':'); 
 
@@ -512,8 +512,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:78:6: ( ',' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:78:8: ','
+            // InLineJSON.g:78:6: ( ',' )
+            // InLineJSON.g:78:8: ','
             {
             match(','); 
 
@@ -532,10 +532,10 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // InLineJSON.g:79:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // InLineJSON.g:79:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:10: ( '-' )?
+            // InLineJSON.g:79:10: ( '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -544,7 +544,7 @@ public class InLineJSONLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:10: '-'
+                    // InLineJSON.g:79:10: '-'
                     {
                     match('-'); 
 
@@ -553,7 +553,7 @@ public class InLineJSONLexer extends Lexer {
 
             }
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:15: ( '0' | '1' .. '9' ( Digit )* )
+            // InLineJSON.g:79:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -571,17 +571,17 @@ public class InLineJSONLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:16: '0'
+                    // InLineJSON.g:79:16: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:22: '1' .. '9' ( Digit )*
+                    // InLineJSON.g:79:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); 
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:31: ( Digit )*
+                    // InLineJSON.g:79:31: ( Digit )*
                     loop5:
                     do {
                         int alt5=2;
@@ -594,7 +594,7 @@ public class InLineJSONLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:79:31: Digit
+                    	    // InLineJSON.g:79:31: Digit
                     	    {
                     	    mDigit(); 
 
@@ -626,11 +626,11 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:80:14: ( '.' ( Digit )+ )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:80:16: '.' ( Digit )+
+            // InLineJSON.g:80:14: ( '.' ( Digit )+ )
+            // InLineJSON.g:80:16: '.' ( Digit )+
             {
             match('.'); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:80:20: ( Digit )+
+            // InLineJSON.g:80:20: ( Digit )+
             int cnt7=0;
             loop7:
             do {
@@ -644,7 +644,7 @@ public class InLineJSONLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:80:20: Digit
+            	    // InLineJSON.g:80:20: Digit
             	    {
             	    mDigit(); 
 
@@ -672,8 +672,8 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:81:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:81:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // InLineJSON.g:81:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // InLineJSON.g:81:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -684,7 +684,7 @@ public class InLineJSONLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:81:27: ( '+' | '-' )?
+            // InLineJSON.g:81:27: ( '+' | '-' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -693,7 +693,7 @@ public class InLineJSONLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:
+                    // InLineJSON.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -710,7 +710,7 @@ public class InLineJSONLexer extends Lexer {
 
             }
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:81:40: ( Digit )+
+            // InLineJSON.g:81:40: ( Digit )+
             int cnt9=0;
             loop9:
             do {
@@ -724,7 +724,7 @@ public class InLineJSONLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:81:40: Digit
+            	    // InLineJSON.g:81:40: Digit
             	    {
             	    mDigit(); 
 
@@ -754,11 +754,11 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:9: Integer ( Frac ( Exp )? | Exp )
+            // InLineJSON.g:82:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // InLineJSON.g:82:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:17: ( Frac ( Exp )? | Exp )
+            // InLineJSON.g:82:17: ( Frac ( Exp )? | Exp )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -776,10 +776,10 @@ public class InLineJSONLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:18: Frac ( Exp )?
+                    // InLineJSON.g:82:18: Frac ( Exp )?
                     {
                     mFrac(); 
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:23: ( Exp )?
+                    // InLineJSON.g:82:23: ( Exp )?
                     int alt10=2;
                     int LA10_0 = input.LA(1);
 
@@ -788,7 +788,7 @@ public class InLineJSONLexer extends Lexer {
                     }
                     switch (alt10) {
                         case 1 :
-                            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:23: Exp
+                            // InLineJSON.g:82:23: Exp
                             {
                             mExp(); 
 
@@ -801,7 +801,7 @@ public class InLineJSONLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:82:30: Exp
+                    // InLineJSON.g:82:30: Exp
                     {
                     mExp(); 
 
@@ -826,8 +826,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = LBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:84:7: ( '{' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:84:9: '{'
+            // InLineJSON.g:84:7: ( '{' )
+            // InLineJSON.g:84:9: '{'
             {
             match('{'); 
              nesting++; 
@@ -847,8 +847,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = RBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:85:7: ( '}' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:85:9: '}'
+            // InLineJSON.g:85:7: ( '}' )
+            // InLineJSON.g:85:9: '}'
             {
             match('}'); 
              nesting--; if (nesting<=0) { emit(Token.EOF_TOKEN); } 
@@ -868,8 +868,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:86:9: ( '[' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:86:11: '['
+            // InLineJSON.g:86:9: ( '[' )
+            // InLineJSON.g:86:11: '['
             {
             match('['); 
              nesting++; 
@@ -889,8 +889,8 @@ public class InLineJSONLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:87:9: ( ']' )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:87:11: ']'
+            // InLineJSON.g:87:9: ( ']' )
+            // InLineJSON.g:87:11: ']'
             {
             match(']'); 
              nesting--; if (nesting<=0) { emit(Token.EOF_TOKEN); } 
@@ -906,96 +906,96 @@ public class InLineJSONLexer extends Lexer {
     // $ANTLR end "RBracket"
 
     public void mTokens() throws RecognitionException {
-        // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:8: ( T__23 | T__24 | T__25 | WhiteSpace | String | Colon | Comma | Integer | Double | LBrace | RBrace | LBracket | RBracket )
+        // InLineJSON.g:1:8: ( T__23 | T__24 | T__25 | WhiteSpace | String | Colon | Comma | Integer | Double | LBrace | RBrace | LBracket | RBracket )
         int alt12=13;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:10: T__23
+                // InLineJSON.g:1:10: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
             case 2 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:16: T__24
+                // InLineJSON.g:1:16: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
             case 3 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:22: T__25
+                // InLineJSON.g:1:22: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
             case 4 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:28: WhiteSpace
+                // InLineJSON.g:1:28: WhiteSpace
                 {
                 mWhiteSpace(); 
 
                 }
                 break;
             case 5 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:39: String
+                // InLineJSON.g:1:39: String
                 {
                 mString(); 
 
                 }
                 break;
             case 6 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:46: Colon
+                // InLineJSON.g:1:46: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 7 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:52: Comma
+                // InLineJSON.g:1:52: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 8 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:58: Integer
+                // InLineJSON.g:1:58: Integer
                 {
                 mInteger(); 
 
                 }
                 break;
             case 9 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:66: Double
+                // InLineJSON.g:1:66: Double
                 {
                 mDouble(); 
 
                 }
                 break;
             case 10 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:73: LBrace
+                // InLineJSON.g:1:73: LBrace
                 {
                 mLBrace(); 
 
                 }
                 break;
             case 11 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:80: RBrace
+                // InLineJSON.g:1:80: RBrace
                 {
                 mRBrace(); 
 
                 }
                 break;
             case 12 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:87: LBracket
+                // InLineJSON.g:1:87: LBracket
                 {
                 mLBracket(); 
 
                 }
                 break;
             case 13 :
-                // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:1:96: RBracket
+                // InLineJSON.g:1:96: RBracket
                 {
                 mRBracket(); 
 

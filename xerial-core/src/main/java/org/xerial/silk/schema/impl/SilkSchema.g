@@ -28,7 +28,14 @@ options
   output=AST;
 }
 tokens {
-Schema;
+  Module;
+  ClassDef;
+  Name;
+  Parent;
+  Mixin;
+  Attribute;
+  IsArray;
+  TypeName;
 }
 
 
@@ -90,26 +97,27 @@ package org.xerial.silk.schema.impl;
 }
 
 @lexer::members {
-
   
 }
  
 
 // lexer rules
 
+// preamble
+Preamble: { getCharPositionInLine() == 0 }? => '%' ~(LineBreakChar)*; 
 
 // Line Comment
 fragment LineBreakChar: '\n' | '\r'; // r: <CR> n : <LF>
-LineComment: '#' ~(LineBreakChar)* { $channel=HIDDEN; };
+LineComment: '#' ~(LineBreakChar)* { $channel = HIDDEN; };
 
 
-LineBreak: ('\r' '\n' | '\r' | '\n' ); 
-WhiteSpace: (' ' | '\r' | '\t' | '\u000C' | '\n') { $channel=HIDDEN; };
+LineBreak: ('\r' '\n' | '\r' | '\n' ) { $channel = HIDDEN; }; 
+
 
 fragment Digit: '0' .. '9';
 fragment Letter: 'A' .. 'F' | 'a' .. 'f';
 fragment HexDigit: Digit | Letter;
-fragment NonWhiteUnicodeChar: ~('"' | '\\' | 
+fragment NonWhiteSpaceUnicodeChar: ~('"' | '\\' | WhiteSpace); 
 fragment UnicodeChar: ~('"'| '\\');
 fragment EscapeSequence
   : '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
@@ -121,7 +129,6 @@ fragment StringChar_s: StringChar*;
 String: '"' s=StringChar_s '"' { setText($s.text); };
 
 
-Comma: ',';
 Integer: '-'? ('0' | '1'..'9' Digit*);
 fragment Frac: '.' Digit+;
 fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
@@ -134,53 +141,81 @@ RBracket: ']' ;
 
 Lt: '<';
 Eq: '=';
+Dot: '.';
+Comma: ',';
 
-LParen: '(';
+LParen: '(';  
 RParen: ')';
 
 Star: '*';
 
 fragment
-UnsafeUnicodeChar: '(' | ')' | [' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
+UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-';	
 
-fragment:
-NonWhiteSpaceChar: ~(UnsafeUncodeChar | WhiteSpace);
+fragment
+NonWhiteSpaceChar: ~(UnsafeUnicodeChar | ' ' | '\t' | '\u000C');
 
 
-Symbol: { ':' NonWhiteSpaceChar} =>  ':' NonWhiteSpaceChar+ ;
+Symbol: (':' NonWhiteSpaceChar) =>  ':' NonWhiteSpaceUnicodeChar+ ;
 
 Class: 'class';
 Includes: 'includes';
 End: 'end';
+Relation: 'relation';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
 
-ModuleDef: 'module' WhiteSpace* SafeFistLetter SafeLetter* ('.' SafeFirstLetter SafeLetter)*; 
+fragment ModuleName: SafeFirstLetter SafeLetter* ('.' SafeFirstLetter SafeLetter*)*; 
+ModuleDef: 'module' WhiteSpaces s=ModuleName { setText($s.text); }; 
 
-QName: ~(UnsafeUnicodeChar | WhiteSpace);
+fragment QNameChar: ~(LineBreakChar | UnsafeUnicodeChar | WhiteSpace);
+QName: QNameChar+ (Dot QNameChar+)*;
 
+fragment 
+WhiteSpace: ' ' | '\t';
+ 
+WhiteSpaces: WhiteSpace+ { $channel = HIDDEN; }; 
 
+ 
 // parser rules 
-
+ 
 schema
-  : (classDefinition | moduleDefinition )*
+  : preamble? (classDefinition | moduleDefinition )*
   ;  
-  
+
 moduleDefinition:
-	ModuleDef LineBreak 
+	ModuleDef classDefinition* End 
+	-> ^(Module Name[$ModuleDef.text] classDefinition*)
 	;  
   
-classDefinition 
-  :  Class LineBreak
-      ((includeStatment | attributes) LineBreak)* 
-     End LineBreak
+classDefinition
+  : Class QName classBody End -> ^(ClassDef Name[$QName.text] classBody)
+  | Relation QName classBody End -> ^(Relation Name[$QName.text] classBody)
   ; 
   
-includeStatement: Includes QName (',' QName);   
+classBody: inheritance? (includeStatement | attributes)*;
+  
+fragment inheritance: Lt QName -> Parent[$QName.text];
+  
+fragment includeStatement: Includes includeItem (Comma includeItem)* -> includeItem+;
+
+fragment includeItem: QName -> Mixin[$QName.text];
+
+
+fragment attributes: attribute (Comma attribute)* 
+  -> attribute+
+  ; 
 	
+fragment attribute:
+  attributeType? Symbol 
+  -> ^(Attribute Name[$Symbol.text] attributeType?)  
+  ; 
 
+  
+fragment attributeType
+  : QName -> TypeName[$QName.text] 
+  | QName Star -> TypeName[$QName.text] IsArray["true"]
+  ;
 
-
-
-
+  

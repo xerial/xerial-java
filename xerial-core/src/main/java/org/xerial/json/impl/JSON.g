@@ -28,7 +28,7 @@ options
 	output=AST;
 //	charVocabulary='\u0000'..'\uFFFE';
 }
-  
+   
 tokens
 {
 	OBJECT;

@@ -185,7 +185,7 @@ RParen:	')' { transit(Symbol.LeaveParen); };
 Comma: 	','; 
 Colon:	':' { transit(Symbol.Colon); } ;
 
-
+ 
 Seq: 	'>';
 TabSeq:	'|';
 Star: 	'*';

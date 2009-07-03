@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2008-10-06 10:58:13
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2009-07-03 13:39:52
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -19,49 +19,49 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DTDLexer extends Lexer {
-    public static final int CharRef=26;
-    public static final int T__29=29;
+    public static final int T__42=42;
     public static final int DefaultDecl=27;
     public static final int Apos=10;
-    public static final int EOF=-1;
-    public static final int AttValue=24;
-    public static final int ML_COMMENT=6;
-    public static final int Digits=18;
-    public static final int WhiteSpaceChar=20;
-    public static final int Reference=23;
-    public static final int Quot=11;
-    public static final int T__42=42;
+    public static final int Digit=17;
     public static final int SemiColon=13;
-    public static final int T__43=43;
-    public static final int RParen=15;
-    public static final int T__40=40;
-    public static final int T__41=41;
+    public static final int NUMBER=4;
+    public static final int AttValue=24;
+    public static final int T__39=39;
+    public static final int Letter=16;
+    public static final int T__30=30;
+    public static final int Comma=9;
     public static final int T__46=46;
-    public static final int T__44=44;
+    public static final int Dot=12;
+    public static final int ML_COMMENT=6;
+    public static final int T__34=34;
+    public static final int Colon=8;
+    public static final int EntityRef=25;
     public static final int At=7;
+    public static final int T__35=35;
+    public static final int NameChar=19;
+    public static final int T__36=36;
+    public static final int STRING=5;
+    public static final int T__44=44;
+    public static final int RParen=15;
+    public static final int StringLiteral=21;
+    public static final int T__33=33;
+    public static final int Name=22;
+    public static final int T__29=29;
     public static final int T__45=45;
     public static final int LParen=14;
-    public static final int NUMBER=4;
-    public static final int NameChar=19;
-    public static final int Colon=8;
-    public static final int Digit=17;
-    public static final int EntityRef=25;
-    public static final int StringLiteral=21;
-    public static final int T__30=30;
+    public static final int CharRef=26;
+    public static final int T__43=43;
     public static final int T__31=31;
+    public static final int T__40=40;
+    public static final int EOF=-1;
+    public static final int WhiteSpaceChar=20;
+    public static final int Reference=23;
     public static final int T__32=32;
-    public static final int T__33=33;
-    public static final int T__34=34;
-    public static final int T__35=35;
-    public static final int T__36=36;
-    public static final int T__37=37;
     public static final int T__38=38;
-    public static final int T__39=39;
-    public static final int Dot=12;
-    public static final int Name=22;
-    public static final int Comma=9;
-    public static final int Letter=16;
-    public static final int STRING=5;
+    public static final int T__37=37;
+    public static final int Quot=11;
+    public static final int Digits=18;
+    public static final int T__41=41;
     public static final int Element=28;
 
     // delegates
@@ -75,15 +75,15 @@ public class DTDLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g"; }
+    public String getGrammarFileName() { return "D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g"; }
 
     // $ANTLR start "T__29"
     public final void mT__29() throws RecognitionException {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:7: ( '>' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:9: '>'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:7: ( '>' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:9: '>'
             {
             match('>'); 
 
@@ -102,8 +102,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:7: ( 'EMPTY' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:9: 'EMPTY'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:7: ( 'EMPTY' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:9: 'EMPTY'
             {
             match("EMPTY"); 
 
@@ -123,8 +123,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:7: ( 'ANY' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:9: 'ANY'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:7: ( 'ANY' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:9: 'ANY'
             {
             match("ANY"); 
 
@@ -144,8 +144,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:7: ( '?' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:9: '?'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:7: ( '?' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:9: '?'
             {
             match('?'); 
 
@@ -164,8 +164,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:7: ( '*' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:9: '*'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:7: ( '*' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:9: '*'
             {
             match('*'); 
 
@@ -184,8 +184,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:7: ( '+' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:9: '+'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:7: ( '+' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:9: '+'
             {
             match('+'); 
 
@@ -204,8 +204,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:7: ( '|' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:9: '|'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:7: ( '|' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:9: '|'
             {
             match('|'); 
 
@@ -224,8 +224,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:7: ( '#PCDATA' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:9: '#PCDATA'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:7: ( '#PCDATA' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:9: '#PCDATA'
             {
             match("#PCDATA"); 
 
@@ -245,8 +245,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:7: ( '<!ATTLIST' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:9: '<!ATTLIST'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:7: ( '<!ATTLIST' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:9: '<!ATTLIST'
             {
             match("<!ATTLIST"); 
 
@@ -266,8 +266,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:7: ( 'NOTATION' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:9: 'NOTATION'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:7: ( 'NOTATION' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:9: 'NOTATION'
             {
             match("NOTATION"); 
 
@@ -287,8 +287,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:7: ( 'CDATA' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:9: 'CDATA'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:7: ( 'CDATA' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:9: 'CDATA'
             {
             match("CDATA"); 
 
@@ -308,8 +308,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:7: ( 'ID' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:9: 'ID'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:7: ( 'ID' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:9: 'ID'
             {
             match("ID"); 
 
@@ -329,8 +329,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:7: ( 'IDREF' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:9: 'IDREF'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:7: ( 'IDREF' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:9: 'IDREF'
             {
             match("IDREF"); 
 
@@ -350,8 +350,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:7: ( 'IDREFS' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:9: 'IDREFS'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:7: ( 'IDREFS' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:9: 'IDREFS'
             {
             match("IDREFS"); 
 
@@ -371,8 +371,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:7: ( 'ENTITY' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:9: 'ENTITY'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:7: ( 'ENTITY' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:9: 'ENTITY'
             {
             match("ENTITY"); 
 
@@ -392,8 +392,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:7: ( 'ENTITIES' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:9: 'ENTITIES'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:7: ( 'ENTITIES' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:9: 'ENTITIES'
             {
             match("ENTITIES"); 
 
@@ -413,8 +413,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:7: ( 'NMTOKEN' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:9: 'NMTOKEN'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:7: ( 'NMTOKEN' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:9: 'NMTOKEN'
             {
             match("NMTOKEN"); 
 
@@ -434,8 +434,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:7: ( 'NMTOKENS' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:9: 'NMTOKENS'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:7: ( 'NMTOKENS' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:9: 'NMTOKENS'
             {
             match("NMTOKENS"); 
 
@@ -455,12 +455,12 @@ public class DTDLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             match("<!--"); 
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:16: ( options {greedy=false; } : . )*
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:16: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -494,7 +494,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:43: .
+            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:43: .
             	    {
             	    matchAny(); 
 
@@ -525,8 +525,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:3: ( '@' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:5: '@'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:3: ( '@' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:5: '@'
             {
             match('@'); 
 
@@ -545,8 +545,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:6: ( ':' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:8: ':'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:6: ( ':' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:8: ':'
             {
             match(':'); 
 
@@ -565,8 +565,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:6: ( ',' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:8: ','
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:6: ( ',' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:8: ','
             {
             match(','); 
 
@@ -585,8 +585,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Apos;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:5: ( '\\'' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:7: '\\''
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:5: ( '\\'' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:7: '\\''
             {
             match('\''); 
 
@@ -605,8 +605,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Quot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:5: ( '\"' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:7: '\"'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:5: ( '\"' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:7: '\"'
             {
             match('\"'); 
 
@@ -625,8 +625,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:4: ( '.' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:6: '.'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:4: ( '.' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:6: '.'
             {
             match('.'); 
 
@@ -645,8 +645,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = SemiColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:10: ( ';' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:12: ';'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:10: ( ';' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:12: ';'
             {
             match(';'); 
 
@@ -665,8 +665,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:7: ( '(' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:9: '('
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:7: ( '(' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:9: '('
             {
             match('('); 
 
@@ -685,8 +685,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:7: ( ')' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:9: ')'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:7: ( ')' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:9: ')'
             {
             match(')'); 
 
@@ -703,8 +703,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:84:16: ( 'a' .. 'z' | 'A' .. 'Z' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:84:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -727,8 +727,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:15: ( '0' .. '9' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:17: '0' .. '9'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:15: ( '0' .. '9' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -745,10 +745,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:7: ( ( Digit )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:7: ( ( Digit )+ )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -762,7 +762,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:10: Digit
+            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:10: Digit
             	    {
             	    mDigit(); 
 
@@ -792,8 +792,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:88:18: ( Letter | Digit | '_' | '-' | At )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:88:18: ( Letter | Digit | '_' | '-' | At )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='@' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -818,10 +818,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -835,7 +835,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -876,7 +876,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -894,10 +894,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:3: Quot (~ '\"' )* Quot
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:3: Quot (~ '\"' )* Quot
                     {
                     mQuot(); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:9: (~ '\"' )*
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:8: (~ '\"' )*
                     loop4:
                     do {
                         int alt4=2;
@@ -910,7 +910,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:10: ~ '\"'
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:9: ~ '\"'
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -935,10 +935,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:3: Apos (~ '\\'' )* Apos
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:3: Apos (~ '\\'' )* Apos
                     {
                     mApos(); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:9: (~ '\\'' )*
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:8: (~ '\\'' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -951,7 +951,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:10: ~ '\\''
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:9: ~ '\\''
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -990,8 +990,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:5: ( ( Letter | '_' ) ( NameChar )* )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:7: ( Letter | '_' ) ( NameChar )*
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:5: ( ( Letter | '_' ) ( NameChar )* )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:7: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1002,7 +1002,7 @@ public class DTDLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: ( NameChar )*
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: ( NameChar )*
             loop7:
             do {
                 int alt7=2;
@@ -1015,7 +1015,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: NameChar
+            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: NameChar
             	    {
             	    mNameChar(); 
 
@@ -1041,7 +1041,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "AttValue"
     public final void mAttValue() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:99:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:99:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1059,10 +1059,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
                     {
                     mQuot(); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:10: (~ ( '<' | '&' | Quot ) | Reference )*
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:10: (~ ( '<' | '&' | Quot ) | Reference )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1078,7 +1078,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:11: ~ ( '<' | '&' | Quot )
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:11: ~ ( '<' | '&' | Quot )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1093,7 +1093,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:33: Reference
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:33: Reference
                     	    {
                     	    mReference(); 
 
@@ -1110,10 +1110,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
                     {
                     mApos(); 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:12: (~ ( '<' | '&' | Apos ) | Reference )*
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:12: (~ ( '<' | '&' | Apos ) | Reference )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1129,7 +1129,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:13: ~ ( '<' | '&' | Apos )
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:13: ~ ( '<' | '&' | Apos )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1144,7 +1144,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:35: Reference
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:35: Reference
                     	    {
                     	    mReference(); 
 
@@ -1173,7 +1173,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Reference;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:10: ( EntityRef | CharRef )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:10: ( EntityRef | CharRef )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1201,14 +1201,14 @@ public class DTDLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:12: EntityRef
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:12: EntityRef
                     {
                     mEntityRef(); 
 
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:24: CharRef
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:24: CharRef
                     {
                     mCharRef(); 
 
@@ -1227,8 +1227,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "EntityRef"
     public final void mEntityRef() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:19: ( '&' Name SemiColon )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:21: '&' Name SemiColon
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:19: ( '&' Name SemiColon )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:21: '&' Name SemiColon
             {
             match('&'); 
             mName(); 
@@ -1245,7 +1245,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "CharRef"
     public final void mCharRef() throws RecognitionException {
         try {
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1283,11 +1283,11 @@ public class DTDLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:19: '&#' ( '0' .. '9' )+ SemiColon
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:19: '&#' ( '0' .. '9' )+ SemiColon
                     {
                     match("&#"); 
 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:24: ( '0' .. '9' )+
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:24: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1301,7 +1301,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:25: '0' .. '9'
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:25: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1322,11 +1322,11 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
                     {
                     match("&#x"); 
 
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1340,7 +1340,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
                     	    {
                     	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                     	        input.consume();
@@ -1381,7 +1381,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = DefaultDecl;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:12: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:12: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
             int alt16=3;
             int LA16_0 = input.LA(1);
 
@@ -1421,7 +1421,7 @@ public class DTDLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:14: '#REQUIRED'
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:14: '#REQUIRED'
                     {
                     match("#REQUIRED"); 
 
@@ -1429,7 +1429,7 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:28: '#IMPLIED'
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:28: '#IMPLIED'
                     {
                     match("#IMPLIED"); 
 
@@ -1437,12 +1437,12 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
                     {
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )? AttValue
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )? AttValue
                     {
-                    // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )?
+                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1451,7 +1451,7 @@ public class DTDLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: '#FIXED'
+                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: '#FIXED'
                             {
                             match("#FIXED"); 
 
@@ -1483,8 +1483,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Element;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:8: ( '<!ELEMENT' )
-            // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:10: '<!ELEMENT'
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:8: ( '<!ELEMENT' )
+            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:10: '<!ELEMENT'
             {
             match("<!ELEMENT"); 
 
@@ -1500,250 +1500,250 @@ public class DTDLexer extends Lexer {
     // $ANTLR end "Element"
 
     public void mTokens() throws RecognitionException {
-        // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:8: ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element )
+        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:8: ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element )
         int alt17=35;
         alt17 = dfa17.predict(input);
         switch (alt17) {
             case 1 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:10: T__29
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:10: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
             case 2 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:16: T__30
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:16: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
             case 3 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:22: T__31
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:22: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
             case 4 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:28: T__32
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:28: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
             case 5 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:34: T__33
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:34: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
             case 6 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:40: T__34
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:40: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
             case 7 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:46: T__35
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:46: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
             case 8 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:52: T__36
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:52: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
             case 9 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:58: T__37
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:58: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
             case 10 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:64: T__38
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:64: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
             case 11 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:70: T__39
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:70: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
             case 12 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:76: T__40
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:76: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
             case 13 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:82: T__41
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:82: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
             case 14 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:88: T__42
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:88: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
             case 15 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:94: T__43
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:94: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
             case 16 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:100: T__44
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:100: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
             case 17 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:106: T__45
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:106: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
             case 18 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:112: T__46
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:112: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
             case 19 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:118: ML_COMMENT
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:118: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
                 }
                 break;
             case 20 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:129: At
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:129: At
                 {
                 mAt(); 
 
                 }
                 break;
             case 21 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:132: Colon
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:132: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 22 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:138: Comma
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:138: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 23 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:144: Apos
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:144: Apos
                 {
                 mApos(); 
 
                 }
                 break;
             case 24 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:149: Quot
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:149: Quot
                 {
                 mQuot(); 
 
                 }
                 break;
             case 25 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:154: Dot
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:154: Dot
                 {
                 mDot(); 
 
                 }
                 break;
             case 26 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:158: SemiColon
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:158: SemiColon
                 {
                 mSemiColon(); 
 
                 }
                 break;
             case 27 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:168: LParen
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:168: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 28 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:175: RParen
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:175: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 29 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:182: Digits
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:182: Digits
                 {
                 mDigits(); 
 
                 }
                 break;
             case 30 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:189: WhiteSpaceChar
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:189: WhiteSpaceChar
                 {
                 mWhiteSpaceChar(); 
 
                 }
                 break;
             case 31 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:204: StringLiteral
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:204: StringLiteral
                 {
                 mStringLiteral(); 
 
                 }
                 break;
             case 32 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:218: Name
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:218: Name
                 {
                 mName(); 
 
                 }
                 break;
             case 33 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:223: Reference
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:223: Reference
                 {
                 mReference(); 
 
                 }
                 break;
             case 34 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:233: DefaultDecl
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:233: DefaultDecl
                 {
                 mDefaultDecl(); 
 
                 }
                 break;
             case 35 :
-                // F:\\cygwin\\home\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:245: Element
+                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:245: Element
                 {
                 mElement(); 
 
@@ -1766,30 +1766,29 @@ public class DTDLexer extends Lexer {
     static final String DFA17_minS =
         "\1\11\1\uffff\1\115\1\116\4\uffff\1\106\1\41\1\115\2\104\3\uffff"+
         "\2\0\10\uffff\1\120\1\124\1\131\2\uffff\1\55\2\124\1\101\1\55\1"+
-        "\uffff\1\0\1\uffff\1\0\2\uffff\1\0\1\uffff\1\0\1\124\1\111\1\55"+
-        "\3\uffff\1\101\1\117\1\124\1\105\1\uffff\4\0\1\131\1\124\1\uffff"+
-        "\1\124\1\113\1\101\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff"+
-        "\1\55\1\105\1\117\1\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1"+
-        "\116\1\55\1\uffff\3\55\4\uffff";
+        "\uffff\2\0\3\uffff\2\0\1\uffff\1\124\1\111\1\55\3\uffff\1\101\1"+
+        "\117\1\124\1\105\1\uffff\4\0\1\131\1\124\1\uffff\1\124\1\113\1\101"+
+        "\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff\1\55\1\105\1\117\1"+
+        "\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1\116\1\55\1\uffff\3"+
+        "\55\4\uffff";
     static final String DFA17_maxS =
         "\1\174\1\uffff\2\116\4\uffff\1\122\1\41\1\117\2\104\3\uffff\2\uffff"+
         "\10\uffff\1\120\1\124\1\131\2\uffff\1\105\2\124\1\101\1\172\1\uffff"+
-        "\1\uffff\1\uffff\1\uffff\2\uffff\1\uffff\1\uffff\1\uffff\1\124\1"+
-        "\111\1\172\3\uffff\1\101\1\117\1\124\1\105\1\uffff\4\uffff\1\131"+
-        "\1\124\1\uffff\1\124\1\113\1\101\1\106\10\uffff\1\172\1\131\1\111"+
-        "\1\105\2\172\4\uffff\1\uffff\1\172\1\105\1\117\1\116\1\uffff\1\172"+
-        "\1\uffff\2\uffff\1\uffff\1\123\1\116\1\172\1\uffff\3\172\4\uffff";
+        "\2\uffff\3\uffff\2\uffff\1\uffff\1\124\1\111\1\172\3\uffff\1\101"+
+        "\1\117\1\124\1\105\1\uffff\4\uffff\1\131\1\124\1\uffff\1\124\1\113"+
+        "\1\101\1\106\10\uffff\1\172\1\131\1\111\1\105\2\172\4\uffff\1\uffff"+
+        "\1\172\1\105\1\117\1\116\1\uffff\1\172\1\uffff\2\uffff\1\uffff\1"+
+        "\123\1\116\1\172\1\uffff\3\172\4\uffff";
     static final String DFA17_acceptS =
         "\1\uffff\1\1\2\uffff\1\4\1\5\1\6\1\7\5\uffff\1\24\1\25\1\26\2\uffff"+
         "\1\31\1\32\1\33\1\34\1\35\1\36\1\40\1\41\3\uffff\1\10\1\42\5\uffff"+
-        "\1\27\1\uffff\1\37\1\uffff\1\37\1\30\1\uffff\1\37\4\uffff\1\11\1"+
-        "\23\1\43\4\uffff\1\14\6\uffff\1\3\26\uffff\1\2\4\uffff\1\13\1\uffff"+
-        "\1\15\2\uffff\1\17\3\uffff\1\16\3\uffff\1\21\1\20\1\12\1\22";
+        "\1\27\2\uffff\2\37\1\30\2\uffff\1\37\3\uffff\1\11\1\23\1\43\4\uffff"+
+        "\1\14\6\uffff\1\3\26\uffff\1\2\4\uffff\1\13\1\uffff\1\15\2\uffff"+
+        "\1\17\3\uffff\1\16\3\uffff\1\21\1\20\1\12\1\22";
     static final String DFA17_specialS =
-        "\20\uffff\1\14\1\6\23\uffff\1\20\1\uffff\1\5\2\uffff\1\0\1\uffff"+
-        "\1\13\13\uffff\1\23\1\17\1\21\1\11\7\uffff\1\27\1\1\1\16\1\15\1"+
-        "\12\1\4\1\22\1\26\6\uffff\1\7\1\25\1\2\1\3\10\uffff\1\24\1\10\14"+
-        "\uffff}>";
+        "\20\uffff\1\24\1\6\23\uffff\1\7\1\12\3\uffff\1\20\1\2\14\uffff"+
+        "\1\16\1\3\1\14\1\11\7\uffff\1\13\1\23\1\26\1\0\1\5\1\15\1\22\1\25"+
+        "\6\uffff\1\27\1\10\1\1\1\17\10\uffff\1\4\1\21\14\uffff}>";
     static final String[] DFA17_transitionS = {
             "\2\27\1\uffff\2\27\22\uffff\1\27\1\uffff\1\21\1\10\2\uffff"+
             "\1\31\1\20\1\24\1\25\1\5\1\6\1\17\1\uffff\1\22\1\uffff\12\26"+
@@ -1811,8 +1810,8 @@ public class DTDLexer extends Lexer {
             "",
             "",
             "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\42\52\1\53\3\52\1\54\25\52\1\50\uffc3\52",
+            "\46\45\1\46\1\47\24\45\1\50\uffc3\45",
+            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
             "",
             "",
             "",
@@ -1833,14 +1832,14 @@ public class DTDLexer extends Lexer {
             "\1\30\2\uffff\12\30\6\uffff\22\30\1\66\10\30\4\uffff\1\30"+
             "\1\uffff\32\30",
             "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "",
+            "\46\45\1\46\1\47\24\45\1\50\uffc3\45",
             "\43\50\1\70\35\50\32\71\4\50\1\71\1\50\32\71\uff85\50",
             "",
             "",
-            "\42\52\1\53\3\52\1\54\25\52\1\50\uffc3\52",
             "",
+            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
             "\43\50\1\72\35\50\32\73\4\50\1\73\1\50\32\73\uff85\50",
+            "",
             "\1\74",
             "\1\75",
             "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
@@ -1870,12 +1869,12 @@ public class DTDLexer extends Lexer {
             "\60\50\12\104\1\50\1\122\uffc4\50",
             "\55\50\1\105\2\50\12\105\1\50\1\106\4\50\33\105\4\50\1\105"+
             "\1\50\32\105\uff85\50",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
+            "\46\45\1\46\1\47\24\45\1\50\uffc3\45",
             "\60\50\12\123\7\50\6\123\32\50\6\123\uff99\50",
             "\60\50\12\110\1\50\1\124\uffc4\50",
             "\55\50\1\111\2\50\12\111\1\50\1\112\4\50\33\111\4\50\1\111"+
             "\1\50\32\111\uff85\50",
-            "\42\52\1\53\3\52\1\54\25\52\1\50\uffc3\52",
+            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
             "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
             "\30",
             "\1\127\17\uffff\1\126",
@@ -1886,9 +1885,9 @@ public class DTDLexer extends Lexer {
             "\1\30\2\uffff\12\30\6\uffff\23\30\1\133\7\30\4\uffff\1\30"+
             "\1\uffff\32\30",
             "\60\50\12\121\1\50\1\135\5\50\6\121\32\50\6\121\uff99\50",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
+            "\46\45\1\46\1\47\24\45\1\50\uffc3\45",
             "\60\50\12\123\1\50\1\136\5\50\6\123\32\50\6\123\uff99\50",
-            "\42\52\1\53\3\52\1\54\25\52\1\50\uffc3\52",
+            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
             "",
             "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
             "\30",
@@ -1899,8 +1898,8 @@ public class DTDLexer extends Lexer {
             "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
             "\30",
             "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\42\52\1\53\3\52\1\54\25\52\1\50\uffc3\52",
+            "\46\45\1\46\1\47\24\45\1\50\uffc3\45",
+            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
             "",
             "\1\144",
             "\1\145",
@@ -1956,32 +1955,20 @@ public class DTDLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA17_42 = input.LA(1);
+                        int LA17_70 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_42=='\"') ) {s = 43;}
+                        if ( (LA17_70=='\'') ) {s = 39;}
 
-                        else if ( ((LA17_42>='\u0000' && LA17_42<='!')||(LA17_42>='#' && LA17_42<='%')||(LA17_42>='\'' && LA17_42<=';')||(LA17_42>='=' && LA17_42<='\uFFFF')) ) {s = 42;}
+                        else if ( ((LA17_70>='\u0000' && LA17_70<='%')||(LA17_70>='(' && LA17_70<=';')||(LA17_70>='=' && LA17_70<='\uFFFF')) ) {s = 37;}
 
-                        else if ( (LA17_42=='&') ) {s = 44;}
+                        else if ( (LA17_70=='&') ) {s = 38;}
 
-                        else if ( (LA17_42=='<') ) {s = 40;}
+                        else if ( (LA17_70=='<') ) {s = 40;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA17_68 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_68==';') ) {s = 82;}
-
-                        else if ( ((LA17_68>='0' && LA17_68<='9')) ) {s = 68;}
-
-                        else if ( ((LA17_68>='\u0000' && LA17_68<='/')||LA17_68==':'||(LA17_68>='<' && LA17_68<='\uFFFF')) ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA17_83 = input.LA(1);
 
                         s = -1;
@@ -1993,163 +1980,19 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
+                    case 2 : 
+                        int LA17_43 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_43=='#') ) {s = 58;}
+
+                        else if ( ((LA17_43>='A' && LA17_43<='Z')||LA17_43=='_'||(LA17_43>='a' && LA17_43<='z')) ) {s = 59;}
+
+                        else if ( ((LA17_43>='\u0000' && LA17_43<='\"')||(LA17_43>='$' && LA17_43<='@')||(LA17_43>='[' && LA17_43<='^')||LA17_43=='`'||(LA17_43>='{' && LA17_43<='\uFFFF')) ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
                     case 3 : 
-                        int LA17_84 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_84=='\"') ) {s = 43;}
-
-                        else if ( ((LA17_84>='\u0000' && LA17_84<='!')||(LA17_84>='#' && LA17_84<='%')||(LA17_84>='\'' && LA17_84<=';')||(LA17_84>='=' && LA17_84<='\uFFFF')) ) {s = 42;}
-
-                        else if ( (LA17_84=='&') ) {s = 44;}
-
-                        else if ( (LA17_84=='<') ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA17_72 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_72>='\u0000' && LA17_72<='/')||LA17_72==':'||(LA17_72>='<' && LA17_72<='\uFFFF')) ) {s = 40;}
-
-                        else if ( (LA17_72==';') ) {s = 84;}
-
-                        else if ( ((LA17_72>='0' && LA17_72<='9')) ) {s = 72;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA17_39 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_39=='#') ) {s = 56;}
-
-                        else if ( ((LA17_39>='A' && LA17_39<='Z')||LA17_39=='_'||(LA17_39>='a' && LA17_39<='z')) ) {s = 57;}
-
-                        else if ( ((LA17_39>='\u0000' && LA17_39<='\"')||(LA17_39>='$' && LA17_39<='@')||(LA17_39>='[' && LA17_39<='^')||LA17_39=='`'||(LA17_39>='{' && LA17_39<='\uFFFF')) ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA17_17 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_17>='\u0000' && LA17_17<='!')||(LA17_17>='#' && LA17_17<='%')||(LA17_17>='\'' && LA17_17<=';')||(LA17_17>='=' && LA17_17<='\uFFFF')) ) {s = 42;}
-
-                        else if ( (LA17_17=='\"') ) {s = 43;}
-
-                        else if ( (LA17_17=='&') ) {s = 44;}
-
-                        else if ( (LA17_17=='<') ) {s = 40;}
-
-                        else s = 41;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA17_81 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_81>='\u0000' && LA17_81<='/')||LA17_81==':'||(LA17_81>='<' && LA17_81<='@')||(LA17_81>='G' && LA17_81<='`')||(LA17_81>='g' && LA17_81<='\uFFFF')) ) {s = 40;}
-
-                        else if ( (LA17_81==';') ) {s = 93;}
-
-                        else if ( ((LA17_81>='0' && LA17_81<='9')||(LA17_81>='A' && LA17_81<='F')||(LA17_81>='a' && LA17_81<='f')) ) {s = 81;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA17_94 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_94=='\"') ) {s = 43;}
-
-                        else if ( ((LA17_94>='\u0000' && LA17_94<='!')||(LA17_94>='#' && LA17_94<='%')||(LA17_94>='\'' && LA17_94<=';')||(LA17_94>='=' && LA17_94<='\uFFFF')) ) {s = 42;}
-
-                        else if ( (LA17_94=='&') ) {s = 44;}
-
-                        else if ( (LA17_94=='<') ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA17_59 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_59>='\u0000' && LA17_59<=',')||(LA17_59>='.' && LA17_59<='/')||LA17_59==':'||(LA17_59>='<' && LA17_59<='?')||(LA17_59>='[' && LA17_59<='^')||LA17_59=='`'||(LA17_59>='{' && LA17_59<='\uFFFF')) ) {s = 40;}
-
-                        else if ( (LA17_59=='-'||(LA17_59>='0' && LA17_59<='9')||(LA17_59>='@' && LA17_59<='Z')||LA17_59=='_'||(LA17_59>='a' && LA17_59<='z')) ) {s = 73;}
-
-                        else if ( (LA17_59==';') ) {s = 74;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA17_71 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_71>='\u0000' && LA17_71<='/')||(LA17_71>=':' && LA17_71<='@')||(LA17_71>='G' && LA17_71<='`')||(LA17_71>='g' && LA17_71<='\uFFFF')) ) {s = 40;}
-
-                        else if ( ((LA17_71>='0' && LA17_71<='9')||(LA17_71>='A' && LA17_71<='F')||(LA17_71>='a' && LA17_71<='f')) ) {s = 83;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA17_44 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_44=='#') ) {s = 58;}
-
-                        else if ( ((LA17_44>='\u0000' && LA17_44<='\"')||(LA17_44>='$' && LA17_44<='@')||(LA17_44>='[' && LA17_44<='^')||LA17_44=='`'||(LA17_44>='{' && LA17_44<='\uFFFF')) ) {s = 40;}
-
-                        else if ( ((LA17_44>='A' && LA17_44<='Z')||LA17_44=='_'||(LA17_44>='a' && LA17_44<='z')) ) {s = 59;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA17_16 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_16>='\u0000' && LA17_16<='%')||(LA17_16>='(' && LA17_16<=';')||(LA17_16>='=' && LA17_16<='\uFFFF')) ) {s = 37;}
-
-                        else if ( (LA17_16=='\'') ) {s = 38;}
-
-                        else if ( (LA17_16=='&') ) {s = 39;}
-
-                        else if ( (LA17_16=='<') ) {s = 40;}
-
-                        else s = 36;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA17_70 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_70=='\'') ) {s = 38;}
-
-                        else if ( ((LA17_70>='\u0000' && LA17_70<='%')||(LA17_70>='(' && LA17_70<=';')||(LA17_70>='=' && LA17_70<='\uFFFF')) ) {s = 37;}
-
-                        else if ( (LA17_70=='&') ) {s = 39;}
-
-                        else if ( (LA17_70=='<') ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA17_69 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_69>='\u0000' && LA17_69<=',')||(LA17_69>='.' && LA17_69<='/')||LA17_69==':'||(LA17_69>='<' && LA17_69<='?')||(LA17_69>='[' && LA17_69<='^')||LA17_69=='`'||(LA17_69>='{' && LA17_69<='\uFFFF')) ) {s = 40;}
-
-                        else if ( (LA17_69==';') ) {s = 70;}
-
-                        else if ( (LA17_69=='-'||(LA17_69>='0' && LA17_69<='9')||(LA17_69>='@' && LA17_69<='Z')||LA17_69=='_'||(LA17_69>='a' && LA17_69<='z')) ) {s = 69;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
                         int LA17_57 = input.LA(1);
 
                         s = -1;
@@ -2161,21 +2004,109 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
+                    case 4 : 
+                        int LA17_93 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_93=='\'') ) {s = 39;}
+
+                        else if ( ((LA17_93>='\u0000' && LA17_93<='%')||(LA17_93>='(' && LA17_93<=';')||(LA17_93>='=' && LA17_93<='\uFFFF')) ) {s = 37;}
+
+                        else if ( (LA17_93=='&') ) {s = 38;}
+
+                        else if ( (LA17_93=='<') ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA17_71 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_71>='\u0000' && LA17_71<='/')||(LA17_71>=':' && LA17_71<='@')||(LA17_71>='G' && LA17_71<='`')||(LA17_71>='g' && LA17_71<='\uFFFF')) ) {s = 40;}
+
+                        else if ( ((LA17_71>='0' && LA17_71<='9')||(LA17_71>='A' && LA17_71<='F')||(LA17_71>='a' && LA17_71<='f')) ) {s = 83;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA17_17 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_17>='\u0000' && LA17_17<='!')||(LA17_17>='#' && LA17_17<='%')||(LA17_17>='\'' && LA17_17<=';')||(LA17_17>='=' && LA17_17<='\uFFFF')) ) {s = 42;}
+
+                        else if ( (LA17_17=='&') ) {s = 43;}
+
+                        else if ( (LA17_17=='\"') ) {s = 44;}
+
+                        else if ( (LA17_17=='<') ) {s = 40;}
+
+                        else s = 41;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
                         int LA17_37 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_37=='\'') ) {s = 38;}
+                        if ( (LA17_37=='\'') ) {s = 39;}
 
                         else if ( ((LA17_37>='\u0000' && LA17_37<='%')||(LA17_37>='(' && LA17_37<=';')||(LA17_37>='=' && LA17_37<='\uFFFF')) ) {s = 37;}
 
-                        else if ( (LA17_37=='&') ) {s = 39;}
+                        else if ( (LA17_37=='&') ) {s = 38;}
 
                         else if ( (LA17_37=='<') ) {s = 40;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
+                    case 8 : 
+                        int LA17_82 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_82=='\'') ) {s = 39;}
+
+                        else if ( ((LA17_82>='\u0000' && LA17_82<='%')||(LA17_82>='(' && LA17_82<=';')||(LA17_82>='=' && LA17_82<='\uFFFF')) ) {s = 37;}
+
+                        else if ( (LA17_82=='&') ) {s = 38;}
+
+                        else if ( (LA17_82=='<') ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA17_59 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_59=='-'||(LA17_59>='0' && LA17_59<='9')||(LA17_59>='@' && LA17_59<='Z')||LA17_59=='_'||(LA17_59>='a' && LA17_59<='z')) ) {s = 73;}
+
+                        else if ( (LA17_59==';') ) {s = 74;}
+
+                        else if ( ((LA17_59>='\u0000' && LA17_59<=',')||(LA17_59>='.' && LA17_59<='/')||LA17_59==':'||(LA17_59>='<' && LA17_59<='?')||(LA17_59>='[' && LA17_59<='^')||LA17_59=='`'||(LA17_59>='{' && LA17_59<='\uFFFF')) ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA17_38 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_38=='#') ) {s = 56;}
+
+                        else if ( ((LA17_38>='\u0000' && LA17_38<='\"')||(LA17_38>='$' && LA17_38<='@')||(LA17_38>='[' && LA17_38<='^')||LA17_38=='`'||(LA17_38>='{' && LA17_38<='\uFFFF')) ) {s = 40;}
+
+                        else if ( ((LA17_38>='A' && LA17_38<='Z')||LA17_38=='_'||(LA17_38>='a' && LA17_38<='z')) ) {s = 57;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA17_67 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_67>='0' && LA17_67<='9')||(LA17_67>='A' && LA17_67<='F')||(LA17_67>='a' && LA17_67<='f')) ) {s = 81;}
+
+                        else if ( ((LA17_67>='\u0000' && LA17_67<='/')||(LA17_67>=':' && LA17_67<='@')||(LA17_67>='G' && LA17_67<='`')||(LA17_67>='g' && LA17_67<='\uFFFF')) ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
                         int LA17_58 = input.LA(1);
 
                         s = -1;
@@ -2187,19 +2118,19 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 18 : 
-                        int LA17_73 = input.LA(1);
+                    case 13 : 
+                        int LA17_72 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_73>='\u0000' && LA17_73<=',')||(LA17_73>='.' && LA17_73<='/')||LA17_73==':'||(LA17_73>='<' && LA17_73<='?')||(LA17_73>='[' && LA17_73<='^')||LA17_73=='`'||(LA17_73>='{' && LA17_73<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_72==';') ) {s = 84;}
 
-                        else if ( (LA17_73==';') ) {s = 74;}
+                        else if ( ((LA17_72>='0' && LA17_72<='9')) ) {s = 72;}
 
-                        else if ( (LA17_73=='-'||(LA17_73>='0' && LA17_73<='9')||(LA17_73>='@' && LA17_73<='Z')||LA17_73=='_'||(LA17_73>='a' && LA17_73<='z')) ) {s = 73;}
+                        else if ( ((LA17_72>='\u0000' && LA17_72<='/')||LA17_72==':'||(LA17_72>='<' && LA17_72<='\uFFFF')) ) {s = 40;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 19 : 
+                    case 14 : 
                         int LA17_56 = input.LA(1);
 
                         s = -1;
@@ -2211,55 +2142,123 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 20 : 
-                        int LA17_93 = input.LA(1);
+                    case 15 : 
+                        int LA17_84 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_93=='\'') ) {s = 38;}
+                        if ( (LA17_84=='\"') ) {s = 44;}
 
-                        else if ( ((LA17_93>='\u0000' && LA17_93<='%')||(LA17_93>='(' && LA17_93<=';')||(LA17_93>='=' && LA17_93<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA17_84>='\u0000' && LA17_84<='!')||(LA17_84>='#' && LA17_84<='%')||(LA17_84>='\'' && LA17_84<=';')||(LA17_84>='=' && LA17_84<='\uFFFF')) ) {s = 42;}
 
-                        else if ( (LA17_93=='&') ) {s = 39;}
+                        else if ( (LA17_84=='&') ) {s = 43;}
 
-                        else if ( (LA17_93=='<') ) {s = 40;}
+                        else if ( (LA17_84=='<') ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA17_42 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_42=='\"') ) {s = 44;}
+
+                        else if ( ((LA17_42>='\u0000' && LA17_42<='!')||(LA17_42>='#' && LA17_42<='%')||(LA17_42>='\'' && LA17_42<=';')||(LA17_42>='=' && LA17_42<='\uFFFF')) ) {s = 42;}
+
+                        else if ( (LA17_42=='&') ) {s = 43;}
+
+                        else if ( (LA17_42=='<') ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA17_94 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_94=='\"') ) {s = 44;}
+
+                        else if ( ((LA17_94>='\u0000' && LA17_94<='!')||(LA17_94>='#' && LA17_94<='%')||(LA17_94>='\'' && LA17_94<=';')||(LA17_94>='=' && LA17_94<='\uFFFF')) ) {s = 42;}
+
+                        else if ( (LA17_94=='&') ) {s = 43;}
+
+                        else if ( (LA17_94=='<') ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA17_73 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_73==';') ) {s = 74;}
+
+                        else if ( (LA17_73=='-'||(LA17_73>='0' && LA17_73<='9')||(LA17_73>='@' && LA17_73<='Z')||LA17_73=='_'||(LA17_73>='a' && LA17_73<='z')) ) {s = 73;}
+
+                        else if ( ((LA17_73>='\u0000' && LA17_73<=',')||(LA17_73>='.' && LA17_73<='/')||LA17_73==':'||(LA17_73>='<' && LA17_73<='?')||(LA17_73>='[' && LA17_73<='^')||LA17_73=='`'||(LA17_73>='{' && LA17_73<='\uFFFF')) ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA17_68 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_68==';') ) {s = 82;}
+
+                        else if ( ((LA17_68>='0' && LA17_68<='9')) ) {s = 68;}
+
+                        else if ( ((LA17_68>='\u0000' && LA17_68<='/')||LA17_68==':'||(LA17_68>='<' && LA17_68<='\uFFFF')) ) {s = 40;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA17_16 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_16>='\u0000' && LA17_16<='%')||(LA17_16>='(' && LA17_16<=';')||(LA17_16>='=' && LA17_16<='\uFFFF')) ) {s = 37;}
+
+                        else if ( (LA17_16=='&') ) {s = 38;}
+
+                        else if ( (LA17_16=='\'') ) {s = 39;}
+
+                        else if ( (LA17_16=='<') ) {s = 40;}
+
+                        else s = 36;
 
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA17_82 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_82=='\'') ) {s = 38;}
-
-                        else if ( ((LA17_82>='\u0000' && LA17_82<='%')||(LA17_82>='(' && LA17_82<=';')||(LA17_82>='=' && LA17_82<='\uFFFF')) ) {s = 37;}
-
-                        else if ( (LA17_82=='&') ) {s = 39;}
-
-                        else if ( (LA17_82=='<') ) {s = 40;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
                         int LA17_74 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_74=='\"') ) {s = 43;}
+                        if ( (LA17_74=='\"') ) {s = 44;}
 
                         else if ( ((LA17_74>='\u0000' && LA17_74<='!')||(LA17_74>='#' && LA17_74<='%')||(LA17_74>='\'' && LA17_74<=';')||(LA17_74>='=' && LA17_74<='\uFFFF')) ) {s = 42;}
 
-                        else if ( (LA17_74=='&') ) {s = 44;}
+                        else if ( (LA17_74=='&') ) {s = 43;}
 
                         else if ( (LA17_74=='<') ) {s = 40;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA17_67 = input.LA(1);
+                    case 22 : 
+                        int LA17_69 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_67>='\u0000' && LA17_67<='/')||(LA17_67>=':' && LA17_67<='@')||(LA17_67>='G' && LA17_67<='`')||(LA17_67>='g' && LA17_67<='\uFFFF')) ) {s = 40;}
+                        if ( ((LA17_69>='\u0000' && LA17_69<=',')||(LA17_69>='.' && LA17_69<='/')||LA17_69==':'||(LA17_69>='<' && LA17_69<='?')||(LA17_69>='[' && LA17_69<='^')||LA17_69=='`'||(LA17_69>='{' && LA17_69<='\uFFFF')) ) {s = 40;}
 
-                        else if ( ((LA17_67>='0' && LA17_67<='9')||(LA17_67>='A' && LA17_67<='F')||(LA17_67>='a' && LA17_67<='f')) ) {s = 81;}
+                        else if ( (LA17_69==';') ) {s = 70;}
+
+                        else if ( (LA17_69=='-'||(LA17_69>='0' && LA17_69<='9')||(LA17_69>='@' && LA17_69<='Z')||LA17_69=='_'||(LA17_69>='a' && LA17_69<='z')) ) {s = 69;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA17_81 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_81==';') ) {s = 93;}
+
+                        else if ( ((LA17_81>='0' && LA17_81<='9')||(LA17_81>='A' && LA17_81<='F')||(LA17_81>='a' && LA17_81<='f')) ) {s = 81;}
+
+                        else if ( ((LA17_81>='\u0000' && LA17_81<='/')||LA17_81==':'||(LA17_81>='<' && LA17_81<='@')||(LA17_81>='G' && LA17_81<='`')||(LA17_81>='g' && LA17_81<='\uFFFF')) ) {s = 40;}
 
                         if ( s>=0 ) return s;
                         break;

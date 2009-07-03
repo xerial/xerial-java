@@ -54,6 +54,9 @@ public class ANTLRTreeParser implements TreeParser
 
     public void walk(Tree t, TreeEventHandler handler) throws Exception
     {
+        if (t == null)
+            return;
+
         currentNode = t;
         int tokenType = t.getType();
         String nodeName = parserTokenNames[tokenType];

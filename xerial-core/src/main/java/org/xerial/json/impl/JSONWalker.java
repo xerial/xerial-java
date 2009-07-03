@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g 2009-06-23 20:09:00
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 JSONWalker.g 2009-07-03 13:56:27
 
 //--------------------------------------
 // Xerial Project
@@ -78,7 +78,7 @@ public class JSONWalker extends TreeParser {
         
 
     public String[] getTokenNames() { return JSONWalker.tokenNames; }
-    public String getGrammarFileName() { return "d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g"; }
+    public String getGrammarFileName() { return "JSONWalker.g"; }
 
 
     	public String unquote(String s) { return StringUtil.unquote(s); }
@@ -86,7 +86,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "jsonObject"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:47:1: jsonObject returns [JSONObject r] : o= object ;
+    // JSONWalker.g:47:1: jsonObject returns [JSONObject r] : o= object ;
     public final JSONObject jsonObject() throws RecognitionException {
         JSONObject r = null;
 
@@ -94,10 +94,10 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:48:2: (o= object )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:48:4: o= object
+            // JSONWalker.g:48:2: (o= object )
+            // JSONWalker.g:48:4: o= object
             {
-            pushFollow(FOLLOW_object_in_jsonObject81);
+            pushFollow(FOLLOW_object_in_jsonObject82);
             o=object();
 
             state._fsp--;
@@ -119,7 +119,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "jsonArray"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:50:1: jsonArray returns [JSONArray r] : a= array ;
+    // JSONWalker.g:50:1: jsonArray returns [JSONArray r] : a= array ;
     public final JSONArray jsonArray() throws RecognitionException {
         JSONArray r = null;
 
@@ -127,10 +127,10 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:51:2: (a= array )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:51:4: a= array
+            // JSONWalker.g:51:2: (a= array )
+            // JSONWalker.g:51:4: a= array
             {
-            pushFollow(FOLLOW_array_in_jsonArray100);
+            pushFollow(FOLLOW_array_in_jsonArray101);
             a=array();
 
             state._fsp--;
@@ -152,7 +152,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "object"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:55:1: object returns [JSONObject v] : ^( OBJECT ( objectElement )* ) ;
+    // JSONWalker.g:55:1: object returns [JSONObject v] : ^( OBJECT ( objectElement )* ) ;
     public final JSONObject object() throws RecognitionException {
         ObjectLayer_stack.push(new ObjectLayer_scope());
 
@@ -162,14 +162,14 @@ public class JSONWalker extends TreeParser {
         	((ObjectLayer_scope)ObjectLayer_stack.peek()).elems = new ArrayList<JSONElement>();
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:60:2: ( ^( OBJECT ( objectElement )* ) )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:60:4: ^( OBJECT ( objectElement )* )
+            // JSONWalker.g:60:2: ( ^( OBJECT ( objectElement )* ) )
+            // JSONWalker.g:60:4: ^( OBJECT ( objectElement )* )
             {
-            match(input,OBJECT,FOLLOW_OBJECT_in_object132); 
+            match(input,OBJECT,FOLLOW_OBJECT_in_object133); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:60:13: ( objectElement )*
+                // JSONWalker.g:60:13: ( objectElement )*
                 loop1:
                 do {
                     int alt1=2;
@@ -182,9 +182,9 @@ public class JSONWalker extends TreeParser {
 
                     switch (alt1) {
                 	case 1 :
-                	    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:60:13: objectElement
+                	    // JSONWalker.g:60:13: objectElement
                 	    {
-                	    pushFollow(FOLLOW_objectElement_in_object134);
+                	    pushFollow(FOLLOW_objectElement_in_object135);
                 	    objectElement();
 
                 	    state._fsp--;
@@ -220,21 +220,21 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "objectElement"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:64:1: objectElement : ^( ELEMENT s= String v= value ) ;
+    // JSONWalker.g:64:1: objectElement : ^( ELEMENT s= String v= value ) ;
     public final void objectElement() throws RecognitionException {
         CommonTree s=null;
         JSONValue v = null;
 
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:65:2: ( ^( ELEMENT s= String v= value ) )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:65:4: ^( ELEMENT s= String v= value )
+            // JSONWalker.g:65:2: ( ^( ELEMENT s= String v= value ) )
+            // JSONWalker.g:65:4: ^( ELEMENT s= String v= value )
             {
-            match(input,ELEMENT,FOLLOW_ELEMENT_in_objectElement154); 
+            match(input,ELEMENT,FOLLOW_ELEMENT_in_objectElement155); 
 
             match(input, Token.DOWN, null); 
-            s=(CommonTree)match(input,String,FOLLOW_String_in_objectElement158); 
-            pushFollow(FOLLOW_value_in_objectElement162);
+            s=(CommonTree)match(input,String,FOLLOW_String_in_objectElement159); 
+            pushFollow(FOLLOW_value_in_objectElement163);
             v=value();
 
             state._fsp--;
@@ -258,7 +258,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "array"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:69:1: array returns [JSONArray v] : ^( ARRAY ( arrayElement )* ) ;
+    // JSONWalker.g:69:1: array returns [JSONArray v] : ^( ARRAY ( arrayElement )* ) ;
     public final JSONArray array() throws RecognitionException {
         ArrayLayer_stack.push(new ArrayLayer_scope());
 
@@ -268,23 +268,23 @@ public class JSONWalker extends TreeParser {
         	((ArrayLayer_scope)ArrayLayer_stack.peek()).elems = new ArrayList<JSONValue>();
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:74:2: ( ^( ARRAY ( arrayElement )* ) )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:74:4: ^( ARRAY ( arrayElement )* )
+            // JSONWalker.g:74:2: ( ^( ARRAY ( arrayElement )* ) )
+            // JSONWalker.g:74:4: ^( ARRAY ( arrayElement )* )
             {
-            match(input,ARRAY,FOLLOW_ARRAY_in_array197); 
+            match(input,ARRAY,FOLLOW_ARRAY_in_array198); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:74:12: ( arrayElement )*
+                // JSONWalker.g:74:12: ( arrayElement )*
                 loop2:
                 do {
                     int alt2=2;
                     alt2 = dfa2.predict(input);
                     switch (alt2) {
                 	case 1 :
-                	    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:74:12: arrayElement
+                	    // JSONWalker.g:74:12: arrayElement
                 	    {
-                	    pushFollow(FOLLOW_arrayElement_in_array199);
+                	    pushFollow(FOLLOW_arrayElement_in_array200);
                 	    arrayElement();
 
                 	    state._fsp--;
@@ -320,16 +320,16 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "arrayElement"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:78:1: arrayElement : v= value ;
+    // JSONWalker.g:78:1: arrayElement : v= value ;
     public final void arrayElement() throws RecognitionException {
         JSONValue v = null;
 
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:79:2: (v= value )
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:79:4: v= value
+            // JSONWalker.g:79:2: (v= value )
+            // JSONWalker.g:79:4: v= value
             {
-            pushFollow(FOLLOW_value_in_arrayElement222);
+            pushFollow(FOLLOW_value_in_arrayElement223);
             v=value();
 
             state._fsp--;
@@ -351,7 +351,7 @@ public class JSONWalker extends TreeParser {
 
 
     // $ANTLR start "value"
-    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:83:1: value returns [JSONValue v] : ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL );
+    // JSONWalker.g:83:1: value returns [JSONValue v] : ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL );
     public final JSONValue value() throws RecognitionException {
         JSONValue v = null;
 
@@ -363,7 +363,7 @@ public class JSONWalker extends TreeParser {
 
 
         try {
-            // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:84:2: ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL )
+            // JSONWalker.g:84:2: ( ^( STRING s= String ) | ^( INTEGER n= Integer ) | ^( DOUBLE n= Double ) | o= object | a= array | TRUE | FALSE | NULL )
             int alt3=8;
             switch ( input.LA(1) ) {
             case STRING:
@@ -415,12 +415,12 @@ public class JSONWalker extends TreeParser {
 
             switch (alt3) {
                 case 1 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:84:4: ^( STRING s= String )
+                    // JSONWalker.g:84:4: ^( STRING s= String )
                     {
-                    match(input,STRING,FOLLOW_STRING_in_value242); 
+                    match(input,STRING,FOLLOW_STRING_in_value243); 
 
                     match(input, Token.DOWN, null); 
-                    s=(CommonTree)match(input,String,FOLLOW_String_in_value246); 
+                    s=(CommonTree)match(input,String,FOLLOW_String_in_value247); 
 
                     match(input, Token.UP, null); 
                      v = new JSONString(unquote((s!=null?s.getText():null))); 
@@ -428,12 +428,12 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:85:4: ^( INTEGER n= Integer )
+                    // JSONWalker.g:85:4: ^( INTEGER n= Integer )
                     {
-                    match(input,INTEGER,FOLLOW_INTEGER_in_value255); 
+                    match(input,INTEGER,FOLLOW_INTEGER_in_value256); 
 
                     match(input, Token.DOWN, null); 
-                    n=(CommonTree)match(input,Integer,FOLLOW_Integer_in_value259); 
+                    n=(CommonTree)match(input,Integer,FOLLOW_Integer_in_value260); 
 
                     match(input, Token.UP, null); 
                      v = new JSONInteger((n!=null?n.getText():null)); 
@@ -441,12 +441,12 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:86:4: ^( DOUBLE n= Double )
+                    // JSONWalker.g:86:4: ^( DOUBLE n= Double )
                     {
-                    match(input,DOUBLE,FOLLOW_DOUBLE_in_value268); 
+                    match(input,DOUBLE,FOLLOW_DOUBLE_in_value269); 
 
                     match(input, Token.DOWN, null); 
-                    n=(CommonTree)match(input,Double,FOLLOW_Double_in_value272); 
+                    n=(CommonTree)match(input,Double,FOLLOW_Double_in_value273); 
 
                     match(input, Token.UP, null); 
                      v = new JSONDouble((n!=null?n.getText():null)); 
@@ -454,9 +454,9 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:87:4: o= object
+                    // JSONWalker.g:87:4: o= object
                     {
-                    pushFollow(FOLLOW_object_in_value282);
+                    pushFollow(FOLLOW_object_in_value283);
                     o=object();
 
                     state._fsp--;
@@ -466,9 +466,9 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:88:4: a= array
+                    // JSONWalker.g:88:4: a= array
                     {
-                    pushFollow(FOLLOW_array_in_value291);
+                    pushFollow(FOLLOW_array_in_value292);
                     a=array();
 
                     state._fsp--;
@@ -478,25 +478,25 @@ public class JSONWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:89:4: TRUE
+                    // JSONWalker.g:89:4: TRUE
                     {
-                    match(input,TRUE,FOLLOW_TRUE_in_value300); 
+                    match(input,TRUE,FOLLOW_TRUE_in_value301); 
                      v = new JSONBoolean(true); 
 
                     }
                     break;
                 case 7 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:90:4: FALSE
+                    // JSONWalker.g:90:4: FALSE
                     {
-                    match(input,FALSE,FOLLOW_FALSE_in_value307); 
+                    match(input,FALSE,FOLLOW_FALSE_in_value308); 
                      v = new JSONBoolean(false); 
 
                     }
                     break;
                 case 8 :
-                    // d:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g:91:4: NULL
+                    // JSONWalker.g:91:4: NULL
                     {
-                    match(input,NULL,FOLLOW_NULL_in_value314); 
+                    match(input,NULL,FOLLOW_NULL_in_value315); 
                      v = new JSONNull(); 
 
                     }
@@ -578,26 +578,26 @@ public class JSONWalker extends TreeParser {
     }
  
 
-    public static final BitSet FOLLOW_object_in_jsonObject81 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_jsonArray100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OBJECT_in_object132 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_objectElement_in_object134 = new BitSet(new long[]{0x0000000000000028L});
-    public static final BitSet FOLLOW_ELEMENT_in_objectElement154 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_String_in_objectElement158 = new BitSet(new long[]{0x00000000000E03D0L});
-    public static final BitSet FOLLOW_value_in_objectElement162 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ARRAY_in_array197 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_arrayElement_in_array199 = new BitSet(new long[]{0x00000000000E03D8L});
-    public static final BitSet FOLLOW_value_in_arrayElement222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_value242 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_String_in_value246 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_INTEGER_in_value255 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Integer_in_value259 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DOUBLE_in_value268 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Double_in_value272 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_object_in_value282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_value291 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_value300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_value307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NULL_in_value314 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_object_in_jsonObject82 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_jsonArray101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OBJECT_in_object133 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_objectElement_in_object135 = new BitSet(new long[]{0x0000000000000028L});
+    public static final BitSet FOLLOW_ELEMENT_in_objectElement155 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_String_in_objectElement159 = new BitSet(new long[]{0x00000000000E03D0L});
+    public static final BitSet FOLLOW_value_in_objectElement163 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ARRAY_in_array198 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_arrayElement_in_array200 = new BitSet(new long[]{0x00000000000E03D8L});
+    public static final BitSet FOLLOW_value_in_arrayElement223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_value243 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_String_in_value247 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_INTEGER_in_value256 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Integer_in_value260 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DOUBLE_in_value269 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Double_in_value273 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_object_in_value283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_value292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_value301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_value308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NULL_in_value315 = new BitSet(new long[]{0x0000000000000002L});
 
 }

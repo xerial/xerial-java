@@ -23,7 +23,7 @@ scope ObjectLayer {
 scope ArrayLayer {
 	ArrayList<JSONValue> elems;
 }
-
+ 
 @header
 {
 //--------------------------------------

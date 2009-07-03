@@ -90,8 +90,8 @@ fragment NameChar: Letter | Digit | '_' | '-' | At;
 WhiteSpaceChar: ( ' ' | '\t' | '\n' | '\r' | '\u000C')+ { $channel=HIDDEN; };
 
 StringLiteral
-: Quot! (~'"')* Quot!
-| Apos! (~'\'')* Apos!;
+: Quot (~'"')* Quot
+| Apos (~'\'')* Apos;
 
 Name: (Letter | '_') NameChar*;
 

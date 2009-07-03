@@ -61,6 +61,9 @@ public class ANTLRWalker implements TreeWalker
 
     public void walk(Tree t, TreeVisitor visitor) throws XerialException
     {
+        if (t == null)
+            return;
+
         currentNode = t;
         int tokenType = t.getType();
         String nodeName = parserTokenNames[tokenType];

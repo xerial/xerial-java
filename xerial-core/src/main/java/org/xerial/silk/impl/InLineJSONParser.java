@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g 2009-01-30 21:13:12
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 InLineJSON.g 2009-07-03 13:56:28
 
 //--------------------------------------
 // XerialJ Project
@@ -57,23 +57,23 @@ public class InLineJSONParser extends Parser {
         
 
     public String[] getTokenNames() { return InLineJSONParser.tokenNames; }
-    public String getGrammarFileName() { return "c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g"; }
+    public String getGrammarFileName() { return "InLineJSON.g"; }
 
 
 
     // $ANTLR start "jsonObjectFragment"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:1: jsonObjectFragment : jsonElement ( Comma jsonElement )* ;
+    // InLineJSON.g:96:1: jsonObjectFragment : jsonElement ( Comma jsonElement )* ;
     public final void jsonObjectFragment() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:19: ( jsonElement ( Comma jsonElement )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:21: jsonElement ( Comma jsonElement )*
+            // InLineJSON.g:96:19: ( jsonElement ( Comma jsonElement )* )
+            // InLineJSON.g:96:21: jsonElement ( Comma jsonElement )*
             {
-            pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment369);
+            pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment370);
             jsonElement();
 
             state._fsp--;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:33: ( Comma jsonElement )*
+            // InLineJSON.g:96:33: ( Comma jsonElement )*
             loop1:
             do {
                 int alt1=2;
@@ -86,10 +86,10 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:96:34: Comma jsonElement
+            	    // InLineJSON.g:96:34: Comma jsonElement
             	    {
-            	    match(input,Comma,FOLLOW_Comma_in_jsonObjectFragment372); 
-            	    pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment374);
+            	    match(input,Comma,FOLLOW_Comma_in_jsonObjectFragment373); 
+            	    pushFollow(FOLLOW_jsonElement_in_jsonObjectFragment375);
             	    jsonElement();
 
             	    state._fsp--;
@@ -119,18 +119,18 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonArrayFragment"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:1: jsonArrayFragment : jsonValue ( Comma jsonValue )* ;
+    // InLineJSON.g:97:1: jsonArrayFragment : jsonValue ( Comma jsonValue )* ;
     public final void jsonArrayFragment() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:18: ( jsonValue ( Comma jsonValue )* )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:20: jsonValue ( Comma jsonValue )*
+            // InLineJSON.g:97:18: ( jsonValue ( Comma jsonValue )* )
+            // InLineJSON.g:97:20: jsonValue ( Comma jsonValue )*
             {
-            pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment382);
+            pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment383);
             jsonValue();
 
             state._fsp--;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:30: ( Comma jsonValue )*
+            // InLineJSON.g:97:30: ( Comma jsonValue )*
             loop2:
             do {
                 int alt2=2;
@@ -143,10 +143,10 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:97:31: Comma jsonValue
+            	    // InLineJSON.g:97:31: Comma jsonValue
             	    {
-            	    match(input,Comma,FOLLOW_Comma_in_jsonArrayFragment385); 
-            	    pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment387);
+            	    match(input,Comma,FOLLOW_Comma_in_jsonArrayFragment386); 
+            	    pushFollow(FOLLOW_jsonValue_in_jsonArrayFragment388);
             	    jsonValue();
 
             	    state._fsp--;
@@ -176,19 +176,19 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonObject"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:1: jsonObject : LBrace jsonElement ( ',' jsonElement )* RBrace ;
+    // InLineJSON.g:99:1: jsonObject : LBrace jsonElement ( ',' jsonElement )* RBrace ;
     public final void jsonObject() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:11: ( LBrace jsonElement ( ',' jsonElement )* RBrace )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:13: LBrace jsonElement ( ',' jsonElement )* RBrace
+            // InLineJSON.g:99:11: ( LBrace jsonElement ( ',' jsonElement )* RBrace )
+            // InLineJSON.g:99:13: LBrace jsonElement ( ',' jsonElement )* RBrace
             {
-            match(input,LBrace,FOLLOW_LBrace_in_jsonObject396); 
-            pushFollow(FOLLOW_jsonElement_in_jsonObject398);
+            match(input,LBrace,FOLLOW_LBrace_in_jsonObject397); 
+            pushFollow(FOLLOW_jsonElement_in_jsonObject399);
             jsonElement();
 
             state._fsp--;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:32: ( ',' jsonElement )*
+            // InLineJSON.g:99:32: ( ',' jsonElement )*
             loop3:
             do {
                 int alt3=2;
@@ -201,10 +201,10 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:99:33: ',' jsonElement
+            	    // InLineJSON.g:99:33: ',' jsonElement
             	    {
-            	    match(input,Comma,FOLLOW_Comma_in_jsonObject401); 
-            	    pushFollow(FOLLOW_jsonElement_in_jsonObject403);
+            	    match(input,Comma,FOLLOW_Comma_in_jsonObject402); 
+            	    pushFollow(FOLLOW_jsonElement_in_jsonObject404);
             	    jsonElement();
 
             	    state._fsp--;
@@ -218,7 +218,7 @@ public class InLineJSONParser extends Parser {
                 }
             } while (true);
 
-            match(input,RBrace,FOLLOW_RBrace_in_jsonObject407); 
+            match(input,RBrace,FOLLOW_RBrace_in_jsonObject408); 
 
             }
 
@@ -235,15 +235,15 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonElement"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:1: jsonElement : String Colon jsonValue ;
+    // InLineJSON.g:100:1: jsonElement : String Colon jsonValue ;
     public final void jsonElement() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:12: ( String Colon jsonValue )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:100:14: String Colon jsonValue
+            // InLineJSON.g:100:12: ( String Colon jsonValue )
+            // InLineJSON.g:100:14: String Colon jsonValue
             {
-            match(input,String,FOLLOW_String_in_jsonElement413); 
-            match(input,Colon,FOLLOW_Colon_in_jsonElement415); 
-            pushFollow(FOLLOW_jsonValue_in_jsonElement417);
+            match(input,String,FOLLOW_String_in_jsonElement414); 
+            match(input,Colon,FOLLOW_Colon_in_jsonElement416); 
+            pushFollow(FOLLOW_jsonValue_in_jsonElement418);
             jsonValue();
 
             state._fsp--;
@@ -264,19 +264,19 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonArray"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:1: jsonArray : LBracket jsonValue ( ',' jsonValue )* RBracket ;
+    // InLineJSON.g:101:1: jsonArray : LBracket jsonValue ( ',' jsonValue )* RBracket ;
     public final void jsonArray() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:10: ( LBracket jsonValue ( ',' jsonValue )* RBracket )
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:12: LBracket jsonValue ( ',' jsonValue )* RBracket
+            // InLineJSON.g:101:10: ( LBracket jsonValue ( ',' jsonValue )* RBracket )
+            // InLineJSON.g:101:12: LBracket jsonValue ( ',' jsonValue )* RBracket
             {
-            match(input,LBracket,FOLLOW_LBracket_in_jsonArray424); 
-            pushFollow(FOLLOW_jsonValue_in_jsonArray426);
+            match(input,LBracket,FOLLOW_LBracket_in_jsonArray425); 
+            pushFollow(FOLLOW_jsonValue_in_jsonArray427);
             jsonValue();
 
             state._fsp--;
 
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:31: ( ',' jsonValue )*
+            // InLineJSON.g:101:31: ( ',' jsonValue )*
             loop4:
             do {
                 int alt4=2;
@@ -289,10 +289,10 @@ public class InLineJSONParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:101:32: ',' jsonValue
+            	    // InLineJSON.g:101:32: ',' jsonValue
             	    {
-            	    match(input,Comma,FOLLOW_Comma_in_jsonArray429); 
-            	    pushFollow(FOLLOW_jsonValue_in_jsonArray431);
+            	    match(input,Comma,FOLLOW_Comma_in_jsonArray430); 
+            	    pushFollow(FOLLOW_jsonValue_in_jsonArray432);
             	    jsonValue();
 
             	    state._fsp--;
@@ -306,7 +306,7 @@ public class InLineJSONParser extends Parser {
                 }
             } while (true);
 
-            match(input,RBracket,FOLLOW_RBracket_in_jsonArray435); 
+            match(input,RBracket,FOLLOW_RBracket_in_jsonArray436); 
 
             }
 
@@ -323,10 +323,10 @@ public class InLineJSONParser extends Parser {
 
 
     // $ANTLR start "jsonValue"
-    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:103:1: jsonValue : ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' );
+    // InLineJSON.g:103:1: jsonValue : ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' );
     public final void jsonValue() throws RecognitionException {
         try {
-            // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:2: ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' )
+            // InLineJSON.g:104:2: ( jsonObject | jsonArray | String | Integer | Double | 'true' | 'false' | 'null' )
             int alt5=8;
             switch ( input.LA(1) ) {
             case LBrace:
@@ -378,9 +378,9 @@ public class InLineJSONParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:104:4: jsonObject
+                    // InLineJSON.g:104:4: jsonObject
                     {
-                    pushFollow(FOLLOW_jsonObject_in_jsonValue444);
+                    pushFollow(FOLLOW_jsonObject_in_jsonValue445);
                     jsonObject();
 
                     state._fsp--;
@@ -389,9 +389,9 @@ public class InLineJSONParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:105:4: jsonArray
+                    // InLineJSON.g:105:4: jsonArray
                     {
-                    pushFollow(FOLLOW_jsonArray_in_jsonValue449);
+                    pushFollow(FOLLOW_jsonArray_in_jsonValue450);
                     jsonArray();
 
                     state._fsp--;
@@ -400,44 +400,44 @@ public class InLineJSONParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:106:4: String
+                    // InLineJSON.g:106:4: String
                     {
-                    match(input,String,FOLLOW_String_in_jsonValue454); 
+                    match(input,String,FOLLOW_String_in_jsonValue455); 
 
                     }
                     break;
                 case 4 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:107:4: Integer
+                    // InLineJSON.g:107:4: Integer
                     {
-                    match(input,Integer,FOLLOW_Integer_in_jsonValue459); 
+                    match(input,Integer,FOLLOW_Integer_in_jsonValue460); 
 
                     }
                     break;
                 case 5 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:108:4: Double
+                    // InLineJSON.g:108:4: Double
                     {
-                    match(input,Double,FOLLOW_Double_in_jsonValue464); 
+                    match(input,Double,FOLLOW_Double_in_jsonValue465); 
 
                     }
                     break;
                 case 6 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:109:4: 'true'
+                    // InLineJSON.g:109:4: 'true'
                     {
-                    match(input,23,FOLLOW_23_in_jsonValue469); 
+                    match(input,23,FOLLOW_23_in_jsonValue470); 
 
                     }
                     break;
                 case 7 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:110:4: 'false'
+                    // InLineJSON.g:110:4: 'false'
                     {
-                    match(input,24,FOLLOW_24_in_jsonValue474); 
+                    match(input,24,FOLLOW_24_in_jsonValue475); 
 
                     }
                     break;
                 case 8 :
-                    // c:\\Users\\leo\\work\\eclipse\\workspace\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\InLineJSON.g:111:4: 'null'
+                    // InLineJSON.g:111:4: 'null'
                     {
-                    match(input,25,FOLLOW_25_in_jsonValue479); 
+                    match(input,25,FOLLOW_25_in_jsonValue480); 
 
                     }
                     break;
@@ -459,32 +459,32 @@ public class InLineJSONParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_jsonElement_in_jsonObjectFragment369 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_Comma_in_jsonObjectFragment372 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_jsonElement_in_jsonObjectFragment374 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_jsonValue_in_jsonArrayFragment382 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_Comma_in_jsonArrayFragment385 = new BitSet(new long[]{0x0000000003AC9000L});
-    public static final BitSet FOLLOW_jsonValue_in_jsonArrayFragment387 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_LBrace_in_jsonObject396 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_jsonElement_in_jsonObject398 = new BitSet(new long[]{0x0000000000104000L});
-    public static final BitSet FOLLOW_Comma_in_jsonObject401 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_jsonElement_in_jsonObject403 = new BitSet(new long[]{0x0000000000104000L});
-    public static final BitSet FOLLOW_RBrace_in_jsonObject407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_jsonElement413 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_Colon_in_jsonElement415 = new BitSet(new long[]{0x0000000003AC9000L});
-    public static final BitSet FOLLOW_jsonValue_in_jsonElement417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBracket_in_jsonArray424 = new BitSet(new long[]{0x0000000003AC9000L});
-    public static final BitSet FOLLOW_jsonValue_in_jsonArray426 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_Comma_in_jsonArray429 = new BitSet(new long[]{0x0000000003AC9000L});
-    public static final BitSet FOLLOW_jsonValue_in_jsonArray431 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_RBracket_in_jsonArray435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_jsonObject_in_jsonValue444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_jsonArray_in_jsonValue449 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_jsonValue454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_jsonValue459 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Double_in_jsonValue464 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_jsonValue469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_jsonValue474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_jsonValue479 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_jsonElement_in_jsonObjectFragment370 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_Comma_in_jsonObjectFragment373 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_jsonElement_in_jsonObjectFragment375 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_jsonValue_in_jsonArrayFragment383 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_Comma_in_jsonArrayFragment386 = new BitSet(new long[]{0x0000000003AC9000L});
+    public static final BitSet FOLLOW_jsonValue_in_jsonArrayFragment388 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_LBrace_in_jsonObject397 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_jsonElement_in_jsonObject399 = new BitSet(new long[]{0x0000000000104000L});
+    public static final BitSet FOLLOW_Comma_in_jsonObject402 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_jsonElement_in_jsonObject404 = new BitSet(new long[]{0x0000000000104000L});
+    public static final BitSet FOLLOW_RBrace_in_jsonObject408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_jsonElement414 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_Colon_in_jsonElement416 = new BitSet(new long[]{0x0000000003AC9000L});
+    public static final BitSet FOLLOW_jsonValue_in_jsonElement418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBracket_in_jsonArray425 = new BitSet(new long[]{0x0000000003AC9000L});
+    public static final BitSet FOLLOW_jsonValue_in_jsonArray427 = new BitSet(new long[]{0x0000000000404000L});
+    public static final BitSet FOLLOW_Comma_in_jsonArray430 = new BitSet(new long[]{0x0000000003AC9000L});
+    public static final BitSet FOLLOW_jsonValue_in_jsonArray432 = new BitSet(new long[]{0x0000000000404000L});
+    public static final BitSet FOLLOW_RBracket_in_jsonArray436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_jsonObject_in_jsonValue445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_jsonArray_in_jsonValue450 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_jsonValue455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_jsonValue460 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Double_in_jsonValue465 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_jsonValue470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_jsonValue475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_jsonValue480 = new BitSet(new long[]{0x0000000000000002L});
 
 }
