@@ -35,7 +35,6 @@ end
 # reference sequence
 class Reference < Locus
   Coordinate :coodinate
-  string :name
   sequence :sequence 
 end
 
