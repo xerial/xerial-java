@@ -55,11 +55,13 @@ import org.xerial.util.tree.TreeParser;
  * @author leo
  * 
  */
-public class ObjectMapper
-{
+public class ObjectMapper {
     private static Logger _logger = Logger.getLogger(ObjectMapper.class);
+
+    // id -> corresponding object instance
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
 
+    // schema -> binder 
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
 
     private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
@@ -67,75 +69,86 @@ public class ObjectMapper
 
     private static HashMap<Class< ? >, ObjectMapper> prebuildMapper = new HashMap<Class< ? >, ObjectMapper>();
 
-    private static interface Binder
-    {
+    /**
+     * interface for invoking setters or field setters of the object
+     * 
+     * @author leo
+     * 
+     */
+    private static interface Binder {
         public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException;
 
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException;
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException;
 
     }
 
-    private class RelationBinder implements Binder
-    {
+    /**
+     * Binds a node pair to the context node object. e.g. addA_B(A a, B b)
+     * 
+     * @author leo
+     * 
+     */
+    private class RelationBinder implements Binder {
         final ObjectLens lens;
         final RelationSetter setter;
 
-        public RelationBinder(ObjectLens lens, RelationSetter setter)
-        {
+        public RelationBinder(ObjectLens lens, RelationSetter setter) {
             this.lens = lens;
             this.setter = setter;
         }
 
-        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException
-        {
+        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException {
             Object coreNodeInstance = getNodeInstance(coreNode, setter.getCoreNodeType());
-            Object attributeNodeInstance = getNodeInstance(attributeNode, setter.getAttributeNodeType());
+            Object attributeNodeInstance = getNodeInstance(attributeNode, setter
+                    .getAttributeNodeType());
 
             Object contextNode = findContextNode(lens.getTargetType());
             if (contextNode == null)
-                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for " + setter);
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for "
+                        + setter);
 
-            if (attributeNodeInstance != null)
-            {
+            if (attributeNodeInstance != null) {
                 setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
             }
         }
 
-        public Object findContextNode(Class< ? > targetType)
-        {
-            for (Iterator<Object> it = contextNodeStack.descendingIterator(); it.hasNext();)
-            {
+        public Object findContextNode(Class< ? > targetType) {
+            for (Iterator<Object> it = contextNodeStack.descendingIterator(); it.hasNext();) {
                 Object node = it.next();
-                if (targetType.equals(node.getClass()))
-                {
+                if (targetType.equals(node.getClass())) {
                     return node;
                 }
             }
             return null;
         }
 
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException
-        {
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
             throw new XerialError(XerialErrorCode.UNSUPPORTED);
         }
     }
 
-    private class AttributeBinder implements Binder
-    {
+    /**
+     * 
+     * Bind an attribute object to the context node (core node)
+     * 
+     * @author leo
+     * 
+     */
+    private class AttributeBinder implements Binder {
         final ParameterSetter setter;
         final Class< ? > coreNodeType;
         final Class< ? > attributeNodeType;
 
-        public AttributeBinder(Class< ? > coreNodeType, ParameterSetter setter)
-        {
+        public AttributeBinder(Class< ? > coreNodeType, ParameterSetter setter) {
             this.setter = setter;
             this.coreNodeType = coreNodeType;
             this.attributeNodeType = setter.getParameterType();
 
         }
 
-        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException
-        {
+        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException {
             Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
             Object attributeNodeInstance = getNodeInstance(attributeNode, attributeNodeType);
 
@@ -143,8 +156,8 @@ public class ObjectMapper
                 setter.bind(coreNodeInstance, attributeNodeInstance);
         }
 
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue) throws XerialException
-        {
+        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
             Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
             Object textNodeInstance = getNodeInstance(textNode, attributeNodeType);
 
@@ -155,34 +168,28 @@ public class ObjectMapper
         }
     }
 
-    public <T> ObjectMapper(Class<T> targetType) throws XerialException
-    {
+    public <T> ObjectMapper(Class<T> targetType) throws XerialException {
         qs = buildQuery(targetType);
     }
 
-    public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException
-    {
+    public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException {
         if (prebuildMapper.containsKey(targetType))
             return prebuildMapper.get(targetType);
-        else
-        {
+        else {
             ObjectMapper newInstance = new ObjectMapper(targetType);
             prebuildMapper.put(targetType, newInstance);
             return newInstance;
         }
     }
 
-    public <T> T map(Class<T> targetType, TreeParser parser) throws XerialException
-    {
+    public <T> T map(Class<T> targetType, TreeParser parser) throws XerialException {
 
         T object = TypeInfo.createInstance(targetType);
         return map(object, parser);
     }
 
-    public <T> T map(T object, TreeParser parser) throws XerialException
-    {
-        try
-        {
+    public <T> T map(T object, TreeParser parser) throws XerialException {
+        try {
             if (object == null)
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
 
@@ -199,46 +206,39 @@ public class ObjectMapper
             aj.sweep(parser);
             return object;
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             throw new XerialException(XerialErrorCode.INHERITED, e);
         }
 
     }
 
-    private QuerySet buildQuery(Class< ? > targetType)
-    {
+    private QuerySet buildQuery(Class< ? > targetType) {
         QueryBuilder qb = new QueryBuilder();
         qb.build(targetType, "root");
         return qb.qs.build();
     }
 
-    private class QueryBuilder
-    {
+    private class QueryBuilder {
         QuerySetBuilder qs = new QuerySetBuilder();
         private HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
 
         //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
 
-        public QueryBuilder()
-        {
+        public QueryBuilder() {
 
         }
 
-        public void build(Class< ? > targetType, String alias)
-        {
+        public void build(Class< ? > targetType, String alias) {
             // TODO use context-based schema -> binder mapping
 
             if (TypeInfo.isBasicType(targetType) || targetType == MapEntry.class)
                 return;
 
             Set<Class< ? >> processed = processedClassTable.get(alias);
-            if (processed == null)
-            {
+            if (processed == null) {
                 processed = new HashSet<Class< ? >>();
                 processedClassTable.put(alias, processed);
             }
@@ -257,10 +257,8 @@ public class ObjectMapper
             if (_logger.isTraceEnabled())
                 _logger.trace(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
 
-            for (ParameterSetter each : lens.getSetterList())
-            {
-                if (each.getClass() == MapEntryBinder.class)
-                {
+            for (ParameterSetter each : lens.getSetterList()) {
+                if (each.getClass() == MapEntryBinder.class) {
                     SchemaBuilder builder = new SchemaBuilder();
                     builder.add("entry");
                     builder.add(each.getParameterName());
@@ -282,12 +280,12 @@ public class ObjectMapper
                 schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
             }
 
-            for (RelationSetter each : lens.getRelationSetterList())
-            {
+            for (RelationSetter each : lens.getRelationSetterList()) {
                 build(each.getCoreNodeType(), each.getCoreNodeName());
                 build(each.getAttributeNodeType(), each.getAttributeNodeName());
 
-                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(each.getAttributeNodeName()).build();
+                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(
+                        each.getAttributeNodeName()).build();
                 qs.addQueryTarget(s);
 
                 schema2binder.put(s, new RelationBinder(lens, each));
@@ -298,25 +296,21 @@ public class ObjectMapper
 
     }
 
-    private Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException
-    {
+    private Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException {
         Object instance = objectHolder.get(node.nodeID);
         if (instance != null)
             return instance;
 
-        if (TypeInfo.isBasicType(nodeType))
-        {
+        if (TypeInfo.isBasicType(nodeType)) {
             if (node.nodeValue == null)
                 return null;
             else
                 instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
         }
-        else
-        {
+        else {
             instance = TypeInfo.createInstance(nodeType);
 
-            if (node.nodeValue != null)
-            {
+            if (node.nodeValue != null) {
                 setTextValue(instance, nodeType, node.nodeValue);
             }
 
@@ -325,39 +319,37 @@ public class ObjectMapper
         return instance;
     }
 
-    private void setTextValue(Object instance, Class< ? > textNodeType, String textValue) throws XerialException
-    {
+    private void setTextValue(Object instance, Class< ? > textNodeType, String textValue)
+            throws XerialException {
         // bind the node value to the instance
         ObjectLens lens = ObjectLens.getObjectLens(textNodeType);
         ParameterSetter valueSetter = lens.getValueSetter();
         if (valueSetter != null)
-            valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter.getParameterType(), textValue));
+            valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter
+                    .getParameterType(), textValue));
 
     }
 
-    private Object getTextNodeInstance(String nodeName, String nodeValue, Class< ? > nodeType) throws XerialException
-    {
+    private Object getTextNodeInstance(String nodeName, String nodeValue, Class< ? > nodeType)
+            throws XerialException {
         Object instance = null;
 
-        if (TypeInfo.isBasicType(nodeType))
-        {
+        if (TypeInfo.isBasicType(nodeType)) {
             if (nodeValue == null)
                 return null;
             else
                 instance = TypeConverter.convertToBasicType(nodeType, nodeValue);
         }
-        else
-        {
+        else {
             instance = TypeInfo.createInstance(nodeType);
 
-            if (nodeValue != null)
-            {
+            if (nodeValue != null) {
                 // bind the node value to the instance
                 ObjectLens lens = ObjectLens.getObjectLens(nodeType);
                 ParameterSetter valueSetter = lens.getValueSetter();
                 if (valueSetter != null)
-                    valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter.getParameterType(),
-                            nodeValue));
+                    valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter
+                            .getParameterType(), nodeValue));
             }
 
         }
@@ -365,13 +357,16 @@ public class ObjectMapper
         return instance;
     }
 
-    private class RelationExtracter extends AmoebaJoinHandlerBase
-    {
+    /**
+     * Tree -> Relation -> Object binding process body
+     * 
+     * @author leo
+     * 
+     */
+    private class RelationExtracter extends AmoebaJoinHandlerBase {
 
-        public void leaveNode(Schema schema, Node node) throws Exception
-        {
-            if (schema == null && node.nodeValue != null)
-            {
+        public void leaveNode(Schema schema, Node node) throws Exception {
+            if (schema == null && node.nodeValue != null) {
                 // if putter is defined, set (node.nodeName, node.nodeValue) as (key, value)
                 if (_logger.isTraceEnabled())
                     _logger.trace("put: " + node);
@@ -388,43 +383,44 @@ public class ObjectMapper
 
         }
 
-        public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
-        {
+        public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
+                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode,
+                        schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
+                        + schema);
 
-            try
-            {
+            try {
                 binder.bind(schema, coreNode, attributeNode);
             }
-            catch (XerialException e)
-            {
-                _logger.warn(String.format("failed to bind: core node=%s, attribute node=%s, schema=%s\n%s", coreNode,
+            catch (XerialException e) {
+                _logger.warn(String.format(
+                        "failed to bind: core node=%s, attribute node=%s, schema=%s\n%s", coreNode,
                         attributeNode, schema, e));
             }
 
         }
 
-        public void text(Schema schema, Node coreNode, Node textNode, String textFragment) throws Exception
-        {
+        public void text(Schema schema, Node coreNode, Node textNode, String textFragment)
+                throws Exception {
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode, textFragment, schema));
+                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
+                        textFragment, schema));
 
             Binder binder = schema2binder.get(schema);
             if (binder == null)
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
+                        + schema);
 
-            try
-            {
+            try {
                 binder.bindText(schema, coreNode, textNode, textFragment);
             }
-            catch (XerialException e)
-            {
-                _logger.warn(String.format("failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
+            catch (XerialException e) {
+                _logger.warn(String.format(
+                        "failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
                         coreNode, textNode, textFragment, e));
             }
         }

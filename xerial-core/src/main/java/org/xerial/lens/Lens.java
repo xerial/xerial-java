@@ -109,8 +109,7 @@ import org.xerial.util.xml.XMLTreeParser;
  * </p>
  * 
  * <pre>
- * class GeneList
- * {
+ * class GeneList {
  *     // map of List value type corresponds to two-argument adder 
  *     public Map&lt;Coordinate, List&lt;Gene&gt;&gt; geneTable;
  * 
@@ -122,18 +121,15 @@ import org.xerial.util.xml.XMLTreeParser;
  * </pre>
  * 
  * <pre>
- * class GeneList
- * {
+ * class GeneList {
  * 
  *     // map of List value type corresponds to two-argument adder 
  *     public Map&lt;Coordinate, List&lt;Gene&gt;&gt; geneTable;
  * 
  *     // add gene to the geneList table (if you use public Map field, no need to write the following method)
- *     public void add(Coordinate coordinate, Gene gene)
- *     {
+ *     public void add(Coordinate coordinate, Gene gene) {
  *         List&lt;Gene&gt; geneList = geneTable.get(coordinate);
- *         if (geneList == null)
- *         {
+ *         if (geneList == null) {
  *             geneList = new ArrayList&lt;Gene&gt;();
  *             geneTable.put(coordinate, geneList);
  *         }
@@ -144,8 +140,7 @@ import org.xerial.util.xml.XMLTreeParser;
  *     // for adding unknown parameters 
  *     public Map&lt;String, String&gt; properties;
  * 
- *     public void put(String key, String value)
- *     {
+ *     public void put(String key, String value) {
  *         this.properties.put(key, value);
  *     }
  * 
@@ -157,8 +152,7 @@ import org.xerial.util.xml.XMLTreeParser;
  * @author leo
  * 
  */
-public class Lens
-{
+public class Lens {
 
     /**
      * Translate the specified Silk file into an instance of the target object.
@@ -175,96 +169,101 @@ public class Lens
      * @throws XerialException
      *             when failed to parse the input Silk file
      */
-    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource) throws IOException,
-            XerialException
-    {
+    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource)
+            throws IOException, XerialException {
         return loadSilk(TypeInfo.createInstance(targetType), silkResource);
     }
 
-    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException, XerialException
-    {
+    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException,
+            XerialException {
         if (silkResource == null)
             throw new NullPointerException("silk resouce is null");
 
         return load(result, new SilkParser(silkResource));
     }
 
-    public static <Result> Result loadSilk(Result result, Reader silkReader) throws XerialException, IOException
-    {
+    public static <Result> Result loadSilk(Result result, Reader silkReader)
+            throws XerialException, IOException {
         return load(result, new SilkParser(silkReader));
     }
 
-    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader) throws XerialException,
-            IOException
-    {
+    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader)
+            throws XerialException, IOException {
         return loadSilk(TypeInfo.createInstance(resultType), silkReader);
     }
 
-    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException, XerialException
-    {
+    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException,
+            XerialException {
         if (xmlResource == null)
             throw new NullPointerException("XML resource is null");
 
-        return load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(xmlResource.openStream()))));
+        return load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(xmlResource
+                .openStream()))));
     }
 
-    public static <Result> Result loadXML(Class<Result> result, URL xmlResource) throws IOException, XerialException
-    {
+    public static <Result> Result loadXML(Class<Result> result, URL xmlResource)
+            throws IOException, XerialException {
         return loadXML(TypeInfo.createInstance(result), xmlResource);
     }
 
-    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader) throws IOException, XerialException
-    {
+    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader)
+            throws IOException, XerialException {
         return loadXML(TypeInfo.createInstance(result), xmlReader);
     }
 
-    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException, XerialException
-    {
+    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException,
+            XerialException {
         return load(result, new XMLTreeParser(xmlReader));
     }
 
-    public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader) throws XerialException,
-            IOException
-    {
+    public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader)
+            throws XerialException, IOException {
         return loadJSON(TypeInfo.createInstance(targetType), jsonReader);
     }
 
-    public static <Result> Result loadJSON(Result result, Reader jsonReader) throws XerialException, IOException
-    {
+    public static <Result> Result loadJSON(Result result, Reader jsonReader)
+            throws XerialException, IOException {
         return load(result, new JSONPushParser(jsonReader));
     }
 
     public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
-            final String[] parserTokenNames) throws XerialException
-    {
+            final String[] parserTokenNames) throws XerialException {
         return loadANTLRParseTree(TypeInfo.createInstance(resultType), tree, parserTokenNames);
     }
 
-    public static <Result> Result loadANTLRParseTree(Result result, Tree tree, final String[] parserTokenNames)
-            throws XerialException
-    {
+    public static <Result> Result loadANTLRParseTree(Result result, Tree tree,
+            final String[] parserTokenNames) throws XerialException {
         return load(result, new ANTLRTreeParser(parserTokenNames, tree));
     }
 
-    public static <Result> Result loadMap(Class<Result> resultType, Map< ? , ? > map) throws XerialException
-    {
+    public static <Result> Result loadMap(Class<Result> resultType, Map< ? , ? > map)
+            throws XerialException {
         return loadMap(TypeInfo.createInstance(resultType), map);
     }
 
-    public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException
-    {
+    public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException {
         return load(result, new MapParser(map));
     }
 
-    public static <Result> Result load(Class<Result> targetType, TreeParser parser) throws XerialException
-    {
+    public static <Result> Result load(Class<Result> targetType, TreeParser parser)
+            throws XerialException {
         return load(TypeInfo.createInstance(targetType), parser);
     }
 
-    public static <Result> Result load(Result result, TreeParser parser) throws XerialException
-    {
+    public static <Result> Result load(Result result, TreeParser parser) throws XerialException {
         ObjectMapper mapper = ObjectMapper.getMapper(result.getClass());
         return mapper.map(result, parser);
+    }
+
+    public static <Result> void find(Class<Result> bindingType, TreeParser parser,
+            ObjectHandler<Result> handler) throws XerialException {
+        find(bindingType, bindingType.getSimpleName(), parser, handler);
+    }
+
+    public static <Result> void find(Class<Result> bindingType, String coreNodeName,
+            TreeParser parser, ObjectHandler<Result> handler) throws XerialException {
+        ObjectMapper mapper = ObjectMapper.getMapper(bindingType.getClass());
+
     }
 
 }
