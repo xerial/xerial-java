@@ -60,9 +60,9 @@ public class SilkSchema {
             SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(reader));
             CommonTokenStream token = new CommonTokenStream(lexer);
 
-            if (_logger.isDebugEnabled())
+            if (_logger.isTraceEnabled())
                 _logger
-                        .debug(StringUtil.join(ANTLRUtil
+                        .trace(StringUtil.join(ANTLRUtil
                                 .prettyPrintTokenList(token.getTokens(), ANTLRUtil.getTokenTable(
                                         SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
 
@@ -70,8 +70,8 @@ public class SilkSchema {
 
             SilkSchemaParser.schema_return ret = parser.schema();
 
-            if (_logger.isDebugEnabled())
-                _logger.debug("parse tree:\n"
+            if (_logger.isTraceEnabled())
+                _logger.trace("parse tree:\n"
                         + ANTLRUtil.parseTree((Tree) ret.getTree(), SilkSchemaParser.tokenNames));
 
             return Lens.loadANTLRParseTree(SilkSchema.class, (Tree) ret.getTree(),
