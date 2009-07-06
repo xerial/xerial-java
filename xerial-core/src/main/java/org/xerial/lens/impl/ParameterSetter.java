@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.lens.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -40,40 +40,34 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-public abstract class ParameterSetter
-{
+public abstract class ParameterSetter {
     private static Logger _logger = Logger.getLogger(ParameterSetter.class);
 
     private final Class< ? > parameterType;
     private final String parameterName;
 
-    public ParameterSetter(Class< ? > parameterType, String parameterName)
-    {
+    public ParameterSetter(Class< ? > parameterType, String parameterName) {
         this.parameterType = parameterType;
         this.parameterName = parameterName;
     }
 
     public abstract void bind(Object object, Object value) throws XerialException;
 
-    public Class< ? > getParameterType()
-    {
+    public Class< ? > getParameterType() {
         return parameterType;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("%s[%s]", parameterName, parameterType.getSimpleName());
     }
 
-    public String getParameterName()
-    {
+    public String getParameterName() {
         return parameterName;
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         ParameterSetter other = ParameterSetter.class.cast(obj);
         if (other == null)
             return false;
@@ -81,42 +75,36 @@ public abstract class ParameterSetter
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return parameterName.hashCode();
     }
 
-    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName, Field targetField)
-    {
+    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName,
+            Field targetField) {
         return new FieldSetter(parameterType, parameterName, targetField);
     }
 
-    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName, Method setterMethod)
-    {
+    public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName,
+            Method setterMethod) {
         return new MethodSetter(parameterType, parameterName, setterMethod);
     }
 
-    public static ParameterSetter newKeySetter(Class< ? > keyType)
-    {
+    public static ParameterSetter newKeySetter(Class< ? > keyType) {
         return new MapEntryBinder(keyType, "key");
     }
 
-    public static ParameterSetter newValueSetter(Class< ? > valueType)
-    {
+    public static ParameterSetter newValueSetter(Class< ? > valueType) {
         return new MapEntryBinder(valueType, "value");
     }
 
-    public static ParameterSetter newMapEntrySetter(Class< ? > keyType, Class< ? > valueType)
-    {
+    public static ParameterSetter newMapEntrySetter(Class< ? > keyType, Class< ? > valueType) {
         return new MapEntrySetter(keyType, valueType);
     }
 
-    private static class FieldSetter extends ParameterSetter
-    {
+    private static class FieldSetter extends ParameterSetter {
         private final Field targetField;
 
-        public FieldSetter(Class< ? > parameterType, String parameterName, Field targetField)
-        {
+        public FieldSetter(Class< ? > parameterType, String parameterName, Field targetField) {
             super(parameterType, parameterName);
             this.targetField = targetField;
 
@@ -127,70 +115,58 @@ public abstract class ParameterSetter
         }
 
         @Override
-        public void bind(Object object, Object value) throws XerialException
-        {
+        public void bind(Object object, Object value) throws XerialException {
             ReflectionUtil.setFieldValue(object, targetField, value);
         }
 
-        public Object get(Object object) throws XerialException
-        {
+        public Object get(Object object) throws XerialException {
             return ReflectionUtil.getFieldValue(object, targetField);
         }
 
     }
 
-    private static class MethodSetter extends ParameterSetter
-    {
+    private static class MethodSetter extends ParameterSetter {
         private final Method setterMethod;
 
-        public MethodSetter(Class< ? > parameterType, String parameterName, Method setterMethod)
-        {
+        public MethodSetter(Class< ? > parameterType, String parameterName, Method setterMethod) {
             super(parameterType, parameterName);
             this.setterMethod = setterMethod;
         }
 
         @Override
-        public void bind(Object object, Object value) throws XerialException
-        {
+        public void bind(Object object, Object value) throws XerialException {
             ReflectionUtil.setValue(object, setterMethod, value);
         }
 
     }
 
-    static class MapEntryBinder extends ParameterSetter
-    {
+    public static class MapEntryBinder extends ParameterSetter {
         private final Field targetField;
 
-        public MapEntryBinder(Class< ? > parameterType, String parameterName)
-        {
+        public MapEntryBinder(Class< ? > parameterType, String parameterName) {
             super(parameterType, parameterName);
 
-            try
-            {
+            try {
                 targetField = MapEntry.class.getField(parameterName);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 throw new XerialError(XerialErrorCode.INVALID_STATE, e);
             }
 
         }
 
         @Override
-        public void bind(Object entry, Object key) throws XerialException
-        {
+        public void bind(Object entry, Object key) throws XerialException {
             ReflectionUtil.setFieldValue(entry, targetField, key);
         }
 
     }
 
-    private static class MapEntrySetter extends ParameterSetter
-    {
+    private static class MapEntrySetter extends ParameterSetter {
         final Class< ? > keyType;
         final Class< ? > valueType;
 
-        public MapEntrySetter(Class< ? > keyType, Class< ? > valueType)
-        {
+        public MapEntrySetter(Class< ? > keyType, Class< ? > valueType) {
             super(MapEntry.class, "entry");
 
             this.keyType = keyType;
@@ -199,29 +175,24 @@ public abstract class ParameterSetter
 
         @SuppressWarnings("unchecked")
         @Override
-        public void bind(Object mapObject, Object entryObject) throws XerialException
-        {
+        public void bind(Object mapObject, Object entryObject) throws XerialException {
             Map map = Map.class.cast(mapObject);
-            if (map == null)
-            {
+            if (map == null) {
                 _logger.warn("not a map type: " + mapObject);
                 return;
             }
 
             MapEntry entry = MapEntry.class.cast(entryObject);
-            if (entry == null)
-            {
+            if (entry == null) {
                 _logger.warn("not a map entry type: " + entryObject);
                 return;
             }
 
-            try
-            {
+            try {
                 if (entry.key != null)
                     map.put(keyType.cast(entry.key), valueType.cast(entry.value));
             }
-            catch (ClassCastException e)
-            {
+            catch (ClassCastException e) {
                 _logger.warn("cannot convert type: " + e);
                 return;
             }

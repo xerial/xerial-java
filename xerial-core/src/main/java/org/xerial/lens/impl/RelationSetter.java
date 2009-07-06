@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.lens.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

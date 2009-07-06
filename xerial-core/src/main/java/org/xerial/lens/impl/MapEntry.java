@@ -21,11 +21,10 @@
 //
 // $URL$
 // $Author$
-//--------------------------------------
-package org.xerial.lens;
+//-----------------------
+package org.xerial.lens.impl;
 
-public class MapEntry
-{
+public class MapEntry {
     public Object key;
     public Object value;
 }

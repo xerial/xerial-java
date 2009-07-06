@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.lens.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -37,61 +37,50 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-public abstract class ParameterGetter
-{
+public abstract class ParameterGetter {
     private final String paramName;
 
-    public ParameterGetter(String paramName)
-    {
+    public ParameterGetter(String paramName) {
         this.paramName = paramName;
     }
 
-    public String getParamName()
-    {
+    public String getParamName() {
         return paramName;
     }
 
     public abstract Object get(Object obj);
 
-    public static ParameterGetter newFieldGetter(Field field, String paramName)
-    {
+    public static ParameterGetter newFieldGetter(Field field, String paramName) {
         return new FieldGetter(field, paramName);
     }
 
-    public static ParameterGetter newGetter(Method getter, String paramName)
-    {
+    public static ParameterGetter newGetter(Method getter, String paramName) {
         return new GetterMethod(getter, paramName);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return paramName;
     }
 
-    private static class FieldGetter extends ParameterGetter
-    {
+    private static class FieldGetter extends ParameterGetter {
         final Field field;
 
-        public FieldGetter(Field field, String paramName)
-        {
+        public FieldGetter(Field field, String paramName) {
             super(paramName);
             this.field = field;
         }
 
         @Override
-        public Object get(Object obj)
-        {
+        public Object get(Object obj) {
             return ReflectionUtil.getFieldValue(obj, field);
         }
     }
 
-    private static class GetterMethod extends ParameterGetter
-    {
+    private static class GetterMethod extends ParameterGetter {
         final Method getter;
 
-        public GetterMethod(Method getter, String paramName)
-        {
+        public GetterMethod(Method getter, String paramName) {
             super(paramName);
 
             this.getter = getter;
@@ -102,8 +91,7 @@ public abstract class ParameterGetter
         }
 
         @Override
-        public Object get(Object obj)
-        {
+        public Object get(Object obj) {
             return ReflectionUtil.invokeGetter(obj, getter);
         }
     }
