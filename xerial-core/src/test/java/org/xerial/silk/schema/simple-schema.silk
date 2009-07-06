@@ -2,21 +2,16 @@
 
 module org.utgenome
 
+
 # coordinate system information
-class Coordinate
-  :group = "utgb"
-  :species 
-  :revision
-  :name
+class Coordinate 
 end
 
 # region on a genome sequence
 class Locus
-  :id 
-  integer :start, :end 
-
-  index interval :start, :end
-  index keyword :id
+  string :id 
+  integer :start 
+  integer :end 
 end
 
 # gene data with sequence data
@@ -35,7 +30,6 @@ end
 # reference sequence
 class Reference < Locus
   Coordinate :coodinate
-  string :name
   sequence :sequence 
 end
 
@@ -45,7 +39,6 @@ class Read
   string :sequence 
   integer* :qv 
 end 
-
 
 # Alignment of reads to a reference genome
 relation Alignment

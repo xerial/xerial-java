@@ -24,9 +24,18 @@
 //--------------------------------------
 package org.xerial.silk.schema;
 
-public class SilkModule
-{
+import java.util.List;
+
+/**
+ * Module for packing several class definitions within a scope
+ * 
+ * @author leo
+ * 
+ */
+public class SilkModule {
     public final static String ROOT_MODULE_NAME = "";
 
     public String name = ROOT_MODULE_NAME;
+
+    public List<SilkClass> classDef;
 }

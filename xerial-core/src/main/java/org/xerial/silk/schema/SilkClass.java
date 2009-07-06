@@ -27,19 +27,19 @@ package org.xerial.silk.schema;
 import java.util.List;
 
 /**
- * 
+ * Class definition
  * 
  * @author leo
  * 
  */
-public class SilkClass
-{
-    public SilkModule module = null;
+public class SilkClass {
     public String name;
 
     public String parent = null;
 
     public List<String> mixin;
     public List<SilkAttribute> attribute;
+
+    public List<SilkIndexTarget> index;
 
 }

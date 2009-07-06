@@ -260,6 +260,10 @@ public class Lens {
         find(bindingType, bindingType.getSimpleName(), parser, handler);
     }
 
+    public static String toJSON(Object obj) {
+        return ObjectLens.toJSON(obj);
+    }
+
     public static <Result> void find(Class<Result> bindingType, String coreNodeName,
             TreeParser parser, ObjectHandler<Result> handler) throws XerialException {
         ObjectMapper mapper = ObjectMapper.getMapper(bindingType.getClass());

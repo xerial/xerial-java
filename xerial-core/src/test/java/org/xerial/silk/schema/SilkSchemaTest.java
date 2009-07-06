@@ -29,23 +29,24 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.Lens;
 import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
 
-public class SilkSchemaTest
-{
+public class SilkSchemaTest {
+
+    private static Logger _logger = Logger.getLogger(SilkSchemaTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void parse() throws Exception
-    {
-        SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "schema.silk"));
+    public void parse() throws Exception {
+        SilkSchema schema = SilkSchema
+                .parse(FileResource.open(SilkSchemaTest.class, "schema.silk"));
 
         // confirm module
         assertNotNull(schema.module);
@@ -54,36 +55,29 @@ public class SilkSchemaTest
         assertEquals("org.utgenome", m.name);
 
         // confirm classes
-        assertNotNull(schema.classDef);
-        assertEquals(7, schema.classDef.size());
-        for (SilkClass c : schema.classDef)
-        {
-            if (c.name.equals("Coordinate"))
-            {
+
+        assertNotNull(m.classDef);
+        assertEquals(7, m.classDef.size());
+        for (SilkClass c : m.classDef) {
+            if (c.name.equals("Coordinate")) {
 
             }
-            else if (c.name.equals("Locus"))
-            {
+            else if (c.name.equals("Locus")) {
 
             }
-            else if (c.name.equals("Gene"))
-            {
+            else if (c.name.equals("Gene")) {
 
             }
-            else if (c.name.equals("Exon"))
-            {
+            else if (c.name.equals("Exon")) {
 
             }
-            else if (c.name.equals("CDS"))
-            {
+            else if (c.name.equals("CDS")) {
 
             }
-            else if (c.name.equals("Reference"))
-            {
+            else if (c.name.equals("Reference")) {
 
             }
-            else if (c.name.equals("Read"))
-            {
+            else if (c.name.equals("Read")) {
 
             }
 
@@ -95,6 +89,8 @@ public class SilkSchemaTest
         SilkRelation r = schema.relation.get(0);
         assertEquals("Alignment", r.name);
         assertEquals(2, r.attribute.size());
+
+        _logger.info(Lens.toJSON(schema));
 
     }
 

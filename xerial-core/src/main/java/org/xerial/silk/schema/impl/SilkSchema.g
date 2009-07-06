@@ -37,7 +37,7 @@ tokens {
   Attribute;
   IsArray;
   TypeName;
-  Value;
+  DefaultValue;
 }
 
 
@@ -156,13 +156,14 @@ UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '
 fragment
 NonWhiteSpaceChar: ~(UnsafeUnicodeChar | '\r' | '\n' | ' ' | '\t' | '\u000C');
 
-
-Symbol: (':' NonWhiteSpaceChar) =>  ':' NonWhiteSpaceChar+;
+fragment SymbolChars: NonWhiteSpaceChar+;
+Symbol: (':' NonWhiteSpaceChar) =>  ':' s=SymbolChars { setText($s.text); };
 
 Class: 'class';
 Includes: 'includes';
 End: 'end';
 Relation: 'relation';
+Index: 'index';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -200,13 +201,20 @@ classDefinition
   | Relation QName classBody End -> ^(Relation Name[$QName.text] classBody)
   ; 
   
-classBody: inheritance? (includeStatement | attributes)*;
+classBody: inheritance? (includeStatement | attributes | indexStatement)*;
   
 fragment inheritance: Lt QName -> Parent[$QName.text];
   
 fragment includeStatement: Includes includeItem (Comma includeItem)* -> includeItem+;
 
 fragment includeItem: QName -> Mixin[$QName.text];
+
+fragment indexStatement: Index QName indexTarget (Comma indexTarget)*
+  -> ^(Index TypeName[$QName.text] indexTarget+)
+; 
+
+fragment indexTarget: Symbol -> Attribute[$Symbol.text]  
+; 
 
 
 fragment attributes: attribute (Comma attribute)* 
@@ -219,7 +227,7 @@ fragment attribute:
   ; 
 
 attributeValue
-  : (String | Double | Integer) -> Value[$attributeValue.text]; 
+  : (String | Double | Integer) -> DefaultValue[$attributeValue.text]; 
   
 fragment attributeType
   : QName -> TypeName[$QName.text] 

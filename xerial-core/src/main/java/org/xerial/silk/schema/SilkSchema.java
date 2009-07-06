@@ -41,12 +41,10 @@ import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
-public class SilkSchema
-{
+public class SilkSchema {
     private static Logger _logger = Logger.getLogger(SilkSchema.class);
 
     public List<SilkModule> module;
-    public List<SilkClass> classDef;
     public List<SilkRelation> relation;
 
     /**
@@ -57,34 +55,34 @@ public class SilkSchema
      * @return an instance of SilkSchema
      * @throws XerialException
      */
-    public static SilkSchema parse(Reader reader) throws XerialException
-    {
-        try
-        {
+    public static SilkSchema parse(Reader reader) throws XerialException {
+        try {
             SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(reader));
             CommonTokenStream token = new CommonTokenStream(lexer);
 
             if (_logger.isDebugEnabled())
-                _logger.debug(StringUtil.join(ANTLRUtil.prettyPrintTokenList(token.getTokens(), ANTLRUtil
-                        .getTokenTable(SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
+                _logger
+                        .debug(StringUtil.join(ANTLRUtil
+                                .prettyPrintTokenList(token.getTokens(), ANTLRUtil.getTokenTable(
+                                        SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
 
             SilkSchemaParser parser = new SilkSchemaParser(token);
 
             SilkSchemaParser.schema_return ret = parser.schema();
 
             if (_logger.isDebugEnabled())
-                _logger.debug("parse tree:\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), SilkSchemaParser.tokenNames));
+                _logger.debug("parse tree:\n"
+                        + ANTLRUtil.parseTree((Tree) ret.getTree(), SilkSchemaParser.tokenNames));
 
-            return Lens.loadANTLRParseTree(SilkSchema.class, (Tree) ret.getTree(), SilkSchemaParser.tokenNames);
+            return Lens.loadANTLRParseTree(SilkSchema.class, (Tree) ret.getTree(),
+                    SilkSchemaParser.tokenNames);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
-        catch (RecognitionException e)
-        {
-            throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format("parse error line %d(%d): %s", e.line,
-                    e.charPositionInLine, e));
+        catch (RecognitionException e) {
+            throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format(
+                    "parse error line %d(%d): %s", e.line, e.charPositionInLine, e));
         }
 
     }

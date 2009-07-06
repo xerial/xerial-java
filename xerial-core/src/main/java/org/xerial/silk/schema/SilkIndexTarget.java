@@ -16,27 +16,25 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkAttribute.java
-// Since: Jul 3, 2009 2:43:09 PM
+// SilkIndexTarget.java
+// Since: Jul 6, 2009 4:27:27 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.silk.schema;
 
+import java.util.List;
+
 /**
- * An attribute of class or relation definitions
+ * Index specification
  * 
  * @author leo
  * 
  */
-public class SilkAttribute {
-    public static final String DEFAULT_TYPE = "default";
+public class SilkIndexTarget {
 
-    public String typeName = DEFAULT_TYPE;
-    public String name;
-    public boolean isArray = false;
-
-    public String defaultValue = null;
+    public String typeName;
+    public List<String> attribute;
 
 }
