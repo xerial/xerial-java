@@ -39,55 +39,44 @@ import org.xerial.util.IndexedSet;
  * @author leo
  * 
  */
-public class QuerySet
-{
+public class QuerySet {
     private IndexedSet<Schema> queryTarget = new IndexedSet<Schema>();
     private Set<String> treeNodeSet = new HashSet<String>();
 
-    private QuerySet()
-    {}
+    public QuerySet() {}
 
-    private QuerySet(Collection<Schema> schemaSet)
-    {
-        for (Schema eachSchema : schemaSet)
-        {
+    private QuerySet(Collection<Schema> schemaSet) {
+        for (Schema eachSchema : schemaSet) {
             queryTarget.add(eachSchema);
         }
     }
 
-    public Set<Schema> getTargetQuerySet()
-    {
+    public Set<Schema> getTargetQuerySet() {
         return queryTarget;
     }
 
-    public boolean isTreeNode(String nodeName)
-    {
+    public boolean isTreeNode(String nodeName) {
         return treeNodeSet.contains(nodeName);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return queryTarget.toString();
     }
 
-    public static class QuerySetBuilder
-    {
+    public static class QuerySetBuilder {
         List<Schema> schemaList = new ArrayList<Schema>();
         Set<String> treeNodeSet = new HashSet<String>();
 
-        public void addTreeNode(String treeNode)
-        {
+        public void addTreeNode(String treeNode) {
             treeNodeSet.add(treeNode);
         }
 
-        public void addQueryTarget(Schema schema)
-        {
+        public void addQueryTarget(Schema schema) {
             schemaList.add(schema);
         }
 
-        public QuerySet build()
-        {
+        public QuerySet build() {
             return new QuerySet(schemaList);
         }
 
