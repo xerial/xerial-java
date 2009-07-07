@@ -74,8 +74,8 @@ public class SilkSchema {
 
             SilkSchemaParser.schema_return ret = parser.schema();
 
-            if (_logger.isTraceEnabled())
-                _logger.trace("parse tree:\n"
+            if (_logger.isDebugEnabled())
+                _logger.debug("parse tree:\n"
                         + ANTLRUtil.parseTree((Tree) ret.getTree(), SilkSchemaParser.tokenNames));
 
             return Lens.loadANTLRParseTree(SilkSchema.class, (Tree) ret.getTree(),

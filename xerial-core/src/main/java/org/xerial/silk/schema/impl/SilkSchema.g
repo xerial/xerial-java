@@ -164,6 +164,7 @@ Includes: 'includes';
 End: 'end';
 Relation: 'relation';
 Index: 'index';
+BelongsTo: 'belongs_to';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -201,7 +202,9 @@ classDefinition
   | Relation QName classBody End -> ^(Relation Name[$QName.text] classBody)
   ; 
   
-classBody: inheritance? (includeStatement | attributes | indexStatement)*;
+classBody: inheritance? (belongsToStatement | includeStatement | attributes | indexStatement)*;
+
+fragment belongsToStatement: BelongsTo QName -> BelongsTo[$QName.text]; 
   
 fragment inheritance: Lt QName -> Parent[$QName.text];
   

@@ -12,6 +12,8 @@ end
 
 # region on a genome sequence
 class Locus
+  belongs_to Coordinate
+
   :id 
   integer :start
   integer :end 
@@ -23,34 +25,28 @@ end
 # gene data with sequence data
 class Gene < Locus
   sequence :sequence 
-
-  # A gene may have many exons and CDSs
-  Exon* :exon
-  CDS* :cds
 end
 
 class Exon < Locus
+  belongs_to Gene
 end
 
 class CDS < Locus
+  belongs_to Gene
 end
 
 # reference sequence
 class Reference < Locus
-  Coordinate :coodinate
   sequence :sequence 
-  
-  # Reference has many reads
-  Read* :read
 end
 
 # short-read data
-class Read 
-  includes Locus
+class Read < Locus
+  belongs_to Reference
+
   string :sequence 
   integer* :qv 
 end 
-
 
 
 end 

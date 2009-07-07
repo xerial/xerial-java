@@ -37,6 +37,7 @@ public class SilkClass {
     public String name;
 
     public String parent = null;
+    public String belongsTo = null;
 
     public List<String> mixin;
     public List<SilkAttribute> attribute = new ArrayList<SilkAttribute>();

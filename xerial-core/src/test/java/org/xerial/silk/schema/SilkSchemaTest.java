@@ -92,7 +92,7 @@ public class SilkSchemaTest {
 
         _logger.info(Lens.toJSON(schema));
 
-        _logger.info(schema.toGraphviz());
+        //_logger.info(schema.toGraphviz());
 
     }
 
