@@ -196,8 +196,8 @@ public class ObjectMapper {
             if (object == null)
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
 
-            if (_logger.isDebugEnabled())
-                _logger.debug("query set: " + qs);
+            if (_logger.isTraceEnabled())
+                _logger.trace("query set: " + qs);
 
             // set the root object
             objectHolder.put(0L, object);

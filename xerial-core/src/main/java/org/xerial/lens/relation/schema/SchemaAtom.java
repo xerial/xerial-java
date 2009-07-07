@@ -38,107 +38,91 @@ import org.xerial.util.Functor;
  * @author leo
  * 
  */
-public class SchemaAtom implements Schema
-{
+public class SchemaAtom implements Schema {
     public final String nodeName;
     public final FD fd;
     public final DataType type;
 
-    public SchemaAtom(String nodeName)
-    {
+    public SchemaAtom(String nodeName) {
         this(nodeName, FD.ONE_TO_ONE);
     }
 
-    public SchemaAtom(String nodeName, FD fd)
-    {
+    public SchemaAtom(String nodeName, FD fd) {
         this(nodeName, DataType.STRING, fd);
     }
 
-    public SchemaAtom(String nodeName, DataType type, FD fd)
-    {
+    public SchemaAtom(String nodeName, DataType type, FD fd) {
         this.nodeName = nodeName;
         this.type = type;
         this.fd = fd;
     }
 
-    public Schema get(TupleIndex index)
-    {
+    public Schema get(TupleIndex index) {
         throw new UnsupportedOperationException("atom:get");
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
+
+        if (type != null)
+            return String.format("%s[%s]%s", nodeName, type, fd.isOneToMany() ? "*" : "");
+        else
+            return String.format("%s%s", nodeName, fd.isOneToMany() ? "*" : "");
+    }
+
+    public String getName() {
         return nodeName;
     }
 
-    public String getName()
-    {
-        return nodeName;
-    }
-
-    public boolean isAtom()
-    {
+    public boolean isAtom() {
         return true;
     }
 
-    public boolean isNested()
-    {
+    public boolean isNested() {
         return false;
     }
 
-    public int size()
-    {
+    public int size() {
         return 1;
     }
 
-    public FD getFD()
-    {
+    public FD getFD() {
         return fd;
     }
 
-    public Schema flatten()
-    {
+    public Schema flatten() {
         return this;
     }
 
-    public Schema get(int index)
-    {
+    public Schema get(int index) {
         return this;
     }
 
-    public boolean isOneToMany()
-    {
+    public boolean isOneToMany() {
         return false;
     }
 
-    public boolean isOneToOne()
-    {
+    public boolean isOneToOne() {
         return true;
     }
 
-    public TupleIndex getNodeIndex(String nodeName)
-    {
+    public TupleIndex getNodeIndex(String nodeName) {
         throw new UnsupportedOperationException("getNodeIndex()");
     }
 
-    public void forEachNestedNodeName(Functor<String, ? > functor)
-    {
+    public void forEachNestedNodeName(Functor<String, ? > functor) {
         functor.apply(nodeName);
     }
 
-    public void accept(SchemaVisitor visitor)
-    {
+    public void accept(SchemaVisitor visitor) {
         visitor.visitAtom(this);
     }
 
-    public String selfLoopNode()
-    {
+    public String selfLoopNode() {
         return null;
     }
 
-    public List<String> getNodeNameList()
-    {
+    public List<String> getNodeNameList() {
         List<String> l = new ArrayList<String>(1);
         l.add(this.getName());
         return l;

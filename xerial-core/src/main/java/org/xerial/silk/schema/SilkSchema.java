@@ -36,6 +36,7 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.DataType;
 import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
@@ -96,11 +97,25 @@ public class SilkSchema {
 
     }
 
+    /**
+     * Get the SilkClass information of the given class name
+     * 
+     * @param className
+     * @return
+     */
     public SilkClass getSilkClass(String className) {
         // search global module
         return getSilkClass(globalModule, className);
     }
 
+    /**
+     * Get the SilkClass information of the given class name contained in the
+     * specified module
+     * 
+     * @param module
+     * @param className
+     * @return
+     */
     SilkClass getSilkClass(SilkModule module, String className) {
         for (SilkClass each : module.classDef) {
             if (each.name != null && each.name.equals(className))
@@ -116,11 +131,22 @@ public class SilkSchema {
         return null;
     }
 
-    private class QueryBuilder {
-        QuerySetBuilder builder = new QuerySetBuilder();
+    /**
+     * Building an amoeba join query set from this schema
+     * 
+     * @author leo
+     * 
+     */
+    private static class QueryBuilder {
+        final SilkSchema schema;
+        final QuerySetBuilder builder = new QuerySetBuilder();
+
+        public QueryBuilder(SilkSchema schema) {
+            this.schema = schema;
+        }
 
         public QuerySet build() {
-            build(globalModule);
+            build(schema.globalModule);
 
             return builder.build();
         }
@@ -133,10 +159,9 @@ public class SilkSchema {
                     // build queries for retrieving attributes of the core node (class name)
                     SchemaBuilder sb = new SchemaBuilder();
                     sb.add(eachClass.name);
-                    for (SilkAttribute eachAttribute : eachClass
-                            .getInheritedAttributes(SilkSchema.this)) {
-                        sb.add(eachAttribute.name, eachAttribute.isArray ? FD.ZERO_OR_MORE
-                                : FD.ONE_TO_ONE);
+                    for (SilkAttribute eachAttribute : eachClass.getInheritedAttributes(schema)) {
+                        sb.add(eachAttribute.name, getDataType(eachAttribute.typeName),
+                                eachAttribute.isArray ? FD.ZERO_OR_MORE : FD.ONE_TO_ONE);
                     }
                     builder.addQueryTarget(sb.build());
                 }
@@ -152,13 +177,23 @@ public class SilkSchema {
             }
         }
 
+        public static DataType getDataType(String typeName) {
+            if (typeName != null) {
+                for (DataType each : DataType.values()) {
+                    if (each.name().equalsIgnoreCase(typeName))
+                        return each;
+                }
+            }
+            return DataType.STRING;
+        }
+
         void buildFromBelongsToDependency(SilkClass current) {
 
             SilkClass ancestor = current;
             while (ancestor != null) {
                 // for belongs_to relationship
                 if (ancestor.belongsTo != null) {
-                    SilkClass parent = getSilkClass(ancestor.belongsTo);
+                    SilkClass parent = schema.getSilkClass(ancestor.belongsTo);
                     if (parent == null) {
                         _logger.warn("unknown class: " + ancestor.belongsTo);
                         return;
@@ -171,7 +206,7 @@ public class SilkSchema {
                     return;
                 }
 
-                ancestor = ancestor.getParent(SilkSchema.this);
+                ancestor = ancestor.getParent(schema);
             }
 
         }
@@ -185,7 +220,7 @@ public class SilkSchema {
      */
     public QuerySet buildAmoebaJoinQuery() {
 
-        QueryBuilder builder = new QueryBuilder();
+        QueryBuilder builder = new QueryBuilder(this);
         return builder.build();
     }
 

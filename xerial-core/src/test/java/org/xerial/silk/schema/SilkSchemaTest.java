@@ -119,14 +119,12 @@ public class SilkSchemaTest {
 
             public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
                     throws Exception {
-                _logger.info(String
-                        .format("amoeba (%s, %s) in %s", coreNode, attributeNode, schema));
+                _logger.info(String.format("amoeba (%s, %s)", coreNode, attributeNode));
             }
 
             public void text(Schema schema, Node coreNode, Node textNode, String text)
                     throws Exception {
-                _logger.info(String.format("text (%s, %s:%s) in %s", coreNode, textNode, text,
-                        schema));
+                _logger.info(String.format("text (%s, %s:%s)", coreNode, textNode, text));
             }
         });
 

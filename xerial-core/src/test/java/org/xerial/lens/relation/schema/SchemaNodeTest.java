@@ -36,26 +36,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.relation.DataType;
-import org.xerial.lens.relation.schema.SchemaNode;
 
-public class SchemaNodeTest
-{
+public class SchemaNodeTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void objectSerialization() throws Exception
-    {
+    public void objectSerialization() throws Exception {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(buf);
 
-        SchemaNode s = new SchemaNode("id", DataType.I64);
+        SchemaNode s = new SchemaNode("id", DataType.INTEGER);
         out.writeObject(s);
         out.close();
 
@@ -67,9 +62,8 @@ public class SchemaNodeTest
     }
 
     @Test
-    public void overcomeFinal() throws Exception
-    {
-        SchemaNode s = new SchemaNode("id", DataType.I64);
+    public void overcomeFinal() throws Exception {
+        SchemaNode s = new SchemaNode("id", DataType.INTEGER);
         Field f = s.getClass().getField("name");
         f.setAccessible(true);
         f.set(s, "hello");
