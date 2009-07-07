@@ -27,60 +27,66 @@ package org.xerial.json;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Base implementation of the JSONValue
+ * 
+ * @author leo
+ * 
+ */
 public abstract class JSONValueBase implements JSONValue {
 
-	public JSONArray getJSONArray() {
-		return null;
-	}
+    public JSONArray getJSONArray() {
+        return null;
+    }
 
-	public JSONBoolean getJSONBoolean() {
-		return null;
-	}
+    public JSONBoolean getJSONBoolean() {
+        return null;
+    }
 
-	public JSONNull getJSONNull() {
-		return null;
-	}
+    public JSONNull getJSONNull() {
+        return null;
+    }
 
-	public JSONNumber getJSONNumber() {
-		return null;
-	}
+    public JSONNumber getJSONNumber() {
+        return null;
+    }
 
-	public JSONObject getJSONObject() {
-		return null;
-	}
+    public JSONObject getJSONObject() {
+        return null;
+    }
 
-	public JSONString getJSONString() {
-		return null;
-	}
+    public JSONString getJSONString() {
+        return null;
+    }
 
-	
-	public JSONValue translateAsJSONValue(Object value) throws JSONException
-	{
-		return JSONUtil.toJSONValue(value);
-	}
+    public JSONValue translateAsJSONValue(Object value) throws JSONException {
+        return JSONUtil.toJSONValue(value);
+    }
 
-	public String toJSONString() {
-		return this.toString();
-	}
-	
+    public String toJSONString() {
+        return this.toString();
+    }
+
     /**
-     * Concatinates all elements in the given collection c into a single string with the separator
-     * @param c a collection of elements to concatenate
-     * @param concatinator a concatenator: ex. ", ", "." etc.  
+     * Concatenates all elements in the given collection c into a single string
+     * with the separator
+     * 
+     * @param c
+     *            collection of elements to concatenate
+     * @param concatinator
+     *            string for concatenating elements: e.g., ", ", "." etc.
      * @return a concatenated string
      */
-    protected static String join(Collection c, String concatinator)
-    {
-        if(c == null)
+    protected static String join(Collection< ? > c, String concatinator) {
+        if (c == null)
             return "";
         int size = c.size();
-        if(size == 0)
+        if (size == 0)
             return "";
-        
-        Iterator it = c.iterator();
-        StringBuilder buf = new StringBuilder();    
-        for(int i=0; it.hasNext() && i<size-1; i++)
-        {
+
+        Iterator< ? > it = c.iterator();
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; it.hasNext() && i < size - 1; i++) {
             Object data = it.next();
             buf.append(data.toString());
             buf.append(concatinator);
@@ -90,7 +96,3 @@ public abstract class JSONValueBase implements JSONValue {
         return buf.toString();
     }
 }
-
-
-
-

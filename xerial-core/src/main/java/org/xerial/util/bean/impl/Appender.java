@@ -36,23 +36,19 @@ import org.xerial.util.bean.BeanUpdatorType;
  * @author leo
  * 
  */
-public class Appender extends BeanBinderBase implements BeanUpdator
-{
+public class Appender extends BeanBinderBase implements BeanUpdator {
     private final Class< ? > inputType;
 
-    public Appender(Class< ? > inputType, Method appender, String parameterName)
-    {
+    public Appender(Class< ? > inputType, Method appender, String parameterName) {
         super(appender, parameterName);
         this.inputType = inputType;
     }
 
-    public Class getInputType()
-    {
+    public Class< ? > getInputType() {
         return inputType;
     }
 
-    public BeanUpdatorType getType()
-    {
+    public BeanUpdatorType getType() {
         return BeanUpdatorType.APPENDER;
     }
 

@@ -26,32 +26,26 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUpdatorType;
-import org.xerial.util.bean.BeanUtil;
 
-public class CollectionAdder extends BeanBinderBase implements BeanUpdator
-{
-    Class elementType;
+public class CollectionAdder extends BeanBinderBase implements BeanUpdator {
+    Class< ? > elementType;
 
-    public CollectionAdder(Method method, String parameterName, Class elementType) throws BeanException
-    {
+    public CollectionAdder(Method method, String parameterName, Class< ? > elementType)
+            throws BeanException {
         super(method, parameterName);
         this.elementType = elementType;
 
         constractableTest(elementType);
     }
 
-
-    public Class getInputType()
-    {
+    public Class< ? > getInputType() {
         return elementType;
     }
 
-    public BeanUpdatorType getType()
-    {
+    public BeanUpdatorType getType() {
         return BeanUpdatorType.COLLECTION_ADDER;
     }
 

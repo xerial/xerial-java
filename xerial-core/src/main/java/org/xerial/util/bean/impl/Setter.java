@@ -26,28 +26,22 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUpdatorType;
-import org.xerial.util.bean.BeanUtil;
 
-public class Setter extends BeanBinderBase implements BeanUpdator
-{
-    Class valueType;
+public class Setter extends BeanBinderBase implements BeanUpdator {
+    Class< ? > valueType;
 
-    public Setter(Method method, String parameterName, Class valueType)
-    {
+    public Setter(Method method, String parameterName, Class< ? > valueType) {
         super(method, parameterName);
         this.valueType = valueType;
     }
 
-    public Class getInputType()
-    {
+    public Class< ? > getInputType() {
         return valueType;
     }
 
-    public BeanUpdatorType getType()
-    {
+    public BeanUpdatorType getType() {
         return BeanUpdatorType.SETTER;
     }
 

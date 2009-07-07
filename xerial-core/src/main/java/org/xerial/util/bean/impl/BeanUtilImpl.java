@@ -45,8 +45,7 @@ import org.xerial.util.xml.XMLTreeWalker;
  * @author leo
  * 
  */
-public class BeanUtilImpl
-{
+public class BeanUtilImpl {
     /**
      * Create a bean of the specified type from the tree walker input
      * 
@@ -66,8 +65,8 @@ public class BeanUtilImpl
      * @return
      * @throws XerialException
      */
-    protected static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType) throws XerialException
-    {
+    protected static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType)
+            throws XerialException {
         return beanType.cast(createBean(treeWalker, new BeanBindingProcess(beanType)));
         //return new ObjectMapper().map(beanType, treeWalker);
     }
@@ -81,83 +80,76 @@ public class BeanUtilImpl
      * @throws XerialException
      */
     @SuppressWarnings("unchecked")
-    protected static <E> E createBean(TreeWalker treeWalker, E bean) throws XerialException
-    {
+    protected static <E> E createBean(TreeWalker treeWalker, E bean) throws XerialException {
         return (E) createBean(treeWalker, new BeanBindingProcess(bean));
         //return new ObjectMapper().map(bean, treeWalker);
     }
 
     protected static Object createBean(TreeWalker treeWalker, BeanBindingProcess beanBindingVisitor)
-            throws XerialException
-    {
+            throws XerialException {
         treeWalker.walk(beanBindingVisitor);
         return beanBindingVisitor.getResultBean();
     }
 
     // Silk Stream
-    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress) throws XerialException, IOException
-    {
+    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress)
+            throws XerialException, IOException {
         return createTypedBean(new SilkWalker(silkFileAddress), beanType);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <E> E populateBeanWithSilk(E bean, URL silkFileAddress) throws XerialException, IOException
-    {
+    public static <E> E populateBeanWithSilk(E bean, URL silkFileAddress) throws XerialException,
+            IOException {
         return (E) createBean(new SilkWalker(silkFileAddress), bean);
     }
 
     // XML Stream
-    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException
-    {
+    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader)
+            throws XerialException {
         return createTypedBean(new XMLTreeWalker(xmlReader), beanType);
     }
 
-    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException
-    {
+    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException {
         return createBean(new XMLTreeWalker(xmlReader), bean);
     }
 
     // XML DOM
-    public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement) throws XerialException
-    {
+    public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement)
+            throws XerialException {
         return createTypedBean(new XMLTreeWalker(xmlElement), beanType);
     }
 
-    public static Object populateBeanWithXML(Object bean, Element xmlElement) throws XerialException
-    {
+    public static Object populateBeanWithXML(Object bean, Element xmlElement)
+            throws XerialException {
         return createBean(new XMLTreeWalker(xmlElement), new BeanBindingProcess(bean));
     }
 
     // ANTLR ParseTree
-    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree, final String[] parserTokenNames)
-            throws XerialException
-    {
+    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree,
+            final String[] parserTokenNames) throws XerialException {
         return createTypedBean(new ANTLRWalker(parserTokenNames, parseTree), beanType);
     }
 
-    public static <E> E populateBeanWithParseTree(E bean, Tree parseTree, final String[] parserTokenNames)
-            throws XerialException
-    {
+    public static <E> E populateBeanWithParseTree(E bean, Tree parseTree,
+            final String[] parserTokenNames) throws XerialException {
         return createBean(new ANTLRWalker(parserTokenNames, parseTree), bean);
     }
 
-    public static <E> E createBeanFromJSON(Class<E> beanType, Reader jsonReader) throws IOException, XerialException
-    {
+    public static <E> E createBeanFromJSON(Class<E> beanType, Reader jsonReader)
+            throws IOException, XerialException {
         return createTypedBean(new JSONStreamWalker(jsonReader), beanType);
     }
 
-    public static Object populateBeanWithJSON(Object bean, Reader jsonReader) throws IOException, XerialException
-    {
+    public static Object populateBeanWithJSON(Object bean, Reader jsonReader) throws IOException,
+            XerialException {
         return createBean(new JSONStreamWalker(jsonReader), bean);
     }
 
-    public static <E> E createBeanFromMap(Class<E> beanType, Map< ? , ? > map) throws XerialException
-    {
+    public static <E> E createBeanFromMap(Class<E> beanType, Map< ? , ? > map)
+            throws XerialException {
         return createTypedBean(new MapWalker(map), beanType);
     }
 
-    public static Object populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException
-    {
+    public static Object populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException {
         return createBean(new MapWalker(map), bean);
     }
 

@@ -26,20 +26,17 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUpdatorType;
-import org.xerial.util.bean.BeanUtil;
 
-public class MapPutter extends BeanBinderBase implements BeanUpdator
-{
-    Class keyType;
+public class MapPutter extends BeanBinderBase implements BeanUpdator {
+    Class< ? > keyType;
 
-    Class valueType;
+    Class< ? > valueType;
 
-    public MapPutter(Method method, String parameterName, Class keyType, Class valueType) throws BeanException
-    {
+    public MapPutter(Method method, String parameterName, Class< ? > keyType, Class< ? > valueType)
+            throws BeanException {
         super(method, parameterName);
         this.keyType = keyType;
         this.valueType = valueType;
@@ -48,38 +45,21 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator
         constractableTest(valueType);
     }
 
-    public Class getInputType()
-    {
-        throw new UnsupportedOperationException("getElementType() for MapPutter is not supported yet");
+    public Class< ? > getInputType() {
+        throw new UnsupportedOperationException(
+                "getElementType() for MapPutter is not supported yet");
     }
 
-    public BeanUpdatorType getType()
-    {
+    public BeanUpdatorType getType() {
         return BeanUpdatorType.MAP_PUTTER;
     }
 
-    public Class getKeyType()
-    {
+    public Class< ? > getKeyType() {
         return keyType;
     }
 
-    public Class getValueType()
-    {
+    public Class< ? > getValueType() {
         return valueType;
     }
-
-    // @Override
-    // public void setXMLData(Object bean, Object xmlData) throws BeanException
-    // {
-    // if(!TypeInformation.isDOMElement(xmlData.getClass()))
-    // return;
-    //        
-    // Element mapEntryElement = (Element) xmlData;
-    // // TODO support for complex putter argument such as putSomething(String
-    // key, Map value);
-    // String key = mapEntryElement.getAttribute("key");
-    // Object value = BeanUtil.createXMLBean(valueType, mapEntryElement);
-    // invokeMethod(bean, new Object[] { key, value } );
-    // }
 
 }

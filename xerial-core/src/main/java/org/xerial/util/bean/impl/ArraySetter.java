@@ -24,20 +24,14 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
-import org.xerial.json.JSONArray;
-import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.BeanUtil;
-
 public class ArraySetter extends BeanBinderBase {
-    Class componentType;
+    Class< ? > componentType;
 
-    public ArraySetter(Method method, String parameterName, Class componentType) {
+    public ArraySetter(Method method, String parameterName, Class< ? > componentType) {
         super(method, parameterName);
         this.componentType = componentType;
     }
 
- 
 }

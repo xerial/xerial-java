@@ -26,11 +26,10 @@ package org.xerial.util.bean;
 
 import java.lang.reflect.Method;
 
-public interface BeanUpdator
-{
+public interface BeanUpdator {
     public BeanUpdatorType getType();
 
-    public Class getInputType();
+    public Class< ? > getInputType();
 
     public Method getMethod();
 }

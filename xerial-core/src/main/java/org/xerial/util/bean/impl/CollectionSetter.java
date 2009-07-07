@@ -25,20 +25,17 @@
 package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
 
-import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
 
-
 public class CollectionSetter extends BeanBinderBase {
-    Class collectionType;
+    Class< ? > collectionType;
 
-    Class elementType;
+    Class< ? > elementType;
 
-    public CollectionSetter(Method method, String parameterName, Class collectionType, Class elementType) throws BeanException {
+    public CollectionSetter(Method method, String parameterName, Class< ? > collectionType,
+            Class< ? > elementType) throws BeanException {
         super(method, parameterName);
         this.collectionType = collectionType;
         this.elementType = elementType;
@@ -48,7 +45,5 @@ public class CollectionSetter extends BeanBinderBase {
 
         assert (TypeInfo.isCollection(collectionType));
     }
-
-
 
 }

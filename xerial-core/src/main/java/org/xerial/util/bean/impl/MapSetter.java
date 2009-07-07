@@ -25,22 +25,19 @@
 package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
-import org.xerial.json.JSONArray;
 import org.xerial.util.bean.BeanException;
-import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
 
-
 public class MapSetter extends BeanBinderBase {
-    Class mapType;
+    Class< ? > mapType;
 
-    Class keyType;
+    Class< ? > keyType;
 
-    Class valueType;
+    Class< ? > valueType;
 
-    public MapSetter(Method method, String parameterName, Class mapType, Class keyType, Class valueType) throws BeanException {
+    public MapSetter(Method method, String parameterName, Class< ? > mapType, Class< ? > keyType,
+            Class< ? > valueType) throws BeanException {
         super(method, parameterName);
         this.mapType = mapType;
         this.keyType = keyType;

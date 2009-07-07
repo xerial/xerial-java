@@ -48,12 +48,10 @@ import org.xerial.json.impl.JSONWalker;
  * @author leo
  * 
  */
-public class JSONObject extends JSONValueBase
-{
+public class JSONObject extends JSONValueBase {
 
     @SuppressWarnings("serial")
-    class JSONObjectContent extends LinkedHashMap<String, JSONValue>
-    {
+    class JSONObjectContent extends LinkedHashMap<String, JSONValue> {
     }
 
     JSONObjectContent content = new JSONObjectContent();
@@ -61,26 +59,21 @@ public class JSONObject extends JSONValueBase
     /**
      * 
      */
-    public JSONObject()
-    {
+    public JSONObject() {
 
     }
 
-    public JSONObject(JSONTokenizer x) throws JSONException
-    {
+    public JSONObject(JSONTokenizer x) throws JSONException {
         this();
         char c;
         String key;
 
-        if (x.nextClean() != '{')
-        {
+        if (x.nextClean() != '{') {
             throw x.syntaxError("A JSONObject text must begin with '{'");
         }
-        for (;;)
-        {
+        for (;;) {
             c = x.nextClean();
-            switch (c)
-            {
+            switch (c) {
             case 0:
                 throw x.syntaxError("A JSONObject text must end with '}'");
             case '}':
@@ -95,15 +88,12 @@ public class JSONObject extends JSONValueBase
              */
 
             c = x.nextClean();
-            if (c == '=')
-            {
-                if (x.next() != '>')
-                {
+            if (c == '=') {
+                if (x.next() != '>') {
                     x.back();
                 }
             }
-            else if (c != ':')
-            {
+            else if (c != ':') {
                 throw x.syntaxError("Expected a ':' after a key");
             }
             put(key, x.nextValue());
@@ -112,12 +102,10 @@ public class JSONObject extends JSONValueBase
              * Pairs are separated by ','. We will also tolerate ';'.
              */
 
-            switch (x.nextClean())
-            {
+            switch (x.nextClean()) {
             case ';':
             case ',':
-                if (x.nextClean() == '}')
-                {
+                if (x.nextClean() == '}') {
                     return;
                 }
                 x.back();
@@ -130,20 +118,17 @@ public class JSONObject extends JSONValueBase
         }
     }
 
-    public JSONObject(String jsonStr) throws JSONException
-    {
-        try
-        {
+    public JSONObject(String jsonStr) throws JSONException {
+        try {
             CommonTree t = parse(jsonStr);
             CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
             JSONWalker walker = new JSONWalker(ts);
             JSONObject obj = walker.jsonObject();
             this.content = obj.content;
         }
-        catch (RecognitionException e)
-        {
-            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
-                    + e.charPositionInLine + ")");
+        catch (RecognitionException e) {
+            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
+                    + "(" + e.charPositionInLine + ")");
         }
     }
 
@@ -216,55 +201,47 @@ public class JSONObject extends JSONValueBase
     }
     */
 
-    public static CommonTree parse(String jsonStr) throws JSONException
-    {
+    public static CommonTree parse(String jsonStr) throws JSONException {
         JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JSONParser parser = new JSONParser(tokens);
 
-        try
-        {
+        try {
             JSONParser.jsonObject_return r = parser.jsonObject();
             return (CommonTree) r.getTree();
         }
-        catch (RecognitionException e)
-        {
-            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
-                    + e.charPositionInLine + ")");
+        catch (RecognitionException e) {
+            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
+                    + "(" + e.charPositionInLine + ")");
         }
     }
 
-    public JSONObject(List<JSONElement> elemList)
-    {
+    public JSONObject(List<JSONElement> elemList) {
         for (JSONElement e : elemList)
             put(e.getKey(), e.getValue());
     }
 
-    public void put(String key, JSONValue obj)
-    {
+    public void put(String key, JSONValue obj) {
         content.put(key, obj);
     }
 
-    public void put(String key, Object value) throws JSONException
-    {
+    public void put(String key, Object value) throws JSONException {
         content.put(key, translateAsJSONValue(value));
     }
 
-    public String toString()
-    {
+    public String toString() {
         return toJSONString();
     }
 
-    public String toJSONString()
-    {
+    public String toJSONString() {
         StringBuilder jsonBuilder = new StringBuilder();
         jsonBuilder.append("{");
         ArrayList<String> elementList = new ArrayList<String>();
-        for (Iterator<Entry<String, JSONValue>> it = content.entrySet().iterator(); it.hasNext();)
-        {
+        for (Iterator<Entry<String, JSONValue>> it = content.entrySet().iterator(); it.hasNext();) {
             Entry<String, JSONValue> entry = it.next();
             String jsonKey = "\"" + entry.getKey() + "\"";
-            String jsonValue = (entry.getValue() == null) ? "null" : entry.getValue().toJSONString();
+            String jsonValue = (entry.getValue() == null) ? "null" : entry.getValue()
+                    .toJSONString();
             elementList.add(jsonKey + ":" + jsonValue);
         }
         jsonBuilder.append(join(elementList, ","));
@@ -272,36 +249,31 @@ public class JSONObject extends JSONValueBase
         return jsonBuilder.toString();
     }
 
-    public int elementSize()
-    {
+    public int elementSize() {
         return content.size();
     }
 
-    public JSONValue get(String key)
-    {
+    public JSONValue get(String key) {
         return content.get(key);
     }
 
-    public Set<String> keys()
-    {
+    public Set<String> keys() {
         return content.keySet();
     }
 
-    public int getInt(String key) throws JSONException
-    {
+    public int getInt(String key) throws JSONException {
         JSONValue v = get(key);
         if (v == null)
             throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
 
         JSONNumber n = v.getJSONNumber();
         if (n == null)
-            throw new JSONException(JSONErrorCode.NotAJSONNumber, n.toString());
+            throw new JSONException(JSONErrorCode.NotAJSONNumber, v.toString());
 
         return n.getIntValue();
     }
 
-    public String getString(String key) throws JSONException
-    {
+    public String getString(String key) throws JSONException {
         JSONValue v = get(key);
         if (v == null)
             throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
@@ -313,13 +285,11 @@ public class JSONObject extends JSONValueBase
     }
 
     @Override
-    public JSONObject getJSONObject()
-    {
+    public JSONObject getJSONObject() {
         return this;
     }
 
-    public JSONArray getJSONArray(String key)
-    {
+    public JSONArray getJSONArray(String key) {
         JSONValue v = get(key);
         if (v == null)
             return null;
@@ -330,18 +300,15 @@ public class JSONObject extends JSONValueBase
         return a;
     }
 
-    public boolean hasKey(String key)
-    {
+    public boolean hasKey(String key) {
         return content.containsKey(key);
     }
 
-    public Map<String, JSONValue> getKeyValueMap()
-    {
+    public Map<String, JSONValue> getKeyValueMap() {
         return content;
     }
 
-    public JSONObject getJSONObject(String key) throws JSONException
-    {
+    public JSONObject getJSONObject(String key) throws JSONException {
         JSONValue v = get(key);
         if (v == null)
             throw new JSONException(JSONErrorCode.KeyIsNotFound, key);
@@ -351,13 +318,11 @@ public class JSONObject extends JSONValueBase
         return o;
     }
 
-    public JSONValueType getValueType()
-    {
+    public JSONValueType getValueType() {
         return JSONValueType.Object;
     }
 
-    public void remove(String nodeName)
-    {
+    public void remove(String nodeName) {
         content.remove(nodeName);
     }
 }

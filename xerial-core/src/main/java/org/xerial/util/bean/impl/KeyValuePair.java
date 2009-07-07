@@ -32,75 +32,63 @@ import java.lang.reflect.Method;
  * @author leo
  * 
  */
-public class KeyValuePair
-{
+public class KeyValuePair {
     public final MapPutter mapPutter;
 
     private Object key = null;
     private Object value = null;
 
-    private final Class keyClass;
-    private final Class valueClass;
+    private final Class< ? > keyClass;
+    private final Class< ? > valueClass;
 
     private int setterCount = 0;
 
-    public KeyValuePair(MapPutter mapPutter)
-    {
+    public KeyValuePair(MapPutter mapPutter) {
         this.mapPutter = mapPutter;
         this.keyClass = mapPutter.getKeyType();
         this.valueClass = mapPutter.getValueType();
     }
 
-    public KeyValuePair(MapPutter mapPutter, Class keyType, Class valueType)
-    {
+    public KeyValuePair(MapPutter mapPutter, Class< ? > keyType, Class< ? > valueType) {
         this.mapPutter = mapPutter;
         this.keyClass = keyType;
         this.valueClass = valueType;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("%s=>%s", key, value);
     }
 
-    public boolean hasKeyAndValue()
-    {
+    public boolean hasKeyAndValue() {
         return key != null && value != null;
     }
 
-    public Class keyType()
-    {
+    public Class< ? > keyType() {
         return keyClass;
     }
 
-    public Class valueType()
-    {
+    public Class< ? > valueType() {
         return valueClass;
     }
 
-    public Method putter()
-    {
+    public Method putter() {
         return mapPutter.getMethod();
     }
 
-    public Object getKey()
-    {
+    public Object getKey() {
         return key;
     }
 
-    public void setKey(Object key)
-    {
+    public void setKey(Object key) {
         this.key = key;
     }
 
-    public Object getValue()
-    {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(Object value)
-    {
+    public void setValue(Object value) {
         this.value = value;
     }
 
