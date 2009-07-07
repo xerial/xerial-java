@@ -84,13 +84,15 @@ public class SilkSchemaTest {
         }
 
         // confirm relation
-        assertNotNull(schema.relation);
-        assertEquals(1, schema.relation.size());
-        SilkRelation r = schema.relation.get(0);
-        assertEquals("Alignment", r.name);
-        assertEquals(2, r.attribute.size());
+        //        assertNotNull(schema.relation);
+        //        assertEquals(1, schema.relation.size());
+        //        SilkRelation r = schema.relation.get(0);
+        //        assertEquals("Alignment", r.name);
+        //        assertEquals(2, r.attribute.size());
 
         _logger.info(Lens.toJSON(schema));
+
+        _logger.info(schema.toGraphviz());
 
     }
 

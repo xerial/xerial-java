@@ -24,10 +24,7 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,21 +35,17 @@ import org.junit.Test;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 
-public class LatticeTest
-{
+public class LatticeTest {
     private static Logger _logger = Logger.getLogger(LatticeTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void latticeNode()
-    {
+    public void latticeNode() {
         Lattice<String> lattice = new Lattice<String>();
         LatticeNode<String> emptyNode = lattice.emptyNode();
         LatticeNode<String> aNode = emptyNode.next("A");
@@ -60,7 +53,7 @@ public class LatticeTest
         assertTrue(aNode.contains("A"));
         assertFalse(aNode.contains("B"));
         assertFalse(aNode.contains("B")); // double check
-        
+
         HashSet<String> answer = new HashSet<String>();
         answer.add("A");
 
@@ -90,7 +83,6 @@ public class LatticeTest
         for (String s : acdNode)
             assertTrue(answer.contains(s));
 
-
         LatticeNode<String> acdMinusDNode = acdNode.back("D");
         assertEquals(acNode, acdMinusDNode);
         assertNotSame(acNode, acdNode);
@@ -104,8 +96,7 @@ public class LatticeTest
     }
 
     @Test
-    public void latticePerformance()
-    {
+    public void latticePerformance() {
         Lattice<String> lattice = new Lattice<String>();
         LatticeNode<String> emptyNode = lattice.emptyNode();
 
@@ -113,25 +104,23 @@ public class LatticeTest
         int N = 100000;
 
         timer.reset();
-        for (int i = 0; i < N; i++)
-        {
-            emptyNode.next("A").next("B").next("C").next("D").next("E").next("F").back("F").next("F").back("F").back(
-                    "E").back("D").back("C").back("B").back("A");
+        for (int i = 0; i < N; i++) {
+            emptyNode.next("A").next("B").next("C").next("D").next("E").next("F").back("F").next(
+                    "F").back("F").back("E").back("D").back("C").back("B").back("A");
         }
         _logger.debug(timer.getElapsedTime());
 
-        LatticeNode<String> emptyNode2 = emptyNode.next("A").next("B").next("C").next("D").back("D").back("C")
-                .back("B").back("A");
+        LatticeNode<String> emptyNode2 = emptyNode.next("A").next("B").next("C").next("D")
+                .back("D").back("C").back("B").back("A");
         assertEquals(emptyNode, emptyNode2);
 
         emptyNode2 = emptyNode.next("A").next("B").back("B").back("A");
         assertEquals(emptyNode, emptyNode2);
 
     }
-    
+
     @Test
-    public void latticeCursor()
-    {
+    public void latticeCursor() {
         Lattice<String> lattice = new Lattice<String>();
         LatticeCursor<String> cursor = lattice.cursor();
 
@@ -155,13 +144,11 @@ public class LatticeTest
         assertTrue(!cursor.contains("A"));
         assertTrue(cursor.contains("B"));
         assertTrue(!cursor.contains("C"));
-        
+
     }
-    
-    
+
     @Test
-    public void loopBack()
-    {
+    public void loopBack() {
         Lattice<String> lattice = new Lattice<String>();
         LatticeCursor<String> cursor = lattice.cursor();
         cursor.next("A"); // {A}
@@ -179,11 +166,9 @@ public class LatticeTest
         cursor.next("B"); // {B, D}
         _logger.debug(cursor.getNode());
     }
-    
 
     @Test
-    public void pathRepeat()
-    {
+    public void pathRepeat() {
         Lattice<String> lattice = new Lattice<String>();
         LatticeCursor<String> cursor = lattice.cursor();
         ArrayList<String> path = new ArrayList<String>();
@@ -197,19 +182,16 @@ public class LatticeTest
         StopWatch timer = new StopWatch();
         int N = 1000;
         timer.reset();
-        for (int i = 0; i < N; i++)
-        {
-            for (String each : path)
-            {
+        for (int i = 0; i < N; i++) {
+            for (String each : path) {
                 cursor.next(each);
             }
-            for (int p = path.size() - 1; p >= 0; --p)
-            {
+            for (int p = path.size() - 1; p >= 0; --p) {
                 cursor.back(path.get(p));
             }
         }
         _logger.debug(timer.getElapsedTime());
-        
+
     }
 
 }

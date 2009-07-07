@@ -46,25 +46,21 @@ import org.xerial.util.StringUtil;
  * @param <State>
  * @param <Symbol>
  */
-public class Automaton<State, Symbol>
-{
+public class Automaton<State, Symbol> {
     private List<AutomatonListener<State, Symbol>> listenerList = new ArrayList<AutomatonListener<State, Symbol>>();
     private IndexedSet<State> stateSet = new IndexedSet<State>();
     private Set<State> terminalState = new HashSet<State>();
     private HashMap<State, HashMap<Symbol, State>> transition = new HashMap<State, HashMap<Symbol, State>>();
     private HashMap<State, State> transitionForOtherInput = new HashMap<State, State>();
 
-    private class CursorImpl implements AutomatonCursor<State, Symbol>
-    {
+    private class CursorImpl implements AutomatonCursor<State, Symbol> {
         State currentState;
 
-        public CursorImpl(State initialState)
-        {
+        public CursorImpl(State initialState) {
             currentState = initialState;
         }
 
-        public boolean canAccept(Symbol input)
-        {
+        public boolean canAccept(Symbol input) {
             if (canAcceptAnySymbol())
                 return true;
 
@@ -75,44 +71,38 @@ public class Automaton<State, Symbol>
             return getTransitionTableOf(currentState).containsKey(input);
         }
 
-        public Set<Symbol> getAcceptableSymbolSet()
-        {
+        public Set<Symbol> getAcceptableSymbolSet() {
             return getAcceptableSymbolSetOf(currentState);
         }
 
-        public boolean canAcceptAnySymbol()
-        {
+        public boolean canAcceptAnySymbol() {
             return transitionForOtherInput.containsKey(currentState);
         }
 
-        public State getState()
-        {
+        public State getState() {
             return currentState;
         }
 
-        public boolean isTerminal()
-        {
+        public boolean isTerminal() {
             return terminalState.contains(currentState);
         }
 
-        public AutomatonCursor<State, Symbol> reset(State state)
-        {
+        public AutomatonCursor<State, Symbol> reset(State state) {
             if (!hasState(state))
-                throw new XerialError(XerialErrorCode.INVALID_INPUT, "no such state found: " + state);
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "no such state found: "
+                        + state);
             currentState = state;
             return this;
         }
 
-        public State transit(Symbol input)
-        {
+        public State transit(Symbol input) {
             Map<Symbol, State> transitionTable = getTransitionTableOf(currentState);
             State nextState = transitionTable.get(input);
             if (nextState == null)
                 return otherTransit(input);
 
             // notify the transition to listeners
-            for (AutomatonListener<State, Symbol> each : listenerList)
-            {
+            for (AutomatonListener<State, Symbol> each : listenerList) {
                 each.onTansit(currentState, input, nextState);
             }
 
@@ -120,52 +110,45 @@ public class Automaton<State, Symbol>
             return currentState;
         }
 
-        private State otherTransit(Symbol input)
-        {
-            if (transitionForOtherInput.containsKey(currentState))
-            {
+        private State otherTransit(Symbol input) {
+            if (transitionForOtherInput.containsKey(currentState)) {
                 currentState = transitionForOtherInput.get(currentState);
                 return currentState;
             }
-            else
-            {
-                throw new XerialError(XerialErrorCode.INVALID_INPUT, "cannot accept the symbol:" + input);
+            else {
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "cannot accept the symbol:"
+                        + input);
             }
         }
 
     }
 
-    private Map<Symbol, State> getTransitionTableOf(State state)
-    {
+    private Map<Symbol, State> getTransitionTableOf(State state) {
         HashMap<Symbol, State> result = transition.get(state);
-        if (result == null)
-        {
+        if (result == null) {
             result = new HashMap<Symbol, State>();
             transition.put(state, result);
         }
         return result;
     }
 
-    public AutomatonCursor<State, Symbol> cursor(State initialState)
-    {
+    public AutomatonCursor<State, Symbol> cursor(State initialState) {
         return new CursorImpl(initialState);
     }
 
-    public Set<State> getStateSet()
-    {
+    public Set<State> getStateSet() {
         return stateSet;
     }
 
-    public Set<Symbol> getAcceptableSymbolSetOf(State state)
-    {
+    public Set<Symbol> getAcceptableSymbolSetOf(State state) {
         if (!hasState(state))
-            throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format("state %s not found", state));
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
+                    "state %s not found", state));
 
         return getTransitionTableOf(state).keySet();
     }
 
-    public Set<State> getAdjacentStates(State from)
-    {
+    public Set<State> getAdjacentStates(State from) {
         HashSet<State> result = new HashSet<State>();
         if (transitionForOtherInput.containsKey(from))
             result.add(transitionForOtherInput.get(from));
@@ -174,95 +157,81 @@ public class Automaton<State, Symbol>
         return result;
     }
 
-    public void addState(State state)
-    {
+    public void addState(State state) {
         stateSet.add(state);
     }
 
-    public void addTerminalState(State state)
-    {
+    public void addTerminalState(State state) {
         addState(state);
         terminalState.add(state);
     }
 
-    public void addTransition(State from, Symbol input, State to)
-    {
+    public void addTransition(State from, Symbol input, State to) {
         addState(from);
         addState(to);
 
         getTransitionTableOf(from).put(input, to);
     }
 
-    public void addStarTransition(State from, State to)
-    {
+    public void addStarTransition(State from, State to) {
         addState(from);
         addState(to);
 
         transitionForOtherInput.put(from, to);
     }
 
-    public void addListener(AutomatonListener<State, Symbol> listener)
-    {
+    public void addListener(AutomatonListener<State, Symbol> listener) {
         this.listenerList.add(listener);
     }
 
-    public void remvoeListener(AutomatonListener<State, Symbol> listener)
-    {
+    public void remvoeListener(AutomatonListener<State, Symbol> listener) {
         this.listenerList.remove(listener);
     }
 
-    public void clearListner()
-    {
+    public void clearListner() {
         this.listenerList.clear();
     }
 
-    public boolean hasState(State state)
-    {
+    public boolean hasState(State state) {
         return stateSet.contains(state);
     }
 
-    public String toString()
-    {
+    public String toString() {
         ArrayList<String> edgeData = new ArrayList<String>();
-        for (State from : transition.keySet())
-        {
+        for (State from : transition.keySet()) {
             int fromID = stateSet.getID(from);
-            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet())
-            {
-                edgeData.add(String.format("%s -> %s [%s]", from, eachTransition.getValue(), eachTransition.getKey()));
+            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet()) {
+                edgeData.add(String.format("%s -> %s [%s]", from, eachTransition.getValue(),
+                        eachTransition.getKey()));
             }
 
-            if (transitionForOtherInput.containsKey(from))
-            {
-                edgeData.add(String.format("%s -> %s [*]", from, transitionForOtherInput.get(from)));
+            if (transitionForOtherInput.containsKey(from)) {
+                edgeData
+                        .add(String.format("%s -> %s [*]", from, transitionForOtherInput.get(from)));
             }
         }
 
-        return String
-                .format("node:\n%s\nedge:\n%s", StringUtil.join(stateSet, ",\n"), StringUtil.join(edgeData, ",\n"));
+        return String.format("node:\n%s\nedge:\n%s", StringUtil.join(stateSet, ",\n"), StringUtil
+                .join(edgeData, ",\n"));
     }
 
-    public String toGraphviz()
-    {
+    public String toGraphviz() {
         StringWriter writer = new StringWriter();
         GraphvizHelper g = new GraphvizHelper(writer);
         g.beginDigraph("G");
-        for (State each : stateSet)
-        {
+        for (State each : stateSet) {
             g.node(stateSet.getID(each), each.toString());
         }
 
-        for (State from : transition.keySet())
-        {
+        for (State from : transition.keySet()) {
             int fromID = stateSet.getID(from);
-            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet())
-            {
-                g.edge(fromID, stateSet.getID(eachTransition.getValue()), eachTransition.getKey().toString());
+            for (Entry<Symbol, State> eachTransition : getTransitionTableOf(from).entrySet()) {
+                g.edge(fromID, stateSet.getID(eachTransition.getValue()), eachTransition.getKey()
+                        .toString());
             }
 
-            if (transitionForOtherInput.containsKey(from))
-            {
-                g.edge(fromID, transitionForOtherInput.get(from), "*");
+            if (transitionForOtherInput.containsKey(from)) {
+                g.edge(Integer.toString(fromID), transitionForOtherInput.get(from).toString(), "*");
             }
         }
 

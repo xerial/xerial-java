@@ -31,9 +31,8 @@ package org.xerial.silk.schema;
  * 
  */
 public class SilkAttribute {
-    public static final String DEFAULT_TYPE = "default";
 
-    public String typeName = DEFAULT_TYPE;
+    public String typeName = null;
     public String name;
     public boolean isArray = false;
 

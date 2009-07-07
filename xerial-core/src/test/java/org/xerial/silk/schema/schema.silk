@@ -13,7 +13,8 @@ end
 # region on a genome sequence
 class Locus
   :id 
-  integer :start, :end 
+  integer :start
+  integer :end 
 
   index interval :start, :end
   index keyword :id
@@ -22,6 +23,8 @@ end
 # gene data with sequence data
 class Gene < Locus
   sequence :sequence 
+
+  # A gene may have many exons and CDSs
   Exon* :exon
   CDS* :cds
 end
@@ -36,6 +39,9 @@ end
 class Reference < Locus
   Coordinate :coodinate
   sequence :sequence 
+  
+  # Reference has many reads
+  Read* :read
 end
 
 # short-read data
@@ -45,12 +51,6 @@ class Read
   integer* :qv 
 end 
 
-
-# Alignment of reads to a reference genome
-relation Alignment
-  Reference :reference
-  Read* :read 
-end
 
 
 end 

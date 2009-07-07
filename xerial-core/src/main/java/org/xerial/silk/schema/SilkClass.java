@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +39,8 @@ public class SilkClass {
     public String parent = null;
 
     public List<String> mixin;
-    public List<SilkAttribute> attribute;
+    public List<SilkAttribute> attribute = new ArrayList<SilkAttribute>();
 
-    public List<SilkIndexTarget> index;
+    public List<SilkIndexTarget> index = new ArrayList<SilkIndexTarget>();
 
 }

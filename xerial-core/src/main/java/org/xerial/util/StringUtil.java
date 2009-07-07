@@ -35,14 +35,12 @@ import java.util.regex.Pattern;
  * @author leo
  * 
  */
-public class StringUtil
-{
+public class StringUtil {
     public static final String SINGLE_QUOTE = "\'";
     public static final String DOUBLE_QUOTE = "\"";
     public static final String NEW_LINE = System.getProperty("line.separator");
 
-    private StringUtil()
-    {}
+    private StringUtil() {}
 
     /**
      * Concatenates all elements in the given collection c into a single string
@@ -54,8 +52,7 @@ public class StringUtil
      *            a concatenator: ex. ", ", "." etc.
      * @return a concatenated string
      */
-    public static <T> String join(Collection<T> c, String concatinator)
-    {
+    public static <T> String join(Collection<T> c, String concatinator) {
         if (c == null)
             return "";
         int size = c.size();
@@ -64,8 +61,7 @@ public class StringUtil
 
         Iterator<T> it = c.iterator();
         StringBuilder buf = new StringBuilder();
-        for (int i = 0; it.hasNext() && i < size - 1; i++)
-        {
+        for (int i = 0; it.hasNext() && i < size - 1; i++) {
             Object data = it.next();
             if (data != null)
                 buf.append(data.toString());
@@ -91,8 +87,7 @@ public class StringUtil
      *            a concatenator: ex. ", ", "." etc.
      * @return the concatenated string
      */
-    public static String join(Object[] c, String concatinator)
-    {
+    public static String join(Object[] c, String concatinator) {
         if (c == null)
             return "";
         int size = c.length;
@@ -100,8 +95,7 @@ public class StringUtil
             return "";
 
         StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < size - 1; i++)
-        {
+        for (int i = 0; i < size - 1; i++) {
             Object data = c[i];
             buf.append(data != null ? data.toString() : "");
             buf.append(concatinator);
@@ -119,19 +113,20 @@ public class StringUtil
      *            strings.
      * @return the quoted message
      */
-    public static String quote(String message, String quotationMark)
-    {
+    public static String quote(String message, String quotationMark) {
         if (message == null)
             return message;
-        return quotationMark + message + quotationMark;
+        return String.format("%s%s%s", quotationMark, message, quotationMark);
     }
 
-    public static String unquote(String message)
-    {
+    public static String doubleQuote(String message) {
+        return quote(message, DOUBLE_QUOTE);
+    }
+
+    public static String unquote(String message) {
         if (message == null)
             return message;
-        if (message.length() > 1)
-        {
+        if (message.length() > 1) {
             if ((message.charAt(0) == '"' && message.charAt(message.length() - 1) == '"')
                     || (message.charAt(0) == '\'' && message.charAt(message.length() - 1) == '\''))
                 return message.substring(1, message.length() - 1);
@@ -141,19 +136,16 @@ public class StringUtil
 
     static Pattern _whiteSpacePattern = Pattern.compile("[ \t\n\r]*");
 
-    static public boolean isWhiteSpace(String s)
-    {
+    static public boolean isWhiteSpace(String s) {
         Matcher m = _whiteSpacePattern.matcher(s);
         return m.matches();
     }
 
-    public static String concatinateWithTab(Object... data)
-    {
+    public static String concatinateWithTab(Object... data) {
         return StringUtil.join(data, "\t");
     }
 
-    public static String newline()
-    {
+    public static String newline() {
         return NEW_LINE;
     }
 }

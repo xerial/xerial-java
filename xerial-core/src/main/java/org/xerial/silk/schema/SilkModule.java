@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,5 +38,5 @@ public class SilkModule {
 
     public String name = ROOT_MODULE_NAME;
 
-    public List<SilkClass> classDef;
+    public List<SilkClass> classDef = new ArrayList<SilkClass>();
 }

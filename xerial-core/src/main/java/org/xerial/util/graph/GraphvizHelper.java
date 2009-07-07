@@ -27,7 +27,12 @@ package org.xerial.util.graph;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Stack;
+import java.util.Map.Entry;
+
+import org.xerial.util.StringUtil;
 
 /**
  * A helper class for generateing Graphviz's dot file
@@ -35,21 +40,18 @@ import java.util.Stack;
  * @author leo
  * 
  */
-public class GraphvizHelper
-{
+public class GraphvizHelper {
     private PrintWriter _out;
     private Stack<GraphvizComponent> _componentStack = new Stack<GraphvizComponent>();
 
     /**
      * 
      */
-    public GraphvizHelper(OutputStream out)
-    {
+    public GraphvizHelper(OutputStream out) {
         _out = new PrintWriter(out);
     }
 
-    public GraphvizHelper(Writer out)
-    {
+    public GraphvizHelper(Writer out) {
         _out = new PrintWriter(out);
     }
 
@@ -59,13 +61,11 @@ public class GraphvizHelper
      * 
      * @param graphName
      */
-    public void beginDigraph(String graphName)
-    {
+    public void beginDigraph(String graphName) {
         pushComponent(new Digraph(graphName));
     }
 
-    public void endDigraph()
-    {
+    public void endDigraph() {
         assert !_componentStack.empty();
         GraphvizComponent lastComponent = popComponent();
         assert lastComponent instanceof Digraph;
@@ -73,86 +73,99 @@ public class GraphvizHelper
         flush();
     }
 
-    public void node(Object nodeName, Object label)
-    {
-        _out.println(String.format("%s [label=\"%s\"];", nodeName.toString(), label.toString()));
+    public void node(String nodeID, String label) {
+        _out.println(String.format("%s [label=\"%s\"];", nodeID, label.toString()));
     }
 
-    public void option(String option)
-    {
-        _out.println(String.format("[];", option));
+    public void node(int nodeID, String label) {
+        _out.println(String.format("%d [label=\"%s\"];", nodeID, label.toString()));
     }
 
-    public void edge(Object nodeFrom, Object nodeTo)
-    {
-        _out.println(nodeFrom.toString() + " -> " + nodeTo.toString() + ";");
+    public void node(String nodeID, Properties options) {
+        _out.println(String.format("%s [%s]", nodeID, format(options)));
     }
 
-    public void edge(Object nodeFrom, Object nodeTo, String label)
-    {
-        _out.println(String.format("%s -> %s [label=\"%s\"];", nodeFrom.toString(), nodeTo.toString(), label));
+    private String format(Properties options) {
+        ArrayList<String> buf = new ArrayList<String>(options.size());
+        for (Entry<Object, Object> each : options.entrySet()) {
+            buf.add(String.format("%s=%s", each.getKey(), each.getValue()));
+        }
+
+        return StringUtil.join(buf, ", ");
     }
 
-    public void endOutput()
-    {
-        while (!_componentStack.empty())
-        {
+    public void graphOption(String option) {
+        _out.println(String.format("graph [%s];", option));
+    }
+
+    public void edge(String fromNodeID, String toNodeID) {
+        _out.println(fromNodeID + " -> " + toNodeID + ";");
+    }
+
+    public void edge(String fromNodeID, String toNodeID, Properties prop) {
+        _out.println(String.format("%s -> %s [%s];", fromNodeID, toNodeID, format(prop)));
+    }
+
+    public void edge(int fromNodeID, int toNodeID) {
+        _out.println(fromNodeID + " -> " + toNodeID + ";");
+    }
+
+    public void edge(String fromNodeID, String toNodeID, String label) {
+        _out.println(String.format("%s -> %s [label=\"%s\"];", fromNodeID, toNodeID, label));
+    }
+
+    public void edge(int fromNodeID, int toNodeID, String label) {
+        _out.println(String.format("%d -> %d [label=\"%s\"];", fromNodeID, toNodeID, label));
+    }
+
+    public void endOutput() {
+        while (!_componentStack.empty()) {
             GraphvizComponent lastComponent = popComponent();
             lastComponent.leave(_out);
         }
         _out.flush();
     }
 
-    public void flush()
-    {
+    public void flush() {
         _out.flush();
     }
 
-    private void pushComponent(GraphvizComponent component)
-    {
+    private void pushComponent(GraphvizComponent component) {
         _componentStack.add(component);
         component.enter(_out);
     }
 
-    private GraphvizComponent popComponent()
-    {
+    private GraphvizComponent popComponent() {
         assert !_componentStack.empty();
         return _componentStack.pop();
     }
 
-    class GraphvizComponent
-    {
+    class GraphvizComponent {
         /**
          * 
          */
-        public void enter(PrintWriter out)
-        {}
+        public void enter(PrintWriter out) {}
 
         /**
          * 
          */
-        public void leave(PrintWriter out)
-        {}
+        public void leave(PrintWriter out) {}
     }
 
-    class Digraph extends GraphvizComponent
-    {
+    class Digraph extends GraphvizComponent {
         private String _graphName;
 
-        public Digraph(String graphName)
-        {
+        public Digraph(String graphName) {
             _graphName = graphName;
         }
 
         @Override
-        public void enter(PrintWriter out)
-        {
+        public void enter(PrintWriter out) {
             out.println("digraph " + _graphName + "{");
         }
 
         @Override
-        public void leave(PrintWriter out)
-        {
+        public void leave(PrintWriter out) {
             out.println("}");
         }
 
