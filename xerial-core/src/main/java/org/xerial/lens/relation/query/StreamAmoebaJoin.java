@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.query;
+package org.xerial.lens.relation.query;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -36,13 +36,13 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ObjectLens;
-import org.xerial.relation.Node;
-import org.xerial.relation.TupleIndex;
-import org.xerial.relation.Node.NodeBuilder;
-import org.xerial.relation.schema.Schema;
-import org.xerial.relation.schema.SchemaArray;
-import org.xerial.relation.schema.SchemaAtom;
-import org.xerial.relation.schema.SchemaVisitor;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.TupleIndex;
+import org.xerial.lens.relation.Node.NodeBuilder;
+import org.xerial.lens.relation.schema.Schema;
+import org.xerial.lens.relation.schema.SchemaArray;
+import org.xerial.lens.relation.schema.SchemaAtom;
+import org.xerial.lens.relation.schema.SchemaVisitor;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.HashedDeque;

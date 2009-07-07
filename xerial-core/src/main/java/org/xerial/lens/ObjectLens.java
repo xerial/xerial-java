@@ -408,24 +408,31 @@ public class ObjectLens {
             Collection< ? > collection = (Collection< ? >) obj;
             boolean hasAttributes = lens.hasAttributes();
 
+            boolean bracketIsOpen = false;
+
             if (hasAttributes) {
                 json.startObject();
                 outputParemters(json, obj);
 
-                if (!collection.isEmpty())
+                if (!collection.isEmpty()) {
                     json.startArray("entry");
+                    bracketIsOpen = true;
+                }
             }
-            else
+            else {
                 json.startArray();
+                bracketIsOpen = true;
+            }
 
             for (Object elem : collection) {
                 toJSON(json, elem);
             }
 
+            if (bracketIsOpen)
+                json.endArray();
+
             if (hasAttributes)
                 json.endObject();
-            else
-                json.endArray();
 
         }
         else if (TypeInfo.isMap(c)) {

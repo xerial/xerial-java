@@ -16,47 +16,16 @@
 //--------------------------------------
 // XerialJ
 //
-// TupleCell.java
-// Since: 2009/05/13 9:20:19
+// IndexAccess.java
+// Since: 2009/05/14 9:24:54
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.lens.relation;
 
-/**
- * A composite pattern interface for representing tree node and tuple structure.
- * Tuples containing this cell element allow non 1-NF (tuples can contain
- * tuples) data representation.
- * 
- * @author leo
- * 
- */
-public interface Cell<NodeType>
+public interface IndexAccess<NodeType>
 {
-    /**
-     * Returns true if this cell is a singleton
-     * 
-     * @return
-     */
-    public boolean isNode();
-
-    /**
-     * Returns true if this cell is a tuple
-     * 
-     * @return
-     */
-    public boolean isTuple();
-
-    /**
-     * Get the number of elements contained in this cell. When this cell is an
-     * atom, the size will be 1. When a tuple, the returned size is the tuple
-     * size.
-     * 
-     * @return
-     */
-    public int size();
-
     /**
      * Get the cell at the specified index
      * 
@@ -86,7 +55,7 @@ public interface Cell<NodeType>
      * 
      * @return
      */
-    Tuple<NodeType> getTuple();
+    IndexAccess<NodeType> getTuple();
 
     /**
      * Accept the visitor

@@ -16,22 +16,35 @@
 //--------------------------------------
 // XerialJ
 //
-// DataType.java
-// Since: May 14, 2009 11:26:50 AM
+// RelationEventHandler.java
+// Since: May 14, 2009 12:39:42 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.lens.relation.query;
 
-/**
- * Definition of the data types for schema node
- * 
- * @author leo
- * 
- */
-public enum DataType {
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.schema.Schema;
 
-    BOOL, BYTE, I16, I32, I64, STRING, DOUBLE, BINARY, STRUCT;
+public interface AmoebaJoinHandler
+{
+    public void init();
 
+    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception;
+
+    public void leaveNode(Schema schema, Node node) throws Exception;
+
+    /**
+     * @param schema
+     * @param coreNode
+     * @param textNode
+     *            text node may not contain a text value
+     * @param text
+     *            text fragment data of the text node
+     * @throws Exception
+     */
+    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception;
+
+    public void finish();
 }

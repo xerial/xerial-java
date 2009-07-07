@@ -22,14 +22,14 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
+package org.xerial.lens.relation.schema;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xerial.relation.DataType;
-import org.xerial.relation.FD;
-import org.xerial.relation.TupleIndex;
+import org.xerial.lens.relation.DataType;
+import org.xerial.lens.relation.FD;
+import org.xerial.lens.relation.TupleIndex;
 import org.xerial.util.Functor;
 
 /**

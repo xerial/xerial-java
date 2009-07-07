@@ -22,12 +22,12 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
+package org.xerial.lens.relation.schema;
 
 import java.util.ArrayList;
 
-import org.xerial.relation.DataType;
-import org.xerial.relation.FD;
+import org.xerial.lens.relation.DataType;
+import org.xerial.lens.relation.FD;
 
 public class SchemaBuilder
 {

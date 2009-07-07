@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.lens.relation;
 
 /**
  * Light-weight node that holds only a node ID and node value.

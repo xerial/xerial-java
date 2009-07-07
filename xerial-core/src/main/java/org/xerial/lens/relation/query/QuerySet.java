@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.query;
+package org.xerial.lens.relation.query;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.xerial.relation.schema.Schema;
+import org.xerial.lens.relation.schema.Schema;
 import org.xerial.util.IndexedSet;
 
 /**

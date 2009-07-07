@@ -16,35 +16,44 @@
 //--------------------------------------
 // XerialJ
 //
-// RelationEventHandler.java
-// Since: May 14, 2009 12:39:42 PM
+// FD.java
+// Since: May 13, 2009 5:39:16 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.query;
+package org.xerial.lens.relation;
 
-import org.xerial.relation.Node;
-import org.xerial.relation.schema.Schema;
+/**
+ * Functional dependency that holds in the relation
+ * 
+ * @author leo
+ * 
+ */
+public enum FD {
+    ONE_TO_ONE("."), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), ZERO_OR_MORE("*");
 
-public interface AmoebaJoinHandler
-{
-    public void init();
+    private final String symbol;
 
-    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception;
+    private FD(String displaySymbol)
+    {
+        this.symbol = displaySymbol;
+    }
 
-    public void leaveNode(Schema schema, Node node) throws Exception;
+    public boolean isOneToOne()
+    {
+        return this == ONE_TO_ONE;
+    }
 
-    /**
-     * @param schema
-     * @param coreNode
-     * @param textNode
-     *            text node may not contain a text value
-     * @param text
-     *            text fragment data of the text node
-     * @throws Exception
-     */
-    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception;
+    public boolean isOneToMany()
+    {
+        return this != ONE_TO_ONE;
+    }
 
-    public void finish();
+    @Override
+    public String toString()
+    {
+        return symbol;
+    }
+
 }

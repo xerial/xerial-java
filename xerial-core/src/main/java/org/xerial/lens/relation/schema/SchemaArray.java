@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
+package org.xerial.lens.relation.schema;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +32,8 @@ import java.util.List;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
-import org.xerial.relation.FD;
-import org.xerial.relation.TupleIndex;
+import org.xerial.lens.relation.FD;
+import org.xerial.lens.relation.TupleIndex;
 import org.xerial.util.Functor;
 
 /**

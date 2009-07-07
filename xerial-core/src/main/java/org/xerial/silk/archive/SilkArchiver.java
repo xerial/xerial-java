@@ -24,11 +24,11 @@
 //--------------------------------------
 package org.xerial.silk.archive;
 
-import org.xerial.relation.Node;
-import org.xerial.relation.query.AmoebaJoinHandler;
-import org.xerial.relation.query.QuerySet;
-import org.xerial.relation.query.StreamAmoebaJoin;
-import org.xerial.relation.schema.Schema;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.query.AmoebaJoinHandler;
+import org.xerial.lens.relation.query.QuerySet;
+import org.xerial.lens.relation.query.StreamAmoebaJoin;
+import org.xerial.lens.relation.schema.Schema;
 import org.xerial.silk.schema.SilkSchema;
 import org.xerial.util.tree.TreeParser;
 

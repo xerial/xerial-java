@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
+package org.xerial.lens.relation.schema;
 
 import static org.junit.Assert.*;
 
@@ -35,7 +35,8 @@ import java.lang.reflect.Field;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.relation.DataType;
+import org.xerial.lens.relation.DataType;
+import org.xerial.lens.relation.schema.SchemaNode;
 
 public class SchemaNodeTest
 {

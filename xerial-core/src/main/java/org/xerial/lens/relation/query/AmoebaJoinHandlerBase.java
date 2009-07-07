@@ -22,10 +22,10 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.query;
+package org.xerial.lens.relation.query;
 
-import org.xerial.relation.Node;
-import org.xerial.relation.schema.Schema;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.schema.Schema;
 
 /**
  * An empty implementation of {@link AmoebaJoinHandler}

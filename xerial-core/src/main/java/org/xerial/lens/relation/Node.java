@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.lens.relation;
 
 /**
  * Node is an element ({@link Cell}) of a relation.

@@ -14,20 +14,24 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// Xerial Raquel Project
+// XerialJ
 //
-// SchemaVisitor.java
-// Since: 2009/03/15 15:58:56
+// DataType.java
+// Since: May 14, 2009 11:26:50 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation.schema;
+package org.xerial.lens.relation;
 
-public interface SchemaVisitor
-{
-    public void visitAtom(SchemaAtom atom);
+/**
+ * Definition of the data types for schema node
+ * 
+ * @author leo
+ * 
+ */
+public enum DataType {
 
-    public void visitArray(SchemaArray array);
+    BOOL, BYTE, I16, I32, I64, STRING, DOUBLE, BINARY, STRUCT;
 
 }

@@ -14,46 +14,20 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// XerialJ
+// Xerial Raquel Project
 //
-// FD.java
-// Since: May 13, 2009 5:39:16 PM
+// SchemaVisitor.java
+// Since: 2009/03/15 15:58:56
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.relation;
+package org.xerial.lens.relation.schema;
 
-/**
- * Functional dependency that holds in the relation
- * 
- * @author leo
- * 
- */
-public enum FD {
-    ONE_TO_ONE("."), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), ZERO_OR_MORE("*");
+public interface SchemaVisitor
+{
+    public void visitAtom(SchemaAtom atom);
 
-    private final String symbol;
-
-    private FD(String displaySymbol)
-    {
-        this.symbol = displaySymbol;
-    }
-
-    public boolean isOneToOne()
-    {
-        return this == ONE_TO_ONE;
-    }
-
-    public boolean isOneToMany()
-    {
-        return this != ONE_TO_ONE;
-    }
-
-    @Override
-    public String toString()
-    {
-        return symbol;
-    }
+    public void visitArray(SchemaArray array);
 
 }
