@@ -30,6 +30,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
+import org.xerial.lens.relation.query.QuerySet;
+import org.xerial.lens.relation.query.StreamAmoebaJoin;
+import org.xerial.lens.relation.schema.Schema;
+import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -49,9 +55,10 @@ public class SilkSchemaTest {
                 .parse(FileResource.open(SilkSchemaTest.class, "schema.silk"));
 
         // confirm module
-        assertNotNull(schema.module);
-        assertEquals(1, schema.module.size());
-        SilkModule m = schema.module.get(0);
+        SilkModule globalModule = schema.globalModule;
+        assertNotNull(globalModule.module);
+        assertEquals(1, globalModule.module.size());
+        SilkModule m = globalModule.module.get(0);
         assertEquals("org.utgenome", m.name);
 
         // confirm classes
@@ -60,25 +67,25 @@ public class SilkSchemaTest {
         assertEquals(7, m.classDef.size());
         for (SilkClass c : m.classDef) {
             if (c.name.equals("Coordinate")) {
-
+                assertNull(c.belongsTo);
             }
             else if (c.name.equals("Locus")) {
-
+                assertEquals("Coordinate", c.belongsTo);
             }
             else if (c.name.equals("Gene")) {
 
             }
             else if (c.name.equals("Exon")) {
-
+                assertEquals("Gene", c.belongsTo);
             }
             else if (c.name.equals("CDS")) {
-
+                assertEquals("Gene", c.belongsTo);
             }
             else if (c.name.equals("Reference")) {
 
             }
             else if (c.name.equals("Read")) {
-
+                assertEquals("Reference", c.belongsTo);
             }
 
         }
@@ -93,6 +100,37 @@ public class SilkSchemaTest {
         _logger.info(Lens.toJSON(schema));
 
         //_logger.info(schema.toGraphviz());
+
+    }
+
+    @Test
+    public void buildQuery() throws Exception {
+
+        SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
+        QuerySet qs = schema.buildAmoebaJoinQuery();
+
+        _logger.info(qs);
+
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase() {
+
+            public void leaveNode(Schema schema, Node node) throws Exception {
+                _logger.trace(String.format("leave %s in %s", node, schema));
+            }
+
+            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
+                    throws Exception {
+                _logger.info(String
+                        .format("amoeba (%s, %s) in %s", coreNode, attributeNode, schema));
+            }
+
+            public void text(Schema schema, Node coreNode, Node textNode, String text)
+                    throws Exception {
+                _logger.info(String.format("text (%s, %s:%s) in %s", coreNode, textNode, text,
+                        schema));
+            }
+        });
+
+        aj.sweep(new SilkParser(FileResource.open(SilkSchemaTest.class, "../scaffold5001.silk")));
 
     }
 

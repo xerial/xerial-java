@@ -1,0 +1,25 @@
+
+
+class POM
+
+  :dependency Dependency*
+
+  class Dependency
+    belongs_to POM
+
+    :group
+    :artifact
+    :version
+    :scope default "compile"
+  end
+
+end
+
+
+class Plugins
+end
+
+
+class MyPOM
+  includes POM
+end

@@ -25,7 +25,9 @@
 package org.xerial.silk.schema;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class definition
@@ -43,5 +45,58 @@ public class SilkClass {
     public List<SilkAttribute> attribute = new ArrayList<SilkAttribute>();
 
     public List<SilkIndexTarget> index = new ArrayList<SilkIndexTarget>();
+
+    private List<SilkAttribute> visibleAttributes = null;
+
+    public SilkClass getParent(SilkSchema schema) {
+        if (parent == null)
+            return null;
+
+        return schema.getSilkClass(parent);
+    }
+
+    /**
+     * Returns all attributes including inherited ones.
+     * 
+     * @param schema
+     * @return list of visible attributes from this class definition
+     */
+    public List<SilkAttribute> getInheritedAttributes(SilkSchema schema) {
+
+        if (visibleAttributes != null)
+            return visibleAttributes;
+
+        Map<String, SilkAttribute> table = new HashMap<String, SilkAttribute>();
+        // from parent
+        if (parent != null)
+            collectInheritedAttributes(table, schema, parent);
+
+        // from mixin
+        if (mixin != null && !mixin.isEmpty()) {
+            for (String each : mixin)
+                collectInheritedAttributes(table, schema, each);
+        }
+
+        // from this class's own attributes
+        for (SilkAttribute each : attribute) {
+            table.put(each.name, each);
+        }
+
+        List<SilkAttribute> result = new ArrayList<SilkAttribute>();
+        result.addAll(table.values());
+        visibleAttributes = result;
+
+        return visibleAttributes;
+    }
+
+    private static void collectInheritedAttributes(Map<String, SilkAttribute> result,
+            SilkSchema schema, String className) {
+        SilkClass c = schema.getSilkClass(className);
+        if (c != null) {
+            List<SilkAttribute> parentAttributes = c.getInheritedAttributes(schema);
+            for (SilkAttribute each : parentAttributes)
+                result.put(each.name, each);
+        }
+    }
 
 }

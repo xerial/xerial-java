@@ -38,5 +38,8 @@ public class SilkModule {
 
     public String name = ROOT_MODULE_NAME;
 
+    public List<SilkModule> module = new ArrayList<SilkModule>();
     public List<SilkClass> classDef = new ArrayList<SilkClass>();
+    public List<SilkRelation> relation = new ArrayList<SilkRelation>();
+
 }

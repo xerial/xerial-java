@@ -29,60 +29,50 @@ import java.util.ArrayList;
 import org.xerial.lens.relation.DataType;
 import org.xerial.lens.relation.FD;
 
-public class SchemaBuilder
-{
+public class SchemaBuilder {
     Schema parent = null;
     ArrayList<Schema> element = new ArrayList<Schema>();
     FD occurrence = FD.ONE_TO_ONE;
 
-    public SchemaBuilder()
-    {
+    public SchemaBuilder() {
 
     }
 
-    public SchemaBuilder(Schema parent)
-    {
+    public SchemaBuilder(Schema parent) {
         setParent(parent);
     }
 
-    public SchemaBuilder setParent(Schema parent)
-    {
+    public SchemaBuilder setParent(Schema parent) {
         this.parent = parent;
         return this;
     }
 
-    public SchemaBuilder setFD(FD fd)
-    {
+    public SchemaBuilder setFD(FD fd) {
         this.occurrence = fd;
         return this;
     }
 
-    public SchemaBuilder add(Schema elem)
-    {
+    public SchemaBuilder add(Schema elem) {
         this.element.add(elem);
         return this;
     }
 
-    public SchemaBuilder add(String attribute)
-    {
-        this.element.add(new SchemaAtom(attribute));
+    public SchemaBuilder add(String attribute) {
+        this.element.add(new SchemaAtom(attribute.toLowerCase()));
         return this;
     }
 
-    public SchemaBuilder add(String attribute, FD fd)
-    {
-        this.element.add(new SchemaAtom(attribute, fd));
+    public SchemaBuilder add(String attribute, FD fd) {
+        this.element.add(new SchemaAtom(attribute.toLowerCase(), fd));
         return this;
     }
 
-    public SchemaBuilder add(String attribute, DataType type, FD fd)
-    {
-        this.element.add(new SchemaAtom(attribute, type, fd));
+    public SchemaBuilder add(String attribute, DataType type, FD fd) {
+        this.element.add(new SchemaAtom(attribute.toLowerCase(), type, fd));
         return this;
     }
 
-    public SchemaArray build()
-    {
+    public SchemaArray build() {
         return new SchemaArray(parent, element, occurrence);
     }
 

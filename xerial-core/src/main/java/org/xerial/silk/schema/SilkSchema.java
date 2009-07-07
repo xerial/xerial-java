@@ -27,8 +27,6 @@ package org.xerial.silk.schema;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.antlr.runtime.ANTLRReaderStream;
@@ -38,6 +36,10 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.FD;
+import org.xerial.lens.relation.query.QuerySet;
+import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
+import org.xerial.lens.relation.schema.SchemaBuilder;
 import org.xerial.silk.schema.impl.SilkSchemaLexer;
 import org.xerial.silk.schema.impl.SilkSchemaParser;
 import org.xerial.util.StringUtil;
@@ -48,8 +50,7 @@ import org.xerial.util.log.Logger;
 public class SilkSchema {
     private static Logger _logger = Logger.getLogger(SilkSchema.class);
 
-    public List<SilkModule> module = new ArrayList<SilkModule>();
-    public List<SilkRelation> relation = new ArrayList<SilkRelation>();
+    public SilkModule globalModule = new SilkModule();
 
     /**
      * parse the input schema file and return the parse result in the form of
@@ -78,8 +79,12 @@ public class SilkSchema {
                 _logger.debug("parse tree:\n"
                         + ANTLRUtil.parseTree((Tree) ret.getTree(), SilkSchemaParser.tokenNames));
 
-            return Lens.loadANTLRParseTree(SilkSchema.class, (Tree) ret.getTree(),
+            SilkSchema schema = new SilkSchema();
+
+            Lens.loadANTLRParseTree(schema.globalModule, (Tree) ret.getTree(),
                     SilkSchemaParser.tokenNames);
+
+            return schema;
         }
         catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
@@ -91,6 +96,99 @@ public class SilkSchema {
 
     }
 
+    public SilkClass getSilkClass(String className) {
+        // search global module
+        return getSilkClass(globalModule, className);
+    }
+
+    SilkClass getSilkClass(SilkModule module, String className) {
+        for (SilkClass each : module.classDef) {
+            if (each.name != null && each.name.equals(className))
+                return each;
+        }
+
+        for (SilkModule m : module.module) {
+            SilkClass c = getSilkClass(m, className);
+            if (c != null)
+                return c;
+        }
+
+        return null;
+    }
+
+    private class QueryBuilder {
+        QuerySetBuilder builder = new QuerySetBuilder();
+
+        public QuerySet build() {
+            build(globalModule);
+
+            return builder.build();
+        }
+
+        void build(SilkModule module) {
+
+            for (SilkClass eachClass : module.classDef) {
+
+                {
+                    // build queries for retrieving attributes of the core node (class name)
+                    SchemaBuilder sb = new SchemaBuilder();
+                    sb.add(eachClass.name);
+                    for (SilkAttribute eachAttribute : eachClass
+                            .getInheritedAttributes(SilkSchema.this)) {
+                        sb.add(eachAttribute.name, eachAttribute.isArray ? FD.ZERO_OR_MORE
+                                : FD.ONE_TO_ONE);
+                    }
+                    builder.addQueryTarget(sb.build());
+                }
+
+                // bridge to ancestors
+                buildFromBelongsToDependency(eachClass);
+
+            }
+
+            // for each sub module
+            for (SilkModule each : module.module) {
+                build(each);
+            }
+        }
+
+        void buildFromBelongsToDependency(SilkClass current) {
+
+            SilkClass ancestor = current;
+            while (ancestor != null) {
+                // for belongs_to relationship
+                if (ancestor.belongsTo != null) {
+                    SilkClass parent = getSilkClass(ancestor.belongsTo);
+                    if (parent == null) {
+                        _logger.warn("unknown class: " + ancestor.belongsTo);
+                        return;
+                    }
+
+                    SchemaBuilder relation = new SchemaBuilder();
+                    relation.add(parent.name);
+                    relation.add(current.name, FD.ZERO_OR_MORE);
+                    builder.addQueryTarget(relation.build());
+                    return;
+                }
+
+                ancestor = ancestor.getParent(SilkSchema.this);
+            }
+
+        }
+
+    }
+
+    /**
+     * Build a set of amoeba join queries corresponding to this schema
+     * 
+     * @return
+     */
+    public QuerySet buildAmoebaJoinQuery() {
+
+        QueryBuilder builder = new QueryBuilder();
+        return builder.build();
+    }
+
     public String toGraphviz() {
         StringWriter buf = new StringWriter();
         GraphvizHelper g = new GraphvizHelper(buf);
@@ -98,7 +196,7 @@ public class SilkSchema {
         g.graphOption("font=Arial");
 
         int moduleCount = 1;
-        for (SilkModule eachModule : module) {
+        for (SilkModule eachModule : globalModule.module) {
             String moduleID = String.format("m%d", moduleCount++);
             g.node(moduleID, eachModule.name);
 

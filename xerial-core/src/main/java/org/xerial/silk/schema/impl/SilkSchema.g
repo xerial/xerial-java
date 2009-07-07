@@ -141,7 +141,6 @@ LBracket: '[' ;
 RBracket: ']' ;
 
 Lt: '<';
-Eq: '=';
 Dot: '.';
 Comma: ',';
 
@@ -165,6 +164,7 @@ End: 'end';
 Relation: 'relation';
 Index: 'index';
 BelongsTo: 'belongs_to';
+Default: 'default';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -198,11 +198,11 @@ moduleDefinition:
 	;  
   
 classDefinition
-  : Class QName classBody End -> ^(ClassDef Name[$QName.text] classBody)
-  | Relation QName classBody End -> ^(Relation Name[$QName.text] classBody)
+  : Class QName inheritance? classBody? End -> ^(ClassDef Name[$QName.text] inheritance? classBody?)
+    | Relation QName inheritance? classBody? End -> ^(Relation Name[$QName.text] inheritance? classBody?)
   ; 
   
-classBody: inheritance? (belongsToStatement | includeStatement | attributes | indexStatement)*;
+classBody: (belongsToStatement | includeStatement | attributes | indexStatement)+;
 
 fragment belongsToStatement: BelongsTo QName -> BelongsTo[$QName.text]; 
   
@@ -225,7 +225,7 @@ fragment attributes: attribute (Comma attribute)*
   ; 
 	
 fragment attribute:
-  attributeType? Symbol (Eq attributeValue)?  
+  Symbol attributeType? (Default attributeValue)?  
   -> ^(Attribute Name[$Symbol.text] attributeType? attributeValue?)  
   ; 
 
