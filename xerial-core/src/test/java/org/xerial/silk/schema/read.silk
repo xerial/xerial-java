@@ -17,8 +17,7 @@ class Locus
   :end integer
   :strand
 
-  index interval :start, :end
-  index keyword :id
+  index keyword :name
 end
 
 # reference sequence
@@ -35,5 +34,19 @@ class Read < Locus
 end 
 
 
+projection V1
+  Coordinate.* 
+  order_by :group, :species, :revision, :name
+end 
 
+projection V2
+  Coordinate
+  Reference(:name, :start, :end:, :strand)
+  order_by Coordinate, zvalue(:start, :end)
+end
+
+projection V3
+  Reference, Read(:name, :start, :end, :strand)
+  order_by Reference, zvalue(:start, :end)
+end
 
