@@ -41,48 +41,40 @@ import org.xerial.util.HashedArrayList;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
-public class LensTest
-{
+public class LensTest {
     private static Logger _logger = Logger.getLogger(LensTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    static class GeneTable
-    {
+    public static class GeneTable {
         private HashedArrayList<Coordinate, Gene> sequenceTable = new HashedArrayList<Coordinate, Gene>();
 
-        public void add(Coordinate coordinate, Gene gene)
-        {
+        public void add(Coordinate coordinate, Gene gene) {
             sequenceTable.put(coordinate, gene);
         }
     }
 
-    static class Gene
-    {
+    static class Gene {
         private String name;
         private long start;
         private String strand;
         private StringBuilder sequence = new StringBuilder();
 
-        public void appendSequence(String sequence)
-        {}
+        public void appendSequence(String sequence) {}
     }
 
     @Test
-    public void testTranslateSilk() throws IOException, XerialException
-    {
-        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class, "sequence.silk"));
+    public void testTranslateSilk() throws IOException, XerialException {
+        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class,
+                "sequence.silk"));
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
-        for (Coordinate each : g.sequenceTable.keySet())
-        {
+        for (Coordinate each : g.sequenceTable.keySet()) {
             List<Gene> gl = g.sequenceTable.get(each);
             assertEquals(2, gl.size());
         }
@@ -91,13 +83,13 @@ public class LensTest
 
     @Ignore
     @Test
-    public void testMapping() throws Exception
-    {
+    public void testMapping() throws Exception {
         // TODO: How to resolve nested scope when the information of gene class is not available  
         // -coordinate(name:chr1)
         //   -gene(name:gene1)
 
-        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class, "sequence.silk"));
+        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class,
+                "sequence.silk"));
 
         _logger.info(c);
         assertNotNull(c);
@@ -109,8 +101,7 @@ public class LensTest
     }
 
     @Test
-    public void testBED() throws Exception
-    {
+    public void testBED() throws Exception {
         BEDQuery result = new BEDQuery("chr7", 1L, 1000000000L);
         Lens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
 
@@ -125,44 +116,36 @@ public class LensTest
         assertEquals("http://genome.ucsc.edu/goldenPath/help/clones.html#$$", result.track.url);
     }
 
-    public static class Locus
-    {
+    public static class Locus {
         public long start;
         public long end;
 
-        public Locus()
-        {}
+        public Locus() {}
 
-        public Locus(long start, long end)
-        {
+        public Locus(long start, long end) {
             this.start = start;
             this.end = end;
         }
 
-        public boolean hasOverlap(Locus other)
-        {
+        public boolean hasOverlap(Locus other) {
             return (this.start <= other.end) && (this.end >= other.start);
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return String.format("(%s, %s)", start, end);
         }
     }
 
-    public static class CDS extends Locus
-    {
+    public static class CDS extends Locus {
 
     }
 
-    public static class Exon extends Locus
-    {
+    public static class Exon extends Locus {
 
     }
 
-    public static class BEDGene extends Locus
-    {
+    public static class BEDGene extends Locus {
         public String coordinate;
         public String name;
         public String color;
@@ -171,14 +154,12 @@ public class LensTest
         public List<Exon> exon;
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return ObjectLens.toJSON(this);
         }
     }
 
-    public static class BEDTrack
-    {
+    public static class BEDTrack {
         public String name;
         public String description;
         public String itemRgb;
@@ -188,61 +169,52 @@ public class LensTest
         public String url;
     }
 
-    public static class BEDQuery
-    {
+    public static class BEDQuery {
         private String coordinate;
         private Locus queryRange;
         private List<BEDGene> geneList = new ArrayList<BEDGene>();
 
         public BEDTrack track;
 
-        public BEDQuery(String coordinate, long startOnGenome, long endOnGenome)
-        {
+        public BEDQuery(String coordinate, long startOnGenome, long endOnGenome) {
             this.coordinate = coordinate;
             this.queryRange = new Locus(startOnGenome, endOnGenome);
         }
 
-        public void addGene(BEDGene gene)
-        {
+        public void addGene(BEDGene gene) {
             // where conditions
-            if (coordinate.equals(gene.coordinate) && queryRange.hasOverlap(gene))
-            {
+            if (coordinate.equals(gene.coordinate) && queryRange.hasOverlap(gene)) {
                 // draw the gene on the canvas
                 geneList.add(gene);
             }
         }
     }
 
-    public static class DASFeature
-    {
+    public static class DASFeature {
         public DASGFF gff;
         public Segment segment;
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return ObjectLens.toJSON(this);
         }
 
     }
 
-    public static class DASGFF
-    {
+    public static class DASGFF {
         public String version;
         public String href;
 
     }
 
-    public static class Segment
-    {
+    public static class Segment {
         public String id;
         public long start;
         public long stop;
         public List<Feature> feature;
     }
 
-    public static class Feature
-    {
+    public static class Feature {
         public String id;
         public long start;
         public long end;
@@ -257,23 +229,20 @@ public class LensTest
 
     }
 
-    public static class Target
-    {
+    public static class Target {
         public String id;
         public long start;
         public long stop;
     }
 
-    public static class FeatureType
-    {
+    public static class FeatureType {
         public String id;
         public String category;
         public String value;
 
     }
 
-    public static class Group
-    {
+    public static class Group {
         public String id;
         public String type;
         public String label;
@@ -281,14 +250,12 @@ public class LensTest
 
     }
 
-    public static class Link
-    {
+    public static class Link {
         public String href;
         public String value;
     }
 
-    public static class Method
-    {
+    public static class Method {
         public String id;
         public String value;
     }
@@ -312,9 +279,9 @@ public class LensTest
     </pre>
      */
     @Test
-    public void dasTest() throws Exception
-    {
-        DASFeature das = Lens.loadXML(DASFeature.class, FileResource.find(LensTest.class, "das.xml"));
+    public void dasTest() throws Exception {
+        DASFeature das = Lens.loadXML(DASFeature.class, FileResource
+                .find(LensTest.class, "das.xml"));
         assertEquals(1, das.segment.feature.size());
         Feature f = das.segment.feature.get(0);
         _logger.debug(das);
@@ -330,22 +297,30 @@ public class LensTest
 
     }
 
-    public static class Text
-    {
+    public static class Text {
         public String value;
     }
 
-    public static class TextQuery
-    {
+    public static class TextQuery {
         public Text text;
     }
 
     @Test
-    public void textData() throws Exception
-    {
-        TextQuery q = Lens.loadSilk(TextQuery.class, FileResource.find(LensTest.class, "text.silk"));
+    public void textData() throws Exception {
+        TextQuery q = Lens
+                .loadSilk(TextQuery.class, FileResource.find(LensTest.class, "text.silk"));
         assertNotNull(q.text);
         assertEquals("hello world", q.text.value);
+    }
+
+    public static class ArrayData {
+        public List<String> list = new ArrayList<String>();
+    }
+
+    @Test
+    public void toJSONTest() throws Exception {
+        ArrayData d = new ArrayData();
+        assertEquals("{\"list\":[]}", Lens.toJSON(d));
     }
 
 }

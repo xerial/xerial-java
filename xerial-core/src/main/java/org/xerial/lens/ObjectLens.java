@@ -57,8 +57,7 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-public class ObjectLens
-{
+public class ObjectLens {
     private static Logger _logger = Logger.getLogger(ObjectLens.class);
 
     private static HashMap<Class< ? >, ObjectLens> cache = new HashMap<Class< ? >, ObjectLens>();
@@ -69,12 +68,10 @@ public class ObjectLens
      * @param target
      * @return lens of the target type
      */
-    public static ObjectLens getObjectLens(Class< ? > target)
-    {
+    public static ObjectLens getObjectLens(Class< ? > target) {
         if (cache.containsKey(target))
             return cache.get(target);
-        else
-        {
+        else {
             cache.put(target, new ObjectLens(target));
             return getObjectLens(target);
         }
@@ -89,62 +86,51 @@ public class ObjectLens
 
     private RelationSetter propertySetter = null;
 
-    public void setProperty(Object target, Object key, Object value) throws XerialException
-    {
+    public void setProperty(Object target, Object key, Object value) throws XerialException {
         if (propertySetter == null)
             return;
 
         propertySetter.bind(target, key, value);
     }
 
-    public List<ParameterSetter> getSetterList()
-    {
+    public List<ParameterSetter> getSetterList() {
         return Collections.unmodifiableList(setterContainer);
     }
 
-    public List<RelationSetter> getRelationSetterList()
-    {
+    public List<RelationSetter> getRelationSetterList() {
         return Collections.unmodifiableList(relationSetterContainer);
     }
 
-    public List<ParameterGetter> getGetterContainer()
-    {
+    public List<ParameterGetter> getGetterContainer() {
         return Collections.unmodifiableList(getterContainer);
     }
 
-    public ParameterSetter getValueSetter()
-    {
+    public ParameterSetter getValueSetter() {
         return valueSetter;
     }
 
-    public boolean hasAttributes()
-    {
+    public boolean hasAttributes() {
         return !getterContainer.isEmpty();
     }
 
-    protected ObjectLens(Class< ? > targetType)
-    {
+    protected ObjectLens(Class< ? > targetType) {
         this.targetType = targetType;
         createBindRules(targetType);
     }
 
-    public Class< ? > getTargetType()
-    {
+    public Class< ? > getTargetType() {
         return targetType;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("(%s, %s)", setterContainer, relationSetterContainer);
     }
 
-    private void createBindRules(Class< ? > targetType)
-    {
+    private void createBindRules(Class< ? > targetType) {
         // look for all super classes
         // scan public fields
-        for (Field eachField : targetType.getFields())
-        {
+        for (Field eachField : targetType.getFields()) {
             // ignore fields defined in the Object class
             Class< ? > parentClassOfTheField = eachField.getDeclaringClass();
             if (parentClassOfTheField == Object.class)
@@ -152,40 +138,37 @@ public class ObjectLens
 
             int fieldModifier = eachField.getModifiers();
             if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier)
-                    && !Modifier.isStatic(fieldModifier))
-            {
+                    && !Modifier.isStatic(fieldModifier)) {
 
                 Class< ? > fieldType = eachField.getType();
                 String paramName = getCanonicalParameterName(eachField.getName());
 
-                if (TypeInfo.isArray(fieldType))
-                {
+                if (TypeInfo.isArray(fieldType)) {
                     // ignore the array field
                     continue;
                 }
-                else if (TypeInfo.isMap(fieldType))
-                {
+                else if (TypeInfo.isMap(fieldType)) {
                     // TODO map putter
-                    Pair<Type, Type> keyValueTypes = ReflectionUtil.getGenericMapElementType(eachField);
+                    Pair<Type, Type> keyValueTypes = ReflectionUtil
+                            .getGenericMapElementType(eachField);
                     Pair<String, String> keyValueNames = pickRelationName(eachField.getName());
-                    if (keyValueNames == null)
-                    {
+                    if (keyValueNames == null) {
                         // infer key and value names from type parameters in Map<Key, Value>
 
                     }
 
                 }
-                else if (TypeInfo.isCollection(fieldType))
-                {
+                else if (TypeInfo.isCollection(fieldType)) {
                     Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil
                             .getGenericCollectionElementType(eachField));
-                    setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
+                    setterContainer.add(ParameterSetter
+                            .newSetter(elementType, paramName, eachField));
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
-                else
-                {
+                else {
                     if (!paramName.equals("value"))
-                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
+                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
+                                eachField));
                     else
                         valueSetter = ParameterSetter.newSetter(fieldType, paramName, eachField);
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
@@ -196,54 +179,49 @@ public class ObjectLens
         }
 
         // scan methods
-        for (Method eachMethod : targetType.getMethods())
-        {
+        for (Method eachMethod : targetType.getMethods()) {
             String methodName = eachMethod.getName();
 
-            if (methodName.startsWith("add") || methodName.startsWith("set"))
-            {
+            if (methodName.startsWith("add") || methodName.startsWith("set")) {
                 Class< ? >[] argTypes = eachMethod.getParameterTypes();
-                switch (argTypes.length)
-                {
-                case 1:
-                {
+                switch (argTypes.length) {
+                case 1: {
                     String paramName = pickPropertyName(methodName);
                     Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
-                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
+                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo
+                            .isMap(parentOfTheSetter))
                             && paramName.equals("all"))
                         break;
 
-                    if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter))
-                    {
-                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(targetType, argTypes[0]);
-                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry", eachMethod));
+                    if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter)) {
+                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(
+                                targetType, argTypes[0]);
+                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry",
+                                eachMethod));
                     }
                     else
                         addNewSetter(setterContainer, paramName, eachMethod);
                     break;
                 }
-                case 2:
-                {
-                    if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
-                    {
+                case 2: {
+                    if (TypeInfo.isCollection(eachMethod.getDeclaringClass())) {
                         break;
                     }
 
                     // relation adder
 
-                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
-                    if (relName == null)
-                    {
+                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName,
+                            false));
+                    if (relName == null) {
                         // infer relation node names
-                        if (TypeInfo.isMap(eachMethod.getDeclaringClass()))
-                        {
+                        if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
 
-                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
-                                    .getParameterTypes());
+                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
+                                    targetType, eachMethod.getParameterTypes());
 
                             // map.put(Key, Value)
-                            setterContainer
-                                    .add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
+                            setterContainer.add(ParameterSetter.newMapEntrySetter(
+                                    mapElementType[0], mapElementType[1]));
 
                             // (entry, key)
                             setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
@@ -251,15 +229,15 @@ public class ObjectLens
                             setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
                             continue;
                         }
-                        else
-                        {
-                            relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
+                        else {
+                            relName = new Pair<String, String>(
+                                    getCanonicalParameterName(argTypes[0].getSimpleName()),
                                     getCanonicalParameterName(argTypes[1].getSimpleName()));
                         }
                     }
 
-                    relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
-                            .getSecond(), eachMethod));
+                    relationSetterContainer.add(RelationSetter.newRelationSetter(
+                            relName.getFirst(), relName.getSecond(), eachMethod));
                     break;
                 }
                 }
@@ -267,8 +245,7 @@ public class ObjectLens
                 continue;
 
             }
-            else if (methodName.startsWith("put"))
-            {
+            else if (methodName.startsWith("put")) {
                 Class< ? >[] argTypes = eachMethod.getParameterTypes();
                 if (argTypes.length != 2)
                     continue;
@@ -278,17 +255,16 @@ public class ObjectLens
 
                 // relation adder
                 Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
-                if (relName == null)
-                {
+                if (relName == null) {
                     // infer relation node names
-                    if (TypeInfo.isMap(eachMethod.getDeclaringClass()))
-                    {
+                    if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
 
-                        Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
-                                .getParameterTypes());
+                        Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
+                                targetType, eachMethod.getParameterTypes());
 
                         // map.put(Key, Value)
-                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
+                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0],
+                                mapElementType[1]));
 
                         // (entry, key)
                         setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
@@ -296,28 +272,25 @@ public class ObjectLens
                         setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
                         continue;
                     }
-                    else
-                    {
-                        propertySetter = RelationSetter.newRelationSetter("key", "value", eachMethod);
+                    else {
+                        propertySetter = RelationSetter.newRelationSetter("key", "value",
+                                eachMethod);
                         continue;
                     }
                 }
 
-                relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName.getSecond(),
-                        eachMethod));
+                relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(),
+                        relName.getSecond(), eachMethod));
 
                 continue;
             }
-            else if (methodName.startsWith("append"))
-            {
+            else if (methodName.startsWith("append")) {
                 String paramName = pickPropertyName(methodName);
                 addNewSetter(setterContainer, paramName, eachMethod);
                 continue;
             }
-            else if (methodName.startsWith("get"))
-            {
-                if (eachMethod.getParameterTypes().length == 0)
-                {
+            else if (methodName.startsWith("get")) {
+                if (eachMethod.getParameterTypes().length == 0) {
                     // ignore getters defined in the Object.class
                     if (Object.class == eachMethod.getDeclaringClass())
                         continue;
@@ -331,8 +304,8 @@ public class ObjectLens
         }
     }
 
-    private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart, Method m)
-    {
+    private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart,
+            Method m) {
         Class< ? >[] argTypes = m.getParameterTypes();
         if (argTypes.length != 1)
             return;
@@ -340,8 +313,7 @@ public class ObjectLens
         assert (argTypes.length == 1);
 
         String paramName = getCanonicalParameterName(paramPart);
-        if (paramName.length() <= 0)
-        {
+        if (paramName.length() <= 0) {
             // infer parameter name from argument type
             paramName = getCanonicalParameterName(argTypes[0].getSimpleName());
         }
@@ -349,17 +321,16 @@ public class ObjectLens
         return;
     }
 
-    static private Pattern propertyNamePattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
+    static private Pattern propertyNamePattern = Pattern
+            .compile("^(set|get|add|put|append)((\\S)(\\S*))?");
     static private Pattern pairedNamePattern = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
 
-    static String pickPropertyName(String methodName, boolean canonicalize)
-    {
+    static String pickPropertyName(String methodName, boolean canonicalize) {
         Matcher m = null;
         m = propertyNamePattern.matcher(methodName);
         if (!m.matches())
             return null;
-        else
-        {
+        else {
             if (m.group(2) != null)
                 return canonicalize ? getCanonicalParameterName(m.group(2)) : m.group(2);
             else
@@ -368,14 +339,12 @@ public class ObjectLens
 
     }
 
-    static String pickPropertyName(String methodName)
-    {
+    static String pickPropertyName(String methodName) {
         Matcher m = null;
         m = propertyNamePattern.matcher(methodName);
         if (!m.matches())
             return null;
-        else
-        {
+        else {
             if (m.group(2) != null)
                 return getCanonicalParameterName(m.group(2));
             else
@@ -383,8 +352,7 @@ public class ObjectLens
         }
     }
 
-    static Pair<String, String> pickRelationName(String pairedName)
-    {
+    static Pair<String, String> pickRelationName(String pairedName) {
         Matcher m = null;
         m = pairedNamePattern.matcher(pairedName);
         if (!m.matches())
@@ -396,8 +364,7 @@ public class ObjectLens
 
     static private Pattern paramNameReplacePattern = Pattern.compile("[\\s-_]");
 
-    public static String getCanonicalParameterName(String paramName)
-    {
+    public static String getCanonicalParameterName(String paramName) {
         if (paramName == null)
             return paramName;
 
@@ -405,15 +372,13 @@ public class ObjectLens
         return m.replaceAll("").toLowerCase();
     }
 
-    public static String toJSON(Object obj)
-    {
+    public static String toJSON(Object obj) {
         if (obj == null)
             return "null";
 
         Class< ? > c = obj.getClass();
 
-        if (TypeInfo.isBasicType(c))
-        {
+        if (TypeInfo.isBasicType(c)) {
             if (c == String.class)
                 return JSONString.toJSONString(obj.toString());
             else
@@ -429,53 +394,45 @@ public class ObjectLens
         return buf.toString();
     }
 
-    private static void toJSON(JSONWriter json, Object obj)
-    {
+    private static void toJSON(JSONWriter json, Object obj) {
         Class< ? > c = obj.getClass();
 
-        if (TypeInfo.isBasicType(c))
-        {
+        if (TypeInfo.isBasicType(c)) {
             json.addObject(obj);
             return;
         }
 
         ObjectLens lens = getObjectLens(obj.getClass());
 
-        if (TypeInfo.isCollection(c))
-        {
+        if (TypeInfo.isCollection(c)) {
             Collection< ? > collection = (Collection< ? >) obj;
             boolean hasAttributes = lens.hasAttributes();
 
-            if (hasAttributes)
-            {
+            if (hasAttributes) {
                 json.startObject();
                 outputParemters(json, obj);
 
                 if (!collection.isEmpty())
                     json.startArray("entry");
             }
-            else if (!collection.isEmpty())
+            else
                 json.startArray();
 
-            for (Object elem : collection)
-            {
+            for (Object elem : collection) {
                 toJSON(json, elem);
             }
 
-            if (!collection.isEmpty())
-                json.endArray();
-
             if (hasAttributes)
                 json.endObject();
+            else
+                json.endArray();
 
         }
-        else if (TypeInfo.isMap(c))
-        {
+        else if (TypeInfo.isMap(c)) {
             Map< ? , ? > map = (Map< ? , ? >) obj;
             boolean hasAttributes = lens.hasAttributes();
 
-            if (hasAttributes)
-            {
+            if (hasAttributes) {
                 json.startObject();
                 outputParemters(json, obj);
 
@@ -485,8 +442,7 @@ public class ObjectLens
             else if (!map.isEmpty())
                 json.startArray();
 
-            for (Entry< ? , ? > each : map.entrySet())
-            {
+            for (Entry< ? , ? > each : map.entrySet()) {
                 json.startObject();
                 json.putObject("key", each.getKey());
                 json.putObject("value", each.getValue());
@@ -499,19 +455,16 @@ public class ObjectLens
             if (hasAttributes)
                 json.endObject();
         }
-        else
-        {
+        else {
             json.startObject();
             outputParemters(json, obj);
             json.endObject();
         }
     }
 
-    private static void outputParemters(JSONWriter json, Object obj)
-    {
+    private static void outputParemters(JSONWriter json, Object obj) {
         ObjectLens lens = getObjectLens(obj.getClass());
-        for (ParameterGetter getter : lens.getGetterContainer())
-        {
+        for (ParameterGetter getter : lens.getGetterContainer()) {
             json.putObject(getter.getParamName(), getter.get(obj));
         }
     }
