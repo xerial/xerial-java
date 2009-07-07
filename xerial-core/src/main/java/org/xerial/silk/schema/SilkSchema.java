@@ -200,8 +200,8 @@ public class SilkSchema {
                     }
 
                     SchemaBuilder relation = new SchemaBuilder();
-                    relation.add(parent.name);
-                    relation.add(current.name, FD.ZERO_OR_MORE);
+                    relation.add(parent.name, DataType.REFERENCE, FD.ONE_TO_ONE);
+                    relation.add(current.name, DataType.REFERENCE, FD.ZERO_OR_MORE);
                     builder.addQueryTarget(relation.build());
                     return;
                 }
