@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.lens.relation.index;
 
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.util.Pair;
 
 /**
@@ -66,6 +68,11 @@ public class ZValue {
     }
 
     public static long interleave(int x, int y) {
+
+        if (x < 0 || y < 0)
+            throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
+                    "zvalue cannot accept negative values: (%d, %d)", x, y));
+
         long zvalue = 0;
         int mask = 1 << 30;
         long cursorOnZValue = 1L << 61;

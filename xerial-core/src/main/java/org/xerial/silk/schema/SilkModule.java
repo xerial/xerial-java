@@ -41,5 +41,6 @@ public class SilkModule {
     public List<SilkModule> module = new ArrayList<SilkModule>();
     public List<SilkClass> classDef = new ArrayList<SilkClass>();
     public List<SilkRelation> relation = new ArrayList<SilkRelation>();
+    public List<SilkProjection> projection = new ArrayList<SilkProjection>();
 
 }

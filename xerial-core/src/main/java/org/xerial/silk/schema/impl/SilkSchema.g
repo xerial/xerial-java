@@ -194,13 +194,14 @@ schema:  Preamble? schemaElement*  -> ^(Schema Preamble? schemaElement*) ;
 
 schemaElement
   : classDefinition 
+  | projectionDef
   | moduleDefinition
   ;
 
 
 moduleDefinition:
-	ModuleDef classDefinition* End 
-	-> ^(Module Name[$ModuleDef.text] classDefinition*)  
+	ModuleDef schemaElement* End 
+	-> ^(Module Name[$ModuleDef.text] schemaElement*)  
 	;  
   
 classDefinition
@@ -211,12 +212,12 @@ classDefinition
 classBody: (belongsToStatement | includeStatement | attributes | indexStatement)+;
 
 
-projectionDef: Projection c=QName 'on' t=QName (projectColumn (Comma? projectColumn)*) orderbyColumns? End 
- -> ^(Projection Name[$c.text] TargetClass[$t.text] projectColumn+ orderbyColumn?);
+projectionDef: Projection c=QName 'on' t=QName (projectColumn (Comma? projectColumn)*) orderByColumns? End 
+ -> ^(Projection Name[$c.text] TargetClass[$t.text] projectColumn+ orderByColumns?);
 
 fragment
 projectColumn
-  : QName  -> Reference[$QName.text]
+  : QName  -> Attribute[$QName.text]
   | Star -> AllIncluded["true"] 
   | Symbol -> Attribute[$Symbol.text]
 ;
@@ -228,9 +229,9 @@ orderByColumns
 
 fragment
 orderByItem
-  : QName -> Argument[$QName.text] 
-  | Symbol -> Argument[$Symbol.text]
-  | QName LParen (functionArg (Comma functionArg)*)? RParen -> ^(Function Name[$QName.text] functionArg*) 
+  : QName -> OrderBy[$QName.text] 
+  | Symbol -> OrderBy[$Symbol.text]
+//  | QName LParen (functionArg (Comma functionArg)*)? RParen -> ^(Function Name[$QName.text] functionArg*) 
 ;
 
 fragment

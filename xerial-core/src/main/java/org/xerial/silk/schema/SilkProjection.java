@@ -41,7 +41,6 @@ public class SilkProjection {
     public String name;
     public String targetClass;
 
-    public List<String> reference = new ArrayList<String>();
     public List<String> attribute = new ArrayList<String>();
 
     public boolean allIncluded = false;

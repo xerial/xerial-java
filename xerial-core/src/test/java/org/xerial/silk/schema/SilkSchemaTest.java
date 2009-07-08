@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.schema;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -121,7 +119,7 @@ public class SilkSchemaTest {
 
             public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
                     throws Exception {
-                _logger.trace(String.format("amoeba (%s, %s)", coreNode, attributeNode));
+                _logger.info(String.format("amoeba (%s, %s)", coreNode, attributeNode));
             }
 
             public void text(Schema schema, Node coreNode, Node textNode, String text)

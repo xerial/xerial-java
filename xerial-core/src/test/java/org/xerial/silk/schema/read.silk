@@ -3,6 +3,7 @@
 # coordinate system information
 class Coordinate
   :group string default "utgb"
+  :system
   :species 
   :revision
   :name
@@ -15,6 +16,7 @@ class Locus
   :name
   :start integer
   :end integer
+#  :zvalue zvalue(:start, :end) 
   :strand
 
   index keyword :name
@@ -36,17 +38,17 @@ end
 
 projection V1 on Coordinate
   *
-  order_by :group, :species, :revision, :name
+  order_by :name
 end 
 
 projection V2 on Reference
   Coordinate, :name, :start, :end, :strand
-  order_by Coordinate, zvalue(:start, :end)
+  order_by Coordinate, :start
 end
 
 projection V3 on Read
   Reference, :name, :start, :end, :strand
-  order_by Reference, zvalue(:start, :end)
+  order_by Reference, :start
 end
 
 
