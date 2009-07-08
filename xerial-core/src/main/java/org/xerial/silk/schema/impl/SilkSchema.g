@@ -38,6 +38,10 @@ tokens {
   IsArray;
   TypeName;
   DefaultValue;
+  AllIncluded;
+  TargetClass;
+  Function;
+  Argument;
 }
 
 
@@ -196,7 +200,7 @@ schemaElement
 
 moduleDefinition:
 	ModuleDef classDefinition* End 
-	-> ^(Module Name[$ModuleDef.text] classDefinition*)
+	-> ^(Module Name[$ModuleDef.text] classDefinition*)  
 	;  
   
 classDefinition
@@ -207,46 +211,61 @@ classDefinition
 classBody: (belongsToStatement | includeStatement | attributes | indexStatement)+;
 
 
-projectionDef: Projection QName projectColumns orderbyColumns? End;
-
-fragment
-projectColumns
-  : projectColumn (Comma? projectColumns)* -> projectColumn projectColumns*
-;
+projectionDef: Projection c=QName 'on' t=QName (projectColumn (Comma? projectColumn)*) orderbyColumns? End 
+ -> ^(Projection Name[$c.text] TargetClass[$t.text] projectColumn+ orderbyColumn?);
 
 fragment
 projectColumn
-  : QName  -> ^(Reference Name[$QName.text])
-  | QName Dot Start -> ^(Attribute Name[$QName.text] All["true"]) 
-  | QName LParen Symbol (Comma Symbol)* RParen 
+  : QName  -> Reference[$QName.text]
+  | Star -> AllIncluded["true"] 
+  | Symbol -> Attribute[$Symbol.text]
 ;
 
 fragment
-projectColumnItem: Symbol 
+orderByColumns
+  : OrderBy orderByItem (Comma orderByItem)* -> orderByItem+
 ;
 
+fragment
+orderByItem
+  : QName -> Argument[$QName.text] 
+  | Symbol -> Argument[$Symbol.text]
+  | QName LParen (functionArg (Comma functionArg)*)? RParen -> ^(Function Name[$QName.text] functionArg*) 
+;
 
-fragment belongsToStatement: BelongsTo QName -> BelongsTo[$QName.text]; 
+fragment
+functionArg: Symbol -> Argument[$Symbol.text]
+;
+
+fragment 
+belongsToStatement: BelongsTo QName -> BelongsTo[$QName.text]; 
   
-fragment inheritance: Lt QName -> Parent[$QName.text];
+fragment 
+inheritance: Lt QName -> Parent[$QName.text];
   
-fragment includeStatement: Includes includeItem (Comma includeItem)* -> includeItem+;
+fragment 
+includeStatement: Includes includeItem (Comma includeItem)* -> includeItem+;
 
-fragment includeItem: QName -> Mixin[$QName.text];
+fragment 
+includeItem: QName -> Mixin[$QName.text];
 
-fragment indexStatement: Index QName indexTarget (Comma indexTarget)*
+fragment 
+indexStatement: Index QName indexTarget (Comma indexTarget)*
   -> ^(Index TypeName[$QName.text] indexTarget+)
 ; 
 
-fragment indexTarget: Symbol -> Attribute[$Symbol.text]  
+fragment 
+indexTarget: Symbol -> Attribute[$Symbol.text]  
 ; 
 
 
-fragment attributes: attribute (Comma attribute)* 
+fragment 
+attributes: attribute (Comma attribute)* 
   -> attribute+
   ; 
 	
-fragment attribute:
+fragment 
+attribute:
   Symbol attributeType? (Default attributeValue)?  
   -> ^(Attribute Name[$Symbol.text] attributeType? attributeValue?)  
   ; 

@@ -34,19 +34,19 @@ class Read < Locus
 end 
 
 
-projection V1 
-  Coordinate.* 
+projection V1 on Coordinate
+  *
   order_by :group, :species, :revision, :name
 end 
 
-projection V2
-  Coordinate
-  Reference(:name, :start, :end:, :strand)
+projection V2 on Reference
+  Coordinate, :name, :start, :end, :strand
   order_by Coordinate, zvalue(:start, :end)
 end
 
-projection V3
-  Reference, Read(:name, :start, :end, :strand)
+projection V3 on Read
+  Reference, :name, :start, :end, :strand
   order_by Reference, zvalue(:start, :end)
 end
+
 
