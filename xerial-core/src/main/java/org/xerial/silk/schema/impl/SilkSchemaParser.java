@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-07 14:42:04
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-07 19:14:42
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -196,7 +196,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: schemaElement, Preamble
+            // elements: Preamble, schemaElement
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -673,7 +673,7 @@ public class SilkSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: inheritance, classBody, Relation
+                    // elements: Relation, inheritance, classBody
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1275,7 +1275,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: indexTarget, Index
+            // elements: Index, indexTarget
             // token labels: 
             // rule labels: retval
             // token list labels: 

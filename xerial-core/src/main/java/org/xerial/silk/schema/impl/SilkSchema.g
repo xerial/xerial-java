@@ -165,6 +165,8 @@ Relation: 'relation';
 Index: 'index';
 BelongsTo: 'belongs_to';
 Default: 'default';
+Projection: 'projection';
+OrderBy: 'order_by';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -203,6 +205,26 @@ classDefinition
   ; 
   
 classBody: (belongsToStatement | includeStatement | attributes | indexStatement)+;
+
+
+projectionDef: Projection QName projectColumns orderbyColumns? End;
+
+fragment
+projectColumns
+  : projectColumn (Comma? projectColumns)* -> projectColumn projectColumns*
+;
+
+fragment
+projectColumn
+  : QName  -> ^(Reference Name[$QName.text])
+  | QName Dot Start -> ^(Attribute Name[$QName.text] All["true"]) 
+  | QName LParen Symbol (Comma Symbol)* RParen 
+;
+
+fragment
+projectColumnItem: Symbol 
+;
+
 
 fragment belongsToStatement: BelongsTo QName -> BelongsTo[$QName.text]; 
   

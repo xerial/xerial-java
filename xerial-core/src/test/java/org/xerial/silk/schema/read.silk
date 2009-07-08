@@ -34,7 +34,7 @@ class Read < Locus
 end 
 
 
-projection V1
+projection V1 
   Coordinate.* 
   order_by :group, :species, :revision, :name
 end 
