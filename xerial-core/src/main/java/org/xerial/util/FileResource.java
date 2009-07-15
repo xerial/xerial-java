@@ -112,7 +112,7 @@ public class FileResource
         }
 
     }
-    
+
     /**
      * A virtual file implementation for file resources contained in a JAR file
      * 
@@ -519,8 +519,7 @@ public class FileResource
             resourcePath = "/" + resourcePath;
         _logger.trace("search resource: " + resourcePath);
 
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        return cl.getResource(resourcePath);
+        return FileResource.class.getResource(resourcePath);
     }
 
     /*
