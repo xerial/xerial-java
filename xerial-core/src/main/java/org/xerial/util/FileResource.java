@@ -113,11 +113,6 @@ public class FileResource
 
     }
     
-    private static ClassLoader getClassLoader()
-    {
-        return Thread.currentThread().getContextClassLoader();
-    }
-
     /**
      * A virtual file implementation for file resources contained in a JAR file
      * 
@@ -189,7 +184,7 @@ public class FileResource
      */
     public static List<VirtualFile> listResources(ResourceFilter resourceFilter)
     {
-        return listResources(getClassLoader(), resourceFilter);
+        return listResources(FileResource.class.getClassLoader(), resourceFilter);
     }
 
     /**
@@ -299,7 +294,7 @@ public class FileResource
      */
     public static List<VirtualFile> listResources(String basePackageName, ResourceFilter resourceFilter)
     {
-        return listResources(getClassLoader(), basePackageName, resourceFilter);
+        return listResources(FileResource.class.getClassLoader(), basePackageName, resourceFilter);
     }
 
     /**
