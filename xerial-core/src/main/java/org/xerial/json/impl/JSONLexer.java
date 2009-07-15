@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 JSON.g 2009-07-03 16:06:10
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 JSON.g 2009-07-07 22:05:14
 
 //--------------------------------------
 // XerialJ Project
@@ -1008,8 +1008,8 @@ public class JSONLexer extends Lexer {
     static final String DFA12_specialS =
         "\22\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\2\12\1\uffff\2\12\22\uffff\1\12\1\uffff\1\13\11\uffff\1\2"+
-            "\1\14\2\uffff\1\15\11\16\1\1\40\uffff\1\5\1\uffff\1\6\10\uffff"+
+            "\2\12\1\uffff\2\12\22\uffff\1\12\1\uffff\1\13\11\uffff\1\2\1"+
+            "\14\2\uffff\1\15\11\16\1\1\40\uffff\1\5\1\uffff\1\6\10\uffff"+
             "\1\10\7\uffff\1\11\5\uffff\1\7\6\uffff\1\3\1\uffff\1\4",
             "",
             "",

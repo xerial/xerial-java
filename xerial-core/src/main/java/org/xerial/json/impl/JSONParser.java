@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 JSON.g 2009-07-03 16:06:09
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 JSON.g 2009-07-07 22:05:13
 
 //--------------------------------------
 // Xerial Project
@@ -354,7 +354,7 @@ public class JSONParser extends Parser {
 
 
             // AST REWRITE
-            // elements: String, value
+            // elements: value, String
             // token labels: 
             // rule labels: retval
             // token list labels: 
