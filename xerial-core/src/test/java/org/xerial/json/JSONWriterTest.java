@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.json;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -33,17 +32,16 @@ import java.io.StringWriter;
 
 import org.junit.Test;
 import org.xerial.core.XerialError;
+import org.xerial.lens.Lens;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
-public class JSONWriterTest
-{
+public class JSONWriterTest {
     private static Logger _logger = Logger.getLogger(JSONWriterTest.class);
 
     @Test
-    public void test() throws IOException, JSONException, BeanException
-    {
+    public void test() throws IOException, JSONException, BeanException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -69,8 +67,7 @@ public class JSONWriterTest
     }
 
     @Test
-    public void test2() throws IOException, JSONException, BeanException
-    {
+    public void test2() throws IOException, JSONException, BeanException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -97,8 +94,7 @@ public class JSONWriterTest
     }
 
     @Test(expected = XerialError.class)
-    public void testInvalidJSONData() throws IOException, JSONException, BeanException
-    {
+    public void testInvalidJSONData() throws IOException, JSONException, BeanException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -116,8 +112,7 @@ public class JSONWriterTest
     }
 
     @Test
-    public void streamWrite() throws IOException, JSONException, BeanException
-    {
+    public void streamWrite() throws IOException, JSONException, BeanException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -136,8 +131,7 @@ public class JSONWriterTest
     }
 
     @Test
-    public void appendString() throws IOException, JSONException, BeanException
-    {
+    public void appendString() throws IOException, JSONException, BeanException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -159,8 +153,7 @@ public class JSONWriterTest
     }
 
     @Test
-    public void arrayOfObjects() throws JSONException, IOException
-    {
+    public void arrayOfObjects() throws JSONException, IOException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -186,5 +179,37 @@ public class JSONWriterTest
         assertEquals(2, yui.getInt("id"));
         assertEquals("yui", yui.getString("name"));
 
+    }
+
+    public static class Seq {
+        public int start;
+        public int end;
+        public String sequence;
+    }
+
+    @Test
+    public void startKeyedObject() throws Exception {
+        StringWriter writer = new StringWriter();
+        JSONWriter json = new JSONWriter(writer);
+
+        json.startObject();
+        json.put("start", 1);
+        json.put("end", 2);
+        json.startString("sequence");
+        json.append("AAAA");
+        json.append("CCCC");
+        json.endString();
+        json.endObject();
+        json.endJSON();
+
+        String j = writer.toString();
+        _logger.info(j);
+
+        Seq s = Lens.loadJSON(Seq.class, new StringReader(j));
+        _logger.info(Lens.toJSON(s));
+
+        assertEquals(1, s.start);
+        assertEquals(2, s.end);
+        assertEquals("AAAACCCC", s.sequence);
     }
 }

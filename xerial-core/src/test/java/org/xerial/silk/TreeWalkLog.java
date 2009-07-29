@@ -199,7 +199,7 @@ public class TreeWalkLog implements TreeVisitor
         Iterator<EventLog> i1 = l1.iterator();
         Iterator<EventLog> i2 = l2.iterator();
 
-        boolean compareFlag = true;
+        boolean doComparison = true;
 
         while (i1.hasNext() && i2.hasNext())
         {
@@ -207,15 +207,15 @@ public class TreeWalkLog implements TreeVisitor
             EventLog e2 = i2.next();
 
             _logger.debug(String.format("compare: %-20s %-20s", e1, e2));
-            if (!e1.equals(e2) && compareFlag)
+            if (!e1.equals(e2) && doComparison)
             {
                 _logger.warn("--- do not match");
-                compareFlag = false;
+                doComparison = false;
             }
         }
         if (l1.size() != l2.size())
-            compareFlag = false;
-        return compareFlag;
+            doComparison = false;
+        return doComparison;
     }
 
 }
