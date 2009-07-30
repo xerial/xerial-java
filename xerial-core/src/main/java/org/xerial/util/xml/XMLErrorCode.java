@@ -54,8 +54,4 @@ public enum XMLErrorCode implements ErrorCode {
         return description;
     }
 
-    public Enum< ? > getCode() {
-        return this;
-    }
-
 }

@@ -36,53 +36,36 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-public class OptionSetterViaField implements OptionSetter
-{
+public class OptionSetterViaField implements OptionSetter {
     private final Field field;
 
-    public OptionSetterViaField(Field field)
-    {
+    public OptionSetterViaField(Field field) {
         this.field = field;
     }
 
-    public Class< ? > getOptionDataType()
-    {
+    public Class< ? > getOptionDataType() {
         return field.getType();
     }
 
-    public void setOption(Object bean, Object value) throws OptionParserException
-    {
-        try
-        {
-            ReflectionUtil.setFieldValue(bean, field, value);
-        }
-        catch (XerialException e)
-        {
-            throw new OptionParserException(e.getErrorCode(), e.getMessage());
-        }
-
+    public void setOption(Object bean, Object value) throws XerialException {
+        ReflectionUtil.setFieldValue(bean, field, value);
     }
 
-    public boolean takesArgument()
-    {
+    public boolean takesArgument() {
         Class< ? > type = getOptionDataType();
         return !TypeInfo.isBoolean(type);
     }
 
-    public void initialize(Object bean) throws OptionParserException
-    {
-        try
-        {
+    public void initialize(Object bean) throws OptionParserException {
+        try {
             ReflectionUtil.initializeCollectionField(bean, field);
         }
-        catch (XerialException e)
-        {
-            throw new OptionParserException(e.getErrorCode(), e.getMessage());
+        catch (XerialException e) {
+            throw new OptionParserException(e);
         }
     }
 
-    public String getParameterName()
-    {
+    public String getParameterName() {
         return field.getName();
     }
 

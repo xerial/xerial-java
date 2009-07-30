@@ -53,7 +53,7 @@ public enum XerialErrorCode implements ErrorCode {
     INVALID_TOKEN, PARSE_ERROR,
 
     // general exception
-    INHERITED, ;
+    INHERITED, HAS_AN_EXTENDED_ERROR_CODE;
 
     private final String description;
 
@@ -71,10 +71,6 @@ public enum XerialErrorCode implements ErrorCode {
 
     public String getDescription() {
         return null;
-    }
-
-    public Enum< ? > getCode() {
-        return this;
     }
 
 }

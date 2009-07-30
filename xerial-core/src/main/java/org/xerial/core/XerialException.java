@@ -39,6 +39,7 @@ import org.xerial.json.JSONErrorCode;
  * 
  */
 public class XerialException extends Exception {
+
     private static final long serialVersionUID = 1L;
 
     private final ErrorCode errorCode;
@@ -46,7 +47,6 @@ public class XerialException extends Exception {
     public XerialException(XerialException e) {
         super(e.getErrorMessage());
         this.errorCode = e.errorCode;
-
     }
 
     public XerialException(ErrorCode errorCode) {
@@ -69,13 +69,23 @@ public class XerialException extends Exception {
         this.errorCode = errorCode;
     }
 
-    /**
-     * Get the error code of this exception
-     * 
-     * @return
-     */
     public ErrorCode getErrorCode() {
         return errorCode;
+    }
+
+    private boolean hasXerialErrorCode() {
+        return XerialErrorCode.class.isInstance(errorCode);
+    }
+
+    public XerialErrorCode getXerialErrorCode() {
+        if (hasXerialErrorCode())
+            return XerialErrorCode.class.cast(errorCode);
+        else
+            return XerialErrorCode.HAS_AN_EXTENDED_ERROR_CODE;
+    }
+
+    public <T extends Enum<T>> T getErrorCodeOfTheType(Class<T> errorCodeType) {
+        return errorCodeType.cast(errorCode);
     }
 
     @Override

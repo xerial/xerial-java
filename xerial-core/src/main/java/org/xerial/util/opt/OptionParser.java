@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanErrorCode;
 import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeInfo;
@@ -175,7 +176,7 @@ public class OptionParser {
                         throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
                                 "parameter value is required for --" + longOptionName);
 
-                    optionItem.setOption(optionHolder, "true");
+                    setOption(optionItem, "true");
 
                     if (!optionItem.takesMultipleArguments()
                             && activatedOption.contains(optionItem.getOption()))
@@ -199,7 +200,7 @@ public class OptionParser {
                                 "syntax error --" + longOptionName);
                     }
 
-                    optionItem.setOption(optionHolder, value);
+                    setOption(optionItem, value);
                     if (!optionItem.takesMultipleArguments()
                             && activatedOption.contains(optionItem.getOption()))
                         throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
@@ -255,7 +256,14 @@ public class OptionParser {
                                 "unused argument: " + currentArg);
                 }
 
-                argItem.set(optionHolder, currentArg);
+                try {
+                    argItem.set(optionHolder, currentArg);
+                }
+                catch (XerialException e) {
+                    throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, e
+                            .getMessage());
+                }
+
                 if (!argItem.takesMultipleArguments()
                         && activatedArgument.contains(argItem.getArgumentDescriptor()))
                     throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem
@@ -280,18 +288,19 @@ public class OptionParser {
         try {
             item.setOption(optionHolder, value);
         }
-        catch (OptionParserException e) {
+        catch (XerialException e) {
             if (BeanErrorCode.class.isInstance(e.getErrorCode())) {
                 BeanErrorCode be = BeanErrorCode.class.cast(e.getErrorCode());
                 switch (be) {
                 case InvalidFormat:
                     throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, String
                             .format("cannot set %s to %s", value, item.toString()));
+                default:
+                    throw new OptionParserException(e.getErrorCode(), e.getMessage());
                 }
-
             }
-
-            throw e;
+            else
+                throw new OptionParserException(e.getErrorCode(), e.getMessage());
         }
     }
 

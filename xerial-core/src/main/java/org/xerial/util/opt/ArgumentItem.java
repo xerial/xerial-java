@@ -27,6 +27,7 @@ package org.xerial.util.opt;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.xerial.core.XerialException;
 import org.xerial.util.Range;
 import org.xerial.util.bean.TypeInfo;
 
@@ -36,13 +37,11 @@ import org.xerial.util.bean.TypeInfo;
  * @author leo
  * 
  */
-public class ArgumentItem
-{
-    private final Argument     argumentDescriptor;
+public class ArgumentItem {
+    private final Argument argumentDescriptor;
     private final OptionSetter argumentSetter;
 
-    public ArgumentItem(Method setter)
-    {
+    public ArgumentItem(Method setter) {
         argumentDescriptor = setter.getAnnotation(Argument.class);
         if (argumentDescriptor == null)
             throw new IllegalArgumentException(setter + " is not for an option argument");
@@ -50,8 +49,7 @@ public class ArgumentItem
         argumentSetter = new OptionSetterViaMethod(setter);
     }
 
-    public ArgumentItem(Field field)
-    {
+    public ArgumentItem(Field field) {
         argumentDescriptor = field.getAnnotation(Argument.class);
         if (argumentDescriptor == null)
             throw new IllegalArgumentException(field + " is not for an option argument");
@@ -60,10 +58,8 @@ public class ArgumentItem
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof ArgumentItem)
-        {
+    public boolean equals(Object obj) {
+        if (obj instanceof ArgumentItem) {
             ArgumentItem other = (ArgumentItem) obj;
             return argumentDescriptor.equals(other.argumentDescriptor);
         }
@@ -72,52 +68,43 @@ public class ArgumentItem
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return argumentDescriptor.hashCode();
     }
 
-    public boolean takesMultipleArguments()
-    {
+    public boolean takesMultipleArguments() {
         return TypeInfo.isCollection(argumentSetter.getOptionDataType());
     }
 
-    public static Range getRangeOf(ArgumentItem arg)
-    {
+    public static Range getRangeOf(ArgumentItem arg) {
         int start = arg.getArgumentDescriptor().index();
         int end = arg.takesMultipleArguments() ? Integer.MAX_VALUE : start;
         return new Range(start, end);
     }
 
-    public Range getRange()
-    {
+    public Range getRange() {
         return getRangeOf(this);
     }
 
-    public void set(Object bean, Object value) throws OptionParserException
-    {
+    public void set(Object bean, Object value) throws XerialException {
         argumentSetter.setOption(bean, value);
     }
 
-    public Argument getArgumentDescriptor()
-    {
+    public Argument getArgumentDescriptor() {
         return argumentDescriptor;
     }
 
-    public void initialize(Object optionHolder) throws OptionParserException
-    {
+    public void initialize(Object optionHolder) throws OptionParserException {
         argumentSetter.initialize(optionHolder);
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("name=%s, index=%s, required=%s", argumentDescriptor.name(), getRange().toString(),
-                argumentDescriptor.required());
+    public String toString() {
+        return String.format("name=%s, index=%s, required=%s", argumentDescriptor.name(),
+                getRange().toString(), argumentDescriptor.required());
     }
 
-    public String getArgumentName()
-    {
+    public String getArgumentName() {
         String name = argumentDescriptor.name();
         if (name == null || name.length() <= 0)
             name = argumentSetter.getParameterName();

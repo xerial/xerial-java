@@ -32,20 +32,17 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class JSONException extends XerialException
-{
+public class JSONException extends XerialException {
     private static final long serialVersionUID = 1L;
 
     /**
      * @param errorCode
      */
-    public JSONException(JSONErrorCode errorCode)
-    {
+    public JSONException(JSONErrorCode errorCode) {
         super(errorCode);
     }
 
-    public JSONException(JSONErrorCode errorCode, String message)
-    {
+    public JSONException(JSONErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
@@ -54,8 +51,7 @@ public class JSONException extends XerialException
      * @param message
      * @param e
      */
-    public JSONException(JSONErrorCode errorCode, String message, Throwable e)
-    {
+    public JSONException(JSONErrorCode errorCode, String message, Throwable e) {
         super(errorCode, message, e);
     }
 
@@ -63,8 +59,7 @@ public class JSONException extends XerialException
      * @param errorCode
      * @param e
      */
-    public JSONException(JSONErrorCode errorCode, Throwable e)
-    {
+    public JSONException(JSONErrorCode errorCode, Throwable e) {
         super(errorCode);
     }
 
@@ -73,8 +68,7 @@ public class JSONException extends XerialException
      * 
      * @return the error code
      */
-    public JSONErrorCode getErrorCode()
-    {
+    public JSONErrorCode getErrorCode() {
         return (JSONErrorCode) super.getErrorCode();
     }
 }

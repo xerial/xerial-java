@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.reflect.ReflectionUtil;
 
@@ -37,43 +38,35 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-class OptionSetterViaMethod implements OptionSetter
-{
+class OptionSetterViaMethod implements OptionSetter {
     private Method m;
 
-    public OptionSetterViaMethod(Method m)
-    {
+    public OptionSetterViaMethod(Method m) {
         this.m = m;
     }
 
-    public void setOption(Object bean, Object value) throws OptionParserException
-    {
+    public void setOption(Object bean, Object value) throws XerialException {
         ReflectionUtil.setValue(bean, m, value);
     }
 
-    public Class< ? > getOptionDataType()
-    {
+    public Class< ? > getOptionDataType() {
         Type t = m.getParameterTypes()[0];
-        if (ParameterizedType.class.isInstance(t))
-        {
+        if (ParameterizedType.class.isInstance(t)) {
             return (Class< ? >) ((ParameterizedType) t).getRawType();
         }
         else
             return (Class< ? >) t;
     }
 
-    public boolean takesArgument()
-    {
+    public boolean takesArgument() {
         return !TypeInfo.isBoolean(getOptionDataType());
     }
 
-    public void initialize(Object bean) throws OptionParserException
-    {
+    public void initialize(Object bean) throws OptionParserException {
     // do nothing
     }
 
-    public String getParameterName()
-    {
+    public String getParameterName() {
         return m.getName();
     }
 

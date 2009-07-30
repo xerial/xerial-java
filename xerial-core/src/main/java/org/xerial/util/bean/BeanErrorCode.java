@@ -72,8 +72,4 @@ public enum BeanErrorCode implements ErrorCode {
         return description;
     }
 
-    public Enum< ? > getCode() {
-        return this;
-    }
-
 }

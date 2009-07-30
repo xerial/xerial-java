@@ -61,8 +61,4 @@ public enum JSONErrorCode implements ErrorCode {
         return description;
     }
 
-    public Enum< ? > getCode() {
-        return this;
-    }
-
 }

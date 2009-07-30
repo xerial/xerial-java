@@ -27,6 +27,7 @@ package org.xerial.util.opt;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.TypeInfo;
 
 /**
@@ -92,19 +93,8 @@ public class OptionItem {
         return TypeInfo.isCollection(optionSetter.getOptionDataType());
     }
 
-    public void setOption(Object bean, String value) throws OptionParserException {
+    public void setOption(Object bean, String value) throws XerialException {
         optionSetter.setOption(bean, value);
-
-        //        Class< ? > optionType = optionSetter.getOptionDataType();
-        //        try
-        //        {
-        //            Object convertedValue = TypeConverter.convertType(optionType, value);
-        //            optionSetter.setOption(bean, convertedValue);
-        //        }
-        //        catch (BeanException e)
-        //        {
-        //            throw new OptionParserException(ShellError.WRONG_DATA_TYPE, e);
-        //        }
 
     }
 

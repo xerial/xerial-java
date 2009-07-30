@@ -24,13 +24,14 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
+import org.xerial.core.XerialException;
+
 /**
  * @author leo
  * 
  */
-public interface OptionSetter
-{
-    void setOption(Object bean, Object convertedValue) throws OptionParserException;
+public interface OptionSetter {
+    void setOption(Object bean, Object convertedValue) throws XerialException;
 
     Class< ? > getOptionDataType();
 

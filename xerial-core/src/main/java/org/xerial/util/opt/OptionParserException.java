@@ -40,6 +40,10 @@ public class OptionParserException extends XerialException {
      */
     private static final long serialVersionUID = 1L;
 
+    public OptionParserException(XerialException e) {
+        super(e);
+    }
+
     public OptionParserException(ErrorCode errorCode, String message, Throwable cause) {
         super(errorCode, message, cause);
     }
