@@ -82,7 +82,7 @@ public class SilkWriter {
         }
     }
 
-    public SilkWriter startNode(String nodeName) {
+    public SilkWriter node(String nodeName) {
 
         printIndent();
         out.print("-");
@@ -93,43 +93,33 @@ public class SilkWriter {
         return this;
     }
 
-    public SilkWriter startNode(String nodeName, String nodeValue) {
-
+    public SilkWriter node(String nodeName, String nodeValue) {
         printIndent();
         out.print("-");
         out.print(nodeName);
         out.print(":");
         out.println(nodeValue);
-
         pushContext(nodeName);
-
         return this;
     }
 
-    SilkWriter startInLineNode(String nodeName) {
+    public SilkNodeWriter startContext(String nodeName) {
         printIndent();
-        out.print("-");
-        out.print(nodeName);
-        out.print("(");
-        return this;
+        return new SilkNodeWriter(this, nodeName, null);
     }
 
-    SilkWriter endInLineNode() {
-        out.println(")");
-        return this;
-    }
+    public SilkWriter inlineNode(String nodeName, String value) {
 
-    SilkWriter comma() {
-        out.print(",");
-        return this;
-    }
-
-    SilkWriter inlineNode(String nodeName, String value) {
         out.print(nodeName);
         if (value != null) {
             out.print(":");
             out.print(value);
         }
+        return this;
+    }
+
+    SilkWriter comma() {
+        out.print(",");
         return this;
     }
 

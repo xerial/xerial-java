@@ -29,8 +29,13 @@ public class SilkNodeWriter {
     private final SilkWriter out;
     private int nodeCount = 0;
 
-    public SilkNodeWriter(SilkWriter parent) {
+    private final String nodeName;
+    private final String nodeValue;
+
+    public SilkNodeWriter(SilkWriter parent, String nodeName, String nodeValue) {
         this.out = parent;
+        this.nodeName = nodeName;
+        this.nodeValue = nodeValue;
     }
 
     public SilkNodeWriter node(String nodeName, String value) {

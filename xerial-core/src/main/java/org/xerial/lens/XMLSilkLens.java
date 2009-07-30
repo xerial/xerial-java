@@ -82,9 +82,9 @@ public class XMLSilkLens {
         public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
                 throws XerialException {
             if (immediateNodeValue == null)
-                out.startNode(nodeName);
+                out.node(nodeName);
             else
-                out.startNode(nodeName, immediateNodeValue);
+                out.node(nodeName, immediateNodeValue);
 
         }
 
@@ -135,7 +135,7 @@ public class XMLSilkLens {
 
         public void startElement(String uri, String localName, String name, Attributes atts)
                 throws SAXException {
-            out.startNode(name);
+            out.node(name);
         }
 
         public void startPrefixMapping(String prefix, String uri) throws SAXException {
