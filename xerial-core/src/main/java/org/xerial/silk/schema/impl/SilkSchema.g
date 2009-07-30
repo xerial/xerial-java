@@ -171,6 +171,7 @@ BelongsTo: 'belongs_to';
 Default: 'default';
 Projection: 'projection';
 OrderBy: 'order_by';
+On: 'on';
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -251,7 +252,7 @@ fragment
 includeItem: QName -> Mixin[$QName.text];
 
 fragment 
-indexStatement: Index QName indexTarget (Comma indexTarget)*
+indexStatement: Index QName On indexTarget (Comma indexTarget)*
   -> ^(Index TypeName[$QName.text] indexTarget+)
 ; 
 

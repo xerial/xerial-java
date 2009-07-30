@@ -53,55 +53,45 @@ import org.xerial.util.template.Template;
  * @author leo
  * 
  */
-public class OptionSchema
-{
-    private final ArrayList<OptionItem>   optionItemList   = new ArrayList<OptionItem>();
+public class OptionSchema {
+    private final ArrayList<OptionItem> optionItemList = new ArrayList<OptionItem>();
     private final ArrayList<ArgumentItem> argumentItemList = new ArrayList<ArgumentItem>();
-    private Usage                         usage            = null;
+    private Usage usage = null;
 
-    List<OptionItem> getOptionItemList()
-    {
+    List<OptionItem> getOptionItemList() {
         return optionItemList;
     }
 
-    List<ArgumentItem> getArgumentItemList()
-    {
+    List<ArgumentItem> getArgumentItemList() {
         return argumentItemList;
     }
 
-    Usage getUsage()
-    {
+    Usage getUsage() {
         return usage;
     }
 
-    protected static String optionDescription(OptionItem optionItem)
-    {
+    protected static String optionDescription(OptionItem optionItem) {
         StringBuilder line = new StringBuilder();
         Option opt = optionItem.getOption();
-        if (optionItem.hasSymbol())
-        {
+        if (optionItem.hasSymbol()) {
             line.append(String.format("-%s", opt.symbol()));
-            if (optionItem.hasLongName())
-            {
+            if (optionItem.hasLongName()) {
                 line.append(String.format(", --%s", opt.longName()));
 
                 if (optionItem.needsArgument())
                     line.append(String.format("=%s", opt.varName()));
             }
-            else
-            {
+            else {
                 if (optionItem.needsArgument())
                     line.append(String.format(" ", opt.varName()));
             }
         }
-        else if (optionItem.hasLongName())
-        {
+        else if (optionItem.hasLongName()) {
             line.append(String.format("    --%s", opt.longName()));
             if (optionItem.needsArgument())
                 line.append(String.format("=%s", opt.varName()));
         }
-        else
-        {
+        else {
             throw new XerialError(XerialErrorCode.NO_OPTION, optionItem.toString());
         }
 
@@ -109,8 +99,7 @@ public class OptionSchema
 
     }
 
-    protected static String argumentExpression(ArgumentItem argItem)
-    {
+    protected static String argumentExpression(ArgumentItem argItem) {
         StringBuilder line = new StringBuilder();
 
         Argument arg = argItem.getArgumentDescriptor();
@@ -128,8 +117,7 @@ public class OptionSchema
         return line.toString();
     }
 
-    public void printUsage(OutputStream out)
-    {
+    public void printUsage(OutputStream out) {
         printUsage(new OutputStreamWriter(out));
     }
 
@@ -137,45 +125,42 @@ public class OptionSchema
         COMMAND, ARGUMENT_LIST, DESCRIPTION, OPTION_LIST
     }
 
-    public void printUsage(Writer out)
-    {
+    public void printUsage(Writer out) {
         Properties helpMessageTemplateValue = new Properties();
 
         // argument list
         Collections.sort(argumentItemList, new Comparator<ArgumentItem>() {
-            public int compare(ArgumentItem o1, ArgumentItem o2)
-            {
+            public int compare(ArgumentItem o1, ArgumentItem o2) {
                 return o1.getRange().compareTo(o2.getRange());
             }
         });
 
-        List<String> argExpressionList = Algorithm.map(argumentItemList, new Mapper<ArgumentItem, String>() {
-            public String map(ArgumentItem input)
-            {
-                return argumentExpression(input);
-            }
-        });
+        List<String> argExpressionList = Algorithm.map(argumentItemList,
+                new Mapper<ArgumentItem, String>() {
+                    public String map(ArgumentItem input) {
+                        return argumentExpression(input);
+                    }
+                });
 
         // usage information
-        if (usage != null)
-        {
+        if (usage != null) {
             helpMessageTemplateValue.put(TemplateVariable.COMMAND.name(), usage.command());
             if (usage.description() != null && usage.description().length() > 0)
-                helpMessageTemplateValue.put(TemplateVariable.DESCRIPTION.name(), usage.description());
+                helpMessageTemplateValue.put(TemplateVariable.DESCRIPTION.name(), usage
+                        .description());
         }
 
-        helpMessageTemplateValue.put(TemplateVariable.ARGUMENT_LIST.name(), StringUtil.join(argExpressionList, " "));
+        helpMessageTemplateValue.put(TemplateVariable.ARGUMENT_LIST.name(), StringUtil.join(
+                argExpressionList, " "));
 
         // option list
         Collections.sort(optionItemList, new Comparator<OptionItem>() {
-            public int compare(OptionItem o1, OptionItem o2)
-            {
+            public int compare(OptionItem o1, OptionItem o2) {
                 Option opt1 = o1.getOption();
                 Option opt2 = o2.getOption();
 
                 // prefer options that have a short name 
-                if (o1.hasSymbol())
-                {
+                if (o1.hasSymbol()) {
                     if (!o2.hasSymbol())
                         return -1;
                 }
@@ -190,12 +175,12 @@ public class OptionSchema
             }
         });
 
-        List<String> descriptionList = Algorithm.map(optionItemList, new Mapper<OptionItem, String>() {
-            public String map(OptionItem input)
-            {
-                return optionDescription(input);
-            }
-        });
+        List<String> descriptionList = Algorithm.map(optionItemList,
+                new Mapper<OptionItem, String>() {
+                    public String map(OptionItem input) {
+                        return optionDescription(input);
+                    }
+                });
 
         int maxDescriptionLength = 15;
         for (String each : descriptionList)
@@ -205,34 +190,32 @@ public class OptionSchema
         String optionHelpFormat = String.format(" %%-%ds  %%s", maxDescriptionLength);
 
         StringWriter optionListHelpWriter = new StringWriter();
-        for (int i = 0; i < optionItemList.size(); ++i)
-        {
+        for (int i = 0; i < optionItemList.size(); ++i) {
             OptionItem optionItem = optionItemList.get(i);
             String optionHelp = descriptionList.get(i);
-            String line = String.format(optionHelpFormat, optionHelp, optionItem.getOption().description());
+            String line = String.format(optionHelpFormat, optionHelp, optionItem.getOption()
+                    .description());
             optionListHelpWriter.append(line);
             optionListHelpWriter.append(StringUtil.newline());
         }
-        helpMessageTemplateValue.put(TemplateVariable.OPTION_LIST.name(), optionListHelpWriter.toString());
+        helpMessageTemplateValue.put(TemplateVariable.OPTION_LIST.name(), optionListHelpWriter
+                .toString());
 
         // render help messages using template
 
-        ResourcePath rp = usage != null ? new ResourcePath(usage.templatePath()) : new ResourcePath(
-                Usage.DEFAULT_TEMPLATE);
+        ResourcePath rp = new ResourcePath(usage != null ? usage.templatePath()
+                : Usage.DEFAULT_TEMPLATE);
 
-        try
-        {
+        try {
             Template helpMessageTemplate = new Template(rp.openBinaryStream());
             String helpMessage = helpMessageTemplate.apply(helpMessageTemplateValue);
             out.append(helpMessage);
             out.flush();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialError(XerialErrorCode.OUTPUT_ERROR, e);
         }
-        catch (XerialException e)
-        {
+        catch (XerialException e) {
             throw new XerialError(e);
         }
 
@@ -242,10 +225,8 @@ public class OptionSchema
      * @param optionName
      * @return
      */
-    public OptionItem getOption(String optionName)
-    {
-        for (OptionItem eachOption : optionItemList)
-        {
+    public OptionItem getOption(String optionName) {
+        for (OptionItem eachOption : optionItemList) {
             Option opt = eachOption.getOption();
             if (optionName.equals(opt.symbol()))
                 return eachOption;
@@ -258,10 +239,8 @@ public class OptionSchema
         return null;
     }
 
-    public ArgumentItem getArgument(int argumentIndex)
-    {
-        for (ArgumentItem each : argumentItemList)
-        {
+    public ArgumentItem getArgument(int argumentIndex) {
+        for (ArgumentItem each : argumentItemList) {
             Argument arg = each.getArgumentDescriptor();
             if (arg.index() == argumentIndex)
                 return each;
@@ -272,37 +251,31 @@ public class OptionSchema
         return null;
     }
 
-    public void addOptionItem(Method setter)
-    {
+    public void addOptionItem(Method setter) {
         OptionItem newOption = new OptionItem(setter);
         optionItemList.add(newOption);
     }
 
-    public void addOptionItem(Field field)
-    {
+    public void addOptionItem(Field field) {
         OptionItem newOption = new OptionItem(field);
         optionItemList.add(newOption);
     }
 
-    public void addArgumentItem(Method setter)
-    {
+    public void addArgumentItem(Method setter) {
         ArgumentItem newArg = new ArgumentItem(setter);
         validate(newArg);
         argumentItemList.add(newArg);
     }
 
-    public void addArgumentItem(Field field)
-    {
+    public void addArgumentItem(Field field) {
         ArgumentItem newArg = new ArgumentItem(field);
         validate(newArg);
         argumentItemList.add(newArg);
     }
 
-    private void validate(ArgumentItem newArg)
-    {
+    private void validate(ArgumentItem newArg) {
         Range newRange = newArg.getRange();
-        for (ArgumentItem each : argumentItemList)
-        {
+        for (ArgumentItem each : argumentItemList) {
             Range r = each.getRange();
             if (r.overlaps(newRange))
                 throw new XerialError(XerialErrorCode.DUPLICATE_OPTION, String.format(
@@ -310,17 +283,14 @@ public class OptionSchema
         }
     }
 
-    public static OptionSchema newOptionSchema(Class< ? > optionHolderType)
-    {
+    public static OptionSchema newOptionSchema(Class< ? > optionHolderType) {
         OptionSchema optionSchema = new OptionSchema();
 
         // traverses through super classes
         for (Class< ? > optionHolderClass = optionHolderType; optionHolderClass != null; optionHolderClass = optionHolderClass
-                .getSuperclass())
-        {
+                .getSuperclass()) {
             // looks for bean methods annotated with Option or Argument 
-            for (Method eachMethod : optionHolderClass.getDeclaredMethods())
-            {
+            for (Method eachMethod : optionHolderClass.getDeclaredMethods()) {
                 if (eachMethod.getAnnotation(Option.class) != null)
                     optionSchema.addOptionItem(eachMethod);
 
@@ -329,8 +299,7 @@ public class OptionSchema
             }
 
             // looks for bean fields annotated with Option or Argument 
-            for (Field f : optionHolderClass.getDeclaredFields())
-            {
+            for (Field f : optionHolderClass.getDeclaredFields()) {
                 if (f.getAnnotation(Option.class) != null)
                     optionSchema.addOptionItem(f);
 
@@ -338,8 +307,7 @@ public class OptionSchema
                     optionSchema.addArgumentItem(f);
             }
 
-            if (optionHolderClass.getAnnotation(Usage.class) != null)
-            {
+            if (optionHolderClass.getAnnotation(Usage.class) != null) {
                 optionSchema.setUsage(optionHolderClass);
             }
         }
@@ -347,8 +315,7 @@ public class OptionSchema
         return optionSchema;
     }
 
-    private void setUsage(Class< ? > optionHolderClass)
-    {
+    private void setUsage(Class< ? > optionHolderClass) {
         Usage newUsage = optionHolderClass.getAnnotation(Usage.class);
         if (newUsage == null)
             throw new XerialError(XerialErrorCode.NO_USAGE_ANNOTATION, optionHolderClass.toString());
@@ -357,8 +324,7 @@ public class OptionSchema
             usage = newUsage;
     }
 
-    public static <OptionHolder> OptionSchema newOptionSchema(OptionHolder optionHolder)
-    {
+    public static <OptionHolder> OptionSchema newOptionSchema(OptionHolder optionHolder) {
         return newOptionSchema(optionHolder.getClass());
     }
 

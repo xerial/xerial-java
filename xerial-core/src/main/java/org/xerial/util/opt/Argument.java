@@ -47,7 +47,7 @@ public @interface Argument {
     /**
      * This argument is required or not
      */
-    boolean required() default true;
+    boolean required() default false;
 
     /**
      * argument index (0-origin) among the arguments without option prefix, "-"

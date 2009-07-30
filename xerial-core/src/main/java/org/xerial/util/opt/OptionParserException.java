@@ -34,31 +34,31 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class OptionParserException extends XerialException
-{
+public class OptionParserException extends XerialException {
     /**
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = 1L;
 
-    public OptionParserException(ErrorCode errorCode, String message, Throwable cause)
-    {
+    public OptionParserException(ErrorCode errorCode, String message, Throwable cause) {
         super(errorCode, message, cause);
     }
 
-    public OptionParserException(ErrorCode errorCode, String message)
-    {
+    public OptionParserException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
 
-    public OptionParserException(ErrorCode errorCode, Throwable cause)
-    {
+    public OptionParserException(ErrorCode errorCode, Throwable cause) {
         super(errorCode, cause);
     }
 
-    public OptionParserException(ErrorCode errorCode)
-    {
+    public OptionParserException(ErrorCode errorCode) {
         super(errorCode);
     }
 
+    @Override
+    public String getMessage() {
+
+        return super.getMessage();
+    }
 }

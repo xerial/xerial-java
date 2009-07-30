@@ -25,13 +25,13 @@
 package org.xerial.core;
 
 /**
- * A common interfarce for error codes
+ * A common interface for error codes
  * 
  * @author leo
  * 
  */
-public interface ErrorCode
-{
+public interface ErrorCode {
+
     static final String EMPTY_DESCRIPTION = "";
 
     /**
@@ -47,4 +47,5 @@ public interface ErrorCode
      * @return
      */
     public String getDescription();
+
 }

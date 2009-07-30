@@ -19,7 +19,7 @@ class Locus
 #  :zvalue zvalue(:start, :end) 
   :strand
 
-  index keyword :name
+  index keyword on :name
 end
 
 # reference sequence

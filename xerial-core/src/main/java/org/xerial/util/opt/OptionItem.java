@@ -35,13 +35,11 @@ import org.xerial.util.bean.TypeInfo;
  * @author leo
  * 
  */
-public class OptionItem
-{
-    private final Option       optionDescriptor;
+public class OptionItem {
+    private final Option optionDescriptor;
     private final OptionSetter optionSetter;
 
-    public OptionItem(Method method)
-    {
+    public OptionItem(Method method) {
         Option option = method.getAnnotation(Option.class);
         if (option == null)
             throw new IllegalArgumentException(method + " is not an option item");
@@ -50,8 +48,7 @@ public class OptionItem
         this.optionSetter = new OptionSetterViaMethod(method);
     }
 
-    public OptionItem(Field field)
-    {
+    public OptionItem(Field field) {
         Option option = field.getAnnotation(Option.class);
         if (option == null)
             throw new IllegalArgumentException(field + " is not an option item");
@@ -61,10 +58,8 @@ public class OptionItem
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof OptionItem)
-        {
+    public boolean equals(Object obj) {
+        if (obj instanceof OptionItem) {
             OptionItem other = (OptionItem) obj;
             return optionDescriptor.equals(other.optionDescriptor);
         }
@@ -73,38 +68,31 @@ public class OptionItem
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return optionDescriptor.hashCode();
     }
 
-    public boolean needsArgument()
-    {
+    public boolean needsArgument() {
         return optionSetter.takesArgument();
     }
 
-    public boolean hasSymbol()
-    {
+    public boolean hasSymbol() {
         return optionDescriptor.symbol() != null && optionDescriptor.symbol().length() > 0;
     }
 
-    public boolean hasLongName()
-    {
+    public boolean hasLongName() {
         return optionDescriptor.longName() != null && optionDescriptor.longName().length() > 0;
     }
 
-    public Option getOption()
-    {
+    public Option getOption() {
         return optionDescriptor;
     }
 
-    public boolean takesMultipleArguments()
-    {
+    public boolean takesMultipleArguments() {
         return TypeInfo.isCollection(optionSetter.getOptionDataType());
     }
 
-    public void setOption(Object bean, String value) throws OptionParserException
-    {
+    public void setOption(Object bean, String value) throws OptionParserException {
         optionSetter.setOption(bean, value);
 
         //        Class< ? > optionType = optionSetter.getOptionDataType();
@@ -120,15 +108,13 @@ public class OptionItem
 
     }
 
-    public void initialize(Object optionHolder) throws OptionParserException
-    {
+    public void initialize(Object optionHolder) throws OptionParserException {
         optionSetter.initialize(optionHolder);
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("symbol=%s, longName=%s, description=%s", optionDescriptor.symbol(), optionDescriptor
+    public String toString() {
+        return String.format("-%s, --%s :%s", optionDescriptor.symbol(), optionDescriptor
                 .longName(), optionDescriptor.description());
     }
 }

@@ -39,33 +39,28 @@ import org.junit.Test;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 
-public class OptionParserTest
-{
+public class OptionParserTest {
     private static Logger _logger = Logger.getLogger(OptionParserTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    class MyOption
-    {
+    class MyOption {
         @Option(symbol = "h", longName = "help", description = "display help message")
-        private boolean      displayHelp;
+        private boolean displayHelp;
 
-        @Argument(index = 0)
-        private String       subCommand;
+        @Argument(index = 0, required = true)
+        private String subCommand;
 
         @Argument(name = "input_file", index = 1, required = false)
         private List<String> fileList;
     }
 
     @Test
-    public void optionBinding() throws OptionParserException
-    {
+    public void optionBinding() throws OptionParserException {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
 
@@ -81,8 +76,7 @@ public class OptionParserTest
     }
 
     @Test
-    public void printUsage()
-    {
+    public void printUsage() {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
 
@@ -93,10 +87,8 @@ public class OptionParserTest
     }
 
     @Test
-    public void testDuplicatedOptionFlag()
-    {
-        try
-        {
+    public void testDuplicatedOptionFlag() {
+        try {
             MyOption myOption = new MyOption();
             OptionParser parser = new OptionParser(myOption);
 
@@ -104,17 +96,14 @@ public class OptionParserTest
 
             fail("must detect the presence of duplicated option flags");
         }
-        catch (OptionParserException e)
-        {
+        catch (OptionParserException e) {
 
         }
     }
 
     @Test
-    public void testDuplicatedLongOptionFlag()
-    {
-        try
-        {
+    public void testDuplicatedLongOptionFlag() {
+        try {
             MyOption myOption = new MyOption();
             OptionParser parser = new OptionParser(myOption);
 
@@ -122,17 +111,14 @@ public class OptionParserTest
 
             fail("must detect the presence of duplicated option flags");
         }
-        catch (OptionParserException e)
-        {
+        catch (OptionParserException e) {
 
         }
     }
 
     @Test
-    public void detectMissingArgument()
-    {
-        try
-        {
+    public void detectMissingArgument() {
+        try {
             MyOption myOption = new MyOption();
             OptionParser parser = new OptionParser(myOption);
 
@@ -140,16 +126,14 @@ public class OptionParserTest
 
             fail("must detect some argument is missing");
         }
-        catch (OptionParserException e)
-        {
+        catch (OptionParserException e) {
 
         }
 
     }
 
     @Test
-    public void initializeCollectionsInOptionHolder() throws OptionParserException
-    {
+    public void initializeCollectionsInOptionHolder() throws OptionParserException {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
 
@@ -162,15 +146,13 @@ public class OptionParserTest
 
     }
 
-    class LoglevelCommand
-    {
+    class LoglevelCommand {
         @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL")
         private LogLevel loglevel = LogLevel.INFO;
     }
 
     @Test
-    public void enumOption() throws OptionParserException
-    {
+    public void enumOption() throws OptionParserException {
         LoglevelCommand opt = new LoglevelCommand();
         OptionParser parser = new OptionParser(opt);
         parser.parse(new String[] { "--loglevel=DEBUG" });
@@ -178,15 +160,13 @@ public class OptionParserTest
         assertEquals(LogLevel.DEBUG, opt.loglevel);
     }
 
-    class MultipleName
-    {
+    class MultipleName {
         @Option(longName = "name")
         private List<String> name;
     }
 
     @Test
-    public void mulpleOptionOccurences() throws OptionParserException
-    {
+    public void mulpleOptionOccurences() throws OptionParserException {
         MultipleName mn = new MultipleName();
         OptionParser parser = new OptionParser(mn);
         parser.parse(new String[] { "--name=leo", "--name=yui" });
@@ -197,18 +177,16 @@ public class OptionParserTest
         assertEquals("yui", mn.name.get(1));
     }
 
-    class IntArg
-    {
+    class IntArg {
         @Option(symbol = "i")
-        int           num;
+        int num;
 
         @Argument(name = "value")
         List<Integer> value;
     }
 
     @Test
-    public void intArgument() throws OptionParserException
-    {
+    public void intArgument() throws OptionParserException {
         IntArg intArg = new IntArg();
         OptionParser parser = new OptionParser(intArg);
 
@@ -223,8 +201,7 @@ public class OptionParserTest
 
     }
 
-    class AmbiguousTypeArg
-    {
+    class AmbiguousTypeArg {
         @Argument(name = "value")
         List< ? > value;
 
@@ -233,12 +210,11 @@ public class OptionParserTest
          */
         @SuppressWarnings("unchecked")
         @Option(symbol = "d")
-        List      d;
+        List d;
     }
 
     @Test
-    public void ambiguousType() throws OptionParserException
-    {
+    public void ambiguousType() throws OptionParserException {
         AmbiguousTypeArg arg = new AmbiguousTypeArg();
         OptionParser parser = new OptionParser(arg);
 
@@ -258,61 +234,52 @@ public class OptionParserTest
     }
 
     @Test
-    public void detectUnknownOption()
-    {
+    public void detectUnknownOption() {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
 
-        try
-        {
+        try {
             parser.parse(new String[] { "-v", "file" });
 
             fail("must detect unknown options ");
         }
-        catch (OptionParserException e)
-        {
+        catch (OptionParserException e) {
 
         }
 
     }
 
     @Test
-    public void ignoreUnknownOption()
-    {
+    public void ignoreUnknownOption() {
         MyOption myOption = new MyOption();
         OptionParser parser = new OptionParser(myOption);
         parser.setIgnoreUnknownOption(true);
 
-        try
-        {
+        try {
             parser.parse(new String[] { "-v", "file" });
 
         }
-        catch (OptionParserException e)
-        {
+        catch (OptionParserException e) {
             fail("must ignore unknown options ");
         }
 
     }
 
-    class MainCommand
-    {
+    class MainCommand {
         @Argument(name = "sub_command")
         String subCommand = null;
     }
 
-    class SubCommand
-    {
+    class SubCommand {
         @Option(symbol = "h", longName = "help")
         boolean displayHelp = false;
 
         @Argument(name = "input")
-        String  input       = null;
+        String input = null;
     }
 
     @Test
-    public void retrieveUnusedArguments() throws OptionParserException
-    {
+    public void retrieveUnusedArguments() throws OptionParserException {
         MainCommand mainCommand = new MainCommand();
         OptionParser mainCommandParser = new OptionParser(mainCommand);
         mainCommandParser.setIgnoreUnknownOption(true);
@@ -333,5 +300,38 @@ public class OptionParserTest
         assertNotNull(subCommand.input);
         assertEquals("input.txt", subCommand.input);
         assertTrue(subCommand.displayHelp);
+    }
+
+    @Test
+    public void getOptionHolderTest() throws Exception {
+
+        OptionParser mainCommandParser = new OptionParser(new MainCommand());
+        mainCommandParser.parse(new String[] { "action" });
+        MainCommand mc = mainCommandParser.getOptionHolder();
+
+        assertEquals("action", mc.subCommand);
+
+    }
+
+    static class MyOpt {
+        @Option(symbol = "v", longName = "value", description = "integer value")
+        int value = -1;
+    }
+
+    @Test
+    public void errorMessage() throws Exception {
+        OptionParser p = new OptionParser(MyOpt.class);
+        try {
+            p.parse(new String[] { "-v", "abc" }); // use wrong type
+        }
+        catch (OptionParserException e) {
+            _logger.debug(e);
+            assertTrue(String.format(
+                    "error message must explain which option argument causes the error: %s", e
+                            .getMessage()), e.getMessage().contains("-v"));
+            return;
+        }
+        fail("cannot reach here");
+
     }
 }

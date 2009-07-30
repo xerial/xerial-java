@@ -218,6 +218,26 @@ public class ObjectMapper {
 
     }
 
+    public <T> void find(Class<T> targetType, TreeParser parser,
+            String coreNodeNameOfTheTargetType, ObjectHandler<T> handler) throws XerialException {
+
+        try {
+            AmoebaJoinHandler mapper = new RelationExtracter();
+
+            _logger.info(qs);
+
+            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
+            aj.sweep(parser);
+        }
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+        catch (Exception e) {
+            throw new XerialException(XerialErrorCode.INHERITED, e);
+        }
+
+    }
+
     private QuerySet buildQuery(Class< ? > targetType) {
         QueryBuilder qb = new QueryBuilder();
         qb.build(targetType, "root");

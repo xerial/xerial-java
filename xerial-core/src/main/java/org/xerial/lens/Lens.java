@@ -255,19 +255,19 @@ public class Lens {
         return mapper.map(result, parser);
     }
 
+    public static String toJSON(Object obj) {
+        return ObjectLens.toJSON(obj);
+    }
+
     public static <Result> void find(Class<Result> bindingType, TreeParser parser,
             ObjectHandler<Result> handler) throws XerialException {
         find(bindingType, bindingType.getSimpleName(), parser, handler);
     }
 
-    public static String toJSON(Object obj) {
-        return ObjectLens.toJSON(obj);
-    }
-
     public static <Result> void find(Class<Result> bindingType, String coreNodeName,
             TreeParser parser, ObjectHandler<Result> handler) throws XerialException {
         ObjectMapper mapper = ObjectMapper.getMapper(bindingType.getClass());
-
+        mapper.find(bindingType, parser, coreNodeName, handler);
     }
 
 }

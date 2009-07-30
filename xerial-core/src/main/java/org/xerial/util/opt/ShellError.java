@@ -34,24 +34,24 @@ public enum ShellError implements ErrorCode {
 
     private final String description;
 
-    private ShellError()
-    {
+    private ShellError() {
         this.description = "";
     }
 
-    private ShellError(String description)
-    {
+    private ShellError(String description) {
         this.description = description;
     }
 
-    public String getCodeName()
-    {
+    public String getCodeName() {
         return name();
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
+    }
+
+    public Enum< ? > getCode() {
+        return this;
     }
 
 }

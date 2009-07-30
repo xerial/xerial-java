@@ -33,12 +33,7 @@ package org.xerial.core;
 public enum XerialErrorCode implements ErrorCode {
 
     // related to programming error
-    INVALID_STATE,
-    SYNTAX_ERROR,
-    NOT_INITIALIZED,
-    UNSUPPORTED,
-    INVALID_INPUT,
-    NOT_READY,
+    INVALID_STATE, SYNTAX_ERROR, NOT_INITIALIZED, UNSUPPORTED, INVALID_INPUT, INVALID_ARGUMENT, NOT_READY,
     // collection
     MISSING_ELEMENT,
 
@@ -46,52 +41,40 @@ public enum XerialErrorCode implements ErrorCode {
     RESOURCE_NOT_FOUND,
 
     // I/O
-    READ_ERROR,
-    OUTPUT_ERROR,
-    IO_EXCEPTION,
-    INTERRUPTED,
+    READ_ERROR, OUTPUT_ERROR, IO_EXCEPTION, INTERRUPTED,
 
     // option parser error
-    DUPLICATE_OPTION,
-    NO_OPTION,
-    NO_USAGE_ANNOTATION,
-    MISSING_ARGUMENT,
+    DUPLICATE_OPTION, NO_OPTION, NO_USAGE_ANNOTATION, MISSING_ARGUMENT,
 
     // type 
-    MISSING_TYPE_PARAMETER,
-    NOT_A_COLLECTION,
-    INACCESSIBLE_METHOD,
-    WRONG_DATA_TYPE,
-    DECODE_ERROR,
-    ENCODE_ERROR,
+    MISSING_TYPE_PARAMETER, NOT_A_COLLECTION, INACCESSIBLE_METHOD, WRONG_DATA_TYPE, DECODE_ERROR, ENCODE_ERROR,
 
     // parse error
-    INVALID_TOKEN,
-    PARSE_ERROR,
+    INVALID_TOKEN, PARSE_ERROR,
 
     // general exception
     INHERITED, ;
 
     private final String description;
 
-    private XerialErrorCode()
-    {
+    private XerialErrorCode() {
         this.description = EMPTY_DESCRIPTION;
     }
 
-    private XerialErrorCode(String description)
-    {
+    private XerialErrorCode(String description) {
         this.description = description;
     }
 
-    public String getCodeName()
-    {
+    public String getCodeName() {
         return name();
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return null;
+    }
+
+    public Enum< ? > getCode() {
+        return this;
     }
 
 }

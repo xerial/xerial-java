@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
@@ -321,6 +323,49 @@ public class LensTest {
     public void toJSONTest() throws Exception {
         ArrayData d = new ArrayData();
         assertEquals("{\"list\":[]}", Lens.toJSON(d));
+    }
+
+    public static class MyGene {
+        public String name;
+        public long start;
+        public String link;
+    }
+
+    public static class MyGeneQuery {
+        private List<MyGene> geneList = new ArrayList<MyGene>();
+
+        public void addGene_Coordinate(MyGene gene, Chr c) {
+            if (c.name.equals("chr1"))
+                geneList.add(gene);
+        }
+
+        public List<MyGene> getGeneList() {
+            return geneList;
+        }
+    }
+
+    public static class Chr {
+        public String name;
+    }
+
+    @Test
+    public void testLens() throws Exception {
+
+        MyGeneQuery result = Lens.loadSilk(MyGeneQuery.class, FileResource.open(LensTest.class,
+                "sequence.silk"));
+
+        _logger.debug(Lens.toJSON(result));
+    }
+
+    @Test
+    public void testFind() throws Exception {
+        Lens.find(MyGene.class, "gene", new SilkParser(FileResource.find(LensTest.class,
+                "sequence.silk")), new ObjectHandler<MyGene>() {
+
+            public void handle(MyGene input) throws Exception {
+                _logger.info(Lens.toJSON(input));
+            }
+        });
     }
 
 }

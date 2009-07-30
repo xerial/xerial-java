@@ -39,58 +39,41 @@ public enum BeanErrorCode implements ErrorCode {
     NoMoreSubtree,
 
     // XML
-    InvalidXMLData,
-    ParserError,
-    UnsupportedXMLDataType,
+    InvalidXMLData, ParserError, UnsupportedXMLDataType,
 
     // JSON
-    InvalidJSONData,
-    InvalidJSONArray,
+    InvalidJSONData, InvalidJSONArray,
 
     UnsupportedDataType,
 
     // Bean class
-    InvalidBeanClass,
-    IllegalArgument,
-    IllegalAccess,
-    NoPublicConstructor,
-    InstantiationFailure,
-    InvalidNumberFormat,
-    InvocationTargetException,
+    InvalidBeanClass, IllegalArgument, IllegalAccess, NoPublicConstructor, InstantiationFailure, InvalidNumberFormat, InvocationTargetException,
 
     BeanObjectIsNull,
 
     // binder
-    GetterCannotBeUsedToBindData,
-    BindFailure,
-    UnknownBeanUpdator,
-    InvalidKeyAndValuePair,
-    MapContainerIsNotFound,
-    MapElementConstructionFailed,
-    InvalidDateFormat,
-    InvalidFormat,
-    InvalidType;
+    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed, InvalidDateFormat, InvalidFormat, InvalidType;
 
     private final String description;
 
-    BeanErrorCode(String description)
-    {
+    BeanErrorCode(String description) {
         this.description = description;
     }
 
-    BeanErrorCode()
-    {
+    BeanErrorCode() {
         this.description = EMPTY_DESCRIPTION;
     }
 
-    public String getCodeName()
-    {
+    public String getCodeName() {
         return name();
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
+    }
+
+    public Enum< ? > getCode() {
+        return this;
     }
 
 }

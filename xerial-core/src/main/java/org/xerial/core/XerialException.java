@@ -38,39 +38,33 @@ import org.xerial.json.JSONErrorCode;
  * @author leo
  * 
  */
-public class XerialException extends Exception
-{
+public class XerialException extends Exception {
     private static final long serialVersionUID = 1L;
 
-    private final ErrorCode   errorCode;
+    private final ErrorCode errorCode;
 
-    public XerialException(XerialException e)
-    {
+    public XerialException(XerialException e) {
         super(e.getErrorMessage());
         this.errorCode = e.errorCode;
 
     }
 
-    public XerialException(ErrorCode errorCode)
-    {
+    public XerialException(ErrorCode errorCode) {
         super();
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, String message, Throwable cause)
-    {
+    public XerialException(ErrorCode errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, String message)
-    {
+    public XerialException(ErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public XerialException(ErrorCode errorCode, Throwable cause)
-    {
+    public XerialException(ErrorCode errorCode, Throwable cause) {
         super(cause);
         this.errorCode = errorCode;
     }
@@ -80,19 +74,16 @@ public class XerialException extends Exception
      * 
      * @return
      */
-    public ErrorCode getErrorCode()
-    {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
 
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         return ExceptionHelper.getMessage(errorCode, super.getMessage());
     }
 
-    private String getErrorMessage()
-    {
+    private String getErrorMessage() {
         return super.getMessage();
     }
 

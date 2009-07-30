@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-08 15:38:42
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-08 19:54:26
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -46,10 +46,10 @@ public class SilkSchemaLexer extends Lexer {
     public static final int Frac=31;
     public static final int HexDigit=24;
     public static final int Symbol=47;
-    public static final int T__65=65;
     public static final int OrderBy=56;
     public static final int Default=54;
     public static final int Argument=17;
+    public static final int On=57;
     public static final int Index=52;
     public static final int Module=5;
     public static final int Letter=23;
@@ -63,17 +63,17 @@ public class SilkSchemaLexer extends Lexer {
     public static final int Integer=30;
     public static final int Relation=51;
     public static final int Mixin=9;
-    public static final int WhiteSpace=62;
+    public static final int WhiteSpace=63;
     public static final int ClassDef=6;
     public static final int LineComment=20;
-    public static final int ModuleName=59;
+    public static final int ModuleName=60;
     public static final int Projection=55;
     public static final int BelongsTo=53;
-    public static final int SafeFirstLetter=57;
+    public static final int SafeFirstLetter=58;
     public static final int Star=43;
     public static final int Preamble=19;
     public static final int Exp=32;
-    public static final int QNameChar=63;
+    public static final int QNameChar=64;
     public static final int RParen=42;
     public static final int UnicodeChar=25;
     public static final int StringChar=27;
@@ -81,12 +81,12 @@ public class SilkSchemaLexer extends Lexer {
     public static final int Name=7;
     public static final int Function=16;
     public static final int LParen=41;
-    public static final int ModuleDef=61;
+    public static final int ModuleDef=62;
     public static final int String=29;
-    public static final int SafeLetter=58;
+    public static final int SafeLetter=59;
     public static final int LineBreakChar=18;
     public static final int IsArray=11;
-    public static final int QName=64;
+    public static final int QName=65;
     public static final int EOF=-1;
     public static final int StringChar_s=28;
     public static final int UnsafeUnicodeChar=44;
@@ -96,7 +96,7 @@ public class SilkSchemaLexer extends Lexer {
     public static final int RBracket=37;
     public static final int Parent=8;
     public static final int TypeName=12;
-    public static final int WhiteSpaces=60;
+    public static final int WhiteSpaces=61;
 
       
 
@@ -113,27 +113,6 @@ public class SilkSchemaLexer extends Lexer {
 
     }
     public String getGrammarFileName() { return "SilkSchema.g"; }
-
-    // $ANTLR start "T__65"
-    public final void mT__65() throws RecognitionException {
-        try {
-            int _type = T__65;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:38:7: ( 'on' )
-            // SilkSchema.g:38:9: 'on'
-            {
-            match("on"); if (state.failed) return ;
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__65"
 
     // $ANTLR start "Preamble"
     public final void mPreamble() throws RecognitionException {
@@ -674,9 +653,9 @@ public class SilkSchemaLexer extends Lexer {
             // SilkSchema.g:134:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); if (state.failed) return ;
-            int sStart273 = getCharIndex();
+            int sStart264 = getCharIndex();
             mStringChar_s(); if (state.failed) return ;
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart273, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart264, getCharIndex()-1);
             match('\"'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                setText((s!=null?s.getText():null)); 
@@ -1299,9 +1278,9 @@ public class SilkSchemaLexer extends Lexer {
             // SilkSchema.g:163:9: ( ':' NonWhiteSpaceChar )=> ':' s= SymbolChars
             {
             match(':'); if (state.failed) return ;
-            int sStart588 = getCharIndex();
+            int sStart579 = getCharIndex();
             mSymbolChars(); if (state.failed) return ;
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart588, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart579, getCharIndex()-1);
             if ( state.backtracking==0 ) {
                setText((s!=null?s.getText():null)); 
             }
@@ -1505,10 +1484,31 @@ public class SilkSchemaLexer extends Lexer {
     }
     // $ANTLR end "OrderBy"
 
+    // $ANTLR start "On"
+    public final void mOn() throws RecognitionException {
+        try {
+            int _type = On;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // SilkSchema.g:174:3: ( 'on' )
+            // SilkSchema.g:174:5: 'on'
+            {
+            match("on"); if (state.failed) return ;
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "On"
+
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:175:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // SilkSchema.g:176:25: ( 'A' .. 'Z' | 'a' .. 'z' )
             // SilkSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1533,7 +1533,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:176:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // SilkSchema.g:177:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
             // SilkSchema.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1558,11 +1558,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "ModuleName"
     public final void mModuleName() throws RecognitionException {
         try {
-            // SilkSchema.g:178:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
-            // SilkSchema.g:178:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // SilkSchema.g:179:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
+            // SilkSchema.g:179:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
             {
             mSafeFirstLetter(); if (state.failed) return ;
-            // SilkSchema.g:178:38: ( SafeLetter )*
+            // SilkSchema.g:179:38: ( SafeLetter )*
             loop16:
             do {
                 int alt16=2;
@@ -1575,7 +1575,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // SilkSchema.g:178:38: SafeLetter
+            	    // SilkSchema.g:179:38: SafeLetter
             	    {
             	    mSafeLetter(); if (state.failed) return ;
 
@@ -1587,7 +1587,7 @@ public class SilkSchemaLexer extends Lexer {
                 }
             } while (true);
 
-            // SilkSchema.g:178:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // SilkSchema.g:179:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
             loop18:
             do {
                 int alt18=2;
@@ -1600,11 +1600,11 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // SilkSchema.g:178:51: '.' SafeFirstLetter ( SafeLetter )*
+            	    // SilkSchema.g:179:51: '.' SafeFirstLetter ( SafeLetter )*
             	    {
             	    match('.'); if (state.failed) return ;
             	    mSafeFirstLetter(); if (state.failed) return ;
-            	    // SilkSchema.g:178:71: ( SafeLetter )*
+            	    // SilkSchema.g:179:71: ( SafeLetter )*
             	    loop17:
             	    do {
             	        int alt17=2;
@@ -1617,7 +1617,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt17) {
             	    	case 1 :
-            	    	    // SilkSchema.g:178:71: SafeLetter
+            	    	    // SilkSchema.g:179:71: SafeLetter
             	    	    {
             	    	    mSafeLetter(); if (state.failed) return ;
 
@@ -1654,15 +1654,15 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:179:10: ( 'module' WhiteSpaces s= ModuleName )
-            // SilkSchema.g:179:12: 'module' WhiteSpaces s= ModuleName
+            // SilkSchema.g:180:10: ( 'module' WhiteSpaces s= ModuleName )
+            // SilkSchema.g:180:12: 'module' WhiteSpaces s= ModuleName
             {
             match("module"); if (state.failed) return ;
 
             mWhiteSpaces(); if (state.failed) return ;
-            int sStart738 = getCharIndex();
+            int sStart736 = getCharIndex();
             mModuleName(); if (state.failed) return ;
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart738, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart736, getCharIndex()-1);
             if ( state.backtracking==0 ) {
                setText((s!=null?s.getText():null)); 
             }
@@ -1680,8 +1680,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // SilkSchema.g:181:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
-            // SilkSchema.g:181:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
+            // SilkSchema.g:182:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
+            // SilkSchema.g:182:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1707,10 +1707,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:182:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
-            // SilkSchema.g:182:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
+            // SilkSchema.g:183:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
+            // SilkSchema.g:183:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
             {
-            // SilkSchema.g:182:8: ( QNameChar )+
+            // SilkSchema.g:183:8: ( QNameChar )+
             int cnt19=0;
             loop19:
             do {
@@ -1724,7 +1724,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // SilkSchema.g:182:8: QNameChar
+            	    // SilkSchema.g:183:8: QNameChar
             	    {
             	    mQNameChar(); if (state.failed) return ;
 
@@ -1741,7 +1741,7 @@ public class SilkSchemaLexer extends Lexer {
                 cnt19++;
             } while (true);
 
-            // SilkSchema.g:182:19: ( Dot ( QNameChar )+ )*
+            // SilkSchema.g:183:19: ( Dot ( QNameChar )+ )*
             loop21:
             do {
                 int alt21=2;
@@ -1754,10 +1754,10 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // SilkSchema.g:182:20: Dot ( QNameChar )+
+            	    // SilkSchema.g:183:20: Dot ( QNameChar )+
             	    {
             	    mDot(); if (state.failed) return ;
-            	    // SilkSchema.g:182:24: ( QNameChar )+
+            	    // SilkSchema.g:183:24: ( QNameChar )+
             	    int cnt20=0;
             	    loop20:
             	    do {
@@ -1771,7 +1771,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt20) {
             	    	case 1 :
-            	    	    // SilkSchema.g:182:24: QNameChar
+            	    	    // SilkSchema.g:183:24: QNameChar
             	    	    {
             	    	    mQNameChar(); if (state.failed) return ;
 
@@ -1811,7 +1811,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // SilkSchema.g:185:11: ( ' ' | '\\t' )
+            // SilkSchema.g:186:11: ( ' ' | '\\t' )
             // SilkSchema.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
@@ -1838,10 +1838,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:187:12: ( ( WhiteSpace )+ )
-            // SilkSchema.g:187:14: ( WhiteSpace )+
+            // SilkSchema.g:188:12: ( ( WhiteSpace )+ )
+            // SilkSchema.g:188:14: ( WhiteSpace )+
             {
-            // SilkSchema.g:187:14: ( WhiteSpace )+
+            // SilkSchema.g:188:14: ( WhiteSpace )+
             int cnt22=0;
             loop22:
             do {
@@ -1855,7 +1855,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // SilkSchema.g:187:14: WhiteSpace
+            	    // SilkSchema.g:188:14: WhiteSpace
             	    {
             	    mWhiteSpace(); if (state.failed) return ;
 
@@ -1887,215 +1887,215 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR end "WhiteSpaces"
 
     public void mTokens() throws RecognitionException {
-        // SilkSchema.g:1:8: ( T__65 | Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | ModuleDef | QName | WhiteSpaces )
+        // SilkSchema.g:1:8: ( Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | On | ModuleDef | QName | WhiteSpaces )
         int alt23=30;
         alt23 = dfa23.predict(input);
         switch (alt23) {
             case 1 :
-                // SilkSchema.g:1:10: T__65
-                {
-                mT__65(); if (state.failed) return ;
-
-                }
-                break;
-            case 2 :
-                // SilkSchema.g:1:16: Preamble
+                // SilkSchema.g:1:10: Preamble
                 {
                 mPreamble(); if (state.failed) return ;
 
                 }
                 break;
-            case 3 :
-                // SilkSchema.g:1:25: LineComment
+            case 2 :
+                // SilkSchema.g:1:19: LineComment
                 {
                 mLineComment(); if (state.failed) return ;
 
                 }
                 break;
-            case 4 :
-                // SilkSchema.g:1:37: LineBreak
+            case 3 :
+                // SilkSchema.g:1:31: LineBreak
                 {
                 mLineBreak(); if (state.failed) return ;
 
                 }
                 break;
-            case 5 :
-                // SilkSchema.g:1:47: String
+            case 4 :
+                // SilkSchema.g:1:41: String
                 {
                 mString(); if (state.failed) return ;
 
                 }
                 break;
-            case 6 :
-                // SilkSchema.g:1:54: Integer
+            case 5 :
+                // SilkSchema.g:1:48: Integer
                 {
                 mInteger(); if (state.failed) return ;
 
                 }
                 break;
-            case 7 :
-                // SilkSchema.g:1:62: Double
+            case 6 :
+                // SilkSchema.g:1:56: Double
                 {
                 mDouble(); if (state.failed) return ;
 
                 }
                 break;
-            case 8 :
-                // SilkSchema.g:1:69: LBrace
+            case 7 :
+                // SilkSchema.g:1:63: LBrace
                 {
                 mLBrace(); if (state.failed) return ;
 
                 }
                 break;
-            case 9 :
-                // SilkSchema.g:1:76: RBrace
+            case 8 :
+                // SilkSchema.g:1:70: RBrace
                 {
                 mRBrace(); if (state.failed) return ;
 
                 }
                 break;
-            case 10 :
-                // SilkSchema.g:1:83: LBracket
+            case 9 :
+                // SilkSchema.g:1:77: LBracket
                 {
                 mLBracket(); if (state.failed) return ;
 
                 }
                 break;
-            case 11 :
-                // SilkSchema.g:1:92: RBracket
+            case 10 :
+                // SilkSchema.g:1:86: RBracket
                 {
                 mRBracket(); if (state.failed) return ;
 
                 }
                 break;
-            case 12 :
-                // SilkSchema.g:1:101: Lt
+            case 11 :
+                // SilkSchema.g:1:95: Lt
                 {
                 mLt(); if (state.failed) return ;
 
                 }
                 break;
-            case 13 :
-                // SilkSchema.g:1:104: Dot
+            case 12 :
+                // SilkSchema.g:1:98: Dot
                 {
                 mDot(); if (state.failed) return ;
 
                 }
                 break;
-            case 14 :
-                // SilkSchema.g:1:108: Comma
+            case 13 :
+                // SilkSchema.g:1:102: Comma
                 {
                 mComma(); if (state.failed) return ;
 
                 }
                 break;
-            case 15 :
-                // SilkSchema.g:1:114: LParen
+            case 14 :
+                // SilkSchema.g:1:108: LParen
                 {
                 mLParen(); if (state.failed) return ;
 
                 }
                 break;
-            case 16 :
-                // SilkSchema.g:1:121: RParen
+            case 15 :
+                // SilkSchema.g:1:115: RParen
                 {
                 mRParen(); if (state.failed) return ;
 
                 }
                 break;
-            case 17 :
-                // SilkSchema.g:1:128: Star
+            case 16 :
+                // SilkSchema.g:1:122: Star
                 {
                 mStar(); if (state.failed) return ;
 
                 }
                 break;
-            case 18 :
-                // SilkSchema.g:1:133: Symbol
+            case 17 :
+                // SilkSchema.g:1:127: Symbol
                 {
                 mSymbol(); if (state.failed) return ;
 
                 }
                 break;
-            case 19 :
-                // SilkSchema.g:1:140: Class
+            case 18 :
+                // SilkSchema.g:1:134: Class
                 {
                 mClass(); if (state.failed) return ;
 
                 }
                 break;
-            case 20 :
-                // SilkSchema.g:1:146: Includes
+            case 19 :
+                // SilkSchema.g:1:140: Includes
                 {
                 mIncludes(); if (state.failed) return ;
 
                 }
                 break;
-            case 21 :
-                // SilkSchema.g:1:155: End
+            case 20 :
+                // SilkSchema.g:1:149: End
                 {
                 mEnd(); if (state.failed) return ;
 
                 }
                 break;
-            case 22 :
-                // SilkSchema.g:1:159: Relation
+            case 21 :
+                // SilkSchema.g:1:153: Relation
                 {
                 mRelation(); if (state.failed) return ;
 
                 }
                 break;
-            case 23 :
-                // SilkSchema.g:1:168: Index
+            case 22 :
+                // SilkSchema.g:1:162: Index
                 {
                 mIndex(); if (state.failed) return ;
 
                 }
                 break;
-            case 24 :
-                // SilkSchema.g:1:174: BelongsTo
+            case 23 :
+                // SilkSchema.g:1:168: BelongsTo
                 {
                 mBelongsTo(); if (state.failed) return ;
 
                 }
                 break;
-            case 25 :
-                // SilkSchema.g:1:184: Default
+            case 24 :
+                // SilkSchema.g:1:178: Default
                 {
                 mDefault(); if (state.failed) return ;
 
                 }
                 break;
-            case 26 :
-                // SilkSchema.g:1:192: Projection
+            case 25 :
+                // SilkSchema.g:1:186: Projection
                 {
                 mProjection(); if (state.failed) return ;
 
                 }
                 break;
-            case 27 :
-                // SilkSchema.g:1:203: OrderBy
+            case 26 :
+                // SilkSchema.g:1:197: OrderBy
                 {
                 mOrderBy(); if (state.failed) return ;
 
                 }
                 break;
+            case 27 :
+                // SilkSchema.g:1:205: On
+                {
+                mOn(); if (state.failed) return ;
+
+                }
+                break;
             case 28 :
-                // SilkSchema.g:1:211: ModuleDef
+                // SilkSchema.g:1:208: ModuleDef
                 {
                 mModuleDef(); if (state.failed) return ;
 
                 }
                 break;
             case 29 :
-                // SilkSchema.g:1:221: QName
+                // SilkSchema.g:1:218: QName
                 {
                 mQName(); if (state.failed) return ;
 
                 }
                 break;
             case 30 :
-                // SilkSchema.g:1:227: WhiteSpaces
+                // SilkSchema.g:1:224: WhiteSpaces
                 {
                 mWhiteSpaces(); if (state.failed) return ;
 
@@ -2109,62 +2109,63 @@ public class SilkSchemaLexer extends Lexer {
 
     protected DFA23 dfa23 = new DFA23(this);
     static final String DFA23_eotS =
-        "\1\uffff\1\34\5\uffff\2\42\13\uffff\10\34\2\uffff\1\56\1\34\2\42"+
-        "\2\uffff\1\34\1\42\10\34\1\uffff\1\34\1\uffff\1\42\1\60\1\34\1\60"+
-        "\3\34\1\103\12\34\1\uffff\7\34\1\60\1\125\1\34\1\127\6\34\1\uffff"+
-        "\1\34\1\uffff\11\34\1\150\1\34\1\uffff\1\152\1\153\1\154\1\34\1"+
-        "\uffff\1\34\3\uffff\2\34\1\161\1\162\2\uffff";
+        "\6\uffff\2\40\13\uffff\11\34\2\uffff\2\40\2\uffff\1\34\1\40\10"+
+        "\34\1\74\1\34\1\uffff\1\40\1\56\1\34\1\56\3\34\1\102\5\34\1\uffff"+
+        "\5\34\1\uffff\7\34\1\56\1\124\1\34\1\126\6\34\1\uffff\1\34\1\uffff"+
+        "\11\34\1\147\2\34\1\uffff\1\152\1\153\1\34\1\uffff\1\34\1\156\2"+
+        "\uffff\2\34\1\uffff\1\161\1\162\2\uffff";
     static final String DFA23_eofS =
         "\163\uffff";
     static final String DFA23_minS =
-        "\1\0\1\156\4\uffff\1\60\2\0\13\uffff\1\154\2\156\3\145\1\162\1"+
-        "\157\2\uffff\1\0\1\144\2\56\1\uffff\1\0\1\53\1\0\1\141\1\143\1\144"+
-        "\2\154\1\146\1\157\1\144\1\uffff\1\145\1\uffff\1\56\1\0\1\60\1\0"+
-        "\1\163\1\154\1\145\1\0\1\141\1\157\1\141\1\152\1\165\1\162\1\53"+
-        "\1\163\1\165\1\170\1\uffff\1\164\1\156\1\165\1\145\1\154\1\137\1"+
-        "\60\2\0\1\144\1\0\1\151\1\147\1\154\1\143\1\145\1\142\1\uffff\1"+
-        "\145\1\uffff\1\157\1\163\2\164\1\11\1\171\1\163\1\156\1\137\1\0"+
-        "\1\151\1\uffff\3\0\1\164\1\uffff\1\157\3\uffff\1\157\1\156\2\0\2"+
-        "\uffff";
+        "\1\0\4\uffff\1\60\2\0\13\uffff\1\154\2\156\3\145\1\162\1\156\1"+
+        "\157\2\uffff\2\56\1\uffff\1\0\1\53\1\0\1\141\1\143\1\144\2\154\1"+
+        "\146\1\157\1\144\1\0\1\144\1\uffff\1\56\1\0\1\60\1\0\1\163\1\154"+
+        "\1\145\1\0\1\141\1\157\1\141\1\152\1\145\1\uffff\1\165\1\53\1\163"+
+        "\1\165\1\170\1\uffff\1\164\1\156\1\165\1\145\1\162\1\154\1\60\2"+
+        "\0\1\144\1\0\1\151\1\147\1\154\1\143\1\137\1\145\1\uffff\1\145\1"+
+        "\uffff\1\157\1\163\2\164\1\142\1\11\1\163\1\156\1\137\1\0\1\151"+
+        "\1\171\1\uffff\2\0\1\164\1\uffff\1\157\1\0\2\uffff\1\157\1\156\1"+
+        "\uffff\2\0\2\uffff";
     static final String DFA23_maxS =
-        "\1\uffff\1\162\4\uffff\1\71\2\uffff\13\uffff\1\154\2\156\3\145"+
-        "\1\162\1\157\2\uffff\1\uffff\1\144\2\145\1\uffff\1\uffff\1\71\1"+
-        "\uffff\1\141\2\144\2\154\1\146\1\157\1\144\1\uffff\1\145\1\uffff"+
-        "\1\145\1\uffff\1\71\1\uffff\1\163\1\154\1\145\1\uffff\1\141\1\157"+
-        "\1\141\1\152\1\165\1\162\1\71\1\163\1\165\1\170\1\uffff\1\164\1"+
-        "\156\1\165\1\145\1\154\1\137\1\71\2\uffff\1\144\1\uffff\1\151\1"+
-        "\147\1\154\1\143\1\145\1\142\1\uffff\1\145\1\uffff\1\157\1\163\2"+
-        "\164\1\40\1\171\1\163\1\156\1\137\1\uffff\1\151\1\uffff\3\uffff"+
-        "\1\164\1\uffff\1\157\3\uffff\1\157\1\156\2\uffff\2\uffff";
+        "\1\uffff\4\uffff\1\71\2\uffff\13\uffff\1\154\2\156\3\145\2\162"+
+        "\1\157\2\uffff\2\145\1\uffff\1\uffff\1\71\1\uffff\1\141\2\144\2"+
+        "\154\1\146\1\157\1\144\1\uffff\1\144\1\uffff\1\145\1\uffff\1\71"+
+        "\1\uffff\1\163\1\154\1\145\1\uffff\1\141\1\157\1\141\1\152\1\145"+
+        "\1\uffff\1\165\1\71\1\163\1\165\1\170\1\uffff\1\164\1\156\1\165"+
+        "\1\145\1\162\1\154\1\71\2\uffff\1\144\1\uffff\1\151\1\147\1\154"+
+        "\1\143\1\137\1\145\1\uffff\1\145\1\uffff\1\157\1\163\2\164\1\142"+
+        "\1\40\1\163\1\156\1\137\1\uffff\1\151\1\171\1\uffff\2\uffff\1\164"+
+        "\1\uffff\1\157\1\uffff\2\uffff\1\157\1\156\1\uffff\2\uffff\2\uffff";
     static final String DFA23_acceptS =
-        "\2\uffff\1\2\1\3\1\4\1\5\3\uffff\1\10\1\11\1\12\1\13\1\14\1\15"+
-        "\1\16\1\17\1\20\1\21\1\22\10\uffff\1\35\1\36\4\uffff\1\6\13\uffff"+
-        "\1\1\1\uffff\1\7\22\uffff\1\25\21\uffff\1\23\1\uffff\1\27\13\uffff"+
-        "\1\34\4\uffff\1\31\1\uffff\1\33\1\24\1\26\4\uffff\1\30\1\32";
+        "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\7\1\10\1\11\1\12\1\13\1\14\1"+
+        "\15\1\16\1\17\1\20\1\21\11\uffff\1\35\1\36\2\uffff\1\5\15\uffff"+
+        "\1\6\15\uffff\1\33\5\uffff\1\24\21\uffff\1\22\1\uffff\1\26\14\uffff"+
+        "\1\34\3\uffff\1\30\2\uffff\1\23\1\25\2\uffff\1\32\2\uffff\1\27\1"+
+        "\31";
     static final String DFA23_specialS =
-        "\1\20\6\uffff\1\12\1\2\25\uffff\1\3\4\uffff\1\13\1\uffff\1\14\14"+
-        "\uffff\1\11\1\uffff\1\1\3\uffff\1\21\22\uffff\1\16\1\17\1\uffff"+
-        "\1\10\22\uffff\1\6\2\uffff\1\4\1\5\1\0\10\uffff\1\7\1\15\2\uffff}>";
+        "\1\10\5\uffff\1\1\1\17\31\uffff\1\20\1\uffff\1\16\10\uffff\1\11"+
+        "\3\uffff\1\15\1\uffff\1\4\3\uffff\1\12\23\uffff\1\5\1\7\1\uffff"+
+        "\1\13\22\uffff\1\0\3\uffff\1\3\1\2\3\uffff\1\14\5\uffff\1\6\1\21"+
+        "\2\uffff}>";
     static final String[] DFA23_transitionS = {
-            "\11\34\1\35\1\4\2\34\1\4\22\34\1\35\1\34\1\5\1\3\1\34\1\2\1"+
-            "\34\1\uffff\1\20\1\21\1\22\1\34\1\17\1\6\1\16\1\34\1\7\11\10"+
-            "\1\23\1\34\1\15\1\34\1\uffff\1\34\1\uffff\32\34\1\13\1\uffff"+
-            "\1\14\4\34\1\30\1\24\1\31\1\26\3\34\1\25\3\34\1\33\1\34\1\1"+
-            "\1\32\1\34\1\27\10\34\1\11\1\uffff\1\12\uff82\34",
-            "\1\36\3\uffff\1\37",
+            "\11\34\1\35\1\3\2\34\1\3\22\34\1\35\1\34\1\4\1\2\1\34\1\1\1"+
+            "\34\1\uffff\1\17\1\20\1\21\1\34\1\16\1\5\1\15\1\34\1\6\11\7"+
+            "\1\22\1\34\1\14\1\34\1\uffff\1\34\1\uffff\32\34\1\12\1\uffff"+
+            "\1\13\4\34\1\27\1\23\1\30\1\25\3\34\1\24\3\34\1\33\1\34\1\32"+
+            "\1\31\1\34\1\26\10\34\1\10\1\uffff\1\11\uff82\34",
             "",
             "",
             "",
             "",
-            "\1\40\11\41",
+            "\1\36\11\37",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\43\13\34\1\uffff\1\34\1"+
-            "\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\44\25\34\3\uffff\7\34"+
-            "\1\44\25\34\3\uffff\uff82\34",
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\41\13\34\1\uffff\1\34\1"+
+            "\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\42\25\34\3\uffff\7\34"+
+            "\1\42\25\34\3\uffff\uff82\34",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\43\1\34\12\45\1\uffff\1"+
-            "\34\1\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\44\25\34\3\uffff"+
-            "\7\34\1\44\25\34\3\uffff\uff82\34",
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\41\1\34\12\43\1\uffff\1"+
+            "\34\1\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\42\25\34\3\uffff"+
+            "\7\34\1\42\25\34\3\uffff\uff82\34",
             "",
             "",
             "",
@@ -2176,101 +2177,102 @@ public class SilkSchemaLexer extends Lexer {
             "",
             "",
             "",
+            "\1\44",
+            "\1\45",
             "\1\46",
             "\1\47",
             "\1\50",
             "\1\51",
             "\1\52",
-            "\1\53",
-            "\1\54",
+            "\1\54\3\uffff\1\53",
             "\1\55",
             "",
             "",
-            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
-            "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
-            "\34",
-            "\1\57",
-            "\1\60\26\uffff\1\60\37\uffff\1\60",
-            "\1\60\1\uffff\12\61\13\uffff\1\60\37\uffff\1\60",
+            "\1\56\26\uffff\1\56\37\uffff\1\56",
+            "\1\56\1\uffff\12\57\13\uffff\1\56\37\uffff\1\56",
             "",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\3\uffff\1\34\12\62\1\uffff\1\34\1"+
+            "\1\uffff\1\34\4\uffff\1\34\3\uffff\1\34\12\60\1\uffff\1\34\1"+
             "\uffff\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff"+
             "\uff82\34",
-            "\1\63\1\uffff\1\60\2\uffff\12\64",
+            "\1\61\1\uffff\1\56\2\uffff\12\62",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\43\1\34\12\45\1\uffff\1"+
-            "\34\1\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\44\25\34\3\uffff"+
-            "\7\34\1\44\25\34\3\uffff\uff82\34",
-            "\1\65",
-            "\1\66\1\67",
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\1\41\1\34\12\43\1\uffff\1"+
+            "\34\1\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\42\25\34\3\uffff"+
+            "\7\34\1\42\25\34\3\uffff\uff82\34",
+            "\1\63",
+            "\1\64\1\65",
+            "\1\66",
+            "\1\67",
             "\1\70",
             "\1\71",
             "\1\72",
             "\1\73",
-            "\1\74",
-            "\1\75",
-            "",
-            "\1\76",
-            "",
-            "\1\60\1\uffff\12\61\13\uffff\1\60\37\uffff\1\60",
-            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\62\1\uffff\1\34\1"+
-            "\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\77\25\34\3\uffff\7\34"+
-            "\1\77\25\34\3\uffff\uff82\34",
-            "\12\64",
-            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\64\1\uffff\1\34\1"+
-            "\uffff\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff"+
-            "\uff82\34",
-            "\1\100",
-            "\1\101",
-            "\1\102",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
+            "\1\75",
+            "",
+            "\1\56\1\uffff\12\57\13\uffff\1\56\37\uffff\1\56",
+            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\60\1\uffff\1\34\1"+
+            "\uffff\1\34\1\uffff\1\34\1\uffff\4\34\1\76\25\34\3\uffff\7\34"+
+            "\1\76\25\34\3\uffff\uff82\34",
+            "\12\62",
+            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\62\1\uffff\1\34\1"+
+            "\uffff\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff"+
+            "\uff82\34",
+            "\1\77",
+            "\1\100",
+            "\1\101",
+            "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
+            "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
+            "\34",
+            "\1\103",
             "\1\104",
             "\1\105",
             "\1\106",
             "\1\107",
+            "",
             "\1\110",
-            "\1\111",
-            "\1\112\1\uffff\1\60\2\uffff\12\113",
+            "\1\111\1\uffff\1\56\2\uffff\12\112",
+            "\1\113",
             "\1\114",
             "\1\115",
-            "\1\116",
             "",
+            "\1\116",
             "\1\117",
             "\1\120",
             "\1\121",
             "\1\122",
             "\1\123",
-            "\1\124",
-            "\12\113",
+            "\12\112",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
-            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\113\1\uffff\1\34"+
+            "\1\uffff\1\34\4\uffff\1\34\2\uffff\2\34\12\112\1\uffff\1\34"+
             "\1\uffff\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff"+
             "\uff82\34",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
-            "\1\126",
+            "\1\125",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
+            "\1\127",
             "\1\130",
             "\1\131",
             "\1\132",
             "\1\133",
             "\1\134",
+            "",
             "\1\135",
             "",
             "\1\136",
-            "",
             "\1\137",
             "\1\140",
             "\1\141",
@@ -2279,11 +2281,11 @@ public class SilkSchemaLexer extends Lexer {
             "\1\144",
             "\1\145",
             "\1\146",
-            "\1\147",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
+            "\1\150",
             "\1\151",
             "",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
@@ -2294,18 +2296,18 @@ public class SilkSchemaLexer extends Lexer {
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
+            "\1\154",
+            "",
+            "\1\155",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
             "\34",
-            "\1\155",
-            "",
-            "\1\156",
-            "",
             "",
             "",
             "\1\157",
             "\1\160",
+            "",
             "\11\34\2\uffff\2\34\1\uffff\22\34\1\uffff\1\34\2\uffff\1\34"+
             "\1\uffff\1\34\4\uffff\1\34\2\uffff\14\34\1\uffff\1\34\1\uffff"+
             "\1\34\1\uffff\1\34\1\uffff\32\34\3\uffff\35\34\3\uffff\uff82"+
@@ -2348,71 +2350,37 @@ public class SilkSchemaLexer extends Lexer {
             this.transition = DFA23_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__65 | Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | ModuleDef | QName | WhiteSpaces );";
+            return "1:1: Tokens : ( Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | On | ModuleDef | QName | WhiteSpaces );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA23_102 = input.LA(1);
+                        int LA23_96 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_102>='\u0000' && LA23_102<='\b')||(LA23_102>='\u000B' && LA23_102<='\f')||(LA23_102>='\u000E' && LA23_102<='\u001F')||LA23_102=='!'||LA23_102=='$'||LA23_102=='&'||LA23_102=='+'||(LA23_102>='.' && LA23_102<='9')||LA23_102==';'||LA23_102=='='||LA23_102=='?'||(LA23_102>='A' && LA23_102<='Z')||(LA23_102>='^' && LA23_102<='z')||(LA23_102>='~' && LA23_102<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_96>='\u0000' && LA23_96<='\b')||(LA23_96>='\u000B' && LA23_96<='\f')||(LA23_96>='\u000E' && LA23_96<='\u001F')||LA23_96=='!'||LA23_96=='$'||LA23_96=='&'||LA23_96=='+'||(LA23_96>='.' && LA23_96<='9')||LA23_96==';'||LA23_96=='='||LA23_96=='?'||(LA23_96>='A' && LA23_96<='Z')||(LA23_96>='^' && LA23_96<='z')||(LA23_96>='~' && LA23_96<='\uFFFF')) ) {s = 28;}
 
-                        else s = 108;
+                        else s = 103;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA23_52 = input.LA(1);
+                        int LA23_6 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_52>='0' && LA23_52<='9')) ) {s = 52;}
+                        if ( (LA23_6=='.') ) {s = 33;}
 
-                        else if ( ((LA23_52>='\u0000' && LA23_52<='\b')||(LA23_52>='\u000B' && LA23_52<='\f')||(LA23_52>='\u000E' && LA23_52<='\u001F')||LA23_52=='!'||LA23_52=='$'||LA23_52=='&'||LA23_52=='+'||(LA23_52>='.' && LA23_52<='/')||LA23_52==';'||LA23_52=='='||LA23_52=='?'||(LA23_52>='A' && LA23_52<='Z')||(LA23_52>='^' && LA23_52<='z')||(LA23_52>='~' && LA23_52<='\uFFFF')) ) {s = 28;}
+                        else if ( (LA23_6=='E'||LA23_6=='e') ) {s = 34;}
 
-                        else s = 48;
+                        else if ( ((LA23_6>='\u0000' && LA23_6<='\b')||(LA23_6>='\u000B' && LA23_6<='\f')||(LA23_6>='\u000E' && LA23_6<='\u001F')||LA23_6=='!'||LA23_6=='$'||LA23_6=='&'||LA23_6=='+'||(LA23_6>='/' && LA23_6<='9')||LA23_6==';'||LA23_6=='='||LA23_6=='?'||(LA23_6>='A' && LA23_6<='D')||(LA23_6>='F' && LA23_6<='Z')||(LA23_6>='^' && LA23_6<='d')||(LA23_6>='f' && LA23_6<='z')||(LA23_6>='~' && LA23_6<='\uFFFF')) ) {s = 28;}
+
+                        else s = 32;
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA23_8 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_8>='0' && LA23_8<='9')) ) {s = 37;}
-
-                        else if ( (LA23_8=='.') ) {s = 35;}
-
-                        else if ( (LA23_8=='E'||LA23_8=='e') ) {s = 36;}
-
-                        else if ( ((LA23_8>='\u0000' && LA23_8<='\b')||(LA23_8>='\u000B' && LA23_8<='\f')||(LA23_8>='\u000E' && LA23_8<='\u001F')||LA23_8=='!'||LA23_8=='$'||LA23_8=='&'||LA23_8=='+'||LA23_8=='/'||LA23_8==';'||LA23_8=='='||LA23_8=='?'||(LA23_8>='A' && LA23_8<='D')||(LA23_8>='F' && LA23_8<='Z')||(LA23_8>='^' && LA23_8<='d')||(LA23_8>='f' && LA23_8<='z')||(LA23_8>='~' && LA23_8<='\uFFFF')) ) {s = 28;}
-
-                        else s = 34;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA23_30 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_30>='\u0000' && LA23_30<='\b')||(LA23_30>='\u000B' && LA23_30<='\f')||(LA23_30>='\u000E' && LA23_30<='\u001F')||LA23_30=='!'||LA23_30=='$'||LA23_30=='&'||LA23_30=='+'||(LA23_30>='.' && LA23_30<='9')||LA23_30==';'||LA23_30=='='||LA23_30=='?'||(LA23_30>='A' && LA23_30<='Z')||(LA23_30>='^' && LA23_30<='z')||(LA23_30>='~' && LA23_30<='\uFFFF')) ) {s = 28;}
-
-                        else s = 46;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA23_100 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_100>='\u0000' && LA23_100<='\b')||(LA23_100>='\u000B' && LA23_100<='\f')||(LA23_100>='\u000E' && LA23_100<='\u001F')||LA23_100=='!'||LA23_100=='$'||LA23_100=='&'||LA23_100=='+'||(LA23_100>='.' && LA23_100<='9')||LA23_100==';'||LA23_100=='='||LA23_100=='?'||(LA23_100>='A' && LA23_100<='Z')||(LA23_100>='^' && LA23_100<='z')||(LA23_100>='~' && LA23_100<='\uFFFF')) ) {s = 28;}
-
-                        else s = 106;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
                         int LA23_101 = input.LA(1);
 
                         s = -1;
@@ -2422,17 +2390,41 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA23_97 = input.LA(1);
+                    case 3 : 
+                        int LA23_100 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_97>='\u0000' && LA23_97<='\b')||(LA23_97>='\u000B' && LA23_97<='\f')||(LA23_97>='\u000E' && LA23_97<='\u001F')||LA23_97=='!'||LA23_97=='$'||LA23_97=='&'||LA23_97=='+'||(LA23_97>='.' && LA23_97<='9')||LA23_97==';'||LA23_97=='='||LA23_97=='?'||(LA23_97>='A' && LA23_97<='Z')||(LA23_97>='^' && LA23_97<='z')||(LA23_97>='~' && LA23_97<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_100>='\u0000' && LA23_100<='\b')||(LA23_100>='\u000B' && LA23_100<='\f')||(LA23_100>='\u000E' && LA23_100<='\u001F')||LA23_100=='!'||LA23_100=='$'||LA23_100=='&'||LA23_100=='+'||(LA23_100>='.' && LA23_100<='9')||LA23_100==';'||LA23_100=='='||LA23_100=='?'||(LA23_100>='A' && LA23_100<='Z')||(LA23_100>='^' && LA23_100<='z')||(LA23_100>='~' && LA23_100<='\uFFFF')) ) {s = 28;}
 
-                        else s = 104;
+                        else s = 106;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 4 : 
+                        int LA23_50 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_50>='0' && LA23_50<='9')) ) {s = 50;}
+
+                        else if ( ((LA23_50>='\u0000' && LA23_50<='\b')||(LA23_50>='\u000B' && LA23_50<='\f')||(LA23_50>='\u000E' && LA23_50<='\u001F')||LA23_50=='!'||LA23_50=='$'||LA23_50=='&'||LA23_50=='+'||(LA23_50>='.' && LA23_50<='/')||LA23_50==';'||LA23_50=='='||LA23_50=='?'||(LA23_50>='A' && LA23_50<='Z')||(LA23_50>='^' && LA23_50<='z')||(LA23_50>='~' && LA23_50<='\uFFFF')) ) {s = 28;}
+
+                        else s = 46;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA23_74 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_74>='\u0000' && LA23_74<='\b')||(LA23_74>='\u000B' && LA23_74<='\f')||(LA23_74>='\u000E' && LA23_74<='\u001F')||LA23_74=='!'||LA23_74=='$'||LA23_74=='&'||LA23_74=='+'||(LA23_74>='.' && LA23_74<='/')||LA23_74==';'||LA23_74=='='||LA23_74=='?'||(LA23_74>='A' && LA23_74<='Z')||(LA23_74>='^' && LA23_74<='z')||(LA23_74>='~' && LA23_74<='\uFFFF')) ) {s = 28;}
+
+                        else if ( ((LA23_74>='0' && LA23_74<='9')) ) {s = 74;}
+
+                        else s = 46;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
                         int LA23_111 = input.LA(1);
 
                         s = -1;
@@ -2442,160 +2434,74 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA23_78 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_78>='\u0000' && LA23_78<='\b')||(LA23_78>='\u000B' && LA23_78<='\f')||(LA23_78>='\u000E' && LA23_78<='\u001F')||LA23_78=='!'||LA23_78=='$'||LA23_78=='&'||LA23_78=='+'||(LA23_78>='.' && LA23_78<='9')||LA23_78==';'||LA23_78=='='||LA23_78=='?'||(LA23_78>='A' && LA23_78<='Z')||(LA23_78>='^' && LA23_78<='z')||(LA23_78>='~' && LA23_78<='\uFFFF')) ) {s = 28;}
-
-                        else s = 87;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA23_50 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_50>='\u0000' && LA23_50<='\b')||(LA23_50>='\u000B' && LA23_50<='\f')||(LA23_50>='\u000E' && LA23_50<='\u001F')||LA23_50=='!'||LA23_50=='$'||LA23_50=='&'||LA23_50=='+'||(LA23_50>='.' && LA23_50<='/')||LA23_50==';'||LA23_50=='='||LA23_50=='?'||(LA23_50>='A' && LA23_50<='D')||(LA23_50>='F' && LA23_50<='Z')||(LA23_50>='^' && LA23_50<='d')||(LA23_50>='f' && LA23_50<='z')||(LA23_50>='~' && LA23_50<='\uFFFF')) ) {s = 28;}
-
-                        else if ( (LA23_50=='E'||LA23_50=='e') ) {s = 63;}
-
-                        else if ( ((LA23_50>='0' && LA23_50<='9')) ) {s = 50;}
-
-                        else s = 48;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA23_7 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA23_7=='.') ) {s = 35;}
-
-                        else if ( (LA23_7=='E'||LA23_7=='e') ) {s = 36;}
-
-                        else if ( ((LA23_7>='\u0000' && LA23_7<='\b')||(LA23_7>='\u000B' && LA23_7<='\f')||(LA23_7>='\u000E' && LA23_7<='\u001F')||LA23_7=='!'||LA23_7=='$'||LA23_7=='&'||LA23_7=='+'||(LA23_7>='/' && LA23_7<='9')||LA23_7==';'||LA23_7=='='||LA23_7=='?'||(LA23_7>='A' && LA23_7<='D')||(LA23_7>='F' && LA23_7<='Z')||(LA23_7>='^' && LA23_7<='d')||(LA23_7>='f' && LA23_7<='z')||(LA23_7>='~' && LA23_7<='\uFFFF')) ) {s = 28;}
-
-                        else s = 34;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA23_35 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_35>='0' && LA23_35<='9')) ) {s = 50;}
-
-                        else if ( ((LA23_35>='\u0000' && LA23_35<='\b')||(LA23_35>='\u000B' && LA23_35<='\f')||(LA23_35>='\u000E' && LA23_35<='\u001F')||LA23_35=='!'||LA23_35=='$'||LA23_35=='&'||LA23_35=='+'||LA23_35=='/'||LA23_35==';'||LA23_35=='='||LA23_35=='?'||(LA23_35>='A' && LA23_35<='Z')||(LA23_35>='^' && LA23_35<='z')||(LA23_35>='~' && LA23_35<='\uFFFF')) ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA23_37 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA23_37=='.') ) {s = 35;}
-
-                        else if ( (LA23_37=='E'||LA23_37=='e') ) {s = 36;}
-
-                        else if ( ((LA23_37>='0' && LA23_37<='9')) ) {s = 37;}
-
-                        else if ( ((LA23_37>='\u0000' && LA23_37<='\b')||(LA23_37>='\u000B' && LA23_37<='\f')||(LA23_37>='\u000E' && LA23_37<='\u001F')||LA23_37=='!'||LA23_37=='$'||LA23_37=='&'||LA23_37=='+'||LA23_37=='/'||LA23_37==';'||LA23_37=='='||LA23_37=='?'||(LA23_37>='A' && LA23_37<='D')||(LA23_37>='F' && LA23_37<='Z')||(LA23_37>='^' && LA23_37<='d')||(LA23_37>='f' && LA23_37<='z')||(LA23_37>='~' && LA23_37<='\uFFFF')) ) {s = 28;}
-
-                        else s = 34;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA23_112 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_112>='\u0000' && LA23_112<='\b')||(LA23_112>='\u000B' && LA23_112<='\f')||(LA23_112>='\u000E' && LA23_112<='\u001F')||LA23_112=='!'||LA23_112=='$'||LA23_112=='&'||LA23_112=='+'||(LA23_112>='.' && LA23_112<='9')||LA23_112==';'||LA23_112=='='||LA23_112=='?'||(LA23_112>='A' && LA23_112<='Z')||(LA23_112>='^' && LA23_112<='z')||(LA23_112>='~' && LA23_112<='\uFFFF')) ) {s = 28;}
-
-                        else s = 114;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
+                    case 7 : 
                         int LA23_75 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_75>='\u0000' && LA23_75<='\b')||(LA23_75>='\u000B' && LA23_75<='\f')||(LA23_75>='\u000E' && LA23_75<='\u001F')||LA23_75=='!'||LA23_75=='$'||LA23_75=='&'||LA23_75=='+'||(LA23_75>='.' && LA23_75<='/')||LA23_75==';'||LA23_75=='='||LA23_75=='?'||(LA23_75>='A' && LA23_75<='Z')||(LA23_75>='^' && LA23_75<='z')||(LA23_75>='~' && LA23_75<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_75>='\u0000' && LA23_75<='\b')||(LA23_75>='\u000B' && LA23_75<='\f')||(LA23_75>='\u000E' && LA23_75<='\u001F')||LA23_75=='!'||LA23_75=='$'||LA23_75=='&'||LA23_75=='+'||(LA23_75>='.' && LA23_75<='9')||LA23_75==';'||LA23_75=='='||LA23_75=='?'||(LA23_75>='A' && LA23_75<='Z')||(LA23_75>='^' && LA23_75<='z')||(LA23_75>='~' && LA23_75<='\uFFFF')) ) {s = 28;}
 
-                        else if ( ((LA23_75>='0' && LA23_75<='9')) ) {s = 75;}
-
-                        else s = 48;
+                        else s = 84;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA23_76 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_76>='\u0000' && LA23_76<='\b')||(LA23_76>='\u000B' && LA23_76<='\f')||(LA23_76>='\u000E' && LA23_76<='\u001F')||LA23_76=='!'||LA23_76=='$'||LA23_76=='&'||LA23_76=='+'||(LA23_76>='.' && LA23_76<='9')||LA23_76==';'||LA23_76=='='||LA23_76=='?'||(LA23_76>='A' && LA23_76<='Z')||(LA23_76>='^' && LA23_76<='z')||(LA23_76>='~' && LA23_76<='\uFFFF')) ) {s = 28;}
-
-                        else s = 85;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
+                    case 8 : 
                         int LA23_0 = input.LA(1);
 
                          
                         int index23_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA23_0=='o') ) {s = 1;}
+                        if ( (LA23_0=='%') && (( getCharPositionInLine() == 0 ))) {s = 1;}
 
-                        else if ( (LA23_0=='%') && (( getCharPositionInLine() == 0 ))) {s = 2;}
+                        else if ( (LA23_0=='#') ) {s = 2;}
 
-                        else if ( (LA23_0=='#') ) {s = 3;}
+                        else if ( (LA23_0=='\n'||LA23_0=='\r') ) {s = 3;}
 
-                        else if ( (LA23_0=='\n'||LA23_0=='\r') ) {s = 4;}
+                        else if ( (LA23_0=='\"') ) {s = 4;}
 
-                        else if ( (LA23_0=='\"') ) {s = 5;}
+                        else if ( (LA23_0=='-') ) {s = 5;}
 
-                        else if ( (LA23_0=='-') ) {s = 6;}
+                        else if ( (LA23_0=='0') ) {s = 6;}
 
-                        else if ( (LA23_0=='0') ) {s = 7;}
+                        else if ( ((LA23_0>='1' && LA23_0<='9')) ) {s = 7;}
 
-                        else if ( ((LA23_0>='1' && LA23_0<='9')) ) {s = 8;}
+                        else if ( (LA23_0=='{') ) {s = 8;}
 
-                        else if ( (LA23_0=='{') ) {s = 9;}
+                        else if ( (LA23_0=='}') ) {s = 9;}
 
-                        else if ( (LA23_0=='}') ) {s = 10;}
+                        else if ( (LA23_0=='[') ) {s = 10;}
 
-                        else if ( (LA23_0=='[') ) {s = 11;}
+                        else if ( (LA23_0==']') ) {s = 11;}
 
-                        else if ( (LA23_0==']') ) {s = 12;}
+                        else if ( (LA23_0=='<') ) {s = 12;}
 
-                        else if ( (LA23_0=='<') ) {s = 13;}
+                        else if ( (LA23_0=='.') ) {s = 13;}
 
-                        else if ( (LA23_0=='.') ) {s = 14;}
+                        else if ( (LA23_0==',') ) {s = 14;}
 
-                        else if ( (LA23_0==',') ) {s = 15;}
+                        else if ( (LA23_0=='(') ) {s = 15;}
 
-                        else if ( (LA23_0=='(') ) {s = 16;}
+                        else if ( (LA23_0==')') ) {s = 16;}
 
-                        else if ( (LA23_0==')') ) {s = 17;}
+                        else if ( (LA23_0=='*') ) {s = 17;}
 
-                        else if ( (LA23_0=='*') ) {s = 18;}
+                        else if ( (LA23_0==':') ) {s = 18;}
 
-                        else if ( (LA23_0==':') ) {s = 19;}
+                        else if ( (LA23_0=='c') ) {s = 19;}
 
-                        else if ( (LA23_0=='c') ) {s = 20;}
+                        else if ( (LA23_0=='i') ) {s = 20;}
 
-                        else if ( (LA23_0=='i') ) {s = 21;}
+                        else if ( (LA23_0=='e') ) {s = 21;}
 
-                        else if ( (LA23_0=='e') ) {s = 22;}
+                        else if ( (LA23_0=='r') ) {s = 22;}
 
-                        else if ( (LA23_0=='r') ) {s = 23;}
+                        else if ( (LA23_0=='b') ) {s = 23;}
 
-                        else if ( (LA23_0=='b') ) {s = 24;}
+                        else if ( (LA23_0=='d') ) {s = 24;}
 
-                        else if ( (LA23_0=='d') ) {s = 25;}
+                        else if ( (LA23_0=='p') ) {s = 25;}
 
-                        else if ( (LA23_0=='p') ) {s = 26;}
+                        else if ( (LA23_0=='o') ) {s = 26;}
 
                         else if ( (LA23_0=='m') ) {s = 27;}
 
@@ -2607,13 +2513,109 @@ public class SilkSchemaLexer extends Lexer {
                         input.seek(index23_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
-                        int LA23_56 = input.LA(1);
+                    case 9 : 
+                        int LA23_44 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_56>='\u0000' && LA23_56<='\b')||(LA23_56>='\u000B' && LA23_56<='\f')||(LA23_56>='\u000E' && LA23_56<='\u001F')||LA23_56=='!'||LA23_56=='$'||LA23_56=='&'||LA23_56=='+'||(LA23_56>='.' && LA23_56<='9')||LA23_56==';'||LA23_56=='='||LA23_56=='?'||(LA23_56>='A' && LA23_56<='Z')||(LA23_56>='^' && LA23_56<='z')||(LA23_56>='~' && LA23_56<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_44>='\u0000' && LA23_44<='\b')||(LA23_44>='\u000B' && LA23_44<='\f')||(LA23_44>='\u000E' && LA23_44<='\u001F')||LA23_44=='!'||LA23_44=='$'||LA23_44=='&'||LA23_44=='+'||(LA23_44>='.' && LA23_44<='9')||LA23_44==';'||LA23_44=='='||LA23_44=='?'||(LA23_44>='A' && LA23_44<='Z')||(LA23_44>='^' && LA23_44<='z')||(LA23_44>='~' && LA23_44<='\uFFFF')) ) {s = 28;}
 
-                        else s = 67;
+                        else s = 60;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA23_54 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_54>='\u0000' && LA23_54<='\b')||(LA23_54>='\u000B' && LA23_54<='\f')||(LA23_54>='\u000E' && LA23_54<='\u001F')||LA23_54=='!'||LA23_54=='$'||LA23_54=='&'||LA23_54=='+'||(LA23_54>='.' && LA23_54<='9')||LA23_54==';'||LA23_54=='='||LA23_54=='?'||(LA23_54>='A' && LA23_54<='Z')||(LA23_54>='^' && LA23_54<='z')||(LA23_54>='~' && LA23_54<='\uFFFF')) ) {s = 28;}
+
+                        else s = 66;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA23_77 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_77>='\u0000' && LA23_77<='\b')||(LA23_77>='\u000B' && LA23_77<='\f')||(LA23_77>='\u000E' && LA23_77<='\u001F')||LA23_77=='!'||LA23_77=='$'||LA23_77=='&'||LA23_77=='+'||(LA23_77>='.' && LA23_77<='9')||LA23_77==';'||LA23_77=='='||LA23_77=='?'||(LA23_77>='A' && LA23_77<='Z')||(LA23_77>='^' && LA23_77<='z')||(LA23_77>='~' && LA23_77<='\uFFFF')) ) {s = 28;}
+
+                        else s = 86;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA23_105 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_105>='\u0000' && LA23_105<='\b')||(LA23_105>='\u000B' && LA23_105<='\f')||(LA23_105>='\u000E' && LA23_105<='\u001F')||LA23_105=='!'||LA23_105=='$'||LA23_105=='&'||LA23_105=='+'||(LA23_105>='.' && LA23_105<='9')||LA23_105==';'||LA23_105=='='||LA23_105=='?'||(LA23_105>='A' && LA23_105<='Z')||(LA23_105>='^' && LA23_105<='z')||(LA23_105>='~' && LA23_105<='\uFFFF')) ) {s = 28;}
+
+                        else s = 110;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA23_48 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_48>='\u0000' && LA23_48<='\b')||(LA23_48>='\u000B' && LA23_48<='\f')||(LA23_48>='\u000E' && LA23_48<='\u001F')||LA23_48=='!'||LA23_48=='$'||LA23_48=='&'||LA23_48=='+'||(LA23_48>='.' && LA23_48<='/')||LA23_48==';'||LA23_48=='='||LA23_48=='?'||(LA23_48>='A' && LA23_48<='D')||(LA23_48>='F' && LA23_48<='Z')||(LA23_48>='^' && LA23_48<='d')||(LA23_48>='f' && LA23_48<='z')||(LA23_48>='~' && LA23_48<='\uFFFF')) ) {s = 28;}
+
+                        else if ( (LA23_48=='E'||LA23_48=='e') ) {s = 62;}
+
+                        else if ( ((LA23_48>='0' && LA23_48<='9')) ) {s = 48;}
+
+                        else s = 46;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA23_35 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_35>='0' && LA23_35<='9')) ) {s = 35;}
+
+                        else if ( (LA23_35=='.') ) {s = 33;}
+
+                        else if ( (LA23_35=='E'||LA23_35=='e') ) {s = 34;}
+
+                        else if ( ((LA23_35>='\u0000' && LA23_35<='\b')||(LA23_35>='\u000B' && LA23_35<='\f')||(LA23_35>='\u000E' && LA23_35<='\u001F')||LA23_35=='!'||LA23_35=='$'||LA23_35=='&'||LA23_35=='+'||LA23_35=='/'||LA23_35==';'||LA23_35=='='||LA23_35=='?'||(LA23_35>='A' && LA23_35<='D')||(LA23_35>='F' && LA23_35<='Z')||(LA23_35>='^' && LA23_35<='d')||(LA23_35>='f' && LA23_35<='z')||(LA23_35>='~' && LA23_35<='\uFFFF')) ) {s = 28;}
+
+                        else s = 32;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA23_7 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_7>='0' && LA23_7<='9')) ) {s = 35;}
+
+                        else if ( (LA23_7=='.') ) {s = 33;}
+
+                        else if ( (LA23_7=='E'||LA23_7=='e') ) {s = 34;}
+
+                        else if ( ((LA23_7>='\u0000' && LA23_7<='\b')||(LA23_7>='\u000B' && LA23_7<='\f')||(LA23_7>='\u000E' && LA23_7<='\u001F')||LA23_7=='!'||LA23_7=='$'||LA23_7=='&'||LA23_7=='+'||LA23_7=='/'||LA23_7==';'||LA23_7=='='||LA23_7=='?'||(LA23_7>='A' && LA23_7<='D')||(LA23_7>='F' && LA23_7<='Z')||(LA23_7>='^' && LA23_7<='d')||(LA23_7>='f' && LA23_7<='z')||(LA23_7>='~' && LA23_7<='\uFFFF')) ) {s = 28;}
+
+                        else s = 32;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA23_33 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_33>='0' && LA23_33<='9')) ) {s = 48;}
+
+                        else if ( ((LA23_33>='\u0000' && LA23_33<='\b')||(LA23_33>='\u000B' && LA23_33<='\f')||(LA23_33>='\u000E' && LA23_33<='\u001F')||LA23_33=='!'||LA23_33=='$'||LA23_33=='&'||LA23_33=='+'||LA23_33=='/'||LA23_33==';'||LA23_33=='='||LA23_33=='?'||(LA23_33>='A' && LA23_33<='Z')||(LA23_33>='^' && LA23_33<='z')||(LA23_33>='~' && LA23_33<='\uFFFF')) ) {s = 28;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA23_112 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_112>='\u0000' && LA23_112<='\b')||(LA23_112>='\u000B' && LA23_112<='\f')||(LA23_112>='\u000E' && LA23_112<='\u001F')||LA23_112=='!'||LA23_112=='$'||LA23_112=='&'||LA23_112=='+'||(LA23_112>='.' && LA23_112<='9')||LA23_112==';'||LA23_112=='='||LA23_112=='?'||(LA23_112>='A' && LA23_112<='Z')||(LA23_112>='^' && LA23_112<='z')||(LA23_112>='~' && LA23_112<='\uFFFF')) ) {s = 28;}
+
+                        else s = 114;
 
                         if ( s>=0 ) return s;
                         break;

@@ -31,8 +31,7 @@ package org.xerial.core;
  * @author leo
  * 
  */
-public class XerialError extends RuntimeException
-{
+public class XerialError extends RuntimeException {
     /**
      * 
      */
@@ -40,38 +39,32 @@ public class XerialError extends RuntimeException
 
     private final ErrorCode errorCode;
 
-    public XerialError(ErrorCode errorCode)
-    {
+    public XerialError(ErrorCode errorCode) {
         super();
         this.errorCode = errorCode;
     }
 
-    public XerialError(ErrorCode errorCode, String message, Throwable cause)
-    {
+    public XerialError(ErrorCode errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode;
     }
 
-    public XerialError(ErrorCode errorCode, String message)
-    {
+    public XerialError(ErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public XerialError(ErrorCode errorCode, Throwable cause)
-    {
+    public XerialError(ErrorCode errorCode, Throwable cause) {
         super(cause);
         this.errorCode = errorCode;
     }
-    
-    public XerialError(XerialError cause)
-    {
+
+    public XerialError(XerialError cause) {
         super(cause);
         this.errorCode = cause.getErrorCode();
     }
-    
-    public XerialError(XerialException cause)
-    {
+
+    public XerialError(XerialException cause) {
         super(cause);
         this.errorCode = cause.getErrorCode();
     }
@@ -81,14 +74,12 @@ public class XerialError extends RuntimeException
      * 
      * @return
      */
-    public ErrorCode getErrorCode()
-    {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
 
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         return ExceptionHelper.getMessage(errorCode, super.getMessage());
     }
 

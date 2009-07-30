@@ -45,24 +45,24 @@ public enum JSONErrorCode implements ErrorCode {
 
     private final String description;
 
-    private JSONErrorCode(String description)
-    {
+    private JSONErrorCode(String description) {
         this.description = description;
     }
 
-    private JSONErrorCode()
-    {
+    private JSONErrorCode() {
         this.description = EMPTY_DESCRIPTION;
     }
 
-    public String getCodeName()
-    {
+    public String getCodeName() {
         return name();
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
+    }
+
+    public Enum< ? > getCode() {
+        return this;
     }
 
 }

@@ -31,7 +31,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.util.bean.BeanErrorCode;
+import org.xerial.util.bean.BeanException;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * A command-line option and argument parser
@@ -39,8 +43,7 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class OptionParser
-{
+public class OptionParser {
     private final OptionSchema schema;
     private final Object optionHolder;
 
@@ -49,44 +52,53 @@ public class OptionParser
     private HashSet<Argument> activatedArgument = new HashSet<Argument>();
     private List<String> unusedArgument = new ArrayList<String>();
 
-    public <T> OptionParser(T optionHolder)
-    {
+    public <T> OptionParser(T optionHolder) {
         this.optionHolder = optionHolder;
         schema = OptionSchema.newOptionSchema(optionHolder);
     }
 
-    OptionItem findOptionItem(OptionSchema schema, String optionName) throws OptionParserException
-    {
+    public <T> OptionParser(Class<T> optionHolderType) {
+        try {
+            this.optionHolder = TypeInfo.createInstance(optionHolderType);
+        }
+        catch (BeanException e) {
+            throw new XerialError(XerialErrorCode.INVALID_ARGUMENT, e);
+        }
+
+        schema = OptionSchema.newOptionSchema(optionHolder);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getOptionHolder() {
+        return (T) optionHolder;
+    }
+
+    OptionItem findOptionItem(OptionSchema schema, String optionName) throws OptionParserException {
         OptionItem optionItem = schema.getOption(optionName);
-        if (optionItem == null)
-        {
-            if (!ignoreUnknownOption)
-            {
-                throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: " + optionName);
+        if (optionItem == null) {
+            if (!ignoreUnknownOption) {
+                throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: "
+                        + optionName);
             }
         }
         return optionItem;
     }
 
-    public void printUsage()
-    {
+    public void printUsage() {
         printUsage(System.out);
     }
 
-    public void printUsage(Writer out)
-    {
+    public void printUsage(Writer out) {
         assert schema != null;
         schema.printUsage(out);
     }
 
-    public void printUsage(OutputStream out)
-    {
+    public void printUsage(OutputStream out) {
         assert schema != null;
         schema.printUsage(out);
     }
 
-    public String getUsage()
-    {
+    public String getUsage() {
         StringWriter buf = new StringWriter();
         printUsage(buf);
         return buf.toString();
@@ -98,8 +110,7 @@ public class OptionParser
      * 
      * @return
      */
-    public String[] getUnusedArguments()
-    {
+    public String[] getUnusedArguments() {
         String[] result = new String[unusedArgument.size()];
         for (int i = 0; i < unusedArgument.size(); ++i)
             result[i] = unusedArgument.get(i);
@@ -117,8 +128,7 @@ public class OptionParser
      *            options are found.
      * @throws OptionParserException
      */
-    public void parse(String[] args, boolean ignoreUnknownOption) throws OptionParserException
-    {
+    public void parse(String[] args, boolean ignoreUnknownOption) throws OptionParserException {
         setIgnoreUnknownOption(ignoreUnknownOption);
         parse(args);
     }
@@ -130,40 +140,33 @@ public class OptionParser
      * @param args
      * @throws OptionParserException
      */
-    public void parse(String[] args) throws OptionParserException
-    {
+    public void parse(String[] args) throws OptionParserException {
         // clear
         unusedArgument.clear();
         activatedOption.clear();
         activatedArgument.clear();
 
         // initialize collections in the OptionHolder
-        for (OptionItem each : schema.getOptionItemList())
-        {
+        for (OptionItem each : schema.getOptionItemList()) {
             each.initialize(optionHolder);
         }
-        for (ArgumentItem each : schema.getArgumentItemList())
-        {
+        for (ArgumentItem each : schema.getArgumentItemList()) {
             each.initialize(optionHolder);
         }
 
         int index = 0; // index in the args array
         int argIndex = 0; // argument index
-        for (; index < args.length; index++)
-        {
+        for (; index < args.length; index++) {
             String currentArg = args[index];
 
-            if (currentArg.startsWith("--"))
-            {
+            if (currentArg.startsWith("--")) {
                 // long name option
                 int splitPos = currentArg.indexOf('=');
-                if (splitPos == -1)
-                {
+                if (splitPos == -1) {
                     // no value is found
                     String longOptionName = currentArg.substring(2);
                     OptionItem optionItem = findOptionItem(schema, longOptionName);
-                    if (optionItem == null)
-                    {
+                    if (optionItem == null) {
                         unusedArgument.add(currentArg);
                         continue;
                     }
@@ -174,91 +177,89 @@ public class OptionParser
 
                     optionItem.setOption(optionHolder, "true");
 
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
-                else
-                {
+                else {
                     // option is a (key, value) pair
                     String longOptionName = currentArg.substring(2, splitPos);
                     String value = currentArg.substring(splitPos + 1);
                     OptionItem optionItem = findOptionItem(schema, longOptionName);
-                    if (optionItem == null)
-                    {
+                    if (optionItem == null) {
                         unusedArgument.add(currentArg);
                         continue;
                     }
 
-                    if (!optionItem.needsArgument())
-                    {
-                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "syntax error --"
-                                + longOptionName);
+                    if (!optionItem.needsArgument()) {
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
+                                "syntax error --" + longOptionName);
                     }
 
                     optionItem.setOption(optionHolder, value);
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
 
             }
-            else if (currentArg.startsWith("-"))
-            {
+            else if (currentArg.startsWith("-")) {
                 // option with a leading hyphen (e.g. "-txvf" is equivalent to "-t", "-x", "-v" and "-f")
                 String shortOptionList = currentArg.substring(1);
-                for (int i = 0; i < shortOptionList.length(); i++)
-                {
+                for (int i = 0; i < shortOptionList.length(); i++) {
                     String shortOptionName = shortOptionList.substring(i, i + 1);
                     OptionItem optionItem = findOptionItem(schema, shortOptionName);
-                    if (optionItem == null)
-                    {
+                    if (optionItem == null) {
                         unusedArgument.add(currentArg);
                         continue;
                     }
 
-                    if (optionItem.needsArgument())
-                    {
+                    if (optionItem.needsArgument()) {
                         if (shortOptionList.length() != 1)
-                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, String.format(
-                                    "short name option -%s with an arguments must be a single notation",
-                                    shortOptionName));
+                            throw new OptionParserException(
+                                    XerialErrorCode.SYNTAX_ERROR,
+                                    String
+                                            .format(
+                                                    "short name option -%s with an arguments must be a single notation",
+                                                    shortOptionName));
 
-                        optionItem.setOption(optionHolder, args[++index]);
+                        setOption(optionItem, args[++index]);
                     }
                     else
-                        optionItem.setOption(optionHolder, "true");
+                        setOption(optionItem, "true");
 
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
             }
-            else
-            {
+            else {
                 // general argument
                 ArgumentItem argItem = schema.getArgument(argIndex);
-                if (argItem == null)
-                {
-                    if (ignoreUnknownOption)
-                    {
+                if (argItem == null) {
+                    if (ignoreUnknownOption) {
                         unusedArgument.add(currentArg);
                         continue;
                     }
                     else
-                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unused argument: " + currentArg);
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
+                                "unused argument: " + currentArg);
                 }
 
                 argItem.set(optionHolder, currentArg);
-                if (!argItem.takesMultipleArguments() && activatedArgument.contains(argItem.getArgumentDescriptor()))
-                    throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem.getArgumentDescriptor()
-                            .toString());
+                if (!argItem.takesMultipleArguments()
+                        && activatedArgument.contains(argItem.getArgumentDescriptor()))
+                    throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem
+                            .getArgumentDescriptor().toString());
 
                 activatedArgument.add(argItem.getArgumentDescriptor());
                 argIndex++;
@@ -267,11 +268,30 @@ public class OptionParser
         }
 
         // verify missing options & arguments
-        for (ArgumentItem argItem : schema.getArgumentItemList())
-        {
+        for (ArgumentItem argItem : schema.getArgumentItemList()) {
             if (argItem.getArgumentDescriptor().required()
                     && !activatedArgument.contains(argItem.getArgumentDescriptor()))
-                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem.toString());
+                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem
+                        .toString());
+        }
+    }
+
+    private void setOption(OptionItem item, String value) throws OptionParserException {
+        try {
+            item.setOption(optionHolder, value);
+        }
+        catch (OptionParserException e) {
+            if (BeanErrorCode.class.isInstance(e.getErrorCode())) {
+                BeanErrorCode be = BeanErrorCode.class.cast(e.getErrorCode());
+                switch (be) {
+                case InvalidFormat:
+                    throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, String
+                            .format("cannot set %s to %s", value, item.toString()));
+                }
+
+            }
+
+            throw e;
         }
     }
 
@@ -281,8 +301,7 @@ public class OptionParser
      * 
      * @param ignore
      */
-    public void setIgnoreUnknownOption(boolean ignore)
-    {
+    public void setIgnoreUnknownOption(boolean ignore) {
         ignoreUnknownOption = ignore;
     }
 
