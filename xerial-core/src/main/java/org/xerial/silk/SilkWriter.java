@@ -246,17 +246,16 @@ public class SilkWriter {
 
     private void attributeParenCloseCheck(boolean insertNewline) {
         if (numAttribute > 0) {
-
             closeParen();
 
-            switch (nodeValueSyntaxType) {
-            case SEQUENCE:
-                out.print(">");
-                break;
-            case TAB:
+            if (nodeValueSyntaxType == SyntaxType.TAB)
                 out.print("|");
-                break;
-            }
+        }
+
+        switch (nodeValueSyntaxType) {
+        case SEQUENCE:
+            out.print(">");
+            break;
         }
 
         if (insertNewline)

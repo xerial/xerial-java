@@ -69,6 +69,10 @@ public class SilkWriterTest {
         t.dataLine("g1\t10\t20000");
         t.dataLine("g2\t1000\t30000");
 
+        SilkWriter g = w.node("gene").attribute("id", "g1");
+        g.multilineData("sequence");
+        g.dataLine("ACCGGCCGCCC");
+        g.dataLine("CCGCAGGGAAA");
         w.endDocument();
 
         String s = buf.toString();

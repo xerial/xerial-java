@@ -9,3 +9,7 @@
 -gene(id, start, end)|
 g1	10	20000
 g2	1000	30000
+-gene(id:g1)
+ -sequence>
+ACCGGCCGCCC
+CCGCAGGGAAA
