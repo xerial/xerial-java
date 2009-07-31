@@ -4,7 +4,7 @@
   -version: 2.0
   -group: utgb
 # database connection settings
--database(dbms:sqlite)
+-database(dbms:sqlite, scope: debug)
   -address: db/sample.db
 -gene(id, start, end)|
 g1	10	20000

@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import static org.junit.Assert.*;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -59,7 +61,8 @@ public class SilkWriterTest {
         config.leaf("group", "utgb");
         w.commentLine("database connection settings");
 
-        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite");
+        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite").attribute("scope",
+                "debug");
         dbNode.leaf("address", "db/sample.db");
 
         SilkWriter t = w.tabDataSchema("gene").attribute("id").attribute("start").attribute("end");
@@ -81,6 +84,7 @@ public class SilkWriterTest {
         s1.walk(l1);
         s2.walk(l2);
 
-        TreeWalkLog.compare(l1, l2);
+        boolean cmp = TreeWalkLog.compare(l1, l2);
+        assertTrue(cmp);
     }
 }
