@@ -16,7 +16,7 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkNodeWriter.java
+// SilkNodeBuilder.java
 // Since: Jul 29, 2009 6:32:16 PM
 //
 // $URL$
@@ -24,27 +24,40 @@
 //--------------------------------------
 package org.xerial.silk;
 
-public class SilkNodeWriter {
+import java.util.ArrayList;
+import java.util.List;
 
-    private final SilkWriter out;
-    private int nodeCount = 0;
+import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.impl.SilkNodeOccurrence;
 
-    private final String nodeName;
-    private final String nodeValue;
+/**
+ * Silk node builder
+ * 
+ * <pre>
+ * - book(isbn:xxx-xxx, title: XML Data Management)
+ * 
+ * @author leo
+ * 
+ */
+public class SilkNodeBuilder {
 
-    public SilkNodeWriter(SilkWriter parent, String nodeName, String nodeValue) {
-        this.out = parent;
+    public final String nodeName;
+    public final String nodeValue;
+
+    public final List<SilkNode> attributeList = new ArrayList<SilkNode>();
+
+    public SilkNodeBuilder(String nodeName, String nodeValue) {
         this.nodeName = nodeName;
         this.nodeValue = nodeValue;
     }
 
-    public SilkNodeWriter node(String nodeName, String value) {
+    public SilkNodeBuilder addNode(String nodeName, String value, SilkNodeOccurrence occurrence) {
 
-        if (nodeCount > 0)
-            out.comma();
-
-        out.inlineNode(nodeName, value);
-        nodeCount++;
+        SilkNode n = new SilkNode();
+        n.setName(nodeName);
+        n.setValue(value);
+        n.setOccurrence(occurrence);
+        attributeList.add(n);
         return this;
     }
 

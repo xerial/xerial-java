@@ -40,9 +40,12 @@ import org.xerial.util.ArrayDeque;
  * 
  */
 public class SilkWriter {
+
+    private final SilkWriter parent;
     private final PrintWriter out;
     private ArrayDeque<String> nodeStack = new ArrayDeque<String>();
     private Config config = new Config();
+    private final int levelOffset;
 
     public static class Config {
         public int indentWidth = 2;
@@ -52,10 +55,18 @@ public class SilkWriter {
 
     public SilkWriter(Writer out) {
         this.out = new PrintWriter(out);
+        this.parent = null;
+        this.levelOffset = 0;
     }
 
     public SilkWriter(OutputStream out) {
-        this.out = new PrintWriter(new OutputStreamWriter(out));
+        this(new PrintWriter(new OutputStreamWriter(out)));
+    }
+
+    private SilkWriter(SilkWriter parent) {
+        this.parent = parent;
+        this.out = parent.out;
+        this.levelOffset = parent.nodeStack.size();
     }
 
     public void flush() {
@@ -75,45 +86,59 @@ public class SilkWriter {
         return this;
     }
 
+    public SilkWriter comment(String comment) {
+        out.print("#");
+        out.println(comment);
+        return this;
+    }
+
     private void printIndent() {
-        for (int i = 0; i < nodeStack.size(); ++i) {
+        final int indentLevel = nodeStack.size() + levelOffset;
+        for (int i = 0; i < indentLevel; ++i) {
             for (int w = 0; w < config.indentWidth; ++w)
                 out.append(" ");
         }
     }
 
     public SilkWriter node(String nodeName) {
-
         printIndent();
         out.print("-");
-        out.println(nodeName);
-
+        out.print(nodeName);
         pushContext(nodeName);
+        SilkWriter child = new SilkWriter(this);
+        registChildWriter(child);
+        return child;
+    }
+
+    /**
+     * Remember the child writer
+     * 
+     * @param childWriter
+     */
+    private void registChildWriter(SilkWriter childWriter) {
+    // TODO impl
+    }
+
+    public SilkWriter attribute(String nodeName) {
 
         return this;
     }
 
-    public SilkWriter node(String nodeName, String nodeValue) {
-        printIndent();
-        out.print("-");
-        out.print(nodeName);
-        out.print(":");
-        out.println(nodeValue);
-        pushContext(nodeName);
+    public SilkWriter attribute(String nodeName, String nodeValue) {
         return this;
     }
 
-    public SilkNodeWriter startContext(String nodeName) {
-        printIndent();
-        return new SilkNodeWriter(this, nodeName, null);
+    public SilkWriter leaf(String nodeName) {
+        return leaf(nodeName, null);
     }
 
-    public SilkWriter inlineNode(String nodeName, String value) {
-
+    public SilkWriter leaf(String nodeName, String nodeValue) {
+        printIndent();
+        out.print("-");
         out.print(nodeName);
-        if (value != null) {
+        if (nodeValue != null) {
             out.print(":");
-            out.print(value);
+            out.println(nodeValue);
         }
         return this;
     }

@@ -42,6 +42,19 @@ public class SilkWriterTest {
     public void toSilk() throws Exception {
         StringWriter buf = new StringWriter();
         SilkWriter w = new SilkWriter(buf);
+        //w.addSchema("config(version)");
+
+        w.comment("utgb config format");
+        SilkWriter config = w.node("config").attribute("version", "1.0");
+        config.leaf("projectName", "utgb-shell");
+        config.leaf("version", "2.0");
+        config.leaf("group", "utgb");
+        w.comment("database connection settings");
+
+        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite");
+        dbNode.leaf("address", "db/sample.db");
+
+        w.flush();
 
     }
 }
