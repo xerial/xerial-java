@@ -29,6 +29,7 @@ import java.io.StringWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.log.Logger;
 
 public class SilkWriterTest {
@@ -44,7 +45,10 @@ public class SilkWriterTest {
     public void toSilk() throws Exception {
         StringWriter buf = new StringWriter();
         SilkWriter w = new SilkWriter(buf);
-        //w.addSchema("config(version)");
+
+        FormatConfig fc = new FormatConfig();
+        fc.insertSpaceAfterColon = true;
+        w.setFormatConfig(fc);
 
         w.commentLine("utgb config format");
         SilkWriter config = w.node("config").attribute("version", "1.0");
@@ -55,6 +59,10 @@ public class SilkWriterTest {
 
         SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite");
         dbNode.leaf("address", "db/sample.db");
+
+        SilkWriter t = w.tabDataSchema("gene").attribute("id").attribute("start").attribute("end");
+        t.dataLine("g1\t10\t20000");
+        t.dataLine("g2\t1000\t30000");
 
         w.endDocument();
 

@@ -71,7 +71,23 @@ public class SilkWriter {
 
         // colon
         public boolean insertSpaceBeforeColon = false;
-        public boolean insertSpaceAfterColon = false;
+        public boolean insertSpaceAfterColon = true;
+        /**
+         * insert tab after colon symbol (intermediate node only)
+         */
+        public boolean insertTagAfterColon = false;
+
+        // colon (inline-node)
+        public boolean insertSpaceBeforeAttributeColon = false;
+        public boolean insertSpaceAfterAttributeColon = false;
+        public boolean insertTagAfterAttributeColon = false;
+
+        // preamble
+        public boolean insertSpaceAfterPreambleSymbol = true;
+
+        // parenthesis 
+        public boolean insertSpaceOutsideOfParen = false;
+        public boolean insertSpaceInsideOfParen = false;
     }
 
     private FormatConfig formatConfig = new FormatConfig();
@@ -98,6 +114,14 @@ public class SilkWriter {
         this.out = parent.out;
         this.levelOffset = parent.levelOffset + 1;
         this.contextNodeName = contextNodeName;
+        this.formatConfig = parent.formatConfig;
+    }
+
+    public void setFormatConfig(FormatConfig config) {
+        if (config == null)
+            throw new NullPointerException("config is null");
+
+        this.formatConfig = config;
     }
 
     /**
@@ -119,7 +143,6 @@ public class SilkWriter {
 
     public void endDocument() {
         attributeParenCloseCheck(true);
-        out.println();
         flush();
     }
 
@@ -132,7 +155,15 @@ public class SilkWriter {
     }
 
     public SilkWriter preamble() {
-        out.println("%silk(version:1.0)");
+        out.print("%");
+        if (formatConfig.insertSpaceAfterPreambleSymbol)
+            out.print(" ");
+        out.print("silk");
+
+        openParen();
+        keyAndValue("version", "1.0");
+        closeParen();
+
         return this;
     }
 
@@ -144,11 +175,13 @@ public class SilkWriter {
      */
     public SilkWriter commentLine(String comment) {
 
+        usabilityCheck();
         // before generating comment line, close the opened attribute parenthesis
         attributeParenCloseCheck(true);
 
         String[] comments = comment.split("(\\r\\n|\\r|\\n)");
 
+        int index = 0;
         for (String each : comments) {
             if (formatConfig.indentCommentLine)
                 printIndent();
@@ -158,7 +191,11 @@ public class SilkWriter {
             if (formatConfig.insertSpaceAfterCommentSymbol)
                 out.print(" ");
 
-            out.println(each);
+            if (index < comments.length - 1)
+                out.println(each);
+            else
+                out.print(each);
+            index++;
         }
         return this;
     }
@@ -180,6 +217,7 @@ public class SilkWriter {
     }
 
     private void invalidate() {
+        attributeParenCloseCheck(false);
         this.isUsable = false;
     }
 
@@ -190,9 +228,26 @@ public class SilkWriter {
         invalidateChildWriters();
     }
 
+    private void openParen() {
+        if (formatConfig.insertSpaceOutsideOfParen)
+            out.print(" ");
+        out.print("(");
+        if (formatConfig.insertSpaceInsideOfParen)
+            out.print(" ");
+    }
+
+    private void closeParen() {
+        if (formatConfig.insertSpaceInsideOfParen)
+            out.print(" ");
+        out.print(")");
+        if (formatConfig.insertSpaceOutsideOfParen)
+            out.print(" ");
+    }
+
     private void attributeParenCloseCheck(boolean insertNewline) {
         if (numAttribute > 0) {
-            out.print(")");
+
+            closeParen();
 
             switch (nodeValueSyntaxType) {
             case SEQUENCE:
@@ -230,6 +285,18 @@ public class SilkWriter {
         return child;
     }
 
+    public SilkWriter tabDataSchema(String nodeName) {
+        SilkWriter child = node(nodeName);
+        child.setNodeValueSyntax(SyntaxType.TAB);
+        return child;
+    }
+
+    public SilkWriter multilineData(String nodeName) {
+        SilkWriter child = node(nodeName);
+        child.setNodeValueSyntax(SyntaxType.SEQUENCE);
+        return child;
+    }
+
     public static enum SyntaxType {
         DEFAULT, TAB, SEQUENCE
     }
@@ -252,18 +319,21 @@ public class SilkWriter {
         return attribute(nodeName, null);
     }
 
+    private void keyAndValue(String key, String value) {
+        out.print(key);
+        colonAndNodeValueForInlineNode(value);
+    }
+
     public SilkWriter attribute(String nodeName, String nodeValue) {
         usabilityCheck();
 
         if (numAttribute == 0) {
-            out.print("(");
+            openParen();
         }
         else
             comma();
 
-        out.print(nodeName);
-
-        colonAndNodeValue(nodeValue);
+        keyAndValue(nodeName, nodeValue);
 
         numAttribute++;
         return this;
@@ -301,6 +371,19 @@ public class SilkWriter {
             out.print(" ");
     }
 
+    void colonAndNodeValueForInlineNode(String nodeValue) {
+        if (nodeValue != null) {
+            if (formatConfig.insertSpaceBeforeAttributeColon)
+                out.print(" ");
+            out.print(":");
+            if (formatConfig.insertSpaceAfterAttributeColon)
+                out.print(" ");
+            if (formatConfig.insertTagAfterAttributeColon)
+                out.print("\t");
+            out.print(nodeValue);
+        }
+    }
+
     void colonAndNodeValue(String nodeValue) {
         if (nodeValue != null) {
             if (formatConfig.insertSpaceBeforeColon)
@@ -308,6 +391,8 @@ public class SilkWriter {
             out.print(":");
             if (formatConfig.insertSpaceAfterColon)
                 out.print(" ");
+            if (formatConfig.insertTagAfterColon)
+                out.print("\t");
             out.print(nodeValue);
         }
     }
@@ -320,7 +405,7 @@ public class SilkWriter {
         if (formatConfig.indentBeforeDataLine)
             printIndent();
 
-        out.println(escapeDataLine(dataLine));
+        out.print(escapeDataLine(dataLine));
 
         return this;
     }

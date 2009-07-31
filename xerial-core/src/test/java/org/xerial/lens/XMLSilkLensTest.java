@@ -58,10 +58,9 @@ public class XMLSilkLensTest {
 
         XMLTreeWalker x = new XMLTreeWalker(FileResource.open(XMLSilkLensTest.class,
                 "track-config.xml"));
-        SilkWalker s = new SilkWalker(new StringReader(silk));
-
+        SilkWalker sw = new SilkWalker(new StringReader(silk));
         x.walk(l1);
-        s.walk(l2);
+        sw.walk(l2);
 
         boolean doesMatch = TreeWalkLog.compare(l1, l2);
         assertTrue(doesMatch);

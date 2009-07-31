@@ -49,12 +49,12 @@ import org.xerial.util.tree.TreeStreamReader;
  * @author leo
  * 
  */
-public class SilkPullParser implements TreeStreamReader
-{
+public class SilkPullParser implements TreeStreamReader {
     private static Logger _logger = Logger.getLogger(SilkPullParser.class);
 
     private final SilkParser parser;
-    private final ArrayBlockingQueue<TreeEvent> eventQueue = new ArrayBlockingQueue<TreeEvent>(10000);
+    private final ArrayBlockingQueue<TreeEvent> eventQueue = new ArrayBlockingQueue<TreeEvent>(
+            10000);
     private final ArrayDeque<TreeEvent> prefetchedEventQueue = new ArrayDeque<TreeEvent>();
 
     private long numReadLine = 0;
@@ -68,8 +68,7 @@ public class SilkPullParser implements TreeStreamReader
      * @param input
      *            `@throws IOException
      */
-    protected SilkPullParser(InputStream input) throws IOException
-    {
+    protected SilkPullParser(InputStream input) throws IOException {
         this(new InputStreamReader(input));
     }
 
@@ -79,13 +78,11 @@ public class SilkPullParser implements TreeStreamReader
      * @param input
      * @throws IOException
      */
-    protected SilkPullParser(Reader input) throws IOException
-    {
+    protected SilkPullParser(Reader input) throws IOException {
         this(input, SilkEnv.newEnv(), new SilkParserConfig());
     }
 
-    public SilkPullParser(Reader input, SilkEnv env) throws IOException
-    {
+    public SilkPullParser(Reader input, SilkEnv env) throws IOException {
         this(input, env, new SilkParserConfig());
     }
 
@@ -96,8 +93,7 @@ public class SilkPullParser implements TreeStreamReader
      * @param env
      * @throws IOException
      */
-    public SilkPullParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException
-    {
+    public SilkPullParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException {
         this.parser = new SilkParser(input, env, config);
 
         this.threadManager = Executors.newFixedThreadPool(1);
@@ -112,10 +108,10 @@ public class SilkPullParser implements TreeStreamReader
      * @param resourceName
      * @throws IOException
      */
-    public SilkPullParser(String resourceBasePath, String resourceName) throws IOException
-    {
-        this(new BufferedReader(new InputStreamReader(SilkWalker.class.getResourceAsStream(SilkParser.getResourcePath(
-                resourceBasePath, resourceName)))), SilkEnv.newEnv(resourceBasePath));
+    public SilkPullParser(String resourceBasePath, String resourceName) throws IOException {
+        this(new BufferedReader(new InputStreamReader(SilkWalker.class
+                .getResourceAsStream(SilkParser.getResourcePath(resourceBasePath, resourceName)))),
+                SilkEnv.newEnv(resourceBasePath));
     }
 
     /**
@@ -124,85 +120,73 @@ public class SilkPullParser implements TreeStreamReader
      * @param resourcePath
      * @throws IOException
      */
-    public SilkPullParser(URL resourcePath) throws IOException
-    {
+    public SilkPullParser(URL resourcePath) throws IOException {
         this(resourcePath, SilkEnv.newEnv());
     }
 
-    public SilkPullParser(URL resource, SilkEnv env) throws IOException
-    {
-        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
-                .getResourceBasePath(resource)));
+    public SilkPullParser(URL resource, SilkEnv env) throws IOException {
+        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env,
+                SilkParser.getResourceBasePath(resource)));
     }
 
-    public SilkPullParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException
-    {
-        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env, SilkParser
-                .getResourceBasePath(resource)), config);
+    public SilkPullParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException {
+        this(new BufferedReader(new InputStreamReader(resource.openStream())), SilkEnv.newEnv(env,
+                SilkParser.getResourceBasePath(resource)), config);
     }
 
-    public SilkPullParser(URL resource, SilkParserConfig config) throws IOException
-    {
+    public SilkPullParser(URL resource, SilkParserConfig config) throws IOException {
         this(resource, SilkEnv.newEnv(), config);
     }
 
-    private class BackgroundParser implements Callable<Void>
-    {
+    private class BackgroundParser implements Callable<Void> {
 
-        public Void call() throws Exception
-        {
-            try
-            {
+        public Void call() throws Exception {
+            try {
                 parser.parse(new TreeEventHandler() {
-                    public void finish() throws Exception
-                    {
+                    public void finish() throws Exception {
                         hasParsingFinished = true;
                     }
 
-                    public void init() throws Exception
-                    {
+                    public void init() throws Exception {
                         hasParsingFinished = false;
                     }
 
-                    public void leaveNode(String nodeName) throws Exception
-                    {
+                    public void leaveNode(String nodeName) throws Exception {
                         eventQueue.put(TreeEvent.newLeaveEvent(nodeName));
                     }
 
-                    public void text(String nodeName, String textDataFragment) throws Exception
-                    {
+                    public void text(String nodeName, String textDataFragment) throws Exception {
                         eventQueue.put(TreeEvent.newTextEvent(nodeName, textDataFragment));
                     }
 
-                    public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-                    {
+                    public void visitNode(String nodeName, String immediateNodeValue)
+                            throws Exception {
                         eventQueue.put(TreeEvent.newVisitEvent(nodeName, immediateNodeValue));
 
                     }
                 });
-
                 return null;
             }
-            finally
-            {
+            catch (Exception e) {
+                hasParsingFinished = true;
+                throw e;
+            }
+            finally {
                 threadManager.shutdown();
             }
         }
 
     }
 
-    public TreeEvent peekNext() throws XerialException
-    {
+    public TreeEvent peekNext() throws XerialException {
         if (hasNext())
             return prefetchedEventQueue.getFirst();
         else
             return null;
     }
 
-    public TreeEvent next() throws XerialException
-    {
-        if (hasNext())
-        {
+    public TreeEvent next() throws XerialException {
+        if (hasNext()) {
             TreeEvent e = prefetchedEventQueue.removeFirst();
             return e;
         }
@@ -222,45 +206,38 @@ public class SilkPullParser implements TreeStreamReader
      * @return true if there are remaining events, otherwise fales
      * @throws XerialException
      */
-    private boolean hasNext() throws XerialException
-    {
+    private boolean hasNext() throws XerialException {
         if (!prefetchedEventQueue.isEmpty())
             return true;
 
         if (hasPrefetchFinished)
             return false;
 
-        if (hasParsingFinished)
-        {
+        if (hasParsingFinished) {
             int count = eventQueue.drainTo(prefetchedEventQueue);
             hasPrefetchFinished = true;
             return hasNext();
         }
 
-        try
-        {
+        try {
             TreeEvent e = null;
-            while (!hasParsingFinished && (e = eventQueue.poll(1, TimeUnit.SECONDS)) == null)
-            {}
+            while (!hasParsingFinished && (e = eventQueue.poll(1, TimeUnit.SECONDS)) == null) {}
 
-            if (e != null)
-            {
+            if (e != null) {
                 prefetchedEventQueue.addLast(e);
                 return true;
             }
 
             return hasNext();
         }
-        catch (InterruptedException e)
-        {
+        catch (InterruptedException e) {
 
         }
 
         return false;
     }
 
-    public long getNumReadLine()
-    {
+    public long getNumReadLine() {
         return numReadLine;
     }
 

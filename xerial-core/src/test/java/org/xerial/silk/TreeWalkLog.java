@@ -42,38 +42,32 @@ import org.xerial.util.tree.TreeWalker;
  * @author leo
  * 
  */
-public class TreeWalkLog implements TreeVisitor
-{
+public class TreeWalkLog implements TreeVisitor {
     private static Logger _logger = Logger.getLogger(TreeWalkLog.class);
 
     public static enum Event {
         INIT, FINISH, VISIT, LEAVE
     }
 
-    public static class EventLog
-    {
+    public static class EventLog {
         Event event;
         String nodeName = null;
         String value = null;
 
-        public EventLog(Event event)
-        {
+        public EventLog(Event event) {
             this.event = event;
         }
 
-        public EventLog(Event event, String nodeName, String value)
-        {
+        public EventLog(Event event, String nodeName, String value) {
             this.event = event;
             this.nodeName = nodeName;
             this.value = value;
         }
 
-        public static boolean strCmp(String a, String b)
-        {
+        public static boolean strCmp(String a, String b) {
             if (a == null)
                 return b == null;
-            else
-            {
+            else {
                 if (b == null)
                     return false;
 
@@ -82,8 +76,7 @@ public class TreeWalkLog implements TreeVisitor
         }
 
         @Override
-        public boolean equals(Object o)
-        {
+        public boolean equals(Object o) {
             EventLog other = (EventLog) o;
             if (event != other.event)
                 return false;
@@ -95,17 +88,14 @@ public class TreeWalkLog implements TreeVisitor
         }
 
         @Override
-        public String toString()
-        {
-            if (nodeName != null)
-            {
+        public String toString() {
+            if (nodeName != null) {
                 if (value != null)
                     return String.format("%s:%s=%s", event, nodeName, value);
                 else
                     return String.format("%s:%s", event, nodeName);
             }
-            else
-            {
+            else {
                 if (value != null)
                     return String.format("%s:%s", event, value);
                 else
@@ -120,19 +110,16 @@ public class TreeWalkLog implements TreeVisitor
     private final StringBuilder EMPTY_BUFFER = new StringBuilder(0);
     private String pendingVisitNode = null;
 
-    public void finish(TreeWalker walker) throws XerialException
-    {
+    public void finish(TreeWalker walker) throws XerialException {
         log.add(new EventLog(Event.FINISH));
     }
 
-    public void init(TreeWalker walker) throws XerialException
-    {
+    public void init(TreeWalker walker) throws XerialException {
         log.add(new EventLog(Event.INIT));
         textStack.addLast(EMPTY_BUFFER);
     }
 
-    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-    {
+    public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
         if (nodeName == null)
             return; // skip empty node leave (e.g. JSON Object root bracket)
 
@@ -142,22 +129,21 @@ public class TreeWalkLog implements TreeVisitor
         textStack.removeLast();
     }
 
-    public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
-    {
-        if (textStack.peekLast() == EMPTY_BUFFER)
-        {
+    public void text(String nodeName, String textDataFragment, TreeWalker walker)
+            throws XerialException {
+        if (textStack.peekLast() == EMPTY_BUFFER) {
             textStack.removeLast();
             textStack.addLast(new StringBuilder());
         }
         textStack.peekLast().append(textDataFragment);
     }
 
-    private void popPendingNode()
-    {
-        if (pendingVisitNode != null)
-        {
+    private void popPendingNode() {
+        if (pendingVisitNode != null) {
             if (textStack.peekLast() != EMPTY_BUFFER)
-                log.add(new EventLog(Event.VISIT, pendingVisitNode, textStack.peekLast().toString()));
+                log
+                        .add(new EventLog(Event.VISIT, pendingVisitNode, textStack.peekLast()
+                                .toString()));
             else
                 log.add(new EventLog(Event.VISIT, pendingVisitNode, null));
 
@@ -165,8 +151,8 @@ public class TreeWalkLog implements TreeVisitor
         }
     }
 
-    public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-    {
+    public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
+            throws XerialException {
         popPendingNode();
 
         if (nodeName == null)
@@ -180,19 +166,16 @@ public class TreeWalkLog implements TreeVisitor
             textStack.addLast(EMPTY_BUFFER);
     }
 
-    public List<EventLog> getLog()
-    {
+    public List<EventLog> getLog() {
         return log;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return StringUtil.join(log, "\n");
     }
 
-    public static boolean compare(TreeWalkLog a, TreeWalkLog b)
-    {
+    public static boolean compare(TreeWalkLog a, TreeWalkLog b) {
         List<EventLog> l1 = a.getLog();
         List<EventLog> l2 = b.getLog();
 
@@ -201,15 +184,13 @@ public class TreeWalkLog implements TreeVisitor
 
         boolean doComparison = true;
 
-        while (i1.hasNext() && i2.hasNext())
-        {
+        while (i1.hasNext() && i2.hasNext()) {
             EventLog e1 = i1.next();
             EventLog e2 = i2.next();
 
             _logger.debug(String.format("compare: %-20s %-20s", e1, e2));
-            if (!e1.equals(e2) && doComparison)
-            {
-                _logger.warn("--- do not match");
+            if (!e1.equals(e2) && doComparison) {
+                _logger.warn(String.format("----- mismatch: %-20s %-20s", e1, e2));
                 doComparison = false;
             }
         }

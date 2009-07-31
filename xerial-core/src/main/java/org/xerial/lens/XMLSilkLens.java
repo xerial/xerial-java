@@ -61,6 +61,12 @@ public class XMLSilkLens {
                 this.tagName = tagName;
                 this.attribute = attribute;
             }
+
+            @Override
+            public String toString() {
+                return String.format("%s (%s) : %s", tagName, attribute.toXMLString(), textBuf
+                        .toString());
+            }
         }
 
         private ArrayDeque<TagContext> contextStack = new ArrayDeque<TagContext>();
@@ -71,8 +77,8 @@ public class XMLSilkLens {
         }
 
         public void characters(char[] ch, int start, int length) throws SAXException {
-            TagContext tc = contextStack.isEmpty() ? unopendContextStack.getLast() : contextStack
-                    .getLast();
+            TagContext tc = unopendContextStack.isEmpty() ? contextStack.getLast()
+                    : unopendContextStack.getLast();
             tc.textBuf.append(ch, start, length);
 
         }
