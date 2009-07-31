@@ -28,8 +28,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.xerial.util.ArrayDeque;
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 
 /**
  * Supporting class for generating Silk data. This class is not thread-safe,
@@ -43,42 +46,89 @@ public class SilkWriter {
 
     private final SilkWriter parent;
     private final PrintWriter out;
-    private ArrayDeque<String> nodeStack = new ArrayDeque<String>();
-    private Config config = new Config();
-    private final int levelOffset;
+    private Set<SilkWriter> childWriterSet = new HashSet<SilkWriter>();
 
-    public static class Config {
+    private final String contextNodeName;
+
+    /**
+     * Silk output format configurations
+     * 
+     * @author leo
+     * 
+     */
+    public static class FormatConfig {
+
+        // indentation
         public int indentWidth = 2;
-
         public boolean indentBeforeDataLine = false;
+        public boolean indentCommentLine = false;
+
+        // comment
+        public boolean insertSpaceAfterCommentSymbol = true;
+
+        // comma
+        public boolean insertSpaceAfterComma = true;
+
+        // colon
+        public boolean insertSpaceBeforeColon = false;
+        public boolean insertSpaceAfterColon = false;
     }
+
+    private FormatConfig formatConfig = new FormatConfig();
+    private final int levelOffset;
+    private boolean isUsable = true;
+
+    private SyntaxType nodeValueSyntaxType = SyntaxType.DEFAULT;
+
+    private int numAttribute = 0;
 
     public SilkWriter(Writer out) {
         this.out = new PrintWriter(out);
         this.parent = null;
         this.levelOffset = 0;
+        this.contextNodeName = null;
     }
 
     public SilkWriter(OutputStream out) {
         this(new PrintWriter(new OutputStreamWriter(out)));
     }
 
-    private SilkWriter(SilkWriter parent) {
+    private SilkWriter(String contextNodeName, SilkWriter parent) {
         this.parent = parent;
         this.out = parent.out;
-        this.levelOffset = parent.nodeStack.size();
+        this.levelOffset = parent.levelOffset + 1;
+        this.contextNodeName = contextNodeName;
+    }
+
+    /**
+     * Get the parent writer
+     * 
+     * @return
+     */
+    public SilkWriter getParent() {
+        return parent;
+    }
+
+    public String getContextNodeName() {
+        return contextNodeName;
     }
 
     public void flush() {
         this.out.flush();
     }
 
-    public void close() {
-        this.out.close();
+    public void endDocument() {
+        attributeParenCloseCheck(true);
+        out.println();
+        flush();
     }
 
-    public void resetContext() {
-        nodeStack.clear();
+    /**
+     * Close the writer (or output stream) inside the SilkWriter
+     */
+    public void close() {
+        endDocument();
+        this.out.close();
     }
 
     public SilkWriter preamble() {
@@ -86,28 +136,107 @@ public class SilkWriter {
         return this;
     }
 
-    public SilkWriter comment(String comment) {
-        out.print("#");
-        out.println(comment);
+    /**
+     * output comment line
+     * 
+     * @param comment
+     * @return
+     */
+    public SilkWriter commentLine(String comment) {
+
+        // before generating comment line, close the opened attribute parenthesis
+        attributeParenCloseCheck(true);
+
+        String[] comments = comment.split("(\\r\\n|\\r|\\n)");
+
+        for (String each : comments) {
+            if (formatConfig.indentCommentLine)
+                printIndent();
+
+            out.print("#");
+
+            if (formatConfig.insertSpaceAfterCommentSymbol)
+                out.print(" ");
+
+            out.println(each);
+        }
         return this;
     }
 
     private void printIndent() {
-        final int indentLevel = nodeStack.size() + levelOffset;
+        final int indentLevel = levelOffset;
         for (int i = 0; i < indentLevel; ++i) {
-            for (int w = 0; w < config.indentWidth; ++w)
+            for (int w = 0; w < formatConfig.indentWidth; ++w)
                 out.append(" ");
         }
     }
 
+    private void invalidateChildWriters() {
+        for (SilkWriter each : childWriterSet) {
+            each.invalidate();
+        }
+
+        childWriterSet.clear();
+    }
+
+    private void invalidate() {
+        this.isUsable = false;
+    }
+
+    private void usabilityCheck() {
+        if (!this.isUsable)
+            throw new XerialError(XerialErrorCode.INVALID_USAGE, "This writer is no longer usable");
+
+        invalidateChildWriters();
+    }
+
+    private void attributeParenCloseCheck(boolean insertNewline) {
+        if (numAttribute > 0) {
+            out.print(")");
+
+            switch (nodeValueSyntaxType) {
+            case SEQUENCE:
+                out.print(">");
+                break;
+            case TAB:
+                out.print("|");
+                break;
+            }
+        }
+
+        if (insertNewline)
+            out.println();
+
+        numAttribute = 0;
+    }
+
+    /**
+     * Output a silk node, and gets a new SilkWriter for genarating attributes
+     * and child nodes
+     * 
+     * @param nodeName
+     * @return
+     */
     public SilkWriter node(String nodeName) {
+        usabilityCheck();
+
+        attributeParenCloseCheck(true);
+
         printIndent();
         out.print("-");
         out.print(nodeName);
-        pushContext(nodeName);
-        SilkWriter child = new SilkWriter(this);
+        SilkWriter child = new SilkWriter(nodeName, this);
         registChildWriter(child);
         return child;
+    }
+
+    public static enum SyntaxType {
+        DEFAULT, TAB, SEQUENCE
+    }
+
+    public SilkWriter setNodeValueSyntax(SyntaxType type) {
+        this.nodeValueSyntaxType = type;
+        return this;
     }
 
     /**
@@ -116,15 +245,35 @@ public class SilkWriter {
      * @param childWriter
      */
     private void registChildWriter(SilkWriter childWriter) {
-    // TODO impl
+        childWriterSet.add(childWriter);
     }
 
     public SilkWriter attribute(String nodeName) {
-
-        return this;
+        return attribute(nodeName, null);
     }
 
     public SilkWriter attribute(String nodeName, String nodeValue) {
+        usabilityCheck();
+
+        if (numAttribute == 0) {
+            out.print("(");
+        }
+        else
+            comma();
+
+        out.print(nodeName);
+
+        colonAndNodeValue(nodeValue);
+
+        numAttribute++;
+        return this;
+    }
+
+    public SilkWriter nodeValue(String value) {
+        usabilityCheck();
+        attributeParenCloseCheck(false);
+
+        colonAndNodeValue(value);
         return this;
     }
 
@@ -133,33 +282,42 @@ public class SilkWriter {
     }
 
     public SilkWriter leaf(String nodeName, String nodeValue) {
+        usabilityCheck();
+
+        attributeParenCloseCheck(true);
+
         printIndent();
         out.print("-");
         out.print(nodeName);
-        if (nodeValue != null) {
-            out.print(":");
-            out.println(nodeValue);
-        }
+
+        colonAndNodeValue(nodeValue);
+
         return this;
     }
 
-    SilkWriter comma() {
+    void comma() {
         out.print(",");
-        return this;
+        if (formatConfig.insertSpaceAfterComma)
+            out.print(" ");
     }
 
-    private void pushContext(String nodeName) {
-        nodeStack.addLast(nodeName);
-    }
-
-    public SilkWriter leaveNode() {
-        nodeStack.removeLast();
-        return this;
+    void colonAndNodeValue(String nodeValue) {
+        if (nodeValue != null) {
+            if (formatConfig.insertSpaceBeforeColon)
+                out.print(" ");
+            out.print(":");
+            if (formatConfig.insertSpaceAfterColon)
+                out.print(" ");
+            out.print(nodeValue);
+        }
     }
 
     public SilkWriter dataLine(String dataLine) {
+        usabilityCheck();
 
-        if (config.indentBeforeDataLine)
+        attributeParenCloseCheck(true);
+
+        if (formatConfig.indentBeforeDataLine)
             printIndent();
 
         out.println(escapeDataLine(dataLine));

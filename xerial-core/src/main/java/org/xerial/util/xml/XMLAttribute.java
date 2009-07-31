@@ -37,100 +37,80 @@ import java.util.Set;
  * @author leo
  * 
  */
-public class XMLAttribute
-{
-    public XMLAttribute(String attributeName, String attributeValue)
-    {
+public class XMLAttribute {
+    public XMLAttribute(String attributeName, String attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, int attributeValue)
-    {
+    public XMLAttribute(String attributeName, int attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, double attributeValue)
-    {
+    public XMLAttribute(String attributeName, double attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, long attributeValue)
-    {
+    public XMLAttribute(String attributeName, long attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, float attributeValue)
-    {
+    public XMLAttribute(String attributeName, float attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, boolean attributeValue)
-    {
+    public XMLAttribute(String attributeName, boolean attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute(String attributeName, Object attributeValue)
-    {
+    public XMLAttribute(String attributeName, Object attributeValue) {
         add(attributeName, attributeValue);
     }
 
-    public XMLAttribute()
-    {}
+    public XMLAttribute() {}
 
-    public XMLAttribute add(String attributeName, String attributeValue)
-    {
+    public XMLAttribute add(String attributeName, String attributeValue) {
         String name = XMLGenerator.replaceWhiteSpaces(attributeName);
         _attributeNameList.add(name);
         _attributeValue.put(name, attributeValue);
         return this;
     }
 
-    public XMLAttribute add(String attributeName, int attributeValue)
-    {
+    public XMLAttribute add(String attributeName, int attributeValue) {
         return this.add(attributeName, Integer.toString(attributeValue));
     }
 
-    public XMLAttribute add(String attributeName, double attributeValue)
-    {
+    public XMLAttribute add(String attributeName, double attributeValue) {
         return this.add(attributeName, Double.toString(attributeValue));
     }
 
-    public XMLAttribute add(String attributeName, long attributeValue)
-    {
+    public XMLAttribute add(String attributeName, long attributeValue) {
         return this.add(attributeName, Long.toString(attributeValue));
     }
 
-    public XMLAttribute add(String attributeName, float attributeValue)
-    {
+    public XMLAttribute add(String attributeName, float attributeValue) {
         return this.add(attributeName, Float.toString(attributeValue));
     }
 
-    public XMLAttribute add(String attributeName, boolean attributeValue)
-    {
+    public XMLAttribute add(String attributeName, boolean attributeValue) {
         return this.add(attributeName, Boolean.toString(attributeValue));
     }
 
-    public XMLAttribute add(String attributeName, Object attributeValue)
-    {
+    public XMLAttribute add(String attributeName, Object attributeValue) {
         return this.add(attributeName, attributeValue.toString());
     }
 
-    public XMLAttribute(Properties properties)
-    {
+    public XMLAttribute(Properties properties) {
         Set< ? > keySet = properties.keySet();
-        for (Object attributeObj : keySet)
-        {
+        for (Object attributeObj : keySet) {
             String attribute = XMLGenerator.replaceWhiteSpaces(attributeObj.toString());
             String value = properties.getProperty(attribute);
             this.add(attribute, value);
         }
     }
 
-    public XMLAttribute(Map< ? , ? > properties)
-    {
+    public XMLAttribute(Map< ? , ? > properties) {
         Set< ? > keySet = properties.keySet();
-        for (Object attributeObj : keySet)
-        {
+        for (Object attributeObj : keySet) {
             String attribute = XMLGenerator.replaceWhiteSpaces(attributeObj.toString());
             String value = properties.get(attribute).toString();
             this.add(attribute, value);
@@ -141,40 +121,42 @@ public class XMLAttribute
      * @param attributeName
      * @return attributeName
      */
-    public String getValue(String attributeName)
-    {
+    public String getValue(String attributeName) {
         return (String) _attributeValue.get(attributeName);
     }
 
     /**
      * @return
      */
-    public List<String> getAttributeNames()
-    {
+    public List<String> getAttributeNames() {
         return _attributeNameList;
+    }
+
+    public String getName(int index) {
+        return _attributeNameList.get(index);
+    }
+
+    public String getValue(int index) {
+        return _attributeValue.get(_attributeNameList.get(index));
     }
 
     /**
      * @return the number of attributes
      */
-    public int length()
-    {
+    public int length() {
         return _attributeNameList.size();
     }
 
     /**
      * @return
      */
-    public String toXMLString()
-    {
+    public String toXMLString() {
         String returnString = "";
-        for (String attributeName : _attributeNameList)
-        {
+        for (String attributeName : _attributeNameList) {
             String attributeValue = _attributeValue.get(attributeName);
             returnString += attributeName + "=\"" + attributeValue + "\" ";
         }
-        if (!returnString.equals(""))
-        {
+        if (!returnString.equals("")) {
             // remove the unnecessary white space
             return returnString.substring(0, returnString.length() - 1);
         }

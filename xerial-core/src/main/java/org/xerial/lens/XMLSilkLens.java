@@ -28,20 +28,17 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWriter;
-import org.xerial.util.tree.TreeVisitor;
-import org.xerial.util.tree.TreeWalker;
+import org.xerial.util.ArrayDeque;
+import org.xerial.util.xml.XMLAttribute;
 import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DefaultHandler2;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
  * XML to Silk format converter
@@ -51,95 +48,96 @@ import org.xml.sax.XMLReader;
  */
 public class XMLSilkLens {
 
-    private static class XMLToSilk implements TreeVisitor {
+    private static class XMLToSilkSAXHandler extends DefaultHandler2 {
+        private SilkWriter context;
 
-        private final SilkWriter out;
+        private static class TagContext {
+            public final String tagName;
+            public final XMLAttribute attribute;
+            public StringBuilder textBuf = new StringBuilder();
+            public boolean isOpen = false;
 
-        public XMLToSilk(Writer out) {
-            this.out = new SilkWriter(out);
-
+            public TagContext(String tagName, XMLAttribute attribute) {
+                this.tagName = tagName;
+                this.attribute = attribute;
+            }
         }
 
-        public void finish(TreeWalker walker) throws XerialException {
-
-            out.flush();
-        }
-
-        public void init(TreeWalker walker) throws XerialException {
-
-            out.preamble();
-        }
-
-        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
-            out.leaveNode();
-        }
-
-        public void text(String nodeName, String textDataFragment, TreeWalker walker)
-                throws XerialException {
-
-        }
-
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
-                throws XerialException {
-            if (immediateNodeValue == null)
-                out.node(nodeName);
-            else
-                out.node(nodeName, immediateNodeValue);
-
-        }
-
-    }
-
-    private static class XMLToSilkSAXHandler implements ContentHandler {
-        private final SilkWriter out;
+        private ArrayDeque<TagContext> contextStack = new ArrayDeque<TagContext>();
+        private ArrayDeque<TagContext> unopendContextStack = new ArrayDeque<TagContext>();
 
         public XMLToSilkSAXHandler(Writer out) {
-            this.out = new SilkWriter(out);
+            this.context = new SilkWriter(out);
         }
 
         public void characters(char[] ch, int start, int length) throws SAXException {
+            TagContext tc = contextStack.isEmpty() ? unopendContextStack.getLast() : contextStack
+                    .getLast();
+            tc.textBuf.append(ch, start, length);
 
         }
 
         public void endDocument() throws SAXException {
-            out.flush();
+            context.endDocument();
         }
 
         public void endElement(String uri, String localName, String name) throws SAXException {
-            out.leaveNode();
-        }
 
-        public void endPrefixMapping(String prefix) throws SAXException {
+            // start node
+            openContext();
 
-        }
+            context = context.getParent();
 
-        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
-
+            contextStack.removeLast();
         }
 
         public void processingInstruction(String target, String data) throws SAXException {
-
+            context.commentLine("PI: " + data);
         }
 
-        public void setDocumentLocator(Locator locator) {
-
-        }
-
-        public void skippedEntity(String name) throws SAXException {
-
+        @Override
+        public void comment(char[] ch, int start, int length) throws SAXException {
+            context.commentLine(new String(ch, start, length));
         }
 
         public void startDocument() throws SAXException {
-            out.preamble();
+            context.preamble();
+        }
+
+        private void openContext() {
+
+            for (TagContext tc : unopendContextStack) {
+                // start node
+                if (!tc.isOpen) {
+                    context = context.node(tc.tagName);
+                    for (int i = 0; i < tc.attribute.length(); ++i) {
+                        context.attribute(tc.attribute.getName(i), tc.attribute.getValue(i));
+                    }
+                    if (tc.textBuf.length() > 0) {
+                        String value = tc.textBuf.toString().trim();
+                        if (value.length() > 0)
+                            context.nodeValue(value);
+                    }
+
+                    tc.isOpen = true;
+                }
+
+                contextStack.addLast(tc);
+            }
+
+            unopendContextStack.clear();
         }
 
         public void startElement(String uri, String localName, String name, Attributes atts)
                 throws SAXException {
-            out.node(name);
-        }
 
-        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+            openContext();
 
+            XMLAttribute at = new XMLAttribute();
+            for (int i = 0; i < atts.getLength(); ++i)
+                at.add(atts.getQName(i), atts.getValue(i));
+
+            unopendContextStack.addLast(new TagContext(name, at));
         }
 
     }
@@ -149,23 +147,22 @@ public class XMLSilkLens {
         StringWriter buf = new StringWriter();
 
         try {
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-
             // Set namespaceAware to true to get a parser that corresponds to
             // the default SAX2 namespace feature setting.  This is necessary
             // because the default value from JAXP 1.0 was defined to be false.
-            spf.setNamespaceAware(true);
 
             // Validation part 1: set whether validation is on
             //spf.setValidating(dtdValidate || xsdValidate);
 
             // Create a JAXP SAXParser
-            SAXParser saxParser = spf.newSAXParser();
 
             // Get the encapsulated SAX XMLReader
-            XMLReader xmlReader = saxParser.getXMLReader();
+            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+
+            DefaultHandler2 ch = new XMLToSilkSAXHandler(buf);
             // Set the ContentHandler of the XMLReader
-            xmlReader.setContentHandler(new XMLToSilkSAXHandler(buf));
+            xmlReader.setContentHandler(ch);
+            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", ch);
 
             xmlReader.parse(new InputSource(xml));
 

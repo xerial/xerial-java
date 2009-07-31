@@ -29,8 +29,10 @@ import java.io.StringWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.log.Logger;
 
 public class SilkWriterTest {
+    private static Logger _logger = Logger.getLogger(SilkWriterTest.class);
 
     @Before
     public void setUp() throws Exception {}
@@ -44,17 +46,18 @@ public class SilkWriterTest {
         SilkWriter w = new SilkWriter(buf);
         //w.addSchema("config(version)");
 
-        w.comment("utgb config format");
+        w.commentLine("utgb config format");
         SilkWriter config = w.node("config").attribute("version", "1.0");
         config.leaf("projectName", "utgb-shell");
         config.leaf("version", "2.0");
         config.leaf("group", "utgb");
-        w.comment("database connection settings");
+        w.commentLine("database connection settings");
 
         SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite");
         dbNode.leaf("address", "db/sample.db");
 
-        w.flush();
+        w.endDocument();
 
+        _logger.info(buf.toString());
     }
 }
