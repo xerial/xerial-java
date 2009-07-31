@@ -24,12 +24,14 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.silk.SilkWriter.FormatConfig;
+import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
 public class SilkWriterTest {
@@ -66,6 +68,19 @@ public class SilkWriterTest {
 
         w.endDocument();
 
-        _logger.info(buf.toString());
+        String s = buf.toString();
+        _logger.info(s);
+
+        TreeWalkLog l1 = new TreeWalkLog();
+        TreeWalkLog l2 = new TreeWalkLog();
+
+        SilkWalker s1 = new SilkWalker(FileResource
+                .open(SilkWriterTest.class, "writer-result.silk"));
+        SilkWalker s2 = new SilkWalker(new StringReader(s));
+
+        s1.walk(l1);
+        s2.walk(l2);
+
+        TreeWalkLog.compare(l1, l2);
     }
 }

@@ -1,0 +1,11 @@
+# utgb config format
+-config(version:1.0)
+  -projectName: utgb-shell
+  -version: 2.0
+  -group: utgb
+# database connection settings
+-database(dbms:sqlite)
+  -address: db/sample.db
+-gene(id, start, end)|
+g1	10	20000
+g2	1000	30000
