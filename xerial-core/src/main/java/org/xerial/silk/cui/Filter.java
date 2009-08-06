@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 
+import org.xerial.lens.RelationLens;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Usage;
@@ -52,8 +53,6 @@ public class Filter implements SilkCommand {
             return;
         }
 
-        // parse query
-
         // input 
         Reader in = null;
         if (inputResource.equals("-")) {
@@ -71,6 +70,8 @@ public class Filter implements SilkCommand {
                 in = new BufferedReader(new FileReader(inputResource));
             }
         }
+
+        RelationLens lens = new RelationLens(query);
 
     }
 

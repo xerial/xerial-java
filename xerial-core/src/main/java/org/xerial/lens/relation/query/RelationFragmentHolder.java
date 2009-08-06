@@ -48,8 +48,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class RelationFragmentHolder
-{
+public class RelationFragmentHolder {
     private static Logger _logger = Logger.getLogger(RelationFragmentHolder.class);
 
     private final Schema relation;
@@ -62,24 +61,20 @@ public class RelationFragmentHolder
 
     private final int relationSize;
 
-    private AmoebaJoinHandler handler;
+    private final RelationHandler handler;
 
-    private class RelationFragment
-    {
+    private class RelationFragment {
         //private BitVector          activeStackFlag;
         private Tuple<Node> relationFragment;
 
-        public RelationFragment()
-        {
+        public RelationFragment() {
             //activeStackFlag = new BitVector(relationSize - 1);
             relationFragment = emptyTuple(schemaWithoutCoreNode);
         }
 
-        public Tuple<Node> emptyTuple(Schema schema)
-        {
+        public Tuple<Node> emptyTuple(Schema schema) {
             List<Cell<Node>> nodeList = new ArrayList<Cell<Node>>(schema.size());
-            for (int i = 0; i < schema.size(); i++)
-            {
+            for (int i = 0; i < schema.size(); i++) {
                 Schema subSchema = schema.get(i);
                 if (subSchema.isAtom())
                     nodeList.add(null);
@@ -89,37 +84,30 @@ public class RelationFragmentHolder
             return new Tuple<Node>(nodeList);
         }
 
-        class CompletenessTester implements CellVisitor<Node>
-        {
+        class CompletenessTester implements CellVisitor<Node> {
             boolean hasNull = false;
 
-            public boolean isComplete()
-            {
+            public boolean isComplete() {
                 relationFragment.accept(this);
                 return !hasNull;
             }
 
-            public void visitNode(Node node)
-            {
+            public void visitNode(Node node) {
                 if (node == null)
                     hasNull = true;
             }
 
-            public void visitTuple(Tuple<Node> tuple)
-            {
-                if (tuple == null)
-                {
+            public void visitTuple(Tuple<Node> tuple) {
+                if (tuple == null) {
                     hasNull = true;
                     return;
                 }
 
-                for (Cell<Node> each : tuple)
-                {
+                for (Cell<Node> each : tuple) {
                     if (hasNull)
                         break;
 
-                    if (each == null)
-                    {
+                    if (each == null) {
                         hasNull = true;
                         break;
                     }
@@ -131,31 +119,26 @@ public class RelationFragmentHolder
 
         }
 
-        public boolean isComplete()
-        {
+        public boolean isComplete() {
             return new CompletenessTester().isComplete();
         }
 
-        public void set(Node node)
-        {
+        public void set(Node node) {
             TupleIndex flagIndex = getIndexOf(node);
             relationFragment.set(flagIndex, node);
         }
 
-        private TupleIndex getIndexOf(Node node)
-        {
+        private TupleIndex getIndexOf(Node node) {
             return schemaWithoutCoreNode.getNodeIndex(node.nodeName);
         }
 
-        public String toString()
-        {
+        public String toString() {
             return relationFragment.toString();
         }
 
     }
 
-    public RelationFragmentHolder(Schema targetRelation, AmoebaJoinHandler handler)
-    {
+    public RelationFragmentHolder(Schema targetRelation, RelationHandler handler) {
         this.relation = targetRelation;
 
         SchemaBuilder builder = new SchemaBuilder();
@@ -169,14 +152,12 @@ public class RelationFragmentHolder
 
     }
 
-    public Schema getRelation()
-    {
+    public Schema getRelation() {
 
         return relation;
     }
 
-    public boolean isCoreNode(TupleIndex nodeID)
-    {
+    public boolean isCoreNode(TupleIndex nodeID) {
         return nodeID.size() == 1 && nodeID.get(0) == 0;
     }
 
@@ -184,29 +165,24 @@ public class RelationFragmentHolder
      * @param node
      * @return is changed?
      */
-    public boolean push(Node node)
-    {
+    public boolean push(Node node) {
         if (_logger.isTraceEnabled())
             _logger.trace("push: " + node);
         TupleIndex nodeNameID = relation.getNodeIndex(node.nodeName);
-        if (isCoreNode(nodeNameID))
-        {
+        if (isCoreNode(nodeNameID)) {
             // core node
-            if (coreNodeStack.isEmpty())
-            {
+            if (coreNodeStack.isEmpty()) {
                 coreNodeStack.addLast(node);
                 fragmentListStartPosition.put(node, 0);
                 return true;
             }
-            else if (coreNodeStack.getLast().nodeID != node.nodeID)
-            {
+            else if (coreNodeStack.getLast().nodeID != node.nodeID) {
                 coreNodeStack.addLast(node);
                 fragmentListStartPosition.put(node, fragmentStack.size());
                 return true;
             }
         }
-        else
-        {
+        else {
             // fragment node
             RelationFragment target = getTargetRelationFragmentFromStack();
             target.set(node);
@@ -215,42 +191,35 @@ public class RelationFragmentHolder
         return false;
     }
 
-    public void pop(Node node)
-    {
+    public void pop(Node node) {
         if (_logger.isTraceEnabled())
             _logger.trace("pop:  " + node);
         TupleIndex nodeNameID = relation.getNodeIndex(node.nodeName);
         RelationFragment target = getTargetRelationFragmentFromStack();
-        if (isCoreNode(nodeNameID))
-        {
+        if (isCoreNode(nodeNameID)) {
             // for setting text values
             coreNodeStack.removeLast();
             coreNodeStack.addLast(node);
 
             int stackStart = fragmentListStartPosition.get(node);
 
-            for (Iterator<RelationFragment> it = fragmentStack.listIterator(stackStart); it.hasNext();)
-            {
+            for (Iterator<RelationFragment> it = fragmentStack.listIterator(stackStart); it
+                    .hasNext();) {
                 RelationFragment fragment = it.next();
-                if (fragment.isComplete())
-                {
+                if (fragment.isComplete()) {
                     output(node, target);
                 }
             }
-            while (fragmentStack.size() > stackStart)
-            {
+            while (fragmentStack.size() > stackStart) {
                 fragmentStack.removeLast();
             }
             coreNodeStack.removeLast();
         }
-        else
-        {
+        else {
             // for setting text values
             target.set(node);
-            if (target.isComplete())
-            {
-                if (!coreNodeStack.isEmpty())
-                {
+            if (target.isComplete()) {
+                if (!coreNodeStack.isEmpty()) {
                     output(coreNodeStack.getLast(), target);
                     fragmentStack.removeLast();
                 }
@@ -258,8 +227,7 @@ public class RelationFragmentHolder
         }
     }
 
-    public void output(Node coreNode, RelationFragment fragment)
-    {
+    public void output(Node coreNode, RelationFragment fragment) {
         //_logger.info(String.format("[%s, %s]", coreNode, fragment));
 
         Tuple<Node> rel = new Tuple<Node>(relationSize);
@@ -267,16 +235,13 @@ public class RelationFragmentHolder
         for (Cell<Node> each : fragment.relationFragment)
             rel.add(each);
 
-        //handler.newRelation(relation, rel);
+        handler.relation(relation, rel);
     }
 
-    public RelationFragment getTargetRelationFragmentFromStack()
-    {
-        if (coreNodeStack.isEmpty())
-        {
+    public RelationFragment getTargetRelationFragmentFromStack() {
+        if (coreNodeStack.isEmpty()) {
             RelationFragment fragment;
-            if (fragmentStack.isEmpty())
-            {
+            if (fragmentStack.isEmpty()) {
                 fragment = new RelationFragment();
                 fragmentStack.add(fragment);
             }
@@ -284,8 +249,7 @@ public class RelationFragmentHolder
                 fragment = fragmentStack.getLast();
             return fragment;
         }
-        else
-        {
+        else {
             Node latestCoreNode = coreNodeStack.getLast();
             int stackPos = fragmentListStartPosition.get(latestCoreNode);
             if (stackPos >= fragmentStack.size()) // if no relation fragment is stacked
@@ -295,8 +259,7 @@ public class RelationFragmentHolder
                 fragmentStack.add(fragment);
                 return fragment;
             }
-            else
-            {
+            else {
                 return fragmentStack.getLast();
             }
         }

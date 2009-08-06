@@ -24,13 +24,12 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import java.io.IOException;
-
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.Node;
-import org.xerial.lens.relation.query.AmoebaJoinHandler;
+import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.query.QuerySet;
-import org.xerial.lens.relation.query.StreamAmoebaJoin;
+import org.xerial.lens.relation.query.RelationExtracter;
+import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.query.lang.RelationExpr;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.util.log.Logger;
@@ -53,43 +52,16 @@ public class RelationLens {
         qs = re.buildQuerySet();
     }
 
-    public void map(TreeParser input) {
+    public void map(TreeParser input) throws XerialException {
 
-        AmoebaJoinHandler relationExtracter = new RelationExtracter();
-        try {
-            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, relationExtracter);
-        }
-        catch (IOException e) {
-            _logger.error(e);
-        }
-
+        RelationHandler rh = new MyRelationHandler();
+        RelationExtracter.run(qs, input, rh);
     }
 
-    public static class RelationExtracter implements AmoebaJoinHandler {
+    public class MyRelationHandler implements RelationHandler {
 
-        public void finish() {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void init() {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void leaveNode(Schema schema, Node node) throws Exception {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
-        // TODO Auto-generated method stub
-
-        }
-
-        public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception {
-        // TODO Auto-generated method stub
-
+        public void relation(Schema s, Tuple<Node> relation) {
+            _logger.info(String.format("%s: %s", s, relation));
         }
 
     }
