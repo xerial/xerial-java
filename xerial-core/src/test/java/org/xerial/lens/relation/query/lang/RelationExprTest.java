@@ -59,6 +59,6 @@ public class RelationExprTest {
     public void q3() throws Exception {
         RelationExpr e = parse("entry(dc.subject:sigmod09, link(rel:related, href), summary)");
         _logger.debug(e.toSchema());
+        _logger.debug(e.buildQuerySet());
     }
-
 }

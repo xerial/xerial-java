@@ -36,6 +36,8 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.query.QuerySet;
+import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.lens.relation.query.impl.LensQueryLexer;
 import org.xerial.lens.relation.query.impl.LensQueryParser;
 import org.xerial.lens.relation.schema.Schema;
@@ -110,8 +112,7 @@ public class RelationExpr extends RelationItem {
 
     }
 
-    public Schema toSchema() {
-
+    private List<RelationItem> sortedNodeList() {
         ArrayList<RelationItem> sortedRelationItem = new ArrayList<RelationItem>();
         sortedRelationItem.addAll(node);
         sortedRelationItem.addAll(relation);
@@ -122,22 +123,51 @@ public class RelationExpr extends RelationItem {
             }
         });
 
+        return sortedRelationItem;
+    }
+
+    public Schema toSchema() {
+
+        List<RelationItem> sortedRelationItem = sortedNodeList();
+
         SchemaBuilder parent = new SchemaBuilder();
         parent.add(name);
-        SchemaBuilder sibling = new SchemaBuilder();
+
         for (RelationItem each : sortedRelationItem) {
             if (each.isRelation()) {
                 RelationExpr re = RelationExpr.class.cast(each);
-                sibling.add(re.toSchema());
+                parent.add(re.toSchema());
             }
             else
-                sibling.add(each.name);
+                parent.add(each.name);
         }
-
-        parent.add(sibling.build());
 
         return parent.build();
 
+    }
+
+    public QuerySet buildQuerySet() {
+
+        QuerySetBuilder b = new QuerySetBuilder();
+
+        List<RelationItem> sortedRelationItem = sortedNodeList();
+
+        SchemaBuilder parent = new SchemaBuilder();
+        parent.add(name);
+        for (RelationItem each : sortedRelationItem) {
+            parent.add(each.name);
+
+            if (each.isRelation()) {
+
+                RelationExpr re = RelationExpr.class.cast(each);
+                for (Schema s : re.buildQuerySet().getTargetQuerySet()) {
+                    b.addQueryTarget(s);
+                }
+            }
+        }
+        b.addQueryTarget(parent.build());
+
+        return b.build();
     }
 
 }

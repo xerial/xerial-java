@@ -78,7 +78,7 @@ public class SchemaAtom implements Schema {
         return true;
     }
 
-    public boolean isNested() {
+    public boolean isTuple() {
         return false;
     }
 

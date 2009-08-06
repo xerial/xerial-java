@@ -153,7 +153,7 @@ public class SchemaArray implements Schema, Iterable<Schema>
         return false;
     }
 
-    public boolean isNested()
+    public boolean isTuple()
     {
         return true;
     }

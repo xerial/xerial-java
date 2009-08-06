@@ -56,7 +56,7 @@ public interface Schema
 
     public boolean isAtom();
 
-    public boolean isNested();
+    public boolean isTuple();
 
     public boolean isOneToMany();
 
