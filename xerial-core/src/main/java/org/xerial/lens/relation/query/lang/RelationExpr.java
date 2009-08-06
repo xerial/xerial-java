@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.lens.relation.query.lang;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -33,8 +33,11 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.TupleIndex;
 import org.xerial.lens.relation.query.impl.LensQueryLexer;
 import org.xerial.lens.relation.query.impl.LensQueryParser;
+import org.xerial.util.antlr.ANTLRUtil;
+import org.xerial.util.log.Logger;
 
 /**
  * Relation expression
@@ -43,12 +46,27 @@ import org.xerial.lens.relation.query.impl.LensQueryParser;
  * 
  */
 public class RelationExpr {
-    public static class Node {
+
+    private static Logger _logger = Logger.getLogger(RelationExpr.class);
+
+    public class Node {
+
         public String name;
+        public String alias;
+
         public String nodeValue;
 
         public Compare compare = null;
         public PatternMatch patternMatch = null;
+
+        public void setIndex(String tupleIndex) {
+            index = TupleIndex.parse(tupleIndex);
+        }
+
+        public TupleIndex getIndex() {
+            return index;
+        }
+
     }
 
     public static class Compare {
@@ -61,7 +79,22 @@ public class RelationExpr {
     }
 
     public String name;
-    public ArrayList<Node> node;
+    public String alias;
+    public List<Node> node;
+    public List<RelationExpr> relation;
+    private TupleIndex index = new TupleIndex(0);
+
+    public void setIndex(String tupleIndex) {
+        index = TupleIndex.parse(tupleIndex);
+    }
+
+    public TupleIndex getIndex() {
+        return index;
+    }
+
+    private static class RelationQuery {
+        public RelationExpr relation;
+    }
 
     public static RelationExpr parse(String expr) throws XerialException {
 
@@ -71,8 +104,14 @@ public class RelationExpr {
 
         try {
             LensQueryParser.relation_return ret = p.relation();
-            return Lens.loadANTLRParseTree(RelationExpr.class, (Tree) ret.getTree(),
+            if (_logger.isDebugEnabled())
+                _logger.debug("\n"
+                        + ANTLRUtil.parseTree((Tree) ret.getTree(), LensQueryParser.tokenNames));
+
+            RelationQuery r = Lens.loadANTLRParseTree(RelationQuery.class, (Tree) ret.getTree(),
                     LensQueryParser.tokenNames);
+
+            return r.relation;
         }
         catch (RecognitionException e) {
             throw new XerialException(XerialErrorCode.PARSE_ERROR, e);

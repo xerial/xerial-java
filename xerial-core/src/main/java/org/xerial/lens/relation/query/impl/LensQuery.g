@@ -35,9 +35,11 @@ tokens {
   OPERAND;
   PATTERNMATCH;
   NODE;
+  ALIAS;
   NODEVALUE;
   NAME;
   VALUE;
+  INDEX;
 }
 
 
@@ -96,12 +98,17 @@ package org.xerial.lens.relation.query.impl;
 //
 //--------------------------------------
 package org.xerial.lens.relation.query.impl;
+
+import org.xerial.lens.relation.TupleIndex;
 }
 
 @lexer::members {
-  
+
 }
- 
+
+@members {
+   private TupleIndex currentIndex = null;
+} 
 
 // lexer rules
 
@@ -155,6 +162,8 @@ Dot: '.';
 Comma: ',';
 Colon: ':';
 
+As: 'as';
+
 LParen: '(';  
 RParen: ')';
 
@@ -163,15 +172,13 @@ Star: '*';
 fragment
 UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-'; 
 
-
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
 
-fragment ModuleName: SafeFirstLetter SafeLetter* ('.' SafeFirstLetter SafeLetter*)*; 
-ModuleDef: 'module' WhiteSpaces s=ModuleName { setText($s.text); }; 
 
 fragment QNameChar: ~(LineBreakChar | UnsafeUnicodeChar | WhiteSpace);
 QName: QNameChar+ (Dot QNameChar+)*;
+
 
 fragment 
 WhiteSpace: ' ' | '\t';
@@ -185,19 +192,53 @@ expr:
   relation 
   ; 
  
-relation: QName LParen nodeItem (Comma nodeItem)* RParen
-  -> ^(RELATION NAME[$QName.text] nodeItem+)
+relation 
+scope 
+{
+  int nodeItemIndex;
+  TupleIndex relationIndex; 
+}
+@init 
+{
+  $relation::nodeItemIndex = 1;
+  if(currentIndex == null)
+    currentIndex = new TupleIndex(1);
+  else
+    currentIndex = new TupleIndex(currentIndex, 1); 
+}
+@after
+{
+  currentIndex = currentIndex.parent();
+}
+   : relation_i -> ^(RELATION relation_i INDEX[currentIndex.toString()])
+;
+
+relation_i: nodeName alias? LParen! nodeItem (Comma! nodeItem)* RParen!;
+
+fragment
+nodeName
+  : QName -> NAME[$QName.text]
+  | String -> NAME[$String.text]
   ;
+
+fragment
+alias: As QName -> ALIAS[$QName.text];
+  
 
 fragment
 nodeItem
-  : QName nodeValue? 
-    -> ^(NODE NAME[$QName.text] nodeValue?)
-  | relation
+@init {
+  int index = $relation::nodeItemIndex++;
+}
+  : nodeName alias? nodeValue? 
+    -> ^(NODE nodeName alias? nodeValue? INDEX[new TupleIndex(currentIndex, index).toString()])
+  | relation 
   ;
 
 fragment
-value: String | Integer | Double;  
+value
+  : String | Integer | Double | QName
+  ;  
   
 fragment  
 nodeValue

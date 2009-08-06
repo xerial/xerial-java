@@ -34,8 +34,7 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class TupleIndex implements Comparable<TupleIndex>
-{
+public class TupleIndex implements Comparable<TupleIndex> {
     private int[] index;
 
     /**
@@ -43,8 +42,7 @@ public class TupleIndex implements Comparable<TupleIndex>
      * 
      * @param baseIndex
      */
-    public TupleIndex(int baseIndex)
-    {
+    public TupleIndex(int baseIndex) {
         this.index = new int[1];
         this.index[0] = baseIndex;
     }
@@ -56,15 +54,12 @@ public class TupleIndex implements Comparable<TupleIndex>
      * @param parent
      * @param childIndex
      */
-    public TupleIndex(TupleIndex parent, int childIndex)
-    {
-        if (parent == null)
-        {
+    public TupleIndex(TupleIndex parent, int childIndex) {
+        if (parent == null) {
             this.index = new int[1];
             this.index[0] = childIndex;
         }
-        else
-        {
+        else {
             this.index = new int[parent.size() + 1];
             for (int i = 0; i < parent.size(); ++i)
                 index[i] = parent.get(i);
@@ -72,8 +67,11 @@ public class TupleIndex implements Comparable<TupleIndex>
         }
     }
 
-    public static TupleIndex parse(String indexStr)
-    {
+    public static TupleIndex root() {
+        return new TupleIndex(0);
+    }
+
+    public static TupleIndex parse(String indexStr) {
         if (indexStr == null)
             throw new NullPointerException("indexStr");
 
@@ -87,13 +85,11 @@ public class TupleIndex implements Comparable<TupleIndex>
         return new TupleIndex(index);
     }
 
-    private TupleIndex(int[] index)
-    {
+    private TupleIndex(int[] index) {
         this.index = index;
     }
 
-    public TupleIndex parent()
-    {
+    public TupleIndex parent() {
         if (index.length <= 1)
             return null;
 
@@ -103,8 +99,7 @@ public class TupleIndex implements Comparable<TupleIndex>
         return new TupleIndex(newIndex);
     }
 
-    public TupleIndex tail()
-    {
+    public TupleIndex tail() {
         if (index.length < 2)
             return null;
 
@@ -114,8 +109,7 @@ public class TupleIndex implements Comparable<TupleIndex>
         return new TupleIndex(newIndex);
     }
 
-    public TupleIndex sibling()
-    {
+    public TupleIndex sibling() {
         int[] newIndex = new int[index.length];
         for (int i = 0; i < index.length; ++i)
             newIndex[i] = index[i];
@@ -128,18 +122,15 @@ public class TupleIndex implements Comparable<TupleIndex>
      * 
      * @return nested level
      */
-    public int size()
-    {
+    public int size() {
         return index.length;
     }
 
-    public boolean hasParent()
-    {
+    public boolean hasParent() {
         return index.length > 1;
     }
 
-    public boolean hasTail()
-    {
+    public boolean hasTail() {
         return index.length > 1;
     }
 
@@ -149,17 +140,14 @@ public class TupleIndex implements Comparable<TupleIndex>
      * @param level
      * @return
      */
-    public int get(int level)
-    {
+    public int get(int level) {
         return index[level];
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < index.length; i++)
-        {
+        for (int i = 0; i < index.length; i++) {
             if (i != 0)
                 buf.append(".");
             buf.append(index[i]);
@@ -168,14 +156,12 @@ public class TupleIndex implements Comparable<TupleIndex>
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         TupleIndex other = TupleIndex.class.cast(obj);
         if (this.index.length != other.index.length)
             return false;
 
-        for (int i = 0; i < this.index.length; ++i)
-        {
+        for (int i = 0; i < this.index.length; ++i) {
             if (this.index[i] != other.index[i])
                 return false;
         }
@@ -183,13 +169,11 @@ public class TupleIndex implements Comparable<TupleIndex>
 
     }
 
-    public int compareTo(TupleIndex other)
-    {
+    public int compareTo(TupleIndex other) {
         int i1 = 0;
         int i2 = 0;
         int cmp = 0;
-        while (i1 < this.index.length && i2 < other.index.length)
-        {
+        while (i1 < this.index.length && i2 < other.index.length) {
             int e1 = this.index[i1];
             int e2 = other.index[i2];
             cmp = e1 - e2;
@@ -201,8 +185,7 @@ public class TupleIndex implements Comparable<TupleIndex>
         }
         if (i1 < this.index.length)
             return 1;
-        else
-        {
+        else {
             if (i2 < other.index.length)
                 return -1;
             else
@@ -211,8 +194,7 @@ public class TupleIndex implements Comparable<TupleIndex>
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 3;
         for (int i = 0; i < index.length; ++i)
             hash += 137 * index[i];

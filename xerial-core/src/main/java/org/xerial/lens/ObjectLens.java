@@ -463,9 +463,17 @@ public class ObjectLens {
                 json.endObject();
         }
         else {
-            json.startObject();
-            outputParemters(json, obj);
-            json.endObject();
+            if (!lens.getterContainer.isEmpty()) {
+                json.startObject();
+                outputParemters(json, obj);
+                json.endObject();
+            }
+            else {
+                // empty getter object. try toString()
+                json.startString();
+                json.append(obj.toString());
+                json.endString();
+            }
         }
     }
 

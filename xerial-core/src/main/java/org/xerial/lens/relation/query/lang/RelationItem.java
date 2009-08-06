@@ -16,47 +16,21 @@
 //--------------------------------------
 // XerialJ
 //
-// RelationExprTest.java
-// Since: Aug 6, 2009 11:36:09 AM
+// Node.java
+// Since: Aug 6, 2009 1:22:15 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.lens.relation.query.lang;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.xerial.lens.Lens;
-import org.xerial.util.log.Logger;
-
-public class RelationExprTest {
-    private static Logger _logger = Logger.getLogger(RelationExprTest.class);
-
-    @Before
-    public void setUp() throws Exception {}
-
-    @After
-    public void tearDown() throws Exception {}
-
-    public void parse(String query) throws Exception {
-        RelationExpr e = RelationExpr.parse(query);
-        _logger.info(Lens.toJSON(e));
-    }
-
-    @Test
-    public void q1() throws Exception {
-        parse("A(B, C)");
-    }
-
-    @Test
-    public void q2() throws Exception {
-        parse("book(author, isbn10 as isbn)");
-    }
-
-    @Test
-    public void q3() throws Exception {
-        parse("entry(dc.subject:sigmod09, link(rel:related, href), summary)");
-    }
-
+/**
+ * base class of relation expression
+ * 
+ * @author leo
+ * 
+ */
+public class RelationItem {
+    public String name;
+    public String alias;
 }

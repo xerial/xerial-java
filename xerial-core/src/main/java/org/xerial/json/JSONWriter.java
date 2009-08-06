@@ -137,7 +137,7 @@ public class JSONWriter {
         writer.append(stringFragment);
     }
 
-    public void endString() throws IOException {
+    public void endString() {
         if (getCurrentState() != JSONState.InString)
             throw new XerialError(JSONErrorCode.NotInAJSONString,
                     "cannot end the string not beginning from startString() method.");
