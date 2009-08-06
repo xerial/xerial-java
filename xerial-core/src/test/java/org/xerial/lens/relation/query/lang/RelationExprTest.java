@@ -39,9 +39,10 @@ public class RelationExprTest {
     @After
     public void tearDown() throws Exception {}
 
-    public void parse(String query) throws Exception {
+    public RelationExpr parse(String query) throws Exception {
         RelationExpr e = RelationExpr.parse(query);
         _logger.info(Lens.toJSON(e));
+        return e;
     }
 
     @Test
@@ -56,7 +57,8 @@ public class RelationExprTest {
 
     @Test
     public void q3() throws Exception {
-        parse("entry(dc.subject:sigmod09, link(rel:related, href), summary)");
+        RelationExpr e = parse("entry(dc.subject:sigmod09, link(rel:related, href), summary)");
+        _logger.debug(e.toSchema());
     }
 
 }

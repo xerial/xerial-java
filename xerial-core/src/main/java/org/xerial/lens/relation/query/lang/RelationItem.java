@@ -24,13 +24,28 @@
 //--------------------------------------
 package org.xerial.lens.relation.query.lang;
 
+import org.xerial.lens.relation.TupleIndex;
+
 /**
  * base class of relation expression
  * 
  * @author leo
  * 
  */
-public class RelationItem {
+public abstract class RelationItem {
     public String name;
     public String alias;
+
+    protected TupleIndex index = TupleIndex.root();
+
+    public void setIndex(String tupleIndex) {
+        index = TupleIndex.parse(tupleIndex);
+    }
+
+    public TupleIndex getIndex() {
+        return index;
+    }
+
+    public abstract boolean isRelation();
+
 }
