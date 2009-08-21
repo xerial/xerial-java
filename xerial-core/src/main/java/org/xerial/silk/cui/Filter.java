@@ -40,6 +40,10 @@ public class Filter implements SilkCommand {
 
     private static Logger _logger = Logger.getLogger(Filter.class);
 
+    static enum FileType {
+        Silk, XML, JSON, Tab
+    }
+
     @Argument(index = 0)
     public String inputResource = "-";
 
