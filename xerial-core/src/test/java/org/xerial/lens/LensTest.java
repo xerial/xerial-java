@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -357,6 +356,7 @@ public class LensTest {
         _logger.debug(Lens.toJSON(result));
     }
 
+    @Ignore
     @Test
     public void testFind() throws Exception {
         Lens.find(MyGene.class, "gene", new SilkParser(FileResource.find(LensTest.class,
