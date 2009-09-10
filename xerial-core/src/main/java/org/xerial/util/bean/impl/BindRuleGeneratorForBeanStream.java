@@ -26,34 +26,33 @@ package org.xerial.util.bean.impl;
 
 import java.util.Vector;
 
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
-import org.xerial.util.bean.BeanErrorCode;
-import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 
 public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
 {
-    private final Class<E> targetBeanClass;
-    private String className;
+    private final Class<E>      targetBeanClass;
+    private String              className;
     private final BeanBinderSet binderSetForTargetBean;
 
-    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass) throws BeanException
-    {
+    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass) throws XerialException {
         this(targetBeanClass, targetBeanClass.getSimpleName());
     }
 
-    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass, String targetNodeName) throws BeanException
-    {
+    public BindRuleGeneratorForBeanStream(Class<E> targetBeanClass, String targetNodeName) throws XerialException {
         this.targetBeanClass = targetBeanClass;
         className = targetNodeName.toLowerCase();
-        try
-        {
+        try {
             binderSetForTargetBean = new MyBeanBinderSet();
         }
-        catch (Exception e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, e);
+        catch (SecurityException e) {
+            throw new XerialException(XerialErrorCode.InvalidBeanClass, e);
+        }
+        catch (NoSuchMethodException e) {
+            throw new XerialException(XerialErrorCode.InvalidBeanClass, e);
         }
     }
 
@@ -61,43 +60,35 @@ public class BindRuleGeneratorForBeanStream<E> implements BindRuleGenerator
     {
         private CollectionAdder adder;
 
-        public MyBeanBinderSet() throws BeanException, SecurityException, NoSuchMethodException
-        {
+        public MyBeanBinderSet() throws XerialException, SecurityException, NoSuchMethodException {
             adder = new CollectionAdder(BeanStreamReader.class.getMethod("add", Object.class), className,
                     targetBeanClass);
         }
 
-        public void addRule(BeanBinder binder)
-        {
+        public void addRule(BeanBinder binder) {
             throw new UnsupportedOperationException("addRule");
         }
 
-        public BeanBinder findRule(String name)
-        {
-            if (name.equals(className))
-            {
+        public BeanBinder findRule(String name) {
+            if (name.equals(className)) {
                 return adder;
             }
             else
                 return null;
         }
 
-        public Vector<BeanBinder> getBindRules()
-        {
+        public Vector<BeanBinder> getBindRules() {
             throw new UnsupportedOperationException("getBindRules");
         }
 
-        public MapPutter getStandardMapPutter()
-        {
+        public MapPutter getStandardMapPutter() {
             throw new UnsupportedOperationException("getStandardMapPutter");
         }
 
     }
 
-    public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws BeanException
-    {
-        if (BeanStreamReader.class.isAssignableFrom(beanClass))
-        {
+    public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws XerialException {
+        if (BeanStreamReader.class.isAssignableFrom(beanClass)) {
             return binderSetForTargetBean;
         }
         else

@@ -26,17 +26,18 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.BeanException;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanUpdator;
 import org.xerial.util.bean.BeanUpdatorType;
 
-public class MapPutter extends BeanBinderBase implements BeanUpdator {
+public class MapPutter extends BeanBinderBase implements BeanUpdator
+{
     Class< ? > keyType;
 
     Class< ? > valueType;
 
     public MapPutter(Method method, String parameterName, Class< ? > keyType, Class< ? > valueType)
-            throws BeanException {
+            throws XerialException {
         super(method, parameterName);
         this.keyType = keyType;
         this.valueType = valueType;
@@ -46,8 +47,7 @@ public class MapPutter extends BeanBinderBase implements BeanUpdator {
     }
 
     public Class< ? > getInputType() {
-        throw new UnsupportedOperationException(
-                "getElementType() for MapPutter is not supported yet");
+        throw new UnsupportedOperationException("getElementType() for MapPutter is not supported yet");
     }
 
     public BeanUpdatorType getType() {

@@ -57,10 +57,11 @@ import org.xerial.util.reflect.ReflectionUtil;
  * @author leo
  * 
  */
-public class ObjectLens {
-    private static Logger _logger = Logger.getLogger(ObjectLens.class);
+public class ObjectLens
+{
+    private static Logger                          _logger = Logger.getLogger(ObjectLens.class);
 
-    private static HashMap<Class< ? >, ObjectLens> cache = new HashMap<Class< ? >, ObjectLens>();
+    private static HashMap<Class< ? >, ObjectLens> cache   = new HashMap<Class< ? >, ObjectLens>();
 
     /**
      * Get the lens of the target type
@@ -77,14 +78,14 @@ public class ObjectLens {
         }
     }
 
-    private Class< ? > targetType;
+    private Class< ? >            targetType;
 
-    private List<ParameterGetter> getterContainer = new ArrayList<ParameterGetter>();
-    private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
-    private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
-    private ParameterSetter valueSetter = null;
+    private List<ParameterGetter> getterContainer         = new ArrayList<ParameterGetter>();
+    private List<ParameterSetter> setterContainer         = new ArrayList<ParameterSetter>();
+    private List<RelationSetter>  relationSetterContainer = new ArrayList<RelationSetter>();
+    private ParameterSetter       valueSetter             = null;
 
-    private RelationSetter propertySetter = null;
+    private RelationSetter        propertySetter          = null;
 
     public void setProperty(Object target, Object key, Object value) throws XerialException {
         if (propertySetter == null)
@@ -128,7 +129,8 @@ public class ObjectLens {
     }
 
     private void createBindRules(Class< ? > targetType) {
-        // look for all super classes
+        // search for object parameters including superclass's ones 
+
         // scan public fields
         for (Field eachField : targetType.getFields()) {
             // ignore fields defined in the Object class
@@ -149,8 +151,7 @@ public class ObjectLens {
                 }
                 else if (TypeInfo.isMap(fieldType)) {
                     // TODO map putter
-                    Pair<Type, Type> keyValueTypes = ReflectionUtil
-                            .getGenericMapElementType(eachField);
+                    Pair<Type, Type> keyValueTypes = ReflectionUtil.getGenericMapElementType(eachField);
                     Pair<String, String> keyValueNames = pickRelationName(eachField.getName());
                     if (keyValueNames == null) {
                         // infer key and value names from type parameters in Map<Key, Value>
@@ -161,14 +162,12 @@ public class ObjectLens {
                 else if (TypeInfo.isCollection(fieldType)) {
                     Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil
                             .getGenericCollectionElementType(eachField));
-                    setterContainer.add(ParameterSetter
-                            .newSetter(elementType, paramName, eachField));
+                    setterContainer.add(ParameterSetter.newSetter(elementType, paramName, eachField));
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
                 else {
                     if (!paramName.equals("value"))
-                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
-                                eachField));
+                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName, eachField));
                     else
                         valueSetter = ParameterSetter.newSetter(fieldType, paramName, eachField);
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
@@ -188,16 +187,13 @@ public class ObjectLens {
                 case 1: {
                     String paramName = pickPropertyName(methodName);
                     Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
-                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo
-                            .isMap(parentOfTheSetter))
+                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo.isMap(parentOfTheSetter))
                             && paramName.equals("all"))
                         break;
 
                     if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter)) {
-                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(
-                                targetType, argTypes[0]);
-                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry",
-                                eachMethod));
+                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(targetType, argTypes[0]);
+                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry", eachMethod));
                     }
                     else
                         addNewSetter(setterContainer, paramName, eachMethod);
@@ -210,18 +206,17 @@ public class ObjectLens {
 
                     // relation adder
 
-                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName,
-                            false));
+                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
                     if (relName == null) {
                         // infer relation node names
                         if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
 
-                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
-                                    targetType, eachMethod.getParameterTypes());
+                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
+                                    .getParameterTypes());
 
                             // map.put(Key, Value)
-                            setterContainer.add(ParameterSetter.newMapEntrySetter(
-                                    mapElementType[0], mapElementType[1]));
+                            setterContainer
+                                    .add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
 
                             // (entry, key)
                             setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
@@ -230,14 +225,13 @@ public class ObjectLens {
                             continue;
                         }
                         else {
-                            relName = new Pair<String, String>(
-                                    getCanonicalParameterName(argTypes[0].getSimpleName()),
+                            relName = new Pair<String, String>(getCanonicalParameterName(argTypes[0].getSimpleName()),
                                     getCanonicalParameterName(argTypes[1].getSimpleName()));
                         }
                     }
 
-                    relationSetterContainer.add(RelationSetter.newRelationSetter(
-                            relName.getFirst(), relName.getSecond(), eachMethod));
+                    relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName
+                            .getSecond(), eachMethod));
                     break;
                 }
                 }
@@ -259,12 +253,11 @@ public class ObjectLens {
                     // infer relation node names
                     if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
 
-                        Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
-                                targetType, eachMethod.getParameterTypes());
+                        Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(targetType, eachMethod
+                                .getParameterTypes());
 
                         // map.put(Key, Value)
-                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0],
-                                mapElementType[1]));
+                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0], mapElementType[1]));
 
                         // (entry, key)
                         setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
@@ -273,14 +266,13 @@ public class ObjectLens {
                         continue;
                     }
                     else {
-                        propertySetter = RelationSetter.newRelationSetter("key", "value",
-                                eachMethod);
+                        propertySetter = RelationSetter.newRelationSetter("key", "value", eachMethod);
                         continue;
                     }
                 }
 
-                relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(),
-                        relName.getSecond(), eachMethod));
+                relationSetterContainer.add(RelationSetter.newRelationSetter(relName.getFirst(), relName.getSecond(),
+                        eachMethod));
 
                 continue;
             }
@@ -304,8 +296,7 @@ public class ObjectLens {
         }
     }
 
-    private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart,
-            Method m) {
+    private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart, Method m) {
         Class< ? >[] argTypes = m.getParameterTypes();
         if (argTypes.length != 1)
             return;
@@ -321,9 +312,8 @@ public class ObjectLens {
         return;
     }
 
-    static private Pattern propertyNamePattern = Pattern
-            .compile("^(set|get|add|put|append)((\\S)(\\S*))?");
-    static private Pattern pairedNamePattern = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
+    static private Pattern propertyNamePattern = Pattern.compile("^(set|get|add|put|append)((\\S)(\\S*))?");
+    static private Pattern pairedNamePattern   = Pattern.compile("([A-Za-z0-9]*)_([A-Za-z0-9]*)");
 
     static String pickPropertyName(String methodName, boolean canonicalize) {
         Matcher m = null;

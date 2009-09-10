@@ -24,65 +24,57 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-
+import org.xerial.core.XerialException;
 
 public class TypeReferenceTest
 {
     @Test
-    public void reference()
-    {
+    void reference() {
         Type c = new TypeReference<List<String>>() {}.getElementType()[0];
         assertEquals(String.class, c);
-        
+
         Type k = new TypeReference<Map<String, Integer>>() {}.getElementType()[0];
         Type v = new TypeReference<Map<String, Integer>>() {}.getElementType()[1];
         assertEquals(String.class, k);
         assertEquals(Integer.class, v);
     }
-    
+
     @Test
-    public void elementType()
-    {
+    public void elementType() {
         Type c = new TypeReference<String>() {}.getType();
         assertEquals(String.class, c);
     }
-    
+
     class GenericReference
     {
         Class< ? > c;
 
-        public GenericReference(Class< ? > c)
-        {
+        public GenericReference(Class< ? > c) {
             this.c = c;
         }
-        
-        Object newInstance()
-        {
-            try
-            {
+
+        Object newInstance() {
+            try {
                 return TypeInfo.createInstance(c);
             }
-            catch (BeanException e)
-            {
+            catch (XerialException e) {
                 return null;
             }
         }
 
     }
-    
+
     @Test
-    public void genericTypeReference()
-    {
+    public void genericTypeReference() {
         GenericReference gref = new GenericReference(String.class);
-        
+
         String str = (String) gref.newInstance();
 
         assertNotNull(str);

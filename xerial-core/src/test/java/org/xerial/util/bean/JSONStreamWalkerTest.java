@@ -49,32 +49,27 @@ public class JSONStreamWalkerTest
     class MyVisitor implements TreeVisitor
     {
 
-        public void finish(TreeWalker walker) throws XerialException
-        {
+        public void finish(TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
 
         }
 
-        public void init(TreeWalker walker) throws XerialException
-        {
+        public void init(TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
 
         }
 
-        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-        {
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
 
         }
 
-        public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
-        {
+        public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
 
         }
 
-        public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException
-        {
+        public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
 
         }
@@ -83,14 +78,12 @@ public class JSONStreamWalkerTest
 
     private StopWatch stopWatch = new StopWatch();
 
-    public Reader getSampleData() throws IOException
-    {
+    public Reader getSampleData() throws IOException {
         return FileResource.open(JSONStreamWalkerTest.class, "chr1.json");
     }
 
     @Test
-    public void walk() throws IOException, XerialException
-    {
+    public void walk() throws IOException, XerialException {
         JSONStreamWalker walker = new JSONStreamWalker(getSampleData());
 
         stopWatch.reset();
@@ -99,12 +92,10 @@ public class JSONStreamWalkerTest
     }
 
     @Test
-    public void lexerPerf() throws IOException
-    {
+    public void lexerPerf() throws IOException {
         JSONLexer lexer = new JSONLexer(new ANTLRReaderStream(getSampleData()));
         stopWatch.reset();
-        while ((lexer.nextToken() != Token.EOF_TOKEN))
-        {
+        while ((lexer.nextToken() != Token.EOF_TOKEN)) {
 
         }
         _logger.debug("lexical analysis time: " + stopWatch.getElapsedTime());
@@ -112,25 +103,21 @@ public class JSONStreamWalkerTest
     }
 
     @Test
-    public void pullParserPerf() throws IOException, JSONException
-    {
+    public void pullParserPerf() throws IOException, JSONException {
         JSONPullParser parser = new JSONPullParser(getSampleData());
         stopWatch.reset();
-        while (parser.next() != JSONEvent.EndJSON)
-        {
+        while (parser.next() != JSONEvent.EndJSON) {
 
         }
         _logger.debug("pull parsing time: " + stopWatch.getElapsedTime());
     }
 
     @Test
-    public void loadJSONPerf() throws BeanException, IOException
-    {
+    public void loadJSONPerf() throws XerialException, IOException {
         stopWatch.reset();
         BeanUtil.loadJSON(getSampleData(), Gene.class, new BeanHandler<Gene>() {
 
-            public void handle(Gene bean) throws Exception
-            {
+            public void handle(Gene bean) throws Exception {
             // TODO Auto-generated method stub
 
             }

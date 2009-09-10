@@ -24,8 +24,8 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanBinderSet;
-import org.xerial.util.bean.BeanException;
 
 /**
  * Bind Rule Generator interface
@@ -42,5 +42,5 @@ public interface BindRuleGenerator
      * @param beanClass
      * @return
      */
-    public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws BeanException;
+    public <T> BeanBinderSet getBeanBinderSet(Class<T> beanClass) throws XerialException;
 }

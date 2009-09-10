@@ -53,8 +53,29 @@ public enum XerialErrorCode implements ErrorCode {
     INVALID_TOKEN, PARSE_ERROR,
 
     // general exception
-    INHERITED, HAS_AN_EXTENDED_ERROR_CODE
+    INHERITED, HAS_AN_EXTENDED_ERROR_CODE,
 
+    
+    // Bean specific error codes
+    IOError,
+
+    NoMoreSubtree,
+
+    // XML
+    InvalidXMLData, ParserError, UnsupportedXMLDataType,
+
+    // JSON
+    InvalidJSONData, InvalidJSONArray,
+
+    UnsupportedDataType,
+
+    // Bean class
+    InvalidBeanClass, IllegalArgument, IllegalAccess, NoPublicConstructor, InstantiationFailure, InvalidNumberFormat, InvocationTargetException,
+
+    BeanObjectIsNull,
+
+    // binder
+    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed, InvalidDateFormat, InvalidFormat, InvalidType;
     ;
 
     private final String description;

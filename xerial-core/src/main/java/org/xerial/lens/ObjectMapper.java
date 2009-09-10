@@ -70,7 +70,7 @@ public class ObjectMapper {
     private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
     private final QuerySet qs;
 
-    private static HashMap<Class< ? >, ObjectMapper> prebuildMapper = new HashMap<Class< ? >, ObjectMapper>();
+    private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
 
     /**
      * interface for invoking setters or field setters of the object
@@ -176,11 +176,11 @@ public class ObjectMapper {
     }
 
     public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException {
-        if (prebuildMapper.containsKey(targetType))
-            return prebuildMapper.get(targetType);
+        if (prebuiltMapper.containsKey(targetType))
+            return prebuiltMapper.get(targetType);
         else {
             ObjectMapper newInstance = new ObjectMapper(targetType);
-            prebuildMapper.put(targetType, newInstance);
+            prebuiltMapper.put(targetType, newInstance);
             return newInstance;
         }
     }

@@ -187,26 +187,22 @@ public class BeanUtil
 
     private static HashMap<Class< ? >, BinderSet> _beanOutputRuleRegistry = new HashMap<Class< ? >, BinderSet>();
 
-    private static HashMap<Class< ? >, BinderSet> _beanLoadRuleRegistry = new HashMap<Class< ? >, BinderSet>();
+    private static HashMap<Class< ? >, BinderSet> _beanLoadRuleRegistry   = new HashMap<Class< ? >, BinderSet>();
 
-    public static BeanBinderSet getBeanOutputRule(Class< ? > c) throws BeanException
-    {
+    public static BeanBinderSet getBeanOutputRule(Class< ? > c) throws XerialException {
         if (_beanOutputRuleRegistry.containsKey(c))
             return _beanOutputRuleRegistry.get(c);
-        else
-        {
+        else {
             BinderSet beanOutputRule = inspectGetters(c);
             _beanOutputRuleRegistry.put(c, beanOutputRule);
             return beanOutputRule;
         }
     }
 
-    public static BeanBinderSet getBeanLoadRule(Class< ? > c) throws BeanException
-    {
+    public static BeanBinderSet getBeanLoadRule(Class< ? > c) throws XerialException {
         if (_beanLoadRuleRegistry.containsKey(c))
             return _beanLoadRuleRegistry.get(c);
-        else
-        {
+        else {
             BinderSet beanLoadRule = inspectSetter(c);
             _beanLoadRuleRegistry.put(c, beanLoadRule);
             return beanLoadRule;
@@ -224,13 +220,11 @@ public class BeanUtil
      * @param bean
      * @throws UTGBException
      */
-    private static BinderSet inspectGetters(Class< ? > beanClass) throws BeanException
-    {
+    private static BinderSet inspectGetters(Class< ? > beanClass) throws XerialException {
         BinderSet outputRuleSet = new BinderSet(beanClass);
 
         Method[] method = beanClass.getMethods();
-        for (Method m : method)
-        {
+        for (Method m : method) {
             if (!Modifier.isPublic(m.getModifiers())) // is public?
                 continue;
             String methodName = m.getName();
@@ -251,13 +245,11 @@ public class BeanUtil
         return outputRuleSet;
     }
 
-    public static BinderSet inspectSetter(Class< ? > beanClass) throws BeanException
-    {
+    public static BinderSet inspectSetter(Class< ? > beanClass) throws XerialException {
         BinderSet inputRuleSet = new BinderSet(beanClass);
 
         // create a rule set of binding rules from setters of the bean class
-        for (Method method : beanClass.getMethods())
-        {
+        for (Method method : beanClass.getMethods()) {
             String methodName = method.getName();
 
             String parameterName = BeanUtil.pickPropertyName(methodName); // retrieve
@@ -275,48 +267,41 @@ public class BeanUtil
                 continue;
 
             Class< ? >[] parameterType = method.getParameterTypes();
-            if (methodName.startsWith("put"))
-            {
+            if (methodName.startsWith("put")) {
                 if (parameterType.length != 2)
                     continue;
 
                 Class< ? >[] mapElementType = resolveActualTypeOfMapElement(beanClass, parameterType);
 
-                if (parameterName.length() == 0 && TypeInfo.isMap(beanClass))
-                {
+                if (parameterName.length() == 0 && TypeInfo.isMap(beanClass)) {
                     // bean.put(Key k, Value v)
                     inputRuleSet.addRule(new MapPutter(method, "elem", mapElementType[0], mapElementType[1]));
                 }
-                else
-                {
+                else {
                     // putSomething(Key k, Value v)
                     inputRuleSet.addRule(new MapPutter(method, parameterName, mapElementType[0], mapElementType[1]));
                 }
                 continue;
             }
 
-            if (methodName.startsWith("add"))
-            {
+            if (methodName.startsWith("add")) {
                 if (parameterType.length != 1)
                     continue;
 
                 Class< ? > addType = resolveActualTypeOfCollectionElement(beanClass, parameterType[0]);
 
-                if (parameterName.length() == 0 && TypeInfo.isCollection(beanClass))
-                {
+                if (parameterName.length() == 0 && TypeInfo.isCollection(beanClass)) {
                     // bean.add(E element)
                     inputRuleSet.addRule(new CollectionAdder(method, "elem", addType));
                 }
-                else
-                {
+                else {
                     // bean.addSomething(E element)
                     inputRuleSet.addRule(new CollectionAdder(method, parameterName, addType));
                 }
                 continue;
             }
 
-            if (methodName.startsWith("append"))
-            {
+            if (methodName.startsWith("append")) {
                 if (parameterType.length != 1)
                     continue;
 
@@ -325,28 +310,23 @@ public class BeanUtil
                 continue;
             }
 
-            if (methodName.startsWith("set"))
-            {
+            if (methodName.startsWith("set")) {
                 if (parameterType.length != 1 || parameterName.length() == 0)
                     continue;
 
                 Class< ? > inputTypeOfTheSetter = parameterType[0];
 
-                if (inputTypeOfTheSetter.isArray())
-                {
+                if (inputTypeOfTheSetter.isArray()) {
                     // setSomething(int[] array) etc
                     Class< ? > componentType = inputTypeOfTheSetter.getComponentType();
                     inputRuleSet.addRule(new ArraySetter(method, parameterName, componentType));
                 }
-                else if (TypeInfo.isCollection(inputTypeOfTheSetter))
-                {
-                    if (method.getGenericParameterTypes()[0] instanceof ParameterizedType)
-                    {
+                else if (TypeInfo.isCollection(inputTypeOfTheSetter)) {
+                    if (method.getGenericParameterTypes()[0] instanceof ParameterizedType) {
                         ParameterizedType genericSetterArgumentType = (ParameterizedType) method
                                 .getGenericParameterTypes()[0];
                         Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
-                        if (actualTypeList.length > 0)
-                        {
+                        if (actualTypeList.length > 0) {
                             Class< ? > elementType = resolveRawType(actualTypeList[0]);
                             inputRuleSet.addRule(new CollectionSetter(method, parameterName, inputTypeOfTheSetter,
                                     elementType));
@@ -355,20 +335,17 @@ public class BeanUtil
                     // setSomething(Collection) method wihtout any type
                     // parameter cannot be used to bind JSON data, thus skip
                 }
-                else if (TypeInfo.isMap(inputTypeOfTheSetter))
-                {
+                else if (TypeInfo.isMap(inputTypeOfTheSetter)) {
                     // setSomething(Map<K, V> map) method
                     Pair<Class< ? >, Class< ? >> keyValueTypePair = getGenericMapTypesOfMethodArgument(method, 0);
-                    if (keyValueTypePair != null)
-                    {
+                    if (keyValueTypePair != null) {
                         inputRuleSet.addRule(new MapSetter(method, parameterName, inputTypeOfTheSetter,
                                 keyValueTypePair.getFirst(), keyValueTypePair.getSecond()));
                         continue;
                     }
                     // setMap(Map map) without any type parameter cannot be used
                 }
-                else
-                {
+                else {
                     inputRuleSet.addRule(new Setter(method, parameterName, inputTypeOfTheSetter));
                 }
             }
@@ -377,17 +354,14 @@ public class BeanUtil
         return inputRuleSet;
     }
 
-    public static Pair<Class< ? >, Class< ? >> getGenericMapTypesOfMethodArgument(Method method, int argIndex)
-    {
+    public static Pair<Class< ? >, Class< ? >> getGenericMapTypesOfMethodArgument(Method method, int argIndex) {
 
         ParameterizedType genericSetterArgumentType = getParentParameterizedType(
                 method.getGenericParameterTypes()[argIndex], Map.class);
 
-        if (genericSetterArgumentType != null)
-        {
+        if (genericSetterArgumentType != null) {
             Type[] actualTypeList = genericSetterArgumentType.getActualTypeArguments();
-            if (actualTypeList.length >= 2)
-            {
+            if (actualTypeList.length >= 2) {
                 Class< ? > keyType = resolveRawType(actualTypeList[0]);
                 Class< ? > valueType = resolveRawType(actualTypeList[1]);
                 return new Pair<Class< ? >, Class< ? >>(keyType, valueType);
@@ -398,13 +372,11 @@ public class BeanUtil
 
     }
 
-    public static ParameterizedType getParameterizedType(Type t)
-    {
+    public static ParameterizedType getParameterizedType(Type t) {
         if (t == null)
             return null;
 
-        if (t instanceof ParameterizedType)
-        {
+        if (t instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) t;
             return pt;
         }
@@ -415,22 +387,18 @@ public class BeanUtil
     }
 
     @SuppressWarnings("unchecked")
-    public static ParameterizedType getParentParameterizedType(Type t, Class target)
-    {
+    public static ParameterizedType getParentParameterizedType(Type t, Class target) {
         if (t == null)
             return null;
 
-        if (t instanceof ParameterizedType)
-        {
+        if (t instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) t;
-            if (target.isAssignableFrom((Class) pt.getRawType()))
-            {
+            if (target.isAssignableFrom((Class) pt.getRawType())) {
                 return pt;
             }
         }
 
-        if (t instanceof Class)
-        {
+        if (t instanceof Class) {
             Class c = (Class) t;
             return getParentParameterizedType(c.getGenericSuperclass(), target);
         }
@@ -438,11 +406,9 @@ public class BeanUtil
             return null;
     }
 
-    public static Class< ? > resolveActualTypeOfCollectionElement(Type type, Class< ? > orig)
-    {
+    public static Class< ? > resolveActualTypeOfCollectionElement(Type type, Class< ? > orig) {
         ParameterizedType pt = getParentParameterizedType(type, Collection.class);
-        if (pt != null)
-        {
+        if (pt != null) {
             Type[] actualType = pt.getActualTypeArguments();
             if (actualType.length > 0)
                 return resolveRawType(actualType[0], orig);
@@ -450,11 +416,9 @@ public class BeanUtil
         return orig;
     }
 
-    public static Class< ? >[] resolveActualTypeOfMapElement(Type type, Class< ? >[] orig)
-    {
+    public static Class< ? >[] resolveActualTypeOfMapElement(Type type, Class< ? >[] orig) {
         ParameterizedType pt = getParentParameterizedType(type, Map.class);
-        if (pt != null)
-        {
+        if (pt != null) {
             Type[] actualType = pt.getActualTypeArguments();
             if (actualType.length > 0)
                 return new Class[] { resolveRawType(actualType[0], orig[0]), resolveRawType(actualType[1], orig[1]) };
@@ -462,10 +426,8 @@ public class BeanUtil
         return orig;
     }
 
-    private static Class< ? > resolveRawType(Type type, Class< ? > orig)
-    {
-        if (type instanceof ParameterizedType)
-        {
+    private static Class< ? > resolveRawType(Type type, Class< ? > orig) {
+        if (type instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) type;
             return resolveRawType(pt.getRawType(), orig);
         }
@@ -475,10 +437,8 @@ public class BeanUtil
             return orig;
     }
 
-    private static Class< ? > resolveRawType(Type type)
-    {
-        if (type instanceof ParameterizedType)
-        {
+    private static Class< ? > resolveRawType(Type type) {
+        if (type instanceof ParameterizedType) {
             ParameterizedType pt = (ParameterizedType) type;
             return resolveRawType(pt.getRawType());
         }
@@ -489,8 +449,7 @@ public class BeanUtil
     }
 
     // non constructable
-    private BeanUtil()
-    {}
+    private BeanUtil() {}
 
     /**
      * @param methodName
@@ -503,14 +462,12 @@ public class BeanUtil
      * 
      * 
      */
-    public static String pickPropertyName(String methodName)
-    {
+    public static String pickPropertyName(String methodName) {
         Matcher m = null;
         m = _setGetAddMethodPattern.matcher(methodName);
         if (!m.matches())
             return null;
-        else
-        {
+        else {
             if (m.group(2) != null)
                 return m.group(3).toLowerCase() + m.group(4);
             else
@@ -524,79 +481,64 @@ public class BeanUtil
     {
         private ByteArrayOutputStream _buffer = new ByteArrayOutputStream();
 
-        private XMLGenerator _out = new XMLGenerator(_buffer);
+        private XMLGenerator          _out    = new XMLGenerator(_buffer);
 
-        public BeanToXMLProcess()
-        {
+        public BeanToXMLProcess() {
 
         }
 
-        public String generateXML(String tagName, Object bean) throws BeanException
-        {
-            try
-            {
+        public String generateXML(String tagName, Object bean) throws XerialException {
+            try {
                 toXML(tagName, bean);
                 _out.endDocument();
                 _out.flush();
                 return _buffer.toString();
             }
-            catch (IllegalArgumentException e)
-            {
-                throw new BeanException(BeanErrorCode.IllegalArgument, e);
+            catch (IllegalArgumentException e) {
+                throw new XerialException(XerialErrorCode.IllegalArgument, e);
             }
         }
 
-        private void toXML(String tagName, Object bean) throws BeanException
-        {
+        private void toXML(String tagName, Object bean) throws XerialException {
             if (bean == null)
                 return;
 
             Class< ? > beanClass = bean.getClass();
 
-            if (beanClass.isArray())
-            {
+            if (beanClass.isArray()) {
                 Object[] array = (Object[]) bean;
                 int i = 0;
-                for (; i < array.length - 1; i++)
-                {
+                for (; i < array.length - 1; i++) {
                     toXML(tagName, array[i]);
                     _out.text(",");
                 }
                 toXML(tagName, array[i]);
             }
-            else if (TypeInfo.isBasicType(beanClass))
-            {
+            else if (TypeInfo.isBasicType(beanClass)) {
                 _out.element(tagName, bean.toString());
             }
-            else
-            {
-                if (TypeInfo.isCollection(beanClass))
-                {
+            else {
+                if (TypeInfo.isCollection(beanClass)) {
                     Collection< ? > collection = (Collection< ? >) bean;
-                    for (Object elem : collection)
-                    {
+                    for (Object elem : collection) {
                         toXML(tagName, elem);
                     }
                 }
-                else if (TypeInfo.isMap(beanClass))
-                {
+                else if (TypeInfo.isMap(beanClass)) {
                     Map< ? , ? > map = (Map< ? , ? >) bean;
 
-                    for (Object key : map.keySet())
-                    {
+                    for (Object key : map.keySet()) {
                         _out.startTag(tagName);
                         _out.element("key", key.toString());
                         _out.element("value", map.get(key).toString());
                         _out.endTag();
                     }
                 }
-                else
-                {
+                else {
                     // return an XML elemenet
                     _out.startTag(tagName);
                     BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-                    for (BeanBinder rule : outputRuleSet.getBindRules())
-                    {
+                    for (BeanBinder rule : outputRuleSet.getBindRules()) {
                         Method getter = rule.getMethod();
                         String parameterName = rule.getParameterName();
 
@@ -610,28 +552,24 @@ public class BeanUtil
         }
     }
 
-    public static String toXML(String tagName, Object bean) throws BeanException
-    {
+    public static String toXML(String tagName, Object bean) throws XerialException {
         BeanToXMLProcess bp = new BeanToXMLProcess();
         return bp.generateXML(tagName, bean);
     }
 
-    public static String toJSONFromResultSet(ResultSet resultSet) throws SQLException
-    {
+    public static String toJSONFromResultSet(ResultSet resultSet) throws SQLException {
         StringBuilder builder = new StringBuilder();
         ResultSetMetaData metadata = resultSet.getMetaData();
         int colCount = metadata.getColumnCount();
         builder.append("{");
-        for (int i = 1; i <= colCount; i++)
-        {
+        for (int i = 1; i <= colCount; i++) {
             if (i >= 2)
                 builder.append(",");
             Object value = resultSet.getObject(i);
             builder.append("\"");
             builder.append(metadata.getColumnName(i));
             builder.append("\":");
-            if (value != null)
-            {
+            if (value != null) {
                 builder.append("\"");
                 builder.append(value.toString());
                 builder.append("\"");
@@ -643,45 +581,38 @@ public class BeanUtil
         return builder.toString();
     }
 
-    public static String toJSON(Object bean) throws BeanException
-    {
+    public static String toJSON(Object bean) throws XerialException {
         return outputAsJSONValue(bean).toString();
     }
 
-    public static JSONObject toJSONObject(Object bean) throws BeanException
-    {
+    public static JSONObject toJSONObject(Object bean) throws XerialException {
         return outputAsJSONValue(bean).getJSONObject();
     }
 
-    public static JSONObject toJSONObject(Collection< ? > collection) throws BeanException
-    {
+    public static JSONObject toJSONObject(Collection< ? > collection) throws XerialException {
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("elem", outputAsJSONValue(collection));
         return jsonObj;
     }
 
-    public static JSONValue getValue(Object bean, String propertyName) throws BeanException
-    {
+    public static JSONValue getValue(Object bean, String propertyName) throws XerialException {
         JSONObject json = toJSONObject(bean);
         return json.get(propertyName);
     }
 
-    private static JSONValue outputAsJSONValue(Object bean) throws BeanException
-    {
+    private static JSONValue outputAsJSONValue(Object bean) throws XerialException {
         if (bean == null)
             return null;
         Class< ? > beanClass = bean.getClass();
 
-        if (beanClass.isArray())
-        {
+        if (beanClass.isArray()) {
             Object[] array = (Object[]) bean;
             JSONArray jsonArray = new JSONArray();
             for (Object obj : array)
                 jsonArray.add(outputAsJSONValue(obj));
             return jsonArray;
         }
-        else if (TypeInfo.isBasicType(beanClass))
-        {
+        else if (TypeInfo.isBasicType(beanClass)) {
             String jsonStr = bean.toString();
             JSONValue value = null;
             if (beanClass == String.class)
@@ -697,21 +628,18 @@ public class BeanUtil
             else if (beanClass == long.class || beanClass == Long.class)
                 value = new JSONLong(jsonStr);
             else
-                throw new BeanException(BeanErrorCode.InvalidBeanClass, beanClass.toString() + " is not basic type");
+                throw new XerialException(XerialErrorCode.InvalidBeanClass, beanClass.toString() + " is not basic type");
             return value;
         }
-        else
-        {
+        else {
 
-            if (TypeInfo.isCollection(beanClass))
-            {
+            if (TypeInfo.isCollection(beanClass)) {
                 Collection< ? > collection = (Collection< ? >) bean;
                 JSONArray jsonArray = new JSONArray();
                 for (Object obj : collection)
                     jsonArray.add(outputAsJSONValue(obj));
 
-                if (hasGetter(beanClass))
-                {
+                if (hasGetter(beanClass)) {
                     // extended Array class
                     JSONObject json = new JSONObject();
                     json.put("elem", jsonArray);
@@ -720,12 +648,10 @@ public class BeanUtil
                 else
                     return jsonArray;
             }
-            else if (TypeInfo.isMap(beanClass))
-            {
+            else if (TypeInfo.isMap(beanClass)) {
                 Map< ? , ? > map = (Map< ? , ? >) bean;
                 JSONArray jsonArray = new JSONArray();
-                for (Object key : map.keySet())
-                {
+                for (Object key : map.keySet()) {
                     JSONObject pair = new JSONObject();
                     pair.put("key", outputAsJSONValue(key));
                     pair.put("value", outputAsJSONValue(map.get(key)));
@@ -733,8 +659,7 @@ public class BeanUtil
                 }
 
                 BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-                if (outputRuleSet.getBindRules().size() > 0)
-                {
+                if (outputRuleSet.getBindRules().size() > 0) {
                     // extended Map class
                     JSONObject json = new JSONObject();
                     json.put("elem", jsonArray);
@@ -749,17 +674,14 @@ public class BeanUtil
 
     }
 
-    private static boolean hasGetter(Class< ? > beanClass) throws BeanException
-    {
+    private static boolean hasGetter(Class< ? > beanClass) throws XerialException {
         BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
         return outputRuleSet.getBindRules().size() > 0;
     }
 
-    private static JSONObject outputBeanParameters(JSONObject json, Object bean) throws BeanException
-    {
+    private static JSONObject outputBeanParameters(JSONObject json, Object bean) throws XerialException {
         BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(bean.getClass());
-        for (BeanBinder rule : outputRuleSet.getBindRules())
-        {
+        for (BeanBinder rule : outputRuleSet.getBindRules()) {
             Method getter = rule.getMethod();
             String parameterName = rule.getParameterName();
 
@@ -770,63 +692,42 @@ public class BeanUtil
         return json;
     }
 
-    private static Object invokeGetterMethod(Method getter, Object bean) throws BeanException
-    {
-        try
-        {
+    private static Object invokeGetterMethod(Method getter, Object bean) throws XerialException {
+        try {
             return getter.invoke(bean);
         }
-        catch (IllegalArgumentException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalArgument, e);
+        catch (IllegalArgumentException e) {
+            throw new XerialException(XerialErrorCode.IllegalArgument, e);
         }
-        catch (IllegalAccessException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalAccess, e);
+        catch (IllegalAccessException e) {
+            throw new XerialException(XerialErrorCode.IllegalAccess, e);
         }
-        catch (InvocationTargetException e)
-        {
-            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
+        catch (InvocationTargetException e) {
+            throw new XerialException(XerialErrorCode.InvocationTargetException, e);
         }
     }
 
-    public static void populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException
-    {
+    public static void populateBeanWithMap(Object bean, Map< ? , ? > map) throws XerialException {
         BeanUtilImpl.populateBeanWithMap(bean, map);
     }
 
-    public static void populateBeanWithXML(Object bean, Reader xmlReader) throws BeanException
-    {
+    public static void populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException {
         if (bean == null)
-            throw new BeanException(BeanErrorCode.BeanObjectIsNull);
-        try
-        {
-            BeanUtilImpl.populateBeanWithXML(bean, xmlReader);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+            throw new XerialException(XerialErrorCode.BeanObjectIsNull);
+
+        BeanUtilImpl.populateBeanWithXML(bean, xmlReader);
+
     }
 
-    public static void populateBeanWithXML(Object bean, String xmlData) throws BeanException
-    {
+    public static void populateBeanWithXML(Object bean, String xmlData) throws XerialException {
         populateBeanWithXML(bean, new StringReader(xmlData));
     }
 
-    public static void populateBeanWithXML(Object bean, Element xmlElement) throws BeanException
-    {
+    public static void populateBeanWithXML(Object bean, Element xmlElement) throws XerialException {
         if (xmlElement == null)
             return; // there is nothing to bind
 
-        try
-        {
-            BeanUtilImpl.populateBeanWithXML(bean, xmlElement);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+        BeanUtilImpl.populateBeanWithXML(bean, xmlElement);
     }
 
     // protected static void populateBeanWithXML(Object bean, Object xmlValue)
@@ -846,23 +747,15 @@ public class BeanUtil
     // populateBeanWithXML(bean, (Element) xmlValue);
     // else
     // {
-    // throw new BeanException(BeanErrorCode.UnsupportedXMLDataType,
+    // throw new BeanException(XerialErrorCode.UnsupportedXMLDataType,
     // "unsupported value type: "
     // + xmlValue.getClass().toString());
     // }
     // }
     // }
 
-    public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws BeanException, IOException
-    {
-        try
-        {
-            BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+    public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws XerialException, IOException {
+        BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
     }
 
     /**
@@ -876,19 +769,16 @@ public class BeanUtil
      * @throws InvalidJSONDataException
      *             when the input json data is invalid (cannot interpret as a
      *             JSON object)
-     * @throws InvalidBeanException
+     * @throws InvalidXerialException
      *             when a bean class has invalid structure
      */
-    public static void populateBeanWithJSON(Object bean, String jsonData) throws BeanException
-    {
+    public static void populateBeanWithJSON(Object bean, String jsonData) throws XerialException {
         // parse the input JSON data
-        try
-        {
+        try {
             populateBeanWithJSON(bean, new StringReader(jsonData));
         }
-        catch (IOException e)
-        {
-            throw new BeanException(BeanErrorCode.IOError, e);
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IOError, e);
         }
 
     }
@@ -900,24 +790,17 @@ public class BeanUtil
      *            a bean class
      * @param json
      *            a JSONOBject
-     * @throws InvalidBeanException
+     * @throws InvalidXerialException
      * @throws InvalidJSONDataException
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static void populateBean(Object bean, JSONObject json) throws BeanException
-    {
-        try
-        {
+    public static void populateBean(Object bean, JSONObject json) throws XerialException {
+        try {
             BeanUtilImpl.populateBeanWithJSON(bean, new StringReader(json.toJSONString()));
         }
-        catch (IOException e)
-        {
-            throw new BeanException(BeanErrorCode.IOError, e.getMessage());
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IOError, e.getMessage());
         }
     }
 
@@ -938,52 +821,41 @@ public class BeanUtil
      * @throws InstantiationException
      * @throws InvalidJSONDataException
      */
-    protected static void populateBean(Object bean, JSONArray jsonArray) throws BeanException
-    {
+    protected static void populateBean(Object bean, JSONArray jsonArray) throws XerialException {
         Class< ? > beanClass = bean.getClass();
-        if (beanClass.isArray())
-        {
+        if (beanClass.isArray()) {
             Object[] array = (Object[]) bean;
             Class< ? > componentType = beanClass.getComponentType();
-            for (int i = 0; i < jsonArray.size(); i++)
-            {
-                try
-                {
+            for (int i = 0; i < jsonArray.size(); i++) {
+                try {
                     array[i] = componentType.newInstance();
                 }
-                catch (InstantiationException e)
-                {
-                    throw new BeanException(BeanErrorCode.InstantiationFailure, e);
+                catch (InstantiationException e) {
+                    throw new XerialException(XerialErrorCode.InstantiationFailure, e);
                 }
-                catch (IllegalAccessException e)
-                {
-                    throw new BeanException(BeanErrorCode.IllegalAccess, e);
+                catch (IllegalAccessException e) {
+                    throw new XerialException(XerialErrorCode.IllegalAccess, e);
                 }
                 populateBeanWithJSON(array[i], jsonArray.get(i));
             }
         }
         else
-            throw new BeanException(BeanErrorCode.InvalidJSONArray,
+            throw new XerialException(XerialErrorCode.InvalidJSONArray,
                     "to bind json array to a bean, it must be an instance array (e.g. Object[])");
 
     }
 
-    protected static void populateBeanWithJSON(Object bean, Object jsonValue) throws BeanException
-    {
-        if (jsonValue.getClass() == JSONObject.class)
-        {
+    protected static void populateBeanWithJSON(Object bean, Object jsonValue) throws XerialException {
+        if (jsonValue.getClass() == JSONObject.class) {
             populateBean(bean, (JSONObject) jsonValue);
         }
-        else if (jsonValue.getClass() == JSONArray.class)
-        {
+        else if (jsonValue.getClass() == JSONArray.class) {
             populateBean(bean, (JSONArray) jsonValue);
         }
-        else
-        {
+        else {
             // the object is a JSONValue
             Class< ? > beanClass = bean.getClass();
-            if (TypeInfo.isBasicType(beanClass))
-            {
+            if (TypeInfo.isBasicType(beanClass)) {
                 String jsonStr = jsonValue.toString();
                 if (beanClass == String.class)
                     bean = new String(jsonStr);
@@ -996,91 +868,66 @@ public class BeanUtil
                 else if (beanClass == boolean.class || beanClass == Boolean.class)
                     bean = new Boolean(jsonStr);
                 else
-                    throw new BeanException(BeanErrorCode.InvalidBeanClass);
+                    throw new XerialException(XerialErrorCode.InvalidBeanClass);
             }
         }
     }
 
-    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation) throws XerialException, IOException
-    {
-        try
-        {
+    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation) throws XerialException, IOException {
+        try {
             Lens.loadSilk(bean, silkResourceLocation);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
 
         return bean;
     }
 
-    public static Object createBeanFromJSON(Class< ? > beanType, Reader jsonReader) throws IOException, BeanException
-    {
-        try
-        {
+    public static Object createBeanFromJSON(Class< ? > beanType, Reader jsonReader) throws IOException, XerialException {
+        try {
             return BeanUtilImpl.createBeanFromJSON(beanType, jsonReader);
         }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
+        catch (XerialException e) {
+            throw new XerialException(XerialErrorCode.BindFailure, e.getMessage());
         }
     }
 
-    public static Object createBeanFromJSON(Class< ? > beanType, String json) throws BeanException
-    {
-        try
-        {
+    public static Object createBeanFromJSON(Class< ? > beanType, String json) throws XerialException {
+        try {
             return BeanUtilImpl.createBeanFromJSON(beanType, new StringReader(json));
         }
-        catch (IOException e)
-        {
-            throw new BeanException(BeanErrorCode.IOError, e.getMessage());
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e.getMessage());
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IOError, e.getMessage());
         }
     }
 
-    public static Object createInstance(Class< ? > c) throws BeanException
-    {
+    public static Object createInstance(Class< ? > c) throws XerialException {
         return TypeInfo.createInstance(c);
     }
 
-    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws BeanException, IOException,
-            BeanException
-    {
-        try
-        {
-            return BeanUtilImpl.createBeanFromXML(valueType, xmlReader);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws XerialException, IOException,
+            XerialException {
+
+        return BeanUtilImpl.createBeanFromXML(valueType, xmlReader);
     }
 
-    public static Object createXMLBean(Class< ? > valueType, String xmlData) throws BeanException
-    {
+    public static Object createXMLBean(Class< ? > valueType, String xmlData) throws XerialException {
         Object bean;
         bean = createInstance(valueType);
         populateBeanWithXML(bean, xmlData);
         return bean;
     }
 
-    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation) throws XerialException
-    {
+    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation) throws XerialException {
         T bean = TypeInfo.createInstance(beanClass);
         BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
 
-        try
-        {
+        try {
             SilkWalker walker = new SilkWalker(silkFileLocation);
             walker.walk(bindingProcess);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
 
@@ -1088,37 +935,24 @@ public class BeanUtil
     }
 
     public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, BeanHandler<T> beanHandler)
-            throws IOException, BeanException
-    {
-        try
-        {
-            BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
-                    new BindRuleGeneratorForBeanStream<T>(beanClass));
+            throws IOException, XerialException {
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
+                new BindRuleGeneratorForBeanStream<T>(beanClass));
 
-            JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
-            walker.walk(bindingProcess);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+        JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
+        walker.walk(bindingProcess);
+
     }
 
     public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, String targetNodeName,
-            BeanHandler<T> beanHandler) throws IOException, BeanException
-    {
-        try
-        {
-            BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
-                    new BindRuleGeneratorForBeanStream<T>(beanClass, targetNodeName));
+            BeanHandler<T> beanHandler) throws IOException, XerialException {
 
-            JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
-            walker.walk(bindingProcess);
-        }
-        catch (XerialException e)
-        {
-            throw new BeanException(BeanErrorCode.BindFailure, e);
-        }
+        BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(beanHandler),
+                new BindRuleGeneratorForBeanStream<T>(beanClass, targetNodeName));
+
+        JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
+        walker.walk(bindingProcess);
+
     }
 
 }
@@ -1147,42 +981,35 @@ enum BeanParameterType {
  */
 class BinderSet implements BeanBinderSet
 {
-    Class< ? > beanClass;
+    Class< ? >         beanClass;
 
     Vector<BeanBinder> _bindRule = new Vector<BeanBinder>();
 
-    public BinderSet(Class< ? > beanClass)
-    {
+    public BinderSet(Class< ? > beanClass) {
         this.beanClass = beanClass;
     }
 
     // @see org.utgenome.util.BeanBinderSet#addRule(org.utgenome.util.Binder)
-    public void addRule(BeanBinder binder)
-    {
+    public void addRule(BeanBinder binder) {
         _bindRule.add(binder);
     }
 
     // @see org.utgenome.util.BeanBinderSet#getBindRules()
-    public Vector<BeanBinder> getBindRules()
-    {
+    public Vector<BeanBinder> getBindRules() {
         return _bindRule;
     }
 
     // @see org.utgenome.util.BeanBinderSet#findRule(java.lang.String)
-    public BeanBinder findRule(String name)
-    {
-        for (BeanBinder rule : _bindRule)
-        {
+    public BeanBinder findRule(String name) {
+        for (BeanBinder rule : _bindRule) {
             if (rule.getParameterName().equalsIgnoreCase(name))
                 return rule;
         }
         return null;
     }
 
-    public MapPutter getStandardMapPutter()
-    {
-        for (BeanBinder rule : _bindRule)
-        {
+    public MapPutter getStandardMapPutter() {
+        for (BeanBinder rule : _bindRule) {
             if (rule.getMethod().getName().equals("put"))
                 return MapPutter.class.cast(rule);
         }

@@ -34,7 +34,6 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.Pair;
-import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 
@@ -54,29 +53,22 @@ public class ReflectionUtil
      * @param setter
      * @param value
      */
-    public static void setValue(Object bean, Method setter, Object value)
-    {
-        try
-        {
-            try
-            {
+    public static void setValue(Object bean, Method setter, Object value) {
+        try {
+            try {
                 setter.invoke(bean, value);
             }
-            catch (IllegalAccessException e)
-            {
+            catch (IllegalAccessException e) {
                 setter.setAccessible(true);
-                try
-                {
+                try {
                     setter.invoke(bean, value);
                 }
-                catch (IllegalAccessException e2)
-                {
+                catch (IllegalAccessException e2) {
                     throw new IllegalAccessError(e2.getMessage());
                 }
             }
         }
-        catch (InvocationTargetException e)
-        {
+        catch (InvocationTargetException e) {
             throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e);
         }
     }
@@ -88,44 +80,34 @@ public class ReflectionUtil
      * @param field
      * @return
      */
-    public static Object getFieldValue(Object bean, Field field)
-    {
+    public static Object getFieldValue(Object bean, Field field) {
         Object value = null;
-        try
-        {
+        try {
             value = field.get(bean);
         }
-        catch (IllegalAccessException e)
-        {
+        catch (IllegalAccessException e) {
             field.setAccessible(true);
-            try
-            {
+            try {
                 value = field.get(bean);
             }
-            catch (IllegalAccessException e1)
-            {
+            catch (IllegalAccessException e1) {
                 throw new IllegalAccessError(e1.getMessage());
             }
         }
         return value;
     }
 
-    public static Object invokeGetter(Object bean, Method getter)
-    {
-        try
-        {
+    public static Object invokeGetter(Object bean, Method getter) {
+        try {
             return getter.invoke(bean);
         }
-        catch (IllegalArgumentException e)
-        {
+        catch (IllegalArgumentException e) {
             throw new XerialError(XerialErrorCode.INVALID_STATE, "not a getter (0-arg public method): " + getter);
         }
-        catch (IllegalAccessException e)
-        {
+        catch (IllegalAccessException e) {
             throw new IllegalAccessError(e.getMessage());
         }
-        catch (InvocationTargetException e)
-        {
+        catch (InvocationTargetException e) {
             throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e);
         }
     }
@@ -143,15 +125,13 @@ public class ReflectionUtil
      * @param field
      * @return the generic element type
      */
-    public static Type getGenericCollectionElementType(Field field)
-    {
+    public static Type getGenericCollectionElementType(Field field) {
         if (!TypeInfo.isCollection(field.getType()))
             throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, field.getType().getName());
 
         Type fieldType = field.getGenericType();
 
-        if (hasGenericTypes(fieldType))
-        {
+        if (hasGenericTypes(fieldType)) {
             ParameterizedType pt = ParameterizedType.class.cast(fieldType);
             return pt.getActualTypeArguments()[0];
         }
@@ -159,15 +139,12 @@ public class ReflectionUtil
             return Object.class;
     }
 
-    public static boolean hasGenericTypes(Type t)
-    {
+    public static boolean hasGenericTypes(Type t) {
         return ParameterizedType.class.isInstance(t);
     }
 
-    public static Type[] getGenericParameterTypes(Type t)
-    {
-        if (ParameterizedType.class.isInstance(t))
-        {
+    public static Type[] getGenericParameterTypes(Type t) {
+        if (ParameterizedType.class.isInstance(t)) {
             ParameterizedType pt = ParameterizedType.class.cast(t);
             return pt.getActualTypeArguments();
         }
@@ -175,14 +152,12 @@ public class ReflectionUtil
             return null;
     }
 
-    public static Class< ? > getGenericArgumentType(Method method, int argIndex)
-    {
+    public static Class< ? > getGenericArgumentType(Method method, int argIndex) {
         Type[] argTypes = method.getGenericParameterTypes();
         if (argTypes.length < argIndex)
             throw new XerialError(XerialErrorCode.INVALID_INPUT, method.toGenericString());
 
-        if (ParameterizedType.class.isInstance(argTypes[argIndex]))
-        {
+        if (ParameterizedType.class.isInstance(argTypes[argIndex])) {
             ParameterizedType pt = ParameterizedType.class.cast(argTypes[argIndex]);
             return toClassType(pt.getActualTypeArguments()[0]);
         }
@@ -191,15 +166,13 @@ public class ReflectionUtil
 
     }
 
-    public static Type getGenericCollectionElementRawType(Field collectionType)
-    {
+    public static Type getGenericCollectionElementRawType(Field collectionType) {
         if (!TypeInfo.isCollection(collectionType.getType()))
             throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, collectionType.getType().getName());
 
         Type optionFieldType = collectionType.getGenericType();
 
-        if (ParameterizedType.class.isInstance(optionFieldType))
-        {
+        if (ParameterizedType.class.isInstance(optionFieldType)) {
             ParameterizedType pt = ParameterizedType.class.cast(optionFieldType);
             return pt.getActualTypeArguments()[0];
         }
@@ -208,18 +181,15 @@ public class ReflectionUtil
 
     }
 
-    private static Class< ? > toClassType(Type genericType)
-    {
+    private static Class< ? > toClassType(Type genericType) {
         if (Class.class.isInstance(genericType))
             return (Class< ? >) genericType;
         else
             return Object.class;
     }
 
-    public static Class< ? > getRawClass(Type type)
-    {
-        if (ParameterizedType.class.isInstance(type))
-        {
+    public static Class< ? > getRawClass(Type type) {
+        if (ParameterizedType.class.isInstance(type)) {
             ParameterizedType pt = ParameterizedType.class.cast(type);
             return toClassType(pt.getRawType());
         }
@@ -227,15 +197,13 @@ public class ReflectionUtil
             return toClassType(type);
     }
 
-    public static Pair<Type, Type> getGenericMapElementType(Field field)
-    {
+    public static Pair<Type, Type> getGenericMapElementType(Field field) {
         if (!TypeInfo.isMap(field.getType()))
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "not a map type: " + field);
 
         Type fieldType = field.getGenericType();
 
-        if (ParameterizedType.class.isInstance(fieldType))
-        {
+        if (ParameterizedType.class.isInstance(fieldType)) {
             ParameterizedType pt = ParameterizedType.class.cast(fieldType);
             Type[] keyValueType = pt.getActualTypeArguments();
 
@@ -260,25 +228,17 @@ public class ReflectionUtil
      * @throws XerialException
      *             when failed to create a new instance of the field type
      */
-    public static void initializeCollectionField(Object bean, Field field) throws XerialException
-    {
+    public static void initializeCollectionField(Object bean, Field field) throws XerialException {
         Class< ? > t = field.getType();
         if (!TypeInfo.isCollection(t))
             return; // not a collection field
 
-        try
-        {
-            Object collection = getFieldValue(bean, field);
-            if (collection == null)
-            {
-                collection = TypeInfo.createInstance(t);
-                ReflectionUtil.setFieldValue_internal(bean, field, collection);
-            }
+        Object collection = getFieldValue(bean, field);
+        if (collection == null) {
+            collection = TypeInfo.createInstance(t);
+            ReflectionUtil.setFieldValue_internal(bean, field, collection);
         }
-        catch (BeanException e)
-        {
-            throw new XerialException(e);
-        }
+
     }
 
     /**
@@ -292,77 +252,57 @@ public class ReflectionUtil
      *            the value to set
      * @throws XerialException
      */
-    public static void setFieldValue(Object bean, Field field, Object value) throws XerialException
-    {
-        try
-        {
+    public static void setFieldValue(Object bean, Field field, Object value) throws XerialException {
+        try {
             Class< ? > t = field.getType();
-            if (TypeInfo.isCollection(t))
-            {
+            if (TypeInfo.isCollection(t)) {
                 Object collection = getFieldValue(bean, field);
-                if (collection == null)
-                {
+                if (collection == null) {
                     collection = TypeInfo.createInstance(t);
                     ReflectionUtil.setFieldValue_internal(bean, field, collection);
                 }
 
                 // use adder
-                try
-                {
+                try {
                     Method adder = field.getType().getMethod("add", Object.class);
                     Type elementType = getGenericCollectionElementType(field);
 
                     Object convertedValue = TypeConverter.convertType(getRawClass(elementType), value);
                     adder.invoke(collection, convertedValue);
                 }
-                catch (SecurityException e)
-                {
+                catch (SecurityException e) {
                     throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of " + t.getName());
                 }
-                catch (NoSuchMethodException e)
-                {
+                catch (NoSuchMethodException e) {
                     throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, t.getName());
                 }
-                catch (IllegalAccessException e)
-                {
+                catch (IllegalAccessException e) {
                     throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of " + t.getName());
                 }
-                catch (InvocationTargetException e)
-                {
+                catch (InvocationTargetException e) {
                     throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, e);
                 }
             }
-            else
-            {
+            else {
                 Object convertedValue = TypeConverter.convertType(t, value);
                 setFieldValue_internal(bean, field, convertedValue);
             }
         }
-        catch (IllegalArgumentException e)
-        {
+        catch (IllegalArgumentException e) {
             throw new XerialException(XerialErrorCode.WRONG_DATA_TYPE, e);
-        }
-        catch (BeanException e)
-        {
-            throw new XerialException(e);
         }
     }
 
-    private static void setFieldValue_internal(Object bean, Field field, Object value)
-    {
-        try
-        {
+    private static void setFieldValue_internal(Object bean, Field field, Object value) {
+        try {
             field.set(bean, value);
         }
-        catch (IllegalAccessException e)
-        {
+        catch (IllegalAccessException e) {
             field.setAccessible(true);
-            try
-            {
+            try {
                 field.set(bean, value);
             }
-            catch (IllegalAccessException e1)
-            {
+            catch (IllegalAccessException e1) {
                 throw new IllegalAccessError(e1.getMessage());
             }
         }

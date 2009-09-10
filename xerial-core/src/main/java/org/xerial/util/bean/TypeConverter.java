@@ -24,9 +24,13 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 
 /**
  * Data type converter
@@ -38,8 +42,7 @@ public class TypeConverter
 {
     // conversion to the Enum type is tested before the cast 
     @SuppressWarnings("unchecked")
-    public static <T> T convertType(Class<T> targetType, Object value) throws BeanException
-    {
+    public static <T> T convertType(Class<T> targetType, Object value) throws XerialException {
         if (targetType.isAssignableFrom(value.getClass()) || targetType == Object.class)
             return (T) value;
         else
@@ -54,17 +57,14 @@ public class TypeConverter
      * @param input
      * @return
      */
-    public static <T extends Enum<T>> T convertToEnum(Class<T> targetType, Object input)
-    {
+    public static <T extends Enum<T>> T convertToEnum(Class<T> targetType, Object input) {
         assert (targetType.isEnum());
 
         String value = input.toString();
-        try
-        {
+        try {
             return Enum.valueOf(targetType, value);
         }
-        catch (IllegalArgumentException e)
-        {
+        catch (IllegalArgumentException e) {
             // try capitalized value
             return Enum.valueOf(targetType, value.toString().toUpperCase());
         }
@@ -76,18 +76,16 @@ public class TypeConverter
      * @param targetType
      * @param input
      * @return
-     * @throws BeanException
+     * @throws XerialException
      */
     @SuppressWarnings("unchecked")
-    public static Object convertToBasicType(Class< ? > targetType, Object input) throws BeanException
-    {
+    public static Object convertToBasicType(Class< ? > targetType, Object input) throws XerialException {
         assert (TypeInfo.isBasicType(targetType));
 
         if (targetType.isEnum())
             return convertToEnum((Class<Enum>) targetType, input);
 
-        try
-        {
+        try {
             String value = input.toString();
 
             if (targetType == String.class)
@@ -106,21 +104,21 @@ public class TypeConverter
                 return new Boolean(value);
             else if ((targetType == char.class || targetType == Character.class) && value.length() == 1)
                 return new Character(value.charAt(0));
-            else if (targetType == Date.class)
-            {
+            else if (targetType == Date.class) {
                 return DateFormat.getDateTimeInstance().parse(value);
             }
-            throw new BeanException(BeanErrorCode.InvalidBeanClass, String.format("%s is not a basic type", targetType
-                    .getSimpleName()));
+            else if (targetType == File.class) {
+                return new File(value);
+            }
+            throw new XerialException(XerialErrorCode.InvalidBeanClass, String.format("%s is not a basic type",
+                    targetType.getSimpleName()));
         }
-        catch (NumberFormatException e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidFormat, String.format("%s %s", targetType.getName(), e
+        catch (NumberFormatException e) {
+            throw new XerialException(XerialErrorCode.InvalidFormat, String.format("%s %s", targetType.getName(), e
                     .getMessage()));
         }
-        catch (ParseException e)
-        {
-            throw new BeanException(BeanErrorCode.InvalidDateFormat, e);
+        catch (ParseException e) {
+            throw new XerialException(XerialErrorCode.InvalidDateFormat, e);
         }
     }
 }

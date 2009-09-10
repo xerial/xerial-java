@@ -27,11 +27,11 @@ package org.xerial.util.bean.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
 import org.xerial.util.bean.BeanBinder;
-import org.xerial.util.bean.BeanErrorCode;
-import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.TypeInfo;
 
 /**
@@ -46,54 +46,45 @@ abstract class BeanBinderBase implements BeanBinder
 
     String parameterName;
 
-    public BeanBinderBase(Method method, String parameterName)
-    {
+    public BeanBinderBase(Method method, String parameterName) {
         this.method = method;
         this.parameterName = parameterName;
     }
 
     // @see org.utgenome.util.BeanBinder#getMethod()
-    public Method getMethod()
-    {
+    public Method getMethod() {
         return method;
     }
 
     // @see org.utgenome.util.BeanBinder#setMethod(java.lang.reflect.Method)
-    public void setMethod(Method method)
-    {
+    public void setMethod(Method method) {
         this.method = method;
     }
 
     // @see org.utgenome.util.BeanBinder#toString()
-    public String toString()
-    {
+    public String toString() {
         return "(" + method.toString() + ") ";
     }
 
     // @see org.utgenome.util.BeanBinder#getParameterName()
-    public String getParameterName()
-    {
+    public String getParameterName() {
         return parameterName;
     }
 
     // @see org.utgenome.util.BeanBinder#setParameterName(java.lang.String)
-    public void setParameterName(String parameterName)
-    {
+    public void setParameterName(String parameterName) {
         this.parameterName = parameterName;
     }
 
-    public static JSONArray getJSONArray(Object json, String key)
-    {
+    public static JSONArray getJSONArray(Object json, String key) {
         if (json == null || json.getClass() != JSONObject.class)
             return null;
         return ((JSONObject) json).getJSONArray(key);
     }
 
-    public static void constractableTest(Class< ? > c) throws BeanException
-    {
-        if (!TypeInfo.canInstantiate(c))
-        {
-            throw new BeanException(BeanErrorCode.NoPublicConstructor, c + " has no public constructor");
+    public static void constractableTest(Class< ? > c) throws XerialException {
+        if (!TypeInfo.canInstantiate(c)) {
+            throw new XerialException(XerialErrorCode.NoPublicConstructor, c + " has no public constructor");
         }
     }
 
@@ -103,25 +94,20 @@ abstract class BeanBinderBase implements BeanBinder
      * 
      * @param bean
      * @param args
-     * @throws BeanException
+     * @throws XerialException
      */
-    protected void invokeMethod(Object bean, Object[] args) throws BeanException
-    {
-        try
-        {
+    protected void invokeMethod(Object bean, Object[] args) throws XerialException {
+        try {
             getMethod().invoke(bean, args);
         }
-        catch (IllegalArgumentException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalArgument, e);
+        catch (IllegalArgumentException e) {
+            throw new XerialException(XerialErrorCode.IllegalArgument, e);
         }
-        catch (IllegalAccessException e)
-        {
-            throw new BeanException(BeanErrorCode.IllegalAccess, e);
+        catch (IllegalAccessException e) {
+            throw new XerialException(XerialErrorCode.IllegalAccess, e);
         }
-        catch (InvocationTargetException e)
-        {
-            throw new BeanException(BeanErrorCode.InvocationTargetException, e);
+        catch (InvocationTargetException e) {
+            throw new XerialException(XerialErrorCode.InvocationTargetException, e);
         }
     }
 

@@ -24,20 +24,24 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
+import java.io.File;
 
 import org.junit.Test;
+import org.xerial.core.XerialException;
+import org.xerial.util.log.Logger;
 
 public class TypeConverterTest
 {
+    private static Logger _logger = Logger.getLogger(TypeConverterTest.class);
+
     enum Animal {
         CAT, DOG, PIG
     }
 
     @Test
-    public void enumConversion()
-    {
+    public void enumConversion() {
         Animal cat = TypeConverter.convertToEnum(Animal.class, "CAT");
         assertEquals(Animal.CAT, cat);
         Animal dog = TypeConverter.convertToEnum(Animal.class, "DOG");
@@ -47,8 +51,7 @@ public class TypeConverterTest
     }
 
     @Test
-    public void enumConversion2() throws BeanException
-    {
+    public void enumConversion2() throws XerialException {
         Animal cat = TypeConverter.convertType(Animal.class, "CAT");
         assertEquals(Animal.CAT, cat);
         Animal dog = TypeConverter.convertType(Animal.class, "DOG");
@@ -58,22 +61,18 @@ public class TypeConverterTest
     }
 
     @Test
-    public void invalidEnumConversion()
-    {
-        try
-        {
+    public void invalidEnumConversion() {
+        try {
             Animal cow = TypeConverter.convertToEnum(Animal.class, "COW");
             fail("cannot reach here");
         }
-        catch (IllegalArgumentException e)
-        {
+        catch (IllegalArgumentException e) {
 
         }
     }
 
     @Test
-    public void tryCapitalizeInputForEnumConversion() throws BeanException
-    {
+    public void tryCapitalizeInputForEnumConversion() throws XerialException {
         Animal cat = TypeConverter.convertType(Animal.class, "cat");
         assertEquals(Animal.CAT, cat);
         Animal dog = TypeConverter.convertType(Animal.class, "doG");
@@ -82,4 +81,9 @@ public class TypeConverterTest
         assertEquals(Animal.PIG, pig);
     }
 
+    @Test
+    public void fileType() throws Exception {
+        File f = TypeConverter.convertType(File.class, "folder/sample.txt");
+        assertEquals(f.getPath(), new File("folder/sample.txt").getPath());
+    }
 }

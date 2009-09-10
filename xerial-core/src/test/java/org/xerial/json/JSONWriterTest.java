@@ -32,16 +32,17 @@ import java.io.StringWriter;
 
 import org.junit.Test;
 import org.xerial.core.XerialError;
+import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
-import org.xerial.util.bean.BeanException;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
-public class JSONWriterTest {
+public class JSONWriterTest
+{
     private static Logger _logger = Logger.getLogger(JSONWriterTest.class);
 
     @Test
-    public void test() throws IOException, JSONException, BeanException {
+    public void test() throws IOException, JSONException, XerialException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -67,7 +68,7 @@ public class JSONWriterTest {
     }
 
     @Test
-    public void test2() throws IOException, JSONException, BeanException {
+    public void test2() throws IOException, JSONException, XerialException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -94,7 +95,7 @@ public class JSONWriterTest {
     }
 
     @Test(expected = XerialError.class)
-    public void testInvalidJSONData() throws IOException, JSONException, BeanException {
+    public void testInvalidJSONData() throws IOException, JSONException, XerialException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -112,7 +113,7 @@ public class JSONWriterTest {
     }
 
     @Test
-    public void streamWrite() throws IOException, JSONException, BeanException {
+    public void streamWrite() throws IOException, JSONException, XerialException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -131,7 +132,7 @@ public class JSONWriterTest {
     }
 
     @Test
-    public void appendString() throws IOException, JSONException, BeanException {
+    public void appendString() throws IOException, JSONException, XerialException {
         StringWriter writer = new StringWriter();
         JSONWriter json = new JSONWriter(writer);
 
@@ -181,9 +182,10 @@ public class JSONWriterTest {
 
     }
 
-    public static class Seq {
-        public int start;
-        public int end;
+    public static class Seq
+    {
+        public int    start;
+        public int    end;
         public String sequence;
     }
 

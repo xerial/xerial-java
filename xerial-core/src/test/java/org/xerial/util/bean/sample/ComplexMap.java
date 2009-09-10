@@ -26,7 +26,7 @@ package org.xerial.util.bean.sample;
 
 import java.util.TreeMap;
 
-import org.xerial.util.bean.BeanException;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.BeanUtil;
 
 @SuppressWarnings("serial")
@@ -34,29 +34,23 @@ public class ComplexMap extends TreeMap<Integer, PersonTable>
 {
     private String name = "n/a";
 
-    public ComplexMap()
-    {
+    public ComplexMap() {
         super();
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String toString()
-    {
-        try
-        {
+    public String toString() {
+        try {
             return BeanUtil.toJSON(this);
         }
-        catch (BeanException e)
-        {
+        catch (XerialException e) {
             return "{}";
         }
     }

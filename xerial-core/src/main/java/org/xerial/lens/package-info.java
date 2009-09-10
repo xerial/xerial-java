@@ -23,7 +23,7 @@
 // $Author$
 //--------------------------------------
 /**
- * Provides mapping tools (lenses) between objects and structured data
+ * Provides mapping tool (lens) between objects and structured data
  * @author leo
  */
 package org.xerial.lens;

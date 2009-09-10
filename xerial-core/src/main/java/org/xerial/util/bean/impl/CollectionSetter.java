@@ -26,16 +26,17 @@ package org.xerial.util.bean.impl;
 
 import java.lang.reflect.Method;
 
-import org.xerial.util.bean.BeanException;
+import org.xerial.core.XerialException;
 import org.xerial.util.bean.TypeInfo;
 
-public class CollectionSetter extends BeanBinderBase {
+public class CollectionSetter extends BeanBinderBase
+{
     Class< ? > collectionType;
 
     Class< ? > elementType;
 
-    public CollectionSetter(Method method, String parameterName, Class< ? > collectionType,
-            Class< ? > elementType) throws BeanException {
+    public CollectionSetter(Method method, String parameterName, Class< ? > collectionType, Class< ? > elementType)
+            throws XerialException {
         super(method, parameterName);
         this.collectionType = collectionType;
         this.elementType = elementType;

@@ -21,8 +21,8 @@
 //
 // $URL$
 // $Author$
-//--------------------------------------
-package org.xerial.util.bean;
+//---------------------------------
+package org.xerial.lens;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -30,13 +30,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * node name alias for setter/getter methods
+ * node name alias for field names, setters and getters
  * 
  * @author leo
- *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Alias {
-    String[] value();
+  String[] value();
 }

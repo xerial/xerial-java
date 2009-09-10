@@ -26,6 +26,7 @@ package org.xerial.util.bean;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -45,6 +46,7 @@ import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
+import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Pair;
 import org.xerial.util.Triplet;
@@ -56,20 +58,17 @@ public class TypeInfoTest
     private static Logger _logger = Logger.getLogger(TypeInfoTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     enum SampleEnum {
         A, B, C
     }
 
     @Test
-    public void testIsBasicType()
-    {
+    public void testIsBasicType() {
         assertTrue(TypeInfo.isBasicType(Integer.class));
         assertTrue(TypeInfo.isBasicType(int.class));
         assertTrue(TypeInfo.isBasicType(Double.class));
@@ -82,6 +81,7 @@ public class TypeInfoTest
         assertTrue(TypeInfo.isBasicType(char.class));
         assertTrue(TypeInfo.isBasicType(String.class));
         assertTrue(TypeInfo.isBasicType(Date.class));
+        assertTrue(TypeInfo.isBasicType(File.class));
 
         assertTrue(TypeInfo.isBasicType(Integer[].class));
         assertTrue(TypeInfo.isBasicType(int[].class));
@@ -103,8 +103,7 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsCollection()
-    {
+    public void testIsCollection() {
         assertTrue(TypeInfo.isCollection(Collection.class));
         assertTrue(TypeInfo.isCollection(List.class));
         assertTrue(TypeInfo.isCollection(Set.class));
@@ -117,8 +116,7 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsSet()
-    {
+    public void testIsSet() {
         assertTrue(TypeInfo.isSet(Set.class));
         assertTrue(TypeInfo.isSet(HashSet.class));
         assertTrue(TypeInfo.isSet(TreeSet.class));
@@ -128,8 +126,7 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsSortedSet()
-    {
+    public void testIsSortedSet() {
         assertFalse(TypeInfo.isSortedSet(Set.class));
         assertFalse(TypeInfo.isSortedSet(HashSet.class));
         assertTrue(TypeInfo.isSortedSet(TreeSet.class));
@@ -140,16 +137,14 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsSortedMap()
-    {
+    public void testIsSortedMap() {
         assertFalse(TypeInfo.isSortedMap(Map.class));
         assertFalse(TypeInfo.isSortedMap(HashMap.class));
         assertTrue(TypeInfo.isSortedMap(TreeMap.class));
     }
 
     @Test
-    public void testIsMap()
-    {
+    public void testIsMap() {
         assertTrue(TypeInfo.isMap(Map.class));
         assertTrue(TypeInfo.isMap(HashMap.class));
         assertTrue(TypeInfo.isMap(TreeMap.class));
@@ -158,30 +153,26 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsPair()
-    {
+    public void testIsPair() {
         assertTrue(TypeInfo.isPair(Pair.class));
         assertTrue(!TypeInfo.isPair(Triplet.class));
     }
 
     @Test
-    public void testIsTriplet()
-    {
+    public void testIsTriplet() {
         assertTrue(!TypeInfo.isTriplet(Pair.class));
         assertTrue(TypeInfo.isTriplet(Triplet.class));
     }
 
     @Test
-    public void testIsQueue() throws Exception
-    {
+    public void testIsQueue() throws Exception {
         assertTrue(TypeInfo.isQueue(Queue.class));
         assertTrue(TypeInfo.isQueue(ArrayDeque.class));
         assertFalse(TypeInfo.isQueue(ArrayList.class));
     }
 
     @Test
-    public void testIsString()
-    {
+    public void testIsString() {
         assertTrue(TypeInfo.isString(String.class));
         assertFalse(TypeInfo.isString(char.class));
         assertFalse(TypeInfo.isString(List.class));
@@ -191,8 +182,7 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsBoolean()
-    {
+    public void testIsBoolean() {
         assertTrue(TypeInfo.isBoolean(Boolean.class));
         assertTrue(TypeInfo.isBoolean(boolean.class));
         assertFalse(TypeInfo.isBoolean(Boolean[].class));
@@ -200,8 +190,7 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testIsDOMElement()
-    {
+    public void testIsDOMElement() {
         assertTrue(TypeInfo.isDOMElement(Element.class));
         assertFalse(TypeInfo.isDOMElement(Node.class));
         assertFalse(TypeInfo.isDOMElement(Text.class));
@@ -209,16 +198,14 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testHasPublicConstructor()
-    {
+    public void testHasPublicConstructor() {
         assertTrue(TypeInfo.hasPublicDefaultConstructor(Book.class));
         assertTrue(TypeInfo.hasPublicDefaultConstructor(TypeInfoTest.class));
         assertFalse(TypeInfo.hasPublicDefaultConstructor(TypeInfo.class));
     }
 
     @Test
-    public void testCanInstantiate()
-    {
+    public void testCanInstantiate() {
         assertTrue(TypeInfo.canInstantiate(Book.class));
         assertTrue(TypeInfo.canInstantiate(TypeInfoTest.class));
         assertFalse(TypeInfo.canInstantiate(TypeInfo.class));
@@ -230,33 +217,29 @@ public class TypeInfoTest
     }
 
     @Test
-    public void testCreateInstance() throws BeanException
-    {
+    public void testCreateInstance() throws XerialException {
         HashMap< ? , ? > map = (HashMap< ? , ? >) TypeInfo.createInstance(HashMap.class);
         String str = (String) TypeInfo.createInstance(String.class);
     }
 
     public static class ImmutableObj
     {
-        public final int id;
+        public final int    id;
         public final String data;
 
-        public ImmutableObj(int id, String data)
-        {
+        public ImmutableObj(int id, String data) {
             this.id = id;
             this.data = data;
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return String.format("id:%s, data:%s", id, data);
         }
     }
 
     @Test
-    public void createInstance() throws Exception
-    {
+    public void createInstance() throws Exception {
         ImmutableObj obj = TypeInfo.createInstance(ImmutableObj.class);
         assertNotNull(obj);
     }
