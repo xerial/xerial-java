@@ -277,13 +277,13 @@ public class OptionParser
             item.setOption(optionHolder, value);
         }
         catch (XerialException e) {
-            XerialErrorCode be = e.getXerialErrorCode();
+            XerialErrorCode be = e.getErrorCode();
             switch (be) {
             case InvalidFormat:
                 throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, String.format("cannot set %s to %s",
                         value, item.toString()));
             default:
-                throw new OptionParserException(e.getErrorCode(), e.getMessage());
+                throw new OptionParserException(e.<XerialErrorCode> getErrorCode(), e.getMessage());
             }
         }
     }

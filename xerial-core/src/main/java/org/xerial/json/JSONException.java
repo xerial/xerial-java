@@ -32,7 +32,8 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class JSONException extends XerialException {
+public class JSONException extends XerialException
+{
     private static final long serialVersionUID = 1L;
 
     /**
@@ -68,7 +69,8 @@ public class JSONException extends XerialException {
      * 
      * @return the error code
      */
+    @SuppressWarnings("unchecked")
     public JSONErrorCode getErrorCode() {
-        return (JSONErrorCode) super.getErrorCode();
+        return JSONErrorCode.class.cast(errorCode);
     }
 }

@@ -35,8 +35,8 @@ import org.xerial.core.XerialException;
 
 public class TypeReferenceTest
 {
-    @Test
-    void reference() {
+
+    public void reference() {
         Type c = new TypeReference<List<String>>() {}.getElementType()[0];
         assertEquals(String.class, c);
 
