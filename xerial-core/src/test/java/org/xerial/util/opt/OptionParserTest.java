@@ -24,12 +24,9 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.util.List;
 
@@ -39,7 +36,8 @@ import org.junit.Test;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 
-public class OptionParserTest {
+public class OptionParserTest
+{
     private static Logger _logger = Logger.getLogger(OptionParserTest.class);
 
     @Before
@@ -48,12 +46,13 @@ public class OptionParserTest {
     @After
     public void tearDown() throws Exception {}
 
-    class MyOption {
+    class MyOption
+    {
         @Option(symbol = "h", longName = "help", description = "display help message")
-        private boolean displayHelp;
+        private boolean      displayHelp;
 
         @Argument(index = 0, required = true)
-        private String subCommand;
+        private String       subCommand;
 
         @Argument(name = "input_file", index = 1, required = false)
         private List<String> fileList;
@@ -146,7 +145,8 @@ public class OptionParserTest {
 
     }
 
-    class LoglevelCommand {
+    class LoglevelCommand
+    {
         @Option(symbol = "l", longName = "loglevel", varName = "LOG_LEVEL")
         private LogLevel loglevel = LogLevel.INFO;
     }
@@ -160,7 +160,8 @@ public class OptionParserTest {
         assertEquals(LogLevel.DEBUG, opt.loglevel);
     }
 
-    class MultipleName {
+    class MultipleName
+    {
         @Option(longName = "name")
         private List<String> name;
     }
@@ -177,9 +178,10 @@ public class OptionParserTest {
         assertEquals("yui", mn.name.get(1));
     }
 
-    class IntArg {
+    class IntArg
+    {
         @Option(symbol = "i")
-        int num;
+        int           num;
 
         @Argument(name = "value")
         List<Integer> value;
@@ -201,7 +203,8 @@ public class OptionParserTest {
 
     }
 
-    class AmbiguousTypeArg {
+    class AmbiguousTypeArg
+    {
         @Argument(name = "value")
         List< ? > value;
 
@@ -210,7 +213,7 @@ public class OptionParserTest {
          */
         @SuppressWarnings("unchecked")
         @Option(symbol = "d")
-        List d;
+        List      d;
     }
 
     @Test
@@ -265,17 +268,19 @@ public class OptionParserTest {
 
     }
 
-    class MainCommand {
+    class MainCommand
+    {
         @Argument(name = "sub_command")
         String subCommand = null;
     }
 
-    class SubCommand {
+    class SubCommand
+    {
         @Option(symbol = "h", longName = "help")
         boolean displayHelp = false;
 
         @Argument(name = "input")
-        String input = null;
+        String  input       = null;
     }
 
     @Test
@@ -313,7 +318,8 @@ public class OptionParserTest {
 
     }
 
-    static class MyOpt {
+    static class MyOpt
+    {
         @Option(symbol = "v", longName = "value", description = "integer value")
         int value = -1;
     }
@@ -326,12 +332,31 @@ public class OptionParserTest {
         }
         catch (OptionParserException e) {
             _logger.debug(e);
-            assertTrue(String.format(
-                    "error message must explain which option argument causes the error: %s", e
-                            .getMessage()), e.getMessage().contains("-v"));
+            assertTrue(String.format("error message must explain which option argument causes the error: %s", e
+                    .getMessage()), e.getMessage().contains("-v"));
             return;
         }
         fail("cannot reach here");
 
     }
+
+    static class FileOpt
+    {
+        @Option(symbol = "o", description = "file name")
+        File f;
+
+        @Argument
+        File input;
+    }
+
+    @Test
+    public void fileType() throws Exception {
+        FileOpt o = new FileOpt();
+        OptionParser opt = new OptionParser(o);
+        opt.parse(new String[] { "-o", "output.txt", "input.xml" });
+
+        assertEquals(new File("output.txt").getPath(), o.f.getPath());
+        assertEquals(new File("input.xml").getPath(), o.input.getPath());
+    }
+
 }
