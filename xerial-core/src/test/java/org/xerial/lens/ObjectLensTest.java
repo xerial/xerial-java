@@ -28,14 +28,12 @@ import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
@@ -163,32 +161,6 @@ public class ObjectLensTest {
         public void put(String key, String value) {
             prop.put(key, value);
         }
-    }
-
-    @Test
-    public void property() throws Exception {
-        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectLensTest.class,
-                "property.silk"));
-
-        assertEquals(2, p.prop.size());
-        assertEquals("hello", p.prop.get("db.name"));
-        assertEquals("sqlite", p.prop.get("db.type"));
-    }
-
-    public static class MapField {
-        public Map<Integer, String> id_name;
-    }
-
-    @Test
-    public void mapPutter() throws Exception {
-        MapField m = Lens.loadSilk(MapField.class, FileResource.open(ObjectLensTest.class,
-                "map.silk"));
-        assertNotNull(m.id_name);
-        assertEquals(2, m.id_name.size());
-        String n1 = m.id_name.get(1);
-        String n2 = m.id_name.get(2);
-        assertEquals("leo", n1);
-        assertEquals("yui", n2);
     }
 
 }

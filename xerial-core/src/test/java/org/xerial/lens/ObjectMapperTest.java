@@ -28,45 +28,42 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.LensTest.Gene;
+import org.xerial.lens.ObjectLensTest.PropReader;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
-public class ObjectMapperTest
-{
+public class ObjectMapperTest {
     private static Logger _logger = Logger.getLogger(ObjectMapperTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    public static class CoordinateData
-    {
+    public static class CoordinateData {
         public String group;
         public String name;
         public String species;
         public String revision;
 
         @Override
-        public String toString()
-        {
-            return String.format("group=%s, name=%s, species=%s, revision=%s", group, name, species, revision);
+        public String toString() {
+            return String.format("group=%s, name=%s, species=%s, revision=%s", group, name,
+                    species, revision);
         }
 
     }
 
     // query: (gene, name, start, end, strand)
-    public static class GeneData
-    {
+    public static class GeneData {
         public final int id;
         public final String name;
         public final long start;
@@ -75,8 +72,7 @@ public class ObjectMapperTest
 
         private StringBuilder sequence = new StringBuilder();
 
-        public GeneData(int id, String name, long start, long end, String strand)
-        {
+        public GeneData(int id, String name, long start, long end, String strand) {
             this.id = id;
             this.name = name;
             this.start = start;
@@ -84,50 +80,43 @@ public class ObjectMapperTest
             this.strand = strand;
         }
 
-        public void appendSequence(String seq)
-        {
+        public void appendSequence(String seq) {
             sequence.append(seq);
         }
 
         @Override
-        public String toString()
-        {
-            return String.format("id=%d, name=%s, start=%s, end=%s, strand=%s, sequence=%s", id, name, start, end,
-                    strand, sequence.toString());
+        public String toString() {
+            return String.format("id=%d, name=%s, start=%s, end=%s, strand=%s, sequence=%s", id,
+                    name, start, end, strand, sequence.toString());
         }
     }
 
-    public static class GeneDB
-    {
+    public static class GeneDB {
         public final String description;
 
-        public GeneDB(String description)
-        {
+        public GeneDB(String description) {
             this.description = description;
         }
 
-        public void addCoordinate_Gene(CoordinateData c, GeneData g)
-        {
+        public void addCoordinate_Gene(CoordinateData c, GeneData g) {
             _logger.debug(String.format("c(%s), g(%s)", c, g));
         }
 
-        public void addCoordinate(CoordinateData c)
-        {
+        public void addCoordinate(CoordinateData c) {
             _logger.debug(c);
         }
 
-        public void addGene(GeneData g)
-        {
+        public void addGene(GeneData g) {
             _logger.debug(g);
         }
 
     }
 
     @Test
-    public void map() throws Exception
-    {
+    public void map() throws Exception {
         ObjectMapper mapper = new ObjectMapper(GeneDB.class);
-        GeneDB gdb = mapper.map(GeneDB.class, new SilkParser(FileResource.find(ObjectMapperTest.class, "gene.silk")));
+        GeneDB gdb = mapper.map(GeneDB.class, new SilkParser(FileResource.find(
+                ObjectMapperTest.class, "gene.silk")));
 
         assertEquals("gene data", gdb.description);
     }
@@ -136,55 +125,106 @@ public class ObjectMapperTest
         SPADE, HEART, CLOVER, DIAMOND
     }
 
-    public static class EnumData
-    {
+    public static class EnumData {
         public List<MARK> mark;
     }
 
     @Test
-    public void enumBind() throws Exception
-    {
-        EnumData ret = Lens.loadSilk(EnumData.class, FileResource.find(ObjectMapperTest.class, "enum.silk"));
+    public void enumBind() throws Exception {
+        EnumData ret = Lens.loadSilk(EnumData.class, FileResource.find(ObjectMapperTest.class,
+                "enum.silk"));
         assertEquals(6, ret.mark.size());
 
     }
 
-    public static class Read
-    {
+    public static class Read {
         public long viewstart;
         public long viewend;
     }
 
     @Test
-    public void primitiveTypeBind() throws Exception
-    {
+    public void primitiveTypeBind() throws Exception {
         Read r = Lens.loadSilk(Read.class, FileResource.find(ObjectMapperTest.class, "long.silk"));
         assertEquals(1721L, r.viewstart);
         assertEquals(2871L, r.viewend);
     }
 
-    public static class MyGene extends Gene
-    {
+    public static class MyGene extends Gene {
 
     }
 
-    public static class Rename
-    {
+    public static class Rename {
         ArrayList<MyGene> genes = new ArrayList<MyGene>();
 
-        public void addCoordinate_Gene(Coordinate c, MyGene g)
-        {
+        public void addCoordinate_Gene(Coordinate c, MyGene g) {
             genes.add(g);
         }
 
     }
 
     @Test
-    public void rename() throws Exception
-    {
-        Rename r = Lens.loadSilk(Rename.class, FileResource.find(ObjectMapperTest.class, "gene.silk"));
+    public void rename() throws Exception {
+        Rename r = Lens.loadSilk(Rename.class, FileResource.find(ObjectMapperTest.class,
+                "gene.silk"));
         assertEquals(2, r.genes.size());
 
     }
 
+    @Test
+    public void property() throws Exception {
+        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectMapperTest.class,
+                "property.silk"));
+
+        assertEquals(2, p.prop.size());
+        assertEquals("hello", p.prop.get("db.name"));
+        assertEquals("sqlite", p.prop.get("db.type"));
+    }
+
+    public static class MapField {
+        public Map<Integer, String> id_name;
+    }
+
+    @Test
+    public void mapPutter() throws Exception {
+        MapField m = Lens.loadSilk(MapField.class, FileResource.open(ObjectMapperTest.class,
+                "map.silk"));
+        assertNotNull(m.id_name);
+        assertEquals(2, m.id_name.size());
+        String n1 = m.id_name.get(1);
+        String n2 = m.id_name.get(2);
+        assertEquals("leo", n1);
+        assertEquals("yui", n2);
+    }
+
+    public static class Person {
+        public int id;
+        public String name;
+
+        @Override
+        public String toString() {
+            return Lens.toJSON(this);
+        }
+    }
+
+    public static class ClassRoom {
+        public String name;
+
+        @Override
+        public String toString() {
+            return Lens.toJSON(this);
+        }
+    }
+
+    public static class ComplexMapField {
+        public Map<Person, ClassRoom> classes;
+    }
+
+    @Test
+    public void complexMapField() throws Exception {
+        ComplexMapField m = Lens.loadSilk(ComplexMapField.class, FileResource.open(
+                ObjectMapperTest.class, "map2.silk"));
+        assertEquals(2, m.classes.size());
+
+        _logger.debug(Lens.toJSON(m.classes));
+    }
 }
