@@ -24,12 +24,18 @@
 //--------------------------------------
 package org.xerial.lens.impl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.Pair;
+import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * RelationSetter is for setting a node tuple to an object
@@ -37,53 +43,45 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public abstract class RelationSetter
-{
+public abstract class RelationSetter {
     private final Class< ? > coreNodeType;
     private final Class< ? > attributeNodeType;
 
     private final String coreNodeName;
     private final String attributeNodeName;
 
-    protected RelationSetter(Class< ? > coreNodeType, String coreNodeName, Class< ? > attributeNodeType,
-            String attributeNodeName)
-    {
+    protected RelationSetter(Class< ? > coreNodeType, String coreNodeName,
+            Class< ? > attributeNodeType, String attributeNodeName) {
         this.coreNodeType = coreNodeType;
         this.attributeNodeType = attributeNodeType;
         this.coreNodeName = coreNodeName;
         this.attributeNodeName = attributeNodeName;
     }
 
-    public Class< ? > getCoreNodeType()
-    {
+    public Class< ? > getCoreNodeType() {
         return coreNodeType;
     }
 
-    public Class< ? > getAttributeNodeType()
-    {
+    public Class< ? > getAttributeNodeType() {
         return attributeNodeType;
     }
 
-    public String getCoreNodeName()
-    {
+    public String getCoreNodeName() {
         return coreNodeName;
     }
 
-    public String getAttributeNodeName()
-    {
+    public String getAttributeNodeName() {
         return attributeNodeName;
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("(%s[%s], %s[%s])", coreNodeName, coreNodeType.getSimpleName(), attributeNodeName,
-                attributeNodeType.getSimpleName());
+    public String toString() {
+        return String.format("(%s[%s], %s[%s])", coreNodeName, coreNodeType.getSimpleName(),
+                attributeNodeName, attributeNodeType.getSimpleName());
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         RelationSetter other = RelationSetter.class.cast(obj);
         if (other == null)
             return false;
@@ -92,53 +90,110 @@ public abstract class RelationSetter
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return coreNodeName.hashCode() + attributeNodeName.hashCode();
     }
 
-    public abstract void bind(Object object, Object coreValue, Object attributeValue) throws XerialException;
+    public abstract void bind(Object object, Object coreValue, Object attributeValue)
+            throws XerialException;
 
-    public static RelationSetter newRelationSetter(String coreNodeName, String attributeNodeName, Method setterMethod)
-    {
+    public static RelationSetter newRelationSetter(String coreNodeName, String attributeNodeName,
+            Method setterMethod) {
         Class< ? >[] argType = setterMethod.getParameterTypes();
         if (argType.length != 2)
             throw new XerialError(XerialErrorCode.INVALID_INPUT, setterMethod.toString());
-        return new MethodRelationSetter(argType[0], coreNodeName, argType[1], attributeNodeName, setterMethod);
+        return new MethodRelationSetter(argType[0], coreNodeName, argType[1], attributeNodeName,
+                setterMethod);
     }
 
-    private static class MethodRelationSetter extends RelationSetter
-    {
+    private static class MethodRelationSetter extends RelationSetter {
         private final Method setter;
 
-        public MethodRelationSetter(Class< ? > coreNodeType, String coreNodeName, Class< ? > attributeNodeType,
-                String attributeNodeName, Method setter)
-        {
+        public MethodRelationSetter(Class< ? > coreNodeType, String coreNodeName,
+                Class< ? > attributeNodeType, String attributeNodeName, Method setter) {
             super(coreNodeType, coreNodeName, attributeNodeType, attributeNodeName);
             this.setter = setter;
         }
 
         @Override
-        public void bind(Object object, Object coreValue, Object attributeValue) throws XerialException
-        {
-            try
-            {
+        public void bind(Object object, Object coreValue, Object attributeValue)
+                throws XerialException {
+            try {
                 setter.invoke(object, coreValue, attributeValue);
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
                 throw new XerialException(XerialErrorCode.WRONG_DATA_TYPE, e);
             }
-            catch (IllegalAccessException e)
-            {
+            catch (IllegalAccessException e) {
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, e);
             }
-            catch (InvocationTargetException e)
-            {
+            catch (InvocationTargetException e) {
                 throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e);
             }
 
         }
+    }
+
+    public static RelationSetter newMapSetter(String keyNodeName, String valueNodeName,
+            Field mapField) {
+        Pair<Type, Type> mapElementType = ReflectionUtil.getGenericMapElementType(mapField);
+
+        Class< ? > keyType = Class.class.cast(mapElementType.getFirst());
+        Class< ? > valueType = Class.class.cast(mapElementType.getSecond());
+
+        return new MapFieldSetter(keyType, keyNodeName, valueType, valueNodeName, mapField);
+    }
+
+    private static class MapFieldSetter extends RelationSetter {
+        private final Field mapField;
+        private final ParameterGetter mapTypeGetter;
+        private final Method putter;
+
+        public MapFieldSetter(Class< ? > coreNodeType, String coreNodeName,
+                Class< ? > attributeNodeType, String attributeNodeName, Field mapField) {
+            super(coreNodeType, coreNodeName, attributeNodeType, attributeNodeName);
+            this.mapField = mapField;
+            this.mapTypeGetter = ParameterGetter.newFieldGetter(this.mapField, null);
+
+            Class< ? > mapType = this.mapField.getType();
+            if (!TypeInfo.isMap(mapType))
+                throw new XerialError(XerialErrorCode.InvalidType, String.format(
+                        "field: %s is not a Map type", mapField));
+
+            try {
+                this.putter = mapType.getMethod("put", Object.class, Object.class);
+            }
+            catch (Exception e) {
+                throw new XerialError(XerialErrorCode.INVALID_STATE, String.format(
+                        "putter method is not found in %s", mapType));
+            }
+
+        }
+
+        @Override
+        public void bind(Object object, Object coreValue, Object attributeValue)
+                throws XerialException {
+            try {
+                Object map = Map.class.cast(mapTypeGetter.get(object));
+                if (map == null) {
+                    map = TypeInfo.createInstance(mapField.getType());
+                    ReflectionUtil.setFieldValue(object, mapField, map);
+                }
+
+                putter.invoke(map, coreValue, attributeValue);
+            }
+            catch (IllegalArgumentException e) {
+                throw new XerialException(XerialErrorCode.WRONG_DATA_TYPE, e);
+            }
+            catch (IllegalAccessException e) {
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, e);
+            }
+            catch (InvocationTargetException e) {
+                throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e);
+            }
+
+        }
+
     }
 
 }

@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -38,22 +39,18 @@ import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
-public class ObjectLensTest
-{
+public class ObjectLensTest {
 
     private static Logger _logger = Logger.getLogger(ObjectLensTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void pickPairedName() throws Exception
-    {
+    public void pickPairedName() throws Exception {
         Pair<String, String> p = ObjectLens.pickRelationName("Invoice_Order");
         assertEquals("invoice", p.getFirst());
         assertEquals("order", p.getSecond());
@@ -69,8 +66,7 @@ public class ObjectLensTest
     }
 
     @Test
-    public void pickPropertyName() throws Exception
-    {
+    public void pickPropertyName() throws Exception {
         String c = ObjectLens.pickPropertyName("addSomething");
         assertEquals("something", c);
 
@@ -83,8 +79,7 @@ public class ObjectLensTest
     }
 
     @Test
-    public void canonicalNameTest() throws Exception
-    {
+    public void canonicalNameTest() throws Exception {
         assertEquals("itemrgb", ObjectLens.getCanonicalParameterName("itemRgb"));
         assertEquals("itemref", ObjectLens.getCanonicalParameterName("item_ref"));
         assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello World"));
@@ -92,8 +87,7 @@ public class ObjectLensTest
 
     }
 
-    public static class ExtMap extends TreeMap<Integer, String>
-    {
+    public static class ExtMap extends TreeMap<Integer, String> {
         /**
          * 
          */
@@ -102,8 +96,7 @@ public class ObjectLensTest
         public String name = "ext-map";
 
         @Override
-        public boolean equals(Object o)
-        {
+        public boolean equals(Object o) {
             if (!(o instanceof ExtMap))
                 return false;
 
@@ -115,8 +108,7 @@ public class ObjectLensTest
     }
 
     @Test
-    public void mapTest() throws Exception
-    {
+    public void mapTest() throws Exception {
         ExtMap extMap = new ExtMap();
         extMap.put(1, "hello");
         extMap.put(10, "world");
@@ -129,8 +121,7 @@ public class ObjectLensTest
         assertEquals(extMap, extMap2);
     }
 
-    public static class ExtList extends ArrayList<Integer>
-    {
+    public static class ExtList extends ArrayList<Integer> {
         /**
          * 
          */
@@ -138,8 +129,7 @@ public class ObjectLensTest
         public String name = "ext-list";
 
         @Override
-        public boolean equals(Object o)
-        {
+        public boolean equals(Object o) {
             if (!(o instanceof ExtList))
                 return false;
 
@@ -151,8 +141,7 @@ public class ObjectLensTest
     }
 
     @Test
-    public void arrayTest() throws Exception
-    {
+    public void arrayTest() throws Exception {
         ExtList extList = new ExtList();
 
         extList.add(10);
@@ -168,24 +157,38 @@ public class ObjectLensTest
 
     }
 
-    public static class PropReader
-    {
+    public static class PropReader {
         Properties prop = new Properties();
 
-        public void put(String key, String value)
-        {
+        public void put(String key, String value) {
             prop.put(key, value);
         }
     }
 
     @Test
-    public void property() throws Exception
-    {
-        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectLensTest.class, "property.silk"));
+    public void property() throws Exception {
+        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectLensTest.class,
+                "property.silk"));
 
         assertEquals(2, p.prop.size());
         assertEquals("hello", p.prop.get("db.name"));
         assertEquals("sqlite", p.prop.get("db.type"));
+    }
+
+    public static class MapField {
+        public Map<Integer, String> id_name;
+    }
+
+    @Test
+    public void mapPutter() throws Exception {
+        MapField m = Lens.loadSilk(MapField.class, FileResource.open(ObjectLensTest.class,
+                "map.silk"));
+        assertNotNull(m.id_name);
+        assertEquals(2, m.id_name.size());
+        String n1 = m.id_name.get(1);
+        String n2 = m.id_name.get(2);
+        assertEquals("leo", n1);
+        assertEquals("yui", n2);
     }
 
 }

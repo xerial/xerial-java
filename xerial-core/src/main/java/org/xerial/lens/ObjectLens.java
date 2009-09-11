@@ -116,7 +116,7 @@ public class ObjectLens {
 
     protected ObjectLens(Class< ? > targetType) {
         this.targetType = targetType;
-        createBindRules(targetType);
+        prepareBindRules(targetType);
     }
 
     public Class< ? > getTargetType() {
@@ -128,7 +128,7 @@ public class ObjectLens {
         return String.format("(%s, %s)", setterContainer, relationSetterContainer);
     }
 
-    private void createBindRules(Class< ? > targetType) {
+    private void prepareBindRules(Class< ? > targetType) {
         // search for object parameters including superclass's ones 
 
         // scan public fields
@@ -138,6 +138,7 @@ public class ObjectLens {
             if (parentClassOfTheField == Object.class)
                 continue;
 
+            // looking for only public fields
             int fieldModifier = eachField.getModifiers();
             if (Modifier.isPublic(fieldModifier) && !Modifier.isTransient(fieldModifier)
                     && !Modifier.isStatic(fieldModifier)) {
@@ -150,15 +151,21 @@ public class ObjectLens {
                     continue;
                 }
                 else if (TypeInfo.isMap(fieldType)) {
-                    // TODO map putter
-                    Pair<Type, Type> keyValueTypes = ReflectionUtil
-                            .getGenericMapElementType(eachField);
-                    Pair<String, String> keyValueNames = pickRelationName(eachField.getName());
-                    if (keyValueNames == null) {
-                        // infer key and value names from type parameters in Map<Key, Value>
+                    Pair<String, String> keyValueName = pickRelationName(eachField.getName());
+                    if (keyValueName == null) {
+                        // infer key, value names from the class type
+                        Pair<Type, Type> mapElementType = ReflectionUtil
+                                .getGenericMapElementType(eachField);
 
+                        Class< ? > keyType = Class.class.cast(mapElementType.getFirst());
+                        Class< ? > valueType = Class.class.cast(mapElementType.getSecond());
+
+                        keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
+                                .getSimpleName());
                     }
 
+                    relationSetterContainer.add(RelationSetter.newMapSetter(
+                            keyValueName.getFirst(), keyValueName.getSecond(), eachField));
                 }
                 else if (TypeInfo.isCollection(fieldType)) {
                     Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil

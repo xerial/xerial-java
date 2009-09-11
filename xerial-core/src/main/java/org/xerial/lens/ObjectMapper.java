@@ -61,16 +61,16 @@ import org.xerial.util.tree.TreeParser;
 public class ObjectMapper {
     private static Logger _logger = Logger.getLogger(ObjectMapper.class);
 
-    //-------------------------------------
-    // dynamic parameters required for mapping tree-structured data to an object
     // id -> corresponding object instance
-    //-------------------------------------
     private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
-    private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
 
-    private static QuerySet qs = null;
     // schema -> binder 
-    private static HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
+    private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
+
+    private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
+    private final QuerySet qs;
+
+    private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
 
     /**
      * interface for invoking setters or field setters of the object
@@ -171,96 +171,18 @@ public class ObjectMapper {
         }
     }
 
-    private QuerySet buildQuery(Class< ? > targetType) {
-        QueryBuilder qb = new QueryBuilder();
-        qb.build(targetType, "root");
-        return qb.qsBuilder.build();
-    }
-
-    private class QueryBuilder {
-        QuerySetBuilder qsBuilder = new QuerySetBuilder();
-        private HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
-
-        //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
-
-        public QueryBuilder() {
-
-        }
-
-        public void build(Class< ? > targetType, String alias) {
-            // TODO use context-based schema -> binder mapping
-
-            if (TypeInfo.isBasicType(targetType) || targetType == MapEntry.class)
-                return;
-
-            Set<Class< ? >> processed = processedClassTable.get(alias);
-            if (processed == null) {
-                processed = new HashSet<Class< ? >>();
-                processedClassTable.put(alias, processed);
-            }
-
-            if (processed.contains(targetType))
-                return;
-            else
-                processed.add(targetType);
-
-            //            if (processedClasses.contains(targetType))
-            //                return;
-            //
-            //            processedClasses.add(targetType);
-
-            ObjectLens lens = ObjectLens.getObjectLens(targetType);
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
-
-            for (ParameterSetter each : lens.getSetterList()) {
-                if (each.getClass() == MapEntryBinder.class) {
-                    SchemaBuilder builder = new SchemaBuilder();
-                    builder.add("entry");
-                    builder.add(each.getParameterName());
-                    Schema s = builder.build();
-                    qsBuilder.addQueryTarget(s);
-                    schema2binder.put(s, new AttributeBinder(MapEntry.class, each));
-                    continue;
-                }
-
-                build(each.getParameterType(), each.getParameterName());
-
-                SchemaBuilder builder = new SchemaBuilder();
-                builder.add(alias);
-                builder.add(each.getParameterName());
-
-                Schema s = builder.build();
-                qsBuilder.addQueryTarget(s);
-
-                schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
-            }
-
-            for (RelationSetter each : lens.getRelationSetterList()) {
-                build(each.getCoreNodeType(), each.getCoreNodeName());
-                build(each.getAttributeNodeType(), each.getAttributeNodeName());
-
-                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(
-                        each.getAttributeNodeName()).build();
-                qsBuilder.addQueryTarget(s);
-
-                schema2binder.put(s, new RelationBinder(lens, each));
-
-            }
-
-        }
-
-    }
-
     public <T> ObjectMapper(Class<T> targetType) throws XerialException {
-        if (qs == null) {
-            schema2binder.clear();
-            qs = buildQuery(targetType);
-        }
+        qs = buildQuery(targetType);
     }
 
     public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException {
-        return new ObjectMapper(targetType);
+        if (prebuiltMapper.containsKey(targetType))
+            return prebuiltMapper.get(targetType);
+        else {
+            ObjectMapper newInstance = new ObjectMapper(targetType);
+            prebuiltMapper.put(targetType, newInstance);
+            return newInstance;
+        }
     }
 
     public <T> T map(Class<T> targetType, TreeParser parser) throws XerialException {
@@ -312,6 +234,87 @@ public class ObjectMapper {
         }
         catch (Exception e) {
             throw new XerialException(XerialErrorCode.INHERITED, e);
+        }
+
+    }
+
+    private QuerySet buildQuery(Class< ? > targetType) {
+        QueryBuilder qb = new QueryBuilder();
+        qb.build(targetType, "root");
+        return qb.qs.build();
+    }
+
+    private class QueryBuilder {
+        QuerySetBuilder qs = new QuerySetBuilder();
+        private HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
+
+        //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
+
+        public QueryBuilder() {
+
+        }
+
+        public void build(Class< ? > targetType, String alias) {
+            // TODO use context-based schema -> binder mapping
+
+            if (TypeInfo.isBasicType(targetType) || targetType == MapEntry.class)
+                return;
+
+            Set<Class< ? >> processed = processedClassTable.get(alias);
+            if (processed == null) {
+                processed = new HashSet<Class< ? >>();
+                processedClassTable.put(alias, processed);
+            }
+
+            if (processed.contains(targetType))
+                return;
+            else
+                processed.add(targetType);
+
+            //            if (processedClasses.contains(targetType))
+            //                return;
+            //
+            //            processedClasses.add(targetType);
+
+            ObjectLens lens = ObjectLens.getObjectLens(targetType);
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("class %s: %s\n", targetType.getSimpleName(), lens));
+
+            for (ParameterSetter each : lens.getSetterList()) {
+                if (each.getClass() == MapEntryBinder.class) {
+                    SchemaBuilder builder = new SchemaBuilder();
+                    builder.add("entry");
+                    builder.add(each.getParameterName());
+                    Schema s = builder.build();
+                    qs.addQueryTarget(s);
+                    schema2binder.put(s, new AttributeBinder(MapEntry.class, each));
+                    continue;
+                }
+
+                build(each.getParameterType(), each.getParameterName());
+
+                SchemaBuilder builder = new SchemaBuilder();
+                builder.add(alias);
+                builder.add(each.getParameterName());
+
+                Schema s = builder.build();
+                qs.addQueryTarget(s);
+
+                schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
+            }
+
+            for (RelationSetter each : lens.getRelationSetterList()) {
+                build(each.getCoreNodeType(), each.getCoreNodeName());
+                build(each.getAttributeNodeType(), each.getAttributeNodeName());
+
+                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(
+                        each.getAttributeNodeName()).build();
+                qs.addQueryTarget(s);
+
+                schema2binder.put(s, new RelationBinder(lens, each));
+
+            }
+
         }
 
     }
