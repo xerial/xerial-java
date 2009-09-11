@@ -59,13 +59,13 @@ import org.xerial.util.Triplet;
  * @author leo
  * 
  */
-public class TypeInfo
-{
-    static private Class< ? >[]        _parameterClass = { int.class, double.class, float.class, long.class,
-            boolean.class, char.class, short.class, String.class, Integer.class, Double.class, Float.class, Long.class,
-            Boolean.class, Character.class, Short.class, Date.class, File.class };
+public class TypeInfo {
+    static private Class< ? >[] _parameterClass = { int.class, double.class, float.class,
+            long.class, boolean.class, char.class, short.class, String.class, Integer.class,
+            Double.class, Float.class, Long.class, Boolean.class, Character.class, Short.class,
+            Date.class, File.class };
 
-    static private HashSet<Class< ? >> basicTypeSet    = new HashSet<Class< ? >>();
+    static private HashSet<Class< ? >> basicTypeSet = new HashSet<Class< ? >>();
     static {
         for (Class< ? > c : _parameterClass)
             basicTypeSet.add(c);
@@ -79,8 +79,8 @@ public class TypeInfo
     /**
      * @param c
      * @return true : if a given class is a single class or array of int,
-     *         double, float, boolean, String, Integer, Double, Float or
-     *         Boolean. otherwise false.
+     *         double, float, boolean, String, Integer, Double, Float, Boolean,
+     *         or File. otherwise false.
      */
     public static boolean isBasicType(Class< ? > c) {
         if (c.isArray())
@@ -209,8 +209,8 @@ public class TypeInfo
 
     public static <T> Object createPrimitiveTypeInstance(Class<T> c) throws XerialException {
         if (!c.isPrimitive())
-            throw new XerialException(XerialErrorCode.InvalidType, String.format("%s is not a primitive", c
-                    .getSimpleName()));
+            throw new XerialException(XerialErrorCode.InvalidType, String.format(
+                    "%s is not a primitive", c.getSimpleName()));
 
         // Boolean.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Void.TYPE
         if (c == int.class)
@@ -319,8 +319,8 @@ public class TypeInfo
                     }
                 }
 
-                throw new XerialException(XerialErrorCode.NoPublicConstructor, "No public constructor for the class: "
-                        + c.getName() + " is available");
+                throw new XerialException(XerialErrorCode.NoPublicConstructor,
+                        "No public constructor for the class: " + c.getName() + " is available");
 
             }
         }
@@ -332,7 +332,8 @@ public class TypeInfo
         }
     }
 
-    public static Class< ? > getElementTypeOfCollection(Class< ? extends Collection< ? >> collectionType) {
+    public static Class< ? > getElementTypeOfCollection(
+            Class< ? extends Collection< ? >> collectionType) {
         //        collectionType.get
         //        
         //        ParameterizedType pt = getParentParameterizedType(type, Collection.class);
