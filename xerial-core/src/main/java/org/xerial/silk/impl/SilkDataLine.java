@@ -30,23 +30,21 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public class SilkDataLine implements SilkElement
-{
+public class SilkDataLine implements SilkElement {
+    private final int indentLength;
     private final String dataLine;
 
-    public SilkDataLine(String dataLine)
-    {
+    public SilkDataLine(int indentLength, String dataLine) {
+        this.indentLength = indentLength;
         this.dataLine = dataLine;
     }
 
-    public String getDataLine()
-    {
+    public String getDataLine() {
         return dataLine;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return dataLine;
     }
 }

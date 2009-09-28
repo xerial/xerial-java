@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2009-07-03 13:39:51
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-09-28 17:56:15
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -22,52 +22,63 @@ import org.antlr.runtime.tree.*;
 
 public class DTDParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "NUMBER", "STRING", "ML_COMMENT", "At", "Colon", "Comma", "Apos", "Quot", "Dot", "SemiColon", "LParen", "RParen", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "StringLiteral", "Name", "Reference", "AttValue", "EntityRef", "CharRef", "DefaultDecl", "Element", "'>'", "'EMPTY'", "'ANY'", "'?'", "'*'", "'+'", "'|'", "'#PCDATA'", "'<!ATTLIST'", "'NOTATION'", "'CDATA'", "'ID'", "'IDREF'", "'IDREFS'", "'ENTITY'", "'ENTITIES'", "'NMTOKEN'", "'NMTOKENS'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DTD", "STRINGTYPE", "TOKENIZEDTYPE", "ENUMTYPE", "NAME", "ATTRIBUTE", "ATTLIST", "DECL", "TYPE", "ELEMENT", "COMPONENT", "OCCURRENCE", "CONTENTSPEC", "ML_COMMENT", "At", "Colon", "Comma", "Apos", "Quot", "Dot", "SemiColon", "LParen", "RParen", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "StringLiteral", "Name", "Reference", "AttValue", "EntityRef", "CharRef", "DefaultDecl", "Element", "'>'", "'EMPTY'", "'ANY'", "'?'", "'*'", "'+'", "'|'", "'#PCDATA'", "'<!ATTLIST'", "'NOTATION'", "'CDATA'", "'ID'", "'IDREF'", "'IDREFS'", "'ENTITY'", "'ENTITIES'", "'NMTOKEN'", "'NMTOKENS'"
     };
+    public static final int TYPE=12;
+    public static final int CONTENTSPEC=16;
     public static final int T__42=42;
-    public static final int DefaultDecl=27;
-    public static final int Apos=10;
-    public static final int Digit=17;
-    public static final int SemiColon=13;
-    public static final int NUMBER=4;
-    public static final int AttValue=24;
-    public static final int T__39=39;
-    public static final int Letter=16;
-    public static final int T__30=30;
+    public static final int ELEMENT=13;
+    public static final int DefaultDecl=38;
+    public static final int Digit=28;
+    public static final int T__57=57;
+    public static final int Apos=21;
+    public static final int SemiColon=24;
+    public static final int T__51=51;
+    public static final int T__47=47;
+    public static final int T__50=50;
+    public static final int ATTLIST=10;
+    public static final int TOKENIZEDTYPE=6;
+    public static final int AttValue=35;
+    public static final int Letter=27;
+    public static final int T__52=52;
     public static final int T__46=46;
-    public static final int Comma=9;
-    public static final int Dot=12;
-    public static final int ML_COMMENT=6;
-    public static final int T__34=34;
-    public static final int Colon=8;
-    public static final int EntityRef=25;
-    public static final int At=7;
-    public static final int T__35=35;
-    public static final int NameChar=19;
-    public static final int T__36=36;
-    public static final int STRING=5;
+    public static final int Comma=20;
+    public static final int Dot=23;
+    public static final int T__49=49;
+    public static final int DECL=11;
+    public static final int ML_COMMENT=17;
+    public static final int T__54=54;
+    public static final int T__48=48;
+    public static final int EntityRef=36;
+    public static final int Colon=19;
+    public static final int T__56=56;
+    public static final int At=18;
+    public static final int STRINGTYPE=5;
+    public static final int NameChar=30;
+    public static final int DTD=4;
     public static final int T__44=44;
-    public static final int RParen=15;
-    public static final int StringLiteral=21;
-    public static final int T__33=33;
-    public static final int Name=22;
-    public static final int T__29=29;
+    public static final int RParen=26;
+    public static final int StringLiteral=32;
+    public static final int Name=33;
+    public static final int T__55=55;
     public static final int T__45=45;
-    public static final int LParen=14;
-    public static final int CharRef=26;
+    public static final int LParen=25;
+    public static final int CharRef=37;
+    public static final int OCCURRENCE=15;
     public static final int T__43=43;
-    public static final int T__31=31;
     public static final int T__40=40;
+    public static final int WhiteSpaceChar=31;
     public static final int EOF=-1;
-    public static final int WhiteSpaceChar=20;
-    public static final int Reference=23;
-    public static final int T__32=32;
-    public static final int T__38=38;
-    public static final int T__37=37;
-    public static final int Quot=11;
-    public static final int Digits=18;
-    public static final int Element=28;
+    public static final int Reference=34;
+    public static final int T__53=53;
+    public static final int COMPONENT=14;
+    public static final int ATTRIBUTE=9;
+    public static final int Quot=22;
+    public static final int NAME=8;
+    public static final int Digits=29;
+    public static final int Element=39;
     public static final int T__41=41;
+    public static final int ENUMTYPE=7;
 
     // delegates
     // delegators
@@ -91,423 +102,8 @@ public class DTDParser extends Parser {
     }
 
     public String[] getTokenNames() { return DTDParser.tokenNames; }
-    public String getGrammarFileName() { return "D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g"; }
+    public String getGrammarFileName() { return "DTD.g"; }
 
-
-    public static class integerLiteral_return extends ParserRuleReturnScope {
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "integerLiteral"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:1: integerLiteral : Digits ;
-    public final DTDParser.integerLiteral_return integerLiteral() throws RecognitionException {
-        DTDParser.integerLiteral_return retval = new DTDParser.integerLiteral_return();
-        retval.start = input.LT(1);
-
-        Object root_0 = null;
-
-        Token Digits1=null;
-
-        Object Digits1_tree=null;
-
-        try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:15: ( Digits )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:115:17: Digits
-            {
-            root_0 = (Object)adaptor.nil();
-
-            Digits1=(Token)match(input,Digits,FOLLOW_Digits_in_integerLiteral487); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            Digits1_tree = (Object)adaptor.create(Digits1);
-            adaptor.addChild(root_0, Digits1_tree);
-            }
-
-            }
-
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-        }
-        return retval;
-    }
-    // $ANTLR end "integerLiteral"
-
-    public static class decimalLiteral_return extends ParserRuleReturnScope {
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "decimalLiteral"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:1: decimalLiteral : ( Dot Digits | Digits Dot Digits );
-    public final DTDParser.decimalLiteral_return decimalLiteral() throws RecognitionException {
-        DTDParser.decimalLiteral_return retval = new DTDParser.decimalLiteral_return();
-        retval.start = input.LT(1);
-
-        Object root_0 = null;
-
-        Token Dot2=null;
-        Token Digits3=null;
-        Token Digits4=null;
-        Token Dot5=null;
-        Token Digits6=null;
-
-        Object Dot2_tree=null;
-        Object Digits3_tree=null;
-        Object Digits4_tree=null;
-        Object Dot5_tree=null;
-        Object Digits6_tree=null;
-
-        try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:15: ( Dot Digits | Digits Dot Digits )
-            int alt1=2;
-            int LA1_0 = input.LA(1);
-
-            if ( (LA1_0==Dot) ) {
-                alt1=1;
-            }
-            else if ( (LA1_0==Digits) ) {
-                alt1=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 1, 0, input);
-
-                throw nvae;
-            }
-            switch (alt1) {
-                case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:17: Dot Digits
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    Dot2=(Token)match(input,Dot,FOLLOW_Dot_in_decimalLiteral493); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Dot2_tree = (Object)adaptor.create(Dot2);
-                    adaptor.addChild(root_0, Dot2_tree);
-                    }
-                    Digits3=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral495); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Digits3_tree = (Object)adaptor.create(Digits3);
-                    adaptor.addChild(root_0, Digits3_tree);
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:116:29: Digits Dot Digits
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    Digits4=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral498); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Digits4_tree = (Object)adaptor.create(Digits4);
-                    adaptor.addChild(root_0, Digits4_tree);
-                    }
-                    Dot5=(Token)match(input,Dot,FOLLOW_Dot_in_decimalLiteral500); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Dot5_tree = (Object)adaptor.create(Dot5);
-                    adaptor.addChild(root_0, Dot5_tree);
-                    }
-                    Digits6=(Token)match(input,Digits,FOLLOW_Digits_in_decimalLiteral502); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Digits6_tree = (Object)adaptor.create(Digits6);
-                    adaptor.addChild(root_0, Digits6_tree);
-                    }
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-        }
-        return retval;
-    }
-    // $ANTLR end "decimalLiteral"
-
-    public static class literal_return extends ParserRuleReturnScope {
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "literal"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:1: literal : ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) );
-    public final DTDParser.literal_return literal() throws RecognitionException {
-        DTDParser.literal_return retval = new DTDParser.literal_return();
-        retval.start = input.LT(1);
-
-        Object root_0 = null;
-
-        Token StringLiteral8=null;
-        DTDParser.numericLiteral_return numericLiteral7 = null;
-
-
-        Object StringLiteral8_tree=null;
-        RewriteRuleTokenStream stream_StringLiteral=new RewriteRuleTokenStream(adaptor,"token StringLiteral");
-        RewriteRuleSubtreeStream stream_numericLiteral=new RewriteRuleSubtreeStream(adaptor,"rule numericLiteral");
-        try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:118:8: ( | numericLiteral -> ^( NUMBER numericLiteral ) | StringLiteral -> ^( STRING StringLiteral ) )
-            int alt2=3;
-            switch ( input.LA(1) ) {
-            case EOF:
-                {
-                alt2=1;
-                }
-                break;
-            case Dot:
-            case Digits:
-                {
-                alt2=2;
-                }
-                break;
-            case StringLiteral:
-                {
-                alt2=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 2, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt2) {
-                case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:2: 
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    }
-                    break;
-                case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:4: numericLiteral
-                    {
-                    pushFollow(FOLLOW_numericLiteral_in_literal513);
-                    numericLiteral7=numericLiteral();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_numericLiteral.add(numericLiteral7.getTree());
-
-
-                    // AST REWRITE
-                    // elements: numericLiteral
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    if ( state.backtracking==0 ) {
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
-
-                    root_0 = (Object)adaptor.nil();
-                    // 119:19: -> ^( NUMBER numericLiteral )
-                    {
-                        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:119:22: ^( NUMBER numericLiteral )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NUMBER, "NUMBER"), root_1);
-
-                        adaptor.addChild(root_1, stream_numericLiteral.nextTree());
-
-                        adaptor.addChild(root_0, root_1);
-                        }
-
-                    }
-
-                    retval.tree = root_0;}
-                    }
-                    break;
-                case 3 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:120:4: StringLiteral
-                    {
-                    StringLiteral8=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_literal526); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_StringLiteral.add(StringLiteral8);
-
-
-
-                    // AST REWRITE
-                    // elements: StringLiteral
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    if ( state.backtracking==0 ) {
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
-
-                    root_0 = (Object)adaptor.nil();
-                    // 120:18: -> ^( STRING StringLiteral )
-                    {
-                        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:120:21: ^( STRING StringLiteral )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STRING, "STRING"), root_1);
-
-                        adaptor.addChild(root_1, stream_StringLiteral.nextNode());
-
-                        adaptor.addChild(root_0, root_1);
-                        }
-
-                    }
-
-                    retval.tree = root_0;}
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-        }
-        return retval;
-    }
-    // $ANTLR end "literal"
-
-    public static class numericLiteral_return extends ParserRuleReturnScope {
-        Object tree;
-        public Object getTree() { return tree; }
-    };
-
-    // $ANTLR start "numericLiteral"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:123:1: numericLiteral : ( integerLiteral | decimalLiteral );
-    public final DTDParser.numericLiteral_return numericLiteral() throws RecognitionException {
-        DTDParser.numericLiteral_return retval = new DTDParser.numericLiteral_return();
-        retval.start = input.LT(1);
-
-        Object root_0 = null;
-
-        DTDParser.integerLiteral_return integerLiteral9 = null;
-
-        DTDParser.decimalLiteral_return decimalLiteral10 = null;
-
-
-
-        try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:124:2: ( integerLiteral | decimalLiteral )
-            int alt3=2;
-            int LA3_0 = input.LA(1);
-
-            if ( (LA3_0==Digits) ) {
-                int LA3_1 = input.LA(2);
-
-                if ( (LA3_1==Dot) ) {
-                    alt3=2;
-                }
-                else if ( (LA3_1==EOF) ) {
-                    alt3=1;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return retval;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 3, 1, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA3_0==Dot) ) {
-                alt3=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return retval;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 3, 0, input);
-
-                throw nvae;
-            }
-            switch (alt3) {
-                case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:124:4: integerLiteral
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_integerLiteral_in_numericLiteral546);
-                    integerLiteral9=integerLiteral();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, integerLiteral9.getTree());
-
-                    }
-                    break;
-                case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:125:4: decimalLiteral
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_decimalLiteral_in_numericLiteral552);
-                    decimalLiteral10=decimalLiteral();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, decimalLiteral10.getTree());
-
-                    }
-                    break;
-
-            }
-            retval.stop = input.LT(-1);
-
-            if ( state.backtracking==0 ) {
-
-            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
-            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
-
-        }
-        finally {
-        }
-        return retval;
-    }
-    // $ANTLR end "numericLiteral"
 
     public static class dtd_return extends ParserRuleReturnScope {
         Object tree;
@@ -515,54 +111,85 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "dtd"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:1: dtd : ( markupdecl )* ;
+    // DTD.g:145:1: dtd : ( markupdecl )* -> ^( DTD ( markupdecl )* ) ;
     public final DTDParser.dtd_return dtd() throws RecognitionException {
         DTDParser.dtd_return retval = new DTDParser.dtd_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        DTDParser.markupdecl_return markupdecl11 = null;
+        DTDParser.markupdecl_return markupdecl1 = null;
 
 
-
+        RewriteRuleSubtreeStream stream_markupdecl=new RewriteRuleSubtreeStream(adaptor,"rule markupdecl");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:4: ( ( markupdecl )* )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: ( markupdecl )*
+            // DTD.g:145:4: ( ( markupdecl )* -> ^( DTD ( markupdecl )* ) )
+            // DTD.g:145:6: ( markupdecl )*
             {
-            root_0 = (Object)adaptor.nil();
-
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: ( markupdecl )*
-            loop4:
+            // DTD.g:145:6: ( markupdecl )*
+            loop1:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt1=2;
+                int LA1_0 = input.LA(1);
 
-                if ( (LA4_0==Element||LA4_0==37) ) {
-                    alt4=1;
+                if ( (LA1_0==Element||LA1_0==48) ) {
+                    alt1=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt1) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:129:6: markupdecl
+            	    // DTD.g:145:6: markupdecl
             	    {
-            	    pushFollow(FOLLOW_markupdecl_in_dtd563);
-            	    markupdecl11=markupdecl();
+            	    pushFollow(FOLLOW_markupdecl_in_dtd526);
+            	    markupdecl1=markupdecl();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, markupdecl11.getTree());
+            	    if ( state.backtracking==0 ) stream_markupdecl.add(markupdecl1.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop1;
                 }
             } while (true);
 
 
+
+            // AST REWRITE
+            // elements: markupdecl
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
+            if ( state.backtracking==0 ) {
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 146:3: -> ^( DTD ( markupdecl )* )
+            {
+                // DTD.g:146:6: ^( DTD ( markupdecl )* )
+                {
+                Object root_1 = (Object)adaptor.nil();
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DTD, "DTD"), root_1);
+
+                // DTD.g:146:12: ( markupdecl )*
+                while ( stream_markupdecl.hasNext() ) {
+                    adaptor.addChild(root_1, stream_markupdecl.nextTree());
+
+                }
+                stream_markupdecl.reset();
+
+                adaptor.addChild(root_0, root_1);
+                }
+
+            }
+
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -591,63 +218,63 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "markupdecl"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:1: markupdecl : ( elementDecl | attlistDecl );
+    // DTD.g:149:1: fragment markupdecl : ( elementDecl | attlistDecl );
     public final DTDParser.markupdecl_return markupdecl() throws RecognitionException {
         DTDParser.markupdecl_return retval = new DTDParser.markupdecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        DTDParser.elementDecl_return elementDecl12 = null;
+        DTDParser.elementDecl_return elementDecl2 = null;
 
-        DTDParser.attlistDecl_return attlistDecl13 = null;
+        DTDParser.attlistDecl_return attlistDecl3 = null;
 
 
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:11: ( elementDecl | attlistDecl )
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+            // DTD.g:150:11: ( elementDecl | attlistDecl )
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-            if ( (LA5_0==Element) ) {
-                alt5=1;
+            if ( (LA2_0==Element) ) {
+                alt2=1;
             }
-            else if ( (LA5_0==37) ) {
-                alt5=2;
+            else if ( (LA2_0==48) ) {
+                alt2=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 5, 0, input);
+                    new NoViableAltException("", 2, 0, input);
 
                 throw nvae;
             }
-            switch (alt5) {
+            switch (alt2) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:13: elementDecl
+                    // DTD.g:150:13: elementDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_elementDecl_in_markupdecl571);
-                    elementDecl12=elementDecl();
+                    pushFollow(FOLLOW_elementDecl_in_markupdecl548);
+                    elementDecl2=elementDecl();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, elementDecl12.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, elementDecl2.getTree());
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:131:27: attlistDecl
+                    // DTD.g:150:27: attlistDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attlistDecl_in_markupdecl575);
-                    attlistDecl13=attlistDecl();
+                    pushFollow(FOLLOW_attlistDecl_in_markupdecl552);
+                    attlistDecl3=attlistDecl();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, attlistDecl13.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, attlistDecl3.getTree());
 
                     }
                     break;
@@ -679,51 +306,75 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "elementDecl"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:1: elementDecl : Element Name contentSpec '>' ;
+    // DTD.g:152:1: elementDecl : Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) ;
     public final DTDParser.elementDecl_return elementDecl() throws RecognitionException {
         DTDParser.elementDecl_return retval = new DTDParser.elementDecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Element14=null;
-        Token Name15=null;
-        Token char_literal17=null;
-        DTDParser.contentSpec_return contentSpec16 = null;
+        Token Element4=null;
+        Token Name5=null;
+        Token char_literal7=null;
+        DTDParser.contentSpec_return contentSpec6 = null;
 
 
-        Object Element14_tree=null;
-        Object Name15_tree=null;
-        Object char_literal17_tree=null;
-
+        Object Element4_tree=null;
+        Object Name5_tree=null;
+        Object char_literal7_tree=null;
+        RewriteRuleTokenStream stream_Element=new RewriteRuleTokenStream(adaptor,"token Element");
+        RewriteRuleTokenStream stream_40=new RewriteRuleTokenStream(adaptor,"token 40");
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleSubtreeStream stream_contentSpec=new RewriteRuleSubtreeStream(adaptor,"rule contentSpec");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:12: ( Element Name contentSpec '>' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:134:14: Element Name contentSpec '>'
+            // DTD.g:152:12: ( Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) )
+            // DTD.g:152:14: Element Name contentSpec '>'
             {
-            root_0 = (Object)adaptor.nil();
+            Element4=(Token)match(input,Element,FOLLOW_Element_in_elementDecl559); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Element.add(Element4);
 
-            Element14=(Token)match(input,Element,FOLLOW_Element_in_elementDecl583); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            Element14_tree = (Object)adaptor.create(Element14);
-            adaptor.addChild(root_0, Element14_tree);
-            }
-            Name15=(Token)match(input,Name,FOLLOW_Name_in_elementDecl585); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            Name15_tree = (Object)adaptor.create(Name15);
-            adaptor.addChild(root_0, Name15_tree);
-            }
-            pushFollow(FOLLOW_contentSpec_in_elementDecl587);
-            contentSpec16=contentSpec();
+            Name5=(Token)match(input,Name,FOLLOW_Name_in_elementDecl561); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Name.add(Name5);
+
+            pushFollow(FOLLOW_contentSpec_in_elementDecl563);
+            contentSpec6=contentSpec();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, contentSpec16.getTree());
-            char_literal17=(Token)match(input,29,FOLLOW_29_in_elementDecl589); if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_contentSpec.add(contentSpec6.getTree());
+            char_literal7=(Token)match(input,40,FOLLOW_40_in_elementDecl565); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_40.add(char_literal7);
+
+
+
+            // AST REWRITE
+            // elements: contentSpec
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
-            char_literal17_tree = (Object)adaptor.create(char_literal17);
-            adaptor.addChild(root_0, char_literal17_tree);
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 153:3: -> ^( ELEMENT NAME[$Name.text] contentSpec )
+            {
+                // DTD.g:153:6: ^( ELEMENT NAME[$Name.text] contentSpec )
+                {
+                Object root_1 = (Object)adaptor.nil();
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELEMENT, "ELEMENT"), root_1);
+
+                adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name5!=null?Name5.getText():null)));
+                adaptor.addChild(root_1, stream_contentSpec.nextTree());
+
+                adaptor.addChild(root_0, root_1);
+                }
+
             }
 
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -752,51 +403,53 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "contentSpec"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:1: contentSpec : ( 'EMPTY' | 'ANY' | mixed | children );
+    // DTD.g:156:1: fragment contentSpec : ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children );
     public final DTDParser.contentSpec_return contentSpec() throws RecognitionException {
         DTDParser.contentSpec_return retval = new DTDParser.contentSpec_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal18=null;
-        Token string_literal19=null;
-        DTDParser.mixed_return mixed20 = null;
+        Token string_literal8=null;
+        Token string_literal9=null;
+        DTDParser.mixed_return mixed10 = null;
 
-        DTDParser.children_return children21 = null;
+        DTDParser.children_return children11 = null;
 
 
-        Object string_literal18_tree=null;
-        Object string_literal19_tree=null;
+        Object string_literal8_tree=null;
+        Object string_literal9_tree=null;
+        RewriteRuleTokenStream stream_41=new RewriteRuleTokenStream(adaptor,"token 41");
+        RewriteRuleTokenStream stream_42=new RewriteRuleTokenStream(adaptor,"token 42");
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:12: ( 'EMPTY' | 'ANY' | mixed | children )
-            int alt6=4;
+            // DTD.g:158:3: ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children )
+            int alt3=4;
             switch ( input.LA(1) ) {
-            case 30:
+            case 41:
                 {
-                alt6=1;
+                alt3=1;
                 }
                 break;
-            case 31:
+            case 42:
                 {
-                alt6=2;
+                alt3=2;
                 }
                 break;
             case LParen:
                 {
-                int LA6_3 = input.LA(2);
+                int LA3_3 = input.LA(2);
 
-                if ( (LA6_3==36) ) {
-                    alt6=3;
+                if ( (LA3_3==47) ) {
+                    alt3=3;
                 }
-                else if ( (LA6_3==LParen||LA6_3==Name) ) {
-                    alt6=4;
+                else if ( (LA3_3==LParen||LA3_3==Name) ) {
+                    alt3=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 6, 3, input);
+                        new NoViableAltException("", 3, 3, input);
 
                     throw nvae;
                 }
@@ -805,63 +458,95 @@ public class DTDParser extends Parser {
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
+                    new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt6) {
+            switch (alt3) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:14: 'EMPTY'
+                    // DTD.g:158:5: 'EMPTY'
                     {
-                    root_0 = (Object)adaptor.nil();
+                    string_literal8=(Token)match(input,41,FOLLOW_41_in_contentSpec593); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_41.add(string_literal8);
 
-                    string_literal18=(Token)match(input,30,FOLLOW_30_in_contentSpec599); if (state.failed) return retval;
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
-                    string_literal18_tree = (Object)adaptor.create(string_literal18);
-                    adaptor.addChild(root_0, string_literal18_tree);
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 158:13: -> CONTENTSPEC[\"EMPTY\"]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(CONTENTSPEC, "EMPTY"));
+
                     }
 
+                    retval.tree = root_0;}
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:24: 'ANY'
+                    // DTD.g:159:5: 'ANY'
                     {
-                    root_0 = (Object)adaptor.nil();
+                    string_literal9=(Token)match(input,42,FOLLOW_42_in_contentSpec604); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_42.add(string_literal9);
 
-                    string_literal19=(Token)match(input,31,FOLLOW_31_in_contentSpec603); if (state.failed) return retval;
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
-                    string_literal19_tree = (Object)adaptor.create(string_literal19);
-                    adaptor.addChild(root_0, string_literal19_tree);
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 159:13: -> CONTENTSPEC[\"ANY\"]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(CONTENTSPEC, "ANY"));
+
                     }
 
+                    retval.tree = root_0;}
                     }
                     break;
                 case 3 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:32: mixed
+                    // DTD.g:160:5: mixed
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_mixed_in_contentSpec607);
-                    mixed20=mixed();
+                    pushFollow(FOLLOW_mixed_in_contentSpec617);
+                    mixed10=mixed();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, mixed20.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, mixed10.getTree());
 
                     }
                     break;
                 case 4 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:137:40: children
+                    // DTD.g:161:5: children
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_children_in_contentSpec611);
-                    children21=children();
+                    pushFollow(FOLLOW_children_in_contentSpec624);
+                    children11=children();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, children21.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, children11.getTree());
 
                     }
                     break;
@@ -893,41 +578,43 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "children"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:140:1: children : ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
+    // DTD.g:164:1: fragment children : ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
     public final DTDParser.children_return children() throws RecognitionException {
         DTDParser.children_return retval = new DTDParser.children_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set23=null;
-        Token set25=null;
-        DTDParser.choice_return choice22 = null;
+        DTDParser.choice_return choice12 = null;
 
-        DTDParser.seq_return seq24 = null;
+        DTDParser.plural_return plural13 = null;
+
+        DTDParser.seq_return seq14 = null;
+
+        DTDParser.plural_return plural15 = null;
 
 
-        Object set23_tree=null;
-        Object set25_tree=null;
-
+        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
+        RewriteRuleSubtreeStream stream_choice=new RewriteRuleSubtreeStream(adaptor,"rule choice");
+        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:1: ( ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // DTD.g:166:1: ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA9_0==LParen) ) {
-                int LA9_1 = input.LA(2);
+            if ( (LA6_0==LParen) ) {
+                int LA6_1 = input.LA(2);
 
                 if ( (synpred1_DTD()) ) {
-                    alt9=1;
+                    alt6=1;
                 }
                 else if ( (synpred2_DTD()) ) {
-                    alt9=2;
+                    alt6=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 9, 1, input);
+                        new NoViableAltException("", 6, 1, input);
 
                     throw nvae;
                 }
@@ -935,45 +622,37 @@ public class DTDParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt6) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:3: ( choice )=> choice ( '?' | '*' | '+' )?
+                    // DTD.g:166:3: ( choice )=> choice ( plural )?
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_choice_in_children630);
-                    choice22=choice();
+                    pushFollow(FOLLOW_choice_in_children647);
+                    choice12=choice();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, choice22.getTree());
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:23: ( '?' | '*' | '+' )?
-                    int alt7=2;
-                    int LA7_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_choice.add(choice12.getTree());
+                    // DTD.g:166:23: ( plural )?
+                    int alt4=2;
+                    int LA4_0 = input.LA(1);
 
-                    if ( ((LA7_0>=32 && LA7_0<=34)) ) {
-                        alt7=1;
+                    if ( ((LA4_0>=43 && LA4_0<=45)) ) {
+                        alt4=1;
                     }
-                    switch (alt7) {
+                    switch (alt4) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                            // DTD.g:166:23: plural
                             {
-                            set23=(Token)input.LT(1);
-                            if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
-                                input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set23));
-                                state.errorRecovery=false;state.failed=false;
-                            }
-                            else {
-                                if (state.backtracking>0) {state.failed=true; return retval;}
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
-                                throw mse;
-                            }
+                            pushFollow(FOLLOW_plural_in_children650);
+                            plural13=plural();
 
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_plural.add(plural13.getTree());
 
                             }
                             break;
@@ -981,42 +660,69 @@ public class DTDParser extends Parser {
                     }
 
 
+
+                    // AST REWRITE
+                    // elements: choice, plural
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 166:31: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                    {
+                        // DTD.g:166:34: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "choice"));
+                        adaptor.addChild(root_1, stream_choice.nextTree());
+                        // DTD.g:166:69: ( plural )?
+                        if ( stream_plural.hasNext() ) {
+                            adaptor.addChild(root_1, stream_plural.nextTree());
+
+                        }
+                        stream_plural.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:3: ( seq )=> seq ( '?' | '*' | '+' )?
+                    // DTD.g:167:3: ( seq )=> seq ( plural )?
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_seq_in_children654);
-                    seq24=seq();
+                    pushFollow(FOLLOW_seq_in_children676);
+                    seq14=seq();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, seq24.getTree());
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:16: ( '?' | '*' | '+' )?
-                    int alt8=2;
-                    int LA8_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_seq.add(seq14.getTree());
+                    // DTD.g:167:16: ( plural )?
+                    int alt5=2;
+                    int LA5_0 = input.LA(1);
 
-                    if ( ((LA8_0>=32 && LA8_0<=34)) ) {
-                        alt8=1;
+                    if ( ((LA5_0>=43 && LA5_0<=45)) ) {
+                        alt5=1;
                     }
-                    switch (alt8) {
+                    switch (alt5) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                            // DTD.g:167:16: plural
                             {
-                            set25=(Token)input.LT(1);
-                            if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
-                                input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set25));
-                                state.errorRecovery=false;state.failed=false;
-                            }
-                            else {
-                                if (state.backtracking>0) {state.failed=true; return retval;}
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
-                                throw mse;
-                            }
+                            pushFollow(FOLLOW_plural_in_children678);
+                            plural15=plural();
 
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_plural.add(plural15.getTree());
 
                             }
                             break;
@@ -1024,6 +730,41 @@ public class DTDParser extends Parser {
                     }
 
 
+
+                    // AST REWRITE
+                    // elements: plural, seq
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 167:24: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                    {
+                        // DTD.g:167:27: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "seq"));
+                        adaptor.addChild(root_1, stream_seq.nextTree());
+                        // DTD.g:167:55: ( plural )?
+                        if ( stream_plural.hasNext() ) {
+                            adaptor.addChild(root_1, stream_plural.nextTree());
+
+                        }
+                        stream_plural.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
 
@@ -1054,48 +795,51 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "cp"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:145:1: cp : ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? );
+    // DTD.g:170:1: fragment cp : ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
     public final DTDParser.cp_return cp() throws RecognitionException {
         DTDParser.cp_return retval = new DTDParser.cp_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Name26=null;
-        Token set27=null;
-        Token set29=null;
-        Token set31=null;
-        DTDParser.choice_return choice28 = null;
+        Token Name16=null;
+        DTDParser.plural_return plural17 = null;
 
-        DTDParser.seq_return seq30 = null;
+        DTDParser.choice_return choice18 = null;
+
+        DTDParser.plural_return plural19 = null;
+
+        DTDParser.seq_return seq20 = null;
+
+        DTDParser.plural_return plural21 = null;
 
 
-        Object Name26_tree=null;
-        Object set27_tree=null;
-        Object set29_tree=null;
-        Object set31_tree=null;
-
+        Object Name16_tree=null;
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
+        RewriteRuleSubtreeStream stream_choice=new RewriteRuleSubtreeStream(adaptor,"rule choice");
+        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:1: ( ( Name )=> Name ( '?' | '*' | '+' )? | ( choice )=> choice ( '?' | '*' | '+' )? | ( seq )=> seq ( '?' | '*' | '+' )? )
-            int alt13=3;
-            int LA13_0 = input.LA(1);
+            // DTD.g:172:1: ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
+            int alt10=3;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA13_0==Name) && (synpred3_DTD())) {
-                alt13=1;
+            if ( (LA10_0==Name) && (synpred3_DTD())) {
+                alt10=1;
             }
-            else if ( (LA13_0==LParen) ) {
-                int LA13_2 = input.LA(2);
+            else if ( (LA10_0==LParen) ) {
+                int LA10_2 = input.LA(2);
 
                 if ( (synpred4_DTD()) ) {
-                    alt13=2;
+                    alt10=2;
                 }
                 else if ( (synpred5_DTD()) ) {
-                    alt13=3;
+                    alt10=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 13, 2, input);
+                        new NoViableAltException("", 10, 2, input);
 
                     throw nvae;
                 }
@@ -1103,44 +847,34 @@ public class DTDParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 10, 0, input);
 
                 throw nvae;
             }
-            switch (alt13) {
+            switch (alt10) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:3: ( Name )=> Name ( '?' | '*' | '+' )?
+                    // DTD.g:172:3: ( Name )=> Name ( plural )?
                     {
-                    root_0 = (Object)adaptor.nil();
+                    Name16=(Token)match(input,Name,FOLLOW_Name_in_cp712); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_Name.add(Name16);
 
-                    Name26=(Token)match(input,Name,FOLLOW_Name_in_cp684); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    Name26_tree = (Object)adaptor.create(Name26);
-                    adaptor.addChild(root_0, Name26_tree);
-                    }
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:19: ( '?' | '*' | '+' )?
-                    int alt10=2;
-                    int LA10_0 = input.LA(1);
+                    // DTD.g:172:19: ( plural )?
+                    int alt7=2;
+                    int LA7_0 = input.LA(1);
 
-                    if ( ((LA10_0>=32 && LA10_0<=34)) ) {
-                        alt10=1;
+                    if ( ((LA7_0>=43 && LA7_0<=45)) ) {
+                        alt7=1;
                     }
-                    switch (alt10) {
+                    switch (alt7) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                            // DTD.g:172:19: plural
                             {
-                            set27=(Token)input.LT(1);
-                            if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
-                                input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set27));
-                                state.errorRecovery=false;state.failed=false;
-                            }
-                            else {
-                                if (state.backtracking>0) {state.failed=true; return retval;}
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
-                                throw mse;
-                            }
+                            pushFollow(FOLLOW_plural_in_cp715);
+                            plural17=plural();
 
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_plural.add(plural17.getTree());
 
                             }
                             break;
@@ -1148,42 +882,68 @@ public class DTDParser extends Parser {
                     }
 
 
+
+                    // AST REWRITE
+                    // elements: plural
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 172:27: -> ^( COMPONENT NAME[$Name.text] ( plural )? )
+                    {
+                        // DTD.g:172:30: ^( COMPONENT NAME[$Name.text] ( plural )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name16!=null?Name16.getText():null)));
+                        // DTD.g:172:59: ( plural )?
+                        if ( stream_plural.hasNext() ) {
+                            adaptor.addChild(root_1, stream_plural.nextTree());
+
+                        }
+                        stream_plural.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:4: ( choice )=> choice ( '?' | '*' | '+' )?
+                    // DTD.g:173:4: ( choice )=> choice ( plural )?
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_choice_in_cp709);
-                    choice28=choice();
+                    pushFollow(FOLLOW_choice_in_cp739);
+                    choice18=choice();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, choice28.getTree());
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:24: ( '?' | '*' | '+' )?
-                    int alt11=2;
-                    int LA11_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_choice.add(choice18.getTree());
+                    // DTD.g:173:24: ( plural )?
+                    int alt8=2;
+                    int LA8_0 = input.LA(1);
 
-                    if ( ((LA11_0>=32 && LA11_0<=34)) ) {
-                        alt11=1;
+                    if ( ((LA8_0>=43 && LA8_0<=45)) ) {
+                        alt8=1;
                     }
-                    switch (alt11) {
+                    switch (alt8) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                            // DTD.g:173:24: plural
                             {
-                            set29=(Token)input.LT(1);
-                            if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
-                                input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set29));
-                                state.errorRecovery=false;state.failed=false;
-                            }
-                            else {
-                                if (state.backtracking>0) {state.failed=true; return retval;}
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
-                                throw mse;
-                            }
+                            pushFollow(FOLLOW_plural_in_cp742);
+                            plural19=plural();
 
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_plural.add(plural19.getTree());
 
                             }
                             break;
@@ -1191,42 +951,69 @@ public class DTDParser extends Parser {
                     }
 
 
+
+                    // AST REWRITE
+                    // elements: plural, choice
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 173:32: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                    {
+                        // DTD.g:173:35: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "choice"));
+                        adaptor.addChild(root_1, stream_choice.nextTree());
+                        // DTD.g:173:69: ( plural )?
+                        if ( stream_plural.hasNext() ) {
+                            adaptor.addChild(root_1, stream_plural.nextTree());
+
+                        }
+                        stream_plural.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
                 case 3 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:4: ( seq )=> seq ( '?' | '*' | '+' )?
+                    // DTD.g:174:4: ( seq )=> seq ( plural )?
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_seq_in_cp734);
-                    seq30=seq();
+                    pushFollow(FOLLOW_seq_in_cp768);
+                    seq20=seq();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, seq30.getTree());
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:18: ( '?' | '*' | '+' )?
-                    int alt12=2;
-                    int LA12_0 = input.LA(1);
+                    if ( state.backtracking==0 ) stream_seq.add(seq20.getTree());
+                    // DTD.g:174:18: ( plural )?
+                    int alt9=2;
+                    int LA9_0 = input.LA(1);
 
-                    if ( ((LA12_0>=32 && LA12_0<=34)) ) {
-                        alt12=1;
+                    if ( ((LA9_0>=43 && LA9_0<=45)) ) {
+                        alt9=1;
                     }
-                    switch (alt12) {
+                    switch (alt9) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                            // DTD.g:174:18: plural
                             {
-                            set31=(Token)input.LT(1);
-                            if ( (input.LA(1)>=32 && input.LA(1)<=34) ) {
-                                input.consume();
-                                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set31));
-                                state.errorRecovery=false;state.failed=false;
-                            }
-                            else {
-                                if (state.backtracking>0) {state.failed=true; return retval;}
-                                MismatchedSetException mse = new MismatchedSetException(null,input);
-                                throw mse;
-                            }
+                            pushFollow(FOLLOW_plural_in_cp771);
+                            plural21=plural();
 
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) stream_plural.add(plural21.getTree());
 
                             }
                             break;
@@ -1234,6 +1021,41 @@ public class DTDParser extends Parser {
                     }
 
 
+
+                    // AST REWRITE
+                    // elements: seq, plural
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 174:26: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                    {
+                        // DTD.g:174:29: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "seq"));
+                        adaptor.addChild(root_1, stream_seq.nextTree());
+                        // DTD.g:174:57: ( plural )?
+                        if ( stream_plural.hasNext() ) {
+                            adaptor.addChild(root_1, stream_plural.nextTree());
+
+                        }
+                        stream_plural.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
 
@@ -1258,89 +1080,272 @@ public class DTDParser extends Parser {
     }
     // $ANTLR end "cp"
 
+    public static class plural_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "plural"
+    // DTD.g:177:1: fragment plural : ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] );
+    public final DTDParser.plural_return plural() throws RecognitionException {
+        DTDParser.plural_return retval = new DTDParser.plural_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token char_literal22=null;
+        Token char_literal23=null;
+        Token char_literal24=null;
+
+        Object char_literal22_tree=null;
+        Object char_literal23_tree=null;
+        Object char_literal24_tree=null;
+        RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
+        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
+        RewriteRuleTokenStream stream_45=new RewriteRuleTokenStream(adaptor,"token 45");
+
+        try {
+            // DTD.g:179:3: ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] )
+            int alt11=3;
+            switch ( input.LA(1) ) {
+            case 43:
+                {
+                alt11=1;
+                }
+                break;
+            case 44:
+                {
+                alt11=2;
+                }
+                break;
+            case 45:
+                {
+                alt11=3;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return retval;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 11, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt11) {
+                case 1 :
+                    // DTD.g:179:5: '?'
+                    {
+                    char_literal22=(Token)match(input,43,FOLLOW_43_in_plural799); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_43.add(char_literal22);
+
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 179:9: -> OCCURRENCE[\"ZERO_OR_ONE\"]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ZERO_OR_ONE"));
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 2 :
+                    // DTD.g:180:5: '*'
+                    {
+                    char_literal23=(Token)match(input,44,FOLLOW_44_in_plural810); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_44.add(char_literal23);
+
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 180:9: -> OCCURRENCE[\"ZERO_OR_MORE\"]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ZERO_OR_MORE"));
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+                case 3 :
+                    // DTD.g:181:5: '+'
+                    {
+                    char_literal24=(Token)match(input,45,FOLLOW_45_in_plural821); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_45.add(char_literal24);
+
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 181:9: -> OCCURRENCE[\"ONE_OR_MORE\"]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ONE_OR_MORE"));
+
+                    }
+
+                    retval.tree = root_0;}
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "plural"
+
     public static class choice_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "choice"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:1: choice : LParen cp ( '|' cp )* RParen ;
+    // DTD.g:185:1: fragment choice : LParen cp ( '|' cp )* RParen -> ( cp )+ ;
     public final DTDParser.choice_return choice() throws RecognitionException {
         DTDParser.choice_return retval = new DTDParser.choice_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token LParen32=null;
-        Token char_literal34=null;
-        Token RParen36=null;
-        DTDParser.cp_return cp33 = null;
+        Token LParen25=null;
+        Token char_literal27=null;
+        Token RParen29=null;
+        DTDParser.cp_return cp26 = null;
 
-        DTDParser.cp_return cp35 = null;
+        DTDParser.cp_return cp28 = null;
 
 
-        Object LParen32_tree=null;
-        Object char_literal34_tree=null;
-        Object RParen36_tree=null;
-
+        Object LParen25_tree=null;
+        Object char_literal27_tree=null;
+        Object RParen29_tree=null;
+        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
+        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
+        RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleSubtreeStream stream_cp=new RewriteRuleSubtreeStream(adaptor,"rule cp");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:7: ( LParen cp ( '|' cp )* RParen )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:9: LParen cp ( '|' cp )* RParen
+            // DTD.g:186:7: ( LParen cp ( '|' cp )* RParen -> ( cp )+ )
+            // DTD.g:186:9: LParen cp ( '|' cp )* RParen
             {
-            root_0 = (Object)adaptor.nil();
+            LParen25=(Token)match(input,LParen,FOLLOW_LParen_in_choice841); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LParen.add(LParen25);
 
-            LParen32=(Token)match(input,LParen,FOLLOW_LParen_in_choice756); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            LParen32_tree = (Object)adaptor.create(LParen32);
-            adaptor.addChild(root_0, LParen32_tree);
-            }
-            pushFollow(FOLLOW_cp_in_choice758);
-            cp33=cp();
+            pushFollow(FOLLOW_cp_in_choice843);
+            cp26=cp();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, cp33.getTree());
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:19: ( '|' cp )*
-            loop14:
+            if ( state.backtracking==0 ) stream_cp.add(cp26.getTree());
+            // DTD.g:186:19: ( '|' cp )*
+            loop12:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA14_0==35) ) {
-                    alt14=1;
+                if ( (LA12_0==46) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt12) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:151:20: '|' cp
+            	    // DTD.g:186:20: '|' cp
             	    {
-            	    char_literal34=(Token)match(input,35,FOLLOW_35_in_choice761); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    char_literal34_tree = (Object)adaptor.create(char_literal34);
-            	    adaptor.addChild(root_0, char_literal34_tree);
-            	    }
-            	    pushFollow(FOLLOW_cp_in_choice763);
-            	    cp35=cp();
+            	    char_literal27=(Token)match(input,46,FOLLOW_46_in_choice846); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_46.add(char_literal27);
+
+            	    pushFollow(FOLLOW_cp_in_choice848);
+            	    cp28=cp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, cp35.getTree());
+            	    if ( state.backtracking==0 ) stream_cp.add(cp28.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop12;
                 }
             } while (true);
 
-            RParen36=(Token)match(input,RParen,FOLLOW_RParen_in_choice767); if (state.failed) return retval;
+            RParen29=(Token)match(input,RParen,FOLLOW_RParen_in_choice852); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RParen.add(RParen29);
+
+
+
+            // AST REWRITE
+            // elements: cp
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
-            RParen36_tree = (Object)adaptor.create(RParen36);
-            adaptor.addChild(root_0, RParen36_tree);
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 187:3: -> ( cp )+
+            {
+                if ( !(stream_cp.hasNext()) ) {
+                    throw new RewriteEarlyExitException();
+                }
+                while ( stream_cp.hasNext() ) {
+                    adaptor.addChild(root_0, stream_cp.nextTree());
+
+                }
+                stream_cp.reset();
+
             }
 
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -1369,89 +1374,111 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "seq"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:1: seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen ;
+    // DTD.g:190:1: fragment seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ ;
     public final DTDParser.seq_return seq() throws RecognitionException {
         DTDParser.seq_return retval = new DTDParser.seq_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token LParen37=null;
-        Token Comma39=null;
-        Token RParen41=null;
-        DTDParser.cp_return cp38 = null;
+        Token LParen30=null;
+        Token Comma32=null;
+        Token RParen34=null;
+        DTDParser.cp_return cp31 = null;
 
-        DTDParser.cp_return cp40 = null;
+        DTDParser.cp_return cp33 = null;
 
 
-        Object LParen37_tree=null;
-        Object Comma39_tree=null;
-        Object RParen41_tree=null;
-
+        Object LParen30_tree=null;
+        Object Comma32_tree=null;
+        Object RParen34_tree=null;
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
+        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
+        RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleSubtreeStream stream_cp=new RewriteRuleSubtreeStream(adaptor,"rule cp");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
+            // DTD.g:191:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ )
+            // DTD.g:191:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
             {
-            root_0 = (Object)adaptor.nil();
+            LParen30=(Token)match(input,LParen,FOLLOW_LParen_in_seq881); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LParen.add(LParen30);
 
-            LParen37=(Token)match(input,LParen,FOLLOW_LParen_in_seq787); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            LParen37_tree = (Object)adaptor.create(LParen37);
-            adaptor.addChild(root_0, LParen37_tree);
-            }
-            pushFollow(FOLLOW_cp_in_seq789);
-            cp38=cp();
+            pushFollow(FOLLOW_cp_in_seq883);
+            cp31=cp();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, cp38.getTree());
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:37: ( Comma cp )+
-            int cnt15=0;
-            loop15:
+            if ( state.backtracking==0 ) stream_cp.add(cp31.getTree());
+            // DTD.g:191:37: ( Comma cp )+
+            int cnt13=0;
+            loop13:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-                if ( (LA15_0==Comma) ) {
-                    alt15=1;
+                if ( (LA13_0==Comma) ) {
+                    alt13=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt13) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:154:38: Comma cp
+            	    // DTD.g:191:38: Comma cp
             	    {
-            	    Comma39=(Token)match(input,Comma,FOLLOW_Comma_in_seq792); if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) {
-            	    Comma39_tree = (Object)adaptor.create(Comma39);
-            	    adaptor.addChild(root_0, Comma39_tree);
-            	    }
-            	    pushFollow(FOLLOW_cp_in_seq794);
-            	    cp40=cp();
+            	    Comma32=(Token)match(input,Comma,FOLLOW_Comma_in_seq886); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_Comma.add(Comma32);
+
+            	    pushFollow(FOLLOW_cp_in_seq888);
+            	    cp33=cp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, cp40.getTree());
+            	    if ( state.backtracking==0 ) stream_cp.add(cp33.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt15 >= 1 ) break loop15;
+            	    if ( cnt13 >= 1 ) break loop13;
             	    if (state.backtracking>0) {state.failed=true; return retval;}
                         EarlyExitException eee =
-                            new EarlyExitException(15, input);
+                            new EarlyExitException(13, input);
                         throw eee;
                 }
-                cnt15++;
+                cnt13++;
             } while (true);
 
-            RParen41=(Token)match(input,RParen,FOLLOW_RParen_in_seq798); if (state.failed) return retval;
+            RParen34=(Token)match(input,RParen,FOLLOW_RParen_in_seq892); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_RParen.add(RParen34);
+
+
+
+            // AST REWRITE
+            // elements: cp
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
-            RParen41_tree = (Object)adaptor.create(RParen41);
-            adaptor.addChild(root_0, RParen41_tree);
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 192:3: -> ( cp )+
+            {
+                if ( !(stream_cp.hasNext()) ) {
+                    throw new RewriteEarlyExitException();
+                }
+                while ( stream_cp.hasNext() ) {
+                    adaptor.addChild(root_0, stream_cp.nextTree());
+
+                }
+                stream_cp.reset();
+
             }
 
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -1480,68 +1507,73 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "mixed"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:1: mixed : ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen );
+    // DTD.g:195:1: fragment mixed : ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) );
     public final DTDParser.mixed_return mixed() throws RecognitionException {
         DTDParser.mixed_return retval = new DTDParser.mixed_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token LParen42=null;
-        Token string_literal43=null;
-        Token char_literal44=null;
-        Token Name45=null;
-        Token RParen46=null;
-        Token char_literal47=null;
-        Token LParen48=null;
-        Token string_literal49=null;
-        Token RParen50=null;
+        Token LParen35=null;
+        Token string_literal36=null;
+        Token char_literal37=null;
+        Token RParen39=null;
+        Token char_literal40=null;
+        Token LParen41=null;
+        Token string_literal42=null;
+        Token RParen43=null;
+        DTDParser.mixed_i_return mixed_i38 = null;
 
-        Object LParen42_tree=null;
-        Object string_literal43_tree=null;
-        Object char_literal44_tree=null;
-        Object Name45_tree=null;
-        Object RParen46_tree=null;
-        Object char_literal47_tree=null;
-        Object LParen48_tree=null;
-        Object string_literal49_tree=null;
-        Object RParen50_tree=null;
 
+        Object LParen35_tree=null;
+        Object string_literal36_tree=null;
+        Object char_literal37_tree=null;
+        Object RParen39_tree=null;
+        Object char_literal40_tree=null;
+        Object LParen41_tree=null;
+        Object string_literal42_tree=null;
+        Object RParen43_tree=null;
+        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
+        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
+        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
+        RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
+        RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleSubtreeStream stream_mixed_i=new RewriteRuleSubtreeStream(adaptor,"rule mixed_i");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:6: ( LParen '#PCDATA' ( '|' Name )* RParen '*' | LParen '#PCDATA' RParen )
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // DTD.g:197:3: ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) )
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA17_0==LParen) ) {
-                int LA17_1 = input.LA(2);
+            if ( (LA15_0==LParen) ) {
+                int LA15_1 = input.LA(2);
 
-                if ( (LA17_1==36) ) {
-                    int LA17_2 = input.LA(3);
+                if ( (LA15_1==47) ) {
+                    int LA15_2 = input.LA(3);
 
-                    if ( (LA17_2==RParen) ) {
-                        int LA17_3 = input.LA(4);
+                    if ( (LA15_2==RParen) ) {
+                        int LA15_3 = input.LA(4);
 
-                        if ( (LA17_3==33) ) {
-                            alt17=1;
+                        if ( (LA15_3==44) ) {
+                            alt15=1;
                         }
-                        else if ( (LA17_3==29) ) {
-                            alt17=2;
+                        else if ( (LA15_3==40) ) {
+                            alt15=2;
                         }
                         else {
                             if (state.backtracking>0) {state.failed=true; return retval;}
                             NoViableAltException nvae =
-                                new NoViableAltException("", 17, 3, input);
+                                new NoViableAltException("", 15, 3, input);
 
                             throw nvae;
                         }
                     }
-                    else if ( (LA17_2==35) ) {
-                        alt17=1;
+                    else if ( (LA15_2==46) ) {
+                        alt15=1;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 17, 2, input);
+                            new NoViableAltException("", 15, 2, input);
 
                         throw nvae;
                     }
@@ -1549,7 +1581,7 @@ public class DTDParser extends Parser {
                 else {
                     if (state.backtracking>0) {state.failed=true; return retval;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 17, 1, input);
+                        new NoViableAltException("", 15, 1, input);
 
                     throw nvae;
                 }
@@ -1557,94 +1589,137 @@ public class DTDParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 17, 0, input);
+                    new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
-            switch (alt17) {
+            switch (alt15) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:8: LParen '#PCDATA' ( '|' Name )* RParen '*'
+                    // DTD.g:197:5: LParen '#PCDATA' ( '|' mixed_i )* RParen '*'
                     {
-                    root_0 = (Object)adaptor.nil();
+                    LParen35=(Token)match(input,LParen,FOLLOW_LParen_in_mixed914); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LParen.add(LParen35);
 
-                    LParen42=(Token)match(input,LParen,FOLLOW_LParen_in_mixed808); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LParen42_tree = (Object)adaptor.create(LParen42);
-                    adaptor.addChild(root_0, LParen42_tree);
-                    }
-                    string_literal43=(Token)match(input,36,FOLLOW_36_in_mixed810); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    string_literal43_tree = (Object)adaptor.create(string_literal43);
-                    adaptor.addChild(root_0, string_literal43_tree);
-                    }
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:25: ( '|' Name )*
-                    loop16:
+                    string_literal36=(Token)match(input,47,FOLLOW_47_in_mixed916); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_47.add(string_literal36);
+
+                    // DTD.g:197:22: ( '|' mixed_i )*
+                    loop14:
                     do {
-                        int alt16=2;
-                        int LA16_0 = input.LA(1);
+                        int alt14=2;
+                        int LA14_0 = input.LA(1);
 
-                        if ( (LA16_0==35) ) {
-                            alt16=1;
+                        if ( (LA14_0==46) ) {
+                            alt14=1;
                         }
 
 
-                        switch (alt16) {
+                        switch (alt14) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:157:26: '|' Name
+                    	    // DTD.g:197:23: '|' mixed_i
                     	    {
-                    	    char_literal44=(Token)match(input,35,FOLLOW_35_in_mixed813); if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) {
-                    	    char_literal44_tree = (Object)adaptor.create(char_literal44);
-                    	    adaptor.addChild(root_0, char_literal44_tree);
-                    	    }
-                    	    Name45=(Token)match(input,Name,FOLLOW_Name_in_mixed815); if (state.failed) return retval;
-                    	    if ( state.backtracking==0 ) {
-                    	    Name45_tree = (Object)adaptor.create(Name45);
-                    	    adaptor.addChild(root_0, Name45_tree);
-                    	    }
+                    	    char_literal37=(Token)match(input,46,FOLLOW_46_in_mixed919); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_46.add(char_literal37);
+
+                    	    pushFollow(FOLLOW_mixed_i_in_mixed921);
+                    	    mixed_i38=mixed_i();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return retval;
+                    	    if ( state.backtracking==0 ) stream_mixed_i.add(mixed_i38.getTree());
 
                     	    }
                     	    break;
 
                     	default :
-                    	    break loop16;
+                    	    break loop14;
                         }
                     } while (true);
 
-                    RParen46=(Token)match(input,RParen,FOLLOW_RParen_in_mixed819); if (state.failed) return retval;
+                    RParen39=(Token)match(input,RParen,FOLLOW_RParen_in_mixed925); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RParen.add(RParen39);
+
+                    char_literal40=(Token)match(input,44,FOLLOW_44_in_mixed927); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_44.add(char_literal40);
+
+
+
+                    // AST REWRITE
+                    // elements: mixed_i
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
                     if ( state.backtracking==0 ) {
-                    RParen46_tree = (Object)adaptor.create(RParen46);
-                    adaptor.addChild(root_0, RParen46_tree);
-                    }
-                    char_literal47=(Token)match(input,33,FOLLOW_33_in_mixed821); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    char_literal47_tree = (Object)adaptor.create(char_literal47);
-                    adaptor.addChild(root_0, char_literal47_tree);
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 198:5: -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
+                    {
+                        // DTD.g:198:8: ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
+
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "mixed"));
+                        // DTD.g:198:34: ( mixed_i )*
+                        while ( stream_mixed_i.hasNext() ) {
+                            adaptor.addChild(root_1, stream_mixed_i.nextTree());
+
+                        }
+                        stream_mixed_i.reset();
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
                     }
 
+                    retval.tree = root_0;}
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:158:5: LParen '#PCDATA' RParen
+                    // DTD.g:199:5: LParen '#PCDATA' RParen
                     {
+                    LParen41=(Token)match(input,LParen,FOLLOW_LParen_in_mixed949); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LParen.add(LParen41);
+
+                    string_literal42=(Token)match(input,47,FOLLOW_47_in_mixed951); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_47.add(string_literal42);
+
+                    RParen43=(Token)match(input,RParen,FOLLOW_RParen_in_mixed953); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RParen.add(RParen43);
+
+
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
                     root_0 = (Object)adaptor.nil();
+                    // 200:5: -> ^( COMPONENT TYPE[\"pcdata\"] )
+                    {
+                        // DTD.g:200:8: ^( COMPONENT TYPE[\"pcdata\"] )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
-                    LParen48=(Token)match(input,LParen,FOLLOW_LParen_in_mixed828); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    LParen48_tree = (Object)adaptor.create(LParen48);
-                    adaptor.addChild(root_0, LParen48_tree);
-                    }
-                    string_literal49=(Token)match(input,36,FOLLOW_36_in_mixed830); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    string_literal49_tree = (Object)adaptor.create(string_literal49);
-                    adaptor.addChild(root_0, string_literal49_tree);
-                    }
-                    RParen50=(Token)match(input,RParen,FOLLOW_RParen_in_mixed832); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    RParen50_tree = (Object)adaptor.create(RParen50);
-                    adaptor.addChild(root_0, RParen50_tree);
+                        adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "pcdata"));
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
                     }
 
+                    retval.tree = root_0;}
                     }
                     break;
 
@@ -1669,81 +1744,178 @@ public class DTDParser extends Parser {
     }
     // $ANTLR end "mixed"
 
+    public static class mixed_i_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "mixed_i"
+    // DTD.g:203:1: mixed_i : Name -> NAME[$Name.text] ;
+    public final DTDParser.mixed_i_return mixed_i() throws RecognitionException {
+        DTDParser.mixed_i_return retval = new DTDParser.mixed_i_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token Name44=null;
+
+        Object Name44_tree=null;
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+
+        try {
+            // DTD.g:204:3: ( Name -> NAME[$Name.text] )
+            // DTD.g:204:5: Name
+            {
+            Name44=(Token)match(input,Name,FOLLOW_Name_in_mixed_i982); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Name.add(Name44);
+
+
+
+            // AST REWRITE
+            // elements: 
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
+            if ( state.backtracking==0 ) {
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 204:10: -> NAME[$Name.text]
+            {
+                adaptor.addChild(root_0, (Object)adaptor.create(NAME, (Name44!=null?Name44.getText():null)));
+
+            }
+
+            retval.tree = root_0;}
+            }
+
+            retval.stop = input.LT(-1);
+
+            if ( state.backtracking==0 ) {
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "mixed_i"
+
     public static class attlistDecl_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "attlistDecl"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' ;
+    // DTD.g:207:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) ;
     public final DTDParser.attlistDecl_return attlistDecl() throws RecognitionException {
         DTDParser.attlistDecl_return retval = new DTDParser.attlistDecl_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal51=null;
-        Token Name52=null;
-        Token char_literal54=null;
-        DTDParser.attDef_return attDef53 = null;
+        Token string_literal45=null;
+        Token Name46=null;
+        Token char_literal48=null;
+        DTDParser.attDef_return attDef47 = null;
 
 
-        Object string_literal51_tree=null;
-        Object Name52_tree=null;
-        Object char_literal54_tree=null;
-
+        Object string_literal45_tree=null;
+        Object Name46_tree=null;
+        Object char_literal48_tree=null;
+        RewriteRuleTokenStream stream_48=new RewriteRuleTokenStream(adaptor,"token 48");
+        RewriteRuleTokenStream stream_40=new RewriteRuleTokenStream(adaptor,"token 40");
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleSubtreeStream stream_attDef=new RewriteRuleSubtreeStream(adaptor,"rule attDef");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:12: ( '<!ATTLIST' Name ( attDef )* '>' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:14: '<!ATTLIST' Name ( attDef )* '>'
+            // DTD.g:207:12: ( '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) )
+            // DTD.g:207:14: '<!ATTLIST' Name ( attDef )* '>'
             {
-            root_0 = (Object)adaptor.nil();
+            string_literal45=(Token)match(input,48,FOLLOW_48_in_attlistDecl1003); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_48.add(string_literal45);
 
-            string_literal51=(Token)match(input,37,FOLLOW_37_in_attlistDecl844); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            string_literal51_tree = (Object)adaptor.create(string_literal51);
-            adaptor.addChild(root_0, string_literal51_tree);
-            }
-            Name52=(Token)match(input,Name,FOLLOW_Name_in_attlistDecl846); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            Name52_tree = (Object)adaptor.create(Name52);
-            adaptor.addChild(root_0, Name52_tree);
-            }
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:31: ( attDef )*
-            loop18:
+            Name46=(Token)match(input,Name,FOLLOW_Name_in_attlistDecl1005); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Name.add(Name46);
+
+            // DTD.g:207:31: ( attDef )*
+            loop16:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( (LA18_0==Name) ) {
-                    alt18=1;
+                if ( (LA16_0==Name) ) {
+                    alt16=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt16) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:161:31: attDef
+            	    // DTD.g:207:31: attDef
             	    {
-            	    pushFollow(FOLLOW_attDef_in_attlistDecl848);
-            	    attDef53=attDef();
+            	    pushFollow(FOLLOW_attDef_in_attlistDecl1007);
+            	    attDef47=attDef();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, attDef53.getTree());
+            	    if ( state.backtracking==0 ) stream_attDef.add(attDef47.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop18;
+            	    break loop16;
                 }
             } while (true);
 
-            char_literal54=(Token)match(input,29,FOLLOW_29_in_attlistDecl851); if (state.failed) return retval;
+            char_literal48=(Token)match(input,40,FOLLOW_40_in_attlistDecl1010); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_40.add(char_literal48);
+
+
+
+            // AST REWRITE
+            // elements: attDef
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
-            char_literal54_tree = (Object)adaptor.create(char_literal54);
-            adaptor.addChild(root_0, char_literal54_tree);
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 208:3: -> ^( ATTLIST NAME[$Name.text] ( attDef )* )
+            {
+                // DTD.g:208:6: ^( ATTLIST NAME[$Name.text] ( attDef )* )
+                {
+                Object root_1 = (Object)adaptor.nil();
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTLIST, "ATTLIST"), root_1);
+
+                adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name46!=null?Name46.getText():null)));
+                // DTD.g:208:33: ( attDef )*
+                while ( stream_attDef.hasNext() ) {
+                    adaptor.addChild(root_1, stream_attDef.nextTree());
+
+                }
+                stream_attDef.reset();
+
+                adaptor.addChild(root_0, root_1);
+                }
+
             }
 
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -1772,44 +1944,70 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "attDef"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:1: attDef : Name attType DefaultDecl ;
+    // DTD.g:211:1: fragment attDef : Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1] ) ;
     public final DTDParser.attDef_return attDef() throws RecognitionException {
         DTDParser.attDef_return retval = new DTDParser.attDef_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token Name55=null;
-        Token DefaultDecl57=null;
-        DTDParser.attType_return attType56 = null;
+        Token Name49=null;
+        Token DefaultDecl51=null;
+        DTDParser.attType_return attType50 = null;
 
 
-        Object Name55_tree=null;
-        Object DefaultDecl57_tree=null;
-
+        Object Name49_tree=null;
+        Object DefaultDecl51_tree=null;
+        RewriteRuleTokenStream stream_DefaultDecl=new RewriteRuleTokenStream(adaptor,"token DefaultDecl");
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleSubtreeStream stream_attType=new RewriteRuleSubtreeStream(adaptor,"rule attType");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:7: ( Name attType DefaultDecl )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:164:9: Name attType DefaultDecl
+            // DTD.g:212:7: ( Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1] ) )
+            // DTD.g:212:9: Name attType DefaultDecl
             {
-            root_0 = (Object)adaptor.nil();
+            Name49=(Token)match(input,Name,FOLLOW_Name_in_attDef1036); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_Name.add(Name49);
 
-            Name55=(Token)match(input,Name,FOLLOW_Name_in_attDef861); if (state.failed) return retval;
-            if ( state.backtracking==0 ) {
-            Name55_tree = (Object)adaptor.create(Name55);
-            adaptor.addChild(root_0, Name55_tree);
-            }
-            pushFollow(FOLLOW_attType_in_attDef863);
-            attType56=attType();
+            pushFollow(FOLLOW_attType_in_attDef1038);
+            attType50=attType();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, attType56.getTree());
-            DefaultDecl57=(Token)match(input,DefaultDecl,FOLLOW_DefaultDecl_in_attDef865); if (state.failed) return retval;
+            if ( state.backtracking==0 ) stream_attType.add(attType50.getTree());
+            DefaultDecl51=(Token)match(input,DefaultDecl,FOLLOW_DefaultDecl_in_attDef1040); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_DefaultDecl.add(DefaultDecl51);
+
+
+
+            // AST REWRITE
+            // elements: attType
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
             if ( state.backtracking==0 ) {
-            DefaultDecl57_tree = (Object)adaptor.create(DefaultDecl57);
-            adaptor.addChild(root_0, DefaultDecl57_tree);
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (Object)adaptor.nil();
+            // 213:3: -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1] )
+            {
+                // DTD.g:213:6: ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1] )
+                {
+                Object root_1 = (Object)adaptor.nil();
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTRIBUTE, "ATTRIBUTE"), root_1);
+
+                adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name49!=null?Name49.getText():null)));
+                adaptor.addChild(root_1, stream_attType.nextTree());
+                adaptor.addChild(root_1, (Object)adaptor.create(DECL, "DECL"));
+
+                adaptor.addChild(root_0, root_1);
+                }
+
             }
 
+            retval.tree = root_0;}
             }
 
             retval.stop = input.LT(-1);
@@ -1838,96 +2036,152 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "attType"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:1: attType : ( stringType | tokenizedType | enumeratedType );
+    // DTD.g:216:1: fragment attType : ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] );
     public final DTDParser.attType_return attType() throws RecognitionException {
         DTDParser.attType_return retval = new DTDParser.attType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        DTDParser.stringType_return stringType58 = null;
+        DTDParser.stringType_return stringType52 = null;
 
-        DTDParser.tokenizedType_return tokenizedType59 = null;
+        DTDParser.tokenizedType_return tokenizedType53 = null;
 
-        DTDParser.enumeratedType_return enumeratedType60 = null;
+        DTDParser.enumeratedType_return enumeratedType54 = null;
 
 
-
+        RewriteRuleSubtreeStream stream_enumeratedType=new RewriteRuleSubtreeStream(adaptor,"rule enumeratedType");
+        RewriteRuleSubtreeStream stream_tokenizedType=new RewriteRuleSubtreeStream(adaptor,"rule tokenizedType");
+        RewriteRuleSubtreeStream stream_stringType=new RewriteRuleSubtreeStream(adaptor,"rule stringType");
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:8: ( stringType | tokenizedType | enumeratedType )
-            int alt19=3;
+            // DTD.g:218:3: ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] )
+            int alt17=3;
             switch ( input.LA(1) ) {
-            case 39:
+            case 50:
                 {
-                alt19=1;
+                alt17=1;
                 }
                 break;
-            case 40:
-            case 41:
-            case 42:
-            case 43:
-            case 44:
-            case 45:
-            case 46:
+            case 51:
+            case 52:
+            case 53:
+            case 54:
+            case 55:
+            case 56:
+            case 57:
                 {
-                alt19=2;
+                alt17=2;
                 }
                 break;
             case LParen:
-            case 38:
+            case 49:
                 {
-                alt19=3;
+                alt17=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 19, 0, input);
+                    new NoViableAltException("", 17, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt19) {
+            switch (alt17) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:10: stringType
+                    // DTD.g:218:5: stringType
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_stringType_in_attType876);
-                    stringType58=stringType();
+                    pushFollow(FOLLOW_stringType_in_attType1072);
+                    stringType52=stringType();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, stringType58.getTree());
+                    if ( state.backtracking==0 ) stream_stringType.add(stringType52.getTree());
 
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 218:16: -> STRINGTYPE[$stringType.text]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(STRINGTYPE, (stringType52!=null?input.toString(stringType52.start,stringType52.stop):null)));
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:23: tokenizedType
+                    // DTD.g:219:5: tokenizedType
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_tokenizedType_in_attType880);
-                    tokenizedType59=tokenizedType();
+                    pushFollow(FOLLOW_tokenizedType_in_attType1084);
+                    tokenizedType53=tokenizedType();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, tokenizedType59.getTree());
+                    if ( state.backtracking==0 ) stream_tokenizedType.add(tokenizedType53.getTree());
 
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 219:19: -> TOKENIZEDTYPE[$tokenizedType.text]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(TOKENIZEDTYPE, (tokenizedType53!=null?input.toString(tokenizedType53.start,tokenizedType53.stop):null)));
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
                 case 3 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:167:39: enumeratedType
+                    // DTD.g:220:5: enumeratedType
                     {
-                    root_0 = (Object)adaptor.nil();
-
-                    pushFollow(FOLLOW_enumeratedType_in_attType884);
-                    enumeratedType60=enumeratedType();
+                    pushFollow(FOLLOW_enumeratedType_in_attType1096);
+                    enumeratedType54=enumeratedType();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, enumeratedType60.getTree());
+                    if ( state.backtracking==0 ) stream_enumeratedType.add(enumeratedType54.getTree());
 
+
+                    // AST REWRITE
+                    // elements: 
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 220:20: -> ENUMTYPE[$enumeratedType.text]
+                    {
+                        adaptor.addChild(root_0, (Object)adaptor.create(ENUMTYPE, (enumeratedType54!=null?input.toString(enumeratedType54.start,enumeratedType54.stop):null)));
+
+                    }
+
+                    retval.tree = root_0;}
                     }
                     break;
 
@@ -1958,79 +2212,79 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "enumeration"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:1: enumeration : LParen Name ( '|' Name )* RParen ;
+    // DTD.g:223:1: fragment enumeration : LParen Name ( '|' Name )* RParen ;
     public final DTDParser.enumeration_return enumeration() throws RecognitionException {
         DTDParser.enumeration_return retval = new DTDParser.enumeration_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token LParen61=null;
-        Token Name62=null;
-        Token char_literal63=null;
-        Token Name64=null;
-        Token RParen65=null;
+        Token LParen55=null;
+        Token Name56=null;
+        Token char_literal57=null;
+        Token Name58=null;
+        Token RParen59=null;
 
-        Object LParen61_tree=null;
-        Object Name62_tree=null;
-        Object char_literal63_tree=null;
-        Object Name64_tree=null;
-        Object RParen65_tree=null;
+        Object LParen55_tree=null;
+        Object Name56_tree=null;
+        Object char_literal57_tree=null;
+        Object Name58_tree=null;
+        Object RParen59_tree=null;
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:12: ( LParen Name ( '|' Name )* RParen )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:14: LParen Name ( '|' Name )* RParen
+            // DTD.g:224:12: ( LParen Name ( '|' Name )* RParen )
+            // DTD.g:224:14: LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            LParen61=(Token)match(input,LParen,FOLLOW_LParen_in_enumeration891); if (state.failed) return retval;
+            LParen55=(Token)match(input,LParen,FOLLOW_LParen_in_enumeration1113); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LParen61_tree = (Object)adaptor.create(LParen61);
-            adaptor.addChild(root_0, LParen61_tree);
+            LParen55_tree = (Object)adaptor.create(LParen55);
+            adaptor.addChild(root_0, LParen55_tree);
             }
-            Name62=(Token)match(input,Name,FOLLOW_Name_in_enumeration893); if (state.failed) return retval;
+            Name56=(Token)match(input,Name,FOLLOW_Name_in_enumeration1115); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            Name62_tree = (Object)adaptor.create(Name62);
-            adaptor.addChild(root_0, Name62_tree);
+            Name56_tree = (Object)adaptor.create(Name56);
+            adaptor.addChild(root_0, Name56_tree);
             }
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:26: ( '|' Name )*
-            loop20:
+            // DTD.g:224:26: ( '|' Name )*
+            loop18:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( (LA20_0==35) ) {
-                    alt20=1;
+                if ( (LA18_0==46) ) {
+                    alt18=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt18) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:169:27: '|' Name
+            	    // DTD.g:224:27: '|' Name
             	    {
-            	    char_literal63=(Token)match(input,35,FOLLOW_35_in_enumeration896); if (state.failed) return retval;
+            	    char_literal57=(Token)match(input,46,FOLLOW_46_in_enumeration1118); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    char_literal63_tree = (Object)adaptor.create(char_literal63);
-            	    adaptor.addChild(root_0, char_literal63_tree);
+            	    char_literal57_tree = (Object)adaptor.create(char_literal57);
+            	    adaptor.addChild(root_0, char_literal57_tree);
             	    }
-            	    Name64=(Token)match(input,Name,FOLLOW_Name_in_enumeration898); if (state.failed) return retval;
+            	    Name58=(Token)match(input,Name,FOLLOW_Name_in_enumeration1120); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    Name64_tree = (Object)adaptor.create(Name64);
-            	    adaptor.addChild(root_0, Name64_tree);
+            	    Name58_tree = (Object)adaptor.create(Name58);
+            	    adaptor.addChild(root_0, Name58_tree);
             	    }
 
             	    }
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop18;
                 }
             } while (true);
 
-            RParen65=(Token)match(input,RParen,FOLLOW_RParen_in_enumeration902); if (state.failed) return retval;
+            RParen59=(Token)match(input,RParen,FOLLOW_RParen_in_enumeration1124); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RParen65_tree = (Object)adaptor.create(RParen65);
-            adaptor.addChild(root_0, RParen65_tree);
+            RParen59_tree = (Object)adaptor.create(RParen59);
+            adaptor.addChild(root_0, RParen59_tree);
             }
 
             }
@@ -2061,63 +2315,63 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "enumeratedType"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:1: enumeratedType : ( notationType | enumeration );
+    // DTD.g:225:1: fragment enumeratedType : ( notationType | enumeration );
     public final DTDParser.enumeratedType_return enumeratedType() throws RecognitionException {
         DTDParser.enumeratedType_return retval = new DTDParser.enumeratedType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        DTDParser.notationType_return notationType66 = null;
+        DTDParser.notationType_return notationType60 = null;
 
-        DTDParser.enumeration_return enumeration67 = null;
+        DTDParser.enumeration_return enumeration61 = null;
 
 
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:15: ( notationType | enumeration )
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            // DTD.g:226:15: ( notationType | enumeration )
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA21_0==38) ) {
-                alt21=1;
+            if ( (LA19_0==49) ) {
+                alt19=1;
             }
-            else if ( (LA21_0==LParen) ) {
-                alt21=2;
+            else if ( (LA19_0==LParen) ) {
+                alt19=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+            switch (alt19) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:17: notationType
+                    // DTD.g:226:17: notationType
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_notationType_in_enumeratedType908);
-                    notationType66=notationType();
+                    pushFollow(FOLLOW_notationType_in_enumeratedType1132);
+                    notationType60=notationType();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, notationType66.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, notationType60.getTree());
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:170:32: enumeration
+                    // DTD.g:226:32: enumeration
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_enumeration_in_enumeratedType912);
-                    enumeration67=enumeration();
+                    pushFollow(FOLLOW_enumeration_in_enumeratedType1136);
+                    enumeration61=enumeration();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, enumeration67.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, enumeration61.getTree());
 
                     }
                     break;
@@ -2149,86 +2403,86 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "notationType"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:1: notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
+    // DTD.g:227:1: fragment notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
     public final DTDParser.notationType_return notationType() throws RecognitionException {
         DTDParser.notationType_return retval = new DTDParser.notationType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal68=null;
-        Token LParen69=null;
-        Token Name70=null;
-        Token char_literal71=null;
-        Token Name72=null;
-        Token RParen73=null;
+        Token string_literal62=null;
+        Token LParen63=null;
+        Token Name64=null;
+        Token char_literal65=null;
+        Token Name66=null;
+        Token RParen67=null;
 
-        Object string_literal68_tree=null;
-        Object LParen69_tree=null;
-        Object Name70_tree=null;
-        Object char_literal71_tree=null;
-        Object Name72_tree=null;
-        Object RParen73_tree=null;
+        Object string_literal62_tree=null;
+        Object LParen63_tree=null;
+        Object Name64_tree=null;
+        Object char_literal65_tree=null;
+        Object Name66_tree=null;
+        Object RParen67_tree=null;
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:15: 'NOTATION' LParen Name ( '|' Name )* RParen
+            // DTD.g:228:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
+            // DTD.g:228:15: 'NOTATION' LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            string_literal68=(Token)match(input,38,FOLLOW_38_in_notationType918); if (state.failed) return retval;
+            string_literal62=(Token)match(input,49,FOLLOW_49_in_notationType1144); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            string_literal68_tree = (Object)adaptor.create(string_literal68);
-            adaptor.addChild(root_0, string_literal68_tree);
+            string_literal62_tree = (Object)adaptor.create(string_literal62);
+            adaptor.addChild(root_0, string_literal62_tree);
             }
-            LParen69=(Token)match(input,LParen,FOLLOW_LParen_in_notationType920); if (state.failed) return retval;
+            LParen63=(Token)match(input,LParen,FOLLOW_LParen_in_notationType1146); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            LParen69_tree = (Object)adaptor.create(LParen69);
-            adaptor.addChild(root_0, LParen69_tree);
+            LParen63_tree = (Object)adaptor.create(LParen63);
+            adaptor.addChild(root_0, LParen63_tree);
             }
-            Name70=(Token)match(input,Name,FOLLOW_Name_in_notationType922); if (state.failed) return retval;
+            Name64=(Token)match(input,Name,FOLLOW_Name_in_notationType1148); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            Name70_tree = (Object)adaptor.create(Name70);
-            adaptor.addChild(root_0, Name70_tree);
+            Name64_tree = (Object)adaptor.create(Name64);
+            adaptor.addChild(root_0, Name64_tree);
             }
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:38: ( '|' Name )*
-            loop22:
+            // DTD.g:228:38: ( '|' Name )*
+            loop20:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt20=2;
+                int LA20_0 = input.LA(1);
 
-                if ( (LA22_0==35) ) {
-                    alt22=1;
+                if ( (LA20_0==46) ) {
+                    alt20=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt20) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:171:39: '|' Name
+            	    // DTD.g:228:39: '|' Name
             	    {
-            	    char_literal71=(Token)match(input,35,FOLLOW_35_in_notationType925); if (state.failed) return retval;
+            	    char_literal65=(Token)match(input,46,FOLLOW_46_in_notationType1151); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    char_literal71_tree = (Object)adaptor.create(char_literal71);
-            	    adaptor.addChild(root_0, char_literal71_tree);
+            	    char_literal65_tree = (Object)adaptor.create(char_literal65);
+            	    adaptor.addChild(root_0, char_literal65_tree);
             	    }
-            	    Name72=(Token)match(input,Name,FOLLOW_Name_in_notationType927); if (state.failed) return retval;
+            	    Name66=(Token)match(input,Name,FOLLOW_Name_in_notationType1153); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
-            	    Name72_tree = (Object)adaptor.create(Name72);
-            	    adaptor.addChild(root_0, Name72_tree);
+            	    Name66_tree = (Object)adaptor.create(Name66);
+            	    adaptor.addChild(root_0, Name66_tree);
             	    }
 
             	    }
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop20;
                 }
             } while (true);
 
-            RParen73=(Token)match(input,RParen,FOLLOW_RParen_in_notationType931); if (state.failed) return retval;
+            RParen67=(Token)match(input,RParen,FOLLOW_RParen_in_notationType1157); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            RParen73_tree = (Object)adaptor.create(RParen73);
-            adaptor.addChild(root_0, RParen73_tree);
+            RParen67_tree = (Object)adaptor.create(RParen67);
+            adaptor.addChild(root_0, RParen67_tree);
             }
 
             }
@@ -2259,27 +2513,27 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "stringType"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:1: stringType : 'CDATA' ;
+    // DTD.g:230:1: fragment stringType : 'CDATA' ;
     public final DTDParser.stringType_return stringType() throws RecognitionException {
         DTDParser.stringType_return retval = new DTDParser.stringType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token string_literal74=null;
+        Token string_literal68=null;
 
-        Object string_literal74_tree=null;
+        Object string_literal68_tree=null;
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:11: ( 'CDATA' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:173:13: 'CDATA'
+            // DTD.g:231:11: ( 'CDATA' )
+            // DTD.g:231:13: 'CDATA'
             {
             root_0 = (Object)adaptor.nil();
 
-            string_literal74=(Token)match(input,39,FOLLOW_39_in_stringType938); if (state.failed) return retval;
+            string_literal68=(Token)match(input,50,FOLLOW_50_in_stringType1166); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            string_literal74_tree = (Object)adaptor.create(string_literal74);
-            adaptor.addChild(root_0, string_literal74_tree);
+            string_literal68_tree = (Object)adaptor.create(string_literal68);
+            adaptor.addChild(root_0, string_literal68_tree);
             }
 
             }
@@ -2310,27 +2564,27 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "tokenizedType"
-    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:176:1: tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
+    // DTD.g:234:1: fragment tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
     public final DTDParser.tokenizedType_return tokenizedType() throws RecognitionException {
         DTDParser.tokenizedType_return retval = new DTDParser.tokenizedType_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set75=null;
+        Token set69=null;
 
-        Object set75_tree=null;
+        Object set69_tree=null;
 
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:176:14: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            // DTD.g:236:3: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
+            // DTD.g:
             {
             root_0 = (Object)adaptor.nil();
 
-            set75=(Token)input.LT(1);
-            if ( (input.LA(1)>=40 && input.LA(1)<=46) ) {
+            set69=(Token)input.LT(1);
+            if ( (input.LA(1)>=51 && input.LA(1)<=57) ) {
                 input.consume();
-                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set75));
+                if ( state.backtracking==0 ) adaptor.addChild(root_0, (Object)adaptor.create(set69));
                 state.errorRecovery=false;state.failed=false;
             }
             else {
@@ -2364,10 +2618,10 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred1_DTD
     public final void synpred1_DTD_fragment() throws RecognitionException {   
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:3: ( choice )
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:141:4: choice
+        // DTD.g:166:3: ( choice )
+        // DTD.g:166:4: choice
         {
-        pushFollow(FOLLOW_choice_in_synpred1_DTD625);
+        pushFollow(FOLLOW_choice_in_synpred1_DTD642);
         choice();
 
         state._fsp--;
@@ -2379,10 +2633,10 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred2_DTD
     public final void synpred2_DTD_fragment() throws RecognitionException {   
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:3: ( seq )
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:142:4: seq
+        // DTD.g:167:3: ( seq )
+        // DTD.g:167:4: seq
         {
-        pushFollow(FOLLOW_seq_in_synpred2_DTD649);
+        pushFollow(FOLLOW_seq_in_synpred2_DTD671);
         seq();
 
         state._fsp--;
@@ -2394,10 +2648,10 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred3_DTD
     public final void synpred3_DTD_fragment() throws RecognitionException {   
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:3: ( Name )
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:146:4: Name
+        // DTD.g:172:3: ( Name )
+        // DTD.g:172:4: Name
         {
-        match(input,Name,FOLLOW_Name_in_synpred3_DTD679); if (state.failed) return ;
+        match(input,Name,FOLLOW_Name_in_synpred3_DTD707); if (state.failed) return ;
 
         }
     }
@@ -2405,10 +2659,10 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred4_DTD
     public final void synpred4_DTD_fragment() throws RecognitionException {   
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:4: ( choice )
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:147:5: choice
+        // DTD.g:173:4: ( choice )
+        // DTD.g:173:5: choice
         {
-        pushFollow(FOLLOW_choice_in_synpred4_DTD704);
+        pushFollow(FOLLOW_choice_in_synpred4_DTD734);
         choice();
 
         state._fsp--;
@@ -2420,10 +2674,10 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred5_DTD
     public final void synpred5_DTD_fragment() throws RecognitionException {   
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:4: ( seq )
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:148:5: seq
+        // DTD.g:174:4: ( seq )
+        // DTD.g:174:5: seq
         {
-        pushFollow(FOLLOW_seq_in_synpred5_DTD729);
+        pushFollow(FOLLOW_seq_in_synpred5_DTD763);
         seq();
 
         state._fsp--;
@@ -2509,85 +2763,79 @@ public class DTDParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_Digits_in_integerLiteral487 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Dot_in_decimalLiteral493 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral498 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_Dot_in_decimalLiteral500 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_Digits_in_decimalLiteral502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numericLiteral_in_literal513 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_literal526 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integerLiteral_in_numericLiteral546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decimalLiteral_in_numericLiteral552 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_markupdecl_in_dtd563 = new BitSet(new long[]{0x0000002010000002L});
-    public static final BitSet FOLLOW_elementDecl_in_markupdecl571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attlistDecl_in_markupdecl575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Element_in_elementDecl583 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_elementDecl585 = new BitSet(new long[]{0x00000000C0004000L});
-    public static final BitSet FOLLOW_contentSpec_in_elementDecl587 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_elementDecl589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_contentSpec599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_contentSpec603 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_mixed_in_contentSpec607 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_children_in_contentSpec611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_children630 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_children633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_children654 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_children656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_cp684 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp687 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_cp709 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_cp734 = new BitSet(new long[]{0x0000000700000002L});
-    public static final BitSet FOLLOW_set_in_cp737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_choice756 = new BitSet(new long[]{0x00000000C0404000L});
-    public static final BitSet FOLLOW_cp_in_choice758 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_choice761 = new BitSet(new long[]{0x00000000C0404000L});
-    public static final BitSet FOLLOW_cp_in_choice763 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_choice767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_seq787 = new BitSet(new long[]{0x00000000C0404000L});
-    public static final BitSet FOLLOW_cp_in_seq789 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_Comma_in_seq792 = new BitSet(new long[]{0x00000000C0404000L});
-    public static final BitSet FOLLOW_cp_in_seq794 = new BitSet(new long[]{0x0000000000008200L});
-    public static final BitSet FOLLOW_RParen_in_seq798 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_mixed808 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_mixed810 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_mixed813 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_mixed815 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_mixed819 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_mixed821 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_mixed828 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_36_in_mixed830 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_RParen_in_mixed832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_attlistDecl844 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_attlistDecl846 = new BitSet(new long[]{0x0000000020400000L});
-    public static final BitSet FOLLOW_attDef_in_attlistDecl848 = new BitSet(new long[]{0x0000000020400000L});
-    public static final BitSet FOLLOW_29_in_attlistDecl851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_attDef861 = new BitSet(new long[]{0x00007FC000004000L});
-    public static final BitSet FOLLOW_attType_in_attDef863 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_DefaultDecl_in_attDef865 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stringType_in_attType876 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tokenizedType_in_attType880 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_enumeratedType_in_attType884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LParen_in_enumeration891 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_enumeration893 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_enumeration896 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_enumeration898 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_enumeration902 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_notationType_in_enumeratedType908 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_enumeration_in_enumeratedType912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_notationType918 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_LParen_in_notationType920 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_notationType922 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_35_in_notationType925 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_Name_in_notationType927 = new BitSet(new long[]{0x0000000800008000L});
-    public static final BitSet FOLLOW_RParen_in_notationType931 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_stringType938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_markupdecl_in_dtd526 = new BitSet(new long[]{0x0001008000000002L});
+    public static final BitSet FOLLOW_elementDecl_in_markupdecl548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attlistDecl_in_markupdecl552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Element_in_elementDecl559 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_elementDecl561 = new BitSet(new long[]{0x0000060002000000L});
+    public static final BitSet FOLLOW_contentSpec_in_elementDecl563 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_40_in_elementDecl565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_contentSpec593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_contentSpec604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_mixed_in_contentSpec617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_children_in_contentSpec624 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_children647 = new BitSet(new long[]{0x0000380000000002L});
+    public static final BitSet FOLLOW_plural_in_children650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_children676 = new BitSet(new long[]{0x0000380000000002L});
+    public static final BitSet FOLLOW_plural_in_children678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_cp712 = new BitSet(new long[]{0x0000380000000002L});
+    public static final BitSet FOLLOW_plural_in_cp715 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_cp739 = new BitSet(new long[]{0x0000380000000002L});
+    public static final BitSet FOLLOW_plural_in_cp742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_cp768 = new BitSet(new long[]{0x0000380000000002L});
+    public static final BitSet FOLLOW_plural_in_cp771 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_plural799 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_plural810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_45_in_plural821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_choice841 = new BitSet(new long[]{0x0000060202000000L});
+    public static final BitSet FOLLOW_cp_in_choice843 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_46_in_choice846 = new BitSet(new long[]{0x0000060202000000L});
+    public static final BitSet FOLLOW_cp_in_choice848 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_RParen_in_choice852 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_seq881 = new BitSet(new long[]{0x0000060202000000L});
+    public static final BitSet FOLLOW_cp_in_seq883 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_Comma_in_seq886 = new BitSet(new long[]{0x0000060202000000L});
+    public static final BitSet FOLLOW_cp_in_seq888 = new BitSet(new long[]{0x0000000004100000L});
+    public static final BitSet FOLLOW_RParen_in_seq892 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_mixed914 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_47_in_mixed916 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_46_in_mixed919 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_mixed_i_in_mixed921 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_RParen_in_mixed925 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_44_in_mixed927 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_mixed949 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_47_in_mixed951 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_RParen_in_mixed953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_mixed_i982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_attlistDecl1003 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_attlistDecl1005 = new BitSet(new long[]{0x0000010200000000L});
+    public static final BitSet FOLLOW_attDef_in_attlistDecl1007 = new BitSet(new long[]{0x0000010200000000L});
+    public static final BitSet FOLLOW_40_in_attlistDecl1010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_attDef1036 = new BitSet(new long[]{0x03FE000002000000L});
+    public static final BitSet FOLLOW_attType_in_attDef1038 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_DefaultDecl_in_attDef1040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stringType_in_attType1072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tokenizedType_in_attType1084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_enumeratedType_in_attType1096 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LParen_in_enumeration1113 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_enumeration1115 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_46_in_enumeration1118 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_enumeration1120 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_RParen_in_enumeration1124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_notationType_in_enumeratedType1132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_enumeration_in_enumeratedType1136 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_notationType1144 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_LParen_in_notationType1146 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_notationType1148 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_46_in_notationType1151 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_Name_in_notationType1153 = new BitSet(new long[]{0x0000400004000000L});
+    public static final BitSet FOLLOW_RParen_in_notationType1157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_stringType1166 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_tokenizedType0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_synpred1_DTD625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_synpred2_DTD649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Name_in_synpred3_DTD679 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_choice_in_synpred4_DTD704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_seq_in_synpred5_DTD729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_synpred1_DTD642 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_synpred2_DTD671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Name_in_synpred3_DTD707 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_choice_in_synpred4_DTD734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_seq_in_synpred5_DTD763 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -28,11 +28,17 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.lens.ObjectLens;
+import org.xerial.lens.impl.ParameterGetter;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * Supporting class for generating Silk data. This class is not thread-safe,
@@ -420,6 +426,124 @@ public class SilkWriter {
 
         // no change
         return dataLine;
+    }
+
+    private <Value> SilkWriter leafObject(String leafNodeName, Value v) {
+        if (v == null)
+            return this;
+
+        if (TypeInfo.isBasicType(v.getClass())) {
+            leaf(leafNodeName, v.toString());
+        }
+        else {
+            SilkWriter c = node(leafNodeName);
+            c.toSilk(v);
+        }
+        return this;
+    }
+
+    public SilkWriter toSilk(Object obj) {
+
+        if (obj == null)
+            return this;
+
+        Class< ? > c = obj.getClass();
+
+        if (TypeInfo.isBasicType(c)) {
+            return leaf(getContextNodeName(), obj.toString());
+        }
+
+        ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
+
+        if (TypeInfo.isCollection(c)) {
+            Collection< ? > collection = (Collection< ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+            if (hasAttributes) {
+                outputParemters(lens, obj);
+            }
+
+            if (!collection.isEmpty()) {
+                for (Object elem : collection) {
+                    toSilk(elem);
+                }
+            }
+        }
+        else if (TypeInfo.isMap(c)) {
+            Map< ? , ? > map = (Map< ? , ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+
+            if (hasAttributes) {
+                outputParemters(lens, obj);
+            }
+
+            if (!map.isEmpty()) {
+
+                String mapElemName = getContextNodeName();
+                if (mapElemName == null)
+                    mapElemName = "entry";
+
+                for (Entry< ? , ? > each : map.entrySet()) {
+                    Object key = each.getKey();
+                    Object value = each.getValue();
+
+                    if (TypeInfo.isBasicType(key.getClass())) {
+                        leafObject(key.toString(), value);
+                    }
+                    else {
+                        SilkWriter w = node(mapElemName);
+                        w.node("key").toSilk(key);
+                        w.node("value").toSilk(value);
+                    }
+                }
+            }
+        }
+        else {
+            outputParemters(lens, obj);
+        }
+        return this;
+    }
+
+    private void outputParemters(ObjectLens lens, Object obj) {
+        for (ParameterGetter getter : lens.getGetterContainer()) {
+
+            Class< ? > c = getter.getReturnType();
+            if (TypeInfo.isCollection(c)) {
+                Collection< ? > collection = (Collection< ? >) getter.get(obj);
+
+                if (!collection.isEmpty()) {
+                    for (Object elem : collection) {
+                        leafObject(getter.getParamName(), elem);
+                    }
+                }
+            }
+            else if (TypeInfo.isMap(c)) {
+                Map< ? , ? > map = (Map< ? , ? >) getter.get(obj);
+
+                if (!map.isEmpty()) {
+
+                    String mapElemName = getContextNodeName();
+                    if (mapElemName == null)
+                        mapElemName = "entry";
+
+                    for (Entry< ? , ? > each : map.entrySet()) {
+                        Object key = each.getKey();
+                        Object value = each.getValue();
+
+                        if (TypeInfo.isBasicType(key.getClass())) {
+                            leafObject(key.toString(), value);
+                        }
+                        else {
+                            SilkWriter w = node(mapElemName);
+                            w.node("key").toSilk(key);
+                            w.node("value").toSilk(value);
+                        }
+                    }
+                }
+            }
+            else {
+                leafObject(getter.getParamName(), getter.get(obj));
+            }
+        }
     }
 
 }

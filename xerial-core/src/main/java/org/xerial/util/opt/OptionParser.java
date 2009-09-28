@@ -42,15 +42,16 @@ import org.xerial.util.bean.TypeInfo;
  * @author leo
  * 
  */
-public class OptionParser
-{
+public class OptionParser {
     private final OptionSchema schema;
-    private final Object       optionHolder;
+    private final Object optionHolder;
 
-    private boolean            ignoreUnknownOption = false;
-    private HashSet<Option>    activatedOption     = new HashSet<Option>();
-    private HashSet<Argument>  activatedArgument   = new HashSet<Argument>();
-    private List<String>       unusedArgument      = new ArrayList<String>();
+    private boolean ignoreUnknownOption = false;
+    private HashSet<Option> activatedOption = new HashSet<Option>();
+    private HashSet<Argument> activatedArgument = new HashSet<Argument>();
+    private List<String> unusedArgument = new ArrayList<String>();
+
+    private boolean ignoreAfterTheFirstArgument = false;
 
     public <T> OptionParser(T optionHolder) {
         this.optionHolder = optionHolder;
@@ -77,7 +78,8 @@ public class OptionParser
         OptionItem optionItem = schema.getOption(optionName);
         if (optionItem == null) {
             if (!ignoreUnknownOption) {
-                throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: " + optionName);
+                throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unknown option: "
+                        + optionName);
             }
         }
         return optionItem;
@@ -127,9 +129,36 @@ public class OptionParser
      *            options are found.
      * @throws OptionParserException
      */
-    public void parse(String[] args, boolean ignoreUnknownOption) throws OptionParserException {
+    public <OptionHolder> OptionHolder parse(String[] args, boolean ignoreUnknownOption)
+            throws OptionParserException {
         setIgnoreUnknownOption(ignoreUnknownOption);
         parse(args);
+        return getOptionHolder();
+    }
+
+    /**
+     * Parse until the first argument is found. This method is useful to
+     * implement sub commands, e.g.,;
+     * 
+     * <pre>
+     * &gt; [global option] (sub command name) [sub command option]
+     * </pre>
+     * 
+     * @param <OptionHolder>
+     * @param args
+     * @return
+     * @throws OptionParserException
+     */
+    public <OptionHolder> OptionHolder parseUntilTheFirstArgument(String[] args)
+            throws OptionParserException {
+        ignoreAfterTheFirstArgument = true;
+        try {
+            parse(args);
+            return getOptionHolder();
+        }
+        finally {
+            ignoreAfterTheFirstArgument = false;
+        }
     }
 
     /**
@@ -139,7 +168,7 @@ public class OptionParser
      * @param args
      * @throws OptionParserException
      */
-    public void parse(String[] args) throws OptionParserException {
+    public <OptionHolder> OptionHolder parse(String[] args) throws OptionParserException {
         // clear
         unusedArgument.clear();
         activatedOption.clear();
@@ -176,9 +205,10 @@ public class OptionParser
 
                     setOption(optionItem, "true");
 
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
@@ -193,14 +223,15 @@ public class OptionParser
                     }
 
                     if (!optionItem.needsArgument()) {
-                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "syntax error --"
-                                + longOptionName);
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
+                                "syntax error --" + longOptionName);
                     }
 
                     setOption(optionItem, value);
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
@@ -219,18 +250,22 @@ public class OptionParser
 
                     if (optionItem.needsArgument()) {
                         if (shortOptionList.length() != 1)
-                            throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, String.format(
-                                    "short name option -%s with an arguments must be a single notation",
-                                    shortOptionName));
+                            throw new OptionParserException(
+                                    XerialErrorCode.SYNTAX_ERROR,
+                                    String
+                                            .format(
+                                                    "short name option -%s with an arguments must be a single notation",
+                                                    shortOptionName));
 
                         setOption(optionItem, args[++index]);
                     }
                     else
                         setOption(optionItem, "true");
 
-                    if (!optionItem.takesMultipleArguments() && activatedOption.contains(optionItem.getOption()))
-                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, optionItem.getOption()
-                                .toString());
+                    if (!optionItem.takesMultipleArguments()
+                            && activatedOption.contains(optionItem.getOption()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION,
+                                optionItem.getOption().toString());
 
                     activatedOption.add(optionItem.getOption());
                 }
@@ -241,25 +276,37 @@ public class OptionParser
                 if (argItem == null) {
                     if (ignoreUnknownOption) {
                         unusedArgument.add(currentArg);
-                        continue;
                     }
                     else
-                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR, "unused argument: " + currentArg);
+                        throw new OptionParserException(XerialErrorCode.SYNTAX_ERROR,
+                                "unused argument: " + currentArg);
+                }
+                else {
+                    try {
+                        argItem.set(optionHolder, currentArg);
+                    }
+                    catch (XerialException e) {
+                        throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, e
+                                .getMessage());
+                    }
+
+                    // when duplicate values for the argument variable have found
+                    if (!argItem.takesMultipleArguments()
+                            && activatedArgument.contains(argItem.getArgumentDescriptor()))
+                        throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem
+                                .getArgumentDescriptor().toString());
+
+                    activatedArgument.add(argItem.getArgumentDescriptor());
+                    argIndex++;
                 }
 
-                try {
-                    argItem.set(optionHolder, currentArg);
+                if (ignoreAfterTheFirstArgument) {
+                    // put all the arguments after the current argument to the list, and exits the loop
+                    index++;
+                    for (; index < args.length; index++) {
+                        unusedArgument.add(args[index]);
+                    }
                 }
-                catch (XerialException e) {
-                    throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, e.getMessage());
-                }
-
-                if (!argItem.takesMultipleArguments() && activatedArgument.contains(argItem.getArgumentDescriptor()))
-                    throw new OptionParserException(XerialErrorCode.DUPLICATE_OPTION, argItem.getArgumentDescriptor()
-                            .toString());
-
-                activatedArgument.add(argItem.getArgumentDescriptor());
-                argIndex++;
             }
 
         }
@@ -268,8 +315,11 @@ public class OptionParser
         for (ArgumentItem argItem : schema.getArgumentItemList()) {
             if (argItem.getArgumentDescriptor().required()
                     && !activatedArgument.contains(argItem.getArgumentDescriptor()))
-                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem.toString());
+                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem
+                        .toString());
         }
+
+        return getOptionHolder();
     }
 
     private void setOption(OptionItem item, String value) throws OptionParserException {
@@ -280,8 +330,8 @@ public class OptionParser
             XerialErrorCode be = e.getErrorCode();
             switch (be) {
             case InvalidFormat:
-                throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, String.format("cannot set %s to %s",
-                        value, item.toString()));
+                throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, String.format(
+                        "cannot set %s to %s", value, item.toString()));
             default:
                 throw new OptionParserException(e.<XerialErrorCode> getErrorCode(), e.getMessage());
             }

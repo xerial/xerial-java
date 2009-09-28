@@ -72,8 +72,7 @@ import org.xerial.util.xml.impl.TreeEventQueue;
  * @author leo
  * 
  */
-public class SilkParser implements SilkEventHandler, TreeParser
-{
+public class SilkParser implements SilkEventHandler, TreeParser {
     private static Logger _logger = Logger.getLogger(SilkParser.class);
 
     private final SilkLineParser parser;
@@ -89,8 +88,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param input
      * @throws IOException
      */
-    public SilkParser(Reader input) throws IOException
-    {
+    public SilkParser(Reader input) throws IOException {
         this(input, SilkEnv.newEnv());
     }
 
@@ -101,8 +99,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param env
      * @throws IOException
      */
-    public SilkParser(Reader input, SilkEnv env) throws IOException
-    {
+    public SilkParser(Reader input, SilkEnv env) throws IOException {
         this(input, env, new SilkParserConfig());
     }
 
@@ -112,28 +109,24 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param resourcePath
      * @throws IOException
      */
-    public SilkParser(URL resourcePath) throws IOException
-    {
+    public SilkParser(URL resourcePath) throws IOException {
         this(resourcePath, SilkEnv.newEnv());
     }
 
-    public SilkParser(URL resourcePath, SilkParserConfig config) throws IOException
-    {
+    public SilkParser(URL resourcePath, SilkParserConfig config) throws IOException {
         this(resourcePath, SilkEnv.newEnv(), config);
     }
 
-    public SilkParser(URL resource, SilkEnv env) throws IOException
-    {
+    public SilkParser(URL resource, SilkEnv env) throws IOException {
         this(resource, env, new SilkParserConfig());
     }
 
-    public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException
-    {
-        this(new InputStreamReader(resource.openStream()), SilkEnv.newEnv(env, getResourceBasePath(resource)), config);
+    public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException {
+        this(new InputStreamReader(resource.openStream()), SilkEnv.newEnv(env,
+                getResourceBasePath(resource)), config);
     }
 
-    public SilkParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException
-    {
+    public SilkParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException {
         this.config = config;
         if (config.numWorkers > 1)
             this.parser = new SilkLineFastParser(input);
@@ -142,8 +135,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
         this.parseContext = env;
     }
 
-    static String getResourceBasePath(URL resource)
-    {
+    static String getResourceBasePath(URL resource) {
         String path = resource.toExternalForm();
         int fileNamePos = path.lastIndexOf("/");
         String resourceBasePath = fileNamePos > 0 ? path.substring(0, fileNamePos) : null;
@@ -157,8 +149,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param resourceName
      * @return
      */
-    static String getResourcePath(String resourceBasePath, String resourceName)
-    {
+    static String getResourcePath(String resourceBasePath, String resourceName) {
         String resourcePath = resourceBasePath;
         if (!resourcePath.endsWith("/"))
             resourcePath += "/";
@@ -168,8 +159,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
     TreeEventHandler handler;
 
-    public void parse(TreeEventHandler handler) throws Exception
-    {
+    public void parse(TreeEventHandler handler) throws Exception {
         this.handler = handler;
 
         handler.init();
@@ -179,20 +169,16 @@ public class SilkParser implements SilkEventHandler, TreeParser
         handler.finish();
     }
 
-    public void parseWithoutInitAndFinish(TreeEventHandler handler) throws Exception
-    {
+    public void parseWithoutInitAndFinish(TreeEventHandler handler) throws Exception {
         this.handler = handler;
 
         parser.parse(this);
         closeContextUpTo(parseContext.getIndentationOffset());
     }
 
-    public void handle(SilkEvent event) throws Exception
-    {
-        try
-        {
-            switch (event.getType())
-            {
+    public void handle(SilkEvent event) throws Exception {
+        try {
+            switch (event.getType()) {
             case DATA_LINE:
                 parseDataLine(event);
                 break;
@@ -208,9 +194,9 @@ public class SilkParser implements SilkEventHandler, TreeParser
             {
                 SilkContext context = parseContext.peekLastContext();
                 SilkNode schema = context.contextNode;
-                if (parseContext.isAttributeOpen)
-                {
-                    SilkNode attributeNode = schema.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                if (parseContext.isAttributeOpen) {
+                    SilkNode attributeNode = schema.getChildNodes().get(
+                            parseContext.contextNodeAttributeCursor);
                     leave(attributeNode.getName());
                 }
                 leave(schema.getName());
@@ -219,13 +205,12 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 parseContext.isAttributeOpen = false;
                 break;
             }
-            case MULTILINE_SEPARATOR:
-            {
+            case MULTILINE_SEPARATOR: {
                 SilkContext context = parseContext.peekLastContext();
                 SilkNode schema = context.contextNode;
-                if (parseContext.isAttributeOpen)
-                {
-                    SilkNode attributeNode = schema.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                if (parseContext.isAttributeOpen) {
+                    SilkNode attributeNode = schema.getChildNodes().get(
+                            parseContext.contextNodeAttributeCursor);
                     leave(attributeNode.getName());
                 }
                 parseContext.contextNodeAttributeCursor++;
@@ -238,14 +223,15 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 break;
             case PREAMBLE:
                 break;
+            case COMMENT_LINE:
+                break;
             case UNKNOWN:
             default:
                 _logger.warn(String.format("unknown event type (line=%d): %s", numReadLine, event));
                 break;
             }
         }
-        catch (XerialException e)
-        {
+        catch (XerialException e) {
             // When finding the parse error, only report warning message with the line number
             if (e.getErrorCode() == XerialErrorCode.PARSE_ERROR)
                 _logger.warn(String.format("parse error at line=%d: %s", numReadLine, e));
@@ -260,15 +246,12 @@ public class SilkParser implements SilkEventHandler, TreeParser
     private static final Pattern tabSplit = Pattern.compile("\t");
     private static final Pattern commaSplit = Pattern.compile(",");
 
-    private void parseDataLine(SilkEvent currentEvent) throws Exception
-    {
+    private void parseDataLine(SilkEvent currentEvent) throws Exception {
         // pop the context stack until finding a node for stream data node occurrence
-        while (!parseContext.isContextNodeStackEmpty())
-        {
+        while (!parseContext.isContextNodeStackEmpty()) {
             SilkContext context = parseContext.peekLastContext();
             SilkNode node = context.contextNode;
-            if (!node.getOccurrence().isFollowedByStreamData())
-            {
+            if (!node.getOccurrence().isFollowedByStreamData()) {
                 parseContext.popLastContext();
                 if (context.isOpen)
                     leave(node.getName());
@@ -277,15 +260,13 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 break;
         }
 
-        if (parseContext.isContextNodeStackEmpty())
-        {
+        if (parseContext.isContextNodeStackEmpty()) {
             // use default column names(c1, c2, ...) 
             SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
             String[] columns = tabSplit.split(line.getDataLine(), 0);
             int index = 1;
             visit("row", null);
-            for (String each : columns)
-            {
+            for (String each : columns) {
                 String columnName = String.format("c%d", index++);
 
                 // TODO use evalColumnData
@@ -294,13 +275,11 @@ public class SilkParser implements SilkEventHandler, TreeParser
             }
             leave("row");
         }
-        else
-        {
+        else {
             SilkContext context = parseContext.peekLastContext();
             SilkNode schema = context.contextNode;
             SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-            switch (schema.getOccurrence())
-            {
+            switch (schema.getOccurrence()) {
             case SEQUENCE:
                 text(line.getDataLine());
                 break;
@@ -310,24 +289,19 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 evalDatalineColumn(schema, line.getDataLine());
             }
                 break;
-            case TABBED_SEQUENCE:
-            {
+            case TABBED_SEQUENCE: {
                 String[] columns = tabSplit.split(line.getDataLine(), 0);
 
                 int columnIndex = 0;
                 visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
-                for (int i = 0; i < schema.getChildNodes().size(); i++)
-                {
+                for (int i = 0; i < schema.getChildNodes().size(); i++) {
                     SilkNode child = schema.getChildNodes().get(i);
-                    if (child.hasValue())
-                    {
+                    if (child.hasValue()) {
                         // output the default value for the column 
                         evalDatalineColumn(child, child.getValue().toString());
                     }
-                    else
-                    {
-                        if (columnIndex < columns.length)
-                        {
+                    else {
+                        if (columnIndex < columns.length) {
                             String columnData = columns[columnIndex++].trim();
                             if (columnData.length() > 0)
                                 evalDatalineColumn(child, columnData);
@@ -337,20 +311,17 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 leave(schema.getName());
                 break;
             }
-            case MULTILINE_SEQUENCE:
-            {
+            case MULTILINE_SEQUENCE: {
                 int cursor = parseContext.contextNodeAttributeCursor;
 
                 if (cursor >= schema.getChildNodes().size())
                     break;
 
                 SilkNode attributeNode = schema.getChildNodes().get(cursor);
-                if (cursor == 0 && !parseContext.isAttributeOpen)
-                {
+                if (cursor == 0 && !parseContext.isAttributeOpen) {
                     visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
                 }
-                if (!parseContext.isAttributeOpen)
-                {
+                if (!parseContext.isAttributeOpen) {
                     if (attributeNode.hasValue())
                         visit(attributeNode.getName(), attributeNode.getValue().toString());
                     else
@@ -373,8 +344,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param immediateNodeValue
      * @throws Exception
      */
-    private void visit(String nodeName, String immediateNodeValue) throws Exception
-    {
+    private void visit(String nodeName, String immediateNodeValue) throws Exception {
         handler.visitNode(nodeName, immediateNodeValue);
 
     }
@@ -385,8 +355,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param nodeName
      * @throws Exception
      */
-    private void leave(String nodeName) throws Exception
-    {
+    private void leave(String nodeName) throws Exception {
         handler.leaveNode(nodeName);
     }
 
@@ -396,8 +365,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param textFragment
      * @throws XerialException
      */
-    private void text(String textFragment) throws Exception
-    {
+    private void text(String textFragment) throws Exception {
         handler.text(parseContext.getContextNode().getName(), textFragment);
     }
 
@@ -407,27 +375,23 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param newIndentLevel
      * @throws Exception
      */
-    private void closeContextUpTo(int newIndentLevel) throws Exception
-    {
-        while (!parseContext.isContextNodeStackEmpty())
-        {
+    private void closeContextUpTo(int newIndentLevel) throws Exception {
+        while (!parseContext.isContextNodeStackEmpty()) {
             SilkContext context = parseContext.peekLastContext();
             SilkNode node = context.contextNode;
-            if (node.getIndentLevel() >= newIndentLevel)
-            {
+            if (node.getIndentLevel() >= newIndentLevel) {
                 parseContext.popLastContext();
 
-                if (parseContext.isAttributeOpen)
-                {
+                if (parseContext.isAttributeOpen) {
                     // close attribute 
-                    SilkNode attribute = node.getChildNodes().get(parseContext.contextNodeAttributeCursor);
+                    SilkNode attribute = node.getChildNodes().get(
+                            parseContext.contextNodeAttributeCursor);
                     leave(attribute.getName());
                     leave(node.getName());
                     parseContext.isAttributeOpen = false;
                 }
 
-                if (context.isOpen)
-                {
+                if (context.isOpen) {
                     // close context
                     String nodeName = node.getName();
                     leave(nodeName);
@@ -446,8 +410,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param visitor
      * @throws Exception
      */
-    private void openContext(SilkNode node) throws Exception
-    {
+    private void openContext(SilkNode node) throws Exception {
         int indentLevel = node.getIndentLevel();
         if (indentLevel != SilkNode.NO_INDENT)
             indentLevel += parseContext.getIndentationOffset();
@@ -456,13 +419,10 @@ public class SilkParser implements SilkEventHandler, TreeParser
         openContext_internal(node);
     }
 
-    private void openContext_internal(SilkNode node) throws Exception
-    {
-        if (node.getName() == null)
-        {
+    private void openContext_internal(SilkNode node) throws Exception {
+        if (node.getName() == null) {
             // no name nodes must hierarchically organize attribute nodes
-            for (SilkNode eachChild : node.getChildNodes())
-            {
+            for (SilkNode eachChild : node.getChildNodes()) {
                 eachChild.setNodeIndent(node.getNodeIndent());
                 openContext_internal(eachChild);
             }
@@ -473,8 +433,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
         parseContext.pushContext(currentContext);
 
         SilkNodeOccurrence occurrence = node.getOccurrence();
-        if (occurrence.isSchemaOnlyNode())
-        {
+        if (occurrence.isSchemaOnlyNode()) {
             currentContext.isOpen = false;
             // reset the attribute cursor
             parseContext.contextNodeAttributeCursor = 0;
@@ -486,28 +445,23 @@ public class SilkParser implements SilkEventHandler, TreeParser
         SilkValue textValue = node.getValue();
 
         // process text values attached to the node
-        if (textValue != null)
-        {
+        if (textValue != null) {
             // When the text data is JSON, traverses the JSON data 
-            if (textValue.isJSON())
-            {
+            if (textValue.isJSON()) {
 
                 SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
-                if (jsonValue.isObject())
-                {
+                if (jsonValue.isObject()) {
                     visit(nodeName, null);
                     JSONObject jsonObj = new JSONObject(jsonValue.getValue());
                     walkJSONObject(jsonObj);
                 }
-                else
-                {
+                else {
                     currentContext.isOpen = false;
                     JSONArray jsonArray = new JSONArray(jsonValue.getValue());
                     walkJSONAray(jsonArray, nodeName);
                 }
             }
-            else if (textValue.isFunction())
-            {
+            else if (textValue.isFunction()) {
                 // evaluate the function 
                 visit(nodeName, null);
                 SilkFunction function = SilkFunction.class.cast(textValue);
@@ -515,16 +469,13 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
                 return;
             }
-            else
-            {
+            else {
                 // Simple text value will be reported as it is.
                 visit(nodeName, textValue.toString());
             }
         }
-        else
-        {
-            if (occurrence == SilkNodeOccurrence.ZERO_OR_MORE)
-            {
+        else {
+            if (occurrence == SilkNodeOccurrence.ZERO_OR_MORE) {
                 // CSV data
                 return; // do not invoke visit events
             }
@@ -535,10 +486,8 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
         // Traverse attribute nodes having text values. If no text value is specified for these attributes, 
         // they are schema elements for the following DATA_LINE. 
-        for (SilkNode eachChild : node.getChildNodes())
-        {
-            if (eachChild.hasValue())
-            {
+        for (SilkNode eachChild : node.getChildNodes()) {
+            if (eachChild.hasValue()) {
                 openContext(eachChild);
             }
         }
@@ -551,11 +500,9 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param function
      * @throws Exception
      */
-    private void evalFunction(SilkFunction function) throws Exception
-    {
+    private void evalFunction(SilkFunction function) throws Exception {
         SilkFunctionPlugin plugin = getPlugin(function.getName());
-        if (plugin == null)
-        {
+        if (plugin == null) {
             _logger.error(String.format("plugin %s not found", function.getName()));
             return;
         }
@@ -573,63 +520,51 @@ public class SilkParser implements SilkEventHandler, TreeParser
      */
     private boolean hasFinished = false;
 
-    private void walkMicroFormatRoot(SilkNode schemaNode, JSONArray value) throws Exception
-    {
+    private void walkMicroFormatRoot(SilkNode schemaNode, JSONArray value) throws Exception {
         // e.g., exon(start, name)
 
-        if (schemaNode.hasManyOccurrences())
-        {
-            if (schemaNode.hasChildren())
-            {
+        if (schemaNode.hasManyOccurrences()) {
+            if (schemaNode.hasChildren()) {
                 // e.g., exon(start, name)*
                 // multiple occurrences: [[start, end], [start, end], ... ] 
-                for (int i = 0; i < value.size(); i++)
-                {
+                for (int i = 0; i < value.size(); i++) {
                     JSONArray eachElement = value.getJSONArray(i);
                     if (eachElement == null)
                         continue;
 
                     visit(schemaNode.getName(), null);
                     int index = 0;
-                    for (SilkNode eachSubSchema : schemaNode.getChildNodes())
-                    {
+                    for (SilkNode eachSubSchema : schemaNode.getChildNodes()) {
                         walkMicroFormatElement(eachSubSchema, eachElement.get(index++));
                     }
                     leave(schemaNode.getName());
                 }
             }
-            else
-            {
+            else {
                 // e.g. QV*: [20, 50, 50]
-                for (int i = 0; i < value.size(); i++)
-                {
+                for (int i = 0; i < value.size(); i++) {
                     visit(schemaNode.getName(), value.get(i).toString());
                     leave(schemaNode.getName());
                 }
             }
         }
-        else
-        {
+        else {
             // [e1, e2, ...]
             visit(schemaNode.getName(), null);
             int index = 0;
-            if (schemaNode.getChildNodes().size() != value.size())
-            {
+            if (schemaNode.getChildNodes().size() != value.size()) {
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
                         "data format doesn't match: schema=%s, value=%s", schemaNode, value));
             }
-            for (SilkNode each : schemaNode.getChildNodes())
-            {
+            for (SilkNode each : schemaNode.getChildNodes()) {
                 walkMicroFormatElement(each, value.get(index++));
             }
             leave(schemaNode.getName());
         }
     }
 
-    private void walkMicroFormatElement(SilkNode schemaNode, JSONValue value) throws Exception
-    {
-        if (schemaNode.hasChildren())
-        {
+    private void walkMicroFormatElement(SilkNode schemaNode, JSONValue value) throws Exception {
+        if (schemaNode.hasChildren()) {
             JSONArray array = value.getJSONArray();
             if (array != null)
                 walkMicroFormatRoot(schemaNode, array);
@@ -637,33 +572,28 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
                         "data format doesn't match: schema=%s, value=%s", schemaNode, value));
         }
-        else
-        {
+        else {
             visit(schemaNode.getName(), value.toString());
             leave(schemaNode.getName());
         }
     }
 
-    private void evalDatalineColumn(SilkNode node, String columnData) throws Exception
-    {
+    private void evalDatalineColumn(SilkNode node, String columnData) throws Exception {
         // 7600 lines/sec
 
-        if (node.hasChildren())
-        {
+        if (node.hasChildren()) {
             JSONArray array = new JSONArray(columnData);
             walkMicroFormatRoot(node, array);
             return;
         }
 
-        switch (node.getOccurrence())
-        {
+        switch (node.getOccurrence()) {
         case ONE:
             evalColumnData(node, columnData);
             break;
         case ZERO_OR_MORE:
         case ONE_OR_MORE:
-            if (columnData.startsWith("["))
-            {
+            if (columnData.startsWith("[")) {
                 // process JSON array
 
                 // 500,080 nodes/s, 2.49 MB/s
@@ -675,11 +605,9 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 //walkMicroFormatRoot(node, array);
                 return;
             }
-            else
-            {
+            else {
                 String[] csv = commaSplit.split(columnData, 0);
-                for (String each : csv)
-                {
+                for (String each : csv) {
                     String value = each.trim();
                     evalColumnData(node, value);
                 }
@@ -692,44 +620,36 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
     }
 
-    private class EvalJSON
-    {
+    private class EvalJSON {
         private final String json;
         private final JSONPullParser parser;
 
-        EvalJSON(String json)
-        {
+        EvalJSON(String json) {
             this.json = json;
             this.parser = new JSONPullParser(json);
         }
 
-        void parseJSONArray(SilkNode schemaNode) throws Exception
-        {
-            if (schemaNode.hasManyOccurrences())
-            {
+        void parseJSONArray(SilkNode schemaNode) throws Exception {
+            if (schemaNode.hasManyOccurrences()) {
                 JSONEvent e = parser.next();
                 if (e != JSONEvent.StartArray)
                     throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected [ but " + e);
 
-                if (schemaNode.hasChildren())
-                {
+                if (schemaNode.hasChildren()) {
                     // e.g., exon(start, name)*
                     // multiple occurrences: [[start, end], [start, end], ... ]
 
-                    while ((e = parser.next()) != JSONEvent.EndArray)
-                    {
+                    while ((e = parser.next()) != JSONEvent.EndArray) {
                         JSONValue v = parser.getValue();
                         JSONArray eachElement = v.getJSONArray();
-                        if (eachElement == null)
-                        {
+                        if (eachElement == null) {
                             _logger.warn("not an JSONArray: " + v);
                             continue;
                         }
 
                         visit(schemaNode.getName(), null);
                         int index = 0;
-                        for (SilkNode eachSubSchema : schemaNode.getChildNodes())
-                        {
+                        for (SilkNode eachSubSchema : schemaNode.getChildNodes()) {
                             walkMicroFormatElement(eachSubSchema, eachElement.get(index++));
                         }
                         leave(schemaNode.getName());
@@ -737,28 +657,23 @@ public class SilkParser implements SilkEventHandler, TreeParser
                     }
 
                 }
-                else
-                {
+                else {
                     // e.g. QV*: [20, 50, 50]
-                    while ((e = parser.next()) != JSONEvent.EndArray)
-                    {
+                    while ((e = parser.next()) != JSONEvent.EndArray) {
                         visit(schemaNode.getName(), parser.getValueAsText());
                         leave(schemaNode.getName());
                     }
 
                 }
             }
-            else
-            {
+            else {
 
                 // [e1, e2, ...]
                 visit(schemaNode.getName(), null);
                 int index = 0;
 
-                for (SilkNode each : schemaNode.getChildNodes())
-                {
-                    if (parser.next() == JSONEvent.EndArray)
-                    {
+                for (SilkNode each : schemaNode.getChildNodes()) {
+                    if (parser.next() == JSONEvent.EndArray) {
                         throw new XerialException(XerialErrorCode.INVALID_INPUT, String.format(
                                 "data format doesn't match: schema=%s, value=%s", schemaNode, json));
                     }
@@ -770,8 +685,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
         }
 
-        void parseJSONArrayOf(SilkNode parent) throws XerialException
-        {
+        void parseJSONArrayOf(SilkNode parent) throws XerialException {
             JSONEvent e = parser.next();
             if (e != JSONEvent.StartArray)
                 throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected [ but " + e);
@@ -780,12 +694,9 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
     }
 
-    private void evalColumnData(SilkNode node, String columnData) throws Exception
-    {
-        try
-        {
-            if (node.hasChildren())
-            {
+    private void evalColumnData(SilkNode node, String columnData) throws Exception {
+        try {
+            if (node.hasChildren()) {
                 // micro-data format
                 JSONArray array = new JSONArray(columnData);
                 walkMicroFormatRoot(node, array);
@@ -793,17 +704,14 @@ public class SilkParser implements SilkEventHandler, TreeParser
             }
 
             String dataType = node.getDataType();
-            if (dataType != null && dataType.equalsIgnoreCase("json"))
-            {
+            if (dataType != null && dataType.equalsIgnoreCase("json")) {
                 JSONValue json = JSONUtil.parseJSON(columnData);
-                if (json.getJSONObject() != null)
-                {
+                if (json.getJSONObject() != null) {
                     if (node.getName().equals("_")) // no name object
                     {
                         walkJSONValue(json, node.getName());
                     }
-                    else
-                    {
+                    else {
                         visit(node.getName(), null);
                         walkJSONValue(json, node.getName());
                         leave(node.getName());
@@ -812,41 +720,34 @@ public class SilkParser implements SilkEventHandler, TreeParser
                 else
                     walkJSONValue(json, node.getName());
             }
-            else
-            {
+            else {
                 visit(node.getName(), StringUtil.unquote(columnData));
                 leave(node.getName());
             }
         }
-        catch (JSONException e)
-        {
-            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine, e.getMessage()));
+        catch (JSONException e) {
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine, e
+                    .getMessage()));
         }
 
     }
 
-    private void walkJSONAray(JSONArray jsonArray, String parentNodeName) throws Exception
-    {
-        for (JSONValue each : jsonArray)
-        {
+    private void walkJSONAray(JSONArray jsonArray, String parentNodeName) throws Exception {
+        for (JSONValue each : jsonArray) {
             walkJSONValue(each, parentNodeName);
         }
     }
 
-    private void walkJSONObject(JSONObject jsonObj) throws Exception
-    {
-        for (String key : jsonObj.keys())
-        {
+    private void walkJSONObject(JSONObject jsonObj) throws Exception {
+        for (String key : jsonObj.keys()) {
             JSONValue val = jsonObj.get(key);
             walkJSONValue(val, key);
         }
     }
 
-    private void walkJSONValue(JSONValue value, String parentNodeName) throws Exception
-    {
+    private void walkJSONValue(JSONValue value, String parentNodeName) throws Exception {
         JSONValueType type = value.getValueType();
-        switch (type)
-        {
+        switch (type) {
         case Array:
             walkJSONAray(value.getJSONArray(), parentNodeName);
             break;
@@ -889,38 +790,31 @@ public class SilkParser implements SilkEventHandler, TreeParser
      *            plugin name
      * @return plugin instance or null if no corresponding plugin is found.
      */
-    private SilkFunctionPlugin getPlugin(String name)
-    {
+    private SilkFunctionPlugin getPlugin(String name) {
         Class<SilkFunctionPlugin> pluginClass = getPluginTable().get(name);
         if (pluginClass == null)
             return null;
 
-        try
-        {
+        try {
             SilkFunctionPlugin pluginInstance = pluginClass.newInstance();
             return pluginInstance;
         }
-        catch (InstantiationException e)
-        {
+        catch (InstantiationException e) {
             _logger.warn(e);
             return null;
         }
-        catch (IllegalAccessException e)
-        {
+        catch (IllegalAccessException e) {
             _logger.warn(e);
             return null;
         }
     }
 
-    private Map<String, Class<SilkFunctionPlugin>> getPluginTable()
-    {
-        if (pluginTable == null)
-        {
+    private Map<String, Class<SilkFunctionPlugin>> getPluginTable() {
+        if (pluginTable == null) {
             pluginTable = new TreeMap<String, Class<SilkFunctionPlugin>>();
             // load plugins 
-            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
-                    SilkFunctionPlugin.class, SilkWalker.class.getClassLoader()))
-            {
+            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class
+                    .getPackage(), SilkFunctionPlugin.class, SilkWalker.class.getClassLoader())) {
                 String functionName = each.getSimpleName().toLowerCase();
                 _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);
@@ -938,34 +832,28 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @author leo
      * 
      */
-    private static class PluginField
-    {
+    private static class PluginField {
         Field field;
         SilkFunctionArgument argInfo;
 
-        private PluginField(SilkFunctionArgument argInfo, Field field)
-        {
+        private PluginField(SilkFunctionArgument argInfo, Field field) {
             this.argInfo = argInfo;
             this.field = field;
         }
     }
 
-    private static class PluginHolder
-    {
+    private static class PluginHolder {
         Class< ? extends SilkFunctionPlugin> pluginClass;
         ArrayList<PluginField> argumentFieldList = new ArrayList<PluginField>();
         Map<String, PluginField> keyValueFieldTable = new HashMap<String, PluginField>();
 
-        public PluginHolder(Class< ? extends SilkFunctionPlugin> pluginClass)
-        {
+        public PluginHolder(Class< ? extends SilkFunctionPlugin> pluginClass) {
             this.pluginClass = pluginClass;
 
             //ArrayList<SilkFunctionArgument> argDefs = new ArrayList<SilkFunctionArgument>();
-            for (Field eachField : pluginClass.getDeclaredFields())
-            {
+            for (Field eachField : pluginClass.getDeclaredFields()) {
                 SilkFunctionArgument argInfo = eachField.getAnnotation(SilkFunctionArgument.class);
-                if (argInfo != null)
-                {
+                if (argInfo != null) {
                     PluginField pf = new PluginField(argInfo, eachField);
                     if (argInfo.name().equals(SilkFunctionArgument.NO_VALUE))
                         argumentFieldList.add(pf);
@@ -976,8 +864,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
 
             // sort arguments in the order of their ordinal
             Collections.sort(argumentFieldList, new Comparator<PluginField>() {
-                public int compare(PluginField o1, PluginField o2)
-                {
+                public int compare(PluginField o1, PluginField o2) {
                     return o1.argInfo.ordinal() - o2.argInfo.ordinal();
                 }
             });
@@ -992,32 +879,26 @@ public class SilkParser implements SilkEventHandler, TreeParser
          * @param args
          *            the function arguments
          */
-        public void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
-        {
+        public void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args) {
             int noNameArgCount = 0;
-            for (SilkFunctionArg eachArgument : args)
-            {
+            for (SilkFunctionArg eachArgument : args) {
                 String argValue = eachArgument.getValue().toString();
-                try
-                {
-                    if (eachArgument.hasName())
-                    {
+                try {
+                    if (eachArgument.hasName()) {
                         // key value arg
                         PluginField f = keyValueFieldTable.get(eachArgument.getName());
-                        if (f == null)
-                        {
+                        if (f == null) {
                             _logger.warn("unknown argument: " + eachArgument);
                             continue;
                         }
                         ReflectionUtil.setFieldValue(plugin, f.field, argValue);
                     }
-                    else
-                    {
+                    else {
                         // unnamed argument
                         // matching argument order
-                        if (noNameArgCount >= argumentFieldList.size())
-                        {
-                            _logger.warn(String.format("no corresponding field for the argument %s is found",
+                        if (noNameArgCount >= argumentFieldList.size()) {
+                            _logger.warn(String.format(
+                                    "no corresponding field for the argument %s is found",
                                     eachArgument));
                             continue;
                         }
@@ -1028,8 +909,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
                             noNameArgCount++;
                     }
                 }
-                catch (XerialException e)
-                {
+                catch (XerialException e) {
                     _logger.error(e);
                 }
 
@@ -1046,14 +926,12 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @param args
      *            function arguments.
      */
-    private static void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args)
-    {
+    private static void populate(SilkFunctionPlugin plugin, List<SilkFunctionArg> args) {
         PluginHolder holder = new PluginHolder(plugin.getClass());
         holder.populate(plugin, args);
     }
 
-    public long getNumReadLine()
-    {
+    public long getNumReadLine() {
         return numReadLine;
     }
 }

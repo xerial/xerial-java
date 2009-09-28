@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.xml.dtd;
 
-
 import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
@@ -33,39 +32,36 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.FileResource;
+import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 import org.xerial.util.xml.dtd.impl.DTDParser;
 
-public class DTDParserTest
-{
+public class DTDParserTest {
     Logger _logger = Logger.getLogger(DTDParserTest.class);
-    
+
     @Before
-    public void setUp() throws Exception
-    {
-        
+    public void setUp() throws Exception {
+
     }
 
     @After
-    public void tearDown() throws Exception
-    {}
-    
-    
+    public void tearDown() throws Exception {}
+
     @Test
-    public void parse() throws IOException, RecognitionException
-    {
-        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class, "auction.dtd").openStream());
+    public void parse() throws IOException, RecognitionException {
+        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class,
+                "auction.dtd").openStream());
         DTDParser.dtd_return r = parser.dtd();
         CommonTree t = (CommonTree) r.getTree();
-        _logger.debug(t.toStringTree());
+        _logger.debug(ANTLRUtil.parseTree(t, DTDParser.tokenNames));
     }
 
     @Test
-    public void parseLine() throws IOException, RecognitionException
-    {
-        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class, "simple.dtd").openStream());
+    public void parseLine() throws IOException, RecognitionException {
+        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class,
+                "simple.dtd").openStream());
         DTDParser.dtd_return r = parser.dtd();
         CommonTree t = (CommonTree) r.getTree();
-        _logger.debug(t.toStringTree());
+        _logger.debug(ANTLRUtil.parseTree(t, DTDParser.tokenNames));
     }
 }

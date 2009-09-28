@@ -6,6 +6,10 @@
 // 
 //--------------------------------------------------
 
+//----------
+// This grammar is written based on the XML specification:  
+// http://www.w3.org/TR/2008/REC-xml-20081126/#sec-prolog-dtd
+//----------
 grammar DTD;
 options 
 {
@@ -18,8 +22,19 @@ options
 } 
 
 tokens {
-NUMBER;
-STRING;
+DTD;
+STRINGTYPE;
+TOKENIZEDTYPE;
+ENUMTYPE;
+NAME;
+ATTRIBUTE;
+ATTLIST;
+DECL;
+TYPE;
+ELEMENT;
+COMPONENT;
+OCCURRENCE;
+CONTENTSPEC;
 }
 
  
@@ -111,7 +126,7 @@ DefaultDecl: '#REQUIRED' | '#IMPLIED' | ('#FIXED'? AttValue);
 Element: '<!ELEMENT';
 
 
-
+/*
 integerLiteral: Digits;
 decimalLiteral: Dot Digits| Digits Dot Digits;
 
@@ -125,53 +140,98 @@ numericLiteral
 	| decimalLiteral 
 //	| DoubleLiteral
 	;
+	*/
 
-dtd: markupdecl*;
+dtd: markupdecl*
+  -> ^(DTD markupdecl*)
+;
 
+fragment
 markupdecl: elementDecl | attlistDecl;
 
-
 elementDecl: Element Name contentSpec '>'
+  -> ^(ELEMENT NAME[$Name.text] contentSpec)
 	;
 	
-contentSpec: 'EMPTY' | 'ANY' | mixed | children
+fragment
+contentSpec
+  : 'EMPTY' -> CONTENTSPEC["EMPTY"]
+  | 'ANY'   -> CONTENTSPEC["ANY"]
+  | mixed 
+  | children  
 	;	
 	
+fragment
 children 
-: (choice) => choice  ('?' | '*' | '+')?
-| (seq) => seq ('?' | '*' | '+')?
+: (choice) => choice  plural? -> ^(COMPONENT  TYPE["choice"] choice plural?)
+| (seq) => seq plural? -> ^(COMPONENT TYPE["seq"] seq plural?)
 ;
 	
+fragment
 cp 
-: (Name) => Name  ('?' | '*' | '+')?
-|  (choice) => choice  ('?' | '*' | '+')?
-|  (seq) => seq  ('?' | '*' | '+')?
+: (Name) => Name  plural? -> ^(COMPONENT NAME[$Name.text] plural?)
+|  (choice) => choice  plural? -> ^(COMPONENT TYPE["choice"] choice plural?)
+|  (seq) => seq  plural? -> ^(COMPONENT TYPE["seq"] seq plural?)
 ;
 
+fragment
+plural
+  : '?' -> OCCURRENCE["ZERO_OR_ONE"]
+  | '*' -> OCCURRENCE["ZERO_OR_MORE"]
+  | '+' -> OCCURRENCE["ONE_OR_MORE"]
+  ;
+  
+
+fragment
 choice: LParen cp ('|' cp)* RParen
+  -> cp+
 	;
 	
+fragment
 seq: (LParen cp Comma) => LParen cp (Comma cp)+ RParen
+  -> cp+
 	;
 	
-mixed: LParen '#PCDATA' ('|' Name)* RParen '*'	
-	|  LParen '#PCDATA' RParen
+fragment
+mixed
+  : LParen '#PCDATA' ('|' mixed_i)* RParen '*'
+    -> ^(COMPONENT TYPE["mixed"] mixed_i*)
+	|  LParen '#PCDATA' RParen 
+    -> ^(COMPONENT TYPE["pcdata"])
 	;
 	 	
+mixed_i
+  : Name -> NAME[$Name.text]
+  ;	 	
+	 	
 attlistDecl: '<!ATTLIST' Name attDef* '>'
+  -> ^(ATTLIST NAME[$Name.text] attDef*)
 	;
 	
+fragment
 attDef: Name attType DefaultDecl
+  -> ^(ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1])
 	;
 		
-attType: stringType | tokenizedType | enumeratedType;
+fragment
+attType
+  : stringType -> STRINGTYPE[$stringType.text] 
+  | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] 
+  | enumeratedType -> ENUMTYPE[$enumeratedType.text]
+  ;
 
+fragment
 enumeration: LParen Name ('|' Name)* RParen;
+fragment
 enumeratedType: notationType | enumeration;
+fragment
 notationType: 'NOTATION' LParen Name ('|' Name)* RParen;
 
+fragment
 stringType: 'CDATA'
 	;
 
-tokenizedType: 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS'
+fragment
+tokenizedType
+  : 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS'
 	;

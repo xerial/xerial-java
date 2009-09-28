@@ -45,6 +45,7 @@ import org.xerial.json.JSONWriter;
 import org.xerial.lens.impl.ParameterGetter;
 import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.lens.impl.RelationSetter;
+import org.xerial.silk.SilkWriter;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
@@ -379,6 +380,14 @@ public class ObjectLens {
 
         Matcher m = paramNameReplacePattern.matcher(paramName);
         return m.replaceAll("").toLowerCase();
+    }
+
+    public static String toSilk(Object obj) {
+        StringWriter buf = new StringWriter();
+        SilkWriter writer = new SilkWriter(buf);
+        writer.toSilk(obj);
+        writer.flush();
+        return buf.toString();
     }
 
     public static String toJSON(Object obj) {

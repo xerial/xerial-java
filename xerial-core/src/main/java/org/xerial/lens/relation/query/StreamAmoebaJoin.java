@@ -65,8 +65,7 @@ import org.xerial.util.xml.XMLGenerator;
  * @author leo
  * 
  */
-public class StreamAmoebaJoin implements TreeEventHandler
-{
+public class StreamAmoebaJoin implements TreeEventHandler {
     public static final String ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
 
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoin.class);
@@ -94,8 +93,7 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
     private int attributeAmoebaSize = 1;
 
-    public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException
-    {
+    public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException {
         this.query = query;
         this.handler = handler;
 
@@ -103,30 +101,25 @@ public class StreamAmoebaJoin implements TreeEventHandler
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "query set is null");
     }
 
-    static interface TextOperation
-    {
+    static interface TextOperation {
         void execute(String testNodeName, String textData) throws Exception;
     }
 
-    class SimpleTextOperation implements TextOperation
-    {
+    class SimpleTextOperation implements TextOperation {
         final Schema schema;
         final String coreNodeName;
 
-        public SimpleTextOperation(Schema schema, String contextNodeName)
-        {
+        public SimpleTextOperation(Schema schema, String contextNodeName) {
             this.schema = schema;
             this.coreNodeName = contextNodeName;
         }
 
-        public SimpleTextOperation(PushRelation pr)
-        {
+        public SimpleTextOperation(PushRelation pr) {
             this.schema = pr.schema;
             this.coreNodeName = pr.coreNodeName;
         }
 
-        public void execute(String textNodeName, String textData) throws Exception
-        {
+        public void execute(String textNodeName, String textData) throws Exception {
             Deque<Node> nodeStack = getNodeStack(coreNodeName);
             Node contextNode = nodeStack.getLast();
 
@@ -137,26 +130,21 @@ public class StreamAmoebaJoin implements TreeEventHandler
         }
     }
 
-    class ContextBasedTextOperation implements TextOperation
-    {
+    class ContextBasedTextOperation implements TextOperation {
         final HashMap<String, TextOperation> coreNode_action = new HashMap<String, TextOperation>();
 
-        public ContextBasedTextOperation(ScopedPushRelation scopedPushOperation)
-        {
-            for (Entry<String, PushRelation> each : scopedPushOperation.coreNode_action.entrySet())
-            {
+        public ContextBasedTextOperation(ScopedPushRelation scopedPushOperation) {
+            for (Entry<String, PushRelation> each : scopedPushOperation.coreNode_action.entrySet()) {
                 coreNode_action.put(each.getKey(), new SimpleTextOperation(each.getValue()));
             }
         }
 
-        public void execute(String nodeName, String textData) throws Exception
-        {
+        public void execute(String nodeName, String textData) throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
-            {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
+                    && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
-                if (coreNode_action.containsKey(contextNode))
-                {
+                if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute(nodeName, textData);
                     return;
                 }
@@ -171,30 +159,25 @@ public class StreamAmoebaJoin implements TreeEventHandler
      * @author leo
      * 
      */
-    static interface Operation
-    {
+    static interface Operation {
         void execute() throws Exception;
     }
 
-    class PushRelation implements Operation
-    {
+    class PushRelation implements Operation {
         final Schema schema;
         final String coreNodeName;
         final String attributeNodeName;
         final String newlyFoundNodeName;
 
-        public PushRelation(Schema schema, String previouslyFoundTag, String newlyFoundTag)
-        {
+        public PushRelation(Schema schema, String previouslyFoundTag, String newlyFoundTag) {
             this.schema = schema;
             this.newlyFoundNodeName = newlyFoundTag;
 
-            if (isCoreNodeIndex(schema.getNodeIndex(previouslyFoundTag)))
-            {
+            if (isCoreNodeIndex(schema.getNodeIndex(previouslyFoundTag))) {
                 this.coreNodeName = previouslyFoundTag;
                 this.attributeNodeName = newlyFoundTag;
             }
-            else if (isCoreNodeIndex(schema.getNodeIndex(newlyFoundTag)))
-            {
+            else if (isCoreNodeIndex(schema.getNodeIndex(newlyFoundTag))) {
                 this.coreNodeName = newlyFoundTag;
                 this.attributeNodeName = previouslyFoundTag;
             }
@@ -202,8 +185,7 @@ public class StreamAmoebaJoin implements TreeEventHandler
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "no core node in " + schema);
         }
 
-        public void execute() throws Exception
-        {
+        public void execute() throws Exception {
             Node coreNode = getNodeStack(coreNodeName).getLast();
             Node attributeNode = getNodeStack(attributeNodeName).getLast();
 
@@ -214,33 +196,27 @@ public class StreamAmoebaJoin implements TreeEventHandler
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return String.format("push: %s for (%s, %s)", schema, coreNodeName, attributeNodeName);
         }
     }
 
-    class ScopedPushRelation implements Operation
-    {
+    class ScopedPushRelation implements Operation {
         final HashMap<String, PushRelation> coreNode_action = new HashMap<String, PushRelation>();
 
-        public ScopedPushRelation(List<PushRelation> candidates)
-        {
-            for (PushRelation each : candidates)
-            {
+        public ScopedPushRelation(List<PushRelation> candidates) {
+            for (PushRelation each : candidates) {
                 Schema s = each.schema;
                 coreNode_action.put(each.coreNodeName, each);
             }
         }
 
-        public void execute() throws Exception
-        {
+        public void execute() throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
-            {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
+                    && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
-                if (coreNode_action.containsKey(contextNode))
-                {
+                if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute();
                     return;
                 }
@@ -252,28 +228,23 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
     }
 
-    class ScopedPopRelation implements Operation
-    {
+    class ScopedPopRelation implements Operation {
         final HashMap<String, PopRelation> coreNode_action = new HashMap<String, PopRelation>();
 
-        public ScopedPopRelation(List<PushRelation> candidates)
-        {
-            for (PushRelation each : candidates)
-            {
+        public ScopedPopRelation(List<PushRelation> candidates) {
+            for (PushRelation each : candidates) {
                 Schema s = each.schema;
 
                 coreNode_action.put(each.coreNodeName, new PopRelation(s, each.newlyFoundNodeName));
             }
         }
 
-        public void execute() throws Exception
-        {
+        public void execute() throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++)
-            {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
+                    && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
-                if (coreNode_action.containsKey(contextNode))
-                {
+                if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute();
                     return;
                 }
@@ -285,19 +256,16 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
     }
 
-    class PopRelation implements Operation
-    {
+    class PopRelation implements Operation {
         final Schema schema;
         final String poppedTag;
 
-        public PopRelation(Schema schema, String poppedTag)
-        {
+        public PopRelation(Schema schema, String poppedTag) {
             this.schema = schema;
             this.poppedTag = poppedTag;
         }
 
-        public void execute() throws Exception
-        {
+        public void execute() throws Exception {
             Node poppedNode = getNodeStack(poppedTag).getLast();
             handler.leaveNode(schema, poppedNode);
             //container.pop(poppedNode);
@@ -305,19 +273,16 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
     }
 
-    class PushLoopedRelation implements Operation
-    {
+    class PushLoopedRelation implements Operation {
         final Schema schema;
         final String tagName;
 
-        public PushLoopedRelation(Schema schema, String tagName)
-        {
+        public PushLoopedRelation(Schema schema, String tagName) {
             this.schema = schema;
             this.tagName = tagName;
         }
 
-        public void execute() throws Exception
-        {
+        public void execute() throws Exception {
             Deque<Node> nodeStack = getNodeStack(tagName);
             if (nodeStack.size() < 2)
                 throw new XerialError(XerialErrorCode.INVALID_STATE);
@@ -326,27 +291,27 @@ public class StreamAmoebaJoin implements TreeEventHandler
             Node newlyFoundNode = reverseCursor.next();
             Node previouslyFoundNode = reverseCursor.next();
 
-            _logger.debug(String.format("loop back: %s and %s", previouslyFoundNode, newlyFoundNode));
+            if (_logger.isTraceEnabled())
+                _logger.trace(String.format("loop back: %s and %s", previouslyFoundNode,
+                        newlyFoundNode));
+
             handler.newAmoeba(schema, previouslyFoundNode, newlyFoundNode);
         }
 
     }
 
-    class ReportText
-    {
+    class ReportText {
 
     }
 
-    public void finish() throws Exception
-    {
+    public void finish() throws Exception {
         leaveNode("root");
         if (_logger.isTraceEnabled())
             _logger.trace("sweep finished");
         handler.finish();
     }
 
-    public void init() throws Exception
-    {
+    public void init() throws Exception {
         nodeCount = -1;
         latticeCursor = nodeNameLattice.cursor();
         stateStack.addLast(latticeCursor.getNode());
@@ -356,21 +321,19 @@ public class StreamAmoebaJoin implements TreeEventHandler
         visitNode("root", null);
     }
 
-    public Deque<Node> getNodeStack(String nodeName)
-    {
+    public Deque<Node> getNodeStack(String nodeName) {
         return nodeStackOfEachTag.get(nodeName);
     }
 
-    public static String sanitize(String nodeName)
-    {
+    public static String sanitize(String nodeName) {
         return ObjectLens.getCanonicalParameterName(nodeName);
     }
 
-    public void visitNode(String nodeName, String nodeValue) throws Exception
-    {
+    public void visitNode(String nodeName, String nodeValue) throws Exception {
         nodeName = sanitize(nodeName);
 
-        Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue).build();
+        Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue)
+                .build();
         Deque<Node> nodeStack = getNodeStack(nodeName);
         nodeStack.add(currentNode);
 
@@ -382,15 +345,13 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
         // for tree nodes
 
-        if (query.isTreeNode(nodeName))
-        {
+        if (query.isTreeNode(nodeName)) {
             throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not supported yet");
         }
 
     }
 
-    public void text(String nodeName, String textDataFragment) throws Exception
-    {
+    public void text(String nodeName, String textDataFragment) throws Exception {
         nodeName = sanitize(nodeName);
 
         Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
@@ -401,36 +362,31 @@ public class StreamAmoebaJoin implements TreeEventHandler
         List<TextOperation> textOperation = operatSetOnText.get(currentEdge);
 
         // generate a text operation set
-        if (textOperation == null)
-        {
+        if (textOperation == null) {
             textOperation = new ArrayList<TextOperation>();
             operatSetOnText.put(currentEdge, textOperation);
 
             List<Operation> forwardAction = getForwardActionList(prevState, currentState, nodeName);
-            for (Operation each : forwardAction)
-            {
-                if (each instanceof PushRelation)
-                {
+            for (Operation each : forwardAction) {
+                if (each instanceof PushRelation) {
                     textOperation.add(new SimpleTextOperation((PushRelation) each));
                 }
-                else if (each instanceof ScopedPushRelation)
-                {
+                else if (each instanceof ScopedPushRelation) {
                     textOperation.add(new ContextBasedTextOperation((ScopedPushRelation) each));
                 }
                 else
-                    throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: " + each);
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: "
+                            + each);
             }
         }
 
         assert textOperation != null;
 
-        try
-        {
+        try {
             for (TextOperation each : textOperation)
                 each.execute(nodeName, textDataFragment);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             if (e instanceof XerialException)
                 throw (XerialException) e;
             else
@@ -438,19 +394,16 @@ public class StreamAmoebaJoin implements TreeEventHandler
         }
     }
 
-    public void leaveNode(String nodeName) throws Exception
-    {
+    public void leaveNode(String nodeName) throws Exception {
         nodeName = sanitize(nodeName);
 
         Deque<Node> nodeStack = getNodeStack(nodeName);
         Node currentNode = nodeStack.getLast();
 
-        try
-        {
+        try {
             back(currentNode);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             if (e instanceof XerialException)
                 throw (XerialException) e;
             else if (e instanceof XerialError)
@@ -464,9 +417,8 @@ public class StreamAmoebaJoin implements TreeEventHandler
         nodeStack.removeLast();
     }
 
-    private List<Operation> getForwardActionList(LatticeNode<String> prevState, LatticeNode<String> nextState,
-            String nodeName)
-    {
+    private List<Operation> getForwardActionList(LatticeNode<String> prevState,
+            LatticeNode<String> nextState, String nodeName) {
         Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
 
         List<Operation> actionList = operationSetOnForward.get(currentEdge);
@@ -488,18 +440,15 @@ public class StreamAmoebaJoin implements TreeEventHandler
         if (_logger2.isTraceEnabled())
             _logger2.trace("create actions for " + newlyFoundTag);
 
-        if (prevNodeID != nextNodeID)
-        {
+        if (prevNodeID != nextNodeID) {
             List<PushRelation> foundAction = new ArrayList<PushRelation>();
             // (core node, attribute node)
-            for (Schema r : query.getTargetQuerySet())
-            {
+            for (Schema r : query.getTargetQuerySet()) {
                 TupleIndex ni = r.getNodeIndex(newlyFoundTag);
                 if (ni == null)
                     continue;
 
-                for (String previouslyFoundNode : nextState)
-                {
+                for (String previouslyFoundNode : nextState) {
                     TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
                     if (pi == null)
                         continue;
@@ -511,8 +460,8 @@ public class StreamAmoebaJoin implements TreeEventHandler
                         continue;
 
                     if (_logger2.isTraceEnabled())
-                        _logger2
-                                .trace(String.format("new pair: %s, %s (in %s)", previouslyFoundNode, newlyFoundTag, r));
+                        _logger2.trace(String.format("new pair: %s, %s (in %s)",
+                                previouslyFoundNode, newlyFoundTag, r));
 
                     foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
                     break;
@@ -520,33 +469,27 @@ public class StreamAmoebaJoin implements TreeEventHandler
             }
 
             // set the action list
-            if (foundAction.size() > 1)
-            {
+            if (foundAction.size() > 1) {
                 // context-dependent actions
                 actionList.add(new ScopedPushRelation(foundAction));
                 backActionList.add(new ScopedPopRelation(foundAction));
             }
-            else
-            {
+            else {
                 // a single action
-                for (PushRelation each : foundAction)
-                {
+                for (PushRelation each : foundAction) {
                     actionList.add(each);
                     backActionList.add(new PopRelation(each.schema, each.newlyFoundNodeName));
                 }
             }
 
         }
-        else
-        {
+        else {
             // loop back e.g. A -> A
-            for (Schema r : query.getTargetQuerySet())
-            {
+            for (Schema r : query.getTargetQuerySet()) {
                 String selfLoopNode = r.selfLoopNode();
                 if (selfLoopNode == null)
                     continue;
-                else
-                {
+                else {
                     actionList.add(new PushLoopedRelation(r, selfLoopNode));
                     break;
                 }
@@ -557,21 +500,18 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
     }
 
-    private boolean isCoreNodeIndex(TupleIndex ti)
-    {
+    private boolean isCoreNodeIndex(TupleIndex ti) {
         return ti.size() == 1 && ti.get(0) == 0;
     }
 
-    void back(Node node) throws Exception
-    {
+    void back(Node node) throws Exception {
         Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
         LatticeNode<String> current = it.next();
         LatticeNode<String> prev = it.next();
         stateStack.removeLast();
 
         // process forward edge
-        for (Operation each : getForwardActionList(prev, current, node.nodeName))
-        {
+        for (Operation each : getForwardActionList(prev, current, node.nodeName)) {
             each.execute();
         }
 
@@ -581,68 +521,55 @@ public class StreamAmoebaJoin implements TreeEventHandler
 
         Edge backEdge = new Edge(prevState, nextState);
         List<Operation> actionList = operationSetOnBack.get(backEdge);
-        if (actionList == null)
-        {
+        if (actionList == null) {
             throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
         }
-        if (actionList.isEmpty())
-        {
+        if (actionList.isEmpty()) {
             Node poppedNode = getNodeStack(node.nodeName).getLast();
             handler.leaveNode(null, poppedNode);
         }
         else
-            for (Operation each : actionList)
-            {
+            for (Operation each : actionList) {
                 each.execute();
             }
 
     }
 
-    static class AttributeNodeFinder implements SchemaVisitor
-    {
+    static class AttributeNodeFinder implements SchemaVisitor {
         Deque<String> nodeName = new ArrayDeque<String>();
 
-        public void visitArray(SchemaArray array)
-        {
+        public void visitArray(SchemaArray array) {
             for (Schema each : array)
                 each.accept(this);
         }
 
-        public void visitAtom(SchemaAtom atom)
-        {
+        public void visitAtom(SchemaAtom atom) {
             nodeName.add(atom.getName());
         }
     }
 
-    public void sweep(TreeParser parser) throws Exception
-    {
+    public void sweep(TreeParser parser) throws Exception {
         parser.parse(this);
     }
 
-    public QuerySet getQuerySet()
-    {
+    public QuerySet getQuerySet() {
         return query;
     }
 
-    public static class XMLBuilder
-    {
+    public static class XMLBuilder {
         private final StringWriter buf = new StringWriter();
         private final XMLGenerator xml;
 
-        public XMLBuilder()
-        {
+        public XMLBuilder() {
             xml = new XMLGenerator(buf);
         }
 
-        public XMLBuilder build(TreeNode node)
-        {
+        public XMLBuilder build(TreeNode node) {
             String tagName = node.getNodeName();
 
             String nodeValue = node.getNodeValue();
-            if (nodeValue != null)
-            {
-                if (node.getChildren().isEmpty())
-                {
+            if (nodeValue != null) {
+                if (node.getChildren().isEmpty()) {
                     xml.startTag(tagName);
                     xml.text(nodeValue);
                 }
@@ -652,8 +579,7 @@ public class StreamAmoebaJoin implements TreeEventHandler
             else
                 xml.startTag(tagName);
 
-            for (TreeNode eachChild : node.getChildren())
-            {
+            for (TreeNode eachChild : node.getChildren()) {
                 build(eachChild);
             }
 
@@ -661,8 +587,7 @@ public class StreamAmoebaJoin implements TreeEventHandler
             return this;
         }
 
-        public String getXML()
-        {
+        public String getXML() {
             xml.flush();
             xml.endDocument();
             return buf.toString();

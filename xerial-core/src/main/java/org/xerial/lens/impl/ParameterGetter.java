@@ -58,6 +58,8 @@ public abstract class ParameterGetter {
         return new GetterMethod(getter, paramName);
     }
 
+    public abstract Class< ? > getReturnType();
+
     @Override
     public String toString() {
         return paramName;
@@ -74,6 +76,11 @@ public abstract class ParameterGetter {
         @Override
         public Object get(Object obj) {
             return ReflectionUtil.getFieldValue(obj, field);
+        }
+
+        @Override
+        public Class< ? > getReturnType() {
+            return field.getType();
         }
     }
 
@@ -93,6 +100,11 @@ public abstract class ParameterGetter {
         @Override
         public Object get(Object obj) {
             return ReflectionUtil.invokeGetter(obj, getter);
+        }
+
+        @Override
+        public Class< ? > getReturnType() {
+            return getter.getReturnType();
         }
     }
 

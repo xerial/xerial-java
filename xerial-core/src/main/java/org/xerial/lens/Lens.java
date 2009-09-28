@@ -259,6 +259,10 @@ public class Lens {
         return ObjectLens.toJSON(obj);
     }
 
+    public static String toSilk(Object obj) {
+        return ObjectLens.toSilk(obj);
+    }
+
     public static <Result> void find(Class<Result> bindingType, TreeParser parser,
             ObjectHandler<Result> handler) throws XerialException {
         find(bindingType, bindingType.getSimpleName(), parser, handler);

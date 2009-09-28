@@ -28,6 +28,8 @@ import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -90,5 +92,35 @@ public class SilkWriterTest {
 
         boolean cmp = TreeWalkLog.compare(l1, l2);
         assertTrue(cmp);
+    }
+
+    static class A {
+        public String name;
+        public List<B> b = new ArrayList<B>();
+    }
+
+    static class B {
+        public int id;
+
+        public B(int id) {
+            this.id = id;
+        }
+
+    }
+
+    @Test
+    public void toSilkObject() throws Exception {
+        StringWriter buf = new StringWriter();
+        SilkWriter w = new SilkWriter(buf);
+
+        A a = new A();
+        a.name = "leo";
+        a.b.add(new B(10));
+        a.b.add(new B(20));
+
+        w.toSilk(a);
+        w.endDocument();
+
+        _logger.info(buf.toString());
     }
 }

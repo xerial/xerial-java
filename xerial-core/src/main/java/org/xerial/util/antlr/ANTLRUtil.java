@@ -38,31 +38,35 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 
-public class ANTLRUtil
-{
-    public static String toVisibleString(String text)
-    {
+public class ANTLRUtil {
+    public static String toVisibleString(String text) {
         text = text.replaceAll("\n", "\\\\n");
         text = text.replaceAll("\r", "\\\\r");
         text = text.replaceAll("\t", "\\\\t");
         return String.format("\"%s\"", text);
     }
 
-    public static String parseTree(Tree t, String[] parserTokenNames)
-    {
+    /**
+     * Generates a string representation of the parse tree.
+     * 
+     * @param t
+     *            parse tree
+     * @param parserTokenNames
+     *            pass the ANTLR Parser.tokenNames
+     * @return a string representation of the parse tree
+     */
+    public static String parseTree(Tree t, String[] parserTokenNames) {
         StringBuilder sb = new StringBuilder();
         parseTree(sb, t, 0, parserTokenNames);
         return sb.toString();
     }
 
-    private static void parseTree(StringBuilder sb, Tree t, int depth, String[] parserTokenNames)
-    {
+    private static void parseTree(StringBuilder sb, Tree t, int depth, String[] parserTokenNames) {
         if (t == null)
             return;
 
         // input node itself
-        for (int i = 0; i < depth; i++)
-        {
+        for (int i = 0; i < depth; i++) {
             sb.append(" ");
         }
         String tokenName = parserTokenNames[t.getType()];
@@ -74,16 +78,14 @@ public class ANTLRUtil
         sb.append(StringUtil.newline());
 
         // child nodes
-        for (int i = 0; i < t.getChildCount(); i++)
-        {
+        for (int i = 0; i < t.getChildCount(); i++) {
             parseTree(sb, t.getChild(i), depth + 1, parserTokenNames);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static Map<Integer, String> getTokenTable(Class< ? > packageBaseClass, String tokenFileName)
-            throws IOException
-    {
+    public static Map<Integer, String> getTokenTable(Class< ? > packageBaseClass,
+            String tokenFileName) throws IOException {
         Properties p = new Properties();
         TreeMap<Integer, String> tokenTable = new TreeMap<Integer, String>();
 
@@ -91,8 +93,7 @@ public class ANTLRUtil
         if (wikiTokenFileURL != null)
             p.load(wikiTokenFileURL.openStream());
 
-        for (Iterator it = p.keySet().iterator(); it.hasNext();)
-        {
+        for (Iterator it = p.keySet().iterator(); it.hasNext();) {
             String tokenName = (String) it.next();
             int tokenType = Integer.parseInt(p.get(tokenName).toString());
             tokenTable.put(tokenType, tokenName);
@@ -102,24 +103,21 @@ public class ANTLRUtil
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> prettyPrintTokenList(List tokenList, Map<Integer, String> tokenTable)
-    {
+    public static List<String> prettyPrintTokenList(List tokenList, Map<Integer, String> tokenTable) {
         ArrayList<String> result = new ArrayList<String>();
-        for (Iterator it = tokenList.iterator(); it.hasNext();)
-        {
+        for (Iterator it = tokenList.iterator(); it.hasNext();) {
             Token t = (Token) it.next();
             result.add(prettyPrint(t, tokenTable));
         }
         return result;
     }
 
-    public static String prettyPrint(Token t, Map<Integer, String> tokenTable)
-    {
+    public static String prettyPrint(Token t, Map<Integer, String> tokenTable) {
 
         int charStart = t.getCharPositionInLine();
         int charEnd = charStart + t.getText().length();
-        return String.format("[%2d[%2d,%2d)] %12s: %s", t.getLine(), charStart, charEnd, tokenTable.get(t.getType()),
-                ANTLRUtil.toVisibleString(t.getText()));
+        return String.format("[%2d[%2d,%2d)] %12s: %s", t.getLine(), charStart, charEnd, tokenTable
+                .get(t.getType()), ANTLRUtil.toVisibleString(t.getText()));
     }
 
 }

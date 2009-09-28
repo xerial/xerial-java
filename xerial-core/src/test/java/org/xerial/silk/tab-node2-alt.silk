@@ -1,0 +1,6 @@
+-user(id, name)|
+1	leo
+ -child(id, name)|>>
+2	yui
+>>
+3	apple

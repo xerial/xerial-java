@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2009-07-03 13:39:52
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-09-28 17:56:15
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -19,50 +19,61 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DTDLexer extends Lexer {
+    public static final int TYPE=12;
+    public static final int CONTENTSPEC=16;
     public static final int T__42=42;
-    public static final int DefaultDecl=27;
-    public static final int Apos=10;
-    public static final int Digit=17;
-    public static final int SemiColon=13;
-    public static final int NUMBER=4;
-    public static final int AttValue=24;
-    public static final int T__39=39;
-    public static final int Letter=16;
-    public static final int T__30=30;
-    public static final int Comma=9;
+    public static final int ELEMENT=13;
+    public static final int DefaultDecl=38;
+    public static final int Apos=21;
+    public static final int T__57=57;
+    public static final int Digit=28;
+    public static final int SemiColon=24;
+    public static final int T__51=51;
+    public static final int T__47=47;
+    public static final int T__50=50;
+    public static final int ATTLIST=10;
+    public static final int TOKENIZEDTYPE=6;
+    public static final int AttValue=35;
+    public static final int Letter=27;
+    public static final int T__52=52;
     public static final int T__46=46;
-    public static final int Dot=12;
-    public static final int ML_COMMENT=6;
-    public static final int T__34=34;
-    public static final int Colon=8;
-    public static final int EntityRef=25;
-    public static final int At=7;
-    public static final int T__35=35;
-    public static final int NameChar=19;
-    public static final int T__36=36;
-    public static final int STRING=5;
+    public static final int Comma=20;
+    public static final int Dot=23;
+    public static final int T__49=49;
+    public static final int DECL=11;
+    public static final int ML_COMMENT=17;
+    public static final int T__54=54;
+    public static final int T__48=48;
+    public static final int EntityRef=36;
+    public static final int Colon=19;
+    public static final int T__56=56;
+    public static final int At=18;
+    public static final int STRINGTYPE=5;
+    public static final int NameChar=30;
+    public static final int DTD=4;
     public static final int T__44=44;
-    public static final int RParen=15;
-    public static final int StringLiteral=21;
-    public static final int T__33=33;
-    public static final int Name=22;
-    public static final int T__29=29;
+    public static final int RParen=26;
+    public static final int StringLiteral=32;
+    public static final int Name=33;
+    public static final int T__55=55;
     public static final int T__45=45;
-    public static final int LParen=14;
-    public static final int CharRef=26;
+    public static final int LParen=25;
+    public static final int CharRef=37;
+    public static final int OCCURRENCE=15;
     public static final int T__43=43;
-    public static final int T__31=31;
     public static final int T__40=40;
+    public static final int WhiteSpaceChar=31;
     public static final int EOF=-1;
-    public static final int WhiteSpaceChar=20;
-    public static final int Reference=23;
-    public static final int T__32=32;
-    public static final int T__38=38;
-    public static final int T__37=37;
-    public static final int Quot=11;
-    public static final int Digits=18;
+    public static final int T__53=53;
+    public static final int Reference=34;
+    public static final int COMPONENT=14;
+    public static final int Quot=22;
+    public static final int ATTRIBUTE=9;
+    public static final int NAME=8;
+    public static final int Digits=29;
     public static final int T__41=41;
-    public static final int Element=28;
+    public static final int Element=39;
+    public static final int ENUMTYPE=7;
 
     // delegates
     // delegators
@@ -75,244 +86,17 @@ public class DTDLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g"; }
-
-    // $ANTLR start "T__29"
-    public final void mT__29() throws RecognitionException {
-        try {
-            int _type = T__29;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:7: ( '>' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:26:9: '>'
-            {
-            match('>'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__29"
-
-    // $ANTLR start "T__30"
-    public final void mT__30() throws RecognitionException {
-        try {
-            int _type = T__30;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:7: ( 'EMPTY' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:27:9: 'EMPTY'
-            {
-            match("EMPTY"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__30"
-
-    // $ANTLR start "T__31"
-    public final void mT__31() throws RecognitionException {
-        try {
-            int _type = T__31;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:7: ( 'ANY' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:28:9: 'ANY'
-            {
-            match("ANY"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__31"
-
-    // $ANTLR start "T__32"
-    public final void mT__32() throws RecognitionException {
-        try {
-            int _type = T__32;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:7: ( '?' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:29:9: '?'
-            {
-            match('?'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__32"
-
-    // $ANTLR start "T__33"
-    public final void mT__33() throws RecognitionException {
-        try {
-            int _type = T__33;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:7: ( '*' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:30:9: '*'
-            {
-            match('*'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__33"
-
-    // $ANTLR start "T__34"
-    public final void mT__34() throws RecognitionException {
-        try {
-            int _type = T__34;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:7: ( '+' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:31:9: '+'
-            {
-            match('+'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__34"
-
-    // $ANTLR start "T__35"
-    public final void mT__35() throws RecognitionException {
-        try {
-            int _type = T__35;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:7: ( '|' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:32:9: '|'
-            {
-            match('|'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__35"
-
-    // $ANTLR start "T__36"
-    public final void mT__36() throws RecognitionException {
-        try {
-            int _type = T__36;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:7: ( '#PCDATA' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:33:9: '#PCDATA'
-            {
-            match("#PCDATA"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__36"
-
-    // $ANTLR start "T__37"
-    public final void mT__37() throws RecognitionException {
-        try {
-            int _type = T__37;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:7: ( '<!ATTLIST' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:34:9: '<!ATTLIST'
-            {
-            match("<!ATTLIST"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__37"
-
-    // $ANTLR start "T__38"
-    public final void mT__38() throws RecognitionException {
-        try {
-            int _type = T__38;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:7: ( 'NOTATION' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:35:9: 'NOTATION'
-            {
-            match("NOTATION"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__38"
-
-    // $ANTLR start "T__39"
-    public final void mT__39() throws RecognitionException {
-        try {
-            int _type = T__39;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:7: ( 'CDATA' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:36:9: 'CDATA'
-            {
-            match("CDATA"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__39"
+    public String getGrammarFileName() { return "DTD.g"; }
 
     // $ANTLR start "T__40"
     public final void mT__40() throws RecognitionException {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:7: ( 'ID' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:37:9: 'ID'
+            // DTD.g:26:7: ( '>' )
+            // DTD.g:26:9: '>'
             {
-            match("ID"); 
-
+            match('>'); 
 
             }
 
@@ -329,10 +113,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:7: ( 'IDREF' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:38:9: 'IDREF'
+            // DTD.g:27:7: ( 'EMPTY' )
+            // DTD.g:27:9: 'EMPTY'
             {
-            match("IDREF"); 
+            match("EMPTY"); 
 
 
             }
@@ -350,10 +134,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:7: ( 'IDREFS' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:39:9: 'IDREFS'
+            // DTD.g:28:7: ( 'ANY' )
+            // DTD.g:28:9: 'ANY'
             {
-            match("IDREFS"); 
+            match("ANY"); 
 
 
             }
@@ -371,11 +155,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:7: ( 'ENTITY' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:40:9: 'ENTITY'
+            // DTD.g:29:7: ( '?' )
+            // DTD.g:29:9: '?'
             {
-            match("ENTITY"); 
-
+            match('?'); 
 
             }
 
@@ -392,11 +175,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:7: ( 'ENTITIES' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:41:9: 'ENTITIES'
+            // DTD.g:30:7: ( '*' )
+            // DTD.g:30:9: '*'
             {
-            match("ENTITIES"); 
-
+            match('*'); 
 
             }
 
@@ -413,11 +195,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:7: ( 'NMTOKEN' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:42:9: 'NMTOKEN'
+            // DTD.g:31:7: ( '+' )
+            // DTD.g:31:9: '+'
             {
-            match("NMTOKEN"); 
-
+            match('+'); 
 
             }
 
@@ -434,8 +215,238 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:7: ( 'NMTOKENS' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:43:9: 'NMTOKENS'
+            // DTD.g:32:7: ( '|' )
+            // DTD.g:32:9: '|'
+            {
+            match('|'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__46"
+
+    // $ANTLR start "T__47"
+    public final void mT__47() throws RecognitionException {
+        try {
+            int _type = T__47;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:33:7: ( '#PCDATA' )
+            // DTD.g:33:9: '#PCDATA'
+            {
+            match("#PCDATA"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__47"
+
+    // $ANTLR start "T__48"
+    public final void mT__48() throws RecognitionException {
+        try {
+            int _type = T__48;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:34:7: ( '<!ATTLIST' )
+            // DTD.g:34:9: '<!ATTLIST'
+            {
+            match("<!ATTLIST"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__48"
+
+    // $ANTLR start "T__49"
+    public final void mT__49() throws RecognitionException {
+        try {
+            int _type = T__49;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:35:7: ( 'NOTATION' )
+            // DTD.g:35:9: 'NOTATION'
+            {
+            match("NOTATION"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__49"
+
+    // $ANTLR start "T__50"
+    public final void mT__50() throws RecognitionException {
+        try {
+            int _type = T__50;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:36:7: ( 'CDATA' )
+            // DTD.g:36:9: 'CDATA'
+            {
+            match("CDATA"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__50"
+
+    // $ANTLR start "T__51"
+    public final void mT__51() throws RecognitionException {
+        try {
+            int _type = T__51;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:37:7: ( 'ID' )
+            // DTD.g:37:9: 'ID'
+            {
+            match("ID"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__51"
+
+    // $ANTLR start "T__52"
+    public final void mT__52() throws RecognitionException {
+        try {
+            int _type = T__52;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:38:7: ( 'IDREF' )
+            // DTD.g:38:9: 'IDREF'
+            {
+            match("IDREF"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__52"
+
+    // $ANTLR start "T__53"
+    public final void mT__53() throws RecognitionException {
+        try {
+            int _type = T__53;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:39:7: ( 'IDREFS' )
+            // DTD.g:39:9: 'IDREFS'
+            {
+            match("IDREFS"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__53"
+
+    // $ANTLR start "T__54"
+    public final void mT__54() throws RecognitionException {
+        try {
+            int _type = T__54;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:40:7: ( 'ENTITY' )
+            // DTD.g:40:9: 'ENTITY'
+            {
+            match("ENTITY"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__54"
+
+    // $ANTLR start "T__55"
+    public final void mT__55() throws RecognitionException {
+        try {
+            int _type = T__55;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:41:7: ( 'ENTITIES' )
+            // DTD.g:41:9: 'ENTITIES'
+            {
+            match("ENTITIES"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__55"
+
+    // $ANTLR start "T__56"
+    public final void mT__56() throws RecognitionException {
+        try {
+            int _type = T__56;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:42:7: ( 'NMTOKEN' )
+            // DTD.g:42:9: 'NMTOKEN'
+            {
+            match("NMTOKEN"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__56"
+
+    // $ANTLR start "T__57"
+    public final void mT__57() throws RecognitionException {
+        try {
+            int _type = T__57;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:43:7: ( 'NMTOKENS' )
+            // DTD.g:43:9: 'NMTOKENS'
             {
             match("NMTOKENS"); 
 
@@ -448,19 +459,19 @@ public class DTDLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__46"
+    // $ANTLR end "T__57"
 
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // DTD.g:85:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // DTD.g:85:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             match("<!--"); 
 
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:16: ( options {greedy=false; } : . )*
+            // DTD.g:85:16: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -494,7 +505,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:70:43: .
+            	    // DTD.g:85:43: .
             	    {
             	    matchAny(); 
 
@@ -525,8 +536,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:3: ( '@' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:73:5: '@'
+            // DTD.g:88:3: ( '@' )
+            // DTD.g:88:5: '@'
             {
             match('@'); 
 
@@ -545,8 +556,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:6: ( ':' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:74:8: ':'
+            // DTD.g:89:6: ( ':' )
+            // DTD.g:89:8: ':'
             {
             match(':'); 
 
@@ -565,8 +576,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:6: ( ',' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:75:8: ','
+            // DTD.g:90:6: ( ',' )
+            // DTD.g:90:8: ','
             {
             match(','); 
 
@@ -585,8 +596,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Apos;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:5: ( '\\'' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:76:7: '\\''
+            // DTD.g:91:5: ( '\\'' )
+            // DTD.g:91:7: '\\''
             {
             match('\''); 
 
@@ -605,8 +616,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Quot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:5: ( '\"' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:77:7: '\"'
+            // DTD.g:92:5: ( '\"' )
+            // DTD.g:92:7: '\"'
             {
             match('\"'); 
 
@@ -625,8 +636,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:4: ( '.' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:78:6: '.'
+            // DTD.g:93:4: ( '.' )
+            // DTD.g:93:6: '.'
             {
             match('.'); 
 
@@ -645,8 +656,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = SemiColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:10: ( ';' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:79:12: ';'
+            // DTD.g:94:10: ( ';' )
+            // DTD.g:94:12: ';'
             {
             match(';'); 
 
@@ -665,8 +676,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:7: ( '(' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:81:9: '('
+            // DTD.g:96:7: ( '(' )
+            // DTD.g:96:9: '('
             {
             match('('); 
 
@@ -685,8 +696,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:7: ( ')' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:82:9: ')'
+            // DTD.g:97:7: ( ')' )
+            // DTD.g:97:9: ')'
             {
             match(')'); 
 
@@ -703,8 +714,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:84:16: ( 'a' .. 'z' | 'A' .. 'Z' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            // DTD.g:99:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // DTD.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -727,8 +738,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:15: ( '0' .. '9' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:85:17: '0' .. '9'
+            // DTD.g:100:15: ( '0' .. '9' )
+            // DTD.g:100:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -745,10 +756,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:7: ( ( Digit )+ )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
+            // DTD.g:101:7: ( ( Digit )+ )
+            // DTD.g:101:9: ( Digit )+
             {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:9: ( Digit )+
+            // DTD.g:101:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -762,7 +773,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:86:10: Digit
+            	    // DTD.g:101:10: Digit
             	    {
             	    mDigit(); 
 
@@ -792,8 +803,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:88:18: ( Letter | Digit | '_' | '-' | At )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            // DTD.g:103:18: ( Letter | Digit | '_' | '-' | At )
+            // DTD.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='@' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -818,10 +829,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:105:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // DTD.g:105:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:90:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:105:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -835,7 +846,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+            	    // DTD.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
             	        input.consume();
@@ -876,7 +887,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
+            // DTD.g:108:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -894,10 +905,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:3: Quot (~ '\"' )* Quot
+                    // DTD.g:108:3: Quot (~ '\"' )* Quot
                     {
                     mQuot(); 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:8: (~ '\"' )*
+                    // DTD.g:108:8: (~ '\"' )*
                     loop4:
                     do {
                         int alt4=2;
@@ -910,7 +921,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:93:9: ~ '\"'
+                    	    // DTD.g:108:9: ~ '\"'
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -935,10 +946,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:3: Apos (~ '\\'' )* Apos
+                    // DTD.g:109:3: Apos (~ '\\'' )* Apos
                     {
                     mApos(); 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:8: (~ '\\'' )*
+                    // DTD.g:109:8: (~ '\\'' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -951,7 +962,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:94:9: ~ '\\''
+                    	    // DTD.g:109:9: ~ '\\''
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -990,8 +1001,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:5: ( ( Letter | '_' ) ( NameChar )* )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:7: ( Letter | '_' ) ( NameChar )*
+            // DTD.g:111:5: ( ( Letter | '_' ) ( NameChar )* )
+            // DTD.g:111:7: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1002,7 +1013,7 @@ public class DTDLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: ( NameChar )*
+            // DTD.g:111:22: ( NameChar )*
             loop7:
             do {
                 int alt7=2;
@@ -1015,7 +1026,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:96:22: NameChar
+            	    // DTD.g:111:22: NameChar
             	    {
             	    mNameChar(); 
 
@@ -1041,7 +1052,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "AttValue"
     public final void mAttValue() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:99:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
+            // DTD.g:114:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1059,10 +1070,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
+                    // DTD.g:115:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
                     {
                     mQuot(); 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:10: (~ ( '<' | '&' | Quot ) | Reference )*
+                    // DTD.g:115:10: (~ ( '<' | '&' | Quot ) | Reference )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1078,7 +1089,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:11: ~ ( '<' | '&' | Quot )
+                    	    // DTD.g:115:11: ~ ( '<' | '&' | Quot )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1093,7 +1104,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:100:33: Reference
+                    	    // DTD.g:115:33: Reference
                     	    {
                     	    mReference(); 
 
@@ -1110,10 +1121,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
+                    // DTD.g:116:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
                     {
                     mApos(); 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:12: (~ ( '<' | '&' | Apos ) | Reference )*
+                    // DTD.g:116:12: (~ ( '<' | '&' | Apos ) | Reference )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1129,7 +1140,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:13: ~ ( '<' | '&' | Apos )
+                    	    // DTD.g:116:13: ~ ( '<' | '&' | Apos )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1144,7 +1155,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:101:35: Reference
+                    	    // DTD.g:116:35: Reference
                     	    {
                     	    mReference(); 
 
@@ -1173,7 +1184,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Reference;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:10: ( EntityRef | CharRef )
+            // DTD.g:119:10: ( EntityRef | CharRef )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1201,14 +1212,14 @@ public class DTDLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:12: EntityRef
+                    // DTD.g:119:12: EntityRef
                     {
                     mEntityRef(); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:104:24: CharRef
+                    // DTD.g:119:24: CharRef
                     {
                     mCharRef(); 
 
@@ -1227,8 +1238,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "EntityRef"
     public final void mEntityRef() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:19: ( '&' Name SemiColon )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:105:21: '&' Name SemiColon
+            // DTD.g:120:19: ( '&' Name SemiColon )
+            // DTD.g:120:21: '&' Name SemiColon
             {
             match('&'); 
             mName(); 
@@ -1245,7 +1256,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "CharRef"
     public final void mCharRef() throws RecognitionException {
         try {
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
+            // DTD.g:121:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1283,11 +1294,11 @@ public class DTDLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:19: '&#' ( '0' .. '9' )+ SemiColon
+                    // DTD.g:121:19: '&#' ( '0' .. '9' )+ SemiColon
                     {
                     match("&#"); 
 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:24: ( '0' .. '9' )+
+                    // DTD.g:121:24: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1301,7 +1312,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:25: '0' .. '9'
+                    	    // DTD.g:121:25: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1322,11 +1333,11 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
+                    // DTD.g:121:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
                     {
                     match("&#x"); 
 
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:106:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // DTD.g:121:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1340,7 +1351,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:
+                    	    // DTD.g:
                     	    {
                     	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                     	        input.consume();
@@ -1381,7 +1392,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = DefaultDecl;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:12: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
+            // DTD.g:124:12: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
             int alt16=3;
             int LA16_0 = input.LA(1);
 
@@ -1421,7 +1432,7 @@ public class DTDLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:14: '#REQUIRED'
+                    // DTD.g:124:14: '#REQUIRED'
                     {
                     match("#REQUIRED"); 
 
@@ -1429,7 +1440,7 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:28: '#IMPLIED'
+                    // DTD.g:124:28: '#IMPLIED'
                     {
                     match("#IMPLIED"); 
 
@@ -1437,12 +1448,12 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:124:41: ( ( '#FIXED' )? AttValue )
                     {
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:41: ( ( '#FIXED' )? AttValue )
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )? AttValue
+                    // DTD.g:124:41: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:124:42: ( '#FIXED' )? AttValue
                     {
-                    // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: ( '#FIXED' )?
+                    // DTD.g:124:42: ( '#FIXED' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1451,7 +1462,7 @@ public class DTDLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:109:42: '#FIXED'
+                            // DTD.g:124:42: '#FIXED'
                             {
                             match("#FIXED"); 
 
@@ -1483,8 +1494,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Element;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:8: ( '<!ELEMENT' )
-            // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:111:10: '<!ELEMENT'
+            // DTD.g:126:8: ( '<!ELEMENT' )
+            // DTD.g:126:10: '<!ELEMENT'
             {
             match("<!ELEMENT"); 
 
@@ -1500,250 +1511,250 @@ public class DTDLexer extends Lexer {
     // $ANTLR end "Element"
 
     public void mTokens() throws RecognitionException {
-        // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:8: ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element )
+        // DTD.g:1:8: ( T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element )
         int alt17=35;
         alt17 = dfa17.predict(input);
         switch (alt17) {
             case 1 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:10: T__29
-                {
-                mT__29(); 
-
-                }
-                break;
-            case 2 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:16: T__30
-                {
-                mT__30(); 
-
-                }
-                break;
-            case 3 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:22: T__31
-                {
-                mT__31(); 
-
-                }
-                break;
-            case 4 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:28: T__32
-                {
-                mT__32(); 
-
-                }
-                break;
-            case 5 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:34: T__33
-                {
-                mT__33(); 
-
-                }
-                break;
-            case 6 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:40: T__34
-                {
-                mT__34(); 
-
-                }
-                break;
-            case 7 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:46: T__35
-                {
-                mT__35(); 
-
-                }
-                break;
-            case 8 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:52: T__36
-                {
-                mT__36(); 
-
-                }
-                break;
-            case 9 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:58: T__37
-                {
-                mT__37(); 
-
-                }
-                break;
-            case 10 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:64: T__38
-                {
-                mT__38(); 
-
-                }
-                break;
-            case 11 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:70: T__39
-                {
-                mT__39(); 
-
-                }
-                break;
-            case 12 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:76: T__40
+                // DTD.g:1:10: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
-            case 13 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:82: T__41
+            case 2 :
+                // DTD.g:1:16: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
-            case 14 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:88: T__42
+            case 3 :
+                // DTD.g:1:22: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 15 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:94: T__43
+            case 4 :
+                // DTD.g:1:28: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 16 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:100: T__44
+            case 5 :
+                // DTD.g:1:34: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 17 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:106: T__45
+            case 6 :
+                // DTD.g:1:40: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 18 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:112: T__46
+            case 7 :
+                // DTD.g:1:46: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
+            case 8 :
+                // DTD.g:1:52: T__47
+                {
+                mT__47(); 
+
+                }
+                break;
+            case 9 :
+                // DTD.g:1:58: T__48
+                {
+                mT__48(); 
+
+                }
+                break;
+            case 10 :
+                // DTD.g:1:64: T__49
+                {
+                mT__49(); 
+
+                }
+                break;
+            case 11 :
+                // DTD.g:1:70: T__50
+                {
+                mT__50(); 
+
+                }
+                break;
+            case 12 :
+                // DTD.g:1:76: T__51
+                {
+                mT__51(); 
+
+                }
+                break;
+            case 13 :
+                // DTD.g:1:82: T__52
+                {
+                mT__52(); 
+
+                }
+                break;
+            case 14 :
+                // DTD.g:1:88: T__53
+                {
+                mT__53(); 
+
+                }
+                break;
+            case 15 :
+                // DTD.g:1:94: T__54
+                {
+                mT__54(); 
+
+                }
+                break;
+            case 16 :
+                // DTD.g:1:100: T__55
+                {
+                mT__55(); 
+
+                }
+                break;
+            case 17 :
+                // DTD.g:1:106: T__56
+                {
+                mT__56(); 
+
+                }
+                break;
+            case 18 :
+                // DTD.g:1:112: T__57
+                {
+                mT__57(); 
+
+                }
+                break;
             case 19 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:118: ML_COMMENT
+                // DTD.g:1:118: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
                 }
                 break;
             case 20 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:129: At
+                // DTD.g:1:129: At
                 {
                 mAt(); 
 
                 }
                 break;
             case 21 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:132: Colon
+                // DTD.g:1:132: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 22 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:138: Comma
+                // DTD.g:1:138: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 23 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:144: Apos
+                // DTD.g:1:144: Apos
                 {
                 mApos(); 
 
                 }
                 break;
             case 24 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:149: Quot
+                // DTD.g:1:149: Quot
                 {
                 mQuot(); 
 
                 }
                 break;
             case 25 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:154: Dot
+                // DTD.g:1:154: Dot
                 {
                 mDot(); 
 
                 }
                 break;
             case 26 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:158: SemiColon
+                // DTD.g:1:158: SemiColon
                 {
                 mSemiColon(); 
 
                 }
                 break;
             case 27 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:168: LParen
+                // DTD.g:1:168: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 28 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:175: RParen
+                // DTD.g:1:175: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 29 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:182: Digits
+                // DTD.g:1:182: Digits
                 {
                 mDigits(); 
 
                 }
                 break;
             case 30 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:189: WhiteSpaceChar
+                // DTD.g:1:189: WhiteSpaceChar
                 {
                 mWhiteSpaceChar(); 
 
                 }
                 break;
             case 31 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:204: StringLiteral
+                // DTD.g:1:204: StringLiteral
                 {
                 mStringLiteral(); 
 
                 }
                 break;
             case 32 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:218: Name
+                // DTD.g:1:218: Name
                 {
                 mName(); 
 
                 }
                 break;
             case 33 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:223: Reference
+                // DTD.g:1:223: Reference
                 {
                 mReference(); 
 
                 }
                 break;
             case 34 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:233: DefaultDecl
+                // DTD.g:1:233: DefaultDecl
                 {
                 mDefaultDecl(); 
 
                 }
                 break;
             case 35 :
-                // D:\\work\\eclipse\\xerial\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g:1:245: Element
+                // DTD.g:1:245: Element
                 {
                 mElement(); 
 
@@ -1948,7 +1959,7 @@ public class DTDLexer extends Lexer {
             this.transition = DFA17_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element );";
+            return "1:1: Tokens : ( T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;

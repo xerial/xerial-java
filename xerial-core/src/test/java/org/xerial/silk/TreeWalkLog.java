@@ -188,10 +188,12 @@ public class TreeWalkLog implements TreeVisitor {
             EventLog e1 = i1.next();
             EventLog e2 = i2.next();
 
-            _logger.debug(String.format("compare: %-20s %-20s", e1, e2));
             if (!e1.equals(e2) && doComparison) {
-                _logger.warn(String.format("----- mismatch: %-20s %-20s", e1, e2));
+                _logger.warn(String.format("--mismatch- %-20s %-20s", e1, e2));
                 doComparison = false;
+            }
+            else {
+                _logger.debug(String.format("compare ok: %-20s %-20s", e1, e2));
             }
         }
         if (l1.size() != l2.size())
