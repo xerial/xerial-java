@@ -84,7 +84,7 @@ public class DTD {
 
     public static class Attlist {
         public String name;
-        public List<Attribute> attributes = new ArrayList<Attribute>();
+        public List<Attribute> attribute = new ArrayList<Attribute>();
     }
 
     public static enum StringType {

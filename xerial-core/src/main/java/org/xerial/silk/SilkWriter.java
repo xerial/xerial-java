@@ -148,6 +148,7 @@ public class SilkWriter {
     }
 
     public void endDocument() {
+        usabilityCheck();
         attributeParenCloseCheck(true);
         flush();
     }
@@ -385,8 +386,22 @@ public class SilkWriter {
                 out.print(" ");
             if (formatConfig.insertTagAfterAttributeColon)
                 out.print("\t");
-            out.print(nodeValue);
+            out.print(sanitizeInLineNodeValue(nodeValue));
         }
+    }
+
+    String sanitizeInLineNodeValue(String nodeValue) {
+        // TODO impl
+        return nodeValue;
+    }
+
+    /**
+     * Test whether this writer is usable or not
+     * 
+     * @return
+     */
+    public boolean isUsable() {
+        return isUsable;
     }
 
     void colonAndNodeValue(String nodeValue) {
@@ -433,7 +448,11 @@ public class SilkWriter {
             return this;
 
         if (TypeInfo.isBasicType(v.getClass())) {
-            leaf(leafNodeName, v.toString());
+
+            if (parent != null)
+                attribute(leafNodeName, v.toString());
+            else
+                leaf(leafNodeName, v.toString());
         }
         else {
             SilkWriter c = node(leafNodeName);
@@ -447,10 +466,12 @@ public class SilkWriter {
         if (obj == null)
             return this;
 
+        usabilityCheck();
+
         Class< ? > c = obj.getClass();
 
         if (TypeInfo.isBasicType(c)) {
-            return leaf(getContextNodeName(), obj.toString());
+            return nodeValue(obj.toString());
         }
 
         ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
@@ -500,6 +521,9 @@ public class SilkWriter {
         else {
             outputParemters(lens, obj);
         }
+
+        attributeParenCloseCheck(false);
+
         return this;
     }
 
@@ -512,7 +536,8 @@ public class SilkWriter {
 
                 if (!collection.isEmpty()) {
                     for (Object elem : collection) {
-                        leafObject(getter.getParamName(), elem);
+                        SilkWriter w = node(getter.getParamName());
+                        w.toSilk(elem);
                     }
                 }
             }
@@ -521,9 +546,7 @@ public class SilkWriter {
 
                 if (!map.isEmpty()) {
 
-                    String mapElemName = getContextNodeName();
-                    if (mapElemName == null)
-                        mapElemName = "entry";
+                    String mapElemName = getter.getParamName();
 
                     for (Entry< ? , ? > each : map.entrySet()) {
                         Object key = each.getKey();

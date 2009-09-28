@@ -121,7 +121,11 @@ fragment EntityRef: '&' Name SemiColon;
 fragment CharRef: '&#' ('0'..'9')+ SemiColon | '&#x' ('0'..'9' | 'a'..'f' | 'A'..'F')+ SemiColon
 	;
 	
-DefaultDecl: '#REQUIRED' | '#IMPLIED' | ('#FIXED'? AttValue); 
+DefaultDecl
+  : '#REQUIRED' { setText("REQUIRED"); }
+  | '#IMPLIED' { setText("IMPLIED"); }
+  | ('#FIXED'? AttValue)  { setText("FIXED"); }
+  ; 
 
 Element: '<!ELEMENT';
 
@@ -210,7 +214,7 @@ attlistDecl: '<!ATTLIST' Name attDef* '>'
 	
 fragment
 attDef: Name attType DefaultDecl
-  -> ^(ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text.substring(1])
+  -> ^(ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text])
 	;
 		
 fragment

@@ -96,11 +96,14 @@ public class SilkWriterTest {
 
     static class A {
         public String name;
+        public boolean flag = true;
         public List<B> b = new ArrayList<B>();
     }
 
     static class B {
         public int id;
+        public String type = "B";
+        public List<String> item = new ArrayList<String>();
 
         public B(int id) {
             this.id = id;
@@ -112,11 +115,18 @@ public class SilkWriterTest {
     public void toSilkObject() throws Exception {
         StringWriter buf = new StringWriter();
         SilkWriter w = new SilkWriter(buf);
+        w = w.node("silk");
 
         A a = new A();
         a.name = "leo";
         a.b.add(new B(10));
-        a.b.add(new B(20));
+        B b = new B(20);
+        a.b.add(b);
+
+        b.item.add("hello");
+        b.item.add("world");
+
+        a.b.add(new B(30));
 
         w.toSilk(a);
         w.endDocument();

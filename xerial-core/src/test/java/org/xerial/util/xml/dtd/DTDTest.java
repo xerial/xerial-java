@@ -48,7 +48,6 @@ public class DTDTest {
     public void testParse() throws XerialException, IOException {
         DTD d = DTD.parse(FileResource.open(DTDTest.class, "auction.dtd"));
         _logger.debug(Lens.toSilk(d));
-
     }
 
 }
