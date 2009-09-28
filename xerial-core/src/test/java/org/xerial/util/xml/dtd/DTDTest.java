@@ -50,4 +50,15 @@ public class DTDTest {
         _logger.debug(Lens.toSilk(d));
     }
 
+    @Test
+    public void testParseDBLP() throws XerialException, IOException {
+        DTD d = DTD.parse(FileResource.open(DTDTest.class, "dblp.dtd"));
+        _logger.debug(Lens.toSilk(d));
+    }
+
+    @Test
+    public void testParseSIGMODRecord() throws XerialException, IOException {
+        DTD d = DTD.parse(FileResource.open(DTDTest.class, "SigmodRecord.dtd"));
+        _logger.debug(Lens.toSilk(d));
+    }
 }

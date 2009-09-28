@@ -35,6 +35,8 @@ ELEMENT;
 COMPONENT;
 OCCURRENCE;
 CONTENTSPEC;
+ENTITY;
+VALUE;
 }
 
  
@@ -104,7 +106,7 @@ fragment NameChar: Letter | Digit | '_' | '-' | At;
 
 WhiteSpaceChar: ( ' ' | '\t' | '\n' | '\r' | '\u000C')+ { $channel=HIDDEN; };
 
-StringLiteral
+String
 : Quot (~'"')* Quot
 | Apos (~'\'')* Apos;
 
@@ -151,7 +153,7 @@ dtd: markupdecl*
 ;
 
 fragment
-markupdecl: elementDecl | attlistDecl;
+markupdecl: elementDecl | attlistDecl | entityDecl ;
 
 elementDecl: Element Name contentSpec '>'
   -> ^(ELEMENT NAME[$Name.text] contentSpec)
@@ -239,3 +241,10 @@ fragment
 tokenizedType
   : 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS'
 	;
+
+	
+entityDecl
+  : '<!ENTITY' Name String '>' -> ^(ENTITY NAME[$Name.text] VALUE[$String.text])
+  | '<!ENTITY' '%' Name String '>' -> ^(ENTITY NAME[$Name.text] VALUE[$String.text])
+  ;	
+  

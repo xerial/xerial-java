@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-09-28 18:58:24
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-09-28 19:12:55
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -23,56 +23,60 @@ public class DTDLexer extends Lexer {
     public static final int CONTENTSPEC=16;
     public static final int T__42=42;
     public static final int ELEMENT=13;
-    public static final int DefaultDecl=38;
-    public static final int Apos=21;
+    public static final int DefaultDecl=40;
+    public static final int Apos=23;
     public static final int T__57=57;
-    public static final int Digit=28;
-    public static final int SemiColon=24;
+    public static final int Digit=30;
+    public static final int SemiColon=26;
     public static final int T__51=51;
     public static final int T__47=47;
     public static final int T__50=50;
+    public static final int ENTITY=17;
     public static final int ATTLIST=10;
+    public static final int VALUE=18;
     public static final int TOKENIZEDTYPE=6;
-    public static final int AttValue=35;
-    public static final int Letter=27;
+    public static final int AttValue=37;
+    public static final int Letter=29;
     public static final int T__52=52;
     public static final int T__46=46;
-    public static final int Comma=20;
-    public static final int Dot=23;
+    public static final int Comma=22;
+    public static final int Dot=25;
     public static final int T__49=49;
+    public static final int T__61=61;
+    public static final int T__59=59;
     public static final int DECL=11;
-    public static final int ML_COMMENT=17;
+    public static final int ML_COMMENT=19;
     public static final int T__54=54;
     public static final int T__48=48;
-    public static final int EntityRef=36;
-    public static final int Colon=19;
+    public static final int EntityRef=38;
+    public static final int Colon=21;
     public static final int T__56=56;
-    public static final int At=18;
+    public static final int At=20;
     public static final int STRINGTYPE=5;
-    public static final int NameChar=30;
+    public static final int NameChar=32;
     public static final int DTD=4;
+    public static final int T__58=58;
     public static final int T__44=44;
-    public static final int RParen=26;
-    public static final int StringLiteral=32;
-    public static final int Name=33;
-    public static final int T__55=55;
+    public static final int RParen=28;
+    public static final int Name=35;
     public static final int T__45=45;
-    public static final int LParen=25;
-    public static final int CharRef=37;
+    public static final int T__55=55;
+    public static final int LParen=27;
+    public static final int String=34;
+    public static final int CharRef=39;
     public static final int OCCURRENCE=15;
     public static final int T__43=43;
-    public static final int T__40=40;
-    public static final int WhiteSpaceChar=31;
+    public static final int WhiteSpaceChar=33;
     public static final int EOF=-1;
     public static final int T__53=53;
-    public static final int Reference=34;
+    public static final int Reference=36;
     public static final int COMPONENT=14;
-    public static final int Quot=22;
     public static final int ATTRIBUTE=9;
+    public static final int Quot=24;
     public static final int NAME=8;
-    public static final int Digits=29;
-    public static final int T__41=41;
-    public static final int Element=39;
+    public static final int T__60=60;
+    public static final int Digits=31;
+    public static final int Element=41;
     public static final int ENUMTYPE=7;
 
     // delegates
@@ -88,57 +92,15 @@ public class DTDLexer extends Lexer {
     }
     public String getGrammarFileName() { return "DTD.g"; }
 
-    // $ANTLR start "T__40"
-    public final void mT__40() throws RecognitionException {
-        try {
-            int _type = T__40;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:26:7: ( '>' )
-            // DTD.g:26:9: '>'
-            {
-            match('>'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__40"
-
-    // $ANTLR start "T__41"
-    public final void mT__41() throws RecognitionException {
-        try {
-            int _type = T__41;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:27:7: ( 'EMPTY' )
-            // DTD.g:27:9: 'EMPTY'
-            {
-            match("EMPTY"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__41"
-
     // $ANTLR start "T__42"
     public final void mT__42() throws RecognitionException {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:28:7: ( 'ANY' )
-            // DTD.g:28:9: 'ANY'
+            // DTD.g:26:7: ( '>' )
+            // DTD.g:26:9: '>'
             {
-            match("ANY"); 
-
+            match('>'); 
 
             }
 
@@ -155,10 +117,11 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:29:7: ( '?' )
-            // DTD.g:29:9: '?'
+            // DTD.g:27:7: ( 'EMPTY' )
+            // DTD.g:27:9: 'EMPTY'
             {
-            match('?'); 
+            match("EMPTY"); 
+
 
             }
 
@@ -175,10 +138,11 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:30:7: ( '*' )
-            // DTD.g:30:9: '*'
+            // DTD.g:28:7: ( 'ANY' )
+            // DTD.g:28:9: 'ANY'
             {
-            match('*'); 
+            match("ANY"); 
+
 
             }
 
@@ -195,10 +159,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:31:7: ( '+' )
-            // DTD.g:31:9: '+'
+            // DTD.g:29:7: ( '?' )
+            // DTD.g:29:9: '?'
             {
-            match('+'); 
+            match('?'); 
 
             }
 
@@ -215,10 +179,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:32:7: ( '|' )
-            // DTD.g:32:9: '|'
+            // DTD.g:30:7: ( '*' )
+            // DTD.g:30:9: '*'
             {
-            match('|'); 
+            match('*'); 
 
             }
 
@@ -235,11 +199,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:33:7: ( '#PCDATA' )
-            // DTD.g:33:9: '#PCDATA'
+            // DTD.g:31:7: ( '+' )
+            // DTD.g:31:9: '+'
             {
-            match("#PCDATA"); 
-
+            match('+'); 
 
             }
 
@@ -256,11 +219,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:34:7: ( '<!ATTLIST' )
-            // DTD.g:34:9: '<!ATTLIST'
+            // DTD.g:32:7: ( '|' )
+            // DTD.g:32:9: '|'
             {
-            match("<!ATTLIST"); 
-
+            match('|'); 
 
             }
 
@@ -277,10 +239,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:35:7: ( 'NOTATION' )
-            // DTD.g:35:9: 'NOTATION'
+            // DTD.g:33:7: ( '#PCDATA' )
+            // DTD.g:33:9: '#PCDATA'
             {
-            match("NOTATION"); 
+            match("#PCDATA"); 
 
 
             }
@@ -298,10 +260,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:36:7: ( 'CDATA' )
-            // DTD.g:36:9: 'CDATA'
+            // DTD.g:34:7: ( '<!ATTLIST' )
+            // DTD.g:34:9: '<!ATTLIST'
             {
-            match("CDATA"); 
+            match("<!ATTLIST"); 
 
 
             }
@@ -319,10 +281,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:37:7: ( 'ID' )
-            // DTD.g:37:9: 'ID'
+            // DTD.g:35:7: ( 'NOTATION' )
+            // DTD.g:35:9: 'NOTATION'
             {
-            match("ID"); 
+            match("NOTATION"); 
 
 
             }
@@ -340,10 +302,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:38:7: ( 'IDREF' )
-            // DTD.g:38:9: 'IDREF'
+            // DTD.g:36:7: ( 'CDATA' )
+            // DTD.g:36:9: 'CDATA'
             {
-            match("IDREF"); 
+            match("CDATA"); 
 
 
             }
@@ -361,10 +323,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:39:7: ( 'IDREFS' )
-            // DTD.g:39:9: 'IDREFS'
+            // DTD.g:37:7: ( 'ID' )
+            // DTD.g:37:9: 'ID'
             {
-            match("IDREFS"); 
+            match("ID"); 
 
 
             }
@@ -382,10 +344,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:40:7: ( 'ENTITY' )
-            // DTD.g:40:9: 'ENTITY'
+            // DTD.g:38:7: ( 'IDREF' )
+            // DTD.g:38:9: 'IDREF'
             {
-            match("ENTITY"); 
+            match("IDREF"); 
 
 
             }
@@ -403,10 +365,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:41:7: ( 'ENTITIES' )
-            // DTD.g:41:9: 'ENTITIES'
+            // DTD.g:39:7: ( 'IDREFS' )
+            // DTD.g:39:9: 'IDREFS'
             {
-            match("ENTITIES"); 
+            match("IDREFS"); 
 
 
             }
@@ -424,10 +386,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:42:7: ( 'NMTOKEN' )
-            // DTD.g:42:9: 'NMTOKEN'
+            // DTD.g:40:7: ( 'ENTITY' )
+            // DTD.g:40:9: 'ENTITY'
             {
-            match("NMTOKEN"); 
+            match("ENTITY"); 
 
 
             }
@@ -445,6 +407,48 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:41:7: ( 'ENTITIES' )
+            // DTD.g:41:9: 'ENTITIES'
+            {
+            match("ENTITIES"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__57"
+
+    // $ANTLR start "T__58"
+    public final void mT__58() throws RecognitionException {
+        try {
+            int _type = T__58;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:42:7: ( 'NMTOKEN' )
+            // DTD.g:42:9: 'NMTOKEN'
+            {
+            match("NMTOKEN"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__58"
+
+    // $ANTLR start "T__59"
+    public final void mT__59() throws RecognitionException {
+        try {
+            int _type = T__59;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
             // DTD.g:43:7: ( 'NMTOKENS' )
             // DTD.g:43:9: 'NMTOKENS'
             {
@@ -459,19 +463,60 @@ public class DTDLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__57"
+    // $ANTLR end "T__59"
+
+    // $ANTLR start "T__60"
+    public final void mT__60() throws RecognitionException {
+        try {
+            int _type = T__60;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:44:7: ( '<!ENTITY' )
+            // DTD.g:44:9: '<!ENTITY'
+            {
+            match("<!ENTITY"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__60"
+
+    // $ANTLR start "T__61"
+    public final void mT__61() throws RecognitionException {
+        try {
+            int _type = T__61;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:45:7: ( '%' )
+            // DTD.g:45:9: '%'
+            {
+            match('%'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__61"
 
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:85:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // DTD.g:85:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // DTD.g:87:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // DTD.g:87:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             match("<!--"); 
 
-            // DTD.g:85:16: ( options {greedy=false; } : . )*
+            // DTD.g:87:16: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -505,7 +550,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // DTD.g:85:43: .
+            	    // DTD.g:87:43: .
             	    {
             	    matchAny(); 
 
@@ -536,8 +581,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:88:3: ( '@' )
-            // DTD.g:88:5: '@'
+            // DTD.g:90:3: ( '@' )
+            // DTD.g:90:5: '@'
             {
             match('@'); 
 
@@ -556,8 +601,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:89:6: ( ':' )
-            // DTD.g:89:8: ':'
+            // DTD.g:91:6: ( ':' )
+            // DTD.g:91:8: ':'
             {
             match(':'); 
 
@@ -576,8 +621,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:90:6: ( ',' )
-            // DTD.g:90:8: ','
+            // DTD.g:92:6: ( ',' )
+            // DTD.g:92:8: ','
             {
             match(','); 
 
@@ -596,8 +641,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Apos;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:91:5: ( '\\'' )
-            // DTD.g:91:7: '\\''
+            // DTD.g:93:5: ( '\\'' )
+            // DTD.g:93:7: '\\''
             {
             match('\''); 
 
@@ -616,8 +661,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Quot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:92:5: ( '\"' )
-            // DTD.g:92:7: '\"'
+            // DTD.g:94:5: ( '\"' )
+            // DTD.g:94:7: '\"'
             {
             match('\"'); 
 
@@ -636,8 +681,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:93:4: ( '.' )
-            // DTD.g:93:6: '.'
+            // DTD.g:95:4: ( '.' )
+            // DTD.g:95:6: '.'
             {
             match('.'); 
 
@@ -656,8 +701,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = SemiColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:94:10: ( ';' )
-            // DTD.g:94:12: ';'
+            // DTD.g:96:10: ( ';' )
+            // DTD.g:96:12: ';'
             {
             match(';'); 
 
@@ -676,8 +721,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:96:7: ( '(' )
-            // DTD.g:96:9: '('
+            // DTD.g:98:7: ( '(' )
+            // DTD.g:98:9: '('
             {
             match('('); 
 
@@ -696,8 +741,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:97:7: ( ')' )
-            // DTD.g:97:9: ')'
+            // DTD.g:99:7: ( ')' )
+            // DTD.g:99:9: ')'
             {
             match(')'); 
 
@@ -714,7 +759,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // DTD.g:99:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // DTD.g:101:16: ( 'a' .. 'z' | 'A' .. 'Z' )
             // DTD.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -738,8 +783,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // DTD.g:100:15: ( '0' .. '9' )
-            // DTD.g:100:17: '0' .. '9'
+            // DTD.g:102:15: ( '0' .. '9' )
+            // DTD.g:102:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -756,10 +801,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:101:7: ( ( Digit )+ )
-            // DTD.g:101:9: ( Digit )+
+            // DTD.g:103:7: ( ( Digit )+ )
+            // DTD.g:103:9: ( Digit )+
             {
-            // DTD.g:101:9: ( Digit )+
+            // DTD.g:103:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -773,7 +818,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // DTD.g:101:10: Digit
+            	    // DTD.g:103:10: Digit
             	    {
             	    mDigit(); 
 
@@ -803,7 +848,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // DTD.g:103:18: ( Letter | Digit | '_' | '-' | At )
+            // DTD.g:105:18: ( Letter | Digit | '_' | '-' | At )
             // DTD.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='@' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -829,10 +874,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:105:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // DTD.g:105:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:107:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // DTD.g:105:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -882,12 +927,12 @@ public class DTDLexer extends Lexer {
     }
     // $ANTLR end "WhiteSpaceChar"
 
-    // $ANTLR start "StringLiteral"
-    public final void mStringLiteral() throws RecognitionException {
+    // $ANTLR start "String"
+    public final void mString() throws RecognitionException {
         try {
-            int _type = StringLiteral;
+            int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:108:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
+            // DTD.g:110:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -905,10 +950,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // DTD.g:108:3: Quot (~ '\"' )* Quot
+                    // DTD.g:110:3: Quot (~ '\"' )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:108:8: (~ '\"' )*
+                    // DTD.g:110:8: (~ '\"' )*
                     loop4:
                     do {
                         int alt4=2;
@@ -921,7 +966,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // DTD.g:108:9: ~ '\"'
+                    	    // DTD.g:110:9: ~ '\"'
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -946,10 +991,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:109:3: Apos (~ '\\'' )* Apos
+                    // DTD.g:111:3: Apos (~ '\\'' )* Apos
                     {
                     mApos(); 
-                    // DTD.g:109:8: (~ '\\'' )*
+                    // DTD.g:111:8: (~ '\\'' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -962,7 +1007,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // DTD.g:109:9: ~ '\\''
+                    	    // DTD.g:111:9: ~ '\\''
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -994,15 +1039,15 @@ public class DTDLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "StringLiteral"
+    // $ANTLR end "String"
 
     // $ANTLR start "Name"
     public final void mName() throws RecognitionException {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:111:5: ( ( Letter | '_' ) ( NameChar )* )
-            // DTD.g:111:7: ( Letter | '_' ) ( NameChar )*
+            // DTD.g:113:5: ( ( Letter | '_' ) ( NameChar )* )
+            // DTD.g:113:7: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1013,7 +1058,7 @@ public class DTDLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // DTD.g:111:22: ( NameChar )*
+            // DTD.g:113:22: ( NameChar )*
             loop7:
             do {
                 int alt7=2;
@@ -1026,7 +1071,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // DTD.g:111:22: NameChar
+            	    // DTD.g:113:22: NameChar
             	    {
             	    mNameChar(); 
 
@@ -1052,7 +1097,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "AttValue"
     public final void mAttValue() throws RecognitionException {
         try {
-            // DTD.g:114:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
+            // DTD.g:116:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1070,10 +1115,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // DTD.g:115:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
+                    // DTD.g:117:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:115:10: (~ ( '<' | '&' | Quot ) | Reference )*
+                    // DTD.g:117:10: (~ ( '<' | '&' | Quot ) | Reference )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1089,7 +1134,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // DTD.g:115:11: ~ ( '<' | '&' | Quot )
+                    	    // DTD.g:117:11: ~ ( '<' | '&' | Quot )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1104,7 +1149,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:115:33: Reference
+                    	    // DTD.g:117:33: Reference
                     	    {
                     	    mReference(); 
 
@@ -1121,10 +1166,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:116:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
+                    // DTD.g:118:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
                     {
                     mApos(); 
-                    // DTD.g:116:12: (~ ( '<' | '&' | Apos ) | Reference )*
+                    // DTD.g:118:12: (~ ( '<' | '&' | Apos ) | Reference )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1140,7 +1185,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // DTD.g:116:13: ~ ( '<' | '&' | Apos )
+                    	    // DTD.g:118:13: ~ ( '<' | '&' | Apos )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1155,7 +1200,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:116:35: Reference
+                    	    // DTD.g:118:35: Reference
                     	    {
                     	    mReference(); 
 
@@ -1184,7 +1229,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Reference;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:119:10: ( EntityRef | CharRef )
+            // DTD.g:121:10: ( EntityRef | CharRef )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1212,14 +1257,14 @@ public class DTDLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // DTD.g:119:12: EntityRef
+                    // DTD.g:121:12: EntityRef
                     {
                     mEntityRef(); 
 
                     }
                     break;
                 case 2 :
-                    // DTD.g:119:24: CharRef
+                    // DTD.g:121:24: CharRef
                     {
                     mCharRef(); 
 
@@ -1238,8 +1283,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "EntityRef"
     public final void mEntityRef() throws RecognitionException {
         try {
-            // DTD.g:120:19: ( '&' Name SemiColon )
-            // DTD.g:120:21: '&' Name SemiColon
+            // DTD.g:122:19: ( '&' Name SemiColon )
+            // DTD.g:122:21: '&' Name SemiColon
             {
             match('&'); 
             mName(); 
@@ -1256,7 +1301,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "CharRef"
     public final void mCharRef() throws RecognitionException {
         try {
-            // DTD.g:121:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
+            // DTD.g:123:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1294,11 +1339,11 @@ public class DTDLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // DTD.g:121:19: '&#' ( '0' .. '9' )+ SemiColon
+                    // DTD.g:123:19: '&#' ( '0' .. '9' )+ SemiColon
                     {
                     match("&#"); 
 
-                    // DTD.g:121:24: ( '0' .. '9' )+
+                    // DTD.g:123:24: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1312,7 +1357,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // DTD.g:121:25: '0' .. '9'
+                    	    // DTD.g:123:25: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1333,11 +1378,11 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:121:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
+                    // DTD.g:123:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
                     {
                     match("&#x"); 
 
-                    // DTD.g:121:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // DTD.g:123:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1392,7 +1437,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = DefaultDecl;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:125:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
+            // DTD.g:127:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
             int alt16=3;
             int LA16_0 = input.LA(1);
 
@@ -1432,7 +1477,7 @@ public class DTDLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // DTD.g:125:5: '#REQUIRED'
+                    // DTD.g:127:5: '#REQUIRED'
                     {
                     match("#REQUIRED"); 
 
@@ -1441,7 +1486,7 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:126:5: '#IMPLIED'
+                    // DTD.g:128:5: '#IMPLIED'
                     {
                     match("#IMPLIED"); 
 
@@ -1450,12 +1495,12 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // DTD.g:127:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
                     {
-                    // DTD.g:127:5: ( ( '#FIXED' )? AttValue )
-                    // DTD.g:127:6: ( '#FIXED' )? AttValue
+                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:129:6: ( '#FIXED' )? AttValue
                     {
-                    // DTD.g:127:6: ( '#FIXED' )?
+                    // DTD.g:129:6: ( '#FIXED' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1464,7 +1509,7 @@ public class DTDLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // DTD.g:127:6: '#FIXED'
+                            // DTD.g:129:6: '#FIXED'
                             {
                             match("#FIXED"); 
 
@@ -1497,8 +1542,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Element;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:130:8: ( '<!ELEMENT' )
-            // DTD.g:130:10: '<!ELEMENT'
+            // DTD.g:132:8: ( '<!ELEMENT' )
+            // DTD.g:132:10: '<!ELEMENT'
             {
             match("<!ELEMENT"); 
 
@@ -1514,250 +1559,264 @@ public class DTDLexer extends Lexer {
     // $ANTLR end "Element"
 
     public void mTokens() throws RecognitionException {
-        // DTD.g:1:8: ( T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element )
-        int alt17=35;
+        // DTD.g:1:8: ( T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element )
+        int alt17=37;
         alt17 = dfa17.predict(input);
         switch (alt17) {
             case 1 :
-                // DTD.g:1:10: T__40
-                {
-                mT__40(); 
-
-                }
-                break;
-            case 2 :
-                // DTD.g:1:16: T__41
-                {
-                mT__41(); 
-
-                }
-                break;
-            case 3 :
-                // DTD.g:1:22: T__42
+                // DTD.g:1:10: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 4 :
-                // DTD.g:1:28: T__43
+            case 2 :
+                // DTD.g:1:16: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 5 :
-                // DTD.g:1:34: T__44
+            case 3 :
+                // DTD.g:1:22: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 6 :
-                // DTD.g:1:40: T__45
+            case 4 :
+                // DTD.g:1:28: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 7 :
-                // DTD.g:1:46: T__46
+            case 5 :
+                // DTD.g:1:34: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
-            case 8 :
-                // DTD.g:1:52: T__47
+            case 6 :
+                // DTD.g:1:40: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
-            case 9 :
-                // DTD.g:1:58: T__48
+            case 7 :
+                // DTD.g:1:46: T__48
                 {
                 mT__48(); 
 
                 }
                 break;
-            case 10 :
-                // DTD.g:1:64: T__49
+            case 8 :
+                // DTD.g:1:52: T__49
                 {
                 mT__49(); 
 
                 }
                 break;
-            case 11 :
-                // DTD.g:1:70: T__50
+            case 9 :
+                // DTD.g:1:58: T__50
                 {
                 mT__50(); 
 
                 }
                 break;
-            case 12 :
-                // DTD.g:1:76: T__51
+            case 10 :
+                // DTD.g:1:64: T__51
                 {
                 mT__51(); 
 
                 }
                 break;
-            case 13 :
-                // DTD.g:1:82: T__52
+            case 11 :
+                // DTD.g:1:70: T__52
                 {
                 mT__52(); 
 
                 }
                 break;
-            case 14 :
-                // DTD.g:1:88: T__53
+            case 12 :
+                // DTD.g:1:76: T__53
                 {
                 mT__53(); 
 
                 }
                 break;
-            case 15 :
-                // DTD.g:1:94: T__54
+            case 13 :
+                // DTD.g:1:82: T__54
                 {
                 mT__54(); 
 
                 }
                 break;
-            case 16 :
-                // DTD.g:1:100: T__55
+            case 14 :
+                // DTD.g:1:88: T__55
                 {
                 mT__55(); 
 
                 }
                 break;
-            case 17 :
-                // DTD.g:1:106: T__56
+            case 15 :
+                // DTD.g:1:94: T__56
                 {
                 mT__56(); 
 
                 }
                 break;
-            case 18 :
-                // DTD.g:1:112: T__57
+            case 16 :
+                // DTD.g:1:100: T__57
                 {
                 mT__57(); 
 
                 }
                 break;
+            case 17 :
+                // DTD.g:1:106: T__58
+                {
+                mT__58(); 
+
+                }
+                break;
+            case 18 :
+                // DTD.g:1:112: T__59
+                {
+                mT__59(); 
+
+                }
+                break;
             case 19 :
-                // DTD.g:1:118: ML_COMMENT
+                // DTD.g:1:118: T__60
+                {
+                mT__60(); 
+
+                }
+                break;
+            case 20 :
+                // DTD.g:1:124: T__61
+                {
+                mT__61(); 
+
+                }
+                break;
+            case 21 :
+                // DTD.g:1:130: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
                 }
                 break;
-            case 20 :
-                // DTD.g:1:129: At
+            case 22 :
+                // DTD.g:1:141: At
                 {
                 mAt(); 
 
                 }
                 break;
-            case 21 :
-                // DTD.g:1:132: Colon
+            case 23 :
+                // DTD.g:1:144: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 22 :
-                // DTD.g:1:138: Comma
+            case 24 :
+                // DTD.g:1:150: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 23 :
-                // DTD.g:1:144: Apos
+            case 25 :
+                // DTD.g:1:156: Apos
                 {
                 mApos(); 
 
                 }
                 break;
-            case 24 :
-                // DTD.g:1:149: Quot
+            case 26 :
+                // DTD.g:1:161: Quot
                 {
                 mQuot(); 
 
                 }
                 break;
-            case 25 :
-                // DTD.g:1:154: Dot
+            case 27 :
+                // DTD.g:1:166: Dot
                 {
                 mDot(); 
 
                 }
                 break;
-            case 26 :
-                // DTD.g:1:158: SemiColon
+            case 28 :
+                // DTD.g:1:170: SemiColon
                 {
                 mSemiColon(); 
 
                 }
                 break;
-            case 27 :
-                // DTD.g:1:168: LParen
+            case 29 :
+                // DTD.g:1:180: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
-            case 28 :
-                // DTD.g:1:175: RParen
+            case 30 :
+                // DTD.g:1:187: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
-            case 29 :
-                // DTD.g:1:182: Digits
+            case 31 :
+                // DTD.g:1:194: Digits
                 {
                 mDigits(); 
 
                 }
                 break;
-            case 30 :
-                // DTD.g:1:189: WhiteSpaceChar
+            case 32 :
+                // DTD.g:1:201: WhiteSpaceChar
                 {
                 mWhiteSpaceChar(); 
 
                 }
                 break;
-            case 31 :
-                // DTD.g:1:204: StringLiteral
+            case 33 :
+                // DTD.g:1:216: String
                 {
-                mStringLiteral(); 
+                mString(); 
 
                 }
                 break;
-            case 32 :
-                // DTD.g:1:218: Name
+            case 34 :
+                // DTD.g:1:223: Name
                 {
                 mName(); 
 
                 }
                 break;
-            case 33 :
-                // DTD.g:1:223: Reference
+            case 35 :
+                // DTD.g:1:228: Reference
                 {
                 mReference(); 
 
                 }
                 break;
-            case 34 :
-                // DTD.g:1:233: DefaultDecl
+            case 36 :
+                // DTD.g:1:238: DefaultDecl
                 {
                 mDefaultDecl(); 
 
                 }
                 break;
-            case 35 :
-                // DTD.g:1:245: Element
+            case 37 :
+                // DTD.g:1:250: Element
                 {
                 mElement(); 
 
@@ -1771,161 +1830,165 @@ public class DTDLexer extends Lexer {
 
     protected DFA17 dfa17 = new DFA17(this);
     static final String DFA17_eotS =
-        "\2\uffff\2\30\6\uffff\3\30\3\uffff\1\44\1\51\10\uffff\3\30\3\uffff"+
-        "\3\30\1\67\11\uffff\2\30\1\76\3\uffff\4\30\5\uffff\2\30\1\uffff"+
-        "\4\30\10\uffff\1\125\3\30\1\132\1\134\5\uffff\1\137\3\30\1\uffff"+
-        "\1\143\4\uffff\2\30\1\147\1\uffff\1\150\1\151\1\152\4\uffff";
+        "\2\uffff\2\31\6\uffff\3\31\4\uffff\1\45\1\52\10\uffff\3\31\3\uffff"+
+        "\3\31\1\70\11\uffff\2\31\1\77\3\uffff\4\31\5\uffff\2\31\3\uffff"+
+        "\4\31\10\uffff\1\130\3\31\1\135\1\137\5\uffff\1\142\3\31\1\uffff"+
+        "\1\146\4\uffff\2\31\1\152\1\uffff\1\153\1\154\1\155\4\uffff";
     static final String DFA17_eofS =
-        "\153\uffff";
+        "\156\uffff";
     static final String DFA17_minS =
-        "\1\11\1\uffff\1\115\1\116\4\uffff\1\106\1\41\1\115\2\104\3\uffff"+
+        "\1\11\1\uffff\1\115\1\116\4\uffff\1\106\1\41\1\115\2\104\4\uffff"+
         "\2\0\10\uffff\1\120\1\124\1\131\2\uffff\1\55\2\124\1\101\1\55\1"+
-        "\uffff\1\0\1\uffff\1\0\2\uffff\2\0\1\uffff\1\124\1\111\1\55\3\uffff"+
-        "\1\101\1\117\1\124\1\105\1\uffff\4\0\1\131\1\124\1\uffff\1\124\1"+
-        "\113\1\101\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff\1\55\1\105"+
-        "\1\117\1\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1\116\1\55\1"+
-        "\uffff\3\55\4\uffff";
+        "\uffff\2\0\3\uffff\2\0\1\uffff\1\124\1\111\1\55\1\uffff\1\114\1"+
+        "\uffff\1\101\1\117\1\124\1\105\1\uffff\4\0\1\131\1\124\3\uffff\1"+
+        "\124\1\113\1\101\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff\1"+
+        "\55\1\105\1\117\1\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1\116"+
+        "\1\55\1\uffff\3\55\4\uffff";
     static final String DFA17_maxS =
-        "\1\174\1\uffff\2\116\4\uffff\1\122\1\41\1\117\2\104\3\uffff\2\uffff"+
+        "\1\174\1\uffff\2\116\4\uffff\1\122\1\41\1\117\2\104\4\uffff\2\uffff"+
         "\10\uffff\1\120\1\124\1\131\2\uffff\1\105\2\124\1\101\1\172\1\uffff"+
-        "\1\uffff\1\uffff\1\uffff\2\uffff\2\uffff\1\uffff\1\124\1\111\1\172"+
-        "\3\uffff\1\101\1\117\1\124\1\105\1\uffff\4\uffff\1\131\1\124\1\uffff"+
+        "\2\uffff\3\uffff\2\uffff\1\uffff\1\124\1\111\1\172\1\uffff\1\116"+
+        "\1\uffff\1\101\1\117\1\124\1\105\1\uffff\4\uffff\1\131\1\124\3\uffff"+
         "\1\124\1\113\1\101\1\106\10\uffff\1\172\1\131\1\111\1\105\2\172"+
         "\4\uffff\1\uffff\1\172\1\105\1\117\1\116\1\uffff\1\172\1\uffff\2"+
         "\uffff\1\uffff\1\123\1\116\1\172\1\uffff\3\172\4\uffff";
     static final String DFA17_acceptS =
-        "\1\uffff\1\1\2\uffff\1\4\1\5\1\6\1\7\5\uffff\1\24\1\25\1\26\2\uffff"+
-        "\1\31\1\32\1\33\1\34\1\35\1\36\1\40\1\41\3\uffff\1\10\1\42\5\uffff"+
-        "\1\27\1\uffff\1\37\1\uffff\1\37\1\30\2\uffff\1\37\3\uffff\1\11\1"+
-        "\23\1\43\4\uffff\1\14\6\uffff\1\3\26\uffff\1\2\4\uffff\1\13\1\uffff"+
-        "\1\15\2\uffff\1\17\3\uffff\1\16\3\uffff\1\21\1\20\1\12\1\22";
+        "\1\uffff\1\1\2\uffff\1\4\1\5\1\6\1\7\5\uffff\1\24\1\26\1\27\1\30"+
+        "\2\uffff\1\33\1\34\1\35\1\36\1\37\1\40\1\42\1\43\3\uffff\1\10\1"+
+        "\44\5\uffff\1\31\2\uffff\2\41\1\32\2\uffff\1\41\3\uffff\1\11\1\uffff"+
+        "\1\25\4\uffff\1\14\6\uffff\1\3\1\23\1\45\26\uffff\1\2\4\uffff\1"+
+        "\13\1\uffff\1\15\2\uffff\1\17\3\uffff\1\16\3\uffff\1\21\1\20\1\12"+
+        "\1\22";
     static final String DFA17_specialS =
-        "\20\uffff\1\2\1\20\23\uffff\1\7\1\uffff\1\12\2\uffff\1\21\1\3\14"+
-        "\uffff\1\16\1\4\1\14\1\11\7\uffff\1\13\1\24\1\26\1\0\1\6\1\15\1"+
-        "\23\1\25\6\uffff\1\27\1\10\1\1\1\17\10\uffff\1\5\1\22\14\uffff}>";
+        "\21\uffff\1\17\1\23\23\uffff\1\10\1\6\3\uffff\1\2\1\11\14\uffff"+
+        "\1\27\1\15\1\26\1\4\11\uffff\1\20\1\7\1\3\1\1\1\25\1\16\1\12\1\24"+
+        "\6\uffff\1\21\1\0\1\22\1\14\10\uffff\1\5\1\13\14\uffff}>";
     static final String[] DFA17_transitionS = {
-            "\2\27\1\uffff\2\27\22\uffff\1\27\1\uffff\1\21\1\10\2\uffff"+
-            "\1\31\1\20\1\24\1\25\1\5\1\6\1\17\1\uffff\1\22\1\uffff\12\26"+
-            "\1\16\1\23\1\11\1\uffff\1\1\1\4\1\15\1\3\1\30\1\13\1\30\1\2"+
-            "\3\30\1\14\4\30\1\12\14\30\4\uffff\1\30\1\uffff\32\30\1\uffff"+
-            "\1\7",
+            "\2\30\1\uffff\2\30\22\uffff\1\30\1\uffff\1\22\1\10\1\uffff"+
+            "\1\15\1\32\1\21\1\25\1\26\1\5\1\6\1\20\1\uffff\1\23\1\uffff"+
+            "\12\27\1\17\1\24\1\11\1\uffff\1\1\1\4\1\16\1\3\1\31\1\13\1\31"+
+            "\1\2\3\31\1\14\4\31\1\12\14\31\4\uffff\1\31\1\uffff\32\31\1"+
+            "\uffff\1\7",
             "",
-            "\1\32\1\33",
-            "\1\34",
-            "",
-            "",
+            "\1\33\1\34",
+            "\1\35",
             "",
             "",
-            "\1\36\2\uffff\1\36\6\uffff\1\35\1\uffff\1\36",
-            "\1\37",
-            "\1\41\1\uffff\1\40",
-            "\1\42",
+            "",
+            "",
+            "\1\37\2\uffff\1\37\6\uffff\1\36\1\uffff\1\37",
+            "\1\40",
+            "\1\42\1\uffff\1\41",
             "\1\43",
-            "",
-            "",
-            "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
+            "\1\44",
             "",
             "",
             "",
             "",
+            "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
+            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
             "",
             "",
             "",
             "",
-            "\1\55",
+            "",
+            "",
+            "",
+            "",
             "\1\56",
             "\1\57",
+            "\1\60",
             "",
             "",
-            "\1\61\23\uffff\1\60\3\uffff\1\62",
-            "\1\63",
+            "\1\63\23\uffff\1\61\3\uffff\1\62",
             "\1\64",
             "\1\65",
-            "\1\30\2\uffff\12\30\6\uffff\22\30\1\66\10\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
+            "\1\66",
+            "\1\31\2\uffff\12\31\6\uffff\22\31\1\67\10\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
             "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
+            "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
+            "\43\51\1\71\35\51\32\72\4\51\1\72\1\51\32\72\uff85\51",
             "",
-            "\43\50\1\70\35\50\32\71\4\50\1\71\1\50\32\71\uff85\50",
             "",
             "",
-            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
-            "\43\50\1\72\35\50\32\73\4\50\1\73\1\50\32\73\uff85\50",
+            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\43\51\1\73\35\51\32\74\4\51\1\74\1\51\32\74\uff85\51",
             "",
-            "\1\74",
             "\1\75",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
+            "\1\76",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
             "",
+            "\1\101\1\uffff\1\100",
             "",
-            "",
-            "\1\77",
-            "\1\100",
-            "\1\101",
             "\1\102",
+            "\1\103",
+            "\1\104",
+            "\1\105",
             "",
-            "\60\50\12\104\76\50\1\103\uff87\50",
-            "\55\50\1\105\2\50\12\105\1\50\1\106\4\50\33\105\4\50\1\105"+
-            "\1\50\32\105\uff85\50",
-            "\60\50\12\110\76\50\1\107\uff87\50",
-            "\55\50\1\111\2\50\12\111\1\50\1\112\4\50\33\111\4\50\1\111"+
-            "\1\50\32\111\uff85\50",
-            "\1\113",
-            "\1\114",
-            "",
-            "\1\115",
+            "\60\51\12\107\76\51\1\106\uff87\51",
+            "\55\51\1\110\2\51\12\110\1\51\1\111\4\51\33\110\4\51\1\110"+
+            "\1\51\32\110\uff85\51",
+            "\60\51\12\113\76\51\1\112\uff87\51",
+            "\55\51\1\114\2\51\12\114\1\51\1\115\4\51\33\114\4\51\1\114"+
+            "\1\51\32\114\uff85\51",
             "\1\116",
             "\1\117",
+            "",
+            "",
+            "",
             "\1\120",
-            "\60\50\12\121\7\50\6\121\32\50\6\121\uff99\50",
-            "\60\50\12\104\1\50\1\122\uffc4\50",
-            "\55\50\1\105\2\50\12\105\1\50\1\106\4\50\33\105\4\50\1\105"+
-            "\1\50\32\105\uff85\50",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\60\50\12\123\7\50\6\123\32\50\6\123\uff99\50",
-            "\60\50\12\110\1\50\1\124\uffc4\50",
-            "\55\50\1\111\2\50\12\111\1\50\1\112\4\50\33\111\4\50\1\111"+
-            "\1\50\32\111\uff85\50",
-            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "\1\127\17\uffff\1\126",
-            "\1\130",
-            "\1\131",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "\1\30\2\uffff\12\30\6\uffff\23\30\1\133\7\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
-            "\60\50\12\121\1\50\1\135\5\50\6\121\32\50\6\121\uff99\50",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\60\50\12\123\1\50\1\136\5\50\6\123\32\50\6\123\uff99\50",
-            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
+            "\1\121",
+            "\1\122",
+            "\1\123",
+            "\60\51\12\124\7\51\6\124\32\51\6\124\uff99\51",
+            "\60\51\12\107\1\51\1\125\uffc4\51",
+            "\55\51\1\110\2\51\12\110\1\51\1\111\4\51\33\110\4\51\1\110"+
+            "\1\51\32\110\uff85\51",
+            "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
+            "\60\51\12\126\7\51\6\126\32\51\6\126\uff99\51",
+            "\60\51\12\113\1\51\1\127\uffc4\51",
+            "\55\51\1\114\2\51\12\114\1\51\1\115\4\51\33\114\4\51\1\114"+
+            "\1\51\32\114\uff85\51",
+            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\132\17\uffff\1\131",
+            "\1\133",
+            "\1\134",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\31\2\uffff\12\31\6\uffff\23\31\1\136\7\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
+            "\60\51\12\124\1\51\1\140\5\51\6\124\32\51\6\124\uff99\51",
+            "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
+            "\60\51\12\126\1\51\1\141\5\51\6\126\32\51\6\126\uff99\51",
+            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
             "",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "\1\140",
-            "\1\141",
-            "\1\142",
-            "",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "",
-            "\46\45\1\47\1\46\24\45\1\50\uffc3\45",
-            "\42\52\1\54\3\52\1\53\25\52\1\50\uffc3\52",
-            "",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\143",
             "\1\144",
             "\1\145",
-            "\1\30\2\uffff\12\30\6\uffff\23\30\1\146\7\30\4\uffff\1\30"+
-            "\1\uffff\32\30",
             "",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
-            "\1\30\2\uffff\12\30\6\uffff\33\30\4\uffff\1\30\1\uffff\32"+
-            "\30",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "",
+            "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
+            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "",
+            "\1\147",
+            "\1\150",
+            "\1\31\2\uffff\12\31\6\uffff\23\31\1\151\7\31\4\uffff\1\31"+
+            "\1\uffff\32\31",
+            "",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
+            "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
+            "\31",
             "",
             "",
             "",
@@ -1962,279 +2025,283 @@ public class DTDLexer extends Lexer {
             this.transition = DFA17_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | StringLiteral | Name | Reference | DefaultDecl | Element );";
+            return "1:1: Tokens : ( T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA17_70 = input.LA(1);
+                        int LA17_85 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_70=='\'') ) {s = 38;}
+                        if ( (LA17_85=='\'') ) {s = 40;}
 
-                        else if ( ((LA17_70>='\u0000' && LA17_70<='%')||(LA17_70>='(' && LA17_70<=';')||(LA17_70>='=' && LA17_70<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA17_85>='\u0000' && LA17_85<='%')||(LA17_85>='(' && LA17_85<=';')||(LA17_85>='=' && LA17_85<='\uFFFF')) ) {s = 38;}
 
-                        else if ( (LA17_70=='&') ) {s = 39;}
+                        else if ( (LA17_85=='&') ) {s = 39;}
 
-                        else if ( (LA17_70=='<') ) {s = 40;}
+                        else if ( (LA17_85=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA17_83 = input.LA(1);
+                        int LA17_73 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_83>='\u0000' && LA17_83<='/')||LA17_83==':'||(LA17_83>='<' && LA17_83<='@')||(LA17_83>='G' && LA17_83<='`')||(LA17_83>='g' && LA17_83<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_73=='\'') ) {s = 40;}
 
-                        else if ( (LA17_83==';') ) {s = 94;}
+                        else if ( ((LA17_73>='\u0000' && LA17_73<='%')||(LA17_73>='(' && LA17_73<=';')||(LA17_73>='=' && LA17_73<='\uFFFF')) ) {s = 38;}
 
-                        else if ( ((LA17_83>='0' && LA17_83<='9')||(LA17_83>='A' && LA17_83<='F')||(LA17_83>='a' && LA17_83<='f')) ) {s = 83;}
+                        else if ( (LA17_73=='&') ) {s = 39;}
+
+                        else if ( (LA17_73=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA17_16 = input.LA(1);
+                        int LA17_43 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_16>='\u0000' && LA17_16<='%')||(LA17_16>='(' && LA17_16<=';')||(LA17_16>='=' && LA17_16<='\uFFFF')) ) {s = 37;}
+                        if ( (LA17_43=='\"') ) {s = 45;}
 
-                        else if ( (LA17_16=='\'') ) {s = 38;}
+                        else if ( ((LA17_43>='\u0000' && LA17_43<='!')||(LA17_43>='#' && LA17_43<='%')||(LA17_43>='\'' && LA17_43<=';')||(LA17_43>='=' && LA17_43<='\uFFFF')) ) {s = 43;}
 
-                        else if ( (LA17_16=='&') ) {s = 39;}
+                        else if ( (LA17_43=='&') ) {s = 44;}
 
-                        else if ( (LA17_16=='<') ) {s = 40;}
-
-                        else s = 36;
+                        else if ( (LA17_43=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA17_43 = input.LA(1);
+                        int LA17_72 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_43=='#') ) {s = 58;}
+                        if ( (LA17_72==';') ) {s = 73;}
 
-                        else if ( ((LA17_43>='\u0000' && LA17_43<='\"')||(LA17_43>='$' && LA17_43<='@')||(LA17_43>='[' && LA17_43<='^')||LA17_43=='`'||(LA17_43>='{' && LA17_43<='\uFFFF')) ) {s = 40;}
+                        else if ( (LA17_72=='-'||(LA17_72>='0' && LA17_72<='9')||(LA17_72>='@' && LA17_72<='Z')||LA17_72=='_'||(LA17_72>='a' && LA17_72<='z')) ) {s = 72;}
 
-                        else if ( ((LA17_43>='A' && LA17_43<='Z')||LA17_43=='_'||(LA17_43>='a' && LA17_43<='z')) ) {s = 59;}
+                        else if ( ((LA17_72>='\u0000' && LA17_72<=',')||(LA17_72>='.' && LA17_72<='/')||LA17_72==':'||(LA17_72>='<' && LA17_72<='?')||(LA17_72>='[' && LA17_72<='^')||LA17_72=='`'||(LA17_72>='{' && LA17_72<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA17_57 = input.LA(1);
+                        int LA17_60 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_57=='-'||(LA17_57>='0' && LA17_57<='9')||(LA17_57>='@' && LA17_57<='Z')||LA17_57=='_'||(LA17_57>='a' && LA17_57<='z')) ) {s = 69;}
+                        if ( ((LA17_60>='\u0000' && LA17_60<=',')||(LA17_60>='.' && LA17_60<='/')||LA17_60==':'||(LA17_60>='<' && LA17_60<='?')||(LA17_60>='[' && LA17_60<='^')||LA17_60=='`'||(LA17_60>='{' && LA17_60<='\uFFFF')) ) {s = 41;}
 
-                        else if ( (LA17_57==';') ) {s = 70;}
+                        else if ( (LA17_60=='-'||(LA17_60>='0' && LA17_60<='9')||(LA17_60>='@' && LA17_60<='Z')||LA17_60=='_'||(LA17_60>='a' && LA17_60<='z')) ) {s = 76;}
 
-                        else if ( ((LA17_57>='\u0000' && LA17_57<=',')||(LA17_57>='.' && LA17_57<='/')||LA17_57==':'||(LA17_57>='<' && LA17_57<='?')||(LA17_57>='[' && LA17_57<='^')||LA17_57=='`'||(LA17_57>='{' && LA17_57<='\uFFFF')) ) {s = 40;}
+                        else if ( (LA17_60==';') ) {s = 77;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA17_93 = input.LA(1);
+                        int LA17_96 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_93=='\'') ) {s = 38;}
+                        if ( (LA17_96=='\'') ) {s = 40;}
 
-                        else if ( ((LA17_93>='\u0000' && LA17_93<='%')||(LA17_93>='(' && LA17_93<=';')||(LA17_93>='=' && LA17_93<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA17_96>='\u0000' && LA17_96<='%')||(LA17_96>='(' && LA17_96<=';')||(LA17_96>='=' && LA17_96<='\uFFFF')) ) {s = 38;}
 
-                        else if ( (LA17_93=='&') ) {s = 39;}
+                        else if ( (LA17_96=='&') ) {s = 39;}
 
-                        else if ( (LA17_93=='<') ) {s = 40;}
+                        else if ( (LA17_96=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA17_71 = input.LA(1);
+                        int LA17_39 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_71>='\u0000' && LA17_71<='/')||(LA17_71>=':' && LA17_71<='@')||(LA17_71>='G' && LA17_71<='`')||(LA17_71>='g' && LA17_71<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_39=='#') ) {s = 57;}
 
-                        else if ( ((LA17_71>='0' && LA17_71<='9')||(LA17_71>='A' && LA17_71<='F')||(LA17_71>='a' && LA17_71<='f')) ) {s = 83;}
+                        else if ( ((LA17_39>='A' && LA17_39<='Z')||LA17_39=='_'||(LA17_39>='a' && LA17_39<='z')) ) {s = 58;}
+
+                        else if ( ((LA17_39>='\u0000' && LA17_39<='\"')||(LA17_39>='$' && LA17_39<='@')||(LA17_39>='[' && LA17_39<='^')||LA17_39=='`'||(LA17_39>='{' && LA17_39<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA17_37 = input.LA(1);
+                        int LA17_71 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_37=='\'') ) {s = 38;}
+                        if ( (LA17_71==';') ) {s = 85;}
 
-                        else if ( ((LA17_37>='\u0000' && LA17_37<='%')||(LA17_37>='(' && LA17_37<=';')||(LA17_37>='=' && LA17_37<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA17_71>='0' && LA17_71<='9')) ) {s = 71;}
 
-                        else if ( (LA17_37=='&') ) {s = 39;}
-
-                        else if ( (LA17_37=='<') ) {s = 40;}
+                        else if ( ((LA17_71>='\u0000' && LA17_71<='/')||LA17_71==':'||(LA17_71>='<' && LA17_71<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA17_82 = input.LA(1);
+                        int LA17_38 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_82=='\'') ) {s = 38;}
+                        if ( (LA17_38=='\'') ) {s = 40;}
 
-                        else if ( ((LA17_82>='\u0000' && LA17_82<='%')||(LA17_82>='(' && LA17_82<=';')||(LA17_82>='=' && LA17_82<='\uFFFF')) ) {s = 37;}
+                        else if ( ((LA17_38>='\u0000' && LA17_38<='%')||(LA17_38>='(' && LA17_38<=';')||(LA17_38>='=' && LA17_38<='\uFFFF')) ) {s = 38;}
 
-                        else if ( (LA17_82=='&') ) {s = 39;}
+                        else if ( (LA17_38=='&') ) {s = 39;}
 
-                        else if ( (LA17_82=='<') ) {s = 40;}
+                        else if ( (LA17_38=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA17_59 = input.LA(1);
+                        int LA17_44 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_59>='\u0000' && LA17_59<=',')||(LA17_59>='.' && LA17_59<='/')||LA17_59==':'||(LA17_59>='<' && LA17_59<='?')||(LA17_59>='[' && LA17_59<='^')||LA17_59=='`'||(LA17_59>='{' && LA17_59<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_44=='#') ) {s = 59;}
 
-                        else if ( (LA17_59=='-'||(LA17_59>='0' && LA17_59<='9')||(LA17_59>='@' && LA17_59<='Z')||LA17_59=='_'||(LA17_59>='a' && LA17_59<='z')) ) {s = 73;}
+                        else if ( ((LA17_44>='A' && LA17_44<='Z')||LA17_44=='_'||(LA17_44>='a' && LA17_44<='z')) ) {s = 60;}
 
-                        else if ( (LA17_59==';') ) {s = 74;}
+                        else if ( ((LA17_44>='\u0000' && LA17_44<='\"')||(LA17_44>='$' && LA17_44<='@')||(LA17_44>='[' && LA17_44<='^')||LA17_44=='`'||(LA17_44>='{' && LA17_44<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA17_39 = input.LA(1);
+                        int LA17_76 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_39=='#') ) {s = 56;}
+                        if ( (LA17_76==';') ) {s = 77;}
 
-                        else if ( ((LA17_39>='A' && LA17_39<='Z')||LA17_39=='_'||(LA17_39>='a' && LA17_39<='z')) ) {s = 57;}
+                        else if ( (LA17_76=='-'||(LA17_76>='0' && LA17_76<='9')||(LA17_76>='@' && LA17_76<='Z')||LA17_76=='_'||(LA17_76>='a' && LA17_76<='z')) ) {s = 76;}
 
-                        else if ( ((LA17_39>='\u0000' && LA17_39<='\"')||(LA17_39>='$' && LA17_39<='@')||(LA17_39>='[' && LA17_39<='^')||LA17_39=='`'||(LA17_39>='{' && LA17_39<='\uFFFF')) ) {s = 40;}
+                        else if ( ((LA17_76>='\u0000' && LA17_76<=',')||(LA17_76>='.' && LA17_76<='/')||LA17_76==':'||(LA17_76>='<' && LA17_76<='?')||(LA17_76>='[' && LA17_76<='^')||LA17_76=='`'||(LA17_76>='{' && LA17_76<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
-                        int LA17_67 = input.LA(1);
+                        int LA17_97 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_67>='0' && LA17_67<='9')||(LA17_67>='A' && LA17_67<='F')||(LA17_67>='a' && LA17_67<='f')) ) {s = 81;}
+                        if ( (LA17_97=='\"') ) {s = 45;}
 
-                        else if ( ((LA17_67>='\u0000' && LA17_67<='/')||(LA17_67>=':' && LA17_67<='@')||(LA17_67>='G' && LA17_67<='`')||(LA17_67>='g' && LA17_67<='\uFFFF')) ) {s = 40;}
+                        else if ( ((LA17_97>='\u0000' && LA17_97<='!')||(LA17_97>='#' && LA17_97<='%')||(LA17_97>='\'' && LA17_97<=';')||(LA17_97>='=' && LA17_97<='\uFFFF')) ) {s = 43;}
+
+                        else if ( (LA17_97=='&') ) {s = 44;}
+
+                        else if ( (LA17_97=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA17_58 = input.LA(1);
+                        int LA17_87 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_58=='x') ) {s = 71;}
+                        if ( (LA17_87=='\"') ) {s = 45;}
 
-                        else if ( ((LA17_58>='0' && LA17_58<='9')) ) {s = 72;}
+                        else if ( ((LA17_87>='\u0000' && LA17_87<='!')||(LA17_87>='#' && LA17_87<='%')||(LA17_87>='\'' && LA17_87<=';')||(LA17_87>='=' && LA17_87<='\uFFFF')) ) {s = 43;}
 
-                        else if ( ((LA17_58>='\u0000' && LA17_58<='/')||(LA17_58>=':' && LA17_58<='w')||(LA17_58>='y' && LA17_58<='\uFFFF')) ) {s = 40;}
+                        else if ( (LA17_87=='&') ) {s = 44;}
+
+                        else if ( (LA17_87=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA17_72 = input.LA(1);
+                        int LA17_58 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_72>='\u0000' && LA17_72<='/')||LA17_72==':'||(LA17_72>='<' && LA17_72<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_58=='-'||(LA17_58>='0' && LA17_58<='9')||(LA17_58>='@' && LA17_58<='Z')||LA17_58=='_'||(LA17_58>='a' && LA17_58<='z')) ) {s = 72;}
 
-                        else if ( (LA17_72==';') ) {s = 84;}
+                        else if ( (LA17_58==';') ) {s = 73;}
 
-                        else if ( ((LA17_72>='0' && LA17_72<='9')) ) {s = 72;}
+                        else if ( ((LA17_58>='\u0000' && LA17_58<=',')||(LA17_58>='.' && LA17_58<='/')||LA17_58==':'||(LA17_58>='<' && LA17_58<='?')||(LA17_58>='[' && LA17_58<='^')||LA17_58=='`'||(LA17_58>='{' && LA17_58<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA17_56 = input.LA(1);
+                        int LA17_75 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_56=='x') ) {s = 67;}
+                        if ( (LA17_75==';') ) {s = 87;}
 
-                        else if ( ((LA17_56>='\u0000' && LA17_56<='/')||(LA17_56>=':' && LA17_56<='w')||(LA17_56>='y' && LA17_56<='\uFFFF')) ) {s = 40;}
+                        else if ( ((LA17_75>='0' && LA17_75<='9')) ) {s = 75;}
 
-                        else if ( ((LA17_56>='0' && LA17_56<='9')) ) {s = 68;}
+                        else if ( ((LA17_75>='\u0000' && LA17_75<='/')||LA17_75==':'||(LA17_75>='<' && LA17_75<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 15 : 
-                        int LA17_84 = input.LA(1);
+                        int LA17_17 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_84=='\"') ) {s = 44;}
+                        if ( ((LA17_17>='\u0000' && LA17_17<='%')||(LA17_17>='(' && LA17_17<=';')||(LA17_17>='=' && LA17_17<='\uFFFF')) ) {s = 38;}
 
-                        else if ( ((LA17_84>='\u0000' && LA17_84<='!')||(LA17_84>='#' && LA17_84<='%')||(LA17_84>='\'' && LA17_84<=';')||(LA17_84>='=' && LA17_84<='\uFFFF')) ) {s = 42;}
+                        else if ( (LA17_17=='&') ) {s = 39;}
 
-                        else if ( (LA17_84=='&') ) {s = 43;}
+                        else if ( (LA17_17=='\'') ) {s = 40;}
 
-                        else if ( (LA17_84=='<') ) {s = 40;}
+                        else if ( (LA17_17=='<') ) {s = 41;}
+
+                        else s = 37;
 
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA17_17 = input.LA(1);
+                        int LA17_70 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_17>='\u0000' && LA17_17<='!')||(LA17_17>='#' && LA17_17<='%')||(LA17_17>='\'' && LA17_17<=';')||(LA17_17>='=' && LA17_17<='\uFFFF')) ) {s = 42;}
+                        if ( ((LA17_70>='0' && LA17_70<='9')||(LA17_70>='A' && LA17_70<='F')||(LA17_70>='a' && LA17_70<='f')) ) {s = 84;}
 
-                        else if ( (LA17_17=='&') ) {s = 43;}
-
-                        else if ( (LA17_17=='\"') ) {s = 44;}
-
-                        else if ( (LA17_17=='<') ) {s = 40;}
-
-                        else s = 41;
+                        else if ( ((LA17_70>='\u0000' && LA17_70<='/')||(LA17_70>=':' && LA17_70<='@')||(LA17_70>='G' && LA17_70<='`')||(LA17_70>='g' && LA17_70<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA17_42 = input.LA(1);
+                        int LA17_84 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_42=='\"') ) {s = 44;}
+                        if ( (LA17_84==';') ) {s = 96;}
 
-                        else if ( ((LA17_42>='\u0000' && LA17_42<='!')||(LA17_42>='#' && LA17_42<='%')||(LA17_42>='\'' && LA17_42<=';')||(LA17_42>='=' && LA17_42<='\uFFFF')) ) {s = 42;}
+                        else if ( ((LA17_84>='0' && LA17_84<='9')||(LA17_84>='A' && LA17_84<='F')||(LA17_84>='a' && LA17_84<='f')) ) {s = 84;}
 
-                        else if ( (LA17_42=='&') ) {s = 43;}
-
-                        else if ( (LA17_42=='<') ) {s = 40;}
+                        else if ( ((LA17_84>='\u0000' && LA17_84<='/')||LA17_84==':'||(LA17_84>='<' && LA17_84<='@')||(LA17_84>='G' && LA17_84<='`')||(LA17_84>='g' && LA17_84<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA17_94 = input.LA(1);
+                        int LA17_86 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_94=='\"') ) {s = 44;}
+                        if ( ((LA17_86>='\u0000' && LA17_86<='/')||LA17_86==':'||(LA17_86>='<' && LA17_86<='@')||(LA17_86>='G' && LA17_86<='`')||(LA17_86>='g' && LA17_86<='\uFFFF')) ) {s = 41;}
 
-                        else if ( ((LA17_94>='\u0000' && LA17_94<='!')||(LA17_94>='#' && LA17_94<='%')||(LA17_94>='\'' && LA17_94<=';')||(LA17_94>='=' && LA17_94<='\uFFFF')) ) {s = 42;}
+                        else if ( (LA17_86==';') ) {s = 97;}
 
-                        else if ( (LA17_94=='&') ) {s = 43;}
-
-                        else if ( (LA17_94=='<') ) {s = 40;}
+                        else if ( ((LA17_86>='0' && LA17_86<='9')||(LA17_86>='A' && LA17_86<='F')||(LA17_86>='a' && LA17_86<='f')) ) {s = 86;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 19 : 
-                        int LA17_73 = input.LA(1);
+                        int LA17_18 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_73>='\u0000' && LA17_73<=',')||(LA17_73>='.' && LA17_73<='/')||LA17_73==':'||(LA17_73>='<' && LA17_73<='?')||(LA17_73>='[' && LA17_73<='^')||LA17_73=='`'||(LA17_73>='{' && LA17_73<='\uFFFF')) ) {s = 40;}
+                        if ( ((LA17_18>='\u0000' && LA17_18<='!')||(LA17_18>='#' && LA17_18<='%')||(LA17_18>='\'' && LA17_18<=';')||(LA17_18>='=' && LA17_18<='\uFFFF')) ) {s = 43;}
 
-                        else if ( (LA17_73==';') ) {s = 74;}
+                        else if ( (LA17_18=='&') ) {s = 44;}
 
-                        else if ( (LA17_73=='-'||(LA17_73>='0' && LA17_73<='9')||(LA17_73>='@' && LA17_73<='Z')||LA17_73=='_'||(LA17_73>='a' && LA17_73<='z')) ) {s = 73;}
+                        else if ( (LA17_18=='\"') ) {s = 45;}
+
+                        else if ( (LA17_18=='<') ) {s = 41;}
+
+                        else s = 42;
 
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
-                        int LA17_68 = input.LA(1);
+                        int LA17_77 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_68>='\u0000' && LA17_68<='/')||LA17_68==':'||(LA17_68>='<' && LA17_68<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_77=='\"') ) {s = 45;}
 
-                        else if ( (LA17_68==';') ) {s = 82;}
+                        else if ( ((LA17_77>='\u0000' && LA17_77<='!')||(LA17_77>='#' && LA17_77<='%')||(LA17_77>='\'' && LA17_77<=';')||(LA17_77>='=' && LA17_77<='\uFFFF')) ) {s = 43;}
 
-                        else if ( ((LA17_68>='0' && LA17_68<='9')) ) {s = 68;}
+                        else if ( (LA17_77=='&') ) {s = 44;}
+
+                        else if ( (LA17_77=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -2242,37 +2309,33 @@ public class DTDLexer extends Lexer {
                         int LA17_74 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_74=='\"') ) {s = 44;}
+                        if ( ((LA17_74>='0' && LA17_74<='9')||(LA17_74>='A' && LA17_74<='F')||(LA17_74>='a' && LA17_74<='f')) ) {s = 86;}
 
-                        else if ( ((LA17_74>='\u0000' && LA17_74<='!')||(LA17_74>='#' && LA17_74<='%')||(LA17_74>='\'' && LA17_74<=';')||(LA17_74>='=' && LA17_74<='\uFFFF')) ) {s = 42;}
-
-                        else if ( (LA17_74=='&') ) {s = 43;}
-
-                        else if ( (LA17_74=='<') ) {s = 40;}
+                        else if ( ((LA17_74>='\u0000' && LA17_74<='/')||(LA17_74>=':' && LA17_74<='@')||(LA17_74>='G' && LA17_74<='`')||(LA17_74>='g' && LA17_74<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 22 : 
-                        int LA17_69 = input.LA(1);
+                        int LA17_59 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_69>='\u0000' && LA17_69<=',')||(LA17_69>='.' && LA17_69<='/')||LA17_69==':'||(LA17_69>='<' && LA17_69<='?')||(LA17_69>='[' && LA17_69<='^')||LA17_69=='`'||(LA17_69>='{' && LA17_69<='\uFFFF')) ) {s = 40;}
+                        if ( (LA17_59=='x') ) {s = 74;}
 
-                        else if ( (LA17_69==';') ) {s = 70;}
+                        else if ( ((LA17_59>='0' && LA17_59<='9')) ) {s = 75;}
 
-                        else if ( (LA17_69=='-'||(LA17_69>='0' && LA17_69<='9')||(LA17_69>='@' && LA17_69<='Z')||LA17_69=='_'||(LA17_69>='a' && LA17_69<='z')) ) {s = 69;}
+                        else if ( ((LA17_59>='\u0000' && LA17_59<='/')||(LA17_59>=':' && LA17_59<='w')||(LA17_59>='y' && LA17_59<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA17_81 = input.LA(1);
+                        int LA17_57 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_81==';') ) {s = 93;}
+                        if ( (LA17_57=='x') ) {s = 70;}
 
-                        else if ( ((LA17_81>='0' && LA17_81<='9')||(LA17_81>='A' && LA17_81<='F')||(LA17_81>='a' && LA17_81<='f')) ) {s = 81;}
+                        else if ( ((LA17_57>='0' && LA17_57<='9')) ) {s = 71;}
 
-                        else if ( ((LA17_81>='\u0000' && LA17_81<='/')||LA17_81==':'||(LA17_81>='<' && LA17_81<='@')||(LA17_81>='G' && LA17_81<='`')||(LA17_81>='g' && LA17_81<='\uFFFF')) ) {s = 40;}
+                        else if ( ((LA17_57>='\u0000' && LA17_57<='/')||(LA17_57>=':' && LA17_57<='w')||(LA17_57>='y' && LA17_57<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
