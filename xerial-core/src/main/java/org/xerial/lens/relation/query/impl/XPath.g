@@ -16,32 +16,25 @@
 //--------------------------------------
 // XerialJ
 //
-// LensQuery.g
+// XPath.g
 // Since: Aug 6, 2009 08:30:02 AM
 //
 //--------------------------------------
  
-grammar LensQuery;
+grammar XPath;
 options 
 {
   language=Java;
   output=AST;
 }
 tokens {
-  QUERY;
-  RELATION;
-  COMPARE;
-  OPERATOR;
-  OPERAND;
-  PATTERNMATCH;
-  NODE;
-  ALIAS;
-  NODEVALUE;
+  XPATH;
   NAME;
   VALUE;
-  INDEX;
+  STEP;
+  AXIS;
+  PREDICATE;
 }
-
 
 @lexer::header
 {
@@ -63,7 +56,7 @@ tokens {
 //--------------------------------------
 // XerialJ
 //
-// LensQueryLexer.g
+// XPathLexer.g
 // Since: Aug 6, 2009 08:30:02 AM
 //
 //--------------------------------------
@@ -93,13 +86,13 @@ package org.xerial.lens.relation.query.impl;
 //--------------------------------------
 // XerialJ
 //
-// LensQueryParser.g
+// XPathParser.g
 // Since: Aug 6, 2009 08:30:02 AM
 //
 //--------------------------------------
 package org.xerial.lens.relation.query.impl;
 
-import org.xerial.lens.relation.TupleIndex;
+
 }
 
 @lexer::members {
@@ -107,18 +100,18 @@ import org.xerial.lens.relation.TupleIndex;
 }
 
 @members {
-   private TupleIndex currentIndex = null;
+
 } 
 
+//-------------------------
 // lexer rules
+//-------------------------
 
 // Line Comment
 fragment LineBreakChar: '\n' | '\r'; // r: <CR> n : <LF>
 LineComment: '#' ~(LineBreakChar)* { $channel = HIDDEN; };
 
-
 LineBreak: ('\r' '\n' | '\r' | '\n' ) { $channel = HIDDEN; }; 
-
 
 fragment Digit: '0' .. '9';
 fragment Letter: 'A' .. 'F' | 'a' .. 'f';
@@ -133,38 +126,17 @@ fragment StringChar_s: StringChar*;
 
 String: '"' s=StringChar_s '"' { setText($s.text); };
 
-
 Integer: '-'? ('0' | '1'..'9' Digit*);
 fragment Frac: '.' Digit+;
 fragment Exp: ('e' | 'E') ('+' | '-')? Digit+;
 Double: Integer (Frac Exp? | Exp);
 
-True: 'true';
-False: 'false';
-Null: 'null';
-
-
 // comparison operator
-Lt: '<';
-Gt: '>';
-Leq: '<=';
-Geq: '>=';
-Eq: '=';
-Neq: '!=';
-Match: '~=';
-Regex: '/'  (options{greedy=false;}: .)* '/' ('a' .. 'z' | 'A' .. 'Z')* ;
 
-
-Dot: '.';
 Comma: ',';
 Colon: ':';
 
-As: 'as';
 
-LParen: '(';  
-RParen: ')';
-
-Star: '*';
 
 fragment
 UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-'; 
@@ -172,9 +144,8 @@ UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
 
-
-fragment QNameChar: ~(LineBreakChar | UnsafeUnicodeChar | WhiteSpace);
-QName: QNameChar+ (Dot QNameChar+)*;
+fragment QNameChar: ~(LineBreakChar | UnsafeUnicodeChar | WhiteSpace | '/' | '//');
+QName: QNameChar+ ('.' QNameChar+)*;
 
 
 fragment 
@@ -182,75 +153,91 @@ WhiteSpace: ' ' | '\t';
  
 WhiteSpaces: WhiteSpace+ { $channel = HIDDEN; }; 
 
- 
-// parser rules 
- 
-expr:
-  relation 
+
+
+//---------------------------
+// parser rules
+//---------------------------
+
+xpath
+  : locationExpr
+  -> ^(XPATH locationExpr)
   ; 
- 
-relation 
-scope 
-{
-  int nodeItemIndex;
-  TupleIndex relationIndex; 
-}
-@init 
-{
-  $relation::nodeItemIndex = 1;
-  if(currentIndex == null)
-    currentIndex = new TupleIndex(1);
-  else
-    currentIndex = new TupleIndex(currentIndex, 1); 
-}
-@after
-{
-  currentIndex = currentIndex.parent();
-}
-   : relation_i -> ^(RELATION relation_i INDEX[currentIndex.toString()])
-;
-
-relation_i: nodeName alias? LParen! nodeItem (Comma! nodeItem)* RParen!;
-
 
 fragment
-nodeName
-  : QName -> NAME[$QName.text]
-  | String -> NAME[$String.text]
+locationExpr
+  : relativePath
+  | absolutePath
+  ;
+  
+fragment
+relativePath
+  : step 
+  -> ^(STEP step)
+  | (step '/') => step '/' relativePath
+  -> ^(STEP AXIS["PC"] step relativePath)  
+  | (step '//') => step '//' relativePath 
+  -> ^(STEP AXIS["AD"] step relativePath)
   ;
 
 fragment
-alias: As QName -> ALIAS[$QName.text];
+absolutePath
+  : '/' relativePath 
+  -> ^(STEP AXIS["PC"] NAME["_root"] relativePath)
+  ;
   
-
 fragment
-nodeItem
-@init {
-  int index = $relation::nodeItemIndex++;
-}
-  : nodeName alias? nodeValue? 
-    -> ^(NODE nodeName alias? nodeValue? INDEX[new TupleIndex(currentIndex, index).toString()])
-  | relation 
+step
+  : nodeTest predicate* -> NAME[$nodeTest.text] predicate* 
   ;
 
-fragment
-value
-  : String | Integer | Double | QName
-  ;  
   
-fragment  
-nodeValue
-  : Colon value -> NODEVALUE[$value.text]
-  | nodeCmp 
+fragment
+nodeTest
+  : '@'? (QName ':')? QName 
   ;  
 
-fragment  
-nodeCmp
-  : cmpOp value -> ^(COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text])
-  | Match Regex -> ^(PATTERNMATCH OPERAND[$Regex.text])
+fragment
+predicate
+  : '[' expr ']'
+  -> ^(PREDICATE expr)
+  ;
+
+expr
+  : comparisonExpr
+  ;
+
+fragment
+comparisonExpr
+  : pathExpr
+  | (pathExpr '=') => pathExpr '=' pathExpr
+  | (pathExpr '!=') => pathExpr '!=' pathExpr
+  | (pathExpr '>') => pathExpr '>' pathExpr
+  | (pathExpr '>=') => pathExpr '>=' pathExpr
+  | (pathExpr '<') => pathExpr '<' pathExpr
+  | (pathExpr '<=') => pathExpr '<=' pathExpr
+  | (pathExpr '~=') => pathExpr '~=' pathExpr
+  ;
+
+
+fragment
+pathExpr
+  : locationExpr
+  | primaryExpr 
+  ;
+   
+fragment
+primaryExpr
+  : String
+  | Integer
+  | Double
+  | functionCall  
   ;
   
-fragment  
-cmpOp: (Lt | Gt | Eq | Leq | Geq | Neq) 
-  ;
+
+fragment
+functionCall
+  : QName '(' (expr (',' expr)*)? ')'
+  ;  
+  
   
