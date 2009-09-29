@@ -4,8 +4,159 @@
   All rights reserved.
 -->
 
+<!-- 
 <!ENTITY % carSet SYSTEM "http://www.cs.washington.edu/research/projects/xmltk/xmldata/data/sigmod-record/CarSet.cfg" >
 %carSet;
+-->
+
+<!-- Character entity set "ISO-8859-1"-->
+
+<!ENTITY nbsp    "&#160;" >
+<!ENTITY iexcl   "&#161;" >
+<!ENTITY cent    "&#162;" >
+<!ENTITY pound   "&#163;" >
+<!ENTITY curren  "&#164;" >
+<!ENTITY yen     "&#165;" >
+<!ENTITY brvbar  "&#166;" >
+<!ENTITY sect    "&#167;" >
+<!ENTITY uml     "&#168;" >
+<!ENTITY copy    "&#169;" >
+<!ENTITY ordf    "&#170;" >
+<!ENTITY laquo   "&#171;" >
+<!ENTITY not     "&#172;" >
+<!ENTITY shy     "&#173;" >
+<!ENTITY reg     "&#174;" >
+<!ENTITY macr    "&#175;" >
+<!ENTITY deg     "&#176;" >
+<!ENTITY plusmn  "&#177;" >
+<!ENTITY sup2    "&#178;" >
+<!ENTITY sup3    "&#179;" >
+<!ENTITY acute   "&#180;" >
+<!ENTITY micro   "&#181;" >
+<!ENTITY para    "&#182;" >
+<!ENTITY middot  "&#183;" >
+<!ENTITY cedil   "&#184;" >
+<!ENTITY sup1    "&#185;" >
+<!ENTITY ordm    "&#186;" >
+<!ENTITY raquo   "&#187;" >
+<!ENTITY frac14  "&#188;" >
+<!ENTITY frac12  "&#189;" >
+<!ENTITY frac34  "&#190;" >
+<!ENTITY iquest  "&#191;" >
+<!ENTITY Agrave  "&#192;" >
+<!ENTITY Aacute  "&#193;" >
+<!ENTITY Acirc   "&#194;" >
+<!ENTITY Atilde  "&#195;" >
+<!ENTITY Auml    "&#196;" >
+<!ENTITY Aring   "&#197;" >
+<!ENTITY AElig   "&#198;" >
+<!ENTITY Ccedil  "&#199;" >
+<!ENTITY Egrave  "&#200;" >
+<!ENTITY Eacute  "&#201;" >
+<!ENTITY Ecirc   "&#202;" >
+<!ENTITY Euml    "&#203;" >
+<!ENTITY Igrave  "&#204;" >
+<!ENTITY Iacute  "&#205;" >
+<!ENTITY Icirc   "&#206;" >
+<!ENTITY Iuml    "&#207;" >
+<!ENTITY ETH     "&#208;" >
+<!ENTITY Ntilde  "&#209;" >
+<!ENTITY Ograve  "&#210;" >
+<!ENTITY Oacute  "&#211;" >
+<!ENTITY Ocirc   "&#212;" >
+<!ENTITY Otilde  "&#213;" >
+<!ENTITY Ouml    "&#214;" >
+<!ENTITY times   "&#215;" >
+<!ENTITY Oslash  "&#216;" >
+<!ENTITY Ugrave  "&#217;" >
+<!ENTITY Uacute  "&#218;" >
+<!ENTITY Ucirc   "&#219;" >
+<!ENTITY Uuml    "&#220;" >
+<!ENTITY Yacute  "&#221;" >
+<!ENTITY THORN   "&#222;" >
+<!ENTITY szlig   "&#223;" >
+<!ENTITY agrave  "&#224;" >
+<!ENTITY aacute  "&#225;" >
+<!ENTITY acirc   "&#226;" >
+<!ENTITY atilde  "&#227;" >
+<!ENTITY auml    "&#228;" >
+<!ENTITY aring   "&#229;" >
+<!ENTITY aelig   "&#230;" >
+<!ENTITY ccedil  "&#231;" >
+<!ENTITY egrave  "&#232;" >
+<!ENTITY eacute  "&#233;" >
+<!ENTITY ecirc   "&#234;" >
+<!ENTITY euml    "&#235;" >
+<!ENTITY igrave  "&#236;" >
+<!ENTITY iacute  "&#237;" >
+<!ENTITY icirc   "&#238;" >
+<!ENTITY iuml    "&#239;" >
+<!ENTITY eth     "&#240;" >
+<!ENTITY ntilde  "&#241;" >
+<!ENTITY ograve  "&#242;" >
+<!ENTITY oacute  "&#243;" >
+<!ENTITY ocirc   "&#244;" >
+<!ENTITY otilde  "&#245;" >
+<!ENTITY ouml    "&#246;" >
+<!ENTITY divide  "&#247;" >
+<!ENTITY oslash  "&#248;" >
+<!ENTITY ugrave  "&#249;" >
+<!ENTITY uacute  "&#250;" >
+<!ENTITY ucirc   "&#251;" >
+<!ENTITY uuml    "&#252;" >
+<!ENTITY yacute  "&#253;" >
+<!ENTITY thorn   "&#254;" >
+<!ENTITY yuml    "&#255;" >
+
+
+
+<!-- C0 Controls and Basic Latin -->
+<!ENTITY quot     "&#34;" >
+<!--ENTITY amp      "&#38;"-->
+<!--ENTITY lt       "&#60;" -->
+<!ENTITY gt       "&#62;" >
+
+<!-- Latin Extended-A -->
+<!ENTITY OElig    "&#338;" >
+<!ENTITY oelig    "&#339;" >
+
+<!-- ligature is a misnomer, this is a separate character in some languages -->
+<!ENTITY Scaron   "&#352;" >
+<!ENTITY scaron   "&#353;" >
+<!ENTITY Yuml     "&#376;" >
+
+<!-- Spacing Modifier Letters -->
+<!ENTITY circ     "&#710;" >
+<!ENTITY tilde    "&#732;" >
+
+<!-- General Punctuation -->
+<!ENTITY ensp     "&#8194;" >
+<!ENTITY emsp     "&#8195;" >
+<!ENTITY thinsp   "&#8201;" >
+<!ENTITY zwnj     "&#8204;" >
+<!ENTITY zwj      "&#8205;" >
+<!ENTITY lrm      "&#8206;" >
+<!ENTITY rlm      "&#8207;" >
+<!ENTITY ndash    "&#8211;" >
+<!ENTITY mdash    "&#8212;" >
+<!ENTITY lsquo    "&#8216;" >
+<!ENTITY rsquo    "&#8217;" >
+<!ENTITY sbquo    "&#8218;" >
+<!ENTITY ldquo    "&#8220;" >
+<!ENTITY rdquo    "&#8221;" >
+<!ENTITY bdquo    "&#8222;" >
+<!ENTITY dagger   "&#8224;" >
+<!ENTITY Dagger   "&#8225;" >
+<!ENTITY permil   "&#8240;" >
+<!ENTITY lsaquo   "&#8249;" >
+
+<!-- lsaquo is proposed but not yet ISO standardized -->
+<!ENTITY rsaquo   "&#8250;" >
+
+<!-- rsaquo is proposed but not yet ISO standardized -->
+<!ENTITY euro    "&#8364;" > 
+
+
  <!ELEMENT SigmodRecord (issue)* >
  <!ELEMENT issue (volume,number,articles) >
  <!ELEMENT volume (#PCDATA)>

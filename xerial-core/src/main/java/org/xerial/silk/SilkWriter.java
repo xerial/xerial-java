@@ -28,8 +28,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -283,12 +285,17 @@ public class SilkWriter {
 
         attributeParenCloseCheck(true);
 
-        printIndent();
-        out.print("-");
-        out.print(nodeName);
+        printNodeName(nodeName);
         SilkWriter child = new SilkWriter(nodeName, this);
         registChildWriter(child);
         return child;
+    }
+
+    private void printNodeName(String nodeName) {
+        printIndent();
+        out.print("-");
+        if (nodeName != null)
+            out.print(nodeName);
     }
 
     public SilkWriter tabDataSchema(String nodeName) {
@@ -480,7 +487,8 @@ public class SilkWriter {
         Class< ? > c = obj.getClass();
 
         if (TypeInfo.isBasicType(c)) {
-            return nodeValue(obj.toString());
+            nodeValue(obj.toString());
+            return this;
         }
 
         ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
@@ -494,7 +502,8 @@ public class SilkWriter {
 
             if (!collection.isEmpty()) {
                 for (Object elem : collection) {
-                    toSilk(elem);
+                    SilkWriter w = node(null);
+                    w.toSilk(elem);
                 }
             }
         }
@@ -540,7 +549,33 @@ public class SilkWriter {
     }
 
     private void outputParemters(ObjectLens lens, Object obj) {
-        for (ParameterGetter getter : lens.getGetterContainer()) {
+
+        List<ParameterGetter> getterContainer = lens.getGetterContainer();
+        List<ParameterGetter> postponedParameters = new ArrayList<ParameterGetter>();
+
+        // output attribute-like parameters first
+        for (ParameterGetter getter : getterContainer) {
+
+            Class< ? > c = getter.getReturnType();
+            if (TypeInfo.isBasicType(c)) {
+                leafObject(getter.getParamName(), getter.get(obj));
+            }
+            else {
+                if (TypeInfo.isCollection(c) || TypeInfo.isMap(c)) {
+                    postponedParameters.add(getter);
+                }
+                else {
+                    ObjectLens paramLens = ObjectLens.getObjectLens(c);
+                    if (paramLens.hasAttributes())
+                        postponedParameters.add(getter);
+                    else
+                        leafObject(getter.getParamName(), getter.get(obj));
+                }
+            }
+
+        }
+
+        for (ParameterGetter getter : postponedParameters) {
 
             Class< ? > c = getter.getReturnType();
             if (TypeInfo.isCollection(c)) {

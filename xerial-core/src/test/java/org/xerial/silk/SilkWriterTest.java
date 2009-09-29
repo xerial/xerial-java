@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -142,4 +142,42 @@ public class SilkWriterTest {
         String s = Lens.toSilk(i);
         _logger.info(s);
     }
+
+    @Test
+    public void array() throws Exception {
+        ArrayList<String> input = new ArrayList<String>();
+        input.add("hello");
+        input.add("world");
+        String s = Lens.toSilk(input);
+        _logger.info(s);
+    }
+
+    static class Person {
+        public int id;
+        public String name;
+
+        public Person(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+    }
+
+    @Test
+    public void objectArray() throws Exception {
+
+        /*
+         * expect
+         * <pre>
+         * -(id:1, name:leo)
+         * -(id:2, name:yui)
+         * </pre>
+         */
+        ArrayList<Person> p = new ArrayList<Person>();
+        p.add(new Person(1, "leo"));
+        p.add(new Person(2, "yui"));
+        String s = Lens.toSilk(p);
+        _logger.info(s);
+    }
+
 }
