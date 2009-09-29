@@ -167,24 +167,18 @@ xpath
 fragment
 locationExpr
   : relativePath
-  | absolutePath
   ;
   
 fragment
 relativePath
-  : step 
-  -> ^(STEP step)
-  | (step '/') => step '/' relativePath
-  -> ^(STEP AXIS["PC"] step relativePath)  
-  | (step '//') => step '//' relativePath 
-  -> ^(STEP AXIS["AD"] step relativePath)
-  ;
+  : step relativePath?
+   -> ^(STEP step relativePath?)
+  | '/' step relativePath?
+   -> ^(STEP AXIS["PC"] step relativePath?)
+  | '//' step relativePath?
+   -> ^(STEP AXIS["AD"] step relativePath?)
+  ; 
 
-fragment
-absolutePath
-  : '/' relativePath 
-  -> ^(STEP AXIS["PC"] NAME["_root"] relativePath)
-  ;
   
 fragment
 step

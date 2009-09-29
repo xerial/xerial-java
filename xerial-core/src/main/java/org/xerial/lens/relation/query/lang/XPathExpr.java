@@ -58,11 +58,11 @@ public class XPathExpr {
         public String name;
         public Axis axis = Axis.Relative;
         public List<Step> step = new ArrayList<Step>();
-        public List<Predicate> prediate = new ArrayList<Predicate>();
+        public List<Predicate> predicate = new ArrayList<Predicate>();
     }
 
     public static class Predicate {
-
+        public Step step;
     }
 
     public Step step;
@@ -75,8 +75,11 @@ public class XPathExpr {
         try {
             xpath_return r = parser.xpath();
 
-            if (_logger.isDebugEnabled())
+            if (_logger.isDebugEnabled()) {
+                //                _logger.debug(ANTLRUtil.prettyPrintTokenList(token.getTokens(), ANTLRUtil
+                //                        .getTokenTable(XPathLexer.class, "XPath.tokens")));
                 _logger.debug(ANTLRUtil.parseTree((Tree) r.getTree(), XPathParser.tokenNames));
+            }
 
             return Lens.loadANTLRParseTree(XPathExpr.class, (Tree) r.getTree(),
                     XPathParser.tokenNames);

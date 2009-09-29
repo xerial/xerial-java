@@ -43,17 +43,23 @@ public class XPathExprTest {
 
     public void parse(String expr) throws XerialException {
         XPathExpr e = XPathExpr.parse(expr);
-        _logger.info(String.format("%s\n%s", expr, Lens.toSilk(e)));
+        _logger.info(String.format("%s:%s", expr, Lens.toSilk(e)));
     }
 
     @Test
     public void testParse() throws Exception {
 
-        parse("/A/B");
         parse("//A");
-        parse("//book");
-        parse("//title");
+        parse("/A");
+        parse("/A/B");
+        parse("//A/B//C");
+        parse("//A[B]");
         parse("//A[B][C]");
+        parse("book[//order]//title");
     }
 
+    @Test
+    public void testPredicate() throws Exception {
+        parse("//A[B]");
+    }
 }

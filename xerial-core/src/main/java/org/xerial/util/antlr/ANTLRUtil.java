@@ -35,10 +35,15 @@ import java.util.TreeMap;
 
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.Tree;
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
+import org.xerial.util.log.Logger;
 
 public class ANTLRUtil {
+    private static Logger _logger = Logger.getLogger(ANTLRUtil.class);
+
     public static String toVisibleString(String text) {
         text = text.replaceAll("\n", "\\\\n");
         text = text.replaceAll("\r", "\\\\r");
@@ -85,18 +90,29 @@ public class ANTLRUtil {
 
     @SuppressWarnings("unchecked")
     public static Map<Integer, String> getTokenTable(Class< ? > packageBaseClass,
-            String tokenFileName) throws IOException {
+            String tokenFileName) {
         Properties p = new Properties();
         TreeMap<Integer, String> tokenTable = new TreeMap<Integer, String>();
 
         URL wikiTokenFileURL = FileResource.find(packageBaseClass, tokenFileName);
-        if (wikiTokenFileURL != null)
-            p.load(wikiTokenFileURL.openStream());
+        try {
+            if (wikiTokenFileURL != null)
+                p.load(wikiTokenFileURL.openStream());
+        }
+        catch (IOException e) {
+            throw new XerialError(XerialErrorCode.IO_EXCEPTION, e);
+        }
 
         for (Iterator it = p.keySet().iterator(); it.hasNext();) {
             String tokenName = (String) it.next();
-            int tokenType = Integer.parseInt(p.get(tokenName).toString());
-            tokenTable.put(tokenType, tokenName);
+            try {
+                int tokenType = Integer.parseInt(p.get(tokenName).toString());
+                tokenTable.put(tokenType, tokenName);
+            }
+            catch (NumberFormatException e) {
+                _logger.warn(e);
+            }
+
         }
 
         return tokenTable;
