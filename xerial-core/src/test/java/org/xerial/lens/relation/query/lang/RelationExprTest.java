@@ -41,7 +41,7 @@ public class RelationExprTest {
 
     public RelationExpr parse(String query) throws Exception {
         RelationExpr e = RelationExpr.parse(query);
-        _logger.info(Lens.toJSON(e));
+        _logger.info(Lens.toSilk(e));
         return e;
     }
 

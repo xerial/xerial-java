@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -34,6 +34,8 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.Lens;
+import org.xerial.lens.relation.TupleIndex;
 import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
@@ -132,5 +134,12 @@ public class SilkWriterTest {
         w.endDocument();
 
         _logger.info(buf.toString());
+    }
+
+    @Test
+    public void tupleIndex() throws Exception {
+        TupleIndex i = new TupleIndex(1);
+        String s = Lens.toSilk(i);
+        _logger.info(s);
     }
 }

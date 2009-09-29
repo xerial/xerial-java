@@ -455,8 +455,17 @@ public class SilkWriter {
                 leaf(leafNodeName, v.toString());
         }
         else {
-            SilkWriter c = node(leafNodeName);
-            c.toSilk(v);
+            ObjectLens lens = ObjectLens.getObjectLens(v.getClass());
+            if (lens.hasAttributes()) {
+                SilkWriter c = node(leafNodeName);
+                c.toSilk(v);
+            }
+            else {
+                if (parent != null)
+                    attribute(leafNodeName, v.toString());
+                else
+                    leaf(leafNodeName, v.toString());
+            }
         }
         return this;
     }
@@ -519,7 +528,10 @@ public class SilkWriter {
             }
         }
         else {
-            outputParemters(lens, obj);
+            if (lens.hasAttributes())
+                outputParemters(lens, obj);
+            else
+                out.print(obj.toString());
         }
 
         attributeParenCloseCheck(false);
