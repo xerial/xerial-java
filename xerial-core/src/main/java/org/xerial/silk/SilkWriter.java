@@ -35,11 +35,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.lens.ObjectLens;
 import org.xerial.lens.impl.ParameterGetter;
+import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TypeInfo;
 
 /**
@@ -397,8 +400,16 @@ public class SilkWriter {
         }
     }
 
-    String sanitizeInLineNodeValue(String nodeValue) {
-        // TODO impl
+    static String sanitizeInLineNodeValue(String nodeValue) {
+
+        String mustBeEscaped = "\"";
+        nodeValue = nodeValue.replaceAll("\"", "\\\"");
+        // "[](){},:>*|")));
+        Pattern p = Pattern.compile(String.format("[%s]", "\\[\\](){},:>*|"));
+        Matcher m = p.matcher(nodeValue);
+        if (m.find()) {
+            nodeValue = StringUtil.doubleQuote(nodeValue);
+        }
         return nodeValue;
     }
 

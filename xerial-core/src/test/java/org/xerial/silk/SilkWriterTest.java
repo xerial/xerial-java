@@ -38,6 +38,7 @@ import org.xerial.lens.Lens;
 import org.xerial.lens.relation.TupleIndex;
 import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.FileResource;
+import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
 public class SilkWriterTest {
@@ -178,6 +179,27 @@ public class SilkWriterTest {
         p.add(new Person(2, "yui"));
         String s = Lens.toSilk(p);
         _logger.info(s);
+    }
+
+    @Test
+    public void sanitize() throws Exception {
+
+        String[] v = new String[] { "this is a node(0)'s value", "this is a node, value",
+                "this is a node |value|", "this is a {node} value", "this is a node*",
+                "invalid value:" };
+
+        for (String each : v) {
+            String s = SilkWriter.sanitizeInLineNodeValue(each);
+            assertEquals(StringUtil.doubleQuote(each), s);
+        }
+
+        String[] safe = new String[] { "this is a node value", "safe value 1.2.4" };
+
+        for (String each : safe) {
+            String s = SilkWriter.sanitizeInLineNodeValue(each);
+            assertEquals(each, s);
+        }
+
     }
 
 }
