@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-09-29 14:01:34
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-09-30 22:59:27
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -787,7 +787,7 @@ public class LensQueryParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeValue, nodeName, alias
+                    // elements: alias, nodeName, nodeValue
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

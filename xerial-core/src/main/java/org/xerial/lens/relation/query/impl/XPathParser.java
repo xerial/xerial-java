@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 XPath.g 2009-09-29 15:49:18
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 XPath.g 2009-09-30 22:59:29
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -342,7 +342,7 @@ public class XPathParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: relativePath, step
+                    // elements: step, relativePath
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -414,7 +414,7 @@ public class XPathParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: step, relativePath
+                    // elements: relativePath, step
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

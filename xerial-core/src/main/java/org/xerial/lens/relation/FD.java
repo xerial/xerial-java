@@ -31,28 +31,24 @@ package org.xerial.lens.relation;
  * 
  */
 public enum FD {
-    ONE_TO_ONE("."), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), ZERO_OR_MORE("*");
+    ONE_TO_ONE(":"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), ZERO_OR_MORE("*");
 
     private final String symbol;
 
-    private FD(String displaySymbol)
-    {
+    private FD(String displaySymbol) {
         this.symbol = displaySymbol;
     }
 
-    public boolean isOneToOne()
-    {
+    public boolean isOneToOne() {
         return this == ONE_TO_ONE;
     }
 
-    public boolean isOneToMany()
-    {
+    public boolean isOneToMany() {
         return this != ONE_TO_ONE;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return symbol;
     }
 

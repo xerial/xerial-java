@@ -1,8 +1,0 @@
-CHANGE LOGS
-
-[0.8.8]
- CHANGE: changed to maven-antlr-plugin 1.1.0
- CHANGE: antlr3.0.1 -> antlr3.1.1
-  * antlr3.1.1 packages all of the runtime-library, antlr2 and stringtemplate libraries, so only the single jar archive is required.
-
- 
