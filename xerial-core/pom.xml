@@ -56,35 +56,32 @@
       	<version>2.5.1</version>
       </plugin>
       
+
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2-beta-3</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
         <configuration>
-          <!-- <finalName>xerial</finalName>-->
-          <appendAssemblyId>true</appendAssemblyId>
-          <descriptors>
-            <descriptor>src/assembly/standalone.xml</descriptor>
-          </descriptors>
-          <archive>
-          <!-- 
-            <manifest>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
               <mainClass>org.xerial.silk.cui.SilkMain</mainClass>
-            </manifest>
-             -->
-            <index>true</index>
-          </archive>
+            </transformer>
+          </transformers>
         </configuration>
         <executions>
           <execution>
-            <id>silk</id> 
-            <phase>package</phase> 
+            <id>make-shade</id>
+            <phase>package</phase>
             <goals>
-              <goal>single</goal>
+              <goal>shade</goal>
             </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>standalone</shadedClassifierName>
+            </configuration>
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
