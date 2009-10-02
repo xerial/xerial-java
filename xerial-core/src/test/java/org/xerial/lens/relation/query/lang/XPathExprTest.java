@@ -60,6 +60,6 @@ public class XPathExprTest {
 
     @Test
     public void testPredicate() throws Exception {
-        parse("//A[B]");
+        parse("A[B]");
     }
 }

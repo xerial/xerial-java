@@ -300,10 +300,6 @@ public class StreamAmoebaJoin implements TreeEventHandler {
 
     }
 
-    class ReportText {
-
-    }
-
     public void finish() throws Exception {
         leaveNode("root");
         if (_logger.isTraceEnabled())
