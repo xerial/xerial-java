@@ -25,7 +25,6 @@
 package org.xerial.lens.relation.query;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,9 +39,6 @@ import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.TupleIndex;
 import org.xerial.lens.relation.Node.NodeBuilder;
 import org.xerial.lens.relation.schema.Schema;
-import org.xerial.lens.relation.schema.SchemaArray;
-import org.xerial.lens.relation.schema.SchemaAtom;
-import org.xerial.lens.relation.schema.SchemaVisitor;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.HashedDeque;
@@ -52,10 +48,7 @@ import org.xerial.util.graph.LatticeCursor;
 import org.xerial.util.graph.LatticeNode;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLGenerator;
 
 /**
  * 
@@ -65,7 +58,7 @@ import org.xerial.util.xml.XMLGenerator;
  * @author leo
  * 
  */
-public class StreamAmoebaJoin implements TreeEventHandler {
+public class StreamAmoebaJoin {
     public static final String ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
 
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoin.class);
@@ -300,23 +293,6 @@ public class StreamAmoebaJoin implements TreeEventHandler {
 
     }
 
-    public void finish() throws Exception {
-        leaveNode("root");
-        if (_logger.isTraceEnabled())
-            _logger.trace("sweep finished");
-        handler.finish();
-    }
-
-    public void init() throws Exception {
-        nodeCount = -1;
-        latticeCursor = nodeNameLattice.cursor();
-        stateStack.addLast(latticeCursor.getNode());
-
-        handler.init();
-
-        visitNode("root", null);
-    }
-
     public Deque<Node> getNodeStack(String nodeName) {
         return nodeStackOfEachTag.get(nodeName);
     }
@@ -325,174 +301,233 @@ public class StreamAmoebaJoin implements TreeEventHandler {
         return ObjectLens.getCanonicalParameterName(nodeName);
     }
 
-    public void visitNode(String nodeName, String nodeValue) throws Exception {
-        nodeName = sanitize(nodeName);
+    /**
+     * Body of depth-first tree traverser
+     * 
+     * @author leo
+     * 
+     */
+    private class AmoebaFinder implements TreeEventHandler {
 
-        Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue)
-                .build();
-        Deque<Node> nodeStack = getNodeStack(nodeName);
-        nodeStack.add(currentNode);
-
-        // forward
-        LatticeNode<String> prevState = latticeCursor.getNode();
-        LatticeNode<String> nextState = latticeCursor.next(nodeName);
-        stateStack.addLast(nextState);
-        currentPath.addLast(nodeName != null ? nodeName : EMPTY_NODE_NAME);
-
-        // for tree nodes
-
-        if (query.isTreeNode(nodeName)) {
-            throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not supported yet");
+        public void finish() throws Exception {
+            leaveNode("root");
+            if (_logger.isTraceEnabled())
+                _logger.trace("sweep finished");
+            handler.finish();
         }
 
-    }
+        public void init() throws Exception {
+            nodeCount = -1;
+            latticeCursor = nodeNameLattice.cursor();
+            stateStack.addLast(latticeCursor.getNode());
 
-    public void text(String nodeName, String textDataFragment) throws Exception {
-        nodeName = sanitize(nodeName);
+            handler.init();
 
-        Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
-        LatticeNode<String> currentState = it.next();
-        LatticeNode<String> prevState = it.next();
+            visitNode("root", null);
+        }
 
-        Edge currentEdge = new Edge(prevState.getID(), currentState.getID());
-        List<TextOperation> textOperation = operatSetOnText.get(currentEdge);
+        public void visitNode(String nodeName, String nodeValue) throws Exception {
+            nodeName = sanitize(nodeName);
 
-        // generate a text operation set
-        if (textOperation == null) {
-            textOperation = new ArrayList<TextOperation>();
-            operatSetOnText.put(currentEdge, textOperation);
+            Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue)
+                    .build();
+            Deque<Node> nodeStack = getNodeStack(nodeName);
+            nodeStack.add(currentNode);
 
-            List<Operation> forwardAction = getForwardActionList(prevState, currentState, nodeName);
-            for (Operation each : forwardAction) {
-                if (each instanceof PushRelation) {
-                    textOperation.add(new SimpleTextOperation((PushRelation) each));
+            // forward
+            LatticeNode<String> prevState = latticeCursor.getNode();
+            LatticeNode<String> nextState = latticeCursor.next(nodeName);
+            stateStack.addLast(nextState);
+            currentPath.addLast(nodeName != null ? nodeName : EMPTY_NODE_NAME);
+
+            // for tree nodes
+
+            if (query.isTreeNode(nodeName)) {
+                throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not supported yet");
+            }
+
+        }
+
+        public void text(String nodeName, String textDataFragment) throws Exception {
+            nodeName = sanitize(nodeName);
+
+            Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
+            LatticeNode<String> currentState = it.next();
+            LatticeNode<String> prevState = it.next();
+
+            Edge currentEdge = new Edge(prevState.getID(), currentState.getID());
+            List<TextOperation> textOperation = operatSetOnText.get(currentEdge);
+
+            // generate a text operation set
+            if (textOperation == null) {
+                textOperation = new ArrayList<TextOperation>();
+                operatSetOnText.put(currentEdge, textOperation);
+
+                List<Operation> forwardAction = getForwardActionList(prevState, currentState,
+                        nodeName);
+                for (Operation each : forwardAction) {
+                    if (each instanceof PushRelation) {
+                        textOperation.add(new SimpleTextOperation((PushRelation) each));
+                    }
+                    else if (each instanceof ScopedPushRelation) {
+                        textOperation.add(new ContextBasedTextOperation((ScopedPushRelation) each));
+                    }
+                    else
+                        throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: "
+                                + each);
                 }
-                else if (each instanceof ScopedPushRelation) {
-                    textOperation.add(new ContextBasedTextOperation((ScopedPushRelation) each));
-                }
+            }
+
+            assert textOperation != null;
+
+            try {
+                for (TextOperation each : textOperation)
+                    each.execute(nodeName, textDataFragment);
+            }
+            catch (Exception e) {
+                if (e instanceof XerialException)
+                    throw (XerialException) e;
                 else
-                    throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: "
-                            + each);
+                    throw new XerialException(XerialErrorCode.INHERITED, e);
             }
         }
 
-        assert textOperation != null;
+        public void leaveNode(String nodeName) throws Exception {
+            nodeName = sanitize(nodeName);
 
-        try {
-            for (TextOperation each : textOperation)
-                each.execute(nodeName, textDataFragment);
-        }
-        catch (Exception e) {
-            if (e instanceof XerialException)
-                throw (XerialException) e;
-            else
-                throw new XerialException(XerialErrorCode.INHERITED, e);
-        }
-    }
+            Deque<Node> nodeStack = getNodeStack(nodeName);
+            Node currentNode = nodeStack.getLast();
 
-    public void leaveNode(String nodeName) throws Exception {
-        nodeName = sanitize(nodeName);
+            try {
+                back(currentNode);
+            }
+            catch (Exception e) {
+                if (e instanceof XerialException)
+                    throw (XerialException) e;
+                else if (e instanceof XerialError)
+                    throw (XerialError) e;
+                else
+                    throw new XerialException(XerialErrorCode.INHERITED, e);
+            }
 
-        Deque<Node> nodeStack = getNodeStack(nodeName);
-        Node currentNode = nodeStack.getLast();
+            currentPath.removeLast();
 
-        try {
-            back(currentNode);
-        }
-        catch (Exception e) {
-            if (e instanceof XerialException)
-                throw (XerialException) e;
-            else if (e instanceof XerialError)
-                throw (XerialError) e;
-            else
-                throw new XerialException(XerialErrorCode.INHERITED, e);
+            nodeStack.removeLast();
         }
 
-        currentPath.removeLast();
+        private List<Operation> getForwardActionList(LatticeNode<String> prevState,
+                LatticeNode<String> nextState, String nodeName) {
+            Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
 
-        nodeStack.removeLast();
-    }
+            List<Operation> actionList = operationSetOnForward.get(currentEdge);
+            if (actionList != null)
+                return actionList;
 
-    private List<Operation> getForwardActionList(LatticeNode<String> prevState,
-            LatticeNode<String> nextState, String nodeName) {
-        Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
+            int prevNodeID = currentEdge.getSourceNodeID();
+            int nextNodeID = currentEdge.getDestNodeID();
 
-        List<Operation> actionList = operationSetOnForward.get(currentEdge);
-        if (actionList != null)
-            return actionList;
+            // lazily prepare the action list
+            actionList = new ArrayList<Operation>();
+            operationSetOnForward.put(currentEdge, actionList);
+            List<Operation> backActionList = new ArrayList<Operation>();
+            operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
 
-        int prevNodeID = currentEdge.getSourceNodeID();
-        int nextNodeID = currentEdge.getDestNodeID();
+            // search for the corresponding relations to newly found two node pair 
+            String newlyFoundTag = nodeName;
 
-        // lazily prepare the action list
-        actionList = new ArrayList<Operation>();
-        operationSetOnForward.put(currentEdge, actionList);
-        List<Operation> backActionList = new ArrayList<Operation>();
-        operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
+            if (_logger2.isTraceEnabled())
+                _logger2.trace("create actions for " + newlyFoundTag);
 
-        // search for the corresponding relations to newly found two node pair 
-        String newlyFoundTag = nodeName;
-
-        if (_logger2.isTraceEnabled())
-            _logger2.trace("create actions for " + newlyFoundTag);
-
-        if (prevNodeID != nextNodeID) {
-            List<PushRelation> foundAction = new ArrayList<PushRelation>();
-            // (core node, attribute node)
-            for (Schema r : query.getTargetQuerySet()) {
-                TupleIndex ni = r.getNodeIndex(newlyFoundTag);
-                if (ni == null)
-                    continue;
-
-                for (String previouslyFoundNode : nextState) {
-                    TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
-                    if (pi == null)
+            if (prevNodeID != nextNodeID) {
+                List<PushRelation> foundAction = new ArrayList<PushRelation>();
+                // (core node, attribute node)
+                for (Schema r : query.getTargetQuerySet()) {
+                    TupleIndex ni = r.getNodeIndex(newlyFoundTag);
+                    if (ni == null)
                         continue;
 
-                    if (previouslyFoundNode.equals(newlyFoundTag))
-                        continue;
+                    for (String previouslyFoundNode : nextState) {
+                        TupleIndex pi = r.getNodeIndex(previouslyFoundNode);
+                        if (pi == null)
+                            continue;
 
-                    if (!(isCoreNodeIndex(ni) || isCoreNodeIndex(pi)))
-                        continue;
+                        if (previouslyFoundNode.equals(newlyFoundTag))
+                            continue;
 
-                    if (_logger2.isTraceEnabled())
-                        _logger2.trace(String.format("new pair: %s, %s (in %s)",
-                                previouslyFoundNode, newlyFoundTag, r));
+                        if (!(isCoreNodeIndex(ni) || isCoreNodeIndex(pi)))
+                            continue;
 
-                    foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
-                    break;
+                        if (_logger2.isTraceEnabled())
+                            _logger2.trace(String.format("new pair: %s, %s (in %s)",
+                                    previouslyFoundNode, newlyFoundTag, r));
+
+                        foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
+                        break;
+                    }
                 }
-            }
 
-            // set the action list
-            if (foundAction.size() > 1) {
-                // context-dependent actions
-                actionList.add(new ScopedPushRelation(foundAction));
-                backActionList.add(new ScopedPopRelation(foundAction));
+                // set the action list
+                if (foundAction.size() > 1) {
+                    // context-dependent actions
+                    actionList.add(new ScopedPushRelation(foundAction));
+                    backActionList.add(new ScopedPopRelation(foundAction));
+                }
+                else {
+                    // a single action
+                    for (PushRelation each : foundAction) {
+                        actionList.add(each);
+                        backActionList.add(new PopRelation(each.schema, each.newlyFoundNodeName));
+                    }
+                }
+
             }
             else {
-                // a single action
-                for (PushRelation each : foundAction) {
-                    actionList.add(each);
-                    backActionList.add(new PopRelation(each.schema, each.newlyFoundNodeName));
+                // loop back e.g. A -> A
+                for (Schema r : query.getTargetQuerySet()) {
+                    String selfLoopNode = r.selfLoopNode();
+                    if (selfLoopNode == null)
+                        continue;
+                    else {
+                        actionList.add(new PushLoopedRelation(r, selfLoopNode));
+                        break;
+                    }
                 }
             }
 
-        }
-        else {
-            // loop back e.g. A -> A
-            for (Schema r : query.getTargetQuerySet()) {
-                String selfLoopNode = r.selfLoopNode();
-                if (selfLoopNode == null)
-                    continue;
-                else {
-                    actionList.add(new PushLoopedRelation(r, selfLoopNode));
-                    break;
-                }
-            }
+            return actionList;
+
         }
 
-        return actionList;
+        void back(Node node) throws Exception {
+            Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
+            LatticeNode<String> current = it.next();
+            LatticeNode<String> prev = it.next();
+            stateStack.removeLast();
+
+            // process forward edge
+            for (Operation each : getForwardActionList(prev, current, node.nodeName)) {
+                each.execute();
+            }
+
+            // process back edge
+            int prevState = latticeCursor.getNodeID();
+            int nextState = latticeCursor.reset(stateStack.peekLast()).getID();
+
+            Edge backEdge = new Edge(prevState, nextState);
+            List<Operation> actionList = operationSetOnBack.get(backEdge);
+            if (actionList == null) {
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
+            }
+            if (actionList.isEmpty()) {
+                Node poppedNode = getNodeStack(node.nodeName).getLast();
+                handler.leaveNode(null, poppedNode);
+            }
+            else
+                for (Operation each : actionList) {
+                    each.execute();
+                }
+
+        }
 
     }
 
@@ -500,95 +535,13 @@ public class StreamAmoebaJoin implements TreeEventHandler {
         return ti.size() == 1 && ti.get(0) == 0;
     }
 
-    void back(Node node) throws Exception {
-        Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
-        LatticeNode<String> current = it.next();
-        LatticeNode<String> prev = it.next();
-        stateStack.removeLast();
-
-        // process forward edge
-        for (Operation each : getForwardActionList(prev, current, node.nodeName)) {
-            each.execute();
-        }
-
-        // process back edge
-        int prevState = latticeCursor.getNodeID();
-        int nextState = latticeCursor.reset(stateStack.peekLast()).getID();
-
-        Edge backEdge = new Edge(prevState, nextState);
-        List<Operation> actionList = operationSetOnBack.get(backEdge);
-        if (actionList == null) {
-            throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
-        }
-        if (actionList.isEmpty()) {
-            Node poppedNode = getNodeStack(node.nodeName).getLast();
-            handler.leaveNode(null, poppedNode);
-        }
-        else
-            for (Operation each : actionList) {
-                each.execute();
-            }
-
-    }
-
-    static class AttributeNodeFinder implements SchemaVisitor {
-        Deque<String> nodeName = new ArrayDeque<String>();
-
-        public void visitArray(SchemaArray array) {
-            for (Schema each : array)
-                each.accept(this);
-        }
-
-        public void visitAtom(SchemaAtom atom) {
-            nodeName.add(atom.getName());
-        }
-    }
-
     public void sweep(TreeParser parser) throws Exception {
-        parser.parse(this);
+        AmoebaFinder f = new AmoebaFinder();
+        parser.parse(f);
     }
 
     public QuerySet getQuerySet() {
         return query;
-    }
-
-    public static class XMLBuilder {
-        private final StringWriter buf = new StringWriter();
-        private final XMLGenerator xml;
-
-        public XMLBuilder() {
-            xml = new XMLGenerator(buf);
-        }
-
-        public XMLBuilder build(TreeNode node) {
-            String tagName = node.getNodeName();
-
-            String nodeValue = node.getNodeValue();
-            if (nodeValue != null) {
-                if (node.getChildren().isEmpty()) {
-                    xml.startTag(tagName);
-                    xml.text(nodeValue);
-                }
-                else
-                    xml.startTag(tagName, new XMLAttribute("value", nodeValue));
-            }
-            else
-                xml.startTag(tagName);
-
-            for (TreeNode eachChild : node.getChildren()) {
-                build(eachChild);
-            }
-
-            xml.endTag();
-            return this;
-        }
-
-        public String getXML() {
-            xml.flush();
-            xml.endDocument();
-            return buf.toString();
-
-        }
     }
 
 }
