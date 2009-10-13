@@ -28,13 +28,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.Writer;
 import java.util.Properties;
 import java.util.TreeMap;
-
-import org.xerial.util.StringUtil;
 
 /**
  * Logger
@@ -42,19 +38,9 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class Logger
-{
-    private static String[] logPrefix = { "", // ALL
-            "\033[0;32m", // TRACE
-            "", // DEBUG
-            "\033[1;36m", // INFO
-            "\033[1;33m", // WARN
-            "\033[1;35m", // ERROR
-            "\033[1;31m", // FATAL
-            "", // OFF
-            "", };
+public class Logger {
 
-    private Writer _out = null;
+    private LogWriter writer = null;
     private LogLevel _threshold = LogLevel.UNSPECIFIED;
     private String _loggerFullName = "";
     private String _loggerShortName = "";
@@ -64,23 +50,20 @@ public class Logger
     private static TreeMap<String, Logger> _loggerHolder = new TreeMap<String, Logger>();
     private static Logger _rootLogger = new Logger();
 
-    static
-    {
+    static {
         _rootLogger.setLogLevel(LogLevel.INFO);
-        _rootLogger.setOutputWriter(new OutputStreamWriter(System.err));
+        _rootLogger.setLogWriter(new SimpleLogWriter());
+
         _rootLogger._loggerFullName = "root";
         _rootLogger._loggerShortName = "root";
 
         String logLevel = System.getProperty("xerial.loglevel");
-        if (logLevel != null)
-        {
+        if (logLevel != null) {
             _rootLogger.setLogLevel(logLevel);
         }
-        else
-        {
+        else {
             logLevel = System.getProperty("loglevel");
-            if (logLevel != null)
-            {
+            if (logLevel != null) {
                 _rootLogger.setLogLevel(logLevel);
             }
         }
@@ -90,14 +73,11 @@ public class Logger
             _rootLogger._emitEscapeSequence = Boolean.parseBoolean(useColor);
 
         String loggerConfigFile = System.getProperty("log.config");
-        if (loggerConfigFile != null)
-        {
-            try
-            {
+        if (loggerConfigFile != null) {
+            try {
                 Logger.configure(loggerConfigFile);
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -107,30 +87,25 @@ public class Logger
     /**
      * hide constructor
      */
-    private Logger()
-    {
+    private Logger() {
 
     }
 
-    private Logger(String fullTypeName)
-    {
+    private Logger(String fullTypeName) {
         _loggerFullName = fullTypeName;
         String[] packageList = _loggerFullName.split("\\.");
         _loggerShortName = packageList[packageList.length - 1];
         if (packageList.length == 1)
             _parentLogger = _rootLogger;
-        else
-        {
+        else {
             String parentPackageName = concatinate(packageList, packageList.length - 1);
             _parentLogger = getLogger(parentPackageName);
         }
     }
 
-    private String concatinate(String[] packageList, int upTo)
-    {
+    private String concatinate(String[] packageList, int upTo) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < upTo - 1; i++)
-        {
+        for (int i = 0; i < upTo - 1; i++) {
             builder.append(packageList[i]);
             builder.append(".");
         }
@@ -138,33 +113,28 @@ public class Logger
         return builder.toString();
     }
 
-    public static Logger getLogger(Class< ? > c)
-    {
+    public static Logger getLogger(Class< ? > c) {
         return getLogger(c.getName());
     }
 
-    public static Logger getLogger(Class< ? > c, String suffix)
-    {
+    public static Logger getLogger(Class< ? > c, String suffix) {
         if (suffix == null || suffix.length() <= 0)
             return getLogger(c);
         else
             return getLogger(String.format("%s-%s", c.getName(), suffix));
     }
 
-    public static Logger getLogger(Package p)
-    {
+    public static Logger getLogger(Package p) {
         return getLogger(p.getName());
     }
 
-    public static synchronized Logger getLogger(String fullTypeName)
-    {
+    public static synchronized Logger getLogger(String fullTypeName) {
         if (fullTypeName == null)
             return _rootLogger;
 
         if (_loggerHolder.containsKey(fullTypeName))
             return _loggerHolder.get(fullTypeName);
-        else
-        {
+        else {
             Logger newLogger = new Logger(fullTypeName);
             _loggerHolder.put(fullTypeName, newLogger);
             newLogger._emitEscapeSequence = _rootLogger._emitEscapeSequence;
@@ -172,75 +142,64 @@ public class Logger
         }
     }
 
-    public static Logger getRootLogger()
-    {
+    public static Logger getRootLogger() {
         return _rootLogger;
     }
 
-    public static void configure(String configFile) throws IOException
-    {
+    public static void configure(String configFile) throws IOException {
         configure(new BufferedReader(new FileReader(configFile)));
     }
 
-    public static void configure(Reader configurationFileReader) throws IOException
-    {
+    public static void configure(Reader configurationFileReader) throws IOException {
         Properties configProperties = new Properties();
 
         StringBuilder sb = new StringBuilder();
         int ch;
-        while ((ch = configurationFileReader.read()) > 0)
-        {
+        while ((ch = configurationFileReader.read()) > 0) {
             sb.append((char) ch);
         }
         ByteArrayInputStream bs = new ByteArrayInputStream(sb.toString().getBytes());
         configProperties.load(bs);
 
-        for (Object key : configProperties.keySet())
-        {
+        for (Object key : configProperties.keySet()) {
             String[] lhs = ((String) key).split("#");
             String loggerName = lhs[0];
             String value = configProperties.getProperty(key.toString());
             Logger logger = getLogger(loggerName);
-            if (lhs.length <= 1)
-            {
+            if (lhs.length <= 1) {
                 logger.setLogLevel(value);
             }
-            else if (lhs.length > 1)
-            {
+            else if (lhs.length > 1) {
                 // packageName:parameter = value configuration
                 String parameter = lhs[1];
-                if (parameter.equals("color"))
-                {
-                    logger.setColor(Boolean.parseBoolean(value));
+                if (parameter.equals("color")) {
+                    logger.enableColor(Boolean.parseBoolean(value));
                 }
-                else
-                {
+                else {
                     System.err.println("unknown configuration parameter: " + parameter);
                 }
             }
-            else
-            {
+            else {
                 System.err.println("Error in the logger configuration file: " + key);
             }
         }
     }
 
-    public String getLoggerName()
-    {
+    public String getLoggerName() {
         return _loggerFullName;
     }
 
-    public void setLogLevel(LogLevel logLevel)
-    {
+    public String getLoggerShortName() {
+        return _loggerShortName;
+    }
+
+    public void setLogLevel(LogLevel logLevel) {
         this._threshold = logLevel;
     }
 
-    public void setLogLevel(String logLevel)
-    {
-        for (LogLevel l : LogLevel.values())
-        {
-            if (l.name().equalsIgnoreCase(logLevel))
-            {
+    public void setLogLevel(String logLevel) {
+        for (LogLevel l : LogLevel.values()) {
+            if (l.name().equalsIgnoreCase(logLevel)) {
                 setLogLevel(l);
                 return;
             }
@@ -249,48 +208,43 @@ public class Logger
         warn("unknown log level: " + logLevel);
     }
 
-    public LogLevel getLogLevel()
-    {
+    public LogLevel getLogLevel() {
         return _threshold;
     }
 
-    public void setOutputWriter(Writer writer)
-    {
-        this._out = writer;
+    public void setLogWriter(LogWriter writer) {
+        if (writer == null)
+            throw new NullPointerException();
+
+        this.writer = writer;
     }
 
-    public boolean trace(Object message)
-    {
+    public boolean trace(Object message) {
         log(LogLevel.TRACE, message);
         return true;
     }
 
-    public boolean debug(Object message)
-    {
+    public boolean debug(Object message) {
         log(LogLevel.DEBUG, message);
         return true;
     }
 
-    public boolean info(Object message)
-    {
+    public boolean info(Object message) {
         log(LogLevel.INFO, message);
         return true;
     }
 
-    public boolean warn(Object message)
-    {
+    public boolean warn(Object message) {
         log(LogLevel.WARN, message);
         return true;
     }
 
-    public boolean error(Object message)
-    {
+    public boolean error(Object message) {
         log(LogLevel.ERROR, message);
         return true;
     }
 
-    public boolean fatal(Object message)
-    {
+    public boolean fatal(Object message) {
         log(LogLevel.FATAL, message);
         return true;
     }
@@ -301,56 +255,45 @@ public class Logger
      * @param enable
      * @return
      */
-    public void setColor(boolean enable)
-    {
+    public void enableColor(boolean enable) {
         _emitEscapeSequence = enable;
     }
 
     /**
      * @return true when escape sequence is used to output the log
      */
-    public boolean isColorEnabled()
-    {
+    public boolean isColorEnabled() {
         return _emitEscapeSequence;
     }
 
-    public boolean isDebugEnabled()
-    {
+    public boolean isDebugEnabled() {
         return isEnabled(LogLevel.DEBUG);
     }
 
-    public boolean isTraceEnabled()
-    {
+    public boolean isTraceEnabled() {
         return isEnabled(LogLevel.TRACE);
     }
 
-    public boolean isInfoEnabled()
-    {
+    public boolean isInfoEnabled() {
         return isEnabled(LogLevel.INFO);
     }
 
-    public boolean isWarnEnabled()
-    {
+    public boolean isWarnEnabled() {
         return isEnabled(LogLevel.WARN);
     }
 
-    public boolean isErrorEnabled()
-    {
+    public boolean isErrorEnabled() {
         return isEnabled(LogLevel.ERROR);
     }
 
-    public boolean isFatalEnalbed()
-    {
+    public boolean isFatalEnalbed() {
         return isEnabled(LogLevel.FATAL);
     }
 
-    public boolean isEnabled(LogLevel logLevel)
-    {
-        if (_threshold == LogLevel.UNSPECIFIED)
-        {
+    public boolean isEnabled(LogLevel logLevel) {
+        if (_threshold == LogLevel.UNSPECIFIED) {
             Logger parent = this;
-            while ((parent = parent._parentLogger) != null)
-            {
+            while ((parent = parent._parentLogger) != null) {
                 if (parent.getLogLevel() == LogLevel.UNSPECIFIED)
                     continue;
 
@@ -363,42 +306,29 @@ public class Logger
         return _threshold.ordinal() <= logLevel.ordinal();
     }
 
-    private Writer getWriter()
-    {
-        if (_out != null)
-            return _out;
-        else
-        {
+    private LogWriter getLogWriter() {
+        if (writer != null)
+            return writer;
+        else {
             if (_parentLogger != null)
-                return _parentLogger.getWriter();
+                return _parentLogger.getLogWriter();
             else
                 return null;
         }
     }
 
-    private void log(LogLevel logLevel, Object message)
-    {
+    private void log(LogLevel logLevel, Object message) {
         if (!isEnabled(logLevel))
             return;
 
-        Writer logOut = getWriter();
+        LogWriter logOut = getLogWriter();
         if (logOut == null)
             return; // no output is specified
 
-        try
-        {
-            if (_emitEscapeSequence)
-                logOut.write(logPrefix[logLevel.ordinal()]);
-            logOut.write("[" + _loggerShortName + "]\t");
-            if (message != null)
-                logOut.write(message.toString());
-            if (_emitEscapeSequence)
-                logOut.write("\033[0m");
-            logOut.write(StringUtil.newline());
-            logOut.flush();
+        try {
+            logOut.log(this, logLevel, message);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

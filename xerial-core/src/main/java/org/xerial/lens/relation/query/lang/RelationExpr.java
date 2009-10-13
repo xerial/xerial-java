@@ -31,8 +31,8 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
-import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.Tuple;
+import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.lens.relation.query.impl.LensQueryLexer;
@@ -68,8 +68,9 @@ public class RelationExpr extends Tuple<RelationAttribute> {
         try {
             LensQueryParser.relation_return ret = p.relation();
             if (_logger.isDebugEnabled())
-                _logger.debug("\n"
-                        + ANTLRUtil.parseTree((Tree) ret.getTree(), LensQueryParser.tokenNames));
+                _logger
+                        .debug(ANTLRUtil
+                                .parseTree((Tree) ret.getTree(), LensQueryParser.tokenNames));
 
             RelationQuery r = Lens.loadANTLRParseTree(RelationQuery.class, (Tree) ret.getTree(),
                     LensQueryParser.tokenNames);

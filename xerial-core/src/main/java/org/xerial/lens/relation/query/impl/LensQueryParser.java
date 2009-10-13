@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-09-30 22:59:27
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-10-13 14:02:52
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.lens.relation.query.impl;
 
-import org.xerial.lens.relation.TupleIndex;
 
 
 import org.antlr.runtime.*;
@@ -37,61 +36,60 @@ import org.antlr.runtime.tree.*;
 
 public class LensQueryParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUERY", "RELATION", "COMPARE", "OPERATOR", "OPERAND", "PATTERNMATCH", "NODE", "ALIAS", "NODEVALUE", "NAME", "VALUE", "INDEX", "LineBreakChar", "LineComment", "LineBreak", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Integer", "Frac", "Exp", "Double", "True", "False", "Null", "Lt", "Gt", "Leq", "Geq", "Eq", "Neq", "Match", "Regex", "Dot", "Comma", "Colon", "As", "LParen", "RParen", "Star", "UnsafeUnicodeChar", "SafeFirstLetter", "SafeLetter", "WhiteSpace", "QNameChar", "QName", "WhiteSpaces"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUERY", "RELATION", "COMPARE", "OPERATOR", "OPERAND", "PATTERNMATCH", "NODE", "ALIAS", "NODEVALUE", "NAME", "VALUE", "LineBreakChar", "LineComment", "LineBreak", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Integer", "Frac", "Exp", "Double", "True", "False", "Null", "Lt", "Gt", "Leq", "Geq", "Eq", "Neq", "Match", "Regex", "Dot", "Comma", "Colon", "As", "LParen", "RParen", "Star", "UnsafeUnicodeChar", "SafeFirstLetter", "SafeLetter", "WhiteSpace", "QNameChar", "QName", "WhiteSpaces"
     };
-    public static final int INDEX=15;
     public static final int PATTERNMATCH=9;
-    public static final int Match=40;
-    public static final int Regex=41;
-    public static final int Digit=19;
-    public static final int Frac=28;
-    public static final int HexDigit=21;
+    public static final int Match=39;
+    public static final int Regex=40;
+    public static final int Digit=18;
+    public static final int Frac=27;
+    public static final int HexDigit=20;
     public static final int QUERY=4;
     public static final int ALIAS=11;
     public static final int VALUE=14;
-    public static final int Letter=20;
-    public static final int Comma=43;
-    public static final int Dot=42;
-    public static final int EscapeSequence=23;
-    public static final int Integer=27;
-    public static final int WhiteSpace=52;
+    public static final int Letter=19;
+    public static final int Comma=42;
+    public static final int Dot=41;
+    public static final int EscapeSequence=22;
+    public static final int Integer=26;
+    public static final int WhiteSpace=51;
     public static final int OPERATOR=7;
-    public static final int False=32;
-    public static final int Colon=44;
-    public static final int LineComment=17;
+    public static final int False=31;
+    public static final int LineComment=16;
+    public static final int Colon=43;
     public static final int NODEVALUE=12;
-    public static final int As=45;
-    public static final int SafeFirstLetter=50;
-    public static final int Null=33;
-    public static final int Star=48;
-    public static final int Eq=38;
-    public static final int Exp=29;
-    public static final int QNameChar=53;
+    public static final int As=44;
+    public static final int SafeFirstLetter=49;
+    public static final int Null=32;
+    public static final int Star=47;
+    public static final int Eq=37;
+    public static final int Exp=28;
+    public static final int QNameChar=52;
     public static final int RELATION=5;
-    public static final int Gt=35;
-    public static final int RParen=47;
-    public static final int UnicodeChar=22;
-    public static final int StringChar=24;
-    public static final int True=31;
+    public static final int Gt=34;
+    public static final int RParen=46;
+    public static final int UnicodeChar=21;
+    public static final int StringChar=23;
+    public static final int True=30;
     public static final int OPERAND=8;
-    public static final int LineBreak=18;
-    public static final int LParen=46;
-    public static final int String=26;
-    public static final int SafeLetter=51;
-    public static final int LineBreakChar=16;
+    public static final int LineBreak=17;
+    public static final int LParen=45;
+    public static final int String=25;
+    public static final int SafeLetter=50;
+    public static final int LineBreakChar=15;
     public static final int COMPARE=6;
-    public static final int QName=54;
+    public static final int QName=53;
     public static final int EOF=-1;
-    public static final int Geq=37;
+    public static final int Geq=36;
     public static final int NODE=10;
-    public static final int StringChar_s=25;
-    public static final int Neq=39;
-    public static final int UnsafeUnicodeChar=49;
-    public static final int Double=30;
-    public static final int Lt=34;
+    public static final int StringChar_s=24;
+    public static final int Neq=38;
+    public static final int UnsafeUnicodeChar=48;
+    public static final int Double=29;
+    public static final int Lt=33;
     public static final int NAME=13;
-    public static final int Leq=36;
-    public static final int WhiteSpaces=55;
+    public static final int Leq=35;
+    public static final int WhiteSpaces=54;
 
     // delegates
     // delegators
@@ -118,7 +116,6 @@ public class LensQueryParser extends Parser {
     public String getGrammarFileName() { return "LensQuery.g"; }
 
 
-       private TupleIndex currentIndex = null;
 
 
     public static class expr_return extends ParserRuleReturnScope {
@@ -127,7 +124,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // LensQuery.g:188:1: expr : relation ;
+    // LensQuery.g:185:1: expr : relation ;
     public final LensQueryParser.expr_return expr() throws RecognitionException {
         LensQueryParser.expr_return retval = new LensQueryParser.expr_return();
         retval.start = input.LT(1);
@@ -139,12 +136,12 @@ public class LensQueryParser extends Parser {
 
 
         try {
-            // LensQuery.g:188:5: ( relation )
-            // LensQuery.g:189:3: relation
+            // LensQuery.g:185:5: ( relation )
+            // LensQuery.g:186:3: relation
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_relation_in_expr779);
+            pushFollow(FOLLOW_relation_in_expr774);
             relation1=relation();
 
             state._fsp--;
@@ -171,21 +168,14 @@ public class LensQueryParser extends Parser {
     }
     // $ANTLR end "expr"
 
-    protected static class relation_scope {
-        int nodeItemIndex;
-        TupleIndex relationIndex;
-    }
-    protected Stack relation_stack = new Stack();
-
     public static class relation_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "relation"
-    // LensQuery.g:192:1: relation : relation_i -> ^( RELATION relation_i INDEX[currentIndex.toString()] ) ;
+    // LensQuery.g:189:1: relation : relation_i -> ^( RELATION relation_i ) ;
     public final LensQueryParser.relation_return relation() throws RecognitionException {
-        relation_stack.push(new relation_scope());
         LensQueryParser.relation_return retval = new LensQueryParser.relation_return();
         retval.start = input.LT(1);
 
@@ -195,18 +185,11 @@ public class LensQueryParser extends Parser {
 
 
         RewriteRuleSubtreeStream stream_relation_i=new RewriteRuleSubtreeStream(adaptor,"rule relation_i");
-
-          ((relation_scope)relation_stack.peek()).nodeItemIndex = 1;
-          if(currentIndex == null)
-            currentIndex = new TupleIndex(1);
-          else
-            currentIndex = new TupleIndex(currentIndex, 1); 
-
         try {
-            // LensQuery.g:210:4: ( relation_i -> ^( RELATION relation_i INDEX[currentIndex.toString()] ) )
-            // LensQuery.g:210:6: relation_i
+            // LensQuery.g:190:4: ( relation_i -> ^( RELATION relation_i ) )
+            // LensQuery.g:190:6: relation_i
             {
-            pushFollow(FOLLOW_relation_i_in_relation813);
+            pushFollow(FOLLOW_relation_i_in_relation792);
             relation_i2=relation_i();
 
             state._fsp--;
@@ -225,15 +208,14 @@ public class LensQueryParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 210:17: -> ^( RELATION relation_i INDEX[currentIndex.toString()] )
+            // 190:17: -> ^( RELATION relation_i )
             {
-                // LensQuery.g:210:20: ^( RELATION relation_i INDEX[currentIndex.toString()] )
+                // LensQuery.g:190:20: ^( RELATION relation_i )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(RELATION, "RELATION"), root_1);
 
                 adaptor.addChild(root_1, stream_relation_i.nextTree());
-                adaptor.addChild(root_1, (Object)adaptor.create(INDEX, currentIndex.toString()));
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -248,9 +230,6 @@ public class LensQueryParser extends Parser {
             retval.tree = (Object)adaptor.rulePostProcessing(root_0);
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
-
-              currentIndex = currentIndex.parent();
-
         }
         catch (RecognitionException re) {
             reportError(re);
@@ -259,7 +238,6 @@ public class LensQueryParser extends Parser {
 
         }
         finally {
-            relation_stack.pop();
         }
         return retval;
     }
@@ -271,7 +249,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "relation_i"
-    // LensQuery.g:213:1: relation_i : nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen ;
+    // LensQuery.g:193:1: relation_i : nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen ;
     public final LensQueryParser.relation_i_return relation_i() throws RecognitionException {
         LensQueryParser.relation_i_return retval = new LensQueryParser.relation_i_return();
         retval.start = input.LT(1);
@@ -295,18 +273,18 @@ public class LensQueryParser extends Parser {
         Object RParen9_tree=null;
 
         try {
-            // LensQuery.g:213:11: ( nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen )
-            // LensQuery.g:213:13: nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen
+            // LensQuery.g:193:11: ( nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen )
+            // LensQuery.g:193:13: nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_nodeName_in_relation_i832);
+            pushFollow(FOLLOW_nodeName_in_relation_i808);
             nodeName3=nodeName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, nodeName3.getTree());
-            // LensQuery.g:213:22: ( alias )?
+            // LensQuery.g:193:22: ( alias )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -315,9 +293,9 @@ public class LensQueryParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // LensQuery.g:213:22: alias
+                    // LensQuery.g:193:22: alias
                     {
-                    pushFollow(FOLLOW_alias_in_relation_i834);
+                    pushFollow(FOLLOW_alias_in_relation_i810);
                     alias4=alias();
 
                     state._fsp--;
@@ -329,14 +307,14 @@ public class LensQueryParser extends Parser {
 
             }
 
-            LParen5=(Token)match(input,LParen,FOLLOW_LParen_in_relation_i837); 
-            pushFollow(FOLLOW_nodeItem_in_relation_i840);
+            LParen5=(Token)match(input,LParen,FOLLOW_LParen_in_relation_i813); 
+            pushFollow(FOLLOW_nodeItem_in_relation_i816);
             nodeItem6=nodeItem();
 
             state._fsp--;
 
             adaptor.addChild(root_0, nodeItem6.getTree());
-            // LensQuery.g:213:46: ( Comma nodeItem )*
+            // LensQuery.g:193:46: ( Comma nodeItem )*
             loop2:
             do {
                 int alt2=2;
@@ -349,10 +327,10 @@ public class LensQueryParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // LensQuery.g:213:47: Comma nodeItem
+            	    // LensQuery.g:193:47: Comma nodeItem
             	    {
-            	    Comma7=(Token)match(input,Comma,FOLLOW_Comma_in_relation_i843); 
-            	    pushFollow(FOLLOW_nodeItem_in_relation_i846);
+            	    Comma7=(Token)match(input,Comma,FOLLOW_Comma_in_relation_i819); 
+            	    pushFollow(FOLLOW_nodeItem_in_relation_i822);
             	    nodeItem8=nodeItem();
 
             	    state._fsp--;
@@ -367,7 +345,7 @@ public class LensQueryParser extends Parser {
                 }
             } while (true);
 
-            RParen9=(Token)match(input,RParen,FOLLOW_RParen_in_relation_i850); 
+            RParen9=(Token)match(input,RParen,FOLLOW_RParen_in_relation_i826); 
 
             }
 
@@ -395,7 +373,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeName"
-    // LensQuery.g:216:1: fragment nodeName : ( QName -> NAME[$QName.text] | String -> NAME[$String.text] );
+    // LensQuery.g:196:1: fragment nodeName : ( QName -> NAME[$QName.text] | String -> NAME[$String.text] );
     public final LensQueryParser.nodeName_return nodeName() throws RecognitionException {
         LensQueryParser.nodeName_return retval = new LensQueryParser.nodeName_return();
         retval.start = input.LT(1);
@@ -411,7 +389,7 @@ public class LensQueryParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // LensQuery.g:218:3: ( QName -> NAME[$QName.text] | String -> NAME[$String.text] )
+            // LensQuery.g:198:3: ( QName -> NAME[$QName.text] | String -> NAME[$String.text] )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -429,9 +407,9 @@ public class LensQueryParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // LensQuery.g:218:5: QName
+                    // LensQuery.g:198:5: QName
                     {
-                    QName10=(Token)match(input,QName,FOLLOW_QName_in_nodeName864);  
+                    QName10=(Token)match(input,QName,FOLLOW_QName_in_nodeName840);  
                     stream_QName.add(QName10);
 
 
@@ -447,7 +425,7 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 218:11: -> NAME[$QName.text]
+                    // 198:11: -> NAME[$QName.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(NAME, (QName10!=null?QName10.getText():null)));
 
@@ -457,9 +435,9 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:219:5: String
+                    // LensQuery.g:199:5: String
                     {
-                    String11=(Token)match(input,String,FOLLOW_String_in_nodeName875);  
+                    String11=(Token)match(input,String,FOLLOW_String_in_nodeName851);  
                     stream_String.add(String11);
 
 
@@ -475,7 +453,7 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 219:12: -> NAME[$String.text]
+                    // 199:12: -> NAME[$String.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(NAME, (String11!=null?String11.getText():null)));
 
@@ -510,7 +488,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "alias"
-    // LensQuery.g:222:1: fragment alias : As QName -> ALIAS[$QName.text] ;
+    // LensQuery.g:202:1: fragment alias : As QName -> ALIAS[$QName.text] ;
     public final LensQueryParser.alias_return alias() throws RecognitionException {
         LensQueryParser.alias_return retval = new LensQueryParser.alias_return();
         retval.start = input.LT(1);
@@ -526,13 +504,13 @@ public class LensQueryParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // LensQuery.g:223:6: ( As QName -> ALIAS[$QName.text] )
-            // LensQuery.g:223:8: As QName
+            // LensQuery.g:203:6: ( As QName -> ALIAS[$QName.text] )
+            // LensQuery.g:203:8: As QName
             {
-            As12=(Token)match(input,As,FOLLOW_As_in_alias892);  
+            As12=(Token)match(input,As,FOLLOW_As_in_alias868);  
             stream_As.add(As12);
 
-            QName13=(Token)match(input,QName,FOLLOW_QName_in_alias894);  
+            QName13=(Token)match(input,QName,FOLLOW_QName_in_alias870);  
             stream_QName.add(QName13);
 
 
@@ -548,7 +526,7 @@ public class LensQueryParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 223:17: -> ALIAS[$QName.text]
+            // 203:17: -> ALIAS[$QName.text]
             {
                 adaptor.addChild(root_0, (Object)adaptor.create(ALIAS, (QName13!=null?QName13.getText():null)));
 
@@ -581,7 +559,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeItem"
-    // LensQuery.g:226:1: fragment nodeItem : ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? INDEX[new TupleIndex(currentIndex, index).toString()] ) | relation );
+    // LensQuery.g:206:1: fragment nodeItem : ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation );
     public final LensQueryParser.nodeItem_return nodeItem() throws RecognitionException {
         LensQueryParser.nodeItem_return retval = new LensQueryParser.nodeItem_return();
         retval.start = input.LT(1);
@@ -600,11 +578,8 @@ public class LensQueryParser extends Parser {
         RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
         RewriteRuleSubtreeStream stream_alias=new RewriteRuleSubtreeStream(adaptor,"rule alias");
-
-          int index = ((relation_scope)relation_stack.peek()).nodeItemIndex++;
-
         try {
-            // LensQuery.g:231:3: ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? INDEX[new TupleIndex(currentIndex, index).toString()] ) | relation )
+            // LensQuery.g:208:3: ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -730,15 +705,15 @@ public class LensQueryParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // LensQuery.g:231:5: nodeName ( alias )? ( nodeValue )?
+                    // LensQuery.g:208:5: nodeName ( alias )? ( nodeValue )?
                     {
-                    pushFollow(FOLLOW_nodeName_in_nodeItem919);
+                    pushFollow(FOLLOW_nodeName_in_nodeItem890);
                     nodeName14=nodeName();
 
                     state._fsp--;
 
                     stream_nodeName.add(nodeName14.getTree());
-                    // LensQuery.g:231:14: ( alias )?
+                    // LensQuery.g:208:14: ( alias )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -747,9 +722,9 @@ public class LensQueryParser extends Parser {
                     }
                     switch (alt4) {
                         case 1 :
-                            // LensQuery.g:231:14: alias
+                            // LensQuery.g:208:14: alias
                             {
-                            pushFollow(FOLLOW_alias_in_nodeItem921);
+                            pushFollow(FOLLOW_alias_in_nodeItem892);
                             alias15=alias();
 
                             state._fsp--;
@@ -761,7 +736,7 @@ public class LensQueryParser extends Parser {
 
                     }
 
-                    // LensQuery.g:231:21: ( nodeValue )?
+                    // LensQuery.g:208:21: ( nodeValue )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -770,9 +745,9 @@ public class LensQueryParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // LensQuery.g:231:21: nodeValue
+                            // LensQuery.g:208:21: nodeValue
                             {
-                            pushFollow(FOLLOW_nodeValue_in_nodeItem924);
+                            pushFollow(FOLLOW_nodeValue_in_nodeItem895);
                             nodeValue16=nodeValue();
 
                             state._fsp--;
@@ -787,7 +762,7 @@ public class LensQueryParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: alias, nodeName, nodeValue
+                    // elements: nodeName, alias, nodeValue
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -797,27 +772,26 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 232:5: -> ^( NODE nodeName ( alias )? ( nodeValue )? INDEX[new TupleIndex(currentIndex, index).toString()] )
+                    // 209:5: -> ^( NODE nodeName ( alias )? ( nodeValue )? )
                     {
-                        // LensQuery.g:232:8: ^( NODE nodeName ( alias )? ( nodeValue )? INDEX[new TupleIndex(currentIndex, index).toString()] )
+                        // LensQuery.g:209:8: ^( NODE nodeName ( alias )? ( nodeValue )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NODE, "NODE"), root_1);
 
                         adaptor.addChild(root_1, stream_nodeName.nextTree());
-                        // LensQuery.g:232:24: ( alias )?
+                        // LensQuery.g:209:24: ( alias )?
                         if ( stream_alias.hasNext() ) {
                             adaptor.addChild(root_1, stream_alias.nextTree());
 
                         }
                         stream_alias.reset();
-                        // LensQuery.g:232:31: ( nodeValue )?
+                        // LensQuery.g:209:31: ( nodeValue )?
                         if ( stream_nodeValue.hasNext() ) {
                             adaptor.addChild(root_1, stream_nodeValue.nextTree());
 
                         }
                         stream_nodeValue.reset();
-                        adaptor.addChild(root_1, (Object)adaptor.create(INDEX, new TupleIndex(currentIndex, index).toString()));
 
                         adaptor.addChild(root_0, root_1);
                         }
@@ -828,11 +802,11 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:233:5: relation
+                    // LensQuery.g:210:5: relation
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_relation_in_nodeItem953);
+                    pushFollow(FOLLOW_relation_in_nodeItem921);
                     relation17=relation();
 
                     state._fsp--;
@@ -867,7 +841,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "value"
-    // LensQuery.g:236:1: fragment value : ( String | Integer | Double | QName );
+    // LensQuery.g:213:1: fragment value : ( String | Integer | Double | QName );
     public final LensQueryParser.value_return value() throws RecognitionException {
         LensQueryParser.value_return retval = new LensQueryParser.value_return();
         retval.start = input.LT(1);
@@ -879,7 +853,7 @@ public class LensQueryParser extends Parser {
         Object set18_tree=null;
 
         try {
-            // LensQuery.g:238:3: ( String | Integer | Double | QName )
+            // LensQuery.g:215:3: ( String | Integer | Double | QName )
             // LensQuery.g:
             {
             root_0 = (Object)adaptor.nil();
@@ -922,7 +896,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeValue"
-    // LensQuery.g:241:1: fragment nodeValue : ( Colon value -> NODEVALUE[$value.text] | nodeCmp );
+    // LensQuery.g:218:1: fragment nodeValue : ( Colon value -> NODEVALUE[$value.text] | nodeCmp );
     public final LensQueryParser.nodeValue_return nodeValue() throws RecognitionException {
         LensQueryParser.nodeValue_return retval = new LensQueryParser.nodeValue_return();
         retval.start = input.LT(1);
@@ -939,7 +913,7 @@ public class LensQueryParser extends Parser {
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // LensQuery.g:243:3: ( Colon value -> NODEVALUE[$value.text] | nodeCmp )
+            // LensQuery.g:220:3: ( Colon value -> NODEVALUE[$value.text] | nodeCmp )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -957,12 +931,12 @@ public class LensQueryParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // LensQuery.g:243:5: Colon value
+                    // LensQuery.g:220:5: Colon value
                     {
-                    Colon19=(Token)match(input,Colon,FOLLOW_Colon_in_nodeValue1002);  
+                    Colon19=(Token)match(input,Colon,FOLLOW_Colon_in_nodeValue970);  
                     stream_Colon.add(Colon19);
 
-                    pushFollow(FOLLOW_value_in_nodeValue1004);
+                    pushFollow(FOLLOW_value_in_nodeValue972);
                     value20=value();
 
                     state._fsp--;
@@ -981,7 +955,7 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 243:17: -> NODEVALUE[$value.text]
+                    // 220:17: -> NODEVALUE[$value.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(NODEVALUE, (value20!=null?input.toString(value20.start,value20.stop):null)));
 
@@ -991,11 +965,11 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:244:5: nodeCmp
+                    // LensQuery.g:221:5: nodeCmp
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_nodeCmp_in_nodeValue1015);
+                    pushFollow(FOLLOW_nodeCmp_in_nodeValue983);
                     nodeCmp21=nodeCmp();
 
                     state._fsp--;
@@ -1030,7 +1004,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeCmp"
-    // LensQuery.g:247:1: fragment nodeCmp : ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) );
+    // LensQuery.g:224:1: fragment nodeCmp : ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) );
     public final LensQueryParser.nodeCmp_return nodeCmp() throws RecognitionException {
         LensQueryParser.nodeCmp_return retval = new LensQueryParser.nodeCmp_return();
         retval.start = input.LT(1);
@@ -1051,7 +1025,7 @@ public class LensQueryParser extends Parser {
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         RewriteRuleSubtreeStream stream_cmpOp=new RewriteRuleSubtreeStream(adaptor,"rule cmpOp");
         try {
-            // LensQuery.g:249:3: ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) )
+            // LensQuery.g:226:3: ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1069,15 +1043,15 @@ public class LensQueryParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // LensQuery.g:249:5: cmpOp value
+                    // LensQuery.g:226:5: cmpOp value
                     {
-                    pushFollow(FOLLOW_cmpOp_in_nodeCmp1035);
+                    pushFollow(FOLLOW_cmpOp_in_nodeCmp1003);
                     cmpOp22=cmpOp();
 
                     state._fsp--;
 
                     stream_cmpOp.add(cmpOp22.getTree());
-                    pushFollow(FOLLOW_value_in_nodeCmp1037);
+                    pushFollow(FOLLOW_value_in_nodeCmp1005);
                     value23=value();
 
                     state._fsp--;
@@ -1096,9 +1070,9 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 249:17: -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
+                    // 226:17: -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
                     {
-                        // LensQuery.g:249:20: ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
+                        // LensQuery.g:226:20: ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPARE, "COMPARE"), root_1);
@@ -1115,12 +1089,12 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:250:5: Match Regex
+                    // LensQuery.g:227:5: Match Regex
                     {
-                    Match24=(Token)match(input,Match,FOLLOW_Match_in_nodeCmp1055);  
+                    Match24=(Token)match(input,Match,FOLLOW_Match_in_nodeCmp1023);  
                     stream_Match.add(Match24);
 
-                    Regex25=(Token)match(input,Regex,FOLLOW_Regex_in_nodeCmp1057);  
+                    Regex25=(Token)match(input,Regex,FOLLOW_Regex_in_nodeCmp1025);  
                     stream_Regex.add(Regex25);
 
 
@@ -1136,9 +1110,9 @@ public class LensQueryParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 250:17: -> ^( PATTERNMATCH OPERAND[$Regex.text] )
+                    // 227:17: -> ^( PATTERNMATCH OPERAND[$Regex.text] )
                     {
-                        // LensQuery.g:250:20: ^( PATTERNMATCH OPERAND[$Regex.text] )
+                        // LensQuery.g:227:20: ^( PATTERNMATCH OPERAND[$Regex.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERNMATCH, "PATTERNMATCH"), root_1);
@@ -1179,7 +1153,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "cmpOp"
-    // LensQuery.g:253:1: fragment cmpOp : ( Lt | Gt | Eq | Leq | Geq | Neq ) ;
+    // LensQuery.g:230:1: fragment cmpOp : ( Lt | Gt | Eq | Leq | Geq | Neq ) ;
     public final LensQueryParser.cmpOp_return cmpOp() throws RecognitionException {
         LensQueryParser.cmpOp_return retval = new LensQueryParser.cmpOp_return();
         retval.start = input.LT(1);
@@ -1191,8 +1165,8 @@ public class LensQueryParser extends Parser {
         Object set26_tree=null;
 
         try {
-            // LensQuery.g:254:6: ( ( Lt | Gt | Eq | Leq | Geq | Neq ) )
-            // LensQuery.g:254:8: ( Lt | Gt | Eq | Leq | Geq | Neq )
+            // LensQuery.g:231:6: ( ( Lt | Gt | Eq | Leq | Geq | Neq ) )
+            // LensQuery.g:231:8: ( Lt | Gt | Eq | Leq | Geq | Neq )
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1233,31 +1207,31 @@ public class LensQueryParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_relation_in_expr779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relation_i_in_relation813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_relation_i832 = new BitSet(new long[]{0x0000600000000000L});
-    public static final BitSet FOLLOW_alias_in_relation_i834 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_LParen_in_relation_i837 = new BitSet(new long[]{0x0040000004000000L});
-    public static final BitSet FOLLOW_nodeItem_in_relation_i840 = new BitSet(new long[]{0x0000880000000000L});
-    public static final BitSet FOLLOW_Comma_in_relation_i843 = new BitSet(new long[]{0x0040000004000000L});
-    public static final BitSet FOLLOW_nodeItem_in_relation_i846 = new BitSet(new long[]{0x0000880000000000L});
-    public static final BitSet FOLLOW_RParen_in_relation_i850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QName_in_nodeName864 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_nodeName875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_As_in_alias892 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_QName_in_alias894 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_nodeItem919 = new BitSet(new long[]{0x000031FC00000002L});
-    public static final BitSet FOLLOW_alias_in_nodeItem921 = new BitSet(new long[]{0x000011FC00000002L});
-    public static final BitSet FOLLOW_nodeValue_in_nodeItem924 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relation_in_nodeItem953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relation_in_expr774 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relation_i_in_relation792 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_relation_i808 = new BitSet(new long[]{0x0000300000000000L});
+    public static final BitSet FOLLOW_alias_in_relation_i810 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_LParen_in_relation_i813 = new BitSet(new long[]{0x0020000002000000L});
+    public static final BitSet FOLLOW_nodeItem_in_relation_i816 = new BitSet(new long[]{0x0000440000000000L});
+    public static final BitSet FOLLOW_Comma_in_relation_i819 = new BitSet(new long[]{0x0020000002000000L});
+    public static final BitSet FOLLOW_nodeItem_in_relation_i822 = new BitSet(new long[]{0x0000440000000000L});
+    public static final BitSet FOLLOW_RParen_in_relation_i826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QName_in_nodeName840 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_nodeName851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_As_in_alias868 = new BitSet(new long[]{0x0020000000000000L});
+    public static final BitSet FOLLOW_QName_in_alias870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_nodeItem890 = new BitSet(new long[]{0x000018FE00000002L});
+    public static final BitSet FOLLOW_alias_in_nodeItem892 = new BitSet(new long[]{0x000008FE00000002L});
+    public static final BitSet FOLLOW_nodeValue_in_nodeItem895 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relation_in_nodeItem921 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_value0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Colon_in_nodeValue1002 = new BitSet(new long[]{0x004000004C000000L});
-    public static final BitSet FOLLOW_value_in_nodeValue1004 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeCmp_in_nodeValue1015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_cmpOp_in_nodeCmp1035 = new BitSet(new long[]{0x004000004C000000L});
-    public static final BitSet FOLLOW_value_in_nodeCmp1037 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Match_in_nodeCmp1055 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_Regex_in_nodeCmp1057 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_cmpOp1082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Colon_in_nodeValue970 = new BitSet(new long[]{0x0020000026000000L});
+    public static final BitSet FOLLOW_value_in_nodeValue972 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeCmp_in_nodeValue983 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_cmpOp_in_nodeCmp1003 = new BitSet(new long[]{0x0020000026000000L});
+    public static final BitSet FOLLOW_value_in_nodeCmp1005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Match_in_nodeCmp1023 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_Regex_in_nodeCmp1025 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_cmpOp1050 = new BitSet(new long[]{0x0000000000000002L});
 
 }

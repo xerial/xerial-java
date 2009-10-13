@@ -34,11 +34,11 @@ package org.xerial.lens.relation;
  */
 public interface TupleElement<Element> {
     /**
-     * Returns true if this cell is a singleton
+     * Returns true if this element is a singleton, i.e. no more nested nodes
      * 
      * @return
      */
-    public boolean isNode();
+    public boolean isAtom();
 
     /**
      * Returns true if this cell is a tuple
@@ -48,9 +48,9 @@ public interface TupleElement<Element> {
     public boolean isTuple();
 
     /**
-     * Get the number of elements contained in this cell. When this cell is an
-     * atom, the size will be 1. When a tuple, the returned size is the tuple
-     * size.
+     * Get the number of elements contained in this element. When this element
+     * is an atom, the size will be 1. When a tuple, the returned size is the
+     * tuple size.
      * 
      * @return
      */
@@ -78,7 +78,7 @@ public interface TupleElement<Element> {
      * 
      * @return
      */
-    Element castToNode();
+    Element castToElement();
 
     /**
      * If this cell is tuple, then return tuple. otherwise return null

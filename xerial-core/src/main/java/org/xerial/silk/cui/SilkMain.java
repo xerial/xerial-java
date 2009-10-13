@@ -26,7 +26,6 @@ package org.xerial.silk.cui;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +36,7 @@ import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
+import org.xerial.util.log.SimpleLogWriter;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.OptionParser;
@@ -47,12 +47,10 @@ import org.xerial.util.opt.OptionParser;
  * @author leo
  * 
  */
-public class SilkMain
-{
+public class SilkMain {
     private static Logger _logger = Logger.getLogger(SilkMain.class);
 
-    public static class SilkGlobalOption
-    {
+    public static class SilkGlobalOption {
         @Option(symbol = "h", longName = "help", description = "display help message")
         boolean displayHelp = false;
 
@@ -65,48 +63,41 @@ public class SilkMain
 
     static Set<Class<SilkCommand>> availableCommands = new HashSet<Class<SilkCommand>>();
 
-    static
-    {
-        availableCommands.addAll(FileResource.findClasses(SilkMain.class.getPackage(), SilkCommand.class,
-                SilkMain.class.getClassLoader()));
+    static {
+        availableCommands.addAll(FileResource.findClasses(SilkMain.class.getPackage(),
+                SilkCommand.class, SilkMain.class.getClassLoader()));
 
     }
 
-    public static void main(String[] args)
-    {
-        Logger.getRootLogger().setOutputWriter(new OutputStreamWriter(System.err));
+    public static void main(String[] args) {
+        Logger.getRootLogger().setLogWriter(new SimpleLogWriter(System.err));
 
         SilkGlobalOption globalOption = new SilkGlobalOption();
         OptionParser parser = new OptionParser(globalOption);
         Logger.getRootLogger().setLogLevel(globalOption.logLevel);
-        try
-        {
+        try {
             parser.parse(args, true);
 
             if (globalOption.subCommand == null)
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
 
             SilkCommand command = null;
-            for (Class<SilkCommand> each : availableCommands)
-            {
-                try
-                {
+            for (Class<SilkCommand> each : availableCommands) {
+                try {
                     command = each.newInstance();
-                    if (command.getName() != null && command.getName().equals(globalOption.subCommand))
+                    if (command.getName() != null
+                            && command.getName().equals(globalOption.subCommand))
                         break;
                 }
-                catch (InstantiationException e)
-                {
+                catch (InstantiationException e) {
                     _logger.warn(e);
                 }
-                catch (IllegalAccessException e)
-                {
+                catch (IllegalAccessException e) {
                     _logger.warn(e);
                 }
             }
 
-            if (command == null)
-            {
+            if (command == null) {
                 _logger.error("command is not specified");
                 return;
             }
@@ -114,18 +105,18 @@ public class SilkMain
             // 
             OptionParser subCommandOptionParser = new OptionParser(command);
             // run the sub command
-            if (globalOption.displayHelp)
-            {
+            if (globalOption.displayHelp) {
                 // display help messsage of the command
                 String helpFileName = String.format("help-%s.txt", command.getName());
                 URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
                 if (helpFileAddr == null)
-                    throw new XerialError(XerialErrorCode.RESOURCE_NOT_FOUND, "help file not found: " + helpFileName);
+                    throw new XerialError(XerialErrorCode.RESOURCE_NOT_FOUND,
+                            "help file not found: " + helpFileName);
 
-                BufferedReader helpReader = new BufferedReader(new InputStreamReader(helpFileAddr.openStream()));
+                BufferedReader helpReader = new BufferedReader(new InputStreamReader(helpFileAddr
+                        .openStream()));
                 String line;
-                while ((line = helpReader.readLine()) != null)
-                {
+                while ((line = helpReader.readLine()) != null) {
                     System.out.println(line);
                 }
                 subCommandOptionParser.printUsage();
@@ -137,12 +128,10 @@ public class SilkMain
             command.execute();
 
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             _logger.error(e);
         }
-        catch (Error e)
-        {
+        catch (Error e) {
             e.printStackTrace();
         }
 

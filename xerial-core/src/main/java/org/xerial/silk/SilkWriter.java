@@ -447,12 +447,51 @@ public class SilkWriter {
         return this;
     }
 
-    private String escapeDataLine(String dataLine) {
+    public SilkWriter text(String text) {
+        usabilityCheck();
 
-        if (dataLine.startsWith("-")) {
+        attributeParenCloseCheck(true);
+
+        if (formatConfig.indentBeforeDataLine)
+            printIndent();
+
+        String line[] = text.split("\r?\n");
+        if (line == null)
+            return this;
+
+        for (String each : line) {
+            out.print(escapeDataLine(each));
+        }
+
+        return this;
+    }
+
+    public static String escapeText(String text) {
+        String[] line = text.split("\r?\n");
+        if (line == null)
+            return escapeDataLine(text);
+
+        List<String> buf = new ArrayList<String>();
+        for (String each : line) {
+            buf.add(escapeDataLine(each));
+        }
+        return StringUtil.join(buf, StringUtil.NEW_LINE);
+    }
+
+    private static Pattern leadingHyphen = Pattern.compile("\\s*-");
+
+    private static String escapeDataLine(String dataLine) {
+
+        if (dataLine == null)
+            return dataLine;
+
+        Matcher m = leadingHyphen.matcher(dataLine);
+        if (m.lookingAt()) {
+            int hyphenPos = m.end();
             StringBuilder buf = new StringBuilder();
+            buf.append(dataLine.substring(0, hyphenPos - 1));
             buf.append("\\");
-            buf.append(dataLine);
+            buf.append(dataLine.substring(hyphenPos - 1));
             return buf.toString();
         }
 

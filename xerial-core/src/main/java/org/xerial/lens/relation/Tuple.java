@@ -145,7 +145,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         return nodeList.addAll(relationFragment);
     }
 
-    public Element castToNode() {
+    public Element castToElement() {
         return null;
     }
 
@@ -153,7 +153,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         return this;
     }
 
-    public boolean isNode() {
+    public boolean isAtom() {
         return true;
     }
 
@@ -172,7 +172,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
     @SuppressWarnings("unchecked")
     public Element getNode(int index) {
         TupleElement<Element> node = get(index);
-        if (node.isNode())
+        if (node.isAtom())
             return (Element) node;
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
@@ -184,7 +184,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         if (node == null)
             return null;
 
-        if (node.isNode())
+        if (node.isAtom())
             return (Element) node;
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
@@ -198,7 +198,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
     }
 
     private void flatten(List<TupleElement<Element>> result, TupleElement<Element> cell) {
-        if (cell.isNode())
+        if (cell.isAtom())
             result.add(cell);
         else {
             for (TupleElement<Element> each : cell.castToTuple()) {

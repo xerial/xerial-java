@@ -371,26 +371,23 @@ public class LensTest {
     }
 
     public static class TupleNode extends NodeBase<TupleNode> {
+        public final int id;
         public final String name;
 
-        public TupleNode(String name) {
+        public TupleNode(int id, String name) {
+            this.id = id;
             this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
         }
     }
 
     @Test
     public void testToSilkTuple() throws Exception {
         Tuple<TupleNode> t = new Tuple<TupleNode>();
-        t.add(new TupleNode("A"));
-        t.add(new TupleNode("B"));
+        t.add(new TupleNode(1, "A"));
+        t.add(new TupleNode(2, "B"));
 
         String s = Lens.toSilk(t);
-        _logger.info(s);
+        _logger.debug(s);
     }
 
 }

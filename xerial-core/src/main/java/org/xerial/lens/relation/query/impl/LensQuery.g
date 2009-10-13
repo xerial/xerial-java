@@ -39,7 +39,6 @@ tokens {
   NODEVALUE;
   NAME;
   VALUE;
-  INDEX;
 }
 
 
@@ -99,7 +98,6 @@ package org.xerial.lens.relation.query.impl;
 //--------------------------------------
 package org.xerial.lens.relation.query.impl;
 
-import org.xerial.lens.relation.TupleIndex;
 }
 
 @lexer::members {
@@ -107,7 +105,6 @@ import org.xerial.lens.relation.TupleIndex;
 }
 
 @members {
-   private TupleIndex currentIndex = null;
 } 
 
 // lexer rules
@@ -190,24 +187,7 @@ expr:
   ; 
  
 relation 
-scope 
-{
-  int nodeItemIndex;
-  TupleIndex relationIndex; 
-}
-@init 
-{
-  $relation::nodeItemIndex = 1;
-  if(currentIndex == null)
-    currentIndex = new TupleIndex(1);
-  else
-    currentIndex = new TupleIndex(currentIndex, 1); 
-}
-@after
-{
-  currentIndex = currentIndex.parent();
-}
-   : relation_i -> ^(RELATION relation_i INDEX[currentIndex.toString()])
+   : relation_i -> ^(RELATION relation_i)
 ;
 
 relation_i: nodeName alias? LParen! nodeItem (Comma! nodeItem)* RParen!;
@@ -225,11 +205,8 @@ alias: As QName -> ALIAS[$QName.text];
 
 fragment
 nodeItem
-@init {
-  int index = $relation::nodeItemIndex++;
-}
   : nodeName alias? nodeValue? 
-    -> ^(NODE nodeName alias? nodeValue? INDEX[new TupleIndex(currentIndex, index).toString()])
+    -> ^(NODE nodeName alias? nodeValue?)
   | relation 
   ;
 

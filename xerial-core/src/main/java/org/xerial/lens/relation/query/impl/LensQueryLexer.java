@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-09-30 22:59:27
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-10-13 14:02:52
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -33,59 +33,58 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class LensQueryLexer extends Lexer {
-    public static final int INDEX=15;
     public static final int PATTERNMATCH=9;
-    public static final int Match=40;
-    public static final int Regex=41;
-    public static final int Digit=19;
-    public static final int Frac=28;
-    public static final int HexDigit=21;
+    public static final int Match=39;
+    public static final int Regex=40;
+    public static final int Digit=18;
+    public static final int Frac=27;
+    public static final int HexDigit=20;
     public static final int QUERY=4;
     public static final int ALIAS=11;
     public static final int VALUE=14;
-    public static final int Letter=20;
-    public static final int Comma=43;
-    public static final int Dot=42;
-    public static final int EscapeSequence=23;
-    public static final int Integer=27;
-    public static final int WhiteSpace=52;
+    public static final int Letter=19;
+    public static final int Comma=42;
+    public static final int Dot=41;
+    public static final int EscapeSequence=22;
+    public static final int Integer=26;
+    public static final int WhiteSpace=51;
     public static final int OPERATOR=7;
-    public static final int False=32;
-    public static final int Colon=44;
-    public static final int LineComment=17;
+    public static final int False=31;
+    public static final int LineComment=16;
+    public static final int Colon=43;
     public static final int NODEVALUE=12;
-    public static final int As=45;
-    public static final int SafeFirstLetter=50;
-    public static final int Null=33;
-    public static final int Star=48;
-    public static final int Eq=38;
-    public static final int Exp=29;
-    public static final int QNameChar=53;
+    public static final int As=44;
+    public static final int SafeFirstLetter=49;
+    public static final int Null=32;
+    public static final int Star=47;
+    public static final int Eq=37;
+    public static final int Exp=28;
+    public static final int QNameChar=52;
     public static final int RELATION=5;
-    public static final int Gt=35;
-    public static final int RParen=47;
-    public static final int UnicodeChar=22;
-    public static final int StringChar=24;
-    public static final int True=31;
+    public static final int Gt=34;
+    public static final int RParen=46;
+    public static final int UnicodeChar=21;
+    public static final int StringChar=23;
+    public static final int True=30;
     public static final int OPERAND=8;
-    public static final int LineBreak=18;
-    public static final int LParen=46;
-    public static final int String=26;
-    public static final int SafeLetter=51;
-    public static final int LineBreakChar=16;
+    public static final int LineBreak=17;
+    public static final int LParen=45;
+    public static final int String=25;
+    public static final int SafeLetter=50;
+    public static final int LineBreakChar=15;
     public static final int COMPARE=6;
-    public static final int QName=54;
-    public static final int Geq=37;
+    public static final int QName=53;
+    public static final int Geq=36;
     public static final int EOF=-1;
     public static final int NODE=10;
-    public static final int Neq=39;
-    public static final int StringChar_s=25;
-    public static final int UnsafeUnicodeChar=49;
-    public static final int Double=30;
-    public static final int Lt=34;
+    public static final int Neq=38;
+    public static final int StringChar_s=24;
+    public static final int UnsafeUnicodeChar=48;
+    public static final int Double=29;
+    public static final int Lt=33;
     public static final int NAME=13;
-    public static final int Leq=36;
-    public static final int WhiteSpaces=55;
+    public static final int Leq=35;
+    public static final int WhiteSpaces=54;
 
 
 
@@ -106,7 +105,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // LensQuery.g:116:23: ( '\\n' | '\\r' )
+            // LensQuery.g:113:23: ( '\\n' | '\\r' )
             // LensQuery.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -132,11 +131,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:117:12: ( '#' (~ ( LineBreakChar ) )* )
-            // LensQuery.g:117:14: '#' (~ ( LineBreakChar ) )*
+            // LensQuery.g:114:12: ( '#' (~ ( LineBreakChar ) )* )
+            // LensQuery.g:114:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // LensQuery.g:117:18: (~ ( LineBreakChar ) )*
+            // LensQuery.g:114:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -149,7 +148,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // LensQuery.g:117:18: ~ ( LineBreakChar )
+            	    // LensQuery.g:114:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -186,10 +185,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:120:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // LensQuery.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // LensQuery.g:117:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // LensQuery.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt2=3;
             int LA2_0 = input.LA(1);
 
@@ -213,7 +212,7 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // LensQuery.g:120:13: '\\r' '\\n'
+                    // LensQuery.g:117:13: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -221,14 +220,14 @@ public class LensQueryLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:120:25: '\\r'
+                    // LensQuery.g:117:25: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // LensQuery.g:120:32: '\\n'
+                    // LensQuery.g:117:32: '\\n'
                     {
                     match('\n'); 
 
@@ -252,8 +251,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // LensQuery.g:123:15: ( '0' .. '9' )
-            // LensQuery.g:123:17: '0' .. '9'
+            // LensQuery.g:120:15: ( '0' .. '9' )
+            // LensQuery.g:120:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -268,7 +267,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // LensQuery.g:124:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // LensQuery.g:121:16: ( 'A' .. 'F' | 'a' .. 'f' )
             // LensQuery.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -292,7 +291,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // LensQuery.g:125:18: ( Digit | Letter )
+            // LensQuery.g:122:18: ( Digit | Letter )
             // LensQuery.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -316,8 +315,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // LensQuery.g:126:21: (~ ( '\"' | '\\\\' ) )
-            // LensQuery.g:126:23: ~ ( '\"' | '\\\\' )
+            // LensQuery.g:123:21: (~ ( '\"' | '\\\\' ) )
+            // LensQuery.g:123:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -340,11 +339,11 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // LensQuery.g:128:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // LensQuery.g:128:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // LensQuery.g:125:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // LensQuery.g:125:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // LensQuery.g:128:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // LensQuery.g:125:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt3=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -401,63 +400,63 @@ public class LensQueryLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // LensQuery.g:128:11: '\\\"'
+                    // LensQuery.g:125:11: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:128:18: '\\\\'
+                    // LensQuery.g:125:18: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // LensQuery.g:128:25: '/'
+                    // LensQuery.g:125:25: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // LensQuery.g:128:31: 'b'
+                    // LensQuery.g:125:31: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // LensQuery.g:128:37: 'f'
+                    // LensQuery.g:125:37: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // LensQuery.g:128:43: 'n'
+                    // LensQuery.g:125:43: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // LensQuery.g:128:49: 'r'
+                    // LensQuery.g:125:49: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // LensQuery.g:128:55: 't'
+                    // LensQuery.g:125:55: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // LensQuery.g:128:61: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // LensQuery.g:125:61: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -482,7 +481,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // LensQuery.g:131:21: ( UnicodeChar | EscapeSequence )
+            // LensQuery.g:128:21: ( UnicodeChar | EscapeSequence )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -500,14 +499,14 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // LensQuery.g:131:24: UnicodeChar
+                    // LensQuery.g:128:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:131:38: EscapeSequence
+                    // LensQuery.g:128:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -524,10 +523,10 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // LensQuery.g:132:22: ( ( StringChar )* )
-            // LensQuery.g:132:24: ( StringChar )*
+            // LensQuery.g:129:22: ( ( StringChar )* )
+            // LensQuery.g:129:24: ( StringChar )*
             {
-            // LensQuery.g:132:24: ( StringChar )*
+            // LensQuery.g:129:24: ( StringChar )*
             loop5:
             do {
                 int alt5=2;
@@ -540,7 +539,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // LensQuery.g:132:24: StringChar
+            	    // LensQuery.g:129:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -568,8 +567,8 @@ public class LensQueryLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // LensQuery.g:134:7: ( '\"' s= StringChar_s '\"' )
-            // LensQuery.g:134:9: '\"' s= StringChar_s '\"'
+            // LensQuery.g:131:7: ( '\"' s= StringChar_s '\"' )
+            // LensQuery.g:131:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart244 = getCharIndex();
@@ -593,10 +592,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:137:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // LensQuery.g:137:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // LensQuery.g:134:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // LensQuery.g:134:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // LensQuery.g:137:10: ( '-' )?
+            // LensQuery.g:134:10: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -605,7 +604,7 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // LensQuery.g:137:10: '-'
+                    // LensQuery.g:134:10: '-'
                     {
                     match('-'); 
 
@@ -614,7 +613,7 @@ public class LensQueryLexer extends Lexer {
 
             }
 
-            // LensQuery.g:137:15: ( '0' | '1' .. '9' ( Digit )* )
+            // LensQuery.g:134:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -632,17 +631,17 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // LensQuery.g:137:16: '0'
+                    // LensQuery.g:134:16: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:137:22: '1' .. '9' ( Digit )*
+                    // LensQuery.g:134:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); 
-                    // LensQuery.g:137:31: ( Digit )*
+                    // LensQuery.g:134:31: ( Digit )*
                     loop7:
                     do {
                         int alt7=2;
@@ -655,7 +654,7 @@ public class LensQueryLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // LensQuery.g:137:31: Digit
+                    	    // LensQuery.g:134:31: Digit
                     	    {
                     	    mDigit(); 
 
@@ -687,11 +686,11 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // LensQuery.g:138:14: ( '.' ( Digit )+ )
-            // LensQuery.g:138:16: '.' ( Digit )+
+            // LensQuery.g:135:14: ( '.' ( Digit )+ )
+            // LensQuery.g:135:16: '.' ( Digit )+
             {
             match('.'); 
-            // LensQuery.g:138:20: ( Digit )+
+            // LensQuery.g:135:20: ( Digit )+
             int cnt9=0;
             loop9:
             do {
@@ -705,7 +704,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // LensQuery.g:138:20: Digit
+            	    // LensQuery.g:135:20: Digit
             	    {
             	    mDigit(); 
 
@@ -733,8 +732,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // LensQuery.g:139:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // LensQuery.g:139:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // LensQuery.g:136:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // LensQuery.g:136:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -745,7 +744,7 @@ public class LensQueryLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // LensQuery.g:139:27: ( '+' | '-' )?
+            // LensQuery.g:136:27: ( '+' | '-' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -771,7 +770,7 @@ public class LensQueryLexer extends Lexer {
 
             }
 
-            // LensQuery.g:139:40: ( Digit )+
+            // LensQuery.g:136:40: ( Digit )+
             int cnt11=0;
             loop11:
             do {
@@ -785,7 +784,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // LensQuery.g:139:40: Digit
+            	    // LensQuery.g:136:40: Digit
             	    {
             	    mDigit(); 
 
@@ -815,11 +814,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:140:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // LensQuery.g:140:9: Integer ( Frac ( Exp )? | Exp )
+            // LensQuery.g:137:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // LensQuery.g:137:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); 
-            // LensQuery.g:140:17: ( Frac ( Exp )? | Exp )
+            // LensQuery.g:137:17: ( Frac ( Exp )? | Exp )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -837,10 +836,10 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // LensQuery.g:140:18: Frac ( Exp )?
+                    // LensQuery.g:137:18: Frac ( Exp )?
                     {
                     mFrac(); 
-                    // LensQuery.g:140:23: ( Exp )?
+                    // LensQuery.g:137:23: ( Exp )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -849,7 +848,7 @@ public class LensQueryLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // LensQuery.g:140:23: Exp
+                            // LensQuery.g:137:23: Exp
                             {
                             mExp(); 
 
@@ -862,7 +861,7 @@ public class LensQueryLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:140:30: Exp
+                    // LensQuery.g:137:30: Exp
                     {
                     mExp(); 
 
@@ -887,8 +886,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = True;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:142:5: ( 'true' )
-            // LensQuery.g:142:7: 'true'
+            // LensQuery.g:139:5: ( 'true' )
+            // LensQuery.g:139:7: 'true'
             {
             match("true"); 
 
@@ -908,8 +907,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = False;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:143:6: ( 'false' )
-            // LensQuery.g:143:8: 'false'
+            // LensQuery.g:140:6: ( 'false' )
+            // LensQuery.g:140:8: 'false'
             {
             match("false"); 
 
@@ -929,8 +928,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Null;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:144:5: ( 'null' )
-            // LensQuery.g:144:7: 'null'
+            // LensQuery.g:141:5: ( 'null' )
+            // LensQuery.g:141:7: 'null'
             {
             match("null"); 
 
@@ -950,8 +949,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Lt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:148:3: ( '<' )
-            // LensQuery.g:148:5: '<'
+            // LensQuery.g:145:3: ( '<' )
+            // LensQuery.g:145:5: '<'
             {
             match('<'); 
 
@@ -970,8 +969,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Gt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:149:3: ( '>' )
-            // LensQuery.g:149:5: '>'
+            // LensQuery.g:146:3: ( '>' )
+            // LensQuery.g:146:5: '>'
             {
             match('>'); 
 
@@ -990,8 +989,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Leq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:150:4: ( '<=' )
-            // LensQuery.g:150:6: '<='
+            // LensQuery.g:147:4: ( '<=' )
+            // LensQuery.g:147:6: '<='
             {
             match("<="); 
 
@@ -1011,8 +1010,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Geq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:151:4: ( '>=' )
-            // LensQuery.g:151:6: '>='
+            // LensQuery.g:148:4: ( '>=' )
+            // LensQuery.g:148:6: '>='
             {
             match(">="); 
 
@@ -1032,8 +1031,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Eq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:152:3: ( '=' )
-            // LensQuery.g:152:5: '='
+            // LensQuery.g:149:3: ( '=' )
+            // LensQuery.g:149:5: '='
             {
             match('='); 
 
@@ -1052,8 +1051,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Neq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:153:4: ( '!=' )
-            // LensQuery.g:153:6: '!='
+            // LensQuery.g:150:4: ( '!=' )
+            // LensQuery.g:150:6: '!='
             {
             match("!="); 
 
@@ -1073,8 +1072,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Match;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:154:6: ( '~=' )
-            // LensQuery.g:154:8: '~='
+            // LensQuery.g:151:6: ( '~=' )
+            // LensQuery.g:151:8: '~='
             {
             match("~="); 
 
@@ -1094,11 +1093,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Regex;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:155:6: ( '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )* )
-            // LensQuery.g:155:8: '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // LensQuery.g:152:6: ( '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )* )
+            // LensQuery.g:152:8: '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )*
             {
             match('/'); 
-            // LensQuery.g:155:13: ( options {greedy=false; } : . )*
+            // LensQuery.g:152:13: ( options {greedy=false; } : . )*
             loop14:
             do {
                 int alt14=2;
@@ -1114,7 +1113,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // LensQuery.g:155:38: .
+            	    // LensQuery.g:152:38: .
             	    {
             	    matchAny(); 
 
@@ -1127,7 +1126,7 @@ public class LensQueryLexer extends Lexer {
             } while (true);
 
             match('/'); 
-            // LensQuery.g:155:46: ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // LensQuery.g:152:46: ( 'a' .. 'z' | 'A' .. 'Z' )*
             loop15:
             do {
                 int alt15=2;
@@ -1176,8 +1175,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:158:4: ( '.' )
-            // LensQuery.g:158:6: '.'
+            // LensQuery.g:155:4: ( '.' )
+            // LensQuery.g:155:6: '.'
             {
             match('.'); 
 
@@ -1196,8 +1195,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:159:6: ( ',' )
-            // LensQuery.g:159:8: ','
+            // LensQuery.g:156:6: ( ',' )
+            // LensQuery.g:156:8: ','
             {
             match(','); 
 
@@ -1216,8 +1215,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:160:6: ( ':' )
-            // LensQuery.g:160:8: ':'
+            // LensQuery.g:157:6: ( ':' )
+            // LensQuery.g:157:8: ':'
             {
             match(':'); 
 
@@ -1236,8 +1235,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = As;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:162:3: ( 'as' )
-            // LensQuery.g:162:5: 'as'
+            // LensQuery.g:159:3: ( 'as' )
+            // LensQuery.g:159:5: 'as'
             {
             match("as"); 
 
@@ -1257,8 +1256,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:164:7: ( '(' )
-            // LensQuery.g:164:9: '('
+            // LensQuery.g:161:7: ( '(' )
+            // LensQuery.g:161:9: '('
             {
             match('('); 
 
@@ -1277,8 +1276,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:165:7: ( ')' )
-            // LensQuery.g:165:9: ')'
+            // LensQuery.g:162:7: ( ')' )
+            // LensQuery.g:162:9: ')'
             {
             match(')'); 
 
@@ -1297,8 +1296,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:167:5: ( '*' )
-            // LensQuery.g:167:7: '*'
+            // LensQuery.g:164:5: ( '*' )
+            // LensQuery.g:164:7: '*'
             {
             match('*'); 
 
@@ -1315,7 +1314,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "UnsafeUnicodeChar"
     public final void mUnsafeUnicodeChar() throws RecognitionException {
         try {
-            // LensQuery.g:170:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
+            // LensQuery.g:167:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
             // LensQuery.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='.')||input.LA(1)==':'||input.LA(1)=='<'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
@@ -1339,7 +1338,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // LensQuery.g:172:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // LensQuery.g:169:25: ( 'A' .. 'Z' | 'a' .. 'z' )
             // LensQuery.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1363,7 +1362,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // LensQuery.g:173:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // LensQuery.g:170:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
             // LensQuery.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -1387,8 +1386,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // LensQuery.g:176:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
-            // LensQuery.g:176:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
+            // LensQuery.g:173:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
+            // LensQuery.g:173:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1413,10 +1412,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:177:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
-            // LensQuery.g:177:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
+            // LensQuery.g:174:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
+            // LensQuery.g:174:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
             {
-            // LensQuery.g:177:8: ( QNameChar )+
+            // LensQuery.g:174:8: ( QNameChar )+
             int cnt16=0;
             loop16:
             do {
@@ -1430,7 +1429,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // LensQuery.g:177:8: QNameChar
+            	    // LensQuery.g:174:8: QNameChar
             	    {
             	    mQNameChar(); 
 
@@ -1446,7 +1445,7 @@ public class LensQueryLexer extends Lexer {
                 cnt16++;
             } while (true);
 
-            // LensQuery.g:177:19: ( Dot ( QNameChar )+ )*
+            // LensQuery.g:174:19: ( Dot ( QNameChar )+ )*
             loop18:
             do {
                 int alt18=2;
@@ -1459,10 +1458,10 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // LensQuery.g:177:20: Dot ( QNameChar )+
+            	    // LensQuery.g:174:20: Dot ( QNameChar )+
             	    {
             	    mDot(); 
-            	    // LensQuery.g:177:24: ( QNameChar )+
+            	    // LensQuery.g:174:24: ( QNameChar )+
             	    int cnt17=0;
             	    loop17:
             	    do {
@@ -1476,7 +1475,7 @@ public class LensQueryLexer extends Lexer {
 
             	        switch (alt17) {
             	    	case 1 :
-            	    	    // LensQuery.g:177:24: QNameChar
+            	    	    // LensQuery.g:174:24: QNameChar
             	    	    {
             	    	    mQNameChar(); 
 
@@ -1515,7 +1514,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // LensQuery.g:181:11: ( ' ' | '\\t' )
+            // LensQuery.g:178:11: ( ' ' | '\\t' )
             // LensQuery.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
@@ -1541,10 +1540,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // LensQuery.g:183:12: ( ( WhiteSpace )+ )
-            // LensQuery.g:183:14: ( WhiteSpace )+
+            // LensQuery.g:180:12: ( ( WhiteSpace )+ )
+            // LensQuery.g:180:14: ( WhiteSpace )+
             {
-            // LensQuery.g:183:14: ( WhiteSpace )+
+            // LensQuery.g:180:14: ( WhiteSpace )+
             int cnt19=0;
             loop19:
             do {
@@ -1558,7 +1557,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // LensQuery.g:183:14: WhiteSpace
+            	    // LensQuery.g:180:14: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 

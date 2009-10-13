@@ -202,4 +202,22 @@ public class SilkWriterTest {
 
     }
 
+    @Test
+    public void escapeText() throws Exception {
+        String s = SilkWriter.escapeText("-A(id:1)\n  -B");
+
+        String[] l = s.split("\r?\n");
+
+        assertEquals("\\-A(id:1)", l[0]);
+        assertEquals("  \\-B", l[1]);
+
+    }
+
+    @Test
+    public void escapeBackSlash() throws Exception {
+        String e = SilkWriter.escapeText("\\-already escaped");
+        assertEquals("\\-already escaped", e);
+
+    }
+
 }

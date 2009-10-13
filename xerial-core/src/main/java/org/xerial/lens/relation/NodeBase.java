@@ -38,7 +38,7 @@ import org.xerial.core.XerialErrorCode;
 public abstract class NodeBase<NodeType> implements TupleElement<NodeType> {
     protected NodeBase() {}
 
-    public boolean isNode() {
+    public boolean isAtom() {
         return true;
     }
 
@@ -75,7 +75,7 @@ public abstract class NodeBase<NodeType> implements TupleElement<NodeType> {
     }
 
     @SuppressWarnings("unchecked")
-    public NodeType castToNode() {
+    public NodeType castToElement() {
         return (NodeType) this;
     }
 
