@@ -29,7 +29,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -504,14 +503,14 @@ public class SilkWriter {
 
         ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
 
-        if (TypeInfo.isCollection(c)) {
-            Collection< ? > collection = (Collection< ? >) obj;
+        if (TypeInfo.isIterable(c)) {
+            Iterable< ? > collection = (Iterable< ? >) obj;
             boolean hasAttributes = lens.hasAttributes();
             if (hasAttributes) {
                 outputParemters(lens, obj);
             }
 
-            if (!collection.isEmpty()) {
+            if (collection != null) {
                 for (Object elem : collection) {
                     SilkWriter w = node(null);
                     w.toSilk(elem);
@@ -572,7 +571,7 @@ public class SilkWriter {
                 leafObject(getter.getParamName(), getter.get(obj));
             }
             else {
-                if (TypeInfo.isCollection(c) || TypeInfo.isMap(c)) {
+                if (TypeInfo.isIterable(c) || TypeInfo.isMap(c)) {
                     postponedParameters.add(getter);
                 }
                 else {
@@ -589,10 +588,10 @@ public class SilkWriter {
         for (ParameterGetter getter : postponedParameters) {
 
             Class< ? > c = getter.getReturnType();
-            if (TypeInfo.isCollection(c)) {
-                Collection< ? > collection = (Collection< ? >) getter.get(obj);
+            if (TypeInfo.isIterable(c)) {
+                Iterable< ? > collection = (Iterable< ? >) getter.get(obj);
 
-                if (!collection.isEmpty()) {
+                if (collection != null) {
                     for (Object elem : collection) {
                         SilkWriter w = node(getter.getParamName());
                         w.toSilk(elem);

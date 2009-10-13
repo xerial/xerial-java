@@ -28,7 +28,7 @@ import org.xerial.core.XerialException;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.query.QuerySet;
-import org.xerial.lens.relation.query.RelationExtracter;
+import org.xerial.lens.relation.query.RelationExtractor;
 import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.query.lang.RelationExpr;
 import org.xerial.lens.relation.schema.Schema;
@@ -55,7 +55,7 @@ public class RelationLens {
     public void map(TreeParser input) throws XerialException {
 
         RelationHandler rh = new MyRelationHandler();
-        RelationExtracter.run(qs, input, rh);
+        RelationExtractor.run(qs, input, rh);
     }
 
     public class MyRelationHandler implements RelationHandler {

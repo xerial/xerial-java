@@ -34,18 +34,18 @@ import org.xerial.lens.relation.schema.Schema;
 import org.xerial.util.tree.TreeParser;
 
 /**
- * Relation extracter
+ * Relation extractor
  * 
  * @author leo
  * 
  */
-public class RelationExtracter {
+public class RelationExtractor {
 
     private final QuerySet qs;
     private final HashMap<Schema, RelationFragmentHolder> relationHolderTable = new HashMap<Schema, RelationFragmentHolder>();
     private final RelationHandler handler;
 
-    private RelationExtracter(QuerySet qs, RelationHandler handler) {
+    private RelationExtractor(QuerySet qs, RelationHandler handler) {
         this.qs = qs;
         this.handler = handler;
         for (Schema each : qs.getTargetQuerySet()) {
@@ -74,7 +74,7 @@ public class RelationExtracter {
     public static void run(QuerySet qs, TreeParser input, RelationHandler handler)
             throws XerialException {
 
-        RelationExtracter re = new RelationExtracter(qs, handler);
+        RelationExtractor re = new RelationExtractor(qs, handler);
         re.run(input);
     }
 

@@ -32,7 +32,7 @@ public interface IndexAccess<NodeType>
      * @param index
      * @return
      */
-    Cell<NodeType> get(TupleIndex index);
+    TupleElement<NodeType> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,
@@ -62,6 +62,6 @@ public interface IndexAccess<NodeType>
      * 
      * @param visitor
      */
-    void accept(CellVisitor<NodeType> visitor);
+    void accept(TupleElementVisitor<NodeType> visitor);
 
 }

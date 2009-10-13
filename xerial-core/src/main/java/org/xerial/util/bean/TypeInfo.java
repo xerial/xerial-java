@@ -91,6 +91,10 @@ public class TypeInfo {
             return basicTypeSet.contains(c);
     }
 
+    public static boolean isIterable(Class< ? > c) {
+        return Iterable.class.isAssignableFrom(c);
+    }
+
     public static boolean isCollection(Class< ? > c) {
         return Collection.class.isAssignableFrom(c);
     }

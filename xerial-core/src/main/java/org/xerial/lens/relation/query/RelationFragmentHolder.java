@@ -30,8 +30,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.xerial.lens.relation.Cell;
-import org.xerial.lens.relation.CellVisitor;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.TupleElementVisitor;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleIndex;
@@ -73,7 +73,7 @@ public class RelationFragmentHolder {
         }
 
         public Tuple<Node> emptyTuple(Schema schema) {
-            List<Cell<Node>> nodeList = new ArrayList<Cell<Node>>(schema.size());
+            List<TupleElement<Node>> nodeList = new ArrayList<TupleElement<Node>>(schema.size());
             for (int i = 0; i < schema.size(); i++) {
                 Schema subSchema = schema.get(i);
                 if (subSchema.isAtom())
@@ -84,7 +84,7 @@ public class RelationFragmentHolder {
             return new Tuple<Node>(nodeList);
         }
 
-        class CompletenessTester implements CellVisitor<Node> {
+        class CompletenessTester implements TupleElementVisitor<Node> {
             boolean hasNull = false;
 
             public boolean isComplete() {
@@ -103,7 +103,7 @@ public class RelationFragmentHolder {
                     return;
                 }
 
-                for (Cell<Node> each : tuple) {
+                for (TupleElement<Node> each : tuple) {
                     if (hasNull)
                         break;
 
@@ -232,7 +232,7 @@ public class RelationFragmentHolder {
 
         Tuple<Node> rel = new Tuple<Node>(relationSize);
         rel.add(coreNode);
-        for (Cell<Node> each : fragment.relationFragment)
+        for (TupleElement<Node> each : fragment.relationFragment)
             rel.add(each);
 
         handler.relation(relation, rel);

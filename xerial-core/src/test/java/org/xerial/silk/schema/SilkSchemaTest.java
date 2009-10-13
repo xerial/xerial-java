@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.schema;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -99,7 +97,7 @@ public class SilkSchemaTest {
         //        assertEquals("Alignment", r.name);
         //        assertEquals(2, r.attribute.size());
 
-        _logger.info(Lens.toJSON(schema));
+        _logger.info(Lens.toSilk(schema));
 
         //_logger.info(schema.toGraphviz());
 
@@ -110,7 +108,7 @@ public class SilkSchemaTest {
 
         SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
 
-        _logger.info(Lens.toJSON(schema));
+        _logger.info(Lens.toSilk(schema));
 
         QuerySet qs = schema.buildAmoebaJoinQuery();
 

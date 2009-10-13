@@ -35,18 +35,14 @@ import org.xerial.core.XerialErrorCode;
  * 
  * @param <NodeType>
  */
-public abstract class NodeBase<NodeType> implements Cell<NodeType>
-{
-    protected NodeBase()
-    {}
+public abstract class NodeBase<NodeType> implements TupleElement<NodeType> {
+    protected NodeBase() {}
 
-    public boolean isNode()
-    {
+    public boolean isNode() {
         return true;
     }
 
-    public boolean isTuple()
-    {
+    public boolean isTuple() {
         return false;
     }
 
@@ -55,27 +51,23 @@ public abstract class NodeBase<NodeType> implements Cell<NodeType>
      * 
      * @return
      */
-    public int size()
-    {
+    public int size() {
         return 1;
     }
 
-    public Tuple<NodeType> getTuple()
-    {
-        throw new XerialError(XerialErrorCode.UNSUPPORTED);
+    public Tuple<NodeType> castToTuple() {
+        return null;
     }
 
-    public Cell<NodeType> get(TupleIndex index)
-    {
+    public TupleElement<NodeType> get(TupleIndex index) {
         if (index.size() == 0 && index.get(0) == 0)
-            return (Cell<NodeType>) this;
+            return (TupleElement<NodeType>) this;
         else
             throw new XerialError(XerialErrorCode.INVALID_STATE);
     }
 
     @SuppressWarnings("unchecked")
-    public NodeType getNode(TupleIndex index)
-    {
+    public NodeType getElement(TupleIndex index) {
         if (!(index.size() == 1 && index.get(0) == 0))
             throw new XerialError(XerialErrorCode.INVALID_STATE);
         else
@@ -83,14 +75,12 @@ public abstract class NodeBase<NodeType> implements Cell<NodeType>
     }
 
     @SuppressWarnings("unchecked")
-    public NodeType getNode()
-    {
+    public NodeType castToNode() {
         return (NodeType) this;
     }
 
     @SuppressWarnings("unchecked")
-    public void accept(CellVisitor<NodeType> visitor)
-    {
+    public void accept(TupleElementVisitor<NodeType> visitor) {
         visitor.visitNode((NodeType) this);
     }
 

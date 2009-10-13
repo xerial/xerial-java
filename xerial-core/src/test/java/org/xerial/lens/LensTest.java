@@ -35,6 +35,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.lens.relation.NodeBase;
+import org.xerial.lens.relation.Tuple;
 import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
@@ -366,6 +368,29 @@ public class LensTest {
                 _logger.info(Lens.toJSON(input));
             }
         });
+    }
+
+    public static class TupleNode extends NodeBase<TupleNode> {
+        public final String name;
+
+        public TupleNode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    @Test
+    public void testToSilkTuple() throws Exception {
+        Tuple<TupleNode> t = new Tuple<TupleNode>();
+        t.add(new TupleNode("A"));
+        t.add(new TupleNode("B"));
+
+        String s = Lens.toSilk(t);
+        _logger.info(s);
     }
 
 }

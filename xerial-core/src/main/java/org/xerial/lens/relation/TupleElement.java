@@ -32,8 +32,7 @@ package org.xerial.lens.relation;
  * @author leo
  * 
  */
-public interface Cell<NodeType>
-{
+public interface TupleElement<Element> {
     /**
      * Returns true if this cell is a singleton
      * 
@@ -63,7 +62,7 @@ public interface Cell<NodeType>
      * @param index
      * @return
      */
-    Cell<NodeType> get(TupleIndex index);
+    TupleElement<Element> get(TupleIndex index);
 
     /**
      * If the cell at the specified index is a node, then return the node,
@@ -72,27 +71,27 @@ public interface Cell<NodeType>
      * @param index
      * @return node
      */
-    NodeType getNode(TupleIndex index);
+    Element getElement(TupleIndex index);
 
     /**
      * if this cell is node, then return node. otherwise return null
      * 
      * @return
      */
-    NodeType getNode();
+    Element castToNode();
 
     /**
      * If this cell is tuple, then return tuple. otherwise return null
      * 
      * @return
      */
-    Tuple<NodeType> getTuple();
+    Tuple<Element> castToTuple();
 
     /**
      * Accept the visitor
      * 
      * @param visitor
      */
-    void accept(CellVisitor<NodeType> visitor);
+    void accept(TupleElementVisitor<Element> visitor);
 
 }

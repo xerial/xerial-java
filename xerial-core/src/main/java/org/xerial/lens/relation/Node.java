@@ -25,7 +25,7 @@
 package org.xerial.lens.relation;
 
 /**
- * Node is an element ({@link Cell}) of a relation.
+ * Node is an element ({@link TupleElement}) of a relation.
  * 
  * @author leo
  * 

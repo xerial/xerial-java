@@ -16,36 +16,24 @@
 //--------------------------------------
 // XerialJ
 //
-// Node.java
-// Since: Aug 6, 2009 1:22:15 PM
+// CellVisitor.java
+// Since: 2009/05/13 9:32:39
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation.query.lang;
-
-import org.xerial.lens.relation.TupleIndex;
+package org.xerial.lens.relation;
 
 /**
- * base class of relation expression
+ * Visitor interface for traversing Tuple
  * 
  * @author leo
  * 
  */
-public abstract class RelationItem {
-    public String name;
-    public String alias;
+public interface TupleElementVisitor<NodeType>
+{
+    public void visitNode(NodeType node);
 
-    protected TupleIndex index = TupleIndex.root();
-
-    public void setIndex(String tupleIndex) {
-        index = TupleIndex.parse(tupleIndex);
-    }
-
-    public TupleIndex getIndex() {
-        return index;
-    }
-
-    public abstract boolean isRelation();
+    public void visitTuple(Tuple<NodeType> tuple);
 
 }

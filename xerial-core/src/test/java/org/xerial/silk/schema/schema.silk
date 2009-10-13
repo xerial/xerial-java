@@ -19,8 +19,8 @@ class Locus
   :end integer
   :strand
 
-  index interval :start, :end
-  index keyword :id
+  index interval on :start, :end
+  index keyword on :id
 end
 
 # gene data with sequence data

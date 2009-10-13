@@ -24,11 +24,6 @@
 //--------------------------------------
 package org.xerial.lens.relation.query.lang;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -36,6 +31,8 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.lens.relation.query.impl.LensQueryLexer;
@@ -51,39 +48,12 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class RelationExpr extends RelationItem {
+public class RelationExpr extends Tuple<RelationAttribute> {
 
     private static Logger _logger = Logger.getLogger(RelationExpr.class);
 
-    public class Node extends RelationItem {
-
-        public String nodeValue;
-
-        public Compare compare = null;
-        public PatternMatch patternMatch = null;
-
-        @Override
-        public boolean isRelation() {
-            return false;
-        }
-    }
-
-    public static class Compare {
-        public String operator;
-        public String operand;
-    }
-
-    public static class PatternMatch {
-        public String operand;
-    }
-
-    public List<Node> node = new ArrayList<Node>();
-    public List<RelationExpr> relation = new ArrayList<RelationExpr>();
-
-    @Override
-    public boolean isRelation() {
-        return true;
-    }
+    public String name;
+    public String alias;
 
     private static class RelationQuery {
         public RelationExpr relation;
@@ -112,34 +82,33 @@ public class RelationExpr extends RelationItem {
 
     }
 
-    private List<RelationItem> sortedNodeList() {
-        ArrayList<RelationItem> sortedRelationItem = new ArrayList<RelationItem>();
-        sortedRelationItem.addAll(node);
-        sortedRelationItem.addAll(relation);
+    public void addNode(RelationAttribute node) {
+        this.add(node);
+    }
 
-        Collections.sort(sortedRelationItem, new Comparator<RelationItem>() {
-            public int compare(RelationItem o1, RelationItem o2) {
-                return o1.getIndex().compareTo(o2.getIndex());
-            }
-        });
+    public void addRelation(RelationExpr relation) {
+        this.add(relation);
+    }
 
-        return sortedRelationItem;
+    @Override
+    public String toString() {
+        return String.format("%s%s%s", name, alias != null ? " as " + alias : "", super.toString());
     }
 
     public Schema toSchema() {
 
-        List<RelationItem> sortedRelationItem = sortedNodeList();
-
         SchemaBuilder parent = new SchemaBuilder();
         parent.add(name);
 
-        for (RelationItem each : sortedRelationItem) {
-            if (each.isRelation()) {
+        for (TupleElement<RelationAttribute> each : this) {
+            if (each.isTuple()) {
                 RelationExpr re = RelationExpr.class.cast(each);
                 parent.add(re.toSchema());
             }
-            else
-                parent.add(each.name);
+            else {
+                RelationAttribute ra = RelationAttribute.class.cast(each);
+                parent.add(ra.name);
+            }
         }
 
         return parent.build();
@@ -150,19 +119,19 @@ public class RelationExpr extends RelationItem {
 
         QuerySetBuilder b = new QuerySetBuilder();
 
-        List<RelationItem> sortedRelationItem = sortedNodeList();
-
         SchemaBuilder parent = new SchemaBuilder();
         parent.add(name);
-        for (RelationItem each : sortedRelationItem) {
-            parent.add(each.name);
+        for (TupleElement<RelationAttribute> each : this) {
 
-            if (each.isRelation()) {
-
+            if (each.isTuple()) {
                 RelationExpr re = RelationExpr.class.cast(each);
                 for (Schema s : re.buildQuerySet().getTargetQuerySet()) {
                     b.addQueryTarget(s);
                 }
+            }
+            else {
+                RelationAttribute ra = RelationAttribute.class.cast(each);
+                parent.add(ra.name);
             }
         }
         b.addQueryTarget(parent.build());

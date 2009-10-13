@@ -43,8 +43,7 @@ import org.xerial.util.bean.TypeInfo;
  * @author leo
  * 
  */
-public class ReflectionUtil
-{
+public class ReflectionUtil {
 
     /**
      * Set the value of the bean using the given setter
@@ -102,13 +101,18 @@ public class ReflectionUtil
             return getter.invoke(bean);
         }
         catch (IllegalArgumentException e) {
-            throw new XerialError(XerialErrorCode.INVALID_STATE, "not a getter (0-arg public method): " + getter);
+            throw new XerialError(XerialErrorCode.INVALID_STATE,
+                    "not a getter (0-arg public method): " + getter);
         }
         catch (IllegalAccessException e) {
             throw new IllegalAccessError(e.getMessage());
         }
         catch (InvocationTargetException e) {
-            throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e);
+            Throwable targetException = e.getTargetException();
+            if (XerialError.class.isInstance(targetException))
+                throw XerialError.class.cast(targetException);
+            else
+                throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e.getTargetException());
         }
     }
 
@@ -168,7 +172,8 @@ public class ReflectionUtil
 
     public static Type getGenericCollectionElementRawType(Field collectionType) {
         if (!TypeInfo.isCollection(collectionType.getType()))
-            throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, collectionType.getType().getName());
+            throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, collectionType.getType()
+                    .getName());
 
         Type optionFieldType = collectionType.getGenericType();
 
@@ -209,7 +214,8 @@ public class ReflectionUtil
 
             // TODO look up parent classes?
             if (keyValueType.length != 2)
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "not a Map<Key, Value> type: " + field);
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "not a Map<Key, Value> type: "
+                        + field);
 
             return new Pair<Type, Type>(keyValueType[0], keyValueType[1]);
         }
@@ -267,17 +273,20 @@ public class ReflectionUtil
                     Method adder = field.getType().getMethod("add", Object.class);
                     Type elementType = getGenericCollectionElementType(field);
 
-                    Object convertedValue = TypeConverter.convertType(getRawClass(elementType), value);
+                    Object convertedValue = TypeConverter.convertType(getRawClass(elementType),
+                            value);
                     adder.invoke(collection, convertedValue);
                 }
                 catch (SecurityException e) {
-                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of " + t.getName());
+                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of "
+                            + t.getName());
                 }
                 catch (NoSuchMethodException e) {
                     throw new XerialError(XerialErrorCode.NOT_A_COLLECTION, t.getName());
                 }
                 catch (IllegalAccessException e) {
-                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of " + t.getName());
+                    throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, "add() of "
+                            + t.getName());
                 }
                 catch (InvocationTargetException e) {
                     throw new XerialError(XerialErrorCode.INACCESSIBLE_METHOD, e);
