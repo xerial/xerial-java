@@ -1,10 +1,10 @@
--sequence(seq1, seq2)>> 
+-sequence(seq1, seq2)== 
 ABCD
 EFGHI
 --
 JKL
 MN
->>
+==
 0000
 --
 1234

@@ -136,7 +136,7 @@ public class SilkLinePushParser implements SilkLineParser {
         }
 
         // multi-line entry separator
-        if (c == '>' && line.charAt(1) == '>') {
+        if (c == '=' && line.charAt(1) == '=') {
             return new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null);
         }
 
@@ -160,7 +160,7 @@ public class SilkLinePushParser implements SilkLineParser {
         // data line 
         if (!(c == '-' || c == '@')) {
             // TODO set indent number correctly
-            SilkDataLine dataLine = new SilkDataLine(0, sanitizeDataLine(trimmedLine));
+            SilkDataLine dataLine = new SilkDataLine(0, sanitizeDataLine(line));
             return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
         }
 
@@ -175,7 +175,7 @@ public class SilkLinePushParser implements SilkLineParser {
 
         if (_logger.isTraceEnabled())
             _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
-                    ANTLRUtil.getTokenTable(SilkLineLexer.class, "Silk.tokens")), "\n"));
+                    ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
 
         // 100,000 lines/sec (SilkPushParser)
         // 60,000 lines/sec (SilkPushParser after consuming the lexer input)

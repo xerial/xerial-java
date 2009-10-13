@@ -34,20 +34,16 @@ import org.junit.Test;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 
-public class LoggerTest
-{
+public class LoggerTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void configure() throws IOException
-    {
+    public void configure() throws IOException {
         Logger.configure(FileResource.open(LoggerTest.class, "logconfig1.txt"));
 
         Logger logger = Logger.getLogger("org.xerial.util.log");
@@ -59,35 +55,40 @@ public class LoggerTest
     }
 
     @Test
-    public void testIsEnabled() throws Exception
-    {
+    public void testIsEnabled() throws Exception {
         Logger logger = Logger.getLogger(LoggerTest.class);
         logger.setLogLevel(LogLevel.INFO);
         StopWatch s = new StopWatch();
         int N = 100000000;
-        for (int i = 0; i < N; i++)
-        {
+        for (int i = 0; i < N; i++) {
             if (logger.isTraceEnabled())
                 logger.trace("hello");
         }
         logger.info(s.getElapsedTime());
         s.reset();
-        for (int i = 0; i < N; i++)
-        {
+        for (int i = 0; i < N; i++) {
             logger.trace("hello");
         }
         logger.info(s.getElapsedTime());
 
         s.reset();
-        for (int i = 0; i < N; i++)
-        {
+        for (int i = 0; i < N; i++) {
             assert logger.trace("hello");
         }
         logger.info(s.getElapsedTime());
 
         s.reset();
-        for (int i = 0; i < N; i++)
-        {}
+        for (int i = 0; i < N; i++) {}
         logger.info(s.getElapsedTime());
+    }
+
+    @Test
+    public void silkLogger() throws Exception {
+        Logger logger = Logger.getLogger(LoggerTest.class);
+        logger.setLogWriter(new SilkLogWriter());
+        logger.info("info message");
+        logger.debug("debug message");
+        logger.trace("trace message");
+
     }
 }

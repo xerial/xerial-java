@@ -32,39 +32,30 @@ package org.xerial.silk.impl;
  */
 public enum SilkNodeOccurrence {
 
-    ONE("."),
-    ZERO_OR_MORE("*"),
-    ONE_OR_MORE("+"),
-    ZERO_OR_ONE("?"),
-    SEQUENCE(">"),
-    TABBED_SEQUENCE("|"),
-    MULTILINE_SEQUENCE(">>");
+    ONE("."), ZERO_OR_MORE("*"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), SEQUENCE(">"), TABBED_SEQUENCE(
+            "|"), MULTILINE_SEQUENCE("=="), SEQUENCE_WITH_NEWLINE(">>");
 
     private String symbol;
 
-    private SilkNodeOccurrence(String symbol)
-    {
+    private SilkNodeOccurrence(String symbol) {
         this.symbol = symbol;
     }
 
-    public boolean isFollowedByStreamData()
-    {
-        return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE || this == MULTILINE_SEQUENCE;
+    public boolean isFollowedByStreamData() {
+        return this == SEQUENCE || this == TABBED_SEQUENCE || this == ZERO_OR_MORE
+                || this == MULTILINE_SEQUENCE || this == SEQUENCE_WITH_NEWLINE;
     }
 
-    public boolean isSchemaOnlyNode()
-    {
+    public boolean isSchemaOnlyNode() {
         return this == TABBED_SEQUENCE || this == ZERO_OR_MORE || this == MULTILINE_SEQUENCE;
     }
 
-    public boolean isArrayNode()
-    {
+    public boolean isArrayNode() {
         return this == ZERO_OR_MORE || this == ONE_OR_MORE;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return symbol;
     }
 }

@@ -190,7 +190,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 SilkFunction function = SilkFunction.class.cast(event.getElement());
                 evalFunction(function);
                 break;
-            case MULTILINE_ENTRY_SEPARATOR: // >> 
+            case MULTILINE_ENTRY_SEPARATOR: // ==
             {
                 SilkContext context = parseContext.peekLastContext();
                 SilkNode schema = context.contextNode;
@@ -263,7 +263,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         if (parseContext.isContextNodeStackEmpty()) {
             // use default column names(c1, c2, ...) 
             SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-            String[] columns = tabSplit.split(line.getDataLine(), 0);
+            String[] columns = tabSplit.split(line.getTrimmedDataLine(), 0);
             int index = 1;
             visit("row", null);
             for (String each : columns) {
@@ -281,16 +281,19 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
             switch (schema.getOccurrence()) {
             case SEQUENCE:
-                text(line.getDataLine());
+                text(line.getTrimmedDataLine());
+                break;
+            case SEQUENCE_WITH_NEWLINE:
+                text(line.getDataLine() + StringUtil.NEW_LINE);
                 break;
             case ZERO_OR_MORE:
                 // CSV data
             {
-                evalDatalineColumn(schema, line.getDataLine());
+                evalDatalineColumn(schema, line.getTrimmedDataLine());
             }
                 break;
             case TABBED_SEQUENCE: {
-                String[] columns = tabSplit.split(line.getDataLine(), 0);
+                String[] columns = tabSplit.split(line.getTrimmedDataLine(), 0);
 
                 int columnIndex = 0;
                 visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
@@ -329,7 +332,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
 
                     parseContext.isAttributeOpen = true;
                 }
-                text(line.getDataLine().trim());
+                text(line.getTrimmedDataLine());
                 break;
             }
             }

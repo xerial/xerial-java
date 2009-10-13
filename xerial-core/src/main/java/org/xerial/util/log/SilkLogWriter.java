@@ -27,6 +27,7 @@ package org.xerial.util.log;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Date;
 
 import org.xerial.silk.SilkWriter;
 import org.xerial.util.StringUtil;
@@ -55,9 +56,12 @@ public class SilkLogWriter implements LogWriter {
             return; // no output is specified
 
         synchronized (this) {
-            logOut.write(String.format("-%s(name:%s)", logLevel, logger.getLoggerShortName()));
+            Date now = new Date();
+            logOut.write(String.format("-%s(name:%s, time:\"%s\")", logLevel.name().toLowerCase(),
+                    logger.getLoggerShortName(), now));
 
             if (message != null) {
+                logOut.write(":>");
                 logOut.write(StringUtil.NEW_LINE);
                 String m = SilkWriter.escapeText(message.toString());
                 logOut.write(m);

@@ -185,7 +185,7 @@ RParen:	')' { transit(Symbol.LeaveParen); };
 Comma: 	','; 
 Colon:	':' { transit(Symbol.Colon); } ;
 
- 
+EqEq: '==';
 Seq: 	'>';
 TabSeq:	'|';
 Star: 	'*';
@@ -209,12 +209,12 @@ String: '"' s=StringChar_s '"' { setText($s.text);  transit(Symbol.LeaveValue); 
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
-fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\';	
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '=';	
 
 
 fragment PlainUnsafeChar: '"'| '\\' | '#' ;
 
-fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|'); 
+fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '='); 
 fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');
 fragment PlainSafeOut: ~(PlainUnsafeChar);
 
@@ -310,19 +310,18 @@ attributeList: attributeItem (Comma! attributeItem)* ;
 fragment
 attributeItem: nodeItem -> ^(SilkNode nodeItem);
 
-fragment
-seqseq: Seq Seq;
 
 fragment
 plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
 	| Plus -> Occurrence["ONE_OR_MORE"]
 	| Question -> Occurrence["ZERO_OR_ONE"]
-	| seqseq -> Occurrence["MULTILINE_SEQUENCE"]
+	| EqEq -> Occurrence["MULTILINE_SEQUENCE"]
 	| Seq -> Occurrence["SEQUENCE"]
 	| TabSeq -> Occurrence["TABBED_SEQUENCE"]
+	| Seq Seq -> Occurrence["SEQUENCE_WITH_NEWLINE"]
 	;
-
+   
 function
 	: NodeIndent function_i
 	-> ^(Function NodeIndent function_i)

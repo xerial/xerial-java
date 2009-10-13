@@ -245,4 +245,9 @@ public class SilkWalkerTest {
         compare("tab-node2-alt.silk", "tab-node2.json");
     }
 
+    @Test
+    public void testMultiLineTextWithNewLine() throws Exception {
+        compare("mltext.silk", "mltext.json");
+    }
+
 }

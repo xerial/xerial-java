@@ -193,9 +193,13 @@ public class SilkNodeParser {
             node.setOccurrence(SilkNodeOccurrence.ZERO_OR_ONE);
             consume();
             break;
+        case EqEq:
+            node.setOccurrence(SilkNodeOccurrence.MULTILINE_SEQUENCE);
+            consume();
+            break;
         case Seq:
             if (tokenStream.LA(2) == Seq) {
-                node.setOccurrence(SilkNodeOccurrence.MULTILINE_SEQUENCE);
+                node.setOccurrence(SilkNodeOccurrence.SEQUENCE_WITH_NEWLINE);
                 consume();
                 break;
             }

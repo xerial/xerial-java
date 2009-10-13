@@ -43,6 +43,10 @@ public class SilkDataLine implements SilkElement {
         return dataLine;
     }
 
+    public String getTrimmedDataLine() {
+        return dataLine.trim();
+    }
+
     @Override
     public String toString() {
         return dataLine;
