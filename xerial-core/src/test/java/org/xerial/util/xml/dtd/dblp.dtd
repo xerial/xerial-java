@@ -17,32 +17,32 @@
                 phdthesis|mastersthesis|www)*>
 <!ENTITY % field "author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter">
 
-<!ELEMENT article       (%field;)*>
+<!ELEMENT article       (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST article
                         key CDATA #REQUIRED
                         reviewid CDATA #IMPLIED
                         rating CDATA #IMPLIED
 >
 
-<!ELEMENT inproceedings (%field;)*>
+<!ELEMENT inproceedings (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST inproceedings key CDATA #REQUIRED>
 
-<!ELEMENT proceedings   (%field;)*>
+<!ELEMENT proceedings   (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST proceedings   key CDATA #REQUIRED>
 
-<!ELEMENT book          (%field;)*>
+<!ELEMENT book          (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST book          key CDATA #REQUIRED>
 
-<!ELEMENT incollection  (%field;)*>
+<!ELEMENT incollection  (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST incollection  key CDATA #REQUIRED>
 
-<!ELEMENT phdthesis     (%field;)*>
+<!ELEMENT phdthesis     (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST phdthesis     key CDATA #REQUIRED>
 
-<!ELEMENT mastersthesis (%field;)*>
+<!ELEMENT mastersthesis (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST mastersthesis key CDATA #REQUIRED>
 
-<!ELEMENT www           (%field;)*>
+<!ELEMENT www           (author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter)*>
 <!ATTLIST www           key CDATA #REQUIRED>
 
 <!ELEMENT author    (#PCDATA)>
@@ -50,7 +50,7 @@
 <!ELEMENT address   (#PCDATA)>
 
 <!ENTITY % titlecontents "#PCDATA|sub|sup|i|tt|ref">
-<!ELEMENT title     (%titlecontents;)*>
+<!ELEMENT title     (#PCDATA|sub|sup|i|tt|ref)*>
 <!ELEMENT booktitle (#PCDATA)>
 <!ELEMENT pages     (#PCDATA)>
 <!ELEMENT year      (#PCDATA)>
@@ -81,10 +81,10 @@
 
 <!ELEMENT ref (#PCDATA)>
 <!ATTLIST ref href CDATA #REQUIRED>
-<!ELEMENT sup (%titlecontents;)*>
-<!ELEMENT sub (%titlecontents;)*>
-<!ELEMENT i   (%titlecontents;)*>
-<!ELEMENT tt  (%titlecontents;)*>
+<!ELEMENT sup (#PCDATA|sub|sup|i|tt|ref)*>
+<!ELEMENT sub (#PCDATA|sub|sup|i|tt|ref)*>
+<!ELEMENT i   (#PCDATA|sub|sup|i|tt|ref)*>
+<!ELEMENT tt  (#PCDATA|sub|sup|i|tt|ref)*>
 
 <!ENTITY reg   "&#174;">
 <!ENTITY micro "&#181;">

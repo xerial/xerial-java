@@ -207,7 +207,7 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         }
     }
 
-    public void accept(TupleElementVisitor<Element> visitor) {
+    public void accept(TupleVisitor<Element> visitor) {
         visitor.visitTuple(this);
     }
 

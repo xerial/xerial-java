@@ -22,13 +22,14 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation.query.lang;
+package org.xerial.lens.relation.lang;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.relation.lang.XPathExpr;
 import org.xerial.util.log.Logger;
 
 public class XPathExprTest {

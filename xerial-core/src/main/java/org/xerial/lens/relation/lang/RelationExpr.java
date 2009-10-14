@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation.query.lang;
+package org.xerial.lens.relation.lang;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -122,13 +122,13 @@ public class RelationExpr extends Tuple<RelationAttribute> {
 
         SchemaBuilder parent = new SchemaBuilder();
         parent.add(name);
+
         for (TupleElement<RelationAttribute> each : this) {
 
             if (each.isTuple()) {
                 RelationExpr re = RelationExpr.class.cast(each);
-                for (Schema s : re.buildQuerySet().getTargetQuerySet()) {
+                for (Schema s : re.buildQuerySet().getTargetQuerySet())
                     b.addQueryTarget(s);
-                }
             }
             else {
                 RelationAttribute ra = RelationAttribute.class.cast(each);

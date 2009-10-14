@@ -16,37 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// RelationAttribute.java
-// Since: Oct 13, 2009 12:21:23 PM
+// CellVisitor.java
+// Since: 2009/05/13 9:32:39
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation.query.lang;
+package org.xerial.lens.relation;
 
-import org.xerial.lens.relation.NodeBase;
+/**
+ * Visitor interface for traversing Tuple
+ * 
+ * @author leo
+ * 
+ */
+public interface TupleVisitor<NodeType> {
+    public void visitNode(NodeType node);
 
-public class RelationAttribute extends NodeBase<RelationAttribute> {
-
-    public static class Compare {
-        public String operator;
-        public String operand;
-    }
-
-    public static class PatternMatch {
-        public String operand;
-    }
-
-    public String name;
-    public String alias;
-    public String nodeValue;
-    public Compare compare;
-    public PatternMatch patternMatch;
-
-    @Override
-    public String toString() {
-        return String.format("%s%s%s", name, alias != null ? " as " + alias : "",
-                nodeValue != null ? ":" + nodeValue : "");
-    }
+    public void visitTuple(Tuple<NodeType> tuple);
 
 }

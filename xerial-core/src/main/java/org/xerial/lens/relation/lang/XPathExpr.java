@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation.query.lang;
+package org.xerial.lens.relation.lang;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -31,7 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.xerial.lens.relation.TupleElement;
-import org.xerial.lens.relation.TupleElementVisitor;
+import org.xerial.lens.relation.TupleVisitor;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleIndex;
@@ -84,7 +84,7 @@ public class RelationFragmentHolder {
             return new Tuple<Node>(nodeList);
         }
 
-        class CompletenessTester implements TupleElementVisitor<Node> {
+        class CompletenessTester implements TupleVisitor<Node> {
             boolean hasNull = false;
 
             public boolean isComplete() {

@@ -57,7 +57,7 @@ public interface TupleElement<Element> {
     public int size();
 
     /**
-     * Get the cell at the specified index
+     * Get the tuple element at the specified index
      * 
      * @param index
      * @return
@@ -92,6 +92,6 @@ public interface TupleElement<Element> {
      * 
      * @param visitor
      */
-    void accept(TupleElementVisitor<Element> visitor);
+    void accept(TupleVisitor<Element> visitor);
 
 }

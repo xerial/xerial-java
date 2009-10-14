@@ -62,6 +62,6 @@ public interface IndexAccess<NodeType>
      * 
      * @param visitor
      */
-    void accept(TupleElementVisitor<NodeType> visitor);
+    void accept(TupleVisitor<NodeType> visitor);
 
 }

@@ -80,7 +80,7 @@ public abstract class NodeBase<NodeType> implements TupleElement<NodeType> {
     }
 
     @SuppressWarnings("unchecked")
-    public void accept(TupleElementVisitor<NodeType> visitor) {
+    public void accept(TupleVisitor<NodeType> visitor) {
         visitor.visitNode((NodeType) this);
     }
 

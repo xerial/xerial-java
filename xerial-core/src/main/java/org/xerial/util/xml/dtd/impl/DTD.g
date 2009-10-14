@@ -36,6 +36,7 @@ COMPONENT;
 OCCURRENCE;
 CONTENTSPEC;
 ENTITY;
+ENTITY_REF;
 VALUE;
 }
 
@@ -245,6 +246,6 @@ tokenizedType
 	
 entityDecl
   : '<!ENTITY' Name String '>' -> ^(ENTITY NAME[$Name.text] VALUE[$String.text])
-  | '<!ENTITY' '%' Name String '>' -> ^(ENTITY NAME[$Name.text] VALUE[$String.text])
+  | '<!ENTITY' '%' Name String '>' -> ^(ENTITY_REF NAME[$Name.text] VALUE[$String.text])
   ;	
   
