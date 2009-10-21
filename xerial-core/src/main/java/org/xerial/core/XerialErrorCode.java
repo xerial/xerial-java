@@ -63,7 +63,7 @@ public enum XerialErrorCode implements ErrorCode {
 
     // XML
     InvalidXMLData, ParserError, UnsupportedXMLDataType,
-
+ 
     // JSON
     InvalidJSONData, InvalidJSONArray,
 

@@ -129,11 +129,9 @@ public class OptionParser {
      *            options are found.
      * @throws OptionParserException
      */
-    public <OptionHolder> OptionHolder parse(String[] args, boolean ignoreUnknownOption)
-            throws OptionParserException {
+    public void parse(String[] args, boolean ignoreUnknownOption) throws OptionParserException {
         setIgnoreUnknownOption(ignoreUnknownOption);
         parse(args);
-        return getOptionHolder();
     }
 
     /**
@@ -149,12 +147,10 @@ public class OptionParser {
      * @return
      * @throws OptionParserException
      */
-    public <OptionHolder> OptionHolder parseUntilTheFirstArgument(String[] args)
-            throws OptionParserException {
+    public void parseUntilTheFirstArgument(String[] args) throws OptionParserException {
         ignoreAfterTheFirstArgument = true;
         try {
             parse(args);
-            return getOptionHolder();
         }
         finally {
             ignoreAfterTheFirstArgument = false;
@@ -168,7 +164,7 @@ public class OptionParser {
      * @param args
      * @throws OptionParserException
      */
-    public <OptionHolder> OptionHolder parse(String[] args) throws OptionParserException {
+    public void parse(String[] args) throws OptionParserException {
         // clear
         unusedArgument.clear();
         activatedOption.clear();
@@ -319,7 +315,6 @@ public class OptionParser {
                         .toString());
         }
 
-        return getOptionHolder();
     }
 
     private void setOption(OptionItem item, String value) throws OptionParserException {

@@ -30,16 +30,15 @@ package org.xerial.core;
  * @author leo
  * 
  */
-class ExceptionHelper
-{
-    static String getMessage(ErrorCode errorCode, String message)
-    {
+class ExceptionHelper {
+    static String getMessage(ErrorCode errorCode, String message) {
         String errorCodeDescription = errorCode.getDescription();
         String errorCodeDisplay;
         if (errorCodeDescription == null || errorCodeDescription.length() <= 0)
             errorCodeDisplay = String.format("[%s]", errorCode.getCodeName());
         else
-            errorCodeDisplay = String.format("[%s: %s]", errorCode.getCodeName(), errorCode.getDescription());
+            errorCodeDisplay = String.format("[%s: %s]", errorCode.getCodeName(), errorCode
+                    .getDescription());
 
         if (message == null)
             return errorCodeDisplay;

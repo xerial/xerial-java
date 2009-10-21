@@ -361,8 +361,9 @@ public class OptionParserTest {
     @Test
     public void splitArguments() throws Exception {
         OptionParser opt = new OptionParser(OptWithSubCommand.class);
-        OptWithSubCommand h = opt.parseUntilTheFirstArgument(new String[] { "-o", "globalOpt",
-                "subcommand", "-w", "hello" });
+        opt.parseUntilTheFirstArgument(new String[] { "-o", "globalOpt", "subcommand", "-w",
+                "hello" });
+        OptWithSubCommand h = opt.getOptionHolder();
         String[] tail = opt.getUnusedArguments();
         assertEquals(2, tail.length);
         assertEquals("-w", tail[0]);

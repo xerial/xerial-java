@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-09-28 19:12:55
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2009-10-21 09:39:49
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -21,62 +21,63 @@ import java.util.ArrayList;
 public class DTDLexer extends Lexer {
     public static final int TYPE=12;
     public static final int CONTENTSPEC=16;
-    public static final int T__42=42;
     public static final int ELEMENT=13;
-    public static final int DefaultDecl=40;
-    public static final int Apos=23;
+    public static final int DefaultDecl=41;
+    public static final int ENTITY_REF=18;
     public static final int T__57=57;
-    public static final int Digit=30;
-    public static final int SemiColon=26;
+    public static final int Apos=24;
+    public static final int Digit=31;
+    public static final int SemiColon=27;
     public static final int T__51=51;
     public static final int T__47=47;
     public static final int T__50=50;
     public static final int ENTITY=17;
     public static final int ATTLIST=10;
-    public static final int VALUE=18;
+    public static final int VALUE=19;
     public static final int TOKENIZEDTYPE=6;
-    public static final int AttValue=37;
-    public static final int Letter=29;
+    public static final int AttValue=38;
+    public static final int Letter=30;
     public static final int T__52=52;
     public static final int T__46=46;
-    public static final int Comma=22;
-    public static final int Dot=25;
+    public static final int Comma=23;
+    public static final int Dot=26;
+    public static final int T__62=62;
     public static final int T__49=49;
     public static final int T__61=61;
     public static final int T__59=59;
     public static final int DECL=11;
-    public static final int ML_COMMENT=19;
+    public static final int ML_COMMENT=20;
     public static final int T__54=54;
     public static final int T__48=48;
-    public static final int EntityRef=38;
-    public static final int Colon=21;
+    public static final int EntityRef=39;
+    public static final int Colon=22;
     public static final int T__56=56;
-    public static final int At=20;
+    public static final int At=21;
     public static final int STRINGTYPE=5;
-    public static final int NameChar=32;
+    public static final int NameChar=33;
     public static final int DTD=4;
     public static final int T__58=58;
     public static final int T__44=44;
-    public static final int RParen=28;
-    public static final int Name=35;
+    public static final int RParen=29;
+    public static final int Name=36;
     public static final int T__45=45;
     public static final int T__55=55;
-    public static final int LParen=27;
-    public static final int String=34;
-    public static final int CharRef=39;
+    public static final int LParen=28;
+    public static final int String=35;
+    public static final int CharRef=40;
     public static final int OCCURRENCE=15;
     public static final int T__43=43;
-    public static final int WhiteSpaceChar=33;
+    public static final int WhiteSpaceChar=34;
     public static final int EOF=-1;
     public static final int T__53=53;
-    public static final int Reference=36;
+    public static final int Reference=37;
     public static final int COMPONENT=14;
     public static final int ATTRIBUTE=9;
-    public static final int Quot=24;
+    public static final int Quot=25;
     public static final int NAME=8;
     public static final int T__60=60;
-    public static final int Digits=31;
-    public static final int Element=41;
+    public static final int Digits=32;
+    public static final int Element=42;
     public static final int ENUMTYPE=7;
 
     // delegates
@@ -92,36 +93,15 @@ public class DTDLexer extends Lexer {
     }
     public String getGrammarFileName() { return "DTD.g"; }
 
-    // $ANTLR start "T__42"
-    public final void mT__42() throws RecognitionException {
-        try {
-            int _type = T__42;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:26:7: ( '>' )
-            // DTD.g:26:9: '>'
-            {
-            match('>'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__42"
-
     // $ANTLR start "T__43"
     public final void mT__43() throws RecognitionException {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:27:7: ( 'EMPTY' )
-            // DTD.g:27:9: 'EMPTY'
+            // DTD.g:26:7: ( '>' )
+            // DTD.g:26:9: '>'
             {
-            match("EMPTY"); 
-
+            match('>'); 
 
             }
 
@@ -138,10 +118,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:28:7: ( 'ANY' )
-            // DTD.g:28:9: 'ANY'
+            // DTD.g:27:7: ( 'EMPTY' )
+            // DTD.g:27:9: 'EMPTY'
             {
-            match("ANY"); 
+            match("EMPTY"); 
 
 
             }
@@ -159,10 +139,11 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:29:7: ( '?' )
-            // DTD.g:29:9: '?'
+            // DTD.g:28:7: ( 'ANY' )
+            // DTD.g:28:9: 'ANY'
             {
-            match('?'); 
+            match("ANY"); 
+
 
             }
 
@@ -179,10 +160,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:30:7: ( '*' )
-            // DTD.g:30:9: '*'
+            // DTD.g:29:7: ( '?' )
+            // DTD.g:29:9: '?'
             {
-            match('*'); 
+            match('?'); 
 
             }
 
@@ -199,10 +180,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:31:7: ( '+' )
-            // DTD.g:31:9: '+'
+            // DTD.g:30:7: ( '*' )
+            // DTD.g:30:9: '*'
             {
-            match('+'); 
+            match('*'); 
 
             }
 
@@ -219,10 +200,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:32:7: ( '|' )
-            // DTD.g:32:9: '|'
+            // DTD.g:31:7: ( '+' )
+            // DTD.g:31:9: '+'
             {
-            match('|'); 
+            match('+'); 
 
             }
 
@@ -239,11 +220,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:33:7: ( '#PCDATA' )
-            // DTD.g:33:9: '#PCDATA'
+            // DTD.g:32:7: ( '|' )
+            // DTD.g:32:9: '|'
             {
-            match("#PCDATA"); 
-
+            match('|'); 
 
             }
 
@@ -260,10 +240,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:34:7: ( '<!ATTLIST' )
-            // DTD.g:34:9: '<!ATTLIST'
+            // DTD.g:33:7: ( '#PCDATA' )
+            // DTD.g:33:9: '#PCDATA'
             {
-            match("<!ATTLIST"); 
+            match("#PCDATA"); 
 
 
             }
@@ -281,10 +261,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:35:7: ( 'NOTATION' )
-            // DTD.g:35:9: 'NOTATION'
+            // DTD.g:34:7: ( '<!ATTLIST' )
+            // DTD.g:34:9: '<!ATTLIST'
             {
-            match("NOTATION"); 
+            match("<!ATTLIST"); 
 
 
             }
@@ -302,10 +282,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:36:7: ( 'CDATA' )
-            // DTD.g:36:9: 'CDATA'
+            // DTD.g:35:7: ( 'NOTATION' )
+            // DTD.g:35:9: 'NOTATION'
             {
-            match("CDATA"); 
+            match("NOTATION"); 
 
 
             }
@@ -323,10 +303,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:37:7: ( 'ID' )
-            // DTD.g:37:9: 'ID'
+            // DTD.g:36:7: ( 'CDATA' )
+            // DTD.g:36:9: 'CDATA'
             {
-            match("ID"); 
+            match("CDATA"); 
 
 
             }
@@ -344,10 +324,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:38:7: ( 'IDREF' )
-            // DTD.g:38:9: 'IDREF'
+            // DTD.g:37:7: ( 'ID' )
+            // DTD.g:37:9: 'ID'
             {
-            match("IDREF"); 
+            match("ID"); 
 
 
             }
@@ -365,10 +345,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:39:7: ( 'IDREFS' )
-            // DTD.g:39:9: 'IDREFS'
+            // DTD.g:38:7: ( 'IDREF' )
+            // DTD.g:38:9: 'IDREF'
             {
-            match("IDREFS"); 
+            match("IDREF"); 
 
 
             }
@@ -386,10 +366,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:40:7: ( 'ENTITY' )
-            // DTD.g:40:9: 'ENTITY'
+            // DTD.g:39:7: ( 'IDREFS' )
+            // DTD.g:39:9: 'IDREFS'
             {
-            match("ENTITY"); 
+            match("IDREFS"); 
 
 
             }
@@ -407,10 +387,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:41:7: ( 'ENTITIES' )
-            // DTD.g:41:9: 'ENTITIES'
+            // DTD.g:40:7: ( 'ENTITY' )
+            // DTD.g:40:9: 'ENTITY'
             {
-            match("ENTITIES"); 
+            match("ENTITY"); 
 
 
             }
@@ -428,10 +408,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:42:7: ( 'NMTOKEN' )
-            // DTD.g:42:9: 'NMTOKEN'
+            // DTD.g:41:7: ( 'ENTITIES' )
+            // DTD.g:41:9: 'ENTITIES'
             {
-            match("NMTOKEN"); 
+            match("ENTITIES"); 
 
 
             }
@@ -449,10 +429,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:43:7: ( 'NMTOKENS' )
-            // DTD.g:43:9: 'NMTOKENS'
+            // DTD.g:42:7: ( 'NMTOKEN' )
+            // DTD.g:42:9: 'NMTOKEN'
             {
-            match("NMTOKENS"); 
+            match("NMTOKEN"); 
 
 
             }
@@ -470,10 +450,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:44:7: ( '<!ENTITY' )
-            // DTD.g:44:9: '<!ENTITY'
+            // DTD.g:43:7: ( 'NMTOKENS' )
+            // DTD.g:43:9: 'NMTOKENS'
             {
-            match("<!ENTITY"); 
+            match("NMTOKENS"); 
 
 
             }
@@ -491,6 +471,27 @@ public class DTDLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+            // DTD.g:44:7: ( '<!ENTITY' )
+            // DTD.g:44:9: '<!ENTITY'
+            {
+            match("<!ENTITY"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__61"
+
+    // $ANTLR start "T__62"
+    public final void mT__62() throws RecognitionException {
+        try {
+            int _type = T__62;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
             // DTD.g:45:7: ( '%' )
             // DTD.g:45:9: '%'
             {
@@ -504,19 +505,19 @@ public class DTDLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__61"
+    // $ANTLR end "T__62"
 
     // $ANTLR start "ML_COMMENT"
     public final void mML_COMMENT() throws RecognitionException {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:87:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // DTD.g:87:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // DTD.g:88:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // DTD.g:88:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             match("<!--"); 
 
-            // DTD.g:87:16: ( options {greedy=false; } : . )*
+            // DTD.g:88:16: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -550,7 +551,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // DTD.g:87:43: .
+            	    // DTD.g:88:43: .
             	    {
             	    matchAny(); 
 
@@ -581,8 +582,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:90:3: ( '@' )
-            // DTD.g:90:5: '@'
+            // DTD.g:91:3: ( '@' )
+            // DTD.g:91:5: '@'
             {
             match('@'); 
 
@@ -601,8 +602,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:91:6: ( ':' )
-            // DTD.g:91:8: ':'
+            // DTD.g:92:6: ( ':' )
+            // DTD.g:92:8: ':'
             {
             match(':'); 
 
@@ -621,8 +622,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:92:6: ( ',' )
-            // DTD.g:92:8: ','
+            // DTD.g:93:6: ( ',' )
+            // DTD.g:93:8: ','
             {
             match(','); 
 
@@ -641,8 +642,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Apos;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:93:5: ( '\\'' )
-            // DTD.g:93:7: '\\''
+            // DTD.g:94:5: ( '\\'' )
+            // DTD.g:94:7: '\\''
             {
             match('\''); 
 
@@ -661,8 +662,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Quot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:94:5: ( '\"' )
-            // DTD.g:94:7: '\"'
+            // DTD.g:95:5: ( '\"' )
+            // DTD.g:95:7: '\"'
             {
             match('\"'); 
 
@@ -681,8 +682,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:95:4: ( '.' )
-            // DTD.g:95:6: '.'
+            // DTD.g:96:4: ( '.' )
+            // DTD.g:96:6: '.'
             {
             match('.'); 
 
@@ -701,8 +702,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = SemiColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:96:10: ( ';' )
-            // DTD.g:96:12: ';'
+            // DTD.g:97:10: ( ';' )
+            // DTD.g:97:12: ';'
             {
             match(';'); 
 
@@ -721,8 +722,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:98:7: ( '(' )
-            // DTD.g:98:9: '('
+            // DTD.g:99:7: ( '(' )
+            // DTD.g:99:9: '('
             {
             match('('); 
 
@@ -741,8 +742,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:99:7: ( ')' )
-            // DTD.g:99:9: ')'
+            // DTD.g:100:7: ( ')' )
+            // DTD.g:100:9: ')'
             {
             match(')'); 
 
@@ -759,7 +760,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // DTD.g:101:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // DTD.g:102:16: ( 'a' .. 'z' | 'A' .. 'Z' )
             // DTD.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -783,8 +784,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // DTD.g:102:15: ( '0' .. '9' )
-            // DTD.g:102:17: '0' .. '9'
+            // DTD.g:103:15: ( '0' .. '9' )
+            // DTD.g:103:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -801,10 +802,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:103:7: ( ( Digit )+ )
-            // DTD.g:103:9: ( Digit )+
+            // DTD.g:104:7: ( ( Digit )+ )
+            // DTD.g:104:9: ( Digit )+
             {
-            // DTD.g:103:9: ( Digit )+
+            // DTD.g:104:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -818,7 +819,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // DTD.g:103:10: Digit
+            	    // DTD.g:104:10: Digit
             	    {
             	    mDigit(); 
 
@@ -848,7 +849,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // DTD.g:105:18: ( Letter | Digit | '_' | '-' | At )
+            // DTD.g:106:18: ( Letter | Digit | '_' | '-' | At )
             // DTD.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='@' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -874,10 +875,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:107:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:108:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // DTD.g:108:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:108:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -932,7 +933,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:110:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
+            // DTD.g:111:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -950,10 +951,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // DTD.g:110:3: Quot (~ '\"' )* Quot
+                    // DTD.g:111:3: Quot (~ '\"' )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:110:8: (~ '\"' )*
+                    // DTD.g:111:8: (~ '\"' )*
                     loop4:
                     do {
                         int alt4=2;
@@ -966,7 +967,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // DTD.g:110:9: ~ '\"'
+                    	    // DTD.g:111:9: ~ '\"'
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -991,10 +992,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:111:3: Apos (~ '\\'' )* Apos
+                    // DTD.g:112:3: Apos (~ '\\'' )* Apos
                     {
                     mApos(); 
-                    // DTD.g:111:8: (~ '\\'' )*
+                    // DTD.g:112:8: (~ '\\'' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1007,7 +1008,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // DTD.g:111:9: ~ '\\''
+                    	    // DTD.g:112:9: ~ '\\''
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1046,8 +1047,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:113:5: ( ( Letter | '_' ) ( NameChar )* )
-            // DTD.g:113:7: ( Letter | '_' ) ( NameChar )*
+            // DTD.g:114:5: ( ( Letter | '_' ) ( NameChar )* )
+            // DTD.g:114:7: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1058,7 +1059,7 @@ public class DTDLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // DTD.g:113:22: ( NameChar )*
+            // DTD.g:114:22: ( NameChar )*
             loop7:
             do {
                 int alt7=2;
@@ -1071,7 +1072,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // DTD.g:113:22: NameChar
+            	    // DTD.g:114:22: NameChar
             	    {
             	    mNameChar(); 
 
@@ -1097,7 +1098,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "AttValue"
     public final void mAttValue() throws RecognitionException {
         try {
-            // DTD.g:116:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
+            // DTD.g:117:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1115,10 +1116,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // DTD.g:117:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
+                    // DTD.g:118:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:117:10: (~ ( '<' | '&' | Quot ) | Reference )*
+                    // DTD.g:118:10: (~ ( '<' | '&' | Quot ) | Reference )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1134,7 +1135,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // DTD.g:117:11: ~ ( '<' | '&' | Quot )
+                    	    // DTD.g:118:11: ~ ( '<' | '&' | Quot )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1149,7 +1150,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:117:33: Reference
+                    	    // DTD.g:118:33: Reference
                     	    {
                     	    mReference(); 
 
@@ -1166,10 +1167,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:118:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
+                    // DTD.g:119:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
                     {
                     mApos(); 
-                    // DTD.g:118:12: (~ ( '<' | '&' | Apos ) | Reference )*
+                    // DTD.g:119:12: (~ ( '<' | '&' | Apos ) | Reference )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1185,7 +1186,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // DTD.g:118:13: ~ ( '<' | '&' | Apos )
+                    	    // DTD.g:119:13: ~ ( '<' | '&' | Apos )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1200,7 +1201,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:118:35: Reference
+                    	    // DTD.g:119:35: Reference
                     	    {
                     	    mReference(); 
 
@@ -1229,7 +1230,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Reference;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:121:10: ( EntityRef | CharRef )
+            // DTD.g:122:10: ( EntityRef | CharRef )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1257,14 +1258,14 @@ public class DTDLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // DTD.g:121:12: EntityRef
+                    // DTD.g:122:12: EntityRef
                     {
                     mEntityRef(); 
 
                     }
                     break;
                 case 2 :
-                    // DTD.g:121:24: CharRef
+                    // DTD.g:122:24: CharRef
                     {
                     mCharRef(); 
 
@@ -1283,8 +1284,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "EntityRef"
     public final void mEntityRef() throws RecognitionException {
         try {
-            // DTD.g:122:19: ( '&' Name SemiColon )
-            // DTD.g:122:21: '&' Name SemiColon
+            // DTD.g:123:19: ( '&' Name SemiColon )
+            // DTD.g:123:21: '&' Name SemiColon
             {
             match('&'); 
             mName(); 
@@ -1301,7 +1302,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "CharRef"
     public final void mCharRef() throws RecognitionException {
         try {
-            // DTD.g:123:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
+            // DTD.g:124:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1339,11 +1340,11 @@ public class DTDLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // DTD.g:123:19: '&#' ( '0' .. '9' )+ SemiColon
+                    // DTD.g:124:19: '&#' ( '0' .. '9' )+ SemiColon
                     {
                     match("&#"); 
 
-                    // DTD.g:123:24: ( '0' .. '9' )+
+                    // DTD.g:124:24: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1357,7 +1358,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // DTD.g:123:25: '0' .. '9'
+                    	    // DTD.g:124:25: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1378,11 +1379,11 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:123:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
+                    // DTD.g:124:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
                     {
                     match("&#x"); 
 
-                    // DTD.g:123:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // DTD.g:124:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1437,7 +1438,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = DefaultDecl;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:127:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
+            // DTD.g:128:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
             int alt16=3;
             int LA16_0 = input.LA(1);
 
@@ -1477,7 +1478,7 @@ public class DTDLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // DTD.g:127:5: '#REQUIRED'
+                    // DTD.g:128:5: '#REQUIRED'
                     {
                     match("#REQUIRED"); 
 
@@ -1486,7 +1487,7 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:128:5: '#IMPLIED'
+                    // DTD.g:129:5: '#IMPLIED'
                     {
                     match("#IMPLIED"); 
 
@@ -1495,12 +1496,12 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:130:5: ( ( '#FIXED' )? AttValue )
                     {
-                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
-                    // DTD.g:129:6: ( '#FIXED' )? AttValue
+                    // DTD.g:130:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:130:6: ( '#FIXED' )? AttValue
                     {
-                    // DTD.g:129:6: ( '#FIXED' )?
+                    // DTD.g:130:6: ( '#FIXED' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1509,7 +1510,7 @@ public class DTDLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // DTD.g:129:6: '#FIXED'
+                            // DTD.g:130:6: '#FIXED'
                             {
                             match("#FIXED"); 
 
@@ -1542,8 +1543,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Element;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:132:8: ( '<!ELEMENT' )
-            // DTD.g:132:10: '<!ELEMENT'
+            // DTD.g:133:8: ( '<!ELEMENT' )
+            // DTD.g:133:10: '<!ELEMENT'
             {
             match("<!ELEMENT"); 
 
@@ -1559,147 +1560,147 @@ public class DTDLexer extends Lexer {
     // $ANTLR end "Element"
 
     public void mTokens() throws RecognitionException {
-        // DTD.g:1:8: ( T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element )
+        // DTD.g:1:8: ( T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element )
         int alt17=37;
         alt17 = dfa17.predict(input);
         switch (alt17) {
             case 1 :
-                // DTD.g:1:10: T__42
-                {
-                mT__42(); 
-
-                }
-                break;
-            case 2 :
-                // DTD.g:1:16: T__43
+                // DTD.g:1:10: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
-            case 3 :
-                // DTD.g:1:22: T__44
+            case 2 :
+                // DTD.g:1:16: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
-            case 4 :
-                // DTD.g:1:28: T__45
+            case 3 :
+                // DTD.g:1:22: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
-            case 5 :
-                // DTD.g:1:34: T__46
+            case 4 :
+                // DTD.g:1:28: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
-            case 6 :
-                // DTD.g:1:40: T__47
+            case 5 :
+                // DTD.g:1:34: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
-            case 7 :
-                // DTD.g:1:46: T__48
+            case 6 :
+                // DTD.g:1:40: T__48
                 {
                 mT__48(); 
 
                 }
                 break;
-            case 8 :
-                // DTD.g:1:52: T__49
+            case 7 :
+                // DTD.g:1:46: T__49
                 {
                 mT__49(); 
 
                 }
                 break;
-            case 9 :
-                // DTD.g:1:58: T__50
+            case 8 :
+                // DTD.g:1:52: T__50
                 {
                 mT__50(); 
 
                 }
                 break;
-            case 10 :
-                // DTD.g:1:64: T__51
+            case 9 :
+                // DTD.g:1:58: T__51
                 {
                 mT__51(); 
 
                 }
                 break;
-            case 11 :
-                // DTD.g:1:70: T__52
+            case 10 :
+                // DTD.g:1:64: T__52
                 {
                 mT__52(); 
 
                 }
                 break;
-            case 12 :
-                // DTD.g:1:76: T__53
+            case 11 :
+                // DTD.g:1:70: T__53
                 {
                 mT__53(); 
 
                 }
                 break;
-            case 13 :
-                // DTD.g:1:82: T__54
+            case 12 :
+                // DTD.g:1:76: T__54
                 {
                 mT__54(); 
 
                 }
                 break;
-            case 14 :
-                // DTD.g:1:88: T__55
+            case 13 :
+                // DTD.g:1:82: T__55
                 {
                 mT__55(); 
 
                 }
                 break;
-            case 15 :
-                // DTD.g:1:94: T__56
+            case 14 :
+                // DTD.g:1:88: T__56
                 {
                 mT__56(); 
 
                 }
                 break;
-            case 16 :
-                // DTD.g:1:100: T__57
+            case 15 :
+                // DTD.g:1:94: T__57
                 {
                 mT__57(); 
 
                 }
                 break;
-            case 17 :
-                // DTD.g:1:106: T__58
+            case 16 :
+                // DTD.g:1:100: T__58
                 {
                 mT__58(); 
 
                 }
                 break;
-            case 18 :
-                // DTD.g:1:112: T__59
+            case 17 :
+                // DTD.g:1:106: T__59
                 {
                 mT__59(); 
 
                 }
                 break;
-            case 19 :
-                // DTD.g:1:118: T__60
+            case 18 :
+                // DTD.g:1:112: T__60
                 {
                 mT__60(); 
 
                 }
                 break;
-            case 20 :
-                // DTD.g:1:124: T__61
+            case 19 :
+                // DTD.g:1:118: T__61
                 {
                 mT__61(); 
+
+                }
+                break;
+            case 20 :
+                // DTD.g:1:124: T__62
+                {
+                mT__62(); 
 
                 }
                 break;
@@ -2025,7 +2026,7 @@ public class DTDLexer extends Lexer {
             this.transition = DFA17_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element );";
+            return "1:1: Tokens : ( T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | ML_COMMENT | At | Colon | Comma | Apos | Quot | Dot | SemiColon | LParen | RParen | Digits | WhiteSpaceChar | String | Name | Reference | DefaultDecl | Element );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
