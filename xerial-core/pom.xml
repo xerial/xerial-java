@@ -9,7 +9,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.14</version>
   <description>xerial-core is a common utilities for the Xerial project.</description>
 
   <build>
@@ -104,4 +104,10 @@
       <version>1.1.4c</version>
     </dependency>
   </dependencies>
+
+  <scm>
+    <connection>scm:svn:http://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-1.0.14</connection>
+    <developerConnection>scm:svn:https://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-1.0.14</developerConnection>
+    <url>http://www.xerial.org/svn/project/XerialJ/tags/xerial-core/xerial-core-1.0.14</url>
+  </scm>
 </project>
