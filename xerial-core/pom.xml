@@ -12,6 +12,12 @@
   <version>1.0.15-SNAPSHOT</version>
   <description>xerial-core is a common utilities for the Xerial project.</description>
 
+  <scm>
+    <connection>scm:hg:http://www.xerial.org/hg/xerial-core</connection>
+    <developerConnection>scm:hg:https://www.xerial.org/xerial-core</developerConnection>
+    <url>http://www.xerial.org/hg/xerial-core</url>
+  </scm>
+
   <build>
     <resources>
       <resource>
