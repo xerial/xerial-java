@@ -9,6 +9,9 @@
 = How to sync with central repository
 > hg push
 
+= Mercurial Setup
+== Windows
+> Install Mercurial for Windows (and set PATH to the c:\Program Files\Mercurial)
 
 
 * How to deploy a new jar file to our maven repository
