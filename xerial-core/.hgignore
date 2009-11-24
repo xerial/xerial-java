@@ -2,3 +2,7 @@ target
 .classpath
 .project
 
+syntax: glob
+*~
+
+
