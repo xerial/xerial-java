@@ -3,9 +3,11 @@
 
 > mvn compile
 
-
 > mvn package
 
+
+= How to sync with central repository
+> hg push
 
 
 
