@@ -10,6 +10,18 @@
 > hg push
 
 
+= Development cycle
+* Create a branch for the target task (ticket):
+> hg branch feature1 
+(do come changes)
+> hg commit 
+
+* Merge the named branch
+Go back to the default branch:
+> hg update default 
+> hg merge feature1
+> hg commit 
+
 
 = Mercurial Setup
 == Windows
