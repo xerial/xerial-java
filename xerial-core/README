@@ -20,6 +20,9 @@
 * mercurial-server
 * hgwebdir.cgi
 
+Because of the problem reported in http://old.nabble.com/hg-1.0-exits-with-abort:-Error-td19021833.html, we cannot use digest authentication. 
+Basic authentication + SSL is used. 
+
 
 = Using Third-party JAR files
 
