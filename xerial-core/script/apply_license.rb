@@ -11,7 +11,7 @@ Dir["src/**/*.java"].each { |file|
   puts "apply license to #{file}"
   license = <<LICENSE
 /*--------------------------------------------------------------------------
- *  Copyright 2007 Taro L. Saito
+ *  Copyright 2009 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
