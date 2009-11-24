@@ -23,6 +23,10 @@ Go back to the default branch:
 > hg commit 
 
 
+
+
+
+
 = Mercurial Setup
 == Windows
 > Install Mercurial for Windows (and set PATH to the c:\Program Files\Mercurial)
