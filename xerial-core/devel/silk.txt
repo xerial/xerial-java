@@ -1,0 +1,86 @@
+Silk format specification: version 1.0.
+
+Taro L. Saito <leo@xerial.org>
+November 26th, 2009
+
+= Idea
+
+== Type matching with tab-delimited data
+
+<code>
+-gene(name, strand, start, end, cds[start, end], exon[start, end])|
+NM_001005277    +       357521  358460  [357521, 358460]        [[357521, 358460]]
+NM_001005224    +       357521  358460  [357521, 358460]        [[357521, 358460]]
+</code>
+
+name -> x
+strand -> x
+start -> x
+end -> x
+cds[start, end] -> x[y, z]
+exon[stat, end] -> x[y, z]
+
+gene(name, strand, start, end, cds[start, end], exon[start, end]) 
+-> a(b, c, d, e, f(g, h), i(j, k))
+
+
+
+NM_001005277 -> string
++ -> string
+357521 -> integer
+358460 -> integer
+[357521, 358460] -> [interger, integer]
+[[357521, 358460]] -> [[integer, integer]]
+
+NM_001005277    +       357521  358460  [357521, 358460]        [[357521, 358460]]
+-> (string, string, integer, integer, [integer, integer], [[integer, integer]])
+
+== Tab-separated value expression
+
+T := V | [E]; 
+E := T | E,E ;
+V := string | integer | double | true | false | null ;
+
+
+string := utf_char*;
+
+utf_char 
+:= any UTF-8 character except \"(double quotation0 or \ (back slash)
+ | \ ('\"' quotation mark | '\\' reverse solidus | '/' solidus | 'b' backspace | 'f' formfeed| 'n' newline | 'r' carriage return | 't' horizontal tab | 'u' (4 hexadecimal digits)
+
+
+== Silk node expression
+
+N := - string ('(' F ')')? 
+F := string | string[G] 
+G := F | G,G
+
+
+
+== matching rules
+x : null 
+=> (empty)
+
+x : [e1, e2, ...]
+=> x:e1, x:[e2, ...]
+
+x : [[e]]
+=> x:[e]
+
+x[y, z] : [e1, e2] 
+=> x[y:e1, z:e2]
+
+x[y, z]: [[e1, e2, ...]] 
+=> x[y, z] : [e1, e2, ...]
+=> x[y, z]:e1, x[y, z]:[e2, ...]
+ 
+Examples:
+x[y, z] : [integer, integer] 
+=> x[y:integer, z:integer]
+
+x[y, z] : [[integer, integer], [integer, integer]] 
+=> x[y:integer, z:integer], x[y,z]:[[integer, integer]]
+
+
+
+

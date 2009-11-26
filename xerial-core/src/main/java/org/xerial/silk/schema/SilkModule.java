@@ -34,9 +34,7 @@ import java.util.List;
  * 
  */
 public class SilkModule {
-    public final static String ROOT_MODULE_NAME = "";
-
-    public String name = ROOT_MODULE_NAME;
+    public String name = null; // ROOT_MODULE name 
 
     public List<SilkModule> module = new ArrayList<SilkModule>();
     public List<SilkClass> classDef = new ArrayList<SilkClass>();
