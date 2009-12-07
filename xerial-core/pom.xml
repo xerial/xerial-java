@@ -13,8 +13,8 @@
   <description>Core library of the Xerial project.</description>
 
   <scm>
-    <connection>scm:hg:http://www.xerial.org/hg/xerial-core</connection>
-    <developerConnection>scm:hg:https://www.xerial.org/xerial-core</developerConnection>
+    <connection>scm:hg:file://${basedir}</connection>
+    <developerConnection>scm:hg:file://${basedir}</developerConnection>
     <url>http://www.xerial.org/hg/xerial-core</url>
   </scm>
 
