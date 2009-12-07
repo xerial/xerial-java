@@ -15,7 +15,6 @@
   <scm>
     <connection>scm:hg:file://${basedir}</connection>
     <developerConnection>scm:hg:file://${basedir}</developerConnection>
-    <url>http://www.xerial.org/hg/xerial-core</url>
   </scm>
 
   <build>
