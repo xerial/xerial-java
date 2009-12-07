@@ -14,7 +14,7 @@
 
 
   <scm>
-    <connection>scm:hg:default</connection>
+    <connection>scm:hg:https://core.xerial.googlecode.com/hg/</connection>
     <developerConnection>scm:hg:default</developerConnection>
   </scm>
 
