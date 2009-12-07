@@ -29,12 +29,12 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.LensTest.Gene;
-import org.xerial.lens.ObjectLensTest.PropReader;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
@@ -170,6 +170,14 @@ public class ObjectMapperTest {
 
     }
 
+    public static class PropReader {
+        Properties prop = new Properties();
+
+        public void put(String key, String value) {
+            prop.put(key, value);
+        }
+    }
+
     @Test
     public void property() throws Exception {
         PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectMapperTest.class,
@@ -178,6 +186,24 @@ public class ObjectMapperTest {
         assertEquals(2, p.prop.size());
         assertEquals("hello", p.prop.get("db.name"));
         assertEquals("sqlite", p.prop.get("db.type"));
+    }
+
+    public static class PropField {
+        public Properties _ = new Properties();
+    }
+
+    @Test
+    public void propFiledTest() throws Exception {
+
+        PropField p = Lens.loadSilk(PropField.class, FileResource.open(ObjectMapperTest.class,
+                "property.silk"));
+
+        _logger.info(Lens.toSilk(p));
+
+        assertEquals(2, p._.size());
+        assertEquals("hello", p._.get("db.name"));
+        assertEquals("sqlite", p._.get("db.type"));
+
     }
 
     public static class MapField {
@@ -227,4 +253,5 @@ public class ObjectMapperTest {
 
         _logger.debug(Lens.toJSON(m.classes));
     }
+
 }

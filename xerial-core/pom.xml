@@ -9,14 +9,15 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.15-SNAPSHOT</version>
+  <version>1.0.17-SNAPSHOT</version>
   <description>Core library of the Xerial project.</description>
 
+
   <scm>
-    <connection>scm:hg:http://www.xerial.org/hg/xerial-core</connection>
-    <developerConnection>scm:hg:https://www.xerial.org/xerial-core</developerConnection>
-    <url>http://www.xerial.org/hg/xerial-core</url>
+    <connection>scm:hg:https://core.xerial.googlecode.com/hg/</connection>
+    <developerConnection>scm:hg:default</developerConnection>
   </scm>
+
 
   <build>
     <resources>
@@ -93,6 +94,7 @@
         <configuration>
           <!--  do not run site-deploy goal, included in the default settings  -->
           <goals>deploy</goals>
+          <connectionUrl>scm:hg:https://core.xerial.googlecode.com/hg/</connectionUrl>
         </configuration>
       </plugin>
     </plugins>

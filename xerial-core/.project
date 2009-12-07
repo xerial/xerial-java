@@ -1,6 +1,6 @@
 <projectDescription>
   <name>xerial-core</name>
-  <comment>xerial-core is a common utilities for the Xerial project.</comment>
+  <comment>Core library of the Xerial project.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

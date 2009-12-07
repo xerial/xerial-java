@@ -164,6 +164,13 @@ public class ObjectLens {
                         keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
                                 .getSimpleName());
                     }
+                    else if (keyValueName.getFirst().equals("")
+                            && keyValueName.getSecond().equals("")) {
+                        //keyValueName = new Pair<String, String>("key", "value");
+                        propertySetter = RelationSetter.newMapSetter("key", "value", eachField);
+                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
+                        continue;
+                    }
 
                     relationSetterContainer.add(RelationSetter.newMapSetter(
                             keyValueName.getFirst(), keyValueName.getSecond(), eachField));
