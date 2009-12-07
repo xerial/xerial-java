@@ -22,7 +22,8 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
+
 
 /**
  * Silk function argument
@@ -30,67 +31,54 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public class SilkFunctionArg
-{
+public class SilkFunctionArg {
     private String argName = null;
     private SilkValue value = null;
 
-    public static SilkFunctionArg newArgValue(String value)
-    {
+    public static SilkFunctionArg newArgValue(String value) {
         return new SilkFunctionArg(null, value);
     }
 
-    public SilkFunctionArg()
-    {}
+    public SilkFunctionArg() {}
 
-    public SilkFunctionArg(String argName, String value)
-    {
+    public SilkFunctionArg(String argName, String value) {
         this.argName = argName;
         setValue(value);
     }
 
-    public String getName()
-    {
+    public String getName() {
         return argName;
     }
 
-    public void setKey(String argName)
-    {
+    public void setKey(String argName) {
         this.argName = argName;
     }
 
-    public SilkValue getValue()
-    {
+    public SilkValue getValue() {
         return value;
     }
 
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.value = new SilkTextValue(value);
     }
 
-    public void setJSON(String jsonValue)
-    {
+    public void setJSON(String jsonValue) {
         this.value = new SilkJSONValue(jsonValue);
     }
 
-    public boolean hasName()
-    {
+    public boolean hasName() {
         return argName != null;
     }
 
     @Override
-    public String toString()
-    {
-        if (hasName())
-        {
+    public String toString() {
+        if (hasName()) {
             if (value == null)
                 return argName;
             else
                 return String.format("%s:%s", argName, value);
         }
-        else
-        {
+        else {
             if (value == null)
                 return "";
             else

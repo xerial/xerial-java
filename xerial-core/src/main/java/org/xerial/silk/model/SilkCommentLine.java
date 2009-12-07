@@ -16,58 +16,24 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkJSONValue.java
-// Since: 2009/02/01 23:49:10
+// SilkComment.java
+// Since: Sep 14, 2009 4:40:06 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
 
 /**
- * text value of JSON format
+ * Comment-line
  * 
  * @author leo
  * 
  */
-public class SilkJSONValue implements SilkValue
-{
-    String json;
+public class SilkCommentLine implements SilkElement {
+    public String line;
 
-    public SilkJSONValue(String json)
-    {
-        this.json = json;
+    public SilkCommentLine(String line) {
+        this.line = line;
     }
-
-    public String getValue()
-    {
-        return json;
-    }
-
-    public boolean isJSON()
-    {
-        return true;
-    }
-
-    public boolean isFunction()
-    {
-        return false;
-    }
-
-    @Override
-    public String toString()
-    {
-        return json;
-    }
-
-    public boolean isObject()
-    {
-        return json.trim().startsWith("{");
-    }
-
-    public boolean isArray()
-    {
-        return json.trim().startsWith("[");
-    }
-
 }

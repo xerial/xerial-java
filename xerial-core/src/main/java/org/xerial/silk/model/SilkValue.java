@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
 
 /**
  * text value of nodes or functions

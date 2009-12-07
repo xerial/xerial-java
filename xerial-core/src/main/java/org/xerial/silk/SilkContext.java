@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.model.SilkNode;
 
 class SilkContext
 {

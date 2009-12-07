@@ -29,8 +29,8 @@ import java.net.MalformedURLException;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
-import org.xerial.silk.impl.SilkFunction;
-import org.xerial.silk.impl.SilkNode;
+import org.xerial.silk.model.SilkFunction;
+import org.xerial.silk.model.SilkNode;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.log.Logger;

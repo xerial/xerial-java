@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import org.xerial.silk.impl.SilkElement;
+import org.xerial.silk.model.SilkElement;
 
 /**
  * Event data of {@link SilkLinePullParser}

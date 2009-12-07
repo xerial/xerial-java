@@ -27,8 +27,8 @@ package org.xerial.silk;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xerial.silk.impl.SilkNode;
-import org.xerial.silk.impl.SilkNodeOccurrence;
+import org.xerial.silk.model.SilkNode;
+import org.xerial.silk.model.SilkNodeOccurrence;
 
 /**
  * Silk node builder

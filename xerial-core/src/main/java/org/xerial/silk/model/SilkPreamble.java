@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
 
 /**
  * Preamble such as %silk(version:1.0)
@@ -30,23 +30,19 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public class SilkPreamble implements SilkElement
-{
+public class SilkPreamble implements SilkElement {
     final String preamble;
 
-    public SilkPreamble(String preamble)
-    {
+    public SilkPreamble(String preamble) {
         this.preamble = preamble;
     }
 
-    public String getPreamble()
-    {
+    public String getPreamble() {
         return preamble;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return preamble;
     }
 }

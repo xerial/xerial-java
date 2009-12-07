@@ -33,6 +33,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.silk.model.SilkNode;
 import org.xerial.util.FileResource;
 
 public class SilkNodeParserTest

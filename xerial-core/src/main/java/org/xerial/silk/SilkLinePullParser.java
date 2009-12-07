@@ -37,7 +37,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialException;
-import org.xerial.silk.impl.SilkElement;
+import org.xerial.silk.model.SilkElement;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 

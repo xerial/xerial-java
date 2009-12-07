@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
 
 import java.util.ArrayList;
 
@@ -38,8 +38,7 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkNode implements SilkElement
-{
+public class SilkNode implements SilkElement {
     private String indent = null;
     private String name;
     private SilkValue value = null;
@@ -48,18 +47,16 @@ public class SilkNode implements SilkElement
     private SilkNodeOccurrence occurrence = SilkNodeOccurrence.ONE;
     private ArrayList<SilkNode> childNodeList = new ArrayList<SilkNode>();
 
-    public String getNodeIndent()
-    {
+    public String getNodeIndent() {
         return indent;
     }
 
-    public boolean hasManyOccurrences()
-    {
-        return occurrence == SilkNodeOccurrence.ZERO_OR_MORE || occurrence == SilkNodeOccurrence.ONE_OR_MORE;
+    public boolean hasManyOccurrences() {
+        return occurrence == SilkNodeOccurrence.ZERO_OR_MORE
+                || occurrence == SilkNodeOccurrence.ONE_OR_MORE;
     }
 
-    public boolean hasChildren()
-    {
+    public boolean hasChildren() {
         return childNodeList.size() > 0;
     }
 
@@ -73,97 +70,81 @@ public class SilkNode implements SilkElement
      * @return the indent level of the node, or {@link SilkNode#NO_INDENT} if no
      *         indent is specified.
      */
-    public int getIndentLevel()
-    {
+    public int getIndentLevel() {
         if (indent == null)
             return NO_INDENT;
         else
             return indent.length() - 1;
     }
 
-    public void setNodeIndent(String indent)
-    {
+    public void setNodeIndent(String indent) {
         this.indent = indent;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public boolean hasDataType()
-    {
+    public boolean hasDataType() {
         return dataType != null;
     }
 
-    public String getDataType()
-    {
+    public String getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType)
-    {
+    public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 
-    public SilkNodeOccurrence getOccurrence()
-    {
+    public SilkNodeOccurrence getOccurrence() {
         return occurrence;
     }
 
-    public void setOccurrence(SilkNodeOccurrence occurrence)
-    {
+    public void setOccurrence(SilkNodeOccurrence occurrence) {
         this.occurrence = occurrence;
     }
 
-    public ArrayList<SilkNode> getChildNodes()
-    {
+    public ArrayList<SilkNode> getChildNodes() {
         return childNodeList;
     }
 
-    public void addSilkNode(SilkNode childNode)
-    {
+    public void addSilkNode(SilkNode childNode) {
         this.childNodeList.add(childNode);
     }
 
-    public void setValue(String text)
-    {
+    public void setValue(String text) {
         this.value = new SilkTextValue(text);
     }
 
-    public void setJSON(String jsonText)
-    {
+    public void setJSON(String jsonText) {
         this.value = new SilkJSONValue(jsonText);
     }
 
-    public void setFunction(SilkFunction func)
-    {
+    public void setFunction(SilkFunction func) {
         this.value = func;
     }
 
-    public SilkValue getValue()
-    {
+    public SilkValue getValue() {
         return value;
     }
 
-    public boolean hasValue()
-    {
+    public boolean hasValue() {
         return value != null;
     }
 
     @Override
-    public String toString()
-    {
-        String childNodeString = childNodeList.isEmpty() ? "" : String.format("(%s)", StringUtil.join(childNodeList,
-                ", "));
+    public String toString() {
+        String childNodeString = childNodeList.isEmpty() ? "" : String.format("(%s)", StringUtil
+                .join(childNodeList, ", "));
         String nodeValue = value != null ? ":" + value.toString() : "";
         if (hasDataType())
-            return String.format("%s[%s]<%s>%s%s", name, dataType, childNodeString, occurrence, nodeValue);
+            return String.format("%s[%s]<%s>%s%s", name, dataType, childNodeString, occurrence,
+                    nodeValue);
         else
             return String.format("%s%s<%s>%s", name, childNodeString, occurrence, nodeValue);
     }

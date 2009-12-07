@@ -32,7 +32,6 @@ import java.util.List;
 import org.xerial.silk.SilkEvent;
 import org.xerial.silk.SilkEventHandler;
 import org.xerial.silk.SilkLinePushParser;
-import org.xerial.silk.impl.SilkElement;
 import org.xerial.util.log.Logger;
 
 /**

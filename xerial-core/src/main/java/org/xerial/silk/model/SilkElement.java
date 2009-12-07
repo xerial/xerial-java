@@ -22,7 +22,8 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
+
 
 /**
  * Common interface of {@link SilkNode} and {@link SilkFunction}.
@@ -30,7 +31,6 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public interface SilkElement
-{
+public interface SilkElement {
 
 }

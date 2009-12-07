@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.impl;
+package org.xerial.silk.model;
 
 /**
  * 
@@ -31,33 +31,27 @@ package org.xerial.silk.impl;
  * @author leo
  * 
  */
-public class SilkTextValue implements SilkValue
-{
+public class SilkTextValue implements SilkValue {
     private String value;
 
-    public SilkTextValue(String value)
-    {
+    public SilkTextValue(String value) {
         this.value = value;
     }
 
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 
-    public boolean isJSON()
-    {
+    public boolean isJSON() {
         return false;
     }
 
-    public boolean isFunction()
-    {
+    public boolean isFunction() {
         return false;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return value;
     }
 
