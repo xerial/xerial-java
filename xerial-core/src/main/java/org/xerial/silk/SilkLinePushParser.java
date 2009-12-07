@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -94,29 +92,6 @@ public class SilkLinePushParser implements SilkLineParser {
         handler.handle(e);
     }
 
-    private static String sanitizeDataLine(String line) {
-        if (line.startsWith("\\"))
-            return removeLineComment(line.substring(1));
-        else
-            return removeLineComment(line);
-    }
-
-    private static Pattern lineCommentPattern = Pattern
-            .compile("[^\"]*(\\\"[^\"]*\\\")*[^\"]*(#.*)");
-
-    public static String removeLineComment(String line) {
-        if (!line.contains("#"))
-            return line;
-
-        Matcher m = lineCommentPattern.matcher(line);
-        if (m.matches()) {
-            int lineCommentStart = m.start(2);
-            if (lineCommentStart != -1)
-                line = line.substring(0, lineCommentStart);
-        }
-        return line;
-    }
-
     public static SilkEvent parseLine(SilkLineLexer lexer, String line) throws IOException,
             XerialException {
         if (line.length() <= 0) {
@@ -160,7 +135,7 @@ public class SilkLinePushParser implements SilkLineParser {
         // data line 
         if (!(c == '-' || c == '@')) {
             // TODO set indent number correctly
-            SilkDataLine dataLine = new SilkDataLine(0, sanitizeDataLine(line));
+            SilkDataLine dataLine = new SilkDataLine(line);
             return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
         }
 

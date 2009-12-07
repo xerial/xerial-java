@@ -24,6 +24,9 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * dataline
  * 
@@ -31,20 +34,65 @@ package org.xerial.silk.impl;
  * 
  */
 public class SilkDataLine implements SilkElement {
-    private final int indentLength;
+    private int indentLength = -1; // -1 means not computed
     private final String dataLine;
 
-    public SilkDataLine(int indentLength, String dataLine) {
-        this.indentLength = indentLength;
+    public SilkDataLine(String dataLine) {
         this.dataLine = dataLine;
     }
 
+    public int getIndentLength() {
+        if (indentLength == -1) {
+            int len = dataLine.length();
+            int st = 0;
+
+            while ((st < len) && (dataLine.charAt(st) <= ' ')) {
+                st++;
+            }
+            indentLength = st;
+        }
+        return indentLength;
+    }
+
+    /**
+     * get the original data line as is (including line-end comments)
+     * 
+     * @return the original data line w/o modification
+     */
     public String getDataLine() {
         return dataLine;
     }
 
+    /**
+     * Get the trimmed data line (without line-end comments)
+     * 
+     * @return
+     */
     public String getTrimmedDataLine() {
-        return dataLine.trim();
+        return sanitizeDataLine(dataLine.trim());
+    }
+
+    private static String sanitizeDataLine(String line) {
+        if (line.startsWith("\\"))
+            return removeLineComment(line.substring(1));
+        else
+            return removeLineComment(line);
+    }
+
+    private static Pattern lineCommentPattern = Pattern
+            .compile("[^\"]*(\\\"[^\"]*\\\")*[^\"]*(#.*)");
+
+    public static String removeLineComment(String line) {
+        if (!line.contains("#"))
+            return line;
+
+        Matcher m = lineCommentPattern.matcher(line);
+        if (m.matches()) {
+            int lineCommentStart = m.start(2);
+            if (lineCommentStart != -1)
+                line = line.substring(0, lineCommentStart);
+        }
+        return line;
     }
 
     @Override
