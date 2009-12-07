@@ -61,6 +61,10 @@ public class ObjectLensTest {
         assertEquals("gene", p.getFirst());
         assertEquals("json", p.getSecond());
 
+        p = ObjectLens.pickRelationName("_");
+        assertEquals("", p.getFirst());
+        assertEquals("", p.getSecond());
+
     }
 
     @Test

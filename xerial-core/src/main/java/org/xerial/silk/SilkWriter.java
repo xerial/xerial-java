@@ -643,7 +643,6 @@ public class SilkWriter {
                 if (!map.isEmpty()) {
 
                     String mapElemName = getter.getParamName();
-
                     for (Entry< ? , ? > each : map.entrySet()) {
                         Object key = each.getKey();
                         Object value = each.getValue();
@@ -657,6 +656,7 @@ public class SilkWriter {
                             w.node("value").toSilk(value);
                         }
                     }
+
                 }
             }
             else {
