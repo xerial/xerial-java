@@ -32,7 +32,7 @@ package org.xerial.silk.model;
  */
 public enum SilkNodeOccurrence {
 
-    ONE("."), ZERO_OR_MORE("*"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), SEQUENCE(">"), TABBED_SEQUENCE(
+    ONE(""), ZERO_OR_MORE("*"), ONE_OR_MORE("+"), ZERO_OR_ONE("?"), SEQUENCE(">"), TABBED_SEQUENCE(
             "|"), MULTILINE_SEQUENCE("=="), SEQUENCE_WITH_NEWLINE(">>");
 
     private String symbol;

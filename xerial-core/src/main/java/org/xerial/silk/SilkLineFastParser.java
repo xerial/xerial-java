@@ -53,8 +53,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLineFastParser implements SilkLineParser
-{
+public class SilkLineFastParser implements SilkLineParser {
     private static Logger _logger = Logger.getLogger(SilkLineFastParser.class);
 
     private final BufferedReader buffer;
@@ -62,25 +61,22 @@ public class SilkLineFastParser implements SilkLineParser
     private final LinkedBlockingQueue<Future<ArrayDeque<SilkEvent>>> eventContainer;
     private final SilkParserConfig config;
 
-    public SilkLineFastParser(URL resourceURL) throws IOException
-    {
+    public SilkLineFastParser(URL resourceURL) throws IOException {
         this(resourceURL, new SilkParserConfig());
     }
 
-    public SilkLineFastParser(URL resourceURL, SilkParserConfig config) throws IOException
-    {
+    public SilkLineFastParser(URL resourceURL, SilkParserConfig config) throws IOException {
         this(new InputStreamReader(resourceURL.openStream()), config);
     }
 
-    public SilkLineFastParser(Reader reader)
-    {
+    public SilkLineFastParser(Reader reader) {
         this(reader, new SilkParserConfig());
     }
 
-    public SilkLineFastParser(Reader reader, SilkParserConfig config)
-    {
+    public SilkLineFastParser(Reader reader, SilkParserConfig config) {
         this.config = config;
-        this.eventContainer = new LinkedBlockingQueue<Future<ArrayDeque<SilkEvent>>>(config.numWorkers);
+        this.eventContainer = new LinkedBlockingQueue<Future<ArrayDeque<SilkEvent>>>(
+                config.numWorkers);
 
         if (reader.getClass().isAssignableFrom(BufferedReader.class))
             buffer = BufferedReader.class.cast(reader);
@@ -93,27 +89,21 @@ public class SilkLineFastParser implements SilkLineParser
     private boolean foundEOF = false;
     private volatile boolean noMoreJob = false;
 
-    public void parse(SilkEventHandler handler) throws XerialException
-    {
-        try
-        {
+    public void parse(SilkEventHandler handler) throws XerialException {
+        try {
             // start up the reducer
             Future<Void> reducerTask = threadManager.submit(new Reducer(handler));
-            try
-            {
+            try {
                 int workerCount = 0;
                 foundEOF = false;
 
-                while (!foundEOF)
-                {
+                while (!foundEOF) {
                     ArrayList<String> cache = new ArrayList<String>(config.numLinesInBlock);
                     int lineCount = 0;
-                    while (lineCount < config.numLinesInBlock)
-                    {
+                    while (lineCount < config.numLinesInBlock) {
 
                         String line = buffer.readLine();
-                        if (line == null)
-                        {
+                        if (line == null) {
                             foundEOF = true;
                             break;
                         }
@@ -121,8 +111,7 @@ public class SilkLineFastParser implements SilkLineParser
                         cache.add(line);
                     }
 
-                    if (!cache.isEmpty())
-                    {
+                    if (!cache.isEmpty()) {
                         // map the input
                         Mapper map = new Mapper(workerCount++, cache);
 
@@ -135,53 +124,42 @@ public class SilkLineFastParser implements SilkLineParser
                 noMoreJob = true;
 
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 reducerTask.cancel(true);
                 throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
             }
-            finally
-            {
+            finally {
                 threadManager.shutdown();
-                while (!threadManager.awaitTermination(1, TimeUnit.MILLISECONDS))
-                {}
+                while (!threadManager.awaitTermination(1, TimeUnit.MILLISECONDS)) {}
             }
         }
-        catch (InterruptedException e)
-        {
+        catch (InterruptedException e) {
             throw new XerialException(XerialErrorCode.INTERRUPTED, e);
         }
 
     }
 
-    private class Mapper implements Callable<ArrayDeque<SilkEvent>>
-    {
+    private class Mapper implements Callable<ArrayDeque<SilkEvent>> {
         final List<String> cache;
         final ArrayDeque<SilkEvent> eventQueue;
         final SilkLineLexer lexer = new SilkLineLexer();
         final int lsn;
 
-        Mapper(int lsn, List<String> cache)
-        {
+        Mapper(int lsn, List<String> cache) {
             this.lsn = lsn;
             this.cache = cache;
             eventQueue = new ArrayDeque<SilkEvent>(cache.size());
         }
 
-        public ArrayDeque<SilkEvent> call() throws Exception
-        {
-            for (int cursor = 0; cursor < cache.size(); cursor++)
-            {
-                try
-                {
+        public ArrayDeque<SilkEvent> call() throws Exception {
+            for (int cursor = 0; cursor < cache.size(); cursor++) {
+                try {
                     SilkEvent e = SilkLinePushParser.parseLine(lexer, cache.get(cursor));
-                    if (e != null)
-                    {
+                    if (e != null) {
                         eventQueue.add(e);
                     }
                 }
-                catch (XerialException e)
-                {
+                catch (XerialException e) {
                     if (e.getErrorCode() == XerialErrorCode.PARSE_ERROR)
                         _logger.warn(e);
                     else
@@ -193,7 +171,8 @@ public class SilkLineFastParser implements SilkLineParser
             cache.clear();
 
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("finished workder=%d. event queue size = %d", lsn, eventQueue.size()));
+                _logger.trace(String.format("finished workder=%d. event queue size = %d", lsn,
+                        eventQueue.size()));
 
             return eventQueue;
         }
@@ -206,25 +185,20 @@ public class SilkLineFastParser implements SilkLineParser
      * @author leo
      * 
      */
-    private class Reducer implements Callable<Void>
-    {
+    private class Reducer implements Callable<Void> {
         private final SilkEventHandler handler;
         private ArrayDeque<SilkEvent> eventQueue = null;
         private int eventCount = 0;
 
-        public Reducer(SilkEventHandler handler)
-        {
+        public Reducer(SilkEventHandler handler) {
             this.handler = handler;
         }
 
-        public Void call() throws Exception
-        {
-            try
-            {
+        public Void call() throws Exception {
+            try {
                 consumeEvent();
             }
-            finally
-            {
+            finally {
                 // process remaining events
                 consumeEvent();
 
@@ -234,21 +208,15 @@ public class SilkLineFastParser implements SilkLineParser
             return null;
         }
 
-        public void consumeEvent() throws Exception
-        {
-            while ((eventQueue = getNext()) != null)
-            {
-                while (!eventQueue.isEmpty())
-                {
+        public void consumeEvent() throws Exception {
+            while ((eventQueue = getNext()) != null) {
+                while (!eventQueue.isEmpty()) {
                     SilkEvent e = null;
-                    try
-                    {
+                    try {
                         e = eventQueue.getFirst();
                     }
-                    finally
-                    {
-                        if (e != null)
-                        {
+                    finally {
+                        if (e != null) {
                             eventQueue.removeFirst();
                             handler.handle(e);
                             eventCount++;
@@ -258,21 +226,18 @@ public class SilkLineFastParser implements SilkLineParser
             }
         }
 
-        public ArrayDeque<SilkEvent> getNext() throws ExecutionException
-        {
+        public ArrayDeque<SilkEvent> getNext() throws ExecutionException {
             if (eventQueue != null && !eventQueue.isEmpty())
                 return eventQueue;
 
             if (noMoreJob && eventContainer.isEmpty())
                 return null;
 
-            try
-            {
+            try {
                 Future<ArrayDeque<SilkEvent>> container = eventContainer.take();
                 return container.get();
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
                 if (eventContainer.isEmpty())
                     return null;
                 else

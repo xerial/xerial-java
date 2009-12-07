@@ -33,13 +33,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialException;
-import org.xerial.silk.model.SilkElement;
 import org.xerial.util.ArrayDeque;
-import org.xerial.util.log.Logger;
 
 /**
  * Pull parser of the Silk format. Pull-style means each parsing event is
@@ -48,85 +45,46 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLinePullParser
-{
-    private static Logger _logger = Logger.getLogger(SilkLinePullParser.class);
-    private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
-    private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
-
-    private int lineCount = 0;
+public class SilkLinePullParser {
 
     private final int eventQueueMax = 10000;
     volatile private boolean foundEOF = false;
 
-    private ArrayBlockingQueue<SilkEvent> eventQueue = new ArrayBlockingQueue<SilkEvent>(eventQueueMax);
-
-    /**
-     * SilkEvents
-     * 
-     * @author leo
-     * 
-     */
-    private static class EventItem
-    {
-        SilkEventType event;
-        SilkElement element;
-
-        public EventItem(SilkEventType event, SilkElement element)
-        {
-            this.event = event;
-            this.element = element;
-        }
-
-        public EventItem(SilkEventType event)
-        {
-            this.event = event;
-            this.element = null;
-        }
-    }
+    private ArrayBlockingQueue<SilkEvent> eventQueue = new ArrayBlockingQueue<SilkEvent>(
+            eventQueueMax);
 
     private SilkLinePushParser parser;
     private ExecutorService threadPool;
-    private Future<Boolean> future;
 
-    public SilkLinePullParser(URL silkURL) throws IOException
-    {
+    public SilkLinePullParser(URL silkURL) throws IOException {
         this(silkURL.openStream());
     }
 
-    public SilkLinePullParser(InputStream input) throws IOException
-    {
+    public SilkLinePullParser(InputStream input) throws IOException {
         this(new InputStreamReader(input));
     }
 
-    public SilkLinePullParser(Reader input) throws IOException
-    {
+    public SilkLinePullParser(Reader input) throws IOException {
         threadPool = Executors.newFixedThreadPool(1);
 
         parser = new SilkLinePushParser(input);
-        future = threadPool.submit(new SilkEventProducer());
+        threadPool.submit(new SilkEventProducer());
     }
 
-    private class SilkEventProducer implements Callable<Boolean>, SilkEventHandler
-    {
-        public SilkEventProducer()
-        {}
+    private class SilkEventProducer implements Callable<Boolean>, SilkEventHandler {
+        public SilkEventProducer() {}
 
-        public void handle(SilkEvent event) throws XerialException
-        {
-            try
-            {
+        public void handle(SilkEvent event) throws XerialException {
+            try {
                 if (!Thread.currentThread().isInterrupted())
                     eventQueue.put(event);
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
 
             }
         }
 
-        public Boolean call() throws Exception
-        {
+        public Boolean call() throws Exception {
             parser.parse(this);
             foundEOF = true;
             threadPool.shutdownNow();
@@ -137,13 +95,11 @@ public class SilkLinePullParser
 
     private ArrayDeque<SilkEvent> prefetchedEventQueue = new ArrayDeque<SilkEvent>();
 
-    public boolean hasNext() throws XerialException
-    {
+    public boolean hasNext() throws XerialException {
         if (!prefetchedEventQueue.isEmpty())
             return true;
 
-        if (foundEOF)
-        {
+        if (foundEOF) {
             return !eventQueue.isEmpty();
         }
 
@@ -152,8 +108,7 @@ public class SilkLinePullParser
         return hasNext();
     }
 
-    public SilkEvent next() throws XerialException
-    {
+    public SilkEvent next() throws XerialException {
         if (!prefetchedEventQueue.isEmpty())
             return prefetchedEventQueue.removeFirst();
 
@@ -165,25 +120,20 @@ public class SilkLinePullParser
         return next();
     }
 
-    private void fetchNext() throws XerialException
-    {
-        try
-        {
+    private void fetchNext() throws XerialException {
+        try {
             SilkEvent e = null;
-            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null)
-            {}
+            while (!foundEOF && (e = eventQueue.poll(1, TimeUnit.MILLISECONDS)) == null) {}
             if (e != null)
                 prefetchedEventQueue.addLast(e);
         }
-        catch (InterruptedException e)
-        {
+        catch (InterruptedException e) {
             foundEOF = true;
         }
         return;
     }
 
-    public long getNumReadLine()
-    {
+    public long getNumReadLine() {
         return parser.getNumReadLine();
     }
 

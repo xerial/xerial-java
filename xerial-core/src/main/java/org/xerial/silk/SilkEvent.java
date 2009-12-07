@@ -32,30 +32,25 @@ import org.xerial.silk.model.SilkElement;
  * @author leo
  * 
  */
-public class SilkEvent
-{
-    private final SilkEventType type;
-    private final SilkElement element;
+public class SilkEvent {
+    public final SilkEventType type;
+    public final SilkElement element;
 
-    public SilkEvent(SilkEventType type, SilkElement element)
-    {
+    public SilkEvent(SilkEventType type, SilkElement element) {
         this.type = type;
         this.element = element;
     }
 
-    public SilkEventType getType()
-    {
+    public SilkEventType getType() {
         return type;
     }
 
-    public SilkElement getElement()
-    {
+    public SilkElement getElement() {
         return element;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         if (element == null)
             return String.format("[%s]", type);
         else

@@ -149,4 +149,43 @@ public class SilkNode implements SilkElement {
             return String.format("%s%s<%s>%s", name, childNodeString, occurrence, nodeValue);
     }
 
+    public String toSilk() {
+        StringBuffer buf = new StringBuffer();
+        buf.append(indent);
+
+        buf.append(toSilkAttribute());
+
+        return buf.toString();
+    }
+
+    private String toSilkAttribute() {
+        StringBuffer buf = new StringBuffer();
+        if (name != null)
+            buf.append(name);
+
+        if (dataType != null) {
+            buf.append("[");
+            buf.append(dataType);
+            buf.append("]");
+        }
+
+        if (value != null) {
+            buf.append(":");
+            buf.append(value.getValue());
+        }
+
+        if (!childNodeList.isEmpty()) {
+            buf.append("(");
+            ArrayList<String> childNodes = new ArrayList<String>();
+            for (SilkNode child : childNodeList)
+                childNodes.add(child.toSilkAttribute());
+            buf.append(StringUtil.join(childNodes, ", "));
+            buf.append(")");
+        }
+
+        buf.append(occurrence);
+
+        return buf.toString();
+    }
+
 }

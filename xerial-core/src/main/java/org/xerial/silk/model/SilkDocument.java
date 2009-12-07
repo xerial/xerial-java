@@ -31,7 +31,9 @@ import java.util.List;
 
 import org.xerial.silk.SilkEvent;
 import org.xerial.silk.SilkEventHandler;
+import org.xerial.silk.SilkEventType;
 import org.xerial.silk.SilkLinePushParser;
+import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
 /**
@@ -44,7 +46,7 @@ public class SilkDocument {
 
     private static Logger _logger = Logger.getLogger(SilkDocument.class);
 
-    public List<SilkElement> line = new ArrayList<SilkElement>();
+    public List<SilkEvent> line = new ArrayList<SilkEvent>();
 
     public static SilkDocument parse(URL silkResource) throws IOException {
         SilkLinePushParser parser = new SilkLinePushParser(silkResource);
@@ -62,8 +64,57 @@ public class SilkDocument {
         SilkDocument doc = new SilkDocument();
 
         public void handle(SilkEvent event) throws Exception {
-            doc.line.add(event.getElement());
+            doc.line.add(event);
         }
+    }
+
+    public String toSilk() {
+        StringBuilder buf = new StringBuilder();
+        int lineCount = 0;
+        for (SilkEvent e : line) {
+            if (e.getType() == SilkEventType.END_OF_FILE)
+                break;
+
+            if (lineCount++ > 0)
+                buf.append(StringUtil.NEW_LINE);
+            switch (e.getType()) {
+            case BLANK_LINE:
+                break;
+            case COMMENT_LINE: {
+                SilkCommentLine cl = SilkCommentLine.class.cast(e.getElement());
+                buf.append(cl.line);
+                break;
+            }
+            case DATA_LINE: {
+                SilkDataLine dl = SilkDataLine.class.cast(e.getElement());
+                buf.append(dl.getDataLine());
+                break;
+            }
+            case FUNCTION: {
+                SilkFunction sf = SilkFunction.class.cast(e.getElement());
+                break;
+            }
+            case MULTILINE_ENTRY_SEPARATOR:
+                buf.append("==");
+                break;
+            case MULTILINE_SEPARATOR:
+                buf.append("--");
+                break;
+            case NODE: {
+                SilkNode sn = SilkNode.class.cast(e.getElement());
+                buf.append(sn.toSilk());
+                break;
+            }
+            case PREAMBLE: {
+                SilkPreamble sp = SilkPreamble.class.cast(e.getElement());
+                buf.append(sp.preamble);
+                break;
+            }
+            }
+
+        }
+
+        return buf.toString();
     }
 
 }
