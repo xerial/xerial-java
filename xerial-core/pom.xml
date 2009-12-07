@@ -12,10 +12,12 @@
   <version>1.0.15-SNAPSHOT</version>
   <description>Core library of the Xerial project.</description>
 
+
   <scm>
-    <connection>scm:hg:file:///${basedir}</connection>
-    <developerConnection>scm:hg:file:///${basedir}</developerConnection>
+    <connection>scm:hg:default</connection>
+    <developerConnection>scm:hg:default</developerConnection>
   </scm>
+
 
   <build>
     <resources>
