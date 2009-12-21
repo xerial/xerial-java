@@ -34,6 +34,7 @@ import java.util.List;
 import org.xerial.core.XerialException;
 import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.util.bean.BeanHandler;
+import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 
@@ -59,6 +60,16 @@ public class JDBCLens<E> {
         }
 
         public void bind(Object obj, Object value) throws XerialException, SQLException {
+
+            Class< ? > targetType = setter.getParameterType();
+            Class< ? > valueType = value.getClass();
+            if (targetType != valueType) {
+                if (!TypeInfo.isArray(targetType) && TypeInfo.isBasicType(targetType)) {
+                    setter.bind(obj, TypeConverter.convertToBasicType(targetType, value));
+                    return;
+                }
+            }
+
             setter.bind(obj, value);
         }
 
