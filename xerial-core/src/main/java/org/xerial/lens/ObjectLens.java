@@ -93,7 +93,7 @@ public class ObjectLens {
     private RelationSetter propertySetter = null;
 
     public Object getParameter(Object target, String parameterName) throws XerialException {
-        ParameterGetter getter = getterIndex.get(parameterName);
+        ParameterGetter getter = getterIndex.get(getCanonicalParameterName(parameterName));
         if (getter == null)
             return null;
 
@@ -103,7 +103,7 @@ public class ObjectLens {
     public void setParameter(Object target, String parameterName, Object value)
             throws XerialException {
 
-        ParameterSetter setter = setterIndex.get(parameterName);
+        ParameterSetter setter = setterIndex.get(getCanonicalParameterName(parameterName));
         if (setter == null)
             return;
 
