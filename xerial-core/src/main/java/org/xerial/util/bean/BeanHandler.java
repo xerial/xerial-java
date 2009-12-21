@@ -34,5 +34,5 @@ package org.xerial.util.bean;
 public interface BeanHandler<T> {
     public void handle(T bean) throws Exception;
 
-    public void handleException(Exception e);
+    public void handleException(Exception e) throws Exception;
 }

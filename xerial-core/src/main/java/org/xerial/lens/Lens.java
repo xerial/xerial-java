@@ -30,7 +30,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -250,13 +249,13 @@ public class Lens {
     }
 
     public static <Result> void loadJDBCResultSet(Class<Result> resultType, ResultSet rs,
-            BeanHandler<Result> handler) throws XerialException, SQLException {
+            BeanHandler<Result> handler) throws Exception {
         JDBCLens<Result> jl = new JDBCLens<Result>(resultType);
         jl.mapAll(rs, handler);
     }
 
     public static <Result> List<Result> loadJDBCResultSet(Class<Result> resultType, ResultSet rs)
-            throws XerialException, SQLException {
+            throws Exception {
         JDBCLens<Result> jl = new JDBCLens<Result>(resultType);
         return jl.mapAll(rs);
     }

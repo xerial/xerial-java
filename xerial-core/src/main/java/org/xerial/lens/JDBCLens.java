@@ -90,13 +90,13 @@ public class JDBCLens<E> {
         }
     }
 
-    public List<E> mapAll(ResultSet rs) throws SQLException, XerialException {
+    public List<E> mapAll(ResultSet rs) throws Exception {
         BeanContainer c = new BeanContainer();
         mapAll(rs, c);
         return c.result;
     }
 
-    public void mapAll(ResultSet rs, BeanHandler<E> handler) throws SQLException, XerialException {
+    public void mapAll(ResultSet rs, BeanHandler<E> handler) throws Exception {
 
         ResultSetMetaData m = rs.getMetaData();
         int colSize = m.getColumnCount();
