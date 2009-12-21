@@ -27,7 +27,11 @@ package org.xerial.lens;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,10 +63,59 @@ public class JDBCLens<E> {
             this.setter = setter;
         }
 
-        public void bind(Object obj, Object value) throws XerialException, SQLException {
+        public Object convert(Class< ? > targetType, ResultSet rs, int index) throws SQLException {
+            if (targetType.equals(String.class)) {
+                return rs.getString(index);
+            }
+            else if (targetType.equals(Integer.TYPE) || targetType.equals(Integer.class)) {
+                return rs.getInt(index);
+
+            }
+            //            else if (targetType.equals(Boolean.TYPE) || targetType.equals(Boolean.class)) {
+            //                return rs.getBoolean(index);
+            //
+            //            }
+            else if (targetType.equals(Long.TYPE) || targetType.equals(Long.class)) {
+                return rs.getLong(index);
+
+            }
+            else if (targetType.equals(Double.TYPE) || targetType.equals(Double.class)) {
+                return rs.getDouble(index);
+
+            }
+            else if (targetType.equals(Float.TYPE) || targetType.equals(Float.class)) {
+                return rs.getFloat(index);
+
+            }
+            else if (targetType.equals(Short.TYPE) || targetType.equals(Short.class)) {
+                return rs.getShort(index);
+
+            }
+            else if (targetType.equals(Byte.TYPE) || targetType.equals(Byte.class)) {
+                return rs.getByte(index);
+            }
+            else if (targetType.equals(Timestamp.class)) {
+                return rs.getTimestamp(index);
+            }
+            else if (targetType.equals(Date.class)) {
+                try {
+                    return DateFormat.getDateTimeInstance().parse(rs.getString(index));
+                }
+                catch (ParseException e) {
+                    throw new SQLException(e.getMessage());
+                }
+            }
+            else {
+                return rs.getObject(index);
+            }
+        }
+
+        public void bind(Object obj, ResultSet rs, int index) throws XerialException, SQLException {
 
             Class< ? > targetType = setter.getParameterType();
+            Object value = convert(targetType, rs, index);
             Class< ? > valueType = value.getClass();
+
             if (targetType != valueType) {
                 if (!TypeInfo.isArray(targetType) && TypeInfo.isBasicType(targetType)) {
                     setter.bind(obj, TypeConverter.convertToBasicType(targetType, value));
@@ -128,8 +181,7 @@ public class JDBCLens<E> {
                     lens.setProperty(obj, columnName[i], rs.getObject(i + 1));
                     continue;
                 }
-
-                b.bind(obj, rs.getObject(i + 1));
+                b.bind(obj, rs, i + 1);
             }
 
             try {

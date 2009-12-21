@@ -118,7 +118,7 @@ public class JDBCLensTest {
     }
 
     public static class DataTypes {
-        public boolean flag;
+        public boolean flag = false;
         public double d;
         public Date time;
 
@@ -191,6 +191,28 @@ public class JDBCLensTest {
         for (int i = 0; i < bin.length; i++)
             assertEquals(bin[i], b2.binary[i]);
 
+    }
+
+    public static class BlobString {
+        public String data;
+    }
+
+    @Test
+    public void blobToString() throws Exception {
+        BlobString b = new BlobString();
+        b.data = "hello world!";
+
+        stat.executeUpdate("create table b (data blob)");
+        PreparedStatement p = conn.prepareStatement("insert into b values(?)");
+        p.setBytes(1, b.data.getBytes());
+        p.executeUpdate();
+
+        JDBCLens<BlobString> lens = new JDBCLens<BlobString>(BlobString.class);
+        List<BlobString> bs = lens.mapAll(stat.executeQuery("select * from b"));
+        assertEquals(1, bs.size());
+        BlobString b2 = bs.get(0);
+
+        assertEquals(b.data, b2.data);
     }
 
 }
