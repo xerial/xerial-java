@@ -1,0 +1,16 @@
+%silk(version:1.0)
+
+# comment line
+-database(id:mydb)
+ -dbms: sqlite
+ -path: mydb.sqlite
+ -property
+  -read only: true
+  
+# table data
+-gene(chr, name, strand, start, end)|
+ -chr:chr21
+NM_199259	-	10906742	10990920
+NM_199260	-	10906742	10990920
+
+# last line

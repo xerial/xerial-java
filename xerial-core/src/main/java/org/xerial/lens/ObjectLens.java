@@ -156,10 +156,11 @@ public class ObjectLens {
                 String paramName = getCanonicalParameterName(eachField.getName());
 
                 if (TypeInfo.isArray(fieldType)) {
-                    // ignore the array field except byte[]
+                    // ignore the array field except byte[] type
                     Class< ? > arrayElementType = TypeInfo.getArrayElementType(fieldType);
                     if (arrayElementType != null && byte.class == arrayElementType) {
-                        // byte[] setter
+                        // byte[] getter & setter
+                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                         setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
                                 eachField));
                     }

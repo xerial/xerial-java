@@ -8,19 +8,19 @@ November 26th, 2009
 == Type matching with tab-delimited data
 
 <code>
--gene(name, strand, start, end, cds[start, end], exon[start, end])|
-NM_001005277    +       357521  358460  [357521, 358460]        [[357521, 358460]]
-NM_001005224    +       357521  358460  [357521, 358460]        [[357521, 358460]]
+-gene(name, strand, start, end, cds(start, end), exon(start, end))|
+NM_001005277    +       357521  358460  [[357521, 358460]]        [[357521, 358460]]
+NM_001005224    +       357521  358460  [[357521, 358460]]        [[357521, 358460]]
 </code>
 
 name -> x
 strand -> x
 start -> x
 end -> x
-cds[start, end] -> x[y, z]
-exon[stat, end] -> x[y, z]
+cds(start, end) -> x[y, z]
+exon(stat, end) -> x[y, z]
 
-gene(name, strand, start, end, cds[start, end], exon[start, end]) 
+gene(name, strand, start, end, cds(start, end), exon(start, end)) 
 -> a(b, c, d, e, f(g, h), i(j, k))
 
 
@@ -80,6 +80,39 @@ x[y, z] : [integer, integer]
 
 x[y, z] : [[integer, integer], [integer, integer]] 
 => x[y:integer, z:integer], x[y,z]:[[integer, integer]]
+
+
+
+-section: Mixing Table and Tree Structured Data
+
+-species: human
+-sequence: hg19
+
+>gene
+ -name: NM_001324
+ -chr: chr1
+ -strand: -
+ -start: 9907193
+ -end: 9968585
+ >cds 
+  -start: 9908330
+  -end: 9966378	
+ >exon
+  -start: 9907193
+  -enc: 9908432
+ >exon
+  -start: 9909046
+  -end: 9909277
+ >exon
+  -start: 9966321
+  -end: 9966380
+ >exon
+  -start: 9968515
+  -end: 9968585
+
+
+
+
 
 
 

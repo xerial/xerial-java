@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -148,6 +149,19 @@ public class JDBCLensTest {
         public byte[] binary;
     }
 
+    public static class Blob2 {
+        private byte[] binary;
+
+        public byte[] getBinary() {
+            return binary;
+        }
+
+        public void setBinary(byte[] binary) {
+            this.binary = binary;
+        }
+
+    }
+
     @Test
     public void blob() throws Exception {
         stat.executeUpdate("create table blob (binary blob)");
@@ -166,6 +180,16 @@ public class JDBCLensTest {
         assertEquals(bin.length, b.binary.length);
         for (int i = 0; i < bin.length; i++)
             assertEquals(bin[i], b.binary[i]);
+
+        // get/set blob
+        JDBCLens<Blob2> jl2 = new JDBCLens<Blob2>(Blob2.class);
+        List<Blob> bl2 = jl.mapAll(stat.executeQuery("select * from blob"));
+        assertEquals(1, bl2.size());
+
+        Blob b2 = bl2.get(0);
+        assertEquals(bin.length, b2.binary.length);
+        for (int i = 0; i < bin.length; i++)
+            assertEquals(bin[i], b2.binary[i]);
 
     }
 

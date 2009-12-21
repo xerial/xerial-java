@@ -114,7 +114,7 @@ public class JDBCLens<E> {
 
         String[] columnName = new String[colSize];
         for (int i = 0; i < m.getColumnCount(); ++i) {
-            columnName[i] = m.getColumnName(i + 1);
+            columnName[i] = ObjectLens.getCanonicalParameterName(m.getColumnName(i + 1));
         }
 
         while (rs.next()) {
