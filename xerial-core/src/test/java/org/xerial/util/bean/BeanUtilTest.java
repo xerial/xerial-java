@@ -70,8 +70,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class BeanUtilTest
-{
+public class BeanUtilTest {
     private static Logger _logger = Logger.getLogger(BeanUtilTest.class);
 
     /**
@@ -100,8 +99,7 @@ public class BeanUtilTest
         assertNotNull(BeanUtil.pickPropertyName("put"));
     }
 
-    class PrivateGetterSetter
-    {
+    class PrivateGetterSetter {
         Double value;
 
         public PrivateGetterSetter(Double value) {
@@ -120,13 +118,14 @@ public class BeanUtilTest
 
     @Test
     public void basicType() {
-        Class< ? >[] basicType = { int.class, double.class, float.class, boolean.class, String.class, Integer.class,
-                Double.class, Float.class, Boolean.class };
+        Class< ? >[] basicType = { int.class, double.class, float.class, boolean.class,
+                String.class, Integer.class, Double.class, Float.class, Boolean.class };
         for (Class c : basicType)
             assertTrue(TypeInfo.isBasicType(c));
 
-        Class< ? >[] basicArrayType = { int[].class, double[].class, float[].class, boolean[].class, String[].class,
-                Integer[].class, Double[].class, Float[].class, Boolean[].class };
+        Class< ? >[] basicArrayType = { int[].class, double[].class, float[].class,
+                boolean[].class, String[].class, Integer[].class, Double[].class, Float[].class,
+                Boolean[].class };
 
         for (Class c : basicArrayType) {
             assertTrue(TypeInfo.isBasicType(c));
@@ -155,7 +154,8 @@ public class BeanUtilTest
 
     @Test
     public void classWithArrayParameterToJSON() throws JSONException, XerialException {
-        String str = BeanUtil.toJSON(new Book("Data on the Web", new String[] { "Abiteboul", "Buneman" }));
+        String str = BeanUtil.toJSON(new Book("Data on the Web", new String[] { "Abiteboul",
+                "Buneman" }));
         JSONObject json = new JSONObject(str);
         JSONArray author = json.getJSONArray("author");
         assertEquals(2, author.size());
@@ -405,8 +405,7 @@ public class BeanUtilTest
 
     }
 
-    class NonConstructableClass
-    {
+    class NonConstructableClass {
         public NonConstructableClass() {}
 
         public void setName(String value) {
@@ -537,8 +536,8 @@ public class BeanUtilTest
         foundGene2 = false;
 
         StopWatch stopWatch = new StopWatch();
-        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"), Gene.class,
-                new BeanHandler<Gene>() {
+        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
+                Gene.class, new BeanHandler<Gene>() {
                     public void handle(Gene gene) throws Exception {
                         assertNotNull(gene);
                         if (gene.getId() == 1) {
@@ -562,6 +561,11 @@ public class BeanUtilTest
                         }
 
                     }
+
+                    public void handleException(Exception e) {
+                        _logger.error(e);
+                    }
+
                 });
         _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
 
@@ -574,11 +578,17 @@ public class BeanUtilTest
     public void toJSONPerf() throws XerialException, IOException {
 
         final ArrayList<Gene> geneList = new ArrayList<Gene>();
-        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "chr1.json"), Gene.class, new BeanHandler<Gene>() {
-            public void handle(Gene gene) throws Exception {
-                geneList.add(gene);
-            }
-        });
+        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "chr1.json"), Gene.class,
+                new BeanHandler<Gene>() {
+                    public void handle(Gene gene) throws Exception {
+                        geneList.add(gene);
+                    }
+
+                    public void handleException(Exception e) {
+                        _logger.error(e);
+                    }
+
+                });
 
         StopWatch stopWatch = new StopWatch();
         for (Gene g : geneList) {
@@ -594,8 +604,8 @@ public class BeanUtilTest
         foundGene2 = false;
 
         StopWatch stopWatch = new StopWatch();
-        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"), GenePartial.class, "gene",
-                new BeanHandler<GenePartial>() {
+        BeanUtil.loadJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
+                GenePartial.class, "gene", new BeanHandler<GenePartial>() {
                     public void handle(GenePartial gene) throws Exception {
                         assertNotNull(gene);
                         if (gene.getId() == 1) {
@@ -617,6 +627,11 @@ public class BeanUtilTest
                         }
 
                     }
+
+                    public void handleException(Exception e) {
+                        _logger.error(e);
+                    }
+
                 });
         _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
 
@@ -625,12 +640,11 @@ public class BeanUtilTest
 
     }
 
-    public static class ReferenceSeq
-    {
-        long       start;
-        String     name;
-        String     strand;
-        String     sequence;
+    public static class ReferenceSeq {
+        long start;
+        String name;
+        String strand;
+        String sequence;
         List<Read> reads = new ArrayList<Read>();
 
         public void setStart(long start) {
@@ -655,15 +669,14 @@ public class BeanUtilTest
 
         @Override
         public String toString() {
-            return String.format("name=%s, start=%d, strand=%s, sequence=%s\nread:\n%s", name, start, strand, sequence,
-                    StringUtil.join(reads, "\n"));
+            return String.format("name=%s, start=%d, strand=%s, sequence=%s\nread:\n%s", name,
+                    start, strand, sequence, StringUtil.join(reads, "\n"));
         }
     }
 
-    public static class Read
-    {
+    public static class Read {
         String name;
-        long   start;
+        long start;
         String strand;
         String sequence;
         String QV;
@@ -690,14 +703,14 @@ public class BeanUtilTest
 
         @Override
         public String toString() {
-            return String.format("name=%s, start=%s, strand=%s, QV=%s, sequence=%s", name, start, strand, QV, sequence);
+            return String.format("name=%s, start=%s, strand=%s, QV=%s, sequence=%s", name, start,
+                    strand, QV, sequence);
         }
 
     }
 
-    public static class ReadSet
-    {
-        Coordinate         coord;
+    public static class ReadSet {
+        Coordinate coord;
         List<ReferenceSeq> references = new ArrayList<ReferenceSeq>();
 
         public void addCoordinate(Coordinate coord) {
@@ -710,18 +723,19 @@ public class BeanUtilTest
 
         @Override
         public String toString() {
-            return String.format("coordinate: %s\nreference:\n%s", coord, StringUtil.join(references, "\n"));
+            return String.format("coordinate: %s\nreference:\n%s", coord, StringUtil.join(
+                    references, "\n"));
         }
     }
 
     @Test
     public void testSilkBean() throws Exception {
-        ReadSet r = BeanUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
+        ReadSet r = BeanUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class,
+                "readset.silk"));
         _logger.debug(r.toString());
     }
 
-    public static class Sequence
-    {
+    public static class Sequence {
         private StringBuilder buf = new StringBuilder();
 
         public void appendSeq(String sequence) {
@@ -740,8 +754,7 @@ public class BeanUtilTest
         assertEquals("ABCDEFGHIJ", seq.getSeq());
     }
 
-    public static class PropertyData
-    {
+    public static class PropertyData {
         HashMap<String, String> map = new HashMap<String, String>();
 
         public void putProperty(String key, String value) {
@@ -751,8 +764,8 @@ public class BeanUtilTest
 
     @Test
     public void putterTestForXML() throws Exception {
-        PropertyData data = BeanUtil.createXMLBean(PropertyData.class, FileResource.open(BeanUtilTest.class,
-                "sample/prop.xml"));
+        PropertyData data = BeanUtil.createXMLBean(PropertyData.class, FileResource.open(
+                BeanUtilTest.class, "sample/prop.xml"));
         assertEquals("value1", data.map.get("key1"));
         assertEquals("hello", data.map.get("message"));
 

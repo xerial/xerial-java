@@ -88,6 +88,14 @@ public class ObjectLens {
 
     private RelationSetter propertySetter = null;
 
+    /**
+     * Invoke property setter put(key, value) of the target object
+     * 
+     * @param target
+     * @param key
+     * @param value
+     * @throws XerialException
+     */
     public void setProperty(Object target, Object key, Object value) throws XerialException {
         if (propertySetter == null)
             return;
@@ -148,7 +156,13 @@ public class ObjectLens {
                 String paramName = getCanonicalParameterName(eachField.getName());
 
                 if (TypeInfo.isArray(fieldType)) {
-                    // ignore the array field
+                    // ignore the array field except byte[]
+                    Class< ? > arrayElementType = TypeInfo.getArrayElementType(fieldType);
+                    if (arrayElementType != null && byte.class == arrayElementType) {
+                        // byte[] setter
+                        setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
+                                eachField));
+                    }
                     continue;
                 }
                 else if (TypeInfo.isMap(fieldType)) {

@@ -31,7 +31,8 @@ package org.xerial.util.bean;
  * 
  * @param <T>
  */
-public interface BeanHandler<T>
-{
+public interface BeanHandler<T> {
     public void handle(T bean) throws Exception;
+
+    public void handleException(Exception e);
 }

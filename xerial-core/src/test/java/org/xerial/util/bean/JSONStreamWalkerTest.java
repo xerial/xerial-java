@@ -42,12 +42,10 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
 
-public class JSONStreamWalkerTest
-{
+public class JSONStreamWalkerTest {
     private static Logger _logger = Logger.getLogger(JSONStreamWalkerTest.class);
 
-    class MyVisitor implements TreeVisitor
-    {
+    class MyVisitor implements TreeVisitor {
 
         public void finish(TreeWalker walker) throws XerialException {
         // TODO Auto-generated method stub
@@ -64,12 +62,14 @@ public class JSONStreamWalkerTest
 
         }
 
-        public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
+        public void visitNode(String nodeName, String nodeValue, TreeWalker walker)
+                throws XerialException {
         // TODO Auto-generated method stub
 
         }
 
-        public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
+        public void text(String nodeName, String nodeValue, TreeWalker walker)
+                throws XerialException {
         // TODO Auto-generated method stub
 
         }
@@ -121,6 +121,11 @@ public class JSONStreamWalkerTest
             // TODO Auto-generated method stub
 
             }
+
+            public void handleException(Exception e) {
+                _logger.error(e);
+            }
+
         });
         _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
     }

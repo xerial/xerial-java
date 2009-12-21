@@ -29,6 +29,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
@@ -36,6 +39,7 @@ import org.xerial.core.XerialException;
 import org.xerial.json.JSONPushParser;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.bean.ANTLRTreeParser;
+import org.xerial.util.bean.BeanHandler;
 import org.xerial.util.bean.MapParser;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.tree.TreeParser;
@@ -243,6 +247,18 @@ public class Lens {
 
     public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException {
         return load(result, new MapParser(map));
+    }
+
+    public static <Result> void loadJDBCResultSet(Class<Result> resultType, ResultSet rs,
+            BeanHandler<Result> handler) throws XerialException, SQLException {
+        JDBCLens<Result> jl = new JDBCLens<Result>(resultType);
+        jl.mapAll(rs, handler);
+    }
+
+    public static <Result> List<Result> loadJDBCResultSet(Class<Result> resultType, ResultSet rs)
+            throws XerialException, SQLException {
+        JDBCLens<Result> jl = new JDBCLens<Result>(resultType);
+        return jl.mapAll(rs);
     }
 
     public static <Result> Result load(Class<Result> targetType, TreeParser parser)

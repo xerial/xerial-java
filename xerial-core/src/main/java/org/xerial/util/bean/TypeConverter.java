@@ -38,8 +38,7 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public class TypeConverter
-{
+public class TypeConverter {
     // conversion to the Enum type is tested before the cast 
     @SuppressWarnings("unchecked")
     public static <T> T convertType(Class<T> targetType, Object value) throws XerialException {
@@ -79,7 +78,8 @@ public class TypeConverter
      * @throws XerialException
      */
     @SuppressWarnings("unchecked")
-    public static Object convertToBasicType(Class< ? > targetType, Object input) throws XerialException {
+    public static Object convertToBasicType(Class< ? > targetType, Object input)
+            throws XerialException {
         assert (TypeInfo.isBasicType(targetType));
 
         if (targetType.isEnum())
@@ -100,9 +100,12 @@ public class TypeConverter
                 return new Float(value);
             else if (targetType == short.class || targetType == Short.class)
                 return new Short(value);
+            else if (targetType == byte.class || targetType == Byte.class)
+                return new Byte(value);
             else if (targetType == boolean.class || targetType == Boolean.class)
                 return new Boolean(value);
-            else if ((targetType == char.class || targetType == Character.class) && value.length() == 1)
+            else if ((targetType == char.class || targetType == Character.class)
+                    && value.length() == 1)
                 return new Character(value.charAt(0));
             else if (targetType == Date.class) {
                 return DateFormat.getDateTimeInstance().parse(value);
@@ -110,12 +113,12 @@ public class TypeConverter
             else if (targetType == File.class) {
                 return new File(value);
             }
-            throw new XerialException(XerialErrorCode.InvalidBeanClass, String.format("%s is not a basic type",
-                    targetType.getSimpleName()));
+            throw new XerialException(XerialErrorCode.InvalidBeanClass, String.format(
+                    "%s is not a basic type", targetType.getSimpleName()));
         }
         catch (NumberFormatException e) {
-            throw new XerialException(XerialErrorCode.InvalidFormat, String.format("%s %s", targetType.getName(), e
-                    .getMessage()));
+            throw new XerialException(XerialErrorCode.InvalidFormat, String.format("%s %s",
+                    targetType.getName(), e.getMessage()));
         }
         catch (ParseException e) {
             throw new XerialException(XerialErrorCode.InvalidDateFormat, e);

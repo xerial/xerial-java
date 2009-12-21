@@ -61,9 +61,9 @@ import org.xerial.util.Triplet;
  */
 public class TypeInfo {
     static private Class< ? >[] _parameterClass = { int.class, double.class, float.class,
-            long.class, boolean.class, char.class, short.class, String.class, Integer.class,
-            Double.class, Float.class, Long.class, Boolean.class, Character.class, Short.class,
-            Date.class, File.class };
+            long.class, boolean.class, char.class, short.class, byte.class, String.class,
+            Integer.class, Double.class, Float.class, Long.class, Boolean.class, Character.class,
+            Short.class, Byte.class, Date.class, File.class };
 
     static private HashSet<Class< ? >> basicTypeSet = new HashSet<Class< ? >>();
     static {
@@ -89,6 +89,13 @@ public class TypeInfo {
             return true;
         else
             return basicTypeSet.contains(c);
+    }
+
+    public static Class< ? > getArrayElementType(Class< ? > c) {
+        if (!isArray(c))
+            return null;
+
+        return c.getComponentType();
     }
 
     public static boolean isIterable(Class< ? > c) {

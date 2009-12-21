@@ -1,6 +1,5 @@
 <classpath>
   <classpathentry kind="src" path="src/main/java"/>
-  <classpathentry kind="src" path="src/main/resources" excluding="**/.svn/**|**/*.java"/>
   <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
   <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
@@ -9,6 +8,11 @@
   <classpathentry kind="var" path="M2_REPO/org/antlr/antlr/3.1.3/antlr-3.1.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/antlr/antlr-runtime/3.1.3/antlr-runtime-3.1.3.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.1/junit-4.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/xerial/sqlite-jdbc/3.6.20/sqlite-jdbc-3.6.20.jar" sourcepath="M2_REPO/org/xerial/sqlite-jdbc/3.6.20/sqlite-jdbc-3.6.20-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Documents%20and%20Settings/leo/.m2/repository/org/xerial/sqlite-jdbc/3.6.20/sqlite-jdbc-3.6.20-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/antlr/stringtemplate/3.2/stringtemplate-3.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar"/>
 </classpath>
