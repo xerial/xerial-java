@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -165,6 +166,42 @@ public class ObjectLensTest {
         public void put(String key, String value) {
             prop.put(key, value);
         }
+    }
+
+    public static class Person {
+        public int id;
+        public String name;
+    }
+
+    @Test
+    public void getParameter() throws Exception {
+        Person p = new Person();
+        p.id = 10;
+        p.name = "leo";
+        ObjectLens lens = ObjectLens.getObjectLens(Person.class);
+
+        Object id = lens.getParameter(p, "id");
+        assertNotNull(id);
+        assertEquals(p.id, Integer.class.cast(id));
+        Object name = lens.getParameter(p, "name");
+        assertNotNull(name);
+        assertEquals(p.name, String.class.cast(name));
+
+    }
+
+    @Test
+    public void setParameter() throws Exception {
+        Person p = new Person();
+        p.id = 10;
+        p.name = "leo";
+
+        ObjectLens lens = ObjectLens.getObjectLens(Person.class);
+        lens.setParameter(p, "id", 50);
+        lens.setParameter(p, "name", "yui");
+
+        assertEquals(50, p.id);
+        assertEquals("yui", p.name);
+
     }
 
 }

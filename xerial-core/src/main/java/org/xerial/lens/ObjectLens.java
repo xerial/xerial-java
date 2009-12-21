@@ -83,10 +83,32 @@ public class ObjectLens {
 
     private List<ParameterGetter> getterContainer = new ArrayList<ParameterGetter>();
     private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
+
+    private HashMap<String, ParameterGetter> getterIndex = new HashMap<String, ParameterGetter>();
+    private HashMap<String, ParameterSetter> setterIndex = new HashMap<String, ParameterSetter>();
+
     private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
     private ParameterSetter valueSetter = null;
 
     private RelationSetter propertySetter = null;
+
+    public Object getParameter(Object target, String parameterName) throws XerialException {
+        ParameterGetter getter = getterIndex.get(parameterName);
+        if (getter == null)
+            return null;
+
+        return getter.get(target);
+    }
+
+    public void setParameter(Object target, String parameterName, Object value)
+            throws XerialException {
+
+        ParameterSetter setter = setterIndex.get(parameterName);
+        if (setter == null)
+            return;
+
+        setter.bind(target, value);
+    }
 
     /**
      * Invoke property setter put(key, value) of the target object
@@ -334,6 +356,14 @@ public class ObjectLens {
             }
 
         }
+
+        // create indexes
+        for (ParameterSetter each : setterContainer)
+            setterIndex.put(each.getParameterName(), each);
+
+        for (ParameterGetter each : getterContainer)
+            getterIndex.put(each.getParamName(), each);
+
     }
 
     private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart,
