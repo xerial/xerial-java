@@ -66,7 +66,7 @@ public class RelationExtractor {
             throw e;
         }
         catch (Exception e) {
-            throw new XerialException(XerialErrorCode.INHERITED, e);
+            throw XerialException.convert(e);
         }
 
     }

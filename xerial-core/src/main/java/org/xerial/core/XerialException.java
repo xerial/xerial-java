@@ -38,8 +38,7 @@ import org.xerial.json.JSONErrorCode;
  * @author leo
  * 
  */
-public class XerialException extends Exception
-{
+public class XerialException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,6 +47,16 @@ public class XerialException extends Exception
     public XerialException(XerialException e) {
         super(e.getErrorMessage());
         this.errorCode = e.errorCode;
+    }
+
+    public static XerialException convert(Exception e) {
+        if (XerialException.class.isInstance(e)) {
+            XerialException xe = XerialException.class.cast(e);
+            return xe;
+        }
+        else {
+            return new XerialException(XerialErrorCode.INHERITED, e);
+        }
     }
 
     public XerialException(ErrorCode errorCode) {

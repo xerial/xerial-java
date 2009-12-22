@@ -359,13 +359,14 @@ public class StreamAmoebaJoin {
             Edge currentEdge = new Edge(prevState.getID(), currentState.getID());
             List<TextOperation> textOperation = operatSetOnText.get(currentEdge);
 
+            String cName = sanitize(nodeName);
+
             // generate a text operation set
             if (textOperation == null) {
                 textOperation = new ArrayList<TextOperation>();
                 operatSetOnText.put(currentEdge, textOperation);
 
-                List<Operation> forwardAction = getForwardActionList(prevState, currentState,
-                        sanitize(nodeName));
+                List<Operation> forwardAction = getForwardActionList(prevState, currentState, cName);
                 for (Operation each : forwardAction) {
                     if (each instanceof PushRelation) {
                         textOperation.add(new SimpleTextOperation((PushRelation) each));
@@ -383,13 +384,10 @@ public class StreamAmoebaJoin {
 
             try {
                 for (TextOperation each : textOperation)
-                    each.execute(nodeName, textDataFragment);
+                    each.execute(cName, textDataFragment);
             }
             catch (Exception e) {
-                if (e instanceof XerialException)
-                    throw (XerialException) e;
-                else
-                    throw new XerialException(XerialErrorCode.INHERITED, e);
+                throw XerialException.convert(e);
             }
         }
 
@@ -403,12 +401,10 @@ public class StreamAmoebaJoin {
                 back(currentNode);
             }
             catch (Exception e) {
-                if (e instanceof XerialException)
-                    throw (XerialException) e;
-                else if (e instanceof XerialError)
+                if (e instanceof XerialError)
                     throw (XerialError) e;
                 else
-                    throw new XerialException(XerialErrorCode.INHERITED, e);
+                    throw XerialException.convert(e);
             }
 
             currentPath.removeLast();

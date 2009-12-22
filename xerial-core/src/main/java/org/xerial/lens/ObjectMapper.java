@@ -213,7 +213,7 @@ public class ObjectMapper {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
         catch (Exception e) {
-            throw new XerialException(XerialErrorCode.INHERITED, e);
+            throw XerialException.convert(e);
         }
 
     }
@@ -233,7 +233,7 @@ public class ObjectMapper {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
         catch (Exception e) {
-            throw new XerialException(XerialErrorCode.INHERITED, e);
+            throw XerialException.convert(e);
         }
 
     }
