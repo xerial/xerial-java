@@ -396,7 +396,8 @@ public class ObjectMapper {
 
                 Object contextNode = contextNodeStack.getLast();
                 ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
-                lens.setProperty(contextNode, node.nodeName, node.nodeValue);
+                lens.setProperty(contextNode, ObjectLens.getCanonicalParameterName(node.nodeName),
+                        node.nodeValue);
             }
 
             Object obj = objectHolder.remove(node.nodeID);

@@ -327,29 +327,30 @@ public class StreamAmoebaJoin {
         }
 
         public void visitNode(String nodeName, String nodeValue) throws Exception {
-            nodeName = sanitize(nodeName);
 
             Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue)
                     .build();
-            Deque<Node> nodeStack = getNodeStack(nodeName);
+
+            String cNodeName = currentNode.getCanonicalNodeName();
+            Deque<Node> nodeStack = getNodeStack(cNodeName);
             nodeStack.add(currentNode);
 
             // forward
-            LatticeNode<String> prevState = latticeCursor.getNode();
-            LatticeNode<String> nextState = latticeCursor.next(nodeName);
+            //LatticeNode<String> prevState = latticeCursor.getNode();
+            LatticeNode<String> nextState = latticeCursor.next(cNodeName);
             stateStack.addLast(nextState);
-            currentPath.addLast(nodeName != null ? nodeName : EMPTY_NODE_NAME);
+            currentPath.addLast(cNodeName != null ? cNodeName : EMPTY_NODE_NAME);
 
             // for tree nodes
 
-            if (query.isTreeNode(nodeName)) {
-                throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not supported yet");
+            if (query.isTreeNode(cNodeName)) {
+                throw new XerialError(XerialErrorCode.UNSUPPORTED,
+                        "tree not is not currently supported");
             }
 
         }
 
         public void text(String nodeName, String textDataFragment) throws Exception {
-            nodeName = sanitize(nodeName);
 
             Iterator<LatticeNode<String>> it = stateStack.descendingIterator();
             LatticeNode<String> currentState = it.next();
@@ -364,7 +365,7 @@ public class StreamAmoebaJoin {
                 operatSetOnText.put(currentEdge, textOperation);
 
                 List<Operation> forwardAction = getForwardActionList(prevState, currentState,
-                        nodeName);
+                        sanitize(nodeName));
                 for (Operation each : forwardAction) {
                     if (each instanceof PushRelation) {
                         textOperation.add(new SimpleTextOperation((PushRelation) each));
@@ -393,9 +394,9 @@ public class StreamAmoebaJoin {
         }
 
         public void leaveNode(String nodeName) throws Exception {
-            nodeName = sanitize(nodeName);
+            String sanitizedNodeName = sanitize(nodeName);
 
-            Deque<Node> nodeStack = getNodeStack(nodeName);
+            Deque<Node> nodeStack = getNodeStack(sanitizedNodeName);
             Node currentNode = nodeStack.getLast();
 
             try {
@@ -505,7 +506,7 @@ public class StreamAmoebaJoin {
             stateStack.removeLast();
 
             // process forward edge
-            for (Operation each : getForwardActionList(prev, current, node.nodeName)) {
+            for (Operation each : getForwardActionList(prev, current, node.getCanonicalNodeName())) {
                 each.execute();
             }
 
@@ -519,7 +520,7 @@ public class StreamAmoebaJoin {
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "empty action list: " + node);
             }
             if (actionList.isEmpty()) {
-                Node poppedNode = getNodeStack(node.nodeName).getLast();
+                Node poppedNode = getNodeStack(node.getCanonicalNodeName()).getLast();
                 handler.leaveNode(null, poppedNode);
             }
             else

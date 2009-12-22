@@ -24,14 +24,15 @@
 //--------------------------------------
 package org.xerial.lens.relation;
 
+import org.xerial.lens.ObjectLens;
+
 /**
  * Node is an element ({@link TupleElement}) of a relation.
  * 
  * @author leo
  * 
  */
-public class Node extends NodeBase<Node>
-{
+public class Node extends NodeBase<Node> {
     public static final int INVALID_ID = -1;
     public static final String NULL_TEXT = null;
 
@@ -39,11 +40,19 @@ public class Node extends NodeBase<Node>
     public final String nodeName;
     public final String nodeValue;
 
-    private Node(String nodeName, long nodeID, String nodeValue)
-    {
+    private String canonicalNodeName = null;
+
+    private Node(String nodeName, long nodeID, String nodeValue) {
         this.nodeID = nodeID;
         this.nodeName = nodeName;
         this.nodeValue = nodeValue;
+    }
+
+    public String getCanonicalNodeName() {
+        if (canonicalNodeName == null)
+            canonicalNodeName = ObjectLens.getCanonicalParameterName(nodeName);
+
+        return canonicalNodeName;
     }
 
     /**
@@ -52,60 +61,50 @@ public class Node extends NodeBase<Node>
      * @author leo
      * 
      */
-    public static class NodeBuilder
-    {
+    public static class NodeBuilder {
         private long nodeID = INVALID_ID;
         private String nodeValue = NULL_TEXT;
         private final String nodeName;
 
-        public NodeBuilder(String nodeName)
-        {
+        public NodeBuilder(String nodeName) {
             this.nodeName = nodeName;
         }
 
-        public NodeBuilder(Node node)
-        {
+        public NodeBuilder(Node node) {
             this.nodeID = node.nodeID;
             this.nodeName = node.nodeName;
             this.nodeValue = node.nodeValue;
         }
 
-        public NodeBuilder nodeID(long nodeID)
-        {
+        public NodeBuilder nodeID(long nodeID) {
             this.nodeID = nodeID;
             return this;
         }
 
-        public NodeBuilder nodeValue(String nodeValue)
-        {
+        public NodeBuilder nodeValue(String nodeValue) {
             this.nodeValue = nodeValue;
             return this;
         }
 
-        public Node build()
-        {
+        public Node build() {
             return new Node(nodeName, nodeID, nodeValue);
         }
 
     }
 
-    public static Node newNode(String nodeName, int nodeID)
-    {
+    public static Node newNode(String nodeName, int nodeID) {
         return new Node(nodeName, nodeID, null);
     }
 
-    public static Node newNodeWithValue(String nodeName, int nodeID, String nodeValue)
-    {
+    public static Node newNodeWithValue(String nodeName, int nodeID, String nodeValue) {
         return new Node(nodeName, nodeID, nodeValue);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("%s(%d)", nodeName, nodeID));
-        if (nodeValue != null)
-        {
+        if (nodeValue != null) {
             builder.append("=\"");
             builder.append(nodeValue);
             builder.append("\"");
