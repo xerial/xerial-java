@@ -9,7 +9,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.18</version>
+  <version>1.0.19-SNAPSHOT</version>
   <description>Core library of the Xerial project.</description>
 
 
