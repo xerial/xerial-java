@@ -433,6 +433,17 @@ public class ObjectMapper {
                 _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
                         textFragment, schema));
 
+            if (schema == null) {
+                // put(node name, text node value) if property setter exist 
+                Object contextNode = contextNodeStack.getLast();
+                ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
+                Object prevValue = lens.getProperty(contextNode, coreNode.nodeName);
+                String value = (prevValue == null) ? textFragment : prevValue.toString()
+                        + textFragment;
+                lens.setProperty(contextNode, coreNode.nodeName, value);
+                return;
+            }
+
             Binder binder = schema2binder.get(schema);
             if (binder == null)
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "

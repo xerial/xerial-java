@@ -91,6 +91,7 @@ public class ObjectLens {
     private ParameterSetter valueSetter = null;
 
     private RelationSetter propertySetter = null;
+    private ParameterGetter propertyGetter = null;
 
     public Object getParameter(Object target, String parameterName) throws XerialException {
         ParameterGetter getter = getterIndex.get(getCanonicalParameterName(parameterName));
@@ -108,6 +109,13 @@ public class ObjectLens {
             return;
 
         setter.bind(target, value);
+    }
+
+    public Object getProperty(Object target, String key) throws XerialException {
+        if (propertyGetter == null)
+            return null;
+
+        return propertyGetter.get(target, key);
     }
 
     /**
@@ -203,9 +211,10 @@ public class ObjectLens {
                     }
                     else if (keyValueName.getFirst().equals("")
                             && keyValueName.getSecond().equals("")) {
-                        //keyValueName = new Pair<String, String>("key", "value");
                         propertySetter = RelationSetter.newMapSetter("key", "value", eachField);
                         getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
+                        propertyGetter = ParameterGetter.newPropertyFieldGetter(eachField,
+                                paramName);
                         continue;
                     }
 

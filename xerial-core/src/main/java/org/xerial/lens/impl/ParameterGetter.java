@@ -26,6 +26,7 @@ package org.xerial.lens.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -50,8 +51,14 @@ public abstract class ParameterGetter {
 
     public abstract Object get(Object obj);
 
+    public abstract Object get(Object obj, String key);
+
     public static ParameterGetter newFieldGetter(Field field, String paramName) {
         return new FieldGetter(field, paramName);
+    }
+
+    public static ParameterGetter newPropertyFieldGetter(Field field, String paramName) {
+        return new PropertyFieldGetter(field, paramName);
     }
 
     public static ParameterGetter newGetter(Method getter, String paramName) {
@@ -79,6 +86,41 @@ public abstract class ParameterGetter {
         }
 
         @Override
+        public Object get(Object arg0, String arg1) {
+            throw new UnsupportedOperationException("get(Object, String)");
+        }
+
+        @Override
+        public Class< ? > getReturnType() {
+            return field.getType();
+        }
+    }
+
+    private static class PropertyFieldGetter extends ParameterGetter {
+        final Field field;
+
+        public PropertyFieldGetter(Field field, String paramName) {
+            super(paramName);
+            this.field = field;
+        }
+
+        @Override
+        public Object get(Object obj) {
+            return ReflectionUtil.getFieldValue(obj, field);
+        }
+
+        @Override
+        public Object get(Object obj, String key) {
+            Object map = ReflectionUtil.getFieldValue(obj, field);
+            if (map != null && Map.class.isAssignableFrom(map.getClass())) {
+                Map< ? , ? > m = Map.class.cast(map);
+                return m.get(key);
+            }
+            else
+                throw new UnsupportedOperationException("get(Object, String)");
+        }
+
+        @Override
         public Class< ? > getReturnType() {
             return field.getType();
         }
@@ -100,6 +142,11 @@ public abstract class ParameterGetter {
         @Override
         public Object get(Object obj) {
             return ReflectionUtil.invokeGetter(obj, getter);
+        }
+
+        @Override
+        public Object get(Object arg0, String arg1) {
+            throw new UnsupportedOperationException("get(Object, String)");
         }
 
         @Override

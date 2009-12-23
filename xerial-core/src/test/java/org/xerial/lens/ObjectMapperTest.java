@@ -217,8 +217,7 @@ public class ObjectMapperTest {
         _logger.info(Lens.toSilk(p));
 
         assertEquals(1, p._.size());
-        assertTrue(p._.contains("sequenceList"));
-
+        assertTrue(p._.containsKey("sequenceList"));
     }
 
     public static class MapField {

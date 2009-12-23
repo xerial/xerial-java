@@ -98,6 +98,24 @@ public class StreamAmoebaJoin {
         void execute(String testNodeName, String textData) throws Exception;
     }
 
+    class PropertyTextSetOperation implements TextOperation {
+        final String c_coreNodeName;
+
+        public PropertyTextSetOperation(String c_coreNodeName) {
+            this.c_coreNodeName = c_coreNodeName;
+        }
+
+        public void execute(String textNodeName, String textData) throws Exception {
+            Deque<Node> nodeStack = getNodeStack(c_coreNodeName);
+            Node contextNode = nodeStack.getLast();
+
+            Deque<Node> textNodeStack = getNodeStack(textNodeName);
+            Node textNode = textNodeStack.getLast();
+            handler.text(null, contextNode, textNode, textData);
+        }
+
+    }
+
     class SimpleTextOperation implements TextOperation {
         final Schema schema;
         final String coreNodeName;
@@ -378,6 +396,10 @@ public class StreamAmoebaJoin {
                         throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: "
                                 + each);
                 }
+
+                // for binding text properties 
+                textOperation.add(new PropertyTextSetOperation(cName));
+
             }
 
             assert textOperation != null;
