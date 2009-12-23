@@ -1,0 +1,7 @@
+-sequenceList>
+ [
+   {"species":"human", "revision":["hg18", "hg17"]},
+   {"species":"medaka", "revision":["version1.0", "version0.9"]}
+ ]
+
+
