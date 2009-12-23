@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +195,7 @@ public class ObjectMapperTest {
     }
 
     @Test
-    public void propFiledTest() throws Exception {
+    public void propFieldTest() throws Exception {
 
         PropField p = Lens.loadSilk(PropField.class, FileResource.open(ObjectMapperTest.class,
                 "property.silk"));
@@ -203,6 +205,19 @@ public class ObjectMapperTest {
         assertEquals(2, p._.size());
         assertEquals("hello", p._.get("db.name"));
         assertEquals("sqlite", p._.get("db.type"));
+
+    }
+
+    @Test
+    public void propFieldOfMultiLinesTest() throws Exception {
+
+        PropField p = Lens.loadSilk(PropField.class, FileResource.open(ObjectMapperTest.class,
+                "property2.silk"));
+
+        _logger.info(Lens.toSilk(p));
+
+        assertEquals(1, p._.size());
+        assertTrue(p._.contains("sequenceList"));
 
     }
 
