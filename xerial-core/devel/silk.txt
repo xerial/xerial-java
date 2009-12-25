@@ -83,7 +83,7 @@ x[y, z] : [[integer, integer], [integer, integer]]
 
 
 
--section: Mixing Table and Tree Structured Data
+-section: Mixing Table and Tree Structured Data (draft)
 
 -species: human
 -sequence: hg19
@@ -110,10 +110,27 @@ x[y, z] : [[integer, integer], [integer, integer]]
   -start: 9968515
   -end: 9968585
 
+(YAML-like syntax)
+
+-sequence:hg19
+-gene
+  name: NM_001324
+  chr:  chr1
+  strand: -
+  -cds
+   start: 9908330
+   end: 9966378	
+  -
 
 
 
+== Multi-line Syntax
 
+<code>
+| followed by tab-delimited data
+> followed by contiguous data
+>> multi-line text data with line breaks
+* followed by CSV data
+== 
 
-
-
+</code>
