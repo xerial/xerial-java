@@ -220,6 +220,26 @@ public class ObjectMapperTest {
         assertTrue(p._.containsKey("sequenceList"));
     }
 
+    public static class TrackList {
+        public String id;
+        public Track track;
+
+        public static class Track {
+            public Properties _ = new Properties();
+        }
+    }
+
+    @Test
+    public void propFiledOFMultiLinesInNestedNode() throws Exception {
+        TrackList l = Lens.loadSilk(TrackList.class, FileResource.find(ObjectMapperTest.class,
+                "nested-property.silk"));
+        assertEquals("t1", l.id);
+        assertNotNull(l.track);
+        assertTrue(!l.track._.isEmpty());
+        assertTrue(l.track._.containsKey("sequenceList"));
+
+    }
+
     public static class MapField {
         public Map<Integer, String> id_name;
     }

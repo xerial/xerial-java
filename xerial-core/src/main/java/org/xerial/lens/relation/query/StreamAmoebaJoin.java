@@ -397,9 +397,13 @@ public class StreamAmoebaJoin {
                                 + each);
                 }
 
-                // for binding text properties 
-                textOperation.add(new PropertyTextSetOperation(cName));
-
+                // for binding text properties
+                Iterator<String> di = currentPath.descendingIterator();
+                if (di.hasNext()) {
+                    di.next();
+                    if (di.hasNext())
+                        textOperation.add(new PropertyTextSetOperation(di.next()));
+                }
             }
 
             assert textOperation != null;

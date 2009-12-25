@@ -440,7 +440,7 @@ public class ObjectMapper {
                 Object prevValue = lens.getProperty(contextNode, coreNode.nodeName);
                 String value = (prevValue == null) ? textFragment : prevValue.toString()
                         + textFragment;
-                lens.setProperty(contextNode, coreNode.nodeName, value);
+                lens.setProperty(contextNode, textNode.nodeName, value);
                 return;
             }
 
