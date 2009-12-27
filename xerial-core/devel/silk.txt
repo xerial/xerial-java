@@ -110,6 +110,45 @@ x[y, z] : [[integer, integer], [integer, integer]]
   -start: 9968515
   -end: 9968585
 
+= Silk (new version)
+
+-gene:
+  name: 
+  chr: 
+  strand: 
+  start:
+  end:
+  -cds:
+    start:
+    end: 
+  -exon:
+    start:
+    end:
+  -exon:
+    start:
+    end:
+
+
+-gene(name, chr, strand, start, end)|
+NM_001005277    chr1	 +       357521  358460  
+ -cds(start, end)|
+ 357521	     358460
+ -exon(star, end)|
+ 9907193     9908432
+ 9909046     9909277
+
+
+= Regular Expression
+silk node: (indent "-")(node name) ("(" ((node name) ("," node name)*)? ")")*
+ [ ]*-[^(:]*
+
+silk attribute: (node name) ":" (node value) 
+
+silk function: (indent "@") (function name) "(" arg ("," arg)* ")" 
+
+format indicator: 
+ (tab) "|" | (contiguous string) ">" | (multi-line string including new lines) ">>" 
+
 
 
 
