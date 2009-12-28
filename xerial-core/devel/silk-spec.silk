@@ -255,7 +255,7 @@ NM_001005224    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[990
 * ub-tree 
 
 
-%index chr[hash] (start, end)[z-order]
+%index (chr[hash], (start, end)[z-order])
 
 
 
