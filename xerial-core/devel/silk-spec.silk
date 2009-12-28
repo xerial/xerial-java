@@ -139,7 +139,7 @@ inline node
   -id: 1
   -name: A
   -dept: SEA
- -dept: LA
+ >dept: LA
   -employee
    -id: 2
    -name: B
@@ -150,6 +150,8 @@ inline node
   -id: 4
   -name: D
   -dept: SEA
+
+use > to show the node is an attribute of its child node. 
 
 >chr:chr1
  -gene(start:100, end:10000, strand:+)
@@ -255,7 +257,8 @@ NM_001005224    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[990
 * ub-tree 
 
 
-%index (chr[hash], (start, end)[z-order])
+%index on gene(chr[hash], (start, end)[z-order])
 
 
 
+ 
