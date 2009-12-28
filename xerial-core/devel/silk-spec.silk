@@ -88,47 +88,6 @@ x[y, z] : [[integer, integer], [integer, integer]]
 -species: human
 -sequence: hg19
 
->gene
- -name: NM_001324
- -chr: chr1
- -strand: -
- -start: 9907193
- -end: 9968585
- >cds 
-  -start: 9908330
-  -end: 9966378	
- >exon
-  -start: 9907193
-  -enc: 9908432
- >exon
-  -start: 9909046
-  -end: 9909277
- >exon
-  -start: 9966321
-  -end: 9966380
- >exon
-  -start: 9968515
-  -end: 9968585
-
-= Silk (new version)
-
--gene:
-  name: 
-  chr: 
-  strand: 
-  start:
-  end:
-  -cds:
-    start:
-    end: 
-  -exon:
-    start:
-    end:
-  -exon:
-    start:
-    end:
-
-
 -gene(name, chr, strand, start, end)|
 NM_001005277    chr1	 +       357521  358460  
  -cds(start, end)|
@@ -142,6 +101,8 @@ NM_001005224    chr1	+       357521  358460
  -exon(star, end)|
  9907193     9908432
  9909046     9909277
+
+
 
 
 
@@ -172,22 +133,129 @@ inline node
 
 = Amoeba
 
--company:
- name: A
- -employee:
-  id: 1
-  name: A
-  dept: SEA
+-company
+ -name: A
+ -employee
+  -id: 1
+  -name: A
+  -dept: SEA
  -dept: LA
-  -employee:
-   id: 2
-   name: B
-  -employee:
-   id: 3
-   name: C
- -employee:
-  id: 4
-  name: D
-  dept: SEA
+  -employee
+   -id: 2
+   -name: B
+  -employee
+   -id: 3
+   -name: C
+ -employee
+  -id: 4
+  -name: D
+  -dept: SEA
+
+>chr:chr1
+ -gene(start:100, end:10000, strand:+)
+ -gene(start:2000, end:103424, strand: -)
+
+
+
+= Graph Data
+
+-plot(x, y)*
+-2, 4
+-1, 10
+ 0, 23
+
+= No-name node
+
+class MyList extends List<Gene> {
+  public String name;
+}
+
+-name:A
+-(name:gene1, start:1000, end:2000)
+-(name:gene2, start:1000, end:2000)
+== multiline text
+  
+(sequence data)
+
+-NM_001005224(chr:chr1, length:40)
+ -sequence>
+ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
+\-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
+
+
+= Deeply nested data
+
+(with indent)
+
+-track: refseq genes
+ -sequence: hg19
+  -chr: chr1
+   -refgene(name, strand, start, end)|
+    NM_001005277    +       357521  358460 
+    -cds(start, end)|
+     357521     358460
+    -exon(star, end)|
+     9907193     9908432
+     9909046     9909277
+    NM_001005224    +       357521  358460  
+    -cds(start, end)|
+     357521     358460
+    -exon(star, end)|
+     9907193     9908432
+     9909046     9909277
+
+
+(data node has independent indentation level)	
+
+
+-track group: global
+ -species: human
+
+ -track: refseq genes
+  -sequence: hg19
+  -chr: chr1
+  -refgene(name, strand, start, end)|
+NM_001005277    +       357521  358460 
+   -cds(start, end)|
+ 357521     358460
+   -exon(star, end)|
+ 9907193     9908432
+ 9909046     9909277
+NM_001005224    +       357521  358460  
+   -cds(start, end)|
+ 357521     358460
+   -exon(star, end)|
+ 9907193     9908432
+ 9909046     9909277
+ -track: ruler
+  -left margin: 100
+
+= Microformat in tab-separated data
+
+-track: refseq genes
+ -sequence: hg19
+ -chr: chr1
+ -refgene(name, strand, start, end, cds(start, end)*, exon(start, end)*)|
+NM_001005277    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[9909046,9909277]]
+NM_001005224    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[9909046,9909277]]
+
+
+= Schema
+
+%relation track group(track*) 
+%relation gene(cds*, exon*)
+
+
+
+= Indexing Silk
+
+== index type
+* hash
+* b-tree
+* ub-tree 
+
+
+%index chr[hash] (start, end)[z-order]
+
 
 
