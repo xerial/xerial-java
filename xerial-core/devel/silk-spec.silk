@@ -193,18 +193,18 @@ ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
  -sequence: hg19
   -chr: chr1
    -refgene(name, strand, start, end)|
-    NM_001005277    +       357521  358460 
+   NM_001005277    +       357521  358460 
     -cds(start, end)|
-     357521     358460
+    357521     358460
     -exon(star, end)|
-     9907193     9908432
-     9909046     9909277
-    NM_001005224    +       357521  358460  
+    9907193     9908432
+    9909046     9909277
+   NM_001005224    +       357521  358460  
     -cds(start, end)|
-     357521     358460
+    357521     358460
     -exon(star, end)|
-     9907193     9908432
-     9909046     9909277
+    9907193     9908432
+    9909046     9909277
 
 
 (data node has independent indentation level)	

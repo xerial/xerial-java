@@ -51,11 +51,37 @@ NM_199261	chr21	-	10906742	10990920	10906904	10973733	24	10906742,10908824,10910
 </code>
 
 
+= Hadoop Tips 
 
-
-
-
-
-
+Distributed Cache
  
+
+Join
+
+CompositeInputFormat 
+
+MapFile
+
+Simple Compression
+
+Silk Data -> parse -> tree events -> extract relations -> sorting -> compress
+
+
+Silk Data -> parse -> tree events -> extract relations -> sorting -> alternative XML structure -> compress
+
+
+
+
+Silk Data -> split -> 
+
+
+map: key:line#, value:line  ->  key:(block#, line#), value:List<SilkElement>
+reduce: key:(block#, line#), value:List<SilkElement> -> key:block# value:SilkContext(incomplete)
+
+
+
+
+
+
+
 

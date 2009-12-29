@@ -16,33 +16,26 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkContext.java
-// Since: 2009/03/31 19:56:23
+// SilkLineMapper.java
+// Since: 2009/12/29 20:40:05
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.silk.hadoop;
 
-import org.xerial.silk.model.SilkNode;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.xerial.silk.model.SilkElement;
 
-class SilkContext {
-    public final SilkNode contextNode;
-    boolean isOpen;
+public class SilkLineMapper extends Mapper<LongWritable, Text, LongWritable, SilkElement> {
 
-    /**
-     * @param contextNode
-     * @param isOpen
-     *            if true this contest must be closed
-     */
-    public SilkContext(SilkNode contextNode, boolean isOpen) {
-        this.contextNode = contextNode;
-        this.isOpen = isOpen;
-    }
+    protected void map(
+            LongWritable byteOffset,
+            Text line,
+            org.apache.hadoop.mapreduce.Mapper<LongWritable, Text, LongWritable, SilkElement>.Context context)
+            throws java.io.IOException, InterruptedException {
 
-    @Override
-    public String toString() {
-        return String.format("%s%s", contextNode, isOpen ? "(open)" : "");
-    }
-
+    };
 }
