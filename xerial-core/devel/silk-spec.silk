@@ -8,31 +8,30 @@
 
 -section: Introduction to Silk
 
-@keyword(Silk) is a text format for describing scientific data, including table and tree-structured data. Silk is space-efficient compared to @keyword(XML, href:"http://w3c.org/xml") or @keyword(JSON, href:"http://www.json.org"). To organize tree structures in a text file, Silk uses indentation via spaces, which is far simpler than neatly opening and closing tags (or brackets) in XML/JSON. Existing XML/JSON data can be easily trasnlated into Silk and vice versa.
+@keyword(Silk) is a text format for describing scientific data, including table and tree-structured data. Silk is space-efficient compared to @keyword(XML, href:"http://w3c.org/xml") or @keyword(JSON, href:"http://www.json.org"). To organize tree structures in a text file, Silk uses indentation via spaces, which is far simpler than neatly opening and closing tags (or brackets) in XML/JSON. And also, existing XML/JSON data can be easily trasnlated into Silk and vice versa.
 
 -paragraph: Silk Features
 Notable features of Silk include:
--item: Forest data model.
-Silk uses the forest data model, a sequence of trees. 
--item: Human-friendly format.
-Silke uses indentation via s.paces for nesting data structures; no need exists to wrap text data with tags. In addition, you can omit double quotations to describe text data, which are mandatory in JSON.
--item: Space-efficient format. 
+-item: Forest data model:
+Silk uses the forest data model, a sequence of trees. This is a natural extension of tree-structured data formats for representing a list of data objects. 
+-item: Human-friendly syntax:
+Silke uses indentation via spaces for nesting data structures; no need exists to wrap text data with tags. In addition, you can omit double quotations to describe text data, which are mandatory in JSON.
+-item: Space-efficient format:
 Tab-separated data or comma-separated values (CSV) can be embedded in Silk at any hierarchical position. XML and JSON have no support for such compact data representation.
--item: Import function
+-item: Import function:
 Several data files (e.g. another Silk file, tab-separated data, CSV, text or binary files, etc.) can be embedded in a Silk file to compose a large data set at ease.
--item: One-liner format
- Silk data can be processed line-by-line, so it is very familiar with standard text-processing tools, such as grep, awk, Perl, Ruby, etc. 
-
+-item: One-liner format:
+ Silk data can be processed line-by-line, so it is very familiar with standard text-processing tools, such as grep, awk, Perl, Ruby, etc. This feature is also suited to parallel data processing. 
 
 -sub section: Situations where Silk is useful 
  
 Silk is designed for describing scientific data in a compact text representation. If you do not like verbose data descriptions of XML or JSON, Silk matches your needs. And also, Silk uses line-by-line text format for the ease of data description. This feature makes possible to append the data to the end of a file. For example, you can easily accumulate large program outputs by using Silk format. 
 
-In the @keyword(UTGB Toolkit) @href("http://utgenome.org"), we use Silk as a standard data description format for describing biological data. Several years of experiences with XML/JSON under our belt, we learned these syntaxes can be simplified. For example, we found tags, brackets, double quotation mark, etc. can be simplified or completely removed. Silk's  plain-style data description increases the usability of Silk files for both human/computer programs. In addition, Silk's embedded tab-separated data description significantly reduces its data size. 
+In the @keyword(UTGB Toolkit) @href("http://utgenome.org"), we use Silk as a standard data description format for describing biological data. Several years of experiences with XML/JSON under our belt, we learned these syntaxes can be simplified. For example, we removed tags, brackets, double quotation mark, etc. to shorten the data description. This simple syntax increases the usability of Silk files for human and computer programs. In addition, Silk's embedded tab-separated data description significantly reduces its data size. 
 
 Silk also can be used to enhance existing tab-separated data or comma-separated value (CSV) files by importing them into a Silk file. Imported data can be annotated with node labels to organize hierarchical data structure. 
 
--sub section: Situations where Silk is not useful
+-sub section: Situations where Silk is (probably) not useful
 
 Silk is not a markup language such as HTML for describing text decorations. For example, Silk cannot describe the following text data description, which mixes text values and tags:
 
@@ -40,8 +39,7 @@ Silk is not a markup language such as HTML for describing text decorations. For 
 <p>This paragraph contains <b>bold</b> and <i>italic</i> fonts.
 --
 
-This is because Silk's data model allows only one text value for each tree node. 
-If such text decoration is necessary, you have to embed HTML data as a text value. Here is an example:
+If such text decoration like HTML is necessary, you have to embed HTML data as a text value. Here is an example:
 -code:>>
 \-p: This paragraph contains <b>bold</b> and <i>italic</i> fonts.
 --
@@ -51,10 +49,6 @@ If such text decoration is necessary, you have to embed HTML data as a text valu
 Silk uses the forest data model; a list of trees. Each tree node can have several child nodes and text values. 
 
 # needs some illustrations
-
--sub section: Tree Compatibility
-
-(To be written)
 
 -section: Silk Data Descriptions
 
@@ -79,37 +73,37 @@ A comment line is marked by a sharp "#" indicator:
 
 -paragraph: Tree node with a text value
 In Silk, a tree node begins with a hyphen '-' followed by a node name. The text value of the node follows a colon ':'. If the colon and text value are not present, the node value of the tree node will be set to null:
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-title: hello world
 --
 
 White spaces around text values will be ignored:
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 { "title":"hello world" }
 --
 
 And also, white spaces around the node name will be ignored:
 
-{b|Silk}
+@bold(Silk)
 -code:>>
 \- first name : Andy 
 --
 
-{b|JSON}
+@bold(JSON)
 <code>
 { "first name":"Andy" }
 </code>
 
 -paragraph: Tree node with several child nodes with text values
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
 --
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 {
  "book":
@@ -126,7 +120,7 @@ And also, white spaces around the node name will be ignored:
 
 Indentation before hyphen ('-') represents tree node depth. Only space characters (' ') are allowed before the indentation hyphen ('-'). Tab character ('\t') cannot be used for indentations.
 
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-book
  \-id: 1
@@ -147,7 +141,7 @@ Alternatively, you can write the same data as follows:
 --
 
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 [
  {"book":
@@ -169,7 +163,7 @@ Alternatively, you can write the same data as follows:
 ]
 --
 
-{b|XML}
+@bold(XML)
 -code:>>
 <book>
  <id>1</id>
@@ -187,8 +181,8 @@ Alternatively, you can write the same data as follows:
 
 -section: Tab-separated data 
 
-The design concept of Silk format includes reducing the redundancy of XML or JSON data format in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs, and assigned a corresponding node name specified in the preceding table schema: 
-{b|Silk}
+The design concept of Silk format includes reducing the redundancy of XML or JSON data format in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs, and each data element will be assigned a corresponding node name specified in the preceding table schema: 
+@bold(Silk)
 -code:>>
 \# A book node schema with 4 parameters. 
 \-book(id, title, isbn, year)|
@@ -199,7 +193,7 @@ The design concept of Silk format includes reducing the redundancy of XML or JSO
 \-updated: 2009/02/16
 --
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 {
  "book":[
@@ -220,7 +214,7 @@ The design concept of Silk format includes reducing the redundancy of XML or JSO
 }
 --
 
-{b|XML}
+@bold(XML)
 -code:>>
 <book>
  <id>1</id>
@@ -240,9 +234,9 @@ The design concept of Silk format includes reducing the redundancy of XML or JSO
 
 -paragraph: Multi-line text values
 
-Large text values can be split into multiple lines. To describe muti-line text values, use "'>'" symbol instead of ':' (colon). The following examples shows a gene sequence of NM_001005277:
+Large text values can be split into multiple lines. To describe muti-line text values, use ':>' instead of ':'. The following examples shows a gene sequence described in multiple lines:
 
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-gene(name:NM_001005277)
  \-sequence:>
@@ -262,9 +256,9 @@ TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 --
 
-Multi-line text values in Silk are connected into a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines to make the nesting of the data clear:
+Multi-line text values after ':>' will be connected into a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines for readability of the data:
 
-{b|Silk}
+@bold(Silk)
 <code>
 -gene(name:NM_001005277)
  -sequence:>
@@ -286,7 +280,7 @@ Multi-line text values in Silk are connected into a single string. Leading white
 
 The above two silk data has the same semantics with the following JSON data:
 
-{b|JSON}
+@bold(JSON)
 <code>
 {"gene":
  {"name":"NM_001005277",
@@ -294,33 +288,33 @@ The above two silk data has the same semantics with the following JSON data:
 </code>
 
 
-=== Multi-line text values keeping spaces and line breaks
-Use {b|":>>"} indicator for preserving white space characters, including line break and space characters:
-{b|Silk}
+-paragraph: Multi-line text values preserving spaces and line breaks
+Use {b|":>>"} indicator to preserve white line breaks and white spaces in multi-line text values:
+@bold(Silk)
 <code>
 -message:>>
  Hello World!
  Nice to meet you.
 </code>
 
-{b|JSON}
+@bold(JSON)
 <code>
 {"message":" Hello World!\n Nice to meet you.\n"}
 </code>
 
 
--paragraph: Escape sequences for the head of a line
+-paragraph: Using hyphen/sharp/at symbols at the head of text data
 
-When the multi-line data contains a hyphen in the head of a line, escape it by using {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
+When the multi-line data contains a hyphen(-) at the head of a line, escape it by using {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
 
-{b|Silk}
+@bold(Silk)
 <code>
  -sequence:>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
 \-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
 </code>
 
-{b|JSON}
+@bold(JSON)
 <code>
 {"sequence":"ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT---AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCC"}
 </code>
@@ -363,17 +357,17 @@ Binary files also can be imported as a node value:
 
 JSON data can be embedded as a text value by specifying data type description "[json]" after the node name.
 
-{b|Silk}
+@bold(Silk)
 -code:>>
  -prime*: 2, 3, 5, 7, 11, 13, 17, 19, 23
 --
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 {"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
 --
 
-{b|XML}
+@bold(XML)
 <code>
 <prime>2</prime>
 <prime>3</prime>
@@ -390,7 +384,7 @@ JSON data can be embedded as a text value by specifying data type description "[
 
 When you have to describe optional parameter values for each node, use in-line json data:
 
-{b|Silk}
+@bold(Silk)
 --code:>>
 -book(id, title, isbn, year, _[json])|
 1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
@@ -398,7 +392,7 @@ When you have to describe optional parameter values for each node, use in-line j
 --
 If the node name is '_' (underscore), each component of the in-line json data is treated as a direct child node of the parent node (book node in the above example). 
 
-{b|JSON}
+@bold(JSON)
 --code:>>
 {
  "book":[
@@ -424,7 +418,7 @@ If the node name is '_' (underscore), each component of the in-line json data is
 
 You can wrap the in-line json data within a named node:
 
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-book(id, title, isbn, year, param[json])|
 1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
@@ -432,7 +426,7 @@ You can wrap the in-line json data within a named node:
 --
 
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 {
  "book":[
@@ -456,31 +450,31 @@ You can wrap the in-line json data within a named node:
 
 -paragraph: Comma-separated values (CSV)
 
-{b|Silk} (single line, using json array)
+@bold(Silk) (single line, using json array)
 -code:>>
 \-prime[json]: [2, 3, 5, 7, 11, 13, 17, 19, 23]
 --
 
-{b|Silk} (single line)
+@bold(Silk) (single line)
 -code:>>
 \-prime*: 2,  3,  5, 7, 11, 13, 17, 19, 23
 --
 
-{b|Silk} (multi lines)
+@bold(Silk) (multi lines)
 -code:>>
-\-prime*
+\-prime*:>
  2,  3,  5
  7, 11, 13
 17, 19, 23
 --
 
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 {"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
 --
 
-{b|XML}
+@bold(XML)
 -code:>>
 <prime>2</prime>
 <prime>3</prime>
@@ -494,7 +488,7 @@ You can wrap the in-line json data within a named node:
 --
 
 -paragraph: CSV structured
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-plot(x, y)*
 1,3
@@ -506,7 +500,7 @@ You can wrap the in-line json data within a named node:
 -paragraph: Multi-Line Block Data Representation (Here Document)
 Instead of tab-spearated format, Silk allows block-style data representations, where each node value is spearated by "--" (node separator) and "==" (entry separator). 
 
-{b|Silk}
+@bold(Silk)
 -code:>>
 \-sequence(seq1, seq2)|=
 ABCD
@@ -521,7 +515,7 @@ MN
 \-message:hello
 --
 
-{b|JSON}
+@bold(JSON)
 -code:>>
 { "sequence":
    [
