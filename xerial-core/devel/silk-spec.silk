@@ -353,6 +353,50 @@ Binary files also can be imported as a node value:
  \- categories: holiday family
 --
 
+-paragraph: Deeply nested data
+
+(with proper indent)
+
+-track: refseq genes
+ -sequence: hg19
+  -chr: chr1
+   -refgene(name, strand, start, end)|
+   NM_001005277    +       357521  358460 
+    -cds(start, end)|
+    357521     358460
+    -exon(star, end)|
+    9907193     9908432
+    9909046     9909277
+   NM_001005224    +       357521  358460  
+    -cds(start, end)|
+    357521     358460
+    -exon(star, end)|
+    9907193     9908432
+    9909046     9909277
+
+
+(data node has independent indentation level)	
+
+-track: refseq genes
+ -sequence: hg19
+  -chr: chr1
+  -refgene(name, strand, start, end)|
+NM_001005277    +       357521  358460 
+   -cds(start, end)|
+ 357521     358460
+   -exon(star, end)|
+ 9907193     9908432
+ 9909046     9909277
+NM_001005224    +       357521  358460  
+   -cds(start, end)|
+ 357521     358460
+   -exon(star, end)|
+ 9907193     9908432
+ 9909046     9909277
+ -track: ruler
+  -left margin: 100
+
+
 == In-line JSON data (Array)
 
 JSON data can be embedded as a text value by specifying data type description "[json]" after the node name.
@@ -811,52 +855,6 @@ ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
 \-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
 
 
-= Deeply nested data
-
-(with indent)
-
--track: refseq genes
- -sequence: hg19
-  -chr: chr1
-   -refgene(name, strand, start, end)|
-   NM_001005277    +       357521  358460 
-    -cds(start, end)|
-    357521     358460
-    -exon(star, end)|
-    9907193     9908432
-    9909046     9909277
-   NM_001005224    +       357521  358460  
-    -cds(start, end)|
-    357521     358460
-    -exon(star, end)|
-    9907193     9908432
-    9909046     9909277
-
-
-(data node has independent indentation level)	
-
-
--track group: global
- -species: human
-
- -track: refseq genes
-  -sequence: hg19
-  -chr: chr1
-  -refgene(name, strand, start, end)|
-NM_001005277    +       357521  358460 
-   -cds(start, end)|
- 357521     358460
-   -exon(star, end)|
- 9907193     9908432
- 9909046     9909277
-NM_001005224    +       357521  358460  
-   -cds(start, end)|
- 357521     358460
-   -exon(star, end)|
- 9907193     9908432
- 9909046     9909277
- -track: ruler
-  -left margin: 100
 
 = Microformat in tab-separated data
 
