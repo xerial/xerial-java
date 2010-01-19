@@ -887,4 +887,17 @@ NM_001005224    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[990
 
 
 
- 
+-section: Function in Silk
+
+function: silk -> silk
+
+--code
+
+--@filter("person.dept == LA")
+-person(id:1, dept:LA)
+-person(id:2, dept:SEA)
+-person(id:3, dept:LA)
+--
+
+--
+
