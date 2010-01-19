@@ -35,13 +35,13 @@ Silk also can be used to enhance existing tab-separated data or comma-separated 
 
 Silk is not a markup language such as HTML for describing text decorations. For example, Silk cannot describe the following text data description, which mixes text values and tags:
 
--code:>>
+--code(lang:html)
 <p>This paragraph contains <b>bold</b> and <i>italic</i> fonts.
 --
 
 If such text decoration like HTML is necessary, you have to embed HTML data as a text value. Here is an example:
--code:>>
-\-p: This paragraph contains <b>bold</b> and <i>italic</i> fonts.
+--code(lang:html)
+-p: This paragraph contains <b>bold</b> and <i>italic</i> fonts.
 --
 
 -sub section: Silk Data Model
@@ -59,52 +59,52 @@ Preamble line beginning with '%' symbol specifies the version of Silk format use
 -paragraph: Version information
 Current Silk format version is 1.0:
 
--code:>>
-\%silk(version:1.0)
+--code
+%silk(version:1.0)
 --
 
 -pargraph: Comment line
 
 A comment line is marked by a sharp "#" indicator:
 
--code:>>
-\# This line will be ignored.
+--code
+# This line will be ignored.
 --
 
 -paragraph: Tree node with a text value
 In Silk, a tree node begins with a hyphen '-' followed by a node name. The text value of the node follows a colon ':'. If the colon and text value are not present, the node value of the tree node will be set to null:
 @bold(Silk)
--code:>>
-\-title: hello world
+--code
+-title: hello world
 --
 
 White spaces around text values will be ignored:
 
 @bold(JSON)
--code:>>
+--code
 { "title":"hello world" }
 --
 
 And also, white spaces around the node name will be ignored:
 
 @bold(Silk)
--code:>>
-\- first name : Andy 
+--code
+- first name : Andy 
 --
 
 @bold(JSON)
-<code>
+-code
 { "first name":"Andy" }
-</code>
+--
 
 -paragraph: Tree node with several child nodes with text values
 @bold(Silk)
--code:>>
-\-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
+--code
+-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
 --
 
 @bold(JSON)
--code:>>
+--code
 {
  "book":
   {
@@ -121,28 +121,28 @@ And also, white spaces around the node name will be ignored:
 Indentation before hyphen ('-') represents tree node depth. Only space characters (' ') are allowed before the indentation hyphen ('-'). Tab character ('\t') cannot be used for indentations.
 
 @bold(Silk)
--code:>>
-\-book
- \-id: 1
- \-title: Database Management Systems
- \-isbn:0071230572
- \-year:2002
-\-book		
- \-id: 2
- \-title: Compilers: Second Edition
- \-isbn:0321547985
- \-year:2007
+--code
+-book
+ -id: 1
+ -title: Database Management Systems
+ -isbn:0071230572
+ -year:2002
+-book		
+ -id: 2
+ -title: Compilers: Second Edition
+ -isbn:0321547985
+ -year:2007
 --
 
 Alternatively, you can write the same data as follows:
--code:>>
-\-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
-\-book(id:2, title: Compilers: Second Edition, isbn:0321547985, year:2007)
+--code
+-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
+-book(id:2, title: Compilers: Second Edition, isbn:0321547985, year:2007)
 --
 
 
 @bold(JSON)
--code:>>
+--code
 [
  {"book":
   {
@@ -164,7 +164,7 @@ Alternatively, you can write the same data as follows:
 --
 
 @bold(XML)
--code:>>
+--code
 <book>
  <id>1</id>
  <title>Database Management Systems</title>
@@ -183,18 +183,18 @@ Alternatively, you can write the same data as follows:
 
 The design concept of Silk format includes reducing the redundancy of XML or JSON data format in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs, and each data element will be assigned a corresponding node name specified in the preceding table schema: 
 @bold(Silk)
--code:>>
-\# A book node schema with 4 parameters. 
-\-book(id, title, isbn, year)|
+--code
+# A book node schema with 4 parameters. 
+-book(id, title, isbn, year)|
 1	Database Management Systems	0071230572	2002
 2	Compilers: Second Edition	0321547985	2007
 
-\# Tab-separated data region ends when a new node is found
-\-updated: 2009/02/16
+# Tab-separated data region ends when a new node is found
+-updated: 2009/02/16
 --
 
 @bold(JSON)
--code:>>
+--code
 {
  "book":[
    {
@@ -215,7 +215,7 @@ The design concept of Silk format includes reducing the redundancy of XML or JSO
 --
 
 @bold(XML)
--code:>>
+--code
 <book>
  <id>1</id>
  <title>Database Management Systems</title>
@@ -234,12 +234,12 @@ The design concept of Silk format includes reducing the redundancy of XML or JSO
 
 -paragraph: Multi-line text values
 
-Large text values can be split into multiple lines. To describe muti-line text values, use ':>' instead of ':'. The following examples shows a gene sequence described in multiple lines:
+Large text values can be split into multiple lines. To describe muti-line text values, use '>' instead of ':'. The following examples shows a gene sequence described in multiple lines:
 
 @bold(Silk)
--code:>>
-\-gene(name:NM_001005277)
- \-sequence:>
+--code
+-gene(name:NM_001005277)
+ -sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -256,12 +256,12 @@ TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 --
 
-Multi-line text values after ':>' will be connected into a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines for readability of the data:
+Multi-line text values after '>' will be combined as a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines for readability of the data:
 
 @bold(Silk)
 <code>
 -gene(name:NM_001005277)
- -sequence:>
+ -sequence>
   ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
   AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
   TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -288,31 +288,16 @@ The above two silk data has the same semantics with the following JSON data:
 </code>
 
 
--paragraph: Multi-line text values preserving spaces and line breaks
-Use {b|":>>"} indicator to preserve white line breaks and white spaces in multi-line text values:
-@bold(Silk)
-<code>
--message:>>
- Hello World!
- Nice to meet you.
-</code>
-
-@bold(JSON)
-<code>
-{"message":" Hello World!\n Nice to meet you.\n"}
-</code>
-
-
 -paragraph: Using hyphen/sharp/at symbols at the head of text data
 
-When the multi-line data contains a hyphen(-) at the head of a line, escape it by using {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
+When the multi-line data contains a hyphen(-) at the head of a line, escape it with {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
 
 @bold(Silk)
-<code>
- -sequence:>
+--code
+ -sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
 \-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
-</code>
+--
 
 @bold(JSON)
 <code>
@@ -322,92 +307,109 @@ ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
 The escape symbol '\' will be removed when parsing the Silk data. To include '\' symbol to the data, use '\\'. These escape sequences '\-' and '\\' are effective only at the head of a line; do not escape hyphen and \ (backslash) characters after the first character of a line. 
 
 
+-paragraph: Multi-line text values preserving spaces and line breaks
+Use "--" indicator to preserve line breaks and white spaces in multi-line text values:
+@bold(Silk)
+--code
+\--message
+ Hello World!
+ Nice to meet you.
+\--
+--
+
+The double hyphen symbol "--" switches the parsing mode of Silk, and the Silk parser continues to report succeeding lines as text lines until another "--" is found.
+
+@bold(JSON)
+--code
+{"message":" Hello World!\n Nice to meet you.\n"}
+--
+
+
 -paragraph: Importing another file
 
 Silk format has a built-in import function for embedding data files in a Silk file. The import function can be used for annotating existing data files (e.g., tab-separated data) using the table schema descriptor of Silk. The following examples loads tab-separated data from the file book.tab, and annotates the loaded tab-separated data with the book schema:
 
--code:>>
-\-book(id, title, isbn, year)|
+--code
+-book(id, title, isbn, year)|
 @import(book.tab) 
 --
 
 book.tab
--code:>>
+--code
 1	Database Management Systems	0071230572	2002
 2	Compilers: Second Edition	0321547985	2007
 --
 
 The above data using two files are equivalent to the following Silk file:
--code:>>
-\-book(id, title, isbn, year)|
+--code
+-book(id, title, isbn, year)|
 1	Database Management Systems	0071230572	2002
 2	Compilers: Second Edition	0321547985	2007
 --
 
 
 Binary files also can be imported as a node value:
--code:>>
-\- photo
- \- title: vacation
- \- image: @import(myphoto.jpg)	# import myphoto.jpg as a node value (encoded with base64)
- \- categories: holiday family
+--code
+-photo
+ -title: vacation
+ -image: @import(myphoto.jpg)	# import myphoto.jpg as a node value (encoded with base64)
+ -tag*: [holiday, family]
 --
 
--paragraph: Deeply nested data
+-paragraph: Nested Table Data 
 
-(with proper indent)
-
+--code
 -track: refseq genes
+ -species: human
  -sequence: hg19
-  -chr: chr1
-   -refgene(name, strand, start, end)|
-   NM_001005277    +       357521  358460 
-    -cds(start, end)|
-    357521     358460
-    -exon(star, end)|
-    9907193     9908432
-    9909046     9909277
-   NM_001005224    +       357521  358460  
-    -cds(start, end)|
-    357521     358460
-    -exon(star, end)|
-    9907193     9908432
-    9909046     9909277
+ -gene(name, chr, strand, start, end)|
+ NM_001005277   chr1	+       357521  358460  
+  -cds(start, end)|
+  357521	     358460
+  -exon(star, end)|
+  357521	     358460
+ NM_152486	chr1	+	850983	869824  
+  -cds(start, end)|
+  851184     869396
+  -exon(star, end)|
+  850983     851043
+  851164     851256
+  855397     855579
+--
 
+(data node has independent indentation level from tree nodes)	
 
-(data node has independent indentation level)	
-
+--code
 -track: refseq genes
+ -species: human
  -sequence: hg19
-  -chr: chr1
-  -refgene(name, strand, start, end)|
-NM_001005277    +       357521  358460 
-   -cds(start, end)|
- 357521     358460
-   -exon(star, end)|
- 9907193     9908432
- 9909046     9909277
-NM_001005224    +       357521  358460  
-   -cds(start, end)|
- 357521     358460
-   -exon(star, end)|
- 9907193     9908432
- 9909046     9909277
- -track: ruler
-  -left margin: 100
+ -gene(name, chr, strand, start, end)|
+NM_001005277   chr1	+       357521  358460  
+  -cds(start, end)|
+ 357521	     358460
+  -exon(star, end)|
+ 357521	     358460
+NM_152486	chr1	+	850983	869824  
+  -cds(start, end)|
+ 851184     869396
+  -exon(star, end)|
+ 850983     851043
+ 851164     851256
+ 855397     855579
+--
 
 
-== In-line JSON data (Array)
+-paragraph: In-line JSON data (Array)
 
 JSON data can be embedded as a text value by specifying data type description "[json]" after the node name.
 
 @bold(Silk)
--code:>>
- -prime*: 2, 3, 5, 7, 11, 13, 17, 19, 23
+--code
+ -prime*: [2, 3, 5, 7, 11, 13, 17, 19, 23]
 --
 
 @bold(JSON)
--code:>>
+--code
 {"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
 --
 
@@ -429,7 +431,7 @@ JSON data can be embedded as a text value by specifying data type description "[
 When you have to describe optional parameter values for each node, use in-line json data:
 
 @bold(Silk)
---code:>>
+---code
 -book(id, title, isbn, year, _[json])|
 1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
 2	Compilers: Second Edition	0321547985	2007	{"tags":["read later", "textbook"]}
@@ -437,7 +439,7 @@ When you have to describe optional parameter values for each node, use in-line j
 If the node name is '_' (underscore), each component of the in-line json data is treated as a direct child node of the parent node (book node in the above example). 
 
 @bold(JSON)
---code:>>
+---code
 {
  "book":[
    {
@@ -463,7 +465,7 @@ If the node name is '_' (underscore), each component of the in-line json data is
 You can wrap the in-line json data within a named node:
 
 @bold(Silk)
--code:>>
+--code
 \-book(id, title, isbn, year, param[json])|
 1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
 2	Compilers: Second Edition	0321547985	2007	{"tags":["read later", "textbook"]}
@@ -471,7 +473,7 @@ You can wrap the in-line json data within a named node:
 
 
 @bold(JSON)
--code:>>
+--code
 {
  "book":[
    {
@@ -495,17 +497,17 @@ You can wrap the in-line json data within a named node:
 -paragraph: Comma-separated values (CSV)
 
 @bold(Silk) (single line, using json array)
--code:>>
+--code
 \-prime[json]: [2, 3, 5, 7, 11, 13, 17, 19, 23]
 --
 
 @bold(Silk) (single line)
--code:>>
+--code
 \-prime*: 2,  3,  5, 7, 11, 13, 17, 19, 23
 --
 
 @bold(Silk) (multi lines)
--code:>>
+--code
 \-prime*:>
  2,  3,  5
  7, 11, 13
@@ -514,12 +516,12 @@ You can wrap the in-line json data within a named node:
 
 
 @bold(JSON)
--code:>>
+--code
 {"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
 --
 
 @bold(XML)
--code:>>
+--code
 <prime>2</prime>
 <prime>3</prime>
 <prime>5</prime>
@@ -533,7 +535,7 @@ You can wrap the in-line json data within a named node:
 
 -paragraph: CSV structured
 @bold(Silk)
--code:>>
+--code
 \-plot(x, y)*
 1,3
 4,5
@@ -545,7 +547,7 @@ You can wrap the in-line json data within a named node:
 Instead of tab-spearated format, Silk allows block-style data representations, where each node value is spearated by "--" (node separator) and "==" (entry separator). 
 
 @bold(Silk)
--code:>>
+--code
 \-sequence(seq1, seq2)|=
 ABCD
 EFGHI
@@ -560,7 +562,7 @@ MN
 --
 
 @bold(JSON)
--code:>>
+--code
 { "sequence":
    [
     {"seq1":"ABCDEFGHI", "seq2":"JKLMN"},
@@ -574,7 +576,7 @@ MN
 
 -sub section: Gene locus
 
--code:>>
+--code
 \% silk(version:1.0)
 
 \# track name
@@ -604,7 +606,7 @@ NM_001005221	-	610958	611897
 
 -sub section: Bar chart data
 
--code:>>
+--code
 \% silk(version:1.0)
 
 \-track(name:"Transcript Frequency")
@@ -637,7 +639,7 @@ NM_001005221	-	610958	611897
 --
 
 -sub section: More complex example
--code:>>
+--code
 \% silk(version:1.0)
 \# single comment line
 
