@@ -231,30 +231,30 @@ PlainOneLine
 	;
 
 
-JSON
-	: { isValue() }? => '{'
-	{
-		//_logger.info("enter JSON object");
-		InLineJSONLexer l = new InLineJSONLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(l);
-		InLineJSONParser p = new InLineJSONParser(tokens);
-		p.jsonObjectFragment();
-		
-		//$channel = JSON_CHANNEL;
-		emit(new CommonToken(JSON, getText())); 
-	}
-	| { isValue() }? => '['
-	{
-		//_logger.info("enter JSON array");
-		InLineJSONLexer l = new InLineJSONLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(l);
-		InLineJSONParser p = new InLineJSONParser(tokens);
-		p.jsonArrayFragment();
-		
-		//$channel = JSON_CHANNEL;
-		emit(new CommonToken(JSON, getText())); 
-	}  
-	;
+//JSON
+//	: { isValue() }? => '{'
+//	{
+//		//_logger.info("enter JSON object");
+//		InLineJSONLexer l = new InLineJSONLexer(input);
+//		CommonTokenStream tokens = new CommonTokenStream(l);
+//		InLineJSONParser p = new InLineJSONParser(tokens);
+//		p.jsonObjectFragment();
+//		
+//		//$channel = JSON_CHANNEL;
+//		emit(new CommonToken(JSON, getText())); 
+//	}
+//	| { isValue() }? => '['
+//	{
+//		//_logger.info("enter JSON array");
+//		InLineJSONLexer l = new InLineJSONLexer(input);
+//		CommonTokenStream tokens = new CommonTokenStream(l);
+//		InLineJSONParser p = new InLineJSONParser(tokens);
+//		p.jsonArrayFragment();
+//		
+//		//$channel = JSON_CHANNEL;
+//		emit(new CommonToken(JSON, getText())); 
+//	}  
+//	;
 	 
 Separation: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
 
@@ -279,7 +279,7 @@ fragment
 nodeValue
 	: function_i -> ^(Function function_i)
 	| (PlainOneLine | String) -> Value[$nodeValue.text]
-	| JSON 
+//	| JSON 
 	; 
 
 

@@ -1,0 +1,903 @@
+%silk(version: 1.0)
+
+-title: Silk Format Specification: version 1.0
+
+-author: Taro L. Saito <leo@xerial.org>
+
+-created at: February 1st, 2009
+
+-section: Introduction to Silk
+
+@keyword(Silk) is a text format for describing scientific data, including table and tree-structured data. Silk is space-efficient compared to @keyword(XML, href:"http://w3c.org/xml") or @keyword(JSON, href:"http://www.json.org"). To organize tree structures in a text file, Silk uses indentation via spaces, which is far simpler than neatly opening and closing tags (or brackets) in XML/JSON. And also, existing XML/JSON data can be easily trasnlated into Silk and vice versa.
+
+-paragraph: Silk Features
+Notable features of Silk include:
+-item: Forest data model:
+Silk uses the forest data model, a sequence of trees. This is a natural extension of tree-structured data formats for representing a list of data objects. 
+-item: Human-friendly syntax:
+Silke uses indentation via spaces for nesting data structures; no need exists to wrap text data with tags. In addition, you can omit double quotations to describe text data, which are mandatory in JSON.
+-item: Space-efficient format:
+Tab-separated data or comma-separated values (CSV) can be embedded in Silk at any hierarchical position. XML and JSON have no support for such compact data representation.
+-item: Import function:
+Several data files (e.g. another Silk file, tab-separated data, CSV, text or binary files, etc.) can be embedded in a Silk file to compose a large data set at ease.
+-item: One-liner format:
+ Silk data can be processed line-by-line, so it is very familiar with standard text-processing tools, such as grep, awk, Perl, Ruby, etc. This feature is also suited to parallel data processing. 
+
+-sub section: Situations where Silk is useful 
+ 
+Silk is designed for describing scientific data in a compact text representation. If you do not like verbose data descriptions of XML or JSON, Silk matches your needs. And also, Silk uses line-by-line text format for the ease of data description. This feature makes possible to append the data to the end of a file. For example, you can easily accumulate large program outputs by using Silk format. 
+
+In the @keyword(UTGB Toolkit) @href("http://utgenome.org"), we use Silk as a standard data description format for describing biological data. Several years of experiences with XML/JSON under our belt, we learned these syntaxes can be simplified. For example, we removed tags, brackets, double quotation mark, etc. to shorten the data description. This simple syntax increases the usability of Silk files for human and computer programs. In addition, Silk's embedded tab-separated data description significantly reduces its data size. 
+
+Silk also can be used to enhance existing tab-separated data or comma-separated value (CSV) files by importing them into a Silk file. Imported data can be annotated with node labels to organize hierarchical data structure. 
+
+-sub section: Situations where Silk is (probably) not useful
+
+Silk is not a markup language such as HTML for describing text decorations. For example, Silk cannot describe the following text data description, which mixes text values and tags:
+
+--code(lang:html)
+<p>This paragraph contains <b>bold</b> and <i>italic</i> fonts.
+--
+
+If such text decoration like HTML is necessary, you have to embed HTML data as a text value. Here is an example:
+--code(lang:html)
+-p: This paragraph contains <b>bold</b> and <i>italic</i> fonts.
+--
+
+-sub section: Silk Data Model
+
+Silk uses the forest data model; a list of trees. Each tree node can have several child nodes and text values. 
+
+# needs some illustrations
+
+-section: Silk Data Descriptions
+
+-sub section: Preamble
+
+Preamble line beginning with '%' symbol specifies the version of Silk format used in the Silk file. Preamble line must be the first line of Silk files in order to correctly change the behaviour of a Silk processor according to the specified version. When no preamble description is found, the default settings will be used. 
+
+-paragraph: Version information
+Current Silk format version is 1.0:
+
+--code
+%silk(version:1.0)
+--
+
+-pargraph: Comment line
+
+A comment line is marked by a sharp "#" indicator:
+
+--code
+# This line will be ignored.
+--
+
+-paragraph: Tree node with a text value
+In Silk, a tree node begins with a hyphen '-' followed by a node name. The text value of the node follows a colon ':'. If the colon and text value are not present, the node value of the tree node will be set to null:
+@bold(Silk)
+--code
+-title: hello world
+--
+
+White spaces around text values will be ignored:
+
+@bold(JSON)
+--code
+{ "title":"hello world" }
+--
+
+And also, white spaces around the node name will be ignored:
+
+@bold(Silk)
+--code
+- first name : Andy 
+--
+
+@bold(JSON)
+-code
+{ "first name":"Andy" }
+--
+
+-paragraph: Tree node with several child nodes with text values
+@bold(Silk)
+--code
+-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
+--
+
+@bold(JSON)
+--code
+{
+ "book":
+  {
+   "id":1, 
+   "title":"Database Management Systems", 
+   "isbn":"0071230572", 
+   "year":2002
+  }
+}
+--
+
+-paragraph: Nested tree nodes
+
+Indentation before hyphen ('-') represents tree node depth. Only space characters (' ') are allowed before the indentation hyphen ('-'). Tab character ('\t') cannot be used for indentations.
+
+@bold(Silk)
+--code
+-book
+ -id: 1
+ -title: Database Management Systems
+ -isbn:0071230572
+ -year:2002
+-book		
+ -id: 2
+ -title: Compilers: Second Edition
+ -isbn:0321547985
+ -year:2007
+--
+
+Alternatively, you can write the same data as follows:
+--code
+-book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
+-book(id:2, title: Compilers: Second Edition, isbn:0321547985, year:2007)
+--
+
+
+@bold(JSON)
+--code
+[
+ {"book":
+  {
+   "id":1, 
+   "title":"Database Management Systems", 
+   "isbn":"0071230572", 
+   "year":2002
+  }
+ },
+ {"book":
+  {
+   "id":2, 
+   "title":"Compilers: Second Edition",
+   "isbn":"03215479785", 
+   "year":2007
+  }
+ }
+]
+--
+
+@bold(XML)
+--code
+<book>
+ <id>1</id>
+ <title>Database Management Systems</title>
+ <isbn>0071230572</isbn>
+ <year>2002</year>
+</book>
+<book>
+ <id>2</id>
+ <title>Compilers: Second Edition</title>
+ <isbn>0321547985</isbn>
+ <year>2007</year>
+</book>
+--
+
+-section: Tab-separated data 
+
+The design concept of Silk format includes reducing the redundancy of XML or JSON data format in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs, and each data element will be assigned a corresponding node name specified in the preceding table schema: 
+@bold(Silk)
+--code
+# A book node schema with 4 parameters. 
+-book(id, title, isbn, year)|
+1	Database Management Systems	0071230572	2002
+2	Compilers: Second Edition	0321547985	2007
+
+# Tab-separated data region ends when a new node is found
+-updated: 2009/02/16
+--
+
+@bold(JSON)
+--code
+{
+ "book":[
+   {
+     "id":1, 
+     "title":"Database Management Systems", 
+     "isbn":"0071230572", 
+     "year":2002
+   },
+   {
+     "id":2, 
+     "title":"Compilers: Second Edition",
+     "isbn":"0321547985", 
+     "year":2007
+   }
+ ],
+ "updated":"2009/02/16"
+}
+--
+
+@bold(XML)
+--code
+<book>
+ <id>1</id>
+ <title>Database Management Systems</title>
+ <isbn>0071230572</isbn>
+ <year>2002</year>
+</book>
+<book>
+ <id>2</id>
+ <title>Compilers: Second Edition</title>
+ <isbn>0321547985</isbn>
+ <year>2007</year>
+</book>
+<updated>2009/02/16</updated>
+--
+
+
+-paragraph: Multi-line text values
+
+Large text values can be split into multiple lines. To describe muti-line text values, use '>' instead of ':'. The following examples shows a gene sequence described in multiple lines:
+
+@bold(Silk)
+--code
+-gene(name:NM_001005277)
+ -sequence>
+ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
+AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
+TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
+TTAGGAGCCTGCTCTGTCACTTCTCCCAAGATGATTTATGACCTGTTCAGAAAGCGCAAAGTCATCTCCT
+TTGGAGGCTGCATCGCTCAAATCTTCTTCATCCACGTCGTTGGTGGTGTGGAGATGGTGCTGCTCATAGC
+CATGGCCTTTGACAGATATGTGGCCCTATGTAAGCCCCTCCACTATCTGACCATTATGAGCCCAAGAATG
+TGCCTTTCATTTCTGGCTGTTGCCTGGACCCTTGGTGTCAGTCACTCCCTGTTCCAACTGGCATTTCTTG
+TTAATTTAGCCTTCTGTGGCCCTAATGTGTTGGACAGCTTCTACTGTGACCTTCCTCGGCTTCTCAGACT
+AGCCTGTACCGACACCTACAGATTGCAGTTCATGGTCACTGTTAACAGTGGGTTTATCTGTGTGGGTACT
+TTCTTCATACTTCTAATCTCCTACGTCTTCATCCTGTTTACTGTTTGGAAACATTCCTCAGGTGGTTCAT
+CCAAGGCCCTTTCCACTCTTTCAGCTCACAGCACAGTGGTCCTTTTGTTCTTTGGTCCACCCATGTTTGT
+GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
+TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
+AGCTAGTGATTTACAAGAGGATCTCATAA
+--
+
+Multi-line text values after '>' will be combined as a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines for readability of the data:
+
+@bold(Silk)
+<code>
+-gene(name:NM_001005277)
+ -sequence>
+  ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
+  AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
+  TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
+  TTAGGAGCCTGCTCTGTCACTTCTCCCAAGATGATTTATGACCTGTTCAGAAAGCGCAAAGTCATCTCCT
+  TTGGAGGCTGCATCGCTCAAATCTTCTTCATCCACGTCGTTGGTGGTGTGGAGATGGTGCTGCTCATAGC
+  CATGGCCTTTGACAGATATGTGGCCCTATGTAAGCCCCTCCACTATCTGACCATTATGAGCCCAAGAATG
+  TGCCTTTCATTTCTGGCTGTTGCCTGGACCCTTGGTGTCAGTCACTCCCTGTTCCAACTGGCATTTCTTG
+  TTAATTTAGCCTTCTGTGGCCCTAATGTGTTGGACAGCTTCTACTGTGACCTTCCTCGGCTTCTCAGACT
+  AGCCTGTACCGACACCTACAGATTGCAGTTCATGGTCACTGTTAACAGTGGGTTTATCTGTGTGGGTACT
+  TTCTTCATACTTCTAATCTCCTACGTCTTCATCCTGTTTACTGTTTGGAAACATTCCTCAGGTGGTTCAT
+  CCAAGGCCCTTTCCACTCTTTCAGCTCACAGCACAGTGGTCCTTTTGTTCTTTGGTCCACCCATGTTTGT
+  GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
+  TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
+  AGCTAGTGATTTACAAGAGGATCTCATAA
+</code>
+
+The above two silk data has the same semantics with the following JSON data:
+
+@bold(JSON)
+<code>
+{"gene":
+ {"name":"NM_001005277",
+  "sequence":"ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCCAGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTTTTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGACTTAGGAGCCTGCTCTGTCACTTCTCCCAAGATGATTTATGACCTGTTCAGAAAGCGCAAAGTCATCTCCTTTGGAGGCTGCATCGCTCAAATCTTCTTCATCCACGTCGTTGGTGGTGTGGAGATGGTGCTGCTCATAGCCATGGCCTTTGACAGATATGTGGCCCTATGTAAGCCCCTCCACTATCTGACCATTATGAGCCCAAGAATGTGCCTTTCATTTCTGGCTGTTGCCTGGACCCTTGGTGTCAGTCACTCCCTGTTCCAACTGGCATTTCTTGTTAATTTAGCCTTCTGTGGCCCTAATGTGTTGGACAGCTTCTACTGTGACCTTCCTCGGCTTCTCAGACTAGCCTGTACCGACACCTACAGATTGCAGTTCATGGTCACTGTTAACAGTGGGTTTATCTGTGTGGGTACTTTCTTCATACTTCTAATCTCCTACGTCTTCATCCTGTTTACTGTTTGGAAACATTCCTCAGGTGGTTCATCCAAGGCCCTTTCCACTCTTTCAGCTCACAGCACAGTGGTCCTTTTGTTCTTTGGTCCACCCATGTTTGTGTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCTTTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAACAGCTAGTGATTTACAAGAGGATCTCATAA"}}
+</code>
+
+
+-paragraph: Using hyphen/sharp/at symbols at the head of text data
+
+When the multi-line data contains a hyphen(-) at the head of a line, escape it with {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
+
+@bold(Silk)
+--code
+ -sequence>
+ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
+\-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
+--
+
+@bold(JSON)
+<code>
+{"sequence":"ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT---AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCC"}
+</code>
+
+The escape symbol '\' will be removed when parsing the Silk data. To include '\' symbol to the data, use '\\'. These escape sequences '\-' and '\\' are effective only at the head of a line; do not escape hyphen and \ (backslash) characters after the first character of a line. 
+
+
+-paragraph: Multi-line text values preserving spaces and line breaks
+Use "--" indicator to preserve line breaks and white spaces in multi-line text values:
+@bold(Silk)
+--code
+\--message
+ Hello World!
+ Nice to meet you.
+\--
+--
+
+The double hyphen symbol "--" switches the parsing mode of Silk, and the Silk parser continues to report succeeding lines as text lines until another "--" is found.
+
+@bold(JSON)
+--code
+{"message":" Hello World!\n Nice to meet you.\n"}
+--
+
+
+-paragraph: Importing another file
+
+Silk format has a built-in import function for embedding data files in a Silk file. The import function can be used for annotating existing data files (e.g., tab-separated data) using the table schema descriptor of Silk. The following examples loads tab-separated data from the file book.tab, and annotates the loaded tab-separated data with the book schema:
+
+--code
+-book(id, title, isbn, year)|
+@import(book.tab) 
+--
+
+book.tab
+--code
+1	Database Management Systems	0071230572	2002
+2	Compilers: Second Edition	0321547985	2007
+--
+
+The above data using two files are equivalent to the following Silk file:
+--code
+-book(id, title, isbn, year)|
+1	Database Management Systems	0071230572	2002
+2	Compilers: Second Edition	0321547985	2007
+--
+
+
+Binary files also can be imported as a node value:
+--code
+-photo
+ -title: vacation
+ -image: @import(myphoto.jpg)	# import myphoto.jpg as a node value (encoded with base64)
+ -tag*: [holiday, family]
+--
+
+-paragraph: Nested Table Data 
+
+--code
+-track: refseq genes
+ -species: human
+ -sequence: hg19
+ -gene(name, chr, strand, start, end)|
+ NM_001005277   chr1	+       357521  358460  
+  -cds(start, end)|
+  357521	     358460
+  -exon(star, end)|
+  357521	     358460
+ NM_152486	chr1	+	850983	869824  
+  -cds(start, end)|
+  851184     869396
+  -exon(star, end)|
+  850983     851043
+  851164     851256
+  855397     855579
+--
+
+(data node has independent indentation level from tree nodes)	
+
+--code
+-track: refseq genes
+ -species: human
+ -sequence: hg19
+ -gene(name, chr, strand, start, end)|
+NM_001005277   chr1	+       357521  358460  
+  -cds(start, end)|
+ 357521	     358460
+  -exon(star, end)|
+ 357521	     358460
+NM_152486	chr1	+	850983	869824  
+  -cds(start, end)|
+ 851184     869396
+  -exon(star, end)|
+ 850983     851043
+ 851164     851256
+ 855397     855579
+--
+
+
+-paragraph: In-line JSON data (Array)
+
+JSON data can be embedded as a text value by specifying data type description "[json]" after the node name.
+
+@bold(Silk)
+--code
+ -prime*: [2, 3, 5, 7, 11, 13, 17, 19, 23]
+--
+
+@bold(JSON)
+--code
+{"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
+--
+
+@bold(XML)
+<code>
+<prime>2</prime>
+<prime>3</prime>
+<prime>5</prime>
+<prime>7</prime>
+<prime>11</prime>
+<prime>13</prime>
+<prime>17</prime>
+<prime>19</prime>
+<prime>23</prime>
+</code>
+
+-paragraph: In-line JSON data (Object)
+
+When you have to describe optional parameter values for each node, use in-line json data:
+
+@bold(Silk)
+---code
+-book(id, title, isbn, year, _[json])|
+1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
+2	Compilers: Second Edition	0321547985	2007	{"tags":["read later", "textbook"]}
+--
+If the node name is '_' (underscore), each component of the in-line json data is treated as a direct child node of the parent node (book node in the above example). 
+
+@bold(JSON)
+---code
+{
+ "book":[
+   {
+     "id":1, 
+     "title":"Database Management Systems", 
+     "isbn":"0071230572", 
+     "year":2002,
+     "star":5,
+     "comment":"good book"
+   },
+   {
+     "id":2, 
+     "title":"Compilers: Second Edition",
+     "isbn":"0321547985", 
+     "year":2007,
+     "tags":["read later", "textbook"]
+   }
+ ]
+}
+--
+
+
+You can wrap the in-line json data within a named node:
+
+@bold(Silk)
+--code
+\-book(id, title, isbn, year, param[json])|
+1	Database Management Systems	0071230572	2002	{"star":5, "comment":"good book"}
+2	Compilers: Second Edition	0321547985	2007	{"tags":["read later", "textbook"]}
+--
+
+
+@bold(JSON)
+--code
+{
+ "book":[
+   {
+     "id":1, 
+     "title":"Database Management Systems", 
+     "isbn":"0071230572", 
+     "year":2002,
+     "param":{"star":5, "comment":"good book"}
+   },
+   {
+     "id":2, 
+     "title":"Compilers: Second Edition",
+     "isbn":"0321547985", 
+     "year":2007,
+     "param":{"tags":["read later", "textbook"]}
+   }
+ ]
+}
+--
+
+-paragraph: Comma-separated values (CSV)
+
+@bold(Silk) (single line, using json array)
+--code
+\-prime[json]: [2, 3, 5, 7, 11, 13, 17, 19, 23]
+--
+
+@bold(Silk) (single line)
+--code
+\-prime*: 2,  3,  5, 7, 11, 13, 17, 19, 23
+--
+
+@bold(Silk) (multi lines)
+--code
+\-prime*:>
+ 2,  3,  5
+ 7, 11, 13
+17, 19, 23
+--
+
+
+@bold(JSON)
+--code
+{"prime":[2, 3, 5, 7, 11, 13, 17, 19, 23]}
+--
+
+@bold(XML)
+--code
+<prime>2</prime>
+<prime>3</prime>
+<prime>5</prime>
+<prime>7</prime>
+<prime>11</prime>
+<prime>13</prime>
+<prime>17</prime>
+<prime>19</prime>
+<prime>23</prime>
+--
+
+-paragraph: CSV structured
+@bold(Silk)
+--code
+\-plot(x, y)*
+1,3
+4,5
+7,8
+9,10
+--
+
+-paragraph: Multi-Line Block Data Representation (Here Document)
+Instead of tab-spearated format, Silk allows block-style data representations, where each node value is spearated by "--" (node separator) and "==" (entry separator). 
+
+@bold(Silk)
+--code
+\-sequence(seq1, seq2)|=
+ABCD
+EFGHI
+\--
+JKL
+MN
+\==
+0000
+\--
+1234
+\-message:hello
+--
+
+@bold(JSON)
+--code
+{ "sequence":
+   [
+    {"seq1":"ABCDEFGHI", "seq2":"JKLMN"},
+    {"seq1":"0000", "seq2":"1234"}
+   ],
+  "message":"hello" 
+}   
+--
+
+-section: Silk Examples
+
+-sub section: Gene locus
+
+--code
+\% silk(version:1.0)
+
+\# track name
+\- track(name:"gene locus")
+
+\# specify a coordinate system of the genome
+\- coordinate(group:utgb, species:human, revison:hg18, name:chr1)
+\# named locus in the tab-separated data form
+ \- locus(name, strand, start, end)|
+NM_001005277	+	357521	358460
+NM_001005224	+	357521	358460
+NM_001005221	+	357521	358460
+NM_001005277	-	610958	611897
+NM_001005224	-	610958	611897
+NM_001005221	-	610958	611897
+
+\# move to another coordinate, chr2
+\- coordinate(group:utgb, species:human, revison:hg18, name:chr2)
+ \- locus(name, strand, start, end)|
+NM_001005277	+	357521	358460
+NM_001005224	+	357521	358460
+NM_001005221	+	357521	358460
+NM_001005277	-	610958	611897
+NM_001005224	-	610958	611897
+NM_001005221	-	610958	611897
+--
+
+-sub section: Bar chart data
+
+--code
+\% silk(version:1.0)
+
+\-track(name:"Transcript Frequency")
+
+\-barchart
+ \-title:bar chart
+ \-yMin:0
+ \-yMax:100
+ \-xTitle: genome position (bp)
+ \-yTitle: number of transcripts (log scale)
+ \-yLogScale: true
+\# plot y beginning from x=1 (offsetX = 1)
+\-coordinate(group:utgb, species:human, revison:hg18, name:chr1) 
+ \-offsetX:1
+ \-plot*
+0,0,0,0,0,0,0,3,5,10
+2,0,8,4,0,23,0,0,0,0
+
+\# plot (x, y)
+\- coordinate(group:utgb, species:human, revison:hg18, name:chr1)
+ \- plot(x, y)|
+8  3
+9  5
+10 10
+11 2
+12 8
+13 4
+15 23
+
+--
+
+-sub section: More complex example
+--code
+\% silk(version:1.0)
+\# single comment line
+
+\# tree node description. node_name (child_name1[:value], ...)
+\- track(name:"refseq gene")
+ \- author: leo	     # author is a child node of the track node
+
+\# specify coordinates 
+\- coordinate(group:utgb, name:chr1, species:human, revision:hg18)
+\# gene data description with tab-seaprated data format. CDS and exon data use micro-data format 
+ \- gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
+NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+NM_001005224	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+NM_001005221	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+NM_001005277	-	610958	611897	[610958, 611897]	[[610958, 611897]]
+NM_001005224	-	610958	611897	[610958, 611897]	[[610958, 611897]]
+NM_001005221	-	610958	611897	[610958, 611897]	[[610958, 611897]]
+NM_152486	+	850983	869824	[851184, 869396]	[[850983, 851043],[851164, 851256],[855397, 855579]] 
+
+\# indentation before tab-separated data can be used for readability
+\- coordinate(group:utgb, name:chr2, species:human, revision:hg18)
+ \- gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
+   NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+   NM_001005278	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+  
+\# flexible structure organization 
+\- coordinate(group:utgb, species:human, revision:hg18)
+ \- gene(coordinate.name, name, strand, start, end)| # coordinate names is pulled down from the parent node
+chr1	gene1	+	357521	358460
+chr2	gene2	+	357521	358460
+chr10	gene3	+	357521	358460
+chr3	gene4	+	357521	358460
+chr1	gene5	+	357521	358460
+
+--
+
+-section: Idea
+
+== Type matching with tab-delimited data
+
+<code>
+-gene(name, strand, start, end, cds(start, end), exon(start, end))|
+NM_001005277    +       357521  358460  [[357521, 358460]]        [[357521, 358460]]
+NM_001005224    +       357521  358460  [[357521, 358460]]        [[357521, 358460]]
+</code>
+
+name -> x
+strand -> x
+start -> x
+end -> x
+cds(start, end) -> x[y, z]
+exon(stat, end) -> x[y, z]
+	   
+gene(name, strand, start, end, cds(start, end), exon(start, end)) 
+-> a(b, c, d, e, f(g, h), i(j, k))
+
+
+
+NM_001005277 -> string
++ -> string
+357521 -> integer
+358460 -> integer
+[357521, 358460] -> [interger, integer]
+[[357521, 358460]] -> [[integer, integer]]
+
+NM_001005277    +       357521  358460  [357521, 358460]        [[357521, 358460]]
+-> (string, string, integer, integer, [integer, integer], [[integer, integer]])
+
+== Tab-separated value expression
+
+T := V | [E]; 
+E := T | E,E ;
+V := string | integer | double | true | false | null ;
+
+
+string := utf_char*;
+
+utf_char 
+:= any UTF-8 character except \"(double quotation0 or \ (back slash)
+ | \ ('\"' quotation mark | '\\' reverse solidus | '/' solidus | 'b' backspace | 'f' formfeed| 'n' newline | 'r' carriage return | 't' horizontal tab | 'u' (4 hexadecimal digits)
+
+
+== Silk node expression
+
+N := - string ('(' F ')')? 
+F := string | string[G] 
+G := F | G,G
+
+
+
+== matching rules
+x : null 
+=> (empty)
+
+x : [e1, e2, ...]
+=> x:e1, x:[e2, ...]
+
+x : [[e]]
+=> x:[e]
+
+x[y, z] : [e1, e2] 
+=> x[y:e1, z:e2]
+
+x[y, z]: [[e1, e2, ...]] 
+=> x[y, z] : [e1, e2, ...]
+=> x[y, z]:e1, x[y, z]:[e2, ...]
+ 
+Examples:
+x[y, z] : [integer, integer] 
+=> x[y:integer, z:integer]
+
+x[y, z] : [[integer, integer], [integer, integer]] 
+=> x[y:integer, z:integer], x[y,z]:[[integer, integer]]
+
+
+
+-section: Mixing Table and Tree Structured Data
+
+-track: refseq genes
+ -species: human
+ -sequence: hg19
+ -gene(name, chr, strand, start, end)|
+ NM_001005277   chr1	+       357521  358460  
+  -cds(start, end)|
+  357521	     358460
+  -exon(star, end)|
+  357521	     358460
+ NM_152486	chr1	+	850983	869824  
+  -cds(start, end)|
+  851184     869396
+  -exon(star, end)|
+  850983     851043
+  851164     851256
+  855397     855579
+
+
+
+
+= Regular Expression
+silk node: (indent "-")(node name) ("(" ((node name) ("," node name)*)? ")")*
+ [ ]*-[^(:]*
+
+silk attribute: (node name) ":" (node value) 
+
+silk function: (indent "@") (function name) "(" arg ("," arg)* ")" 
+
+format indicator: 
+ (tab) "|" | (contiguous string) ">" | (multi-line string including new lines) ">>" 
+
+
+
+inline node
+
+-gene(name:NM_001005277, chr:chr1, strand:+, start:357521, end:358460)
+ -cds(start, end)|
+ 
+
+
+= considerations
+- ordered/unordered:
+- scope delimiter:
+
+
+= Amoeba
+
+-company
+ -name: A
+ -employee
+  -id: 1
+  -name: A
+  -dept: SEA
+ >dept: LA
+  -employee
+   -id: 2
+   -name: B
+  -employee
+   -id: 3
+   -name: C
+ -employee
+  -id: 4
+  -name: D
+  -dept: SEA
+
+use > to show the node is an attribute of its child node. 
+
+>chr:chr1
+ -gene(start:100, end:10000, strand:+)
+ -gene(start:2000, end:103424, strand: -)
+
+
+
+= Graph Data
+
+-plot(x, y)*
+-2, 4
+-1, 10
+ 0, 23
+
+= No-name node
+
+class MyList extends List<Gene> {
+  public String name;
+}
+
+-name:A
+-(name:gene1, start:1000, end:2000)
+-(name:gene2, start:1000, end:2000)
+== multiline text
+  
+(sequence data)
+
+-NM_001005224(chr:chr1, length:40)
+ -sequence>
+ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
+\-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
+
+
+
+= Microformat in tab-separated data
+
+-track: refseq genes
+ -sequence: hg19
+ -chr: chr1
+ -refgene(name, strand, start, end, cds(start, end)*, exon(start, end)*)|
+NM_001005277    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[9909046,9909277]]
+NM_001005224    +       357521  358460	[[357521,358460]]	[[9907193,9908432],[9909046,9909277]]
+
+
+= Schema
+
+%relation track group(track*) 
+%relation gene(cds*, exon*)
+
+
+
+= Indexing Silk
+
+== index type
+* hash
+* b-tree
+* ub-tree 
+
+
+%index on gene(chr[hash], (start, end)[z-order])
+
+
+
+-section: Function in Silk
+
+function: silk -> silk
+
+--code
+
+--@filter("person.dept == LA")
+-person(id:1, dept:LA)
+-person(id:2, dept:SEA)
+-person(id:3, dept:LA)
+--
+
+--
+
