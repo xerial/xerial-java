@@ -27,7 +27,6 @@ package org.xerial.util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
@@ -53,36 +52,47 @@ public class FastBufferedReaderTest {
         StopWatch s = new StopWatch();
 
         String line = null;
-        final int N = 5;
+        final int N = 10;
 
         Pattern p = Pattern.compile("\t");
 
+        //        s.reset();
+        //        for (int i = 0; i < N; i++) {
+        //            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
+        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+        //
+        //            while ((line = br.readLine()) != null) {
+        //                String[] tab = p.split(line);
+        //            }
+        //        }
+        //        _logger.info("default split:" + s.getElapsedTime());
+
+        //        s.reset();
+        //        for (int i = 0; i < N; i++) {
+        //            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
+        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+        //
+        //            while ((line = br.readLine()) != null) {
+        //                Scanner scan = new Scanner(line);
+        //                scan.useDelimiter(p);
+        //                ArrayList<String> tokens = new ArrayList<String>();
+        //                while (scan.hasNext()) {
+        //                    tokens.add(scan.next());
+        //                }
+        //            }
+        //        }
+        //        _logger.info("scanner split:" + s.getElapsedTime());
+
         s.reset();
         for (int i = 0; i < N; i++) {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
                     SilkWalkerTest.class, "scaffold1.silk").openStream()));
 
             while ((line = br.readLine()) != null) {
-                String[] tab = p.split(line);
+                ArrayList<String> tokens = StringUtil.splitAtTab(line);
             }
         }
-        _logger.info("default split:" + s.getElapsedTime());
-
-        s.reset();
-        for (int i = 0; i < N; i++) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-
-            while ((line = br.readLine()) != null) {
-                Scanner scan = new Scanner(line);
-                scan.useDelimiter(p);
-                ArrayList<String> tokens = new ArrayList<String>();
-                while (scan.hasNext()) {
-                    tokens.add(scan.next());
-                }
-            }
-        }
-        _logger.info("scanner split:" + s.getElapsedTime());
+        _logger.info("my split:" + s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++) {
@@ -99,27 +109,6 @@ public class FastBufferedReaderTest {
         }
         _logger.info("tokenizer split:" + s.getElapsedTime());
 
-        s.reset();
-        for (int i = 0; i < N; i++) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-
-            while ((line = br.readLine()) != null) {
-                ArrayList<Integer> pos = new ArrayList<Integer>();
-                pos.add(0);
-                for (int c = 0; c < line.length(); ++c) {
-                    if (line.charAt(c) == '\t')
-                        pos.add(c);
-                }
-                String[] tab = new String[pos.size()];
-                for (int e = 0; e < pos.size() - 1; ++e) {
-                    int start = pos.get(e);
-                    int end = pos.get(e + 1);
-                    tab[e] = line.substring(start, end - 1);
-                }
-            }
-        }
-        _logger.info("my split:" + s.getElapsedTime());
         //        s.reset();
         //        for (int i = 0; i < N; i++) {
         //            FastBufferedReader fb = new FastBufferedReader(new InputStreamReader(FileResource.find(

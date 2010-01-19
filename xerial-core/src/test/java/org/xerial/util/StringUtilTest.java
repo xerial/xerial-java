@@ -24,17 +24,16 @@
 //--------------------------------------
 package org.xerial.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.junit.Test;
 
-public class StringUtilTest
-{
+public class StringUtilTest {
     @Test
-    public void testJoin()
-    {
+    public void testJoin() {
         Vector<String> v = new Vector<String>();
         v.add("Hello");
         v.add("World!");
@@ -42,25 +41,36 @@ public class StringUtilTest
         v.add("SCMD");
         assertEquals("Hello, World!, SCMD", StringUtil.join(v, ", "));
     }
-    
+
     @Test
-    public void quote()
-    {
+    public void quote() {
         String message = "hello world";
         assertEquals("\'hello world\'", StringUtil.quote(message, StringUtil.SINGLE_QUOTE));
         assertEquals("\"hello world\"", StringUtil.quote(message, StringUtil.DOUBLE_QUOTE));
     }
 
     @Test
-    public void contatinateWithTab()
-    {
+    public void contatinateWithTab() {
         String s = StringUtil.concatinateWithTab("hello", "world", "2005");
         assertEquals("hello\tworld\t2005", s);
     }
 
-    
+    @Test
+    public void splitAtTab() {
+        ArrayList<String> elems = StringUtil.splitAtTab("hello\tworld\tleo");
+
+        assertEquals(3, elems.size());
+        assertEquals("hello", elems.get(0));
+        assertEquals("world", elems.get(1));
+        assertEquals("leo", elems.get(2));
+
+        ArrayList<String> elems2 = StringUtil.splitAtTab("hello\tworld\t\tleo");
+        assertEquals(4, elems2.size());
+        assertEquals("hello", elems2.get(0));
+        assertEquals("world", elems2.get(1));
+        assertEquals("", elems2.get(2));
+        assertEquals("leo", elems2.get(3));
+
+    }
+
 }
-
-
-
-

@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -148,4 +149,27 @@ public class StringUtil {
     public static String newline() {
         return NEW_LINE;
     }
+
+    public static ArrayList<String> splitAtTab(String line) {
+        return split(line, '\t');
+    }
+
+    public static ArrayList<String> splitAtComma(String line) {
+        return split(line, ',');
+    }
+
+    public static ArrayList<String> split(String line, char delimiter) {
+        int prevPos = 0;
+        ArrayList<String> tokens = new ArrayList<String>();
+        final int len = line.length();
+        for (int c = 0; c < len; ++c) {
+            if (line.charAt(c) == delimiter) {
+                tokens.add(line.substring(prevPos, c));
+                prevPos = c + 1;
+            }
+        }
+        tokens.add(line.substring(prevPos, len));
+        return tokens;
+    }
+
 }
