@@ -24,7 +24,23 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
-import static org.xerial.silk.impl.SilkLineLexer.*;
+import static org.xerial.silk.impl.SilkLineLexer.At;
+import static org.xerial.silk.impl.SilkLineLexer.Colon;
+import static org.xerial.silk.impl.SilkLineLexer.Comma;
+import static org.xerial.silk.impl.SilkLineLexer.EqEq;
+import static org.xerial.silk.impl.SilkLineLexer.FunctionIndent;
+import static org.xerial.silk.impl.SilkLineLexer.LBracket;
+import static org.xerial.silk.impl.SilkLineLexer.LParen;
+import static org.xerial.silk.impl.SilkLineLexer.NodeIndent;
+import static org.xerial.silk.impl.SilkLineLexer.PlainOneLine;
+import static org.xerial.silk.impl.SilkLineLexer.Plus;
+import static org.xerial.silk.impl.SilkLineLexer.Question;
+import static org.xerial.silk.impl.SilkLineLexer.RBracket;
+import static org.xerial.silk.impl.SilkLineLexer.RParen;
+import static org.xerial.silk.impl.SilkLineLexer.Seq;
+import static org.xerial.silk.impl.SilkLineLexer.Star;
+import static org.xerial.silk.impl.SilkLineLexer.String;
+import static org.xerial.silk.impl.SilkLineLexer.TabSeq;
 
 import java.util.List;
 
@@ -149,14 +165,8 @@ public class SilkNodeParser {
             node.setValue(t.getText());
             break;
         }
-        case JSON: {
-            Token t = getToken(1);
-            consume();
-            node.setJSON(t.getText());
-            break;
-        }
         default:
-            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String, JSON);
+            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String);
         }
 
     }
@@ -171,13 +181,8 @@ public class SilkNodeParser {
                     "nested function is not yet supported");
         case PlainOneLine:
         case String:
-        case JSON: {
-            Token t = getToken(1);
-            consume();
-            return t.getText();
-        }
         default:
-            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String, JSON);
+            throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String);
         }
 
     }

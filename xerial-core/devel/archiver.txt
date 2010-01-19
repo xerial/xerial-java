@@ -27,7 +27,7 @@ How about the acronym?
 
 == Goals
 
-The goals of the silk archiver is to support:
+The goal of the silk archiver is to support:
 * creating compact archives for tree/table structured data, and
 * making the archives queryable.
 
@@ -75,9 +75,37 @@ Silk Data -> parse -> tree events -> extract relations -> sorting -> alternative
 Silk Data -> split -> 
 
 
-map: key:line#, value:line  ->  key:(block#, line#), value:List<SilkElement>
-reduce: key:(block#, line#), value:List<SilkElement> -> key:block# value:SilkContext(incomplete)
+(map) (offset, line)  ->  (([block#], offset), SilkElement*)  -> (block#, E:SilkEnv) (reduce)
 
+[] group key
+
+E'1, E'2, E'3, E'4, ..., E'n
+
+E1 = E'1
+E2 = E1 + E'2
+E3 = E2 + E'3
+...
+
+En = En-1 + E'n
+
+
+Compute Env (E)
+
+(map) (block#, E') -> (([1],block#), E'*) -> (block#, E) R (reduce) (collect all env)
+ Compute E1 .... En in the reducer using intermediate SilkEnv (E'1, ..., E'n
+)
+Set the environment table E(b, E_b) to the DistributedCache
+
+
+(map) (offset, line) -> (([block#], offset), SilkElement*) 
+(reduce) -> (([context id], index key), relation)
+(map)    -> ([(context id, index key)], relation*)    (identity map)
+(reduce) -> (context id, alt_structure) (key-order preserving tree-design)
+
+
+
+
+ 
 
 
 
