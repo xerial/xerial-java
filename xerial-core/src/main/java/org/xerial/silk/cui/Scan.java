@@ -50,8 +50,7 @@ import org.xerial.util.tree.TreeEventHandlerBase;
  * 
  */
 @Usage(command = "silk scan", description = "silk file scanner")
-public class Scan implements SilkCommand
-{
+public class Scan implements SilkCommand {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
     public static enum ScanMode {
@@ -59,35 +58,33 @@ public class Scan implements SilkCommand
     }
 
     @Argument(index = 0)
-    private String inputSilkFile = null;
+    private final String inputSilkFile = null;
 
     @Option(symbol = "m", longName = "mode", description = "scan mode: line, fastline, node, readonly")
-    private ScanMode mode = ScanMode.NODE;
+    private final ScanMode mode = ScanMode.NODE;
 
     @Option(symbol = "b", longName = "buffer", description = "buffer size in MB (default = 1)")
-    private int bufferSizeInMB = 1;
+    private final int bufferSizeInMB = 1;
 
     @Option(symbol = "n", longName = "thread", description = "num workder threads")
-    private int numThreads = 2;
+    private final int numThreads = 2;
 
     @Option(symbol = "c", longName = "lines", description = "num assigned lines for each worker threads")
-    private int numLines = 1000;
+    private final int numLines = 1000;
 
-    private void reportReadSpeed(double time, long fileSize)
-    {
+    private void reportReadSpeed(double time, long fileSize) {
         double speedInMBS = fileSize / 1024 / 1024 / time;
         _logger.info(String.format("\ntime=%.2f, %3.2f MB/s", time, speedInMBS));
 
     }
 
-    private void reportLinesPerSec(double time, long lineCount)
-    {
+    private void reportLinesPerSec(double time, long lineCount) {
         double speed = lineCount / time;
-        System.err.print(String.format("time=%5.2f line=%,10d %,10.0f lines/s\r", time, lineCount, speed));
+        System.err.print(String.format("time=%5.2f line=%,10d %,10.0f lines/s\r", time, lineCount,
+                speed));
     }
 
-    public void execute() throws Exception
-    {
+    public void execute() throws Exception {
         File f = new File(inputSilkFile);
         final long fileSize = f.length();
 
@@ -98,11 +95,9 @@ public class Scan implements SilkCommand
 
         _logger.info("config: " + ObjectLens.toJSON(config));
 
-        switch (mode)
-        {
-        case NODE:
-        {
-            SilkParser parser = new SilkParser(f.toURL(), config);
+        switch (mode) {
+        case NODE: {
+            SilkParser parser = new SilkParser(f.toURI().toURL(), config);
 
             parser.parse(new TreeEventHandlerBase() {
 
@@ -110,56 +105,49 @@ public class Scan implements SilkCommand
                 StopWatch timer = new StopWatch();
 
                 @Override
-                public void init() throws Exception
-                {
+                public void init() throws Exception {
                     timer.reset();
                 }
 
                 @Override
-                public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-                {
+                public void visitNode(String nodeName, String immediateNodeValue) throws Exception {
                     count++;
-                    if (count % 1000000 == 0)
-                    {
+                    if (count % 1000000 == 0) {
                         double time = timer.getElapsedTime();
                         double speed = count / time;
-                        System.err.print(String.format("node=%,15d time=%5.2f %,10.0f nodes/s\r", count, time, speed));
+                        System.err.print(String.format("node=%,15d time=%5.2f %,10.0f nodes/s\r",
+                                count, time, speed));
                     }
 
                 }
 
                 @Override
-                public void finish() throws Exception
-                {
+                public void finish() throws Exception {
                     double time = timer.getElapsedTime();
-                    double speedPerNode = ((double) count) / time;
+                    double speedPerNode = (count) / time;
                     double speedInMBS = fileSize / 1024 / 1024 / time;
-                    _logger.info(String.format("\ntime=%.2f %,10.0f nodes/s, %3.2f MB/s", time, speedPerNode,
-                            speedInMBS));
+                    _logger.info(String.format("\ntime=%.2f %,10.0f nodes/s, %3.2f MB/s", time,
+                            speedPerNode, speedInMBS));
                 }
 
             });
             break;
         }
-        case LINE:
-        {
-            SilkLinePushParser parser = new SilkLinePushParser(f.toURL(), config);
+        case LINE: {
+            SilkLinePushParser parser = new SilkLinePushParser(f.toURI().toURL(), config);
             parser.parse(new SilkEventHandler() {
 
                 int lineCount = 0;
                 StopWatch timer = new StopWatch();
 
-                public void handle(SilkEvent event) throws Exception
-                {
-                    if (event.getType() == SilkEventType.END_OF_FILE)
-                    {
+                public void handle(SilkEvent event) throws Exception {
+                    if (event.getType() == SilkEventType.END_OF_FILE) {
                         reportReadSpeed(timer.getElapsedTime(), fileSize);
                         return;
                     }
 
                     lineCount++;
-                    if (lineCount % 100000 == 0)
-                    {
+                    if (lineCount % 100000 == 0) {
                         reportLinesPerSec(timer.getElapsedTime(), lineCount);
                     }
 
@@ -168,25 +156,21 @@ public class Scan implements SilkCommand
 
             break;
         }
-        case FASTLINE:
-        {
-            SilkLineFastParser parser = new SilkLineFastParser(f.toURL(), config);
+        case FASTLINE: {
+            SilkLineFastParser parser = new SilkLineFastParser(f.toURI().toURL(), config);
             parser.parse(new SilkEventHandler() {
 
                 int lineCount = 0;
                 StopWatch timer = new StopWatch();
 
-                public void handle(SilkEvent event) throws Exception
-                {
-                    if (event.getType() == SilkEventType.END_OF_FILE)
-                    {
+                public void handle(SilkEvent event) throws Exception {
+                    if (event.getType() == SilkEventType.END_OF_FILE) {
                         reportReadSpeed(timer.getElapsedTime(), fileSize);
                         return;
                     }
 
                     lineCount++;
-                    if (lineCount % 100000 == 0)
-                    {
+                    if (lineCount % 100000 == 0) {
                         reportLinesPerSec(timer.getElapsedTime(), lineCount);
                     }
 
@@ -195,19 +179,16 @@ public class Scan implements SilkCommand
 
             break;
         }
-        case READONLY:
-        {
+        case READONLY: {
             BufferedReader reader = new BufferedReader(new FileReader(f), config.bufferSize);
             String line;
 
             int lineCount = 0;
             StopWatch timer = new StopWatch();
 
-            while ((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 lineCount++;
-                if (lineCount % 100000 == 0)
-                {
+                if (lineCount % 100000 == 0) {
                     reportLinesPerSec(timer.getElapsedTime(), lineCount);
                 }
 
@@ -221,13 +202,11 @@ public class Scan implements SilkCommand
 
     }
 
-    public String getName()
-    {
+    public String getName() {
         return "scan";
     }
 
-    public String getOneLineDescription()
-    {
+    public String getOneLineDescription() {
         return "scanning the input Silk file";
     }
 

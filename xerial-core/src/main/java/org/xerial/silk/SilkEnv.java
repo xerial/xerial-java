@@ -41,8 +41,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkEnv
-{
+public class SilkEnv {
     private static Logger _logger = Logger.getLogger(SilkEnv.class);
 
     private int indentationOffset = 0;
@@ -51,8 +50,7 @@ public class SilkEnv
     public int contextNodeAttributeCursor = 0;
     public boolean isAttributeOpen = false;
 
-    private SilkEnv(SilkEnv parent, int indentationOffset)
-    {
+    private SilkEnv(SilkEnv parent, int indentationOffset) {
         this.indentationOffset = indentationOffset;
         this.resourceBasePath = parent.resourceBasePath;
         this.contextNodeStack = parent.contextNodeStack;
@@ -62,8 +60,7 @@ public class SilkEnv
 
     }
 
-    private SilkEnv(SilkEnv parent, String resourceBasePath)
-    {
+    private SilkEnv(SilkEnv parent, String resourceBasePath) {
         this.indentationOffset = parent.indentationOffset;
         // use input resource base path
         this.resourceBasePath = resourceBasePath;
@@ -74,45 +71,36 @@ public class SilkEnv
 
     }
 
-    private SilkEnv(String resourceBasePath)
-    {
+    private SilkEnv(String resourceBasePath) {
         this.resourceBasePath = resourceBasePath;
     }
 
-    public static SilkEnv newEnv()
-    {
+    public static SilkEnv newEnv() {
         return newEnv(null);
     }
 
-    public static SilkEnv newEnv(SilkEnv parent, String resourceBasePath)
-    {
+    public static SilkEnv newEnv(SilkEnv parent, String resourceBasePath) {
         return new SilkEnv(parent, resourceBasePath);
     }
 
-    public static SilkEnv newEnv(String resourceBasePath)
-    {
+    public static SilkEnv newEnv(String resourceBasePath) {
         if (resourceBasePath != null)
             return new SilkEnv(resourceBasePath);
-        else
-        {
+        else {
             File base = new File(System.getProperty("user.dir", ""));
-            try
-            {
-                return new SilkEnv(base.toURL().toExternalForm());
+            try {
+                return new SilkEnv(base.toURI().toURL().toExternalForm());
             }
-            catch (MalformedURLException e)
-            {
+            catch (MalformedURLException e) {
                 throw new XerialError(XerialErrorCode.INVALID_STATE, e);
             }
         }
     }
 
-    public SilkEnv newEnvFor(SilkFunction f)
-    {
+    public SilkEnv newEnvFor(SilkFunction f) {
         int offset = indentationOffset;
 
-        if (f.getIndentLevel() == SilkFunction.NO_INDENT)
-        {
+        if (f.getIndentLevel() == SilkFunction.NO_INDENT) {
             SilkNode contextNode = getContextNode();
             if (contextNode != null)
                 offset = contextNode.getIndentLevel();
@@ -123,8 +111,7 @@ public class SilkEnv
         return new SilkEnv(this, offset);
     }
 
-    public Logger getLogger()
-    {
+    public Logger getLogger() {
         return _logger;
     }
 
@@ -133,8 +120,7 @@ public class SilkEnv
      * 
      * @return the baseline indentation
      */
-    public int getIndentationOffset()
-    {
+    public int getIndentationOffset() {
         return indentationOffset;
     }
 
@@ -143,33 +129,27 @@ public class SilkEnv
      * 
      * @return the resource base path
      */
-    public String getResourceBasePath()
-    {
+    public String getResourceBasePath() {
         return resourceBasePath;
     }
 
-    Deque<SilkContext> getContextNodeStack()
-    {
+    Deque<SilkContext> getContextNodeStack() {
         return contextNodeStack;
     }
 
-    public void pushContext(SilkContext context)
-    {
+    public void pushContext(SilkContext context) {
         contextNodeStack.addLast(context);
     }
 
-    public boolean isContextNodeStackEmpty()
-    {
+    public boolean isContextNodeStackEmpty() {
         return contextNodeStack.isEmpty();
     }
 
-    public SilkContext peekLastContext()
-    {
+    public SilkContext peekLastContext() {
         return contextNodeStack.peekLast();
     }
 
-    public SilkContext popLastContext()
-    {
+    public SilkContext popLastContext() {
         return contextNodeStack.removeLast();
     }
 
@@ -178,8 +158,7 @@ public class SilkEnv
      * 
      * @return
      */
-    public SilkNode getContextNode()
-    {
+    public SilkNode getContextNode() {
         if (contextNodeStack.isEmpty())
             return null;
         else
