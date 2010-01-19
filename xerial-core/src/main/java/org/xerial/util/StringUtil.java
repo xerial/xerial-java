@@ -162,10 +162,10 @@ public class StringUtil {
         int prevPos = 0;
         ArrayList<String> tokens = new ArrayList<String>();
         final int len = line.length();
-        for (int c = 0; c < len; ++c) {
-            if (line.charAt(c) == delimiter) {
-                tokens.add(line.substring(prevPos, c));
-                prevPos = c + 1;
+        for (int index = 0; index < len; ++index) {
+            if (line.charAt(index) == delimiter) {
+                tokens.add(line.substring(prevPos, index));
+                prevPos = index + 1;
             }
         }
         tokens.add(line.substring(prevPos, len));

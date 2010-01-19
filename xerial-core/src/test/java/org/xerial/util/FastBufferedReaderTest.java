@@ -52,7 +52,7 @@ public class FastBufferedReaderTest {
         StopWatch s = new StopWatch();
 
         String line = null;
-        final int N = 10;
+        final int N = 1;
 
         Pattern p = Pattern.compile("\t");
 
