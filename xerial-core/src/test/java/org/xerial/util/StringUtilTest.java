@@ -88,4 +88,12 @@ public class StringUtilTest {
         assertEquals("leo", e.get(1));
     }
 
+    @Test
+    public void splitCSVwithJavaCC() throws Exception {
+        ArrayList<String> e = StringUtil.splitCSVwithJavaCC("hello world,leo");
+        assertEquals(2, e.size());
+        assertEquals("hello world", e.get(0));
+        assertEquals("leo", e.get(1));
+    }
+
 }

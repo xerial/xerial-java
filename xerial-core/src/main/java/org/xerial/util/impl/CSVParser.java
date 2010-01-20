@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 CSV.g 2010-01-20 16:29:42
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 CSV.g 2010-01-20 23:52:21
 
 //--------------------------------------
 // XerialJ Project
@@ -17,19 +17,12 @@ import java.util.ArrayList;
 
 public class CSVParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "WhiteSpace", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Comma"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "StringChar_s", "Comma", "String"
     };
-    public static final int String=12;
-    public static final int Letter=6;
-    public static final int Comma=13;
-    public static final int Digit=5;
-    public static final int EscapeSequence=9;
-    public static final int HexDigit=7;
+    public static final int String=6;
+    public static final int StringChar_s=4;
+    public static final int Comma=5;
     public static final int EOF=-1;
-    public static final int StringChar_s=11;
-    public static final int UnicodeChar=8;
-    public static final int WhiteSpace=4;
-    public static final int StringChar=10;
 
     // delegates
     // delegators
@@ -50,18 +43,18 @@ public class CSVParser extends Parser {
 
 
     // $ANTLR start "csvLine"
-    // CSV.g:79:1: csvLine : csvElement ( Comma csvElement )* ;
+    // CSV.g:69:1: csvLine : csvElement ( Comma csvElement )* ;
     public final void csvLine() throws RecognitionException {
         try {
-            // CSV.g:79:8: ( csvElement ( Comma csvElement )* )
-            // CSV.g:79:10: csvElement ( Comma csvElement )*
+            // CSV.g:69:8: ( csvElement ( Comma csvElement )* )
+            // CSV.g:69:10: csvElement ( Comma csvElement )*
             {
-            pushFollow(FOLLOW_csvElement_in_csvLine273);
+            pushFollow(FOLLOW_csvElement_in_csvLine118);
             csvElement();
 
             state._fsp--;
 
-            // CSV.g:79:21: ( Comma csvElement )*
+            // CSV.g:69:21: ( Comma csvElement )*
             loop1:
             do {
                 int alt1=2;
@@ -74,10 +67,10 @@ public class CSVParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // CSV.g:79:22: Comma csvElement
+            	    // CSV.g:69:22: Comma csvElement
             	    {
-            	    match(input,Comma,FOLLOW_Comma_in_csvLine276); 
-            	    pushFollow(FOLLOW_csvElement_in_csvLine278);
+            	    match(input,Comma,FOLLOW_Comma_in_csvLine121); 
+            	    pushFollow(FOLLOW_csvElement_in_csvLine123);
             	    csvElement();
 
             	    state._fsp--;
@@ -107,13 +100,13 @@ public class CSVParser extends Parser {
 
 
     // $ANTLR start "csvElement"
-    // CSV.g:81:1: csvElement : String ;
+    // CSV.g:71:1: csvElement : String ;
     public final void csvElement() throws RecognitionException {
         try {
-            // CSV.g:81:11: ( String )
-            // CSV.g:81:13: String
+            // CSV.g:71:11: ( String )
+            // CSV.g:71:13: String
             {
-            match(input,String,FOLLOW_String_in_csvElement287); 
+            match(input,String,FOLLOW_String_in_csvElement132); 
 
             }
 
@@ -133,9 +126,9 @@ public class CSVParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_csvElement_in_csvLine273 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_Comma_in_csvLine276 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_csvElement_in_csvLine278 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_String_in_csvElement287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csvElement_in_csvLine118 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_Comma_in_csvLine121 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_csvElement_in_csvLine123 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_String_in_csvElement132 = new BitSet(new long[]{0x0000000000000002L});
 
 }

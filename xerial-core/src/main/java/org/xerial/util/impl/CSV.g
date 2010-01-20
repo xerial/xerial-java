@@ -56,22 +56,12 @@ package org.xerial.util.impl;
 package org.xerial.util.impl;
 }
 
+ 
 
-WhiteSpace: (' ' | '\r' | '\t' | '\u000C' | '\n') { $channel=HIDDEN; };
-
-fragment Digit: '0' .. '9';
-fragment Letter: 'A' .. 'F' | 'a' .. 'f';
-fragment HexDigit: Digit | Letter;
-fragment UnicodeChar: ~('"'| '\\');
-fragment EscapeSequence
-  : '\\' ('\"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
-  ; 
-
-fragment StringChar :  UnicodeChar | EscapeSequence;
-fragment StringChar_s: StringChar*;
+fragment StringChar_s: ~('"');
 String
   : '"' s=StringChar_s '"' { setText($s.text); }
-  | (~('"' | ','))* 
+  | (~('"' | Comma))* 
   ;
 
 Comma: ',';

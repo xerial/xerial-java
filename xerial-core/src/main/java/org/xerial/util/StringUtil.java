@@ -24,10 +24,10 @@
 //--------------------------------------
 package org.xerial.util;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +35,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Token;
 import org.xerial.util.impl.CSVLexer;
+import org.xerial.util.impl.SimpleCSV;
 
 /**
  * A utility for manipulating Strings
@@ -170,17 +171,47 @@ public class StringUtil {
         CSVLexer lexer = new CSVLexer(new ANTLRStringStream(line));
         CommonTokenStream ts = new CommonTokenStream(lexer);
         ArrayList<String> result = new ArrayList<String>();
-        List<Token> tokenList = ts.getTokens();
-        for (Token t : tokenList) {
+        boolean toContinue = true;
+        while (toContinue) {
+            Token t = ts.LT(1);
             switch (t.getType()) {
             case CSVLexer.String:
                 result.add(t.getText());
+                ts.consume();
                 break;
             case CSVLexer.Comma:
+                ts.consume();
+                break;
+            case CSVLexer.EOF:
+                toContinue = false;
                 break;
             }
         }
         return result;
+    }
+
+    public static ArrayList<String> splitCSVwithJavaCC(String line) {
+
+        SimpleCSV lexer = new SimpleCSV(new StringReader(line));
+        boolean toContinue = true;
+        ArrayList<String> csv = new ArrayList<String>();
+        while (toContinue) {
+            org.xerial.util.impl.Token t = lexer.getNextToken();
+            switch (t.kind) {
+            case SimpleCSV.COMMA:
+                break;
+            case SimpleCSV.STRING:
+                csv.add(t.image);
+                break;
+            case SimpleCSV.ELEMENT:
+                csv.add(t.image);
+                break;
+            case SimpleCSV.EOF:
+                toContinue = false;
+                break;
+            }
+        }
+        return csv;
     }
 
     public static ArrayList<String> split(String line, char delimiter) {
