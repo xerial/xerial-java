@@ -399,6 +399,23 @@ NM_152486	chr1	+	850983	869824
  855397     855579
 --
 
+-paragraph: Alternative Structure
+
+--code
+-track: refseq genes
+ -species: human
+ -sequence: hg19
+ -gene(name, chr, strand, start, end, cds(start, end)*, exon(start, end)*)|
+ ->strand: +
+ ->chr:chr1
+NM_001005277  357521  358460	[[357521,358460]]	[[357521,358460]]
+NM_152486     850983  869824	[[851184,869396]]	[[850983,851043],[851164,851256],[855397,855579]]
+ ->chr:chr2
+NM_001005277  357521  358460	[[357521,358460]]	[[357521,358460]]
+NM_152486     850983  869824	[[851184,869396]]	[[850983,851043],[851164,851256],[855397,855579]]
+--
+
+
 
 -paragraph: In-line JSON data (Array)
 
