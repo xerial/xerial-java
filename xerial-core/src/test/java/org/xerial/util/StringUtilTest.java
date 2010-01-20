@@ -71,6 +71,13 @@ public class StringUtilTest {
         assertEquals("", elems2.get(2));
         assertEquals("leo", elems2.get(3));
 
+        ArrayList<String> elems3 = StringUtil.splitAtTab("hello\tworld\tleo\t");
+        assertEquals(4, elems3.size());
+        assertEquals("hello", elems3.get(0));
+        assertEquals("world", elems3.get(1));
+        assertEquals("leo", elems3.get(2));
+        assertEquals("", elems3.get(3));
+
     }
 
 }

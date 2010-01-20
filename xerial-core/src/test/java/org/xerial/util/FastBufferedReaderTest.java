@@ -56,16 +56,16 @@ public class FastBufferedReaderTest {
 
         Pattern p = Pattern.compile("\t");
 
-        //        s.reset();
-        //        for (int i = 0; i < N; i++) {
-        //            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-        //
-        //            while ((line = br.readLine()) != null) {
-        //                String[] tab = p.split(line);
-        //            }
-        //        }
-        //        _logger.info("default split:" + s.getElapsedTime());
+        s.reset();
+        for (int i = 0; i < N; i++) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
+                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+
+            while ((line = br.readLine()) != null) {
+                String[] tab = p.split(line);
+            }
+        }
+        _logger.info("default split:" + s.getElapsedTime());
 
         //        s.reset();
         //        for (int i = 0; i < N; i++) {
