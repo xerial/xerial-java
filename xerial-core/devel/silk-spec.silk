@@ -134,7 +134,7 @@ Indentation before hyphen ('-') represents tree node depth. Only space character
  -year:2007
 --
 
-Alternatively, you can write the same data as follows:
+Alternatively, you can write the same data using a compact format:
 --code
 -book(id:1, title: Database Management Systems, isbn:0071230572, year:2002)
 -book(id:2, title: Compilers: Second Edition, isbn:0321547985, year:2007)
@@ -181,7 +181,7 @@ Alternatively, you can write the same data as follows:
 
 -section: Tab-separated data 
 
-Silk is designed to ruduce the redundancy of XML or JSON format in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs. Each data element split by tabs will be assigned a corresponding node name specified in the preceding table schema: 
+Silk is designed to ruduce the redundancy of XML or JSON in describing large data set. Node description ending with a bar '|' is called @keyword(table schema), and the following lines will be split by tabs. Each data element split by tabs will be assigned a corresponding node name specified in the preceding table schema: 
 @bold(Silk)
 --code
 # A book node schema with 4 parameters. 
@@ -189,7 +189,7 @@ Silk is designed to ruduce the redundancy of XML or JSON format in describing la
 1	Database Management Systems	0071230572	2002
 2	Compilers: Second Edition	0321547985	2007
 
-# A new node appearance at the same or lower indentation level with the book node 
+# A new node appearance at the same or fewer indentations with the book node
 # terminates the tab-separated data region 
 -updated: 2009/02/16
 --
@@ -289,9 +289,9 @@ The above two silk data has the same semantics with the following JSON data:
 </code>
 
 
--paragraph: Using hyphen/sharp/at symbols at the head of text data
+-paragraph: Using hyphen/sharp/at symbols at the head of the text data
 
-When the multi-line data contains a hyphen(-) at the head of a line, escape it with {b|\-} notation, because hyphen(-) is a special character in Silk for describing nodes:
+When the multi-line data contains a hyphen(-) at the head of a line, escape it with {b|\-} notation, since hyphen(-) is a special character in Silk for describing nodes:
 
 @bold(Silk)
 --code
@@ -318,7 +318,7 @@ Use "--" indicator to preserve line breaks and white spaces in multi-line text v
 \--
 --
 
-The double hyphen symbol "--" switches the parsing mode of Silk, and the Silk parser continues to report succeeding lines as text lines until another "--" is found.
+The double hyphen symbol "--" switches the parsing mode of Silk; The Silk parser will continues to report succeeding lines as a text value (including comment lines, etc.) until another "--" is found.
 
 @bold(JSON)
 --code
@@ -406,7 +406,7 @@ JSON data can be embedded as a text value by specifying data type description "[
 
 @bold(Silk)
 --code
- -prime*: [2, 3, 5, 7, 11, 13, 17, 19, 23]
+-prime*: [2, 3, 5, 7, 11, 13, 17, 19, 23]
 --
 
 @bold(JSON)
@@ -526,7 +526,6 @@ A---ATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 
 --code
 -alignment(id, name, query sequence, database sequence)|-
---
 : 1
 : SEQ1
 > 
@@ -544,8 +543,6 @@ ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 A---ATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 ---
 --
-
-
 
 
 
@@ -577,8 +574,7 @@ A---ATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 851164     851256
 855397     855579
 ---
-
-
+--
 
 
 @bold(JSON)
@@ -636,21 +632,28 @@ A---ATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 @bold(Silk)
 --code
 -plot(x, y)*
-1,3
-4,5
-7,8
+1, 3
+4, 5
+7, 8
 9,10
 --
 
+If you have to use negative values, use "--" notation to switch parsing mode for "-":
 --code
--plot*
+--plot*
 -1.0
 -1.5
 -0.1
 0.1
 0.3
 0.8
+--
+--
 
+"--" is necessary to terminate the raw-data mode. The above data is same with: 
+@bold(JSON)
+--code
+{"plot":[-1.0, -1.5, -0.1, 0.1, 0.3, 0.8]}
 --
 
 
@@ -722,17 +725,17 @@ NM_001005221	-	610958	611897
 
 -sub section: More complex example
 --code
-\% silk(version:1.0)
-\# single comment line
+% silk(version:1.0)
+# single comment line
 
-\# tree node description. node_name (child_name1[:value], ...)
-\- track(name:"refseq gene")
- \- author: leo	     # author is a child node of the track node
+# tree node description. node_name (child_name1[:value], ...)
+-track(name:"refseq gene")
+ -author: leo	     # author is a child node of the track node
 
-\# specify coordinates 
-\- coordinate(group:utgb, name:chr1, species:human, revision:hg18)
-\# gene data description with tab-seaprated data format. CDS and exon data use micro-data format 
- \- gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
+# specify coordinates 
+-coordinate(group:utgb, name:chr1, species:human, revision:hg18)
+# gene data description with tab-seaprated data format. CDS and exon data use micro-data format 
+ -gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
 NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
 NM_001005224	+	357521	358460	[357521, 358460]	[[357521, 358460]]
 NM_001005221	+	357521	358460	[357521, 358460]	[[357521, 358460]]
@@ -741,15 +744,15 @@ NM_001005224	-	610958	611897	[610958, 611897]	[[610958, 611897]]
 NM_001005221	-	610958	611897	[610958, 611897]	[[610958, 611897]]
 NM_152486	+	850983	869824	[851184, 869396]	[[850983, 851043],[851164, 851256],[855397, 855579]] 
 
-\# indentation before tab-separated data can be used for readability
-\- coordinate(group:utgb, name:chr2, species:human, revision:hg18)
- \- gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
+# indentation before tab-separated data can be used for readability
+-coordinate(group:utgb, name:chr2, species:human, revision:hg18)
+ -gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
    NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
    NM_001005278	+	357521	358460	[357521, 358460]	[[357521, 358460]]
   
-\# flexible structure organization 
-\- coordinate(group:utgb, species:human, revision:hg18)
- \- gene(coordinate.name, name, strand, start, end)| # coordinate names is pulled down from the parent node
+# flexible structure organization 
+-coordinate(group:utgb, species:human, revision:hg18)
+ -gene(coordinate.name, name, strand, start, end)| # coordinate names is pulled down from the parent node
 chr1	gene1	+	357521	358460
 chr2	gene2	+	357521	358460
 chr10	gene3	+	357521	358460
