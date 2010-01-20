@@ -47,7 +47,40 @@ public class FastBufferedReaderTest {
     public void tearDown() throws Exception {}
 
     @Test
-    public void performance() throws Exception {
+    public void performanceOfCSVSplit() throws Exception {
+
+        StopWatch s = new StopWatch();
+
+        String line = null;
+        final int N = 1;
+        Pattern p = Pattern.compile(",");
+
+        s.reset();
+        for (int i = 0; i < N; i++) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
+                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+
+            while ((line = br.readLine()) != null) {
+                String[] csv = p.split(line);
+            }
+        }
+        _logger.info("default split:" + s.getElapsedTime());
+
+        s.reset();
+        for (int i = 0; i < N; i++) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
+                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+
+            while ((line = br.readLine()) != null) {
+                ArrayList<String> csv = StringUtil.splitCSV(line);
+            }
+        }
+        _logger.info("ANTLR split:" + s.getElapsedTime());
+
+    }
+
+    @Test
+    public void performanceOfTabSplit() throws Exception {
 
         StopWatch s = new StopWatch();
 
