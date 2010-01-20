@@ -27,8 +27,14 @@ package org.xerial.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.Token;
+import org.xerial.util.impl.CSVLexer;
 
 /**
  * A utility for manipulating Strings
@@ -156,6 +162,25 @@ public class StringUtil {
 
     public static ArrayList<String> splitAtComma(String line) {
         return split(line, ',');
+    }
+
+    @SuppressWarnings("unchecked")
+    public static ArrayList<String> splitCSV(String line) {
+
+        CSVLexer lexer = new CSVLexer(new ANTLRStringStream(line));
+        CommonTokenStream ts = new CommonTokenStream(lexer);
+        ArrayList<String> result = new ArrayList<String>();
+        List<Token> tokenList = ts.getTokens();
+        for (Token t : tokenList) {
+            switch (t.getType()) {
+            case CSVLexer.String:
+                result.add(t.getText());
+                break;
+            case CSVLexer.Comma:
+                break;
+            }
+        }
+        return result;
     }
 
     public static ArrayList<String> split(String line, char delimiter) {

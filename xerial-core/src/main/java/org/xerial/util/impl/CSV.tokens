@@ -1,0 +1,10 @@
+String=12
+Letter=6
+Comma=13
+Digit=5
+EscapeSequence=9
+HexDigit=7
+StringChar_s=11
+UnicodeChar=8
+WhiteSpace=4
+StringChar=10

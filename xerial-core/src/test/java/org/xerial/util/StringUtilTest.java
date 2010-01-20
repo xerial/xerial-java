@@ -80,4 +80,12 @@ public class StringUtilTest {
 
     }
 
+    @Test
+    public void splitCSV() throws Exception {
+        ArrayList<String> e = StringUtil.splitCSV("\"hello, world\",leo");
+        assertEquals(2, e.size());
+        assertEquals("hello, world", e.get(0));
+        assertEquals("leo", e.get(1));
+    }
+
 }

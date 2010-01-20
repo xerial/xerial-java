@@ -545,6 +545,23 @@ A---ATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 --
 --
 
+--code
+-book(id, title, isbn, year)|-
+1
+Database Management Systems
+0071230572	
+2002
+-param
+ -star: 5
+ -comment: good book
+--
+2
+Compilers: Second Edition
+0321547985	
+2007
+-param
+ -tags*: "read later", "textbook"
+--
 
 
 --code
