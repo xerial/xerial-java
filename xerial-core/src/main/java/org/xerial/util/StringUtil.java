@@ -30,10 +30,6 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.Token;
-import org.xerial.util.impl.CSVLexer;
 import org.xerial.util.impl.CSVLineParser;
 
 /**
@@ -160,38 +156,9 @@ public class StringUtil {
         return split(line, '\t');
     }
 
-    public static ArrayList<String> splitAtComma(String line) {
-        return split(line, ',');
-    }
-
-    @SuppressWarnings("unchecked")
     public static ArrayList<String> splitCSV(String line) {
-
-        CSVLexer lexer = new CSVLexer(new ANTLRStringStream(line));
-        CommonTokenStream ts = new CommonTokenStream(lexer);
-        ArrayList<String> result = new ArrayList<String>();
-        boolean toContinue = true;
-        while (toContinue) {
-            Token t = ts.LT(1);
-            switch (t.getType()) {
-            case CSVLexer.String:
-                result.add(t.getText());
-                ts.consume();
-                break;
-            case CSVLexer.Comma:
-                ts.consume();
-                break;
-            case CSVLexer.EOF:
-                toContinue = false;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public static String[] fastSplitCSV(String line) {
-        CSVLineParser p = new CSVLineParser();
-        return p.parseLine(line);
+        CSVLineParser parser = new CSVLineParser();
+        return parser.parseLine(line);
     }
 
     public static ArrayList<String> split(String line, char delimiter) {

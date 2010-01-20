@@ -34,7 +34,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.silk.SilkWalkerTest;
-import org.xerial.util.impl.CSVLineParser;
 import org.xerial.util.log.Logger;
 
 public class FastBufferedReaderTest {
@@ -56,29 +55,6 @@ public class FastBufferedReaderTest {
         final int N = 1;
         Pattern p = Pattern.compile(",");
 
-        //        s.reset();
-        //        for (int i = 0; i < N; i++) {
-        //            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-        //
-        //            while ((line = br.readLine()) != null) {
-        //                String[] csv = p.split(line);
-        //            }
-        //        }
-        //        _logger.info("default split:" + s.getElapsedTime());
-
-        s.reset();
-        for (int i = 0; i < N; i++) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-
-            while ((line = br.readLine()) != null) {
-                CSVLineParser parser = new CSVLineParser();
-                String[] parseLine = parser.parseLine(line);
-            }
-        }
-        _logger.info("OpenCSV split:" + s.getElapsedTime());
-
         s.reset();
         for (int i = 0; i < N; i++) {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
@@ -88,7 +64,7 @@ public class FastBufferedReaderTest {
                 ArrayList<String> csv = StringUtil.splitCSV(line);
             }
         }
-        _logger.info("ANTLR split:" + s.getElapsedTime());
+        _logger.info("OpenCSV split:" + s.getElapsedTime());
 
     }
 
