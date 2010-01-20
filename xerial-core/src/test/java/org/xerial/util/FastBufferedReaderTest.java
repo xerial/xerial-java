@@ -34,6 +34,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.silk.SilkWalkerTest;
+import org.xerial.util.impl.CSVLineParser;
 import org.xerial.util.log.Logger;
 
 public class FastBufferedReaderTest {
@@ -72,10 +73,11 @@ public class FastBufferedReaderTest {
                     SilkWalkerTest.class, "scaffold1.silk").openStream()));
 
             while ((line = br.readLine()) != null) {
-                ArrayList<String> csv = StringUtil.splitCSVwithJavaCC(line);
+                CSVLineParser parser = new CSVLineParser();
+                String[] parseLine = parser.parseLine(line);
             }
         }
-        _logger.info("JavaCC split:" + s.getElapsedTime());
+        _logger.info("OpenCSV split:" + s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++) {

@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -35,7 +34,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Token;
 import org.xerial.util.impl.CSVLexer;
-import org.xerial.util.impl.SimpleCSV;
+import org.xerial.util.impl.CSVLineParser;
 
 /**
  * A utility for manipulating Strings
@@ -190,28 +189,9 @@ public class StringUtil {
         return result;
     }
 
-    public static ArrayList<String> splitCSVwithJavaCC(String line) {
-
-        SimpleCSV lexer = new SimpleCSV(new StringReader(line));
-        boolean toContinue = true;
-        ArrayList<String> csv = new ArrayList<String>();
-        while (toContinue) {
-            org.xerial.util.impl.Token t = lexer.getNextToken();
-            switch (t.kind) {
-            case SimpleCSV.COMMA:
-                break;
-            case SimpleCSV.STRING:
-                csv.add(t.image);
-                break;
-            case SimpleCSV.ELEMENT:
-                csv.add(t.image);
-                break;
-            case SimpleCSV.EOF:
-                toContinue = false;
-                break;
-            }
-        }
-        return csv;
+    public static String[] fastSplitCSV(String line) {
+        CSVLineParser p = new CSVLineParser();
+        return p.parseLine(line);
     }
 
     public static ArrayList<String> split(String line, char delimiter) {
