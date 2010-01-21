@@ -36,25 +36,22 @@ import org.junit.Test;
 import org.xerial.silk.model.SilkNode;
 import org.xerial.util.FileResource;
 
-public class SilkNodeParserTest
-{
+public class SilkNodeParserTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void testParser() throws Exception
-    {
-        SilkLineLexer lexer = new SilkLineLexer(new ANTLRReaderStream(FileResource.open(SilkNodeParserTest.class, "node.silk")));
+    public void testParser() throws Exception {
+        SilkLineLexer lexer = new SilkLineLexer(new ANTLRReaderStream(FileResource.open(
+                SilkNodeParserTest.class, "node.silk")));
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         SilkNodeParser parser = new SilkNodeParser(tokenStream);
-        SilkNode node = parser.parseSilkNode();
+        SilkNode node = parser.parseSilkNode().build();
 
         assertEquals("coordinate", node.getName());
         assertEquals(0, node.getIndentLevel());

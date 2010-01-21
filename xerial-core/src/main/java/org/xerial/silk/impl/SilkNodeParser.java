@@ -24,23 +24,7 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
-import static org.xerial.silk.impl.SilkLineLexer.At;
-import static org.xerial.silk.impl.SilkLineLexer.Colon;
-import static org.xerial.silk.impl.SilkLineLexer.Comma;
-import static org.xerial.silk.impl.SilkLineLexer.EqEq;
-import static org.xerial.silk.impl.SilkLineLexer.FunctionIndent;
-import static org.xerial.silk.impl.SilkLineLexer.LBracket;
-import static org.xerial.silk.impl.SilkLineLexer.LParen;
-import static org.xerial.silk.impl.SilkLineLexer.NodeIndent;
-import static org.xerial.silk.impl.SilkLineLexer.PlainOneLine;
-import static org.xerial.silk.impl.SilkLineLexer.Plus;
-import static org.xerial.silk.impl.SilkLineLexer.Question;
-import static org.xerial.silk.impl.SilkLineLexer.RBracket;
-import static org.xerial.silk.impl.SilkLineLexer.RParen;
-import static org.xerial.silk.impl.SilkLineLexer.Seq;
-import static org.xerial.silk.impl.SilkLineLexer.Star;
-import static org.xerial.silk.impl.SilkLineLexer.String;
-import static org.xerial.silk.impl.SilkLineLexer.TabSeq;
+import static org.xerial.silk.impl.SilkLineLexer.*;
 
 import java.util.List;
 
@@ -52,6 +36,7 @@ import org.xerial.silk.model.SilkElement;
 import org.xerial.silk.model.SilkFunction;
 import org.xerial.silk.model.SilkNode;
 import org.xerial.silk.model.SilkNodeOccurrence;
+import org.xerial.silk.model.SilkNode.SilkNodeBuilder;
 import org.xerial.util.CollectionUtil;
 import org.xerial.util.Functor;
 import org.xerial.util.StringUtil;
@@ -63,7 +48,7 @@ import org.xerial.util.StringUtil;
  * 
  */
 public class SilkNodeParser {
-    private CommonTokenStream tokenStream;
+    private final CommonTokenStream tokenStream;
 
     public SilkNodeParser(CommonTokenStream tokenStream) {
         this.tokenStream = tokenStream;
@@ -72,13 +57,21 @@ public class SilkNodeParser {
     public SilkElement parse() throws XerialException {
         switch (tokenStream.LA(1)) {
         case NodeIndent:
-            if (tokenStream.LA(2) == At)
-                return parseFunction();
-            else
-                return parseSilkNode();
-        case FunctionIndent:
+            return parseSilkNode().build();
+        case BlockIndent: {
+            SilkNodeBuilder node = parseSilkNode();
+            node.setOccurrence(SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES);
+            return node.build();
+        }
+        case PullUpNodeIndent: {
+            SilkNodeBuilder node = parseSilkNode();
+            node.setOccurrence(SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES);
+            return node.build();
+        }
+        case FunctionIndent: {
             SilkFunction func = parseFunction();
             return func;
+        }
         default:
             throw unexpectedToken(tokenStream.LT(1), NodeIndent, FunctionIndent);
         }
@@ -93,17 +86,17 @@ public class SilkNodeParser {
         tokenStream.consume();
     }
 
-    public SilkNode parseSilkNode() throws XerialException {
-        return parseSilkNode(new SilkNode());
+    public SilkNodeBuilder parseSilkNode() throws XerialException {
+        return parseSilkNode(new SilkNodeBuilder());
     }
 
-    private SilkNode parseSilkNode(SilkNode node) throws XerialException {
-        if (!nextTokenIs(NodeIndent))
+    private SilkNodeBuilder parseSilkNode(SilkNodeBuilder node) throws XerialException {
+        if (!(nextTokenIs(NodeIndent) || nextTokenIs(BlockIndent) || nextTokenIs(PullUpNodeIndent)))
             throw new XerialException(XerialErrorCode.PARSE_ERROR, "expected a node indent, but "
                     + toString(tokenStream.LT(1)));
 
         Token indent = getToken(1);
-        node.setNodeIndent(indent.getText());
+        node.setIndent(indent.getText());
         consume();
 
         switch (tokenStream.LA(1)) {
@@ -120,12 +113,12 @@ public class SilkNodeParser {
         return node;
     }
 
-    private SilkNode parseNodeItem() throws XerialException {
-        SilkNode newNode = new SilkNode();
+    private SilkNodeBuilder parseNodeItem() throws XerialException {
+        SilkNodeBuilder newNode = new SilkNodeBuilder();
         return parseNodeItem(newNode);
     }
 
-    private SilkNode parseNodeItem(SilkNode contextNode) throws XerialException {
+    private SilkNodeBuilder parseNodeItem(SilkNodeBuilder contextNode) throws XerialException {
         // node name
         String nodeName = parseNodeName();
         contextNode.setName(nodeName);
@@ -141,7 +134,7 @@ public class SilkNodeParser {
         return contextNode;
     }
 
-    private void parseNodeValueOpt(SilkNode node) throws XerialException {
+    private void parseNodeValueOpt(SilkNodeBuilder node) throws XerialException {
         if (!nextTokenIs(Colon))
             return;
 
@@ -150,7 +143,7 @@ public class SilkNodeParser {
         parseNodeValue(node);
     }
 
-    private void parseNodeValue(SilkNode node) throws XerialException {
+    private void parseNodeValue(SilkNodeBuilder node) throws XerialException {
         int nextToken = tokenStream.LA(1);
 
         switch (nextToken) {
@@ -163,6 +156,12 @@ public class SilkNodeParser {
             Token t = getToken(1);
             consume();
             node.setValue(t.getText());
+            break;
+        }
+        case JSON: {
+            Token t = getToken(1);
+            consume();
+            node.setJSON(t.getText());
             break;
         }
         default:
@@ -187,7 +186,7 @@ public class SilkNodeParser {
 
     }
 
-    private void parsePlural(SilkNode node) {
+    private void parsePlural(SilkNodeBuilder node) {
         int nextTokenType = tokenStream.LA(1);
         switch (nextTokenType) {
         case Star:
@@ -202,21 +201,10 @@ public class SilkNodeParser {
             node.setOccurrence(SilkNodeOccurrence.ZERO_OR_ONE);
             consume();
             break;
-        case EqEq:
-            node.setOccurrence(SilkNodeOccurrence.MULTILINE_SEQUENCE);
+        case Seq:
+            node.setOccurrence(SilkNodeOccurrence.SEQUENCE);
             consume();
             break;
-        case Seq:
-            if (tokenStream.LA(2) == Seq) {
-                node.setOccurrence(SilkNodeOccurrence.SEQUENCE_WITH_NEWLINE);
-                consume();
-                break;
-            }
-            else {
-                node.setOccurrence(SilkNodeOccurrence.SEQUENCE);
-                consume();
-                break;
-            }
         case TabSeq:
             node.setOccurrence(SilkNodeOccurrence.TABBED_SEQUENCE);
             consume();
@@ -228,7 +216,7 @@ public class SilkNodeParser {
 
     }
 
-    private void parseNodeItemAttr(SilkNode node) throws XerialException {
+    private void parseNodeItemAttr(SilkNodeBuilder node) throws XerialException {
         if (!nextTokenIs(LParen))
             return;
 
@@ -240,8 +228,8 @@ public class SilkNodeParser {
 
     }
 
-    private void parseAttributeList(SilkNode contextNode) throws XerialException {
-        SilkNode attributeNode = parseNodeItem();
+    private void parseAttributeList(SilkNodeBuilder contextNode) throws XerialException {
+        SilkNodeBuilder attributeNode = parseNodeItem();
         contextNode.addSilkNode(attributeNode);
 
         while (nextTokenIs(Comma)) {
@@ -280,7 +268,7 @@ public class SilkNodeParser {
         return tokenStream.LA(1) == tokenType;
     }
 
-    private void parseDataType(SilkNode node) throws XerialException {
+    private void parseDataType(SilkNodeBuilder node) throws XerialException {
         if (!nextTokenIs(LBracket))
             return;
 

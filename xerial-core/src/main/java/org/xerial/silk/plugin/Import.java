@@ -44,38 +44,31 @@ import org.xerial.util.tree.TreeEventHandler;
  * @author leo
  * 
  */
-public class Import implements SilkFunctionPlugin
-{
+public class Import implements SilkFunctionPlugin {
 
     @SilkFunctionArgument
     String filePath = null;
 
-    public void init(SilkEnv env) throws XerialException
-    {
+    public void init(SilkEnv env) throws XerialException {
 
     }
 
-    public void eval(SilkEnv env, TreeEventHandler handler) throws Exception
-    {
-        if (filePath == null)
-        {
+    public void eval(SilkEnv env, TreeEventHandler handler) throws Exception {
+        if (filePath == null) {
             env.getLogger().warn("no file path is specified");
             return;
         }
 
-        try
-        {
+        try {
             String url = env.getResourceBasePath();
             if (!env.getResourceBasePath().endsWith("/"))
                 url += "/";
             url += filePath;
 
             FileType f = FileType.getFileType(filePath);
-            switch (f)
-            {
+            switch (f) {
             case SILK:
-            case TAB:
-            {
+            case TAB: {
                 SilkParser parser = new SilkParser(new URL(url), env);
                 parser.parseWithoutInitAndFinish(handler);
                 break;
@@ -89,13 +82,11 @@ public class Import implements SilkFunctionPlugin
             case WORD:
             case EXCEL:
             case POWER_POINT:
-            case PNG:
-            {
+            case PNG: {
                 loadBinary(new URL(url), env, handler);
             }
                 break;
-            default:
-            {
+            default: {
                 SilkParser parser = new SilkParser(new URL(url), env);
                 parser.parseWithoutInitAndFinish(handler);
                 break;
@@ -103,15 +94,13 @@ public class Import implements SilkFunctionPlugin
             }
 
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
         }
 
     }
 
-    public void loadBinary(URL path, SilkEnv env, TreeEventHandler handler) throws Exception
-    {
+    public void loadBinary(URL path, SilkEnv env, TreeEventHandler handler) throws Exception {
         env.getLogger().debug("load binary: " + path);
 
         InputStream source = path.openStream();
@@ -119,16 +108,14 @@ public class Import implements SilkFunctionPlugin
 
         byte[] buffer = new byte[1024];
         int readBytes = 0;
-        while ((readBytes = in.read(buffer, 0, buffer.length)) != -1)
-        {
+        while ((readBytes = in.read(buffer, 0, buffer.length)) != -1) {
             ByteArrayOutputStream base64buffer = new ByteArrayOutputStream(readBytes);
             Base64OutputStream base64out = new Base64OutputStream(base64buffer);
             base64out.write(buffer, 0, readBytes);
             base64out.flush();
             String[] fragment = new String(base64buffer.toByteArray()).split("\\r\\n");
-            for (String each : fragment)
-            {
-                handler.text(env.getContextNode().getName(), each);
+            for (String each : fragment) {
+                handler.text(env.getContextNode().name, each);
             }
         }
 

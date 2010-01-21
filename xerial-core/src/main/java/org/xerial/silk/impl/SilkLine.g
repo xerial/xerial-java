@@ -125,23 +125,11 @@ private boolean isHead() { return getCharPositionInLine() == 0; }
         throw new XerialError(XerialErrorCode.INVALID_TOKEN, message);
   } 
   
-  public static String sanitizeDataLine(String line)
-  {
-      line = line.trim();
-      if (line.startsWith("\\"))
-          return line.substring(1);
-      else
-          return line;
-  }
-  
-  
 }
  
 
 
-// lexer rules for one-line Silk data
-
-
+// lexer rules for analyzing a single line of Silk format data
 fragment
 WhiteSpace
 	:	(' ' | '\t') 
@@ -149,35 +137,21 @@ WhiteSpace
 
 // comment 
 LineComment: '#' ~(LineBreakChar)* ;
-// Preamble: { isHead() }? => '%' ~(LineBreakChar)* ; 
 
 // r: <CR> n : <LF>
 fragment LineBreakChar: '\n' | '\r';
 
-/*
-LineBreak
-	: ('\r' '\n' | '\r' | '\n' ) 
-	{ $channel=HIDDEN; resetContext(); }
-	;
-	*/
-
-// MultiLineSeparator: { isHead() }? => '--' WhiteSpace*; 
-// MultiLineEntrySeparator: { isHead() }? => '>>' WhiteSpace*;
- 	
+BlockIndent: { isHead() }? => (' ')* '--' { transit(Symbol.NodeStart); };
 NodeIndent: { isHead() }? => (' ')* '-' { transit(Symbol.NodeStart); } ;
+PullUpNodeIndent: { isHead() }? => (' ')* '->' { transit(Symbol.NodeStart); };
 FunctionIndent: { isHead() }? => (' ')* '@' { transit(Symbol.NodeStart); } ;
 BlankLine: { isHead() }? => WhiteSpace*;
-
-// fragment DataLineBody: ~('-' | '%' | '#' | '@' | WhiteSpace) ~('#' | LineBreakChar)*;
-// DataLine: { isHead() }? 
-//	=> WhiteSpace* DataLineBody LineComment? { setText(sanitizeDataLine($DataLineBody.text)); };
 
 LParen: '(' { transit(Symbol.EnterParen); };  
 RParen:	')' { transit(Symbol.LeaveParen); };
 Comma: 	','; 
 Colon:	':' { transit(Symbol.Colon); } ;
 
-EqEq: '==';
 Seq: 	'>';
 TabSeq:	'|';
 Star: 	'*';
@@ -223,30 +197,30 @@ PlainOneLine
 	;
 
 
-//JSON
-//	: { isValue() }? => '{'
-//	{
-//		//_logger.info("enter JSON object");
-//		InLineJSONLexer l = new InLineJSONLexer(input);
-//		CommonTokenStream tokens = new CommonTokenStream(l);
-//		InLineJSONParser p = new InLineJSONParser(tokens);
-//		p.jsonObjectFragment();
-//		
-//		//$channel = JSON_CHANNEL;
-//		emit(new CommonToken(JSON, getText())); 
-//	}
-//	| { isValue() }? => '['
-//	{
-//		//_logger.info("enter JSON array");
-//		InLineJSONLexer l = new InLineJSONLexer(input);
-//		CommonTokenStream tokens = new CommonTokenStream(l);
-//		InLineJSONParser p = new InLineJSONParser(tokens);
-//		p.jsonArrayFragment();
-//		
-//		//$channel = JSON_CHANNEL;
-//		emit(new CommonToken(JSON, getText())); 
-//	}  
-//	;
+JSON
+	: { isValue() }? => '{'
+	{
+		//_logger.info("enter JSON object");
+		InLineJSONLexer l = new InLineJSONLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(l);
+		InLineJSONParser p = new InLineJSONParser(tokens);
+		p.jsonObjectFragment();
+		
+		//$channel = JSON_CHANNEL;
+		emit(new CommonToken(JSON, getText())); 
+	}
+	| { isValue() }? => '['
+	{
+		//_logger.info("enter JSON array");
+		InLineJSONLexer l = new InLineJSONLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(l);
+		InLineJSONParser p = new InLineJSONParser(tokens);
+		p.jsonArrayFragment();
+		
+		//$channel = JSON_CHANNEL;
+		emit(new CommonToken(JSON, getText())); 
+	}  
+	;
 	 
 Separation: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
 
@@ -271,16 +245,22 @@ fragment
 nodeValue
 	: function_i -> ^(Function function_i)
 	| (PlainOneLine | String) -> Value[$nodeValue.text]
-//	| JSON 
+	| JSON 
 	; 
 
 
 silkNode
-	: NodeIndent nodeItem -> ^(SilkNode NodeIndent nodeItem)
-	| NodeIndent (LParen attributeList RParen)? plural? (Colon nodeValue)?
-	-> ^(SilkNode NodeIndent attributeList? plural? nodeValue?)
+	: indent nodeItem -> ^(SilkNode indent nodeItem)
+	| indent (LParen attributeList RParen)? plural? (Colon nodeValue)?
+	-> ^(SilkNode indent attributeList? plural? nodeValue?)
 	| function  
 	;
+
+indent
+  : NodeIndent
+  | BlockIndent
+  | PullUpNodeIndent 
+  ;
 
 fragment
 nodeItem: nodeName dataType?  (LParen attributeList RParen)? plural? (Colon nodeValue)?
@@ -308,10 +288,8 @@ plural
 	: Star -> Occurrence["ZERO_OR_MORE"]
 	| Plus -> Occurrence["ONE_OR_MORE"]
 	| Question -> Occurrence["ZERO_OR_ONE"]
-	| EqEq -> Occurrence["MULTILINE_SEQUENCE"]
 	| Seq -> Occurrence["SEQUENCE"]
 	| TabSeq -> Occurrence["TABBED_SEQUENCE"]
-	| Seq Seq -> Occurrence["SEQUENCE_WITH_NEWLINE"]
 	;
    
 function

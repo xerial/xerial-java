@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 CSV.g 2010-01-20 23:52:22
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g 2010-01-21 11:03:36
 
 //--------------------------------------
 // XerialJ Project
@@ -9,62 +9,56 @@
 //--------------------------------------
 package org.xerial.util.impl;
 
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
+
+import org.antlr.runtime.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
 public class CSVLexer extends Lexer {
-    public static final int StringChar_s = 4;
-    public static final int String = 6;
-    public static final int Comma = 5;
-    public static final int EOF = -1;
+    public static final int String=6;
+    public static final int EOF=-1;
+    public static final int Comma=5;
+    public static final int StringChar_s=4;
+
+      
+
 
     // delegates
     // delegators
 
-    public CSVLexer() {
-        ;
-    }
-
+    public CSVLexer() {;} 
     public CSVLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
-
     public CSVLexer(CharStream input, RecognizerSharedState state) {
-        super(input, state);
+        super(input,state);
 
     }
-
-    public String getGrammarFileName() {
-        return "CSV.g";
-    }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g"; }
 
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // CSV.g:61:22: (~ ( '\"' ) )
-            // CSV.g:61:24: ~ ( '\"' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:61:22: (~ ( '\"' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:61:24: ~ ( '\"' )
             {
-                if ((input.LA(1) >= '\u0000' && input.LA(1) <= '!')
-                        || (input.LA(1) >= '#' && input.LA(1) <= '\uFFFF')) {
-                    input.consume();
+            if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
+                input.consume();
 
-                }
-                else {
-                    MismatchedSetException mse = new MismatchedSetException(null, input);
-                    recover(mse);
-                    throw mse;
-                }
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
 
             }
 
         }
-        finally {}
+        finally {
+        }
     }
-
     // $ANTLR end "StringChar_s"
 
     // $ANTLR start "String"
@@ -72,79 +66,77 @@ public class CSVLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            org.antlr.runtime.Token s = null;
+            Token s=null;
 
-            // CSV.g:63:3: ( '\"' s= StringChar_s '\"' | (~ ( '\"' | Comma ) )* )
-            int alt2 = 2;
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:63:3: ( '\"' s= StringChar_s '\"' | (~ ( '\"' | Comma ) )* )
+            int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ((LA2_0 == '\"')) {
-                alt2 = 1;
+            if ( (LA2_0=='\"') ) {
+                alt2=1;
             }
             else {
-                alt2 = 2;
-            }
+                alt2=2;}
             switch (alt2) {
-            case 1:
-                // CSV.g:63:5: '\"' s= StringChar_s '\"'
-            {
-                match('\"');
-                int sStart54 = getCharIndex();
-                mStringChar_s();
-                s = new CommonToken(input, org.antlr.runtime.Token.INVALID_TOKEN_TYPE,
-                        org.antlr.runtime.Token.DEFAULT_CHANNEL, sStart54, getCharIndex() - 1);
-                match('\"');
-                setText((s != null ? s.getText() : null));
-
-            }
-                break;
-            case 2:
-                // CSV.g:64:5: (~ ( '\"' | Comma ) )*
-            {
-                // CSV.g:64:5: (~ ( '\"' | Comma ) )*
-                loop1: do {
-                    int alt1 = 2;
-                    int LA1_0 = input.LA(1);
-
-                    if (((LA1_0 >= '\u0000' && LA1_0 <= '!') || (LA1_0 >= '#' && LA1_0 <= '+') || (LA1_0 >= '-' && LA1_0 <= '\uFFFF'))) {
-                        alt1 = 1;
-                    }
-
-                    switch (alt1) {
-                    case 1:
-                        // CSV.g:64:6: ~ ( '\"' | Comma )
+                case 1 :
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:63:5: '\"' s= StringChar_s '\"'
                     {
-                        if ((input.LA(1) >= '\u0000' && input.LA(1) <= '!')
-                                || (input.LA(1) >= '#' && input.LA(1) <= '+')
-                                || (input.LA(1) >= '-' && input.LA(1) <= '\uFFFF')) {
-                            input.consume();
-
-                        }
-                        else {
-                            MismatchedSetException mse = new MismatchedSetException(null, input);
-                            recover(mse);
-                            throw mse;
-                        }
+                    match('\"'); 
+                    int sStart54 = getCharIndex();
+                    mStringChar_s(); 
+                    s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart54, getCharIndex()-1);
+                    match('\"'); 
+                     setText((s!=null?s.getText():null)); 
 
                     }
-                        break;
+                    break;
+                case 2 :
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:5: (~ ( '\"' | Comma ) )*
+                    {
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:5: (~ ( '\"' | Comma ) )*
+                    loop1:
+                    do {
+                        int alt1=2;
+                        int LA1_0 = input.LA(1);
 
-                    default:
-                        break loop1;
+                        if ( ((LA1_0>='\u0000' && LA1_0<='!')||(LA1_0>='#' && LA1_0<='+')||(LA1_0>='-' && LA1_0<='\uFFFF')) ) {
+                            alt1=1;
+                        }
+
+
+                        switch (alt1) {
+                    	case 1 :
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:6: ~ ( '\"' | Comma )
+                    	    {
+                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='\uFFFF') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop1;
+                        }
+                    } while (true);
+
+
                     }
-                }
-                while (true);
-
-            }
-                break;
+                    break;
 
             }
             state.type = _type;
             state.channel = _channel;
         }
-        finally {}
+        finally {
+        }
     }
-
     // $ANTLR end "String"
 
     // $ANTLR start "Comma"
@@ -152,50 +144,52 @@ public class CSVLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // CSV.g:67:6: ( ',' )
-            // CSV.g:67:8: ','
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:67:6: ( ',' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:67:8: ','
             {
-                match(',');
+            match(','); 
 
             }
 
             state.type = _type;
             state.channel = _channel;
         }
-        finally {}
+        finally {
+        }
     }
-
     // $ANTLR end "Comma"
 
     public void mTokens() throws RecognitionException {
-        // CSV.g:1:8: ( String | Comma )
-        int alt3 = 2;
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:8: ( String | Comma )
+        int alt3=2;
         int LA3_0 = input.LA(1);
 
-        if ((LA3_0 == ',')) {
-            alt3 = 2;
+        if ( (LA3_0==',') ) {
+            alt3=2;
         }
         else {
-            alt3 = 1;
-        }
+            alt3=1;}
         switch (alt3) {
-        case 1:
-            // CSV.g:1:10: String
-        {
-            mString();
+            case 1 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:10: String
+                {
+                mString(); 
 
-        }
-            break;
-        case 2:
-            // CSV.g:1:17: Comma
-        {
-            mComma();
+                }
+                break;
+            case 2 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:17: Comma
+                {
+                mComma(); 
 
-        }
-            break;
+                }
+                break;
 
         }
 
     }
+
+
+ 
 
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-08 19:54:26
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g 2010-01-21 11:04:02
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -34,69 +34,69 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 public class SilkSchemaLexer extends Lexer {
-    public static final int TargetClass=15;
-    public static final int Includes=49;
-    public static final int NonWhiteSpaceChar=45;
-    public static final int RBrace=35;
-    public static final int LBracket=36;
-    public static final int Class=48;
-    public static final int Digit=22;
-    public static final int AllIncluded=14;
-    public static final int SymbolChars=46;
-    public static final int Frac=31;
-    public static final int HexDigit=24;
-    public static final int Symbol=47;
-    public static final int OrderBy=56;
-    public static final int Default=54;
-    public static final int Argument=17;
-    public static final int On=57;
-    public static final int Index=52;
-    public static final int Module=5;
-    public static final int Letter=23;
-    public static final int Attribute=10;
-    public static final int Comma=40;
-    public static final int Schema=4;
-    public static final int Dot=39;
     public static final int End=50;
-    public static final int EscapeSequence=26;
-    public static final int DefaultValue=13;
-    public static final int Integer=30;
-    public static final int Relation=51;
-    public static final int Mixin=9;
-    public static final int WhiteSpace=63;
-    public static final int ClassDef=6;
-    public static final int LineComment=20;
-    public static final int ModuleName=60;
-    public static final int Projection=55;
-    public static final int BelongsTo=53;
-    public static final int SafeFirstLetter=58;
-    public static final int Star=43;
-    public static final int Preamble=19;
-    public static final int Exp=32;
-    public static final int QNameChar=64;
-    public static final int RParen=42;
-    public static final int UnicodeChar=25;
-    public static final int StringChar=27;
-    public static final int LineBreak=21;
-    public static final int Name=7;
-    public static final int Function=16;
-    public static final int LParen=41;
-    public static final int ModuleDef=62;
-    public static final int String=29;
-    public static final int SafeLetter=59;
-    public static final int LineBreakChar=18;
-    public static final int IsArray=11;
-    public static final int QName=65;
-    public static final int EOF=-1;
-    public static final int StringChar_s=28;
-    public static final int UnsafeUnicodeChar=44;
     public static final int LBrace=34;
-    public static final int Double=33;
-    public static final int Lt=38;
+    public static final int Frac=31;
+    public static final int NonWhiteSpaceChar=45;
+    public static final int DefaultValue=13;
+    public static final int Module=5;
+    public static final int Preamble=19;
+    public static final int LineComment=20;
     public static final int RBracket=37;
+    public static final int Attribute=10;
+    public static final int EOF=-1;
+    public static final int HexDigit=24;
+    public static final int Default=54;
+    public static final int Lt=38;
     public static final int Parent=8;
+    public static final int LineBreak=21;
+    public static final int OrderBy=56;
+    public static final int BelongsTo=53;
+    public static final int Index=52;
+    public static final int Argument=17;
+    public static final int WhiteSpace=63;
+    public static final int Symbol=47;
+    public static final int String=29;
+    public static final int Class=48;
+    public static final int LBracket=36;
+    public static final int RBrace=35;
+    public static final int Double=33;
+    public static final int RParen=42;
+    public static final int QName=65;
+    public static final int QNameChar=64;
+    public static final int LParen=41;
     public static final int TypeName=12;
     public static final int WhiteSpaces=61;
+    public static final int StringChar_s=28;
+    public static final int Includes=49;
+    public static final int Exp=32;
+    public static final int UnicodeChar=25;
+    public static final int ModuleDef=62;
+    public static final int AllIncluded=14;
+    public static final int Mixin=9;
+    public static final int Digit=22;
+    public static final int SymbolChars=46;
+    public static final int TargetClass=15;
+    public static final int UnsafeUnicodeChar=44;
+    public static final int Relation=51;
+    public static final int Schema=4;
+    public static final int Function=16;
+    public static final int LineBreakChar=18;
+    public static final int ClassDef=6;
+    public static final int IsArray=11;
+    public static final int ModuleName=60;
+    public static final int Dot=39;
+    public static final int Name=7;
+    public static final int StringChar=27;
+    public static final int Projection=55;
+    public static final int On=57;
+    public static final int Star=43;
+    public static final int SafeLetter=59;
+    public static final int SafeFirstLetter=58;
+    public static final int Comma=40;
+    public static final int EscapeSequence=26;
+    public static final int Letter=23;
+    public static final int Integer=30;
 
       
 
@@ -112,22 +112,22 @@ public class SilkSchemaLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "SilkSchema.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g"; }
 
     // $ANTLR start "Preamble"
     public final void mPreamble() throws RecognitionException {
         try {
             int _type = Preamble;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:113:9: ({...}? => '%' (~ ( LineBreakChar ) )* )
-            // SilkSchema.g:113:11: {...}? => '%' (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:113:9: ({...}? => '%' (~ ( LineBreakChar ) )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:113:11: {...}? => '%' (~ ( LineBreakChar ) )*
             {
             if ( !(( getCharPositionInLine() == 0 )) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "Preamble", " getCharPositionInLine() == 0 ");
             }
             match('%'); if (state.failed) return ;
-            // SilkSchema.g:113:52: (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:113:52: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -140,7 +140,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // SilkSchema.g:113:52: ~ ( LineBreakChar )
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:113:52: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -175,8 +175,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // SilkSchema.g:116:23: ( '\\n' | '\\r' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:116:23: ( '\\n' | '\\r' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -202,11 +202,11 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:117:12: ( '#' (~ ( LineBreakChar ) )* )
-            // SilkSchema.g:117:14: '#' (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:117:12: ( '#' (~ ( LineBreakChar ) )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:117:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); if (state.failed) return ;
-            // SilkSchema.g:117:18: (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:117:18: (~ ( LineBreakChar ) )*
             loop2:
             do {
                 int alt2=2;
@@ -219,7 +219,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // SilkSchema.g:117:18: ~ ( LineBreakChar )
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:117:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -259,10 +259,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:120:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // SilkSchema.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // SilkSchema.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt3=3;
             int LA3_0 = input.LA(1);
 
@@ -287,7 +287,7 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // SilkSchema.g:120:13: '\\r' '\\n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:13: '\\r' '\\n'
                     {
                     match('\r'); if (state.failed) return ;
                     match('\n'); if (state.failed) return ;
@@ -295,14 +295,14 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:120:25: '\\r'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:25: '\\r'
                     {
                     match('\r'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:120:32: '\\n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:120:32: '\\n'
                     {
                     match('\n'); if (state.failed) return ;
 
@@ -328,8 +328,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // SilkSchema.g:123:15: ( '0' .. '9' )
-            // SilkSchema.g:123:17: '0' .. '9'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:123:15: ( '0' .. '9' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:123:17: '0' .. '9'
             {
             matchRange('0','9'); if (state.failed) return ;
 
@@ -344,8 +344,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:124:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:124:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -369,8 +369,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // SilkSchema.g:125:18: ( Digit | Letter )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:125:18: ( Digit | Letter )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -394,8 +394,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // SilkSchema.g:126:21: (~ ( '\"' | '\\\\' ) )
-            // SilkSchema.g:126:23: ~ ( '\"' | '\\\\' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:126:21: (~ ( '\"' | '\\\\' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:126:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -419,11 +419,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // SilkSchema.g:128:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // SilkSchema.g:128:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); if (state.failed) return ;
-            // SilkSchema.g:128:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt4=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -481,63 +481,63 @@ public class SilkSchemaLexer extends Lexer {
 
             switch (alt4) {
                 case 1 :
-                    // SilkSchema.g:128:11: '\\\"'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:11: '\\\"'
                     {
                     match('\"'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:128:18: '\\\\'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:18: '\\\\'
                     {
                     match('\\'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:128:25: '/'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:25: '/'
                     {
                     match('/'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // SilkSchema.g:128:31: 'b'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:31: 'b'
                     {
                     match('b'); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // SilkSchema.g:128:37: 'f'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:37: 'f'
                     {
                     match('f'); if (state.failed) return ;
 
                     }
                     break;
                 case 6 :
-                    // SilkSchema.g:128:43: 'n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:43: 'n'
                     {
                     match('n'); if (state.failed) return ;
 
                     }
                     break;
                 case 7 :
-                    // SilkSchema.g:128:49: 'r'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:49: 'r'
                     {
                     match('r'); if (state.failed) return ;
 
                     }
                     break;
                 case 8 :
-                    // SilkSchema.g:128:55: 't'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:55: 't'
                     {
                     match('t'); if (state.failed) return ;
 
                     }
                     break;
                 case 9 :
-                    // SilkSchema.g:128:61: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:128:61: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); if (state.failed) return ;
                     mHexDigit(); if (state.failed) return ;
@@ -562,7 +562,7 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // SilkSchema.g:131:21: ( UnicodeChar | EscapeSequence )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:131:21: ( UnicodeChar | EscapeSequence )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -581,14 +581,14 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // SilkSchema.g:131:24: UnicodeChar
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:131:24: UnicodeChar
                     {
                     mUnicodeChar(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:131:38: EscapeSequence
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:131:38: EscapeSequence
                     {
                     mEscapeSequence(); if (state.failed) return ;
 
@@ -605,10 +605,10 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // SilkSchema.g:132:22: ( ( StringChar )* )
-            // SilkSchema.g:132:24: ( StringChar )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:132:22: ( ( StringChar )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:132:24: ( StringChar )*
             {
-            // SilkSchema.g:132:24: ( StringChar )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:132:24: ( StringChar )*
             loop6:
             do {
                 int alt6=2;
@@ -621,7 +621,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // SilkSchema.g:132:24: StringChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:132:24: StringChar
             	    {
             	    mStringChar(); if (state.failed) return ;
 
@@ -649,8 +649,8 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:134:7: ( '\"' s= StringChar_s '\"' )
-            // SilkSchema.g:134:9: '\"' s= StringChar_s '\"'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:134:7: ( '\"' s= StringChar_s '\"' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:134:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); if (state.failed) return ;
             int sStart264 = getCharIndex();
@@ -676,10 +676,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:137:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // SilkSchema.g:137:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // SilkSchema.g:137:10: ( '-' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:10: ( '-' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -688,7 +688,7 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // SilkSchema.g:137:10: '-'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:10: '-'
                     {
                     match('-'); if (state.failed) return ;
 
@@ -697,7 +697,7 @@ public class SilkSchemaLexer extends Lexer {
 
             }
 
-            // SilkSchema.g:137:15: ( '0' | '1' .. '9' ( Digit )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -716,17 +716,17 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // SilkSchema.g:137:16: '0'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:16: '0'
                     {
                     match('0'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:137:22: '1' .. '9' ( Digit )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); if (state.failed) return ;
-                    // SilkSchema.g:137:31: ( Digit )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:31: ( Digit )*
                     loop8:
                     do {
                         int alt8=2;
@@ -739,7 +739,7 @@ public class SilkSchemaLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // SilkSchema.g:137:31: Digit
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:137:31: Digit
                     	    {
                     	    mDigit(); if (state.failed) return ;
 
@@ -771,11 +771,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // SilkSchema.g:138:14: ( '.' ( Digit )+ )
-            // SilkSchema.g:138:16: '.' ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:138:14: ( '.' ( Digit )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:138:16: '.' ( Digit )+
             {
             match('.'); if (state.failed) return ;
-            // SilkSchema.g:138:20: ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:138:20: ( Digit )+
             int cnt10=0;
             loop10:
             do {
@@ -789,7 +789,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // SilkSchema.g:138:20: Digit
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:138:20: Digit
             	    {
             	    mDigit(); if (state.failed) return ;
 
@@ -818,8 +818,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // SilkSchema.g:139:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // SilkSchema.g:139:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:139:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:139:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -831,7 +831,7 @@ public class SilkSchemaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // SilkSchema.g:139:27: ( '+' | '-' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:139:27: ( '+' | '-' )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -840,7 +840,7 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // SilkSchema.g:
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -858,7 +858,7 @@ public class SilkSchemaLexer extends Lexer {
 
             }
 
-            // SilkSchema.g:139:40: ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:139:40: ( Digit )+
             int cnt12=0;
             loop12:
             do {
@@ -872,7 +872,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // SilkSchema.g:139:40: Digit
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:139:40: Digit
             	    {
             	    mDigit(); if (state.failed) return ;
 
@@ -903,11 +903,11 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:140:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // SilkSchema.g:140:9: Integer ( Frac ( Exp )? | Exp )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); if (state.failed) return ;
-            // SilkSchema.g:140:17: ( Frac ( Exp )? | Exp )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:17: ( Frac ( Exp )? | Exp )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -926,10 +926,10 @@ public class SilkSchemaLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // SilkSchema.g:140:18: Frac ( Exp )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:18: Frac ( Exp )?
                     {
                     mFrac(); if (state.failed) return ;
-                    // SilkSchema.g:140:23: ( Exp )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:23: ( Exp )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -938,7 +938,7 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // SilkSchema.g:140:23: Exp
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:23: Exp
                             {
                             mExp(); if (state.failed) return ;
 
@@ -951,7 +951,7 @@ public class SilkSchemaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:140:30: Exp
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:140:30: Exp
                     {
                     mExp(); if (state.failed) return ;
 
@@ -976,8 +976,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:142:7: ( '{' )
-            // SilkSchema.g:142:9: '{'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:142:7: ( '{' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:142:9: '{'
             {
             match('{'); if (state.failed) return ;
 
@@ -996,8 +996,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RBrace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:143:7: ( '}' )
-            // SilkSchema.g:143:9: '}'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:143:7: ( '}' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:143:9: '}'
             {
             match('}'); if (state.failed) return ;
 
@@ -1016,8 +1016,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:144:9: ( '[' )
-            // SilkSchema.g:144:11: '['
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:144:9: ( '[' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:144:11: '['
             {
             match('['); if (state.failed) return ;
 
@@ -1036,8 +1036,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:145:9: ( ']' )
-            // SilkSchema.g:145:11: ']'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:145:9: ( ']' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:145:11: ']'
             {
             match(']'); if (state.failed) return ;
 
@@ -1056,8 +1056,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Lt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:147:3: ( '<' )
-            // SilkSchema.g:147:5: '<'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:147:3: ( '<' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:147:5: '<'
             {
             match('<'); if (state.failed) return ;
 
@@ -1076,8 +1076,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:148:4: ( '.' )
-            // SilkSchema.g:148:6: '.'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:148:4: ( '.' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:148:6: '.'
             {
             match('.'); if (state.failed) return ;
 
@@ -1096,8 +1096,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:149:6: ( ',' )
-            // SilkSchema.g:149:8: ','
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:149:6: ( ',' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:149:8: ','
             {
             match(','); if (state.failed) return ;
 
@@ -1116,8 +1116,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:151:7: ( '(' )
-            // SilkSchema.g:151:9: '('
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:151:7: ( '(' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:151:9: '('
             {
             match('('); if (state.failed) return ;
 
@@ -1136,8 +1136,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:152:7: ( ')' )
-            // SilkSchema.g:152:9: ')'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:152:7: ( ')' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:152:9: ')'
             {
             match(')'); if (state.failed) return ;
 
@@ -1156,8 +1156,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:154:5: ( '*' )
-            // SilkSchema.g:154:7: '*'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:154:5: ( '*' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:154:7: '*'
             {
             match('*'); if (state.failed) return ;
 
@@ -1174,8 +1174,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "UnsafeUnicodeChar"
     public final void mUnsafeUnicodeChar() throws RecognitionException {
         try {
-            // SilkSchema.g:157:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:157:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='.')||input.LA(1)==':'||input.LA(1)=='<'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1199,8 +1199,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "NonWhiteSpaceChar"
     public final void mNonWhiteSpaceChar() throws RecognitionException {
         try {
-            // SilkSchema.g:160:18: (~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' ) )
-            // SilkSchema.g:160:20: ~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:160:18: (~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:160:20: ~ ( UnsafeUnicodeChar | '\\r' | '\\n' | ' ' | '\\t' | '\\u000C' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||input.LA(1)=='\u000B'||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1224,10 +1224,10 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SymbolChars"
     public final void mSymbolChars() throws RecognitionException {
         try {
-            // SilkSchema.g:162:21: ( ( NonWhiteSpaceChar )+ )
-            // SilkSchema.g:162:23: ( NonWhiteSpaceChar )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:162:21: ( ( NonWhiteSpaceChar )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:162:23: ( NonWhiteSpaceChar )+
             {
-            // SilkSchema.g:162:23: ( NonWhiteSpaceChar )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:162:23: ( NonWhiteSpaceChar )+
             int cnt15=0;
             loop15:
             do {
@@ -1241,7 +1241,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // SilkSchema.g:162:23: NonWhiteSpaceChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:162:23: NonWhiteSpaceChar
             	    {
             	    mNonWhiteSpaceChar(); if (state.failed) return ;
 
@@ -1274,8 +1274,8 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:163:7: ( ( ':' NonWhiteSpaceChar )=> ':' s= SymbolChars )
-            // SilkSchema.g:163:9: ( ':' NonWhiteSpaceChar )=> ':' s= SymbolChars
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:163:7: ( ( ':' NonWhiteSpaceChar )=> ':' s= SymbolChars )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:163:9: ( ':' NonWhiteSpaceChar )=> ':' s= SymbolChars
             {
             match(':'); if (state.failed) return ;
             int sStart579 = getCharIndex();
@@ -1300,8 +1300,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Class;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:165:6: ( 'class' )
-            // SilkSchema.g:165:8: 'class'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:165:6: ( 'class' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:165:8: 'class'
             {
             match("class"); if (state.failed) return ;
 
@@ -1321,8 +1321,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Includes;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:166:9: ( 'includes' )
-            // SilkSchema.g:166:11: 'includes'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:166:9: ( 'includes' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:166:11: 'includes'
             {
             match("includes"); if (state.failed) return ;
 
@@ -1342,8 +1342,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = End;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:167:4: ( 'end' )
-            // SilkSchema.g:167:6: 'end'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:167:4: ( 'end' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:167:6: 'end'
             {
             match("end"); if (state.failed) return ;
 
@@ -1363,8 +1363,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Relation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:168:9: ( 'relation' )
-            // SilkSchema.g:168:11: 'relation'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:168:9: ( 'relation' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:168:11: 'relation'
             {
             match("relation"); if (state.failed) return ;
 
@@ -1384,8 +1384,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Index;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:169:6: ( 'index' )
-            // SilkSchema.g:169:8: 'index'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:169:6: ( 'index' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:169:8: 'index'
             {
             match("index"); if (state.failed) return ;
 
@@ -1405,8 +1405,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = BelongsTo;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:170:10: ( 'belongs_to' )
-            // SilkSchema.g:170:12: 'belongs_to'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:170:10: ( 'belongs_to' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:170:12: 'belongs_to'
             {
             match("belongs_to"); if (state.failed) return ;
 
@@ -1426,8 +1426,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Default;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:171:8: ( 'default' )
-            // SilkSchema.g:171:10: 'default'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:171:8: ( 'default' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:171:10: 'default'
             {
             match("default"); if (state.failed) return ;
 
@@ -1447,8 +1447,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = Projection;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:172:11: ( 'projection' )
-            // SilkSchema.g:172:13: 'projection'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:172:11: ( 'projection' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:172:13: 'projection'
             {
             match("projection"); if (state.failed) return ;
 
@@ -1468,8 +1468,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = OrderBy;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:173:8: ( 'order_by' )
-            // SilkSchema.g:173:10: 'order_by'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:173:8: ( 'order_by' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:173:10: 'order_by'
             {
             match("order_by"); if (state.failed) return ;
 
@@ -1489,8 +1489,8 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = On;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:174:3: ( 'on' )
-            // SilkSchema.g:174:5: 'on'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:174:3: ( 'on' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:174:5: 'on'
             {
             match("on"); if (state.failed) return ;
 
@@ -1508,8 +1508,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:176:25: ( 'A' .. 'Z' | 'a' .. 'z' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:176:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1533,8 +1533,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // SilkSchema.g:177:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:177:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1558,11 +1558,11 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "ModuleName"
     public final void mModuleName() throws RecognitionException {
         try {
-            // SilkSchema.g:179:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
-            // SilkSchema.g:179:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:20: ( SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:22: SafeFirstLetter ( SafeLetter )* ( '.' SafeFirstLetter ( SafeLetter )* )*
             {
             mSafeFirstLetter(); if (state.failed) return ;
-            // SilkSchema.g:179:38: ( SafeLetter )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:38: ( SafeLetter )*
             loop16:
             do {
                 int alt16=2;
@@ -1575,7 +1575,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // SilkSchema.g:179:38: SafeLetter
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:38: SafeLetter
             	    {
             	    mSafeLetter(); if (state.failed) return ;
 
@@ -1587,7 +1587,7 @@ public class SilkSchemaLexer extends Lexer {
                 }
             } while (true);
 
-            // SilkSchema.g:179:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:50: ( '.' SafeFirstLetter ( SafeLetter )* )*
             loop18:
             do {
                 int alt18=2;
@@ -1600,11 +1600,11 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // SilkSchema.g:179:51: '.' SafeFirstLetter ( SafeLetter )*
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:51: '.' SafeFirstLetter ( SafeLetter )*
             	    {
             	    match('.'); if (state.failed) return ;
             	    mSafeFirstLetter(); if (state.failed) return ;
-            	    // SilkSchema.g:179:71: ( SafeLetter )*
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:71: ( SafeLetter )*
             	    loop17:
             	    do {
             	        int alt17=2;
@@ -1617,7 +1617,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt17) {
             	    	case 1 :
-            	    	    // SilkSchema.g:179:71: SafeLetter
+            	    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:179:71: SafeLetter
             	    	    {
             	    	    mSafeLetter(); if (state.failed) return ;
 
@@ -1654,8 +1654,8 @@ public class SilkSchemaLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkSchema.g:180:10: ( 'module' WhiteSpaces s= ModuleName )
-            // SilkSchema.g:180:12: 'module' WhiteSpaces s= ModuleName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:180:10: ( 'module' WhiteSpaces s= ModuleName )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:180:12: 'module' WhiteSpaces s= ModuleName
             {
             match("module"); if (state.failed) return ;
 
@@ -1680,8 +1680,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // SilkSchema.g:182:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
-            // SilkSchema.g:182:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:182:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:182:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1707,10 +1707,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:183:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
-            // SilkSchema.g:183:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
             {
-            // SilkSchema.g:183:8: ( QNameChar )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:8: ( QNameChar )+
             int cnt19=0;
             loop19:
             do {
@@ -1724,7 +1724,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // SilkSchema.g:183:8: QNameChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:8: QNameChar
             	    {
             	    mQNameChar(); if (state.failed) return ;
 
@@ -1741,7 +1741,7 @@ public class SilkSchemaLexer extends Lexer {
                 cnt19++;
             } while (true);
 
-            // SilkSchema.g:183:19: ( Dot ( QNameChar )+ )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:19: ( Dot ( QNameChar )+ )*
             loop21:
             do {
                 int alt21=2;
@@ -1754,10 +1754,10 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // SilkSchema.g:183:20: Dot ( QNameChar )+
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:20: Dot ( QNameChar )+
             	    {
             	    mDot(); if (state.failed) return ;
-            	    // SilkSchema.g:183:24: ( QNameChar )+
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:24: ( QNameChar )+
             	    int cnt20=0;
             	    loop20:
             	    do {
@@ -1771,7 +1771,7 @@ public class SilkSchemaLexer extends Lexer {
 
             	        switch (alt20) {
             	    	case 1 :
-            	    	    // SilkSchema.g:183:24: QNameChar
+            	    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:183:24: QNameChar
             	    	    {
             	    	    mQNameChar(); if (state.failed) return ;
 
@@ -1811,8 +1811,8 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // SilkSchema.g:186:11: ( ' ' | '\\t' )
-            // SilkSchema.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:186:11: ( ' ' | '\\t' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1838,10 +1838,10 @@ public class SilkSchemaLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkSchema.g:188:12: ( ( WhiteSpace )+ )
-            // SilkSchema.g:188:14: ( WhiteSpace )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:188:12: ( ( WhiteSpace )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:188:14: ( WhiteSpace )+
             {
-            // SilkSchema.g:188:14: ( WhiteSpace )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:188:14: ( WhiteSpace )+
             int cnt22=0;
             loop22:
             do {
@@ -1855,7 +1855,7 @@ public class SilkSchemaLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // SilkSchema.g:188:14: WhiteSpace
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:188:14: WhiteSpace
             	    {
             	    mWhiteSpace(); if (state.failed) return ;
 
@@ -1887,215 +1887,215 @@ public class SilkSchemaLexer extends Lexer {
     // $ANTLR end "WhiteSpaces"
 
     public void mTokens() throws RecognitionException {
-        // SilkSchema.g:1:8: ( Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | On | ModuleDef | QName | WhiteSpaces )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:8: ( Preamble | LineComment | LineBreak | String | Integer | Double | LBrace | RBrace | LBracket | RBracket | Lt | Dot | Comma | LParen | RParen | Star | Symbol | Class | Includes | End | Relation | Index | BelongsTo | Default | Projection | OrderBy | On | ModuleDef | QName | WhiteSpaces )
         int alt23=30;
         alt23 = dfa23.predict(input);
         switch (alt23) {
             case 1 :
-                // SilkSchema.g:1:10: Preamble
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:10: Preamble
                 {
                 mPreamble(); if (state.failed) return ;
 
                 }
                 break;
             case 2 :
-                // SilkSchema.g:1:19: LineComment
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:19: LineComment
                 {
                 mLineComment(); if (state.failed) return ;
 
                 }
                 break;
             case 3 :
-                // SilkSchema.g:1:31: LineBreak
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:31: LineBreak
                 {
                 mLineBreak(); if (state.failed) return ;
 
                 }
                 break;
             case 4 :
-                // SilkSchema.g:1:41: String
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:41: String
                 {
                 mString(); if (state.failed) return ;
 
                 }
                 break;
             case 5 :
-                // SilkSchema.g:1:48: Integer
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:48: Integer
                 {
                 mInteger(); if (state.failed) return ;
 
                 }
                 break;
             case 6 :
-                // SilkSchema.g:1:56: Double
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:56: Double
                 {
                 mDouble(); if (state.failed) return ;
 
                 }
                 break;
             case 7 :
-                // SilkSchema.g:1:63: LBrace
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:63: LBrace
                 {
                 mLBrace(); if (state.failed) return ;
 
                 }
                 break;
             case 8 :
-                // SilkSchema.g:1:70: RBrace
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:70: RBrace
                 {
                 mRBrace(); if (state.failed) return ;
 
                 }
                 break;
             case 9 :
-                // SilkSchema.g:1:77: LBracket
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:77: LBracket
                 {
                 mLBracket(); if (state.failed) return ;
 
                 }
                 break;
             case 10 :
-                // SilkSchema.g:1:86: RBracket
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:86: RBracket
                 {
                 mRBracket(); if (state.failed) return ;
 
                 }
                 break;
             case 11 :
-                // SilkSchema.g:1:95: Lt
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:95: Lt
                 {
                 mLt(); if (state.failed) return ;
 
                 }
                 break;
             case 12 :
-                // SilkSchema.g:1:98: Dot
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:98: Dot
                 {
                 mDot(); if (state.failed) return ;
 
                 }
                 break;
             case 13 :
-                // SilkSchema.g:1:102: Comma
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:102: Comma
                 {
                 mComma(); if (state.failed) return ;
 
                 }
                 break;
             case 14 :
-                // SilkSchema.g:1:108: LParen
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:108: LParen
                 {
                 mLParen(); if (state.failed) return ;
 
                 }
                 break;
             case 15 :
-                // SilkSchema.g:1:115: RParen
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:115: RParen
                 {
                 mRParen(); if (state.failed) return ;
 
                 }
                 break;
             case 16 :
-                // SilkSchema.g:1:122: Star
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:122: Star
                 {
                 mStar(); if (state.failed) return ;
 
                 }
                 break;
             case 17 :
-                // SilkSchema.g:1:127: Symbol
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:127: Symbol
                 {
                 mSymbol(); if (state.failed) return ;
 
                 }
                 break;
             case 18 :
-                // SilkSchema.g:1:134: Class
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:134: Class
                 {
                 mClass(); if (state.failed) return ;
 
                 }
                 break;
             case 19 :
-                // SilkSchema.g:1:140: Includes
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:140: Includes
                 {
                 mIncludes(); if (state.failed) return ;
 
                 }
                 break;
             case 20 :
-                // SilkSchema.g:1:149: End
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:149: End
                 {
                 mEnd(); if (state.failed) return ;
 
                 }
                 break;
             case 21 :
-                // SilkSchema.g:1:153: Relation
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:153: Relation
                 {
                 mRelation(); if (state.failed) return ;
 
                 }
                 break;
             case 22 :
-                // SilkSchema.g:1:162: Index
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:162: Index
                 {
                 mIndex(); if (state.failed) return ;
 
                 }
                 break;
             case 23 :
-                // SilkSchema.g:1:168: BelongsTo
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:168: BelongsTo
                 {
                 mBelongsTo(); if (state.failed) return ;
 
                 }
                 break;
             case 24 :
-                // SilkSchema.g:1:178: Default
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:178: Default
                 {
                 mDefault(); if (state.failed) return ;
 
                 }
                 break;
             case 25 :
-                // SilkSchema.g:1:186: Projection
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:186: Projection
                 {
                 mProjection(); if (state.failed) return ;
 
                 }
                 break;
             case 26 :
-                // SilkSchema.g:1:197: OrderBy
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:197: OrderBy
                 {
                 mOrderBy(); if (state.failed) return ;
 
                 }
                 break;
             case 27 :
-                // SilkSchema.g:1:205: On
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:205: On
                 {
                 mOn(); if (state.failed) return ;
 
                 }
                 break;
             case 28 :
-                // SilkSchema.g:1:208: ModuleDef
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:208: ModuleDef
                 {
                 mModuleDef(); if (state.failed) return ;
 
                 }
                 break;
             case 29 :
-                // SilkSchema.g:1:218: QName
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:218: QName
                 {
                 mQName(); if (state.failed) return ;
 
                 }
                 break;
             case 30 :
-                // SilkSchema.g:1:224: WhiteSpaces
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:1:224: WhiteSpaces
                 {
                 mWhiteSpaces(); if (state.failed) return ;
 
@@ -2143,9 +2143,9 @@ public class SilkSchemaLexer extends Lexer {
         "\1\34\3\uffff\1\30\2\uffff\1\23\1\25\2\uffff\1\32\2\uffff\1\27\1"+
         "\31";
     static final String DFA23_specialS =
-        "\1\10\5\uffff\1\1\1\17\31\uffff\1\20\1\uffff\1\16\10\uffff\1\11"+
-        "\3\uffff\1\15\1\uffff\1\4\3\uffff\1\12\23\uffff\1\5\1\7\1\uffff"+
-        "\1\13\22\uffff\1\0\3\uffff\1\3\1\2\3\uffff\1\14\5\uffff\1\6\1\21"+
+        "\1\12\5\uffff\1\16\1\20\31\uffff\1\4\1\uffff\1\1\10\uffff\1\13"+
+        "\3\uffff\1\14\1\uffff\1\21\3\uffff\1\3\23\uffff\1\6\1\17\1\uffff"+
+        "\1\0\22\uffff\1\10\3\uffff\1\5\1\2\3\uffff\1\15\5\uffff\1\11\1\7"+
         "\2\uffff}>";
     static final String[] DFA23_transitionS = {
             "\11\34\1\35\1\3\2\34\1\3\22\34\1\35\1\34\1\4\1\2\1\34\1\1\1"+
@@ -2357,24 +2357,26 @@ public class SilkSchemaLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA23_96 = input.LA(1);
+                        int LA23_77 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_96>='\u0000' && LA23_96<='\b')||(LA23_96>='\u000B' && LA23_96<='\f')||(LA23_96>='\u000E' && LA23_96<='\u001F')||LA23_96=='!'||LA23_96=='$'||LA23_96=='&'||LA23_96=='+'||(LA23_96>='.' && LA23_96<='9')||LA23_96==';'||LA23_96=='='||LA23_96=='?'||(LA23_96>='A' && LA23_96<='Z')||(LA23_96>='^' && LA23_96<='z')||(LA23_96>='~' && LA23_96<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_77>='\u0000' && LA23_77<='\b')||(LA23_77>='\u000B' && LA23_77<='\f')||(LA23_77>='\u000E' && LA23_77<='\u001F')||LA23_77=='!'||LA23_77=='$'||LA23_77=='&'||LA23_77=='+'||(LA23_77>='.' && LA23_77<='9')||LA23_77==';'||LA23_77=='='||LA23_77=='?'||(LA23_77>='A' && LA23_77<='Z')||(LA23_77>='^' && LA23_77<='z')||(LA23_77>='~' && LA23_77<='\uFFFF')) ) {s = 28;}
 
-                        else s = 103;
+                        else s = 86;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA23_6 = input.LA(1);
+                        int LA23_35 = input.LA(1);
 
                         s = -1;
-                        if ( (LA23_6=='.') ) {s = 33;}
+                        if ( (LA23_35=='.') ) {s = 33;}
 
-                        else if ( (LA23_6=='E'||LA23_6=='e') ) {s = 34;}
+                        else if ( (LA23_35=='E'||LA23_35=='e') ) {s = 34;}
 
-                        else if ( ((LA23_6>='\u0000' && LA23_6<='\b')||(LA23_6>='\u000B' && LA23_6<='\f')||(LA23_6>='\u000E' && LA23_6<='\u001F')||LA23_6=='!'||LA23_6=='$'||LA23_6=='&'||LA23_6=='+'||(LA23_6>='/' && LA23_6<='9')||LA23_6==';'||LA23_6=='='||LA23_6=='?'||(LA23_6>='A' && LA23_6<='D')||(LA23_6>='F' && LA23_6<='Z')||(LA23_6>='^' && LA23_6<='d')||(LA23_6>='f' && LA23_6<='z')||(LA23_6>='~' && LA23_6<='\uFFFF')) ) {s = 28;}
+                        else if ( ((LA23_35>='0' && LA23_35<='9')) ) {s = 35;}
+
+                        else if ( ((LA23_35>='\u0000' && LA23_35<='\b')||(LA23_35>='\u000B' && LA23_35<='\f')||(LA23_35>='\u000E' && LA23_35<='\u001F')||LA23_35=='!'||LA23_35=='$'||LA23_35=='&'||LA23_35=='+'||LA23_35=='/'||LA23_35==';'||LA23_35=='='||LA23_35=='?'||(LA23_35>='A' && LA23_35<='D')||(LA23_35>='F' && LA23_35<='Z')||(LA23_35>='^' && LA23_35<='d')||(LA23_35>='f' && LA23_35<='z')||(LA23_35>='~' && LA23_35<='\uFFFF')) ) {s = 28;}
 
                         else s = 32;
 
@@ -2391,6 +2393,26 @@ public class SilkSchemaLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
+                        int LA23_54 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_54>='\u0000' && LA23_54<='\b')||(LA23_54>='\u000B' && LA23_54<='\f')||(LA23_54>='\u000E' && LA23_54<='\u001F')||LA23_54=='!'||LA23_54=='$'||LA23_54=='&'||LA23_54=='+'||(LA23_54>='.' && LA23_54<='9')||LA23_54==';'||LA23_54=='='||LA23_54=='?'||(LA23_54>='A' && LA23_54<='Z')||(LA23_54>='^' && LA23_54<='z')||(LA23_54>='~' && LA23_54<='\uFFFF')) ) {s = 28;}
+
+                        else s = 66;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA23_33 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_33>='0' && LA23_33<='9')) ) {s = 48;}
+
+                        else if ( ((LA23_33>='\u0000' && LA23_33<='\b')||(LA23_33>='\u000B' && LA23_33<='\f')||(LA23_33>='\u000E' && LA23_33<='\u001F')||LA23_33=='!'||LA23_33=='$'||LA23_33=='&'||LA23_33=='+'||LA23_33=='/'||LA23_33==';'||LA23_33=='='||LA23_33=='?'||(LA23_33>='A' && LA23_33<='Z')||(LA23_33>='^' && LA23_33<='z')||(LA23_33>='~' && LA23_33<='\uFFFF')) ) {s = 28;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA23_100 = input.LA(1);
 
                         s = -1;
@@ -2400,19 +2422,7 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
-                        int LA23_50 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_50>='0' && LA23_50<='9')) ) {s = 50;}
-
-                        else if ( ((LA23_50>='\u0000' && LA23_50<='\b')||(LA23_50>='\u000B' && LA23_50<='\f')||(LA23_50>='\u000E' && LA23_50<='\u001F')||LA23_50=='!'||LA23_50=='$'||LA23_50=='&'||LA23_50=='+'||(LA23_50>='.' && LA23_50<='/')||LA23_50==';'||LA23_50=='='||LA23_50=='?'||(LA23_50>='A' && LA23_50<='Z')||(LA23_50>='^' && LA23_50<='z')||(LA23_50>='~' && LA23_50<='\uFFFF')) ) {s = 28;}
-
-                        else s = 46;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
+                    case 6 : 
                         int LA23_74 = input.LA(1);
 
                         s = -1;
@@ -2424,7 +2434,27 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 7 : 
+                        int LA23_112 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_112>='\u0000' && LA23_112<='\b')||(LA23_112>='\u000B' && LA23_112<='\f')||(LA23_112>='\u000E' && LA23_112<='\u001F')||LA23_112=='!'||LA23_112=='$'||LA23_112=='&'||LA23_112=='+'||(LA23_112>='.' && LA23_112<='9')||LA23_112==';'||LA23_112=='='||LA23_112=='?'||(LA23_112>='A' && LA23_112<='Z')||(LA23_112>='^' && LA23_112<='z')||(LA23_112>='~' && LA23_112<='\uFFFF')) ) {s = 28;}
+
+                        else s = 114;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA23_96 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_96>='\u0000' && LA23_96<='\b')||(LA23_96>='\u000B' && LA23_96<='\f')||(LA23_96>='\u000E' && LA23_96<='\u001F')||LA23_96=='!'||LA23_96=='$'||LA23_96=='&'||LA23_96=='+'||(LA23_96>='.' && LA23_96<='9')||LA23_96==';'||LA23_96=='='||LA23_96=='?'||(LA23_96>='A' && LA23_96<='Z')||(LA23_96>='^' && LA23_96<='z')||(LA23_96>='~' && LA23_96<='\uFFFF')) ) {s = 28;}
+
+                        else s = 103;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
                         int LA23_111 = input.LA(1);
 
                         s = -1;
@@ -2434,17 +2464,7 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA23_75 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_75>='\u0000' && LA23_75<='\b')||(LA23_75>='\u000B' && LA23_75<='\f')||(LA23_75>='\u000E' && LA23_75<='\u001F')||LA23_75=='!'||LA23_75=='$'||LA23_75=='&'||LA23_75=='+'||(LA23_75>='.' && LA23_75<='9')||LA23_75==';'||LA23_75=='='||LA23_75=='?'||(LA23_75>='A' && LA23_75<='Z')||(LA23_75>='^' && LA23_75<='z')||(LA23_75>='~' && LA23_75<='\uFFFF')) ) {s = 28;}
-
-                        else s = 84;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
+                    case 10 : 
                         int LA23_0 = input.LA(1);
 
                          
@@ -2513,7 +2533,7 @@ public class SilkSchemaLexer extends Lexer {
                         input.seek(index23_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
+                    case 11 : 
                         int LA23_44 = input.LA(1);
 
                         s = -1;
@@ -2523,37 +2543,7 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA23_54 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_54>='\u0000' && LA23_54<='\b')||(LA23_54>='\u000B' && LA23_54<='\f')||(LA23_54>='\u000E' && LA23_54<='\u001F')||LA23_54=='!'||LA23_54=='$'||LA23_54=='&'||LA23_54=='+'||(LA23_54>='.' && LA23_54<='9')||LA23_54==';'||LA23_54=='='||LA23_54=='?'||(LA23_54>='A' && LA23_54<='Z')||(LA23_54>='^' && LA23_54<='z')||(LA23_54>='~' && LA23_54<='\uFFFF')) ) {s = 28;}
-
-                        else s = 66;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA23_77 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_77>='\u0000' && LA23_77<='\b')||(LA23_77>='\u000B' && LA23_77<='\f')||(LA23_77>='\u000E' && LA23_77<='\u001F')||LA23_77=='!'||LA23_77=='$'||LA23_77=='&'||LA23_77=='+'||(LA23_77>='.' && LA23_77<='9')||LA23_77==';'||LA23_77=='='||LA23_77=='?'||(LA23_77>='A' && LA23_77<='Z')||(LA23_77>='^' && LA23_77<='z')||(LA23_77>='~' && LA23_77<='\uFFFF')) ) {s = 28;}
-
-                        else s = 86;
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 12 : 
-                        int LA23_105 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_105>='\u0000' && LA23_105<='\b')||(LA23_105>='\u000B' && LA23_105<='\f')||(LA23_105>='\u000E' && LA23_105<='\u001F')||LA23_105=='!'||LA23_105=='$'||LA23_105=='&'||LA23_105=='+'||(LA23_105>='.' && LA23_105<='9')||LA23_105==';'||LA23_105=='='||LA23_105=='?'||(LA23_105>='A' && LA23_105<='Z')||(LA23_105>='^' && LA23_105<='z')||(LA23_105>='~' && LA23_105<='\uFFFF')) ) {s = 28;}
-
-                        else s = 110;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
                         int LA23_48 = input.LA(1);
 
                         s = -1;
@@ -2567,23 +2557,41 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
-                        int LA23_35 = input.LA(1);
+                    case 13 : 
+                        int LA23_105 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_35>='0' && LA23_35<='9')) ) {s = 35;}
+                        if ( ((LA23_105>='\u0000' && LA23_105<='\b')||(LA23_105>='\u000B' && LA23_105<='\f')||(LA23_105>='\u000E' && LA23_105<='\u001F')||LA23_105=='!'||LA23_105=='$'||LA23_105=='&'||LA23_105=='+'||(LA23_105>='.' && LA23_105<='9')||LA23_105==';'||LA23_105=='='||LA23_105=='?'||(LA23_105>='A' && LA23_105<='Z')||(LA23_105>='^' && LA23_105<='z')||(LA23_105>='~' && LA23_105<='\uFFFF')) ) {s = 28;}
 
-                        else if ( (LA23_35=='.') ) {s = 33;}
+                        else s = 110;
 
-                        else if ( (LA23_35=='E'||LA23_35=='e') ) {s = 34;}
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA23_6 = input.LA(1);
 
-                        else if ( ((LA23_35>='\u0000' && LA23_35<='\b')||(LA23_35>='\u000B' && LA23_35<='\f')||(LA23_35>='\u000E' && LA23_35<='\u001F')||LA23_35=='!'||LA23_35=='$'||LA23_35=='&'||LA23_35=='+'||LA23_35=='/'||LA23_35==';'||LA23_35=='='||LA23_35=='?'||(LA23_35>='A' && LA23_35<='D')||(LA23_35>='F' && LA23_35<='Z')||(LA23_35>='^' && LA23_35<='d')||(LA23_35>='f' && LA23_35<='z')||(LA23_35>='~' && LA23_35<='\uFFFF')) ) {s = 28;}
+                        s = -1;
+                        if ( (LA23_6=='.') ) {s = 33;}
+
+                        else if ( (LA23_6=='E'||LA23_6=='e') ) {s = 34;}
+
+                        else if ( ((LA23_6>='\u0000' && LA23_6<='\b')||(LA23_6>='\u000B' && LA23_6<='\f')||(LA23_6>='\u000E' && LA23_6<='\u001F')||LA23_6=='!'||LA23_6=='$'||LA23_6=='&'||LA23_6=='+'||(LA23_6>='/' && LA23_6<='9')||LA23_6==';'||LA23_6=='='||LA23_6=='?'||(LA23_6>='A' && LA23_6<='D')||(LA23_6>='F' && LA23_6<='Z')||(LA23_6>='^' && LA23_6<='d')||(LA23_6>='f' && LA23_6<='z')||(LA23_6>='~' && LA23_6<='\uFFFF')) ) {s = 28;}
 
                         else s = 32;
 
                         if ( s>=0 ) return s;
                         break;
                     case 15 : 
+                        int LA23_75 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA23_75>='\u0000' && LA23_75<='\b')||(LA23_75>='\u000B' && LA23_75<='\f')||(LA23_75>='\u000E' && LA23_75<='\u001F')||LA23_75=='!'||LA23_75=='$'||LA23_75=='&'||LA23_75=='+'||(LA23_75>='.' && LA23_75<='9')||LA23_75==';'||LA23_75=='='||LA23_75=='?'||(LA23_75>='A' && LA23_75<='Z')||(LA23_75>='^' && LA23_75<='z')||(LA23_75>='~' && LA23_75<='\uFFFF')) ) {s = 28;}
+
+                        else s = 84;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
                         int LA23_7 = input.LA(1);
 
                         s = -1;
@@ -2599,23 +2607,15 @@ public class SilkSchemaLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
-                        int LA23_33 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA23_33>='0' && LA23_33<='9')) ) {s = 48;}
-
-                        else if ( ((LA23_33>='\u0000' && LA23_33<='\b')||(LA23_33>='\u000B' && LA23_33<='\f')||(LA23_33>='\u000E' && LA23_33<='\u001F')||LA23_33=='!'||LA23_33=='$'||LA23_33=='&'||LA23_33=='+'||LA23_33=='/'||LA23_33==';'||LA23_33=='='||LA23_33=='?'||(LA23_33>='A' && LA23_33<='Z')||(LA23_33>='^' && LA23_33<='z')||(LA23_33>='~' && LA23_33<='\uFFFF')) ) {s = 28;}
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 17 : 
-                        int LA23_112 = input.LA(1);
+                        int LA23_50 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA23_112>='\u0000' && LA23_112<='\b')||(LA23_112>='\u000B' && LA23_112<='\f')||(LA23_112>='\u000E' && LA23_112<='\u001F')||LA23_112=='!'||LA23_112=='$'||LA23_112=='&'||LA23_112=='+'||(LA23_112>='.' && LA23_112<='9')||LA23_112==';'||LA23_112=='='||LA23_112=='?'||(LA23_112>='A' && LA23_112<='Z')||(LA23_112>='^' && LA23_112<='z')||(LA23_112>='~' && LA23_112<='\uFFFF')) ) {s = 28;}
+                        if ( ((LA23_50>='0' && LA23_50<='9')) ) {s = 50;}
 
-                        else s = 114;
+                        else if ( ((LA23_50>='\u0000' && LA23_50<='\b')||(LA23_50>='\u000B' && LA23_50<='\f')||(LA23_50>='\u000E' && LA23_50<='\u001F')||LA23_50=='!'||LA23_50=='$'||LA23_50=='&'||LA23_50=='+'||(LA23_50>='.' && LA23_50<='/')||LA23_50==';'||LA23_50=='='||LA23_50=='?'||(LA23_50>='A' && LA23_50<='Z')||(LA23_50>='^' && LA23_50<='z')||(LA23_50>='~' && LA23_50<='\uFFFF')) ) {s = 28;}
+
+                        else s = 46;
 
                         if ( s>=0 ) return s;
                         break;

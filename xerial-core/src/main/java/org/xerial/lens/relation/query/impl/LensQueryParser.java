@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2009-10-13 14:02:52
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g 2010-01-21 11:04:07
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -38,58 +38,58 @@ public class LensQueryParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "QUERY", "RELATION", "COMPARE", "OPERATOR", "OPERAND", "PATTERNMATCH", "NODE", "ALIAS", "NODEVALUE", "NAME", "VALUE", "LineBreakChar", "LineComment", "LineBreak", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Integer", "Frac", "Exp", "Double", "True", "False", "Null", "Lt", "Gt", "Leq", "Geq", "Eq", "Neq", "Match", "Regex", "Dot", "Comma", "Colon", "As", "LParen", "RParen", "Star", "UnsafeUnicodeChar", "SafeFirstLetter", "SafeLetter", "WhiteSpace", "QNameChar", "QName", "WhiteSpaces"
     };
-    public static final int PATTERNMATCH=9;
-    public static final int Match=39;
-    public static final int Regex=40;
-    public static final int Digit=18;
     public static final int Frac=27;
-    public static final int HexDigit=20;
-    public static final int QUERY=4;
-    public static final int ALIAS=11;
-    public static final int VALUE=14;
-    public static final int Letter=19;
-    public static final int Comma=42;
-    public static final int Dot=41;
-    public static final int EscapeSequence=22;
-    public static final int Integer=26;
-    public static final int WhiteSpace=51;
-    public static final int OPERATOR=7;
     public static final int False=31;
-    public static final int LineComment=16;
-    public static final int Colon=43;
-    public static final int NODEVALUE=12;
-    public static final int As=44;
-    public static final int SafeFirstLetter=49;
-    public static final int Null=32;
-    public static final int Star=47;
-    public static final int Eq=37;
-    public static final int Exp=28;
-    public static final int QNameChar=52;
-    public static final int RELATION=5;
     public static final int Gt=34;
-    public static final int RParen=46;
-    public static final int UnicodeChar=21;
-    public static final int StringChar=23;
-    public static final int True=30;
-    public static final int OPERAND=8;
-    public static final int LineBreak=17;
-    public static final int LParen=45;
-    public static final int String=25;
-    public static final int SafeLetter=50;
-    public static final int LineBreakChar=15;
-    public static final int COMPARE=6;
-    public static final int QName=53;
+    public static final int LineComment=16;
     public static final int EOF=-1;
-    public static final int Geq=36;
-    public static final int NODE=10;
-    public static final int StringChar_s=24;
+    public static final int HexDigit=20;
     public static final int Neq=38;
-    public static final int UnsafeUnicodeChar=48;
-    public static final int Double=29;
     public static final int Lt=33;
+    public static final int LineBreak=17;
     public static final int NAME=13;
     public static final int Leq=35;
+    public static final int OPERAND=8;
+    public static final int COMPARE=6;
+    public static final int WhiteSpace=51;
+    public static final int String=25;
+    public static final int True=30;
+    public static final int Null=32;
+    public static final int Double=29;
+    public static final int RParen=46;
+    public static final int QName=53;
+    public static final int NODE=10;
+    public static final int QNameChar=52;
+    public static final int LParen=45;
+    public static final int As=44;
+    public static final int OPERATOR=7;
     public static final int WhiteSpaces=54;
+    public static final int StringChar_s=24;
+    public static final int RELATION=5;
+    public static final int Exp=28;
+    public static final int Eq=37;
+    public static final int Colon=43;
+    public static final int UnicodeChar=21;
+    public static final int VALUE=14;
+    public static final int Digit=18;
+    public static final int UnsafeUnicodeChar=48;
+    public static final int LineBreakChar=15;
+    public static final int NODEVALUE=12;
+    public static final int Match=39;
+    public static final int ALIAS=11;
+    public static final int Dot=41;
+    public static final int QUERY=4;
+    public static final int StringChar=23;
+    public static final int PATTERNMATCH=9;
+    public static final int SafeLetter=50;
+    public static final int Star=47;
+    public static final int SafeFirstLetter=49;
+    public static final int Comma=42;
+    public static final int Letter=19;
+    public static final int EscapeSequence=22;
+    public static final int Integer=26;
+    public static final int Geq=36;
+    public static final int Regex=40;
 
     // delegates
     // delegators
@@ -113,7 +113,7 @@ public class LensQueryParser extends Parser {
     }
 
     public String[] getTokenNames() { return LensQueryParser.tokenNames; }
-    public String getGrammarFileName() { return "LensQuery.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g"; }
 
 
 
@@ -124,7 +124,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // LensQuery.g:185:1: expr : relation ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:185:1: expr : relation ;
     public final LensQueryParser.expr_return expr() throws RecognitionException {
         LensQueryParser.expr_return retval = new LensQueryParser.expr_return();
         retval.start = input.LT(1);
@@ -136,8 +136,8 @@ public class LensQueryParser extends Parser {
 
 
         try {
-            // LensQuery.g:185:5: ( relation )
-            // LensQuery.g:186:3: relation
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:185:5: ( relation )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:186:3: relation
             {
             root_0 = (Object)adaptor.nil();
 
@@ -174,7 +174,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "relation"
-    // LensQuery.g:189:1: relation : relation_i -> ^( RELATION relation_i ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:189:1: relation : relation_i -> ^( RELATION relation_i ) ;
     public final LensQueryParser.relation_return relation() throws RecognitionException {
         LensQueryParser.relation_return retval = new LensQueryParser.relation_return();
         retval.start = input.LT(1);
@@ -186,8 +186,8 @@ public class LensQueryParser extends Parser {
 
         RewriteRuleSubtreeStream stream_relation_i=new RewriteRuleSubtreeStream(adaptor,"rule relation_i");
         try {
-            // LensQuery.g:190:4: ( relation_i -> ^( RELATION relation_i ) )
-            // LensQuery.g:190:6: relation_i
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:190:4: ( relation_i -> ^( RELATION relation_i ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:190:6: relation_i
             {
             pushFollow(FOLLOW_relation_i_in_relation792);
             relation_i2=relation_i();
@@ -210,7 +210,7 @@ public class LensQueryParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 190:17: -> ^( RELATION relation_i )
             {
-                // LensQuery.g:190:20: ^( RELATION relation_i )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:190:20: ^( RELATION relation_i )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(RELATION, "RELATION"), root_1);
@@ -249,7 +249,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "relation_i"
-    // LensQuery.g:193:1: relation_i : nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:1: relation_i : nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen ;
     public final LensQueryParser.relation_i_return relation_i() throws RecognitionException {
         LensQueryParser.relation_i_return retval = new LensQueryParser.relation_i_return();
         retval.start = input.LT(1);
@@ -273,8 +273,8 @@ public class LensQueryParser extends Parser {
         Object RParen9_tree=null;
 
         try {
-            // LensQuery.g:193:11: ( nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen )
-            // LensQuery.g:193:13: nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:11: ( nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:13: nodeName ( alias )? LParen nodeItem ( Comma nodeItem )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
@@ -284,7 +284,7 @@ public class LensQueryParser extends Parser {
             state._fsp--;
 
             adaptor.addChild(root_0, nodeName3.getTree());
-            // LensQuery.g:193:22: ( alias )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:22: ( alias )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -293,7 +293,7 @@ public class LensQueryParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // LensQuery.g:193:22: alias
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:22: alias
                     {
                     pushFollow(FOLLOW_alias_in_relation_i810);
                     alias4=alias();
@@ -314,7 +314,7 @@ public class LensQueryParser extends Parser {
             state._fsp--;
 
             adaptor.addChild(root_0, nodeItem6.getTree());
-            // LensQuery.g:193:46: ( Comma nodeItem )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:46: ( Comma nodeItem )*
             loop2:
             do {
                 int alt2=2;
@@ -327,7 +327,7 @@ public class LensQueryParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // LensQuery.g:193:47: Comma nodeItem
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:193:47: Comma nodeItem
             	    {
             	    Comma7=(Token)match(input,Comma,FOLLOW_Comma_in_relation_i819); 
             	    pushFollow(FOLLOW_nodeItem_in_relation_i822);
@@ -373,7 +373,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeName"
-    // LensQuery.g:196:1: fragment nodeName : ( QName -> NAME[$QName.text] | String -> NAME[$String.text] );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:196:1: fragment nodeName : ( QName -> NAME[$QName.text] | String -> NAME[$String.text] );
     public final LensQueryParser.nodeName_return nodeName() throws RecognitionException {
         LensQueryParser.nodeName_return retval = new LensQueryParser.nodeName_return();
         retval.start = input.LT(1);
@@ -389,7 +389,7 @@ public class LensQueryParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // LensQuery.g:198:3: ( QName -> NAME[$QName.text] | String -> NAME[$String.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:198:3: ( QName -> NAME[$QName.text] | String -> NAME[$String.text] )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -407,7 +407,7 @@ public class LensQueryParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // LensQuery.g:198:5: QName
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:198:5: QName
                     {
                     QName10=(Token)match(input,QName,FOLLOW_QName_in_nodeName840);  
                     stream_QName.add(QName10);
@@ -435,7 +435,7 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:199:5: String
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:199:5: String
                     {
                     String11=(Token)match(input,String,FOLLOW_String_in_nodeName851);  
                     stream_String.add(String11);
@@ -488,7 +488,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "alias"
-    // LensQuery.g:202:1: fragment alias : As QName -> ALIAS[$QName.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:202:1: fragment alias : As QName -> ALIAS[$QName.text] ;
     public final LensQueryParser.alias_return alias() throws RecognitionException {
         LensQueryParser.alias_return retval = new LensQueryParser.alias_return();
         retval.start = input.LT(1);
@@ -500,12 +500,12 @@ public class LensQueryParser extends Parser {
 
         Object As12_tree=null;
         Object QName13_tree=null;
-        RewriteRuleTokenStream stream_As=new RewriteRuleTokenStream(adaptor,"token As");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_As=new RewriteRuleTokenStream(adaptor,"token As");
 
         try {
-            // LensQuery.g:203:6: ( As QName -> ALIAS[$QName.text] )
-            // LensQuery.g:203:8: As QName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:203:6: ( As QName -> ALIAS[$QName.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:203:8: As QName
             {
             As12=(Token)match(input,As,FOLLOW_As_in_alias868);  
             stream_As.add(As12);
@@ -559,7 +559,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeItem"
-    // LensQuery.g:206:1: fragment nodeItem : ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:206:1: fragment nodeItem : ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation );
     public final LensQueryParser.nodeItem_return nodeItem() throws RecognitionException {
         LensQueryParser.nodeItem_return retval = new LensQueryParser.nodeItem_return();
         retval.start = input.LT(1);
@@ -575,11 +575,11 @@ public class LensQueryParser extends Parser {
         LensQueryParser.relation_return relation17 = null;
 
 
+        RewriteRuleSubtreeStream stream_alias=new RewriteRuleSubtreeStream(adaptor,"rule alias");
         RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
-        RewriteRuleSubtreeStream stream_alias=new RewriteRuleSubtreeStream(adaptor,"rule alias");
         try {
-            // LensQuery.g:208:3: ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:3: ( nodeName ( alias )? ( nodeValue )? -> ^( NODE nodeName ( alias )? ( nodeValue )? ) | relation )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -592,11 +592,11 @@ public class LensQueryParser extends Parser {
                     if ( (LA6_3==QName) ) {
                         int LA6_6 = input.LA(4);
 
-                        if ( ((LA6_6>=Lt && LA6_6<=Match)||(LA6_6>=Comma && LA6_6<=Colon)||LA6_6==RParen) ) {
-                            alt6=1;
-                        }
-                        else if ( (LA6_6==LParen) ) {
+                        if ( (LA6_6==LParen) ) {
                             alt6=2;
+                        }
+                        else if ( ((LA6_6>=Lt && LA6_6<=Match)||(LA6_6>=Comma && LA6_6<=Colon)||LA6_6==RParen) ) {
+                            alt6=1;
                         }
                         else {
                             NoViableAltException nvae =
@@ -649,11 +649,11 @@ public class LensQueryParser extends Parser {
                     if ( (LA6_3==QName) ) {
                         int LA6_6 = input.LA(4);
 
-                        if ( ((LA6_6>=Lt && LA6_6<=Match)||(LA6_6>=Comma && LA6_6<=Colon)||LA6_6==RParen) ) {
-                            alt6=1;
-                        }
-                        else if ( (LA6_6==LParen) ) {
+                        if ( (LA6_6==LParen) ) {
                             alt6=2;
+                        }
+                        else if ( ((LA6_6>=Lt && LA6_6<=Match)||(LA6_6>=Comma && LA6_6<=Colon)||LA6_6==RParen) ) {
+                            alt6=1;
                         }
                         else {
                             NoViableAltException nvae =
@@ -670,11 +670,6 @@ public class LensQueryParser extends Parser {
                     }
                     }
                     break;
-                case LParen:
-                    {
-                    alt6=2;
-                    }
-                    break;
                 case Lt:
                 case Gt:
                 case Leq:
@@ -687,6 +682,11 @@ public class LensQueryParser extends Parser {
                 case RParen:
                     {
                     alt6=1;
+                    }
+                    break;
+                case LParen:
+                    {
+                    alt6=2;
                     }
                     break;
                 default:
@@ -705,7 +705,7 @@ public class LensQueryParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // LensQuery.g:208:5: nodeName ( alias )? ( nodeValue )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:5: nodeName ( alias )? ( nodeValue )?
                     {
                     pushFollow(FOLLOW_nodeName_in_nodeItem890);
                     nodeName14=nodeName();
@@ -713,7 +713,7 @@ public class LensQueryParser extends Parser {
                     state._fsp--;
 
                     stream_nodeName.add(nodeName14.getTree());
-                    // LensQuery.g:208:14: ( alias )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:14: ( alias )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -722,7 +722,7 @@ public class LensQueryParser extends Parser {
                     }
                     switch (alt4) {
                         case 1 :
-                            // LensQuery.g:208:14: alias
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:14: alias
                             {
                             pushFollow(FOLLOW_alias_in_nodeItem892);
                             alias15=alias();
@@ -736,7 +736,7 @@ public class LensQueryParser extends Parser {
 
                     }
 
-                    // LensQuery.g:208:21: ( nodeValue )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:21: ( nodeValue )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -745,7 +745,7 @@ public class LensQueryParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // LensQuery.g:208:21: nodeValue
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:208:21: nodeValue
                             {
                             pushFollow(FOLLOW_nodeValue_in_nodeItem895);
                             nodeValue16=nodeValue();
@@ -762,7 +762,7 @@ public class LensQueryParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeName, alias, nodeValue
+                    // elements: nodeName, nodeValue, alias
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -774,19 +774,19 @@ public class LensQueryParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 209:5: -> ^( NODE nodeName ( alias )? ( nodeValue )? )
                     {
-                        // LensQuery.g:209:8: ^( NODE nodeName ( alias )? ( nodeValue )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:209:8: ^( NODE nodeName ( alias )? ( nodeValue )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NODE, "NODE"), root_1);
 
                         adaptor.addChild(root_1, stream_nodeName.nextTree());
-                        // LensQuery.g:209:24: ( alias )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:209:24: ( alias )?
                         if ( stream_alias.hasNext() ) {
                             adaptor.addChild(root_1, stream_alias.nextTree());
 
                         }
                         stream_alias.reset();
-                        // LensQuery.g:209:31: ( nodeValue )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:209:31: ( nodeValue )?
                         if ( stream_nodeValue.hasNext() ) {
                             adaptor.addChild(root_1, stream_nodeValue.nextTree());
 
@@ -802,7 +802,7 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:210:5: relation
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:210:5: relation
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -841,7 +841,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "value"
-    // LensQuery.g:213:1: fragment value : ( String | Integer | Double | QName );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:213:1: fragment value : ( String | Integer | Double | QName );
     public final LensQueryParser.value_return value() throws RecognitionException {
         LensQueryParser.value_return retval = new LensQueryParser.value_return();
         retval.start = input.LT(1);
@@ -853,8 +853,8 @@ public class LensQueryParser extends Parser {
         Object set18_tree=null;
 
         try {
-            // LensQuery.g:215:3: ( String | Integer | Double | QName )
-            // LensQuery.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:215:3: ( String | Integer | Double | QName )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
             {
             root_0 = (Object)adaptor.nil();
 
@@ -896,7 +896,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeValue"
-    // LensQuery.g:218:1: fragment nodeValue : ( Colon value -> NODEVALUE[$value.text] | nodeCmp );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:218:1: fragment nodeValue : ( Colon value -> NODEVALUE[$value.text] | nodeCmp );
     public final LensQueryParser.nodeValue_return nodeValue() throws RecognitionException {
         LensQueryParser.nodeValue_return retval = new LensQueryParser.nodeValue_return();
         retval.start = input.LT(1);
@@ -913,7 +913,7 @@ public class LensQueryParser extends Parser {
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // LensQuery.g:220:3: ( Colon value -> NODEVALUE[$value.text] | nodeCmp )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:220:3: ( Colon value -> NODEVALUE[$value.text] | nodeCmp )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -931,7 +931,7 @@ public class LensQueryParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // LensQuery.g:220:5: Colon value
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:220:5: Colon value
                     {
                     Colon19=(Token)match(input,Colon,FOLLOW_Colon_in_nodeValue970);  
                     stream_Colon.add(Colon19);
@@ -965,7 +965,7 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:221:5: nodeCmp
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:221:5: nodeCmp
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1004,7 +1004,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "nodeCmp"
-    // LensQuery.g:224:1: fragment nodeCmp : ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:224:1: fragment nodeCmp : ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) );
     public final LensQueryParser.nodeCmp_return nodeCmp() throws RecognitionException {
         LensQueryParser.nodeCmp_return retval = new LensQueryParser.nodeCmp_return();
         retval.start = input.LT(1);
@@ -1022,10 +1022,10 @@ public class LensQueryParser extends Parser {
         Object Regex25_tree=null;
         RewriteRuleTokenStream stream_Match=new RewriteRuleTokenStream(adaptor,"token Match");
         RewriteRuleTokenStream stream_Regex=new RewriteRuleTokenStream(adaptor,"token Regex");
-        RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         RewriteRuleSubtreeStream stream_cmpOp=new RewriteRuleSubtreeStream(adaptor,"rule cmpOp");
+        RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // LensQuery.g:226:3: ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:226:3: ( cmpOp value -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] ) | Match Regex -> ^( PATTERNMATCH OPERAND[$Regex.text] ) )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1043,7 +1043,7 @@ public class LensQueryParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // LensQuery.g:226:5: cmpOp value
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:226:5: cmpOp value
                     {
                     pushFollow(FOLLOW_cmpOp_in_nodeCmp1003);
                     cmpOp22=cmpOp();
@@ -1072,7 +1072,7 @@ public class LensQueryParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 226:17: -> ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
                     {
-                        // LensQuery.g:226:20: ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:226:20: ^( COMPARE OPERATOR[$cmpOp.text] OPERAND[$value.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPARE, "COMPARE"), root_1);
@@ -1089,7 +1089,7 @@ public class LensQueryParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // LensQuery.g:227:5: Match Regex
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:227:5: Match Regex
                     {
                     Match24=(Token)match(input,Match,FOLLOW_Match_in_nodeCmp1023);  
                     stream_Match.add(Match24);
@@ -1112,7 +1112,7 @@ public class LensQueryParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 227:17: -> ^( PATTERNMATCH OPERAND[$Regex.text] )
                     {
-                        // LensQuery.g:227:20: ^( PATTERNMATCH OPERAND[$Regex.text] )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:227:20: ^( PATTERNMATCH OPERAND[$Regex.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERNMATCH, "PATTERNMATCH"), root_1);
@@ -1153,7 +1153,7 @@ public class LensQueryParser extends Parser {
     };
 
     // $ANTLR start "cmpOp"
-    // LensQuery.g:230:1: fragment cmpOp : ( Lt | Gt | Eq | Leq | Geq | Neq ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:230:1: fragment cmpOp : ( Lt | Gt | Eq | Leq | Geq | Neq ) ;
     public final LensQueryParser.cmpOp_return cmpOp() throws RecognitionException {
         LensQueryParser.cmpOp_return retval = new LensQueryParser.cmpOp_return();
         retval.start = input.LT(1);
@@ -1165,8 +1165,8 @@ public class LensQueryParser extends Parser {
         Object set26_tree=null;
 
         try {
-            // LensQuery.g:231:6: ( ( Lt | Gt | Eq | Leq | Geq | Neq ) )
-            // LensQuery.g:231:8: ( Lt | Gt | Eq | Leq | Geq | Neq )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:231:6: ( ( Lt | Gt | Eq | Leq | Geq | Neq ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:231:8: ( Lt | Gt | Eq | Leq | Geq | Neq )
             {
             root_0 = (Object)adaptor.nil();
 

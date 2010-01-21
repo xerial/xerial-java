@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 XPath.g 2009-09-30 22:59:29
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g 2010-01-21 11:03:24
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -40,51 +40,51 @@ public class XPathParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "XPATH", "NAME", "VALUE", "STEP", "AXIS", "PREDICATE", "LineBreakChar", "LineComment", "LineBreak", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Integer", "Frac", "Exp", "Double", "Comma", "Colon", "UnsafeUnicodeChar", "SafeFirstLetter", "SafeLetter", "WhiteSpace", "QNameChar", "QName", "WhiteSpaces", "'/'", "'//'", "'@'", "'['", "']'", "'='", "'!='", "'>'", "'>='", "'<'", "'<='", "'~='", "'('", "')'"
     };
-    public static final int T__42=42;
-    public static final int Digit=13;
     public static final int Frac=22;
-    public static final int HexDigit=15;
-    public static final int T__47=47;
     public static final int STEP=7;
-    public static final int VALUE=6;
-    public static final int T__39=39;
-    public static final int PREDICATE=9;
-    public static final int Letter=14;
-    public static final int T__46=46;
-    public static final int Comma=25;
-    public static final int EscapeSequence=17;
-    public static final int XPATH=4;
-    public static final int Integer=21;
-    public static final int WhiteSpace=30;
-    public static final int T__34=34;
-    public static final int AXIS=8;
     public static final int LineComment=11;
-    public static final int Colon=26;
-    public static final int T__35=35;
-    public static final int SafeFirstLetter=28;
-    public static final int T__36=36;
-    public static final int Exp=23;
-    public static final int QNameChar=31;
-    public static final int T__44=44;
-    public static final int UnicodeChar=16;
-    public static final int StringChar=18;
-    public static final int LineBreak=12;
-    public static final int T__45=45;
-    public static final int String=20;
-    public static final int SafeLetter=29;
-    public static final int LineBreakChar=10;
-    public static final int T__43=43;
-    public static final int QName=32;
-    public static final int T__40=40;
+    public static final int AXIS=8;
     public static final int EOF=-1;
-    public static final int T__38=38;
-    public static final int T__37=37;
-    public static final int StringChar_s=19;
-    public static final int UnsafeUnicodeChar=27;
-    public static final int Double=24;
+    public static final int HexDigit=15;
+    public static final int PREDICATE=9;
+    public static final int LineBreak=12;
     public static final int NAME=5;
+    public static final int WhiteSpace=30;
+    public static final int String=20;
+    public static final int T__42=42;
+    public static final int Double=24;
+    public static final int T__43=43;
+    public static final int T__40=40;
     public static final int T__41=41;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int QName=32;
+    public static final int T__44=44;
+    public static final int QNameChar=31;
+    public static final int T__45=45;
     public static final int WhiteSpaces=33;
+    public static final int StringChar_s=19;
+    public static final int Exp=23;
+    public static final int Colon=26;
+    public static final int UnicodeChar=16;
+    public static final int VALUE=6;
+    public static final int Digit=13;
+    public static final int UnsafeUnicodeChar=27;
+    public static final int XPATH=4;
+    public static final int T__34=34;
+    public static final int T__35=35;
+    public static final int T__36=36;
+    public static final int LineBreakChar=10;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int StringChar=18;
+    public static final int SafeLetter=29;
+    public static final int SafeFirstLetter=28;
+    public static final int Comma=25;
+    public static final int Letter=14;
+    public static final int EscapeSequence=17;
+    public static final int Integer=21;
 
     // delegates
     // delegators
@@ -108,7 +108,7 @@ public class XPathParser extends Parser {
     }
 
     public String[] getTokenNames() { return XPathParser.tokenNames; }
-    public String getGrammarFileName() { return "XPath.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g"; }
 
 
 
@@ -120,7 +120,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "xpath"
-    // XPath.g:162:1: xpath : locationExpr -> ^( XPATH locationExpr ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:162:1: xpath : locationExpr -> ^( XPATH locationExpr ) ;
     public final XPathParser.xpath_return xpath() throws RecognitionException {
         XPathParser.xpath_return retval = new XPathParser.xpath_return();
         retval.start = input.LT(1);
@@ -132,8 +132,8 @@ public class XPathParser extends Parser {
 
         RewriteRuleSubtreeStream stream_locationExpr=new RewriteRuleSubtreeStream(adaptor,"rule locationExpr");
         try {
-            // XPath.g:163:3: ( locationExpr -> ^( XPATH locationExpr ) )
-            // XPath.g:163:5: locationExpr
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:163:3: ( locationExpr -> ^( XPATH locationExpr ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:163:5: locationExpr
             {
             pushFollow(FOLLOW_locationExpr_in_xpath620);
             locationExpr1=locationExpr();
@@ -157,7 +157,7 @@ public class XPathParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 164:3: -> ^( XPATH locationExpr )
             {
-                // XPath.g:164:6: ^( XPATH locationExpr )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:164:6: ^( XPATH locationExpr )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(XPATH, "XPATH"), root_1);
@@ -198,7 +198,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "locationExpr"
-    // XPath.g:167:1: fragment locationExpr : relativePath ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:167:1: fragment locationExpr : relativePath ;
     public final XPathParser.locationExpr_return locationExpr() throws RecognitionException {
         XPathParser.locationExpr_return retval = new XPathParser.locationExpr_return();
         retval.start = input.LT(1);
@@ -210,8 +210,8 @@ public class XPathParser extends Parser {
 
 
         try {
-            // XPath.g:169:3: ( relativePath )
-            // XPath.g:169:5: relativePath
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:169:3: ( relativePath )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:169:5: relativePath
             {
             root_0 = (Object)adaptor.nil();
 
@@ -250,7 +250,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "relativePath"
-    // XPath.g:172:1: fragment relativePath : ( step ( relativePath )? -> ^( STEP step ( relativePath )? ) | '/' step ( relativePath )? -> ^( STEP AXIS[\"PC\"] step ( relativePath )? ) | '//' step ( relativePath )? -> ^( STEP AXIS[\"AD\"] step ( relativePath )? ) );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:172:1: fragment relativePath : ( step ( relativePath )? -> ^( STEP step ( relativePath )? ) | '/' step ( relativePath )? -> ^( STEP AXIS[\"PC\"] step ( relativePath )? ) | '//' step ( relativePath )? -> ^( STEP AXIS[\"AD\"] step ( relativePath )? ) );
     public final XPathParser.relativePath_return relativePath() throws RecognitionException {
         XPathParser.relativePath_return retval = new XPathParser.relativePath_return();
         retval.start = input.LT(1);
@@ -279,7 +279,7 @@ public class XPathParser extends Parser {
         RewriteRuleSubtreeStream stream_relativePath=new RewriteRuleSubtreeStream(adaptor,"rule relativePath");
         RewriteRuleSubtreeStream stream_step=new RewriteRuleSubtreeStream(adaptor,"rule step");
         try {
-            // XPath.g:174:3: ( step ( relativePath )? -> ^( STEP step ( relativePath )? ) | '/' step ( relativePath )? -> ^( STEP AXIS[\"PC\"] step ( relativePath )? ) | '//' step ( relativePath )? -> ^( STEP AXIS[\"AD\"] step ( relativePath )? ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:174:3: ( step ( relativePath )? -> ^( STEP step ( relativePath )? ) | '/' step ( relativePath )? -> ^( STEP AXIS[\"PC\"] step ( relativePath )? ) | '//' step ( relativePath )? -> ^( STEP AXIS[\"AD\"] step ( relativePath )? ) )
             int alt4=3;
             switch ( input.LA(1) ) {
             case QName:
@@ -308,7 +308,7 @@ public class XPathParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // XPath.g:174:5: step ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:174:5: step ( relativePath )?
                     {
                     pushFollow(FOLLOW_step_in_relativePath663);
                     step3=step();
@@ -316,7 +316,7 @@ public class XPathParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_step.add(step3.getTree());
-                    // XPath.g:174:10: ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:174:10: ( relativePath )?
                     int alt1=2;
                     int LA1_0 = input.LA(1);
 
@@ -325,7 +325,7 @@ public class XPathParser extends Parser {
                     }
                     switch (alt1) {
                         case 1 :
-                            // XPath.g:174:10: relativePath
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:174:10: relativePath
                             {
                             pushFollow(FOLLOW_relativePath_in_relativePath665);
                             relativePath4=relativePath();
@@ -342,7 +342,7 @@ public class XPathParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: step, relativePath
+                    // elements: relativePath, step
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -355,13 +355,13 @@ public class XPathParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 175:4: -> ^( STEP step ( relativePath )? )
                     {
-                        // XPath.g:175:7: ^( STEP step ( relativePath )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:175:7: ^( STEP step ( relativePath )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STEP, "STEP"), root_1);
 
                         adaptor.addChild(root_1, stream_step.nextTree());
-                        // XPath.g:175:19: ( relativePath )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:175:19: ( relativePath )?
                         if ( stream_relativePath.hasNext() ) {
                             adaptor.addChild(root_1, stream_relativePath.nextTree());
 
@@ -377,7 +377,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // XPath.g:176:5: '/' step ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:176:5: '/' step ( relativePath )?
                     {
                     char_literal5=(Token)match(input,34,FOLLOW_34_in_relativePath686); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_34.add(char_literal5);
@@ -388,7 +388,7 @@ public class XPathParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_step.add(step6.getTree());
-                    // XPath.g:176:14: ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:176:14: ( relativePath )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -397,7 +397,7 @@ public class XPathParser extends Parser {
                     }
                     switch (alt2) {
                         case 1 :
-                            // XPath.g:176:14: relativePath
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:176:14: relativePath
                             {
                             pushFollow(FOLLOW_relativePath_in_relativePath690);
                             relativePath7=relativePath();
@@ -427,14 +427,14 @@ public class XPathParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 177:4: -> ^( STEP AXIS[\"PC\"] step ( relativePath )? )
                     {
-                        // XPath.g:177:7: ^( STEP AXIS[\"PC\"] step ( relativePath )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:177:7: ^( STEP AXIS[\"PC\"] step ( relativePath )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STEP, "STEP"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(AXIS, "PC"));
                         adaptor.addChild(root_1, stream_step.nextTree());
-                        // XPath.g:177:30: ( relativePath )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:177:30: ( relativePath )?
                         if ( stream_relativePath.hasNext() ) {
                             adaptor.addChild(root_1, stream_relativePath.nextTree());
 
@@ -450,7 +450,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // XPath.g:178:5: '//' step ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:178:5: '//' step ( relativePath )?
                     {
                     string_literal8=(Token)match(input,35,FOLLOW_35_in_relativePath714); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_35.add(string_literal8);
@@ -461,7 +461,7 @@ public class XPathParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_step.add(step9.getTree());
-                    // XPath.g:178:15: ( relativePath )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:178:15: ( relativePath )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -470,7 +470,7 @@ public class XPathParser extends Parser {
                     }
                     switch (alt3) {
                         case 1 :
-                            // XPath.g:178:15: relativePath
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:178:15: relativePath
                             {
                             pushFollow(FOLLOW_relativePath_in_relativePath718);
                             relativePath10=relativePath();
@@ -487,7 +487,7 @@ public class XPathParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: relativePath, step
+                    // elements: step, relativePath
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -500,14 +500,14 @@ public class XPathParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 179:4: -> ^( STEP AXIS[\"AD\"] step ( relativePath )? )
                     {
-                        // XPath.g:179:7: ^( STEP AXIS[\"AD\"] step ( relativePath )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:179:7: ^( STEP AXIS[\"AD\"] step ( relativePath )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STEP, "STEP"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(AXIS, "AD"));
                         adaptor.addChild(root_1, stream_step.nextTree());
-                        // XPath.g:179:30: ( relativePath )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:179:30: ( relativePath )?
                         if ( stream_relativePath.hasNext() ) {
                             adaptor.addChild(root_1, stream_relativePath.nextTree());
 
@@ -550,7 +550,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "step"
-    // XPath.g:183:1: fragment step : nodeTest ( predicate )* -> NAME[$nodeTest.text] ( predicate )* ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:183:1: fragment step : nodeTest ( predicate )* -> NAME[$nodeTest.text] ( predicate )* ;
     public final XPathParser.step_return step() throws RecognitionException {
         XPathParser.step_return retval = new XPathParser.step_return();
         retval.start = input.LT(1);
@@ -565,8 +565,8 @@ public class XPathParser extends Parser {
         RewriteRuleSubtreeStream stream_nodeTest=new RewriteRuleSubtreeStream(adaptor,"rule nodeTest");
         RewriteRuleSubtreeStream stream_predicate=new RewriteRuleSubtreeStream(adaptor,"rule predicate");
         try {
-            // XPath.g:185:3: ( nodeTest ( predicate )* -> NAME[$nodeTest.text] ( predicate )* )
-            // XPath.g:185:5: nodeTest ( predicate )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:185:3: ( nodeTest ( predicate )* -> NAME[$nodeTest.text] ( predicate )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:185:5: nodeTest ( predicate )*
             {
             pushFollow(FOLLOW_nodeTest_in_step755);
             nodeTest11=nodeTest();
@@ -574,7 +574,7 @@ public class XPathParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_nodeTest.add(nodeTest11.getTree());
-            // XPath.g:185:14: ( predicate )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:185:14: ( predicate )*
             loop5:
             do {
                 int alt5=2;
@@ -587,7 +587,7 @@ public class XPathParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // XPath.g:185:14: predicate
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:185:14: predicate
             	    {
             	    pushFollow(FOLLOW_predicate_in_step757);
             	    predicate12=predicate();
@@ -621,7 +621,7 @@ public class XPathParser extends Parser {
             // 185:25: -> NAME[$nodeTest.text] ( predicate )*
             {
                 adaptor.addChild(root_0, (Object)adaptor.create(NAME, (nodeTest11!=null?input.toString(nodeTest11.start,nodeTest11.stop):null)));
-                // XPath.g:185:49: ( predicate )*
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:185:49: ( predicate )*
                 while ( stream_predicate.hasNext() ) {
                     adaptor.addChild(root_0, stream_predicate.nextTree());
 
@@ -659,7 +659,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "nodeTest"
-    // XPath.g:189:1: fragment nodeTest : ( '@' )? ( QName ':' )? QName ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:189:1: fragment nodeTest : ( '@' )? ( QName ':' )? QName ;
     public final XPathParser.nodeTest_return nodeTest() throws RecognitionException {
         XPathParser.nodeTest_return retval = new XPathParser.nodeTest_return();
         retval.start = input.LT(1);
@@ -677,12 +677,12 @@ public class XPathParser extends Parser {
         Object QName16_tree=null;
 
         try {
-            // XPath.g:191:3: ( ( '@' )? ( QName ':' )? QName )
-            // XPath.g:191:5: ( '@' )? ( QName ':' )? QName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:3: ( ( '@' )? ( QName ':' )? QName )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:5: ( '@' )? ( QName ':' )? QName
             {
             root_0 = (Object)adaptor.nil();
 
-            // XPath.g:191:5: ( '@' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:5: ( '@' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -691,7 +691,7 @@ public class XPathParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // XPath.g:191:5: '@'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:5: '@'
                     {
                     char_literal13=(Token)match(input,36,FOLLOW_36_in_nodeTest785); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -704,7 +704,7 @@ public class XPathParser extends Parser {
 
             }
 
-            // XPath.g:191:10: ( QName ':' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:10: ( QName ':' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -717,7 +717,7 @@ public class XPathParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // XPath.g:191:11: QName ':'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:191:11: QName ':'
                     {
                     QName14=(Token)match(input,QName,FOLLOW_QName_in_nodeTest789); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
@@ -769,7 +769,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "predicate"
-    // XPath.g:194:1: fragment predicate : '[' expr ']' -> ^( PREDICATE expr ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:194:1: fragment predicate : '[' expr ']' -> ^( PREDICATE expr ) ;
     public final XPathParser.predicate_return predicate() throws RecognitionException {
         XPathParser.predicate_return retval = new XPathParser.predicate_return();
         retval.start = input.LT(1);
@@ -787,8 +787,8 @@ public class XPathParser extends Parser {
         RewriteRuleTokenStream stream_38=new RewriteRuleTokenStream(adaptor,"token 38");
         RewriteRuleSubtreeStream stream_expr=new RewriteRuleSubtreeStream(adaptor,"rule expr");
         try {
-            // XPath.g:196:3: ( '[' expr ']' -> ^( PREDICATE expr ) )
-            // XPath.g:196:5: '[' expr ']'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:196:3: ( '[' expr ']' -> ^( PREDICATE expr ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:196:5: '[' expr ']'
             {
             char_literal17=(Token)match(input,37,FOLLOW_37_in_predicate813); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_37.add(char_literal17);
@@ -818,7 +818,7 @@ public class XPathParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 197:3: -> ^( PREDICATE expr )
             {
-                // XPath.g:197:6: ^( PREDICATE expr )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:197:6: ^( PREDICATE expr )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PREDICATE, "PREDICATE"), root_1);
@@ -859,7 +859,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // XPath.g:200:1: expr : comparisonExpr ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:200:1: expr : comparisonExpr ;
     public final XPathParser.expr_return expr() throws RecognitionException {
         XPathParser.expr_return retval = new XPathParser.expr_return();
         retval.start = input.LT(1);
@@ -871,8 +871,8 @@ public class XPathParser extends Parser {
 
 
         try {
-            // XPath.g:201:3: ( comparisonExpr )
-            // XPath.g:201:5: comparisonExpr
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:201:3: ( comparisonExpr )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:201:5: comparisonExpr
             {
             root_0 = (Object)adaptor.nil();
 
@@ -911,7 +911,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "comparisonExpr"
-    // XPath.g:204:1: fragment comparisonExpr : ( pathExpr | ( pathExpr '=' )=> pathExpr '=' pathExpr | ( pathExpr '!=' )=> pathExpr '!=' pathExpr | ( pathExpr '>' )=> pathExpr '>' pathExpr | ( pathExpr '>=' )=> pathExpr '>=' pathExpr | ( pathExpr '<' )=> pathExpr '<' pathExpr | ( pathExpr '<=' )=> pathExpr '<=' pathExpr | ( pathExpr '~=' )=> pathExpr '~=' pathExpr );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:204:1: fragment comparisonExpr : ( pathExpr | ( pathExpr '=' )=> pathExpr '=' pathExpr | ( pathExpr '!=' )=> pathExpr '!=' pathExpr | ( pathExpr '>' )=> pathExpr '>' pathExpr | ( pathExpr '>=' )=> pathExpr '>=' pathExpr | ( pathExpr '<' )=> pathExpr '<' pathExpr | ( pathExpr '<=' )=> pathExpr '<=' pathExpr | ( pathExpr '~=' )=> pathExpr '~=' pathExpr );
     public final XPathParser.comparisonExpr_return comparisonExpr() throws RecognitionException {
         XPathParser.comparisonExpr_return retval = new XPathParser.comparisonExpr_return();
         retval.start = input.LT(1);
@@ -965,12 +965,12 @@ public class XPathParser extends Parser {
         Object string_literal41_tree=null;
 
         try {
-            // XPath.g:206:3: ( pathExpr | ( pathExpr '=' )=> pathExpr '=' pathExpr | ( pathExpr '!=' )=> pathExpr '!=' pathExpr | ( pathExpr '>' )=> pathExpr '>' pathExpr | ( pathExpr '>=' )=> pathExpr '>=' pathExpr | ( pathExpr '<' )=> pathExpr '<' pathExpr | ( pathExpr '<=' )=> pathExpr '<=' pathExpr | ( pathExpr '~=' )=> pathExpr '~=' pathExpr )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:206:3: ( pathExpr | ( pathExpr '=' )=> pathExpr '=' pathExpr | ( pathExpr '!=' )=> pathExpr '!=' pathExpr | ( pathExpr '>' )=> pathExpr '>' pathExpr | ( pathExpr '>=' )=> pathExpr '>=' pathExpr | ( pathExpr '<' )=> pathExpr '<' pathExpr | ( pathExpr '<=' )=> pathExpr '<=' pathExpr | ( pathExpr '~=' )=> pathExpr '~=' pathExpr )
             int alt8=8;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // XPath.g:206:5: pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:206:5: pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -984,7 +984,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // XPath.g:207:5: ( pathExpr '=' )=> pathExpr '=' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:207:5: ( pathExpr '=' )=> pathExpr '=' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1009,7 +1009,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // XPath.g:208:5: ( pathExpr '!=' )=> pathExpr '!=' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:208:5: ( pathExpr '!=' )=> pathExpr '!=' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1034,7 +1034,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // XPath.g:209:5: ( pathExpr '>' )=> pathExpr '>' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:209:5: ( pathExpr '>' )=> pathExpr '>' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1059,7 +1059,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // XPath.g:210:5: ( pathExpr '>=' )=> pathExpr '>=' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:210:5: ( pathExpr '>=' )=> pathExpr '>=' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1084,7 +1084,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // XPath.g:211:5: ( pathExpr '<' )=> pathExpr '<' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:211:5: ( pathExpr '<' )=> pathExpr '<' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1109,7 +1109,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // XPath.g:212:5: ( pathExpr '<=' )=> pathExpr '<=' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:212:5: ( pathExpr '<=' )=> pathExpr '<=' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1134,7 +1134,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 8 :
-                    // XPath.g:213:5: ( pathExpr '~=' )=> pathExpr '~=' pathExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:213:5: ( pathExpr '~=' )=> pathExpr '~=' pathExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1186,7 +1186,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "pathExpr"
-    // XPath.g:217:1: fragment pathExpr : ( locationExpr | primaryExpr );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:217:1: fragment pathExpr : ( locationExpr | primaryExpr );
     public final XPathParser.pathExpr_return pathExpr() throws RecognitionException {
         XPathParser.pathExpr_return retval = new XPathParser.pathExpr_return();
         retval.start = input.LT(1);
@@ -1200,7 +1200,7 @@ public class XPathParser extends Parser {
 
 
         try {
-            // XPath.g:219:3: ( locationExpr | primaryExpr )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:219:3: ( locationExpr | primaryExpr )
             int alt9=2;
             switch ( input.LA(1) ) {
             case 34:
@@ -1246,7 +1246,7 @@ public class XPathParser extends Parser {
 
             switch (alt9) {
                 case 1 :
-                    // XPath.g:219:5: locationExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:219:5: locationExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1260,7 +1260,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // XPath.g:220:5: primaryExpr
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:220:5: primaryExpr
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1301,7 +1301,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "primaryExpr"
-    // XPath.g:223:1: fragment primaryExpr : ( String | Integer | Double | functionCall );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:223:1: fragment primaryExpr : ( String | Integer | Double | functionCall );
     public final XPathParser.primaryExpr_return primaryExpr() throws RecognitionException {
         XPathParser.primaryExpr_return retval = new XPathParser.primaryExpr_return();
         retval.start = input.LT(1);
@@ -1319,7 +1319,7 @@ public class XPathParser extends Parser {
         Object Double47_tree=null;
 
         try {
-            // XPath.g:225:3: ( String | Integer | Double | functionCall )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:225:3: ( String | Integer | Double | functionCall )
             int alt10=4;
             switch ( input.LA(1) ) {
             case String:
@@ -1352,7 +1352,7 @@ public class XPathParser extends Parser {
 
             switch (alt10) {
                 case 1 :
-                    // XPath.g:225:5: String
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:225:5: String
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1365,7 +1365,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // XPath.g:226:5: Integer
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:226:5: Integer
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1378,7 +1378,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // XPath.g:227:5: Double
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:227:5: Double
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1391,7 +1391,7 @@ public class XPathParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // XPath.g:228:5: functionCall
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:228:5: functionCall
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -1432,7 +1432,7 @@ public class XPathParser extends Parser {
     };
 
     // $ANTLR start "functionCall"
-    // XPath.g:232:1: fragment functionCall : QName '(' ( expr ( ',' expr )* )? ')' ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:232:1: fragment functionCall : QName '(' ( expr ( ',' expr )* )? ')' ;
     public final XPathParser.functionCall_return functionCall() throws RecognitionException {
         XPathParser.functionCall_return retval = new XPathParser.functionCall_return();
         retval.start = input.LT(1);
@@ -1454,8 +1454,8 @@ public class XPathParser extends Parser {
         Object char_literal54_tree=null;
 
         try {
-            // XPath.g:234:3: ( QName '(' ( expr ( ',' expr )* )? ')' )
-            // XPath.g:234:5: QName '(' ( expr ( ',' expr )* )? ')'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:3: ( QName '(' ( expr ( ',' expr )* )? ')' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:5: QName '(' ( expr ( ',' expr )* )? ')'
             {
             root_0 = (Object)adaptor.nil();
 
@@ -1469,7 +1469,7 @@ public class XPathParser extends Parser {
             char_literal50_tree = (Object)adaptor.create(char_literal50);
             adaptor.addChild(root_0, char_literal50_tree);
             }
-            // XPath.g:234:15: ( expr ( ',' expr )* )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:15: ( expr ( ',' expr )* )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1478,7 +1478,7 @@ public class XPathParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // XPath.g:234:16: expr ( ',' expr )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:16: expr ( ',' expr )*
                     {
                     pushFollow(FOLLOW_expr_in_functionCall1065);
                     expr51=expr();
@@ -1486,7 +1486,7 @@ public class XPathParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, expr51.getTree());
-                    // XPath.g:234:21: ( ',' expr )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:21: ( ',' expr )*
                     loop11:
                     do {
                         int alt11=2;
@@ -1499,7 +1499,7 @@ public class XPathParser extends Parser {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // XPath.g:234:22: ',' expr
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:234:22: ',' expr
                     	    {
                     	    char_literal52=(Token)match(input,Comma,FOLLOW_Comma_in_functionCall1068); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
@@ -1557,8 +1557,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred1_XPath
     public final void synpred1_XPath_fragment() throws RecognitionException {   
-        // XPath.g:207:5: ( pathExpr '=' )
-        // XPath.g:207:6: pathExpr '='
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:207:5: ( pathExpr '=' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:207:6: pathExpr '='
         {
         pushFollow(FOLLOW_pathExpr_in_synpred1_XPath862);
         pathExpr();
@@ -1573,8 +1573,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred2_XPath
     public final void synpred2_XPath_fragment() throws RecognitionException {   
-        // XPath.g:208:5: ( pathExpr '!=' )
-        // XPath.g:208:6: pathExpr '!='
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:208:5: ( pathExpr '!=' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:208:6: pathExpr '!='
         {
         pushFollow(FOLLOW_pathExpr_in_synpred2_XPath880);
         pathExpr();
@@ -1589,8 +1589,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred3_XPath
     public final void synpred3_XPath_fragment() throws RecognitionException {   
-        // XPath.g:209:5: ( pathExpr '>' )
-        // XPath.g:209:6: pathExpr '>'
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:209:5: ( pathExpr '>' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:209:6: pathExpr '>'
         {
         pushFollow(FOLLOW_pathExpr_in_synpred3_XPath898);
         pathExpr();
@@ -1605,8 +1605,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred4_XPath
     public final void synpred4_XPath_fragment() throws RecognitionException {   
-        // XPath.g:210:5: ( pathExpr '>=' )
-        // XPath.g:210:6: pathExpr '>='
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:210:5: ( pathExpr '>=' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:210:6: pathExpr '>='
         {
         pushFollow(FOLLOW_pathExpr_in_synpred4_XPath916);
         pathExpr();
@@ -1621,8 +1621,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred5_XPath
     public final void synpred5_XPath_fragment() throws RecognitionException {   
-        // XPath.g:211:5: ( pathExpr '<' )
-        // XPath.g:211:6: pathExpr '<'
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:211:5: ( pathExpr '<' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:211:6: pathExpr '<'
         {
         pushFollow(FOLLOW_pathExpr_in_synpred5_XPath934);
         pathExpr();
@@ -1637,8 +1637,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred6_XPath
     public final void synpred6_XPath_fragment() throws RecognitionException {   
-        // XPath.g:212:5: ( pathExpr '<=' )
-        // XPath.g:212:6: pathExpr '<='
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:212:5: ( pathExpr '<=' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:212:6: pathExpr '<='
         {
         pushFollow(FOLLOW_pathExpr_in_synpred6_XPath952);
         pathExpr();
@@ -1653,8 +1653,8 @@ public class XPathParser extends Parser {
 
     // $ANTLR start synpred7_XPath
     public final void synpred7_XPath_fragment() throws RecognitionException {   
-        // XPath.g:213:5: ( pathExpr '~=' )
-        // XPath.g:213:6: pathExpr '~='
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:213:5: ( pathExpr '~=' )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:213:6: pathExpr '~='
         {
         pushFollow(FOLLOW_pathExpr_in_synpred7_XPath970);
         pathExpr();
@@ -1669,34 +1669,6 @@ public class XPathParser extends Parser {
 
     // Delegated rules
 
-    public final boolean synpred5_XPath() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred5_XPath_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred6_XPath() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred6_XPath_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred3_XPath() {
         state.backtracking++;
         int start = input.mark();
@@ -1711,11 +1683,25 @@ public class XPathParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred7_XPath() {
+    public final boolean synpred1_XPath() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred7_XPath_fragment(); // can never throw exception
+            synpred1_XPath_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred5_XPath() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred5_XPath_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -1739,11 +1725,11 @@ public class XPathParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred2_XPath() {
+    public final boolean synpred7_XPath() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred2_XPath_fragment(); // can never throw exception
+            synpred7_XPath_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -1753,11 +1739,25 @@ public class XPathParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred1_XPath() {
+    public final boolean synpred6_XPath() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred1_XPath_fragment(); // can never throw exception
+            synpred6_XPath_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred2_XPath() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred2_XPath_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }

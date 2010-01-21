@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-01-18 15:55:08
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g 2010-01-21 11:54:23
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -39,55 +39,57 @@ import java.util.ArrayList;
 
 public class SilkLineLexer extends Lexer {
     public static final int Key=14;
-    public static final int PlainUnsafeChar=45;
-    public static final int PlainSafeKey=46;
     public static final int DataType=10;
-    public static final int EqEq=25;
-    public static final int SilkNode=5;
-    public static final int SilkLine=6;
-    public static final int LBracket=31;
-    public static final int Digit=34;
-    public static final int NodeIndent=18;
-    public static final int HexDigit=36;
-    public static final int PlainOneLine=51;
-    public static final int Plus=30;
-    public static final int Occurrence=9;
-    public static final int Argument=12;
-    public static final int Separation=52;
-    public static final int FlowIndicator=43;
-    public static final int Letter=35;
-    public static final int PlainSafeIn=47;
-    public static final int Comma=23;
-    public static final int TabSeq=27;
-    public static final int NonSpaceChar=49;
-    public static final int EscapeSequence=38;
-    public static final int PlainFirst=50;
-    public static final int WhiteSpace=15;
-    public static final int PlainSafeOut=48;
-    public static final int Question=33;
     public static final int LineComment=17;
-    public static final int Colon=24;
-    public static final int At=29;
-    public static final int KeyValuePair=13;
-    public static final int Star=28;
-    public static final int Seq=26;
-    public static final int FunctionIndent=19;
-    public static final int Indicator=44;
-    public static final int RParen=22;
-    public static final int UnicodeChar=37;
-    public static final int Silk=4;
-    public static final int BlankLine=20;
-    public static final int StringChar=39;
-    public static final int Name=7;
-    public static final int Function=11;
-    public static final int LParen=21;
-    public static final int String=41;
-    public static final int LineBreakChar=16;
-    public static final int ScopeIndicator=42;
+    public static final int RBracket=33;
+    public static final int NodeIndent=19;
     public static final int EOF=-1;
-    public static final int StringChar_s=40;
+    public static final int HexDigit=37;
+    public static final int PlainSafeIn=48;
+    public static final int Occurrence=9;
+    public static final int PullUpNodeIndent=20;
+    public static final int Silk=4;
     public static final int Value=8;
-    public static final int RBracket=32;
+    public static final int Indicator=45;
+    public static final int PlainOneLine=52;
+    public static final int NonSpaceChar=50;
+    public static final int KeyValuePair=13;
+    public static final int Argument=12;
+    public static final int WhiteSpace=15;
+    public static final int String=42;
+    public static final int BlockIndent=18;
+    public static final int LBracket=32;
+    public static final int RParen=24;
+    public static final int PlainSafeOut=49;
+    public static final int At=30;
+    public static final int LParen=23;
+    public static final int PlainSafeKey=47;
+    public static final int PlainUnsafeChar=46;
+    public static final int TabSeq=28;
+    public static final int BlankLine=22;
+    public static final int StringChar_s=41;
+    public static final int Colon=26;
+    public static final int UnicodeChar=38;
+    public static final int Question=34;
+    public static final int Digit=35;
+    public static final int FunctionIndent=21;
+    public static final int PlainFirst=51;
+    public static final int Separation=54;
+    public static final int Seq=27;
+    public static final int Plus=31;
+    public static final int JSON=53;
+    public static final int Function=11;
+    public static final int LineBreakChar=16;
+    public static final int ScopeIndicator=43;
+    public static final int Name=7;
+    public static final int StringChar=40;
+    public static final int FlowIndicator=44;
+    public static final int Star=29;
+    public static final int SilkLine=6;
+    public static final int Comma=25;
+    public static final int EscapeSequence=39;
+    public static final int Letter=36;
+    public static final int SilkNode=5;
 
 
     private static Logger _logger = Logger.getLogger(SilkLineLexer.class);
@@ -109,16 +111,6 @@ public class SilkLineLexer extends Lexer {
             throw new XerialError(XerialErrorCode.INVALID_TOKEN, message);
       } 
       
-      public static String sanitizeDataLine(String line)
-      {
-          line = line.trim();
-          if (line.startsWith("\\"))
-              return line.substring(1);
-          else
-              return line;
-      }
-      
-      
 
 
     // delegates
@@ -132,13 +124,13 @@ public class SilkLineLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "SilkLine.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g"; }
 
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // SilkLine.g:155:2: ( ( ' ' | '\\t' ) )
-            // SilkLine.g:155:4: ( ' ' | '\\t' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:135:2: ( ( ' ' | '\\t' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:135:4: ( ' ' | '\\t' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -163,11 +155,11 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:159:12: ( '#' (~ ( LineBreakChar ) )* )
-            // SilkLine.g:159:14: '#' (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:12: ( '#' (~ ( LineBreakChar ) )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // SilkLine.g:159:18: (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -180,7 +172,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // SilkLine.g:159:18: ~ ( LineBreakChar )
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -214,8 +206,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // SilkLine.g:163:23: ( '\\n' | '\\r' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:142:23: ( '\\n' | '\\r' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -235,18 +227,18 @@ public class SilkLineLexer extends Lexer {
     }
     // $ANTLR end "LineBreakChar"
 
-    // $ANTLR start "NodeIndent"
-    public final void mNodeIndent() throws RecognitionException {
+    // $ANTLR start "BlockIndent"
+    public final void mBlockIndent() throws RecognitionException {
         try {
-            int _type = NodeIndent;
+            int _type = BlockIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:175:11: ({...}? => ( ' ' )* '-' )
-            // SilkLine.g:175:13: {...}? => ( ' ' )* '-'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:12: ({...}? => ( ' ' )* '--' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:14: {...}? => ( ' ' )* '--'
             {
             if ( !(( isHead() )) ) {
-                throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
+                throw new FailedPredicateException(input, "BlockIndent", " isHead() ");
             }
-            // SilkLine.g:175:30: ( ' ' )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:31: ( ' ' )*
             loop2:
             do {
                 int alt2=2;
@@ -259,7 +251,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // SilkLine.g:175:31: ' '
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:32: ' '
             	    {
             	    match(' '); 
 
@@ -268,6 +260,56 @@ public class SilkLineLexer extends Lexer {
 
             	default :
             	    break loop2;
+                }
+            } while (true);
+
+            match("--"); 
+
+             transit(Symbol.NodeStart); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "BlockIndent"
+
+    // $ANTLR start "NodeIndent"
+    public final void mNodeIndent() throws RecognitionException {
+        try {
+            int _type = NodeIndent;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:11: ({...}? => ( ' ' )* '-' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:13: {...}? => ( ' ' )* '-'
+            {
+            if ( !(( isHead() )) ) {
+                throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
+            }
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:30: ( ' ' )*
+            loop3:
+            do {
+                int alt3=2;
+                int LA3_0 = input.LA(1);
+
+                if ( (LA3_0==' ') ) {
+                    alt3=1;
+                }
+
+
+                switch (alt3) {
+            	case 1 :
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:31: ' '
+            	    {
+            	    match(' '); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop3;
                 }
             } while (true);
 
@@ -284,31 +326,31 @@ public class SilkLineLexer extends Lexer {
     }
     // $ANTLR end "NodeIndent"
 
-    // $ANTLR start "FunctionIndent"
-    public final void mFunctionIndent() throws RecognitionException {
+    // $ANTLR start "PullUpNodeIndent"
+    public final void mPullUpNodeIndent() throws RecognitionException {
         try {
-            int _type = FunctionIndent;
+            int _type = PullUpNodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:176:15: ({...}? => ( ' ' )* '@' )
-            // SilkLine.g:176:17: {...}? => ( ' ' )* '@'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:17: ({...}? => ( ' ' )* '->' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:19: {...}? => ( ' ' )* '->'
             {
             if ( !(( isHead() )) ) {
-                throw new FailedPredicateException(input, "FunctionIndent", " isHead() ");
+                throw new FailedPredicateException(input, "PullUpNodeIndent", " isHead() ");
             }
-            // SilkLine.g:176:34: ( ' ' )*
-            loop3:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:36: ( ' ' )*
+            loop4:
             do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
+                int alt4=2;
+                int LA4_0 = input.LA(1);
 
-                if ( (LA3_0==' ') ) {
-                    alt3=1;
+                if ( (LA4_0==' ') ) {
+                    alt4=1;
                 }
 
 
-                switch (alt3) {
+                switch (alt4) {
             	case 1 :
-            	    // SilkLine.g:176:35: ' '
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:37: ' '
             	    {
             	    match(' '); 
 
@@ -316,7 +358,57 @@ public class SilkLineLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop3;
+            	    break loop4;
+                }
+            } while (true);
+
+            match("->"); 
+
+             transit(Symbol.NodeStart); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "PullUpNodeIndent"
+
+    // $ANTLR start "FunctionIndent"
+    public final void mFunctionIndent() throws RecognitionException {
+        try {
+            int _type = FunctionIndent;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:15: ({...}? => ( ' ' )* '@' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:17: {...}? => ( ' ' )* '@'
+            {
+            if ( !(( isHead() )) ) {
+                throw new FailedPredicateException(input, "FunctionIndent", " isHead() ");
+            }
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:34: ( ' ' )*
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( (LA5_0==' ') ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:35: ' '
+            	    {
+            	    match(' '); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop5;
                 }
             } while (true);
 
@@ -338,26 +430,26 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = BlankLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:177:10: ({...}? => ( WhiteSpace )* )
-            // SilkLine.g:177:12: {...}? => ( WhiteSpace )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:10: ({...}? => ( WhiteSpace )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:12: {...}? => ( WhiteSpace )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlankLine", " isHead() ");
             }
-            // SilkLine.g:177:29: ( WhiteSpace )*
-            loop4:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:29: ( WhiteSpace )*
+            loop6:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA4_0=='\t'||LA4_0==' ') ) {
-                    alt4=1;
+                if ( (LA6_0=='\t'||LA6_0==' ') ) {
+                    alt6=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt6) {
             	case 1 :
-            	    // SilkLine.g:177:29: WhiteSpace
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:29: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -365,7 +457,7 @@ public class SilkLineLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop6;
                 }
             } while (true);
 
@@ -385,8 +477,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:183:7: ( '(' )
-            // SilkLine.g:183:9: '('
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:150:7: ( '(' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:150:9: '('
             {
             match('('); 
              transit(Symbol.EnterParen); 
@@ -406,8 +498,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:184:7: ( ')' )
-            // SilkLine.g:184:9: ')'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:151:7: ( ')' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:151:9: ')'
             {
             match(')'); 
              transit(Symbol.LeaveParen); 
@@ -427,8 +519,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:185:6: ( ',' )
-            // SilkLine.g:185:9: ','
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:152:6: ( ',' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:152:9: ','
             {
             match(','); 
 
@@ -447,8 +539,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:186:6: ( ':' )
-            // SilkLine.g:186:8: ':'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:153:6: ( ':' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:153:8: ':'
             {
             match(':'); 
              transit(Symbol.Colon); 
@@ -463,34 +555,13 @@ public class SilkLineLexer extends Lexer {
     }
     // $ANTLR end "Colon"
 
-    // $ANTLR start "EqEq"
-    public final void mEqEq() throws RecognitionException {
-        try {
-            int _type = EqEq;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:188:5: ( '==' )
-            // SilkLine.g:188:7: '=='
-            {
-            match("=="); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "EqEq"
-
     // $ANTLR start "Seq"
     public final void mSeq() throws RecognitionException {
         try {
             int _type = Seq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:189:4: ( '>' )
-            // SilkLine.g:189:7: '>'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:155:4: ( '>' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:155:7: '>'
             {
             match('>'); 
 
@@ -509,8 +580,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = TabSeq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:190:7: ( '|' )
-            // SilkLine.g:190:9: '|'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:156:7: ( '|' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:156:9: '|'
             {
             match('|'); 
 
@@ -529,8 +600,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:191:5: ( '*' )
-            // SilkLine.g:191:8: '*'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:157:5: ( '*' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:157:8: '*'
             {
             match('*'); 
 
@@ -549,8 +620,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:192:3: ( '@' )
-            // SilkLine.g:192:6: '@'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:158:3: ( '@' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:158:6: '@'
             {
             match('@'); 
              transit(Symbol.At); 
@@ -570,8 +641,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:193:5: ( '+' )
-            // SilkLine.g:193:7: '+'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:159:5: ( '+' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:159:7: '+'
             {
             match('+'); 
 
@@ -590,8 +661,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:194:9: ( '[' )
-            // SilkLine.g:194:11: '['
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:160:9: ( '[' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:160:11: '['
             {
             match('['); 
              transit(Symbol.EnterParen); 
@@ -611,8 +682,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:195:9: ( ']' )
-            // SilkLine.g:195:11: ']'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:161:9: ( ']' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:161:11: ']'
             {
             match(']'); 
 
@@ -631,8 +702,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:196:9: ( '?' )
-            // SilkLine.g:196:11: '?'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:162:9: ( '?' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:162:11: '?'
             {
             match('?'); 
 
@@ -649,8 +720,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // SilkLine.g:198:15: ( '0' .. '9' )
-            // SilkLine.g:198:17: '0' .. '9'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:164:15: ( '0' .. '9' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:164:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -665,8 +736,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // SilkLine.g:199:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:165:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -689,8 +760,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // SilkLine.g:200:18: ( Digit | Letter )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:166:18: ( Digit | Letter )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -713,8 +784,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // SilkLine.g:201:21: (~ ( '\"' | '\\\\' ) )
-            // SilkLine.g:201:23: ~ ( '\"' | '\\\\' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:167:21: (~ ( '\"' | '\\\\' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:167:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -737,124 +808,124 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // SilkLine.g:203:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // SilkLine.g:203:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // SilkLine.g:203:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
-            int alt5=9;
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            int alt7=9;
             switch ( input.LA(1) ) {
             case '\"':
                 {
-                alt5=1;
+                alt7=1;
                 }
                 break;
             case '\\':
                 {
-                alt5=2;
+                alt7=2;
                 }
                 break;
             case '/':
                 {
-                alt5=3;
+                alt7=3;
                 }
                 break;
             case 'b':
                 {
-                alt5=4;
+                alt7=4;
                 }
                 break;
             case 'f':
                 {
-                alt5=5;
+                alt7=5;
                 }
                 break;
             case 'n':
                 {
-                alt5=6;
+                alt7=6;
                 }
                 break;
             case 'r':
                 {
-                alt5=7;
+                alt7=7;
                 }
                 break;
             case 't':
                 {
-                alt5=8;
+                alt7=8;
                 }
                 break;
             case 'u':
                 {
-                alt5=9;
+                alt7=9;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 5, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt5) {
+            switch (alt7) {
                 case 1 :
-                    // SilkLine.g:203:10: '\\\"'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // SilkLine.g:203:17: '\\\\'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // SilkLine.g:203:24: '/'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // SilkLine.g:203:30: 'b'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // SilkLine.g:203:36: 'f'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // SilkLine.g:203:42: 'n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // SilkLine.g:203:48: 'r'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // SilkLine.g:203:54: 't'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // SilkLine.g:203:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -879,32 +950,32 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // SilkLine.g:205:21: ( UnicodeChar | EscapeSequence )
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:21: ( UnicodeChar | EscapeSequence )
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( ((LA6_0>='\u0000' && LA6_0<='!')||(LA6_0>='#' && LA6_0<='[')||(LA6_0>=']' && LA6_0<='\uFFFF')) ) {
-                alt6=1;
+            if ( ((LA8_0>='\u0000' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')) ) {
+                alt8=1;
             }
-            else if ( (LA6_0=='\\') ) {
-                alt6=2;
+            else if ( (LA8_0=='\\') ) {
+                alt8=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
-            switch (alt6) {
+            switch (alt8) {
                 case 1 :
-                    // SilkLine.g:205:24: UnicodeChar
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // SilkLine.g:205:38: EscapeSequence
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -921,23 +992,23 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // SilkLine.g:206:22: ( ( StringChar )* )
-            // SilkLine.g:206:24: ( StringChar )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:22: ( ( StringChar )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: ( StringChar )*
             {
-            // SilkLine.g:206:24: ( StringChar )*
-            loop7:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: ( StringChar )*
+            loop9:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( ((LA7_0>='\u0000' && LA7_0<='!')||(LA7_0>='#' && LA7_0<='\uFFFF')) ) {
-                    alt7=1;
+                if ( ((LA9_0>='\u0000' && LA9_0<='!')||(LA9_0>='#' && LA9_0<='\uFFFF')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt9) {
             	case 1 :
-            	    // SilkLine.g:206:24: StringChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -945,7 +1016,7 @@ public class SilkLineLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop7;
+            	    break loop9;
                 }
             } while (true);
 
@@ -965,13 +1036,13 @@ public class SilkLineLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // SilkLine.g:207:7: ( '\"' s= StringChar_s '\"' )
-            // SilkLine.g:207:9: '\"' s= StringChar_s '\"'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:173:7: ( '\"' s= StringChar_s '\"' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:173:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
-            int sStart413 = getCharIndex();
+            int sStart429 = getCharIndex();
             mStringChar_s(); 
-            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart413, getCharIndex()-1);
+            s = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, sStart429, getCharIndex()-1);
             match('\"'); 
              setText((s!=null?s.getText():null));  transit(Symbol.LeaveValue); 
 
@@ -988,8 +1059,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "ScopeIndicator"
     public final void mScopeIndicator() throws RecognitionException {
         try {
-            // SilkLine.g:210:24: ( '(' | ')' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:176:24: ( '(' | ')' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( (input.LA(1)>='(' && input.LA(1)<=')') ) {
                 input.consume();
@@ -1012,8 +1083,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "FlowIndicator"
     public final void mFlowIndicator() throws RecognitionException {
         try {
-            // SilkLine.g:211:23: ( '[' | ']' | '{' | '}' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:177:23: ( '[' | ']' | '{' | '}' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='{'||input.LA(1)=='}' ) {
                 input.consume();
@@ -1036,8 +1107,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // SilkLine.g:212:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '=' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:178:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||input.LA(1)==','||input.LA(1)==':'||(input.LA(1)>='=' && input.LA(1)<='>')||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1060,8 +1131,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainUnsafeChar"
     public final void mPlainUnsafeChar() throws RecognitionException {
         try {
-            // SilkLine.g:215:25: ( '\"' | '\\\\' | '#' )
-            // SilkLine.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:181:25: ( '\"' | '\\\\' | '#' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='\\' ) {
                 input.consume();
@@ -1084,8 +1155,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeKey"
     public final void mPlainSafeKey() throws RecognitionException {
         try {
-            // SilkLine.g:217:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' ) )
-            // SilkLine.g:217:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:183:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:183:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='<')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1108,8 +1179,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeIn"
     public final void mPlainSafeIn() throws RecognitionException {
         try {
-            // SilkLine.g:218:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
-            // SilkLine.g:218:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:184:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:184:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1132,8 +1203,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeOut"
     public final void mPlainSafeOut() throws RecognitionException {
         try {
-            // SilkLine.g:219:22: (~ ( PlainUnsafeChar ) )
-            // SilkLine.g:219:24: ~ ( PlainUnsafeChar )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:185:22: (~ ( PlainUnsafeChar ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:185:24: ~ ( PlainUnsafeChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1156,8 +1227,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "NonSpaceChar"
     public final void mNonSpaceChar() throws RecognitionException {
         try {
-            // SilkLine.g:221:22: (~ ( '\"' | '\\\\' | WhiteSpace ) )
-            // SilkLine.g:221:24: ~ ( '\"' | '\\\\' | WhiteSpace )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:187:22: (~ ( '\"' | '\\\\' | WhiteSpace ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:187:24: ~ ( '\"' | '\\\\' | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1180,25 +1251,25 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // SilkLine.g:223:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:189:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( ((LA9_0>='\u0000' && LA9_0<='\b')||(LA9_0>='\n' && LA9_0<='\u001F')||LA9_0=='!'||LA9_0=='$'||LA9_0=='&'||(LA9_0>='.' && LA9_0<='9')||(LA9_0>=';' && LA9_0<='<')||(LA9_0>='A' && LA9_0<='Z')||(LA9_0>='^' && LA9_0<='z')||(LA9_0>='~' && LA9_0<='\uFFFF')) ) {
-                alt9=1;
+            if ( ((LA11_0>='\u0000' && LA11_0<='\b')||(LA11_0>='\n' && LA11_0<='\u001F')||LA11_0=='!'||LA11_0=='$'||LA11_0=='&'||(LA11_0>='.' && LA11_0<='9')||(LA11_0>=';' && LA11_0<='<')||(LA11_0>='A' && LA11_0<='Z')||(LA11_0>='^' && LA11_0<='z')||(LA11_0>='~' && LA11_0<='\uFFFF')) ) {
+                alt11=1;
             }
-            else if ( (LA9_0=='+'||LA9_0=='-'||LA9_0==':'||LA9_0=='?') && (( isValue() ))) {
-                alt9=2;
+            else if ( (LA11_0=='+'||LA11_0=='-'||LA11_0==':'||LA11_0=='?') && (( isValue() ))) {
+                alt11=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 11, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt11) {
                 case 1 :
-                    // SilkLine.g:223:5: ~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator )
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:189:5: ~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='<')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -1213,54 +1284,54 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkLine.g:224:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
                     }
-                    // SilkLine.g:224:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
-                    int alt8=3;
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    int alt10=3;
                     switch ( input.LA(1) ) {
                     case '-':
                         {
-                        alt8=1;
+                        alt10=1;
                         }
                         break;
                     case '+':
                         {
-                        alt8=2;
+                        alt10=2;
                         }
                         break;
                     case ':':
                     case '?':
                         {
-                        alt8=3;
+                        alt10=3;
                         }
                         break;
                     default:
                         NoViableAltException nvae =
-                            new NoViableAltException("", 8, 0, input);
+                            new NoViableAltException("", 10, 0, input);
 
                         throw nvae;
                     }
 
-                    switch (alt8) {
+                    switch (alt10) {
                         case 1 :
-                            // SilkLine.g:224:23: '-'
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:23: '-'
                             {
                             match('-'); 
 
                             }
                             break;
                         case 2 :
-                            // SilkLine.g:224:29: '+'
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:29: '+'
                             {
                             match('+'); 
 
                             }
                             break;
                         case 3 :
-                            // SilkLine.g:224:35: ( ':' | '?' ) NonSpaceChar
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:35: ( ':' | '?' ) NonSpaceChar
                             {
                             if ( input.LA(1)==':'||input.LA(1)=='?' ) {
                                 input.consume();
@@ -1294,124 +1365,124 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = PlainOneLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:228:2: ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* )
-            int alt13=3;
-            int LA13_0 = input.LA(1);
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:2: ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* )
+            int alt15=3;
+            int LA15_0 = input.LA(1);
 
-            if ( ((LA13_0>='\u0000' && LA13_0<='\b')||(LA13_0>='\n' && LA13_0<='\u001F')||LA13_0=='!'||LA13_0=='$'||LA13_0=='&'||(LA13_0>='.' && LA13_0<='9')||(LA13_0>=';' && LA13_0<='<')||(LA13_0>='A' && LA13_0<='Z')||(LA13_0>='^' && LA13_0<='z')||(LA13_0>='~' && LA13_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
-                int LA13_1 = input.LA(2);
+            if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\n' && LA15_0<='\u001F')||LA15_0=='!'||LA15_0=='$'||LA15_0=='&'||(LA15_0>='.' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='<')||(LA15_0>='A' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
+                int LA15_1 = input.LA(2);
 
                 if ( (( isKey() )) ) {
-                    alt13=1;
+                    alt15=1;
                 }
                 else if ( (( isInValue() )) ) {
-                    alt13=2;
+                    alt15=2;
                 }
                 else if ( (( isOutValue() )) ) {
-                    alt13=3;
+                    alt15=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 13, 1, input);
+                        new NoViableAltException("", 15, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA13_0=='-') && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
-                int LA13_2 = input.LA(2);
+            else if ( (LA15_0=='-') && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {
+                int LA15_2 = input.LA(2);
 
                 if ( ((( isKey() )&&( isValue() ))) ) {
-                    alt13=1;
+                    alt15=1;
                 }
                 else if ( ((( isInValue() )&&( isValue() ))) ) {
-                    alt13=2;
+                    alt15=2;
                 }
                 else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                    alt13=3;
+                    alt15=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 13, 2, input);
+                        new NoViableAltException("", 15, 2, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA13_0=='+') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {
-                int LA13_3 = input.LA(2);
+            else if ( (LA15_0=='+') && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
+                int LA15_3 = input.LA(2);
 
                 if ( ((( isKey() )&&( isValue() ))) ) {
-                    alt13=1;
+                    alt15=1;
                 }
                 else if ( ((( isInValue() )&&( isValue() ))) ) {
-                    alt13=2;
+                    alt15=2;
                 }
                 else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                    alt13=3;
+                    alt15=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 13, 3, input);
+                        new NoViableAltException("", 15, 3, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA13_0==':'||LA13_0=='?') && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
-                int LA13_4 = input.LA(2);
+            else if ( (LA15_0==':'||LA15_0=='?') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
+                int LA15_4 = input.LA(2);
 
-                if ( ((LA13_4>='\u0000' && LA13_4<='\b')||(LA13_4>='\n' && LA13_4<='\u001F')||LA13_4=='!'||(LA13_4>='#' && LA13_4<='[')||(LA13_4>=']' && LA13_4<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
-                    int LA13_8 = input.LA(3);
+                if ( ((LA15_4>='\u0000' && LA15_4<='\b')||(LA15_4>='\n' && LA15_4<='\u001F')||LA15_4=='!'||(LA15_4>='#' && LA15_4<='[')||(LA15_4>=']' && LA15_4<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {
+                    int LA15_8 = input.LA(3);
 
                     if ( ((( isKey() )&&( isValue() ))) ) {
-                        alt13=1;
+                        alt15=1;
                     }
                     else if ( ((( isInValue() )&&( isValue() ))) ) {
-                        alt13=2;
+                        alt15=2;
                     }
                     else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                        alt13=3;
+                        alt15=3;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 13, 8, input);
+                            new NoViableAltException("", 15, 8, input);
 
                         throw nvae;
                     }
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 13, 4, input);
+                        new NoViableAltException("", 15, 4, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
-            switch (alt13) {
+            switch (alt15) {
                 case 1 :
-                    // SilkLine.g:228:4: {...}? => PlainFirst ( PlainSafeKey )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:4: {...}? => PlainFirst ( PlainSafeKey )*
                     {
                     if ( !(( isKey() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isKey() ");
                     }
                     mPlainFirst(); 
-                    // SilkLine.g:228:32: ( PlainSafeKey )*
-                    loop10:
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:32: ( PlainSafeKey )*
+                    loop12:
                     do {
-                        int alt10=2;
-                        int LA10_0 = input.LA(1);
+                        int alt12=2;
+                        int LA12_0 = input.LA(1);
 
-                        if ( ((LA10_0>='\u0000' && LA10_0<='!')||(LA10_0>='$' && LA10_0<='\'')||LA10_0=='+'||(LA10_0>='-' && LA10_0<='9')||(LA10_0>=';' && LA10_0<='<')||(LA10_0>='?' && LA10_0<='Z')||(LA10_0>='^' && LA10_0<='z')||(LA10_0>='~' && LA10_0<='\uFFFF')) ) {
-                            alt10=1;
+                        if ( ((LA12_0>='\u0000' && LA12_0<='!')||(LA12_0>='$' && LA12_0<='\'')||LA12_0=='+'||(LA12_0>='-' && LA12_0<='9')||(LA12_0>=';' && LA12_0<='<')||(LA12_0>='?' && LA12_0<='Z')||(LA12_0>='^' && LA12_0<='z')||(LA12_0>='~' && LA12_0<='\uFFFF')) ) {
+                            alt12=1;
                         }
 
 
-                        switch (alt10) {
+                        switch (alt12) {
                     	case 1 :
-                    	    // SilkLine.g:228:32: PlainSafeKey
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:32: PlainSafeKey
                     	    {
                     	    mPlainSafeKey(); 
 
@@ -1419,7 +1490,7 @@ public class SilkLineLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop10;
+                    	    break loop12;
                         }
                     } while (true);
 
@@ -1428,26 +1499,26 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkLine.g:229:5: {...}? => PlainFirst ( PlainSafeIn )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:5: {...}? => PlainFirst ( PlainSafeIn )*
                     {
                     if ( !(( isInValue() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isInValue() ");
                     }
                     mPlainFirst(); 
-                    // SilkLine.g:229:37: ( PlainSafeIn )*
-                    loop11:
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:37: ( PlainSafeIn )*
+                    loop13:
                     do {
-                        int alt11=2;
-                        int LA11_0 = input.LA(1);
+                        int alt13=2;
+                        int LA13_0 = input.LA(1);
 
-                        if ( ((LA11_0>='\u0000' && LA11_0<='!')||(LA11_0>='$' && LA11_0<='\'')||(LA11_0>='*' && LA11_0<='+')||(LA11_0>='-' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFF')) ) {
-                            alt11=1;
+                        if ( ((LA13_0>='\u0000' && LA13_0<='!')||(LA13_0>='$' && LA13_0<='\'')||(LA13_0>='*' && LA13_0<='+')||(LA13_0>='-' && LA13_0<='[')||(LA13_0>=']' && LA13_0<='\uFFFF')) ) {
+                            alt13=1;
                         }
 
 
-                        switch (alt11) {
+                        switch (alt13) {
                     	case 1 :
-                    	    // SilkLine.g:229:37: PlainSafeIn
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:37: PlainSafeIn
                     	    {
                     	    mPlainSafeIn(); 
 
@@ -1455,7 +1526,7 @@ public class SilkLineLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop11;
+                    	    break loop13;
                         }
                     } while (true);
 
@@ -1464,26 +1535,26 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // SilkLine.g:230:5: {...}? => PlainFirst ( PlainSafeOut )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:5: {...}? => PlainFirst ( PlainSafeOut )*
                     {
                     if ( !(( isOutValue() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isOutValue() ");
                     }
                     mPlainFirst(); 
-                    // SilkLine.g:230:38: ( PlainSafeOut )*
-                    loop12:
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:38: ( PlainSafeOut )*
+                    loop14:
                     do {
-                        int alt12=2;
-                        int LA12_0 = input.LA(1);
+                        int alt14=2;
+                        int LA14_0 = input.LA(1);
 
-                        if ( ((LA12_0>='\u0000' && LA12_0<='!')||(LA12_0>='$' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
-                            alt12=1;
+                        if ( ((LA14_0>='\u0000' && LA14_0<='!')||(LA14_0>='$' && LA14_0<='[')||(LA14_0>=']' && LA14_0<='\uFFFF')) ) {
+                            alt14=1;
                         }
 
 
-                        switch (alt12) {
+                        switch (alt14) {
                     	case 1 :
-                    	    // SilkLine.g:230:38: PlainSafeOut
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:38: PlainSafeOut
                     	    {
                     	    mPlainSafeOut(); 
 
@@ -1491,7 +1562,7 @@ public class SilkLineLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop12;
+                    	    break loop14;
                         }
                     } while (true);
 
@@ -1509,32 +1580,104 @@ public class SilkLineLexer extends Lexer {
     }
     // $ANTLR end "PlainOneLine"
 
+    // $ANTLR start "JSON"
+    public final void mJSON() throws RecognitionException {
+        try {
+            int _type = JSON;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:201:2: ({...}? => '{' | {...}? => '[' )
+            int alt16=2;
+            int LA16_0 = input.LA(1);
+
+            if ( (LA16_0=='{') && (( isValue() ))) {
+                alt16=1;
+            }
+            else if ( (LA16_0=='[') && (( isValue() ))) {
+                alt16=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 16, 0, input);
+
+                throw nvae;
+            }
+            switch (alt16) {
+                case 1 :
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:201:4: {...}? => '{'
+                    {
+                    if ( !(( isValue() )) ) {
+                        throw new FailedPredicateException(input, "JSON", " isValue() ");
+                    }
+                    match('{'); 
+
+                    		//_logger.info("enter JSON object");
+                    		InLineJSONLexer l = new InLineJSONLexer(input);
+                    		CommonTokenStream tokens = new CommonTokenStream(l);
+                    		InLineJSONParser p = new InLineJSONParser(tokens);
+                    		p.jsonObjectFragment();
+                    		
+                    		//_channel = JSON_CHANNEL;
+                    		emit(new CommonToken(JSON, getText())); 
+                    	
+
+                    }
+                    break;
+                case 2 :
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:212:4: {...}? => '['
+                    {
+                    if ( !(( isValue() )) ) {
+                        throw new FailedPredicateException(input, "JSON", " isValue() ");
+                    }
+                    match('['); 
+
+                    		//_logger.info("enter JSON array");
+                    		InLineJSONLexer l = new InLineJSONLexer(input);
+                    		CommonTokenStream tokens = new CommonTokenStream(l);
+                    		InLineJSONParser p = new InLineJSONParser(tokens);
+                    		p.jsonArrayFragment();
+                    		
+                    		//_channel = JSON_CHANNEL;
+                    		emit(new CommonToken(JSON, getText())); 
+                    	
+
+                    }
+                    break;
+
+            }
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "JSON"
+
     // $ANTLR start "Separation"
     public final void mSeparation() throws RecognitionException {
         try {
             int _type = Separation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:259:11: ({...}? => ( WhiteSpace )+ )
-            // SilkLine.g:259:13: {...}? => ( WhiteSpace )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:11: ({...}? => ( WhiteSpace )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:13: {...}? => ( WhiteSpace )+
             {
             if ( !(( !isHead() )) ) {
                 throw new FailedPredicateException(input, "Separation", " !isHead() ");
             }
-            // SilkLine.g:259:31: ( WhiteSpace )+
-            int cnt14=0;
-            loop14:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:31: ( WhiteSpace )+
+            int cnt17=0;
+            loop17:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( (LA14_0=='\t'||LA14_0==' ') ) {
-                    alt14=1;
+                if ( (LA17_0=='\t'||LA17_0==' ') ) {
+                    alt17=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt17) {
             	case 1 :
-            	    // SilkLine.g:259:31: WhiteSpace
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:31: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1542,12 +1685,12 @@ public class SilkLineLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt14 >= 1 ) break loop14;
+            	    if ( cnt17 >= 1 ) break loop17;
                         EarlyExitException eee =
-                            new EarlyExitException(14, input);
+                            new EarlyExitException(17, input);
                         throw eee;
                 }
-                cnt14++;
+                cnt17++;
             } while (true);
 
              _channel=HIDDEN; 
@@ -1563,145 +1706,159 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR end "Separation"
 
     public void mTokens() throws RecognitionException {
-        // SilkLine.g:1:8: ( LineComment | NodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | EqEq | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | Separation )
-        int alt15=20;
-        alt15 = dfa15.predict(input);
-        switch (alt15) {
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:8: ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation )
+        int alt18=22;
+        alt18 = dfa18.predict(input);
+        switch (alt18) {
             case 1 :
-                // SilkLine.g:1:10: LineComment
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:10: LineComment
                 {
                 mLineComment(); 
 
                 }
                 break;
             case 2 :
-                // SilkLine.g:1:22: NodeIndent
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:22: BlockIndent
+                {
+                mBlockIndent(); 
+
+                }
+                break;
+            case 3 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:34: NodeIndent
                 {
                 mNodeIndent(); 
 
                 }
                 break;
-            case 3 :
-                // SilkLine.g:1:33: FunctionIndent
+            case 4 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:45: PullUpNodeIndent
+                {
+                mPullUpNodeIndent(); 
+
+                }
+                break;
+            case 5 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:62: FunctionIndent
                 {
                 mFunctionIndent(); 
 
                 }
                 break;
-            case 4 :
-                // SilkLine.g:1:48: BlankLine
+            case 6 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:77: BlankLine
                 {
                 mBlankLine(); 
 
                 }
                 break;
-            case 5 :
-                // SilkLine.g:1:58: LParen
+            case 7 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:87: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
-            case 6 :
-                // SilkLine.g:1:65: RParen
+            case 8 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:94: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
-            case 7 :
-                // SilkLine.g:1:72: Comma
+            case 9 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:101: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 8 :
-                // SilkLine.g:1:78: Colon
+            case 10 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:107: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 9 :
-                // SilkLine.g:1:84: EqEq
-                {
-                mEqEq(); 
-
-                }
-                break;
-            case 10 :
-                // SilkLine.g:1:89: Seq
+            case 11 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:113: Seq
                 {
                 mSeq(); 
 
                 }
                 break;
-            case 11 :
-                // SilkLine.g:1:93: TabSeq
+            case 12 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:117: TabSeq
                 {
                 mTabSeq(); 
 
                 }
                 break;
-            case 12 :
-                // SilkLine.g:1:100: Star
+            case 13 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:124: Star
                 {
                 mStar(); 
 
                 }
                 break;
-            case 13 :
-                // SilkLine.g:1:105: At
+            case 14 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:129: At
                 {
                 mAt(); 
 
                 }
                 break;
-            case 14 :
-                // SilkLine.g:1:108: Plus
+            case 15 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:132: Plus
                 {
                 mPlus(); 
 
                 }
                 break;
-            case 15 :
-                // SilkLine.g:1:113: LBracket
+            case 16 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:137: LBracket
                 {
                 mLBracket(); 
 
                 }
                 break;
-            case 16 :
-                // SilkLine.g:1:122: RBracket
+            case 17 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:146: RBracket
                 {
                 mRBracket(); 
 
                 }
                 break;
-            case 17 :
-                // SilkLine.g:1:131: Question
+            case 18 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:155: Question
                 {
                 mQuestion(); 
 
                 }
                 break;
-            case 18 :
-                // SilkLine.g:1:140: String
+            case 19 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:164: String
                 {
                 mString(); 
 
                 }
                 break;
-            case 19 :
-                // SilkLine.g:1:147: PlainOneLine
+            case 20 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:171: PlainOneLine
                 {
                 mPlainOneLine(); 
 
                 }
                 break;
-            case 20 :
-                // SilkLine.g:1:160: Separation
+            case 21 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:184: JSON
+                {
+                mJSON(); 
+
+                }
+                break;
+            case 22 :
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:189: Separation
                 {
                 mSeparation(); 
 
@@ -1713,326 +1870,440 @@ public class SilkLineLexer extends Lexer {
     }
 
 
-    protected DFA15 dfa15 = new DFA15(this);
-    static final String DFA15_eotS =
-        "\1\6\1\uffff\1\25\1\30\1\34\1\25\4\uffff\1\36\4\uffff\1\37\2\uffff"+
-        "\1\40\21\uffff";
-    static final String DFA15_eofS =
-        "\44\uffff";
-    static final String DFA15_minS =
-        "\1\0\1\uffff\1\11\2\0\1\11\4\uffff\1\0\4\uffff\1\0\2\uffff\1\0"+
-        "\2\uffff\1\0\2\uffff\1\0\3\uffff\1\0\2\uffff\1\0\4\uffff";
-    static final String DFA15_maxS =
-        "\1\uffff\1\uffff\1\100\1\uffff\1\0\1\40\4\uffff\1\uffff\4\uffff"+
-        "\1\uffff\2\uffff\1\uffff\2\uffff\1\0\2\uffff\1\0\3\uffff\1\0\2\uffff"+
-        "\1\0\4\uffff";
-    static final String DFA15_acceptS =
-        "\1\uffff\1\1\4\uffff\1\4\1\5\1\6\1\7\1\uffff\1\11\1\12\1\13\1\14"+
-        "\1\uffff\1\17\1\20\1\uffff\1\22\1\23\1\uffff\1\2\1\3\1\uffff\3\23"+
-        "\1\uffff\1\23\1\10\1\uffff\1\21\1\24\1\15\1\16";
-    static final String DFA15_specialS =
-        "\1\2\1\uffff\1\12\1\1\1\uffff\1\7\4\uffff\1\5\4\uffff\1\4\2\uffff"+
-        "\1\3\2\uffff\1\10\2\uffff\1\6\3\uffff\1\0\2\uffff\1\11\4\uffff}>";
-    static final String[] DFA15_transitionS = {
-            "\11\24\1\5\26\24\1\2\1\24\1\23\1\1\1\24\1\uffff\1\24\1\uffff"+
-            "\1\7\1\10\1\16\1\17\1\11\1\3\14\24\1\12\2\24\1\13\1\14\1\22"+
-            "\1\4\32\24\1\20\1\uffff\1\21\35\24\1\uffff\1\15\1\uffff\uff82"+
-            "\24",
+    protected DFA18 dfa18 = new DFA18(this);
+    static final String DFA18_eotS =
+        "\1\6\1\uffff\1\27\1\32\1\36\1\27\4\uffff\1\37\3\uffff\1\41\1\42"+
+        "\1\uffff\1\43\3\uffff\1\46\2\uffff\1\50\1\51\23\uffff";
+    static final String DFA18_eofS =
+        "\55\uffff";
+    static final String DFA18_minS =
+        "\1\0\1\uffff\1\11\2\0\1\11\4\uffff\1\0\3\uffff\2\0\1\uffff\1\0"+
+        "\3\uffff\1\55\1\uffff\4\0\3\uffff\1\0\2\uffff\2\0\5\uffff\2\0\3"+
+        "\uffff";
+    static final String DFA18_maxS =
+        "\1\uffff\1\uffff\1\100\1\uffff\1\0\1\40\4\uffff\1\uffff\3\uffff"+
+        "\1\uffff\1\0\1\uffff\1\uffff\3\uffff\1\76\1\uffff\1\0\2\uffff\1"+
+        "\0\3\uffff\1\0\2\uffff\2\0\5\uffff\2\0\3\uffff";
+    static final String DFA18_acceptS =
+        "\1\uffff\1\1\4\uffff\1\6\1\7\1\10\1\11\1\uffff\1\13\1\14\1\15\2"+
+        "\uffff\1\21\1\uffff\1\23\1\24\1\25\1\uffff\1\5\4\uffff\3\24\1\uffff"+
+        "\1\12\1\24\2\uffff\1\22\1\2\1\4\1\3\1\26\2\uffff\1\16\1\17\1\20";
+    static final String DFA18_specialS =
+        "\1\2\1\uffff\1\15\1\14\1\uffff\1\1\4\uffff\1\20\3\uffff\1\17\2"+
+        "\uffff\1\10\3\uffff\1\12\1\uffff\1\5\1\11\1\16\1\4\3\uffff\1\7\2"+
+        "\uffff\1\6\1\13\5\uffff\1\3\1\0\3\uffff}>";
+    static final String[] DFA18_transitionS = {
+            "\11\23\1\5\26\23\1\2\1\23\1\22\1\1\1\23\1\uffff\1\23\1\uffff"+
+            "\1\7\1\10\1\15\1\16\1\11\1\3\14\23\1\12\2\23\1\uffff\1\13\1"+
+            "\21\1\4\32\23\1\17\1\uffff\1\20\35\23\1\24\1\14\1\uffff\uff82"+
+            "\23",
             "",
-            "\1\5\26\uffff\1\2\14\uffff\1\26\22\uffff\1\27",
-            "\42\31\2\uffff\4\31\2\32\1\33\1\31\1\32\15\31\1\33\2\31\2"+
-            "\33\34\31\1\33\1\uffff\1\33\35\31\3\33\uff82\31",
+            "\1\5\26\uffff\1\2\14\uffff\1\25\22\uffff\1\26",
+            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\1\30\14\33\1\34\2"+
+            "\33\1\34\1\31\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
             "\1\uffff",
             "\1\5\26\uffff\1\5",
             "",
             "",
             "",
             "",
-            "\11\35\1\uffff\26\35\1\uffff\1\35\1\uffff\71\35\1\uffff\uffa3"+
-            "\35",
+            "\11\40\1\uffff\26\40\1\uffff\1\40\1\uffff\71\40\1\uffff\uffa3"+
+            "\40",
             "",
             "",
             "",
+            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\15\33\1\34\2\33\2"+
+            "\34\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
+            "\1\uffff",
             "",
-            "\42\31\2\uffff\4\31\2\32\1\33\1\31\1\32\15\31\1\33\2\31\2"+
-            "\33\34\31\1\33\1\uffff\1\33\35\31\3\33\uff82\31",
+            "\11\40\1\uffff\26\40\1\uffff\1\40\1\uffff\71\40\1\uffff\uffa3"+
+            "\40",
             "",
             "",
-            "\11\35\1\uffff\26\35\1\uffff\1\35\1\uffff\71\35\1\uffff\uffa3"+
-            "\35",
+            "",
+            "\1\44\20\uffff\1\45",
+            "",
+            "\1\uffff",
+            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\15\33\1\34\2\33\2"+
+            "\34\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
+            "\42\34\2\uffff\4\34\2\35\2\34\1\35\57\34\1\uffff\uffa3\34",
+            "\1\uffff",
+            "",
             "",
             "",
             "\1\uffff",
             "",
             "",
             "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
             "",
             "",
             "",
             "\1\uffff",
-            "",
-            "",
             "\1\uffff",
-            "",
             "",
             "",
             ""
     };
 
-    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
-    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
-    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
-    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
-    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
-    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
-    static final short[][] DFA15_transition;
+    static final short[] DFA18_eot = DFA.unpackEncodedString(DFA18_eotS);
+    static final short[] DFA18_eof = DFA.unpackEncodedString(DFA18_eofS);
+    static final char[] DFA18_min = DFA.unpackEncodedStringToUnsignedChars(DFA18_minS);
+    static final char[] DFA18_max = DFA.unpackEncodedStringToUnsignedChars(DFA18_maxS);
+    static final short[] DFA18_accept = DFA.unpackEncodedString(DFA18_acceptS);
+    static final short[] DFA18_special = DFA.unpackEncodedString(DFA18_specialS);
+    static final short[][] DFA18_transition;
 
     static {
-        int numStates = DFA15_transitionS.length;
-        DFA15_transition = new short[numStates][];
+        int numStates = DFA18_transitionS.length;
+        DFA18_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+            DFA18_transition[i] = DFA.unpackEncodedString(DFA18_transitionS[i]);
         }
     }
 
-    class DFA15 extends DFA {
+    class DFA18 extends DFA {
 
-        public DFA15(BaseRecognizer recognizer) {
+        public DFA18(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 15;
-            this.eot = DFA15_eot;
-            this.eof = DFA15_eof;
-            this.min = DFA15_min;
-            this.max = DFA15_max;
-            this.accept = DFA15_accept;
-            this.special = DFA15_special;
-            this.transition = DFA15_transition;
+            this.decisionNumber = 18;
+            this.eot = DFA18_eot;
+            this.eof = DFA18_eof;
+            this.min = DFA18_min;
+            this.max = DFA18_max;
+            this.accept = DFA18_accept;
+            this.special = DFA18_special;
+            this.transition = DFA18_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( LineComment | NodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | EqEq | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | Separation );";
+            return "1:1: Tokens : ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA15_28 = input.LA(1);
+                        int LA18_41 = input.LA(1);
 
                          
-                        int index15_28 = input.index();
+                        int index18_41 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( isHead() )) ) {s = 23;}
+                        if ( (( isHead() )) ) {s = 37;}
 
-                        else if ( (true) ) {s = 34;}
+                        else if ( (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() )))) ) {s = 32;}
 
                          
-                        input.seek(index15_28);
+                        input.seek(index18_41);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA15_3 = input.LA(1);
+                        int LA18_5 = input.LA(1);
 
                          
-                        int index15_3 = input.index();
+                        int index18_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA15_3>='\u0000' && LA15_3<='!')||(LA15_3>='$' && LA15_3<='\'')||LA15_3=='+'||(LA15_3>='-' && LA15_3<='9')||(LA15_3>=';' && LA15_3<='<')||(LA15_3>='?' && LA15_3<='Z')||(LA15_3>='^' && LA15_3<='z')||(LA15_3>='~' && LA15_3<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 25;}
+                        if ( (LA18_5=='\t'||LA18_5==' ') && ((( isHead() )||( !isHead() )))) {s = 5;}
 
-                        else if ( ((LA15_3>='(' && LA15_3<=')')||LA15_3==',') && ((( isOutValue() )&&( isValue() )))) {s = 26;}
-
-                        else if ( (LA15_3=='*'||LA15_3==':'||(LA15_3>='=' && LA15_3<='>')||LA15_3=='['||LA15_3==']'||(LA15_3>='{' && LA15_3<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 27;}
-
-                        else s = 24;
+                        else s = 23;
 
                          
-                        input.seek(index15_3);
+                        input.seek(index18_5);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA15_0 = input.LA(1);
+                        int LA18_0 = input.LA(1);
 
                          
-                        int index15_0 = input.index();
+                        int index18_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_0=='#') ) {s = 1;}
+                        if ( (LA18_0=='#') ) {s = 1;}
 
-                        else if ( (LA15_0==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
+                        else if ( (LA18_0==' ') && ((( isHead() )||( !isHead() )))) {s = 2;}
 
-                        else if ( (LA15_0=='-') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
+                        else if ( (LA18_0=='-') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
 
-                        else if ( (LA15_0=='@') ) {s = 4;}
+                        else if ( (LA18_0=='@') ) {s = 4;}
 
-                        else if ( (LA15_0=='\t') && ((( !isHead() )||( isHead() )))) {s = 5;}
+                        else if ( (LA18_0=='\t') && ((( isHead() )||( !isHead() )))) {s = 5;}
 
-                        else if ( (LA15_0=='(') ) {s = 7;}
+                        else if ( (LA18_0=='(') ) {s = 7;}
 
-                        else if ( (LA15_0==')') ) {s = 8;}
+                        else if ( (LA18_0==')') ) {s = 8;}
 
-                        else if ( (LA15_0==',') ) {s = 9;}
+                        else if ( (LA18_0==',') ) {s = 9;}
 
-                        else if ( (LA15_0==':') ) {s = 10;}
+                        else if ( (LA18_0==':') ) {s = 10;}
 
-                        else if ( (LA15_0=='=') ) {s = 11;}
+                        else if ( (LA18_0=='>') ) {s = 11;}
 
-                        else if ( (LA15_0=='>') ) {s = 12;}
+                        else if ( (LA18_0=='|') ) {s = 12;}
 
-                        else if ( (LA15_0=='|') ) {s = 13;}
+                        else if ( (LA18_0=='*') ) {s = 13;}
 
-                        else if ( (LA15_0=='*') ) {s = 14;}
+                        else if ( (LA18_0=='+') ) {s = 14;}
 
-                        else if ( (LA15_0=='+') ) {s = 15;}
+                        else if ( (LA18_0=='[') ) {s = 15;}
 
-                        else if ( (LA15_0=='[') ) {s = 16;}
+                        else if ( (LA18_0==']') ) {s = 16;}
 
-                        else if ( (LA15_0==']') ) {s = 17;}
+                        else if ( (LA18_0=='?') ) {s = 17;}
 
-                        else if ( (LA15_0=='?') ) {s = 18;}
+                        else if ( (LA18_0=='\"') ) {s = 18;}
 
-                        else if ( (LA15_0=='\"') ) {s = 19;}
+                        else if ( ((LA18_0>='\u0000' && LA18_0<='\b')||(LA18_0>='\n' && LA18_0<='\u001F')||LA18_0=='!'||LA18_0=='$'||LA18_0=='&'||(LA18_0>='.' && LA18_0<='9')||(LA18_0>=';' && LA18_0<='<')||(LA18_0>='A' && LA18_0<='Z')||(LA18_0>='^' && LA18_0<='z')||(LA18_0>='~' && LA18_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {s = 19;}
 
-                        else if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\n' && LA15_0<='\u001F')||LA15_0=='!'||LA15_0=='$'||LA15_0=='&'||(LA15_0>='.' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='<')||(LA15_0>='A' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {s = 20;}
+                        else if ( (LA18_0=='{') && (( isValue() ))) {s = 20;}
 
                         else s = 6;
 
                          
-                        input.seek(index15_0);
+                        input.seek(index18_0);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA15_18 = input.LA(1);
+                        int LA18_40 = input.LA(1);
 
                          
-                        int index15_18 = input.index();
+                        int index18_40 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA15_18>='\u0000' && LA15_18<='\b')||(LA15_18>='\n' && LA15_18<='\u001F')||LA15_18=='!'||(LA15_18>='#' && LA15_18<='[')||(LA15_18>=']' && LA15_18<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 29;}
+                        if ( (( isHead() )) ) {s = 36;}
 
-                        else s = 32;
+                        else if ( (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() )))) ) {s = 32;}
 
                          
-                        input.seek(index15_18);
+                        input.seek(index18_40);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA15_15 = input.LA(1);
+                        int LA18_26 = input.LA(1);
 
                          
-                        int index15_15 = input.index();
+                        int index18_26 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA15_15>='\u0000' && LA15_15<='!')||(LA15_15>='$' && LA15_15<='\'')||LA15_15=='+'||(LA15_15>='-' && LA15_15<='9')||(LA15_15>=';' && LA15_15<='<')||(LA15_15>='?' && LA15_15<='Z')||(LA15_15>='^' && LA15_15<='z')||(LA15_15>='~' && LA15_15<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 25;}
+                        if ( (( isHead() )) ) {s = 38;}
 
-                        else if ( (LA15_15=='*'||LA15_15==':'||(LA15_15>='=' && LA15_15<='>')||LA15_15=='['||LA15_15==']'||(LA15_15>='{' && LA15_15<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
-
-                        else if ( ((LA15_15>='(' && LA15_15<=')')||LA15_15==',') && ((( isOutValue() )&&( isValue() )))) {s = 26;}
-
-                        else s = 31;
+                        else if ( (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() )))) ) {s = 32;}
 
                          
-                        input.seek(index15_15);
+                        input.seek(index18_26);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA15_10 = input.LA(1);
+                        int LA18_23 = input.LA(1);
 
                          
-                        int index15_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA15_10>='\u0000' && LA15_10<='\b')||(LA15_10>='\n' && LA15_10<='\u001F')||LA15_10=='!'||(LA15_10>='#' && LA15_10<='[')||(LA15_10>=']' && LA15_10<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 29;}
-
-                        else s = 30;
-
-                         
-                        input.seek(index15_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA15_24 = input.LA(1);
-
-                         
-                        int index15_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 22;}
-
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 29;}
-
-                         
-                        input.seek(index15_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA15_5 = input.LA(1);
-
-                         
-                        int index15_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA15_5=='\t'||LA15_5==' ') && ((( !isHead() )||( isHead() )))) {s = 5;}
-
-                        else s = 21;
-
-                         
-                        input.seek(index15_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA15_21 = input.LA(1);
-
-                         
-                        int index15_21 = input.index();
+                        int index18_23 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (( isHead() )) ) {s = 6;}
 
-                        else if ( (( !isHead() )) ) {s = 33;}
+                        else if ( (( !isHead() )) ) {s = 39;}
 
                          
-                        input.seek(index15_21);
+                        input.seek(index18_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA18_33 = input.LA(1);
+
+                         
+                        int index18_33 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 43;}
+
+                        else if ( (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 32;}
+
+                         
+                        input.seek(index18_33);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA18_30 = input.LA(1);
+
+                         
+                        int index18_30 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 22;}
+
+                        else if ( (true) ) {s = 42;}
+
+                         
+                        input.seek(index18_30);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA18_17 = input.LA(1);
+
+                         
+                        int index18_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_17>='\u0000' && LA18_17<='\b')||(LA18_17>='\n' && LA18_17<='\u001F')||LA18_17=='!'||(LA18_17>='#' && LA18_17<='[')||(LA18_17>=']' && LA18_17<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 32;}
+
+                        else s = 35;
+
+                         
+                        input.seek(index18_17);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA15_31 = input.LA(1);
+                        int LA18_24 = input.LA(1);
 
                          
-                        int index15_31 = input.index();
+                        int index18_24 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 35;}
+                        if ( ((LA18_24>='\u0000' && LA18_24<='!')||(LA18_24>='$' && LA18_24<='\'')||LA18_24=='+'||(LA18_24>='-' && LA18_24<='9')||(LA18_24>=';' && LA18_24<='<')||(LA18_24>='?' && LA18_24<='Z')||(LA18_24>='^' && LA18_24<='z')||(LA18_24>='~' && LA18_24<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 27;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 29;}
+                        else if ( (LA18_24=='*'||LA18_24==':'||(LA18_24>='=' && LA18_24<='>')||LA18_24=='['||LA18_24==']'||(LA18_24>='{' && LA18_24<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
+
+                        else if ( ((LA18_24>='(' && LA18_24<=')')||LA18_24==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
+
+                        else s = 40;
 
                          
-                        input.seek(index15_31);
+                        input.seek(index18_24);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA15_2 = input.LA(1);
+                        int LA18_21 = input.LA(1);
 
                          
-                        int index15_2 = input.index();
+                        int index18_21 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA15_2==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
+                        if ( (LA18_21=='-') && (( isHead() ))) {s = 36;}
 
-                        else if ( (LA15_2=='-') && (( isHead() ))) {s = 22;}
+                        else if ( (LA18_21=='>') && (( isHead() ))) {s = 37;}
 
-                        else if ( (LA15_2=='\t') && ((( !isHead() )||( isHead() )))) {s = 5;}
-
-                        else if ( (LA15_2=='@') && (( isHead() ))) {s = 23;}
-
-                        else s = 21;
+                        else s = 38;
 
                          
-                        input.seek(index15_2);
+                        input.seek(index18_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA18_34 = input.LA(1);
+
+                         
+                        int index18_34 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((( isValue() )))) ) {s = 44;}
+
+                        else if ( (( isValue() )) ) {s = 20;}
+
+                         
+                        input.seek(index18_34);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA18_3 = input.LA(1);
+
+                         
+                        int index18_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA18_3=='-') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 24;}
+
+                        else if ( (LA18_3=='>') && (((( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 25;}
+
+                        else if ( ((LA18_3>='\u0000' && LA18_3<='!')||(LA18_3>='$' && LA18_3<='\'')||LA18_3=='+'||(LA18_3>='.' && LA18_3<='9')||(LA18_3>=';' && LA18_3<='<')||(LA18_3>='?' && LA18_3<='Z')||(LA18_3>='^' && LA18_3<='z')||(LA18_3>='~' && LA18_3<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
+
+                        else if ( (LA18_3=='*'||LA18_3==':'||LA18_3=='='||LA18_3=='['||LA18_3==']'||(LA18_3>='{' && LA18_3<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 28;}
+
+                        else if ( ((LA18_3>='(' && LA18_3<=')')||LA18_3==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
+
+                        else s = 26;
+
+                         
+                        input.seek(index18_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA18_2 = input.LA(1);
+
+                         
+                        int index18_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA18_2=='-') && (( isHead() ))) {s = 21;}
+
+                        else if ( (LA18_2==' ') && ((( isHead() )||( !isHead() )))) {s = 2;}
+
+                        else if ( (LA18_2=='@') && (( isHead() ))) {s = 22;}
+
+                        else if ( (LA18_2=='\t') && ((( isHead() )||( !isHead() )))) {s = 5;}
+
+                        else s = 23;
+
+                         
+                        input.seek(index18_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA18_25 = input.LA(1);
+
+                         
+                        int index18_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_25>='\u0000' && LA18_25<='!')||(LA18_25>='$' && LA18_25<='\'')||(LA18_25>='*' && LA18_25<='+')||(LA18_25>='-' && LA18_25<='[')||(LA18_25>=']' && LA18_25<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 28;}
+
+                        else if ( ((LA18_25>='(' && LA18_25<=')')||LA18_25==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
+
+                        else s = 41;
+
+                         
+                        input.seek(index18_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA18_14 = input.LA(1);
+
+                         
+                        int index18_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_14>='\u0000' && LA18_14<='!')||(LA18_14>='$' && LA18_14<='\'')||LA18_14=='+'||(LA18_14>='-' && LA18_14<='9')||(LA18_14>=';' && LA18_14<='<')||(LA18_14>='?' && LA18_14<='Z')||(LA18_14>='^' && LA18_14<='z')||(LA18_14>='~' && LA18_14<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 27;}
+
+                        else if ( (LA18_14=='*'||LA18_14==':'||(LA18_14>='=' && LA18_14<='>')||LA18_14=='['||LA18_14==']'||(LA18_14>='{' && LA18_14<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 28;}
+
+                        else if ( ((LA18_14>='(' && LA18_14<=')')||LA18_14==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
+
+                        else s = 33;
+
+                         
+                        input.seek(index18_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA18_10 = input.LA(1);
+
+                         
+                        int index18_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_10>='\u0000' && LA18_10<='\b')||(LA18_10>='\n' && LA18_10<='\u001F')||LA18_10=='!'||(LA18_10>='#' && LA18_10<='[')||(LA18_10>=']' && LA18_10<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 32;}
+
+                        else s = 31;
+
+                         
+                        input.seek(index18_10);
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 15, _s, input);
+                new NoViableAltException(getDescription(), 18, _s, input);
             error(nvae);
             throw nvae;
         }

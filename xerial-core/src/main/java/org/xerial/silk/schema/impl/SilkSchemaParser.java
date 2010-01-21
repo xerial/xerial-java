@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkSchema.g 2009-07-08 19:54:25
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g 2010-01-21 11:04:02
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -37,69 +37,69 @@ public class SilkSchemaParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Schema", "Module", "ClassDef", "Name", "Parent", "Mixin", "Attribute", "IsArray", "TypeName", "DefaultValue", "AllIncluded", "TargetClass", "Function", "Argument", "LineBreakChar", "Preamble", "LineComment", "LineBreak", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "Integer", "Frac", "Exp", "Double", "LBrace", "RBrace", "LBracket", "RBracket", "Lt", "Dot", "Comma", "LParen", "RParen", "Star", "UnsafeUnicodeChar", "NonWhiteSpaceChar", "SymbolChars", "Symbol", "Class", "Includes", "End", "Relation", "Index", "BelongsTo", "Default", "Projection", "OrderBy", "On", "SafeFirstLetter", "SafeLetter", "ModuleName", "WhiteSpaces", "ModuleDef", "WhiteSpace", "QNameChar", "QName"
     };
-    public static final int TargetClass=15;
-    public static final int Includes=49;
+    public static final int End=50;
+    public static final int LBrace=34;
+    public static final int Frac=31;
     public static final int NonWhiteSpaceChar=45;
-    public static final int RBrace=35;
+    public static final int DefaultValue=13;
+    public static final int Module=5;
+    public static final int Preamble=19;
+    public static final int LineComment=20;
+    public static final int RBracket=37;
+    public static final int Attribute=10;
+    public static final int EOF=-1;
+    public static final int HexDigit=24;
+    public static final int Default=54;
+    public static final int Parent=8;
+    public static final int Lt=38;
+    public static final int LineBreak=21;
+    public static final int OrderBy=56;
+    public static final int BelongsTo=53;
+    public static final int Index=52;
+    public static final int Argument=17;
+    public static final int WhiteSpace=63;
+    public static final int Symbol=47;
+    public static final int String=29;
     public static final int Class=48;
     public static final int LBracket=36;
-    public static final int SymbolChars=46;
-    public static final int AllIncluded=14;
-    public static final int Digit=22;
-    public static final int Frac=31;
-    public static final int HexDigit=24;
-    public static final int Symbol=47;
-    public static final int OrderBy=56;
-    public static final int Default=54;
-    public static final int Argument=17;
-    public static final int On=57;
-    public static final int Index=52;
-    public static final int Module=5;
-    public static final int Letter=23;
-    public static final int Attribute=10;
-    public static final int Comma=40;
-    public static final int Schema=4;
-    public static final int Dot=39;
-    public static final int End=50;
-    public static final int EscapeSequence=26;
-    public static final int DefaultValue=13;
-    public static final int Integer=30;
-    public static final int Relation=51;
-    public static final int Mixin=9;
-    public static final int WhiteSpace=63;
-    public static final int ClassDef=6;
-    public static final int LineComment=20;
-    public static final int ModuleName=60;
-    public static final int Projection=55;
-    public static final int BelongsTo=53;
-    public static final int SafeFirstLetter=58;
-    public static final int Star=43;
-    public static final int Preamble=19;
-    public static final int Exp=32;
-    public static final int QNameChar=64;
-    public static final int RParen=42;
-    public static final int UnicodeChar=25;
-    public static final int StringChar=27;
-    public static final int LineBreak=21;
-    public static final int Function=16;
-    public static final int Name=7;
-    public static final int ModuleDef=62;
-    public static final int LParen=41;
-    public static final int String=29;
-    public static final int SafeLetter=59;
-    public static final int LineBreakChar=18;
-    public static final int IsArray=11;
-    public static final int QName=65;
-    public static final int EOF=-1;
-    public static final int StringChar_s=28;
-    public static final int UnsafeUnicodeChar=44;
+    public static final int RBrace=35;
     public static final int Double=33;
-    public static final int LBrace=34;
-    public static final int RBracket=37;
-    public static final int Lt=38;
-    public static final int Parent=8;
+    public static final int RParen=42;
+    public static final int QName=65;
+    public static final int QNameChar=64;
+    public static final int LParen=41;
     public static final int TypeName=12;
     public static final int WhiteSpaces=61;
+    public static final int StringChar_s=28;
+    public static final int Includes=49;
+    public static final int Exp=32;
+    public static final int UnicodeChar=25;
+    public static final int ModuleDef=62;
+    public static final int AllIncluded=14;
+    public static final int Mixin=9;
+    public static final int Digit=22;
+    public static final int SymbolChars=46;
+    public static final int TargetClass=15;
+    public static final int UnsafeUnicodeChar=44;
+    public static final int Relation=51;
+    public static final int LineBreakChar=18;
+    public static final int Function=16;
+    public static final int Schema=4;
+    public static final int IsArray=11;
+    public static final int ClassDef=6;
+    public static final int ModuleName=60;
+    public static final int Name=7;
+    public static final int Dot=39;
+    public static final int Projection=55;
+    public static final int StringChar=27;
+    public static final int On=57;
+    public static final int SafeLetter=59;
+    public static final int Star=43;
+    public static final int SafeFirstLetter=58;
+    public static final int Comma=40;
+    public static final int Letter=23;
+    public static final int EscapeSequence=26;
+    public static final int Integer=30;
 
     // delegates
     // delegators
@@ -123,7 +123,7 @@ public class SilkSchemaParser extends Parser {
     }
 
     public String[] getTokenNames() { return SilkSchemaParser.tokenNames; }
-    public String getGrammarFileName() { return "SilkSchema.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g"; }
 
 
     public static class schema_return extends ParserRuleReturnScope {
@@ -132,7 +132,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "schema"
-    // SilkSchema.g:193:1: schema : ( Preamble )? ( schemaElement )* -> ^( Schema ( Preamble )? ( schemaElement )* ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:1: schema : ( Preamble )? ( schemaElement )* -> ^( Schema ( Preamble )? ( schemaElement )* ) ;
     public final SilkSchemaParser.schema_return schema() throws RecognitionException {
         SilkSchemaParser.schema_return retval = new SilkSchemaParser.schema_return();
         retval.start = input.LT(1);
@@ -147,10 +147,10 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Preamble=new RewriteRuleTokenStream(adaptor,"token Preamble");
         RewriteRuleSubtreeStream stream_schemaElement=new RewriteRuleSubtreeStream(adaptor,"rule schemaElement");
         try {
-            // SilkSchema.g:193:7: ( ( Preamble )? ( schemaElement )* -> ^( Schema ( Preamble )? ( schemaElement )* ) )
-            // SilkSchema.g:193:10: ( Preamble )? ( schemaElement )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:7: ( ( Preamble )? ( schemaElement )* -> ^( Schema ( Preamble )? ( schemaElement )* ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:10: ( Preamble )? ( schemaElement )*
             {
-            // SilkSchema.g:193:10: ( Preamble )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:10: ( Preamble )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -159,7 +159,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt1) {
                 case 1 :
-                    // SilkSchema.g:193:10: Preamble
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:10: Preamble
                     {
                     Preamble1=(Token)match(input,Preamble,FOLLOW_Preamble_in_schema879);  
                     stream_Preamble.add(Preamble1);
@@ -170,7 +170,7 @@ public class SilkSchemaParser extends Parser {
 
             }
 
-            // SilkSchema.g:193:20: ( schemaElement )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:20: ( schemaElement )*
             loop2:
             do {
                 int alt2=2;
@@ -183,7 +183,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // SilkSchema.g:193:20: schemaElement
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:20: schemaElement
             	    {
             	    pushFollow(FOLLOW_schemaElement_in_schema882);
             	    schemaElement2=schemaElement();
@@ -203,7 +203,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: schemaElement, Preamble
+            // elements: Preamble, schemaElement
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -215,18 +215,18 @@ public class SilkSchemaParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 193:36: -> ^( Schema ( Preamble )? ( schemaElement )* )
             {
-                // SilkSchema.g:193:39: ^( Schema ( Preamble )? ( schemaElement )* )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:39: ^( Schema ( Preamble )? ( schemaElement )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(Schema, "Schema"), root_1);
 
-                // SilkSchema.g:193:48: ( Preamble )?
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:48: ( Preamble )?
                 if ( stream_Preamble.hasNext() ) {
                     adaptor.addChild(root_1, stream_Preamble.nextNode());
 
                 }
                 stream_Preamble.reset();
-                // SilkSchema.g:193:58: ( schemaElement )*
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:193:58: ( schemaElement )*
                 while ( stream_schemaElement.hasNext() ) {
                     adaptor.addChild(root_1, stream_schemaElement.nextTree());
 
@@ -265,7 +265,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "schemaElement"
-    // SilkSchema.g:196:1: schemaElement : ( classDefinition | projectionDef | moduleDefinition );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:196:1: schemaElement : ( classDefinition | projectionDef | moduleDefinition );
     public final SilkSchemaParser.schemaElement_return schemaElement() throws RecognitionException {
         SilkSchemaParser.schemaElement_return retval = new SilkSchemaParser.schemaElement_return();
         retval.start = input.LT(1);
@@ -281,7 +281,7 @@ public class SilkSchemaParser extends Parser {
 
 
         try {
-            // SilkSchema.g:197:3: ( classDefinition | projectionDef | moduleDefinition )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:197:3: ( classDefinition | projectionDef | moduleDefinition )
             int alt3=3;
             switch ( input.LA(1) ) {
             case Class:
@@ -309,7 +309,7 @@ public class SilkSchemaParser extends Parser {
 
             switch (alt3) {
                 case 1 :
-                    // SilkSchema.g:197:5: classDefinition
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:197:5: classDefinition
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -323,7 +323,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:198:5: projectionDef
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:198:5: projectionDef
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -337,7 +337,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:199:5: moduleDefinition
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:199:5: moduleDefinition
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -376,7 +376,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "moduleDefinition"
-    // SilkSchema.g:203:1: moduleDefinition : ModuleDef ( schemaElement )* End -> ^( Module Name[$ModuleDef.text] ( schemaElement )* ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:203:1: moduleDefinition : ModuleDef ( schemaElement )* End -> ^( Module Name[$ModuleDef.text] ( schemaElement )* ) ;
     public final SilkSchemaParser.moduleDefinition_return moduleDefinition() throws RecognitionException {
         SilkSchemaParser.moduleDefinition_return retval = new SilkSchemaParser.moduleDefinition_return();
         retval.start = input.LT(1);
@@ -394,13 +394,13 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_ModuleDef=new RewriteRuleTokenStream(adaptor,"token ModuleDef");
         RewriteRuleSubtreeStream stream_schemaElement=new RewriteRuleSubtreeStream(adaptor,"rule schemaElement");
         try {
-            // SilkSchema.g:203:17: ( ModuleDef ( schemaElement )* End -> ^( Module Name[$ModuleDef.text] ( schemaElement )* ) )
-            // SilkSchema.g:204:2: ModuleDef ( schemaElement )* End
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:203:17: ( ModuleDef ( schemaElement )* End -> ^( Module Name[$ModuleDef.text] ( schemaElement )* ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:204:2: ModuleDef ( schemaElement )* End
             {
             ModuleDef6=(Token)match(input,ModuleDef,FOLLOW_ModuleDef_in_moduleDefinition935);  
             stream_ModuleDef.add(ModuleDef6);
 
-            // SilkSchema.g:204:12: ( schemaElement )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:204:12: ( schemaElement )*
             loop4:
             do {
                 int alt4=2;
@@ -413,7 +413,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // SilkSchema.g:204:12: schemaElement
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:204:12: schemaElement
             	    {
             	    pushFollow(FOLLOW_schemaElement_in_moduleDefinition937);
             	    schemaElement7=schemaElement();
@@ -448,13 +448,13 @@ public class SilkSchemaParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 205:2: -> ^( Module Name[$ModuleDef.text] ( schemaElement )* )
             {
-                // SilkSchema.g:205:5: ^( Module Name[$ModuleDef.text] ( schemaElement )* )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:205:5: ^( Module Name[$ModuleDef.text] ( schemaElement )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(Module, "Module"), root_1);
 
                 adaptor.addChild(root_1, (Object)adaptor.create(Name, (ModuleDef6!=null?ModuleDef6.getText():null)));
-                // SilkSchema.g:205:36: ( schemaElement )*
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:205:36: ( schemaElement )*
                 while ( stream_schemaElement.hasNext() ) {
                     adaptor.addChild(root_1, stream_schemaElement.nextTree());
 
@@ -493,7 +493,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "classDefinition"
-    // SilkSchema.g:208:1: classDefinition : ( Class QName ( inheritance )? ( classBody )? End -> ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? ) | Relation QName ( inheritance )? ( classBody )? End -> ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? ) );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:208:1: classDefinition : ( Class QName ( inheritance )? ( classBody )? End -> ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? ) | Relation QName ( inheritance )? ( classBody )? End -> ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? ) );
     public final SilkSchemaParser.classDefinition_return classDefinition() throws RecognitionException {
         SilkSchemaParser.classDefinition_return retval = new SilkSchemaParser.classDefinition_return();
         retval.start = input.LT(1);
@@ -522,13 +522,13 @@ public class SilkSchemaParser extends Parser {
         Object QName15_tree=null;
         Object End18_tree=null;
         RewriteRuleTokenStream stream_Relation=new RewriteRuleTokenStream(adaptor,"token Relation");
-        RewriteRuleTokenStream stream_Class=new RewriteRuleTokenStream(adaptor,"token Class");
         RewriteRuleTokenStream stream_End=new RewriteRuleTokenStream(adaptor,"token End");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Class=new RewriteRuleTokenStream(adaptor,"token Class");
         RewriteRuleSubtreeStream stream_classBody=new RewriteRuleSubtreeStream(adaptor,"rule classBody");
         RewriteRuleSubtreeStream stream_inheritance=new RewriteRuleSubtreeStream(adaptor,"rule inheritance");
         try {
-            // SilkSchema.g:209:3: ( Class QName ( inheritance )? ( classBody )? End -> ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? ) | Relation QName ( inheritance )? ( classBody )? End -> ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:3: ( Class QName ( inheritance )? ( classBody )? End -> ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? ) | Relation QName ( inheritance )? ( classBody )? End -> ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? ) )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -546,7 +546,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt9) {
                 case 1 :
-                    // SilkSchema.g:209:5: Class QName ( inheritance )? ( classBody )? End
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:5: Class QName ( inheritance )? ( classBody )? End
                     {
                     Class9=(Token)match(input,Class,FOLLOW_Class_in_classDefinition972);  
                     stream_Class.add(Class9);
@@ -554,7 +554,7 @@ public class SilkSchemaParser extends Parser {
                     QName10=(Token)match(input,QName,FOLLOW_QName_in_classDefinition974);  
                     stream_QName.add(QName10);
 
-                    // SilkSchema.g:209:17: ( inheritance )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:17: ( inheritance )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -563,7 +563,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // SilkSchema.g:209:17: inheritance
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:17: inheritance
                             {
                             pushFollow(FOLLOW_inheritance_in_classDefinition976);
                             inheritance11=inheritance();
@@ -577,7 +577,7 @@ public class SilkSchemaParser extends Parser {
 
                     }
 
-                    // SilkSchema.g:209:30: ( classBody )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:30: ( classBody )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -586,7 +586,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     switch (alt6) {
                         case 1 :
-                            // SilkSchema.g:209:30: classBody
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:30: classBody
                             {
                             pushFollow(FOLLOW_classBody_in_classDefinition979);
                             classBody12=classBody();
@@ -618,19 +618,19 @@ public class SilkSchemaParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 209:45: -> ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? )
                     {
-                        // SilkSchema.g:209:48: ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:48: ^( ClassDef Name[$QName.text] ( inheritance )? ( classBody )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ClassDef, "ClassDef"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName10!=null?QName10.getText():null)));
-                        // SilkSchema.g:209:77: ( inheritance )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:77: ( inheritance )?
                         if ( stream_inheritance.hasNext() ) {
                             adaptor.addChild(root_1, stream_inheritance.nextTree());
 
                         }
                         stream_inheritance.reset();
-                        // SilkSchema.g:209:90: ( classBody )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:209:90: ( classBody )?
                         if ( stream_classBody.hasNext() ) {
                             adaptor.addChild(root_1, stream_classBody.nextTree());
 
@@ -646,7 +646,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:210:7: Relation QName ( inheritance )? ( classBody )? End
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:7: Relation QName ( inheritance )? ( classBody )? End
                     {
                     Relation14=(Token)match(input,Relation,FOLLOW_Relation_in_classDefinition1005);  
                     stream_Relation.add(Relation14);
@@ -654,7 +654,7 @@ public class SilkSchemaParser extends Parser {
                     QName15=(Token)match(input,QName,FOLLOW_QName_in_classDefinition1007);  
                     stream_QName.add(QName15);
 
-                    // SilkSchema.g:210:22: ( inheritance )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:22: ( inheritance )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -663,7 +663,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     switch (alt7) {
                         case 1 :
-                            // SilkSchema.g:210:22: inheritance
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:22: inheritance
                             {
                             pushFollow(FOLLOW_inheritance_in_classDefinition1009);
                             inheritance16=inheritance();
@@ -677,7 +677,7 @@ public class SilkSchemaParser extends Parser {
 
                     }
 
-                    // SilkSchema.g:210:35: ( classBody )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:35: ( classBody )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -686,7 +686,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     switch (alt8) {
                         case 1 :
-                            // SilkSchema.g:210:35: classBody
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:35: classBody
                             {
                             pushFollow(FOLLOW_classBody_in_classDefinition1012);
                             classBody17=classBody();
@@ -706,7 +706,7 @@ public class SilkSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: Relation, classBody, inheritance
+                    // elements: inheritance, classBody, Relation
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -718,19 +718,19 @@ public class SilkSchemaParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 210:50: -> ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? )
                     {
-                        // SilkSchema.g:210:53: ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? )
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:53: ^( Relation Name[$QName.text] ( inheritance )? ( classBody )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_Relation.nextNode(), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName15!=null?QName15.getText():null)));
-                        // SilkSchema.g:210:82: ( inheritance )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:82: ( inheritance )?
                         if ( stream_inheritance.hasNext() ) {
                             adaptor.addChild(root_1, stream_inheritance.nextTree());
 
                         }
                         stream_inheritance.reset();
-                        // SilkSchema.g:210:95: ( classBody )?
+                        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:210:95: ( classBody )?
                         if ( stream_classBody.hasNext() ) {
                             adaptor.addChild(root_1, stream_classBody.nextTree());
 
@@ -771,7 +771,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "classBody"
-    // SilkSchema.g:213:1: classBody : ( belongsToStatement | includeStatement | attributes | indexStatement )+ ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:1: classBody : ( belongsToStatement | includeStatement | attributes | indexStatement )+ ;
     public final SilkSchemaParser.classBody_return classBody() throws RecognitionException {
         SilkSchemaParser.classBody_return retval = new SilkSchemaParser.classBody_return();
         retval.start = input.LT(1);
@@ -789,12 +789,12 @@ public class SilkSchemaParser extends Parser {
 
 
         try {
-            // SilkSchema.g:213:10: ( ( belongsToStatement | includeStatement | attributes | indexStatement )+ )
-            // SilkSchema.g:213:12: ( belongsToStatement | includeStatement | attributes | indexStatement )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:10: ( ( belongsToStatement | includeStatement | attributes | indexStatement )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:12: ( belongsToStatement | includeStatement | attributes | indexStatement )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // SilkSchema.g:213:12: ( belongsToStatement | includeStatement | attributes | indexStatement )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:12: ( belongsToStatement | includeStatement | attributes | indexStatement )+
             int cnt10=0;
             loop10:
             do {
@@ -825,7 +825,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // SilkSchema.g:213:13: belongsToStatement
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:13: belongsToStatement
             	    {
             	    pushFollow(FOLLOW_belongsToStatement_in_classBody1044);
             	    belongsToStatement19=belongsToStatement();
@@ -837,7 +837,7 @@ public class SilkSchemaParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // SilkSchema.g:213:34: includeStatement
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:34: includeStatement
             	    {
             	    pushFollow(FOLLOW_includeStatement_in_classBody1048);
             	    includeStatement20=includeStatement();
@@ -849,7 +849,7 @@ public class SilkSchemaParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // SilkSchema.g:213:53: attributes
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:53: attributes
             	    {
             	    pushFollow(FOLLOW_attributes_in_classBody1052);
             	    attributes21=attributes();
@@ -861,7 +861,7 @@ public class SilkSchemaParser extends Parser {
             	    }
             	    break;
             	case 4 :
-            	    // SilkSchema.g:213:66: indexStatement
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:213:66: indexStatement
             	    {
             	    pushFollow(FOLLOW_indexStatement_in_classBody1056);
             	    indexStatement22=indexStatement();
@@ -909,7 +909,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "projectionDef"
-    // SilkSchema.g:216:1: projectionDef : Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End -> ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:1: projectionDef : Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End -> ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? ) ;
     public final SilkSchemaParser.projectionDef_return projectionDef() throws RecognitionException {
         SilkSchemaParser.projectionDef_return retval = new SilkSchemaParser.projectionDef_return();
         retval.start = input.LT(1);
@@ -935,16 +935,16 @@ public class SilkSchemaParser extends Parser {
         Object string_literal24_tree=null;
         Object Comma26_tree=null;
         Object End29_tree=null;
-        RewriteRuleTokenStream stream_Projection=new RewriteRuleTokenStream(adaptor,"token Projection");
-        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_End=new RewriteRuleTokenStream(adaptor,"token End");
-        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Projection=new RewriteRuleTokenStream(adaptor,"token Projection");
         RewriteRuleTokenStream stream_On=new RewriteRuleTokenStream(adaptor,"token On");
-        RewriteRuleSubtreeStream stream_projectColumn=new RewriteRuleSubtreeStream(adaptor,"rule projectColumn");
+        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_orderByColumns=new RewriteRuleSubtreeStream(adaptor,"rule orderByColumns");
+        RewriteRuleSubtreeStream stream_projectColumn=new RewriteRuleSubtreeStream(adaptor,"rule projectColumn");
         try {
-            // SilkSchema.g:216:14: ( Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End -> ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? ) )
-            // SilkSchema.g:216:16: Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:14: ( Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End -> ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:16: Projection c= QName 'on' t= QName ( projectColumn ( ( Comma )? projectColumn )* ) ( orderByColumns )? End
             {
             Projection23=(Token)match(input,Projection,FOLLOW_Projection_in_projectionDef1066);  
             stream_Projection.add(Projection23);
@@ -958,8 +958,8 @@ public class SilkSchemaParser extends Parser {
             t=(Token)match(input,QName,FOLLOW_QName_in_projectionDef1076);  
             stream_QName.add(t);
 
-            // SilkSchema.g:216:48: ( projectColumn ( ( Comma )? projectColumn )* )
-            // SilkSchema.g:216:49: projectColumn ( ( Comma )? projectColumn )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:48: ( projectColumn ( ( Comma )? projectColumn )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:49: projectColumn ( ( Comma )? projectColumn )*
             {
             pushFollow(FOLLOW_projectColumn_in_projectionDef1079);
             projectColumn25=projectColumn();
@@ -967,7 +967,7 @@ public class SilkSchemaParser extends Parser {
             state._fsp--;
 
             stream_projectColumn.add(projectColumn25.getTree());
-            // SilkSchema.g:216:63: ( ( Comma )? projectColumn )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:63: ( ( Comma )? projectColumn )*
             loop12:
             do {
                 int alt12=2;
@@ -980,9 +980,9 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // SilkSchema.g:216:64: ( Comma )? projectColumn
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:64: ( Comma )? projectColumn
             	    {
-            	    // SilkSchema.g:216:64: ( Comma )?
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:64: ( Comma )?
             	    int alt11=2;
             	    int LA11_0 = input.LA(1);
 
@@ -991,7 +991,7 @@ public class SilkSchemaParser extends Parser {
             	    }
             	    switch (alt11) {
             	        case 1 :
-            	            // SilkSchema.g:216:64: Comma
+            	            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:64: Comma
             	            {
             	            Comma26=(Token)match(input,Comma,FOLLOW_Comma_in_projectionDef1082);  
             	            stream_Comma.add(Comma26);
@@ -1020,7 +1020,7 @@ public class SilkSchemaParser extends Parser {
 
             }
 
-            // SilkSchema.g:216:88: ( orderByColumns )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:88: ( orderByColumns )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1029,7 +1029,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt13) {
                 case 1 :
-                    // SilkSchema.g:216:88: orderByColumns
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:216:88: orderByColumns
                     {
                     pushFollow(FOLLOW_orderByColumns_in_projectionDef1090);
                     orderByColumns28=orderByColumns();
@@ -1049,7 +1049,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: orderByColumns, Projection, projectColumn
+            // elements: Projection, orderByColumns, projectColumn
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1061,7 +1061,7 @@ public class SilkSchemaParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 217:2: -> ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? )
             {
-                // SilkSchema.g:217:5: ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:217:5: ^( Projection Name[$c.text] TargetClass[$t.text] ( projectColumn )+ ( orderByColumns )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(stream_Projection.nextNode(), root_1);
@@ -1076,7 +1076,7 @@ public class SilkSchemaParser extends Parser {
 
                 }
                 stream_projectColumn.reset();
-                // SilkSchema.g:217:68: ( orderByColumns )?
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:217:68: ( orderByColumns )?
                 if ( stream_orderByColumns.hasNext() ) {
                     adaptor.addChild(root_1, stream_orderByColumns.nextTree());
 
@@ -1115,7 +1115,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "projectColumn"
-    // SilkSchema.g:219:1: fragment projectColumn : ( QName -> Attribute[$QName.text] | Star -> AllIncluded[\"true\"] | Symbol -> Attribute[$Symbol.text] );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:219:1: fragment projectColumn : ( QName -> Attribute[$QName.text] | Star -> AllIncluded[\"true\"] | Symbol -> Attribute[$Symbol.text] );
     public final SilkSchemaParser.projectColumn_return projectColumn() throws RecognitionException {
         SilkSchemaParser.projectColumn_return retval = new SilkSchemaParser.projectColumn_return();
         retval.start = input.LT(1);
@@ -1130,11 +1130,11 @@ public class SilkSchemaParser extends Parser {
         Object Star31_tree=null;
         Object Symbol32_tree=null;
         RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
-        RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
 
         try {
-            // SilkSchema.g:221:3: ( QName -> Attribute[$QName.text] | Star -> AllIncluded[\"true\"] | Symbol -> Attribute[$Symbol.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:221:3: ( QName -> Attribute[$QName.text] | Star -> AllIncluded[\"true\"] | Symbol -> Attribute[$Symbol.text] )
             int alt14=3;
             switch ( input.LA(1) ) {
             case QName:
@@ -1161,7 +1161,7 @@ public class SilkSchemaParser extends Parser {
 
             switch (alt14) {
                 case 1 :
-                    // SilkSchema.g:221:5: QName
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:221:5: QName
                     {
                     QName30=(Token)match(input,QName,FOLLOW_QName_in_projectColumn1125);  
                     stream_QName.add(QName30);
@@ -1189,7 +1189,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:222:5: Star
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:222:5: Star
                     {
                     Star31=(Token)match(input,Star,FOLLOW_Star_in_projectColumn1137);  
                     stream_Star.add(Star31);
@@ -1217,7 +1217,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:223:5: Symbol
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:223:5: Symbol
                     {
                     Symbol32=(Token)match(input,Symbol,FOLLOW_Symbol_in_projectColumn1149);  
                     stream_Symbol.add(Symbol32);
@@ -1270,7 +1270,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "orderByColumns"
-    // SilkSchema.g:226:1: fragment orderByColumns : OrderBy orderByItem ( Comma orderByItem )* -> ( orderByItem )+ ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:226:1: fragment orderByColumns : OrderBy orderByItem ( Comma orderByItem )* -> ( orderByItem )+ ;
     public final SilkSchemaParser.orderByColumns_return orderByColumns() throws RecognitionException {
         SilkSchemaParser.orderByColumns_return retval = new SilkSchemaParser.orderByColumns_return();
         retval.start = input.LT(1);
@@ -1290,8 +1290,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_orderByItem=new RewriteRuleSubtreeStream(adaptor,"rule orderByItem");
         try {
-            // SilkSchema.g:228:3: ( OrderBy orderByItem ( Comma orderByItem )* -> ( orderByItem )+ )
-            // SilkSchema.g:228:5: OrderBy orderByItem ( Comma orderByItem )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:228:3: ( OrderBy orderByItem ( Comma orderByItem )* -> ( orderByItem )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:228:5: OrderBy orderByItem ( Comma orderByItem )*
             {
             OrderBy33=(Token)match(input,OrderBy,FOLLOW_OrderBy_in_orderByColumns1167);  
             stream_OrderBy.add(OrderBy33);
@@ -1302,7 +1302,7 @@ public class SilkSchemaParser extends Parser {
             state._fsp--;
 
             stream_orderByItem.add(orderByItem34.getTree());
-            // SilkSchema.g:228:25: ( Comma orderByItem )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:228:25: ( Comma orderByItem )*
             loop15:
             do {
                 int alt15=2;
@@ -1315,7 +1315,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt15) {
             	case 1 :
-            	    // SilkSchema.g:228:26: Comma orderByItem
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:228:26: Comma orderByItem
             	    {
             	    Comma35=(Token)match(input,Comma,FOLLOW_Comma_in_orderByColumns1172);  
             	    stream_Comma.add(Comma35);
@@ -1388,7 +1388,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "orderByItem"
-    // SilkSchema.g:231:1: fragment orderByItem : ( QName -> OrderBy[$QName.text] | Symbol -> OrderBy[$Symbol.text] );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:231:1: fragment orderByItem : ( QName -> OrderBy[$QName.text] | Symbol -> OrderBy[$Symbol.text] );
     public final SilkSchemaParser.orderByItem_return orderByItem() throws RecognitionException {
         SilkSchemaParser.orderByItem_return retval = new SilkSchemaParser.orderByItem_return();
         retval.start = input.LT(1);
@@ -1404,7 +1404,7 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // SilkSchema.g:233:3: ( QName -> OrderBy[$QName.text] | Symbol -> OrderBy[$Symbol.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:233:3: ( QName -> OrderBy[$QName.text] | Symbol -> OrderBy[$Symbol.text] )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1422,7 +1422,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt16) {
                 case 1 :
-                    // SilkSchema.g:233:5: QName
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:233:5: QName
                     {
                     QName37=(Token)match(input,QName,FOLLOW_QName_in_orderByItem1194);  
                     stream_QName.add(QName37);
@@ -1450,7 +1450,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:234:5: Symbol
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:234:5: Symbol
                     {
                     Symbol38=(Token)match(input,Symbol,FOLLOW_Symbol_in_orderByItem1206);  
                     stream_Symbol.add(Symbol38);
@@ -1503,7 +1503,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "functionArg"
-    // SilkSchema.g:238:1: fragment functionArg : Symbol -> Argument[$Symbol.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:238:1: fragment functionArg : Symbol -> Argument[$Symbol.text] ;
     public final SilkSchemaParser.functionArg_return functionArg() throws RecognitionException {
         SilkSchemaParser.functionArg_return retval = new SilkSchemaParser.functionArg_return();
         retval.start = input.LT(1);
@@ -1516,8 +1516,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
 
         try {
-            // SilkSchema.g:239:12: ( Symbol -> Argument[$Symbol.text] )
-            // SilkSchema.g:239:14: Symbol
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:239:12: ( Symbol -> Argument[$Symbol.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:239:14: Symbol
             {
             Symbol39=(Token)match(input,Symbol,FOLLOW_Symbol_in_functionArg1222);  
             stream_Symbol.add(Symbol39);
@@ -1568,7 +1568,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "belongsToStatement"
-    // SilkSchema.g:242:1: fragment belongsToStatement : BelongsTo QName -> BelongsTo[$QName.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:242:1: fragment belongsToStatement : BelongsTo QName -> BelongsTo[$QName.text] ;
     public final SilkSchemaParser.belongsToStatement_return belongsToStatement() throws RecognitionException {
         SilkSchemaParser.belongsToStatement_return retval = new SilkSchemaParser.belongsToStatement_return();
         retval.start = input.LT(1);
@@ -1580,12 +1580,12 @@ public class SilkSchemaParser extends Parser {
 
         Object BelongsTo40_tree=null;
         Object QName41_tree=null;
-        RewriteRuleTokenStream stream_BelongsTo=new RewriteRuleTokenStream(adaptor,"token BelongsTo");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_BelongsTo=new RewriteRuleTokenStream(adaptor,"token BelongsTo");
 
         try {
-            // SilkSchema.g:243:19: ( BelongsTo QName -> BelongsTo[$QName.text] )
-            // SilkSchema.g:243:21: BelongsTo QName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:243:19: ( BelongsTo QName -> BelongsTo[$QName.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:243:21: BelongsTo QName
             {
             BelongsTo40=(Token)match(input,BelongsTo,FOLLOW_BelongsTo_in_belongsToStatement1238);  
             stream_BelongsTo.add(BelongsTo40);
@@ -1639,7 +1639,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "inheritance"
-    // SilkSchema.g:245:1: fragment inheritance : Lt QName -> Parent[$QName.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:245:1: fragment inheritance : Lt QName -> Parent[$QName.text] ;
     public final SilkSchemaParser.inheritance_return inheritance() throws RecognitionException {
         SilkSchemaParser.inheritance_return retval = new SilkSchemaParser.inheritance_return();
         retval.start = input.LT(1);
@@ -1655,8 +1655,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // SilkSchema.g:246:12: ( Lt QName -> Parent[$QName.text] )
-            // SilkSchema.g:246:14: Lt QName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:246:12: ( Lt QName -> Parent[$QName.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:246:14: Lt QName
             {
             Lt42=(Token)match(input,Lt,FOLLOW_Lt_in_inheritance1258);  
             stream_Lt.add(Lt42);
@@ -1710,7 +1710,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "includeStatement"
-    // SilkSchema.g:248:1: fragment includeStatement : Includes includeItem ( Comma includeItem )* -> ( includeItem )+ ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:248:1: fragment includeStatement : Includes includeItem ( Comma includeItem )* -> ( includeItem )+ ;
     public final SilkSchemaParser.includeStatement_return includeStatement() throws RecognitionException {
         SilkSchemaParser.includeStatement_return retval = new SilkSchemaParser.includeStatement_return();
         retval.start = input.LT(1);
@@ -1730,8 +1730,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_includeItem=new RewriteRuleSubtreeStream(adaptor,"rule includeItem");
         try {
-            // SilkSchema.g:249:17: ( Includes includeItem ( Comma includeItem )* -> ( includeItem )+ )
-            // SilkSchema.g:249:19: Includes includeItem ( Comma includeItem )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:249:17: ( Includes includeItem ( Comma includeItem )* -> ( includeItem )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:249:19: Includes includeItem ( Comma includeItem )*
             {
             Includes44=(Token)match(input,Includes,FOLLOW_Includes_in_includeStatement1277);  
             stream_Includes.add(Includes44);
@@ -1742,7 +1742,7 @@ public class SilkSchemaParser extends Parser {
             state._fsp--;
 
             stream_includeItem.add(includeItem45.getTree());
-            // SilkSchema.g:249:40: ( Comma includeItem )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:249:40: ( Comma includeItem )*
             loop17:
             do {
                 int alt17=2;
@@ -1755,7 +1755,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // SilkSchema.g:249:41: Comma includeItem
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:249:41: Comma includeItem
             	    {
             	    Comma46=(Token)match(input,Comma,FOLLOW_Comma_in_includeStatement1282);  
             	    stream_Comma.add(Comma46);
@@ -1828,7 +1828,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "includeItem"
-    // SilkSchema.g:251:1: fragment includeItem : QName -> Mixin[$QName.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:251:1: fragment includeItem : QName -> Mixin[$QName.text] ;
     public final SilkSchemaParser.includeItem_return includeItem() throws RecognitionException {
         SilkSchemaParser.includeItem_return retval = new SilkSchemaParser.includeItem_return();
         retval.start = input.LT(1);
@@ -1841,8 +1841,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
-            // SilkSchema.g:252:12: ( QName -> Mixin[$QName.text] )
-            // SilkSchema.g:252:14: QName
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:252:12: ( QName -> Mixin[$QName.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:252:14: QName
             {
             QName48=(Token)match(input,QName,FOLLOW_QName_in_includeItem1301);  
             stream_QName.add(QName48);
@@ -1893,7 +1893,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "indexStatement"
-    // SilkSchema.g:254:1: fragment indexStatement : Index QName On indexTarget ( Comma indexTarget )* -> ^( Index TypeName[$QName.text] ( indexTarget )+ ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:254:1: fragment indexStatement : Index QName On indexTarget ( Comma indexTarget )* -> ^( Index TypeName[$QName.text] ( indexTarget )+ ) ;
     public final SilkSchemaParser.indexStatement_return indexStatement() throws RecognitionException {
         SilkSchemaParser.indexStatement_return retval = new SilkSchemaParser.indexStatement_return();
         retval.start = input.LT(1);
@@ -1914,13 +1914,13 @@ public class SilkSchemaParser extends Parser {
         Object On51_tree=null;
         Object Comma53_tree=null;
         RewriteRuleTokenStream stream_Index=new RewriteRuleTokenStream(adaptor,"token Index");
-        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
-        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
         RewriteRuleTokenStream stream_On=new RewriteRuleTokenStream(adaptor,"token On");
+        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_indexTarget=new RewriteRuleSubtreeStream(adaptor,"rule indexTarget");
         try {
-            // SilkSchema.g:255:15: ( Index QName On indexTarget ( Comma indexTarget )* -> ^( Index TypeName[$QName.text] ( indexTarget )+ ) )
-            // SilkSchema.g:255:17: Index QName On indexTarget ( Comma indexTarget )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:255:15: ( Index QName On indexTarget ( Comma indexTarget )* -> ^( Index TypeName[$QName.text] ( indexTarget )+ ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:255:17: Index QName On indexTarget ( Comma indexTarget )*
             {
             Index49=(Token)match(input,Index,FOLLOW_Index_in_indexStatement1316);  
             stream_Index.add(Index49);
@@ -1937,7 +1937,7 @@ public class SilkSchemaParser extends Parser {
             state._fsp--;
 
             stream_indexTarget.add(indexTarget52.getTree());
-            // SilkSchema.g:255:44: ( Comma indexTarget )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:255:44: ( Comma indexTarget )*
             loop18:
             do {
                 int alt18=2;
@@ -1950,7 +1950,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // SilkSchema.g:255:45: Comma indexTarget
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:255:45: Comma indexTarget
             	    {
             	    Comma53=(Token)match(input,Comma,FOLLOW_Comma_in_indexStatement1325);  
             	    stream_Comma.add(Comma53);
@@ -1973,7 +1973,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: Index, indexTarget
+            // elements: indexTarget, Index
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1985,7 +1985,7 @@ public class SilkSchemaParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 256:3: -> ^( Index TypeName[$QName.text] ( indexTarget )+ )
             {
-                // SilkSchema.g:256:6: ^( Index TypeName[$QName.text] ( indexTarget )+ )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:256:6: ^( Index TypeName[$QName.text] ( indexTarget )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(stream_Index.nextNode(), root_1);
@@ -2032,7 +2032,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "indexTarget"
-    // SilkSchema.g:259:1: fragment indexTarget : Symbol -> Attribute[$Symbol.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:259:1: fragment indexTarget : Symbol -> Attribute[$Symbol.text] ;
     public final SilkSchemaParser.indexTarget_return indexTarget() throws RecognitionException {
         SilkSchemaParser.indexTarget_return retval = new SilkSchemaParser.indexTarget_return();
         retval.start = input.LT(1);
@@ -2045,8 +2045,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
 
         try {
-            // SilkSchema.g:260:12: ( Symbol -> Attribute[$Symbol.text] )
-            // SilkSchema.g:260:14: Symbol
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:260:12: ( Symbol -> Attribute[$Symbol.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:260:14: Symbol
             {
             Symbol55=(Token)match(input,Symbol,FOLLOW_Symbol_in_indexTarget1355);  
             stream_Symbol.add(Symbol55);
@@ -2097,7 +2097,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributes"
-    // SilkSchema.g:264:1: fragment attributes : attribute ( Comma attribute )* -> ( attribute )+ ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:264:1: fragment attributes : attribute ( Comma attribute )* -> ( attribute )+ ;
     public final SilkSchemaParser.attributes_return attributes() throws RecognitionException {
         SilkSchemaParser.attributes_return retval = new SilkSchemaParser.attributes_return();
         retval.start = input.LT(1);
@@ -2114,8 +2114,8 @@ public class SilkSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_attribute=new RewriteRuleSubtreeStream(adaptor,"rule attribute");
         try {
-            // SilkSchema.g:265:11: ( attribute ( Comma attribute )* -> ( attribute )+ )
-            // SilkSchema.g:265:13: attribute ( Comma attribute )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:265:11: ( attribute ( Comma attribute )* -> ( attribute )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:265:13: attribute ( Comma attribute )*
             {
             pushFollow(FOLLOW_attribute_in_attributes1375);
             attribute56=attribute();
@@ -2123,7 +2123,7 @@ public class SilkSchemaParser extends Parser {
             state._fsp--;
 
             stream_attribute.add(attribute56.getTree());
-            // SilkSchema.g:265:23: ( Comma attribute )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:265:23: ( Comma attribute )*
             loop19:
             do {
                 int alt19=2;
@@ -2136,7 +2136,7 @@ public class SilkSchemaParser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // SilkSchema.g:265:24: Comma attribute
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:265:24: Comma attribute
             	    {
             	    Comma57=(Token)match(input,Comma,FOLLOW_Comma_in_attributes1378);  
             	    stream_Comma.add(Comma57);
@@ -2209,7 +2209,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "attribute"
-    // SilkSchema.g:269:1: fragment attribute : Symbol ( attributeType )? ( Default attributeValue )? -> ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? ) ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:269:1: fragment attribute : Symbol ( attributeType )? ( Default attributeValue )? -> ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? ) ;
     public final SilkSchemaParser.attribute_return attribute() throws RecognitionException {
         SilkSchemaParser.attribute_return retval = new SilkSchemaParser.attribute_return();
         retval.start = input.LT(1);
@@ -2225,18 +2225,18 @@ public class SilkSchemaParser extends Parser {
 
         Object Symbol59_tree=null;
         Object Default61_tree=null;
-        RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
         RewriteRuleTokenStream stream_Default=new RewriteRuleTokenStream(adaptor,"token Default");
+        RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
         RewriteRuleSubtreeStream stream_attributeValue=new RewriteRuleSubtreeStream(adaptor,"rule attributeValue");
         RewriteRuleSubtreeStream stream_attributeType=new RewriteRuleSubtreeStream(adaptor,"rule attributeType");
         try {
-            // SilkSchema.g:270:10: ( Symbol ( attributeType )? ( Default attributeValue )? -> ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? ) )
-            // SilkSchema.g:271:3: Symbol ( attributeType )? ( Default attributeValue )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:270:10: ( Symbol ( attributeType )? ( Default attributeValue )? -> ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:271:3: Symbol ( attributeType )? ( Default attributeValue )?
             {
             Symbol59=(Token)match(input,Symbol,FOLLOW_Symbol_in_attribute1407);  
             stream_Symbol.add(Symbol59);
 
-            // SilkSchema.g:271:10: ( attributeType )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:271:10: ( attributeType )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2245,7 +2245,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt20) {
                 case 1 :
-                    // SilkSchema.g:271:10: attributeType
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:271:10: attributeType
                     {
                     pushFollow(FOLLOW_attributeType_in_attribute1409);
                     attributeType60=attributeType();
@@ -2259,7 +2259,7 @@ public class SilkSchemaParser extends Parser {
 
             }
 
-            // SilkSchema.g:271:25: ( Default attributeValue )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:271:25: ( Default attributeValue )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2268,7 +2268,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt21) {
                 case 1 :
-                    // SilkSchema.g:271:26: Default attributeValue
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:271:26: Default attributeValue
                     {
                     Default61=(Token)match(input,Default,FOLLOW_Default_in_attribute1413);  
                     stream_Default.add(Default61);
@@ -2288,7 +2288,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: attributeValue, attributeType
+            // elements: attributeType, attributeValue
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2300,19 +2300,19 @@ public class SilkSchemaParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 272:3: -> ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? )
             {
-                // SilkSchema.g:272:6: ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? )
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:272:6: ^( Attribute Name[$Symbol.text] ( attributeType )? ( attributeValue )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(Attribute, "Attribute"), root_1);
 
                 adaptor.addChild(root_1, (Object)adaptor.create(Name, (Symbol59!=null?Symbol59.getText():null)));
-                // SilkSchema.g:272:37: ( attributeType )?
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:272:37: ( attributeType )?
                 if ( stream_attributeType.hasNext() ) {
                     adaptor.addChild(root_1, stream_attributeType.nextTree());
 
                 }
                 stream_attributeType.reset();
-                // SilkSchema.g:272:52: ( attributeValue )?
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:272:52: ( attributeValue )?
                 if ( stream_attributeValue.hasNext() ) {
                     adaptor.addChild(root_1, stream_attributeValue.nextTree());
 
@@ -2351,7 +2351,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributeValue"
-    // SilkSchema.g:275:1: attributeValue : ( String | Double | Integer ) -> DefaultValue[$attributeValue.text] ;
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:275:1: attributeValue : ( String | Double | Integer ) -> DefaultValue[$attributeValue.text] ;
     public final SilkSchemaParser.attributeValue_return attributeValue() throws RecognitionException {
         SilkSchemaParser.attributeValue_return retval = new SilkSchemaParser.attributeValue_return();
         retval.start = input.LT(1);
@@ -2365,15 +2365,15 @@ public class SilkSchemaParser extends Parser {
         Object String63_tree=null;
         Object Double64_tree=null;
         Object Integer65_tree=null;
+        RewriteRuleTokenStream stream_Double=new RewriteRuleTokenStream(adaptor,"token Double");
         RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
         RewriteRuleTokenStream stream_Integer=new RewriteRuleTokenStream(adaptor,"token Integer");
-        RewriteRuleTokenStream stream_Double=new RewriteRuleTokenStream(adaptor,"token Double");
 
         try {
-            // SilkSchema.g:276:3: ( ( String | Double | Integer ) -> DefaultValue[$attributeValue.text] )
-            // SilkSchema.g:276:5: ( String | Double | Integer )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:3: ( ( String | Double | Integer ) -> DefaultValue[$attributeValue.text] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:5: ( String | Double | Integer )
             {
-            // SilkSchema.g:276:5: ( String | Double | Integer )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:5: ( String | Double | Integer )
             int alt22=3;
             switch ( input.LA(1) ) {
             case String:
@@ -2400,7 +2400,7 @@ public class SilkSchemaParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // SilkSchema.g:276:6: String
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:6: String
                     {
                     String63=(Token)match(input,String,FOLLOW_String_in_attributeValue1453);  
                     stream_String.add(String63);
@@ -2409,7 +2409,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:276:15: Double
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:15: Double
                     {
                     Double64=(Token)match(input,Double,FOLLOW_Double_in_attributeValue1457);  
                     stream_Double.add(Double64);
@@ -2418,7 +2418,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // SilkSchema.g:276:24: Integer
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:276:24: Integer
                     {
                     Integer65=(Token)match(input,Integer,FOLLOW_Integer_in_attributeValue1461);  
                     stream_Integer.add(Integer65);
@@ -2475,7 +2475,7 @@ public class SilkSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributeType"
-    // SilkSchema.g:278:10: fragment attributeType : ( QName -> TypeName[$QName.text] | QName Star -> TypeName[$QName.text] IsArray[\"true\"] );
+    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:278:10: fragment attributeType : ( QName -> TypeName[$QName.text] | QName Star -> TypeName[$QName.text] IsArray[\"true\"] );
     public final SilkSchemaParser.attributeType_return attributeType() throws RecognitionException {
         SilkSchemaParser.attributeType_return retval = new SilkSchemaParser.attributeType_return();
         retval.start = input.LT(1);
@@ -2489,11 +2489,11 @@ public class SilkSchemaParser extends Parser {
         Object QName66_tree=null;
         Object QName67_tree=null;
         Object Star68_tree=null;
-        RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
+        RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
 
         try {
-            // SilkSchema.g:279:3: ( QName -> TypeName[$QName.text] | QName Star -> TypeName[$QName.text] IsArray[\"true\"] )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:279:3: ( QName -> TypeName[$QName.text] | QName Star -> TypeName[$QName.text] IsArray[\"true\"] )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2521,7 +2521,7 @@ public class SilkSchemaParser extends Parser {
             }
             switch (alt23) {
                 case 1 :
-                    // SilkSchema.g:279:5: QName
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:279:5: QName
                     {
                     QName66=(Token)match(input,QName,FOLLOW_QName_in_attributeType1482);  
                     stream_QName.add(QName66);
@@ -2549,7 +2549,7 @@ public class SilkSchemaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // SilkSchema.g:280:5: QName Star
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g:280:5: QName Star
                     {
                     QName67=(Token)match(input,QName,FOLLOW_QName_in_attributeType1494);  
                     stream_QName.add(QName67);

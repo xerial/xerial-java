@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 XPath.g 2009-09-30 22:59:30
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g 2010-01-21 11:03:24
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -33,51 +33,51 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class XPathLexer extends Lexer {
-    public static final int T__42=42;
-    public static final int Digit=13;
     public static final int Frac=22;
-    public static final int HexDigit=15;
-    public static final int T__47=47;
     public static final int STEP=7;
-    public static final int VALUE=6;
-    public static final int T__39=39;
-    public static final int Letter=14;
-    public static final int PREDICATE=9;
-    public static final int Comma=25;
-    public static final int T__46=46;
-    public static final int EscapeSequence=17;
-    public static final int XPATH=4;
-    public static final int Integer=21;
-    public static final int WhiteSpace=30;
-    public static final int T__34=34;
-    public static final int AXIS=8;
     public static final int LineComment=11;
-    public static final int Colon=26;
-    public static final int T__35=35;
-    public static final int SafeFirstLetter=28;
-    public static final int T__36=36;
-    public static final int Exp=23;
-    public static final int QNameChar=31;
-    public static final int T__44=44;
-    public static final int UnicodeChar=16;
-    public static final int StringChar=18;
-    public static final int LineBreak=12;
-    public static final int T__45=45;
-    public static final int String=20;
-    public static final int SafeLetter=29;
-    public static final int LineBreakChar=10;
-    public static final int T__43=43;
-    public static final int QName=32;
-    public static final int T__40=40;
+    public static final int AXIS=8;
     public static final int EOF=-1;
-    public static final int T__38=38;
-    public static final int T__37=37;
-    public static final int StringChar_s=19;
-    public static final int UnsafeUnicodeChar=27;
-    public static final int Double=24;
+    public static final int HexDigit=15;
+    public static final int PREDICATE=9;
+    public static final int LineBreak=12;
     public static final int NAME=5;
+    public static final int WhiteSpace=30;
+    public static final int String=20;
+    public static final int Double=24;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__40=40;
     public static final int T__41=41;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int QName=32;
+    public static final int T__44=44;
+    public static final int QNameChar=31;
+    public static final int T__45=45;
     public static final int WhiteSpaces=33;
+    public static final int StringChar_s=19;
+    public static final int Exp=23;
+    public static final int Colon=26;
+    public static final int UnicodeChar=16;
+    public static final int VALUE=6;
+    public static final int Digit=13;
+    public static final int UnsafeUnicodeChar=27;
+    public static final int XPATH=4;
+    public static final int T__34=34;
+    public static final int T__35=35;
+    public static final int T__36=36;
+    public static final int LineBreakChar=10;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int StringChar=18;
+    public static final int SafeLetter=29;
+    public static final int SafeFirstLetter=28;
+    public static final int Comma=25;
+    public static final int EscapeSequence=17;
+    public static final int Letter=14;
+    public static final int Integer=21;
 
 
 
@@ -93,15 +93,15 @@ public class XPathLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "XPath.g"; }
+    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g"; }
 
     // $ANTLR start "T__34"
     public final void mT__34() throws RecognitionException {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:38:7: ( '/' )
-            // XPath.g:38:9: '/'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:38:7: ( '/' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:38:9: '/'
             {
             match('/'); 
 
@@ -120,8 +120,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:39:7: ( '//' )
-            // XPath.g:39:9: '//'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:39:7: ( '//' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:39:9: '//'
             {
             match("//"); 
 
@@ -141,8 +141,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:40:7: ( '@' )
-            // XPath.g:40:9: '@'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:40:7: ( '@' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:40:9: '@'
             {
             match('@'); 
 
@@ -161,8 +161,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:41:7: ( '[' )
-            // XPath.g:41:9: '['
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:41:7: ( '[' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:41:9: '['
             {
             match('['); 
 
@@ -181,8 +181,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:42:7: ( ']' )
-            // XPath.g:42:9: ']'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:42:7: ( ']' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:42:9: ']'
             {
             match(']'); 
 
@@ -201,8 +201,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:43:7: ( '=' )
-            // XPath.g:43:9: '='
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:43:7: ( '=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:43:9: '='
             {
             match('='); 
 
@@ -221,8 +221,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:44:7: ( '!=' )
-            // XPath.g:44:9: '!='
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:44:7: ( '!=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:44:9: '!='
             {
             match("!="); 
 
@@ -242,8 +242,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:45:7: ( '>' )
-            // XPath.g:45:9: '>'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:45:7: ( '>' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:45:9: '>'
             {
             match('>'); 
 
@@ -262,8 +262,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:46:7: ( '>=' )
-            // XPath.g:46:9: '>='
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:46:7: ( '>=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:46:9: '>='
             {
             match(">="); 
 
@@ -283,8 +283,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:47:7: ( '<' )
-            // XPath.g:47:9: '<'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:47:7: ( '<' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:47:9: '<'
             {
             match('<'); 
 
@@ -303,8 +303,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:48:7: ( '<=' )
-            // XPath.g:48:9: '<='
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:48:7: ( '<=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:48:9: '<='
             {
             match("<="); 
 
@@ -324,8 +324,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:49:7: ( '~=' )
-            // XPath.g:49:9: '~='
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:49:7: ( '~=' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:49:9: '~='
             {
             match("~="); 
 
@@ -345,8 +345,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:50:7: ( '(' )
-            // XPath.g:50:9: '('
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:50:7: ( '(' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:50:9: '('
             {
             match('('); 
 
@@ -365,8 +365,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:51:7: ( ')' )
-            // XPath.g:51:9: ')'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:51:7: ( ')' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:51:9: ')'
             {
             match(')'); 
 
@@ -383,8 +383,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // XPath.g:111:23: ( '\\n' | '\\r' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:111:23: ( '\\n' | '\\r' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -409,11 +409,11 @@ public class XPathLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:112:12: ( '#' (~ ( LineBreakChar ) )* )
-            // XPath.g:112:14: '#' (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:112:12: ( '#' (~ ( LineBreakChar ) )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:112:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // XPath.g:112:18: (~ ( LineBreakChar ) )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:112:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -426,7 +426,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // XPath.g:112:18: ~ ( LineBreakChar )
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:112:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -463,10 +463,10 @@ public class XPathLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:114:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // XPath.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // XPath.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt2=3;
             int LA2_0 = input.LA(1);
 
@@ -490,7 +490,7 @@ public class XPathLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // XPath.g:114:13: '\\r' '\\n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:13: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -498,14 +498,14 @@ public class XPathLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // XPath.g:114:25: '\\r'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:25: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // XPath.g:114:32: '\\n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:114:32: '\\n'
                     {
                     match('\n'); 
 
@@ -529,8 +529,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // XPath.g:116:15: ( '0' .. '9' )
-            // XPath.g:116:17: '0' .. '9'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:116:15: ( '0' .. '9' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:116:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -545,8 +545,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // XPath.g:117:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:117:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -569,8 +569,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // XPath.g:118:18: ( Digit | Letter )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:118:18: ( Digit | Letter )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -593,8 +593,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // XPath.g:119:21: (~ ( '\"' | '\\\\' ) )
-            // XPath.g:119:23: ~ ( '\"' | '\\\\' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:119:21: (~ ( '\"' | '\\\\' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:119:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -617,11 +617,11 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // XPath.g:121:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // XPath.g:121:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // XPath.g:121:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt3=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -678,63 +678,63 @@ public class XPathLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // XPath.g:121:11: '\\\"'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:11: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // XPath.g:121:18: '\\\\'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:18: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // XPath.g:121:25: '/'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:25: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // XPath.g:121:31: 'b'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:31: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // XPath.g:121:37: 'f'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:37: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // XPath.g:121:43: 'n'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:43: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // XPath.g:121:49: 'r'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:49: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // XPath.g:121:55: 't'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:55: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // XPath.g:121:61: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:121:61: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -759,7 +759,7 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // XPath.g:124:21: ( UnicodeChar | EscapeSequence )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:124:21: ( UnicodeChar | EscapeSequence )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -777,14 +777,14 @@ public class XPathLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // XPath.g:124:24: UnicodeChar
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:124:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // XPath.g:124:38: EscapeSequence
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:124:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -801,10 +801,10 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // XPath.g:125:22: ( ( StringChar )* )
-            // XPath.g:125:24: ( StringChar )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:125:22: ( ( StringChar )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:125:24: ( StringChar )*
             {
-            // XPath.g:125:24: ( StringChar )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:125:24: ( StringChar )*
             loop5:
             do {
                 int alt5=2;
@@ -817,7 +817,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // XPath.g:125:24: StringChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:125:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -845,8 +845,8 @@ public class XPathLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // XPath.g:127:7: ( '\"' s= StringChar_s '\"' )
-            // XPath.g:127:9: '\"' s= StringChar_s '\"'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:127:7: ( '\"' s= StringChar_s '\"' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:127:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart355 = getCharIndex();
@@ -870,10 +870,10 @@ public class XPathLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:129:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // XPath.g:129:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // XPath.g:129:10: ( '-' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:10: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -882,7 +882,7 @@ public class XPathLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // XPath.g:129:10: '-'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:10: '-'
                     {
                     match('-'); 
 
@@ -891,7 +891,7 @@ public class XPathLexer extends Lexer {
 
             }
 
-            // XPath.g:129:15: ( '0' | '1' .. '9' ( Digit )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -909,17 +909,17 @@ public class XPathLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // XPath.g:129:16: '0'
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:16: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // XPath.g:129:22: '1' .. '9' ( Digit )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); 
-                    // XPath.g:129:31: ( Digit )*
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:31: ( Digit )*
                     loop7:
                     do {
                         int alt7=2;
@@ -932,7 +932,7 @@ public class XPathLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // XPath.g:129:31: Digit
+                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:129:31: Digit
                     	    {
                     	    mDigit(); 
 
@@ -964,11 +964,11 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // XPath.g:130:14: ( '.' ( Digit )+ )
-            // XPath.g:130:16: '.' ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:130:14: ( '.' ( Digit )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:130:16: '.' ( Digit )+
             {
             match('.'); 
-            // XPath.g:130:20: ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:130:20: ( Digit )+
             int cnt9=0;
             loop9:
             do {
@@ -982,7 +982,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // XPath.g:130:20: Digit
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:130:20: Digit
             	    {
             	    mDigit(); 
 
@@ -1010,8 +1010,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // XPath.g:131:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // XPath.g:131:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:131:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:131:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1022,7 +1022,7 @@ public class XPathLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // XPath.g:131:27: ( '+' | '-' )?
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:131:27: ( '+' | '-' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1031,7 +1031,7 @@ public class XPathLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // XPath.g:
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -1048,7 +1048,7 @@ public class XPathLexer extends Lexer {
 
             }
 
-            // XPath.g:131:40: ( Digit )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:131:40: ( Digit )+
             int cnt11=0;
             loop11:
             do {
@@ -1062,7 +1062,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // XPath.g:131:40: Digit
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:131:40: Digit
             	    {
             	    mDigit(); 
 
@@ -1092,11 +1092,11 @@ public class XPathLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:132:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // XPath.g:132:9: Integer ( Frac ( Exp )? | Exp )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); 
-            // XPath.g:132:17: ( Frac ( Exp )? | Exp )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:17: ( Frac ( Exp )? | Exp )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1114,10 +1114,10 @@ public class XPathLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // XPath.g:132:18: Frac ( Exp )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:18: Frac ( Exp )?
                     {
                     mFrac(); 
-                    // XPath.g:132:23: ( Exp )?
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:23: ( Exp )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1126,7 +1126,7 @@ public class XPathLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // XPath.g:132:23: Exp
+                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:23: Exp
                             {
                             mExp(); 
 
@@ -1139,7 +1139,7 @@ public class XPathLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // XPath.g:132:30: Exp
+                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:132:30: Exp
                     {
                     mExp(); 
 
@@ -1164,8 +1164,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:136:6: ( ',' )
-            // XPath.g:136:8: ','
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:136:6: ( ',' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:136:8: ','
             {
             match(','); 
 
@@ -1184,8 +1184,8 @@ public class XPathLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:137:6: ( ':' )
-            // XPath.g:137:8: ':'
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:137:6: ( ':' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:137:8: ':'
             {
             match(':'); 
 
@@ -1202,8 +1202,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "UnsafeUnicodeChar"
     public final void mUnsafeUnicodeChar() throws RecognitionException {
         try {
-            // XPath.g:142:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:142:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='.')||input.LA(1)==':'||input.LA(1)=='<'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1226,8 +1226,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // XPath.g:144:25: ( 'A' .. 'Z' | 'a' .. 'z' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:144:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1250,8 +1250,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // XPath.g:145:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:145:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1274,8 +1274,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // XPath.g:147:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace | '/' | '//' ) )
-            // XPath.g:147:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace | '/' | '//' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:147:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace | '/' | '//' ) )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:147:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace | '/' | '//' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='0' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1300,10 +1300,10 @@ public class XPathLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:148:6: ( ( QNameChar )+ ( '.' ( QNameChar )+ )* )
-            // XPath.g:148:8: ( QNameChar )+ ( '.' ( QNameChar )+ )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:6: ( ( QNameChar )+ ( '.' ( QNameChar )+ )* )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:8: ( QNameChar )+ ( '.' ( QNameChar )+ )*
             {
-            // XPath.g:148:8: ( QNameChar )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:8: ( QNameChar )+
             int cnt14=0;
             loop14:
             do {
@@ -1317,7 +1317,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // XPath.g:148:8: QNameChar
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:8: QNameChar
             	    {
             	    mQNameChar(); 
 
@@ -1333,7 +1333,7 @@ public class XPathLexer extends Lexer {
                 cnt14++;
             } while (true);
 
-            // XPath.g:148:19: ( '.' ( QNameChar )+ )*
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:19: ( '.' ( QNameChar )+ )*
             loop16:
             do {
                 int alt16=2;
@@ -1346,10 +1346,10 @@ public class XPathLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // XPath.g:148:20: '.' ( QNameChar )+
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:20: '.' ( QNameChar )+
             	    {
             	    match('.'); 
-            	    // XPath.g:148:24: ( QNameChar )+
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:24: ( QNameChar )+
             	    int cnt15=0;
             	    loop15:
             	    do {
@@ -1363,7 +1363,7 @@ public class XPathLexer extends Lexer {
 
             	        switch (alt15) {
             	    	case 1 :
-            	    	    // XPath.g:148:24: QNameChar
+            	    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:148:24: QNameChar
             	    	    {
             	    	    mQNameChar(); 
 
@@ -1402,8 +1402,8 @@ public class XPathLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // XPath.g:152:11: ( ' ' | '\\t' )
-            // XPath.g:
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:152:11: ( ' ' | '\\t' )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1428,10 +1428,10 @@ public class XPathLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XPath.g:154:12: ( ( WhiteSpace )+ )
-            // XPath.g:154:14: ( WhiteSpace )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:154:12: ( ( WhiteSpace )+ )
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:154:14: ( WhiteSpace )+
             {
-            // XPath.g:154:14: ( WhiteSpace )+
+            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:154:14: ( WhiteSpace )+
             int cnt17=0;
             loop17:
             do {
@@ -1445,7 +1445,7 @@ public class XPathLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // XPath.g:154:14: WhiteSpace
+            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:154:14: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1474,166 +1474,166 @@ public class XPathLexer extends Lexer {
     // $ANTLR end "WhiteSpaces"
 
     public void mTokens() throws RecognitionException {
-        // XPath.g:1:8: ( T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | LineComment | LineBreak | String | Integer | Double | Comma | Colon | QName | WhiteSpaces )
+        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:8: ( T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | LineComment | LineBreak | String | Integer | Double | Comma | Colon | QName | WhiteSpaces )
         int alt18=23;
         alt18 = dfa18.predict(input);
         switch (alt18) {
             case 1 :
-                // XPath.g:1:10: T__34
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:10: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
             case 2 :
-                // XPath.g:1:16: T__35
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:16: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
             case 3 :
-                // XPath.g:1:22: T__36
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:22: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
             case 4 :
-                // XPath.g:1:28: T__37
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:28: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
             case 5 :
-                // XPath.g:1:34: T__38
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:34: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
             case 6 :
-                // XPath.g:1:40: T__39
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:40: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
             case 7 :
-                // XPath.g:1:46: T__40
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:46: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
             case 8 :
-                // XPath.g:1:52: T__41
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:52: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
             case 9 :
-                // XPath.g:1:58: T__42
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:58: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
             case 10 :
-                // XPath.g:1:64: T__43
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:64: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
             case 11 :
-                // XPath.g:1:70: T__44
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:70: T__44
                 {
                 mT__44(); 
 
                 }
                 break;
             case 12 :
-                // XPath.g:1:76: T__45
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:76: T__45
                 {
                 mT__45(); 
 
                 }
                 break;
             case 13 :
-                // XPath.g:1:82: T__46
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:82: T__46
                 {
                 mT__46(); 
 
                 }
                 break;
             case 14 :
-                // XPath.g:1:88: T__47
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:88: T__47
                 {
                 mT__47(); 
 
                 }
                 break;
             case 15 :
-                // XPath.g:1:94: LineComment
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:94: LineComment
                 {
                 mLineComment(); 
 
                 }
                 break;
             case 16 :
-                // XPath.g:1:106: LineBreak
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:106: LineBreak
                 {
                 mLineBreak(); 
 
                 }
                 break;
             case 17 :
-                // XPath.g:1:116: String
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:116: String
                 {
                 mString(); 
 
                 }
                 break;
             case 18 :
-                // XPath.g:1:123: Integer
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:123: Integer
                 {
                 mInteger(); 
 
                 }
                 break;
             case 19 :
-                // XPath.g:1:131: Double
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:131: Double
                 {
                 mDouble(); 
 
                 }
                 break;
             case 20 :
-                // XPath.g:1:138: Comma
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:138: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 21 :
-                // XPath.g:1:144: Colon
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:144: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 22 :
-                // XPath.g:1:150: QName
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:150: QName
                 {
                 mQName(); 
 
                 }
                 break;
             case 23 :
-                // XPath.g:1:156: WhiteSpaces
+                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\XPath.g:1:156: WhiteSpaces
                 {
                 mWhiteSpaces(); 
 
@@ -1665,8 +1665,8 @@ public class XPathLexer extends Lexer {
         "\24\1\25\1\26\1\27\1\2\1\1\1\6\1\uffff\1\11\1\10\1\13\1\12\3\uffff"+
         "\1\22\3\uffff\1\7\1\14\1\23\7\uffff";
     static final String DFA18_specialS =
-        "\1\3\4\uffff\1\10\12\uffff\1\7\1\2\7\uffff\1\0\4\uffff\1\12\3\uffff"+
-        "\1\5\1\uffff\1\1\4\uffff\1\11\1\uffff\1\4\2\uffff\1\6}>";
+        "\1\3\4\uffff\1\4\12\uffff\1\5\1\2\7\uffff\1\7\4\uffff\1\1\3\uffff"+
+        "\1\10\1\uffff\1\11\4\uffff\1\6\1\uffff\1\12\2\uffff\1\0}>";
     static final String[] DFA18_transitionS = {
             "\11\24\1\25\1\15\2\24\1\15\22\24\1\25\1\6\1\16\1\14\1\24\1"+
             "\uffff\1\24\1\uffff\1\12\1\13\1\uffff\1\24\1\22\1\17\1\uffff"+
@@ -1787,28 +1787,24 @@ public class XPathLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA18_25 = input.LA(1);
+                        int LA18_46 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA18_25>='\u0000' && LA18_25<='\b')||(LA18_25>='\u000B' && LA18_25<='\f')||(LA18_25>='\u000E' && LA18_25<='\u001F')||LA18_25=='!'||LA18_25=='$'||LA18_25=='&'||LA18_25=='+'||LA18_25=='.'||(LA18_25>='0' && LA18_25<='9')||LA18_25==';'||LA18_25=='='||LA18_25=='?'||(LA18_25>='A' && LA18_25<='Z')||(LA18_25>='^' && LA18_25<='z')||(LA18_25>='~' && LA18_25<='\uFFFF')) ) {s = 20;}
+                        if ( ((LA18_46>='\u0000' && LA18_46<='\b')||(LA18_46>='\u000B' && LA18_46<='\f')||(LA18_46>='\u000E' && LA18_46<='\u001F')||LA18_46=='!'||LA18_46=='$'||LA18_46=='&'||LA18_46=='+'||LA18_46=='.'||LA18_46==';'||LA18_46=='='||LA18_46=='?'||(LA18_46>='A' && LA18_46<='Z')||(LA18_46>='^' && LA18_46<='z')||(LA18_46>='~' && LA18_46<='\uFFFF')) ) {s = 20;}
 
-                        else s = 37;
+                        else if ( ((LA18_46>='0' && LA18_46<='9')) ) {s = 46;}
+
+                        else s = 39;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA18_36 = input.LA(1);
+                        int LA18_30 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA18_36>='0' && LA18_36<='9')) ) {s = 36;}
+                        if ( ((LA18_30>='\u0000' && LA18_30<='\b')||(LA18_30>='\u000B' && LA18_30<='\f')||(LA18_30>='\u000E' && LA18_30<='\u001F')||LA18_30=='!'||LA18_30=='$'||LA18_30=='&'||LA18_30=='+'||LA18_30=='.'||(LA18_30>='0' && LA18_30<='9')||LA18_30==';'||LA18_30=='='||LA18_30=='?'||(LA18_30>='A' && LA18_30<='Z')||(LA18_30>='^' && LA18_30<='z')||(LA18_30>='~' && LA18_30<='\uFFFF')) ) {s = 20;}
 
-                        else if ( (LA18_36=='.') ) {s = 34;}
-
-                        else if ( (LA18_36=='E'||LA18_36=='e') ) {s = 35;}
-
-                        else if ( ((LA18_36>='\u0000' && LA18_36<='\b')||(LA18_36>='\u000B' && LA18_36<='\f')||(LA18_36>='\u000E' && LA18_36<='\u001F')||LA18_36=='!'||LA18_36=='$'||LA18_36=='&'||LA18_36=='+'||LA18_36==';'||LA18_36=='='||LA18_36=='?'||(LA18_36>='A' && LA18_36<='D')||(LA18_36>='F' && LA18_36<='Z')||(LA18_36>='^' && LA18_36<='d')||(LA18_36>='f' && LA18_36<='z')||(LA18_36>='~' && LA18_36<='\uFFFF')) ) {s = 20;}
-
-                        else s = 33;
+                        else s = 38;
 
                         if ( s>=0 ) return s;
                         break;
@@ -1816,9 +1812,9 @@ public class XPathLexer extends Lexer {
                         int LA18_17 = input.LA(1);
 
                         s = -1;
-                        if ( (LA18_17=='.') ) {s = 34;}
+                        if ( ((LA18_17>='0' && LA18_17<='9')) ) {s = 36;}
 
-                        else if ( ((LA18_17>='0' && LA18_17<='9')) ) {s = 36;}
+                        else if ( (LA18_17=='.') ) {s = 34;}
 
                         else if ( (LA18_17=='E'||LA18_17=='e') ) {s = 35;}
 
@@ -1877,40 +1873,16 @@ public class XPathLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA18_43 = input.LA(1);
+                        int LA18_5 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA18_43>='\u0000' && LA18_43<='\b')||(LA18_43>='\u000B' && LA18_43<='\f')||(LA18_43>='\u000E' && LA18_43<='\u001F')||LA18_43=='!'||LA18_43=='$'||LA18_43=='&'||LA18_43=='+'||LA18_43=='.'||LA18_43==';'||LA18_43=='='||LA18_43=='?'||(LA18_43>='A' && LA18_43<='Z')||(LA18_43>='^' && LA18_43<='z')||(LA18_43>='~' && LA18_43<='\uFFFF')) ) {s = 20;}
+                        if ( ((LA18_5>='\u0000' && LA18_5<='\b')||(LA18_5>='\u000B' && LA18_5<='\f')||(LA18_5>='\u000E' && LA18_5<='\u001F')||LA18_5=='!'||LA18_5=='$'||LA18_5=='&'||LA18_5=='+'||LA18_5=='.'||(LA18_5>='0' && LA18_5<='9')||LA18_5==';'||LA18_5=='='||LA18_5=='?'||(LA18_5>='A' && LA18_5<='Z')||(LA18_5>='^' && LA18_5<='z')||(LA18_5>='~' && LA18_5<='\uFFFF')) ) {s = 20;}
 
-                        else if ( ((LA18_43>='0' && LA18_43<='9')) ) {s = 43;}
-
-                        else s = 39;
+                        else s = 24;
 
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA18_34 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA18_34>='0' && LA18_34<='9')) ) {s = 41;}
-
-                        else if ( ((LA18_34>='\u0000' && LA18_34<='\b')||(LA18_34>='\u000B' && LA18_34<='\f')||(LA18_34>='\u000E' && LA18_34<='\u001F')||LA18_34=='!'||LA18_34=='$'||LA18_34=='&'||LA18_34=='+'||LA18_34==';'||LA18_34=='='||LA18_34=='?'||(LA18_34>='A' && LA18_34<='Z')||(LA18_34>='^' && LA18_34<='z')||(LA18_34>='~' && LA18_34<='\uFFFF')) ) {s = 20;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA18_46 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA18_46>='\u0000' && LA18_46<='\b')||(LA18_46>='\u000B' && LA18_46<='\f')||(LA18_46>='\u000E' && LA18_46<='\u001F')||LA18_46=='!'||LA18_46=='$'||LA18_46=='&'||LA18_46=='+'||LA18_46=='.'||LA18_46==';'||LA18_46=='='||LA18_46=='?'||(LA18_46>='A' && LA18_46<='Z')||(LA18_46>='^' && LA18_46<='z')||(LA18_46>='~' && LA18_46<='\uFFFF')) ) {s = 20;}
-
-                        else if ( ((LA18_46>='0' && LA18_46<='9')) ) {s = 46;}
-
-                        else s = 39;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
                         int LA18_16 = input.LA(1);
 
                         s = -1;
@@ -1924,17 +1896,7 @@ public class XPathLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA18_5 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA18_5>='\u0000' && LA18_5<='\b')||(LA18_5>='\u000B' && LA18_5<='\f')||(LA18_5>='\u000E' && LA18_5<='\u001F')||LA18_5=='!'||LA18_5=='$'||LA18_5=='&'||LA18_5=='+'||LA18_5=='.'||(LA18_5>='0' && LA18_5<='9')||LA18_5==';'||LA18_5=='='||LA18_5=='?'||(LA18_5>='A' && LA18_5<='Z')||(LA18_5>='^' && LA18_5<='z')||(LA18_5>='~' && LA18_5<='\uFFFF')) ) {s = 20;}
-
-                        else s = 24;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
+                    case 6 : 
                         int LA18_41 = input.LA(1);
 
                         s = -1;
@@ -1948,13 +1910,51 @@ public class XPathLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA18_30 = input.LA(1);
+                    case 7 : 
+                        int LA18_25 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA18_30>='\u0000' && LA18_30<='\b')||(LA18_30>='\u000B' && LA18_30<='\f')||(LA18_30>='\u000E' && LA18_30<='\u001F')||LA18_30=='!'||LA18_30=='$'||LA18_30=='&'||LA18_30=='+'||LA18_30=='.'||(LA18_30>='0' && LA18_30<='9')||LA18_30==';'||LA18_30=='='||LA18_30=='?'||(LA18_30>='A' && LA18_30<='Z')||(LA18_30>='^' && LA18_30<='z')||(LA18_30>='~' && LA18_30<='\uFFFF')) ) {s = 20;}
+                        if ( ((LA18_25>='\u0000' && LA18_25<='\b')||(LA18_25>='\u000B' && LA18_25<='\f')||(LA18_25>='\u000E' && LA18_25<='\u001F')||LA18_25=='!'||LA18_25=='$'||LA18_25=='&'||LA18_25=='+'||LA18_25=='.'||(LA18_25>='0' && LA18_25<='9')||LA18_25==';'||LA18_25=='='||LA18_25=='?'||(LA18_25>='A' && LA18_25<='Z')||(LA18_25>='^' && LA18_25<='z')||(LA18_25>='~' && LA18_25<='\uFFFF')) ) {s = 20;}
 
-                        else s = 38;
+                        else s = 37;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA18_34 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_34>='0' && LA18_34<='9')) ) {s = 41;}
+
+                        else if ( ((LA18_34>='\u0000' && LA18_34<='\b')||(LA18_34>='\u000B' && LA18_34<='\f')||(LA18_34>='\u000E' && LA18_34<='\u001F')||LA18_34=='!'||LA18_34=='$'||LA18_34=='&'||LA18_34=='+'||LA18_34==';'||LA18_34=='='||LA18_34=='?'||(LA18_34>='A' && LA18_34<='Z')||(LA18_34>='^' && LA18_34<='z')||(LA18_34>='~' && LA18_34<='\uFFFF')) ) {s = 20;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA18_36 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_36>='0' && LA18_36<='9')) ) {s = 36;}
+
+                        else if ( (LA18_36=='.') ) {s = 34;}
+
+                        else if ( (LA18_36=='E'||LA18_36=='e') ) {s = 35;}
+
+                        else if ( ((LA18_36>='\u0000' && LA18_36<='\b')||(LA18_36>='\u000B' && LA18_36<='\f')||(LA18_36>='\u000E' && LA18_36<='\u001F')||LA18_36=='!'||LA18_36=='$'||LA18_36=='&'||LA18_36=='+'||LA18_36==';'||LA18_36=='='||LA18_36=='?'||(LA18_36>='A' && LA18_36<='D')||(LA18_36>='F' && LA18_36<='Z')||(LA18_36>='^' && LA18_36<='d')||(LA18_36>='f' && LA18_36<='z')||(LA18_36>='~' && LA18_36<='\uFFFF')) ) {s = 20;}
+
+                        else s = 33;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA18_43 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_43>='0' && LA18_43<='9')) ) {s = 43;}
+
+                        else if ( ((LA18_43>='\u0000' && LA18_43<='\b')||(LA18_43>='\u000B' && LA18_43<='\f')||(LA18_43>='\u000E' && LA18_43<='\u001F')||LA18_43=='!'||LA18_43=='$'||LA18_43=='&'||LA18_43=='+'||LA18_43=='.'||LA18_43==';'||LA18_43=='='||LA18_43=='?'||(LA18_43>='A' && LA18_43<='Z')||(LA18_43>='^' && LA18_43<='z')||(LA18_43>='~' && LA18_43<='\uFFFF')) ) {s = 20;}
+
+                        else s = 39;
 
                         if ( s>=0 ) return s;
                         break;

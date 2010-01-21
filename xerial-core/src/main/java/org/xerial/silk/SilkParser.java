@@ -79,7 +79,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
     private final SilkEnv parseContext;
     private final SilkParserConfig config;
 
-    private TreeEventQueue eventQueue = new TreeEventQueue();
+    private final TreeEventQueue eventQueue = new TreeEventQueue();
     private long numReadLine = 0;
 
     /**
@@ -283,7 +283,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             case SEQUENCE:
                 text(line.getTrimmedDataLine());
                 break;
-            case SEQUENCE_WITH_NEWLINE:
+            case SEQUENCE_PRESERVING_WHITESPACES:
                 text(line.getDataLine() + StringUtil.NEW_LINE);
                 break;
             case ZERO_OR_MORE:
@@ -312,27 +312,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                     }
                 }
                 leave(schema.getName());
-                break;
-            }
-            case MULTILINE_SEQUENCE: {
-                int cursor = parseContext.contextNodeAttributeCursor;
-
-                if (cursor >= schema.getChildNodes().size())
-                    break;
-
-                SilkNode attributeNode = schema.getChildNodes().get(cursor);
-                if (cursor == 0 && !parseContext.isAttributeOpen) {
-                    visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
-                }
-                if (!parseContext.isAttributeOpen) {
-                    if (attributeNode.hasValue())
-                        visit(attributeNode.getName(), attributeNode.getValue().toString());
-                    else
-                        visit(attributeNode.getName(), null);
-
-                    parseContext.isAttributeOpen = true;
-                }
-                text(line.getTrimmedDataLine());
                 break;
             }
             }
@@ -426,7 +405,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         if (node.getName() == null) {
             // no name nodes must hierarchically organize attribute nodes
             for (SilkNode eachChild : node.getChildNodes()) {
-                eachChild.setNodeIndent(node.getNodeIndent());
                 openContext_internal(eachChild);
             }
             return;
@@ -521,7 +499,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
     /**
      * Has finished reading the stream?
      */
-    private boolean hasFinished = false;
+    private final boolean hasFinished = false;
 
     private void walkMicroFormatRoot(SilkNode schemaNode, JSONArray value) throws Exception {
         // e.g., exon(start, name)
