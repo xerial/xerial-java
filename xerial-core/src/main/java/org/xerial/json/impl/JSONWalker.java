@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g 2010-01-21 11:03:58
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\json\\impl\\JSONWalker.g 2010-01-21 13:03:22
 
 //--------------------------------------
 // Xerial Project
@@ -25,8 +25,8 @@ public class JSONWalker extends TreeParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "OBJECT", "ELEMENT", "ARRAY", "STRING", "INTEGER", "DOUBLE", "Colon", "Comma", "LBrace", "RBrace", "LBracket", "RBracket", "Dot", "TRUE", "FALSE", "NULL", "Digit", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "Int", "Frac", "Exp", "WhiteSpace", "String", "Integer", "Double"
     };
-    public static final int Double=31;
     public static final int INTEGER=8;
+    public static final int Double=31;
     public static final int LBrace=12;
     public static final int Frac=26;
     public static final int NULL=19;
@@ -36,12 +36,12 @@ public class JSONWalker extends TreeParser {
     public static final int UnicodeChar=22;
     public static final int Digit=20;
     public static final int EOF=-1;
-    public static final int TRUE=17;
     public static final int HexDigit=21;
+    public static final int TRUE=17;
     public static final int Int=25;
     public static final int OBJECT=4;
-    public static final int Dot=16;
     public static final int ELEMENT=5;
+    public static final int Dot=16;
     public static final int DOUBLE=9;
     public static final int StringChar=24;
     public static final int WhiteSpace=28;
@@ -50,8 +50,8 @@ public class JSONWalker extends TreeParser {
     public static final int FALSE=18;
     public static final int Comma=11;
     public static final int EscapeSequence=23;
-    public static final int Integer=30;
     public static final int ARRAY=6;
+    public static final int Integer=30;
     public static final int RBrace=13;
     public static final int STRING=7;
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g 2010-01-21 11:04:07
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g 2010-01-21 13:03:32
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito

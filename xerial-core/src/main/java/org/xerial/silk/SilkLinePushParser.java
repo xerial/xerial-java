@@ -161,9 +161,9 @@ public class SilkLinePushParser implements SilkLineParser {
         SilkElement elem = nodeParser.parse();
 
         if (elem instanceof SilkNode)
-            return new SilkEvent(SilkEventType.NODE, (SilkNode) elem);
+            return new SilkEvent(SilkEventType.NODE, elem);
         else if (elem instanceof SilkFunction)
-            return new SilkEvent(SilkEventType.FUNCTION, (SilkFunction) elem);
+            return new SilkEvent(SilkEventType.FUNCTION, elem);
 
         return null;
 

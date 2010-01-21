@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g 2010-01-21 11:04:02
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\schema\\impl\\SilkSchema.g 2010-01-21 13:03:26
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -203,7 +203,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: Preamble, schemaElement
+            // elements: schemaElement, Preamble
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -606,7 +606,7 @@ public class SilkSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: inheritance, classBody
+                    // elements: classBody, inheritance
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -706,7 +706,7 @@ public class SilkSchemaParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: inheritance, classBody, Relation
+                    // elements: classBody, Relation, inheritance
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1049,7 +1049,7 @@ public class SilkSchemaParser extends Parser {
 
 
             // AST REWRITE
-            // elements: Projection, orderByColumns, projectColumn
+            // elements: projectColumn, Projection, orderByColumns
             // token labels: 
             // rule labels: retval
             // token list labels: 

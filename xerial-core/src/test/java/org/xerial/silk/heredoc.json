@@ -1,7 +1,1 @@
-{ "sequence":
-   [
-    {"seq1":"ABCDEFGHI", "seq2":"JKLMN"},
-    {"seq1":"0000", "seq2":"1234"}
-   ],
-  "message":"hello" 
-}   
+{ "sequence":"ABCDEFGHI" }

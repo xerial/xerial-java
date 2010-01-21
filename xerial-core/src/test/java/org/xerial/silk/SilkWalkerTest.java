@@ -27,6 +27,7 @@ package org.xerial.silk;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -51,7 +52,10 @@ public class SilkWalkerTest {
     public void tearDown() throws Exception {}
 
     public static TreeWalkLog walk(String silkFile) throws IOException, XerialException {
-        SilkWalker walker = new SilkWalker(FileResource.find(SilkWalkerTest.class, silkFile));
+        URL f = FileResource.find(SilkWalkerTest.class, silkFile);
+        if (f == null)
+            throw new IOException(String.format("Resource %s is not found", silkFile));
+        SilkWalker walker = new SilkWalker(f);
         TreeWalkLog l1 = new TreeWalkLog();
         walker.walk(l1);
         _logger.debug(l1.toString());

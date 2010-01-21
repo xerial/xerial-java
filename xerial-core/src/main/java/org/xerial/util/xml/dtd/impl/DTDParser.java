@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2010-01-21 11:03:50
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\xml\\dtd\\impl\\DTD.g 2010-01-21 13:03:14
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -762,7 +762,7 @@ public class DTDParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: plural, seq
+                    // elements: seq, plural
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -983,7 +983,7 @@ public class DTDParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: choice, plural
+                    // elements: plural, choice
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1053,7 +1053,7 @@ public class DTDParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: seq, plural
+                    // elements: plural, seq
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
