@@ -54,7 +54,7 @@ Silk uses the forest data model; a list of trees. Each tree node can have severa
 
 -sub section: Preamble
 
-Preamble line beginning with '%' symbol specifies the version of Silk format used in the Silk file. Preamble line must be the first line of Silk files in order to correctly change the behaviour of a Silk processor according to the specified version. When no preamble description is found, the default settings will be used. 
+The line beginning with "%" symbol is called @keyword(preamble) for specifying the version of Silk format. Preamble line must appear at the first line of the Silk file to correctly change the behaviour of a Silk processor according to the specified version. When no preamble description is found, the default version the parser will be used. 
 
 -paragraph: Version information
 Current Silk format version is 1.0:
@@ -115,6 +115,8 @@ And also, white spaces around the node name will be ignored:
   }
 }
 --
+
+
 
 -paragraph: Nested tree nodes
 
@@ -240,7 +242,7 @@ Large text values can be split into multiple lines. To describe muti-line text v
 @bold(Silk)
 --code
 -gene(name:NM_001005277)
- -sequence>
+ --sequence>
 ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
 AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
 TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -256,13 +258,14 @@ GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
 TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
 AGCTAGTGATTTACAAGAGGATCTCATAA
 --
+--
 
 Multi-line text values after '>' will be combined as a single string. Leading white spaces and tail white spaces (including new line chracters "\r" and "\n") of each text line will be trimmed down. For example, you can insert spaces to the head of lines for readability of the data:
 
 @bold(Silk)
 <code>
 -gene(name:NM_001005277)
- -sequence>
+ --sequence>
   ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCC
   AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTT
   TTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGAC
@@ -277,35 +280,17 @@ Multi-line text values after '>' will be combined as a single string. Leading wh
   GTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCT
   TTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAAC
   AGCTAGTGATTTACAAGAGGATCTCATAA
+ --
 </code>
 
 The above two silk data has the same semantics with the following JSON data:
 
 @bold(JSON)
-<code>
+--code
 {"gene":
  {"name":"NM_001005277",
   "sequence":"ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCATGGGAGATCCAGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCTCATTGTGTTTTCTGTGACCACTGACCCTCACTTACACTCCCCCATGTACTTTCTACTGGCCAGTCTCTCCTTCATTGACTTAGGAGCCTGCTCTGTCACTTCTCCCAAGATGATTTATGACCTGTTCAGAAAGCGCAAAGTCATCTCCTTTGGAGGCTGCATCGCTCAAATCTTCTTCATCCACGTCGTTGGTGGTGTGGAGATGGTGCTGCTCATAGCCATGGCCTTTGACAGATATGTGGCCCTATGTAAGCCCCTCCACTATCTGACCATTATGAGCCCAAGAATGTGCCTTTCATTTCTGGCTGTTGCCTGGACCCTTGGTGTCAGTCACTCCCTGTTCCAACTGGCATTTCTTGTTAATTTAGCCTTCTGTGGCCCTAATGTGTTGGACAGCTTCTACTGTGACCTTCCTCGGCTTCTCAGACTAGCCTGTACCGACACCTACAGATTGCAGTTCATGGTCACTGTTAACAGTGGGTTTATCTGTGTGGGTACTTTCTTCATACTTCTAATCTCCTACGTCTTCATCCTGTTTACTGTTTGGAAACATTCCTCAGGTGGTTCATCCAAGGCCCTTTCCACTCTTTCAGCTCACAGCACAGTGGTCCTTTTGTTCTTTGGTCCACCCATGTTTGTGTATACACGGCCACACCCTAATTCACAGATGGACAAGTTTCTGGCTATTTTTGATGCAGTTCTCACTCCTTTTCTGAATCCAGTTGTCTATACATTCAGGAATAAGGAGATGAAGGCAGCAATAAAGAGAGTATGCAAACAGCTAGTGATTTACAAGAGGATCTCATAA"}}
-</code>
-
-
--paragraph: Using hyphen/sharp/at symbols at the head of the text data
-
-When the multi-line data contains a hyphen(-) at the head of a line, escape it with {b|\-} notation, since hyphen(-) is a special character in Silk for describing nodes:
-
-@bold(Silk)
---code
- -sequence>
-ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT--
-\-AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCCT
 --
-
-@bold(JSON)
-<code>
-{"sequence":"ATGGATGGAGAGAATCACTCAGTGGTATCTGAGTTTTTGTTTCTGGGACTCACTCATTCAT---AGCTCCTCCTCCTAGTGTTTTCCTCTGTGCTCTATGTGGCAAGCATTACTGGAAACATCC"}
-</code>
-
-The escape symbol '\' will be removed when parsing the Silk data. To include '\' symbol to the data, use '\\'. These escape sequences '\-' and '\\' are effective only at the head of a line; do not escape hyphen and \ (backslash) characters after the first character of a line. 
 
 
 -paragraph: Multi-line text values preserving spaces and line breaks
@@ -318,7 +303,7 @@ Use "--" indicator to preserve line breaks and white spaces in multi-line text v
 \--
 --
 
-The double hyphen symbol "--" switches the parsing mode of Silk; The Silk parser will continues to report succeeding lines as a text value (including comment lines, etc.) until another "--" is found.
+The double hyphen symbol "--" switches the parsing mode of Silk; The Silk parser will continues to report succeeding lines as a text value (including comment lines, etc.) until another "--" is found. If you want to use "--" at the head of a line in a block data, use "\--". 
 
 @bold(JSON)
 --code
@@ -406,11 +391,11 @@ NM_152486	chr1	+	850983	869824
  -species: human
  -sequence: hg19
  -gene(name, chr, strand, start, end, cds(start, end)*, exon(start, end)*)|
- ->strand: +
- ->chr:chr1
+  ->strand: +
+  ->chr:chr1
 NM_001005277  357521  358460	[[357521,358460]]	[[357521,358460]]
 NM_152486     850983  869824	[[851184,869396]]	[[850983,851043],[851164,851256],[855397,855579]]
- ->chr:chr2
+  ->chr:chr2
 NM_001005277  357521  358460	[[357521,358460]]	[[357521,358460]]
 NM_152486     850983  869824	[[851184,869396]]	[[850983,851043],[851164,851256],[855397,855579]]
 --
@@ -423,7 +408,7 @@ JSON data can be embedded as a text value by specifying data type description "[
 
 @bold(Silk)
 --code
--prime*: [2, 3, 5, 7, 11, 13, 17, 19, 23]
+-prime*: 2, 3, 5, 7, 11, 13, 17, 19, 23
 --
 
 @bold(JSON)
@@ -532,15 +517,7 @@ Alternatively, you can insert child nodes between tab-separated data lines:
 
 @bold(Silk) (single line)
 --code
--prime*: 2,  3,  5, 7, 11, 13, 17, 19, 23
---
-
-@bold(Silk) (multi lines)
---code
--prime*>
- 2,  3,  5
- 7, 11, 13
-17, 19, 23
+-prime*: 2, 3, 5, 7, 11, 13, 17, 19, 23
 --
 
 
@@ -565,11 +542,12 @@ Alternatively, you can insert child nodes between tab-separated data lines:
 -paragraph: CSV structured
 @bold(Silk)
 --code
--plot(x, y)*
+--plot(x, y)*
 1, 3
 4, 5
 7, 8
 9,10
+--
 --
 
 If you have to use negative values, use "--" notation to switch parsing mode for "-":
@@ -588,6 +566,49 @@ If you have to use negative values, use "--" notation to switch parsing mode for
 @bold(JSON)
 --code
 {"plot":[-1.0, -1.5, -0.1, 0.1, 0.3, 0.8]}
+--
+
+-section: Symbol Summary
+
+--table
+-th
+ -td: Symbol
+ -td: Description
+-tr
+ -td: "%silk(version:1.0)"
+ -td: preamble 
+-tr
+ -td: "#"
+ -td: comment line
+-tr
+ -td: "@function(args, ...)"
+ -td: function
+-tr
+ -td: "-(node name):(node value)"
+ -td: node name and node value in a line
+-tr
+ -td: "-(node name)>" 
+ -td: followed by multi-line node values with white spaces aroung lines trimmed.
+-tr
+ -td: "--(node name)"
+ -td: block start: followed by multi-line node values preserving white spaces
+-tr
+ -td: "--"
+ -td: block end
+-tr
+ -td: "-(node name) (table schema)|" 
+ -td: followed by tab-separated data (table schema)
+-tr
+ -td: "-(node name)*"
+ -td: follwed by CSV data 
+-tr
+ -td: "--(node name) (table schema)|" 
+ -td: followed by tab-separated data  allowing "-/#/@" in the head of the data
+-tr
+ -td: "--(node name)*"
+ -td: follwed by CSV data allowing "-/#/@" in the head of the data
+
+
 --
 
 
@@ -681,8 +702,8 @@ NM_152486	+	850983	869824	[851184, 869396]	[[850983, 851043],[851164, 851256],[8
 # indentation before tab-separated data can be used for readability
 -coordinate(group:utgb, name:chr2, species:human, revision:hg18)
  -gene(name, strand, start, end, cds(start, end), exon(start, end)*)|
-   NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
-   NM_001005278	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+NM_001005277	+	357521	358460	[357521, 358460]	[[357521, 358460]]
+NM_001005278	+	357521	358460	[357521, 358460]	[[357521, 358460]]
   
 # flexible structure organization 
 -coordinate(group:utgb, species:human, revision:hg18)
