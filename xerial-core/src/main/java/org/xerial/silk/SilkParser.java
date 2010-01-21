@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.regex.Pattern;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
@@ -229,9 +228,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         numReadLine++;
     }
 
-    private static final Pattern tabSplit = Pattern.compile("\t");
-    private static final Pattern commaSplit = Pattern.compile(",");
-
     private void parseDataLine(SilkEvent currentEvent) throws Exception {
         // pop the context stack until finding a node for stream data node occurrence
         while (!parseContext.isContextNodeStackEmpty()) {
@@ -249,7 +245,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         if (parseContext.isContextNodeStackEmpty()) {
             // use default column names(c1, c2, ...) 
             SilkDataLine line = SilkDataLine.class.cast(currentEvent.getElement());
-            String[] columns = tabSplit.split(line.getTrimmedDataLine(), 0);
+            ArrayList<String> columns = StringUtil.splitAtTab(line.getTrimmedDataLine());
             int index = 1;
             visit("row", null);
             for (String each : columns) {
@@ -279,7 +275,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             }
                 break;
             case TABBED_SEQUENCE: {
-                String[] columns = tabSplit.split(line.getTrimmedDataLine(), 0);
+                ArrayList<String> columns = StringUtil.splitAtTab(line.getTrimmedDataLine());
 
                 int columnIndex = 0;
                 visit(schema.getName(), schema.hasValue() ? schema.getValue().toString() : null);
@@ -290,8 +286,8 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                         evalDatalineColumn(child, child.getValue().toString());
                     }
                     else {
-                        if (columnIndex < columns.length) {
-                            String columnData = columns[columnIndex++].trim();
+                        if (columnIndex < columns.size()) {
+                            String columnData = columns.get(columnIndex++).trim();
                             if (columnData.length() > 0)
                                 evalDatalineColumn(child, columnData);
                         }
@@ -584,7 +580,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 return;
             }
             else {
-                String[] csv = commaSplit.split(columnData, 0);
+                ArrayList<String> csv = StringUtil.splitCSV(columnData);
                 for (String each : csv) {
                     String value = each.trim();
                     evalColumnData(node, value);
