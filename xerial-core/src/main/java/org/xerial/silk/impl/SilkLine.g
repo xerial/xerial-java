@@ -26,15 +26,10 @@ options
 {
 	language=Java;
 	output=AST;
-	// some lexer & parser options
-	// number of look-ahead characters 
-	// k=3;	
-	//backtrack=true;
 }
 tokens {
 Silk;
 SilkNode;
-//SilkAttribute;
 SilkLine;
 Name;
 Value;
@@ -44,9 +39,6 @@ Function;
 Argument;
 KeyValuePair;
 Key;
-//JSONObject;
-//JSONArray;
-//JSONElement;
 }
 
 
