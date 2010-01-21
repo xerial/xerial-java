@@ -57,7 +57,10 @@ public class SilkNodeParser {
     public SilkElement parse() throws XerialException {
         switch (tokenStream.LA(1)) {
         case NodeIndent:
-            return parseSilkNode().build();
+            if (tokenStream.LA(2) == At)
+                return parseFunction();
+            else
+                return parseSilkNode().build();
         case BlockIndent: {
             SilkNodeBuilder node = parseSilkNode();
             node.setOccurrence(SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES);
@@ -180,6 +183,9 @@ public class SilkNodeParser {
                     "nested function is not yet supported");
         case PlainOneLine:
         case String:
+            Token t = getToken(1);
+            consume();
+            return t.getText();
         default:
             throw unexpectedToken(tokenStream.LT(1), At, PlainOneLine, String);
         }

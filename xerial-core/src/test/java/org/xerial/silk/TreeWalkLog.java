@@ -104,9 +104,9 @@ public class TreeWalkLog implements TreeVisitor {
         }
     }
 
-    private List<EventLog> log = new LinkedList<EventLog>();
+    private final List<EventLog> log = new LinkedList<EventLog>();
 
-    private Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
+    private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
     private final StringBuilder EMPTY_BUFFER = new StringBuilder(0);
     private String pendingVisitNode = null;
 
@@ -189,7 +189,7 @@ public class TreeWalkLog implements TreeVisitor {
             EventLog e2 = i2.next();
 
             if (!e1.equals(e2) && doComparison) {
-                _logger.warn(String.format("--mismatch- %-20s %-20s", e1, e2));
+                _logger.warn(String.format("<mismatch>: %-20s %-20s", e1, e2));
                 doComparison = false;
             }
             else {
