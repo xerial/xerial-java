@@ -42,6 +42,7 @@ import org.xerial.silk.model.SilkDataLine;
 import org.xerial.silk.model.SilkElement;
 import org.xerial.silk.model.SilkFunction;
 import org.xerial.silk.model.SilkNode;
+import org.xerial.silk.model.SilkNodeOccurrence;
 import org.xerial.silk.model.SilkPreamble;
 import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
@@ -64,6 +65,8 @@ public class SilkLinePushParser implements SilkLineParser {
 
     private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
     private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
+
+    private boolean inBlock = false;
 
     public SilkLinePushParser(URL resourceURL) throws IOException {
         this(new InputStreamReader(resourceURL.openStream()));
@@ -100,14 +103,14 @@ public class SilkLinePushParser implements SilkLineParser {
 
         char c = line.charAt(0);
 
+        //        // multi-line separator
+        //        if (c == '-' && line.charAt(1) == '-') {
+        //            return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
+        //        }
+
         // preamble
         if (c == '%') {
             return new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line));
-        }
-
-        // multi-line separator
-        if (c == '-' && line.charAt(1) == '-') {
-            return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
         }
 
         // 39000 lines/sec
@@ -155,8 +158,13 @@ public class SilkLinePushParser implements SilkLineParser {
         SilkNodeParser nodeParser = new SilkNodeParser(tokenStream);
         SilkElement elem = nodeParser.parse();
 
-        if (elem instanceof SilkNode)
-            return new SilkEvent(SilkEventType.NODE, elem);
+        if (elem instanceof SilkNode) {
+            SilkNode n = SilkNode.class.cast(elem);
+            if (n.occurrence == SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES)
+                return new SilkEvent(SilkEventType.BLOCK_NODE, elem);
+            else
+                return new SilkEvent(SilkEventType.NODE, elem);
+        }
         else if (elem instanceof SilkFunction)
             return new SilkEvent(SilkEventType.FUNCTION, elem);
 
@@ -182,9 +190,29 @@ public class SilkLinePushParser implements SilkLineParser {
                 lineCount++;
 
                 try {
-                    SilkEvent e = parseLine(lexer, line);
-                    if (e != null)
+                    if (!inBlock) {
+                        SilkEvent e = parseLine(lexer, line);
+                        if (e != null) {
+
+                            switch (e.type) {
+                            case BLOCK_NODE:
+                                inBlock = !inBlock;
+                                break;
+                            }
+                            push(e);
+                        }
+                    }
+                    else {
+                        SilkEvent e = null;
+                        if (line.trim().startsWith("--")) {
+                            inBlock = false;
+                            e = new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
+                        }
+                        else {
+                            e = new SilkEvent(SilkEventType.DATA_LINE, new SilkDataLine(line));
+                        }
                         push(e);
+                    }
                 }
                 catch (XerialException e) {
                     if (e.getErrorCode() == XerialErrorCode.PARSE_ERROR) {

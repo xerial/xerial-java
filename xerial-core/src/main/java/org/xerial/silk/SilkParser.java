@@ -183,6 +183,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 parseDataLine(event);
                 break;
             case NODE:
+            case BLOCK_NODE:
                 SilkNode newContextNode = SilkNode.class.cast(event.getElement());
                 openContext(newContextNode);
                 break;
