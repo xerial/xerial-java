@@ -94,9 +94,6 @@ public class SilkDocument {
                 SilkFunction sf = SilkFunction.class.cast(e.getElement());
                 break;
             }
-            case MULTILINE_ENTRY_SEPARATOR:
-                buf.append("==");
-                break;
             case MULTILINE_SEPARATOR:
                 buf.append("--");
                 break;

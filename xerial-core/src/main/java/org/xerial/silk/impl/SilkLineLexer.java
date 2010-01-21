@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g 2010-01-21 13:03:40
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g 2010-01-21 13:09:09
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito

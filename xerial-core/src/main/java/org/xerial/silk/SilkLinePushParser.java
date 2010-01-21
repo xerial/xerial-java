@@ -110,11 +110,6 @@ public class SilkLinePushParser implements SilkLineParser {
             return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
         }
 
-        // multi-line entry separator
-        if (c == '=' && line.charAt(1) == '=') {
-            return new SilkEvent(SilkEventType.MULTILINE_ENTRY_SEPARATOR, null);
-        }
-
         // 39000 lines/sec
 
         // remove leading and trailing white spaces (' ')

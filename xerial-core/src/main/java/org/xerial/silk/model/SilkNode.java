@@ -40,6 +40,12 @@ import org.xerial.util.StringUtil;
  */
 public class SilkNode implements SilkElement {
 
+    /**
+     * SilkNode builder
+     * 
+     * @author leo
+     * 
+     */
     public static class SilkNodeBuilder {
         private int indent = NO_INDENT;
         private String name;
@@ -120,6 +126,16 @@ public class SilkNode implements SilkElement {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isTableSchema() {
+        switch (occurrence) {
+        case TABBED_SEQUENCE:
+            return true;
+        case ZERO_OR_MORE:
+            return value == null;
+        }
+        return false;
     }
 
     public boolean hasManyOccurrences() {

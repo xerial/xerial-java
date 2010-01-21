@@ -46,10 +46,6 @@ public enum SilkNodeOccurrence {
                 || this == SEQUENCE_PRESERVING_WHITESPACES;
     }
 
-    public boolean isSchemaOnlyNode() {
-        return this == TABBED_SEQUENCE || this == ZERO_OR_MORE;
-    }
-
     public boolean isArrayNode() {
         return this == ZERO_OR_MORE || this == ONE_OR_MORE;
     }

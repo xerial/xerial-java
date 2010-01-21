@@ -190,21 +190,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 SilkFunction function = SilkFunction.class.cast(event.getElement());
                 evalFunction(function);
                 break;
-            case MULTILINE_ENTRY_SEPARATOR: // ==
-            {
-                SilkContext context = parseContext.peekLastContext();
-                SilkNode schema = context.contextNode;
-                if (parseContext.isAttributeOpen) {
-                    SilkNode attributeNode = schema.getChildNodes().get(
-                            parseContext.contextNodeAttributeCursor);
-                    leave(attributeNode.getName());
-                }
-                leave(schema.getName());
-                // reset
-                parseContext.contextNodeAttributeCursor = 0;
-                parseContext.isAttributeOpen = false;
-                break;
-            }
             case MULTILINE_SEPARATOR: {
                 SilkContext context = parseContext.peekLastContext();
                 SilkNode schema = context.contextNode;
@@ -402,19 +387,21 @@ public class SilkParser implements SilkEventHandler, TreeParser {
     }
 
     private void openContext_internal(SilkNode node) throws Exception {
+
+        // no name node handling
         if (node.getName() == null) {
-            // no name nodes must hierarchically organize attribute nodes
             for (SilkNode eachChild : node.getChildNodes()) {
                 openContext_internal(eachChild);
             }
             return;
         }
 
+        // push the current node context to the stack
         SilkContext currentContext = new SilkContext(node, true);
         parseContext.pushContext(currentContext);
 
         SilkNodeOccurrence occurrence = node.getOccurrence();
-        if (occurrence.isSchemaOnlyNode()) {
+        if (node.isTableSchema()) {
             currentContext.isOpen = false;
             // reset the attribute cursor
             parseContext.contextNodeAttributeCursor = 0;
@@ -448,6 +435,15 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 SilkFunction function = SilkFunction.class.cast(textValue);
                 evalFunction(function);
 
+                return;
+            }
+            else if (occurrence == SilkNodeOccurrence.ZERO_OR_MORE) {
+                currentContext.isOpen = false;
+                // CSV data: A, B, C, ...
+                for (String each : StringUtil.splitCSV(textValue.getValue())) {
+                    visit(nodeName, each.trim());
+                    leave(nodeName);
+                }
                 return;
             }
             else {
