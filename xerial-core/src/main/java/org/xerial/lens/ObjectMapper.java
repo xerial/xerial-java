@@ -61,13 +61,9 @@ import org.xerial.util.tree.TreeParser;
 public class ObjectMapper {
     private static Logger _logger = Logger.getLogger(ObjectMapper.class);
 
-    // id -> corresponding object instance
-    private HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
-
     // schema -> binder 
     private HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
 
-    private Deque<Object> contextNodeStack = new ArrayDeque<Object>();
     private final QuerySet qs;
 
     private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
@@ -79,10 +75,11 @@ public class ObjectMapper {
      * 
      */
     private static interface Binder {
-        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException;
-
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
                 throws XerialException;
+
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
+                String textValue) throws XerialException;
 
     }
 
@@ -92,7 +89,7 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private class RelationBinder implements Binder {
+    private static class RelationBinder implements Binder {
         final ObjectLens lens;
         final RelationSetter setter;
 
@@ -101,12 +98,13 @@ public class ObjectMapper {
             this.setter = setter;
         }
 
-        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException {
-            Object coreNodeInstance = getNodeInstance(coreNode, setter.getCoreNodeType());
-            Object attributeNodeInstance = getNodeInstance(attributeNode, setter
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
+                throws XerialException {
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
+            Object attributeNodeInstance = proc.getNodeInstance(attributeNode, setter
                     .getAttributeNodeType());
 
-            Object contextNode = findContextNode(lens.getTargetType());
+            Object contextNode = findContextNode(proc, lens.getTargetType());
             if (contextNode == null)
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for "
                         + setter);
@@ -116,8 +114,8 @@ public class ObjectMapper {
             }
         }
 
-        public Object findContextNode(Class< ? > targetType) {
-            for (Iterator<Object> it = contextNodeStack.descendingIterator(); it.hasNext();) {
+        public Object findContextNode(MappingProcess proc, Class< ? > targetType) {
+            for (Iterator<Object> it = proc.contextNodeStack.descendingIterator(); it.hasNext();) {
                 Object node = it.next();
                 if (targetType.equals(node.getClass())) {
                     return node;
@@ -126,8 +124,8 @@ public class ObjectMapper {
             return null;
         }
 
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
-                throws XerialException {
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
+                String textValue) throws XerialException {
             throw new XerialError(XerialErrorCode.UNSUPPORTED);
         }
     }
@@ -151,24 +149,165 @@ public class ObjectMapper {
 
         }
 
-        public void bind(Schema schema, Node coreNode, Node attributeNode) throws XerialException {
-            Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
-            Object attributeNodeInstance = getNodeInstance(attributeNode, attributeNodeType);
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
+                throws XerialException {
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, coreNodeType);
+            Object attributeNodeInstance = proc.getNodeInstance(attributeNode, attributeNodeType);
 
             if (attributeNodeInstance != null)
                 setter.bind(coreNodeInstance, attributeNodeInstance);
         }
 
-        public void bindText(Schema schema, Node coreNode, Node textNode, String textValue)
-                throws XerialException {
-            Object coreNodeInstance = getNodeInstance(coreNode, coreNodeType);
-            Object textNodeInstance = getNodeInstance(textNode, attributeNodeType);
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
+                String textValue) throws XerialException {
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, coreNodeType);
+            Object textNodeInstance = proc.getNodeInstance(textNode, attributeNodeType);
 
             if (textValue != null && !TypeInfo.isBasicType(attributeNodeType))
                 setTextValue(textNodeInstance, attributeNodeType, textValue);
             else
                 setter.bind(coreNodeInstance, textValue);
         }
+    }
+
+    class MappingProcess {
+        // id -> corresponding object instance
+        HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
+        Deque<Object> contextNodeStack = new ArrayDeque<Object>();
+
+        Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException {
+            Object instance = objectHolder.get(node.nodeID);
+            if (instance != null)
+                return instance;
+
+            if (TypeInfo.isBasicType(nodeType)) {
+                if (node.nodeValue == null)
+                    return null;
+                else
+                    instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
+            }
+            else {
+                instance = TypeInfo.createInstance(nodeType);
+
+                if (node.nodeValue != null) {
+                    setTextValue(instance, nodeType, node.nodeValue);
+                }
+
+            }
+            objectHolder.put(node.nodeID, instance);
+            return instance;
+        }
+
+        /**
+         * Tree -> Relation -> Object binding process body
+         * 
+         * @author leo
+         * 
+         */
+        private class RelationExtracter extends AmoebaJoinHandlerBase {
+
+            public void leaveNode(Schema schema, Node node) throws Exception {
+                if (schema == null && node.nodeValue != null) {
+                    // if putter is defined, set (node.nodeName, node.nodeValue) as (key, value)
+                    if (_logger.isTraceEnabled())
+                        _logger.trace("put: " + node);
+
+                    Object contextNode = contextNodeStack.getLast();
+                    ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
+                    lens.setProperty(contextNode, node.getCanonicalNodeName(), node.nodeValue);
+                }
+
+                Object obj = objectHolder.remove(node.nodeID);
+
+                if (_logger.isTraceEnabled())
+                    _logger.trace(String.format("leave: %s in %s. object = %s", node, schema, obj));
+
+            }
+
+            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
+                    throws Exception {
+                if (_logger.isTraceEnabled())
+                    _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode,
+                            schema));
+
+                Binder binder = schema2binder.get(schema);
+                if (binder == null)
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
+                            + schema);
+
+                try {
+                    binder.bind(MappingProcess.this, schema, coreNode, attributeNode);
+                }
+                catch (XerialException e) {
+                    _logger.warn(String.format(
+                            "failed to bind: core node=%s, attribute node=%s, schema=%s\n%s",
+                            coreNode, attributeNode, schema, e));
+                }
+
+            }
+
+            public void text(Schema schema, Node coreNode, Node textNode, String textFragment)
+                    throws Exception {
+                if (_logger.isTraceEnabled())
+                    _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
+                            textFragment, schema));
+
+                if (schema == null) {
+                    // put(node name, text node value) if property setter exist 
+                    Object contextNode = contextNodeStack.getLast();
+                    ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
+                    Object prevValue = lens.getProperty(contextNode, coreNode.nodeName);
+                    String value = (prevValue == null) ? textFragment : prevValue.toString()
+                            + textFragment;
+                    lens.setProperty(contextNode, textNode.nodeName, value);
+                    return;
+                }
+
+                Binder binder = schema2binder.get(schema);
+                if (binder == null)
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
+                            + schema);
+
+                try {
+                    binder.bindText(MappingProcess.this, schema, coreNode, textNode, textFragment);
+                }
+                catch (XerialException e) {
+                    _logger.warn(String.format(
+                            "failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
+                            coreNode, textNode, textFragment, e));
+                }
+            }
+
+        }
+
+        public <T> T execute(QuerySet qs, T object, TreeParser parser) throws XerialException {
+
+            if (object == null)
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
+
+            if (_logger.isTraceEnabled())
+                _logger.trace("query set: " + qs);
+
+            // set the root object
+            objectHolder.put(0L, object);
+            contextNodeStack.addLast(object);
+
+            try {
+                AmoebaJoinHandler mapper = new RelationExtracter();
+
+                StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
+                aj.sweep(parser);
+                return object;
+            }
+            catch (IOException e) {
+                throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+            }
+            catch (Exception e) {
+                throw XerialException.convert(e);
+            }
+
+        }
+
     }
 
     public <T> ObjectMapper(Class<T> targetType) throws XerialException {
@@ -192,50 +331,8 @@ public class ObjectMapper {
     }
 
     public <T> T map(T object, TreeParser parser) throws XerialException {
-        try {
-            if (object == null)
-                throw new XerialError(XerialErrorCode.INVALID_INPUT, "null object");
-
-            if (_logger.isTraceEnabled())
-                _logger.trace("query set: " + qs);
-
-            // set the root object
-            objectHolder.put(0L, object);
-            contextNodeStack.addLast(object);
-
-            AmoebaJoinHandler mapper = new RelationExtracter();
-
-            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
-            aj.sweep(parser);
-            return object;
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
-        catch (Exception e) {
-            throw XerialException.convert(e);
-        }
-
-    }
-
-    public <T> void find(Class<T> targetType, TreeParser parser,
-            String coreNodeNameOfTheTargetType, ObjectHandler<T> handler) throws XerialException {
-
-        try {
-            AmoebaJoinHandler mapper = new RelationExtracter();
-
-            _logger.info(qs);
-
-            StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, mapper);
-            aj.sweep(parser);
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
-        catch (Exception e) {
-            throw XerialException.convert(e);
-        }
-
+        MappingProcess mp = new MappingProcess();
+        return mp.execute(qs, object, parser);
     }
 
     private QuerySet buildQuery(Class< ? > targetType) {
@@ -319,29 +416,6 @@ public class ObjectMapper {
 
     }
 
-    private Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException {
-        Object instance = objectHolder.get(node.nodeID);
-        if (instance != null)
-            return instance;
-
-        if (TypeInfo.isBasicType(nodeType)) {
-            if (node.nodeValue == null)
-                return null;
-            else
-                instance = TypeConverter.convertToBasicType(nodeType, node.nodeValue);
-        }
-        else {
-            instance = TypeInfo.createInstance(nodeType);
-
-            if (node.nodeValue != null) {
-                setTextValue(instance, nodeType, node.nodeValue);
-            }
-
-        }
-        objectHolder.put(node.nodeID, instance);
-        return instance;
-    }
-
     private void setTextValue(Object instance, Class< ? > textNodeType, String textValue)
             throws XerialException {
         // bind the node value to the instance
@@ -378,87 +452,6 @@ public class ObjectMapper {
         }
 
         return instance;
-    }
-
-    /**
-     * Tree -> Relation -> Object binding process body
-     * 
-     * @author leo
-     * 
-     */
-    private class RelationExtracter extends AmoebaJoinHandlerBase {
-
-        public void leaveNode(Schema schema, Node node) throws Exception {
-            if (schema == null && node.nodeValue != null) {
-                // if putter is defined, set (node.nodeName, node.nodeValue) as (key, value)
-                if (_logger.isTraceEnabled())
-                    _logger.trace("put: " + node);
-
-                Object contextNode = contextNodeStack.getLast();
-                ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
-                lens.setProperty(contextNode, node.getCanonicalNodeName(), node.nodeValue);
-            }
-
-            Object obj = objectHolder.remove(node.nodeID);
-
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("leave: %s in %s. object = %s", node, schema, obj));
-
-        }
-
-        public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode,
-                        schema));
-
-            Binder binder = schema2binder.get(schema);
-            if (binder == null)
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
-                        + schema);
-
-            try {
-                binder.bind(schema, coreNode, attributeNode);
-            }
-            catch (XerialException e) {
-                _logger.warn(String.format(
-                        "failed to bind: core node=%s, attribute node=%s, schema=%s\n%s", coreNode,
-                        attributeNode, schema, e));
-            }
-
-        }
-
-        public void text(Schema schema, Node coreNode, Node textNode, String textFragment)
-                throws Exception {
-            if (_logger.isTraceEnabled())
-                _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
-                        textFragment, schema));
-
-            if (schema == null) {
-                // put(node name, text node value) if property setter exist 
-                Object contextNode = contextNodeStack.getLast();
-                ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
-                Object prevValue = lens.getProperty(contextNode, coreNode.nodeName);
-                String value = (prevValue == null) ? textFragment : prevValue.toString()
-                        + textFragment;
-                lens.setProperty(contextNode, textNode.nodeName, value);
-                return;
-            }
-
-            Binder binder = schema2binder.get(schema);
-            if (binder == null)
-                throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
-                        + schema);
-
-            try {
-                binder.bindText(schema, coreNode, textNode, textFragment);
-            }
-            catch (XerialException e) {
-                _logger.warn(String.format(
-                        "failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
-                        coreNode, textNode, textFragment, e));
-            }
-        }
-
     }
 
 }

@@ -40,9 +40,6 @@ import org.xerial.silk.impl.SilkNodeParser;
 import org.xerial.silk.model.SilkCommentLine;
 import org.xerial.silk.model.SilkDataLine;
 import org.xerial.silk.model.SilkElement;
-import org.xerial.silk.model.SilkFunction;
-import org.xerial.silk.model.SilkNode;
-import org.xerial.silk.model.SilkNodeOccurrence;
 import org.xerial.silk.model.SilkPreamble;
 import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
@@ -103,11 +100,6 @@ public class SilkLinePushParser implements SilkLineParser {
 
         char c = line.charAt(0);
 
-        //        // multi-line separator
-        //        if (c == '-' && line.charAt(1) == '-') {
-        //            return new SilkEvent(SilkEventType.MULTILINE_SEPARATOR, null);
-        //        }
-
         // preamble
         if (c == '%') {
             return new SilkEvent(SilkEventType.PREAMBLE, new SilkPreamble(line));
@@ -116,7 +108,6 @@ public class SilkLinePushParser implements SilkLineParser {
         // 39000 lines/sec
 
         // remove leading and trailing white spaces (' ')
-
         String trimmedLine = line.trim();
         if (trimmedLine.length() <= 0) {
             return BlankLineEvent;
@@ -132,7 +123,6 @@ public class SilkLinePushParser implements SilkLineParser {
 
         // data line 
         if (!(c == '-' || c == '@')) {
-            // TODO set indent number correctly
             SilkDataLine dataLine = new SilkDataLine(line);
             return new SilkEvent(SilkEventType.DATA_LINE, dataLine);
         }
@@ -146,36 +136,23 @@ public class SilkLinePushParser implements SilkLineParser {
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 
-        if (_logger.isTraceEnabled())
+        if (_logger.isTraceEnabled()) {
             _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
                     ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
+        }
 
-        // 100,000 lines/sec (SilkPushParser)
-        // 60,000 lines/sec (SilkPushParser after consuming the lexer input)
-
-        // 17000 lines/sec 
+        // 100,000 lines/sec 
+        // 60,000 lines/sec (if consuming the entire lexer input)
 
         SilkNodeParser nodeParser = new SilkNodeParser(tokenStream);
         SilkElement elem = nodeParser.parse();
 
-        if (elem instanceof SilkNode) {
-            SilkNode n = SilkNode.class.cast(elem);
-            if (n.occurrence == SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES)
-                return new SilkEvent(SilkEventType.BLOCK_NODE, elem);
-            else
-                return new SilkEvent(SilkEventType.NODE, elem);
-        }
-        else if (elem instanceof SilkFunction)
-            return new SilkEvent(SilkEventType.FUNCTION, elem);
+        return SilkEvent.createEvent(elem);
 
-        return null;
-
-        // 50,000 lines/sec (SilkPushParser when using recursive descent parser)
-
-        // 17,000 lines/sec (SilkPushParser when using ANTLR parser)
+        // 50,000 lines/sec (when using recursive descent parser)
+        // 17,000 lines/sec (when using ANTLR parser)
 
         // 1500 lines/sec
-
     }
 
     public void parse(SilkEventHandler handler) throws Exception {

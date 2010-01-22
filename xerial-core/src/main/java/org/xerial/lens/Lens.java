@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
+import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONPushParser;
 import org.xerial.silk.SilkParser;
@@ -286,7 +288,8 @@ public class Lens {
     public static <Result> void find(Class<Result> bindingType, String coreNodeName,
             TreeParser parser, ObjectHandler<Result> handler) throws XerialException {
         ObjectMapper mapper = ObjectMapper.getMapper(bindingType.getClass());
-        mapper.find(bindingType, parser, coreNodeName, handler);
+        //mapper.find(bindingType, parser, coreNodeName, handler);
+        throw new XerialError(XerialErrorCode.UNSUPPORTED, "Lens.find");
     }
 
 }

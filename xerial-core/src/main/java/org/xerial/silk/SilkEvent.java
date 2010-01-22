@@ -25,6 +25,9 @@
 package org.xerial.silk;
 
 import org.xerial.silk.model.SilkElement;
+import org.xerial.silk.model.SilkFunction;
+import org.xerial.silk.model.SilkNode;
+import org.xerial.silk.model.SilkNodeOccurrence;
 
 /**
  * Event data of {@link SilkLinePullParser}
@@ -39,6 +42,20 @@ public class SilkEvent {
     public SilkEvent(SilkEventType type, SilkElement element) {
         this.type = type;
         this.element = element;
+    }
+
+    public static SilkEvent createEvent(SilkElement elem) {
+        if (elem instanceof SilkNode) {
+            SilkNode n = SilkNode.class.cast(elem);
+            if (n.occurrence == SilkNodeOccurrence.SEQUENCE_PRESERVING_WHITESPACES)
+                return new SilkEvent(SilkEventType.BLOCK_NODE, elem);
+            else
+                return new SilkEvent(SilkEventType.NODE, elem);
+        }
+        else if (elem instanceof SilkFunction)
+            return new SilkEvent(SilkEventType.FUNCTION, elem);
+        else
+            return null;
     }
 
     public SilkEventType getType() {

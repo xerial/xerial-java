@@ -33,31 +33,25 @@ import org.xerial.lens.relation.schema.Schema;
  * @author leo
  * 
  */
-public class AmoebaJoinHandlerBase implements AmoebaJoinHandler
-{
+public class AmoebaJoinHandlerBase implements AmoebaJoinHandler {
 
-    public void leaveNode(Schema schema, Node node) throws Exception
-    {
+    public void leaveNode(Schema schema, Node node) throws Exception {
 
     }
 
-    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception
-    {
+    public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
 
     }
 
-    public void finish()
-    {
+    public void finish() {
 
     }
 
-    public void init()
-    {
+    public void init() {
 
     }
 
-    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception
-    {
+    public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception {
 
     }
 
