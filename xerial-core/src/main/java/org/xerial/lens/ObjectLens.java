@@ -79,15 +79,15 @@ public class ObjectLens {
         }
     }
 
-    private Class< ? > targetType;
+    private final Class< ? > targetType;
 
-    private List<ParameterGetter> getterContainer = new ArrayList<ParameterGetter>();
-    private List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
+    private final List<ParameterGetter> getterContainer = new ArrayList<ParameterGetter>();
+    private final List<ParameterSetter> setterContainer = new ArrayList<ParameterSetter>();
 
-    private HashMap<String, ParameterGetter> getterIndex = new HashMap<String, ParameterGetter>();
-    private HashMap<String, ParameterSetter> setterIndex = new HashMap<String, ParameterSetter>();
+    private final HashMap<String, ParameterGetter> getterIndex = new HashMap<String, ParameterGetter>();
+    private final HashMap<String, ParameterSetter> setterIndex = new HashMap<String, ParameterSetter>();
 
-    private List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
+    private final List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
     private ParameterSetter valueSetter = null;
 
     private RelationSetter propertySetter = null;
@@ -167,6 +167,13 @@ public class ObjectLens {
         return String.format("(%s, %s)", setterContainer, relationSetterContainer);
     }
 
+    /**
+     * Scans the field and getter/setter definitions in the given class, then
+     * generates the mapping rules in the form of {@link ParameterSetter},
+     * {@link ParameterGetter} and {@link RelationSetter}
+     * 
+     * @param targetType
+     */
     private void prepareBindRules(Class< ? > targetType) {
         // search for object parameters including superclass's ones 
 
