@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g 2010-01-21 15:07:56
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-01-25 17:28:01
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -124,13 +124,13 @@ public class SilkLineLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g"; }
+    public String getGrammarFileName() { return "SilkLine.g"; }
 
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:135:2: ( ( ' ' | '\\t' ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:135:4: ( ' ' | '\\t' )
+            // SilkLine.g:135:2: ( ( ' ' | '\\t' ) )
+            // SilkLine.g:135:4: ( ' ' | '\\t' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -155,11 +155,11 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:12: ( '#' (~ ( LineBreakChar ) )* )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:14: '#' (~ ( LineBreakChar ) )*
+            // SilkLine.g:139:12: ( '#' (~ ( LineBreakChar ) )* )
+            // SilkLine.g:139:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:18: (~ ( LineBreakChar ) )*
+            // SilkLine.g:139:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -172,7 +172,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:139:18: ~ ( LineBreakChar )
+            	    // SilkLine.g:139:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -206,8 +206,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:142:23: ( '\\n' | '\\r' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:142:23: ( '\\n' | '\\r' )
+            // SilkLine.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -232,13 +232,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = BlockIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:12: ({...}? => ( ' ' )* '--' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:14: {...}? => ( ' ' )* '--'
+            // SilkLine.g:144:12: ({...}? => ( ' ' )* '--' )
+            // SilkLine.g:144:14: {...}? => ( ' ' )* '--'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlockIndent", " isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:31: ( ' ' )*
+            // SilkLine.g:144:31: ( ' ' )*
             loop2:
             do {
                 int alt2=2;
@@ -251,7 +251,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:144:32: ' '
+            	    // SilkLine.g:144:32: ' '
             	    {
             	    match(' '); 
 
@@ -282,13 +282,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = NodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:11: ({...}? => ( ' ' )* '-' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:13: {...}? => ( ' ' )* '-'
+            // SilkLine.g:145:11: ({...}? => ( ' ' )* '-' )
+            // SilkLine.g:145:13: {...}? => ( ' ' )* '-'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "NodeIndent", " isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:30: ( ' ' )*
+            // SilkLine.g:145:30: ( ' ' )*
             loop3:
             do {
                 int alt3=2;
@@ -301,7 +301,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:145:31: ' '
+            	    // SilkLine.g:145:31: ' '
             	    {
             	    match(' '); 
 
@@ -331,13 +331,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = PullUpNodeIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:17: ({...}? => ( ' ' )* '->' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:19: {...}? => ( ' ' )* '->'
+            // SilkLine.g:146:17: ({...}? => ( ' ' )* '->' )
+            // SilkLine.g:146:19: {...}? => ( ' ' )* '->'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "PullUpNodeIndent", " isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:36: ( ' ' )*
+            // SilkLine.g:146:36: ( ' ' )*
             loop4:
             do {
                 int alt4=2;
@@ -350,7 +350,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:146:37: ' '
+            	    // SilkLine.g:146:37: ' '
             	    {
             	    match(' '); 
 
@@ -381,13 +381,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = FunctionIndent;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:15: ({...}? => ( ' ' )* '@' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:17: {...}? => ( ' ' )* '@'
+            // SilkLine.g:147:15: ({...}? => ( ' ' )* '@' )
+            // SilkLine.g:147:17: {...}? => ( ' ' )* '@'
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "FunctionIndent", " isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:34: ( ' ' )*
+            // SilkLine.g:147:34: ( ' ' )*
             loop5:
             do {
                 int alt5=2;
@@ -400,7 +400,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:147:35: ' '
+            	    // SilkLine.g:147:35: ' '
             	    {
             	    match(' '); 
 
@@ -430,13 +430,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = BlankLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:10: ({...}? => ( WhiteSpace )* )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:12: {...}? => ( WhiteSpace )*
+            // SilkLine.g:148:10: ({...}? => ( WhiteSpace )* )
+            // SilkLine.g:148:12: {...}? => ( WhiteSpace )*
             {
             if ( !(( isHead() )) ) {
                 throw new FailedPredicateException(input, "BlankLine", " isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:29: ( WhiteSpace )*
+            // SilkLine.g:148:29: ( WhiteSpace )*
             loop6:
             do {
                 int alt6=2;
@@ -449,7 +449,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:148:29: WhiteSpace
+            	    // SilkLine.g:148:29: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -477,8 +477,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:150:7: ( '(' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:150:9: '('
+            // SilkLine.g:150:7: ( '(' )
+            // SilkLine.g:150:9: '('
             {
             match('('); 
              transit(Symbol.EnterParen); 
@@ -498,8 +498,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:151:7: ( ')' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:151:9: ')'
+            // SilkLine.g:151:7: ( ')' )
+            // SilkLine.g:151:9: ')'
             {
             match(')'); 
              transit(Symbol.LeaveParen); 
@@ -519,8 +519,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:152:6: ( ',' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:152:9: ','
+            // SilkLine.g:152:6: ( ',' )
+            // SilkLine.g:152:9: ','
             {
             match(','); 
 
@@ -539,8 +539,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:153:6: ( ':' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:153:8: ':'
+            // SilkLine.g:153:6: ( ':' )
+            // SilkLine.g:153:8: ':'
             {
             match(':'); 
              transit(Symbol.Colon); 
@@ -560,8 +560,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Seq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:155:4: ( '>' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:155:7: '>'
+            // SilkLine.g:155:4: ( '>' )
+            // SilkLine.g:155:7: '>'
             {
             match('>'); 
 
@@ -580,8 +580,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = TabSeq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:156:7: ( '|' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:156:9: '|'
+            // SilkLine.g:156:7: ( '|' )
+            // SilkLine.g:156:9: '|'
             {
             match('|'); 
 
@@ -600,8 +600,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:157:5: ( '*' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:157:8: '*'
+            // SilkLine.g:157:5: ( '*' )
+            // SilkLine.g:157:8: '*'
             {
             match('*'); 
 
@@ -620,8 +620,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:158:3: ( '@' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:158:6: '@'
+            // SilkLine.g:158:3: ( '@' )
+            // SilkLine.g:158:6: '@'
             {
             match('@'); 
              transit(Symbol.At); 
@@ -641,8 +641,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Plus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:159:5: ( '+' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:159:7: '+'
+            // SilkLine.g:159:5: ( '+' )
+            // SilkLine.g:159:7: '+'
             {
             match('+'); 
 
@@ -661,8 +661,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = LBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:160:9: ( '[' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:160:11: '['
+            // SilkLine.g:160:9: ( '[' )
+            // SilkLine.g:160:11: '['
             {
             match('['); 
              transit(Symbol.EnterParen); 
@@ -682,8 +682,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = RBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:161:9: ( ']' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:161:11: ']'
+            // SilkLine.g:161:9: ( ']' )
+            // SilkLine.g:161:11: ']'
             {
             match(']'); 
 
@@ -702,8 +702,8 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Question;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:162:9: ( '?' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:162:11: '?'
+            // SilkLine.g:162:9: ( '?' )
+            // SilkLine.g:162:11: '?'
             {
             match('?'); 
 
@@ -720,8 +720,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:164:15: ( '0' .. '9' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:164:17: '0' .. '9'
+            // SilkLine.g:164:15: ( '0' .. '9' )
+            // SilkLine.g:164:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -736,8 +736,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:165:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:165:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // SilkLine.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -760,8 +760,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:166:18: ( Digit | Letter )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:166:18: ( Digit | Letter )
+            // SilkLine.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -784,8 +784,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:167:21: (~ ( '\"' | '\\\\' ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:167:23: ~ ( '\"' | '\\\\' )
+            // SilkLine.g:167:21: (~ ( '\"' | '\\\\' ) )
+            // SilkLine.g:167:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -808,11 +808,11 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // SilkLine.g:169:2: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // SilkLine.g:169:4: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // SilkLine.g:169:9: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt7=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -869,63 +869,63 @@ public class SilkLineLexer extends Lexer {
 
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:10: '\\\"'
+                    // SilkLine.g:169:10: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:17: '\\\\'
+                    // SilkLine.g:169:17: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:24: '/'
+                    // SilkLine.g:169:24: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:30: 'b'
+                    // SilkLine.g:169:30: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:36: 'f'
+                    // SilkLine.g:169:36: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:42: 'n'
+                    // SilkLine.g:169:42: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:48: 'r'
+                    // SilkLine.g:169:48: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:54: 't'
+                    // SilkLine.g:169:54: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:169:60: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // SilkLine.g:169:60: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -950,7 +950,7 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:21: ( UnicodeChar | EscapeSequence )
+            // SilkLine.g:171:21: ( UnicodeChar | EscapeSequence )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -968,14 +968,14 @@ public class SilkLineLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:24: UnicodeChar
+                    // SilkLine.g:171:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:171:38: EscapeSequence
+                    // SilkLine.g:171:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -992,10 +992,10 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:22: ( ( StringChar )* )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: ( StringChar )*
+            // SilkLine.g:172:22: ( ( StringChar )* )
+            // SilkLine.g:172:24: ( StringChar )*
             {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: ( StringChar )*
+            // SilkLine.g:172:24: ( StringChar )*
             loop9:
             do {
                 int alt9=2;
@@ -1008,7 +1008,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:172:24: StringChar
+            	    // SilkLine.g:172:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -1036,8 +1036,8 @@ public class SilkLineLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:173:7: ( '\"' s= StringChar_s '\"' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:173:9: '\"' s= StringChar_s '\"'
+            // SilkLine.g:173:7: ( '\"' s= StringChar_s '\"' )
+            // SilkLine.g:173:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart429 = getCharIndex();
@@ -1059,8 +1059,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "ScopeIndicator"
     public final void mScopeIndicator() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:176:24: ( '(' | ')' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:176:24: ( '(' | ')' )
+            // SilkLine.g:
             {
             if ( (input.LA(1)>='(' && input.LA(1)<=')') ) {
                 input.consume();
@@ -1083,8 +1083,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "FlowIndicator"
     public final void mFlowIndicator() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:177:23: ( '[' | ']' | '{' | '}' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:177:23: ( '[' | ']' | '{' | '}' )
+            // SilkLine.g:
             {
             if ( input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='{'||input.LA(1)=='}' ) {
                 input.consume();
@@ -1107,8 +1107,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "Indicator"
     public final void mIndicator() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:178:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '=' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:178:19: ( FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '=' )
+            // SilkLine.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||input.LA(1)==','||input.LA(1)==':'||(input.LA(1)>='=' && input.LA(1)<='>')||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1131,8 +1131,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainUnsafeChar"
     public final void mPlainUnsafeChar() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:181:25: ( '\"' | '\\\\' | '#' )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:
+            // SilkLine.g:181:25: ( '\"' | '\\\\' | '#' )
+            // SilkLine.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='\\' ) {
                 input.consume();
@@ -1155,8 +1155,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeKey"
     public final void mPlainSafeKey() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:183:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:183:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' )
+            // SilkLine.g:183:22: (~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' ) )
+            // SilkLine.g:183:24: ~ ( PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '=' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||input.LA(1)=='+'||(input.LA(1)>='-' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='<')||(input.LA(1)>='?' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1179,8 +1179,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeIn"
     public final void mPlainSafeIn() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:184:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:184:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
+            // SilkLine.g:184:21: (~ ( PlainUnsafeChar | ScopeIndicator | ',' ) )
+            // SilkLine.g:184:23: ~ ( PlainUnsafeChar | ScopeIndicator | ',' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='\'')||(input.LA(1)>='*' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1203,8 +1203,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainSafeOut"
     public final void mPlainSafeOut() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:185:22: (~ ( PlainUnsafeChar ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:185:24: ~ ( PlainUnsafeChar )
+            // SilkLine.g:185:22: (~ ( PlainUnsafeChar ) )
+            // SilkLine.g:185:24: ~ ( PlainUnsafeChar )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='$' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1227,8 +1227,8 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "NonSpaceChar"
     public final void mNonSpaceChar() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:187:22: (~ ( '\"' | '\\\\' | WhiteSpace ) )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:187:24: ~ ( '\"' | '\\\\' | WhiteSpace )
+            // SilkLine.g:187:22: (~ ( '\"' | '\\\\' | WhiteSpace ) )
+            // SilkLine.g:187:24: ~ ( '\"' | '\\\\' | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1251,7 +1251,7 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:189:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
+            // SilkLine.g:189:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1269,7 +1269,7 @@ public class SilkLineLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:189:5: ~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator )
+                    // SilkLine.g:189:5: ~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\n' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||(input.LA(1)>='.' && input.LA(1)<='9')||(input.LA(1)>=';' && input.LA(1)<='<')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -1284,12 +1284,12 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    // SilkLine.g:190:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
                     }
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    // SilkLine.g:190:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
                     int alt10=3;
                     switch ( input.LA(1) ) {
                     case '-':
@@ -1317,21 +1317,21 @@ public class SilkLineLexer extends Lexer {
 
                     switch (alt10) {
                         case 1 :
-                            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:23: '-'
+                            // SilkLine.g:190:23: '-'
                             {
                             match('-'); 
 
                             }
                             break;
                         case 2 :
-                            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:29: '+'
+                            // SilkLine.g:190:29: '+'
                             {
                             match('+'); 
 
                             }
                             break;
                         case 3 :
-                            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:190:35: ( ':' | '?' ) NonSpaceChar
+                            // SilkLine.g:190:35: ( ':' | '?' ) NonSpaceChar
                             {
                             if ( input.LA(1)==':'||input.LA(1)=='?' ) {
                                 input.consume();
@@ -1365,7 +1365,7 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = PlainOneLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:2: ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* )
+            // SilkLine.g:194:2: ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* )
             int alt15=3;
             int LA15_0 = input.LA(1);
 
@@ -1388,7 +1388,7 @@ public class SilkLineLexer extends Lexer {
                     throw nvae;
                 }
             }
-            else if ( (LA15_0=='-') && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
+            else if ( (LA15_0=='-') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {
                 int LA15_2 = input.LA(2);
 
                 if ( ((( isKey() )&&( isValue() ))) ) {
@@ -1407,7 +1407,7 @@ public class SilkLineLexer extends Lexer {
                     throw nvae;
                 }
             }
-            else if ( (LA15_0=='+') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
+            else if ( (LA15_0=='+') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {
                 int LA15_3 = input.LA(2);
 
                 if ( ((( isKey() )&&( isValue() ))) ) {
@@ -1426,10 +1426,10 @@ public class SilkLineLexer extends Lexer {
                     throw nvae;
                 }
             }
-            else if ( (LA15_0==':'||LA15_0=='?') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
+            else if ( (LA15_0==':'||LA15_0=='?') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
                 int LA15_4 = input.LA(2);
 
-                if ( ((LA15_4>='\u0000' && LA15_4<='\b')||(LA15_4>='\n' && LA15_4<='\u001F')||LA15_4=='!'||(LA15_4>='#' && LA15_4<='[')||(LA15_4>=']' && LA15_4<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
+                if ( ((LA15_4>='\u0000' && LA15_4<='\b')||(LA15_4>='\n' && LA15_4<='\u001F')||LA15_4=='!'||(LA15_4>='#' && LA15_4<='[')||(LA15_4>=']' && LA15_4<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
                     int LA15_8 = input.LA(3);
 
                     if ( ((( isKey() )&&( isValue() ))) ) {
@@ -1463,13 +1463,13 @@ public class SilkLineLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:4: {...}? => PlainFirst ( PlainSafeKey )*
+                    // SilkLine.g:194:4: {...}? => PlainFirst ( PlainSafeKey )*
                     {
                     if ( !(( isKey() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isKey() ");
                     }
                     mPlainFirst(); 
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:32: ( PlainSafeKey )*
+                    // SilkLine.g:194:32: ( PlainSafeKey )*
                     loop12:
                     do {
                         int alt12=2;
@@ -1482,7 +1482,7 @@ public class SilkLineLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:194:32: PlainSafeKey
+                    	    // SilkLine.g:194:32: PlainSafeKey
                     	    {
                     	    mPlainSafeKey(); 
 
@@ -1499,13 +1499,13 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:5: {...}? => PlainFirst ( PlainSafeIn )*
+                    // SilkLine.g:195:5: {...}? => PlainFirst ( PlainSafeIn )*
                     {
                     if ( !(( isInValue() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isInValue() ");
                     }
                     mPlainFirst(); 
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:37: ( PlainSafeIn )*
+                    // SilkLine.g:195:37: ( PlainSafeIn )*
                     loop13:
                     do {
                         int alt13=2;
@@ -1518,7 +1518,7 @@ public class SilkLineLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:195:37: PlainSafeIn
+                    	    // SilkLine.g:195:37: PlainSafeIn
                     	    {
                     	    mPlainSafeIn(); 
 
@@ -1535,13 +1535,13 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:5: {...}? => PlainFirst ( PlainSafeOut )*
+                    // SilkLine.g:196:5: {...}? => PlainFirst ( PlainSafeOut )*
                     {
                     if ( !(( isOutValue() )) ) {
                         throw new FailedPredicateException(input, "PlainOneLine", " isOutValue() ");
                     }
                     mPlainFirst(); 
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:38: ( PlainSafeOut )*
+                    // SilkLine.g:196:38: ( PlainSafeOut )*
                     loop14:
                     do {
                         int alt14=2;
@@ -1554,7 +1554,7 @@ public class SilkLineLexer extends Lexer {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:196:38: PlainSafeOut
+                    	    // SilkLine.g:196:38: PlainSafeOut
                     	    {
                     	    mPlainSafeOut(); 
 
@@ -1585,7 +1585,7 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = JSON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:201:2: ({...}? => '{' | {...}? => '[' )
+            // SilkLine.g:201:2: ({...}? => '{' | {...}? => '[' )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1603,7 +1603,7 @@ public class SilkLineLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:201:4: {...}? => '{'
+                    // SilkLine.g:201:4: {...}? => '{'
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1623,7 +1623,7 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:212:4: {...}? => '['
+                    // SilkLine.g:212:4: {...}? => '['
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "JSON", " isValue() ");
@@ -1657,13 +1657,13 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = Separation;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:11: ({...}? => ( WhiteSpace )+ )
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:13: {...}? => ( WhiteSpace )+
+            // SilkLine.g:225:11: ({...}? => ( WhiteSpace )+ )
+            // SilkLine.g:225:13: {...}? => ( WhiteSpace )+
             {
             if ( !(( !isHead() )) ) {
                 throw new FailedPredicateException(input, "Separation", " !isHead() ");
             }
-            // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:31: ( WhiteSpace )+
+            // SilkLine.g:225:31: ( WhiteSpace )+
             int cnt17=0;
             loop17:
             do {
@@ -1677,7 +1677,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:225:31: WhiteSpace
+            	    // SilkLine.g:225:31: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1706,159 +1706,159 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR end "Separation"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:8: ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation )
+        // SilkLine.g:1:8: ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation )
         int alt18=22;
         alt18 = dfa18.predict(input);
         switch (alt18) {
             case 1 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:10: LineComment
+                // SilkLine.g:1:10: LineComment
                 {
                 mLineComment(); 
 
                 }
                 break;
             case 2 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:22: BlockIndent
+                // SilkLine.g:1:22: BlockIndent
                 {
                 mBlockIndent(); 
 
                 }
                 break;
             case 3 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:34: NodeIndent
+                // SilkLine.g:1:34: NodeIndent
                 {
                 mNodeIndent(); 
 
                 }
                 break;
             case 4 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:45: PullUpNodeIndent
+                // SilkLine.g:1:45: PullUpNodeIndent
                 {
                 mPullUpNodeIndent(); 
 
                 }
                 break;
             case 5 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:62: FunctionIndent
+                // SilkLine.g:1:62: FunctionIndent
                 {
                 mFunctionIndent(); 
 
                 }
                 break;
             case 6 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:77: BlankLine
+                // SilkLine.g:1:77: BlankLine
                 {
                 mBlankLine(); 
 
                 }
                 break;
             case 7 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:87: LParen
+                // SilkLine.g:1:87: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 8 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:94: RParen
+                // SilkLine.g:1:94: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 9 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:101: Comma
+                // SilkLine.g:1:101: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 10 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:107: Colon
+                // SilkLine.g:1:107: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 11 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:113: Seq
+                // SilkLine.g:1:113: Seq
                 {
                 mSeq(); 
 
                 }
                 break;
             case 12 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:117: TabSeq
+                // SilkLine.g:1:117: TabSeq
                 {
                 mTabSeq(); 
 
                 }
                 break;
             case 13 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:124: Star
+                // SilkLine.g:1:124: Star
                 {
                 mStar(); 
 
                 }
                 break;
             case 14 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:129: At
+                // SilkLine.g:1:129: At
                 {
                 mAt(); 
 
                 }
                 break;
             case 15 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:132: Plus
+                // SilkLine.g:1:132: Plus
                 {
                 mPlus(); 
 
                 }
                 break;
             case 16 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:137: LBracket
+                // SilkLine.g:1:137: LBracket
                 {
                 mLBracket(); 
 
                 }
                 break;
             case 17 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:146: RBracket
+                // SilkLine.g:1:146: RBracket
                 {
                 mRBracket(); 
 
                 }
                 break;
             case 18 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:155: Question
+                // SilkLine.g:1:155: Question
                 {
                 mQuestion(); 
 
                 }
                 break;
             case 19 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:164: String
+                // SilkLine.g:1:164: String
                 {
                 mString(); 
 
                 }
                 break;
             case 20 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:171: PlainOneLine
+                // SilkLine.g:1:171: PlainOneLine
                 {
                 mPlainOneLine(); 
 
                 }
                 break;
             case 21 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:184: JSON
+                // SilkLine.g:1:184: JSON
                 {
                 mJSON(); 
 
                 }
                 break;
             case 22 :
-                // C:\\Users\\leo\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\silk\\impl\\SilkLine.g:1:189: Separation
+                // SilkLine.g:1:189: Separation
                 {
                 mSeparation(); 
 
@@ -2012,11 +2012,11 @@ public class SilkLineLexer extends Lexer {
                         int index18_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA18_3=='-') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 24;}
+                        if ( (LA18_3=='-') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 24;}
 
-                        else if ( (LA18_3=='>') && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 25;}
+                        else if ( (LA18_3=='>') && (((( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 25;}
 
-                        else if ( ((LA18_3>='\u0000' && LA18_3<='!')||(LA18_3>='$' && LA18_3<='\'')||LA18_3=='+'||(LA18_3>='.' && LA18_3<='9')||(LA18_3>=';' && LA18_3<='<')||(LA18_3>='?' && LA18_3<='Z')||(LA18_3>='^' && LA18_3<='z')||(LA18_3>='~' && LA18_3<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 27;}
+                        else if ( ((LA18_3>='\u0000' && LA18_3<='!')||(LA18_3>='$' && LA18_3<='\'')||LA18_3=='+'||(LA18_3>='.' && LA18_3<='9')||(LA18_3>=';' && LA18_3<='<')||(LA18_3>='?' && LA18_3<='Z')||(LA18_3>='^' && LA18_3<='z')||(LA18_3>='~' && LA18_3<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 27;}
 
                         else if ( (LA18_3=='*'||LA18_3==':'||LA18_3=='='||LA18_3=='['||LA18_3==']'||(LA18_3>='{' && LA18_3<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
 
@@ -2054,7 +2054,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 38;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() )))) ) {s = 31;}
+                        else if ( (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
 
                          
                         input.seek(index18_26);
@@ -2069,7 +2069,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 36;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() )))) ) {s = 31;}
+                        else if ( (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
 
                          
                         input.seek(index18_40);
@@ -2082,7 +2082,7 @@ public class SilkLineLexer extends Lexer {
                         int index18_25 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_25>='\u0000' && LA18_25<='!')||(LA18_25>='$' && LA18_25<='\'')||(LA18_25>='*' && LA18_25<='+')||(LA18_25>='-' && LA18_25<='[')||(LA18_25>=']' && LA18_25<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 28;}
+                        if ( ((LA18_25>='\u0000' && LA18_25<='!')||(LA18_25>='$' && LA18_25<='\'')||(LA18_25>='*' && LA18_25<='+')||(LA18_25>='-' && LA18_25<='[')||(LA18_25>=']' && LA18_25<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
 
                         else if ( ((LA18_25>='(' && LA18_25<=')')||LA18_25==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
 
@@ -2118,9 +2118,9 @@ public class SilkLineLexer extends Lexer {
                         int index18_33 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() )))))) ) {s = 43;}
+                        if ( (!((((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 43;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() )))) ) {s = 31;}
+                        else if ( (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
 
                          
                         input.seek(index18_33);
@@ -2148,7 +2148,7 @@ public class SilkLineLexer extends Lexer {
                         int index18_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_17>='\u0000' && LA18_17<='\b')||(LA18_17>='\n' && LA18_17<='\u001F')||LA18_17=='!'||(LA18_17>='#' && LA18_17<='[')||(LA18_17>=']' && LA18_17<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 31;}
+                        if ( ((LA18_17>='\u0000' && LA18_17<='\b')||(LA18_17>='\n' && LA18_17<='\u001F')||LA18_17=='!'||(LA18_17>='#' && LA18_17<='[')||(LA18_17>=']' && LA18_17<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 31;}
 
                         else s = 35;
 
@@ -2165,7 +2165,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 37;}
 
-                        else if ( (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() )))) ) {s = 31;}
+                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
 
                          
                         input.seek(index18_41);
@@ -2178,9 +2178,9 @@ public class SilkLineLexer extends Lexer {
                         int index18_24 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_24>='\u0000' && LA18_24<='!')||(LA18_24>='$' && LA18_24<='\'')||LA18_24=='+'||(LA18_24>='-' && LA18_24<='9')||(LA18_24>=';' && LA18_24<='<')||(LA18_24>='?' && LA18_24<='Z')||(LA18_24>='^' && LA18_24<='z')||(LA18_24>='~' && LA18_24<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 27;}
+                        if ( ((LA18_24>='\u0000' && LA18_24<='!')||(LA18_24>='$' && LA18_24<='\'')||LA18_24=='+'||(LA18_24>='-' && LA18_24<='9')||(LA18_24>=';' && LA18_24<='<')||(LA18_24>='?' && LA18_24<='Z')||(LA18_24>='^' && LA18_24<='z')||(LA18_24>='~' && LA18_24<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 27;}
 
-                        else if ( (LA18_24=='*'||LA18_24==':'||(LA18_24>='=' && LA18_24<='>')||LA18_24=='['||LA18_24==']'||(LA18_24>='{' && LA18_24<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
+                        else if ( (LA18_24=='*'||LA18_24==':'||(LA18_24>='=' && LA18_24<='>')||LA18_24=='['||LA18_24==']'||(LA18_24>='{' && LA18_24<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 28;}
 
                         else if ( ((LA18_24>='(' && LA18_24<=')')||LA18_24==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
 
@@ -2231,7 +2231,7 @@ public class SilkLineLexer extends Lexer {
 
                         else if ( (LA18_0==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
 
-                        else if ( (LA18_0=='-') && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
+                        else if ( (LA18_0=='-') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
 
                         else if ( (LA18_0=='@') ) {s = 4;}
 
@@ -2278,7 +2278,7 @@ public class SilkLineLexer extends Lexer {
                         int index18_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_10>='\u0000' && LA18_10<='\b')||(LA18_10>='\n' && LA18_10<='\u001F')||LA18_10=='!'||(LA18_10>='#' && LA18_10<='[')||(LA18_10>=']' && LA18_10<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 31;}
+                        if ( ((LA18_10>='\u0000' && LA18_10<='\b')||(LA18_10>='\n' && LA18_10<='\u001F')||LA18_10=='!'||(LA18_10>='#' && LA18_10<='[')||(LA18_10>=']' && LA18_10<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 31;}
 
                         else s = 32;
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g 2010-01-21 13:03:32
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 LensQuery.g 2010-01-25 17:27:57
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -33,58 +33,58 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class LensQueryLexer extends Lexer {
+    public static final int PATTERNMATCH=9;
+    public static final int Match=39;
+    public static final int Regex=40;
+    public static final int Digit=18;
     public static final int Frac=27;
-    public static final int False=31;
-    public static final int Gt=34;
-    public static final int LineComment=16;
-    public static final int EOF=-1;
     public static final int HexDigit=20;
-    public static final int Neq=38;
-    public static final int Lt=33;
+    public static final int QUERY=4;
+    public static final int ALIAS=11;
+    public static final int VALUE=14;
+    public static final int Letter=19;
+    public static final int Comma=42;
+    public static final int Dot=41;
+    public static final int EscapeSequence=22;
+    public static final int Integer=26;
+    public static final int WhiteSpace=51;
+    public static final int OPERATOR=7;
+    public static final int False=31;
+    public static final int LineComment=16;
+    public static final int Colon=43;
+    public static final int NODEVALUE=12;
+    public static final int As=44;
+    public static final int SafeFirstLetter=49;
+    public static final int Null=32;
+    public static final int Star=47;
+    public static final int Eq=37;
+    public static final int Exp=28;
+    public static final int QNameChar=52;
+    public static final int RELATION=5;
+    public static final int Gt=34;
+    public static final int RParen=46;
+    public static final int UnicodeChar=21;
+    public static final int StringChar=23;
+    public static final int True=30;
+    public static final int OPERAND=8;
     public static final int LineBreak=17;
+    public static final int LParen=45;
+    public static final int String=25;
+    public static final int SafeLetter=50;
+    public static final int LineBreakChar=15;
+    public static final int COMPARE=6;
+    public static final int QName=53;
+    public static final int Geq=36;
+    public static final int EOF=-1;
+    public static final int NODE=10;
+    public static final int Neq=38;
+    public static final int StringChar_s=24;
+    public static final int UnsafeUnicodeChar=48;
+    public static final int Double=29;
+    public static final int Lt=33;
     public static final int NAME=13;
     public static final int Leq=35;
-    public static final int OPERAND=8;
-    public static final int COMPARE=6;
-    public static final int WhiteSpace=51;
-    public static final int String=25;
-    public static final int True=30;
-    public static final int Null=32;
-    public static final int Double=29;
-    public static final int RParen=46;
-    public static final int QName=53;
-    public static final int NODE=10;
-    public static final int QNameChar=52;
-    public static final int LParen=45;
-    public static final int As=44;
-    public static final int OPERATOR=7;
     public static final int WhiteSpaces=54;
-    public static final int StringChar_s=24;
-    public static final int RELATION=5;
-    public static final int Exp=28;
-    public static final int Eq=37;
-    public static final int Colon=43;
-    public static final int UnicodeChar=21;
-    public static final int VALUE=14;
-    public static final int Digit=18;
-    public static final int UnsafeUnicodeChar=48;
-    public static final int LineBreakChar=15;
-    public static final int NODEVALUE=12;
-    public static final int Match=39;
-    public static final int ALIAS=11;
-    public static final int Dot=41;
-    public static final int StringChar=23;
-    public static final int QUERY=4;
-    public static final int PATTERNMATCH=9;
-    public static final int Star=47;
-    public static final int SafeLetter=50;
-    public static final int SafeFirstLetter=49;
-    public static final int Comma=42;
-    public static final int EscapeSequence=22;
-    public static final int Letter=19;
-    public static final int Integer=26;
-    public static final int Geq=36;
-    public static final int Regex=40;
 
 
 
@@ -100,13 +100,13 @@ public class LensQueryLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g"; }
+    public String getGrammarFileName() { return "LensQuery.g"; }
 
     // $ANTLR start "LineBreakChar"
     public final void mLineBreakChar() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:113:23: ( '\\n' | '\\r' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:113:23: ( '\\n' | '\\r' )
+            // LensQuery.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
                 input.consume();
@@ -131,11 +131,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:114:12: ( '#' (~ ( LineBreakChar ) )* )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:114:14: '#' (~ ( LineBreakChar ) )*
+            // LensQuery.g:114:12: ( '#' (~ ( LineBreakChar ) )* )
+            // LensQuery.g:114:14: '#' (~ ( LineBreakChar ) )*
             {
             match('#'); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:114:18: (~ ( LineBreakChar ) )*
+            // LensQuery.g:114:18: (~ ( LineBreakChar ) )*
             loop1:
             do {
                 int alt1=2;
@@ -148,7 +148,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:114:18: ~ ( LineBreakChar )
+            	    // LensQuery.g:114:18: ~ ( LineBreakChar )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -185,10 +185,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LineBreak;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // LensQuery.g:117:10: ( ( '\\r' '\\n' | '\\r' | '\\n' ) )
+            // LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
+            // LensQuery.g:117:12: ( '\\r' '\\n' | '\\r' | '\\n' )
             int alt2=3;
             int LA2_0 = input.LA(1);
 
@@ -212,7 +212,7 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:13: '\\r' '\\n'
+                    // LensQuery.g:117:13: '\\r' '\\n'
                     {
                     match('\r'); 
                     match('\n'); 
@@ -220,14 +220,14 @@ public class LensQueryLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:25: '\\r'
+                    // LensQuery.g:117:25: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:117:32: '\\n'
+                    // LensQuery.g:117:32: '\\n'
                     {
                     match('\n'); 
 
@@ -251,8 +251,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:120:15: ( '0' .. '9' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:120:17: '0' .. '9'
+            // LensQuery.g:120:15: ( '0' .. '9' )
+            // LensQuery.g:120:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -267,8 +267,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:121:16: ( 'A' .. 'F' | 'a' .. 'f' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:121:16: ( 'A' .. 'F' | 'a' .. 'f' )
+            // LensQuery.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -291,8 +291,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:122:18: ( Digit | Letter )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:122:18: ( Digit | Letter )
+            // LensQuery.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -315,8 +315,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "UnicodeChar"
     public final void mUnicodeChar() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:123:21: (~ ( '\"' | '\\\\' ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:123:23: ~ ( '\"' | '\\\\' )
+            // LensQuery.g:123:21: (~ ( '\"' | '\\\\' ) )
+            // LensQuery.g:123:23: ~ ( '\"' | '\\\\' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -339,11 +339,11 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // LensQuery.g:125:3: ( '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit ) )
+            // LensQuery.g:125:5: '\\\\' ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             {
             match('\\'); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
+            // LensQuery.g:125:10: ( '\\\"' | '\\\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit )
             int alt3=9;
             switch ( input.LA(1) ) {
             case '\"':
@@ -400,63 +400,63 @@ public class LensQueryLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:11: '\\\"'
+                    // LensQuery.g:125:11: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:18: '\\\\'
+                    // LensQuery.g:125:18: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 3 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:25: '/'
+                    // LensQuery.g:125:25: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 4 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:31: 'b'
+                    // LensQuery.g:125:31: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:37: 'f'
+                    // LensQuery.g:125:37: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:43: 'n'
+                    // LensQuery.g:125:43: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 7 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:49: 'r'
+                    // LensQuery.g:125:49: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 8 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:55: 't'
+                    // LensQuery.g:125:55: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 9 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:125:61: 'u' HexDigit HexDigit HexDigit HexDigit
+                    // LensQuery.g:125:61: 'u' HexDigit HexDigit HexDigit HexDigit
                     {
                     match('u'); 
                     mHexDigit(); 
@@ -481,7 +481,7 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "StringChar"
     public final void mStringChar() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:128:21: ( UnicodeChar | EscapeSequence )
+            // LensQuery.g:128:21: ( UnicodeChar | EscapeSequence )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -499,14 +499,14 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:128:24: UnicodeChar
+                    // LensQuery.g:128:24: UnicodeChar
                     {
                     mUnicodeChar(); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:128:38: EscapeSequence
+                    // LensQuery.g:128:38: EscapeSequence
                     {
                     mEscapeSequence(); 
 
@@ -523,10 +523,10 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:129:22: ( ( StringChar )* )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:129:24: ( StringChar )*
+            // LensQuery.g:129:22: ( ( StringChar )* )
+            // LensQuery.g:129:24: ( StringChar )*
             {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:129:24: ( StringChar )*
+            // LensQuery.g:129:24: ( StringChar )*
             loop5:
             do {
                 int alt5=2;
@@ -539,7 +539,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:129:24: StringChar
+            	    // LensQuery.g:129:24: StringChar
             	    {
             	    mStringChar(); 
 
@@ -567,8 +567,8 @@ public class LensQueryLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:131:7: ( '\"' s= StringChar_s '\"' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:131:9: '\"' s= StringChar_s '\"'
+            // LensQuery.g:131:7: ( '\"' s= StringChar_s '\"' )
+            // LensQuery.g:131:9: '\"' s= StringChar_s '\"'
             {
             match('\"'); 
             int sStart244 = getCharIndex();
@@ -592,10 +592,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
+            // LensQuery.g:134:8: ( ( '-' )? ( '0' | '1' .. '9' ( Digit )* ) )
+            // LensQuery.g:134:10: ( '-' )? ( '0' | '1' .. '9' ( Digit )* )
             {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:10: ( '-' )?
+            // LensQuery.g:134:10: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -604,7 +604,7 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:10: '-'
+                    // LensQuery.g:134:10: '-'
                     {
                     match('-'); 
 
@@ -613,7 +613,7 @@ public class LensQueryLexer extends Lexer {
 
             }
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:15: ( '0' | '1' .. '9' ( Digit )* )
+            // LensQuery.g:134:15: ( '0' | '1' .. '9' ( Digit )* )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -631,17 +631,17 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:16: '0'
+                    // LensQuery.g:134:16: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:22: '1' .. '9' ( Digit )*
+                    // LensQuery.g:134:22: '1' .. '9' ( Digit )*
                     {
                     matchRange('1','9'); 
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:31: ( Digit )*
+                    // LensQuery.g:134:31: ( Digit )*
                     loop7:
                     do {
                         int alt7=2;
@@ -654,7 +654,7 @@ public class LensQueryLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:134:31: Digit
+                    	    // LensQuery.g:134:31: Digit
                     	    {
                     	    mDigit(); 
 
@@ -686,11 +686,11 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Frac"
     public final void mFrac() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:135:14: ( '.' ( Digit )+ )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:135:16: '.' ( Digit )+
+            // LensQuery.g:135:14: ( '.' ( Digit )+ )
+            // LensQuery.g:135:16: '.' ( Digit )+
             {
             match('.'); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:135:20: ( Digit )+
+            // LensQuery.g:135:20: ( Digit )+
             int cnt9=0;
             loop9:
             do {
@@ -704,7 +704,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:135:20: Digit
+            	    // LensQuery.g:135:20: Digit
             	    {
             	    mDigit(); 
 
@@ -732,8 +732,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "Exp"
     public final void mExp() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:136:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:136:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
+            // LensQuery.g:136:13: ( ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+ )
+            // LensQuery.g:136:15: ( 'e' | 'E' ) ( '+' | '-' )? ( Digit )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -744,7 +744,7 @@ public class LensQueryLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:136:27: ( '+' | '-' )?
+            // LensQuery.g:136:27: ( '+' | '-' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -753,7 +753,7 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+                    // LensQuery.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -770,7 +770,7 @@ public class LensQueryLexer extends Lexer {
 
             }
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:136:40: ( Digit )+
+            // LensQuery.g:136:40: ( Digit )+
             int cnt11=0;
             loop11:
             do {
@@ -784,7 +784,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:136:40: Digit
+            	    // LensQuery.g:136:40: Digit
             	    {
             	    mDigit(); 
 
@@ -814,11 +814,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Double;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:7: ( Integer ( Frac ( Exp )? | Exp ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:9: Integer ( Frac ( Exp )? | Exp )
+            // LensQuery.g:137:7: ( Integer ( Frac ( Exp )? | Exp ) )
+            // LensQuery.g:137:9: Integer ( Frac ( Exp )? | Exp )
             {
             mInteger(); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:17: ( Frac ( Exp )? | Exp )
+            // LensQuery.g:137:17: ( Frac ( Exp )? | Exp )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -836,10 +836,10 @@ public class LensQueryLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:18: Frac ( Exp )?
+                    // LensQuery.g:137:18: Frac ( Exp )?
                     {
                     mFrac(); 
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:23: ( Exp )?
+                    // LensQuery.g:137:23: ( Exp )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -848,7 +848,7 @@ public class LensQueryLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:23: Exp
+                            // LensQuery.g:137:23: Exp
                             {
                             mExp(); 
 
@@ -861,7 +861,7 @@ public class LensQueryLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:137:30: Exp
+                    // LensQuery.g:137:30: Exp
                     {
                     mExp(); 
 
@@ -886,8 +886,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = True;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:139:5: ( 'true' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:139:7: 'true'
+            // LensQuery.g:139:5: ( 'true' )
+            // LensQuery.g:139:7: 'true'
             {
             match("true"); 
 
@@ -907,8 +907,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = False;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:140:6: ( 'false' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:140:8: 'false'
+            // LensQuery.g:140:6: ( 'false' )
+            // LensQuery.g:140:8: 'false'
             {
             match("false"); 
 
@@ -928,8 +928,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Null;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:141:5: ( 'null' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:141:7: 'null'
+            // LensQuery.g:141:5: ( 'null' )
+            // LensQuery.g:141:7: 'null'
             {
             match("null"); 
 
@@ -949,8 +949,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Lt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:145:3: ( '<' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:145:5: '<'
+            // LensQuery.g:145:3: ( '<' )
+            // LensQuery.g:145:5: '<'
             {
             match('<'); 
 
@@ -969,8 +969,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Gt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:146:3: ( '>' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:146:5: '>'
+            // LensQuery.g:146:3: ( '>' )
+            // LensQuery.g:146:5: '>'
             {
             match('>'); 
 
@@ -989,8 +989,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Leq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:147:4: ( '<=' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:147:6: '<='
+            // LensQuery.g:147:4: ( '<=' )
+            // LensQuery.g:147:6: '<='
             {
             match("<="); 
 
@@ -1010,8 +1010,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Geq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:148:4: ( '>=' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:148:6: '>='
+            // LensQuery.g:148:4: ( '>=' )
+            // LensQuery.g:148:6: '>='
             {
             match(">="); 
 
@@ -1031,8 +1031,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Eq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:149:3: ( '=' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:149:5: '='
+            // LensQuery.g:149:3: ( '=' )
+            // LensQuery.g:149:5: '='
             {
             match('='); 
 
@@ -1051,8 +1051,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Neq;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:150:4: ( '!=' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:150:6: '!='
+            // LensQuery.g:150:4: ( '!=' )
+            // LensQuery.g:150:6: '!='
             {
             match("!="); 
 
@@ -1072,8 +1072,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Match;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:151:6: ( '~=' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:151:8: '~='
+            // LensQuery.g:151:6: ( '~=' )
+            // LensQuery.g:151:8: '~='
             {
             match("~="); 
 
@@ -1093,11 +1093,11 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Regex;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:152:6: ( '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )* )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:152:8: '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // LensQuery.g:152:6: ( '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )* )
+            // LensQuery.g:152:8: '/' ( options {greedy=false; } : . )* '/' ( 'a' .. 'z' | 'A' .. 'Z' )*
             {
             match('/'); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:152:13: ( options {greedy=false; } : . )*
+            // LensQuery.g:152:13: ( options {greedy=false; } : . )*
             loop14:
             do {
                 int alt14=2;
@@ -1113,7 +1113,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:152:38: .
+            	    // LensQuery.g:152:38: .
             	    {
             	    matchAny(); 
 
@@ -1126,7 +1126,7 @@ public class LensQueryLexer extends Lexer {
             } while (true);
 
             match('/'); 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:152:46: ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // LensQuery.g:152:46: ( 'a' .. 'z' | 'A' .. 'Z' )*
             loop15:
             do {
                 int alt15=2;
@@ -1139,7 +1139,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            	    // LensQuery.g:
             	    {
             	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1175,8 +1175,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:155:4: ( '.' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:155:6: '.'
+            // LensQuery.g:155:4: ( '.' )
+            // LensQuery.g:155:6: '.'
             {
             match('.'); 
 
@@ -1195,8 +1195,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:156:6: ( ',' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:156:8: ','
+            // LensQuery.g:156:6: ( ',' )
+            // LensQuery.g:156:8: ','
             {
             match(','); 
 
@@ -1215,8 +1215,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:157:6: ( ':' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:157:8: ':'
+            // LensQuery.g:157:6: ( ':' )
+            // LensQuery.g:157:8: ':'
             {
             match(':'); 
 
@@ -1235,8 +1235,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = As;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:159:3: ( 'as' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:159:5: 'as'
+            // LensQuery.g:159:3: ( 'as' )
+            // LensQuery.g:159:5: 'as'
             {
             match("as"); 
 
@@ -1256,8 +1256,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:161:7: ( '(' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:161:9: '('
+            // LensQuery.g:161:7: ( '(' )
+            // LensQuery.g:161:9: '('
             {
             match('('); 
 
@@ -1276,8 +1276,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:162:7: ( ')' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:162:9: ')'
+            // LensQuery.g:162:7: ( ')' )
+            // LensQuery.g:162:9: ')'
             {
             match(')'); 
 
@@ -1296,8 +1296,8 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = Star;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:164:5: ( '*' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:164:7: '*'
+            // LensQuery.g:164:5: ( '*' )
+            // LensQuery.g:164:7: '*'
             {
             match('*'); 
 
@@ -1314,8 +1314,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "UnsafeUnicodeChar"
     public final void mUnsafeUnicodeChar() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:167:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:167:18: ( '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\\'' | '\"' | '@' | '%' | '\\\\' | '.' | '-' )
+            // LensQuery.g:
             {
             if ( (input.LA(1)>='\"' && input.LA(1)<='#')||input.LA(1)=='%'||(input.LA(1)>='\'' && input.LA(1)<='*')||(input.LA(1)>=',' && input.LA(1)<='.')||input.LA(1)==':'||input.LA(1)=='<'||input.LA(1)=='>'||input.LA(1)=='@'||(input.LA(1)>='[' && input.LA(1)<=']')||(input.LA(1)>='{' && input.LA(1)<='}') ) {
                 input.consume();
@@ -1338,8 +1338,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "SafeFirstLetter"
     public final void mSafeFirstLetter() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:169:25: ( 'A' .. 'Z' | 'a' .. 'z' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:169:25: ( 'A' .. 'Z' | 'a' .. 'z' )
+            // LensQuery.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1362,8 +1362,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "SafeLetter"
     public final void mSafeLetter() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:170:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:170:20: ( SafeFirstLetter | '0' .. '9' | '-' | '_' )
+            // LensQuery.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1386,8 +1386,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "QNameChar"
     public final void mQNameChar() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:173:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:173:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
+            // LensQuery.g:173:19: (~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace ) )
+            // LensQuery.g:173:21: ~ ( LineBreakChar | UnsafeUnicodeChar | WhiteSpace )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\b')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\u001F')||input.LA(1)=='!'||input.LA(1)=='$'||input.LA(1)=='&'||input.LA(1)=='+'||(input.LA(1)>='/' && input.LA(1)<='9')||input.LA(1)==';'||input.LA(1)=='='||input.LA(1)=='?'||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='^' && input.LA(1)<='z')||(input.LA(1)>='~' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -1412,10 +1412,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = QName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
+            // LensQuery.g:174:6: ( ( QNameChar )+ ( Dot ( QNameChar )+ )* )
+            // LensQuery.g:174:8: ( QNameChar )+ ( Dot ( QNameChar )+ )*
             {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:8: ( QNameChar )+
+            // LensQuery.g:174:8: ( QNameChar )+
             int cnt16=0;
             loop16:
             do {
@@ -1429,7 +1429,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:8: QNameChar
+            	    // LensQuery.g:174:8: QNameChar
             	    {
             	    mQNameChar(); 
 
@@ -1445,7 +1445,7 @@ public class LensQueryLexer extends Lexer {
                 cnt16++;
             } while (true);
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:19: ( Dot ( QNameChar )+ )*
+            // LensQuery.g:174:19: ( Dot ( QNameChar )+ )*
             loop18:
             do {
                 int alt18=2;
@@ -1458,10 +1458,10 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:20: Dot ( QNameChar )+
+            	    // LensQuery.g:174:20: Dot ( QNameChar )+
             	    {
             	    mDot(); 
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:24: ( QNameChar )+
+            	    // LensQuery.g:174:24: ( QNameChar )+
             	    int cnt17=0;
             	    loop17:
             	    do {
@@ -1475,7 +1475,7 @@ public class LensQueryLexer extends Lexer {
 
             	        switch (alt17) {
             	    	case 1 :
-            	    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:174:24: QNameChar
+            	    	    // LensQuery.g:174:24: QNameChar
             	    	    {
             	    	    mQNameChar(); 
 
@@ -1514,8 +1514,8 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR start "WhiteSpace"
     public final void mWhiteSpace() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:178:11: ( ' ' | '\\t' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:
+            // LensQuery.g:178:11: ( ' ' | '\\t' )
+            // LensQuery.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1540,10 +1540,10 @@ public class LensQueryLexer extends Lexer {
         try {
             int _type = WhiteSpaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:180:12: ( ( WhiteSpace )+ )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:180:14: ( WhiteSpace )+
+            // LensQuery.g:180:12: ( ( WhiteSpace )+ )
+            // LensQuery.g:180:14: ( WhiteSpace )+
             {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:180:14: ( WhiteSpace )+
+            // LensQuery.g:180:14: ( WhiteSpace )+
             int cnt19=0;
             loop19:
             do {
@@ -1557,7 +1557,7 @@ public class LensQueryLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:180:14: WhiteSpace
+            	    // LensQuery.g:180:14: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1586,180 +1586,180 @@ public class LensQueryLexer extends Lexer {
     // $ANTLR end "WhiteSpaces"
 
     public void mTokens() throws RecognitionException {
-        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:8: ( LineComment | LineBreak | String | Integer | Double | True | False | Null | Lt | Gt | Leq | Geq | Eq | Neq | Match | Regex | Dot | Comma | Colon | As | LParen | RParen | Star | QName | WhiteSpaces )
+        // LensQuery.g:1:8: ( LineComment | LineBreak | String | Integer | Double | True | False | Null | Lt | Gt | Leq | Geq | Eq | Neq | Match | Regex | Dot | Comma | Colon | As | LParen | RParen | Star | QName | WhiteSpaces )
         int alt20=25;
         alt20 = dfa20.predict(input);
         switch (alt20) {
             case 1 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:10: LineComment
+                // LensQuery.g:1:10: LineComment
                 {
                 mLineComment(); 
 
                 }
                 break;
             case 2 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:22: LineBreak
+                // LensQuery.g:1:22: LineBreak
                 {
                 mLineBreak(); 
 
                 }
                 break;
             case 3 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:32: String
+                // LensQuery.g:1:32: String
                 {
                 mString(); 
 
                 }
                 break;
             case 4 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:39: Integer
+                // LensQuery.g:1:39: Integer
                 {
                 mInteger(); 
 
                 }
                 break;
             case 5 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:47: Double
+                // LensQuery.g:1:47: Double
                 {
                 mDouble(); 
 
                 }
                 break;
             case 6 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:54: True
+                // LensQuery.g:1:54: True
                 {
                 mTrue(); 
 
                 }
                 break;
             case 7 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:59: False
+                // LensQuery.g:1:59: False
                 {
                 mFalse(); 
 
                 }
                 break;
             case 8 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:65: Null
+                // LensQuery.g:1:65: Null
                 {
                 mNull(); 
 
                 }
                 break;
             case 9 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:70: Lt
+                // LensQuery.g:1:70: Lt
                 {
                 mLt(); 
 
                 }
                 break;
             case 10 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:73: Gt
+                // LensQuery.g:1:73: Gt
                 {
                 mGt(); 
 
                 }
                 break;
             case 11 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:76: Leq
+                // LensQuery.g:1:76: Leq
                 {
                 mLeq(); 
 
                 }
                 break;
             case 12 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:80: Geq
+                // LensQuery.g:1:80: Geq
                 {
                 mGeq(); 
 
                 }
                 break;
             case 13 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:84: Eq
+                // LensQuery.g:1:84: Eq
                 {
                 mEq(); 
 
                 }
                 break;
             case 14 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:87: Neq
+                // LensQuery.g:1:87: Neq
                 {
                 mNeq(); 
 
                 }
                 break;
             case 15 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:91: Match
+                // LensQuery.g:1:91: Match
                 {
                 mMatch(); 
 
                 }
                 break;
             case 16 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:97: Regex
+                // LensQuery.g:1:97: Regex
                 {
                 mRegex(); 
 
                 }
                 break;
             case 17 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:103: Dot
+                // LensQuery.g:1:103: Dot
                 {
                 mDot(); 
 
                 }
                 break;
             case 18 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:107: Comma
+                // LensQuery.g:1:107: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 19 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:113: Colon
+                // LensQuery.g:1:113: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 20 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:119: As
+                // LensQuery.g:1:119: As
                 {
                 mAs(); 
 
                 }
                 break;
             case 21 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:122: LParen
+                // LensQuery.g:1:122: LParen
                 {
                 mLParen(); 
 
                 }
                 break;
             case 22 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:129: RParen
+                // LensQuery.g:1:129: RParen
                 {
                 mRParen(); 
 
                 }
                 break;
             case 23 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:136: Star
+                // LensQuery.g:1:136: Star
                 {
                 mStar(); 
 
                 }
                 break;
             case 24 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:141: QName
+                // LensQuery.g:1:141: QName
                 {
                 mQName(); 
 
                 }
                 break;
             case 25 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\lens\\relation\\query\\impl\\LensQuery.g:1:147: WhiteSpaces
+                // LensQuery.g:1:147: WhiteSpaces
                 {
                 mWhiteSpaces(); 
 
@@ -1774,32 +1774,32 @@ public class LensQueryLexer extends Lexer {
     protected DFA20 dfa20 = new DFA20(this);
     static final String DFA20_eotS =
         "\5\uffff\2\33\3\27\1\43\1\45\1\46\3\27\3\uffff\1\27\5\uffff\2\33"+
-        "\2\uffff\1\27\1\33\3\27\5\uffff\1\66\1\67\1\54\1\uffff\1\27\1\uffff"+
-        "\1\73\1\uffff\1\33\1\56\1\27\1\56\3\27\2\uffff\2\54\1\27\1\uffff"+
-        "\1\27\1\103\1\27\1\105\1\54\1\27\1\56\1\uffff\1\106\2\uffff";
+        "\2\uffff\1\27\1\33\3\27\5\uffff\1\66\1\67\1\uffff\1\53\1\uffff\1"+
+        "\27\1\73\1\uffff\1\33\1\56\1\27\1\56\3\27\2\uffff\1\53\1\27\1\53"+
+        "\1\uffff\1\27\1\103\1\27\1\105\1\53\1\27\1\56\1\uffff\1\106\2\uffff";
     static final String DFA20_eofS =
         "\107\uffff";
     static final String DFA20_minS =
         "\1\0\3\uffff\1\60\2\0\1\162\1\141\1\165\2\75\1\0\2\75\1\0\3\uffff"+
-        "\1\163\5\uffff\2\56\1\uffff\1\0\1\53\1\0\1\165\2\154\5\uffff\5\0"+
-        "\1\uffff\1\0\1\uffff\1\56\1\0\1\60\1\0\1\145\1\163\1\154\2\uffff"+
+        "\1\163\5\uffff\2\56\1\uffff\1\0\1\53\1\0\1\165\2\154\5\uffff\4\0"+
+        "\1\uffff\2\0\1\uffff\1\56\1\0\1\60\1\0\1\145\1\163\1\154\2\uffff"+
         "\3\0\1\uffff\1\53\1\0\1\145\2\0\1\60\1\0\1\uffff\1\0\2\uffff";
     static final String DFA20_maxS =
         "\1\uffff\3\uffff\1\71\2\uffff\1\162\1\141\1\165\2\75\1\uffff\2"+
         "\75\1\uffff\3\uffff\1\163\5\uffff\2\145\1\uffff\1\uffff\1\71\1\uffff"+
-        "\1\165\2\154\5\uffff\5\uffff\1\uffff\1\uffff\1\uffff\1\145\1\uffff"+
+        "\1\165\2\154\5\uffff\4\uffff\1\uffff\2\uffff\1\uffff\1\145\1\uffff"+
         "\1\71\1\uffff\1\145\1\163\1\154\2\uffff\3\uffff\1\uffff\1\71\1\uffff"+
         "\1\145\2\uffff\1\71\1\uffff\1\uffff\1\uffff\2\uffff";
     static final String DFA20_acceptS =
         "\1\uffff\1\1\1\2\1\3\14\uffff\1\21\1\22\1\23\1\uffff\1\25\1\26"+
-        "\1\27\1\30\1\31\2\uffff\1\4\6\uffff\1\13\1\11\1\14\1\12\1\15\5\uffff"+
-        "\1\20\1\uffff\1\5\7\uffff\1\16\1\17\3\uffff\1\24\7\uffff\1\6\1\uffff"+
+        "\1\27\1\30\1\31\2\uffff\1\4\6\uffff\1\13\1\11\1\14\1\12\1\15\4\uffff"+
+        "\1\20\2\uffff\1\5\7\uffff\1\16\1\17\3\uffff\1\24\7\uffff\1\6\1\uffff"+
         "\1\10\1\7";
     static final String DFA20_specialS =
-        "\1\3\4\uffff\1\22\1\12\5\uffff\1\23\2\uffff\1\11\14\uffff\1\26"+
-        "\1\uffff\1\7\10\uffff\1\5\1\0\1\10\1\13\1\17\1\uffff\1\25\2\uffff"+
-        "\1\16\1\uffff\1\4\5\uffff\1\15\1\14\1\20\2\uffff\1\1\1\uffff\1\21"+
-        "\1\2\1\uffff\1\24\1\uffff\1\6\2\uffff}>";
+        "\1\20\4\uffff\1\26\1\14\5\uffff\1\4\2\uffff\1\22\14\uffff\1\21"+
+        "\1\uffff\1\7\10\uffff\1\0\1\23\1\5\1\16\1\uffff\1\2\1\17\2\uffff"+
+        "\1\25\1\uffff\1\6\5\uffff\1\10\1\15\1\24\2\uffff\1\1\1\uffff\1\13"+
+        "\1\3\1\uffff\1\12\1\uffff\1\11\2\uffff}>";
     static final String[] DFA20_transitionS = {
             "\11\27\1\30\1\2\2\27\1\2\22\27\1\30\1\15\1\3\1\1\1\27\1\uffff"+
             "\1\27\1\uffff\1\24\1\25\1\26\1\27\1\21\1\4\1\20\1\17\1\5\11"+
@@ -1828,9 +1828,9 @@ public class LensQueryLexer extends Lexer {
             "\27",
             "\1\47",
             "\1\50",
-            "\11\53\2\54\2\53\1\54\22\53\1\54\1\53\2\54\1\53\1\54\1\53"+
-            "\4\54\1\53\2\54\1\52\1\51\12\53\1\54\1\53\1\54\1\53\1\54\1\53"+
-            "\1\54\32\53\3\54\35\53\3\54\uff82\53",
+            "\11\54\2\53\2\54\1\53\22\54\1\53\1\54\2\53\1\54\1\53\1\54"+
+            "\4\53\1\54\2\53\1\51\1\52\12\54\1\53\1\54\1\53\1\54\1\53\1\54"+
+            "\1\53\32\54\3\53\35\54\3\53\uff82\54",
             "",
             "",
             "",
@@ -1868,17 +1868,17 @@ public class LensQueryLexer extends Lexer {
             "\1\uffff\1\27\4\uffff\1\27\2\uffff\14\27\1\uffff\1\27\1\uffff"+
             "\1\27\1\uffff\1\27\1\uffff\32\27\3\uffff\35\27\3\uffff\uff82"+
             "\27",
-            "\11\53\2\uffff\2\53\1\uffff\22\53\1\uffff\1\53\2\uffff\1\53"+
-            "\1\uffff\1\53\4\uffff\1\53\2\uffff\1\52\1\51\12\53\1\uffff\1"+
-            "\53\1\uffff\1\53\1\uffff\1\53\1\uffff\32\70\3\uffff\3\53\32"+
-            "\70\3\uffff\uff82\53",
-            "\11\72\2\54\2\72\1\54\22\72\1\54\1\72\2\54\1\72\1\54\1\72"+
-            "\4\54\1\72\3\54\1\71\12\72\1\54\1\72\1\54\1\72\1\54\1\72\1\54"+
-            "\32\72\3\54\35\72\3\54\uff82\72",
-            "\11\53\2\54\2\53\1\54\22\53\1\54\1\53\2\54\1\53\1\54\1\53"+
-            "\4\54\1\53\2\54\1\52\1\51\12\53\1\54\1\53\1\54\1\53\1\54\1\53"+
-            "\1\54\32\53\3\54\35\53\3\54\uff82\53",
+            "\11\71\2\53\2\71\1\53\22\71\1\53\1\71\2\53\1\71\1\53\1\71"+
+            "\4\53\1\71\3\53\1\70\12\71\1\53\1\71\1\53\1\71\1\53\1\71\1\53"+
+            "\32\71\3\53\35\71\3\53\uff82\71",
+            "\11\54\2\uffff\2\54\1\uffff\22\54\1\uffff\1\54\2\uffff\1\54"+
+            "\1\uffff\1\54\4\uffff\1\54\2\uffff\1\51\1\52\12\54\1\uffff\1"+
+            "\54\1\uffff\1\54\1\uffff\1\54\1\uffff\32\72\3\uffff\3\54\32"+
+            "\72\3\uffff\uff82\54",
             "",
+            "\11\54\2\53\2\54\1\53\22\54\1\53\1\54\2\53\1\54\1\53\1\54"+
+            "\4\53\1\54\2\53\1\51\1\52\12\54\1\53\1\54\1\53\1\54\1\53\1\54"+
+            "\1\53\32\54\3\53\35\54\3\53\uff82\54",
             "\11\27\2\uffff\2\27\1\uffff\22\27\1\uffff\1\27\2\uffff\1\27"+
             "\1\uffff\1\27\4\uffff\1\27\2\uffff\14\27\1\uffff\1\27\1\uffff"+
             "\1\27\1\uffff\1\27\1\uffff\32\27\3\uffff\35\27\3\uffff\uff82"+
@@ -1899,17 +1899,17 @@ public class LensQueryLexer extends Lexer {
             "\1\77",
             "",
             "",
-            "\11\53\2\uffff\2\53\1\uffff\22\53\1\uffff\1\53\2\uffff\1\53"+
-            "\1\uffff\1\53\4\uffff\1\53\2\uffff\1\52\1\51\12\53\1\uffff\1"+
-            "\53\1\uffff\1\53\1\uffff\1\53\1\uffff\32\70\3\uffff\3\53\32"+
-            "\70\3\uffff\uff82\53",
-            "\11\72\2\uffff\2\72\1\uffff\22\72\1\uffff\1\72\2\uffff\1\72"+
-            "\1\uffff\1\72\4\uffff\1\72\2\uffff\1\52\1\71\12\72\1\uffff\1"+
-            "\72\1\uffff\1\72\1\uffff\1\72\1\uffff\32\100\3\uffff\3\72\32"+
-            "\100\3\uffff\uff82\72",
-            "\11\72\2\54\2\72\1\54\22\72\1\54\1\72\2\54\1\72\1\54\1\72"+
-            "\4\54\1\72\2\54\1\52\1\71\12\72\1\54\1\72\1\54\1\72\1\54\1\72"+
-            "\1\54\32\72\3\54\35\72\3\54\uff82\72",
+            "\11\71\2\uffff\2\71\1\uffff\22\71\1\uffff\1\71\2\uffff\1\71"+
+            "\1\uffff\1\71\4\uffff\1\71\2\uffff\1\51\1\70\12\71\1\uffff\1"+
+            "\71\1\uffff\1\71\1\uffff\1\71\1\uffff\32\100\3\uffff\3\71\32"+
+            "\100\3\uffff\uff82\71",
+            "\11\71\2\53\2\71\1\53\22\71\1\53\1\71\2\53\1\71\1\53\1\71"+
+            "\4\53\1\71\2\53\1\51\1\70\12\71\1\53\1\71\1\53\1\71\1\53\1\71"+
+            "\1\53\32\71\3\53\35\71\3\53\uff82\71",
+            "\11\54\2\uffff\2\54\1\uffff\22\54\1\uffff\1\54\2\uffff\1\54"+
+            "\1\uffff\1\54\4\uffff\1\54\2\uffff\1\51\1\52\12\54\1\uffff\1"+
+            "\54\1\uffff\1\54\1\uffff\1\54\1\uffff\32\72\3\uffff\3\54\32"+
+            "\72\3\uffff\uff82\54",
             "",
             "\1\101\1\uffff\1\56\2\uffff\12\102",
             "\11\27\2\uffff\2\27\1\uffff\22\27\1\uffff\1\27\2\uffff\1\27"+
@@ -1921,10 +1921,10 @@ public class LensQueryLexer extends Lexer {
             "\1\uffff\1\27\4\uffff\1\27\2\uffff\14\27\1\uffff\1\27\1\uffff"+
             "\1\27\1\uffff\1\27\1\uffff\32\27\3\uffff\35\27\3\uffff\uff82"+
             "\27",
-            "\11\72\2\uffff\2\72\1\uffff\22\72\1\uffff\1\72\2\uffff\1\72"+
-            "\1\uffff\1\72\4\uffff\1\72\2\uffff\1\52\1\71\12\72\1\uffff\1"+
-            "\72\1\uffff\1\72\1\uffff\1\72\1\uffff\32\100\3\uffff\3\72\32"+
-            "\100\3\uffff\uff82\72",
+            "\11\71\2\uffff\2\71\1\uffff\22\71\1\uffff\1\71\2\uffff\1\71"+
+            "\1\uffff\1\71\4\uffff\1\71\2\uffff\1\51\1\70\12\71\1\uffff\1"+
+            "\71\1\uffff\1\71\1\uffff\1\71\1\uffff\32\100\3\uffff\3\71\32"+
+            "\100\3\uffff\uff82\71",
             "\12\102",
             "\11\27\2\uffff\2\27\1\uffff\22\27\1\uffff\1\27\2\uffff\1\27"+
             "\1\uffff\1\27\4\uffff\1\27\2\uffff\2\27\12\102\1\uffff\1\27"+
@@ -1976,12 +1976,12 @@ public class LensQueryLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA20_40 = input.LA(1);
+                        int LA20_39 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA20_40>='\u0000' && LA20_40<='\b')||(LA20_40>='\u000B' && LA20_40<='\f')||(LA20_40>='\u000E' && LA20_40<='\u001F')||LA20_40=='!'||LA20_40=='$'||LA20_40=='&'||LA20_40=='+'||(LA20_40>='.' && LA20_40<='9')||LA20_40==';'||LA20_40=='='||LA20_40=='?'||(LA20_40>='A' && LA20_40<='Z')||(LA20_40>='^' && LA20_40<='z')||(LA20_40>='~' && LA20_40<='\uFFFF')) ) {s = 23;}
+                        if ( ((LA20_39>='\u0000' && LA20_39<='\b')||(LA20_39>='\u000B' && LA20_39<='\f')||(LA20_39>='\u000E' && LA20_39<='\u001F')||LA20_39=='!'||LA20_39=='$'||LA20_39=='&'||LA20_39=='+'||(LA20_39>='.' && LA20_39<='9')||LA20_39==';'||LA20_39=='='||LA20_39=='?'||(LA20_39>='A' && LA20_39<='Z')||(LA20_39>='^' && LA20_39<='z')||(LA20_39>='~' && LA20_39<='\uFFFF')) ) {s = 23;}
 
-                        else s = 55;
+                        else s = 54;
 
                         if ( s>=0 ) return s;
                         break;
@@ -1996,22 +1996,194 @@ public class LensQueryLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA20_64 = input.LA(1);
+                        int LA20_44 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA20_64>='A' && LA20_64<='Z')||(LA20_64>='a' && LA20_64<='z')) ) {s = 64;}
+                        if ( (LA20_44=='.') ) {s = 41;}
 
-                        else if ( (LA20_64=='.') ) {s = 42;}
+                        else if ( (LA20_44=='/') ) {s = 42;}
 
-                        else if ( (LA20_64=='/') ) {s = 57;}
+                        else if ( ((LA20_44>='\u0000' && LA20_44<='\b')||(LA20_44>='\u000B' && LA20_44<='\f')||(LA20_44>='\u000E' && LA20_44<='\u001F')||LA20_44=='!'||LA20_44=='$'||LA20_44=='&'||LA20_44=='+'||(LA20_44>='0' && LA20_44<='9')||LA20_44==';'||LA20_44=='='||LA20_44=='?'||(LA20_44>='A' && LA20_44<='Z')||(LA20_44>='^' && LA20_44<='z')||(LA20_44>='~' && LA20_44<='\uFFFF')) ) {s = 44;}
 
-                        else if ( ((LA20_64>='\u0000' && LA20_64<='\b')||(LA20_64>='\u000B' && LA20_64<='\f')||(LA20_64>='\u000E' && LA20_64<='\u001F')||LA20_64=='!'||LA20_64=='$'||LA20_64=='&'||LA20_64=='+'||(LA20_64>='0' && LA20_64<='9')||LA20_64==';'||LA20_64=='='||LA20_64=='?'||(LA20_64>='^' && LA20_64<='`')||(LA20_64>='~' && LA20_64<='\uFFFF')) ) {s = 58;}
+                        else if ( ((LA20_44>='\t' && LA20_44<='\n')||LA20_44=='\r'||LA20_44==' '||(LA20_44>='\"' && LA20_44<='#')||LA20_44=='%'||(LA20_44>='\'' && LA20_44<='*')||(LA20_44>=',' && LA20_44<='-')||LA20_44==':'||LA20_44=='<'||LA20_44=='>'||LA20_44=='@'||(LA20_44>='[' && LA20_44<=']')||(LA20_44>='{' && LA20_44<='}')) ) {s = 43;}
 
-                        else s = 44;
+                        else s = 23;
 
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
+                        int LA20_64 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_64=='/') ) {s = 56;}
+
+                        else if ( (LA20_64=='.') ) {s = 41;}
+
+                        else if ( ((LA20_64>='A' && LA20_64<='Z')||(LA20_64>='a' && LA20_64<='z')) ) {s = 64;}
+
+                        else if ( ((LA20_64>='\u0000' && LA20_64<='\b')||(LA20_64>='\u000B' && LA20_64<='\f')||(LA20_64>='\u000E' && LA20_64<='\u001F')||LA20_64=='!'||LA20_64=='$'||LA20_64=='&'||LA20_64=='+'||(LA20_64>='0' && LA20_64<='9')||LA20_64==';'||LA20_64=='='||LA20_64=='?'||(LA20_64>='^' && LA20_64<='`')||(LA20_64>='~' && LA20_64<='\uFFFF')) ) {s = 57;}
+
+                        else s = 43;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA20_12 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_12>='\u0000' && LA20_12<='\b')||(LA20_12>='\u000B' && LA20_12<='\f')||(LA20_12>='\u000E' && LA20_12<='\u001F')||LA20_12=='!'||LA20_12=='$'||LA20_12=='&'||LA20_12=='+'||(LA20_12>='.' && LA20_12<='9')||LA20_12==';'||LA20_12=='='||LA20_12=='?'||(LA20_12>='A' && LA20_12<='Z')||(LA20_12>='^' && LA20_12<='z')||(LA20_12>='~' && LA20_12<='\uFFFF')) ) {s = 23;}
+
+                        else s = 38;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA20_41 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_41=='/') ) {s = 56;}
+
+                        else if ( ((LA20_41>='\u0000' && LA20_41<='\b')||(LA20_41>='\u000B' && LA20_41<='\f')||(LA20_41>='\u000E' && LA20_41<='\u001F')||LA20_41=='!'||LA20_41=='$'||LA20_41=='&'||LA20_41=='+'||(LA20_41>='0' && LA20_41<='9')||LA20_41==';'||LA20_41=='='||LA20_41=='?'||(LA20_41>='A' && LA20_41<='Z')||(LA20_41>='^' && LA20_41<='z')||(LA20_41>='~' && LA20_41<='\uFFFF')) ) {s = 57;}
+
+                        else if ( ((LA20_41>='\t' && LA20_41<='\n')||LA20_41=='\r'||LA20_41==' '||(LA20_41>='\"' && LA20_41<='#')||LA20_41=='%'||(LA20_41>='\'' && LA20_41<='*')||(LA20_41>=',' && LA20_41<='.')||LA20_41==':'||LA20_41=='<'||LA20_41=='>'||LA20_41=='@'||(LA20_41>='[' && LA20_41<=']')||(LA20_41>='{' && LA20_41<='}')) ) {s = 43;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA20_50 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_50>='\u0000' && LA20_50<='\b')||(LA20_50>='\u000B' && LA20_50<='\f')||(LA20_50>='\u000E' && LA20_50<='\u001F')||LA20_50=='!'||LA20_50=='$'||LA20_50=='&'||LA20_50=='+'||(LA20_50>='.' && LA20_50<='/')||LA20_50==';'||LA20_50=='='||LA20_50=='?'||(LA20_50>='A' && LA20_50<='Z')||(LA20_50>='^' && LA20_50<='z')||(LA20_50>='~' && LA20_50<='\uFFFF')) ) {s = 23;}
+
+                        else if ( ((LA20_50>='0' && LA20_50<='9')) ) {s = 50;}
+
+                        else s = 46;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA20_30 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_30=='.') ) {s = 28;}
+
+                        else if ( ((LA20_30>='0' && LA20_30<='9')) ) {s = 30;}
+
+                        else if ( (LA20_30=='E'||LA20_30=='e') ) {s = 29;}
+
+                        else if ( ((LA20_30>='\u0000' && LA20_30<='\b')||(LA20_30>='\u000B' && LA20_30<='\f')||(LA20_30>='\u000E' && LA20_30<='\u001F')||LA20_30=='!'||LA20_30=='$'||LA20_30=='&'||LA20_30=='+'||LA20_30=='/'||LA20_30==';'||LA20_30=='='||LA20_30=='?'||(LA20_30>='A' && LA20_30<='D')||(LA20_30>='F' && LA20_30<='Z')||(LA20_30>='^' && LA20_30<='d')||(LA20_30>='f' && LA20_30<='z')||(LA20_30>='~' && LA20_30<='\uFFFF')) ) {s = 23;}
+
+                        else s = 27;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA20_56 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_56=='/') ) {s = 56;}
+
+                        else if ( (LA20_56=='.') ) {s = 41;}
+
+                        else if ( ((LA20_56>='A' && LA20_56<='Z')||(LA20_56>='a' && LA20_56<='z')) ) {s = 64;}
+
+                        else if ( ((LA20_56>='\u0000' && LA20_56<='\b')||(LA20_56>='\u000B' && LA20_56<='\f')||(LA20_56>='\u000E' && LA20_56<='\u001F')||LA20_56=='!'||LA20_56=='$'||LA20_56=='&'||LA20_56=='+'||(LA20_56>='0' && LA20_56<='9')||LA20_56==';'||LA20_56=='='||LA20_56=='?'||(LA20_56>='^' && LA20_56<='`')||(LA20_56>='~' && LA20_56<='\uFFFF')) ) {s = 57;}
+
+                        else s = 43;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA20_68 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||LA20_68=='$'||LA20_68=='&'||LA20_68=='+'||(LA20_68>='.' && LA20_68<='9')||LA20_68==';'||LA20_68=='='||LA20_68=='?'||(LA20_68>='A' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||(LA20_68>='~' && LA20_68<='\uFFFF')) ) {s = 23;}
+
+                        else s = 70;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA20_66 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_66>='0' && LA20_66<='9')) ) {s = 66;}
+
+                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||LA20_66=='$'||LA20_66=='&'||LA20_66=='+'||(LA20_66>='.' && LA20_66<='/')||LA20_66==';'||LA20_66=='='||LA20_66=='?'||(LA20_66>='A' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||(LA20_66>='~' && LA20_66<='\uFFFF')) ) {s = 23;}
+
+                        else s = 46;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA20_63 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_63>='\u0000' && LA20_63<='\b')||(LA20_63>='\u000B' && LA20_63<='\f')||(LA20_63>='\u000E' && LA20_63<='\u001F')||LA20_63=='!'||LA20_63=='$'||LA20_63=='&'||LA20_63=='+'||(LA20_63>='.' && LA20_63<='9')||LA20_63==';'||LA20_63=='='||LA20_63=='?'||(LA20_63>='A' && LA20_63<='Z')||(LA20_63>='^' && LA20_63<='z')||(LA20_63>='~' && LA20_63<='\uFFFF')) ) {s = 23;}
+
+                        else s = 69;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA20_6 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_6=='.') ) {s = 28;}
+
+                        else if ( ((LA20_6>='0' && LA20_6<='9')) ) {s = 30;}
+
+                        else if ( (LA20_6=='E'||LA20_6=='e') ) {s = 29;}
+
+                        else if ( ((LA20_6>='\u0000' && LA20_6<='\b')||(LA20_6>='\u000B' && LA20_6<='\f')||(LA20_6>='\u000E' && LA20_6<='\u001F')||LA20_6=='!'||LA20_6=='$'||LA20_6=='&'||LA20_6=='+'||LA20_6=='/'||LA20_6==';'||LA20_6=='='||LA20_6=='?'||(LA20_6>='A' && LA20_6<='D')||(LA20_6>='F' && LA20_6<='Z')||(LA20_6>='^' && LA20_6<='d')||(LA20_6>='f' && LA20_6<='z')||(LA20_6>='~' && LA20_6<='\uFFFF')) ) {s = 23;}
+
+                        else s = 27;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA20_57 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_57=='/') ) {s = 56;}
+
+                        else if ( (LA20_57=='.') ) {s = 41;}
+
+                        else if ( ((LA20_57>='\u0000' && LA20_57<='\b')||(LA20_57>='\u000B' && LA20_57<='\f')||(LA20_57>='\u000E' && LA20_57<='\u001F')||LA20_57=='!'||LA20_57=='$'||LA20_57=='&'||LA20_57=='+'||(LA20_57>='0' && LA20_57<='9')||LA20_57==';'||LA20_57=='='||LA20_57=='?'||(LA20_57>='A' && LA20_57<='Z')||(LA20_57>='^' && LA20_57<='z')||(LA20_57>='~' && LA20_57<='\uFFFF')) ) {s = 57;}
+
+                        else if ( ((LA20_57>='\t' && LA20_57<='\n')||LA20_57=='\r'||LA20_57==' '||(LA20_57>='\"' && LA20_57<='#')||LA20_57=='%'||(LA20_57>='\'' && LA20_57<='*')||(LA20_57>=',' && LA20_57<='-')||LA20_57==':'||LA20_57=='<'||LA20_57=='>'||LA20_57=='@'||(LA20_57>='[' && LA20_57<=']')||(LA20_57>='{' && LA20_57<='}')) ) {s = 43;}
+
+                        else s = 23;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA20_42 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA20_42=='.') ) {s = 41;}
+
+                        else if ( (LA20_42=='/') ) {s = 42;}
+
+                        else if ( ((LA20_42>='A' && LA20_42<='Z')||(LA20_42>='a' && LA20_42<='z')) ) {s = 58;}
+
+                        else if ( ((LA20_42>='\u0000' && LA20_42<='\b')||(LA20_42>='\u000B' && LA20_42<='\f')||(LA20_42>='\u000E' && LA20_42<='\u001F')||LA20_42=='!'||LA20_42=='$'||LA20_42=='&'||LA20_42=='+'||(LA20_42>='0' && LA20_42<='9')||LA20_42==';'||LA20_42=='='||LA20_42=='?'||(LA20_42>='^' && LA20_42<='`')||(LA20_42>='~' && LA20_42<='\uFFFF')) ) {s = 44;}
+
+                        else s = 43;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA20_45 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||LA20_45=='$'||LA20_45=='&'||LA20_45=='+'||(LA20_45>='.' && LA20_45<='9')||LA20_45==';'||LA20_45=='='||LA20_45=='?'||(LA20_45>='A' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 23;}
+
+                        else s = 59;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
                         int LA20_0 = input.LA(1);
 
                         s = -1;
@@ -2065,147 +2237,59 @@ public class LensQueryLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
-                        int LA20_50 = input.LA(1);
+                    case 17 : 
+                        int LA20_28 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA20_50>='0' && LA20_50<='9')) ) {s = 50;}
+                        if ( ((LA20_28>='0' && LA20_28<='9')) ) {s = 48;}
 
-                        else if ( ((LA20_50>='\u0000' && LA20_50<='\b')||(LA20_50>='\u000B' && LA20_50<='\f')||(LA20_50>='\u000E' && LA20_50<='\u001F')||LA20_50=='!'||LA20_50=='$'||LA20_50=='&'||LA20_50=='+'||(LA20_50>='.' && LA20_50<='/')||LA20_50==';'||LA20_50=='='||LA20_50=='?'||(LA20_50>='A' && LA20_50<='Z')||(LA20_50>='^' && LA20_50<='z')||(LA20_50>='~' && LA20_50<='\uFFFF')) ) {s = 23;}
-
-                        else s = 46;
+                        else if ( ((LA20_28>='\u0000' && LA20_28<='\b')||(LA20_28>='\u000B' && LA20_28<='\f')||(LA20_28>='\u000E' && LA20_28<='\u001F')||LA20_28=='!'||LA20_28=='$'||LA20_28=='&'||LA20_28=='+'||LA20_28=='/'||LA20_28==';'||LA20_28=='='||LA20_28=='?'||(LA20_28>='A' && LA20_28<='Z')||(LA20_28>='^' && LA20_28<='z')||(LA20_28>='~' && LA20_28<='\uFFFF')) ) {s = 23;}
 
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
-                        int LA20_39 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_39>='\u0000' && LA20_39<='\b')||(LA20_39>='\u000B' && LA20_39<='\f')||(LA20_39>='\u000E' && LA20_39<='\u001F')||LA20_39=='!'||LA20_39=='$'||LA20_39=='&'||LA20_39=='+'||(LA20_39>='.' && LA20_39<='9')||LA20_39==';'||LA20_39=='='||LA20_39=='?'||(LA20_39>='A' && LA20_39<='Z')||(LA20_39>='^' && LA20_39<='z')||(LA20_39>='~' && LA20_39<='\uFFFF')) ) {s = 23;}
-
-                        else s = 54;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA20_68 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_68>='\u0000' && LA20_68<='\b')||(LA20_68>='\u000B' && LA20_68<='\f')||(LA20_68>='\u000E' && LA20_68<='\u001F')||LA20_68=='!'||LA20_68=='$'||LA20_68=='&'||LA20_68=='+'||(LA20_68>='.' && LA20_68<='9')||LA20_68==';'||LA20_68=='='||LA20_68=='?'||(LA20_68>='A' && LA20_68<='Z')||(LA20_68>='^' && LA20_68<='z')||(LA20_68>='~' && LA20_68<='\uFFFF')) ) {s = 23;}
-
-                        else s = 70;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA20_30 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA20_30=='.') ) {s = 28;}
-
-                        else if ( (LA20_30=='E'||LA20_30=='e') ) {s = 29;}
-
-                        else if ( ((LA20_30>='0' && LA20_30<='9')) ) {s = 30;}
-
-                        else if ( ((LA20_30>='\u0000' && LA20_30<='\b')||(LA20_30>='\u000B' && LA20_30<='\f')||(LA20_30>='\u000E' && LA20_30<='\u001F')||LA20_30=='!'||LA20_30=='$'||LA20_30=='&'||LA20_30=='+'||LA20_30=='/'||LA20_30==';'||LA20_30=='='||LA20_30=='?'||(LA20_30>='A' && LA20_30<='D')||(LA20_30>='F' && LA20_30<='Z')||(LA20_30>='^' && LA20_30<='d')||(LA20_30>='f' && LA20_30<='z')||(LA20_30>='~' && LA20_30<='\uFFFF')) ) {s = 23;}
-
-                        else s = 27;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA20_41 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_41>='A' && LA20_41<='Z')||(LA20_41>='a' && LA20_41<='z')) ) {s = 56;}
-
-                        else if ( (LA20_41=='/') ) {s = 41;}
-
-                        else if ( (LA20_41=='.') ) {s = 42;}
-
-                        else if ( ((LA20_41>='\u0000' && LA20_41<='\b')||(LA20_41>='\u000B' && LA20_41<='\f')||(LA20_41>='\u000E' && LA20_41<='\u001F')||LA20_41=='!'||LA20_41=='$'||LA20_41=='&'||LA20_41=='+'||(LA20_41>='0' && LA20_41<='9')||LA20_41==';'||LA20_41=='='||LA20_41=='?'||(LA20_41>='^' && LA20_41<='`')||(LA20_41>='~' && LA20_41<='\uFFFF')) ) {s = 43;}
-
-                        else s = 44;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
+                    case 18 : 
                         int LA20_15 = input.LA(1);
 
                         s = -1;
-                        if ( (LA20_15=='/') ) {s = 41;}
+                        if ( (LA20_15=='.') ) {s = 41;}
 
-                        else if ( (LA20_15=='.') ) {s = 42;}
+                        else if ( (LA20_15=='/') ) {s = 42;}
 
-                        else if ( ((LA20_15>='\u0000' && LA20_15<='\b')||(LA20_15>='\u000B' && LA20_15<='\f')||(LA20_15>='\u000E' && LA20_15<='\u001F')||LA20_15=='!'||LA20_15=='$'||LA20_15=='&'||LA20_15=='+'||(LA20_15>='0' && LA20_15<='9')||LA20_15==';'||LA20_15=='='||LA20_15=='?'||(LA20_15>='A' && LA20_15<='Z')||(LA20_15>='^' && LA20_15<='z')||(LA20_15>='~' && LA20_15<='\uFFFF')) ) {s = 43;}
+                        else if ( ((LA20_15>='\t' && LA20_15<='\n')||LA20_15=='\r'||LA20_15==' '||(LA20_15>='\"' && LA20_15<='#')||LA20_15=='%'||(LA20_15>='\'' && LA20_15<='*')||(LA20_15>=',' && LA20_15<='-')||LA20_15==':'||LA20_15=='<'||LA20_15=='>'||LA20_15=='@'||(LA20_15>='[' && LA20_15<=']')||(LA20_15>='{' && LA20_15<='}')) ) {s = 43;}
 
-                        else if ( ((LA20_15>='\t' && LA20_15<='\n')||LA20_15=='\r'||LA20_15==' '||(LA20_15>='\"' && LA20_15<='#')||LA20_15=='%'||(LA20_15>='\'' && LA20_15<='*')||(LA20_15>=',' && LA20_15<='-')||LA20_15==':'||LA20_15=='<'||LA20_15=='>'||LA20_15=='@'||(LA20_15>='[' && LA20_15<=']')||(LA20_15>='{' && LA20_15<='}')) ) {s = 44;}
+                        else if ( ((LA20_15>='\u0000' && LA20_15<='\b')||(LA20_15>='\u000B' && LA20_15<='\f')||(LA20_15>='\u000E' && LA20_15<='\u001F')||LA20_15=='!'||LA20_15=='$'||LA20_15=='&'||LA20_15=='+'||(LA20_15>='0' && LA20_15<='9')||LA20_15==';'||LA20_15=='='||LA20_15=='?'||(LA20_15>='A' && LA20_15<='Z')||(LA20_15>='^' && LA20_15<='z')||(LA20_15>='~' && LA20_15<='\uFFFF')) ) {s = 44;}
 
                         else s = 23;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA20_6 = input.LA(1);
+                    case 19 : 
+                        int LA20_40 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA20_6>='0' && LA20_6<='9')) ) {s = 30;}
+                        if ( ((LA20_40>='\u0000' && LA20_40<='\b')||(LA20_40>='\u000B' && LA20_40<='\f')||(LA20_40>='\u000E' && LA20_40<='\u001F')||LA20_40=='!'||LA20_40=='$'||LA20_40=='&'||LA20_40=='+'||(LA20_40>='.' && LA20_40<='9')||LA20_40==';'||LA20_40=='='||LA20_40=='?'||(LA20_40>='A' && LA20_40<='Z')||(LA20_40>='^' && LA20_40<='z')||(LA20_40>='~' && LA20_40<='\uFFFF')) ) {s = 23;}
 
-                        else if ( (LA20_6=='.') ) {s = 28;}
-
-                        else if ( (LA20_6=='E'||LA20_6=='e') ) {s = 29;}
-
-                        else if ( ((LA20_6>='\u0000' && LA20_6<='\b')||(LA20_6>='\u000B' && LA20_6<='\f')||(LA20_6>='\u000E' && LA20_6<='\u001F')||LA20_6=='!'||LA20_6=='$'||LA20_6=='&'||LA20_6=='+'||LA20_6=='/'||LA20_6==';'||LA20_6=='='||LA20_6=='?'||(LA20_6>='A' && LA20_6<='D')||(LA20_6>='F' && LA20_6<='Z')||(LA20_6>='^' && LA20_6<='d')||(LA20_6>='f' && LA20_6<='z')||(LA20_6>='~' && LA20_6<='\uFFFF')) ) {s = 23;}
-
-                        else s = 27;
+                        else s = 55;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
-                        int LA20_42 = input.LA(1);
+                    case 20 : 
+                        int LA20_58 = input.LA(1);
 
                         s = -1;
-                        if ( (LA20_42=='/') ) {s = 57;}
+                        if ( (LA20_58=='.') ) {s = 41;}
 
-                        else if ( ((LA20_42>='\u0000' && LA20_42<='\b')||(LA20_42>='\u000B' && LA20_42<='\f')||(LA20_42>='\u000E' && LA20_42<='\u001F')||LA20_42=='!'||LA20_42=='$'||LA20_42=='&'||LA20_42=='+'||(LA20_42>='0' && LA20_42<='9')||LA20_42==';'||LA20_42=='='||LA20_42=='?'||(LA20_42>='A' && LA20_42<='Z')||(LA20_42>='^' && LA20_42<='z')||(LA20_42>='~' && LA20_42<='\uFFFF')) ) {s = 58;}
+                        else if ( (LA20_58=='/') ) {s = 42;}
 
-                        else if ( ((LA20_42>='\t' && LA20_42<='\n')||LA20_42=='\r'||LA20_42==' '||(LA20_42>='\"' && LA20_42<='#')||LA20_42=='%'||(LA20_42>='\'' && LA20_42<='*')||(LA20_42>=',' && LA20_42<='.')||LA20_42==':'||LA20_42=='<'||LA20_42=='>'||LA20_42=='@'||(LA20_42>='[' && LA20_42<=']')||(LA20_42>='{' && LA20_42<='}')) ) {s = 44;}
+                        else if ( ((LA20_58>='A' && LA20_58<='Z')||(LA20_58>='a' && LA20_58<='z')) ) {s = 58;}
+
+                        else if ( ((LA20_58>='\u0000' && LA20_58<='\b')||(LA20_58>='\u000B' && LA20_58<='\f')||(LA20_58>='\u000E' && LA20_58<='\u001F')||LA20_58=='!'||LA20_58=='$'||LA20_58=='&'||LA20_58=='+'||(LA20_58>='0' && LA20_58<='9')||LA20_58==';'||LA20_58=='='||LA20_58=='?'||(LA20_58>='^' && LA20_58<='`')||(LA20_58>='~' && LA20_58<='\uFFFF')) ) {s = 44;}
+
+                        else s = 43;
 
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA20_57 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_57>='A' && LA20_57<='Z')||(LA20_57>='a' && LA20_57<='z')) ) {s = 64;}
-
-                        else if ( (LA20_57=='.') ) {s = 42;}
-
-                        else if ( (LA20_57=='/') ) {s = 57;}
-
-                        else if ( ((LA20_57>='\u0000' && LA20_57<='\b')||(LA20_57>='\u000B' && LA20_57<='\f')||(LA20_57>='\u000E' && LA20_57<='\u001F')||LA20_57=='!'||LA20_57=='$'||LA20_57=='&'||LA20_57=='+'||(LA20_57>='0' && LA20_57<='9')||LA20_57==';'||LA20_57=='='||LA20_57=='?'||(LA20_57>='^' && LA20_57<='`')||(LA20_57>='~' && LA20_57<='\uFFFF')) ) {s = 58;}
-
-                        else s = 44;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA20_56 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_56>='A' && LA20_56<='Z')||(LA20_56>='a' && LA20_56<='z')) ) {s = 56;}
-
-                        else if ( (LA20_56=='/') ) {s = 41;}
-
-                        else if ( (LA20_56=='.') ) {s = 42;}
-
-                        else if ( ((LA20_56>='\u0000' && LA20_56<='\b')||(LA20_56>='\u000B' && LA20_56<='\f')||(LA20_56>='\u000E' && LA20_56<='\u001F')||LA20_56=='!'||LA20_56=='$'||LA20_56=='&'||LA20_56=='+'||(LA20_56>='0' && LA20_56<='9')||LA20_56==';'||LA20_56=='='||LA20_56=='?'||(LA20_56>='^' && LA20_56<='`')||(LA20_56>='~' && LA20_56<='\uFFFF')) ) {s = 43;}
-
-                        else s = 44;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
+                    case 21 : 
                         int LA20_48 = input.LA(1);
 
                         s = -1;
@@ -2219,49 +2303,7 @@ public class LensQueryLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA20_43 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA20_43=='/') ) {s = 41;}
-
-                        else if ( (LA20_43=='.') ) {s = 42;}
-
-                        else if ( ((LA20_43>='\u0000' && LA20_43<='\b')||(LA20_43>='\u000B' && LA20_43<='\f')||(LA20_43>='\u000E' && LA20_43<='\u001F')||LA20_43=='!'||LA20_43=='$'||LA20_43=='&'||LA20_43=='+'||(LA20_43>='0' && LA20_43<='9')||LA20_43==';'||LA20_43=='='||LA20_43=='?'||(LA20_43>='A' && LA20_43<='Z')||(LA20_43>='^' && LA20_43<='z')||(LA20_43>='~' && LA20_43<='\uFFFF')) ) {s = 43;}
-
-                        else if ( ((LA20_43>='\t' && LA20_43<='\n')||LA20_43=='\r'||LA20_43==' '||(LA20_43>='\"' && LA20_43<='#')||LA20_43=='%'||(LA20_43>='\'' && LA20_43<='*')||(LA20_43>=',' && LA20_43<='-')||LA20_43==':'||LA20_43=='<'||LA20_43=='>'||LA20_43=='@'||(LA20_43>='[' && LA20_43<=']')||(LA20_43>='{' && LA20_43<='}')) ) {s = 44;}
-
-                        else s = 23;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA20_58 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA20_58=='.') ) {s = 42;}
-
-                        else if ( (LA20_58=='/') ) {s = 57;}
-
-                        else if ( ((LA20_58>='\u0000' && LA20_58<='\b')||(LA20_58>='\u000B' && LA20_58<='\f')||(LA20_58>='\u000E' && LA20_58<='\u001F')||LA20_58=='!'||LA20_58=='$'||LA20_58=='&'||LA20_58=='+'||(LA20_58>='0' && LA20_58<='9')||LA20_58==';'||LA20_58=='='||LA20_58=='?'||(LA20_58>='A' && LA20_58<='Z')||(LA20_58>='^' && LA20_58<='z')||(LA20_58>='~' && LA20_58<='\uFFFF')) ) {s = 58;}
-
-                        else if ( ((LA20_58>='\t' && LA20_58<='\n')||LA20_58=='\r'||LA20_58==' '||(LA20_58>='\"' && LA20_58<='#')||LA20_58=='%'||(LA20_58>='\'' && LA20_58<='*')||(LA20_58>=',' && LA20_58<='-')||LA20_58==':'||LA20_58=='<'||LA20_58=='>'||LA20_58=='@'||(LA20_58>='[' && LA20_58<=']')||(LA20_58>='{' && LA20_58<='}')) ) {s = 44;}
-
-                        else s = 23;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA20_63 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_63>='\u0000' && LA20_63<='\b')||(LA20_63>='\u000B' && LA20_63<='\f')||(LA20_63>='\u000E' && LA20_63<='\u001F')||LA20_63=='!'||LA20_63=='$'||LA20_63=='&'||LA20_63=='+'||(LA20_63>='.' && LA20_63<='9')||LA20_63==';'||LA20_63=='='||LA20_63=='?'||(LA20_63>='A' && LA20_63<='Z')||(LA20_63>='^' && LA20_63<='z')||(LA20_63>='~' && LA20_63<='\uFFFF')) ) {s = 23;}
-
-                        else s = 69;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
+                    case 22 : 
                         int LA20_5 = input.LA(1);
 
                         s = -1;
@@ -2272,48 +2314,6 @@ public class LensQueryLexer extends Lexer {
                         else if ( ((LA20_5>='\u0000' && LA20_5<='\b')||(LA20_5>='\u000B' && LA20_5<='\f')||(LA20_5>='\u000E' && LA20_5<='\u001F')||LA20_5=='!'||LA20_5=='$'||LA20_5=='&'||LA20_5=='+'||(LA20_5>='/' && LA20_5<='9')||LA20_5==';'||LA20_5=='='||LA20_5=='?'||(LA20_5>='A' && LA20_5<='D')||(LA20_5>='F' && LA20_5<='Z')||(LA20_5>='^' && LA20_5<='d')||(LA20_5>='f' && LA20_5<='z')||(LA20_5>='~' && LA20_5<='\uFFFF')) ) {s = 23;}
 
                         else s = 27;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA20_12 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_12>='\u0000' && LA20_12<='\b')||(LA20_12>='\u000B' && LA20_12<='\f')||(LA20_12>='\u000E' && LA20_12<='\u001F')||LA20_12=='!'||LA20_12=='$'||LA20_12=='&'||LA20_12=='+'||(LA20_12>='.' && LA20_12<='9')||LA20_12==';'||LA20_12=='='||LA20_12=='?'||(LA20_12>='A' && LA20_12<='Z')||(LA20_12>='^' && LA20_12<='z')||(LA20_12>='~' && LA20_12<='\uFFFF')) ) {s = 23;}
-
-                        else s = 38;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA20_66 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_66>='0' && LA20_66<='9')) ) {s = 66;}
-
-                        else if ( ((LA20_66>='\u0000' && LA20_66<='\b')||(LA20_66>='\u000B' && LA20_66<='\f')||(LA20_66>='\u000E' && LA20_66<='\u001F')||LA20_66=='!'||LA20_66=='$'||LA20_66=='&'||LA20_66=='+'||(LA20_66>='.' && LA20_66<='/')||LA20_66==';'||LA20_66=='='||LA20_66=='?'||(LA20_66>='A' && LA20_66<='Z')||(LA20_66>='^' && LA20_66<='z')||(LA20_66>='~' && LA20_66<='\uFFFF')) ) {s = 23;}
-
-                        else s = 46;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA20_45 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_45>='\u0000' && LA20_45<='\b')||(LA20_45>='\u000B' && LA20_45<='\f')||(LA20_45>='\u000E' && LA20_45<='\u001F')||LA20_45=='!'||LA20_45=='$'||LA20_45=='&'||LA20_45=='+'||(LA20_45>='.' && LA20_45<='9')||LA20_45==';'||LA20_45=='='||LA20_45=='?'||(LA20_45>='A' && LA20_45<='Z')||(LA20_45>='^' && LA20_45<='z')||(LA20_45>='~' && LA20_45<='\uFFFF')) ) {s = 23;}
-
-                        else s = 59;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA20_28 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA20_28>='0' && LA20_28<='9')) ) {s = 48;}
-
-                        else if ( ((LA20_28>='\u0000' && LA20_28<='\b')||(LA20_28>='\u000B' && LA20_28<='\f')||(LA20_28>='\u000E' && LA20_28<='\u001F')||LA20_28=='!'||LA20_28=='$'||LA20_28=='&'||LA20_28=='+'||LA20_28=='/'||LA20_28==';'||LA20_28=='='||LA20_28=='?'||(LA20_28>='A' && LA20_28<='Z')||(LA20_28>='^' && LA20_28<='z')||(LA20_28>='~' && LA20_28<='\uFFFF')) ) {s = 23;}
 
                         if ( s>=0 ) return s;
                         break;

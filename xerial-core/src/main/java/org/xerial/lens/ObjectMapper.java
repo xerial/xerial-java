@@ -176,8 +176,9 @@ public class ObjectMapper {
 
             }
 
-        }
+            // binding rule for the property setter
 
+        }
     }
 
     /**
