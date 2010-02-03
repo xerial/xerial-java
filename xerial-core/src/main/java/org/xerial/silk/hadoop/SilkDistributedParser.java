@@ -43,6 +43,10 @@ import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.xerial.core.XerialException;
+import org.xerial.silk.SilkEvent;
+import org.xerial.silk.SilkLinePushParser;
+import org.xerial.silk.impl.SilkLineLexer;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
@@ -158,13 +162,28 @@ public class SilkDistributedParser {
             return String.format("%d(%d)", block, offset);
         }
 
+        public static class Comparator extends WritableComparator {
+            public Comparator() {
+                super(LinePos.class);
+            }
+
+            @Override
+            public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) {
+                return compareBytes(b1, s1, l1, b2, s2, l2);
+            }
+        }
+
+        static {
+            WritableComparator.define(LinePos.class, new Comparator());
+        }
+
     }
 
     public static class BlockPartitioner extends Partitioner<LinePos, Text> {
 
         @Override
         public int getPartition(LinePos pos, Text value, int numPartitions) {
-            return pos.block % numPartitions;
+            return (pos.block * 127) % numPartitions;
         }
 
     }
@@ -187,25 +206,38 @@ public class SilkDistributedParser {
         //final int blockSize = 64 * 1024 * 1024; // 64MB 
         final int blockSize = 1024;
 
+        private final SilkLineLexer lexer = new SilkLineLexer();
+
         @Override
         protected void map(LongWritable key, Text value,
                 Mapper<LongWritable, Text, LinePos, Text>.Context context) throws IOException,
                 InterruptedException {
             _logger.info(String.format("map: (%s, %s)", key.toString(), value.toString()));
 
-            context.progress();
-            long bytePos = key.get();
-            context.write(new LinePos((int) (bytePos / blockSize), (int) (bytePos % blockSize)),
-                    value);
+            try {
+                SilkEvent e = SilkLinePushParser.parseLine(lexer, value.toString());
+                context.progress();
+                long bytePos = key.get();
+                context.write(
+                        new LinePos((int) (bytePos / blockSize), (int) (bytePos % blockSize)),
+                        new Text(e.getType().toString()));
+
+            }
+            catch (XerialException e) {
+                e.printStackTrace();
+            }
+
         };
     }
 
     public static class SilkBlockReducer extends Reducer<LinePos, Text, IntWritable, Text> {
+
         @Override
         protected void reduce(LinePos key, Iterable<Text> values,
                 Reducer<LinePos, Text, IntWritable, Text>.Context context) throws IOException,
                 InterruptedException {
 
+            _logger.info("reducer is invoked");
             for (Text each : values) {
                 _logger.info(String.format("reduce: (%s, %s)", key.toString(), each.toString()));
             }
