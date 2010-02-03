@@ -31,6 +31,7 @@ import org.xerial.silk.model.SilkElement;
 
 public class SilkLineMapper extends Mapper<LongWritable, Text, LongWritable, SilkElement> {
 
+    @Override
     protected void map(
             LongWritable byteOffset,
             Text line,
@@ -38,4 +39,5 @@ public class SilkLineMapper extends Mapper<LongWritable, Text, LongWritable, Sil
             throws java.io.IOException, InterruptedException {
 
     };
+
 }

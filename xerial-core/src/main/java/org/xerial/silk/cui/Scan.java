@@ -54,7 +54,7 @@ public class Scan implements SilkCommand {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
     public static enum ScanMode {
-        LINE, NODE, FASTLINE, READONLY
+        LINE, NODE, FASTLINE, READONLY, HADOOP
     }
 
     @Argument(index = 0)
@@ -198,6 +198,11 @@ public class Scan implements SilkCommand {
 
             break;
         }
+        case HADOOP: {
+
+            break;
+        }
+
         }
 
     }

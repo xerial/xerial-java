@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-01-25 17:28:00
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-01-25 17:49:59
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -724,7 +724,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeItem, indent
+                    // elements: indent, nodeItem
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -842,7 +842,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: plural, attributeList, nodeValue, indent
+                    // elements: nodeValue, attributeList, plural, indent
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1128,7 +1128,7 @@ public class SilkLineParser extends Parser {
 
 
             // AST REWRITE
-            // elements: plural, nodeValue, attributeList, dataType
+            // elements: attributeList, nodeValue, plural, dataType
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1770,7 +1770,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: NodeIndent, function_i
+                    // elements: function_i, NodeIndent
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
