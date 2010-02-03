@@ -27,6 +27,7 @@ package org.xerial.silk.hadoop;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -82,6 +83,8 @@ public class SilkDistributedParser {
         }
 
         Configuration hadoopConf = new Configuration();
+        hadoopConf.setLong("mapred.max.split.size", 1024L);
+
         // Delete the output folder if exists
         FileSystem fs = FileSystem.get(hadoopConf);
         Path targetDir = new Path(config.outputFile);
@@ -92,6 +95,7 @@ public class SilkDistributedParser {
         job.setJarByClass(SilkDistributedParser.class);
 
         // input split
+        job.setInputFormatClass(SilkBlockInputFormat.class);
 
         // mapper
         job.setMapperClass(SilkBlockMapper.class);
@@ -201,7 +205,8 @@ public class SilkDistributedParser {
 
     }
 
-    public static class SilkBlockMapper extends Mapper<LongWritable, Text, LinePos, Text> {
+    public static class SilkBlockMapper extends
+            Mapper<LongWritable, Iterator<String>, LinePos, Text> {
 
         //final int blockSize = 64 * 1024 * 1024; // 64MB 
         final int blockSize = 1024;
@@ -209,19 +214,20 @@ public class SilkDistributedParser {
         private final SilkLineLexer lexer = new SilkLineLexer();
 
         @Override
-        protected void map(LongWritable key, Text value,
-                Mapper<LongWritable, Text, LinePos, Text>.Context context) throws IOException,
-                InterruptedException {
-            _logger.info(String.format("map: (%s, %s)", key.toString(), value.toString()));
+        protected void map(LongWritable key, Iterator<String> values,
+                Mapper<LongWritable, Iterator<String>, LinePos, Text>.Context context)
+                throws IOException, InterruptedException {
 
             try {
-                SilkEvent e = SilkLinePushParser.parseLine(lexer, value.toString());
-                context.progress();
-                long bytePos = key.get();
-                context.write(
-                        new LinePos((int) (bytePos / blockSize), (int) (bytePos % blockSize)),
-                        new Text(e.getType().toString()));
-
+                for (; values.hasNext();) {
+                    String line = values.next();
+                    _logger.info(String.format("map: (%s, %s)", key.toString(), line));
+                    SilkEvent e = SilkLinePushParser.parseLine(lexer, line);
+                    context.progress();
+                    long bytePos = key.get();
+                    context.write(new LinePos((int) (bytePos / blockSize),
+                            (int) (bytePos % blockSize)), new Text(e.getType().toString()));
+                }
             }
             catch (XerialException e) {
                 e.printStackTrace();
