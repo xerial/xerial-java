@@ -43,6 +43,13 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.util.log.Logger;
 
+/**
+ * {@link SilkBlockInputFormat} produces a iterator for reading data lines
+ * contained in a block.
+ * 
+ * @author leo
+ * 
+ */
 public class SilkBlockInputFormat extends FileInputFormat<LongWritable, Iterator<String>> {
 
     public static class BlockReader extends RecordReader<LongWritable, Iterator<String>> {

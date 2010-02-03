@@ -219,14 +219,15 @@ public class SilkDistributedParser {
                 throws IOException, InterruptedException {
 
             try {
-                for (; values.hasNext();) {
+
+                for (int i = 0; values.hasNext(); ++i) {
                     String line = values.next();
                     _logger.info(String.format("map: (%s, %s)", key.toString(), line));
                     SilkEvent e = SilkLinePushParser.parseLine(lexer, line);
                     context.progress();
                     long bytePos = key.get();
-                    context.write(new LinePos((int) (bytePos / blockSize),
-                            (int) (bytePos % blockSize)), new Text(e.getType().toString()));
+                    context.write(new LinePos((int) (bytePos / blockSize), i), new Text(e.getType()
+                            .toString()));
                 }
             }
             catch (XerialException e) {
