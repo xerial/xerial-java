@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-01-25 17:49:59
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-02-04 20:23:44
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -1128,7 +1128,7 @@ public class SilkLineParser extends Parser {
 
 
             // AST REWRITE
-            // elements: attributeList, nodeValue, plural, dataType
+            // elements: plural, attributeList, dataType, nodeValue
             // token labels: 
             // rule labels: retval
             // token list labels: 
