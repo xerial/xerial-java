@@ -178,7 +178,7 @@ public class ObjectLens {
     /**
      * Scans the field and getter/setter definitions in the given class, then
      * generates the mapping rules in the form of {@link ParameterSetter},
-     * {@link ParameterGetter} and {@link RelationSetter}
+     * {@link ParameterGetter} and {@link RelationSetter}.
      * 
      * @param targetType
      */
@@ -201,7 +201,7 @@ public class ObjectLens {
                 String paramName = getCanonicalParameterName(eachField.getName());
 
                 if (TypeInfo.isArray(fieldType)) {
-                    // ignore the array field except byte[] type
+                    // ignore the array field except the byte[] type
                     Class< ? > arrayElementType = TypeInfo.getArrayElementType(fieldType);
                     if (arrayElementType != null && byte.class == arrayElementType) {
                         // byte[] getter & setter
@@ -226,6 +226,8 @@ public class ObjectLens {
                     }
                     else if (keyValueName.getFirst().equals("")
                             && keyValueName.getSecond().equals("")) {
+                        // property (key, value) setter
+
                         propertySetter = RelationSetter.newMapSetter("key", "value", eachField);
                         getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                         propertyGetter = ParameterGetter.newPropertyFieldGetter(eachField,

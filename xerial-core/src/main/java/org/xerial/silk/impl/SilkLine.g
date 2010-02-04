@@ -195,7 +195,7 @@ PlainOneLine
   | { isInValue() }? => PlainFirst  PlainSafeIn* { transit(Symbol.LeaveValue); }  
   | { isOutValue() }? => PlainFirst  PlainSafeOut* { transit(Symbol.LeaveValue); }  
 	;
-
+  
 
 JSON
 	: { isValue() }? => '{'

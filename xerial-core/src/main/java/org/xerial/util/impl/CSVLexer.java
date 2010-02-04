@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g 2010-01-21 13:02:59
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 CSV.g 2010-01-25 17:28:03
 
 //--------------------------------------
 // XerialJ Project
@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CSVLexer extends Lexer {
-    public static final int String=6;
-    public static final int EOF=-1;
-    public static final int Comma=5;
     public static final int StringChar_s=4;
+    public static final int String=6;
+    public static final int Comma=5;
+    public static final int EOF=-1;
 
       
 
@@ -35,13 +35,13 @@ public class CSVLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g"; }
+    public String getGrammarFileName() { return "CSV.g"; }
 
     // $ANTLR start "StringChar_s"
     public final void mStringChar_s() throws RecognitionException {
         try {
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:61:22: (~ ( '\"' ) )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:61:24: ~ ( '\"' )
+            // CSV.g:61:22: (~ ( '\"' ) )
+            // CSV.g:61:24: ~ ( '\"' )
             {
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                 input.consume();
@@ -68,7 +68,7 @@ public class CSVLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             Token s=null;
 
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:63:3: ( '\"' s= StringChar_s '\"' | (~ ( '\"' | Comma ) )* )
+            // CSV.g:63:3: ( '\"' s= StringChar_s '\"' | (~ ( '\"' | Comma ) )* )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -79,7 +79,7 @@ public class CSVLexer extends Lexer {
                 alt2=2;}
             switch (alt2) {
                 case 1 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:63:5: '\"' s= StringChar_s '\"'
+                    // CSV.g:63:5: '\"' s= StringChar_s '\"'
                     {
                     match('\"'); 
                     int sStart54 = getCharIndex();
@@ -91,9 +91,9 @@ public class CSVLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:5: (~ ( '\"' | Comma ) )*
+                    // CSV.g:64:5: (~ ( '\"' | Comma ) )*
                     {
-                    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:5: (~ ( '\"' | Comma ) )*
+                    // CSV.g:64:5: (~ ( '\"' | Comma ) )*
                     loop1:
                     do {
                         int alt1=2;
@@ -106,7 +106,7 @@ public class CSVLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:64:6: ~ ( '\"' | Comma )
+                    	    // CSV.g:64:6: ~ ( '\"' | Comma )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='+')||(input.LA(1)>='-' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -144,8 +144,8 @@ public class CSVLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:67:6: ( ',' )
-            // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:67:8: ','
+            // CSV.g:67:6: ( ',' )
+            // CSV.g:67:8: ','
             {
             match(','); 
 
@@ -160,7 +160,7 @@ public class CSVLexer extends Lexer {
     // $ANTLR end "Comma"
 
     public void mTokens() throws RecognitionException {
-        // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:8: ( String | Comma )
+        // CSV.g:1:8: ( String | Comma )
         int alt3=2;
         int LA3_0 = input.LA(1);
 
@@ -171,14 +171,14 @@ public class CSVLexer extends Lexer {
             alt3=1;}
         switch (alt3) {
             case 1 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:10: String
+                // CSV.g:1:10: String
                 {
                 mString(); 
 
                 }
                 break;
             case 2 :
-                // D:\\work\\hg\\xerial-core\\src\\main\\java\\org\\xerial\\util\\impl\\CSV.g:1:17: Comma
+                // CSV.g:1:17: Comma
                 {
                 mComma(); 
 

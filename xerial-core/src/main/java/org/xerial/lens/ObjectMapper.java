@@ -176,13 +176,19 @@ public class ObjectMapper {
 
             }
 
+<<<<<<< local
             if (lens.hasPropertySetter()) {
                 RelationSetter propSetter = lens.getPropertySetter();
+=======
+            // binding rule for the property setter
+>>>>>>> other
 
+<<<<<<< local
             }
 
+=======
+>>>>>>> other
         }
-
     }
 
     /**
