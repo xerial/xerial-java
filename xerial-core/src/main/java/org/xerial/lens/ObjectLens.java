@@ -111,6 +111,14 @@ public class ObjectLens {
         setter.bind(target, value);
     }
 
+    public boolean hasPropertySetter() {
+        return propertySetter != null;
+    }
+
+    RelationSetter getPropertySetter() {
+        return propertySetter;
+    }
+
     public Object getProperty(Object target, String key) throws XerialException {
         if (propertyGetter == null)
             return null;
@@ -248,7 +256,9 @@ public class ObjectLens {
 
         }
 
-        // scan methods
+        // -- scan methods
+        // Parameter names used in setter/putter/adder/getter in the class definition 
+        // overrides getter/setter defined for field parameters 
         for (Method eachMethod : targetType.getMethods()) {
             String methodName = eachMethod.getName();
 
