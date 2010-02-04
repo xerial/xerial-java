@@ -574,44 +574,42 @@ If you have to use negative values, use "--" notation to switch parsing mode for
 -section: Symbol Summary
 
 --table
--th
- -td: Symbol
- -td: Description
--tr
- -td: "%silk(version:1.0)"
- -td: preamble 
--tr
- -td: "#"
- -td: comment line
--tr
- -td: "@function(args, ...)"
- -td: function
--tr
- -td: "-(node name):(node value)"
- -td: node name and node value in a line
--tr
- -td: "-(node name)>" 
- -td: followed by multi-line node values with white spaces aroung lines trimmed.
--tr
- -td: "--(node name)"
- -td: block start: followed by multi-line node values preserving white spaces
--tr
- -td: "--"
- -td: block end
--tr
- -td: "-(node name) (table schema)|" 
- -td: followed by tab-separated data (table schema)
--tr
- -td: "-(node name)*"
- -td: follwed by CSV data 
--tr
- -td: "--(node name) (table schema)|" 
- -td: followed by tab-separated data  allowing "-/#/@" in the head of the data
--tr
- -td: "--(node name)*"
- -td: follwed by CSV data allowing "-/#/@" in the head of the data
-
-
+-header
+ -col: Symbol
+ -col: Description
+-row
+ -col: "%silk(version:1.0)"
+ -col: preamble 
+-row
+ -col: "#"
+ -col: comment line
+-row
+ -col: "@function(args, ...)"
+ -col: function
+-row
+ -col: "-(node name):(node value)"
+ -col: node name and node value in a line
+-row
+ -col: "-(node name)>" 
+ -col: followed by multi-line node values with white spaces aroung lines rowimmed.
+-row
+ -col: "--(node name)"
+ -col: block start: followed by multi-line node values preserving white spaces
+-row
+ -col: "--"
+ -col: block end
+-row
+ -col: "-(node name) (table schema)|" 
+ -col: followed by tab-separated data (table schema)
+-row
+ -col: "-(node name)*"
+ -col: follwed by CSV data 
+-row
+ -col: "--(node name) (table schema)|" 
+ -col: followed by tab-separated data  allowing "-/#/@" in the head of the data
+-row
+ -col: "--(node name)*"
+ -col: follwed by CSV data allowing "-/#/@" in the head of the data
 --
 
 
