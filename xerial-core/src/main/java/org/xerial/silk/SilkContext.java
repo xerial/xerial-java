@@ -24,7 +24,10 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.IOException;
+
 import org.xerial.silk.model.SilkNode;
+import org.xerial.util.io.BinaryWriter;
 
 class SilkContext {
     public final SilkNode contextNode;
@@ -43,6 +46,11 @@ class SilkContext {
     @Override
     public String toString() {
         return String.format("%s%s", contextNode, isOpen ? "(open)" : "");
+    }
+
+    public void toBinary(BinaryWriter out) throws IOException {
+        out.writeInt(isOpen ? 1 : 0);
+        contextNode.toBinary(out);
     }
 
 }

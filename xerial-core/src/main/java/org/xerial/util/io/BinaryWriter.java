@@ -16,53 +16,22 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkJSONValue.java
-// Since: 2009/02/01 23:49:10
+// BinaryWriter.java
+// Since: Feb 9, 2010 5:49:05 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.model;
+package org.xerial.util.io;
 
-/**
- * text value of JSON format
- * 
- * @author leo
- * 
- */
-public class SilkJSONValue extends SilkValue {
-    String json;
+public interface BinaryWriter {
 
-    public SilkJSONValue(String json) {
-        this.json = json;
-    }
+    int writeInt(int value);
 
-    @Override
-    public String getValue() {
-        return json;
-    }
+    int write(byte[] buf);
 
-    @Override
-    public boolean isJSON() {
-        return true;
-    }
+    int write(byte[] buf, int offset, int len);
 
-    @Override
-    public boolean isFunction() {
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return json;
-    }
-
-    public boolean isObject() {
-        return json.trim().startsWith("{");
-    }
-
-    public boolean isArray() {
-        return json.trim().startsWith("[");
-    }
+    int writeString(String value);
 
 }

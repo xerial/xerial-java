@@ -24,9 +24,12 @@
 //--------------------------------------
 package org.xerial.silk.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.xerial.util.StringUtil;
+import org.xerial.util.io.BinaryReader;
+import org.xerial.util.io.BinaryWriter;
 
 /**
  * SilkNode begins with '-' character, follwed by object notation of the form:
@@ -40,71 +43,6 @@ import org.xerial.util.StringUtil;
  */
 public class SilkNode implements SilkElement {
 
-    /**
-     * SilkNode builder
-     * 
-     * @author leo
-     * 
-     */
-    public static class SilkNodeBuilder {
-        private int indent = NO_INDENT;
-        private String name;
-        private SilkValue value;
-
-        private String dataType;
-        private SilkNodeOccurrence occurrence = SilkNodeOccurrence.ONE;
-        private final ArrayList<SilkNode> childNodeList = new ArrayList<SilkNode>();
-
-        public SilkNode build() {
-            return new SilkNode(indent, name, value, dataType, occurrence, childNodeList);
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setIndent(String indentString) {
-            if (indentString == null)
-                indent = NO_INDENT;
-            else {
-                int indentLevel = 0;
-                for (; indentLevel < indentString.length(); ++indentLevel)
-                    if (indentString.charAt(indentLevel) != ' ')
-                        break;
-                indent = indentLevel;
-            }
-        }
-
-        public void setDataType(String dataType) {
-            this.dataType = dataType;
-        }
-
-        public void addSilkNode(SilkNodeBuilder newNode) {
-            if (name == null) {
-                newNode.indent = this.indent;
-            }
-
-            childNodeList.add(newNode.build());
-        }
-
-        public void setValue(String text) {
-            this.value = new SilkTextValue(text);
-        }
-
-        public void setJSON(String jsonText) {
-            this.value = new SilkJSONValue(jsonText);
-        }
-
-        public void setFunction(SilkFunction func) {
-            this.value = func;
-        }
-
-        public void setOccurrence(SilkNodeOccurrence occurrence) {
-            this.occurrence = occurrence;
-        }
-
-    }
-
     public final int indent;
     public final String name;
     public final SilkValue value;
@@ -115,13 +53,44 @@ public class SilkNode implements SilkElement {
 
     private SilkNode(int indent, String name, SilkValue value, String dataType,
             SilkNodeOccurrence occurrence, ArrayList<SilkNode> childNodeList) {
-        super();
+
         this.indent = indent;
         this.name = name;
         this.value = value;
         this.dataType = dataType;
         this.occurrence = occurrence;
         this.childNodeList = childNodeList;
+    }
+
+    public static SilkNode loadBinary(BinaryReader in) throws IOException {
+        SilkNodeBuilder builder = new SilkNodeBuilder();
+        builder.indent = in.readInt();
+        builder.name = in.readString();
+        builder.value = SilkValue.newInstance(in);
+        builder.dataType = in.readString();
+        //builder.occurrence = SilkNodeOccurrence.valueOf(arg0)
+
+        return builder.build();
+    }
+
+    public void toBinary(BinaryWriter out) throws IOException {
+        // indent
+        out.writeInt(indent);
+
+        // name
+        out.writeString(name);
+
+        // value
+        value.toBinary(out);
+
+        // data type
+        out.writeString(dataType);
+
+        out.writeInt(occurrence.ordinal());
+        out.writeInt(childNodeList.size());
+        for (SilkNode eachNode : childNodeList) {
+            eachNode.toBinary(out);
+        }
     }
 
     public String getName() {
@@ -234,6 +203,71 @@ public class SilkNode implements SilkElement {
         buf.append(occurrence);
 
         return buf.toString();
+    }
+
+    /**
+     * SilkNode builder
+     * 
+     * @author leo
+     * 
+     */
+    public static class SilkNodeBuilder {
+        private int indent = NO_INDENT;
+        private String name;
+        private SilkValue value;
+
+        private String dataType;
+        private SilkNodeOccurrence occurrence = SilkNodeOccurrence.ONE;
+        private final ArrayList<SilkNode> childNodeList = new ArrayList<SilkNode>();
+
+        public SilkNode build() {
+            return new SilkNode(indent, name, value, dataType, occurrence, childNodeList);
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setIndent(String indentString) {
+            if (indentString == null)
+                indent = NO_INDENT;
+            else {
+                int indentLevel = 0;
+                for (; indentLevel < indentString.length(); ++indentLevel)
+                    if (indentString.charAt(indentLevel) != ' ')
+                        break;
+                indent = indentLevel;
+            }
+        }
+
+        public void setDataType(String dataType) {
+            this.dataType = dataType;
+        }
+
+        public void addSilkNode(SilkNodeBuilder newNode) {
+            if (name == null) {
+                newNode.indent = this.indent;
+            }
+
+            childNodeList.add(newNode.build());
+        }
+
+        public void setValue(String text) {
+            this.value = new SilkTextValue(text);
+        }
+
+        public void setJSON(String jsonText) {
+            this.value = new SilkJSONValue(jsonText);
+        }
+
+        public void setFunction(SilkFunction func) {
+            this.value = func;
+        }
+
+        public void setOccurrence(SilkNodeOccurrence occurrence) {
+            this.occurrence = occurrence;
+        }
+
     }
 
 }
