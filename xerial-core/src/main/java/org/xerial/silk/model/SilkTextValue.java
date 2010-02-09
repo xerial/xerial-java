@@ -31,21 +31,24 @@ package org.xerial.silk.model;
  * @author leo
  * 
  */
-public class SilkTextValue implements SilkValue {
-    private String value;
+public class SilkTextValue extends SilkValue {
+    private final String value;
 
     public SilkTextValue(String value) {
         this.value = value;
     }
 
+    @Override
     public String getValue() {
         return value;
     }
 
+    @Override
     public boolean isJSON() {
         return false;
     }
 
+    @Override
     public boolean isFunction() {
         return false;
     }

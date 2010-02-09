@@ -24,23 +24,55 @@
 //--------------------------------------
 package org.xerial.silk.model;
 
+import java.io.IOException;
+
+import org.xerial.util.io.BinaryReader;
+import org.xerial.util.io.BinaryWriter;
+
 /**
  * text value of nodes or functions
  * 
  * @author leo
  * 
  */
-public interface SilkValue extends SilkElement
-{
-    public boolean isJSON();
+public abstract class SilkValue implements SilkElement {
+    public abstract boolean isJSON();
 
-    public boolean isFunction();
+    public abstract boolean isFunction();
 
     /**
      * Returns the string value of this element
      * 
      * @return
      */
-    public String getValue();
+    public abstract String getValue();
+
+    public void toBinary(BinaryWriter out) throws IOException {
+        if (isFunction()) {
+            out.writeInt(2);
+        }
+        if (isJSON()) {
+            out.writeInt(1);
+            out.writeString(getValue());
+        }
+        else {
+            out.writeInt(0);
+            out.writeString(getValue());
+        }
+    }
+
+    public static SilkValue newInstance(BinaryReader in) throws IOException {
+        int type = in.readInt();
+        switch (type) {
+        case 0:
+            return new SilkTextValue(in.readString());
+        case 1:
+            return new SilkJSONValue(in.readString());
+        case 2:
+            return new SilkFunction();
+        }
+
+        throw new IOException("unknown value type: " + type);
+    }
 
 }

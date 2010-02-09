@@ -37,11 +37,10 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkFunction implements SilkElement, SilkValue
-{
+public class SilkFunction extends SilkValue {
     private String name;
     private String indent;
-    private ArrayList<SilkFunctionArg> argumentList = new ArrayList<SilkFunctionArg>();
+    private final ArrayList<SilkFunctionArg> argumentList = new ArrayList<SilkFunctionArg>();
 
     public final static int NO_INDENT = Integer.MAX_VALUE; // must be higher than other indent levels
 
@@ -52,72 +51,62 @@ public class SilkFunction implements SilkElement, SilkValue
      * @return the indent level of the node, or {@link SilkNode#NO_INDENT} if no
      *         indent is specified.
      */
-    public int getIndentLevel()
-    {
+    public int getIndentLevel() {
         if (indent == null)
             return NO_INDENT;
         else
             return indent.length() - 1;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void addArgument(String argument)
-    {
+    public void addArgument(String argument) {
         argumentList.add(SilkFunctionArg.newArgValue(argument));
     }
 
-    public void addKeyValuePair(SilkFunctionArg argument)
-    {
+    public void addKeyValuePair(SilkFunctionArg argument) {
         argumentList.add(argument);
     }
 
-    public void addKeyAndValue(String key, String value)
-    {
+    public void addKeyAndValue(String key, String value) {
         argumentList.add(new SilkFunctionArg(key, value));
     }
 
-    public List<SilkFunctionArg> getArgumentList()
-    {
+    public List<SilkFunctionArg> getArgumentList() {
         return argumentList;
     }
 
-    public String getNodeIndent()
-    {
+    public String getNodeIndent() {
         return indent;
     }
 
-    public void setNodeIndent(String indent)
-    {
+    public void setNodeIndent(String indent) {
         this.indent = indent;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("function %s(%s)", name, StringUtil.join(argumentList, ", "));
     }
 
-    public String getValue()
-    {
+    @Override
+    public String getValue() {
         throw new XerialError(XerialErrorCode.UNSUPPORTED, "getValue() for SilkFunction");
     }
 
-    public boolean isJSON()
-    {
+    @Override
+    public boolean isJSON() {
         return false;
     }
 
-    public boolean isFunction()
-    {
+    @Override
+    public boolean isFunction() {
         return true;
     }
 
