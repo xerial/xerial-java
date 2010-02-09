@@ -1,0 +1,27 @@
+% silk(version:1.0)
+
+-title: Transcript Frequency
+
+-yMin:0
+-yMax:100
+-xTitle: genome position (bp)
+-yTitle: number of transcripts (log scale)
+-yLogScale: true
+# plot y beginning from x=1 (offsetX = 1)
+-coordinate(group:utgb, species:human, revison:hg18, name)
+ ->name:chr1
+  -plot(offsetX:1)*
+0,0,0,0,0,0,0,3,5,10
+2,0,8,4,0,23,0,0,0,0
+ ->name:chr2
+ 
+# plot (x, y)
+-coordinate(group:utgb, species:human, revison:hg18, name:chr1)
+ -plot(x, y)*
+8,3
+9,5
+10,10
+11,2
+12,8
+13,4
+15,23
