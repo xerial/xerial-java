@@ -190,18 +190,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 SilkFunction function = SilkFunction.class.cast(event.getElement());
                 evalFunction(function);
                 break;
-            case MULTILINE_SEPARATOR: {
-                SilkContext context = parseContext.peekLastContext();
-                SilkNode schema = context.contextNode;
-                if (parseContext.isAttributeOpen) {
-                    SilkNode attributeNode = schema.getChildNodes().get(
-                            parseContext.contextNodeAttributeCursor);
-                    leave(attributeNode.getName());
-                }
-                parseContext.contextNodeAttributeCursor++;
-                parseContext.isAttributeOpen = false;
-                break;
-            }
             case BLANK_LINE:
                 break;
             case END_OF_FILE:
@@ -346,15 +334,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             if (node.getIndentLevel() >= newIndentLevel) {
                 parseContext.popLastContext();
 
-                if (parseContext.isAttributeOpen) {
-                    // close attribute 
-                    SilkNode attribute = node.getChildNodes().get(
-                            parseContext.contextNodeAttributeCursor);
-                    leave(attribute.getName());
-                    leave(node.getName());
-                    parseContext.isAttributeOpen = false;
-                }
-
                 if (context.isOpen) {
                     // close context
                     String nodeName = node.getName();
@@ -400,9 +379,6 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         SilkNodeOccurrence occurrence = node.getOccurrence();
         if (node.isTableSchema()) {
             currentContext.isOpen = false;
-            // reset the attribute cursor
-            parseContext.contextNodeAttributeCursor = 0;
-            parseContext.isAttributeOpen = false;
             return; // do not invoke visit events
         }
 

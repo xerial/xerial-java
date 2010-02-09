@@ -545,30 +545,50 @@ Alternatively, you can insert child nodes between tab-separated data lines:
 -paragraph: CSV structured
 @bold(Silk)
 --code
---plot(x, y)*
+-plot(x, y)*
 1, 3
 4, 5
 7, 8
 9,10
---
+-
 --
 
-If you have to use negative values, use "--" notation to switch parsing mode for "-":
 --code
---plot*
+-plot*
 -1.0
 -1.5
 -0.1
 0.1
 0.3
 0.8
---
+-
 --
 
 "--" is necessary to terminate the raw-data mode. The above data is same with: 
 @bold(JSON)
 --code
 {"plot":[-1.0, -1.5, -0.1, 0.1, 0.3, 0.8]}
+--
+
+-section: Text Data
+
+-paragraph: Silk
+--code
+-variableStep(chrom:chr19, span:150)>
+59304701 10.0
+59304901 12.5
+59305401 15.0
+59305601 17.5
+--
+
+-paragraph: XML
+--code
+<variableStep chrom="chr19" span="150">
+59304701 10.0
+59304901 12.5
+59305401 15.0
+59305601 17.5
+</variableStep>
 --
 
 -section: Symbol Summary
@@ -661,23 +681,25 @@ NM_001005221	-	610958	611897
  -yLogScale: true
 # plot y beginning from x=1 (offsetX = 1)
 -coordinate(group:utgb, species:human, revison:hg18, name:chr1) 
- -offsetX:1
- -plot*
+ -plot(offsetX:1)*
 0,0,0,0,0,0,0,3,5,10
 2,0,8,4,0,23,0,0,0,0
 
 # plot (x, y)
 -coordinate(group:utgb, species:human, revison:hg18, name:chr1)
- -plot(x, y)|
-8  3
-9  5
-10 10
-11 2
-12 8
-13 4
-15 23
+ -plot(x, y)*
+8,3
+9,5
+10,10
+11,2
+12,8
+13,4
+15,23
 
 --
+
+
+
 
 -sub section: More complex example
 --code
@@ -715,7 +737,6 @@ chr10	gene3	+	357521	358460
 chr3	gene4	+	357521	358460
 chr1	gene5	+	357521	358460
 
---
 
 -section: Idea
 

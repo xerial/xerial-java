@@ -83,7 +83,7 @@ public class SilkDistributedParser {
         }
 
         Configuration hadoopConf = new Configuration();
-        hadoopConf.setLong("mapred.max.split.size", 1024L);
+        //hadoopConf.setLong("mapred.max.split.size", 2048L);
 
         // Delete the output folder if exists
         FileSystem fs = FileSystem.get(hadoopConf);

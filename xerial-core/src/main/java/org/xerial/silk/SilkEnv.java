@@ -47,17 +47,11 @@ public class SilkEnv {
     private int indentationOffset = 0;
     private String resourceBasePath = null;
     private Deque<SilkContext> contextNodeStack = new ArrayDeque<SilkContext>();
-    public int contextNodeAttributeCursor = 0;
-    public boolean isAttributeOpen = false;
 
     private SilkEnv(SilkEnv parent, int indentationOffset) {
         this.indentationOffset = indentationOffset;
         this.resourceBasePath = parent.resourceBasePath;
         this.contextNodeStack = parent.contextNodeStack;
-        this.contextNodeAttributeCursor = parent.contextNodeAttributeCursor;
-        this.isAttributeOpen = parent.isAttributeOpen;
-        //this.eventQueue = parent.eventQueue;
-
     }
 
     private SilkEnv(SilkEnv parent, String resourceBasePath) {
@@ -65,10 +59,6 @@ public class SilkEnv {
         // use input resource base path
         this.resourceBasePath = resourceBasePath;
         this.contextNodeStack = parent.contextNodeStack;
-        this.contextNodeAttributeCursor = parent.contextNodeAttributeCursor;
-        this.isAttributeOpen = parent.isAttributeOpen;
-        //this.eventQueue = parent.eventQueue;
-
     }
 
     private SilkEnv(String resourceBasePath) {
