@@ -217,7 +217,6 @@ public class StreamAmoebaJoin {
 
         public ScopedPushRelation(List<PushRelation> candidates) {
             for (PushRelation each : candidates) {
-                Schema s = each.schema;
                 coreNode_action.put(each.coreNodeName, each);
             }
         }
@@ -232,9 +231,6 @@ public class StreamAmoebaJoin {
                     return;
                 }
             }
-
-            //            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format("no action is invoked: path=%s %s",
-            //                    currentPath, coreNode_action));
         }
 
     }
@@ -397,13 +393,6 @@ public class StreamAmoebaJoin {
                                 + each);
                 }
 
-                // for binding text properties
-                Iterator<String> di = currentPath.descendingIterator();
-                if (di.hasNext()) {
-                    di.next();
-                    if (di.hasNext())
-                        textOperation.add(new PropertyTextSetOperation(di.next()));
-                }
             }
 
             assert textOperation != null;
@@ -438,8 +427,18 @@ public class StreamAmoebaJoin {
             nodeStack.removeLast();
         }
 
+        /**
+         * Get the list of the foward actions when moving the states. If no list
+         * has been prepared, create the list by traversing the query target
+         * schemas.
+         * 
+         * @param prevState
+         * @param nextState
+         * @param newlyFoundTag
+         * @return
+         */
         private List<Operation> getForwardActionList(LatticeNode<String> prevState,
-                LatticeNode<String> nextState, String nodeName) {
+                LatticeNode<String> nextState, String newlyFoundTag) {
             Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
 
             List<Operation> actionList = operationSetOnForward.get(currentEdge);
@@ -456,8 +455,6 @@ public class StreamAmoebaJoin {
             operationSetOnBack.put(new Edge(nextNodeID, prevNodeID), backActionList);
 
             // search for the corresponding relations to newly found two node pair 
-            String newlyFoundTag = nodeName;
-
             if (_logger2.isTraceEnabled())
                 _logger2.trace("create actions for " + newlyFoundTag);
 
@@ -465,6 +462,7 @@ public class StreamAmoebaJoin {
                 List<PushRelation> foundAction = new ArrayList<PushRelation>();
                 // (core node, attribute node)
                 for (Schema r : query.getTargetQuerySet()) {
+                    // 
                     TupleIndex ni = r.getNodeIndex(newlyFoundTag);
                     if (ni == null)
                         continue;
@@ -489,7 +487,27 @@ public class StreamAmoebaJoin {
                     }
                 }
 
-                // set the action list
+                if (foundAction.isEmpty()) {
+                    // If a schema (prev node, *) for binding arbitrary nodes is found, create a action for binding it.  
+                    Iterator<String> di = currentPath.descendingIterator();
+                    String parentNode = null;
+                    while (di.hasNext() && (parentNode = di.next()).equals(newlyFoundTag)) {}
+                    if (parentNode != null) {
+                        for (Schema r : query.getTargetQuerySet()) {
+                            TupleIndex ci = r.getNodeIndex(parentNode);
+                            if (ci == null || !isCoreNodeIndex(ci))
+                                continue;
+
+                            if (r.getNodeIndex("*") == null)
+                                continue;
+
+                            foundAction.add(new PushRelation(r, parentNode, newlyFoundTag));
+                        }
+
+                    }
+                }
+
+                // set the action list                
                 if (foundAction.size() > 1) {
                     // context-dependent actions
                     actionList.add(new ScopedPushRelation(foundAction));

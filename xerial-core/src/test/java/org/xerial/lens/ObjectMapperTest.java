@@ -221,10 +221,10 @@ public class ObjectMapperTest {
     }
 
     public static class TrackList {
-        public String id;
         public Track track;
 
         public static class Track {
+            public String id;
             public Properties _ = new Properties();
         }
     }
@@ -233,11 +233,12 @@ public class ObjectMapperTest {
     public void propFiledOFMultiLinesInNestedNode() throws Exception {
         TrackList l = Lens.loadSilk(TrackList.class, FileResource.find(ObjectMapperTest.class,
                 "nested-property.silk"));
-        assertEquals("t1", l.id);
+
         assertNotNull(l.track);
+        assertEquals("t1", l.track.id);
         assertTrue(!l.track._.isEmpty());
         assertTrue(l.track._.containsKey("sequenceList"));
-
+        assertEquals("ACCTTTTG", l.track._.getProperty("sequenceList"));
     }
 
     public static class MapField {

@@ -116,7 +116,8 @@ public class ObjectMapper {
         }
 
         public void build(Class< ? > targetType, String alias) {
-            // TODO use context-based schema -> binder mapping
+            // TODO context-based schema should be used. 
+            // e.g. (book, name) and (person, name) share the same 'name' node
 
             if (TypeInfo.isBasicType(targetType) || targetType == MapEntry.class)
                 return;
@@ -131,11 +132,6 @@ public class ObjectMapper {
                 return;
             else
                 processed.add(targetType);
-
-            //            if (processedClasses.contains(targetType))
-            //                return;
-            //
-            //            processedClasses.add(targetType);
 
             ObjectLens lens = ObjectLens.getObjectLens(targetType);
             if (_logger.isTraceEnabled())
@@ -177,8 +173,15 @@ public class ObjectMapper {
             }
 
             if (lens.hasPropertySetter()) {
-                RelationSetter propSetter = lens.getPropertySetter();
                 // binding rule for the property setter
+                SchemaBuilder builder = new SchemaBuilder();
+                builder.add(alias);
+                builder.add("*");
+
+                // (alias, *) 
+                Schema s = builder.build();
+                qs.addQueryTarget(s);
+                schema2binder.put(s, new PropertyBinder(lens, lens.getPropertySetter()));
             }
         }
     }
@@ -257,13 +260,19 @@ public class ObjectMapper {
 
         public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
                 throws XerialException {
-        // TODO Auto-generated method stub
 
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
+            if (attributeNode.nodeValue != null)
+                lens.setProperty(coreNodeInstance, attributeNode.nodeName, attributeNode.nodeValue);
         }
 
         public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
                 String textValue) throws XerialException {
-        // TODO Auto-generated method stub
+
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
+            Object prevValue = lens.getProperty(coreNodeInstance, textNode.nodeName);
+            String value = (prevValue == null) ? textValue : prevValue.toString() + textValue;
+            lens.setProperty(coreNodeInstance, textNode.nodeName, value);
 
         }
 
@@ -466,17 +475,6 @@ public class ObjectMapper {
                 if (_logger.isTraceEnabled())
                     _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
                             textFragment, schema));
-
-                if (schema == null) {
-                    // put(node name, text node value) if property setter exist 
-                    Object contextNode = contextNodeStack.getLast();
-                    ObjectLens lens = ObjectLens.getObjectLens(contextNode.getClass());
-                    Object prevValue = lens.getProperty(contextNode, coreNode.nodeName);
-                    String value = (prevValue == null) ? textFragment : prevValue.toString()
-                            + textFragment;
-                    lens.setProperty(contextNode, textNode.nodeName, value);
-                    return;
-                }
 
                 Binder binder = schema2binder.get(schema);
                 if (binder == null)
