@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,12 +85,12 @@ public class LensTest {
 
     }
 
-    @Ignore
     @Test
-    public void testMapping() throws Exception {
-        // TODO: How to resolve nested scope when the information of gene class is not available  
+    public void testNestedScope() throws Exception {
+        // TODO: Resolving nested scope even when the information of gene class is not available. 
         // -coordinate(name:chr1)
         //   -gene(name:gene1)
+        // In the above example, two amoebas (coordinate, name:chr1), (coordinate, name:gene1) will be found.
 
         Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class,
                 "sequence.silk"));

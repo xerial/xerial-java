@@ -37,6 +37,7 @@ import org.xerial.lens.impl.MapEntry;
 import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.lens.impl.RelationSetter;
 import org.xerial.lens.impl.ParameterSetter.MapEntryBinder;
+import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.query.AmoebaJoinHandler;
 import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
@@ -64,12 +65,16 @@ public class ObjectMapper {
     // schema -> binder 
     private final HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
 
-    private final QuerySet qs;
+    final QuerySet qs;
 
     private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
 
     public <T> ObjectMapper(Class<T> targetType) throws XerialException {
         qs = buildQuery(targetType);
+    }
+
+    public <T> ObjectMapper(Class<T> targetType, String targetNodeName) throws XerialException {
+        qs = buildFindQuery(targetType, targetNodeName);
     }
 
     public static ObjectMapper getMapper(Class< ? > targetType) throws XerialException {
@@ -99,6 +104,12 @@ public class ObjectMapper {
         return qb.qs.build();
     }
 
+    private QuerySet buildFindQuery(Class< ? > targetType, String targetNodeName) {
+        QueryBuilder qb = new QueryBuilder();
+        qb.buildFindQuery(targetType, targetNodeName);
+        return qb.qs.build();
+    }
+
     /**
      * Build query components (schemas of two nodes) from the object lens
      * 
@@ -113,6 +124,14 @@ public class ObjectMapper {
 
         public QueryBuilder() {
 
+        }
+
+        public void buildFindQuery(Class< ? > targetType, String targetNodeName) {
+            SchemaBuilder b = new SchemaBuilder();
+            b.add("root");
+            b.add(targetNodeName, FD.ZERO_OR_MORE);
+            qs.addQueryTarget(b.build());
+            build(targetType, targetNodeName);
         }
 
         public void build(Class< ? > targetType, String alias) {

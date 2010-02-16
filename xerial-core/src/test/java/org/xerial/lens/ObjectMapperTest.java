@@ -287,6 +287,14 @@ public class ObjectMapperTest {
         assertEquals(2, m.classes.size());
 
         _logger.debug(Lens.toJSON(m.classes));
+
+    }
+
+    @Test
+    public void buildFindQuery() throws Exception {
+        ObjectMapper mapper = new ObjectMapper(Person.class, "person");
+        _logger.info(mapper.qs);
+
     }
 
 }
