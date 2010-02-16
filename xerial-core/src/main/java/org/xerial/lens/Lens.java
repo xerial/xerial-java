@@ -278,10 +278,39 @@ public class Lens {
         return ObjectLens.toSilk(obj);
     }
 
+    /**
+     * Find the target nodes of the specified type from the input Silk data. The
+     * given object handler will be used to report the found target objects.
+     * 
+     * @param <Result>
+     * @param silkResource
+     * @param targetNodeName
+     * @param targetType
+     * @param handler
+     * @throws IOException
+     * @throws XerialException
+     */
     public static <Result> void findFromSilk(URL silkResource, String targetNodeName,
             Class<Result> targetType, ObjectHandler<Result> handler) throws IOException,
             XerialException {
         find(targetType, targetNodeName, handler, new SilkParser(silkResource));
+    }
+
+    public static <Result> void findFromSilk(Reader input, String targetNodeName,
+            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
+            IOException {
+        find(targetType, targetNodeName, handler, new SilkParser(input));
+    }
+
+    public static <Result> void findFromXML(Reader input, String targetNodeName,
+            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException {
+        find(targetType, targetNodeName, handler, new XMLTreeParser(input));
+    }
+
+    public static <Result> void findFromJSON(Reader input, String targetNodeName,
+            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
+            IOException {
+        find(targetType, targetNodeName, handler, new JSONPushParser(input));
     }
 
     public static <Result> void find(Class<Result> bindingType, ObjectHandler<Result> handler,
