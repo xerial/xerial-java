@@ -34,8 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
-import org.xerial.core.XerialError;
-import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONPushParser;
 import org.xerial.silk.SilkParser;
@@ -280,16 +278,21 @@ public class Lens {
         return ObjectLens.toSilk(obj);
     }
 
-    public static <Result> void find(Class<Result> bindingType, TreeParser parser,
-            ObjectHandler<Result> handler) throws XerialException {
-        find(bindingType, bindingType.getSimpleName(), parser, handler);
+    public static <Result> void findFromSilk(URL silkResource, String targetNodeName,
+            Class<Result> targetType, ObjectHandler<Result> handler) throws IOException,
+            XerialException {
+        find(targetType, targetNodeName, handler, new SilkParser(silkResource));
     }
 
-    public static <Result> void find(Class<Result> bindingType, String coreNodeName,
-            TreeParser parser, ObjectHandler<Result> handler) throws XerialException {
-        ObjectMapper mapper = ObjectMapper.getMapper(bindingType.getClass());
-        //mapper.find(bindingType, parser, coreNodeName, handler);
-        throw new XerialError(XerialErrorCode.UNSUPPORTED, "Lens.find");
+    public static <Result> void find(Class<Result> bindingType, ObjectHandler<Result> handler,
+            TreeParser parser) throws XerialException {
+        find(bindingType, bindingType.getSimpleName(), handler, parser);
+    }
+
+    public static <Result> void find(Class<Result> bindingType, String targetNodeName,
+            ObjectHandler<Result> handler, TreeParser parser) throws XerialException {
+        ObjectMapper mapper = new ObjectMapper(bindingType, targetNodeName);
+        mapper.find(handler, targetNodeName, parser);
     }
 
 }

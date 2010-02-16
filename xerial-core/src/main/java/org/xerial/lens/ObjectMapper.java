@@ -66,6 +66,7 @@ public class ObjectMapper {
     private final HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
 
     final QuerySet qs;
+    //final ObjectHandler<?> handler;
 
     private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
 
@@ -98,16 +99,23 @@ public class ObjectMapper {
         return mp.execute(qs, object, parser);
     }
 
+    public <T> void find(ObjectHandler<T> handler, String targetNodeName, TreeParser parser)
+            throws XerialException {
+        MappingProcess mp = new MappingProcess();
+        mp.handler = handler;
+        mp.execute(qs, "root", parser); // "root" is a dummy object
+    }
+
     private QuerySet buildQuery(Class< ? > targetType) {
         QueryBuilder qb = new QueryBuilder();
         qb.build(targetType, "root");
-        return qb.qs.build();
+        return qb.queryBuilder.build();
     }
 
-    private QuerySet buildFindQuery(Class< ? > targetType, String targetNodeName) {
+    private <T> QuerySet buildFindQuery(Class< ? > targetType, String targetNodeName) {
         QueryBuilder qb = new QueryBuilder();
         qb.buildFindQuery(targetType, targetNodeName);
-        return qb.qs.build();
+        return qb.queryBuilder.build();
     }
 
     /**
@@ -117,7 +125,8 @@ public class ObjectMapper {
      * 
      */
     private class QueryBuilder {
-        QuerySetBuilder qs = new QuerySetBuilder();
+        QuerySetBuilder queryBuilder = new QuerySetBuilder();
+        Schema rootAndTargetNodeSchema = null;
         private final HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
 
         //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
@@ -126,12 +135,14 @@ public class ObjectMapper {
 
         }
 
-        public void buildFindQuery(Class< ? > targetType, String targetNodeName) {
+        public <T> void buildFindQuery(Class< ? > targetType, String targetNodeName) {
             SchemaBuilder b = new SchemaBuilder();
             b.add("root");
             b.add(targetNodeName, FD.ZERO_OR_MORE);
-            qs.addQueryTarget(b.build());
+            rootAndTargetNodeSchema = b.build();
+            queryBuilder.addQueryTarget(rootAndTargetNodeSchema);
             build(targetType, targetNodeName);
+            schema2binder.put(rootAndTargetNodeSchema, new TargetNodeReporter<T>(targetType));
         }
 
         public void build(Class< ? > targetType, String alias) {
@@ -162,7 +173,7 @@ public class ObjectMapper {
                     builder.add("entry");
                     builder.add(each.getParameterName());
                     Schema s = builder.build();
-                    qs.addQueryTarget(s);
+                    queryBuilder.addQueryTarget(s);
                     schema2binder.put(s, new AttributeBinder(MapEntry.class, each));
                     continue;
                 }
@@ -174,7 +185,7 @@ public class ObjectMapper {
                 builder.add(each.getParameterName());
 
                 Schema s = builder.build();
-                qs.addQueryTarget(s);
+                queryBuilder.addQueryTarget(s);
 
                 schema2binder.put(s, new AttributeBinder(lens.getTargetType(), each));
             }
@@ -185,7 +196,7 @@ public class ObjectMapper {
 
                 Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(
                         each.getAttributeNodeName()).build();
-                qs.addQueryTarget(s);
+                queryBuilder.addQueryTarget(s);
 
                 schema2binder.put(s, new RelationBinder(lens, each));
 
@@ -199,7 +210,7 @@ public class ObjectMapper {
 
                 // (alias, *) 
                 Schema s = builder.build();
-                qs.addQueryTarget(s);
+                queryBuilder.addQueryTarget(s);
                 schema2binder.put(s, new PropertyBinder(lens, lens.getPropertySetter()));
             }
         }
@@ -217,6 +228,37 @@ public class ObjectMapper {
 
         public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
                 String textValue) throws XerialException;
+
+    }
+
+    private static class TargetNodeReporter<T> implements Binder {
+
+        private final Class<T> targetNodeType;
+
+        @SuppressWarnings("unchecked")
+        public TargetNodeReporter(Class< ? > targetNodeType) {
+            this.targetNodeType = (Class<T>) targetNodeType;
+        }
+
+        @SuppressWarnings("unchecked")
+        public void bind(MappingProcess proc, Schema schema, Node rootNode, Node targetNode)
+                throws XerialException {
+
+            Object targetNodeInstance = proc.getNodeInstance(targetNode, targetNodeType);
+            try {
+                ((ObjectHandler<T>) proc.getObjectHandler()).handle(targetNodeType
+                        .cast(targetNodeInstance));
+            }
+            catch (Exception e) {
+                throw XerialException.convert(e);
+            }
+        }
+
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
+                String textValue) throws XerialException {
+
+        // ignore the text event
+        }
 
     }
 
@@ -348,6 +390,11 @@ public class ObjectMapper {
         // id -> corresponding object instance
         HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
         Deque<Object> contextNodeStack = new ArrayDeque<Object>();
+        ObjectHandler< ? > handler = null;
+
+        ObjectHandler< ? > getObjectHandler() {
+            return handler;
+        }
 
         Object getNodeInstance(Node node, Class< ? > nodeType) throws XerialException {
             Object instance = objectHolder.get(node.nodeID);

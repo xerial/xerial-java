@@ -290,10 +290,26 @@ public class ObjectMapperTest {
 
     }
 
+    static class FindHandler implements ObjectHandler<Person> {
+
+        public void handle(Person input) throws Exception {
+            _logger.info("find: person " + input);
+        }
+
+    }
+
     @Test
     public void buildFindQuery() throws Exception {
+
         ObjectMapper mapper = new ObjectMapper(Person.class, "person");
         _logger.info(mapper.qs);
+
+    }
+
+    @Test
+    public void find() throws Exception {
+        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "map2.silk"), "person",
+                Person.class, new FindHandler());
 
     }
 

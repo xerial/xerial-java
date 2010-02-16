@@ -3,10 +3,10 @@
 -coordinate(group:utgb, type:chromosome, species:human, revision:hg18, name:chr1)
  -gene(name, start, strand, sequence, param[json])|
 TAG1	100	+	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	{"link":"http://somewhere.org/", "description":"reference sequence"}
-TAG2	100	-	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
+TAG2	101	-	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
 
 -(group:utgb, type:chromosome, species:human, revision:hg18)
  -coordinate(name:chr2)
   -gene(name, start, strand, sequence, param[json])|
-TAG3	100	-	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	{"memo":"in/del"}	 
-TAG4	100	+	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	
+TAG3	103	-	ACCCGGTTTTGGCGCTTTCCTTTC[----]TTGGCCTTGGGGCCCATCB	{"memo":"in/del"}	 
+TAG4	104	+	ACCCGG---GGCGCTTTCCCTTTC --AC TTGGCCTTGGGGCCCATCG	

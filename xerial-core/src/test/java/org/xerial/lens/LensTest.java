@@ -33,12 +33,10 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
-import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
@@ -331,6 +329,7 @@ public class LensTest {
         public String name;
         public long start;
         public String link;
+        public String sequence;
     }
 
     public static class MyGeneQuery {
@@ -359,16 +358,14 @@ public class LensTest {
         _logger.debug(Lens.toJSON(result));
     }
 
-    @Ignore
     @Test
     public void testFind() throws Exception {
-        Lens.find(MyGene.class, "gene", new SilkParser(FileResource.find(LensTest.class,
-                "sequence.silk")), new ObjectHandler<MyGene>() {
-
-            public void handle(MyGene input) throws Exception {
-                _logger.info(Lens.toJSON(input));
-            }
-        });
+        Lens.findFromSilk(FileResource.find(LensTest.class, "sequence.silk"), "gene", MyGene.class,
+                new ObjectHandler<MyGene>() {
+                    public void handle(MyGene input) throws Exception {
+                        _logger.info(Lens.toJSON(input));
+                    }
+                });
     }
 
     public static class TupleNode extends NodeBase<TupleNode> {
