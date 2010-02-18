@@ -1,0 +1,219 @@
+
+# simple selection : person(id, name)
+
+#name.silk
+%silk(version:1.0)
+%schema: person(id,name)
+-person
+ -id: 1
+ -name: leo
+-person
+ -id: 2
+ -name: yui
+
+--code
+person(id, name) in "name.silk" where id = 1
+--
+
+# when reading from STDIN, you can omit 'in' statment:
+--code
+person(id, name) where id = 1
+--
+
+# output will be 
+-person
+ -id: 1
+ -name: leo
+
+
+# phone.silk
+-person
+ -id: 1
+ -phone: xxx-xxxx
+-person
+ -id: 2 
+ -phone: yyy-yyyy
+
+# join
+# The update modifies the specified nodes in input A using the enclosed operations:
+--code
+@update person in "name.silk" {
+ @join _ with "phone.silk" using person.id
+}
+--
+
+# yielding 
+%silk(version:1.0)
+%schema: person(id, name, phone)
+-person
+ -id: 1
+ -name: leo
+ -phone: xxx-xxxx
+-person
+ -id: 2
+ -name: yui
+ -phone: yyy-yyyy
+
+# You can make explicit what to join:
+--code
+@join 
+ -: person(id, name) in "name.silk" by id
+ -: person(id, address) in "phone.silk" by id
+--
+
+--code
+A = @join "name.silk" with "phone.silk" using person.id
+B = 
+
+--
+
+%schema: person(id, name, phone)
+-person
+ -id: 1
+ -name: leo
+ -phone: xxx-xxxx
+-person
+ -id: 2
+ -name: yui
+ -phone: yyy-yyyy
+
+
+# node renaming
+--code
+person(id, name) in "name.silk" as employee(ID, full name)
+--
+%schema: employee(ID, full name)
+-employee
+ -ID: 1
+ -full name: leo
+-employee
+ -ID: 2
+ -full name: yui
+
+
+# preamble for telling the sort order of the document
+# Sorted by the order of person.id of integer type
+%sorted: person(id[int])
+
+# Sorted by the descending order of person.id
+%sorted: person(id[int]:desc)
+
+# Sorted by the start value of genes 
+%sorted: gene(start[int])
+
+
+# name.silk
+%sorted: person(id[int])
+-person
+ -id: 1
+ -name: leo
+-person
+ -id: 2
+ -name: yui
+
+# phone.silk
+%sorted: person(id[int])
+-person
+ -id: 1
+ -phone: xxx-xxxx
+-person
+ -id: 2 
+ -phone: yyy-yyyy
+
+
+# short hand notation of natural join
+--code
+@join "name.silk" with "phone.silk"
+--
+
+# join operations
+--code
+@join
+@leftjoin
+@cross
+--
+
+# preamble for specifying schema
+%schema: person(id, name)
+
+%schema: person(id, phone)
+
+# for each 
+--code
+@foreach person(id, name) in "name.silk" 
+  @concat person.* with "\t"
+--
+
+# stdin
+--code
+@foreach person(id, name) in <> 
+  @concat person.* with "\t"
+--
+
+# stdin
+--code
+@foreach person(id, name) 
+  @concat person.* with "\t"
+--
+
+
+
+# join using for each
+--code
+@foreach person(id, name) in "name.silk" 
+ @join _ with person(id, phone) in "phone.silk" using(person.id)
+
+--
+
+# sorting 
+--code
+@sort person(id, name) in "name.silk" by name
+--
+
+
+# importing tab-separated data
+
+# tab data (sample.tab)
+--code
+1	leo
+2	yui
+--
+
+# rename & load
+"sample.tab" as person(id, name) 
+
+%schema: person(id, name)
+-person 
+ -id: 1
+ -name: leo
+-person
+ -id: 2
+ -name: yui
+
+# simple transformation
+--code
+person(id, name)
+--
+
+# command-line usage
+--code
+cat person.tab | silk find "person(id, name)"
+
+
+# change splitter
+cat person.csv | silk find -t , "person(id,name)"
+
+# filter 
+silk find "person where person.id = 1" (input file)
+
+# join
+silk join (input1) (input2) --using person.id
+
+# using full query syntax
+silk query "join _ with 'phone.silk' using person.id" (input file)
+
+silk query "find person where person.id=1" (input file)
+
+--
+
+
