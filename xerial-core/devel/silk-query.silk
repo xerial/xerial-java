@@ -214,6 +214,15 @@ silk query "join _ with 'phone.silk' using person.id" (input file)
 
 silk query "find person where person.id=1" (input file)
 
+# generating alternative structure
+silk alt (input flie)
+
+# compression
+silk compress (input file)
+
+# indexing
+silk index (input file)
+
 --
 
 
