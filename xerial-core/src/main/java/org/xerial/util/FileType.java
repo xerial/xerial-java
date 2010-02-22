@@ -39,46 +39,26 @@ public enum FileType {
     UNKNOWN(""),
 
     // image formats
-    JPEG("jpeg,jpg"),
-    PNG("png"),
-    GIF("gif"),
-    BMP("bmp"),
-    TIFF("tiff"),
+    JPEG("jpeg,jpg"), PNG("png"), GIF("gif"), BMP("bmp"), TIFF("tiff"),
 
     // text formats
-    XML("xml"),
-    JSON("json"),
-    SILK("silk"),
-    TAB("tab"),
-    CSV("csv"),
-    FASTA("fasta,fs"),
-    TEX("tex"),
-    TEXT("txt"),
+    XML("xml"), JSON("json"), SILK("silk"), TAB("tab"), CSV("csv"), FASTA("fasta,fa,fs"), TEX("tex"), TEXT(
+            "txt"),
 
     // HTML formats
     HTML("html,htm"),
 
     // binary format
-    PDF("pdf"),
-    PS("ps"),
-    WORD("doc,docx"),
-    EXCEL("xls,xlsx"),
-    POWER_POINT("ppt,pptx"),
+    PDF("pdf"), PS("ps"), WORD("doc,docx"), EXCEL("xls,xlsx"), POWER_POINT("ppt,pptx"),
 
     // compressed format
-    ZIP("zip"),
-    GZIP("gz,gzip"),
-    TAR("tar"),
-    TAR_GZ("tar.gz"),
-    BZIP2("bz2")
+    ZIP("zip"), GZIP("gz,gzip"), TAR("tar"), TAR_GZ("tar.gz"), BZIP2("bz2")
 
     ;
 
     private static HashMap<String, FileType> fileTypeTable = new HashMap<String, FileType>();
-    static
-    {
-        for (FileType eachType : FileType.values())
-        {
+    static {
+        for (FileType eachType : FileType.values()) {
             for (String eachExt : eachType.getFileExtList())
                 fileTypeTable.put(eachExt, eachType);
         }
@@ -86,24 +66,20 @@ public enum FileType {
 
     private ArrayList<String> fileExtList;
 
-    private FileType()
-    {
+    private FileType() {
         fileExtList = new ArrayList<String>(0);
     }
 
-    private FileType(String fileExtCSV)
-    {
+    private FileType(String fileExtCSV) {
         String[] fileExt = fileExtCSV.split(",\\s*");
         assert (fileExt != null);
         fileExtList = new ArrayList<String>(fileExt.length);
-        for (String each : fileExt)
-        {
+        for (String each : fileExt) {
             fileExtList.add(each);
         }
     }
 
-    public List<String> getFileExtList()
-    {
+    public List<String> getFileExtList() {
         return fileExtList;
     }
 
@@ -113,8 +89,7 @@ public enum FileType {
      * @param fileExt
      * @return
      */
-    public static FileType getFileTypeFromFileExt(String fileExt)
-    {
+    public static FileType getFileTypeFromFileExt(String fileExt) {
         FileType f = fileTypeTable.get(fileExt.toLowerCase());
         if (f == null)
             return UNKNOWN;
@@ -122,8 +97,7 @@ public enum FileType {
             return f;
     }
 
-    public static FileType getFileType(String filePath)
-    {
+    public static FileType getFileType(String filePath) {
         if (filePath.endsWith("tar.gz"))
             return getFileTypeFromFileExt("tar.gz");
 
@@ -132,6 +106,19 @@ public enum FileType {
             return UNKNOWN;
         else
             return getFileTypeFromFileExt(filePath.substring(extPos + 1));
+    }
+
+    public static String removeFileExt(String filePath) {
+
+        if (filePath.endsWith("tar.gz"))
+            return filePath.substring(0, filePath.length() - "tar.gz".length() - 1);
+
+        int extPos = filePath.lastIndexOf(".");
+        if (extPos <= 0)
+            return filePath;
+        else
+            return filePath.substring(0, extPos);
+
     }
 
 }

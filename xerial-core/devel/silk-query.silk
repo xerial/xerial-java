@@ -103,6 +103,7 @@ person(id, name) in "name.silk" as employee(ID, full name)
 
 
 # name.silk
+%schema: person(id, name)
 %sorted: person(id[int])
 -person
  -id: 1
@@ -112,6 +113,7 @@ person(id, name) in "name.silk" as employee(ID, full name)
  -name: yui
 
 # phone.silk
+%schema: person(id, name)
 %sorted: person(id[int])
 -person
  -id: 1
@@ -197,25 +199,28 @@ person(id, name)
 
 # command-line usage
 --code
-cat person.tab | silk find "person(id, name)"
+cat person.tab | silk find -e "person(id, name)"
 
 
-# change splitter
-cat person.csv | silk find -t , "person(id,name)"
+# change field separator
+cat person.csv | silk find -t , -e "person(id,name)"
 
 # filter 
-silk find "person where person.id = 1" (input file)
+silk find (input file) -e "person(id, name) where person.id = 1"
 
 # join
-silk join (input1) (input2) --using person.id
+silk join (input1) (input2) -e "using person.id"
 
 # using full query syntax
-silk query "join _ with 'phone.silk' using person.id" (input file)
+silk query -e "join _ with _ using person.id" (input1) (input2)
 
-silk query "find person where person.id=1" (input file)
+silk query -e "find person where person.id=1" (input file)
 
-# generating alternative structure
-silk alt (input flie)
+# updating 
+silk query -e "update experiment { append $(date) }" (input file)
+
+# generating an alternative structure
+cat sample.silk | silk  
 
 # compression
 silk compress (input file)
