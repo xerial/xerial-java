@@ -93,7 +93,7 @@ public class SilkWriter {
         public boolean insertTagAfterAttributeColon = false;
 
         // preamble
-        public boolean insertSpaceAfterPreambleSymbol = true;
+        public boolean insertSpaceAfterPreambleSymbol = false;
 
         // parenthesis 
         public boolean insertSpaceOutsideOfParen = false;
