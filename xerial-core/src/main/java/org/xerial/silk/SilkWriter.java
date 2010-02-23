@@ -178,6 +178,15 @@ public class SilkWriter {
         return this;
     }
 
+    public SilkWriter preamble(String preambleText) {
+        out.print("%");
+        if (formatConfig.insertSpaceAfterPreambleSymbol)
+            out.print(" ");
+
+        out.print(preambleText);
+        return this;
+    }
+
     /**
      * output comment line
      * 
