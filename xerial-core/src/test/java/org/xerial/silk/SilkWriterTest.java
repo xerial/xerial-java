@@ -24,7 +24,8 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -218,6 +219,27 @@ public class SilkWriterTest {
         String e = SilkWriter.escapeText("\\-already escaped");
         assertEquals("\\-already escaped", e);
 
+    }
+
+    @Test
+    public void node() throws Exception {
+        StringWriter buf = new StringWriter();
+        SilkWriter w = new SilkWriter(buf);
+        w.node("A").node("B");
+        _logger.info(buf.toString());
+    }
+
+    @Test
+    public void preamble() throws Exception {
+        StringWriter buf = new StringWriter();
+        SilkWriter w = new SilkWriter(buf);
+
+        w.preamble();
+        w.schema("sequence").attribute("name").attribute("length").attribute("offset");
+        w.schema("sequence", "name", "length", "offset");
+        w.sortInfo("sequence", "offset");
+        w.node("A");
+        _logger.info(buf.toString());
     }
 
 }

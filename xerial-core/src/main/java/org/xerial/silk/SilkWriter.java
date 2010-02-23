@@ -106,6 +106,7 @@ public class SilkWriter {
 
     private SyntaxType nodeValueSyntaxType = SyntaxType.DEFAULT;
 
+    private boolean isFirstLine = true;
     private int numAttribute = 0;
 
     public SilkWriter(Writer out) {
@@ -125,6 +126,8 @@ public class SilkWriter {
         this.levelOffset = parent.levelOffset + 1;
         this.contextNodeName = contextNodeName;
         this.formatConfig = parent.formatConfig;
+        if (parent != null)
+            isFirstLine = false;
     }
 
     public void setFormatConfig(FormatConfig config) {
@@ -166,25 +169,54 @@ public class SilkWriter {
     }
 
     public SilkWriter preamble() {
-        out.print("%");
-        if (formatConfig.insertSpaceAfterPreambleSymbol)
-            out.print(" ");
-        out.print("silk");
-
-        openParen();
-        keyAndValue("version", "1.0");
-        closeParen();
-
+        beginPreamble();
+        createNewChildWriter("silk", "").attribute("version", "1.0");
         return this;
     }
 
-    public SilkWriter preamble(String preambleText) {
+    public SilkWriter preamble(String anyText) {
+        beginPreamble();
+        out.print(anyText);
+        return this;
+    }
+
+    private void beginPreamble() {
+        usabilityCheck();
+        attributeParenCloseCheck(true);
+
         out.print("%");
         if (formatConfig.insertSpaceAfterPreambleSymbol)
             out.print(" ");
+    }
 
-        out.print(preambleText);
-        return this;
+    public SilkWriter sortInfo(String coreNodeName) {
+        beginPreamble();
+        out.print("sorted ");
+        return createNewChildWriter(coreNodeName, "");
+    }
+
+    public SilkWriter sortInfo(String coreNodeName, String... keyNode) {
+
+        SilkWriter w = sortInfo(coreNodeName);
+        for (String each : keyNode) {
+            w.attribute(each);
+        }
+        return w;
+    }
+
+    public SilkWriter schema(String coreNodeName, String... attribute) {
+
+        SilkWriter w = schema(coreNodeName);
+        for (String each : attribute) {
+            w.attribute(each);
+        }
+        return w;
+    }
+
+    public SilkWriter schema(String coreNodeName) {
+        beginPreamble();
+        out.print("schema ");
+        return createNewChildWriter(coreNodeName, "");
     }
 
     /**
@@ -211,8 +243,9 @@ public class SilkWriter {
             if (formatConfig.insertSpaceAfterCommentSymbol)
                 out.print(" ");
 
-            if (index < comments.length - 1)
+            if (index < comments.length - 1) {
                 out.println(each);
+            }
             else
                 out.print(each);
             index++;
@@ -264,7 +297,7 @@ public class SilkWriter {
             out.print(" ");
     }
 
-    private void attributeParenCloseCheck(boolean insertNewline) {
+    private void attributeParenCloseCheck(boolean startsWithLineHead) {
         if (numAttribute > 0) {
             closeParen();
 
@@ -278,8 +311,12 @@ public class SilkWriter {
             break;
         }
 
-        if (insertNewline)
-            out.println();
+        if (startsWithLineHead) {
+            if (!isFirstLine)
+                out.println();
+            else
+                isFirstLine = false;
+        }
 
         numAttribute = 0;
     }
@@ -293,18 +330,21 @@ public class SilkWriter {
      */
     public SilkWriter node(String nodeName) {
         usabilityCheck();
-
         attributeParenCloseCheck(true);
 
-        printNodeName(nodeName);
+        return createNewChildWriter(nodeName, "-");
+    }
+
+    private SilkWriter createNewChildWriter(String nodeName, String nodeIndicator) {
+        printNodeName(nodeName, nodeIndicator);
         SilkWriter child = new SilkWriter(nodeName, this);
         registChildWriter(child);
         return child;
     }
 
-    private void printNodeName(String nodeName) {
+    private void printNodeName(String nodeName, String nodeIndicator) {
         printIndent();
-        out.print("-");
+        out.print(nodeIndicator);
         if (nodeName != null)
             out.print(nodeName);
     }
@@ -348,7 +388,7 @@ public class SilkWriter {
         colonAndNodeValueForInlineNode(value);
     }
 
-    public SilkWriter attribute(String nodeName, String nodeValue) {
+    public SilkWriter attribute(String attributeName, String attributeValue) {
         usabilityCheck();
 
         if (numAttribute == 0) {
@@ -357,7 +397,7 @@ public class SilkWriter {
         else
             comma();
 
-        keyAndValue(nodeName, nodeValue);
+        keyAndValue(attributeName, attributeValue);
 
         numAttribute++;
         return this;
@@ -375,7 +415,7 @@ public class SilkWriter {
         return leaf(nodeName, null);
     }
 
-    public SilkWriter leaf(String nodeName, String nodeValue) {
+    public SilkWriter leaf(String nodeName, Object nodeValue) {
         usabilityCheck();
 
         attributeParenCloseCheck(true);
@@ -384,7 +424,8 @@ public class SilkWriter {
         out.print("-");
         out.print(nodeName);
 
-        colonAndNodeValue(nodeValue);
+        if (nodeValue != null)
+            colonAndNodeValue(nodeValue.toString());
 
         return this;
     }
