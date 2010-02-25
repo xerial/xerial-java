@@ -30,7 +30,14 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 
-import org.xerial.lens.RelationLens;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.lang.RelationExpr;
+import org.xerial.lens.relation.query.AmoebaJoinHandler;
+import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
+import org.xerial.lens.relation.query.QuerySet;
+import org.xerial.lens.relation.query.StreamAmoebaJoin;
+import org.xerial.lens.relation.schema.Schema;
+import org.xerial.silk.SilkParser;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Usage;
@@ -75,7 +82,32 @@ public class Filter implements SilkCommand {
             }
         }
 
-        RelationLens lens = new RelationLens(query);
+        RelationExpr expr = RelationExpr.parse(query);
+        QuerySet qs = expr.buildQuerySet();
+        _logger.debug("query set: " + qs);
+        AmoebaJoinHandler handler = new AmoebaJoinHandlerBase() {
+
+            @Override
+            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
+                    throws Exception {
+
+                _logger.debug(String
+                        .format("find: (%s, %s) in %s", coreNode, attributeNode, schema));
+            }
+
+            @Override
+            public void leaveNode(Schema schema, Node node) throws Exception {
+
+            }
+
+            @Override
+            public void text(Schema schema, Node coreNode, Node textNode, String text)
+                    throws Exception {
+
+            }
+        };
+        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, handler);
+        aj.sweep(new SilkParser(in));
 
     }
 

@@ -24,12 +24,14 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.FileResource;
 
 public class FilterTest {
 
@@ -46,5 +48,13 @@ public class FilterTest {
         assertTrue(Filter.startsWithProtocol("ftp://www.xerial.org/"));
         assertTrue(Filter.startsWithProtocol("svn+dav://www.xerial.org/"));
         assertFalse(Filter.startsWithProtocol("some/file.txt"));
+    }
+
+    @Test
+    public void filter() {
+        SilkMain.main(new String[] {
+                "filter",
+                new File(FileResource.find(FilterTest.class, "../scaffold5001.silk").getPath())
+                        .getAbsolutePath(), "read(view_start, view_end)", "-l", "debug" });
     }
 }

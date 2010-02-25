@@ -31,6 +31,7 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.ObjectLens;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.query.QuerySet;
@@ -43,7 +44,7 @@ import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
 /**
- * Relation expression
+ * Relation expression for querying structured data
  * 
  * @author leo
  * 
@@ -121,7 +122,8 @@ public class RelationExpr extends Tuple<RelationAttribute> {
         QuerySetBuilder b = new QuerySetBuilder();
 
         SchemaBuilder parent = new SchemaBuilder();
-        parent.add(name);
+        String cName = ObjectLens.getCanonicalParameterName(name);
+        parent.add(cName);
 
         for (TupleElement<RelationAttribute> each : this) {
 
@@ -129,10 +131,13 @@ public class RelationExpr extends Tuple<RelationAttribute> {
                 RelationExpr re = RelationExpr.class.cast(each);
                 for (Schema s : re.buildQuerySet().getTargetQuerySet())
                     b.addQueryTarget(s);
+
+                b.addQueryTarget(new SchemaBuilder().add(cName).add(
+                        ObjectLens.getCanonicalParameterName(re.name)).build());
             }
             else {
                 RelationAttribute ra = RelationAttribute.class.cast(each);
-                parent.add(ra.name);
+                parent.add(ObjectLens.getCanonicalParameterName(ra.name));
             }
         }
         b.addQueryTarget(parent.build());

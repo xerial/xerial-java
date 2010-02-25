@@ -54,7 +54,7 @@ public class SilkMain {
         @Option(symbol = "h", longName = "help", description = "display help message")
         boolean displayHelp = false;
 
-        @Option(longName = "loglevel", description = "set loglevel to one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL or ALL")
+        @Option(symbol = "l", longName = "loglevel", description = "set loglevel to one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL or ALL")
         protected LogLevel logLevel = LogLevel.INFO;
 
         @Argument(index = 0, name = "sub command", required = false)
@@ -74,9 +74,10 @@ public class SilkMain {
 
         SilkGlobalOption globalOption = new SilkGlobalOption();
         OptionParser parser = new OptionParser(globalOption);
-        Logger.getRootLogger().setLogLevel(globalOption.logLevel);
+
         try {
             parser.parse(args, true);
+            Logger.getRootLogger().setLogLevel(globalOption.logLevel);
 
             if (globalOption.subCommand == null)
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
