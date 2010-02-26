@@ -41,7 +41,10 @@ public enum XerialErrorCode implements ErrorCode {
     RESOURCE_NOT_FOUND,
 
     // I/O
-    READ_ERROR, OUTPUT_ERROR, IO_EXCEPTION, INTERRUPTED,
+    READ_ERROR, OUTPUT_ERROR, IO_EXCEPTION, INTERRUPTED, DISK_IO_ERROR,
+
+    // disk page
+    INVALID_CHAIN_INDEX, TOO_LARGE_RELATION,
 
     // option parser error
     DUPLICATE_OPTION, NO_OPTION, NO_USAGE_ANNOTATION, MISSING_ARGUMENT,
@@ -55,7 +58,6 @@ public enum XerialErrorCode implements ErrorCode {
     // general exception
     INHERITED, HAS_AN_EXTENDED_ERROR_CODE,
 
-    
     // Bean specific error codes
     IOError,
 
@@ -63,7 +65,7 @@ public enum XerialErrorCode implements ErrorCode {
 
     // XML
     InvalidXMLData, ParserError, UnsupportedXMLDataType,
- 
+
     // JSON
     InvalidJSONData, InvalidJSONArray,
 
@@ -76,7 +78,6 @@ public enum XerialErrorCode implements ErrorCode {
 
     // binder
     GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed, InvalidDateFormat, InvalidFormat, InvalidType;
-    ;
 
     private final String description;
 

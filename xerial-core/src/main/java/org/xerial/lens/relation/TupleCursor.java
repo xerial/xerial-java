@@ -14,25 +14,28 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// XerialJ
+// Xerial Raquel Project
 //
-// CellVisitor.java
-// Since: 2009/05/13 9:32:39
+// XMLTupleCursor.java
+// Since: 2009/03/15 1:07:04
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.lens.relation;
 
+import java.util.Iterator;
+
+import org.xerial.lens.relation.schema.Schema;
+
 /**
- * Visitor interface for traversing Tuple
+ * Cursor interface for traversing tuples
  * 
  * @author leo
  * 
  */
-public interface TupleVisitor<NodeType extends TupleElement<NodeType>> {
-    public void visitNode(NodeType node);
+public interface TupleCursor extends Iterator<Tuple<Node>> {
+    Tuple<Node> peekNext();
 
-    public void visitTuple(Tuple<NodeType> tuple);
-
+    Schema getSchema();
 }

@@ -37,6 +37,8 @@ import org.xerial.core.XerialErrorCode;
 public class TupleIndex implements Comparable<TupleIndex> {
     private int[] index;
 
+    public final static TupleIndex ZERO = new TupleIndex(0);
+
     /**
      * Create an index with a single level, e.g., 1, 2, 3, ...
      * 

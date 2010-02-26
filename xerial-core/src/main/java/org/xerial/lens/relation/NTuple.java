@@ -16,52 +16,38 @@
 //--------------------------------------
 // XerialJ
 //
-// IndexAccess.java
-// Since: 2009/05/14 9:24:54
+// NTuple.java
+// Since: Feb 26, 2010 3:31:21 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.lens.relation;
 
-public interface IndexAccess<NodeType>
-{
-    /**
-     * Get the cell at the specified index
-     * 
-     * @param index
-     * @return
-     */
-    TupleElement<NodeType> get(TupleIndex index);
+import java.util.List;
 
-    /**
-     * If the cell at the specified index is a node, then return the node,
-     * otherwise return null
-     * 
-     * @param index
-     * @return node
-     */
-    NodeType getNode(TupleIndex index);
+/**
+ * NestedTuple (NTuple) is a wrapper of the Tuple<TupleElement<Node>> class
+ * 
+ * @author leo
+ * 
+ */
+public class NTuple extends Tuple<Node> {
 
-    /**
-     * if this cell is node, then return node. otherwise return null
-     * 
-     * @return
-     */
-    NodeType getNode();
+    public NTuple() {
+        super();
+    }
 
-    /**
-     * If this cell is tuple, then return tuple. otherwise return null
-     * 
-     * @return
-     */
-    IndexAccess<NodeType> getTuple();
+    public NTuple(int tupleSize) {
+        super(tupleSize);
+    }
 
-    /**
-     * Accept the visitor
-     * 
-     * @param visitor
-     */
-    void accept(TupleVisitor<NodeType> visitor);
+    public NTuple(List<TupleElement<Node>> nodeList) {
+        super(nodeList);
+    }
+
+    public NTuple(Tuple<Node> other) {
+        super(other);
+    }
 
 }

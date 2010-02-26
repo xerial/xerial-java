@@ -41,50 +41,40 @@ import org.xerial.core.XerialErrorCode;
  * @author leo
  * 
  */
-public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElement<Element>> {
+public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElement<NodeType>,
+        Iterable<TupleElement<NodeType>> {
 
-    private final List<TupleElement<Element>> nodeList;
+    private final List<TupleElement<NodeType>> nodeList;
 
     public Tuple() {
-        this.nodeList = new ArrayList<TupleElement<Element>>();
+        this.nodeList = new ArrayList<TupleElement<NodeType>>();
     }
 
-    public Tuple(Tuple<Element> other) {
+    public Tuple(Tuple<NodeType> other) {
         this(other.nodeList);
     }
 
     public Tuple(int tupleSize) {
-        this.nodeList = new ArrayList<TupleElement<Element>>(tupleSize);
+        this.nodeList = new ArrayList<TupleElement<NodeType>>(tupleSize);
     }
 
-    public Tuple(List<TupleElement<Element>> nodeList) {
-        this.nodeList = new ArrayList<TupleElement<Element>>(nodeList.size());
-        for (TupleElement<Element> each : nodeList) {
+    public Tuple(List<TupleElement<NodeType>> nodeList) {
+        this.nodeList = new ArrayList<TupleElement<NodeType>>(nodeList.size());
+        for (TupleElement<NodeType> each : nodeList) {
             this.nodeList.add(each);
         }
     }
 
-    public void add(TupleElement<Element> node) {
-        nodeList.add(node);
+    public Iterator<TupleElement<NodeType>> iterator() {
+        return nodeList.iterator();
     }
 
-    public void set(int index, TupleElement<Element> node) {
+    public void add(TupleElement<NodeType> elem) {
+        nodeList.add(elem);
+    }
+
+    public void set(int index, NodeType node) {
         nodeList.set(index, node);
-    }
-
-    public void set(TupleIndex index, TupleElement<Element> node) {
-        if (!index.hasTail()) {
-            set(index.get(0), node);
-            return;
-        }
-
-        // nested node
-        TupleElement<Element> target = get(index.get(0));
-        if (target == null || !target.isTuple())
-            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format(
-                    "set to invalid element: index = %s in %s", index, this));
-
-        ((Tuple<Element>) target).set(index.tail(), node);
     }
 
     public int size() {
@@ -99,15 +89,11 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         return nodeList.isEmpty();
     }
 
-    public void sort(Comparator<TupleElement<Element>> comparator) {
+    public void sort(Comparator<TupleElement<NodeType>> comparator) {
         Collections.sort(nodeList, comparator);
     }
 
-    public Iterator<TupleElement<Element>> iterator() {
-        return nodeList.iterator();
-    }
-
-    public TupleElement<Element> get(int index) {
+    public TupleElement<NodeType> get(int index) {
         return nodeList.get(index);
     }
 
@@ -141,16 +127,8 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         return String.format("[%s]", join(nodeList, ", "));
     }
 
-    public boolean addAll(List<TupleElement<Element>> relationFragment) {
+    public boolean addAll(List<NodeType> relationFragment) {
         return nodeList.addAll(relationFragment);
-    }
-
-    public Element castToElement() {
-        return null;
-    }
-
-    public Tuple<Element> castToTuple() {
-        return this;
     }
 
     public boolean isAtom() {
@@ -161,54 +139,76 @@ public class Tuple<Element> implements TupleElement<Element>, Iterable<TupleElem
         return true;
     }
 
-    public TupleElement<Element> get(TupleIndex index) {
-        TupleElement<Element> cell = nodeList.get(index.get(0));
+    public void accept(TupleVisitor<NodeType> visitor) {
+    //((TupleElement) visitor).accept(this);
+    }
+
+    public NodeType castToNode() {
+        return null;
+    }
+
+    public Tuple<NodeType> castToTuple() {
+        return this;
+    }
+
+    public void set(TupleIndex index, NodeType node) {
+        if (!index.hasTail()) {
+            set(index.get(0), node);
+            return;
+        }
+
+        // nested node
+        TupleElement<NodeType> target = get(index.get(0));
+        if (target == null || !target.isTuple())
+            throw new XerialError(XerialErrorCode.INVALID_STATE, String.format(
+                    "set to invalid element: index = %s in %s", index, this));
+
+        Tuple<NodeType> tuple = (Tuple<NodeType>) target;
+        tuple.set(index.tail(), node);
+    }
+
+    public TupleElement<NodeType> get(TupleIndex index) {
+        TupleElement<NodeType> cell = nodeList.get(index.get(0));
         if (index.hasTail())
             return cell.get(index.tail());
         else
             return cell;
     }
 
-    @SuppressWarnings("unchecked")
-    public Element getNode(int index) {
-        TupleElement<Element> node = get(index);
+    public NodeType getNode(int index) {
+        TupleElement<NodeType> node = get(index);
         if (node.isAtom())
-            return (Element) node;
+            return node.castToNode();
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
     }
 
-    @SuppressWarnings("unchecked")
-    public Element getElement(TupleIndex index) {
-        TupleElement<Element> node = get(index);
+    public NodeType getNode(TupleIndex index) {
+        TupleElement<NodeType> node = get(index);
         if (node == null)
             return null;
 
         if (node.isAtom())
-            return (Element) node;
+            return node.castToNode();
         else
             throw new XerialError(XerialErrorCode.MISSING_ELEMENT, "node is not found: " + index);
 
     }
 
-    public Tuple<Element> flatten() {
-        ArrayList<TupleElement<Element>> array = new ArrayList<TupleElement<Element>>();
-        flatten(array, this);
-        return new Tuple<Element>(array);
+    public Tuple<NodeType> flatten() {
+        ArrayList<TupleElement<NodeType>> array = new ArrayList<TupleElement<NodeType>>();
+        flatten(array, this.castToTuple());
+        return new Tuple<NodeType>(array);
     }
 
-    private void flatten(List<TupleElement<Element>> result, TupleElement<Element> cell) {
+    private void flatten(List<TupleElement<NodeType>> result, TupleElement<NodeType> cell) {
         if (cell.isAtom())
-            result.add(cell);
+            result.add(cell.castToNode());
         else {
-            for (TupleElement<Element> each : cell.castToTuple()) {
+            for (TupleElement<NodeType> each : cell.castToTuple()) {
                 flatten(result, each);
             }
         }
-    }
-
-    public void accept(TupleVisitor<Element> visitor) {
-        visitor.visitTuple(this);
     }
 
 }
