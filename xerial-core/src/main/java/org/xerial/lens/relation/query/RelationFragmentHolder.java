@@ -30,11 +30,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.xerial.lens.relation.TupleElement;
-import org.xerial.lens.relation.TupleVisitor;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
+import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.TupleIndex;
+import org.xerial.lens.relation.TupleVisitor;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
@@ -55,9 +55,9 @@ public class RelationFragmentHolder {
     private final Schema schemaWithoutCoreNode;
     //    private IndexedSet<String> nodeNameIndex = new IndexedSet<String>();
 
-    private LinkedList<RelationFragment> fragmentStack = new LinkedList<RelationFragment>();
-    private Deque<Node> coreNodeStack = new ArrayDeque<Node>();
-    private HashMap<Node, Integer> fragmentListStartPosition = new HashMap<Node, Integer>();
+    private final LinkedList<RelationFragment> fragmentStack = new LinkedList<RelationFragment>();
+    private final Deque<Node> coreNodeStack = new ArrayDeque<Node>();
+    private final HashMap<Node, Integer> fragmentListStartPosition = new HashMap<Node, Integer>();
 
     private final int relationSize;
 
@@ -65,7 +65,7 @@ public class RelationFragmentHolder {
 
     private class RelationFragment {
         //private BitVector          activeStackFlag;
-        private Tuple<Node> relationFragment;
+        private final Tuple<Node> relationFragment;
 
         public RelationFragment() {
             //activeStackFlag = new BitVector(relationSize - 1);
@@ -129,9 +129,10 @@ public class RelationFragmentHolder {
         }
 
         private TupleIndex getIndexOf(Node node) {
-            return schemaWithoutCoreNode.getNodeIndex(node.nodeName);
+            return schemaWithoutCoreNode.getNodeIndex(node.getCanonicalNodeName());
         }
 
+        @Override
         public String toString() {
             return relationFragment.toString();
         }
@@ -168,7 +169,7 @@ public class RelationFragmentHolder {
     public boolean push(Node node) {
         if (_logger.isTraceEnabled())
             _logger.trace("push: " + node);
-        TupleIndex nodeNameID = relation.getNodeIndex(node.nodeName);
+        TupleIndex nodeNameID = relation.getNodeIndex(node.getCanonicalNodeName());
         if (isCoreNode(nodeNameID)) {
             // core node
             if (coreNodeStack.isEmpty()) {
@@ -194,7 +195,7 @@ public class RelationFragmentHolder {
     public void pop(Node node) {
         if (_logger.isTraceEnabled())
             _logger.trace("pop:  " + node);
-        TupleIndex nodeNameID = relation.getNodeIndex(node.nodeName);
+        TupleIndex nodeNameID = relation.getNodeIndex(node.getCanonicalNodeName());
         RelationFragment target = getTargetRelationFragmentFromStack();
         if (isCoreNode(nodeNameID)) {
             // for setting text values

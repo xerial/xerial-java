@@ -69,7 +69,7 @@ public class SilkMain {
 
     }
 
-    public static void main(String[] args) {
+    public static int execute(String[] args) throws Exception {
         Logger.getRootLogger().setLogWriter(new SimpleLogWriter(System.err));
 
         SilkGlobalOption globalOption = new SilkGlobalOption();
@@ -100,7 +100,7 @@ public class SilkMain {
 
             if (command == null) {
                 _logger.error("command is not specified");
-                return;
+                return -1;
             }
 
             // 
@@ -122,15 +122,28 @@ public class SilkMain {
                 }
                 subCommandOptionParser.printUsage();
 
-                return;
+                return 0;
             }
 
             subCommandOptionParser.parse(parser.getUnusedArguments());
             command.execute();
 
+            return 0;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            SilkMain.execute(args);
         }
         catch (Exception e) {
             _logger.error(e);
+            e.printStackTrace();
         }
         catch (Error e) {
             e.printStackTrace();

@@ -27,19 +27,25 @@ package org.xerial.silk.cui;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.Tuple;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.TupleVisitor;
 import org.xerial.lens.relation.lang.RelationExpr;
-import org.xerial.lens.relation.query.AmoebaJoinHandler;
-import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.lens.relation.query.QuerySet;
-import org.xerial.lens.relation.query.StreamAmoebaJoin;
+import org.xerial.lens.relation.query.RelationExtractor;
+import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.silk.SilkParser;
+import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
 
 @Usage(command = "filter")
@@ -56,6 +62,11 @@ public class Filter implements SilkCommand {
 
     @Argument(index = 1)
     public String query = null;
+
+    @Option(symbol = "t", description = "column split character")
+    public String splitChar = "\t";
+
+    private final PrintStream out = System.out;
 
     public void execute() throws Exception {
 
@@ -85,30 +96,36 @@ public class Filter implements SilkCommand {
         RelationExpr expr = RelationExpr.parse(query);
         QuerySet qs = expr.buildQuerySet();
         _logger.debug("query set: " + qs);
-        AmoebaJoinHandler handler = new AmoebaJoinHandlerBase() {
 
-            @Override
-            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
-                    throws Exception {
+        RelationExtractor.run(qs, new SilkParser(in), new RelationHandler() {
 
-                _logger.debug(String
-                        .format("find: (%s, %s) in %s", coreNode, attributeNode, schema));
+            public void relation(Schema s, Tuple<Node> relation) {
+                TupleFormatter f = new TupleFormatter();
+                relation.accept(f);
+
+                System.out.println(StringUtil.join(f.elem, splitChar));
             }
+        });
 
-            @Override
-            public void leaveNode(Schema schema, Node node) throws Exception {
+    }
 
+    private static class TupleFormatter implements TupleVisitor<Node> {
+
+        ArrayList<String> elem = new ArrayList<String>();
+
+        public void visitNode(Node node) {
+            elem.add(node.nodeValue == null ? "" : node.nodeValue);
+        }
+
+        public void visitTuple(Tuple<Node> tuple) {
+            for (TupleElement<Node> each : tuple) {
+                each.accept(this);
             }
+        }
+    }
 
-            @Override
-            public void text(Schema schema, Node coreNode, Node textNode, String text)
-                    throws Exception {
-
-            }
-        };
-        StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, handler);
-        aj.sweep(new SilkParser(in));
-
+    private static String toString(Node node) {
+        return node.nodeValue;
     }
 
     public static boolean startsWithProtocol(String resourceName) {

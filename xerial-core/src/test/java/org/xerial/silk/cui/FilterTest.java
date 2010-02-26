@@ -51,8 +51,8 @@ public class FilterTest {
     }
 
     @Test
-    public void filter() {
-        SilkMain.main(new String[] {
+    public void filter() throws Exception {
+        SilkMain.execute(new String[] {
                 "filter",
                 new File(FileResource.find(FilterTest.class, "../scaffold5001.silk").getPath())
                         .getAbsolutePath(), "read(view_start, view_end)", "-l", "debug" });
