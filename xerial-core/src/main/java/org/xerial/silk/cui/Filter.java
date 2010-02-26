@@ -32,6 +32,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.xerial.json.JSONPushParser;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleElement;
@@ -41,21 +42,26 @@ import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.RelationExtractor;
 import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.schema.Schema;
+import org.xerial.silk.SilkEnv;
 import org.xerial.silk.SilkParser;
+import org.xerial.util.FileType;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
+import org.xerial.util.text.TabAsTreeParser;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.xml.XMLTreeParser;
 
 @Usage(command = "filter")
 public class Filter implements SilkCommand {
 
     private static Logger _logger = Logger.getLogger(Filter.class);
 
-    static enum FileType {
-        Silk, XML, JSON, Tab
-    }
+    //    static enum FileType {
+    //        Silk, XML, JSON, Tab, AUTO
+    //    }
 
     @Argument(index = 0)
     public String inputResource = "-";
@@ -63,8 +69,11 @@ public class Filter implements SilkCommand {
     @Argument(index = 1)
     public String query = null;
 
-    @Option(symbol = "t", description = "column split character")
+    @Option(symbol = "d", description = "column delimiter")
     public String splitChar = "\t";
+
+    @Option(symbol = "t", description = "input file type")
+    public FileType inputFileType = FileType.SILK;
 
     private final PrintStream out = System.out;
 
@@ -82,6 +91,8 @@ public class Filter implements SilkCommand {
             _logger.info("read data from STDIN");
         }
         else {
+            inputFileType = FileType.getFileType(inputResource);
+
             if (startsWithProtocol(inputResource)) {
                 URL inputURL = new URL(inputResource);
                 _logger.info("read from resource: " + inputResource);
@@ -97,7 +108,35 @@ public class Filter implements SilkCommand {
         QuerySet qs = expr.buildQuerySet();
         _logger.debug("query set: " + qs);
 
-        RelationExtractor.run(qs, new SilkParser(in), new RelationHandler() {
+        TreeParser treeInput = null;
+
+        switch (inputFileType) {
+        case SILK:
+            treeInput = new SilkParser(in, SilkEnv.newEnv(inputResource));
+            break;
+        case XML:
+            treeInput = new XMLTreeParser(in);
+            break;
+        case JSON:
+            treeInput = new JSONPushParser(in);
+            break;
+        case TAB:
+            treeInput = new TabAsTreeParser(in);
+            break;
+        case CSV:
+            treeInput = new TabAsTreeParser(in, ',');
+            break;
+        // TODO fasta file support
+        //        case FASTA:
+        //            break;
+        default:
+            _logger.warn("unknown file type: " + inputFileType);
+            _logger.warn("using silk type instead");
+            inputFileType = FileType.SILK;
+            break;
+        }
+
+        RelationExtractor.run(qs, treeInput, new RelationHandler() {
 
             public void relation(Schema s, Tuple<Node> relation) {
                 TupleFormatter f = new TupleFormatter();
