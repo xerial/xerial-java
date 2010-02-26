@@ -30,7 +30,6 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
@@ -110,15 +109,16 @@ public class SilkMain {
                 // display help messsage of the command
                 String helpFileName = String.format("help-%s.txt", command.getName());
                 URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
-                if (helpFileAddr == null)
-                    throw new XerialError(XerialErrorCode.RESOURCE_NOT_FOUND,
-                            "help file not found: " + helpFileName);
-
-                BufferedReader helpReader = new BufferedReader(new InputStreamReader(helpFileAddr
-                        .openStream()));
-                String line;
-                while ((line = helpReader.readLine()) != null) {
-                    System.out.println(line);
+                if (helpFileAddr == null) {
+                    _logger.warn("help file not found: " + helpFileName);
+                }
+                else {
+                    BufferedReader helpReader = new BufferedReader(new InputStreamReader(
+                            helpFileAddr.openStream()));
+                    String line;
+                    while ((line = helpReader.readLine()) != null) {
+                        System.out.println(line);
+                    }
                 }
                 subCommandOptionParser.printUsage();
 
