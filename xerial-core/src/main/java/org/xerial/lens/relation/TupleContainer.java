@@ -75,11 +75,11 @@ public class TupleContainer implements Iterable<Tuple<Node>> {
         return schema;
     }
 
-    public boolean hasEnoughRoomFor(NTuple newTuple, int maximumByteSize) {
+    public boolean hasEnoughRoomFor(Tuple<Node> newTuple, int maximumByteSize) {
         return ByteSize.getByteSize(newTuple) <= (maximumByteSize - getByteSize());
     }
 
-    public void add(NTuple relation) {
+    public void add(Tuple<Node> relation) {
         if (relation.size() != schema.size())
             throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
                     "relation size must be %d, but the input has %d nodes", schema.size(), relation

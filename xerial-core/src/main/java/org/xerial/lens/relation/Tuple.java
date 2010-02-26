@@ -73,7 +73,7 @@ public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElem
         nodeList.add(elem);
     }
 
-    public void set(int index, NodeType node) {
+    public void set(int index, TupleElement<NodeType> node) {
         nodeList.set(index, node);
     }
 
@@ -151,7 +151,7 @@ public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElem
         return this;
     }
 
-    public void set(TupleIndex index, NodeType node) {
+    public void set(TupleIndex index, TupleElement<NodeType> node) {
         if (!index.hasTail()) {
             set(index.get(0), node);
             return;
