@@ -48,7 +48,7 @@ public class TupleContainer implements Iterable<Tuple<Node>> {
     private static Logger _logger = Logger.getLogger(TupleContainer.class);
 
     private final Schema schema;
-    private Tuple<Node> buffer;
+    private Tuple<Node> buffer; // [ [tuple1], [tuple2], ... ]
     private int byteSize = 0;
 
     public TupleContainer(Schema schema) {

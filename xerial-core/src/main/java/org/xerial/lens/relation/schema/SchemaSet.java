@@ -33,8 +33,6 @@ import java.util.Set;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.FD;
-import org.xerial.lens.relation.lang.RelationAttribute;
-import org.xerial.lens.relation.lang.RelationExpr;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Automaton;
@@ -50,18 +48,19 @@ import org.xerial.util.log.Logger;
 public class SchemaSet {
     private static Logger _logger = Logger.getLogger(SchemaSet.class);
 
-    private AdjacencyList<String, FD> fdGraph;
+    private final AdjacencyList<String, FD> fdGraph;
 
-    private Automaton<XMLSkeltonNode, String> skelton = new Automaton<XMLSkeltonNode, String>();
+    private final Automaton<XMLSkeltonNode, String> skelton = new Automaton<XMLSkeltonNode, String>();
     private XMLSkeltonNode rootSkelton = null;
-    private ArrayList<Schema> nestedSchemaList = new ArrayList<Schema>();
+    private final ArrayList<Schema> nestedSchemaList = new ArrayList<Schema>();
 
-    private HashSet<String> treeNodeSet = new HashSet<String>();
+    private final HashSet<String> treeNodeSet = new HashSet<String>();
 
     public SchemaSet(RelationSchema userDefinedSchema) throws XerialException {
         // tree node name
-        for (TreeDefinition eachTree : userDefinedSchema.getTree())
-            treeNodeSet.add(eachTree.getName());
+        // TODO tree node support
+        //        for (TreeDefinition eachTree : userDefinedSchema.getTree())
+        //            treeNodeSet.add(eachTree.getName());
 
         // create a FD graph
         HashMap<String, List<RelationExpr>> relationListOfEachCoreNode = new HashMap<String, List<RelationExpr>>();

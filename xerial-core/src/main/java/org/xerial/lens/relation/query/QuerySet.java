@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.xerial.lens.relation.schema.Schema;
+import org.xerial.lens.relation.schema.SchemaSet;
+import org.xerial.lens.relation.schema.XMLSkeltonNode;
 import org.xerial.util.IndexedSet;
 
 /**
@@ -40,14 +42,25 @@ import org.xerial.util.IndexedSet;
  * 
  */
 public class QuerySet {
-    private IndexedSet<Schema> queryTarget = new IndexedSet<Schema>();
-    private Set<String> treeNodeSet = new HashSet<String>();
+    private final IndexedSet<Schema> queryTarget = new IndexedSet<Schema>();
+    private final Set<String> treeNodeSet = new HashSet<String>();
 
     public QuerySet() {}
 
     private QuerySet(Collection<Schema> schemaSet) {
         for (Schema eachSchema : schemaSet) {
             queryTarget.add(eachSchema);
+        }
+    }
+
+    public QuerySet(SchemaSet schema) {
+        for (String eachTreeNode : schema.getTreeNodeSet())
+            treeNodeSet.add(eachTreeNode);
+
+        for (XMLSkeltonNode eachSkelton : schema.getSkelton().getStateSet()) {
+            for (Schema eachSchema : eachSkelton) {
+                queryTarget.add(eachSchema);
+            }
         }
     }
 
