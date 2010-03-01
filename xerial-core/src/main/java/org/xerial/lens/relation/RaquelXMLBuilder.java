@@ -28,11 +28,11 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.relation.query.SpectramBloomFilter;
 import org.xerial.lens.relation.query.TableJoin;
 import org.xerial.lens.relation.query.TableJoin.OneToManyTupleCursor;
 import org.xerial.lens.relation.schema.Schema;
@@ -59,15 +59,15 @@ public class RaquelXMLBuilder {
 
     private final ContainerManager storage;
     private final SchemaSet schemaSet;
-    private Automaton<XMLSkeltonNode, String> skelton;
-    private final Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation;
-    private XMLGenerator xml;
+    private final Automaton<XMLSkeltonNode, String> skelton;
+    //private final Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation;
+    private final XMLGenerator xml;
 
-    public RaquelXMLBuilder(ContainerManager storage, SchemaSet schema,
-            Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation) {
+    public RaquelXMLBuilder(ContainerManager storage, SchemaSet schema) {
+        //            Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation) {
         this.storage = storage;
         this.schemaSet = schema;
-        this.distinctNodeCountOfEachRelation = distinctNodeCountOfEachRelation;
+        //this.distinctNodeCountOfEachRelation = distinctNodeCountOfEachRelation;
         this.skelton = schema.getSkelton();
 
         xml = new XMLGenerator();
@@ -244,25 +244,35 @@ public class RaquelXMLBuilder {
                 buildNode(newSchema, TupleIndex.ZERO, new Range(0, input.size()));
             }
 
-            public Schema alternativeXMLStructure() {
-                //String coreNodeName = input.getSchema().get(CORE_NODE_INDEX).getName();
-                Map<String, Integer> cardinalityTable = new HashMap<String, Integer>();
-                for (Schema each : target) {
-                    List<NodeValueCardinality> cardList = distinctNodeCountOfEachRelation.get(each);
-                    if (cardList != null) {
-                        for (NodeValueCardinality eachCard : cardList) {
-                            // TODO handle duplicate card values for the core node
-                            // set the cardinality of tree nodes to 0
-                            cardinalityTable.put(eachCard.nodeName, schemaSet.getTreeNodeSet()
-                                    .contains(eachCard.nodeName) ? 0 : eachCard.distinctCount);
-                        }
-                    }
-                }
-                if (_logger.isDebugEnabled())
-                    _logger.debug("count: " + cardinalityTable);
+            HashMap<TupleIndex, Integer> getCardinalityOfColumns() {
 
-                SchemaMapping schemaOptimizer = new SchemaMapping(cardinalityTable, target);
-                return schemaOptimizer.alternativeXMLStructure(targetSchema);
+                HashMap<TupleIndex, Integer> result = new HashMap<TupleIndex, Integer>();
+                // count distinct values
+                for (String nodeName : targetSchema.getNodeNameList()) {
+                    if (schemaSet.getTreeNodeSet().contains(nodeName))
+                        continue;
+
+                    TupleIndex index = targetSchema.getNodeIndex(nodeName);
+                    SpectramBloomFilter<String> bloomFilter = new SpectramBloomFilter<String>(16);
+                    for (Tuple<Node> eachRow : input) {
+                        TupleElement<Node> cell = eachRow.get(index);
+                        if (!cell.isAtom())
+                            continue;
+
+                        String value = cell.castToNode().nodeValue;
+                        if (value != null)
+                            bloomFilter.insert(value);
+                    }
+
+                    result.put(index, bloomFilter.count());
+                }
+
+                return result;
+            }
+
+            public Schema alternativeXMLStructure() {
+                return SchemaMapping.createAlternativeXMLStructure(targetSchema, target, input,
+                        schemaSet);
             }
 
             boolean isCoreNode(String nodeName) {

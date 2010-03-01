@@ -25,8 +25,16 @@
 package org.xerial.lens.relation.schema;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.Tuple;
+import org.xerial.lens.relation.TupleContainer;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.TupleIndex;
+import org.xerial.lens.relation.query.SpectramBloomFilter;
 
 /**
  * Schema mapping
@@ -35,12 +43,39 @@ import java.util.Map;
  * 
  */
 public class SchemaMapping {
-    private Map<String, Integer> cardinalityTable;
-    private XMLSkeltonNode skelton;
+    private final Map<TupleIndex, Integer> cardinalityTable;
+    private final XMLSkeltonNode skelton;
 
-    public SchemaMapping(Map<String, Integer> cardinalityTable, XMLSkeltonNode skelton) {
+    private SchemaMapping(Map<TupleIndex, Integer> cardinalityTable, XMLSkeltonNode skelton) {
         this.cardinalityTable = cardinalityTable;
         this.skelton = skelton;
+    }
+
+    public static Schema createAlternativeXMLStructure(Schema targetSchema, XMLSkeltonNode skelton,
+            TupleContainer input, SchemaSet schemaSet) {
+
+        HashMap<TupleIndex, Integer> result = new HashMap<TupleIndex, Integer>();
+        // count distinct values
+        for (String nodeName : targetSchema.getNodeNameList()) {
+            if (schemaSet.getTreeNodeSet().contains(nodeName))
+                continue;
+
+            TupleIndex index = targetSchema.getNodeIndex(nodeName);
+            SpectramBloomFilter<String> bloomFilter = new SpectramBloomFilter<String>(16);
+            for (Tuple<Node> eachRow : input) {
+                TupleElement<Node> cell = eachRow.get(index);
+                if (!cell.isAtom())
+                    continue;
+
+                String value = cell.castToNode().nodeValue;
+                if (value != null)
+                    bloomFilter.insert(value);
+            }
+
+            result.put(index, bloomFilter.count());
+        }
+        SchemaMapping schemaOptimizer = new SchemaMapping(result, skelton);
+        return schemaOptimizer.alternativeXMLStructure(targetSchema);
     }
 
     public Schema alternativeXMLStructure(Schema schema) {
@@ -81,7 +116,7 @@ public class SchemaMapping {
                 if (skelton.hasManyNode(nodeName))
                     continue;
 
-                Integer card = cardinalityTable.get(e.getName());
+                Integer card = cardinalityTable.get(schema.getNodeIndex(e.getName()));
                 if (card == null)
                     continue;
 
