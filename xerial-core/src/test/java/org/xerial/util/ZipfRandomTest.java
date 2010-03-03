@@ -14,23 +14,23 @@
  *  limitations under the License.
  *--------------------------------------------------------------------------*/
 //--------------------------------------
-// XerialJ
+// Xerial Raquel Project
 //
-// RaquelXMLBuilderTest.java
-// Since: Mar 3, 2010 5:04:44 PM
+// ZipfRandomTest.java
+// Since: Mar 6, 2009 5:26:35 PM
 //
-// $URL$
-// $Author$
+// $URL: https://www.xerial.org/svn/project/XerialJ/trunk/xerial-raquel/src/test/java/org/xerial/raquel/ZipfRandomTest.java $
+// $Author: leo $
 //--------------------------------------
-package org.xerial.lens.relation;
+package org.xerial.util;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.silk.cui.SilkMain;
-import org.xerial.util.FileResource;
+import org.xerial.util.log.Logger;
 
-public class RaquelXMLBuilderTest {
+public class ZipfRandomTest {
+    private static Logger _logger = Logger.getLogger(ZipfRandomTest.class);
 
     @Before
     public void setUp() throws Exception {}
@@ -39,16 +39,13 @@ public class RaquelXMLBuilderTest {
     public void tearDown() throws Exception {}
 
     @Test
-    public void purifyHelp() throws Exception {
+    public void testNextInt() {
+        ZipfRandom r = new ZipfRandom(3, 100);
 
-        SilkMain.execute(new String[] { "purify", "--help" });
-
+        for (int i = 0; i < 100; i++) {
+            int v = r.nextInt();
+            _logger.debug(v);
+        }
     }
 
-    @Test
-    public void purify() throws Exception {
-        SilkMain.execute(new String[] { "purify",
-                FileResource.find(RaquelXMLBuilderTest.class, "r.xml").getPath(), "-s",
-                FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
-    }
 }

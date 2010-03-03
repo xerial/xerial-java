@@ -16,21 +16,19 @@
 //--------------------------------------
 // XerialJ
 //
-// RaquelXMLBuilderTest.java
-// Since: Mar 3, 2010 5:04:44 PM
+// BenchTest.java
+// Since: 2010/03/03 19:03:57
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation;
+package org.xerial.silk.cui;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.silk.cui.SilkMain;
-import org.xerial.util.FileResource;
 
-public class RaquelXMLBuilderTest {
+public class BenchTest {
 
     @Before
     public void setUp() throws Exception {}
@@ -39,16 +37,8 @@ public class RaquelXMLBuilderTest {
     public void tearDown() throws Exception {}
 
     @Test
-    public void purifyHelp() throws Exception {
-
-        SilkMain.execute(new String[] { "purify", "--help" });
-
+    public void bench() throws Exception {
+        SilkMain.execute(new String[] { "bench" });
     }
 
-    @Test
-    public void purify() throws Exception {
-        SilkMain.execute(new String[] { "purify",
-                FileResource.find(RaquelXMLBuilderTest.class, "r.xml").getPath(), "-s",
-                FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
-    }
 }
