@@ -27,8 +27,6 @@ package org.xerial.silk.cui;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,9 +51,8 @@ public class FilterTest {
 
     @Test
     public void filter() throws Exception {
-        SilkMain.execute(new String[] {
-                "filter",
-                new File(FileResource.find(FilterTest.class, "../scaffold5001.silk").getPath())
-                        .getAbsolutePath(), "read(view_start, view_end)", "-l", "debug" });
+        SilkMain.execute(new String[] { "filter",
+                FileResource.find(FilterTest.class, "../scaffold5001.silk").getPath(),
+                "read(view_start, view_end)", "-l", "debug" });
     }
 }
