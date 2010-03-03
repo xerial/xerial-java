@@ -87,6 +87,25 @@ public class ObjectLens {
     private final HashMap<String, ParameterGetter> getterIndex = new HashMap<String, ParameterGetter>();
     private final HashMap<String, ParameterSetter> setterIndex = new HashMap<String, ParameterSetter>();
 
+    /**
+     * cache for the node name
+     */
+    private static HashMap<String, String> canonicalNameTable = new HashMap<String, String>();
+    static private Pattern paramNameReplacePattern = Pattern.compile("[\\s-_]");
+
+    public static String getCanonicalParameterName(String paramName) {
+        if (paramName == null)
+            return paramName;
+
+        String cName = canonicalNameTable.get(paramName);
+        if (cName == null) {
+            Matcher m = paramNameReplacePattern.matcher(paramName);
+            cName = m.replaceAll("").toLowerCase();
+            canonicalNameTable.put(paramName, cName);
+        }
+        return cName;
+    }
+
     private final List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
     private ParameterSetter valueSetter = null;
 
@@ -450,16 +469,6 @@ public class ObjectLens {
         else
             return new Pair<String, String>(getCanonicalParameterName(m.group(1)),
                     getCanonicalParameterName(m.group(2)));
-    }
-
-    static private Pattern paramNameReplacePattern = Pattern.compile("[\\s-_]");
-
-    public static String getCanonicalParameterName(String paramName) {
-        if (paramName == null)
-            return paramName;
-
-        Matcher m = paramNameReplacePattern.matcher(paramName);
-        return m.replaceAll("").toLowerCase();
     }
 
     public static String toSilk(Object obj) {

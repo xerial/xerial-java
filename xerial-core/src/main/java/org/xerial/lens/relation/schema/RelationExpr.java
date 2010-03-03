@@ -27,6 +27,7 @@ package org.xerial.lens.relation.schema;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xerial.lens.ObjectLens;
 import org.xerial.util.StringUtil;
 
 /**
@@ -79,7 +80,7 @@ public class RelationExpr {
      * @param name
      */
     public void setName(String name) {
-        this.relationName = name;
+        this.relationName = ObjectLens.getCanonicalParameterName(name);
     }
 
     public List<RelationAttribute> getAttributeList() {

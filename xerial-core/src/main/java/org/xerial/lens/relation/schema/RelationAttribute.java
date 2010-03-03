@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.lens.relation.schema;
 
+import org.xerial.lens.ObjectLens;
 import org.xerial.lens.relation.FD;
 
 /**
@@ -45,7 +46,7 @@ public class RelationAttribute {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = ObjectLens.getCanonicalParameterName(name);
     }
 
     public String getName() {

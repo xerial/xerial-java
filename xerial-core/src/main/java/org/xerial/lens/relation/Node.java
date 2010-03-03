@@ -40,7 +40,7 @@ public class Node extends NodeBase<Node> {
     public final String nodeName;
     public final String nodeValue;
 
-    private String canonicalNodeName = null;
+    //private String canonicalNodeName = null;
 
     private Node(String nodeName, long nodeID, String nodeValue) {
         this.nodeID = nodeID;
@@ -49,10 +49,7 @@ public class Node extends NodeBase<Node> {
     }
 
     public String getCanonicalNodeName() {
-        if (canonicalNodeName == null)
-            canonicalNodeName = ObjectLens.getCanonicalParameterName(nodeName);
-
-        return canonicalNodeName;
+        return ObjectLens.getCanonicalParameterName(nodeName);
     }
 
     /**
