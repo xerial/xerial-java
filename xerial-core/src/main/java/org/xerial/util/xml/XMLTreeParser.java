@@ -47,13 +47,12 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-public class XMLTreeParser implements TreeParser
-{
+public class XMLTreeParser implements TreeParser {
     private final Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
     private final static StringBuilder EMPTY_STRING = new StringBuilder(0);
-    private int TEXT_BUFFER_MAX = 8192;
+    private final int TEXT_BUFFER_MAX = 8192;
 
-    private int parseState = START_DOCUMENT;
+    private final int parseState = START_DOCUMENT;
     private boolean convertValueAttribute = false;
 
     private final TreeEventQueue eventQueue = new TreeEventQueue();
@@ -61,10 +60,13 @@ public class XMLTreeParser implements TreeParser
     private final Reader input;
     private final XMLReader xmlReader;
 
-    public XMLTreeParser(Reader reader) throws XerialException
-    {
-        try
-        {
+    public XMLTreeParser(Reader reader, boolean useValueAttribute) throws XerialException {
+        this(reader);
+        convertValueAttribute = true;
+    }
+
+    public XMLTreeParser(Reader reader) throws XerialException {
+        try {
             this.input = reader;
             SAXParserFactory spf = SAXParserFactory.newInstance();
 
@@ -85,20 +87,17 @@ public class XMLTreeParser implements TreeParser
             xmlReader.setContentHandler(new SAXHandler());
 
         }
-        catch (Exception e)
-        {
-            throw new XerialException(XerialErrorCode.INVALID_STATE, "failed to instantiate the XML parser: " + e);
+        catch (Exception e) {
+            throw new XerialException(XerialErrorCode.INVALID_STATE,
+                    "failed to instantiate the XML parser: " + e);
         }
 
     }
 
-    private void flushEvent() throws Exception
-    {
-        while (!eventQueue.isEmpty())
-        {
+    private void flushEvent() throws Exception {
+        while (!eventQueue.isEmpty()) {
             TreeEvent e = eventQueue.pop();
-            switch (e.event)
-            {
+            switch (e.event) {
             case VISIT:
                 handler.visitNode(e.nodeName, e.nodeValue);
                 break;
@@ -113,25 +112,20 @@ public class XMLTreeParser implements TreeParser
         }
     }
 
-    private class SAXHandler implements ContentHandler
-    {
+    private class SAXHandler implements ContentHandler {
 
-        public void characters(char[] ch, int start, int length) throws SAXException
-        {
-            try
-            {
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            try {
                 String textData = new String(ch, start, length);
                 StringBuilder textBuffer = textStack.getLast();
 
                 if (textData.length() <= 0)
                     return;
 
-                if (textBuffer == EMPTY_STRING)
-                {
+                if (textBuffer == EMPTY_STRING) {
                     textBuffer = replaceLastTextBuffer();
                 }
-                else if (textBuffer.length() + textData.length() > TEXT_BUFFER_MAX)
-                {
+                else if (textBuffer.length() + textData.length() > TEXT_BUFFER_MAX) {
                     // add the previous text data to the event queue
                     reportTextEvent(textBuffer);
 
@@ -140,47 +134,43 @@ public class XMLTreeParser implements TreeParser
                 }
                 textBuffer.append(textData);
 
-                boolean needPrefetch = eventQueue.isEmpty() ? false : eventQueue.peekLast().event == EventType.VISIT;
+                boolean needPrefetch = eventQueue.isEmpty() ? false
+                        : eventQueue.peekLast().event == EventType.VISIT;
 
                 if (!needPrefetch)
                     flushEvent();
 
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 throw new SAXException(e);
             }
 
         }
 
-        public void endDocument() throws SAXException
-        {
-            try
-            {
+        public void endDocument() throws SAXException {
+            try {
                 flushEvent();
                 handler.finish();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 throw new SAXException(e);
             }
         }
 
-        public void endElement(String uri, String localName, String name) throws SAXException
-        {
-            try
-            {
-                if (textStack.getLast() == EMPTY_STRING)
-                {
+        public void endElement(String uri, String localName, String name) throws SAXException {
+            try {
+                if (textStack.getLast() == EMPTY_STRING) {
                     eventQueue.push(TreeEvent.newLeaveEvent(name));
                 }
-                else
-                {
+                else {
                     StringBuilder textBuffer = textStack.getLast();
-                    if (!eventQueue.isEmpty() && eventQueue.peekLast().event == EventType.VISIT)
-                    {
-                        // attach the text value to the the previous visit event
-                        eventQueue.replaceLast(TreeEvent.newVisitEvent(name, sanitize(textBuffer.toString())));
+                    if (!eventQueue.isEmpty()) {
+                        TreeEvent lastEvent = eventQueue.peekLast();
+                        if (lastEvent.event == EventType.VISIT && lastEvent.nodeValue == null) {
+                            // attach the text value to the the previous visit event
+                            eventQueue.replaceLast(TreeEvent.newVisitEvent(name,
+                                    sanitize(textBuffer.toString())));
+                        }
                     }
                     else
                         reportTextEvent(textBuffer);
@@ -191,67 +181,56 @@ public class XMLTreeParser implements TreeParser
 
                 flushEvent();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 throw new SAXException(e);
             }
 
         }
 
-        public void endPrefixMapping(String prefix) throws SAXException
-        {
+        public void endPrefixMapping(String prefix) throws SAXException {
 
         }
 
-        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException
-        {
+        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
 
         }
 
-        public void processingInstruction(String target, String data) throws SAXException
-        {
+        public void processingInstruction(String target, String data) throws SAXException {
 
         }
 
-        public void setDocumentLocator(Locator locator)
-        {
+        public void setDocumentLocator(Locator locator) {
 
         }
 
-        public void skippedEntity(String name) throws SAXException
-        {
+        public void skippedEntity(String name) throws SAXException {
 
         }
 
-        public void startDocument() throws SAXException
-        {
-            try
-            {
+        public void startDocument() throws SAXException {
+            try {
                 handler.init();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 throw new SAXException(e);
             }
 
         }
 
-        public void startElement(String uri, String localName, String name, Attributes atts) throws SAXException
-        {
+        public void startElement(String uri, String localName, String name, Attributes atts)
+                throws SAXException {
             textStack.addLast(EMPTY_STRING);
             String tagName = localName;
             String immediateNodeValue = null;
 
             Deque<TreeEvent> startEventQueue = new ArrayDeque<TreeEvent>(atts.getLength());
             // read attributes
-            for (int i = 0; i < atts.getLength(); i++)
-            {
+            for (int i = 0; i < atts.getLength(); i++) {
                 String attributeName = atts.getQName(i);
                 String attributeValue = atts.getValue(i);
 
                 // assign the value attribute as a node value of the start tag 
-                if (convertValueAttribute && attributeName.equals("value"))
-                {
+                if (convertValueAttribute && attributeName.equals("value")) {
                     immediateNodeValue = attributeValue;
                     continue;
                 }
@@ -265,8 +244,7 @@ public class XMLTreeParser implements TreeParser
             eventQueue.push(startEventQueue);
         }
 
-        public void startPrefixMapping(String prefix, String uri) throws SAXException
-        {
+        public void startPrefixMapping(String prefix, String uri) throws SAXException {
         // TODO Auto-generated method stub
 
         }
@@ -275,32 +253,27 @@ public class XMLTreeParser implements TreeParser
 
     private TreeEventHandler handler;
 
-    public void parse(TreeEventHandler handler) throws Exception
-    {
+    public void parse(TreeEventHandler handler) throws Exception {
         this.handler = handler;
         xmlReader.parse(new InputSource(input));
     }
 
-    private StringBuilder replaceLastTextBuffer()
-    {
+    private StringBuilder replaceLastTextBuffer() {
         textStack.removeLast();
         StringBuilder textBuffer = new StringBuilder();
         textStack.addLast(textBuffer);
         return textBuffer;
     }
 
-    private String sanitize(String s)
-    {
+    private String sanitize(String s) {
         return s.trim();
     }
 
-    private void reportTextEvent(StringBuilder buffer)
-    {
+    private void reportTextEvent(StringBuilder buffer) {
         reportTextEvent(buffer.toString());
     }
 
-    private void reportTextEvent(String textData)
-    {
+    private void reportTextEvent(String textData) {
         textData = sanitize(textData);
 
         if (textData.length() > 0)

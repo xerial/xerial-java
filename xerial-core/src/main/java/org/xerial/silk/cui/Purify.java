@@ -25,13 +25,16 @@
 package org.xerial.silk.cui;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.lens.relation.ContainerManager;
+import org.xerial.lens.relation.RaquelXMLBuilder;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.RelationStreamCollector;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
@@ -70,8 +73,8 @@ public class Purify implements SilkCommand {
     @Argument(index = 0, name = "input XML file", required = false)
     private String inputXMLFile;
 
-    @Option(symbol = "m", longName = "mode", description = "mode: simple (default), flat or adaptive.")
-    private final Mode mode = Mode.SIMPLE;
+    //    @Option(symbol = "m", longName = "mode", description = "mode: simple (default), flat or adaptive.")
+    //    private final Mode mode = Mode.SIMPLE;
 
     @Option(symbol = "s", longName = "schema", description = "raquel schema file.")
     private final String schemaFile = null;
@@ -125,7 +128,7 @@ public class Purify implements SilkCommand {
         timer.reset();
 
         if (!useTabSeparatedData)
-            aj.sweep(new XMLTreeParser(input));
+            aj.sweep(new XMLTreeParser(input, true));
         else
             aj.sweep(new TabAsTreeParser(input));
 
@@ -134,17 +137,13 @@ public class Purify implements SilkCommand {
 
         // Build XML
         timer.reset();
-        //        RaquelXMLBuilder builder = new RaquelXMLBuilder(storage, schema, aj
-        //                .getDistinctNodeCountList());
-        //
-        //        if (outputFileName != null) {
-        //            _logger.debug("output file name: ");
-        //            builder.setOutput(out = new BufferedWriter(new FileWriter(outputFileName)));
-        //        }
-        //
-        //        builder.setIndentLevel(indentLevel);
-        //
-        //        builder.build();
+        RaquelXMLBuilder builder = new RaquelXMLBuilder(storage, schema);
+        if (outputFileName != null) {
+            _logger.debug("output file name: ");
+            builder.setOutput(out = new BufferedWriter(new FileWriter(outputFileName)));
+        }
+        builder.setIndentLevel(indentLevel);
+        builder.build();
 
         double buildTime = timer.getElapsedTime();
         _logger.debug("build time: " + buildTime + " sec.");

@@ -1,0 +1,2 @@
+relation table (item*)
+relation item (a, b, c)

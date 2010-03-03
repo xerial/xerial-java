@@ -140,7 +140,7 @@ public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElem
     }
 
     public void accept(TupleVisitor<NodeType> visitor) {
-    //((TupleElement) visitor).accept(this);
+        visitor.visitTuple(this);
     }
 
     public NodeType castToNode() {

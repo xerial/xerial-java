@@ -68,7 +68,7 @@ public class RelationStreamCollector implements AmoebaJoinHandler, RelationHandl
 
         try {
             for (RelationFragmentHolder each : relationHolderTable.values()) {
-                TupleContainer buffer = bufferTable.get(each);
+                TupleContainer buffer = bufferTable.get(each.getRelation());
 
                 if (_logger.isDebugEnabled())
                     _logger.debug(String.format("relation: %s\n%s", each.getRelation(), buffer));
