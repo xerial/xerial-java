@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.lens.relation.lang;
 
+import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.NodeBase;
 
 public class RelationAttribute extends NodeBase<RelationAttribute> {
@@ -42,6 +43,7 @@ public class RelationAttribute extends NodeBase<RelationAttribute> {
     public String nodeValue;
     public Compare compare;
     public PatternMatch patternMatch;
+    public FD fd;
 
     @Override
     public String toString() {

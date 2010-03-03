@@ -39,6 +39,7 @@ tokens {
   NODEVALUE;
   NAME;
   VALUE;
+  FD;
 }
 
 
@@ -161,10 +162,9 @@ As: 'as';
 LParen: '(';  
 RParen: ')';
 
-Star: '*';
 
 fragment
-UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-'; 
+UnsafeUnicodeChar: '(' | ')' | '[' | ']' | '{' | '}' | ',' | ':' | '#' | '<' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '.' | '-' | '+' | '?'; 
 
 fragment SafeFirstLetter: 'A' .. 'Z' | 'a' .. 'z';
 fragment SafeLetter: SafeFirstLetter | '0' .. '9' | '-' | '_';
@@ -205,8 +205,8 @@ alias: As QName -> ALIAS[$QName.text];
 
 fragment
 nodeItem
-  : nodeName alias? nodeValue? 
-    -> ^(NODE nodeName alias? nodeValue?)
+  : nodeName alias? nodeValue? fd?
+    -> ^(NODE nodeName alias? nodeValue? fd?)
   | relation 
   ;
 
@@ -231,3 +231,8 @@ fragment
 cmpOp: (Lt | Gt | Eq | Leq | Geq | Neq) 
   ;
   
+fd
+  : '*' -> FD["ZERO_OR_MORE"]  
+  | '?' -> FD["ZERO_OR_ONE"]
+  | '+' -> FD["ONE_OR_MORE"]
+  ;  

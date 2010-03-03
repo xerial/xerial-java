@@ -61,4 +61,9 @@ public class RelationExprTest {
         RelationExpr e = parse("entry(dc.subject:sigmod09, link(rel:related, href), summary)");
         _logger.debug(e.toSchema());
     }
+
+    @Test
+    public void q4() throws Exception {
+        parse("A(B, C*, D+, E?)");
+    }
 }
