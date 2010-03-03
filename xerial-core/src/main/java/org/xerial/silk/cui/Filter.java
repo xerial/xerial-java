@@ -131,7 +131,7 @@ public class Filter implements SilkCommand {
         //            break;
         default:
             _logger.warn("unknown file type: " + inputFileType);
-            _logger.warn("using silk type instead");
+            _logger.warn("using silk type, instead");
             inputFileType = FileType.SILK;
             break;
         }
@@ -153,7 +153,7 @@ public class Filter implements SilkCommand {
         ArrayList<String> elem = new ArrayList<String>();
 
         public void visitNode(Node node) {
-            elem.add(node.nodeValue == null ? "" : node.nodeValue);
+            elem.add(node.nodeValue == null ? Long.toString(node.nodeID) : node.nodeValue);
         }
 
         public void visitTuple(Tuple<Node> tuple) {
@@ -161,10 +161,6 @@ public class Filter implements SilkCommand {
                 each.accept(this);
             }
         }
-    }
-
-    private static String toString(Node node) {
-        return node.nodeValue;
     }
 
     public static boolean startsWithProtocol(String resourceName) {

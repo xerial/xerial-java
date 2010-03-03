@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.util.xml;
 
-import static org.xmlpull.v1.XmlPullParser.*;
+import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
 
 import java.io.Reader;
 
@@ -230,7 +230,9 @@ public class XMLTreeParser implements TreeParser {
                 String attributeValue = atts.getValue(i);
 
                 // assign the value attribute as a node value of the start tag 
-                if (convertValueAttribute && attributeName.equals("value")) {
+                if (convertValueAttribute
+                        && (attributeName.equals("value") || attributeName.equals(String.format(
+                                "%s:value", tagName)))) {
                     immediateNodeValue = attributeValue;
                     continue;
                 }
