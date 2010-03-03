@@ -126,7 +126,7 @@ public class TupleContainer implements Iterable<Tuple<Node>> {
             if (e.isTuple())
                 return getValue(e, TupleIndex.ZERO);
             else
-                return getValue(elem.castToNode());
+                return getValue(e.castToNode());
         }
 
         String getValue(TupleElement<Node> elem) {

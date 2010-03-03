@@ -72,7 +72,8 @@ public class SchemaMapping {
                     bloomFilter.insert(value);
             }
 
-            result.put(index, bloomFilter.count());
+            int card = bloomFilter.count();
+            result.put(index, card == 0 ? 1 : card);
         }
         SchemaMapping schemaOptimizer = new SchemaMapping(result, skelton);
         return schemaOptimizer.alternativeXMLStructure(targetSchema);
@@ -126,6 +127,7 @@ public class SchemaMapping {
                 }
 
                 if (card == minCard) {
+                    //targetIndex = i;
                     numLargerOrEqualCardNodes++;
                 }
                 else if (card < minCard) {
