@@ -60,6 +60,34 @@ public class RelationExpr extends Tuple<RelationAttribute> {
         public RelationExpr relation;
     }
 
+    public static class TreeDefinition {
+        private String name;
+
+        public TreeDefinition() {}
+
+        public TreeDefinition(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("tree: %s", name);
+        }
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static RelationExpr parse(String expr) throws XerialException {
 
         LensQueryLexer l = new LensQueryLexer(new ANTLRStringStream(expr));

@@ -42,7 +42,10 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.FD;
-import org.xerial.lens.relation.schema.RelationExpr.TreeDefinition;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.lang.RelationAttribute;
+import org.xerial.lens.relation.lang.RelationExpr;
+import org.xerial.lens.relation.lang.RelationExpr.TreeDefinition;
 import org.xerial.lens.relation.schema.impl.RelationSchemaLexer;
 import org.xerial.lens.relation.schema.impl.RelationSchemaParser;
 import org.xerial.util.StringUtil;
@@ -129,23 +132,15 @@ public class RelationSchema {
         for (RelationExpr eachRelation : getRelation()) {
             String relationName = eachRelation.getName();
 
-            for (RelationAttribute eachAttribute : eachRelation.getAttributeList()) {
-                String attributeName = eachAttribute.getName();
+            for (TupleElement<RelationAttribute> each : eachRelation) {
+                if (!each.isAtom())
+                    continue;
+                RelationAttribute eachAttribute = each.castToNode();
+                String attributeName = eachAttribute.name;
                 if (attributeName.startsWith("@"))
                     attributeName = eachRelation.getName() + attributeName;
 
-                fdGraph.addEdge(relationName, attributeName, eachAttribute.getOccurrence());
-                //                switch (eachAttribute.getOccurrence())
-                //                {
-                //                case ONE:
-                //                    
-                //                    break;
-                //                case ONE_OR_MORE:
-                //                case ZERO_OR_MORE:
-                //                case ZERO_OR_ONE:
-                //                    fdGraph.addEdge(attributeName, relationName, eachAttribute.getOccurrence());
-                //                    break;
-                //                }
+                fdGraph.addEdge(relationName, attributeName, eachAttribute.fd);
             }
         }
 

@@ -33,10 +33,10 @@ tokens {
 RelationSchema;
 Relation;
 Name;
-RelationAttribute;
+Node;
 Context;
 Value;
-Occurrence;
+FD;
 Tree;
 }
 
@@ -177,14 +177,14 @@ attributeList: attribute (Comma! attribute)*
 
 attribute
 	: QName attributePlural? 
-	-> ^(RelationAttribute Name[$QName.text] attributePlural?)
+	-> ^(Node Name[$QName.text] attributePlural?)
 	;
 
 
 attributePlural
-	: Star -> Occurrence["ZERO_OR_MORE"]
-	| Plus -> Occurrence["ONE_OR_MORE"]
-	| Question -> Occurrence["ZERO_OR_ONE"]
+	: Star -> FD["ZERO_OR_MORE"]
+	| Plus -> FD["ONE_OR_MORE"]
+	| Question -> FD["ZERO_OR_ONE"]
 	;
 
 /*

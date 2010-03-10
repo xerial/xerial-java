@@ -33,6 +33,9 @@ import java.util.Set;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.FD;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.lang.RelationAttribute;
+import org.xerial.lens.relation.lang.RelationExpr;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Automaton;
@@ -77,12 +80,15 @@ public class SchemaSet {
             list.add(relation);
 
             // draw edges
-            for (RelationAttribute attribute : relation.getAttributeList()) {
-                String attributeName = attribute.getName();
+            for (TupleElement<RelationAttribute> each : relation) {
+                if (!each.isAtom())
+                    continue;
+                RelationAttribute attribute = each.castToNode();
+                String attributeName = attribute.name;
                 if (attributeName.startsWith("@"))
                     attributeName = coreNodeName + StreamAmoebaJoin.ALTERNATIVE_ATTRIBUTE_SYMBOL
                             + attributeName.substring(1);
-                fdGraph.addEdge(coreNodeName, attributeName, attribute.getOccurrence());
+                fdGraph.addEdge(coreNodeName, attributeName, attribute.fd);
             }
         }
 
