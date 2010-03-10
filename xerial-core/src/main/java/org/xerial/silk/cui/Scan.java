@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileReader;
 
 import org.xerial.lens.ObjectLens;
+import org.xerial.lens.tree.TreeEventHandlerBase;
 import org.xerial.silk.SilkEvent;
 import org.xerial.silk.SilkEventHandler;
 import org.xerial.silk.SilkEventType;
@@ -41,7 +42,6 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
-import org.xerial.util.tree.TreeEventHandlerBase;
 
 /**
  * Scan command

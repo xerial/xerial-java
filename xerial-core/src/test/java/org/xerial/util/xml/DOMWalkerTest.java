@@ -32,10 +32,10 @@ import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.tree.TreeEvent;
+import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.pullparser.DOMBuilder;
 
 public class DOMWalkerTest

@@ -16,28 +16,46 @@
 //--------------------------------------
 // XerialJ
 //
-// TreeParser.java
-// Since: Jun 5, 2009 6:19:43 PM
+// TreeEventHandlerBase.java
+// Since: Jun 1, 2009 3:27:53 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.tree;
+package org.xerial.lens.tree;
 
 /**
- * Tree-structured data parser interface
+ * Empty implementation of the {@link TreeEventHandler}
  * 
  * @author leo
  * 
  */
-public interface TreeParser
+public class TreeEventHandlerBase implements TreeEventHandler
 {
-    /**
-     * start the parsing, and report {@link TreeEvent} to the given event
-     * handler
-     * 
-     * @param handler
-     * @throws Exception
-     */
-    public void parse(TreeEventHandler handler) throws Exception;
+
+    public void finish() throws Exception
+    {
+
+    }
+
+    public void init() throws Exception
+    {
+
+    }
+
+    public void leaveNode(String nodeName) throws Exception
+    {
+
+    }
+
+    public void text(String nodeName, String textDataFragment) throws Exception
+    {
+
+    }
+
+    public void visitNode(String nodeName, String immediateNodeValue) throws Exception
+    {
+
+    }
+
 }

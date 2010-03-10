@@ -28,9 +28,9 @@ import java.util.Collection;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.lens.tree.TreeEvent;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.tree.TreeEvent;
 
 /**
  * A queue for storing {@link TreeEvent}s

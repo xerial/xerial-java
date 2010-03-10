@@ -22,9 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.xml;
-
-import static org.xmlpull.v1.XmlPullParser.START_DOCUMENT;
+package org.xerial.lens.tree;
 
 import java.io.Reader;
 
@@ -33,12 +31,9 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeParser;
-import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.impl.TreeEventQueue;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -52,7 +47,6 @@ public class XMLTreeParser implements TreeParser {
     private final static StringBuilder EMPTY_STRING = new StringBuilder(0);
     private final int TEXT_BUFFER_MAX = 8192;
 
-    private final int parseState = START_DOCUMENT;
     private boolean convertValueAttribute = false;
 
     private final TreeEventQueue eventQueue = new TreeEventQueue();

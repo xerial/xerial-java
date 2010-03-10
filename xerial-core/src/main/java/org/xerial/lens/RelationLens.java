@@ -32,8 +32,8 @@ import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.RelationExtractor;
 import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.schema.Schema;
+import org.xerial.lens.tree.TreeParser;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeParser;
 
 /**
  * For extracting relation from tree-structured data

@@ -22,11 +22,9 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.lens.tree;
 
 import org.antlr.runtime.tree.Tree;
-import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeParser;
 
 /**
  * {@link TreeParser} for ANTLR parse trees

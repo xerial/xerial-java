@@ -32,11 +32,11 @@ import java.util.List;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.tree.TreeEventHandler;
+import org.xerial.lens.tree.TreeParser;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeNode;
-import org.xerial.util.tree.TreeParser;
 
 public class TabAsTreeParser implements TreeParser {
 

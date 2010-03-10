@@ -37,10 +37,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialException;
+import org.xerial.lens.tree.TreeEvent;
+import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeStreamReader;
 
 /**

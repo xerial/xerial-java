@@ -24,9 +24,9 @@
 //--------------------------------------
 package org.xerial.silk.impl;
 
+import org.xerial.lens.tree.TreeEvent;
 import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.ArrayDeque;
-import org.xerial.util.tree.TreeEvent;
 
 public class SilkTreeEventQueue
 {

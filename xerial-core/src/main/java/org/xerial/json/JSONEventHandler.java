@@ -25,7 +25,7 @@
 package org.xerial.json;
 
 /**
- * {@link JSONEvent} handler for JSONPushParser
+ * {@link JSONEvent} handler for JSONTreeParser
  * 
  * @author leo
  * 

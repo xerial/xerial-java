@@ -25,8 +25,8 @@
 package org.xerial.silk.plugin;
 
 import org.xerial.core.XerialException;
+import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.silk.SilkEnv;
-import org.xerial.util.tree.TreeEventHandler;
 
 /**
  * The common interface of pluggable functions that can be used in Silk format.

@@ -31,7 +31,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.schema.Schema;
-import org.xerial.util.tree.TreeParser;
+import org.xerial.lens.tree.TreeParser;
 
 /**
  * Relation extractor

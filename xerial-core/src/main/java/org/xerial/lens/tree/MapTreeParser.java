@@ -16,19 +16,18 @@
 //--------------------------------------
 // XerialJ
 //
-// MapParser.java
+// MapTreeParser.java
 // Since: Jun 5, 2009 6:40:10 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.lens.tree;
 
 import java.util.Collection;
 import java.util.Map;
 
-import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeParser;
+import org.xerial.util.bean.TypeInfo;
 
 /**
  * TreeParse implementation for {@link Map} type data
@@ -36,12 +35,10 @@ import org.xerial.util.tree.TreeParser;
  * @author leo
  * 
  */
-public class MapParser implements TreeParser
-{
+public class MapTreeParser implements TreeParser {
     private final Map< ? , ? > map;
 
-    public MapParser(Map< ? , ? > map)
-    {
+    public MapTreeParser(Map< ? , ? > map) {
         if (map == null)
             throw new NullPointerException("map cannot be null");
         this.map = map;
@@ -49,17 +46,14 @@ public class MapParser implements TreeParser
 
     private Object currentKey;
 
-    public void parse(TreeEventHandler handler) throws Exception
-    {
+    public void parse(TreeEventHandler handler) throws Exception {
         handler.init();
         walk(null, map, handler);
         handler.finish();
     }
 
-    private void walk(String nodeName, Object value, TreeEventHandler handler) throws Exception
-    {
-        if (value == null)
-        {
+    private void walk(String nodeName, Object value, TreeEventHandler handler) throws Exception {
+        if (value == null) {
             handler.visitNode(nodeName, null);
             handler.leaveNode(nodeName);
             return;
@@ -68,26 +62,20 @@ public class MapParser implements TreeParser
         assert value != null;
 
         Class< ? > valueType = value.getClass();
-        if (TypeInfo.isArray(valueType))
-        {
-            for (Object each : (Object[]) value)
-            {
+        if (TypeInfo.isArray(valueType)) {
+            for (Object each : (Object[]) value) {
                 walk(nodeName, each, handler);
             }
         }
-        else if (TypeInfo.isCollection(valueType))
-        {
-            for (Object each : (Collection< ? >) value)
-            {
+        else if (TypeInfo.isCollection(valueType)) {
+            for (Object each : (Collection< ? >) value) {
                 walk(nodeName, each, handler);
             }
         }
-        else if (TypeInfo.isMap(valueType))
-        {
+        else if (TypeInfo.isMap(valueType)) {
             handler.visitNode(nodeName, null);
             Map< ? , ? > mapValue = (Map< ? , ? >) value;
-            for (Object key : mapValue.keySet())
-            {
+            for (Object key : mapValue.keySet()) {
                 currentKey = key;
                 String entryName = key.toString();
                 Object entryValue = map.get(key);
@@ -95,8 +83,7 @@ public class MapParser implements TreeParser
             }
             handler.leaveNode(nodeName);
         }
-        else
-        {
+        else {
             handler.visitNode(nodeName, value.toString());
             handler.leaveNode(nodeName);
         }

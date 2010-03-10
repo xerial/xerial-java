@@ -35,12 +35,12 @@ import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
+import org.xerial.lens.tree.TreeEventHandlerBase;
 import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkParserConfig;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEventHandlerBase;
 
 public class StreamAmoebaJoinTest {
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoinTest.class);

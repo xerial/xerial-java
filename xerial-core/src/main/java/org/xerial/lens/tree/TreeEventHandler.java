@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.tree;
+package org.xerial.lens.tree;
 
 import org.xerial.core.XerialException;
 
@@ -32,8 +32,7 @@ import org.xerial.core.XerialException;
  * @author leo
  * 
  */
-public interface TreeEventHandler
-{
+public interface TreeEventHandler {
     /**
      * Initialize the visitor here
      */

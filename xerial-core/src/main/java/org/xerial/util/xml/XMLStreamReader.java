@@ -31,11 +31,11 @@ import java.io.Reader;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.tree.TreeEvent;
+import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
-import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.impl.TreeEventQueue;
 import org.xerial.util.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;

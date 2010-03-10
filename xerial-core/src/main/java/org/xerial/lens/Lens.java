@@ -35,14 +35,14 @@ import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONPushParser;
+import org.xerial.lens.tree.ANTLRTreeParser;
+import org.xerial.lens.tree.JSONTreeParser;
+import org.xerial.lens.tree.MapTreeParser;
+import org.xerial.lens.tree.TreeParser;
+import org.xerial.lens.tree.XMLTreeParser;
 import org.xerial.silk.SilkParser;
-import org.xerial.util.bean.ANTLRTreeParser;
 import org.xerial.util.bean.BeanHandler;
-import org.xerial.util.bean.MapParser;
 import org.xerial.util.bean.TypeInfo;
-import org.xerial.util.tree.TreeParser;
-import org.xerial.util.xml.XMLTreeParser;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -226,7 +226,7 @@ public class Lens {
 
     public static <Result> Result loadJSON(Result result, Reader jsonReader)
             throws XerialException, IOException {
-        return load(result, new JSONPushParser(jsonReader));
+        return load(result, new JSONTreeParser(jsonReader));
     }
 
     public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
@@ -245,7 +245,7 @@ public class Lens {
     }
 
     public static <Result> Result loadMap(Result result, Map< ? , ? > map) throws XerialException {
-        return load(result, new MapParser(map));
+        return load(result, new MapTreeParser(map));
     }
 
     public static <Result> void loadJDBCResultSet(Class<Result> resultType, ResultSet rs,
@@ -310,7 +310,7 @@ public class Lens {
     public static <Result> void findFromJSON(Reader input, String targetNodeName,
             Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
             IOException {
-        find(targetType, targetNodeName, handler, new JSONPushParser(input));
+        find(targetType, targetNodeName, handler, new JSONTreeParser(input));
     }
 
     public static <Result> void find(Class<Result> bindingType, ObjectHandler<Result> handler,

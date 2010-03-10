@@ -33,11 +33,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.json.impl.JSONLexer;
 import org.xerial.json.impl.JSONTokenizer;
+import org.xerial.lens.tree.TreeEvent;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEvent;
 
 public class JSONStreamReaderTest
 {

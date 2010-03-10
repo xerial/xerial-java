@@ -39,6 +39,8 @@ import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.TupleIndex;
 import org.xerial.lens.relation.Node.NodeBuilder;
 import org.xerial.lens.relation.schema.Schema;
+import org.xerial.lens.tree.TreeEventHandler;
+import org.xerial.lens.tree.TreeParser;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.HashedDeque;
@@ -47,8 +49,6 @@ import org.xerial.util.graph.Lattice;
 import org.xerial.util.graph.LatticeCursor;
 import org.xerial.util.graph.LatticeNode;
 import org.xerial.util.log.Logger;
-import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeParser;
 
 /**
  * 

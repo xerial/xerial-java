@@ -47,6 +47,8 @@ import org.xerial.json.JSONPullParser;
 import org.xerial.json.JSONUtil;
 import org.xerial.json.JSONValue;
 import org.xerial.json.JSONValueType;
+import org.xerial.lens.tree.TreeEventHandler;
+import org.xerial.lens.tree.TreeParser;
 import org.xerial.silk.model.SilkDataLine;
 import org.xerial.silk.model.SilkFunction;
 import org.xerial.silk.model.SilkFunctionArg;
@@ -61,8 +63,6 @@ import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
-import org.xerial.util.tree.TreeEventHandler;
-import org.xerial.util.tree.TreeParser;
 import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**
