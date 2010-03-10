@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 RelationSchema.g 2010-03-01 14:53:39
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 RelationSchema.g 2010-03-10 09:52:00
 
 /*--------------------------------------------------------------------------
  *  Copyright 2008 Taro L. Saito
@@ -32,41 +32,41 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class RelationSchemaLexer extends Lexer {
-    public static final int RelationDef=35;
-    public static final int RParen=16;
-    public static final int Apos=26;
-    public static final int QName=37;
-    public static final int At=24;
-    public static final int TreeDef=36;
-    public static final int LParen=15;
-    public static final int LINE_COMMENT=14;
-    public static final int NameChar=31;
-    public static final int RBracket=18;
-    public static final int Colon=27;
-    public static final int Context=8;
-    public static final int Tree=11;
-    public static final int RelationSchema=4;
-    public static final int Question=23;
-    public static final int Digit=29;
     public static final int Equal=20;
-    public static final int EOF=-1;
-    public static final int Occurrence=10;
-    public static final int StringLiteral=33;
-    public static final int ML_COMMENT=12;
-    public static final int Relation=5;
-    public static final int Value=9;
-    public static final int Plus=21;
-    public static final int NameFragment=34;
-    public static final int NEWLINE=13;
-    public static final int Digits=30;
-    public static final int WhiteSpaceChar=32;
-    public static final int RelationAttribute=7;
-    public static final int Name=6;
+    public static final int NameChar=31;
     public static final int LBracket=17;
+    public static final int RelationDef=35;
+    public static final int Digit=29;
+    public static final int Apos=26;
     public static final int Star=22;
-    public static final int Comma=19;
+    public static final int Plus=21;
+    public static final int RelationSchema=4;
+    public static final int TreeDef=36;
+    public static final int RParen=16;
+    public static final int StringLiteral=33;
+    public static final int Node=7;
+    public static final int LINE_COMMENT=14;
+    public static final int Name=6;
+    public static final int LParen=15;
+    public static final int NEWLINE=13;
+    public static final int FD=10;
     public static final int Letter=28;
+    public static final int Comma=19;
+    public static final int QName=37;
+    public static final int WhiteSpaceChar=32;
+    public static final int EOF=-1;
+    public static final int Context=8;
+    public static final int Value=9;
+    public static final int RBracket=18;
+    public static final int Relation=5;
+    public static final int Tree=11;
+    public static final int ML_COMMENT=12;
     public static final int Quot=25;
+    public static final int NameFragment=34;
+    public static final int Question=23;
+    public static final int Digits=30;
+    public static final int Colon=27;
+    public static final int At=24;
 
     // delegates
     // delegators

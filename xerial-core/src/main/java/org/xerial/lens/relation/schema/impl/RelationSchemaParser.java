@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 RelationSchema.g 2010-03-01 14:53:39
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 RelationSchema.g 2010-03-10 09:52:00
 
 /*--------------------------------------------------------------------------
  *  Copyright 2008 Taro L. Saito
@@ -36,43 +36,43 @@ import org.antlr.runtime.tree.*;
 
 public class RelationSchemaParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RelationSchema", "Relation", "Name", "RelationAttribute", "Context", "Value", "Occurrence", "Tree", "ML_COMMENT", "NEWLINE", "LINE_COMMENT", "LParen", "RParen", "LBracket", "RBracket", "Comma", "Equal", "Plus", "Star", "Question", "At", "Quot", "Apos", "Colon", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "StringLiteral", "NameFragment", "RelationDef", "TreeDef", "QName"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RelationSchema", "Relation", "Name", "Node", "Context", "Value", "FD", "Tree", "ML_COMMENT", "NEWLINE", "LINE_COMMENT", "LParen", "RParen", "LBracket", "RBracket", "Comma", "Equal", "Plus", "Star", "Question", "At", "Quot", "Apos", "Colon", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "StringLiteral", "NameFragment", "RelationDef", "TreeDef", "QName"
     };
-    public static final int RelationDef=35;
-    public static final int RParen=16;
-    public static final int QName=37;
-    public static final int Apos=26;
-    public static final int At=24;
-    public static final int TreeDef=36;
-    public static final int LParen=15;
-    public static final int LINE_COMMENT=14;
-    public static final int NameChar=31;
-    public static final int RBracket=18;
-    public static final int Colon=27;
-    public static final int Context=8;
-    public static final int Tree=11;
-    public static final int RelationSchema=4;
-    public static final int Question=23;
-    public static final int Digit=29;
     public static final int Equal=20;
-    public static final int EOF=-1;
-    public static final int Occurrence=10;
+    public static final int NameChar=31;
+    public static final int RelationDef=35;
+    public static final int LBracket=17;
+    public static final int Digit=29;
+    public static final int Apos=26;
+    public static final int Star=22;
+    public static final int Plus=21;
+    public static final int RelationSchema=4;
+    public static final int TreeDef=36;
+    public static final int RParen=16;
     public static final int StringLiteral=33;
+    public static final int Node=7;
+    public static final int LINE_COMMENT=14;
+    public static final int Name=6;
+    public static final int NEWLINE=13;
+    public static final int LParen=15;
+    public static final int FD=10;
+    public static final int Letter=28;
+    public static final int Comma=19;
+    public static final int QName=37;
+    public static final int WhiteSpaceChar=32;
+    public static final int EOF=-1;
+    public static final int Context=8;
+    public static final int Value=9;
+    public static final int RBracket=18;
     public static final int Relation=5;
+    public static final int Tree=11;
     public static final int ML_COMMENT=12;
     public static final int NameFragment=34;
-    public static final int Plus=21;
-    public static final int Value=9;
-    public static final int NEWLINE=13;
-    public static final int Digits=30;
-    public static final int WhiteSpaceChar=32;
-    public static final int RelationAttribute=7;
-    public static final int Name=6;
-    public static final int Star=22;
-    public static final int LBracket=17;
-    public static final int Comma=19;
-    public static final int Letter=28;
     public static final int Quot=25;
+    public static final int Question=23;
+    public static final int Digits=30;
+    public static final int Colon=27;
+    public static final int At=24;
 
     // delegates
     // delegators
@@ -312,8 +312,8 @@ public class RelationSchemaParser extends Parser {
         Object QName5_tree=null;
         Object LParen6_tree=null;
         Object RParen8_tree=null;
-        RewriteRuleTokenStream stream_RelationDef=new RewriteRuleTokenStream(adaptor,"token RelationDef");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
+        RewriteRuleTokenStream stream_RelationDef=new RewriteRuleTokenStream(adaptor,"token RelationDef");
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
@@ -406,8 +406,8 @@ public class RelationSchemaParser extends Parser {
 
         Object TreeDef9_tree=null;
         Object QName10_tree=null;
-        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
         RewriteRuleTokenStream stream_TreeDef=new RewriteRuleTokenStream(adaptor,"token TreeDef");
+        RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
 
         try {
             // RelationSchema.g:169:8: ( TreeDef QName -> ^( Tree Name[$QName.text] ) )
@@ -558,7 +558,7 @@ public class RelationSchemaParser extends Parser {
     };
 
     // $ANTLR start "attribute"
-    // RelationSchema.g:178:1: attribute : QName ( attributePlural )? -> ^( RelationAttribute Name[$QName.text] ( attributePlural )? ) ;
+    // RelationSchema.g:178:1: attribute : QName ( attributePlural )? -> ^( Node Name[$QName.text] ( attributePlural )? ) ;
     public final RelationSchemaParser.attribute_return attribute() throws RecognitionException {
         RelationSchemaParser.attribute_return retval = new RelationSchemaParser.attribute_return();
         retval.start = input.LT(1);
@@ -573,7 +573,7 @@ public class RelationSchemaParser extends Parser {
         RewriteRuleTokenStream stream_QName=new RewriteRuleTokenStream(adaptor,"token QName");
         RewriteRuleSubtreeStream stream_attributePlural=new RewriteRuleSubtreeStream(adaptor,"rule attributePlural");
         try {
-            // RelationSchema.g:179:2: ( QName ( attributePlural )? -> ^( RelationAttribute Name[$QName.text] ( attributePlural )? ) )
+            // RelationSchema.g:179:2: ( QName ( attributePlural )? -> ^( Node Name[$QName.text] ( attributePlural )? ) )
             // RelationSchema.g:179:4: QName ( attributePlural )?
             {
             QName14=(Token)match(input,QName,FOLLOW_QName_in_attribute561);  
@@ -615,15 +615,15 @@ public class RelationSchemaParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 180:2: -> ^( RelationAttribute Name[$QName.text] ( attributePlural )? )
+            // 180:2: -> ^( Node Name[$QName.text] ( attributePlural )? )
             {
-                // RelationSchema.g:180:5: ^( RelationAttribute Name[$QName.text] ( attributePlural )? )
+                // RelationSchema.g:180:5: ^( Node Name[$QName.text] ( attributePlural )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
-                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(RelationAttribute, "RelationAttribute"), root_1);
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(Node, "Node"), root_1);
 
                 adaptor.addChild(root_1, (Object)adaptor.create(Name, (QName14!=null?QName14.getText():null)));
-                // RelationSchema.g:180:43: ( attributePlural )?
+                // RelationSchema.g:180:30: ( attributePlural )?
                 if ( stream_attributePlural.hasNext() ) {
                     adaptor.addChild(root_1, stream_attributePlural.nextTree());
 
@@ -662,7 +662,7 @@ public class RelationSchemaParser extends Parser {
     };
 
     // $ANTLR start "attributePlural"
-    // RelationSchema.g:184:1: attributePlural : ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] );
+    // RelationSchema.g:184:1: attributePlural : ( Star -> FD[\"ZERO_OR_MORE\"] | Plus -> FD[\"ONE_OR_MORE\"] | Question -> FD[\"ZERO_OR_ONE\"] );
     public final RelationSchemaParser.attributePlural_return attributePlural() throws RecognitionException {
         RelationSchemaParser.attributePlural_return retval = new RelationSchemaParser.attributePlural_return();
         retval.start = input.LT(1);
@@ -681,7 +681,7 @@ public class RelationSchemaParser extends Parser {
         RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
 
         try {
-            // RelationSchema.g:185:2: ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] )
+            // RelationSchema.g:185:2: ( Star -> FD[\"ZERO_OR_MORE\"] | Plus -> FD[\"ONE_OR_MORE\"] | Question -> FD[\"ZERO_OR_ONE\"] )
             int alt5=3;
             switch ( input.LA(1) ) {
             case Star:
@@ -726,9 +726,9 @@ public class RelationSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 185:9: -> Occurrence[\"ZERO_OR_MORE\"]
+                    // 185:9: -> FD[\"ZERO_OR_MORE\"]
                     {
-                        adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ZERO_OR_MORE"));
+                        adaptor.addChild(root_0, (Object)adaptor.create(FD, "ZERO_OR_MORE"));
 
                     }
 
@@ -754,9 +754,9 @@ public class RelationSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 186:9: -> Occurrence[\"ONE_OR_MORE\"]
+                    // 186:9: -> FD[\"ONE_OR_MORE\"]
                     {
-                        adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ONE_OR_MORE"));
+                        adaptor.addChild(root_0, (Object)adaptor.create(FD, "ONE_OR_MORE"));
 
                     }
 
@@ -782,9 +782,9 @@ public class RelationSchemaParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 187:13: -> Occurrence[\"ZERO_OR_ONE\"]
+                    // 187:13: -> FD[\"ZERO_OR_ONE\"]
                     {
-                        adaptor.addChild(root_0, (Object)adaptor.create(Occurrence, "ZERO_OR_ONE"));
+                        adaptor.addChild(root_0, (Object)adaptor.create(FD, "ZERO_OR_ONE"));
 
                     }
 

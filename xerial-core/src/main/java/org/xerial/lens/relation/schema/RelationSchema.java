@@ -41,6 +41,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.Lens;
 import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.lang.RelationAttribute;
@@ -49,7 +50,7 @@ import org.xerial.lens.relation.lang.RelationExpr.TreeDefinition;
 import org.xerial.lens.relation.schema.impl.RelationSchemaLexer;
 import org.xerial.lens.relation.schema.impl.RelationSchemaParser;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.graph.AdjacencyList;
 import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Graph;
@@ -113,12 +114,14 @@ public class RelationSchema {
 
         try {
             RelationSchemaParser.schema_return ret = parser.schema();
-            //_logger.debug("parse tree:\n" + ANTLRUtil.parseTree((Tree) ret.getTree(), RelationSchemaParser.tokenNames));
+            if (_logger.isDebugEnabled()) {
+                _logger.debug("parse tree:\n"
+                        + ANTLRUtil
+                                .parseTree((Tree) ret.getTree(), RelationSchemaParser.tokenNames));
+            }
 
-            RelationSchema schema = new RelationSchema();
-            BeanUtilImpl.populateBeanWithParseTree(schema, (Tree) ret.getTree(),
-                    RelationSchemaParser.tokenNames);
-
+            RelationSchema schema = Lens.loadANTLRParseTree(RelationSchema.class, (Tree) ret
+                    .getTree(), RelationSchemaParser.tokenNames);
             return schema;
         }
         catch (RecognitionException e) {

@@ -1,0 +1,4 @@
+relation booklist (book*)
+relation book (bookinfo, author*)
+relation bookinfo(isbn, title)
+relation author(name)

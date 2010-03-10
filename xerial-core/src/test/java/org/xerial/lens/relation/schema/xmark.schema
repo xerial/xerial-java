@@ -1,0 +1,56 @@
+// schema relation, metadata(relation), tree
+relation	site 		(regions, categories, catgraph, people, open_auctions, closed_auctions)
+relation	categories 	(category*)
+relation	category   	(name, description, @id) 
+// description contains text, parlist, listitem
+tree 		description 
+// text contains bold, keyword, emph, #PCDATA
+tree 		text       
+
+relation	catgraph	(edge*)
+relation	edge		(@from, @to)
+
+
+relation	regions		(africa, asia, australia, europe, namerica, samerica)
+relation	africa		(item*)
+relation	asia		(item*)
+relation	australia	(item*)
+relation	europe		(item*)
+relation	namerica	(item*)
+relation	samerica	(item*)
+
+/*
+relation	regions		(item*)
+relation	item (africa)
+relation	item (asia)
+relation	item (australia)
+relation	item (europe)
+relation	item (namerica)
+relation	item (samerica)
+*/
+
+relation	item 		(location, quantity, name, payment, description, shipping, incategory*, mailbox, @id, featured*)
+relation	incategory 	(@category)
+relation	mailbox		(mail*)
+relation	mail		(from, to, date, text)
+relation	itemref		(@item)
+relation	personref	(@person)
+relation	people		(person*)
+relation	person		(name, emailaddress, phone?, address?, homepage?, creditcard?, profile?, watches?, @id)
+relation	address   	(street, city, country, province?, zipcode)
+relation	profile     (interest*, education?, gender?, business, age?, income)
+relation	interest	(@category)
+relation	watches     (watch*)
+relation	watch 		(@open_auction)
+
+relation	open_auctions   (open_auction*)
+relation	open_auction    (@id, initial, reserve?, bidder*, current, privacy?, itemref, seller, annotation, quantity, type, interval)
+relation	bidder          (date, time, personref, increase)
+relation	seller		(@person)
+relation	interval    (start, end)
+
+relation	closed_auctions	 (closed_auction*)
+relation	closed_auction  (seller, buyer, itemref, price, date, quantity, type, annotation?)
+relation	buyer		(@person)
+relation	annotation	(author, description?, happiness)
+relation	author		(@person)
