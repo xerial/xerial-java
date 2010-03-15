@@ -554,11 +554,7 @@ public class SilkWriter {
             return this;
 
         if (TypeInfo.isBasicType(v.getClass())) {
-
-            if (parent != null)
-                attribute(leafNodeName, v.toString());
-            else
-                leaf(leafNodeName, v.toString());
+            outputLeaf(leafNodeName, v.toString());
         }
         else {
             ObjectLens lens = ObjectLens.getObjectLens(v.getClass());
@@ -567,13 +563,17 @@ public class SilkWriter {
                 c.toSilk(v);
             }
             else {
-                if (parent != null)
-                    attribute(leafNodeName, v.toString());
-                else
-                    leaf(leafNodeName, v.toString());
+                outputLeaf(leafNodeName, v.toString());
             }
         }
         return this;
+    }
+
+    private void outputLeaf(String leafNodeName, String value) {
+        if (parent != null)
+            attribute(leafNodeName, value);
+        else
+            leaf(leafNodeName, value);
     }
 
     public SilkWriter toSilk(Object obj) {

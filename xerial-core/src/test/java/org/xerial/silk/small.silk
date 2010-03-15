@@ -8,7 +8,7 @@
 
 
 -data(id, name)|
-1	leo    # comment
+1	leo
 2	yui
 
 -seq>

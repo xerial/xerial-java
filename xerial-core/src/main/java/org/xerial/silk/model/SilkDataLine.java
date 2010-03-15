@@ -24,8 +24,6 @@
 //--------------------------------------
 package org.xerial.silk.model;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * dataline
@@ -74,26 +72,26 @@ public class SilkDataLine implements SilkElement {
 
     private static String sanitizeDataLine(String line) {
         if (line.startsWith("\\"))
-            return removeLineComment(line.substring(1));
+            return line.substring(1);
         else
-            return removeLineComment(line);
-    }
-
-    private static Pattern lineCommentPattern = Pattern
-            .compile("[^\"]*(\\\"[^\"]*\\\")*[^\"]*(#.*)");
-
-    public static String removeLineComment(String line) {
-        if (!line.contains("#"))
             return line;
-
-        Matcher m = lineCommentPattern.matcher(line);
-        if (m.matches()) {
-            int lineCommentStart = m.start(2);
-            if (lineCommentStart != -1)
-                line = line.substring(0, lineCommentStart);
-        }
-        return line;
     }
+
+    //    private static Pattern lineCommentPattern = Pattern
+    //            .compile("[^\"]*(\\\"[^\"]*\\\")*[^\"]*(#.*)");
+
+    //    public static String removeLineComment(String line) {
+    //        if (!line.contains("#"))
+    //            return line;
+    //
+    //        Matcher m = lineCommentPattern.matcher(line);
+    //        if (m.matches()) {
+    //            int lineCommentStart = m.start(2);
+    //            if (lineCommentStart != -1)
+    //                line = line.substring(0, lineCommentStart);
+    //        }
+    //        return line;
+    //    }
 
     @Override
     public String toString() {

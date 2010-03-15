@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,7 +336,7 @@ public class ObjectMapperTest {
     @Test
     public void sam() throws Exception {
 
-        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam.silk"), "record",
+        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam-sample.silk"), "record",
                 SAMEntry.class, new ObjectHandler<SAMEntry>() {
                     public void handle(SAMEntry input) throws Exception {
                         _logger.info(Lens.toSilk(input));
