@@ -26,6 +26,7 @@ package org.xerial.lens.relation;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.silk.cui.SilkMain;
 import org.xerial.util.FileResource;
@@ -45,6 +46,7 @@ public class RaquelXMLBuilderTest {
 
     }
 
+    @Ignore
     @Test
     public void purify() throws Exception {
         SilkMain.execute(new String[] { "purify",
@@ -52,6 +54,7 @@ public class RaquelXMLBuilderTest {
                 FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
     }
 
+    @Ignore
     @Test
     public void purify2() throws Exception {
         SilkMain.execute(new String[] { "purify",
