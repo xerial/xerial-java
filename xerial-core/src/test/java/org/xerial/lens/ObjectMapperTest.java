@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -310,6 +308,38 @@ public class ObjectMapperTest {
     public void find() throws Exception {
         Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "map2.silk"), "person",
                 Person.class, new FindHandler());
+
+    }
+
+    public static class SAMEntry {
+        //schema record(qname, flag, rname, start, end, mapq, cigar, mrnm, mpos, isize, seq, qual, tag*)
+        public String qname;
+        public int flag;
+        public String rname;
+        public int start;
+        public int end;
+        public int mapq;
+        public String cigar;
+        public String mrnm; // mate reference name
+        public int iSize;
+        public String seq;
+        public String qual;
+        public Tag tag;
+
+        public static class Tag {
+            public Properties _ = new Properties();
+        }
+    }
+
+    @Test
+    public void sam() throws Exception {
+
+        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam.silk"), "record",
+                SAMEntry.class, new ObjectHandler<SAMEntry>() {
+                    public void handle(SAMEntry input) throws Exception {
+                        _logger.info(Lens.toSilk(input));
+                    }
+                });
 
     }
 

@@ -322,7 +322,7 @@ public class ObjectMapper {
         public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
                 throws XerialException {
 
-            Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, lens.getTargetType());
             if (attributeNode.nodeValue != null)
                 lens.setProperty(coreNodeInstance, attributeNode.nodeName, attributeNode.nodeValue);
         }
@@ -330,7 +330,7 @@ public class ObjectMapper {
         public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
                 String textValue) throws XerialException {
 
-            Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
+            Object coreNodeInstance = proc.getNodeInstance(coreNode, lens.getTargetType());
             Object prevValue = lens.getProperty(coreNodeInstance, textNode.nodeName);
             String value = (prevValue == null) ? textValue : prevValue.toString() + textValue;
             lens.setProperty(coreNodeInstance, textNode.nodeName, value);
