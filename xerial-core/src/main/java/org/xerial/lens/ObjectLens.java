@@ -250,7 +250,6 @@ public class ObjectLens {
                                     eachField));
                             getterContainer.add(ParameterGetter.newPropertyFieldGetter(eachField,
                                     paramName));
-                            continue;
                         }
                     }
                     else if (keyValueName.getFirst().equals("")
@@ -379,16 +378,15 @@ public class ObjectLens {
                             propertySetter = RelationSetter.newRelationSetter("key", "value",
                                     eachMethod);
                         }
-                        else {
-                            // map.put(Key, Value)
-                            setterContainer.add(ParameterSetter.newMapEntrySetter(
-                                    mapElementType[0], mapElementType[1]));
 
-                            // (entry, key)
-                            setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
-                            // (entry, value)
-                            setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
-                        }
+                        // map.put(Key, Value)
+                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0],
+                                mapElementType[1]));
+
+                        // (entry, key)
+                        setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
+                        // (entry, value)
+                        setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
                         continue;
                     }
                     else {
