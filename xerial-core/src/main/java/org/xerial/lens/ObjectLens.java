@@ -243,8 +243,7 @@ public class ObjectLens {
                         keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
                                 .getSimpleName());
 
-                        if (keyValueName.getFirst().equals("Object")
-                                && keyValueName.getSecond().equals("Object")) {
+                        if (isBasicTypeOrObject(keyType) && isBasicTypeOrObject(valueType)) {
 
                             // named map class. e.g. Property tag;
                             setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
@@ -375,7 +374,8 @@ public class ObjectLens {
                         Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
                                 targetType, eachMethod.getParameterTypes());
 
-                        if (mapElementType[0] == Object.class && mapElementType[1] == Object.class) {
+                        if (isBasicTypeOrObject(mapElementType[0])
+                                && isBasicTypeOrObject(mapElementType[1])) {
                             propertySetter = RelationSetter.newRelationSetter("key", "value",
                                     eachMethod);
                         }
@@ -429,6 +429,10 @@ public class ObjectLens {
         for (ParameterGetter each : getterContainer)
             getterIndex.put(each.getParamName(), each);
 
+    }
+
+    private static boolean isBasicTypeOrObject(Class< ? > type) {
+        return Object.class == type || TypeInfo.isBasicType(type);
     }
 
     private static void addNewSetter(List<ParameterSetter> setterContainer, String paramPart,

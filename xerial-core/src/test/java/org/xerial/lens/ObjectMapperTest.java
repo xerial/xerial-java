@@ -27,6 +27,7 @@ package org.xerial.lens;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -324,7 +325,7 @@ public class ObjectMapperTest {
         public int iSize;
         public String seq;
         public String qual;
-        public Properties tag;
+        public HashMap<String, Object> tag;
 
     }
 
@@ -335,6 +336,9 @@ public class ObjectMapperTest {
                 SAMEntry.class, new ObjectHandler<SAMEntry>() {
                     public void handle(SAMEntry input) throws Exception {
                         _logger.info(Lens.toSilk(input));
+                        for (String each : new String[] { "Nm", "RG", "H1", "MF", "H0" })
+                            assertTrue(input.tag.containsKey(each));
+                        if (input.qname.equals("read_28701_28881_323b")) {}
                     }
                 });
 
