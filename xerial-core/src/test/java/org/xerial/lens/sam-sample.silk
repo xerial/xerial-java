@@ -1,0 +1,39 @@
+%schema record(qname, flag, rname, start, end, mapq, cigar, mrnm, mpos, isize, seq, qual, tag, vtype, tag*)
+-record
+  -qname: read_28833_29006_6945
+  -flag: 99
+  -rname: chr21
+  -start: 28833
+  -end: 28868
+  -mapq: 20
+  -cigar: 10M1D25M
+  -mrname: chr21
+  -mpos: 28993
+  -isize: 195
+  -seq: AGCTTAGCTAGCTACCTATATCTTGGTCTTGGCCG
+  -qual: <<<<<<<<<<<<<<<<<<<<<:<9/,&,22;;<<<
+  -tag
+    -MF: 130
+    -Nm: 1
+    -H0: 0
+    -H1: 0
+    -RG: L1
+-record
+  -qname: read_28701_28881_323b
+  -flag: 147
+  -rname: chr21
+  -start: 28834
+  -end: 28868
+  -mapq: 30
+  -cigar: 35M
+  -mrname: chr21
+  -mpos: 28701
+  -isize: -168
+  -seq: ACCTATATCTTGGCCTTGGCCGATGCGGCCTTGCA
+  -qual: <<<<<;<<<<7;:<<<6;<<<<<<<<<<<<7<<<<
+  -tag
+    -MF: 18
+    -Nm: 0
+    -H0: 1
+    -H1: 0
+    -RG: L2
