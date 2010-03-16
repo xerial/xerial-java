@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -326,11 +324,8 @@ public class ObjectMapperTest {
         public int iSize;
         public String seq;
         public String qual;
-        public Tag tag;
+        public Properties tag;
 
-        public static class Tag {
-            public Properties _ = new Properties();
-        }
     }
 
     @Test

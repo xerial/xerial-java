@@ -178,6 +178,24 @@ public class ObjectMapper {
                     continue;
                 }
 
+                if (TypeInfo.isMap(each.getParameterType())) {
+                    // (param, *)
+                    SchemaBuilder builder = new SchemaBuilder();
+                    builder.add(each.getParameterName());
+                    builder.add("*");
+                    Schema s = builder.build();
+                    queryBuilder.addQueryTarget(s);
+                    schema2binder.put(s, new PropertyBinder(ObjectLens.getObjectLens(each
+                            .getParameterType())));
+
+                    // (alias, param)
+                    Schema s2 = new SchemaBuilder().add(alias).add(each.getParameterName()).build();
+                    queryBuilder.addQueryTarget(s2);
+                    schema2binder.put(s2, new AttributeBinder(lens.getTargetType(), each));
+
+                    continue;
+                }
+
                 build(each.getParameterType(), each.getParameterName());
 
                 SchemaBuilder builder = new SchemaBuilder();
@@ -191,6 +209,7 @@ public class ObjectMapper {
             }
 
             for (RelationSetter each : lens.getRelationSetterList()) {
+
                 build(each.getCoreNodeType(), each.getCoreNodeName());
                 build(each.getAttributeNodeType(), each.getAttributeNodeName());
 
@@ -211,7 +230,7 @@ public class ObjectMapper {
                 // (alias, *) 
                 Schema s = builder.build();
                 queryBuilder.addQueryTarget(s);
-                schema2binder.put(s, new PropertyBinder(lens, lens.getPropertySetter()));
+                schema2binder.put(s, new PropertyBinder(lens));
             }
         }
     }
@@ -312,11 +331,9 @@ public class ObjectMapper {
     private static class PropertyBinder implements Binder {
 
         private final ObjectLens lens;
-        private final RelationSetter setter;
 
-        public PropertyBinder(ObjectLens lens, RelationSetter setter) {
+        public PropertyBinder(ObjectLens lens) {
             this.lens = lens;
-            this.setter = setter;
         }
 
         public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)

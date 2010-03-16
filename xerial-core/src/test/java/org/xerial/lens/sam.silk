@@ -1,0 +1,19 @@
+-record
+  -qname: read_28701_28881_323b
+  -flag: 147
+  -rname: chr21
+  -start: 28834
+  -end: 28868
+  -mapq: 30
+  -cigar: 35M
+  -mrname: chr21
+  -mpos: 28701
+  -isize: -168
+  -seq: ACCTATATCTTGGCCTTGGCCGATGCGGCCTTGCA
+  -qual: <<<<<;<<<<7;:<<<6;<<<<<<<<<<<<7<<<<
+  -tag
+    -MF: 18
+    -Nm: 0
+    -H0: 1
+    -H1: 0
+    -RG: L2

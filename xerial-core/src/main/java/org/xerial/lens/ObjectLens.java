@@ -242,6 +242,17 @@ public class ObjectLens {
 
                         keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
                                 .getSimpleName());
+
+                        if (keyValueName.getFirst().equals("Object")
+                                && keyValueName.getSecond().equals("Object")) {
+
+                            // named map class. e.g. Property tag;
+                            setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
+                                    eachField));
+                            getterContainer.add(ParameterGetter.newPropertyFieldGetter(eachField,
+                                    paramName));
+                            continue;
+                        }
                     }
                     else if (keyValueName.getFirst().equals("")
                             && keyValueName.getSecond().equals("")) {
@@ -351,8 +362,9 @@ public class ObjectLens {
                 if (argTypes.length != 2)
                     continue;
 
-                if (TypeInfo.isCollection(eachMethod.getDeclaringClass()))
+                if (TypeInfo.isCollection(eachMethod.getDeclaringClass())) {
                     continue;
+                }
 
                 // relation adder
                 Pair<String, String> relName = pickRelationName(pickPropertyName(methodName, false));
@@ -363,14 +375,20 @@ public class ObjectLens {
                         Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
                                 targetType, eachMethod.getParameterTypes());
 
-                        // map.put(Key, Value)
-                        setterContainer.add(ParameterSetter.newMapEntrySetter(mapElementType[0],
-                                mapElementType[1]));
+                        if (mapElementType[0] == Object.class && mapElementType[1] == Object.class) {
+                            propertySetter = RelationSetter.newRelationSetter("key", "value",
+                                    eachMethod);
+                        }
+                        else {
+                            // map.put(Key, Value)
+                            setterContainer.add(ParameterSetter.newMapEntrySetter(
+                                    mapElementType[0], mapElementType[1]));
 
-                        // (entry, key)
-                        setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
-                        // (entry, value)
-                        setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
+                            // (entry, key)
+                            setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
+                            // (entry, value)
+                            setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
+                        }
                         continue;
                     }
                     else {
