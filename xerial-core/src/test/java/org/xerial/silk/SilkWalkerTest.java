@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -252,6 +254,11 @@ public class SilkWalkerTest {
     @Test
     public void testMultiLineTextWithNewLine() throws Exception {
         compare("mltext.silk", "mltext.json");
+    }
+
+    @Test
+    public void sam() throws Exception {
+        compare("sam.silk", "sam.json");
     }
 
 }

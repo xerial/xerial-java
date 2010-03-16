@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-02-04 20:23:45
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-03-16 22:10:08
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -1251,14 +1251,14 @@ public class SilkLineLexer extends Lexer {
     // $ANTLR start "PlainFirst"
     public final void mPlainFirst() throws RecognitionException {
         try {
-            // SilkLine.g:189:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar ) )
+            // SilkLine.g:189:2: (~ ( '-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) | {...}? => ( '-' | '+' | '*' | ( ':' | '?' ) NonSpaceChar ) )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
             if ( ((LA11_0>='\u0000' && LA11_0<='\b')||(LA11_0>='\n' && LA11_0<='\u001F')||LA11_0=='!'||LA11_0=='$'||LA11_0=='&'||(LA11_0>='.' && LA11_0<='9')||(LA11_0>=';' && LA11_0<='<')||(LA11_0>='A' && LA11_0<='Z')||(LA11_0>='^' && LA11_0<='z')||(LA11_0>='~' && LA11_0<='\uFFFF')) ) {
                 alt11=1;
             }
-            else if ( (LA11_0=='+'||LA11_0=='-'||LA11_0==':'||LA11_0=='?') && (( isValue() ))) {
+            else if ( ((LA11_0>='*' && LA11_0<='+')||LA11_0=='-'||LA11_0==':'||LA11_0=='?') && (( isValue() ))) {
                 alt11=2;
             }
             else {
@@ -1284,13 +1284,13 @@ public class SilkLineLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // SilkLine.g:190:4: {...}? => ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
+                    // SilkLine.g:190:4: {...}? => ( '-' | '+' | '*' | ( ':' | '?' ) NonSpaceChar )
                     {
                     if ( !(( isValue() )) ) {
                         throw new FailedPredicateException(input, "PlainFirst", " isValue() ");
                     }
-                    // SilkLine.g:190:22: ( '-' | '+' | ( ':' | '?' ) NonSpaceChar )
-                    int alt10=3;
+                    // SilkLine.g:190:22: ( '-' | '+' | '*' | ( ':' | '?' ) NonSpaceChar )
+                    int alt10=4;
                     switch ( input.LA(1) ) {
                     case '-':
                         {
@@ -1302,10 +1302,15 @@ public class SilkLineLexer extends Lexer {
                         alt10=2;
                         }
                         break;
+                    case '*':
+                        {
+                        alt10=3;
+                        }
+                        break;
                     case ':':
                     case '?':
                         {
-                        alt10=3;
+                        alt10=4;
                         }
                         break;
                     default:
@@ -1331,7 +1336,14 @@ public class SilkLineLexer extends Lexer {
                             }
                             break;
                         case 3 :
-                            // SilkLine.g:190:35: ( ':' | '?' ) NonSpaceChar
+                            // SilkLine.g:190:35: '*'
+                            {
+                            match('*'); 
+
+                            }
+                            break;
+                        case 4 :
+                            // SilkLine.g:190:41: ( ':' | '?' ) NonSpaceChar
                             {
                             if ( input.LA(1)==':'||input.LA(1)=='?' ) {
                                 input.consume();
@@ -1367,100 +1379,7 @@ public class SilkLineLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // SilkLine.g:194:2: ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* )
             int alt15=3;
-            int LA15_0 = input.LA(1);
-
-            if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\n' && LA15_0<='\u001F')||LA15_0=='!'||LA15_0=='$'||LA15_0=='&'||(LA15_0>='.' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='<')||(LA15_0>='A' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {
-                int LA15_1 = input.LA(2);
-
-                if ( (( isKey() )) ) {
-                    alt15=1;
-                }
-                else if ( (( isInValue() )) ) {
-                    alt15=2;
-                }
-                else if ( (( isOutValue() )) ) {
-                    alt15=3;
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 15, 1, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA15_0=='-') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
-                int LA15_2 = input.LA(2);
-
-                if ( ((( isKey() )&&( isValue() ))) ) {
-                    alt15=1;
-                }
-                else if ( ((( isInValue() )&&( isValue() ))) ) {
-                    alt15=2;
-                }
-                else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                    alt15=3;
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 15, 2, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA15_0=='+') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
-                int LA15_3 = input.LA(2);
-
-                if ( ((( isKey() )&&( isValue() ))) ) {
-                    alt15=1;
-                }
-                else if ( ((( isInValue() )&&( isValue() ))) ) {
-                    alt15=2;
-                }
-                else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                    alt15=3;
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 15, 3, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA15_0==':'||LA15_0=='?') && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {
-                int LA15_4 = input.LA(2);
-
-                if ( ((LA15_4>='\u0000' && LA15_4<='\b')||(LA15_4>='\n' && LA15_4<='\u001F')||LA15_4=='!'||(LA15_4>='#' && LA15_4<='[')||(LA15_4>=']' && LA15_4<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {
-                    int LA15_8 = input.LA(3);
-
-                    if ( ((( isKey() )&&( isValue() ))) ) {
-                        alt15=1;
-                    }
-                    else if ( ((( isInValue() )&&( isValue() ))) ) {
-                        alt15=2;
-                    }
-                    else if ( ((( isOutValue() )&&( isValue() ))) ) {
-                        alt15=3;
-                    }
-                    else {
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 15, 8, input);
-
-                        throw nvae;
-                    }
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 15, 4, input);
-
-                    throw nvae;
-                }
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
-
-                throw nvae;
-            }
+            alt15 = dfa15.predict(input);
             switch (alt15) {
                 case 1 :
                     // SilkLine.g:194:4: {...}? => PlainFirst ( PlainSafeKey )*
@@ -1870,28 +1789,220 @@ public class SilkLineLexer extends Lexer {
     }
 
 
+    protected DFA15 dfa15 = new DFA15(this);
     protected DFA18 dfa18 = new DFA18(this);
+    static final String DFA15_eotS =
+        "\12\uffff";
+    static final String DFA15_eofS =
+        "\12\uffff";
+    static final String DFA15_minS =
+        "\6\0\3\uffff\1\0";
+    static final String DFA15_maxS =
+        "\1\uffff\4\0\1\uffff\3\uffff\1\0";
+    static final String DFA15_acceptS =
+        "\6\uffff\1\1\1\2\1\3\1\uffff";
+    static final String DFA15_specialS =
+        "\1\1\1\2\1\6\1\0\1\5\1\4\3\uffff\1\3}>";
+    static final String[] DFA15_transitionS = {
+            "\11\1\1\uffff\26\1\1\uffff\1\1\2\uffff\1\1\1\uffff\1\1\3\uffff"+
+            "\1\4\1\3\1\uffff\1\2\14\1\1\5\2\1\2\uffff\1\5\1\uffff\32\1\3"+
+            "\uffff\35\1\3\uffff\uff82\1",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\11\11\1\uffff\26\11\1\uffff\1\11\1\uffff\71\11\1\uffff\uffa3"+
+            "\11",
+            "",
+            "",
+            "",
+            "\1\uffff"
+    };
+
+    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
+    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
+    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
+    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
+    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
+    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
+    static final short[][] DFA15_transition;
+
+    static {
+        int numStates = DFA15_transitionS.length;
+        DFA15_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+        }
+    }
+
+    class DFA15 extends DFA {
+
+        public DFA15(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 15;
+            this.eot = DFA15_eot;
+            this.eof = DFA15_eof;
+            this.min = DFA15_min;
+            this.max = DFA15_max;
+            this.accept = DFA15_accept;
+            this.special = DFA15_special;
+            this.transition = DFA15_transition;
+        }
+        public String getDescription() {
+            return "193:1: PlainOneLine : ({...}? => PlainFirst ( PlainSafeKey )* | {...}? => PlainFirst ( PlainSafeIn )* | {...}? => PlainFirst ( PlainSafeOut )* );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            IntStream input = _input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA15_3 = input.LA(1);
+
+                         
+                        int index15_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((( isKey() )&&( isValue() ))) ) {s = 6;}
+
+                        else if ( ((( isInValue() )&&( isValue() ))) ) {s = 7;}
+
+                        else if ( ((( isOutValue() )&&( isValue() ))) ) {s = 8;}
+
+                         
+                        input.seek(index15_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA15_0 = input.LA(1);
+
+                         
+                        int index15_0 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA15_0>='\u0000' && LA15_0<='\b')||(LA15_0>='\n' && LA15_0<='\u001F')||LA15_0=='!'||LA15_0=='$'||LA15_0=='&'||(LA15_0>='.' && LA15_0<='9')||(LA15_0>=';' && LA15_0<='<')||(LA15_0>='A' && LA15_0<='Z')||(LA15_0>='^' && LA15_0<='z')||(LA15_0>='~' && LA15_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {s = 1;}
+
+                        else if ( (LA15_0=='-') && (((( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 2;}
+
+                        else if ( (LA15_0=='+') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
+
+                        else if ( (LA15_0=='*') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 4;}
+
+                        else if ( (LA15_0==':'||LA15_0=='?') && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 5;}
+
+                         
+                        input.seek(index15_0);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA15_1 = input.LA(1);
+
+                         
+                        int index15_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isKey() )) ) {s = 6;}
+
+                        else if ( (( isInValue() )) ) {s = 7;}
+
+                        else if ( (( isOutValue() )) ) {s = 8;}
+
+                         
+                        input.seek(index15_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA15_9 = input.LA(1);
+
+                         
+                        int index15_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((( isKey() )&&( isValue() ))) ) {s = 6;}
+
+                        else if ( ((( isInValue() )&&( isValue() ))) ) {s = 7;}
+
+                        else if ( ((( isOutValue() )&&( isValue() ))) ) {s = 8;}
+
+                         
+                        input.seek(index15_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA15_5 = input.LA(1);
+
+                         
+                        int index15_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA15_5>='\u0000' && LA15_5<='\b')||(LA15_5>='\n' && LA15_5<='\u001F')||LA15_5=='!'||(LA15_5>='#' && LA15_5<='[')||(LA15_5>=']' && LA15_5<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 9;}
+
+                         
+                        input.seek(index15_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA15_4 = input.LA(1);
+
+                         
+                        int index15_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((( isKey() )&&( isValue() ))) ) {s = 6;}
+
+                        else if ( ((( isInValue() )&&( isValue() ))) ) {s = 7;}
+
+                        else if ( ((( isOutValue() )&&( isValue() ))) ) {s = 8;}
+
+                         
+                        input.seek(index15_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA15_2 = input.LA(1);
+
+                         
+                        int index15_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((( isKey() )&&( isValue() ))) ) {s = 6;}
+
+                        else if ( ((( isInValue() )&&( isValue() ))) ) {s = 7;}
+
+                        else if ( ((( isOutValue() )&&( isValue() ))) ) {s = 8;}
+
+                         
+                        input.seek(index15_2);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 15, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
     static final String DFA18_eotS =
-        "\1\6\1\uffff\1\26\1\32\1\36\1\26\4\uffff\1\40\3\uffff\1\41\1\42"+
-        "\1\uffff\1\43\3\uffff\1\46\2\uffff\1\50\1\51\23\uffff";
+        "\1\6\1\uffff\1\26\1\32\1\36\1\26\4\uffff\1\40\2\uffff\1\41\1\42"+
+        "\1\43\1\uffff\1\44\3\uffff\1\47\2\uffff\1\51\1\52\25\uffff";
     static final String DFA18_eofS =
-        "\55\uffff";
+        "\57\uffff";
     static final String DFA18_minS =
-        "\1\0\1\uffff\1\11\2\0\1\11\4\uffff\1\0\3\uffff\2\0\1\uffff\1\0"+
-        "\3\uffff\1\55\1\0\1\uffff\3\0\3\uffff\1\0\2\uffff\2\0\5\uffff\2"+
-        "\0\3\uffff";
+        "\1\0\1\uffff\1\11\2\0\1\11\4\uffff\1\0\2\uffff\3\0\1\uffff\1\0"+
+        "\3\uffff\1\55\1\0\1\uffff\3\0\3\uffff\1\0\2\uffff\3\0\5\uffff\2"+
+        "\0\4\uffff";
     static final String DFA18_maxS =
-        "\1\uffff\1\uffff\1\100\1\uffff\1\0\1\40\4\uffff\1\uffff\3\uffff"+
-        "\1\uffff\1\0\1\uffff\1\uffff\3\uffff\1\76\1\0\1\uffff\2\uffff\1"+
-        "\0\3\uffff\1\0\2\uffff\2\0\5\uffff\2\0\3\uffff";
+        "\1\uffff\1\uffff\1\100\1\uffff\1\0\1\40\4\uffff\1\uffff\2\uffff"+
+        "\2\uffff\1\0\1\uffff\1\uffff\3\uffff\1\76\1\0\1\uffff\2\uffff\1"+
+        "\0\3\uffff\1\0\2\uffff\3\0\5\uffff\2\0\4\uffff";
     static final String DFA18_acceptS =
-        "\1\uffff\1\1\4\uffff\1\6\1\7\1\10\1\11\1\uffff\1\13\1\14\1\15\2"+
-        "\uffff\1\21\1\uffff\1\23\1\24\1\25\2\uffff\1\5\3\uffff\3\24\1\uffff"+
-        "\1\24\1\12\2\uffff\1\22\1\2\1\4\1\3\1\26\2\uffff\1\16\1\17\1\20";
+        "\1\uffff\1\1\4\uffff\1\6\1\7\1\10\1\11\1\uffff\1\13\1\14\3\uffff"+
+        "\1\21\1\uffff\1\23\1\24\1\25\2\uffff\1\5\3\uffff\3\24\1\uffff\1"+
+        "\24\1\12\3\uffff\1\22\1\2\1\4\1\3\1\26\2\uffff\1\16\1\15\1\17\1"+
+        "\20";
     static final String DFA18_specialS =
-        "\1\16\1\uffff\1\0\1\1\1\uffff\1\14\4\uffff\1\17\3\uffff\1\6\2\uffff"+
-        "\1\11\3\uffff\1\2\1\15\1\uffff\1\13\1\5\1\3\3\uffff\1\10\2\uffff"+
-        "\1\7\1\20\5\uffff\1\4\1\12\3\uffff}>";
+        "\1\11\1\uffff\1\15\1\12\1\uffff\1\5\4\uffff\1\4\2\uffff\1\10\1"+
+        "\1\2\uffff\1\14\3\uffff\1\6\1\3\1\uffff\1\22\1\16\1\13\3\uffff\1"+
+        "\20\2\uffff\1\7\1\2\1\0\5\uffff\1\21\1\17\4\uffff}>";
     static final String[] DFA18_transitionS = {
             "\11\23\1\5\26\23\1\2\1\23\1\22\1\1\1\23\1\uffff\1\23\1\uffff"+
             "\1\7\1\10\1\15\1\16\1\11\1\3\14\23\1\12\2\23\1\uffff\1\13\1"+
@@ -1899,8 +2010,8 @@ public class SilkLineLexer extends Lexer {
             "\23",
             "",
             "\1\5\26\uffff\1\2\14\uffff\1\25\22\uffff\1\27",
-            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\1\30\14\33\1\34\2"+
-            "\33\1\34\1\31\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
+            "\42\33\2\uffff\4\33\2\34\1\35\1\33\1\34\1\30\14\33\1\35\2"+
+            "\33\1\35\1\31\34\33\1\35\1\uffff\1\35\35\33\3\35\uff82\33",
             "\1\uffff",
             "\1\5\26\uffff\1\5",
             "",
@@ -1911,9 +2022,10 @@ public class SilkLineLexer extends Lexer {
             "\37",
             "",
             "",
-            "",
-            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\15\33\1\34\2\33\2"+
-            "\34\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
+            "\42\33\2\uffff\4\33\2\34\1\35\1\33\1\34\15\33\1\35\2\33\2"+
+            "\35\34\33\1\35\1\uffff\1\35\35\33\3\35\uff82\33",
+            "\42\33\2\uffff\4\33\2\34\1\35\1\33\1\34\15\33\1\35\2\33\2"+
+            "\35\34\33\1\35\1\uffff\1\35\35\33\3\35\uff82\33",
             "\1\uffff",
             "",
             "\11\37\1\uffff\26\37\1\uffff\1\37\1\uffff\71\37\1\uffff\uffa3"+
@@ -1921,28 +2033,30 @@ public class SilkLineLexer extends Lexer {
             "",
             "",
             "",
-            "\1\44\20\uffff\1\45",
+            "\1\45\20\uffff\1\46",
             "\1\uffff",
             "",
-            "\42\33\2\uffff\4\33\2\35\1\34\1\33\1\35\15\33\1\34\2\33\2"+
-            "\34\34\33\1\34\1\uffff\1\34\35\33\3\34\uff82\33",
-            "\42\34\2\uffff\4\34\2\35\2\34\1\35\57\34\1\uffff\uffa3\34",
-            "\1\uffff",
-            "",
-            "",
-            "",
-            "\1\uffff",
-            "",
-            "",
-            "\1\uffff",
+            "\42\33\2\uffff\4\33\2\34\1\35\1\33\1\34\15\33\1\35\2\33\2"+
+            "\35\34\33\1\35\1\uffff\1\35\35\33\3\35\uff82\33",
+            "\42\35\2\uffff\4\35\2\34\2\35\1\34\57\35\1\uffff\uffa3\35",
             "\1\uffff",
             "",
             "",
             "",
+            "\1\uffff",
             "",
             "",
             "\1\uffff",
             "\1\uffff",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\uffff",
+            "\1\uffff",
+            "",
             "",
             "",
             ""
@@ -1985,212 +2099,85 @@ public class SilkLineLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA18_2 = input.LA(1);
+                        int LA18_35 = input.LA(1);
 
                          
-                        int index18_2 = input.index();
+                        int index18_35 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA18_2=='-') && (( isHead() ))) {s = 21;}
+                        if ( (!((( isValue() )))) ) {s = 46;}
 
-                        else if ( (LA18_2==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
-
-                        else if ( (LA18_2=='\t') && ((( !isHead() )||( isHead() )))) {s = 5;}
-
-                        else if ( (LA18_2=='@') && (( isHead() ))) {s = 23;}
-
-                        else s = 22;
+                        else if ( (( isValue() )) ) {s = 20;}
 
                          
-                        input.seek(index18_2);
+                        input.seek(index18_35);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA18_3 = input.LA(1);
-
-                         
-                        int index18_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA18_3=='-') && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 24;}
-
-                        else if ( (LA18_3=='>') && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 25;}
-
-                        else if ( ((LA18_3>='\u0000' && LA18_3<='!')||(LA18_3>='$' && LA18_3<='\'')||LA18_3=='+'||(LA18_3>='.' && LA18_3<='9')||(LA18_3>=';' && LA18_3<='<')||(LA18_3>='?' && LA18_3<='Z')||(LA18_3>='^' && LA18_3<='z')||(LA18_3>='~' && LA18_3<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 27;}
-
-                        else if ( (LA18_3=='*'||LA18_3==':'||LA18_3=='='||LA18_3=='['||LA18_3==']'||(LA18_3>='{' && LA18_3<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
-
-                        else if ( ((LA18_3>='(' && LA18_3<=')')||LA18_3==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
-
-                        else s = 26;
-
-                         
-                        input.seek(index18_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA18_21 = input.LA(1);
-
-                         
-                        int index18_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA18_21=='-') && (( isHead() ))) {s = 36;}
-
-                        else if ( (LA18_21=='>') && (( isHead() ))) {s = 37;}
-
-                        else s = 38;
-
-                         
-                        input.seek(index18_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA18_26 = input.LA(1);
-
-                         
-                        int index18_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 38;}
-
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
-
-                         
-                        input.seek(index18_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA18_40 = input.LA(1);
-
-                         
-                        int index18_40 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 36;}
-
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
-
-                         
-                        input.seek(index18_40);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA18_25 = input.LA(1);
-
-                         
-                        int index18_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA18_25>='\u0000' && LA18_25<='!')||(LA18_25>='$' && LA18_25<='\'')||(LA18_25>='*' && LA18_25<='+')||(LA18_25>='-' && LA18_25<='[')||(LA18_25>=']' && LA18_25<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
-
-                        else if ( ((LA18_25>='(' && LA18_25<=')')||LA18_25==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
-
-                        else s = 41;
-
-                         
-                        input.seek(index18_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
                         int LA18_14 = input.LA(1);
 
                          
                         int index18_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_14>='\u0000' && LA18_14<='!')||(LA18_14>='$' && LA18_14<='\'')||LA18_14=='+'||(LA18_14>='-' && LA18_14<='9')||(LA18_14>=';' && LA18_14<='<')||(LA18_14>='?' && LA18_14<='Z')||(LA18_14>='^' && LA18_14<='z')||(LA18_14>='~' && LA18_14<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 27;}
+                        if ( ((LA18_14>='\u0000' && LA18_14<='!')||(LA18_14>='$' && LA18_14<='\'')||LA18_14=='+'||(LA18_14>='-' && LA18_14<='9')||(LA18_14>=';' && LA18_14<='<')||(LA18_14>='?' && LA18_14<='Z')||(LA18_14>='^' && LA18_14<='z')||(LA18_14>='~' && LA18_14<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
 
-                        else if ( (LA18_14=='*'||LA18_14==':'||(LA18_14>='=' && LA18_14<='>')||LA18_14=='['||LA18_14==']'||(LA18_14>='{' && LA18_14<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
+                        else if ( ((LA18_14>='(' && LA18_14<=')')||LA18_14==',') && ((( isOutValue() )&&( isValue() )))) {s = 28;}
 
-                        else if ( ((LA18_14>='(' && LA18_14<=')')||LA18_14==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
+                        else if ( (LA18_14=='*'||LA18_14==':'||(LA18_14>='=' && LA18_14<='>')||LA18_14=='['||LA18_14==']'||(LA18_14>='{' && LA18_14<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 29;}
 
-                        else s = 33;
+                        else s = 34;
 
                          
                         input.seek(index18_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA18_33 = input.LA(1);
+                    case 2 : 
+                        int LA18_34 = input.LA(1);
 
                          
-                        int index18_33 = input.index();
+                        int index18_34 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 43;}
+                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 45;}
 
                         else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
 
                          
-                        input.seek(index18_33);
+                        input.seek(index18_34);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA18_30 = input.LA(1);
+                    case 3 : 
+                        int LA18_22 = input.LA(1);
 
                          
-                        int index18_30 = input.index();
+                        int index18_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( isHead() )) ) {s = 23;}
+                        if ( (( isHead() )) ) {s = 6;}
 
-                        else if ( (true) ) {s = 42;}
+                        else if ( (( !isHead() )) ) {s = 40;}
 
                          
-                        input.seek(index18_30);
+                        input.seek(index18_22);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
-                        int LA18_17 = input.LA(1);
+                    case 4 : 
+                        int LA18_10 = input.LA(1);
 
                          
-                        int index18_17 = input.index();
+                        int index18_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_17>='\u0000' && LA18_17<='\b')||(LA18_17>='\n' && LA18_17<='\u001F')||LA18_17=='!'||(LA18_17>='#' && LA18_17<='[')||(LA18_17>=']' && LA18_17<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 31;}
+                        if ( ((LA18_10>='\u0000' && LA18_10<='\b')||(LA18_10>='\n' && LA18_10<='\u001F')||LA18_10=='!'||(LA18_10>='#' && LA18_10<='[')||(LA18_10>=']' && LA18_10<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 31;}
 
-                        else s = 35;
+                        else s = 32;
 
                          
-                        input.seek(index18_17);
+                        input.seek(index18_10);
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA18_41 = input.LA(1);
-
-                         
-                        int index18_41 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( isHead() )) ) {s = 37;}
-
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
-
-                         
-                        input.seek(index18_41);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA18_24 = input.LA(1);
-
-                         
-                        int index18_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA18_24>='\u0000' && LA18_24<='!')||(LA18_24>='$' && LA18_24<='\'')||LA18_24=='+'||(LA18_24>='-' && LA18_24<='9')||(LA18_24>=';' && LA18_24<='<')||(LA18_24>='?' && LA18_24<='Z')||(LA18_24>='^' && LA18_24<='z')||(LA18_24>='~' && LA18_24<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
-
-                        else if ( (LA18_24=='*'||LA18_24==':'||(LA18_24>='=' && LA18_24<='>')||LA18_24=='['||LA18_24==']'||(LA18_24>='{' && LA18_24<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 28;}
-
-                        else if ( ((LA18_24>='(' && LA18_24<=')')||LA18_24==',') && ((( isOutValue() )&&( isValue() )))) {s = 29;}
-
-                        else s = 40;
-
-                         
-                        input.seek(index18_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
+                    case 5 : 
                         int LA18_5 = input.LA(1);
 
                          
@@ -2205,22 +2192,58 @@ public class SilkLineLexer extends Lexer {
                         input.seek(index18_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA18_22 = input.LA(1);
+                    case 6 : 
+                        int LA18_21 = input.LA(1);
 
                          
-                        int index18_22 = input.index();
+                        int index18_21 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( isHead() )) ) {s = 6;}
+                        if ( (LA18_21=='-') && (( isHead() ))) {s = 37;}
 
-                        else if ( (( !isHead() )) ) {s = 39;}
+                        else if ( (LA18_21=='>') && (( isHead() ))) {s = 38;}
+
+                        else s = 39;
 
                          
-                        input.seek(index18_22);
+                        input.seek(index18_21);
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
+                    case 7 : 
+                        int LA18_33 = input.LA(1);
+
+                         
+                        int index18_33 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))))) ) {s = 44;}
+
+                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
+
+                         
+                        input.seek(index18_33);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA18_13 = input.LA(1);
+
+                         
+                        int index18_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_13>='\u0000' && LA18_13<='!')||(LA18_13>='$' && LA18_13<='\'')||LA18_13=='+'||(LA18_13>='-' && LA18_13<='9')||(LA18_13>=';' && LA18_13<='<')||(LA18_13>='?' && LA18_13<='Z')||(LA18_13>='^' && LA18_13<='z')||(LA18_13>='~' && LA18_13<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
+
+                        else if ( ((LA18_13>='(' && LA18_13<=')')||LA18_13==',') && ((( isOutValue() )&&( isValue() )))) {s = 28;}
+
+                        else if ( (LA18_13=='*'||LA18_13==':'||(LA18_13>='=' && LA18_13<='>')||LA18_13=='['||LA18_13==']'||(LA18_13>='{' && LA18_13<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 29;}
+
+                        else s = 33;
+
+                         
+                        input.seek(index18_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
                         int LA18_0 = input.LA(1);
 
                          
@@ -2231,7 +2254,7 @@ public class SilkLineLexer extends Lexer {
 
                         else if ( (LA18_0==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
 
-                        else if ( (LA18_0=='-') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isHead() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 3;}
+                        else if ( (LA18_0=='-') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 3;}
 
                         else if ( (LA18_0=='@') ) {s = 4;}
 
@@ -2271,34 +2294,159 @@ public class SilkLineLexer extends Lexer {
                         input.seek(index18_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA18_10 = input.LA(1);
+                    case 10 : 
+                        int LA18_3 = input.LA(1);
 
                          
-                        int index18_10 = input.index();
+                        int index18_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA18_10>='\u0000' && LA18_10<='\b')||(LA18_10>='\n' && LA18_10<='\u001F')||LA18_10=='!'||(LA18_10>='#' && LA18_10<='[')||(LA18_10>=']' && LA18_10<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 31;}
+                        if ( (LA18_3=='-') && (((( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 24;}
 
-                        else s = 32;
+                        else if ( (LA18_3=='>') && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 25;}
+
+                        else if ( ((LA18_3>='\u0000' && LA18_3<='!')||(LA18_3>='$' && LA18_3<='\'')||LA18_3=='+'||(LA18_3>='.' && LA18_3<='9')||(LA18_3>=';' && LA18_3<='<')||(LA18_3>='?' && LA18_3<='Z')||(LA18_3>='^' && LA18_3<='z')||(LA18_3>='~' && LA18_3<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 27;}
+
+                        else if ( ((LA18_3>='(' && LA18_3<=')')||LA18_3==',') && ((( isOutValue() )&&( isValue() )))) {s = 28;}
+
+                        else if ( (LA18_3=='*'||LA18_3==':'||LA18_3=='='||LA18_3=='['||LA18_3==']'||(LA18_3>='{' && LA18_3<='}')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 29;}
+
+                        else s = 26;
 
                          
-                        input.seek(index18_10);
+                        input.seek(index18_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA18_26 = input.LA(1);
+
+                         
+                        int index18_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 39;}
+
+                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
+
+                         
+                        input.seek(index18_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA18_17 = input.LA(1);
+
+                         
+                        int index18_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_17>='\u0000' && LA18_17<='\b')||(LA18_17>='\n' && LA18_17<='\u001F')||LA18_17=='!'||(LA18_17>='#' && LA18_17<='[')||(LA18_17>=']' && LA18_17<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 31;}
+
+                        else s = 36;
+
+                         
+                        input.seek(index18_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA18_2 = input.LA(1);
+
+                         
+                        int index18_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA18_2=='-') && (( isHead() ))) {s = 21;}
+
+                        else if ( (LA18_2==' ') && ((( !isHead() )||( isHead() )))) {s = 2;}
+
+                        else if ( (LA18_2=='\t') && ((( !isHead() )||( isHead() )))) {s = 5;}
+
+                        else if ( (LA18_2=='@') && (( isHead() ))) {s = 23;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index18_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA18_25 = input.LA(1);
+
+                         
+                        int index18_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_25>='\u0000' && LA18_25<='!')||(LA18_25>='$' && LA18_25<='\'')||(LA18_25>='*' && LA18_25<='+')||(LA18_25>='-' && LA18_25<='[')||(LA18_25>=']' && LA18_25<='\uFFFF')) && (((( isOutValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 29;}
+
+                        else if ( ((LA18_25>='(' && LA18_25<=')')||LA18_25==',') && ((( isOutValue() )&&( isValue() )))) {s = 28;}
+
+                        else s = 42;
+
+                         
+                        input.seek(index18_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA18_42 = input.LA(1);
+
+                         
+                        int index18_42 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 38;}
+
+                        else if ( (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
+
+                         
+                        input.seek(index18_42);
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA18_34 = input.LA(1);
+                        int LA18_30 = input.LA(1);
 
                          
-                        int index18_34 = input.index();
+                        int index18_30 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((( isValue() )))) ) {s = 44;}
+                        if ( (( isHead() )) ) {s = 23;}
 
-                        else if ( (( isValue() )) ) {s = 20;}
+                        else if ( (true) ) {s = 43;}
 
                          
-                        input.seek(index18_34);
+                        input.seek(index18_30);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA18_41 = input.LA(1);
+
+                         
+                        int index18_41 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( isHead() )) ) {s = 37;}
+
+                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isOutValue() )&&( isValue() )))) ) {s = 31;}
+
+                         
+                        input.seek(index18_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA18_24 = input.LA(1);
+
+                         
+                        int index18_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA18_24>='\u0000' && LA18_24<='!')||(LA18_24>='$' && LA18_24<='\'')||LA18_24=='+'||(LA18_24>='-' && LA18_24<='9')||(LA18_24>=';' && LA18_24<='<')||(LA18_24>='?' && LA18_24<='Z')||(LA18_24>='^' && LA18_24<='z')||(LA18_24>='~' && LA18_24<='\uFFFF')) && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 27;}
+
+                        else if ( (LA18_24=='*'||LA18_24==':'||(LA18_24>='=' && LA18_24<='>')||LA18_24=='['||LA18_24==']'||(LA18_24>='{' && LA18_24<='}')) && (((( isInValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 29;}
+
+                        else if ( ((LA18_24>='(' && LA18_24<=')')||LA18_24==',') && ((( isOutValue() )&&( isValue() )))) {s = 28;}
+
+                        else s = 41;
+
+                         
+                        input.seek(index18_24);
                         if ( s>=0 ) return s;
                         break;
             }
