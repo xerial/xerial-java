@@ -168,6 +168,12 @@ public class SilkWriter {
         this.out.close();
     }
 
+    SilkWriter endNode() {
+        usabilityCheck();
+        attributeParenCloseCheck(false);
+        return this;
+    }
+
     public SilkWriter preamble() {
         beginPreamble();
         createNewChildWriter("silk", "").attribute("version", "1.0");
@@ -644,6 +650,8 @@ public class SilkWriter {
 
         attributeParenCloseCheck(false);
 
+        endNode();
+
         return this;
     }
 
@@ -691,19 +699,35 @@ public class SilkWriter {
                 Map< ? , ? > map = (Map< ? , ? >) getter.get(obj);
 
                 if (!map.isEmpty()) {
-
                     String mapElemName = getter.getParamName();
-                    for (Entry< ? , ? > each : map.entrySet()) {
-                        Object key = each.getKey();
-                        Object value = each.getValue();
-
-                        if (TypeInfo.isBasicType(key.getClass())) {
-                            leafObject(key.toString(), value);
+                    if (!mapElemName.equals("_")) {
+                        SilkWriter w = node(mapElemName);
+                        for (Entry< ? , ? > each : map.entrySet()) {
+                            Object key = each.getKey();
+                            Object value = each.getValue();
+                            if (TypeInfo.isBasicType(key.getClass())) {
+                                w.leafObject(key.toString(), value);
+                            }
+                            else {
+                                w.node("key").toSilk(key);
+                                w.node("value").toSilk(value);
+                            }
                         }
-                        else {
-                            SilkWriter w = node(mapElemName);
-                            w.node("key").toSilk(key);
-                            w.node("value").toSilk(value);
+                        w.endNode();
+                    }
+                    else {
+                        for (Entry< ? , ? > each : map.entrySet()) {
+                            Object key = each.getKey();
+                            Object value = each.getValue();
+
+                            if (TypeInfo.isBasicType(key.getClass())) {
+                                leafObject(key.toString(), value);
+                            }
+                            else {
+                                SilkWriter w = node(mapElemName);
+                                w.node("key").toSilk(key);
+                                w.node("value").toSilk(value);
+                            }
                         }
                     }
 
