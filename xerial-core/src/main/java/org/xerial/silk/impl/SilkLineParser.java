@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-03-16 22:10:07
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-03-17 12:24:26
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -38,57 +38,57 @@ public class SilkLineParser extends Parser {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Silk", "SilkNode", "SilkLine", "Name", "Value", "Occurrence", "DataType", "Function", "Argument", "KeyValuePair", "Key", "WhiteSpace", "LineBreakChar", "LineComment", "BlockIndent", "NodeIndent", "PullUpNodeIndent", "FunctionIndent", "BlankLine", "LParen", "RParen", "Comma", "Colon", "Seq", "TabSeq", "Star", "At", "Plus", "LBracket", "RBracket", "Question", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "ScopeIndicator", "FlowIndicator", "Indicator", "PlainUnsafeChar", "PlainSafeKey", "PlainSafeIn", "PlainSafeOut", "NonSpaceChar", "PlainFirst", "PlainOneLine", "JSON", "Separation"
     };
     public static final int Key=14;
-    public static final int PlainUnsafeChar=46;
-    public static final int PlainSafeKey=47;
     public static final int DataType=10;
-    public static final int SilkNode=5;
-    public static final int SilkLine=6;
-    public static final int LBracket=32;
+    public static final int LineComment=17;
+    public static final int RBracket=33;
     public static final int NodeIndent=19;
-    public static final int Digit=35;
+    public static final int EOF=-1;
+    public static final int PlainSafeIn=48;
     public static final int HexDigit=37;
-    public static final int PlainOneLine=52;
-    public static final int Plus=31;
     public static final int Occurrence=9;
     public static final int PullUpNodeIndent=20;
-    public static final int Argument=12;
-    public static final int Separation=54;
-    public static final int FlowIndicator=44;
-    public static final int Letter=36;
-    public static final int PlainSafeIn=48;
-    public static final int Comma=25;
-    public static final int TabSeq=28;
-    public static final int NonSpaceChar=50;
-    public static final int EscapeSequence=39;
-    public static final int PlainFirst=51;
-    public static final int WhiteSpace=15;
-    public static final int PlainSafeOut=49;
-    public static final int JSON=53;
-    public static final int Question=34;
-    public static final int LineComment=17;
-    public static final int Colon=26;
-    public static final int At=30;
-    public static final int KeyValuePair=13;
-    public static final int Star=29;
-    public static final int Seq=27;
-    public static final int FunctionIndent=21;
     public static final int Indicator=45;
-    public static final int RParen=24;
-    public static final int UnicodeChar=38;
-    public static final int Silk=4;
-    public static final int BlankLine=22;
-    public static final int StringChar=40;
-    public static final int BlockIndent=18;
-    public static final int Function=11;
-    public static final int Name=7;
-    public static final int LParen=23;
-    public static final int String=42;
-    public static final int LineBreakChar=16;
-    public static final int ScopeIndicator=43;
-    public static final int EOF=-1;
-    public static final int StringChar_s=41;
     public static final int Value=8;
-    public static final int RBracket=33;
+    public static final int Silk=4;
+    public static final int PlainOneLine=52;
+    public static final int NonSpaceChar=50;
+    public static final int KeyValuePair=13;
+    public static final int Argument=12;
+    public static final int WhiteSpace=15;
+    public static final int String=42;
+    public static final int BlockIndent=18;
+    public static final int LBracket=32;
+    public static final int RParen=24;
+    public static final int PlainSafeOut=49;
+    public static final int At=30;
+    public static final int LParen=23;
+    public static final int PlainSafeKey=47;
+    public static final int PlainUnsafeChar=46;
+    public static final int TabSeq=28;
+    public static final int BlankLine=22;
+    public static final int StringChar_s=41;
+    public static final int Colon=26;
+    public static final int UnicodeChar=38;
+    public static final int Question=34;
+    public static final int Digit=35;
+    public static final int FunctionIndent=21;
+    public static final int PlainFirst=51;
+    public static final int Separation=54;
+    public static final int Seq=27;
+    public static final int Plus=31;
+    public static final int JSON=53;
+    public static final int LineBreakChar=16;
+    public static final int Function=11;
+    public static final int ScopeIndicator=43;
+    public static final int Name=7;
+    public static final int StringChar=40;
+    public static final int FlowIndicator=44;
+    public static final int Star=29;
+    public static final int SilkLine=6;
+    public static final int Comma=25;
+    public static final int Letter=36;
+    public static final int EscapeSequence=39;
+    public static final int SilkNode=5;
 
     // delegates
     // delegators
@@ -422,8 +422,8 @@ public class SilkLineParser extends Parser {
         Object PlainOneLine7_tree=null;
         Object String8_tree=null;
         Object JSON9_tree=null;
-        RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
+        RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
         RewriteRuleSubtreeStream stream_function_i=new RewriteRuleSubtreeStream(adaptor,"rule function_i");
         try {
             // SilkLine.g:246:2: ( function_i -> ^( Function function_i ) | ( PlainOneLine | String ) -> Value[$nodeValue.text] | JSON )
@@ -626,9 +626,9 @@ public class SilkLineParser extends Parser {
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
         RewriteRuleSubtreeStream stream_nodeItem=new RewriteRuleSubtreeStream(adaptor,"rule nodeItem");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
-        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         RewriteRuleSubtreeStream stream_indent=new RewriteRuleSubtreeStream(adaptor,"rule indent");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
+        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
             // SilkLine.g:253:2: ( indent nodeItem -> ^( SilkNode indent nodeItem ) | indent ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )? -> ^( SilkNode indent ( attributeList )? ( plural )? ( nodeValue )? ) | function )
             int alt8=3;
@@ -636,17 +636,6 @@ public class SilkLineParser extends Parser {
             case NodeIndent:
                 {
                 switch ( input.LA(2) ) {
-                case String:
-                case PlainOneLine:
-                    {
-                    alt8=1;
-                    }
-                    break;
-                case At:
-                    {
-                    alt8=3;
-                    }
-                    break;
                 case EOF:
                 case WhiteSpace:
                 case LineComment:
@@ -665,6 +654,17 @@ public class SilkLineParser extends Parser {
                     alt8=2;
                     }
                     break;
+                case At:
+                    {
+                    alt8=3;
+                    }
+                    break;
+                case String:
+                case PlainOneLine:
+                    {
+                    alt8=1;
+                    }
+                    break;
                 default:
                     NoViableAltException nvae =
                         new NoViableAltException("", 8, 1, input);
@@ -679,11 +679,11 @@ public class SilkLineParser extends Parser {
                 {
                 int LA8_2 = input.LA(2);
 
-                if ( (LA8_2==String||LA8_2==PlainOneLine) ) {
-                    alt8=1;
-                }
-                else if ( (LA8_2==EOF||LA8_2==WhiteSpace||(LA8_2>=LineComment && LA8_2<=FunctionIndent)||LA8_2==LParen||(LA8_2>=Colon && LA8_2<=Star)||LA8_2==Plus||LA8_2==Question) ) {
+                if ( (LA8_2==EOF||LA8_2==WhiteSpace||(LA8_2>=LineComment && LA8_2<=FunctionIndent)||LA8_2==LParen||(LA8_2>=Colon && LA8_2<=Star)||LA8_2==Plus||LA8_2==Question) ) {
                     alt8=2;
+                }
+                else if ( (LA8_2==String||LA8_2==PlainOneLine) ) {
+                    alt8=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -842,7 +842,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeValue, indent, plural, attributeList
+                    // elements: nodeValue, indent, attributeList, plural
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1009,11 +1009,11 @@ public class SilkLineParser extends Parser {
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_Colon=new RewriteRuleTokenStream(adaptor,"token Colon");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
-        RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_dataType=new RewriteRuleSubtreeStream(adaptor,"rule dataType");
         RewriteRuleSubtreeStream stream_attributeList=new RewriteRuleSubtreeStream(adaptor,"rule attributeList");
-        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
+        RewriteRuleSubtreeStream stream_nodeName=new RewriteRuleSubtreeStream(adaptor,"rule nodeName");
         RewriteRuleSubtreeStream stream_nodeValue=new RewriteRuleSubtreeStream(adaptor,"rule nodeValue");
+        RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
             // SilkLine.g:266:9: ( nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )? -> Name[$nodeName.text.trim()] ( dataType )? ( attributeList )? ( plural )? ( nodeValue )? )
             // SilkLine.g:266:11: nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )?
@@ -1128,7 +1128,7 @@ public class SilkLineParser extends Parser {
 
 
             // AST REWRITE
-            // elements: plural, nodeValue, attributeList, dataType
+            // elements: nodeValue, plural, dataType, attributeList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1494,11 +1494,11 @@ public class SilkLineParser extends Parser {
         Object Question39_tree=null;
         Object Seq40_tree=null;
         Object TabSeq41_tree=null;
+        RewriteRuleTokenStream stream_Seq=new RewriteRuleTokenStream(adaptor,"token Seq");
         RewriteRuleTokenStream stream_Plus=new RewriteRuleTokenStream(adaptor,"token Plus");
-        RewriteRuleTokenStream stream_TabSeq=new RewriteRuleTokenStream(adaptor,"token TabSeq");
         RewriteRuleTokenStream stream_Question=new RewriteRuleTokenStream(adaptor,"token Question");
         RewriteRuleTokenStream stream_Star=new RewriteRuleTokenStream(adaptor,"token Star");
-        RewriteRuleTokenStream stream_Seq=new RewriteRuleTokenStream(adaptor,"token Seq");
+        RewriteRuleTokenStream stream_TabSeq=new RewriteRuleTokenStream(adaptor,"token TabSeq");
 
         try {
             // SilkLine.g:288:2: ( Star -> Occurrence[\"ZERO_OR_MORE\"] | Plus -> Occurrence[\"ONE_OR_MORE\"] | Question -> Occurrence[\"ZERO_OR_ONE\"] | Seq -> Occurrence[\"SEQUENCE\"] | TabSeq -> Occurrence[\"TABBED_SEQUENCE\"] )
@@ -1729,14 +1729,14 @@ public class SilkLineParser extends Parser {
         Object LParen46_tree=null;
         Object Comma48_tree=null;
         Object RParen50_tree=null;
-        RewriteRuleTokenStream stream_FunctionIndent=new RewriteRuleTokenStream(adaptor,"token FunctionIndent");
-        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
-        RewriteRuleTokenStream stream_NodeIndent=new RewriteRuleTokenStream(adaptor,"token NodeIndent");
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
-        RewriteRuleSubtreeStream stream_function_i=new RewriteRuleSubtreeStream(adaptor,"rule function_i");
+        RewriteRuleTokenStream stream_NodeIndent=new RewriteRuleTokenStream(adaptor,"token NodeIndent");
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
+        RewriteRuleTokenStream stream_FunctionIndent=new RewriteRuleTokenStream(adaptor,"token FunctionIndent");
         RewriteRuleSubtreeStream stream_functionArg=new RewriteRuleSubtreeStream(adaptor,"rule functionArg");
+        RewriteRuleSubtreeStream stream_function_i=new RewriteRuleSubtreeStream(adaptor,"rule function_i");
         try {
             // SilkLine.g:296:2: ( NodeIndent function_i -> ^( Function NodeIndent function_i ) | FunctionIndent PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen -> ^( Function NodeIndent[$FunctionIndent.text] Name[$PlainOneLine.text.trim()] ( functionArg )* ) )
             int alt17=2;
@@ -1770,7 +1770,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: function_i, NodeIndent
+                    // elements: NodeIndent, function_i
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1954,11 +1954,11 @@ public class SilkLineParser extends Parser {
         Object LParen53_tree=null;
         Object Comma55_tree=null;
         Object RParen57_tree=null;
-        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_PlainOneLine=new RewriteRuleTokenStream(adaptor,"token PlainOneLine");
         RewriteRuleTokenStream stream_At=new RewriteRuleTokenStream(adaptor,"token At");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_functionArg=new RewriteRuleSubtreeStream(adaptor,"rule functionArg");
         try {
             // SilkLine.g:303:11: ( At PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen -> Name[$PlainOneLine.text.trim()] ( functionArg )* )

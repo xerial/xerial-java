@@ -85,12 +85,12 @@ public class SilkWriter {
         /**
          * insert tab after colon symbol (intermediate node only)
          */
-        public boolean insertTagAfterColon = false;
+        public boolean insertTabAfterColon = false;
 
         // colon (inline-node)
         public boolean insertSpaceBeforeAttributeColon = false;
         public boolean insertSpaceAfterAttributeColon = false;
-        public boolean insertTagAfterAttributeColon = false;
+        public boolean insertTabAfterAttributeColon = false;
 
         // preamble
         public boolean insertSpaceAfterPreambleSymbol = false;
@@ -98,6 +98,9 @@ public class SilkWriter {
         // parenthesis 
         public boolean insertSpaceOutsideOfParen = false;
         public boolean insertSpaceInsideOfParen = false;
+
+        // use attribute?
+        public boolean preferUsingAttribute = false;
     }
 
     private FormatConfig formatConfig = new FormatConfig();
@@ -422,6 +425,10 @@ public class SilkWriter {
     }
 
     public SilkWriter leaf(String nodeName, Object nodeValue) {
+
+        if (!TypeInfo.isBasicType(nodeValue.getClass()))
+            return leafObject(nodeName, nodeValue);
+
         usabilityCheck();
 
         attributeParenCloseCheck(true);
@@ -449,7 +456,7 @@ public class SilkWriter {
             out.print(":");
             if (formatConfig.insertSpaceAfterAttributeColon)
                 out.print(" ");
-            if (formatConfig.insertTagAfterAttributeColon)
+            if (formatConfig.insertTabAfterAttributeColon)
                 out.print("\t");
             out.print(sanitizeInLineNodeValue(nodeValue));
         }
@@ -484,9 +491,17 @@ public class SilkWriter {
             out.print(":");
             if (formatConfig.insertSpaceAfterColon)
                 out.print(" ");
-            if (formatConfig.insertTagAfterColon)
+            if (formatConfig.insertTabAfterColon)
                 out.print("\t");
-            out.print(nodeValue);
+            if (StringUtil.isWhiteSpace(nodeValue.substring(0, 1))
+                    || StringUtil.isWhiteSpace(nodeValue.substring(nodeValue.length() - 1))) {
+                // preserve white spaces
+                out.print("\"");
+                out.print(nodeValue);
+                out.print("\"");
+            }
+            else
+                out.print(nodeValue);
         }
     }
 
@@ -555,7 +570,7 @@ public class SilkWriter {
         return dataLine;
     }
 
-    private <Value> SilkWriter leafObject(String leafNodeName, Value v) {
+    public <Value> SilkWriter leafObject(String leafNodeName, Value v) {
         if (v == null)
             return this;
 
@@ -576,7 +591,7 @@ public class SilkWriter {
     }
 
     private void outputLeaf(String leafNodeName, String value) {
-        if (parent != null)
+        if (parent != null && formatConfig.preferUsingAttribute)
             attribute(leafNodeName, value);
         else
             leaf(leafNodeName, value);
