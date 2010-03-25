@@ -30,8 +30,9 @@ package org.xerial.silk.cui;
  * @author leo
  * 
  */
-public interface SilkCommand
-{
+public interface SilkCommand {
+    public static final int RETURN_WITH_SUCCESS = 0;
+    public static final int RETURN_WITH_FAILURE = 1;
 
     /**
      * Execute the command. Command line arguments are processed before the

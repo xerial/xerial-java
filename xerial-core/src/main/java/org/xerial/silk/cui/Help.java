@@ -36,55 +36,45 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class Help implements SilkCommand
-{
+public class Help implements SilkCommand {
     private static Logger _logger = Logger.getLogger(Help.class);
 
-    public String getName()
-    {
+    public String getName() {
         return "help";
     }
 
-    public String getOneLineDescription()
-    {
+    public String getOneLineDescription() {
         return "display help message";
     }
 
-    public void execute() throws Exception
-    {
+    public void execute() throws Exception {
         displayCommandList();
     }
 
-    public static void displayCommandList()
-    {
+    public static void displayCommandList() {
         ArrayList<SilkCommand> commandList = new ArrayList<SilkCommand>();
-        for (Class<SilkCommand> each : SilkMain.availableCommands)
-        {
-            try
-            {
+        for (Class<SilkCommand> each : SilkMain.availableCommands) {
+            try {
                 commandList.add(each.newInstance());
             }
-            catch (InstantiationException e)
-            {
+            catch (InstantiationException e) {
                 _logger.error(e);
             }
-            catch (IllegalAccessException e)
-            {
+            catch (IllegalAccessException e) {
                 _logger.error(e);
             }
         }
 
         Collections.sort(commandList, new Comparator<SilkCommand>() {
-            public int compare(SilkCommand o1, SilkCommand o2)
-            {
+            public int compare(SilkCommand o1, SilkCommand o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
 
         // display each command description
-        for (SilkCommand each : commandList)
-        {
-            System.out.println(String.format(" %-13s: %s", each.getName(), each.getOneLineDescription()));
+        for (SilkCommand each : commandList) {
+            System.out.println(String.format(" %-13s: %s", each.getName(), each
+                    .getOneLineDescription()));
         }
     }
 

@@ -54,10 +54,10 @@ public class SilkMain {
         boolean displayHelp = false;
 
         @Option(symbol = "l", longName = "loglevel", description = "set loglevel to one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL or ALL")
-        protected LogLevel logLevel = LogLevel.INFO;
+        protected LogLevel logLevel = null;
 
         @Argument(index = 0, name = "sub command", required = false)
-        String subCommand = "help";
+        String subCommand = null;
     }
 
     static Set<Class<SilkCommand>> availableCommands = new HashSet<Class<SilkCommand>>();
@@ -76,7 +76,8 @@ public class SilkMain {
 
         try {
             parser.parse(args, true);
-            Logger.getRootLogger().setLogLevel(globalOption.logLevel);
+            if (globalOption.logLevel != null)
+                Logger.getRootLogger().setLogLevel(globalOption.logLevel);
 
             if (globalOption.subCommand == null)
                 throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
@@ -97,15 +98,16 @@ public class SilkMain {
                 }
             }
 
-            if (command == null) {
-                _logger.error("command is not specified");
-                return -1;
-            }
-
             // 
             OptionParser subCommandOptionParser = new OptionParser(command);
             // run the sub command
             if (globalOption.displayHelp) {
+
+                if (command == null) {
+                    Help.displayCommandList();
+                    return SilkCommand.RETURN_WITH_SUCCESS;
+                }
+
                 // display help messsage of the command
                 String helpFileName = String.format("help-%s.txt", command.getName());
                 URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
@@ -122,13 +124,13 @@ public class SilkMain {
                 }
                 subCommandOptionParser.printUsage();
 
-                return 0;
+                return SilkCommand.RETURN_WITH_SUCCESS;
             }
 
             subCommandOptionParser.parse(parser.getUnusedArguments());
             command.execute();
 
-            return 0;
+            return SilkCommand.RETURN_WITH_SUCCESS;
         }
         catch (Exception e) {
             throw e;
@@ -139,14 +141,17 @@ public class SilkMain {
     public static void main(String[] args) {
 
         try {
-            SilkMain.execute(args);
+            int code = SilkMain.execute(args);
+            System.exit(code);
         }
         catch (Exception e) {
             _logger.error(e);
             e.printStackTrace();
+            System.exit(SilkCommand.RETURN_WITH_FAILURE);
         }
         catch (Error e) {
             e.printStackTrace();
+            System.exit(SilkCommand.RETURN_WITH_FAILURE);
         }
 
     }

@@ -83,10 +83,10 @@ public class Purify implements SilkCommand {
     boolean readFromSTDIN = false;
 
     @Option(symbol = "c", longName = "cache", varName = "MBytes", description = "cache size in M bytes")
-    private final int cacheMbytes = 64;
+    private int cacheMbytes = 64;
 
     @Option(symbol = "t", description = "use tab-separated data as an input")
-    private final boolean useTabSeparatedData = false;
+    private boolean useTabSeparatedData = false;
 
     @Option(symbol = "o", description = "output file name")
     String outputFileName = null;
