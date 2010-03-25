@@ -1,0 +1,2 @@
+relation root(entry*)
+relation entry(c1, c2, c3, c4)

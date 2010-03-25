@@ -139,7 +139,7 @@ public class TabAsTreeParser implements TreeParser {
 
         lineCount = -1;
         handler.init();
-        //handler.visitNode(rootName, null);
+        handler.visitNode(rootName, null);
         try {
             // process the first line
             if (isFirstLineContainsColumnLabel) {
@@ -184,7 +184,7 @@ public class TabAsTreeParser implements TreeParser {
             throw new XerialException(XerialErrorCode.READ_ERROR, e);
         }
 
-        //handler.leaveNode(rootName);
+        handler.leaveNode(rootName);
         handler.finish();
 
     }
