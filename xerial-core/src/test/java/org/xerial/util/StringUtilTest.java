@@ -88,4 +88,15 @@ public class StringUtilTest {
         assertEquals("leo", e.get(1));
     }
 
+    @Test
+    public void var2nat() throws Exception {
+        assertEquals("hello world", StringUtil.varNameToNaturalName("helloWorld"));
+        assertEquals("XML string", StringUtil.varNameToNaturalName("XML_String"));
+        assertEquals("param name", StringUtil.varNameToNaturalName("paramName"));
+        assertEquals("allow TAB in var name", StringUtil.varNameToNaturalName("allowTABinVarName"));
+        assertEquals("wiki name like var name", StringUtil
+                .varNameToNaturalName("WikiNameLikeVarName"));
+
+    }
+
 }

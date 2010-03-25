@@ -175,4 +175,32 @@ public class StringUtil {
         return tokens;
     }
 
+    public static String varNameToNaturalName(String varName) {
+        if (varName == null)
+            return null;
+
+        ArrayList<String> components = new ArrayList<String>();
+        int start = 0;
+        int cursor = 0;
+        while (cursor < varName.length()) {
+            while (cursor < varName.length() && Character.isUpperCase(varName.charAt(cursor))) {
+                cursor++;
+            }
+            if ((cursor - start) >= 2) {
+                components.add(varName.substring(start, cursor));
+                start = cursor;
+                continue;
+            }
+            while (cursor < varName.length() && Character.isLowerCase(varName.charAt(cursor))) {
+                cursor++;
+            }
+            if (start < cursor) {
+                components.add(varName.substring(start, cursor).toLowerCase());
+            }
+            else
+                cursor++;
+            start = cursor;
+        }
+        return join(components, " ");
+    }
 }
