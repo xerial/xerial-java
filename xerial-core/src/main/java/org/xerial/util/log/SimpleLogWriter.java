@@ -29,8 +29,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.xerial.util.StringUtil;
-
 /**
  * Generating log for console output
  * 
@@ -78,8 +76,7 @@ public class SimpleLogWriter implements LogWriter {
                 if (logger.isColorEnabled())
                     logOut.write("\033[0m");
 
-                logOut.write(StringUtil.newline());
-
+                logOut.write(NEW_LINE);
                 logOut.flush();
             }
         }
@@ -88,5 +85,7 @@ public class SimpleLogWriter implements LogWriter {
         }
 
     }
+
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
 }

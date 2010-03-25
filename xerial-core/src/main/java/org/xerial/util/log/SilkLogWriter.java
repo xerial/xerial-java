@@ -27,10 +27,14 @@ package org.xerial.util.log;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-
-import org.xerial.silk.SilkWriter;
-import org.xerial.util.StringUtil;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Generating log in Silk format
@@ -55,22 +59,84 @@ public class SilkLogWriter implements LogWriter {
         if (logOut == null)
             return; // no output is specified
 
+        DateFormat df = DateFormat.getDateTimeInstance();
+
         synchronized (this) {
             Date now = new Date();
-            logOut.write(String.format("-%s(name:%s, time:\"%s\")", logLevel.name().toLowerCase(),
-                    logger.getLoggerShortName(), now));
+            logOut.write(String.format("-log(level:%s, name:%s, time:\"%s\")", logLevel.name()
+                    .toLowerCase(), logger.getLoggerShortName(), df.format(now)));
 
             if (message != null) {
-                logOut.write(":>");
-                logOut.write(StringUtil.NEW_LINE);
-                String m = SilkWriter.escapeText(message.toString());
+                logOut.write(">>");
+                logOut.write(NEW_LINE);
+                String m = escapeText(message.toString());
                 logOut.write(m);
             }
 
-            logOut.write(StringUtil.newline());
+            logOut.write(NEW_LINE);
             logOut.flush();
         }
 
+    }
+
+    public static final String NEW_LINE = System.getProperty("line.separator");
+
+    public static String escapeText(String text) {
+        String[] line = text.split("\r?\n");
+        if (line == null)
+            return escapeDataLine(text);
+
+        List<String> buf = new ArrayList<String>();
+        for (String each : line) {
+            buf.add(escapeDataLine(each));
+        }
+        return join(buf, NEW_LINE);
+    }
+
+    private static Pattern leadingHyphen = Pattern.compile("\\s*-");
+
+    private static String escapeDataLine(String dataLine) {
+
+        if (dataLine == null)
+            return dataLine;
+
+        Matcher m = leadingHyphen.matcher(dataLine);
+        if (m.lookingAt()) {
+            int hyphenPos = m.end();
+            StringBuilder buf = new StringBuilder();
+            buf.append(dataLine.substring(0, hyphenPos - 1));
+            buf.append("\\");
+            buf.append(dataLine.substring(hyphenPos - 1));
+            return buf.toString();
+        }
+
+        // no change
+        return dataLine;
+    }
+
+    public static <T> String join(Collection<T> c, String concatinator) {
+        if (c == null)
+            return "";
+        int size = c.size();
+        if (size == 0)
+            return "";
+
+        Iterator<T> it = c.iterator();
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; it.hasNext() && i < size - 1; i++) {
+            Object data = it.next();
+            if (data != null)
+                buf.append(data.toString());
+            else
+                buf.append("null");
+            buf.append(concatinator);
+        }
+        Object lastData = it.next();
+        if (lastData != null)
+            buf.append(lastData.toString());
+        else
+            buf.append("null");
+        return buf.toString();
     }
 
 }
