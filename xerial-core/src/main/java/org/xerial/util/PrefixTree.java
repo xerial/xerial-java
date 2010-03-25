@@ -41,6 +41,9 @@ public class PrefixTree<T> {
     }
 
     public T findBy(String prefix) {
+        if (prefix == null)
+            return null;
+
         String nextKey = holder.ceilingKey(prefix);
         if (nextKey == null)
             return null;

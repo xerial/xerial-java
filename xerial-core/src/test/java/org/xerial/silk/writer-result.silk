@@ -1,6 +1,6 @@
 # utgb config format
 -config(version:1.0)
-  -projectName: utgb-shell
+  -project name: utgb-shell
   -version: 2.0
   -group: utgb
 # database connection settings

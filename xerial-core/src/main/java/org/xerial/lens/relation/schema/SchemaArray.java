@@ -42,64 +42,54 @@ import org.xerial.util.Functor;
  * @author leo
  * 
  */
-public class SchemaArray implements Schema, Iterable<Schema>
-{
+public class SchemaArray implements Schema, Iterable<Schema> {
     private final Schema parent;
     private final ArrayList<Schema> column;
     private final FD fd;
     private final HashMap<String, TupleIndex> nodeIndex = new HashMap<String, TupleIndex>();
 
-    public static SchemaArray createClone(SchemaArray other)
-    {
+    public static SchemaArray createClone(SchemaArray other) {
         return new SchemaArray(other);
     }
 
-    private SchemaArray(SchemaArray other)
-    {
+    private SchemaArray(SchemaArray other) {
         this(other.parent, other.column, other.fd);
     }
 
-    SchemaArray(Schema parent, List<Schema> schemaElementList, FD fd)
-    {
+    SchemaArray(Schema parent, List<Schema> schemaElementList, FD fd) {
         if (schemaElementList.size() < 1)
-            throw new XerialError(XerialErrorCode.INVALID_INPUT, "schema element list must be size of one or more");
+            throw new XerialError(XerialErrorCode.INVALID_INPUT,
+                    "schema element list must be size of one or more");
 
         this.parent = parent;
         this.column = new ArrayList<Schema>(schemaElementList);
         this.fd = fd;
 
-        for (int i = 0; i < column.size(); ++i)
-        {
+        for (int i = 0; i < column.size(); ++i) {
             buildIndex(new TupleIndex(i));
         }
     }
 
-    private void buildIndex(TupleIndex index)
-    {
+    private void buildIndex(TupleIndex index) {
         Schema e = get(index);
         if (e.isAtom())
             nodeIndex.put(e.getName(), index);
-        else
-        {
-            for (int i = 0; i < e.size(); ++i)
-            {
+        else {
+            for (int i = 0; i < e.size(); ++i) {
                 buildIndex(new TupleIndex(index, i));
             }
         }
     }
 
-    public String getName()
-    {
+    public String getName() {
         return column.get(0).getName();
     }
 
-    public Schema get(int index)
-    {
+    public Schema get(int index) {
         return column.get(index);
     }
 
-    public Schema get(TupleIndex index)
-    {
+    public Schema get(TupleIndex index) {
         if (index.size() <= 0)
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "invalid schema index");
 
@@ -108,15 +98,13 @@ public class SchemaArray implements Schema, Iterable<Schema>
             return null;
 
         Schema elem = column.get(rootIndex);
-        if (elem.isAtom())
-        {
+        if (elem.isAtom()) {
             if (index.hasTail())
                 throw new XerialError(XerialErrorCode.INVALID_INPUT, String.format(
                         "schema index %s doesn't match to %s", index, this));
             return elem;
         }
-        else
-        {
+        else {
             if (!index.hasTail())
                 return elem;
             else
@@ -124,47 +112,39 @@ public class SchemaArray implements Schema, Iterable<Schema>
         }
     }
 
-    public Schema flatten()
-    {
+    public Schema flatten() {
         SchemaBuilder builder = new SchemaBuilder();
         builder.setFD(fd);
         flatten(builder, this);
         return builder.build();
     }
 
-    private void flatten(SchemaBuilder builder, Schema elem)
-    {
+    private void flatten(SchemaBuilder builder, Schema elem) {
         if (elem.isAtom())
             builder.add(elem);
-        else
-        {
+        else {
             for (int i = 0; i < elem.size(); ++i)
                 flatten(builder, elem.get(i));
         }
     }
 
-    public FD getFD()
-    {
+    public FD getFD() {
         return fd;
     }
 
-    public boolean isAtom()
-    {
+    public boolean isAtom() {
         return false;
     }
 
-    public boolean isTuple()
-    {
+    public boolean isTuple() {
         return true;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append("(");
-        for (int i = 0; i < column.size() - 1; ++i)
-        {
+        for (int i = 0; i < column.size() - 1; ++i) {
             buf.append(column.get(i));
             buf.append(", ");
         }
@@ -175,72 +155,58 @@ public class SchemaArray implements Schema, Iterable<Schema>
         return buf.toString();
     }
 
-    public int size()
-    {
+    public int size() {
         return column.size();
     }
 
-    public boolean isOneToMany()
-    {
+    public boolean isOneToMany() {
         return fd != FD.ONE_TO_ONE;
     }
 
-    public boolean isOneToOne()
-    {
+    public boolean isOneToOne() {
         return fd == FD.ONE_TO_ONE;
     }
 
-    public TupleIndex getNodeIndex(String nodeName)
-    {
+    public TupleIndex getNodeIndex(String nodeName) {
         return nodeIndex.get(nodeName);
     }
 
-    public void forEachNestedNodeName(Functor<String, ? > functor)
-    {
-        for (int i = 0; i < column.size(); ++i)
-        {
+    public void forEachNestedNodeName(Functor<String, ? > functor) {
+        for (int i = 0; i < column.size(); ++i) {
             column.get(i).forEachNestedNodeName(functor);
         }
     }
 
-    public void accept(SchemaVisitor visitor)
-    {
+    public void accept(SchemaVisitor visitor) {
         visitor.visitArray(this);
     }
 
-    public String selfLoopNode()
-    {
+    public String selfLoopNode() {
         SelfLoopFinder finder = new SelfLoopFinder();
         finder.visitArray(this);
         return finder.selfLoopNode;
     }
 
-    public Iterator<Schema> iterator()
-    {
+    public Iterator<Schema> iterator() {
         return column.iterator();
     }
 
-    private static class NodeNamePicker implements SchemaVisitor
-    {
+    private static class NodeNamePicker implements SchemaVisitor {
         List<String> nodeNameList = new ArrayList<String>();
 
-        public void visitArray(SchemaArray array)
-        {
-            for (int i = 0; i < array.size(); i++)
-            {
+        public void visitArray(SchemaArray array) {
+            for (int i = 0; i < array.size(); i++) {
                 array.get(i).accept(this);
             }
         }
 
-        public void visitAtom(SchemaAtom atom)
-        {
+        public void visitAtom(SchemaAtom atom) {
             nodeNameList.add(atom.getName());
         }
 
     }
 
-    public List<String> getNodeNameList()
-    {
+    public List<String> getNodeNameList() {
         NodeNamePicker picker = new NodeNamePicker();
         picker.visitArray(this);
         return picker.nodeNameList;
@@ -248,28 +214,23 @@ public class SchemaArray implements Schema, Iterable<Schema>
 
 }
 
-class SelfLoopFinder implements SchemaVisitor
-{
+class SelfLoopFinder implements SchemaVisitor {
     HashSet<String> observedNodeName = new HashSet<String>();
     String selfLoopNode = null;
 
-    public void visitArray(SchemaArray array)
-    {
-        for (Schema each : array)
-        {
+    public void visitArray(SchemaArray array) {
+        for (Schema each : array) {
             if (selfLoopNode == null)
                 each.accept(this);
         }
     }
 
-    public void visitAtom(SchemaAtom atom)
-    {
+    public void visitAtom(SchemaAtom atom) {
         if (selfLoopNode != null)
             return;
 
         String nodeName = atom.getName();
-        if (!observedNodeName.add(nodeName))
-        {
+        if (!observedNodeName.add(nodeName)) {
             selfLoopNode = nodeName;
         }
     }

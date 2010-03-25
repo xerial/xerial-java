@@ -53,27 +53,21 @@ public class Help implements SilkCommand {
 
     public static void displayCommandList() {
         ArrayList<SilkCommand> commandList = new ArrayList<SilkCommand>();
-        for (Class<SilkCommand> each : SilkMain.availableCommands) {
-            try {
-                commandList.add(each.newInstance());
-            }
-            catch (InstantiationException e) {
-                _logger.error(e);
-            }
-            catch (IllegalAccessException e) {
-                _logger.error(e);
-            }
+        for (String commandName : SilkMain.commandTable.keySet()) {
+            commandList.add(SilkMain.commandTable.get(commandName));
         }
 
+        // alphabetically sort the commands 
         Collections.sort(commandList, new Comparator<SilkCommand>() {
             public int compare(SilkCommand o1, SilkCommand o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
 
+        System.out.println("command list:");
         // display each command description
         for (SilkCommand each : commandList) {
-            System.out.println(String.format(" %-13s: %s", each.getName(), each
+            System.out.println(String.format(" %-13s %s", each.getName(), each
                     .getOneLineDescription()));
         }
     }

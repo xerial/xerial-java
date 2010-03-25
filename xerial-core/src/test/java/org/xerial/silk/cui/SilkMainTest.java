@@ -28,23 +28,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SilkMainTest
-{
+public class SilkMainTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void testMain() throws Exception
-    {
-        SilkMain.main(new String[] { "help" });
-        SilkMain.main(new String[] { "scan", "input.silk" });
-        SilkMain.main(new String[] { "scan", "--help" });
+    public void testMain() throws Exception {
+        SilkMain.execute(new String[] {});
+        SilkMain.execute(new String[] { "help" });
+        SilkMain.execute(new String[] { "scan", "--help" });
     }
 
 }

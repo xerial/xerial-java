@@ -1,5 +1,5 @@
 usage: $COMMAND$ $ARGUMENT_LIST$
 	$DESCRIPTION$
 
-[available options]
+[options]
 $OPTION_LIST$

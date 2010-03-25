@@ -62,4 +62,11 @@ public class RaquelXMLBuilderTest {
                 FileResource.find(RaquelXMLBuilderTest.class, "sample.schema").getPath() });
     }
 
+    @Test
+    public void purifySAM() throws Exception {
+        SilkMain.execute(new String[] { "purify", "-t", "-l", "debug",
+                FileResource.find(RaquelXMLBuilderTest.class, "sam.tab").getPath(), "-s",
+                FileResource.find(RaquelXMLBuilderTest.class, "sam.schema").getPath() });
+    }
+
 }

@@ -110,7 +110,7 @@ public class OptionSchema {
         else
             format = argItem.takesMultipleArguments() ? "[%s ...]" : "[%s]";
 
-        String name = argItem.getArgumentName();
+        String name = StringUtil.varNameToNaturalName(argItem.getArgumentName());
 
         line.append(String.format(format, name));
 

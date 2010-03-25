@@ -30,6 +30,7 @@ import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.util.StringUtil;
 import org.xerial.util.reflect.ReflectionUtil;
 
 /**
@@ -40,6 +41,7 @@ import org.xerial.util.reflect.ReflectionUtil;
  */
 public abstract class ParameterGetter {
     private final String paramName;
+    private String naturalParamName = null;
 
     public ParameterGetter(String paramName) {
         this.paramName = paramName;
@@ -47,6 +49,12 @@ public abstract class ParameterGetter {
 
     public String getParamName() {
         return paramName;
+    }
+
+    public String getNaturalParamName() {
+        if (naturalParamName == null)
+            naturalParamName = StringUtil.varNameToNaturalName(paramName);
+        return naturalParamName;
     }
 
     public abstract Object get(Object obj);

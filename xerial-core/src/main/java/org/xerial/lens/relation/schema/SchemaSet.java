@@ -181,7 +181,7 @@ public class SchemaSet {
         for (Edge eachEdge : fdGraph.getOutEdgeSet(node)) {
             String nextNode = fdGraph.getNodeLabel(eachEdge.getDestNodeID());
             FD fd = fdGraph.getEdgeLabel(eachEdge);
-            if (fd == FD.ONE_TO_ONE) {
+            if (fd == null || fd == FD.ONE_TO_ONE) {
                 builder.add(buildSchema(nextNode));
                 attributeCount++;
             }

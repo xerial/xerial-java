@@ -62,7 +62,7 @@ public class SilkWriterTest {
 
         w.commentLine("utgb config format");
         SilkWriter config = w.node("config").attribute("version", "1.0");
-        config.leaf("projectName", "utgb-shell");
+        config.leaf("project name", "utgb-shell");
         config.leaf("version", "2.0");
         config.leaf("group", "utgb");
         w.commentLine("database connection settings");

@@ -27,12 +27,9 @@ package org.xerial.silk.cui;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.xerial.core.XerialErrorCode;
-import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
+import org.xerial.util.PrefixTree;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
 import org.xerial.util.log.SimpleLogWriter;
@@ -60,12 +57,23 @@ public class SilkMain {
         String subCommand = null;
     }
 
-    static Set<Class<SilkCommand>> availableCommands = new HashSet<Class<SilkCommand>>();
+    static PrefixTree<SilkCommand> commandTable = new PrefixTree<SilkCommand>();
 
     static {
-        availableCommands.addAll(FileResource.findClasses(SilkMain.class.getPackage(),
-                SilkCommand.class, SilkMain.class.getClassLoader()));
+        for (Class<SilkCommand> each : FileResource.findClasses(SilkMain.class.getPackage(),
+                SilkCommand.class, SilkMain.class.getClassLoader())) {
+            try {
+                SilkCommand command = each.newInstance();
+                commandTable.add(command.getName(), command);
+            }
+            catch (InstantiationException e) {
+                _logger.warn(e);
+            }
+            catch (IllegalAccessException e) {
+                _logger.warn(e);
+            }
 
+        }
     }
 
     public static int execute(String[] args) throws Exception {
@@ -74,67 +82,44 @@ public class SilkMain {
         SilkGlobalOption globalOption = new SilkGlobalOption();
         OptionParser parser = new OptionParser(globalOption);
 
-        try {
-            parser.parse(args, true);
-            if (globalOption.logLevel != null)
-                Logger.getRootLogger().setLogLevel(globalOption.logLevel);
+        parser.parse(args, true);
+        if (globalOption.logLevel != null)
+            Logger.getRootLogger().setLogLevel(globalOption.logLevel);
 
-            if (globalOption.subCommand == null)
-                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no command");
+        // find a sub command by its prefix
+        SilkCommand command = commandTable.findBy(globalOption.subCommand);
 
-            SilkCommand command = null;
-            for (Class<SilkCommand> each : availableCommands) {
-                try {
-                    command = each.newInstance();
-                    if (command.getName() != null
-                            && command.getName().equals(globalOption.subCommand))
-                        break;
-                }
-                catch (InstantiationException e) {
-                    _logger.warn(e);
-                }
-                catch (IllegalAccessException e) {
-                    _logger.warn(e);
-                }
-            }
-
-            // 
-            OptionParser subCommandOptionParser = new OptionParser(command);
-            // run the sub command
-            if (globalOption.displayHelp) {
-
-                if (command == null) {
-                    Help.displayCommandList();
-                    return SilkCommand.RETURN_WITH_SUCCESS;
-                }
-
-                // display help messsage of the command
-                String helpFileName = String.format("help-%s.txt", command.getName());
-                URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
-                if (helpFileAddr == null) {
-                    _logger.warn("help file not found: " + helpFileName);
-                }
-                else {
-                    BufferedReader helpReader = new BufferedReader(new InputStreamReader(
-                            helpFileAddr.openStream()));
-                    String line;
-                    while ((line = helpReader.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                }
-                subCommandOptionParser.printUsage();
-
-                return SilkCommand.RETURN_WITH_SUCCESS;
-            }
-
-            subCommandOptionParser.parse(parser.getUnusedArguments());
-            command.execute();
-
+        // display help
+        if (command == null) {
+            Help.displayCommandList();
             return SilkCommand.RETURN_WITH_SUCCESS;
         }
-        catch (Exception e) {
-            throw e;
+
+        OptionParser subCommandOptionParser = new OptionParser(command);
+
+        if (globalOption.displayHelp) {
+            // display the help message of the command
+            String helpFileName = String.format("help-%s.txt", command.getName());
+            URL helpFileAddr = FileResource.find(SilkMain.class, helpFileName);
+            if (helpFileAddr == null) {
+                System.out.println(String.format("command: %s", command.getName()));
+            }
+            else {
+                BufferedReader helpReader = new BufferedReader(new InputStreamReader(helpFileAddr
+                        .openStream()));
+                String line;
+                while ((line = helpReader.readLine()) != null) {
+                    System.out.println(line);
+                }
+            }
+            subCommandOptionParser.printUsage();
+            return SilkCommand.RETURN_WITH_SUCCESS;
         }
+
+        // execute the sub command
+        subCommandOptionParser.parse(parser.getUnusedArguments());
+        command.execute();
+        return SilkCommand.RETURN_WITH_SUCCESS;
 
     }
 

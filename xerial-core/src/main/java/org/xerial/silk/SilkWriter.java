@@ -680,7 +680,7 @@ public class SilkWriter {
 
             Class< ? > c = getter.getReturnType();
             if (TypeInfo.isBasicType(c)) {
-                leafObject(getter.getParamName(), getter.get(obj));
+                leafObject(getter.getNaturalParamName(), getter.get(obj));
             }
             else {
                 if (TypeInfo.isIterable(c) || TypeInfo.isMap(c)) {
@@ -691,7 +691,7 @@ public class SilkWriter {
                     if (paramLens.hasAttributes())
                         postponedParameters.add(getter);
                     else
-                        leafObject(getter.getParamName(), getter.get(obj));
+                        leafObject(getter.getNaturalParamName(), getter.get(obj));
                 }
             }
 
@@ -705,7 +705,7 @@ public class SilkWriter {
 
                 if (collection != null) {
                     for (Object elem : collection) {
-                        SilkWriter w = node(getter.getParamName());
+                        SilkWriter w = node(getter.getNaturalParamName());
                         w.toSilk(elem);
                     }
                 }
@@ -714,7 +714,7 @@ public class SilkWriter {
                 Map< ? , ? > map = (Map< ? , ? >) getter.get(obj);
 
                 if (!map.isEmpty()) {
-                    String mapElemName = getter.getParamName();
+                    String mapElemName = getter.getNaturalParamName();
                     if (!mapElemName.equals("_")) {
                         SilkWriter w = node(mapElemName);
                         for (Entry< ? , ? > each : map.entrySet()) {
@@ -749,7 +749,7 @@ public class SilkWriter {
                 }
             }
             else {
-                leafObject(getter.getParamName(), getter.get(obj));
+                leafObject(getter.getNaturalParamName(), getter.get(obj));
             }
         }
     }

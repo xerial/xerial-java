@@ -39,6 +39,7 @@ public class SpectramBloomFilter<T> {
     private final byte[] hashTable;
     private final static int BYTE_SIZE = 8;
     private int countOfDistinctElements = 0;
+    private int collisionCount = 0;
 
     public SpectramBloomFilter(int tableSize) {
         if (tableSize <= 0)
@@ -49,6 +50,10 @@ public class SpectramBloomFilter<T> {
         this.hashTable = new byte[tableSize];
     }
 
+    /**
+     * @param value
+     * @return true if already exist
+     */
     public void insert(T value) {
         int hash = value.hashCode();
         if (hash < 0)
@@ -62,10 +67,16 @@ public class SpectramBloomFilter<T> {
             hashTable[pos] |= flag;
             countOfDistinctElements++;
         }
+        else
+            collisionCount++;
     }
 
     public int count() {
         return countOfDistinctElements;
+    }
+
+    public int collisionCount() {
+        return collisionCount;
     }
 
 }

@@ -613,6 +613,9 @@ Alternatively, you can insert child nodes between tab-separated data lines:
  -col: "-(node name)>" 
  -col: followed by multi-line node values with white spaces around lines are removed.
 -row
+ -col: "-(node name)>>" 
+ -col: followed by multi-line node values preserving white spaces.
+-row
  -col: "--(node name)"
  -col: block start: followed by multi-line node values preserving white spaces
 -row
