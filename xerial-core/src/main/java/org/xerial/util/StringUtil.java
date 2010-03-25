@@ -191,7 +191,7 @@ public class StringUtil {
                 start = cursor;
                 continue;
             }
-            while (cursor < varName.length() && Character.isLowerCase(varName.charAt(cursor))) {
+            while (cursor < varName.length() && isLowerCaseOrNumber(varName.charAt(cursor))) {
                 cursor++;
             }
             if (start < cursor) {
@@ -202,5 +202,9 @@ public class StringUtil {
             start = cursor;
         }
         return join(components, " ");
+    }
+
+    private static boolean isLowerCaseOrNumber(char c) {
+        return Character.isLowerCase(c) || (c >= '0' && c <= '9');
     }
 }

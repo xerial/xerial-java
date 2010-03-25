@@ -64,7 +64,7 @@ public class Help implements SilkCommand {
             }
         });
 
-        System.out.println("command list:");
+        System.out.println("[command list]");
         // display each command description
         for (SilkCommand each : commandList) {
             System.out.println(String.format(" %-13s %s", each.getName(), each

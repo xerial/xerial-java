@@ -97,6 +97,12 @@ public class StringUtilTest {
         assertEquals("wiki name like var name", StringUtil
                 .varNameToNaturalName("WikiNameLikeVarName"));
 
+        assertEquals("wiki name like var name", StringUtil
+                .varNameToNaturalName("Wiki Name Like Var Name"));
+
+        assertEquals("var arg01", StringUtil.varNameToNaturalName("var_arg01"));
+        assertEquals("para1", StringUtil.varNameToNaturalName("para1"));
+
     }
 
 }
