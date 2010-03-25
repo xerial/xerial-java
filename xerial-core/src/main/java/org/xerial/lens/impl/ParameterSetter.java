@@ -31,6 +31,7 @@ import java.util.Map;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 
@@ -44,11 +45,11 @@ public abstract class ParameterSetter {
     private static Logger _logger = Logger.getLogger(ParameterSetter.class);
 
     private final Class< ? > parameterType;
-    private final String parameterName;
+    private final String cParamName;
 
     public ParameterSetter(Class< ? > parameterType, String parameterName) {
         this.parameterType = parameterType;
-        this.parameterName = parameterName;
+        this.cParamName = ObjectLens.getCanonicalParameterName(parameterName);
     }
 
     public abstract void bind(Object object, Object value) throws XerialException;
@@ -59,11 +60,11 @@ public abstract class ParameterSetter {
 
     @Override
     public String toString() {
-        return String.format("%s[%s]", parameterName, parameterType.getSimpleName());
+        return String.format("%s[%s]", cParamName, parameterType.getSimpleName());
     }
 
-    public String getParameterName() {
-        return parameterName;
+    public String getCanonicalParameterName() {
+        return cParamName;
     }
 
     @Override
@@ -71,12 +72,12 @@ public abstract class ParameterSetter {
         ParameterSetter other = ParameterSetter.class.cast(obj);
         if (other == null)
             return false;
-        return parameterName.equals(other.parameterName);
+        return cParamName.equals(other.cParamName);
     }
 
     @Override
     public int hashCode() {
-        return parameterName.hashCode();
+        return cParamName.hashCode();
     }
 
     public static ParameterSetter newSetter(Class< ? > parameterType, String parameterName,

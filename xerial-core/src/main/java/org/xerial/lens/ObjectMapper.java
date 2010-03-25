@@ -171,7 +171,7 @@ public class ObjectMapper {
                 if (each.getClass() == MapEntryBinder.class) {
                     SchemaBuilder builder = new SchemaBuilder();
                     builder.add("entry");
-                    builder.add(each.getParameterName());
+                    builder.add(each.getCanonicalParameterName());
                     Schema s = builder.build();
                     queryBuilder.addQueryTarget(s);
                     schema2binder.put(s, new AttributeBinder(MapEntry.class, each));
@@ -181,7 +181,7 @@ public class ObjectMapper {
                 if (TypeInfo.isMap(each.getParameterType())) {
                     // (param, *)
                     SchemaBuilder builder = new SchemaBuilder();
-                    builder.add(each.getParameterName());
+                    builder.add(each.getCanonicalParameterName());
                     builder.add("*");
                     Schema s = builder.build();
                     queryBuilder.addQueryTarget(s);
@@ -189,18 +189,19 @@ public class ObjectMapper {
                             .getParameterType())));
 
                     // (alias, param)
-                    Schema s2 = new SchemaBuilder().add(alias).add(each.getParameterName()).build();
+                    Schema s2 = new SchemaBuilder().add(alias)
+                            .add(each.getCanonicalParameterName()).build();
                     queryBuilder.addQueryTarget(s2);
                     schema2binder.put(s2, new AttributeBinder(lens.getTargetType(), each));
 
                     continue;
                 }
 
-                build(each.getParameterType(), each.getParameterName());
+                build(each.getParameterType(), each.getCanonicalParameterName());
 
                 SchemaBuilder builder = new SchemaBuilder();
                 builder.add(alias);
-                builder.add(each.getParameterName());
+                builder.add(each.getCanonicalParameterName());
 
                 Schema s = builder.build();
                 queryBuilder.addQueryTarget(s);

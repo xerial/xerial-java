@@ -30,6 +30,7 @@ import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
+import org.xerial.lens.ObjectLens;
 import org.xerial.util.StringUtil;
 import org.xerial.util.reflect.ReflectionUtil;
 
@@ -41,14 +42,16 @@ import org.xerial.util.reflect.ReflectionUtil;
  */
 public abstract class ParameterGetter {
     private final String paramName;
+    private final String cName;
     private String naturalParamName = null;
 
     public ParameterGetter(String paramName) {
         this.paramName = paramName;
+        this.cName = ObjectLens.getCanonicalParameterName(paramName);
     }
 
-    public String getParamName() {
-        return paramName;
+    public String getCanonicalParamName() {
+        return cName;
     }
 
     public String getNaturalParamName() {

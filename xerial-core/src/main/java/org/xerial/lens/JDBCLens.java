@@ -137,7 +137,7 @@ public class JDBCLens<E> {
             if (!TypeInfo.isBasicType(each.getParameterType()))
                 continue;
 
-            paramName_binder.put(each.getParameterName(), new Binder(each));
+            paramName_binder.put(each.getCanonicalParameterName(), new Binder(each));
         }
 
     }

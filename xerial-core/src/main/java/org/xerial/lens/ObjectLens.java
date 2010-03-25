@@ -217,14 +217,15 @@ public class ObjectLens {
                     && !Modifier.isStatic(fieldModifier)) {
 
                 Class< ? > fieldType = eachField.getType();
-                String paramName = getCanonicalParameterName(eachField.getName());
+                String paramName = eachField.getName();
 
                 if (TypeInfo.isArray(fieldType)) {
                     // ignore the array field except the byte[] type
                     Class< ? > arrayElementType = TypeInfo.getArrayElementType(fieldType);
                     if (arrayElementType != null && byte.class == arrayElementType) {
                         // byte[] getter & setter
-                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
+                        getterContainer.add(ParameterGetter
+                                .newFieldGetter(eachField, paramName));
                         setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
                                 eachField));
                     }
@@ -257,7 +258,8 @@ public class ObjectLens {
                         // property (key, value) setter
 
                         propertySetter = RelationSetter.newMapSetter("key", "value", eachField);
-                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
+                        getterContainer.add(ParameterGetter
+                                .newFieldGetter(eachField, paramName));
                         propertyGetter = ParameterGetter.newPropertyFieldGetter(eachField,
                                 paramName);
                         continue;
@@ -269,8 +271,8 @@ public class ObjectLens {
                 else if (TypeInfo.isCollection(fieldType)) {
                     Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil
                             .getGenericCollectionElementType(eachField));
-                    setterContainer.add(ParameterSetter
-                            .newSetter(elementType, paramName, eachField));
+                    setterContainer.add(ParameterSetter.newSetter(elementType, paramName,
+                            eachField));
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
                 else {
@@ -278,7 +280,8 @@ public class ObjectLens {
                         setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
                                 eachField));
                     else
-                        valueSetter = ParameterSetter.newSetter(fieldType, paramName, eachField);
+                        valueSetter = ParameterSetter
+                                .newSetter(fieldType, paramName, eachField);
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
 
@@ -422,10 +425,10 @@ public class ObjectLens {
 
         // create indexes
         for (ParameterSetter each : setterContainer)
-            setterIndex.put(each.getParameterName(), each);
+            setterIndex.put(each.getCanonicalParameterName(), each);
 
         for (ParameterGetter each : getterContainer)
-            getterIndex.put(each.getParamName(), each);
+            getterIndex.put(each.getCanonicalParamName(), each);
 
     }
 
@@ -607,7 +610,7 @@ public class ObjectLens {
     private static void outputParemters(JSONWriter json, Object obj) {
         ObjectLens lens = getObjectLens(obj.getClass());
         for (ParameterGetter getter : lens.getGetterContainer()) {
-            json.putObject(getter.getParamName(), getter.get(obj));
+            json.putObject(getter.getCanonicalParamName(), getter.get(obj));
         }
     }
 
