@@ -40,8 +40,6 @@ public class Node extends NodeBase<Node> {
     public final String nodeName;
     public final String nodeValue;
 
-    //private String canonicalNodeName = null;
-
     private Node(String nodeName, long nodeID, String nodeValue) {
         this.nodeID = nodeID;
         this.nodeName = nodeName;

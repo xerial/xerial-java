@@ -38,7 +38,6 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
-import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
 import org.xerial.util.StringUtil;
@@ -92,7 +91,7 @@ public class LensTest {
         //   -gene(name:gene1)
         // In the above example, two amoebas (coordinate, name:chr1), (coordinate, (gene), name:gene1) will be found.
 
-        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(SilkUtilTest.class,
+        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(LensTest.class,
                 "sequence.silk"));
 
         _logger.info(c);

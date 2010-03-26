@@ -24,37 +24,32 @@
 //--------------------------------------
 package org.xerial.lens;
 
-public class Coordinate
-{
+public class Coordinate {
     String group;
     String species;
     String revision;
     String name;
 
-    public void setGroup(String group)
-    {
+    public void setGroup(String group) {
         this.group = group;
     }
 
-    public void setSpecies(String species)
-    {
+    public void setSpecies(String species) {
         this.species = species;
     }
 
-    public void setRevision(String revision)
-    {
+    public void setRevision(String revision) {
         this.revision = revision;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public String toString()
-    {
-        return String.format("group=%s, species=%s, revision=%s, name=%s", group, species, revision, name);
+    public String toString() {
+        return String.format("group=%s, species=%s, revision=%s, name=%s", group, species,
+                revision, name);
     }
 
 }

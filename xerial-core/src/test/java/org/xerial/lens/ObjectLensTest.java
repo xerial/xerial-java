@@ -88,6 +88,7 @@ public class ObjectLensTest {
         assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello World"));
         assertEquals("helloworld", ObjectLens.getCanonicalParameterName("Hello-World"));
 
+        assertEquals("gapopenpenalty", ObjectLens.getCanonicalParameterName("GAPOPEN PENALTY"));
     }
 
     public static class ExtMap extends TreeMap<Integer, String> {

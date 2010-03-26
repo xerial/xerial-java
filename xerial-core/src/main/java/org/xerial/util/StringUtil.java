@@ -212,7 +212,4 @@ public class StringUtil {
         return Character.isUpperCase(c) || c == '_' || c == '-' || c == ' ';
     }
 
-    private static boolean isLowerCaseOrNumber(char c) {
-        return Character.isLowerCase(c) || (c >= '0' && c <= '9');
-    }
 }
