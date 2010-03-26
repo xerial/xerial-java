@@ -40,6 +40,7 @@ import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
+import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
@@ -386,6 +387,25 @@ public class LensTest {
 
         String s = Lens.toSilk(t);
         _logger.debug(s);
+    }
+
+    public static class Record {
+        public String name;
+        public String description;
+        public long length;
+        public long offset;
+    }
+
+    @Test
+    public void readingSilkIndexes() throws Exception {
+        StopWatch sw = new StopWatch();
+        Lens.findFromSilk(FileResource.find(LensTest.class, "index.silk"), "sequence",
+                Record.class, new ObjectHandler<Record>() {
+                    public void handle(Record input) throws Exception {
+
+                    }
+                });
+        _logger.info("index reading time: " + sw.getElapsedTime());
     }
 
 }

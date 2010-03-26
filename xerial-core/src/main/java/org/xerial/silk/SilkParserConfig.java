@@ -30,8 +30,7 @@ package org.xerial.silk;
  * @author leo
  * 
  */
-public class SilkParserConfig
-{
+public class SilkParserConfig {
     public int bufferSize = 1024 * 1024; // 1M
     public int numWorkers = 1;
     public int numLinesInBlock = 1000;

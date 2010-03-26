@@ -24,8 +24,10 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 
 import org.xerial.lens.ObjectLens;
@@ -54,7 +56,7 @@ public class Scan implements SilkCommand {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
     public static enum ScanMode {
-        LINE, NODE, FASTLINE, READONLY, HADOOP
+        LINE, NODE, FASTLINE, READONLY, BYTE, HADOOP
     }
 
     @Argument(index = 0)
@@ -197,6 +199,15 @@ public class Scan implements SilkCommand {
             reportReadSpeed(timer.getElapsedTime(), fileSize);
 
             break;
+        }
+        case BYTE: {
+            BufferedInputStream reader = new BufferedInputStream(new FileInputStream(f),
+                    config.bufferSize);
+            byte[] buf = new byte[1024];
+            StopWatch timer = new StopWatch();
+            while (reader.read(buf) != -1) {}
+            reportReadSpeed(timer.getElapsedTime(), fileSize);
+
         }
         case HADOOP: {
 
