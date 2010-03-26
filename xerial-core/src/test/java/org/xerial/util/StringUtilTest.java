@@ -103,6 +103,8 @@ public class StringUtilTest {
         assertEquals("var arg01", StringUtil.varNameToNaturalName("var_arg01"));
         assertEquals("para1", StringUtil.varNameToNaturalName("para1"));
 
+        assertEquals("tip and dale", StringUtil.varNameToNaturalName("tip_andDale"));
+        assertEquals("日本語 文章", StringUtil.varNameToNaturalName("日本語_文章"));
     }
 
 }

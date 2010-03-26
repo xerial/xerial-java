@@ -191,7 +191,11 @@ public class StringUtil {
                 start = cursor;
                 continue;
             }
-            while (cursor < varName.length() && isLowerCaseOrNumber(varName.charAt(cursor))) {
+            while (cursor < varName.length()) {
+                char c = varName.charAt(cursor);
+                if (isSplitChar(c)) {
+                    break;
+                }
                 cursor++;
             }
             if (start < cursor) {
@@ -202,6 +206,10 @@ public class StringUtil {
             start = cursor;
         }
         return join(components, " ");
+    }
+
+    private static boolean isSplitChar(char c) {
+        return Character.isUpperCase(c) || c == '_' || c == '-' || c == ' ';
     }
 
     private static boolean isLowerCaseOrNumber(char c) {
