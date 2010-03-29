@@ -56,13 +56,13 @@ public class Scan implements SilkCommand {
     private static Logger _logger = Logger.getLogger(Scan.class);
 
     public static enum ScanMode {
-        LINE, NODE, FASTLINE, READONLY, BYTE, HADOOP
+        LINE, NODE, FASTLINE, READLINE, BYTE, HADOOP
     }
 
     @Argument(index = 0)
     private final String inputSilkFile = null;
 
-    @Option(symbol = "m", longName = "mode", description = "scan mode: line, fastline, node, readonly")
+    @Option(symbol = "m", longName = "mode", description = "scan mode: line, fastline, node, readline")
     private final ScanMode mode = ScanMode.NODE;
 
     @Option(symbol = "b", longName = "buffer", description = "buffer size in MB (default = 1)")
@@ -181,7 +181,7 @@ public class Scan implements SilkCommand {
 
             break;
         }
-        case READONLY: {
+        case READLINE: {
             BufferedReader reader = new BufferedReader(new FileReader(f), config.bufferSize);
             String line;
 
