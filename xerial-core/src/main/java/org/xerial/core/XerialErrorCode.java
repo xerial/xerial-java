@@ -37,6 +37,9 @@ public enum XerialErrorCode implements ErrorCode {
     // collection
     MISSING_ELEMENT,
 
+    // CUI option error
+    INVALID_CUI_OPTION,
+
     // resources 
     RESOURCE_NOT_FOUND,
 

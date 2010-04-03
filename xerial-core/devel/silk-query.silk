@@ -34,6 +34,20 @@ person(id, name) where id = 1
  -id: 2 
  -phone: yyy-yyyy
 
+# renaming relations
+--code
+account : person(pid:id, name) in "name.silk" where pid = 1
+--
+# output 
+-account
+ -pid: 1
+ -name: leo
+
+
+
+# subtree retrieval
+
+
 # join
 # The update modifies the specified nodes in input A using the enclosed operations:
 --code
@@ -44,7 +58,7 @@ person(id, name) where id = 1
 
 # yielding 
 %silk(version:1.0)
-%schema: person(id, name, phone)
+%schema p : person(id, name, phone)
 -person
  -id: 1
  -name: leo

@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.silk.cui;
 
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.util.FileType;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
@@ -47,25 +49,29 @@ public class Convert implements SilkCommand {
         // validating the input file
         if (input.equals("-")) {
             if (inputType == FileType.UNKNOWN)
-                throw new Exception("input file type must be specified when using STDIN");
+                throw new XerialException(XerialErrorCode.INVALID_CUI_OPTION,
+                        "input file type must be specified when using STDIN");
         }
         else {
             // auto-detect the input file type
             inputType = FileType.getFileType(input);
             if (inputType == FileType.UNKNOWN)
-                throw new Exception("unknown file type: " + input);
+                throw new XerialException(XerialErrorCode.INVALID_CUI_OPTION, "unknown file type: "
+                        + input);
         }
 
         // validating the output file
         if (output.equals("-")) {
             if (outputType == FileType.UNKNOWN)
-                throw new Exception("output file type must be specified when using STDOUT");
+                throw new XerialException(XerialErrorCode.INVALID_CUI_OPTION,
+                        "output file type must be specified when using STDOUT");
         }
         else {
             // auto-detect the input file type
             outputType = FileType.getFileType(output);
             if (outputType == FileType.UNKNOWN)
-                throw new Exception("unknown file type: " + output);
+                throw new XerialException(XerialErrorCode.INVALID_CUI_OPTION, "unknown file type: "
+                        + output);
         }
 
     }

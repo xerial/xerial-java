@@ -28,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.PrefixTree;
 import org.xerial.util.log.LogLevel;
@@ -64,7 +66,8 @@ public class SilkMain {
                 SilkCommand.class, SilkMain.class.getClassLoader())) {
             try {
                 SilkCommand command = each.newInstance();
-                commandTable.add(command.getName(), command);
+                if (command.getName() != null)
+                    commandTable.add(command.getName(), command);
             }
             catch (InstantiationException e) {
                 _logger.warn(e);
@@ -128,6 +131,20 @@ public class SilkMain {
         try {
             int code = SilkMain.execute(args);
             System.exit(code);
+            return;
+        }
+        catch (XerialException e) {
+            _logger.error(e);
+            XerialErrorCode code = e.getErrorCode();
+            switch (code) {
+            case INVALID_CUI_OPTION:
+
+                break;
+            default:
+                e.printStackTrace();
+                System.exit(SilkCommand.RETURN_WITH_FAILURE);
+                return;
+            }
         }
         catch (Exception e) {
             _logger.error(e);
@@ -138,7 +155,6 @@ public class SilkMain {
             e.printStackTrace();
             System.exit(SilkCommand.RETURN_WITH_FAILURE);
         }
-
     }
 
 }
