@@ -16,44 +16,32 @@
 //--------------------------------------
 // XerialJ
 //
-// SilkCommand.java
-// Since: Apr 23, 2009 6:00:29 PM
+// SilkMainTest.java
+// Since: Apr 9, 2009 5:29:18 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.cui;
+package org.xerial.core.cui;
 
-/**
- * Common interface for Silk CUI commands
- * 
- * @author leo
- * 
- */
-public interface SilkCommand {
-    public static final int RETURN_WITH_SUCCESS = 0;
-    public static final int RETURN_WITH_FAILURE = 1;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.xerial.core.cui.XerialMain;
 
-    /**
-     * Execute the command. Command line arguments are processed before the
-     * invocation of this method.
-     * 
-     * @throws Exception
-     */
-    public void execute() throws Exception;
+public class SilkMainTest {
 
-    /**
-     * command name
-     * 
-     * @return command name
-     */
-    public String getName();
+    @Before
+    public void setUp() throws Exception {}
 
-    /**
-     * one-line description of the command
-     * 
-     * @return one-line description of the command
-     */
-    public String getOneLineDescription();
+    @After
+    public void tearDown() throws Exception {}
+
+    @Test
+    public void testMain() throws Exception {
+        XerialMain.execute(new String[] {});
+        XerialMain.execute(new String[] { "help" });
+        XerialMain.execute(new String[] { "scan", "--help" });
+    }
 
 }
