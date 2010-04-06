@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.xerial</groupId>
+  <artifactId>xerial</artifactId>
+  <version>3</version>
+  <description>
+    Xerial, pronounced as ex-erial, is an XML database management system. 
+  </description>
+  <packaging>pom</packaging>
+  <name>xerial.org</name>
+
+  <url>http://www.xerial.org/</url>
+  <organization>
+    <name>Xerial Project</name>
+    <url>http://www.xerial.org/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>leo</id>
+      <name>Taro L. Saito</name>
+      <email>leo at xerial.org</email>
+      <organization>Xerial Project</organization>
+      <roles>
+        <role>Architect</role>
+        <role>Project Manager</role>
+        <role>Chief Developer</role>
+      </roles>
+      <timezone>+9</timezone>
+    </developer>
+  </developers>
+
+
+  <issueManagement>
+    <system>Trac</system>
+    <url>http://www.xerial.org/trac/Xerial/</url>
+  </issueManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>Xerial Public Discussion Group</name>
+      <subscribe>http://groups.google.com/group/xerial/subscribe</subscribe>
+      <unsubscribe>http://groups.google.com/group/xerial?msg=unsubscribe</unsubscribe>
+      <post>xerial@googlegroups.com</post>
+      <archive>http://groups.google.com/group/xerial</archive>
+    </mailingList>
+  </mailingLists>
+
+  <distributionManagement>
+    <!-- for development releases -->
+    <site>
+      <id>xerial.dav</id>
+      <url>dav:https://www.xerial.org/maven/repository/site</url>
+    </site>
+    <repository>
+      <id>xerial.dav</id>
+      <name>Xerial Maven Repository</name>
+      <url>dav:https://www.xerial.org/maven/repository/artifact</url>
+    </repository>
+    <snapshotRepository>
+      <id>xerial.dav</id>
+      <name>Xerial Maven Snapshot Repository</name>
+      <url>dav:https://www.xerial.org/maven/repository/snapshot</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+
+
+  <profiles>
+    <!-- for directly sending artifacts to sourceforge.net repository -->
+    <profile>
+      <id>sourceforge</id>
+     <distributionManagement>
+       <repository>
+        <id>xerial.sourceforge</id>
+        <name>Xerial maven repository at sourceforge.jp</name>
+        <url>scpexe://shell.sourceforge.jp/home/groups/x/xe/xerial/htdocs/maven/release</url>
+       </repository>
+     </distributionManagement>
+    </profile>
+  
+   <!-- for sending releases to the repository synchronized with the sourceforge.net repository -->
+   <profile>
+      <id>xerial.release</id>
+      <distributionManagement>
+       <repository>
+        <id>xerial.dav</id>
+        <name>Xerial Maven Repository</name>
+        <url>dav:https://www.xerial.org/maven/repository/release</url>
+       </repository>
+     </distributionManagement>
+    </profile>
+
+    <!-- for local updates -->
+    <profile>
+      <id>xerial.local</id>
+      <distributionManagement>
+       <repository>
+        <id>xerial.local</id>
+        <name>Xerial Maven Repository</name>
+        <url>file:///home/web/maven.xerial.org/repository/artifact</url>
+       </repository>
+       <snapshotRepository>
+        <id>xerial.local</id>
+        <name>Xerial Maven Snapshot Repository</name>
+        <url>file:///home/web/maven.xerial.org/repository/snapshot</url>
+       <uniqueVersion>false</uniqueVersion>
+       </snapshotRepository>
+       <site>
+         <id>xerial.local</id>
+         <url>file:///home/web/maven.xerial.org/repository/site</url>
+       </site>
+      </distributionManagement>
+    </profile>
+
+    <!-- profile that uses xerial.org's own maven repository-->
+    <profile>
+      <id>xerial.repo</id>
+      <repositories>
+	<repository>
+	  <id>xerial</id>
+	  <name>Xerial Artifact Repository</name>
+	  <url>http://www.xerial.org/maven/repository/artifact</url>
+	</repository>
+	<repository>
+	  <id>xerial-snapshot</id>
+	  <name>Xerial Artifact Repository</name>
+	  <url>http://www.xerial.org/maven/repository/snapshot</url>
+	  <snapshots>
+            <enabled>true</enabled>
+	  </snapshots>
+	</repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
+  </build>
+
+
+</project>
+
