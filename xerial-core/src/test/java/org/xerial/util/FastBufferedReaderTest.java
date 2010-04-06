@@ -65,7 +65,6 @@ public class FastBufferedReaderTest {
             }
         }
         _logger.info("OpenCSV split:" + s.getElapsedTime());
-
     }
 
     @Test
@@ -87,23 +86,7 @@ public class FastBufferedReaderTest {
                 String[] tab = p.split(line);
             }
         }
-        _logger.info("default split:" + s.getElapsedTime());
-
-        //        s.reset();
-        //        for (int i = 0; i < N; i++) {
-        //            BufferedReader br = new BufferedReader(new InputStreamReader(FileResource.find(
-        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-        //
-        //            while ((line = br.readLine()) != null) {
-        //                Scanner scan = new Scanner(line);
-        //                scan.useDelimiter(p);
-        //                ArrayList<String> tokens = new ArrayList<String>();
-        //                while (scan.hasNext()) {
-        //                    tokens.add(scan.next());
-        //                }
-        //            }
-        //        }
-        //        _logger.info("scanner split:" + s.getElapsedTime());
+        _logger.info("default tab split:" + s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++) {
@@ -114,7 +97,7 @@ public class FastBufferedReaderTest {
                 ArrayList<String> tokens = StringUtil.splitAtTab(line);
             }
         }
-        _logger.info("my split:" + s.getElapsedTime());
+        _logger.info("my tab split:" + s.getElapsedTime());
 
         s.reset();
         for (int i = 0; i < N; i++) {
@@ -129,18 +112,18 @@ public class FastBufferedReaderTest {
                 }
             }
         }
-        _logger.info("tokenizer split:" + s.getElapsedTime());
+        _logger.info("tokenizer tab split:" + s.getElapsedTime());
 
-        //        s.reset();
-        //        for (int i = 0; i < N; i++) {
-        //            FastBufferedReader fb = new FastBufferedReader(new InputStreamReader(FileResource.find(
-        //                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
-        //
-        //            while ((line = fb.readLine()) != null) {
-        //                String[] tab = p.split(line);
-        //            }
-        //        }
-        //        _logger.info("fast reader:" + s.getElapsedTime());
+        s.reset();
+        for (int i = 0; i < N; i++) {
+            FastBufferedReader fb = new FastBufferedReader(new InputStreamReader(FileResource.find(
+                    SilkWalkerTest.class, "scaffold1.silk").openStream()));
+
+            while ((line = fb.readLine()) != null) {
+                ArrayList<String> tab = StringUtil.splitAtTab(line);
+            }
+        }
+        _logger.info("fast reader:" + s.getElapsedTime());
 
     }
 

@@ -81,7 +81,8 @@ public class TreeWalkLog implements TreeVisitor {
             if (event != other.event)
                 return false;
 
-            if (!strCmp(nodeName, other.nodeName))
+            if (!strCmp(StringUtil.varNameToCanonicalName(nodeName), StringUtil
+                    .varNameToCanonicalName(other.nodeName)))
                 return false;
 
             return strCmp(value, other.value);
@@ -158,7 +159,7 @@ public class TreeWalkLog implements TreeVisitor {
         if (nodeName == null)
             return; // skip empty node visit (e.g. JSON Object root bracket)
 
-        pendingVisitNode = nodeName;
+        pendingVisitNode = StringUtil.varNameToCanonicalName(nodeName);
 
         if (immediateNodeValue != null)
             textStack.addLast(new StringBuilder(immediateNodeValue));

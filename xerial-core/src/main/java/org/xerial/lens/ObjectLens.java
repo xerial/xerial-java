@@ -47,6 +47,7 @@ import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.lens.impl.RelationSetter;
 import org.xerial.silk.SilkWriter;
 import org.xerial.util.Pair;
+import org.xerial.util.StringUtil;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
@@ -87,23 +88,8 @@ public class ObjectLens {
     private final HashMap<String, ParameterGetter> getterIndex = new HashMap<String, ParameterGetter>();
     private final HashMap<String, ParameterSetter> setterIndex = new HashMap<String, ParameterSetter>();
 
-    /**
-     * cache for the node name
-     */
-    private static HashMap<String, String> canonicalNameTable = new HashMap<String, String>();
-    static private Pattern paramNameReplacePattern = Pattern.compile("[\\s-_]");
-
     public static String getCanonicalParameterName(String paramName) {
-        if (paramName == null)
-            return paramName;
-
-        String cName = canonicalNameTable.get(paramName);
-        if (cName == null) {
-            Matcher m = paramNameReplacePattern.matcher(paramName);
-            cName = m.replaceAll("").toLowerCase();
-            canonicalNameTable.put(paramName, cName);
-        }
-        return cName;
+        return StringUtil.varNameToCanonicalName(paramName);
     }
 
     private final List<RelationSetter> relationSetterContainer = new ArrayList<RelationSetter>();
@@ -224,8 +210,7 @@ public class ObjectLens {
                     Class< ? > arrayElementType = TypeInfo.getArrayElementType(fieldType);
                     if (arrayElementType != null && byte.class == arrayElementType) {
                         // byte[] getter & setter
-                        getterContainer.add(ParameterGetter
-                                .newFieldGetter(eachField, paramName));
+                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                         setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
                                 eachField));
                     }
@@ -258,8 +243,7 @@ public class ObjectLens {
                         // property (key, value) setter
 
                         propertySetter = RelationSetter.newMapSetter("key", "value", eachField);
-                        getterContainer.add(ParameterGetter
-                                .newFieldGetter(eachField, paramName));
+                        getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                         propertyGetter = ParameterGetter.newPropertyFieldGetter(eachField,
                                 paramName);
                         continue;
@@ -271,8 +255,8 @@ public class ObjectLens {
                 else if (TypeInfo.isCollection(fieldType)) {
                     Class< ? > elementType = ReflectionUtil.getRawClass(ReflectionUtil
                             .getGenericCollectionElementType(eachField));
-                    setterContainer.add(ParameterSetter.newSetter(elementType, paramName,
-                            eachField));
+                    setterContainer.add(ParameterSetter
+                            .newSetter(elementType, paramName, eachField));
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
                 else {
@@ -280,8 +264,7 @@ public class ObjectLens {
                         setterContainer.add(ParameterSetter.newSetter(fieldType, paramName,
                                 eachField));
                     else
-                        valueSetter = ParameterSetter
-                                .newSetter(fieldType, paramName, eachField);
+                        valueSetter = ParameterSetter.newSetter(fieldType, paramName, eachField);
                     getterContainer.add(ParameterGetter.newFieldGetter(eachField, paramName));
                 }
 

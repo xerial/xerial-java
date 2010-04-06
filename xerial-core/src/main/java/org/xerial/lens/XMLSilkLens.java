@@ -27,12 +27,15 @@ package org.xerial.lens;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWriter;
 import org.xerial.util.ArrayDeque;
-import org.xerial.util.xml.XMLAttribute;
+import org.xerial.util.Pair;
+import org.xerial.util.StringUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -51,21 +54,42 @@ public class XMLSilkLens {
     private static class XMLToSilkSAXHandler extends DefaultHandler2 {
         private SilkWriter context;
 
+        private static class AttributeNodes implements Iterable<Pair<String, String>> {
+            ArrayList<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
+
+            public void add(String name, String value) {
+                list.add(new Pair<String, String>(name, value));
+            }
+
+            @Override
+            public String toString() {
+                ArrayList<String> b = new ArrayList<String>();
+                for (Pair<String, String> each : list) {
+                    b.add(String.format("%s:%s", each.getFirst(), each.getSecond()));
+                }
+                return StringUtil.join(b, ", ");
+            }
+
+            public Iterator<Pair<String, String>> iterator() {
+                return list.iterator();
+            }
+
+        }
+
         private static class TagContext {
             public final String tagName;
-            public final XMLAttribute attribute;
+            public final AttributeNodes attribute;
             public StringBuilder textBuf = new StringBuilder();
             public boolean isOpen = false;
 
-            public TagContext(String tagName, XMLAttribute attribute) {
+            public TagContext(String tagName, AttributeNodes attribute) {
                 this.tagName = tagName;
                 this.attribute = attribute;
             }
 
             @Override
             public String toString() {
-                return String.format("%s (%s) : %s", tagName, attribute.toXMLString(), textBuf
-                        .toString());
+                return String.format("%s (%s) : %s", tagName, attribute, textBuf.toString());
             }
         }
 
@@ -76,6 +100,7 @@ public class XMLSilkLens {
             this.context = new SilkWriter(out);
         }
 
+        @Override
         public void characters(char[] ch, int start, int length) throws SAXException {
             TagContext tc = unopendContextStack.isEmpty() ? contextStack.getLast()
                     : unopendContextStack.getLast();
@@ -83,10 +108,12 @@ public class XMLSilkLens {
 
         }
 
+        @Override
         public void endDocument() throws SAXException {
             context.endDocument();
         }
 
+        @Override
         public void endElement(String uri, String localName, String name) throws SAXException {
 
             // start node
@@ -97,6 +124,7 @@ public class XMLSilkLens {
             contextStack.removeLast();
         }
 
+        @Override
         public void processingInstruction(String target, String data) throws SAXException {
             context.commentLine("PI: " + data);
         }
@@ -106,6 +134,7 @@ public class XMLSilkLens {
             context.commentLine(new String(ch, start, length));
         }
 
+        @Override
         public void startDocument() throws SAXException {
             context.preamble();
         }
@@ -116,8 +145,8 @@ public class XMLSilkLens {
                 // start node
                 if (!tc.isOpen) {
                     context = context.node(tc.tagName);
-                    for (int i = 0; i < tc.attribute.length(); ++i) {
-                        context.attribute(tc.attribute.getName(i), tc.attribute.getValue(i));
+                    for (Pair<String, String> each : tc.attribute) {
+                        context.attribute(each.getFirst(), each.getSecond());
                     }
                     if (tc.textBuf.length() > 0) {
                         String value = tc.textBuf.toString().trim();
@@ -134,16 +163,17 @@ public class XMLSilkLens {
             unopendContextStack.clear();
         }
 
+        @Override
         public void startElement(String uri, String localName, String name, Attributes atts)
                 throws SAXException {
 
             openContext();
 
-            XMLAttribute at = new XMLAttribute();
+            AttributeNodes at = new AttributeNodes();
             for (int i = 0; i < atts.getLength(); ++i)
-                at.add(atts.getQName(i), atts.getValue(i));
+                at.add(StringUtil.varNameToNaturalName(atts.getQName(i)), atts.getValue(i));
 
-            unopendContextStack.addLast(new TagContext(name, at));
+            unopendContextStack.addLast(new TagContext(StringUtil.varNameToNaturalName(name), at));
         }
 
     }

@@ -26,6 +26,7 @@ package org.xerial.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -175,37 +176,59 @@ public class StringUtil {
         return tokens;
     }
 
+    private static HashMap<String, String> canonicalNameTable = new HashMap<String, String>();
+    private static HashMap<String, String> naturalNameTable = new HashMap<String, String>();
+    private static Pattern paramNameReplacePattern = Pattern.compile("[\\s-_]");
+
+    public static String varNameToCanonicalName(String paramName) {
+        if (paramName == null)
+            return paramName;
+
+        String cName = canonicalNameTable.get(paramName);
+        if (cName == null) {
+            Matcher m = paramNameReplacePattern.matcher(paramName);
+            cName = m.replaceAll("").toLowerCase();
+            canonicalNameTable.put(paramName, cName);
+        }
+        return cName;
+    }
+
     public static String varNameToNaturalName(String varName) {
         if (varName == null)
             return null;
 
-        ArrayList<String> components = new ArrayList<String>();
-        int start = 0;
-        int cursor = 0;
-        while (cursor < varName.length()) {
-            while (cursor < varName.length() && Character.isUpperCase(varName.charAt(cursor))) {
-                cursor++;
-            }
-            if ((cursor - start) >= 2) {
-                components.add(varName.substring(start, cursor));
-                start = cursor;
-                continue;
-            }
+        String nName = naturalNameTable.get(varName);
+        if (nName == null) {
+            ArrayList<String> components = new ArrayList<String>();
+            int start = 0;
+            int cursor = 0;
             while (cursor < varName.length()) {
-                char c = varName.charAt(cursor);
-                if (isSplitChar(c)) {
-                    break;
+                while (cursor < varName.length() && Character.isUpperCase(varName.charAt(cursor))) {
+                    cursor++;
                 }
-                cursor++;
+                if ((cursor - start) >= 2) {
+                    components.add(varName.substring(start, cursor));
+                    start = cursor;
+                    continue;
+                }
+                while (cursor < varName.length()) {
+                    char c = varName.charAt(cursor);
+                    if (isSplitChar(c)) {
+                        break;
+                    }
+                    cursor++;
+                }
+                if (start < cursor) {
+                    components.add(varName.substring(start, cursor).toLowerCase());
+                }
+                else
+                    cursor++;
+                start = cursor;
             }
-            if (start < cursor) {
-                components.add(varName.substring(start, cursor).toLowerCase());
-            }
-            else
-                cursor++;
-            start = cursor;
+            nName = join(components, " ");
+            naturalNameTable.put(varName, nName);
         }
-        return join(components, " ");
+        return nName;
     }
 
     private static boolean isSplitChar(char c) {

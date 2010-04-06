@@ -715,7 +715,7 @@ public class SilkWriter {
 
                 if (!map.isEmpty()) {
                     String mapElemName = getter.getNaturalParamName();
-                    if (!mapElemName.equals("_")) {
+                    if (!mapElemName.equals("")) {
                         SilkWriter w = node(mapElemName);
                         for (Entry< ? , ? > each : map.entrySet()) {
                             Object key = each.getKey();

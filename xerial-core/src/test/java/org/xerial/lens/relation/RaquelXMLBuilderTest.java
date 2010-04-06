@@ -28,7 +28,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.silk.cui.SilkMain;
+import org.xerial.core.cui.XerialMain;
 import org.xerial.util.FileResource;
 
 public class RaquelXMLBuilderTest {
@@ -42,14 +42,14 @@ public class RaquelXMLBuilderTest {
     @Test
     public void purifyHelp() throws Exception {
 
-        SilkMain.execute(new String[] { "purify", "--help" });
+        XerialMain.execute(new String[] { "purify", "--help" });
 
     }
 
     @Ignore
     @Test
     public void purify() throws Exception {
-        SilkMain.execute(new String[] { "purify",
+        XerialMain.execute(new String[] { "purify",
                 FileResource.find(RaquelXMLBuilderTest.class, "r.xml").getPath(), "-s",
                 FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
     }
@@ -57,14 +57,14 @@ public class RaquelXMLBuilderTest {
     @Ignore
     @Test
     public void purify2() throws Exception {
-        SilkMain.execute(new String[] { "purify",
+        XerialMain.execute(new String[] { "purify",
                 FileResource.find(RaquelXMLBuilderTest.class, "sample.xml").getPath(), "-s",
                 FileResource.find(RaquelXMLBuilderTest.class, "sample.schema").getPath() });
     }
 
     @Test
     public void purifySAM() throws Exception {
-        SilkMain.execute(new String[] { "purify", "-t", "-l", "debug",
+        XerialMain.execute(new String[] { "purify", "-t", "-l", "debug",
                 FileResource.find(RaquelXMLBuilderTest.class, "sam.tab").getPath(), "-s",
                 FileResource.find(RaquelXMLBuilderTest.class, "sam.schema").getPath() });
     }
