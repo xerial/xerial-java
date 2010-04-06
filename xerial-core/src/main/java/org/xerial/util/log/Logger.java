@@ -98,12 +98,12 @@ public class Logger {
         if (packageList.length == 1)
             _parentLogger = _rootLogger;
         else {
-            String parentPackageName = concatinate(packageList, packageList.length - 1);
+            String parentPackageName = concatenate(packageList, packageList.length - 1);
             _parentLogger = getLogger(parentPackageName);
         }
     }
 
-    private String concatinate(String[] packageList, int upTo) {
+    private String concatenate(String[] packageList, int upTo) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < upTo - 1; i++) {
             builder.append(packageList[i]);
