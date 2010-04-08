@@ -64,7 +64,7 @@ public class SilkLogWriter implements LogWriter {
         synchronized (this) {
             Date now = new Date();
             logOut.write(String.format("-log(level:%s, name:%s, time:\"%s\")", logLevel.name()
-                    .toLowerCase(), logger.getLoggerShortName(), df.format(now)));
+                    .toLowerCase(), logger.getLoggerName(), df.format(now)));
 
             if (message != null) {
                 logOut.write(">>");

@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>xerial-project</artifactId>
+    <groupId>org.xerial</groupId>
+    <version>1.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.xerial.weaver</groupId>
+  <artifactId>silk-weaver</artifactId>
+  <name>Silk Weaver</name>
+  <version>1.0-SNAPSHOT</version>
+  <description>Silk Weaver is a DBMS engine for processing peta-scale Silk format data on cluster systems.</description>
+
+  <properties>
+    <revision>$Revision: 3478 $</revision>
+  </properties>
+
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+	<excludes>
+	  <exclude>**/.svn/**</exclude>
+	</excludes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.xerial.maven</groupId>
+        <artifactId>maven-antlr-plugin</artifactId>
+	    <version>1.1.0</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+      	<artifactId>maven-eclipse-plugin</artifactId>
+      	<version>2.5.1</version>
+      </plugin>
+      
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <appendAssemblyId>true</appendAssemblyId>
+          <descriptors>
+            <descriptor>src/assembly/standalone.xml</descriptor>
+          </descriptors>
+          <archive>
+            <manifest>
+              <mainClass>org.xerial.weaver.cui.SilkWeaverMain</mainClass>
+            </manifest>
+            <index>true</index>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>silk</id> 
+            <phase>package</phase> 
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <!--  do not run site-deploy goal, included in the default settings  -->
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <!-- Xerial Repository -->
+    <repository>
+      <id>xerial</id>
+      <name>Xerial Artifact Repository</name>
+      <url>http://www.xerial.org/maven/repository/artifact</url>
+    </repository>
+    <!-- UTGB Repository -->
+    <repository>
+      <id>utgb</id>
+      <name>UTGB Artifact Repository</name>
+      <url>http://maven.utgenome.org/repository/artifact</url>
+    </repository>
+
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>xerial-core</artifactId>
+      <version>1.0.23-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.utgenome</groupId>
+      <artifactId>utgb-core</artifactId>
+      <version>1.3.2-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>
