@@ -24,14 +24,12 @@
 //--------------------------------------
 package org.xerial.core.cui;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.core.cui.Filter;
-import org.xerial.core.cui.XerialMain;
 import org.xerial.util.FileResource;
 
 public class FilterTest {
@@ -51,6 +49,7 @@ public class FilterTest {
         assertFalse(Filter.startsWithProtocol("some/file.txt"));
     }
 
+    @Ignore
     @Test
     public void filter() throws Exception {
         XerialMain.execute(new String[] { "filter",
