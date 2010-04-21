@@ -419,15 +419,17 @@ public class ObjectLens {
                 continue;
             }
             else if (methodName.startsWith("get")) {
-                if (eachMethod.getParameterTypes().length == 0) {
+                int argLength = eachMethod.getParameterTypes().length;
+                String paramName = pickPropertyName(methodName);
+                if (argLength == 0) {
                     // ignore getters defined in the Object.class
                     if (Object.class == eachMethod.getDeclaringClass())
                         continue;
-
-                    String paramName = pickPropertyName(methodName);
                     getterContainer.add(ParameterGetter.newGetter(eachMethod, paramName));
                 }
-
+                else if (argLength == 1 && TypeInfo.isMap(targetType)) {
+                    propertyGetter = ParameterGetter.newMapEntryGetter(eachMethod);
+                }
             }
 
         }

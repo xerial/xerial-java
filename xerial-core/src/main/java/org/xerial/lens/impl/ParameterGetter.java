@@ -81,6 +81,10 @@ public abstract class ParameterGetter {
         return new GetterMethod(getter, paramName);
     }
 
+    public static ParameterGetter newMapEntryGetter(Method getter) {
+        return new MapEntryGetter(getter);
+    }
+
     public abstract Class< ? > getReturnType();
 
     @Override
@@ -162,8 +166,40 @@ public abstract class ParameterGetter {
         }
 
         @Override
-        public Object get(Object arg0, String arg1) {
-            throw new UnsupportedOperationException("get(Object, String)");
+        public Object get(Object obj, String key) {
+            if (!returnsMapType())
+                throw new UnsupportedOperationException("get(Object, String)");
+
+            return ReflectionUtil.invokeGetter(obj, getter, key);
+        }
+
+        @Override
+        public Class< ? > getReturnType() {
+            return getter.getReturnType();
+        }
+    }
+
+    private static class MapEntryGetter extends ParameterGetter {
+        final Method getter;
+
+        public MapEntryGetter(Method getter) {
+            super("");
+
+            this.getter = getter;
+
+            if (getter.getParameterTypes().length != 1)
+                throw new XerialError(XerialErrorCode.INVALID_INPUT, "not a map entry getter");
+
+        }
+
+        @Override
+        public Object get(Object obj) {
+            throw new UnsupportedOperationException("get(Object)");
+        }
+
+        @Override
+        public Object get(Object obj, String key) {
+            return ReflectionUtil.invokeGetter(obj, getter, key);
         }
 
         @Override

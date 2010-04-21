@@ -34,6 +34,7 @@ import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
@@ -221,6 +222,16 @@ public class ObjectLensTest {
         PropTest p2 = Lens.loadSilk(PropTest.class, new StringReader(silk));
         assertTrue(p2.prop.containsKey("hello"));
         assertEquals("world", p2.prop.getProperty("hello"));
+
+    }
+
+    @Test
+    public void longProp() throws Exception {
+        PropTest p = Lens.loadSilk(PropTest.class, FileResource.open(ObjectLensTest.class,
+                "longprop.silk"));
+        assertTrue(p.prop.containsKey("sequenceList"));
+
+        _logger.info(Lens.toSilk(p));
 
     }
 

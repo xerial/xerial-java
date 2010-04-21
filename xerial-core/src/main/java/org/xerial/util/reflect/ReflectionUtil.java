@@ -117,6 +117,26 @@ public class ReflectionUtil {
         }
     }
 
+    public static Object invokeGetter(Object bean, Method getter, Object arg1) {
+        try {
+            return getter.invoke(bean, arg1);
+        }
+        catch (IllegalArgumentException e) {
+            throw new XerialError(XerialErrorCode.INVALID_STATE,
+                    "not a getter (0-arg public method): " + getter);
+        }
+        catch (IllegalAccessException e) {
+            throw new IllegalAccessError(e.getMessage());
+        }
+        catch (InvocationTargetException e) {
+            Throwable targetException = e.getTargetException();
+            if (XerialError.class.isInstance(targetException))
+                throw XerialError.class.cast(targetException);
+            else
+                throw new XerialError(XerialErrorCode.WRONG_DATA_TYPE, e.getTargetException());
+        }
+    }
+
     /**
      * Get the generic element type of the field that has a collection type. For
      * example, for a field <em>f</em>
