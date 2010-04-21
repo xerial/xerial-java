@@ -51,8 +51,8 @@ account : person(pid:id, name) in "name.silk" where pid = 1
 # join
 # The update modifies the specified nodes in input A using the enclosed operations:
 --code
-@update person in "name.silk" {
- @join _ with "phone.silk" using person.id
+update person in "name.silk" {
+ join _ with "phone.silk" using person.id
 }
 --
 
@@ -70,13 +70,13 @@ account : person(pid:id, name) in "name.silk" where pid = 1
 
 # You can make explicit what to join:
 --code
-@join 
+join 
  -: person(id, name) in "name.silk" by id
  -: person(id, address) in "phone.silk" by id
 --
 
 --code
-A = @join "name.silk" with "phone.silk" using person.id
+A = join "name.silk" with "phone.silk" using person.id
 B = 
 
 --
@@ -139,14 +139,14 @@ person(id, name) in "name.silk" as employee(ID, full name)
 
 # short hand notation of natural join
 --code
-@join "name.silk" with "phone.silk"
+join "name.silk" with "phone.silk"
 --
 
 # join operations
 --code
-@join
-@leftjoin
-@cross
+join
+leftjoin
+cross
 --
 
 # preamble for specifying schema
@@ -156,34 +156,39 @@ person(id, name) in "name.silk" as employee(ID, full name)
 
 # for each 
 --code
-@foreach person(id, name) in "name.silk" 
-  @concat person.* with "\t"
+foreach person(id, name) in "name.silk" 
+  concat person.* with "\t"
 --
 
 # stdin
 --code
-@foreach person(id, name) in <> 
-  @concat person.* with "\t"
+foreach person(id, name) in <> 
+  concat person.* with "\t"
 --
 
 # stdin
 --code
-@foreach person(id, name) 
-  @concat person.* with "\t"
+foreach person(id, name) 
+  concat person.* with "\t"
 --
 
 
 
 # join using for each
 --code
-@foreach person(id, name) in "name.silk" 
- @join _ with person(id, phone) in "phone.silk" using(person.id)
+foreach person(id, name) in "name.silk" 
+ join _ with person(id, phone) in "phone.silk" using(person.id)
 
 --
 
 # sorting 
 --code
-@sort person(id, name) in "name.silk" by name
+sort person(id, name) in "name.silk" by name
+--
+
+# numeric sorting
+--code
+sort person in "name.silk" by person(age)
 --
 
 
@@ -209,6 +214,17 @@ person(id, name) in "name.silk" as employee(ID, full name)
 # simple transformation
 --code
 person(id, name)
+--
+
+
+# pattern match
+--code
+
+e match 
+config => { ... } 
+alignment(name, *) => { ... }
+
+
 --
 
 # command-line usage
@@ -245,3 +261,26 @@ silk index (input file)
 --
 
 
+-section: Silk Schema
+
+Example
+--code
+%schema student(id:int[key], name:string)
+%schema teacher(id:int[key], name:string)
+%schema class(id:int[key], name:string, teacher:class, student*:class)
+
+-student|
+1	Leo
+2	Yui
+
+-teacher|
+1	Eli
+2	Derek
+
+-class
+ -id: 1
+ -name: English 
+ -teacher(id:1)
+ -student
+
+--
