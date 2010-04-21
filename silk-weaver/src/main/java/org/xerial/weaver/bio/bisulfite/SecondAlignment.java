@@ -111,7 +111,7 @@ public class SecondAlignment implements SilkWeaverCommand {
         out.leaf("description", "Smith-Waterman Alignment for BSS");
         out.leaf("reference", pacReferenceSequencePrefix);
         out.leaf("query", pacQuerySequencePrefix);
-        out.leaf("input SAM:", inputSAM);
+        out.leaf("input SAM", inputSAM);
         out.leaf("config", config);
         out.flush();
 
