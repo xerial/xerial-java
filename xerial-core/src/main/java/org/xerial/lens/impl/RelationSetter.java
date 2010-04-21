@@ -136,7 +136,7 @@ public abstract class RelationSetter {
     public static RelationSetter newMapSetter(String keyNodeName, String valueNodeName,
             Field mapField) {
         Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
-                .getGenericMapElementType(mapField);
+                .getGenericMapElementClasses(mapField);
 
         return new MapFieldSetter(mapElementType.getFirst(), keyNodeName, mapElementType
                 .getSecond(), valueNodeName, mapField);

@@ -349,9 +349,10 @@ public class ObjectMapper {
                 String textValue) throws XerialException {
 
             Object coreNodeInstance = proc.getNodeInstance(coreNode, lens.getTargetType());
-            Object prevValue = lens.getProperty(coreNodeInstance, textNode.nodeName);
+            Object prevValue = lens.getParameter(coreNodeInstance, coreNode.nodeName,
+                    textNode.nodeName);
             String value = (prevValue == null) ? textValue : prevValue.toString() + textValue;
-            lens.setProperty(coreNodeInstance, textNode.nodeName, value);
+            lens.setParameter(coreNodeInstance, coreNode.nodeName, textNode.nodeName, value);
 
         }
 

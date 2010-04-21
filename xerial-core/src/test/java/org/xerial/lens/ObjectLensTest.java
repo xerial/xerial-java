@@ -221,6 +221,7 @@ public class ObjectLensTest {
         PropTest p2 = Lens.loadSilk(PropTest.class, new StringReader(silk));
         assertTrue(p2.prop.containsKey("hello"));
         assertEquals("world", p2.prop.getProperty("hello"));
+
     }
 
 }

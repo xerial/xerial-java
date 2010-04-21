@@ -75,13 +75,13 @@ public class ReflectionUtilTest {
 
     @Test
     public void testMapType() throws Exception {
-        Pair<Class< ? >, Class< ? >> key_value_type = ReflectionUtil
-                .getGenericMapElementType(Param.class.getField("id_name"));
+        Pair<Type, Type> key_value_type = ReflectionUtil.getGenericMapElementTypes(Param.class
+                .getField("id_name"));
         assertEquals(Long.class, key_value_type.getFirst());
         assertEquals(String.class, key_value_type.getSecond());
 
-        Pair<Class< ? >, Class< ? >> key_value_type2 = ReflectionUtil
-                .getGenericMapElementType(Param.class.getField("id_rid_name"));
+        Pair<Type, Type> key_value_type2 = ReflectionUtil.getGenericMapElementTypes(Param.class
+                .getField("id_rid_name"));
         assertEquals(Integer.class, key_value_type2.getFirst());
 
         // TODO nested map type

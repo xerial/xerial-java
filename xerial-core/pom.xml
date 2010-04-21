@@ -26,9 +26,9 @@
       </resource>
       <resource>
         <directory>src/main/resources</directory>
-	<excludes>
-	  <exclude>**/.svn/**</exclude>
-	</excludes>
+	    <excludes>
+	     <exclude>**/.svn/**</exclude>
+	    </excludes>
       </resource>
     </resources>
     <testResources>
@@ -97,6 +97,15 @@
           <connectionUrl>scm:hg:https://core.xerial.googlecode.com/hg/</connectionUrl>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      
     </plugins>
   </build>
 

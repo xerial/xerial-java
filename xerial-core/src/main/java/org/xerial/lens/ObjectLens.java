@@ -109,7 +109,7 @@ public class ObjectLens {
             throws XerialException {
         ParameterGetter getter = getterIndex.get(getCanonicalParameterName(parameterName));
         if (getter == null)
-            return null;
+            return getProperty(target, key != null ? key.toString() : null);
 
         if (getter.returnsMapType())
             return getter.get(target, key.toString());
@@ -121,13 +121,15 @@ public class ObjectLens {
             throws XerialException {
 
         ParameterSetter setter = setterIndex.get(getCanonicalParameterName(parameterName));
-        if (setter == null)
-            return;
-
-        if (setter.acceptKeyAndValue())
-            setter.bind(target, key, value);
-        else
-            setter.bind(target, value);
+        if (setter == null) {
+            setProperty(target, key, value);
+        }
+        else {
+            if (setter.acceptKeyAndValue())
+                setter.bind(target, key, value);
+            else
+                setter.bind(target, value);
+        }
     }
 
     public void setParameter(Object target, String parameterName, Object value)
@@ -245,7 +247,7 @@ public class ObjectLens {
                     if (keyValueName == null) {
                         // infer key, value names from the class type
                         Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
-                                .getGenericMapElementType(eachField);
+                                .getGenericMapElementClasses(eachField);
 
                         Class< ? > keyType = mapElementType.getFirst();
                         Class< ? > valueType = mapElementType.getSecond();

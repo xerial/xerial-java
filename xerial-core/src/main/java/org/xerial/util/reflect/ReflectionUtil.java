@@ -203,7 +203,15 @@ public class ReflectionUtil {
             return toClassType(type);
     }
 
-    public static Pair<Class< ? >, Class< ? >> getGenericMapElementType(Field field) {
+    public static Pair<Class< ? >, Class< ? >> getGenericMapElementClasses(Field field) {
+
+        Pair<Type, Type> t = getGenericMapElementTypes(field);
+
+        return new Pair<Class< ? >, Class< ? >>(Class.class.cast(t.getFirst()), Class.class.cast(t
+                .getSecond()));
+    }
+
+    public static Pair<Type, Type> getGenericMapElementTypes(Field field) {
         if (!TypeInfo.isMap(field.getType()))
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "not a map type: " + field);
 
@@ -218,11 +226,10 @@ public class ReflectionUtil {
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "not a Map<Key, Value> type: "
                         + field);
 
-            return new Pair<Class< ? >, Class< ? >>(Class.class.cast(keyValueType[0]), Class.class
-                    .cast(keyValueType[1]));
+            return new Pair<Type, Type>(keyValueType[0], keyValueType[1]);
         }
 
-        return new Pair<Class< ? >, Class< ? >>(Object.class, Object.class);
+        return new Pair<Type, Type>(Object.class, Object.class);
     }
 
     /**
@@ -330,7 +337,7 @@ public class ReflectionUtil {
                     "cannot set (key, value) to null Map field: " + bean);
 
         Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
-                .getGenericMapElementType(field);
+                .getGenericMapElementClasses(field);
         Class< ? > keyType = mapElementType.getFirst();
         Class< ? > valueType = mapElementType.getSecond();
 
