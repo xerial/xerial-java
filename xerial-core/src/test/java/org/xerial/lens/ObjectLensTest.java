@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -203,6 +202,25 @@ public class ObjectLensTest {
         assertEquals(50, p.id);
         assertEquals("yui", p.name);
 
+    }
+
+    public static class PropTest {
+        public Properties prop = new Properties();
+    }
+
+    @Test
+    public void propertyGetter() throws Exception {
+
+        PropTest p = new PropTest();
+        ObjectLens lens = new ObjectLens(PropTest.class);
+        lens.setParameter(p, "prop", "hello", "world");
+        assertEquals("world", lens.getParameter(p, "prop", "hello"));
+
+        String silk = Lens.toSilk(p);
+
+        PropTest p2 = Lens.loadSilk(PropTest.class, new StringReader(silk));
+        assertTrue(p2.prop.containsKey("hello"));
+        assertEquals("world", p2.prop.getProperty("hello"));
     }
 
 }

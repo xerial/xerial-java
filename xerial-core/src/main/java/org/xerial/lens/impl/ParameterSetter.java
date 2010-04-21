@@ -32,6 +32,8 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ObjectLens;
+import org.xerial.util.bean.TypeConverter;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 
@@ -54,8 +56,14 @@ public abstract class ParameterSetter {
 
     public abstract void bind(Object object, Object value) throws XerialException;
 
+    public abstract void bind(Object object, Object key, Object value) throws XerialException;
+
     public Class< ? > getParameterType() {
         return parameterType;
+    }
+
+    public boolean acceptKeyAndValue() {
+        return TypeInfo.isMap(getParameterType());
     }
 
     @Override
@@ -120,6 +128,11 @@ public abstract class ParameterSetter {
             ReflectionUtil.setFieldValue(object, targetField, value);
         }
 
+        @Override
+        public void bind(Object object, Object key, Object value) throws XerialException {
+            ReflectionUtil.setMapEntry(object, targetField, key, value);
+        }
+
         public Object get(Object object) throws XerialException {
             return ReflectionUtil.getFieldValue(object, targetField);
         }
@@ -137,6 +150,12 @@ public abstract class ParameterSetter {
         @Override
         public void bind(Object object, Object value) throws XerialException {
             ReflectionUtil.setValue(object, setterMethod, value);
+        }
+
+        @Override
+        public void bind(Object object, Object key, Object value) throws XerialException {
+            throw new XerialException(XerialErrorCode.UNSUPPORTED,
+                    "bind (key, value) is not supported for " + setterMethod);
         }
 
     }
@@ -157,8 +176,13 @@ public abstract class ParameterSetter {
         }
 
         @Override
-        public void bind(Object entry, Object key) throws XerialException {
-            ReflectionUtil.setFieldValue(entry, targetField, key);
+        public void bind(Object obj, Object value) throws XerialException {
+            ReflectionUtil.setFieldValue(obj, targetField, value);
+        }
+
+        @Override
+        public void bind(Object object, Object key, Object value) throws XerialException {
+            ReflectionUtil.setMapEntry(object, targetField, key, value);
         }
 
     }
@@ -172,6 +196,23 @@ public abstract class ParameterSetter {
 
             this.keyType = keyType;
             this.valueType = valueType;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void bind(Object mapObject, Object key, Object value) throws XerialException {
+            if (mapObject == null) {
+                _logger
+                        .warn(String.format(
+                                "cannot set (key, value) to null instance: (key:%s, value:%s)",
+                                key, value));
+                return;
+            }
+
+            Map map = Map.class.cast(mapObject);
+            map.put(TypeConverter.convertType(keyType, key), TypeConverter.convertType(valueType,
+                    value));
+
         }
 
         @SuppressWarnings("unchecked")

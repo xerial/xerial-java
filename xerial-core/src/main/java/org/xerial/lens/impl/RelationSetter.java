@@ -27,7 +27,6 @@ package org.xerial.lens.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 import org.xerial.core.XerialError;
@@ -136,12 +135,11 @@ public abstract class RelationSetter {
 
     public static RelationSetter newMapSetter(String keyNodeName, String valueNodeName,
             Field mapField) {
-        Pair<Type, Type> mapElementType = ReflectionUtil.getGenericMapElementType(mapField);
+        Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
+                .getGenericMapElementType(mapField);
 
-        Class< ? > keyType = Class.class.cast(mapElementType.getFirst());
-        Class< ? > valueType = Class.class.cast(mapElementType.getSecond());
-
-        return new MapFieldSetter(keyType, keyNodeName, valueType, valueNodeName, mapField);
+        return new MapFieldSetter(mapElementType.getFirst(), keyNodeName, mapElementType
+                .getSecond(), valueNodeName, mapField);
     }
 
     private static class MapFieldSetter extends RelationSetter {

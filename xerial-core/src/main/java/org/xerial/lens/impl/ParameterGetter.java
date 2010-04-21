@@ -32,6 +32,7 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.lens.ObjectLens;
 import org.xerial.util.StringUtil;
+import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.reflect.ReflectionUtil;
 
 /**
@@ -63,6 +64,10 @@ public abstract class ParameterGetter {
     public abstract Object get(Object obj);
 
     public abstract Object get(Object obj, String key);
+
+    public boolean returnsMapType() {
+        return TypeInfo.isMap(getReturnType());
+    }
 
     public static ParameterGetter newFieldGetter(Field field, String paramName) {
         return new FieldGetter(field, paramName);
@@ -105,6 +110,7 @@ public abstract class ParameterGetter {
         public Class< ? > getReturnType() {
             return field.getType();
         }
+
     }
 
     private static class PropertyFieldGetter extends ParameterGetter {

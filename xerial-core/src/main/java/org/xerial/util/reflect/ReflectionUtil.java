@@ -29,6 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
@@ -202,7 +203,7 @@ public class ReflectionUtil {
             return toClassType(type);
     }
 
-    public static Pair<Type, Type> getGenericMapElementType(Field field) {
+    public static Pair<Class< ? >, Class< ? >> getGenericMapElementType(Field field) {
         if (!TypeInfo.isMap(field.getType()))
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "not a map type: " + field);
 
@@ -217,10 +218,11 @@ public class ReflectionUtil {
                 throw new XerialError(XerialErrorCode.INVALID_STATE, "not a Map<Key, Value> type: "
                         + field);
 
-            return new Pair<Type, Type>(keyValueType[0], keyValueType[1]);
+            return new Pair<Class< ? >, Class< ? >>(Class.class.cast(keyValueType[0]), Class.class
+                    .cast(keyValueType[1]));
         }
 
-        return new Pair<Type, Type>(Object.class, Object.class);
+        return new Pair<Class< ? >, Class< ? >>(Object.class, Object.class);
     }
 
     /**
@@ -315,6 +317,27 @@ public class ReflectionUtil {
                 throw new IllegalAccessError(e1.getMessage());
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void setMapEntry(Object bean, Field field, Object key, Object value)
+            throws XerialException {
+
+        ReflectionUtil.initializeCollectionField(bean, field);
+        Object mapObj = ReflectionUtil.getFieldValue(bean, field);
+        if (mapObj == null)
+            throw new XerialException(XerialErrorCode.INVALID_STATE,
+                    "cannot set (key, value) to null Map field: " + bean);
+
+        Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
+                .getGenericMapElementType(field);
+        Class< ? > keyType = mapElementType.getFirst();
+        Class< ? > valueType = mapElementType.getSecond();
+
+        Map map = Map.class.cast(mapObj);
+        map.put(TypeConverter.convertType(keyType, key), TypeConverter
+                .convertType(valueType, value));
+
     }
 
 }

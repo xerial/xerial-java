@@ -414,4 +414,15 @@ public class TypeInfo {
             return Object.class;
     }
 
+    public static Class< ? >[] resolveActualTypeOfMapElement(Type type, Class< ? >[] orig) {
+        ParameterizedType pt = getParentParameterizedType(type, Map.class);
+        if (pt != null) {
+            Type[] actualType = pt.getActualTypeArguments();
+            if (actualType.length > 0)
+                return new Class[] { resolveRawType(actualType[0], orig[0]),
+                        resolveRawType(actualType[1], orig[1]) };
+        }
+        return orig;
+    }
+
 }

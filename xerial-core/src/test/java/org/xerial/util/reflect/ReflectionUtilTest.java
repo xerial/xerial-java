@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.util.reflect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -37,19 +36,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.Pair;
 
-public class ReflectionUtilTest
-{
+public class ReflectionUtilTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    public static class Param
-    {
+    public static class Param {
         public Map<Long, String> id_name;
         public List<String> note;
         public Map<Integer, Map<Integer, String>> id_rid_name;
@@ -58,12 +53,13 @@ public class ReflectionUtilTest
     }
 
     @Test
-    public void testCollectionType() throws Exception
-    {
-        Type elementType = ReflectionUtil.getGenericCollectionElementType(Param.class.getField("note"));
+    public void testCollectionType() throws Exception {
+        Type elementType = ReflectionUtil.getGenericCollectionElementType(Param.class
+                .getField("note"));
         assertEquals(String.class, elementType);
 
-        Type elementType2 = ReflectionUtil.getGenericCollectionElementRawType(Param.class.getField("nestedList"));
+        Type elementType2 = ReflectionUtil.getGenericCollectionElementRawType(Param.class
+                .getField("nestedList"));
 
         assertTrue(ParameterizedType.class.isInstance(elementType2));
 
@@ -78,13 +74,14 @@ public class ReflectionUtilTest
     }
 
     @Test
-    public void testMapType() throws Exception
-    {
-        Pair<Type, Type> key_value_type = ReflectionUtil.getGenericMapElementType(Param.class.getField("id_name"));
+    public void testMapType() throws Exception {
+        Pair<Class< ? >, Class< ? >> key_value_type = ReflectionUtil
+                .getGenericMapElementType(Param.class.getField("id_name"));
         assertEquals(Long.class, key_value_type.getFirst());
         assertEquals(String.class, key_value_type.getSecond());
 
-        Pair<Type, Type> key_value_type2 = ReflectionUtil.getGenericMapElementType(Param.class.getField("id_rid_name"));
+        Pair<Class< ? >, Class< ? >> key_value_type2 = ReflectionUtil
+                .getGenericMapElementType(Param.class.getField("id_rid_name"));
         assertEquals(Integer.class, key_value_type2.getFirst());
 
         // TODO nested map type
@@ -92,8 +89,7 @@ public class ReflectionUtilTest
 
     }
 
-    public static class RawTypes
-    {
+    public static class RawTypes {
         public String p1;
         public List<String> p2;
         public List<List<String>> p3;
@@ -101,8 +97,7 @@ public class ReflectionUtilTest
     }
 
     @Test
-    public void testGetRawType() throws Exception
-    {
+    public void testGetRawType() throws Exception {
         assertEquals(String.class, RawTypes.class.getField("p1").getType());
         assertEquals(List.class, RawTypes.class.getField("p2").getType());
         assertEquals(List.class, RawTypes.class.getField("p3").getType());

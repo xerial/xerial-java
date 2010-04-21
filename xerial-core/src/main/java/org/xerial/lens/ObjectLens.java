@@ -28,7 +28,6 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -104,6 +103,31 @@ public class ObjectLens {
             return null;
 
         return getter.get(target);
+    }
+
+    public Object getParameter(Object target, String parameterName, Object key)
+            throws XerialException {
+        ParameterGetter getter = getterIndex.get(getCanonicalParameterName(parameterName));
+        if (getter == null)
+            return null;
+
+        if (getter.returnsMapType())
+            return getter.get(target, key.toString());
+        else
+            return getter.get(target);
+    }
+
+    public void setParameter(Object target, String parameterName, Object key, Object value)
+            throws XerialException {
+
+        ParameterSetter setter = setterIndex.get(getCanonicalParameterName(parameterName));
+        if (setter == null)
+            return;
+
+        if (setter.acceptKeyAndValue())
+            setter.bind(target, key, value);
+        else
+            setter.bind(target, value);
     }
 
     public void setParameter(Object target, String parameterName, Object value)
@@ -220,11 +244,11 @@ public class ObjectLens {
                     Pair<String, String> keyValueName = pickRelationName(eachField.getName());
                     if (keyValueName == null) {
                         // infer key, value names from the class type
-                        Pair<Type, Type> mapElementType = ReflectionUtil
+                        Pair<Class< ? >, Class< ? >> mapElementType = ReflectionUtil
                                 .getGenericMapElementType(eachField);
 
-                        Class< ? > keyType = Class.class.cast(mapElementType.getFirst());
-                        Class< ? > valueType = Class.class.cast(mapElementType.getSecond());
+                        Class< ? > keyType = mapElementType.getFirst();
+                        Class< ? > valueType = mapElementType.getSecond();
 
                         keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
                                 .getSimpleName());
