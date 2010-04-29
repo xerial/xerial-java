@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -104,7 +104,6 @@ public class StringUtilTest {
         assertEquals("para1", StringUtil.varNameToNaturalName("para1"));
 
         assertEquals("tip and dale", StringUtil.varNameToNaturalName("tip_andDale"));
-        assertEquals("日本語 文章", StringUtil.varNameToNaturalName("日本語_文章"));
 
         assertEquals("action package", StringUtil.varNameToNaturalName("actionPackage"));
 

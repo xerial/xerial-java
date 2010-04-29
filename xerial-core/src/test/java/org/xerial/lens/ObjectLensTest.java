@@ -24,7 +24,9 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
@@ -225,6 +228,7 @@ public class ObjectLensTest {
 
     }
 
+    @Ignore
     @Test
     public void longProp() throws Exception {
         PropTest p = Lens.loadSilk(PropTest.class, FileResource.open(ObjectLensTest.class,
