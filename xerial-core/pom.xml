@@ -9,7 +9,7 @@
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.27</version>
+  <version>1.0.28-SNAPSHOT</version>
   <description>Core library of the Xerial project.</description>
 
 
@@ -119,18 +119,6 @@
       <groupId>xpp3</groupId>
       <artifactId>xpp3</artifactId>
       <version>1.1.4c</version>
-    </dependency>
-    <dependency>
-      <groupId>org.xerial.thirdparty</groupId>
-      <artifactId>hadoop-core</artifactId>
-      <version>0.20.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.1.1</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
