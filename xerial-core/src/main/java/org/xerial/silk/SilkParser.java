@@ -74,7 +74,7 @@ import org.xerial.util.xml.impl.TreeEventQueue;
 public class SilkParser implements SilkEventHandler, TreeParser {
     private static Logger _logger = Logger.getLogger(SilkParser.class);
 
-    private final SilkLineParser parser;
+    private final SilkParserBase parser;
     private final SilkEnv parseContext;
     private final SilkParserConfig config;
 

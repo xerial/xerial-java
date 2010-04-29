@@ -53,7 +53,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLineFastParser implements SilkLineParser {
+public class SilkLineFastParser implements SilkParserBase {
     private static Logger _logger = Logger.getLogger(SilkLineFastParser.class);
 
     private final BufferedReader buffer;

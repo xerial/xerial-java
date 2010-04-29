@@ -51,7 +51,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLinePushParser implements SilkLineParser {
+public class SilkLinePushParser implements SilkParserBase {
     private static Logger _logger = Logger.getLogger(SilkLinePushParser.class);
 
     private final SilkLineLexer lexer;
