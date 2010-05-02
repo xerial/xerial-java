@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.silk.model;
 
-
 /**
  * dataline
  * 
@@ -53,7 +52,7 @@ public class SilkDataLine implements SilkElement {
     }
 
     /**
-     * get the original data line as is (including line-end comments)
+     * get the original data line as is
      * 
      * @return the original data line w/o modification
      */
@@ -62,7 +61,7 @@ public class SilkDataLine implements SilkElement {
     }
 
     /**
-     * Get the trimmed data line (without line-end comments)
+     * Get the trimmed data line
      * 
      * @return
      */
