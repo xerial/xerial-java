@@ -24,16 +24,19 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
 
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.log.Logger;
 
-public class TypeConverterTest
-{
+public class TypeConverterTest {
     private static Logger _logger = Logger.getLogger(TypeConverterTest.class);
 
     enum Animal {
@@ -85,5 +88,16 @@ public class TypeConverterTest
     public void fileType() throws Exception {
         File f = TypeConverter.convertType(File.class, "folder/sample.txt");
         assertEquals(f.getPath(), new File("folder/sample.txt").getPath());
+    }
+
+    @Test
+    public void date() throws Exception {
+        Date now = new Date();
+        DateFormat dt = DateFormat.getDateTimeInstance();
+        String dtString = dt.format(now);
+        Date d = TypeConverter.convertType(Date.class, dtString);
+
+        assertTrue(now.compareTo(d) >= 0);
+
     }
 }

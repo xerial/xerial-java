@@ -64,7 +64,7 @@ public class RaquelXMLBuilderTest {
 
     @Test
     public void purifySAM() throws Exception {
-        XerialMain.execute(new String[] { "purify", "-t", "-l", "debug",
+        XerialMain.execute(new String[] { "purify", "-t",
                 FileResource.find(RaquelXMLBuilderTest.class, "sam.tab").getPath(), "-s",
                 FileResource.find(RaquelXMLBuilderTest.class, "sam.schema").getPath() });
     }

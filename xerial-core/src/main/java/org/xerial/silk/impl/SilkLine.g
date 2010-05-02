@@ -175,10 +175,10 @@ String: '"' s=StringChar_s '"' { setText($s.text);  transit(Symbol.LeaveValue); 
 
 fragment ScopeIndicator: '(' | ')';
 fragment FlowIndicator:  '[' | ']' | '{' | '}';
-fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '#' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '=';	
+fragment Indicator:  FlowIndicator | ScopeIndicator | ',' | ':' | '>' | '|' | '*' | '\'' | '"' | '@' | '%' | '\\' | '=';	
 
 
-fragment PlainUnsafeChar: '"'| '\\' | '#' ;
+fragment PlainUnsafeChar: '"';
 
 fragment PlainSafeKey: ~(PlainUnsafeChar | ScopeIndicator | FlowIndicator | ',' | ':' | '>' | '*' | '|' | '='); 
 fragment PlainSafeIn: ~(PlainUnsafeChar | ScopeIndicator | ',');

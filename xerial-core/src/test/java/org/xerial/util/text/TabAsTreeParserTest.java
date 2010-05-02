@@ -69,7 +69,7 @@ public class TabAsTreeParserTest {
 
             public void visitNode(String nodeName, String immediateNodeValue) throws Exception {
 
-                _logger.info(String.format("visit %s:%s", nodeName, immediateNodeValue));
+                _logger.debug(String.format("visit %s:%s", nodeName, immediateNodeValue));
             }
         });
     }

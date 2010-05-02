@@ -28,7 +28,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -438,7 +440,7 @@ public class SilkWriter {
         out.print(nodeName);
 
         if (nodeValue != null)
-            colonAndNodeValue(nodeValue.toString());
+            colonAndNodeValue(convertToString(nodeValue));
 
         return this;
     }
@@ -570,12 +572,21 @@ public class SilkWriter {
         return dataLine;
     }
 
+    private String convertToString(Object value) {
+        Class< ? > c = value.getClass();
+        if (c == Date.class) {
+            return DateFormat.getDateTimeInstance().format(Date.class.cast(value));
+        }
+        else
+            return value.toString();
+    }
+
     public <Value> SilkWriter leafObject(String leafNodeName, Value v) {
         if (v == null)
             return this;
 
         if (TypeInfo.isBasicType(v.getClass())) {
-            outputLeaf(leafNodeName, v.toString());
+            outputLeaf(leafNodeName, convertToString(v));
         }
         else {
             ObjectLens lens = ObjectLens.getObjectLens(v.getClass());
@@ -584,7 +595,7 @@ public class SilkWriter {
                 c.toSilk(v);
             }
             else {
-                outputLeaf(leafNodeName, v.toString());
+                outputLeaf(leafNodeName, convertToString(v));
             }
         }
         return this;

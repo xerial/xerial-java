@@ -27,9 +27,12 @@ package org.xerial.silk;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -37,6 +40,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.lens.Lens;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
@@ -259,6 +263,31 @@ public class SilkWalkerTest {
     @Test
     public void sam() throws Exception {
         compare("sam.silk", "sam.json");
+    }
+
+    @Test
+    public void textValue() throws Exception {
+        compare("textvalue.silk", "textvalue.json");
+    }
+
+    public static class DateTest {
+        public Date time;
+    }
+
+    @Test
+    public void date() throws Exception {
+        Date now = new Date();
+        DateTest dt = new DateTest();
+        dt.time = now;
+
+        String silk = Lens.toSilk(dt);
+
+        _logger.info(silk);
+
+        DateTest dt2 = Lens.loadSilk(DateTest.class, new StringReader(silk));
+
+        assertTrue(dt.time.compareTo(dt2.time) >= 0);
+
     }
 
 }

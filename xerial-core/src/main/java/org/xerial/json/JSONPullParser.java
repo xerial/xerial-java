@@ -43,8 +43,7 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class JSONPullParser
-{
+public class JSONPullParser {
     private static enum ParseState {
         Root, InObject, InArray, Key, KeyedValue
     }
@@ -58,48 +57,39 @@ public class JSONPullParser
     private JSONPullParserEvent lastReportedEvent = null;
     private int currentDepth = 0;
 
-    public JSONPullParser(String jsonString)
-    {
+    public JSONPullParser(String jsonString) {
         reset(jsonString);
     }
 
-    public JSONPullParser(JSONObject jsonObject)
-    {
+    public JSONPullParser(JSONObject jsonObject) {
         reset(jsonObject);
     }
 
-    public JSONPullParser(InputStream jsonStream) throws IOException
-    {
+    public JSONPullParser(InputStream jsonStream) throws IOException {
         reset(jsonStream);
     }
 
-    public JSONPullParser(Reader reader) throws IOException
-    {
+    public JSONPullParser(Reader reader) throws IOException {
         reset(reader);
     }
 
-    public void reset(String jsonString)
-    {
+    public void reset(String jsonString) {
         reset(new ANTLRStringStream(jsonString));
     }
 
-    public void reset(JSONObject jsonObject)
-    {
+    public void reset(JSONObject jsonObject) {
         reset(new ANTLRStringStream(jsonObject.toJSONString()));
     }
 
-    public void reset(InputStream jsonStream) throws IOException
-    {
+    public void reset(InputStream jsonStream) throws IOException {
         reset(new ANTLRInputStream(jsonStream));
     }
 
-    public void reset(Reader reader) throws IOException
-    {
+    public void reset(Reader reader) throws IOException {
         reset(new ANTLRReaderStream(reader));
     }
 
-    private void reset(CharStream newStream)
-    {
+    private void reset(CharStream newStream) {
         _lexer.reset();
         _lexer.setCharStream(newStream);
 
@@ -112,43 +102,36 @@ public class JSONPullParser
         parseStateStack.addLast(ParseState.Root);
     }
 
-    private ParseState getCurrentParseState()
-    {
+    private ParseState getCurrentParseState() {
         return parseStateStack.getLast();
     }
 
-    private void validateParseState(ParseState... possibleParseState) throws JSONException
-    {
+    private void validateParseState(ParseState... possibleParseState) throws JSONException {
         ParseState current = getCurrentParseState();
-        for (ParseState ps : possibleParseState)
-        {
+        for (ParseState ps : possibleParseState) {
             if (ps == current)
                 return;
         }
-        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: " + current.name() + " line = "
-                + _lexer.getLine());
+        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: "
+                + current.name() + " line = " + _lexer.getLine());
     }
 
-    private void popKeyStack()
-    {
+    private void popKeyStack() {
         if (getCurrentParseState() == ParseState.Key)
             keyStack.removeLast();
     }
 
-    private void pushParseState(ParseState ps)
-    {
+    private void pushParseState(ParseState ps) {
         parseStateStack.addLast(ps);
         // _logger.trace("push: " + StringUtil.join(parseStateStack, ", "));
     }
 
-    private void popParseState()
-    {
+    private void popParseState() {
         parseStateStack.removeLast();
         // _logger.trace("pop : " + StringUtil.join(parseStateStack, ", "));
     }
 
-    private void valueWithKeyTest()
-    {
+    private void valueWithKeyTest() {
         if (getCurrentParseState() == ParseState.Key)
             pushParseState(ParseState.KeyedValue);
     }
@@ -163,15 +146,12 @@ public class JSONPullParser
      * @throws JSONException
      *             when the current token is not a {@link JSONValue}
      */
-    public JSONValue getValue() throws JSONException
-    {
+    public JSONValue getValue() throws JSONException {
         if (lastReportedEvent == null)
             next();
 
-        while (lastReportedEvent.getEvent() != JSONEvent.EndJSON)
-        {
-            switch (lastReportedEvent.getEvent())
-            {
+        while (lastReportedEvent.getEvent() != JSONEvent.EndJSON) {
+            switch (lastReportedEvent.getEvent()) {
             case String:
                 return new JSONString(getText());
             case Integer:
@@ -199,15 +179,12 @@ public class JSONPullParser
      * @return
      * @throws JSONException
      */
-    public String getValueAsText() throws JSONException
-    {
+    public String getValueAsText() throws JSONException {
         if (lastReportedEvent == null)
             next();
 
-        while (lastReportedEvent.getEvent() != JSONEvent.EndJSON)
-        {
-            switch (lastReportedEvent.getEvent())
-            {
+        while (lastReportedEvent.getEvent() != JSONEvent.EndJSON) {
+            switch (lastReportedEvent.getEvent()) {
             case String:
             case Integer:
             case Double:
@@ -226,13 +203,11 @@ public class JSONPullParser
 
     }
 
-    private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException
-    {
-        while (true)
-        {
+    private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth)
+            throws JSONException {
+        while (true) {
             JSONEvent event = next();
-            switch (event)
-            {
+            switch (event) {
             case StartObject:
                 jsonObject.put(getKeyName(), readJSONObject(new JSONObject(), getDepth()));
                 break;
@@ -260,13 +235,10 @@ public class JSONPullParser
         }
     }
 
-    private JSONArray readJSONArray(JSONArray jsonArray, int baseArrayDepth) throws JSONException
-    {
-        while (true)
-        {
+    private JSONArray readJSONArray(JSONArray jsonArray, int baseArrayDepth) throws JSONException {
+        while (true) {
             JSONEvent event = next();
-            switch (event)
-            {
+            switch (event) {
             case StartObject:
                 jsonArray.add(readJSONObject(new JSONObject(), getDepth()));
                 break;
@@ -302,13 +274,10 @@ public class JSONPullParser
      * @throws JSONException
      *             when some syntax error is found.
      */
-    public JSONEvent next() throws JSONException
-    {
+    public JSONEvent next() throws JSONException {
         Token token;
-        while ((token = _lexer.nextToken()) != Token.EOF_TOKEN)
-        {
-            if (getCurrentParseState() == ParseState.KeyedValue)
-            {
+        while ((token = _lexer.nextToken()) != Token.EOF_TOKEN) {
+            if (getCurrentParseState() == ParseState.KeyedValue) {
                 keyStack.removeLast();
                 popParseState();
                 if (getCurrentParseState() == ParseState.Key)
@@ -319,8 +288,7 @@ public class JSONPullParser
 
             int tokenType = token.getType();
 
-            switch (tokenType)
-            {
+            switch (tokenType) {
             case JSONLexer.LBrace:
                 valueWithKeyTest();
                 currentDepth++;
@@ -351,11 +319,10 @@ public class JSONPullParser
                 // keyed value
                 continue;
             case JSONLexer.String:
-                if (getCurrentParseState() == ParseState.InObject)
-                {
+                if (getCurrentParseState() == ParseState.InObject) {
                     // key
                     pushParseState(ParseState.Key);
-                    keyStack.addLast(removeDoubleQuotation(token.getText()));
+                    keyStack.addLast(unescapeString(token.getText()));
                     continue;
                 }
                 valueWithKeyTest();
@@ -379,8 +346,7 @@ public class JSONPullParser
         return JSONEvent.EndJSON;
     }
 
-    protected JSONEvent reportEvent(Token token, JSONEvent e)
-    {
+    protected JSONEvent reportEvent(Token token, JSONEvent e) {
         lastReportedEvent = new JSONPullParserEvent(token, e);
         return lastReportedEvent.getEvent();
     }
@@ -392,29 +358,44 @@ public class JSONPullParser
      *         or object.
      * @throws JSONException
      */
-    public String getKeyName() throws JSONException
-    {
+    public String getKeyName() throws JSONException {
         if (keyStack.isEmpty())
             return null;
         else
             return keyStack.getLast();
     }
 
-    public String getText()
-    {
+    public String getText() {
         if (lastReportedEvent.getEvent() == JSONEvent.String)
-            return removeDoubleQuotation(lastReportedEvent.getToken().getText());
+            return unescapeString(lastReportedEvent.getToken().getText());
         else
             return lastReportedEvent.getToken().getText();
     }
 
-    private static String removeDoubleQuotation(String text)
-    {
-        return text.substring(1, text.length() - 1);
+    private static String unescapeString(String text) {
+        if (text == null)
+            return null;
+
+        int i = 0;
+        int len = text.length();
+        if (text.charAt(i) == '"') {
+            i++;
+            len -= 1;
+        }
+        StringBuilder buf = new StringBuilder(len);
+        for (; i < len; ++i) {
+            char c = text.charAt(i);
+            if (c == '\\' && i + 1 < len) {
+                buf.append(text.charAt(i + 1));
+                i++;
+            }
+            else
+                buf.append(c);
+        }
+        return buf.toString();
     }
 
-    public int getDepth()
-    {
+    public int getDepth() {
         return currentDepth;
     }
 
@@ -426,34 +407,28 @@ public class JSONPullParser
  * @author leo
  * 
  */
-class JSONPullParserEvent
-{
+class JSONPullParserEvent {
     private Token t;
     private JSONEvent event;
 
-    public JSONPullParserEvent(Token t, JSONEvent event)
-    {
+    public JSONPullParserEvent(Token t, JSONEvent event) {
         this.t = t;
         this.event = event;
     }
 
-    public Token getToken()
-    {
+    public Token getToken() {
         return t;
     }
 
-    public void setToken(Token t)
-    {
+    public void setToken(Token t) {
         this.t = t;
     }
 
-    public JSONEvent getEvent()
-    {
+    public JSONEvent getEvent() {
         return event;
     }
 
-    public void setEvent(JSONEvent event)
-    {
+    public void setEvent(JSONEvent event) {
         this.event = event;
     }
 }
