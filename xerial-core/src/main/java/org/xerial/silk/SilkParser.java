@@ -390,16 +390,22 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             // When the text data is JSON, traverses the JSON data 
             if (textValue.isJSON()) {
 
-                SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
-                if (jsonValue.isObject()) {
-                    visit(nodeName, null);
-                    JSONObject jsonObj = new JSONObject(jsonValue.getValue());
-                    walkJSONObject(jsonObj);
+                String type = node.getDataType();
+                if (type != null && type.equals("json")) {
+                    SilkJSONValue jsonValue = SilkJSONValue.class.cast(textValue);
+                    if (jsonValue.isObject()) {
+                        visit(nodeName, null);
+                        JSONObject jsonObj = new JSONObject(jsonValue.getValue());
+                        walkJSONObject(jsonObj);
+                    }
+                    else {
+                        currentContext.isOpen = false;
+                        JSONArray jsonArray = new JSONArray(jsonValue.getValue());
+                        walkJSONAray(jsonArray, nodeName);
+                    }
                 }
                 else {
-                    currentContext.isOpen = false;
-                    JSONArray jsonArray = new JSONArray(jsonValue.getValue());
-                    walkJSONAray(jsonArray, nodeName);
+                    visit(nodeName, textValue.toString());
                 }
             }
             else if (textValue.isFunction()) {

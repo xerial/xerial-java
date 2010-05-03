@@ -1,0 +1,36 @@
+-title: query scope 
+
+-section: table
+--code
+table schema: R(A, B, C, D)
+query:
+ select * from R
+--
+
+-setion: tree
+--code
+%schema: A(B(C, D, _)*)
+
+
+-A(id:1)
+ -B(id:1)
+  -C
+  -D
+  -E: ...
+  -F: ...
+ -B(id:2)
+  -C
+  -D
+  -G: ...
+
+input data := R(A, S)
+
+
+-section: graph
+--code
+
+--
+
+
+
+--

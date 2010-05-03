@@ -386,7 +386,35 @@ public class JSONPullParser {
         for (; i < len; ++i) {
             char c = text.charAt(i);
             if (c == '\\' && i + 1 < len) {
-                buf.append(text.charAt(i + 1));
+                char escapeChar = text.charAt(i + 1);
+                switch (escapeChar) {
+                case '\\':
+                    buf.append('\\');
+                    break;
+                case 'b':
+                    buf.append('\b');
+                    break;
+                case 'f':
+                    buf.append('\f');
+                    break;
+                case 'n':
+                    buf.append('\n');
+                    break;
+                case 'r':
+                    buf.append('\r');
+                    break;
+                case 't':
+                    buf.append('\t');
+                    break;
+                case 'u':
+                    if (i + 4 < len) {
+                        String hex = text.substring(i + 1, i + 5);
+                        int code = Integer.parseInt(hex, 16);
+                        buf.append((char) code);
+                        i += 3;
+                    }
+                    break;
+                }
                 i++;
             }
             else

@@ -121,4 +121,16 @@ public enum FileType {
 
     }
 
+    /**
+     * Replace file extension
+     * 
+     * @param filePath
+     * @param newExt
+     * @return
+     */
+    public static String replaceFileExt(String filePath, String newExt) {
+        String fileNameWithoutExt = removeFileExt(filePath);
+        return fileNameWithoutExt + "." + newExt;
+    }
+
 }
