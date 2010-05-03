@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.util;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -425,6 +426,34 @@ public class FileResource {
         URL url = find(basePackage, resourceFileName);
         if (url != null) {
             return new BufferedReader(new InputStreamReader(url.openStream()));
+        }
+        else
+            return null;
+    }
+
+    public static BufferedInputStream openByteStream(Class< ? > referenceClass,
+            String resourceFileName) throws IOException {
+        URL url = find(referenceClass, resourceFileName);
+        if (url != null) {
+            return new BufferedInputStream(url.openStream());
+        }
+        else
+            return null;
+    }
+
+    /**
+     * Open the resource using BufferedInputStream
+     * 
+     * @param basePackage
+     * @param resourceFileName
+     * @return
+     * @throws IOException
+     */
+    public static BufferedInputStream openByteStream(Package basePackage, String resourceFileName)
+            throws IOException {
+        URL url = find(basePackage, resourceFileName);
+        if (url != null) {
+            return new BufferedInputStream(url.openStream());
         }
         else
             return null;
