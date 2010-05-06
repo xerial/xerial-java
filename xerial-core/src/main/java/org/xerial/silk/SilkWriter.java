@@ -94,6 +94,9 @@ public class SilkWriter {
         public boolean insertSpaceAfterAttributeColon = false;
         public boolean insertTabAfterAttributeColon = false;
 
+        // newline
+        public boolean insertNewlineBetweenRootNodes = true;
+
         // preamble
         public boolean insertSpaceAfterPreambleSymbol = false;
 
@@ -264,12 +267,18 @@ public class SilkWriter {
         return this;
     }
 
-    private void printIndent() {
+    /**
+     * print indent and returns the indentation level
+     * 
+     * @return indentation level
+     */
+    private int printIndent() {
         final int indentLevel = levelOffset;
         for (int i = 0; i < indentLevel; ++i) {
             for (int w = 0; w < formatConfig.indentWidth; ++w)
                 out.append(" ");
         }
+        return levelOffset;
     }
 
     private void invalidateChildWriters() {
@@ -343,8 +352,10 @@ public class SilkWriter {
         usabilityCheck();
         attributeParenCloseCheck(true);
 
-        return createNewChildWriter(nodeName, "-");
+        return createNewChildWriter(nodeName, NODE_INDICATOR);
     }
+
+    private final static String NODE_INDICATOR = "-";
 
     private SilkWriter createNewChildWriter(String nodeName, String nodeIndicator) {
         printNodeName(nodeName, nodeIndicator);
@@ -435,8 +446,10 @@ public class SilkWriter {
 
         attributeParenCloseCheck(true);
 
-        printIndent();
-        out.print("-");
+        int indentLevel = printIndent();
+        if (indentLevel == 0 && !isFirstLine && formatConfig.insertNewlineBetweenRootNodes)
+            out.println();
+        out.print(NODE_INDICATOR);
         out.print(nodeName);
 
         if (nodeValue != null)
@@ -606,6 +619,10 @@ public class SilkWriter {
             attribute(leafNodeName, value);
         else
             leaf(leafNodeName, value);
+    }
+
+    public <Value> SilkWriter outputAsSilk(Value obj) {
+        return toSilk(obj);
     }
 
     public SilkWriter toSilk(Object obj) {
