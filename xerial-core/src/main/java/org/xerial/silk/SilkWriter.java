@@ -94,9 +94,6 @@ public class SilkWriter {
         public boolean insertSpaceAfterAttributeColon = false;
         public boolean insertTabAfterAttributeColon = false;
 
-        // newline
-        public boolean insertNewlineBetweenRootNodes = true;
-
         // preamble
         public boolean insertSpaceAfterPreambleSymbol = false;
 
@@ -365,10 +362,10 @@ public class SilkWriter {
     }
 
     private void printNodeName(String nodeName, String nodeIndicator) {
-        printIndent();
+
+        int indentLevel = printIndent();
         out.print(nodeIndicator);
-        if (nodeName != null)
-            out.print(nodeName);
+        out.print(nodeName);
     }
 
     public SilkWriter tabDataSchema(String nodeName) {
@@ -399,6 +396,16 @@ public class SilkWriter {
      */
     private void registChildWriter(SilkWriter childWriter) {
         childWriterSet.add(childWriter);
+    }
+
+    /**
+     * Insert a new line
+     * 
+     * @return
+     */
+    public SilkWriter newline() {
+        out.println();
+        return this;
     }
 
     public SilkWriter attribute(String nodeName) {
@@ -446,11 +453,7 @@ public class SilkWriter {
 
         attributeParenCloseCheck(true);
 
-        int indentLevel = printIndent();
-        if (indentLevel == 0 && !isFirstLine && formatConfig.insertNewlineBetweenRootNodes)
-            out.println();
-        out.print(NODE_INDICATOR);
-        out.print(nodeName);
+        printNodeName(nodeName, NODE_INDICATOR);
 
         if (nodeValue != null)
             colonAndNodeValue(convertToString(nodeValue));
@@ -621,10 +624,12 @@ public class SilkWriter {
             leaf(leafNodeName, value);
     }
 
-    public <Value> SilkWriter outputAsSilk(Value obj) {
-        return toSilk(obj);
-    }
-
+    /**
+     * output the input object in Silk format
+     * 
+     * @param obj
+     * @return
+     */
     public SilkWriter toSilk(Object obj) {
 
         if (obj == null)
