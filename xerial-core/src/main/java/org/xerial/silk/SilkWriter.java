@@ -511,8 +511,9 @@ public class SilkWriter {
                 out.print(" ");
             if (formatConfig.insertTabAfterColon)
                 out.print("\t");
-            if ((nodeValue.length() > 0 && StringUtil.isWhiteSpace(nodeValue.substring(0, 1)))
-                    || StringUtil.isWhiteSpace(nodeValue.substring(nodeValue.length() - 1))) {
+            if (nodeValue.length() > 0
+                    && (StringUtil.isWhiteSpace(nodeValue.substring(0, 1)) || StringUtil
+                            .isWhiteSpace(nodeValue.substring(nodeValue.length() - 1)))) {
                 // preserve white spaces
                 out.print("\"");
                 out.print(nodeValue);
