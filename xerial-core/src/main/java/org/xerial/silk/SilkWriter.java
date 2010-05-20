@@ -511,7 +511,7 @@ public class SilkWriter {
                 out.print(" ");
             if (formatConfig.insertTabAfterColon)
                 out.print("\t");
-            if (StringUtil.isWhiteSpace(nodeValue.substring(0, 1))
+            if ((nodeValue.length() > 0 && StringUtil.isWhiteSpace(nodeValue.substring(0, 1)))
                     || StringUtil.isWhiteSpace(nodeValue.substring(nodeValue.length() - 1))) {
                 // preserve white spaces
                 out.print("\"");
@@ -597,6 +597,17 @@ public class SilkWriter {
             return value.toString();
     }
 
+    /**
+     * Output the input value (object) in Silk format undert the specified node
+     * name
+     * 
+     * @param <Value>
+     * @param leafNodeName
+     *            node name
+     * @param v
+     *            object to convert into Silk
+     * @return
+     */
     public <Value> SilkWriter leafObject(String leafNodeName, Value v) {
         if (v == null)
             return this;
