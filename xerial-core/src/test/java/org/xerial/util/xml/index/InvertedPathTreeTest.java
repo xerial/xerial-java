@@ -30,53 +30,36 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import junit.framework.TestCase;
+
 import org.xerial.core.XerialException;
 import org.xerial.util.io.NullOutputStream;
 import org.xerial.util.xml.XMLAttribute;
 import org.xerial.util.xml.XMLException;
 import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.index.InvertedPathTree;
 
-import junit.framework.TestCase;
-
-public class InvertedPathTreeTest extends TestCase
-{
-    public void testInvertedPathTree() throws IOException, XMLException, XerialException
-    {
-        // XMLï∂èëÇÃèÄîı
+public class InvertedPathTreeTest extends TestCase {
+    public void testInvertedPathTree() throws IOException, XMLException, XerialException {
+        // prepare XML data
         StringWriter xmlWriter = new StringWriter();
         XMLGenerator xout = new XMLGenerator(xmlWriter);
         xout.startTag("booklist");
-        xout.startTag("book", new XMLAttribute().add("isbn", "20424142342")).
-            startTag("author").
-                element("first-name", "Peter").
-                element("last-name", "Buneman").
-            endTag().
-            element("author", new XMLAttribute().add("id", "3214"), "leoleo").
-            element("year", "2005").
-            startTag("publisher").
-                element("name", "Morgan-Kaufmann").
-            endTag().
-        endTag();
-        xout.startTag("book").
-            startTag("authors").
-                startTag("author").element("id", "4234").text("taro").endTag().
-                element("author", "yui").
-            endTag().
-        endTag();   
-        
+        xout.startTag("book", new XMLAttribute().add("isbn", "20424142342")).startTag("author")
+                .element("first-name", "Peter").element("last-name", "Buneman").endTag().element(
+                        "author", new XMLAttribute().add("id", "3214"), "leoleo").element("year",
+                        "2005").startTag("publisher").element("name", "Morgan-Kaufmann").endTag()
+                .endTag();
+        xout.startTag("book").startTag("authors").startTag("author").element("id", "4234").text(
+                "taro").endTag().element("author", "yui").endTag().endTag();
+
         xout.endTag();
         xout.endDocument();
         xout.flush();
-        
+
         Reader xmlSource = new BufferedReader(new StringReader(xmlWriter.getBuffer().toString()));
-        
+
         InvertedPathTree ipt = new InvertedPathTree();
         ipt.generateFrom(xmlSource);
         ipt.outputGraphviz(new NullOutputStream());
     }
 }
-
-
-
-
