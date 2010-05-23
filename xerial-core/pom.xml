@@ -2,14 +2,14 @@
   <parent>
     <artifactId>xerial-project</artifactId>
     <groupId>org.xerial</groupId>
-    <version>1.1</version>
+    <version>1.2.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.0.28-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
   <description>Core library of the Xerial project.</description>
 
 
@@ -99,7 +99,7 @@
         <configuration>
           <!--  do not run site-deploy goal, included in the default settings  -->
           <goals>deploy</goals>
-          <connectionUrl>scm:hg:https://core.xerial.googlecode.com/hg/</connectionUrl>
+          <connectionUrl>scm:hg:https://xerial.googlecode.com/hg/</connectionUrl>
         </configuration>
       </plugin>
       
