@@ -20,6 +20,11 @@
     <module>xerial-core</module>
   </modules>
 
+  <scm>
+    <connection>scm:hg:https://xerial.googlecode.com/hg/</connection>
+    <developerConnection>scm:hg:default</developerConnection>
+  </scm>
+
   <url>http://www.xerial.org/</url>
 
   <dependencies>
