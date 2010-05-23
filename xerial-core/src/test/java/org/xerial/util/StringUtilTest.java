@@ -17,7 +17,7 @@
 // XerialJ Project
 //
 // StringUtilTest.java
-// Since: 2007/03/27
+// Since: 2007/03/27 
 //
 // $URL: http://dev.utgenome.org/svn/utgb/trunk/common/test/org/utgenome/util/StringUtilTest.java $ 
 // $Author: leo $
