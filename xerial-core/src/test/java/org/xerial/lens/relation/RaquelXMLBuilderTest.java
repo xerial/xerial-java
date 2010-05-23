@@ -24,20 +24,24 @@
 //--------------------------------------
 package org.xerial.lens.relation;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.cui.XerialMain;
 import org.xerial.util.FileResource;
+import org.xerial.util.log.LogLevel;
+import org.xerial.util.log.Logger;
 
 public class RaquelXMLBuilderTest {
 
     @Before
     public void setUp() throws Exception {}
 
-    @After
-    public void tearDown() throws Exception {}
+    @AfterClass
+    public static void resetLogLevel() throws Exception {
+        Logger.getRootLogger().setLogLevel(LogLevel.INFO);
+    }
 
     @Test
     public void purifyHelp() throws Exception {
