@@ -140,7 +140,7 @@ public class JDBCLensTest {
         assertEquals(1, r.size());
 
         DataTypes d = r.get(0);
-        assertEquals(0.344, d.d);
+        assertEquals(0.344d, d.d, 0.01);
         assertEquals(true, d.flag);
         assertEquals(today, d.time);
     }

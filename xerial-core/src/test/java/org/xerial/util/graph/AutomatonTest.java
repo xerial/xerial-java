@@ -33,21 +33,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.log.Logger;
 
-public class AutomatonTest
-{
+public class AutomatonTest {
     private static Logger _logger = Logger.getLogger(AutomatonTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void cursor()
-    {
+    public void cursor() {
         Automaton<Integer, String> automaton = new Automaton<Integer, String>();
 
         /*
@@ -83,7 +79,7 @@ public class AutomatonTest
 
         AutomatonCursor<Integer, String> cursor = automaton.cursor(1);
 
-        assertEquals(1, cursor.getState());
+        assertEquals(1, cursor.getState().intValue());
         assertTrue(!cursor.isTerminal());
         assertTrue(!cursor.canAcceptAnySymbol());
         assertTrue(cursor.canAccept("A"));
@@ -96,7 +92,7 @@ public class AutomatonTest
 
         cursor.transit("A");
 
-        assertEquals(2, cursor.getState());
+        assertEquals(2, cursor.getState().intValue());
         assertTrue(!cursor.isTerminal());
         assertTrue(!cursor.canAcceptAnySymbol());
         assertTrue(cursor.canAccept("D"));
@@ -106,17 +102,17 @@ public class AutomatonTest
         assertTrue(cursor.getAcceptableSymbolSet().contains("D"));
 
         cursor.transit("D");
-        assertEquals(4, cursor.getState());
+        assertEquals(4, cursor.getState().intValue());
         assertTrue(cursor.isTerminal());
         assertTrue(!cursor.canAcceptAnySymbol());
 
         cursor.reset(1);
         cursor.transit("B");
-        assertEquals(3, cursor.getState());
+        assertEquals(3, cursor.getState().intValue());
         assertTrue(!cursor.canAcceptAnySymbol());
 
         cursor.transit("C");
-        assertEquals(4, cursor.getState());
+        assertEquals(4, cursor.getState().intValue());
         assertTrue(!cursor.canAcceptAnySymbol());
 
         cursor.reset(5);
@@ -128,12 +124,12 @@ public class AutomatonTest
         assertTrue(cursor.canAccept(null));
 
         cursor.transit("something");
-        assertEquals(6, cursor.getState());
+        assertEquals(6, cursor.getState().intValue());
 
         cursor.transit("A");
-        assertEquals(6, cursor.getState());
+        assertEquals(6, cursor.getState().intValue());
         cursor.transit("A");
-        assertEquals(6, cursor.getState());
+        assertEquals(6, cursor.getState().intValue());
 
         _logger.debug(automaton.toString());
         _logger.debug(automaton.toGraphviz());

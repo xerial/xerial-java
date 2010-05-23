@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.lens.relation.index;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -49,12 +49,12 @@ public class ZValueTest {
         long z2 = ZValue.interleave(24, 50);
 
         Pair<Integer, Integer> xy = ZValue.getPoint(z1);
-        assertEquals(xy.getFirst(), 10);
-        assertEquals(xy.getSecond(), 30);
+        assertEquals(xy.getFirst().intValue(), 10);
+        assertEquals(xy.getSecond().intValue(), 30);
 
         xy = ZValue.getPoint(z2);
-        assertEquals(xy.getFirst(), 24);
-        assertEquals(xy.getSecond(), 50);
+        assertEquals(xy.getFirst().intValue(), 24);
+        assertEquals(xy.getSecond().intValue(), 50);
 
     }
 

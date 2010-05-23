@@ -186,7 +186,7 @@ public class ObjectLensTest {
 
         Object id = lens.getParameter(p, "id");
         assertNotNull(id);
-        assertEquals(p.id, Integer.class.cast(id));
+        assertEquals(p.id, Integer.class.cast(id).intValue());
         Object name = lens.getParameter(p, "name");
         assertNotNull(name);
         assertEquals(p.name, String.class.cast(name));

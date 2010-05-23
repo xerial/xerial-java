@@ -49,21 +49,21 @@ public class PrefixTreeTest {
 
     @Test
     public void prefix() throws Exception {
-        assertEquals(1, t.findBy("com"));
-        assertEquals(1, t.findBy("comm"));
-        assertEquals(1, t.findBy("commi"));
-        assertEquals(1, t.findBy("commit"));
-        assertEquals(5, t.findBy("con"));
-        assertEquals(5, t.findBy("conf"));
-        assertEquals(5, t.findBy("confi"));
-        assertEquals(5, t.findBy("config"));
+        assertEquals(1, t.findBy("com").intValue());
+        assertEquals(1, t.findBy("comm").intValue());
+        assertEquals(1, t.findBy("commi").intValue());
+        assertEquals(1, t.findBy("commit").intValue());
+        assertEquals(5, t.findBy("con").intValue());
+        assertEquals(5, t.findBy("conf").intValue());
+        assertEquals(5, t.findBy("confi").intValue());
+        assertEquals(5, t.findBy("config").intValue());
 
         // prefer the first entry among the same prefix ones
-        assertEquals(1, t.findBy("co"));
+        assertEquals(1, t.findBy("co").intValue());
 
-        assertEquals(2, t.findBy("up"));
-        assertEquals(3, t.findBy("ch"));
-        assertEquals(4, t.findBy("l"));
+        assertEquals(2, t.findBy("up").intValue());
+        assertEquals(3, t.findBy("ch").intValue());
+        assertEquals(4, t.findBy("l").intValue());
 
     }
 

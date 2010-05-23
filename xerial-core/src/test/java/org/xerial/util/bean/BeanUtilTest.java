@@ -24,7 +24,10 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -196,7 +199,7 @@ public class BeanUtilTest {
     public void doNotUsePrivateSetter() throws JSONException, XerialException, IOException {
         PrivateGetterSetter p = new PrivateGetterSetter(0.0);
         BeanUtil.populateBeanWithJSON(p, "{\"value\" : 1.34}");
-        assertEquals(0.0, p.getValue());
+        assertEquals(0.0, p.getValue(), 0.01);
     }
 
     @Test
@@ -291,7 +294,7 @@ public class BeanUtilTest {
         assertEquals(ans.length, p2.getValueList().size());
         int index = 0;
         for (int v : ans) {
-            assertEquals(v, p2.getValueList().get(index++));
+            assertEquals(v, p2.getValueList().get(index++).intValue());
         }
 
     }
