@@ -198,6 +198,8 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 break;
             case COMMENT_LINE:
                 break;
+            case MULTILINE_SEPARATOR:
+                break;
             case UNKNOWN:
             default:
                 _logger.warn(String.format("unknown event type (line=%d): %s", numReadLine, event));
