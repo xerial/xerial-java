@@ -38,11 +38,10 @@ import org.xmlpull.v1.XmlPullParser;
  * @author leo
  * 
  */
-public class IntervalIndexer extends AbstractSAXEventHandler
-{
+public class IntervalIndexer extends AbstractSAXEventHandler {
     private final static String EMPTY_STRING = "";
 
-    Deque<Pair<Integer, String>> _startOrderStack; // (start, text data) ‚ÌƒXƒ^ƒbƒN
+    Deque<Pair<Integer, String>> _startOrderStack; // (start, text data) ï¿½Ìƒstack
     int _currentDepth = 0;
     int _startOrder = 0;
     LWIndexWriter _writer;
@@ -50,8 +49,7 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     int STARTORDER_INCREMENT = 1;
     int MINIMUM_INTERAVAL = 1;
 
-    public class LWIndex implements XMLNode
-    {
+    public class LWIndex implements XMLNode {
         int start;
         int end;
         int level;
@@ -61,40 +59,34 @@ public class IntervalIndexer extends AbstractSAXEventHandler
          * @param level
          * @param start
          */
-        public LWIndex(int start, int end, int level)
-        {
+        public LWIndex(int start, int end, int level) {
             this.start = start;
             this.end = end;
             this.level = level;
         }
 
-        public String outputAsTabDelimited()
-        {
+        public String outputAsTabDelimited() {
             return StringUtil.concatinateWithTab(start, end, level);
         }
     }
 
-    public IntervalIndexer(LWIndexWriter writer)
-    {
+    public IntervalIndexer(LWIndexWriter writer) {
         _writer = writer;
     }
 
     @Override
-    public void endDocument(XmlPullParser parser) throws XMLException
-    {
+    public void endDocument(XmlPullParser parser) throws XMLException {
         // tear down
         popStack(parser);
     }
 
     @Override
-    public void endTag(XmlPullParser parser) throws XMLException
-    {
+    public void endTag(XmlPullParser parser) throws XMLException {
         popStack(parser);
     }
 
     @Override
-    public void startDocument(XmlPullParser parser) throws XMLException
-    {
+    public void startDocument(XmlPullParser parser) throws XMLException {
         // initialize 
         _startOrderStack = new ArrayDeque<Pair<Integer, String>>();
         _startOrder = 0;
@@ -103,35 +95,31 @@ public class IntervalIndexer extends AbstractSAXEventHandler
     }
 
     @Override
-    public void startTag(XmlPullParser parser) throws XMLException
-    {
+    public void startTag(XmlPullParser parser) throws XMLException {
         pushStack();
     }
 
     @Override
-    public void text(XmlPullParser parser) throws XMLException
-    {
+    public void text(XmlPullParser parser) throws XMLException {
         Pair<Integer, String> currentNode = _startOrderStack.removeLast();
         String text = parser.getText();
-        _startOrderStack.addLast(new Pair<Integer, String>(currentNode.getFirst(),
-                currentNode.getSecond() == null ? text : currentNode.getSecond() + text));
+        _startOrderStack.addLast(new Pair<Integer, String>(currentNode.getFirst(), currentNode
+                .getSecond() == null ? text : currentNode.getSecond() + text));
     }
 
-    private void pushStack()
-    {
+    private void pushStack() {
         _startOrderStack.addLast(new Pair<Integer, String>(_startOrder, EMPTY_STRING));
         _startOrder += STARTORDER_INCREMENT;
         _currentDepth++;
     }
 
-    private void popStack(XmlPullParser parser)
-    {
+    private void popStack(XmlPullParser parser) {
         int endOrder = _startOrder + MINIMUM_INTERAVAL;
 
         Pair<Integer, String> currentNode = _startOrderStack.removeLast();
         // output node data
-        _writer.write(new LWIndex(currentNode.getFirst(), endOrder, _currentDepth), parser.getName(), currentNode
-                .getSecond());
+        _writer.write(new LWIndex(currentNode.getFirst(), endOrder, _currentDepth), parser
+                .getName(), currentNode.getSecond());
 
         _startOrder = endOrder + STARTORDER_INCREMENT;
         _currentDepth--;

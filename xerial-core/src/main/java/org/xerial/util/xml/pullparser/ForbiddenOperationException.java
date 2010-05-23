@@ -28,24 +28,21 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * ParserStatusクラスで、next()など、parserのstatusを変更するメソッドを呼び出したときに発生させる例外 
+ * 
  * @author leo
- *
+ * 
  */
-public class ForbiddenOperationException extends XmlPullParserException
-{
+public class ForbiddenOperationException extends XmlPullParserException {
     /**
      * 
      */
     private static final long serialVersionUID = 7635782318856182760L;
 
-    public ForbiddenOperationException(String arg0)
-    {
+    public ForbiddenOperationException(String arg0) {
         super(arg0);
-     }
+    }
 
-    public ForbiddenOperationException(String arg0, XmlPullParser arg1, Throwable arg2)
-    {
+    public ForbiddenOperationException(String arg0, XmlPullParser arg1, Throwable arg2) {
         super(arg0, arg1, arg2);
     }
 

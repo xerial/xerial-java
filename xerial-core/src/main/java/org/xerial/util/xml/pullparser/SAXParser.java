@@ -46,27 +46,25 @@ import org.xmlpull.v1.XmlPullParserException;
  * Imitate the behaviour of the SAX handler using XML pull parser.
  * 
  * To change the parser state (e.g. by using next(), etc.), you have to set
- * keepParserStatusStableWhileHandlingSAXEventsÅ@to false (the default is true,
- * i.e. users cannot change the parser state. No next() invocation is allowed. )
+ * {@link #keepParserStatusStableWhileHandlingSAXEvents} to false (the default
+ * is true, i.e. users cannot change the parser state. No next() invocation is
+ * allowed. )
  * 
  * @author leo
  * 
  */
-public class SAXParser
-{
+public class SAXParser {
     private Vector<SAXEventHandler> _handlerList = new Vector<SAXEventHandler>();
     private boolean _keepParserStatusStableWhileHandlingSAXEvents = true;
 
     /**
      * 
      */
-    public SAXParser(SAXEventHandler handler)
-    {
+    public SAXParser(SAXEventHandler handler) {
         this(handler, true);
     }
 
-    public SAXParser(SAXEventHandler handler, boolean keepParserStatusStableWhileHandlingSAXEvents)
-    {
+    public SAXParser(SAXEventHandler handler, boolean keepParserStatusStableWhileHandlingSAXEvents) {
         _handlerList.add(handler);
         _keepParserStatusStableWhileHandlingSAXEvents = keepParserStatusStableWhileHandlingSAXEvents;
     }
@@ -77,33 +75,28 @@ public class SAXParser
      * @param handlerList
      *            a list of SAX handlers
      */
-    public SAXParser(List<SAXEventHandler> handlerList, boolean keepParserStatusStableWhileHandlingSaxEvents)
-    {
-        for (SAXEventHandler handler : handlerList)
-        {
+    public SAXParser(List<SAXEventHandler> handlerList,
+            boolean keepParserStatusStableWhileHandlingSaxEvents) {
+        for (SAXEventHandler handler : handlerList) {
             _handlerList.add(handler);
         }
         _keepParserStatusStableWhileHandlingSAXEvents = keepParserStatusStableWhileHandlingSaxEvents;
     }
 
-    public SAXParser(List<SAXEventHandler> handlerList)
-    {
+    public SAXParser(List<SAXEventHandler> handlerList) {
         this(handlerList, true);
     }
 
-    public void addHandler(SAXEventHandler handler)
-    {
+    public void addHandler(SAXEventHandler handler) {
         this.addHandler(handler);
     }
 
-    public void removeHandler(SAXEventHandler handler)
-    {
+    public void removeHandler(SAXEventHandler handler) {
         int handlerIndex = _handlerList.indexOf(handler);
         this.removeHandler(handlerIndex);
     }
 
-    public void removeHandler(int handlerIndex)
-    {
+    public void removeHandler(int handlerIndex) {
         if (handlerIndex != -1 && handlerIndex < _handlerList.size())
             _handlerList.remove(handlerIndex);
     }
@@ -120,8 +113,7 @@ public class SAXParser
      * @throws XMLException
      *             when reading invalid XML data
      */
-    public void parse(String xmlFileName) throws IOException, XMLException
-    {
+    public void parse(String xmlFileName) throws IOException, XMLException {
         Reader reader = new BufferedReader(new FileReader(xmlFileName));
         parse(reader);
         reader.close();
@@ -142,8 +134,7 @@ public class SAXParser
      *             invalid XML data format
      * 
      */
-    public void parse(Reader xmlInputSource) throws IOException, XMLException
-    {
+    public void parse(Reader xmlInputSource) throws IOException, XMLException {
         XmlPullParser parser = PullParserUtil.newParser(xmlInputSource);
         this.parse(parser);
     }
@@ -158,24 +149,20 @@ public class SAXParser
      *             when invalid XML data is given
      * 
      */
-    public void parse(XmlPullParser p) throws IOException, XMLException
-    {
-        XmlPullParser parser = _keepParserStatusStableWhileHandlingSAXEvents ? new ParseContext(p) : p;
+    public void parse(XmlPullParser p) throws IOException, XMLException {
+        XmlPullParser parser = _keepParserStatusStableWhileHandlingSAXEvents ? new ParseContext(p)
+                : p;
 
-        try
-        {
-            if (p.getEventType() == START_DOCUMENT)
-            {
+        try {
+            if (p.getEventType() == START_DOCUMENT) {
                 for (SAXEventHandler handler : _handlerList)
                     handler.startDocument(parser);
             }
 
             int state;
-            while ((state = p.next()) != END_DOCUMENT)
-            {
+            while ((state = p.next()) != END_DOCUMENT) {
                 //int handlerIndex = 0;
-                switch (state)
-                {
+                switch (state) {
                 case START_TAG:
                     for (SAXEventHandler handler : _handlerList)
                         handler.startTag(parser);
@@ -193,8 +180,7 @@ public class SAXParser
             for (SAXEventHandler handler : _handlerList)
                 handler.endDocument(parser);
         }
-        catch (XmlPullParserException e)
-        {
+        catch (XmlPullParserException e) {
             throw new XMLException(XMLErrorCode.PARSE_ERROR, e);
         }
 

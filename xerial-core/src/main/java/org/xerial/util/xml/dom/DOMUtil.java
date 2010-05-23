@@ -56,20 +56,17 @@ import org.xml.sax.SAXException;
  * @author leo
  * 
  */
-public class DOMUtil
-{
-    private DOMUtil()
-    {}
+public class DOMUtil {
+    private DOMUtil() {}
 
     /**
      * Retrieves text contents under the specified element
      * 
      * @param parentElement
      * @param tagName
-     * @return tagNameÇÃéqÉmÅ[ÉhÇÃtext content
+     * @return text contents under the element
      */
-    static public String getTextContent(Element parentElement, String tagName)
-    {
+    static public String getTextContent(Element parentElement, String tagName) {
         //NodeList tagList = parentElement.getElementsByTagName(tagName);
 
         // TODO impl
@@ -98,18 +95,14 @@ public class DOMUtil
      * @return the text content of the element, or null if no text content is
      *         found under the element
      */
-    static public String getText(Element element)
-    {
+    static public String getText(Element element) {
         NodeList nodeList = element.getChildNodes();
         StringBuilder buf = new StringBuilder();
         int numTextNodes = 0;
-        for (int i = 0; i < nodeList.getLength(); i++)
-        {
+        for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
-            if (node.getNodeType() == Node.TEXT_NODE)
-            {
-                if (!((Text) node).isElementContentWhitespace())
-                {
+            if (node.getNodeType() == Node.TEXT_NODE) {
+                if (!((Text) node).isElementContentWhitespace()) {
                     numTextNodes++;
                     buf.append(node.getNodeValue());
                 }
@@ -118,21 +111,18 @@ public class DOMUtil
         return numTextNodes > 0 ? buf.toString() : null;
     }
 
-    static public HashMap<String, String> getTextContentMap(InputStream xmlStream) throws XMLException, IOException
-    {
-        try
-        {
+    static public HashMap<String, String> getTextContentMap(InputStream xmlStream)
+            throws XMLException, IOException {
+        try {
             DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = docBuilder.parse(xmlStream);
             Element rootElem = doc.getDocumentElement();
             return getTextContentMap(rootElem);
         }
-        catch (ParserConfigurationException e)
-        {
+        catch (ParserConfigurationException e) {
             throw new XMLException(XMLErrorCode.INVALID_PARSER_CONFIGURATION, e);
         }
-        catch (SAXException e)
-        {
+        catch (SAXException e) {
             throw new XMLException(XMLErrorCode.SAX_ERROR, e);
         }
     }
@@ -143,34 +133,28 @@ public class DOMUtil
      * 
      * @return Relative Path Expression -> Text Content HashMap
      */
-    static public HashMap<String, String> getTextContentMap(Element element)
-    {
+    static public HashMap<String, String> getTextContentMap(Element element) {
         //String currentPath = ""; 
         DOMReadProcess readProcess = new DOMReadProcess();
         readProcess.traceSubTree(element);
         return readProcess.getContentMap();
     }
 
-    static class DOMReadProcess
-    {
+    static class DOMReadProcess {
         LinkedList<String> _relativePath = new LinkedList<String>();
         HashMap<String, String> _path2contentMap = new HashMap<String, String>();
 
-        public DOMReadProcess()
-        {}
+        public DOMReadProcess() {}
 
-        public void traceSubTree(Element subtreeRoot)
-        {
+        public void traceSubTree(Element subtreeRoot) {
             String tagName = subtreeRoot.getTagName();
             _relativePath.add(tagName);
 
-            if (subtreeRoot.hasAttributes())
-            {
+            if (subtreeRoot.hasAttributes()) {
                 String currentPath = getCurrentPath();
                 NamedNodeMap attribMap = subtreeRoot.getAttributes();
 
-                for (int i = 0; i < attribMap.getLength(); i++)
-                {
+                for (int i = 0; i < attribMap.getLength(); i++) {
                     Attr attrib = (Attr) attribMap.item(i);
                     String attribPath = currentPath + "/@" + attrib.getName();
                     _path2contentMap.put(attribPath, attrib.getValue());
@@ -179,10 +163,8 @@ public class DOMUtil
 
             StringBuilder contentBuffer = new StringBuilder();
             IterableNodeList childNodes = new IterableNodeList(subtreeRoot.getChildNodes());
-            for (Node node : childNodes)
-            {
-                switch (node.getNodeType())
-                {
+            for (Node node : childNodes) {
+                switch (node.getNodeType()) {
                 case ELEMENT_NODE:
                     traceSubTree((Element) node);
                     break;
@@ -202,16 +184,13 @@ public class DOMUtil
             _relativePath.removeLast();
         }
 
-        public HashMap<String, String> getContentMap()
-        {
+        public HashMap<String, String> getContentMap() {
             return _path2contentMap;
         }
 
-        String getCurrentPath()
-        {
+        String getCurrentPath() {
             StringBuilder pathExprBuilder = new StringBuilder();
-            for (String tag : _relativePath)
-            {
+            for (String tag : _relativePath) {
                 pathExprBuilder.append("/");
                 pathExprBuilder.append(tag);
             }
