@@ -31,77 +31,64 @@ import org.xerial.util.MinMax;
 
 /**
  * This class implements the Extensible Composite Number (ECN).
+ * 
  * @author leo
- *
+ * 
  */
-public class ECN implements Comparable<ECN>
-{
+public class ECN implements Comparable<ECN> {
     private Vector<Character> val = new Vector<Character>();
-    
-    public ECN()
-    {
+
+    public ECN() {
 
     }
-    
-    public ECN(String stringRepresentation)
-    {
+
+    public ECN(String stringRepresentation) {
         String[] composite = stringRepresentation.split("\\.");
-        for(String c : composite)
-        {
+        for (String c : composite) {
             int v = Integer.valueOf(c);
             val.add((char) v);
         }
     }
-    
+
     /**
-     * @param i 8bit’l
+     * @param i
      */
-    public void add(int i)
-    {
-        val.add((char)i);
+    public void add(int i) {
+        val.add((char) i);
     }
 
     /**
-     * ECN‚Ì’l‚ğ”äŠr
+     * compare
+     * 
      * @param other
-     * @return •‰‚È‚çthis‚Ì‚Ù‚¤‚ª¬‚³‚¢B‚O‚È‚ç“™‚µ‚¢B³‚È‚çother‚Ì•û‚ª‘å‚«‚¢
+     * @return
      */
-    public int compareTo(ECN other)
-    {
+    public int compareTo(ECN other) {
         MinMax<Integer> minmax = Algorithm.minmax(this.size(), other.size());
-        for(int i=0; i<minmax.min(); ++i)
-        {
+        for (int i = 0; i < minmax.min(); ++i) {
             int cmp = val.get(i) - other.get(i);
-            if(cmp != 0)
+            if (cmp != 0)
                 return cmp;
         }
-        // c‚è‚ÌƒRƒ“ƒ|ƒWƒbƒg‚ª0ˆÈã‚©‚Ç‚¤‚©’²‚×‚é
         ECN largerECN = this.size() > other.size() ? this : other;
-        for(int i=minmax.min(); i<minmax.max(); ++i)
-        {
+        for (int i = minmax.min(); i < minmax.max(); ++i) {
             int cmp = largerECN.get(i);
-            if(cmp != 0)
+            if (cmp != 0)
                 return cmp;
         }
         return 0;
     }
 
-    /**
-     * ECN‚Ì’·‚³‚ğ•Ô‚·
-     * @return ECN‚Ì’·‚³
-     */
-    public int size() 
-    {
+    public int size() {
         return val.size();
     }
- 
+
     /**
-     * @param index 
-     * @return index‚ÌˆÊ’u‚Ìcomposite‚ğ•Ô‚·
+     * @param index
+     * @return indexï¿½Ìˆ
      */
-    public int get(int index)
-    {
+    public int get(int index) {
         return val.get(index);
     }
-    
+
 }
