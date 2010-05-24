@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
-import org.xerial.lens.relation.lang.XPathExpr;
 import org.xerial.util.log.Logger;
 
 public class XPathExprTest {
@@ -44,7 +43,7 @@ public class XPathExprTest {
 
     public void parse(String expr) throws XerialException {
         XPathExpr e = XPathExpr.parse(expr);
-        _logger.info(String.format("%s:%s", expr, Lens.toSilk(e)));
+        _logger.debug(String.format("%s:%s", expr, Lens.toSilk(e)));
     }
 
     @Test

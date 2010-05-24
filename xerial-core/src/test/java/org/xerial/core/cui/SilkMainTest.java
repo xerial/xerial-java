@@ -25,9 +25,11 @@
 package org.xerial.core.cui;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.core.cui.XerialMain;
+import org.xerial.util.log.LogLevel;
+import org.xerial.util.log.Logger;
 
 public class SilkMainTest {
 
@@ -36,6 +38,11 @@ public class SilkMainTest {
 
     @After
     public void tearDown() throws Exception {}
+
+    @AfterClass
+    public static void reset() throws Exception {
+        Logger.getRootLogger().setLogLevel(LogLevel.INFO);
+    }
 
     @Test
     public void testMain() throws Exception {

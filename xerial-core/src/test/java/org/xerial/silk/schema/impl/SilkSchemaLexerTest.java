@@ -34,27 +34,23 @@ import org.xerial.util.StringUtil;
 import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
-public class SilkSchemaLexerTest
-{
+public class SilkSchemaLexerTest {
 
     private static Logger _logger = Logger.getLogger(SilkSchemaLexerTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void lex() throws Exception
-    {
-        SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(FileResource.open(SilkSchemaLexerTest.class,
-                "../schema.silk")));
+    public void lex() throws Exception {
+        SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(FileResource.open(
+                SilkSchemaLexerTest.class, "../schema.silk")));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        _logger.info(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokens.getTokens(), ANTLRUtil.getTokenTable(
-                SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
+        _logger.debug(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokens.getTokens(), ANTLRUtil
+                .getTokenTable(SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
     }
 }

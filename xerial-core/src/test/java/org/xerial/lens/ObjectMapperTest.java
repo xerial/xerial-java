@@ -335,7 +335,7 @@ public class ObjectMapperTest {
         Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam-sample.silk"), "record",
                 SAMEntry.class, new ObjectHandler<SAMEntry>() {
                     public void handle(SAMEntry input) throws Exception {
-                        _logger.info(Lens.toSilk(input));
+                        _logger.debug(Lens.toSilk(input));
                         for (String each : new String[] { "Nm", "RG", "H1", "MF", "H0" })
                             assertTrue(input.tag.containsKey(each));
                         if (input.qname.equals("read_28701_28881_323b")) {}

@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -82,7 +81,7 @@ public class SilkWriterTest {
         w.endDocument();
 
         String s = buf.toString();
-        _logger.info(s);
+        _logger.debug(s);
 
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
@@ -135,14 +134,14 @@ public class SilkWriterTest {
         w.toSilk(a);
         w.endDocument();
 
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
     @Test
     public void tupleIndex() throws Exception {
         TupleIndex i = new TupleIndex(1);
         String s = Lens.toSilk(i);
-        _logger.info(s);
+        _logger.debug(s);
     }
 
     @Test
@@ -151,7 +150,7 @@ public class SilkWriterTest {
         input.add("hello");
         input.add("world");
         String s = Lens.toSilk(input);
-        _logger.info(s);
+        _logger.debug(s);
     }
 
     static class Person {
@@ -226,7 +225,7 @@ public class SilkWriterTest {
         StringWriter buf = new StringWriter();
         SilkWriter w = new SilkWriter(buf);
         w.node("A").node("B");
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
     @Test
@@ -239,7 +238,7 @@ public class SilkWriterTest {
         w.schema("sequence", "name", "length", "offset");
         w.sortInfo("sequence", "offset");
         w.node("A");
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
     }
 
 }
