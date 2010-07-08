@@ -187,7 +187,7 @@ fragment PlainSafeOut: ~(PlainUnsafeChar);
 fragment NonSpaceChar: ~('"'| '\\' | WhiteSpace );
 fragment PlainFirst
 	:  ~('-' | '+' | '?' | PlainUnsafeChar | WhiteSpace | Indicator ) 
-	| { isValue() }? => ('-' | '+' | '*' | (':' | '?') NonSpaceChar)
+	| { isValue() }? => ('-' | '=' | '+' | '*' | (':' | '?') NonSpaceChar)
 	;
 
 PlainOneLine

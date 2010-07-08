@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-05-20 16:12:58
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-07-08 14:56:52
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -151,7 +151,7 @@ public class SilkLineParser extends Parser {
             	case 1 :
             	    // SilkLine.g:232:11: silkLine
             	    {
-            	    pushFollow(FOLLOW_silkLine_in_silkFile866);
+            	    pushFollow(FOLLOW_silkLine_in_silkFile870);
             	    silkLine1=silkLine();
 
             	    state._fsp--;
@@ -276,7 +276,7 @@ public class SilkLineParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_silkNode_in_silkLine887);
+                    pushFollow(FOLLOW_silkNode_in_silkLine891);
                     silkNode2=silkNode();
 
                     state._fsp--;
@@ -290,7 +290,7 @@ public class SilkLineParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    LineComment3=(Token)match(input,LineComment,FOLLOW_LineComment_in_silkLine893); 
+                    LineComment3=(Token)match(input,LineComment,FOLLOW_LineComment_in_silkLine897); 
                     LineComment3_tree = (Object)adaptor.create(LineComment3);
                     adaptor.addChild(root_0, LineComment3_tree);
 
@@ -300,7 +300,7 @@ public class SilkLineParser extends Parser {
                 case 3 :
                     // SilkLine.g:238:4: WhiteSpace
                     {
-                    WhiteSpace4=(Token)match(input,WhiteSpace,FOLLOW_WhiteSpace_in_silkLine898);  
+                    WhiteSpace4=(Token)match(input,WhiteSpace,FOLLOW_WhiteSpace_in_silkLine902);  
                     stream_WhiteSpace.add(WhiteSpace4);
 
 
@@ -456,7 +456,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:246:4: function_i
                     {
-                    pushFollow(FOLLOW_function_i_in_nodeValue928);
+                    pushFollow(FOLLOW_function_i_in_nodeValue932);
                     function_i6=function_i();
 
                     state._fsp--;
@@ -515,7 +515,7 @@ public class SilkLineParser extends Parser {
                         case 1 :
                             // SilkLine.g:247:5: PlainOneLine
                             {
-                            PlainOneLine7=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_nodeValue942);  
+                            PlainOneLine7=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_nodeValue946);  
                             stream_PlainOneLine.add(PlainOneLine7);
 
 
@@ -524,7 +524,7 @@ public class SilkLineParser extends Parser {
                         case 2 :
                             // SilkLine.g:247:20: String
                             {
-                            String8=(Token)match(input,String,FOLLOW_String_in_nodeValue946);  
+                            String8=(Token)match(input,String,FOLLOW_String_in_nodeValue950);  
                             stream_String.add(String8);
 
 
@@ -560,7 +560,7 @@ public class SilkLineParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    JSON9=(Token)match(input,JSON,FOLLOW_JSON_in_nodeValue957); 
+                    JSON9=(Token)match(input,JSON,FOLLOW_JSON_in_nodeValue961); 
                     JSON9_tree = (Object)adaptor.create(JSON9);
                     adaptor.addChild(root_0, JSON9_tree);
 
@@ -709,13 +709,13 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:253:4: indent nodeItem
                     {
-                    pushFollow(FOLLOW_indent_in_silkNode971);
+                    pushFollow(FOLLOW_indent_in_silkNode975);
                     indent10=indent();
 
                     state._fsp--;
 
                     stream_indent.add(indent10.getTree());
-                    pushFollow(FOLLOW_nodeItem_in_silkNode973);
+                    pushFollow(FOLLOW_nodeItem_in_silkNode977);
                     nodeItem11=nodeItem();
 
                     state._fsp--;
@@ -755,7 +755,7 @@ public class SilkLineParser extends Parser {
                 case 2 :
                     // SilkLine.g:254:4: indent ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )?
                     {
-                    pushFollow(FOLLOW_indent_in_silkNode988);
+                    pushFollow(FOLLOW_indent_in_silkNode992);
                     indent12=indent();
 
                     state._fsp--;
@@ -772,16 +772,16 @@ public class SilkLineParser extends Parser {
                         case 1 :
                             // SilkLine.g:254:12: LParen attributeList RParen
                             {
-                            LParen13=(Token)match(input,LParen,FOLLOW_LParen_in_silkNode991);  
+                            LParen13=(Token)match(input,LParen,FOLLOW_LParen_in_silkNode995);  
                             stream_LParen.add(LParen13);
 
-                            pushFollow(FOLLOW_attributeList_in_silkNode993);
+                            pushFollow(FOLLOW_attributeList_in_silkNode997);
                             attributeList14=attributeList();
 
                             state._fsp--;
 
                             stream_attributeList.add(attributeList14.getTree());
-                            RParen15=(Token)match(input,RParen,FOLLOW_RParen_in_silkNode995);  
+                            RParen15=(Token)match(input,RParen,FOLLOW_RParen_in_silkNode999);  
                             stream_RParen.add(RParen15);
 
 
@@ -801,7 +801,7 @@ public class SilkLineParser extends Parser {
                         case 1 :
                             // SilkLine.g:254:42: plural
                             {
-                            pushFollow(FOLLOW_plural_in_silkNode999);
+                            pushFollow(FOLLOW_plural_in_silkNode1003);
                             plural16=plural();
 
                             state._fsp--;
@@ -824,10 +824,10 @@ public class SilkLineParser extends Parser {
                         case 1 :
                             // SilkLine.g:254:51: Colon nodeValue
                             {
-                            Colon17=(Token)match(input,Colon,FOLLOW_Colon_in_silkNode1003);  
+                            Colon17=(Token)match(input,Colon,FOLLOW_Colon_in_silkNode1007);  
                             stream_Colon.add(Colon17);
 
-                            pushFollow(FOLLOW_nodeValue_in_silkNode1005);
+                            pushFollow(FOLLOW_nodeValue_in_silkNode1009);
                             nodeValue18=nodeValue();
 
                             state._fsp--;
@@ -842,7 +842,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: attributeList, indent, nodeValue, plural
+                    // elements: attributeList, nodeValue, plural, indent
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -892,7 +892,7 @@ public class SilkLineParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_function_in_silkNode1030);
+                    pushFollow(FOLLOW_function_in_silkNode1034);
                     function19=function();
 
                     state._fsp--;
@@ -1018,7 +1018,7 @@ public class SilkLineParser extends Parser {
             // SilkLine.g:266:9: ( nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )? -> Name[$nodeName.text.trim()] ( dataType )? ( attributeList )? ( plural )? ( nodeValue )? )
             // SilkLine.g:266:11: nodeName ( dataType )? ( LParen attributeList RParen )? ( plural )? ( Colon nodeValue )?
             {
-            pushFollow(FOLLOW_nodeName_in_nodeItem1069);
+            pushFollow(FOLLOW_nodeName_in_nodeItem1073);
             nodeName21=nodeName();
 
             state._fsp--;
@@ -1035,7 +1035,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:266:20: dataType
                     {
-                    pushFollow(FOLLOW_dataType_in_nodeItem1071);
+                    pushFollow(FOLLOW_dataType_in_nodeItem1075);
                     dataType22=dataType();
 
                     state._fsp--;
@@ -1058,16 +1058,16 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:266:32: LParen attributeList RParen
                     {
-                    LParen23=(Token)match(input,LParen,FOLLOW_LParen_in_nodeItem1076);  
+                    LParen23=(Token)match(input,LParen,FOLLOW_LParen_in_nodeItem1080);  
                     stream_LParen.add(LParen23);
 
-                    pushFollow(FOLLOW_attributeList_in_nodeItem1078);
+                    pushFollow(FOLLOW_attributeList_in_nodeItem1082);
                     attributeList24=attributeList();
 
                     state._fsp--;
 
                     stream_attributeList.add(attributeList24.getTree());
-                    RParen25=(Token)match(input,RParen,FOLLOW_RParen_in_nodeItem1080);  
+                    RParen25=(Token)match(input,RParen,FOLLOW_RParen_in_nodeItem1084);  
                     stream_RParen.add(RParen25);
 
 
@@ -1087,7 +1087,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:266:62: plural
                     {
-                    pushFollow(FOLLOW_plural_in_nodeItem1084);
+                    pushFollow(FOLLOW_plural_in_nodeItem1088);
                     plural26=plural();
 
                     state._fsp--;
@@ -1110,10 +1110,10 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:266:71: Colon nodeValue
                     {
-                    Colon27=(Token)match(input,Colon,FOLLOW_Colon_in_nodeItem1088);  
+                    Colon27=(Token)match(input,Colon,FOLLOW_Colon_in_nodeItem1092);  
                     stream_Colon.add(Colon27);
 
-                    pushFollow(FOLLOW_nodeValue_in_nodeItem1090);
+                    pushFollow(FOLLOW_nodeValue_in_nodeItem1094);
                     nodeValue28=nodeValue();
 
                     state._fsp--;
@@ -1128,7 +1128,7 @@ public class SilkLineParser extends Parser {
 
 
             // AST REWRITE
-            // elements: attributeList, plural, dataType, nodeValue
+            // elements: nodeValue, plural, attributeList, dataType
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1216,14 +1216,14 @@ public class SilkLineParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            LBracket29=(Token)match(input,LBracket,FOLLOW_LBracket_in_dataType1123); 
-            pushFollow(FOLLOW_dataTypeName_in_dataType1126);
+            LBracket29=(Token)match(input,LBracket,FOLLOW_LBracket_in_dataType1127); 
+            pushFollow(FOLLOW_dataTypeName_in_dataType1130);
             dataTypeName30=dataTypeName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, dataTypeName30.getTree());
-            RBracket31=(Token)match(input,RBracket,FOLLOW_RBracket_in_dataType1128); 
+            RBracket31=(Token)match(input,RBracket,FOLLOW_RBracket_in_dataType1132); 
 
             }
 
@@ -1267,7 +1267,7 @@ public class SilkLineParser extends Parser {
             // SilkLine.g:275:13: ( PlainOneLine -> DataType[$dataTypeName.text] )
             // SilkLine.g:275:15: PlainOneLine
             {
-            PlainOneLine32=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_dataTypeName1141);  
+            PlainOneLine32=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_dataTypeName1145);  
             stream_PlainOneLine.add(PlainOneLine32);
 
 
@@ -1337,7 +1337,7 @@ public class SilkLineParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_attributeItem_in_attributeList1161);
+            pushFollow(FOLLOW_attributeItem_in_attributeList1165);
             attributeItem33=attributeItem();
 
             state._fsp--;
@@ -1358,8 +1358,8 @@ public class SilkLineParser extends Parser {
             	case 1 :
             	    // SilkLine.g:280:31: Comma attributeItem
             	    {
-            	    Comma34=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList1164); 
-            	    pushFollow(FOLLOW_attributeItem_in_attributeList1167);
+            	    Comma34=(Token)match(input,Comma,FOLLOW_Comma_in_attributeList1168); 
+            	    pushFollow(FOLLOW_attributeItem_in_attributeList1171);
             	    attributeItem35=attributeItem();
 
             	    state._fsp--;
@@ -1416,7 +1416,7 @@ public class SilkLineParser extends Parser {
             // SilkLine.g:283:14: ( nodeItem -> ^( SilkNode nodeItem ) )
             // SilkLine.g:283:16: nodeItem
             {
-            pushFollow(FOLLOW_nodeItem_in_attributeItem1180);
+            pushFollow(FOLLOW_nodeItem_in_attributeItem1184);
             nodeItem36=nodeItem();
 
             state._fsp--;
@@ -1540,7 +1540,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:288:4: Star
                     {
-                    Star37=(Token)match(input,Star,FOLLOW_Star_in_plural1200);  
+                    Star37=(Token)match(input,Star,FOLLOW_Star_in_plural1204);  
                     stream_Star.add(Star37);
 
 
@@ -1568,7 +1568,7 @@ public class SilkLineParser extends Parser {
                 case 2 :
                     // SilkLine.g:289:4: Plus
                     {
-                    Plus38=(Token)match(input,Plus,FOLLOW_Plus_in_plural1210);  
+                    Plus38=(Token)match(input,Plus,FOLLOW_Plus_in_plural1214);  
                     stream_Plus.add(Plus38);
 
 
@@ -1596,7 +1596,7 @@ public class SilkLineParser extends Parser {
                 case 3 :
                     // SilkLine.g:290:4: Question
                     {
-                    Question39=(Token)match(input,Question,FOLLOW_Question_in_plural1220);  
+                    Question39=(Token)match(input,Question,FOLLOW_Question_in_plural1224);  
                     stream_Question.add(Question39);
 
 
@@ -1624,7 +1624,7 @@ public class SilkLineParser extends Parser {
                 case 4 :
                     // SilkLine.g:291:4: Seq
                     {
-                    Seq40=(Token)match(input,Seq,FOLLOW_Seq_in_plural1230);  
+                    Seq40=(Token)match(input,Seq,FOLLOW_Seq_in_plural1234);  
                     stream_Seq.add(Seq40);
 
 
@@ -1652,7 +1652,7 @@ public class SilkLineParser extends Parser {
                 case 5 :
                     // SilkLine.g:292:4: TabSeq
                     {
-                    TabSeq41=(Token)match(input,TabSeq,FOLLOW_TabSeq_in_plural1240);  
+                    TabSeq41=(Token)match(input,TabSeq,FOLLOW_TabSeq_in_plural1244);  
                     stream_TabSeq.add(TabSeq41);
 
 
@@ -1758,10 +1758,10 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:296:4: NodeIndent function_i
                     {
-                    NodeIndent42=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_function1259);  
+                    NodeIndent42=(Token)match(input,NodeIndent,FOLLOW_NodeIndent_in_function1263);  
                     stream_NodeIndent.add(NodeIndent42);
 
-                    pushFollow(FOLLOW_function_i_in_function1261);
+                    pushFollow(FOLLOW_function_i_in_function1265);
                     function_i43=function_i();
 
                     state._fsp--;
@@ -1770,7 +1770,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: function_i, NodeIndent
+                    // elements: NodeIndent, function_i
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1801,13 +1801,13 @@ public class SilkLineParser extends Parser {
                 case 2 :
                     // SilkLine.g:298:4: FunctionIndent PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen
                     {
-                    FunctionIndent44=(Token)match(input,FunctionIndent,FOLLOW_FunctionIndent_in_function1277);  
+                    FunctionIndent44=(Token)match(input,FunctionIndent,FOLLOW_FunctionIndent_in_function1281);  
                     stream_FunctionIndent.add(FunctionIndent44);
 
-                    PlainOneLine45=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function1279);  
+                    PlainOneLine45=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function1283);  
                     stream_PlainOneLine.add(PlainOneLine45);
 
-                    LParen46=(Token)match(input,LParen,FOLLOW_LParen_in_function1281);  
+                    LParen46=(Token)match(input,LParen,FOLLOW_LParen_in_function1285);  
                     stream_LParen.add(LParen46);
 
                     // SilkLine.g:298:39: ( functionArg ( Comma functionArg )* )?
@@ -1821,7 +1821,7 @@ public class SilkLineParser extends Parser {
                         case 1 :
                             // SilkLine.g:298:40: functionArg ( Comma functionArg )*
                             {
-                            pushFollow(FOLLOW_functionArg_in_function1284);
+                            pushFollow(FOLLOW_functionArg_in_function1288);
                             functionArg47=functionArg();
 
                             state._fsp--;
@@ -1842,10 +1842,10 @@ public class SilkLineParser extends Parser {
                             	case 1 :
                             	    // SilkLine.g:298:53: Comma functionArg
                             	    {
-                            	    Comma48=(Token)match(input,Comma,FOLLOW_Comma_in_function1287);  
+                            	    Comma48=(Token)match(input,Comma,FOLLOW_Comma_in_function1291);  
                             	    stream_Comma.add(Comma48);
 
-                            	    pushFollow(FOLLOW_functionArg_in_function1289);
+                            	    pushFollow(FOLLOW_functionArg_in_function1293);
                             	    functionArg49=functionArg();
 
                             	    state._fsp--;
@@ -1866,7 +1866,7 @@ public class SilkLineParser extends Parser {
 
                     }
 
-                    RParen50=(Token)match(input,RParen,FOLLOW_RParen_in_function1295);  
+                    RParen50=(Token)match(input,RParen,FOLLOW_RParen_in_function1299);  
                     stream_RParen.add(RParen50);
 
 
@@ -1964,13 +1964,13 @@ public class SilkLineParser extends Parser {
             // SilkLine.g:303:11: ( At PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen -> Name[$PlainOneLine.text.trim()] ( functionArg )* )
             // SilkLine.g:303:13: At PlainOneLine LParen ( functionArg ( Comma functionArg )* )? RParen
             {
-            At51=(Token)match(input,At,FOLLOW_At_in_function_i1322);  
+            At51=(Token)match(input,At,FOLLOW_At_in_function_i1326);  
             stream_At.add(At51);
 
-            PlainOneLine52=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function_i1324);  
+            PlainOneLine52=(Token)match(input,PlainOneLine,FOLLOW_PlainOneLine_in_function_i1328);  
             stream_PlainOneLine.add(PlainOneLine52);
 
-            LParen53=(Token)match(input,LParen,FOLLOW_LParen_in_function_i1326);  
+            LParen53=(Token)match(input,LParen,FOLLOW_LParen_in_function_i1330);  
             stream_LParen.add(LParen53);
 
             // SilkLine.g:303:36: ( functionArg ( Comma functionArg )* )?
@@ -1984,7 +1984,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:303:37: functionArg ( Comma functionArg )*
                     {
-                    pushFollow(FOLLOW_functionArg_in_function_i1329);
+                    pushFollow(FOLLOW_functionArg_in_function_i1333);
                     functionArg54=functionArg();
 
                     state._fsp--;
@@ -2005,10 +2005,10 @@ public class SilkLineParser extends Parser {
                     	case 1 :
                     	    // SilkLine.g:303:50: Comma functionArg
                     	    {
-                    	    Comma55=(Token)match(input,Comma,FOLLOW_Comma_in_function_i1332);  
+                    	    Comma55=(Token)match(input,Comma,FOLLOW_Comma_in_function_i1336);  
                     	    stream_Comma.add(Comma55);
 
-                    	    pushFollow(FOLLOW_functionArg_in_function_i1334);
+                    	    pushFollow(FOLLOW_functionArg_in_function_i1338);
                     	    functionArg56=functionArg();
 
                     	    state._fsp--;
@@ -2029,7 +2029,7 @@ public class SilkLineParser extends Parser {
 
             }
 
-            RParen57=(Token)match(input,RParen,FOLLOW_RParen_in_function_i1340);  
+            RParen57=(Token)match(input,RParen,FOLLOW_RParen_in_function_i1344);  
             stream_RParen.add(RParen57);
 
 
@@ -2160,7 +2160,7 @@ public class SilkLineParser extends Parser {
                 case 1 :
                     // SilkLine.g:309:4: nodeValue
                     {
-                    pushFollow(FOLLOW_nodeValue_in_functionArg1362);
+                    pushFollow(FOLLOW_nodeValue_in_functionArg1366);
                     nodeValue58=nodeValue();
 
                     state._fsp--;
@@ -2191,16 +2191,16 @@ public class SilkLineParser extends Parser {
                 case 2 :
                     // SilkLine.g:310:4: nodeName Colon nodeValue
                     {
-                    pushFollow(FOLLOW_nodeName_in_functionArg1372);
+                    pushFollow(FOLLOW_nodeName_in_functionArg1376);
                     nodeName59=nodeName();
 
                     state._fsp--;
 
                     stream_nodeName.add(nodeName59.getTree());
-                    Colon60=(Token)match(input,Colon,FOLLOW_Colon_in_functionArg1374);  
+                    Colon60=(Token)match(input,Colon,FOLLOW_Colon_in_functionArg1378);  
                     stream_Colon.add(Colon60);
 
-                    pushFollow(FOLLOW_nodeValue_in_functionArg1376);
+                    pushFollow(FOLLOW_nodeValue_in_functionArg1380);
                     nodeValue61=nodeValue();
 
                     state._fsp--;
@@ -2262,66 +2262,66 @@ public class SilkLineParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_silkLine_in_silkFile866 = new BitSet(new long[]{0x00000000003E8002L});
-    public static final BitSet FOLLOW_silkNode_in_silkLine887 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LineComment_in_silkLine893 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WhiteSpace_in_silkLine898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_silkLine_in_silkFile870 = new BitSet(new long[]{0x00000000003E8002L});
+    public static final BitSet FOLLOW_silkNode_in_silkLine891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LineComment_in_silkLine897 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WhiteSpace_in_silkLine902 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_nodeName0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_function_i_in_nodeValue928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlainOneLine_in_nodeValue942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_String_in_nodeValue946 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_JSON_in_nodeValue957 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indent_in_silkNode971 = new BitSet(new long[]{0x0010040000000000L});
-    public static final BitSet FOLLOW_nodeItem_in_silkNode973 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_indent_in_silkNode988 = new BitSet(new long[]{0x00000004BC800002L});
-    public static final BitSet FOLLOW_LParen_in_silkNode991 = new BitSet(new long[]{0x0010040000000000L});
-    public static final BitSet FOLLOW_attributeList_in_silkNode993 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_RParen_in_silkNode995 = new BitSet(new long[]{0x00000004BC000002L});
-    public static final BitSet FOLLOW_plural_in_silkNode999 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_Colon_in_silkNode1003 = new BitSet(new long[]{0x0030040040000000L});
-    public static final BitSet FOLLOW_nodeValue_in_silkNode1005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_function_in_silkNode1030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_function_i_in_nodeValue932 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlainOneLine_in_nodeValue946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_String_in_nodeValue950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_JSON_in_nodeValue961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indent_in_silkNode975 = new BitSet(new long[]{0x0010040000000000L});
+    public static final BitSet FOLLOW_nodeItem_in_silkNode977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_indent_in_silkNode992 = new BitSet(new long[]{0x00000004BC800002L});
+    public static final BitSet FOLLOW_LParen_in_silkNode995 = new BitSet(new long[]{0x0010040000000000L});
+    public static final BitSet FOLLOW_attributeList_in_silkNode997 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_RParen_in_silkNode999 = new BitSet(new long[]{0x00000004BC000002L});
+    public static final BitSet FOLLOW_plural_in_silkNode1003 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_Colon_in_silkNode1007 = new BitSet(new long[]{0x0030040040000000L});
+    public static final BitSet FOLLOW_nodeValue_in_silkNode1009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_function_in_silkNode1034 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_indent0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_nodeItem1069 = new BitSet(new long[]{0x00000005BC800002L});
-    public static final BitSet FOLLOW_dataType_in_nodeItem1071 = new BitSet(new long[]{0x00000004BC800002L});
-    public static final BitSet FOLLOW_LParen_in_nodeItem1076 = new BitSet(new long[]{0x0010040000000000L});
-    public static final BitSet FOLLOW_attributeList_in_nodeItem1078 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_RParen_in_nodeItem1080 = new BitSet(new long[]{0x00000004BC000002L});
-    public static final BitSet FOLLOW_plural_in_nodeItem1084 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_Colon_in_nodeItem1088 = new BitSet(new long[]{0x0030040040000000L});
-    public static final BitSet FOLLOW_nodeValue_in_nodeItem1090 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBracket_in_dataType1123 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_dataTypeName_in_dataType1126 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_RBracket_in_dataType1128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlainOneLine_in_dataTypeName1141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attributeItem_in_attributeList1161 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_Comma_in_attributeList1164 = new BitSet(new long[]{0x0010040000000000L});
-    public static final BitSet FOLLOW_attributeItem_in_attributeList1167 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_nodeItem_in_attributeItem1180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Star_in_plural1200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Plus_in_plural1210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Question_in_plural1220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Seq_in_plural1230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TabSeq_in_plural1240 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NodeIndent_in_function1259 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_function_i_in_function1261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FunctionIndent_in_function1277 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_PlainOneLine_in_function1279 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_LParen_in_function1281 = new BitSet(new long[]{0x0030040041000000L});
-    public static final BitSet FOLLOW_functionArg_in_function1284 = new BitSet(new long[]{0x0000000003000000L});
-    public static final BitSet FOLLOW_Comma_in_function1287 = new BitSet(new long[]{0x0030040040000000L});
-    public static final BitSet FOLLOW_functionArg_in_function1289 = new BitSet(new long[]{0x0000000003000000L});
-    public static final BitSet FOLLOW_RParen_in_function1295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_At_in_function_i1322 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_PlainOneLine_in_function_i1324 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_LParen_in_function_i1326 = new BitSet(new long[]{0x0030040041000000L});
-    public static final BitSet FOLLOW_functionArg_in_function_i1329 = new BitSet(new long[]{0x0000000003000000L});
-    public static final BitSet FOLLOW_Comma_in_function_i1332 = new BitSet(new long[]{0x0030040040000000L});
-    public static final BitSet FOLLOW_functionArg_in_function_i1334 = new BitSet(new long[]{0x0000000003000000L});
-    public static final BitSet FOLLOW_RParen_in_function_i1340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeValue_in_functionArg1362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_nodeName_in_functionArg1372 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_Colon_in_functionArg1374 = new BitSet(new long[]{0x0030040040000000L});
-    public static final BitSet FOLLOW_nodeValue_in_functionArg1376 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_nodeItem1073 = new BitSet(new long[]{0x00000005BC800002L});
+    public static final BitSet FOLLOW_dataType_in_nodeItem1075 = new BitSet(new long[]{0x00000004BC800002L});
+    public static final BitSet FOLLOW_LParen_in_nodeItem1080 = new BitSet(new long[]{0x0010040000000000L});
+    public static final BitSet FOLLOW_attributeList_in_nodeItem1082 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_RParen_in_nodeItem1084 = new BitSet(new long[]{0x00000004BC000002L});
+    public static final BitSet FOLLOW_plural_in_nodeItem1088 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_Colon_in_nodeItem1092 = new BitSet(new long[]{0x0030040040000000L});
+    public static final BitSet FOLLOW_nodeValue_in_nodeItem1094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBracket_in_dataType1127 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_dataTypeName_in_dataType1130 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_RBracket_in_dataType1132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlainOneLine_in_dataTypeName1145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attributeItem_in_attributeList1165 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_Comma_in_attributeList1168 = new BitSet(new long[]{0x0010040000000000L});
+    public static final BitSet FOLLOW_attributeItem_in_attributeList1171 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_nodeItem_in_attributeItem1184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Star_in_plural1204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Plus_in_plural1214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Question_in_plural1224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Seq_in_plural1234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TabSeq_in_plural1244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NodeIndent_in_function1263 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_function_i_in_function1265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FunctionIndent_in_function1281 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_PlainOneLine_in_function1283 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_LParen_in_function1285 = new BitSet(new long[]{0x0030040041000000L});
+    public static final BitSet FOLLOW_functionArg_in_function1288 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_Comma_in_function1291 = new BitSet(new long[]{0x0030040040000000L});
+    public static final BitSet FOLLOW_functionArg_in_function1293 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_RParen_in_function1299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_At_in_function_i1326 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_PlainOneLine_in_function_i1328 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_LParen_in_function_i1330 = new BitSet(new long[]{0x0030040041000000L});
+    public static final BitSet FOLLOW_functionArg_in_function_i1333 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_Comma_in_function_i1336 = new BitSet(new long[]{0x0030040040000000L});
+    public static final BitSet FOLLOW_functionArg_in_function_i1338 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_RParen_in_function_i1344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeValue_in_functionArg1366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_nodeName_in_functionArg1376 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_Colon_in_functionArg1378 = new BitSet(new long[]{0x0030040040000000L});
+    public static final BitSet FOLLOW_nodeValue_in_functionArg1380 = new BitSet(new long[]{0x0000000000000002L});
 
 }
