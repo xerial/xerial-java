@@ -24,10 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -290,4 +287,8 @@ public class SilkWalkerTest {
 
     }
 
+    @Test
+    public void samqv() throws Exception {
+        compare("samqv.silk", "samqv.json");
+    }
 }
