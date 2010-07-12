@@ -99,6 +99,7 @@ public class FileResource {
             return file.isDirectory();
         }
 
+        @Override
         public String toString() {
             return getURL().toString();
         }
@@ -137,6 +138,7 @@ public class FileResource {
             return isDirectory;
         }
 
+        @Override
         public String toString() {
             return getURL().toString();
         }
@@ -405,6 +407,16 @@ public class FileResource {
         URL url = find(referenceClass, resouceFileName);
         if (url != null) {
             return new BufferedReader(new InputStreamReader(url.openStream()));
+        }
+        else
+            return null;
+    }
+
+    public static BufferedReader open(Class< ? > referenceClass, String resouceFileName,
+            String encoding) throws IOException {
+        URL url = find(referenceClass, resouceFileName);
+        if (url != null) {
+            return new BufferedReader(new InputStreamReader(url.openStream(), encoding));
         }
         else
             return null;

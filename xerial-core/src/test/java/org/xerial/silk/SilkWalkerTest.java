@@ -24,10 +24,7 @@
 //--------------------------------------
 package org.xerial.silk;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -78,7 +75,7 @@ public class SilkWalkerTest {
         _logger.debug(l1);
 
         JSONStreamWalker jWalker = new JSONStreamWalker(FileResource.open(SilkWalkerTest.class,
-                jsonFile));
+                jsonFile, "UTF8"));
         jWalker.walk(l2);
 
         Assert.assertTrue(TreeWalkLog.compare(l1, l2));

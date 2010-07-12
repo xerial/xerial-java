@@ -125,12 +125,12 @@ public class SilkPullParser implements TreeStreamReader {
     }
 
     public SilkPullParser(URL resource, SilkEnv env) throws IOException {
-        this(new BufferedReader(new InputStreamReader(resource.openStream(), "utf-8")), SilkEnv
+        this(new BufferedReader(new InputStreamReader(resource.openStream(), "UTF8")), SilkEnv
                 .newEnv(env, SilkParser.getResourceBasePath(resource)));
     }
 
     public SilkPullParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException {
-        this(new BufferedReader(new InputStreamReader(resource.openStream(), "utf-8")), SilkEnv
+        this(new BufferedReader(new InputStreamReader(resource.openStream(), "UTF8")), SilkEnv
                 .newEnv(env, SilkParser.getResourceBasePath(resource)), config);
     }
 

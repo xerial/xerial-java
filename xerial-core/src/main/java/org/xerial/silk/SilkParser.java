@@ -121,7 +121,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
     }
 
     public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException {
-        this(new InputStreamReader(resource.openStream(), "utf-8"), SilkEnv.newEnv(env,
+        this(new InputStreamReader(resource.openStream(), "UTF8"), SilkEnv.newEnv(env,
                 getResourceBasePath(resource)), config);
     }
 

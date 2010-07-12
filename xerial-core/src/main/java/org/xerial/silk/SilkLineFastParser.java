@@ -66,7 +66,7 @@ public class SilkLineFastParser implements SilkParserBase {
     }
 
     public SilkLineFastParser(URL resourceURL, SilkParserConfig config) throws IOException {
-        this(new InputStreamReader(resourceURL.openStream()), config);
+        this(new InputStreamReader(resourceURL.openStream(), "UTF8"), config);
     }
 
     public SilkLineFastParser(Reader reader) {
