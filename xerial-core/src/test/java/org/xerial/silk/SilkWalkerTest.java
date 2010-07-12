@@ -291,6 +291,11 @@ public class SilkWalkerTest {
     }
 
     @Test
+    public void samqv() throws Exception {
+        compare("samqv.silk", "samqv.json");
+    }
+
+    @Test
     public void utf8() throws Exception {
         compare("utf8.silk", "utf8.json");
     }

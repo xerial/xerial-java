@@ -44,7 +44,7 @@ public class SilkDocumentTest {
     public void testParse() throws Exception {
         SilkDocument doc = SilkDocument.parse(FileResource.find(SilkDocumentTest.class,
                 "sample.silk"));
-        _logger.info(doc.toSilk());
+        _logger.debug(doc.toSilk());
     }
 
 }

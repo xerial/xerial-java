@@ -97,7 +97,7 @@ public class SilkSchemaTest {
         //        assertEquals("Alignment", r.name);
         //        assertEquals(2, r.attribute.size());
 
-        _logger.info(Lens.toSilk(schema));
+        _logger.debug(Lens.toSilk(schema));
 
         //_logger.info(schema.toGraphviz());
 
@@ -108,23 +108,26 @@ public class SilkSchemaTest {
 
         SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
 
-        _logger.info(Lens.toSilk(schema));
+        _logger.debug(Lens.toSilk(schema));
 
         QuerySet qs = schema.buildAmoebaJoinQuery();
 
-        _logger.info(qs);
+        _logger.debug(qs);
 
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase() {
 
+            @Override
             public void leaveNode(Schema schema, Node node) throws Exception {
                 _logger.trace(String.format("leave %s in %s", node, schema));
             }
 
+            @Override
             public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
                     throws Exception {
                 _logger.trace(String.format("amoeba (%s, %s)", coreNode, attributeNode));
             }
 
+            @Override
             public void text(Schema schema, Node coreNode, Node textNode, String text)
                     throws Exception {
                 _logger.trace(String.format("text (%s, %s:%s)", coreNode, textNode, text));
