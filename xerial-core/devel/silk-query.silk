@@ -3,7 +3,7 @@
 
 #name.silk
 %silk(version:1.0)
-%schema: person(id,name)
+%schema person(id:int[key],name)
 -person
  -id: 1
  -name: leo
@@ -36,7 +36,7 @@ person(id, name) where id = 1
 
 # renaming relations
 --code
-account : person(pid:id, name) in "name.silk" where pid = 1
+person(pid, name) as account in "name.silk" where pid = 1
 --
 # output 
 -account
@@ -49,7 +49,7 @@ account : person(pid:id, name) in "name.silk" where pid = 1
 
 
 # join
-# The update modifies the specified nodes in input A using the enclosed operations:
+# The update modifies the specified nodes in the input using the enclosed operations:
 --code
 update person in "name.silk" {
  join _ with "phone.silk" using person.id
@@ -71,8 +71,8 @@ update person in "name.silk" {
 # You can make explicit what to join:
 --code
 join 
- -: person(id, name) in "name.silk" by id
- -: person(id, address) in "phone.silk" by id
+ person(id, name) in "name.silk" by id, 
+ person(id, address) in "phone.silk" by id
 --
 
 --code
@@ -96,7 +96,7 @@ B =
 --code
 person(id, name) in "name.silk" as employee(ID, full name)
 --
-%schema: employee(ID, full name)
+%schema employee(ID:int[key], full name)
 -employee
  -ID: 1
  -full name: leo
@@ -107,18 +107,18 @@ person(id, name) in "name.silk" as employee(ID, full name)
 
 # preamble for telling the sort order of the document
 # Sorted by the order of person.id of integer type
-%sorted: person(id[int])
+%sorted by person(id)
 
 # Sorted by the descending order of person.id
-%sorted: person(id[int]:desc)
+%sorted by person(id:desc)
 
 # Sorted by the start value of genes 
-%sorted: gene(start[int])
+%sorted by gene(start)
 
 
 # name.silk
-%schema: person(id, name)
-%sorted: person(id[int])
+%schema person(id, name)
+%sorted by person(id:int)
 -person
  -id: 1
  -name: leo
@@ -127,8 +127,8 @@ person(id, name) in "name.silk" as employee(ID, full name)
  -name: yui
 
 # phone.silk
-%schema: person(id, name)
-%sorted: person(id[int])
+%schema person(id:int, name)
+%sorted by person(id)
 -person
  -id: 1
  -phone: xxx-xxxx
@@ -150,9 +150,9 @@ cross
 --
 
 # preamble for specifying schema
-%schema: person(id, name)
+%schema person(id, name)
 
-%schema: person(id, phone)
+%schema person(id, phone)
 
 # for each 
 --code
@@ -162,7 +162,7 @@ foreach person(id, name) in "name.silk"
 
 # stdin
 --code
-foreach person(id, name) in <> 
+foreach person(id, name) in _
   concat person.* with "\t"
 --
 
@@ -219,13 +219,18 @@ person(id, name)
 
 # pattern match
 --code
-
-e match 
-config => { ... } 
-alignment(name, *) => { ... }
-
+for each e in "result.silk" {
+    e match 
+     config => { ... } 
+     alignment(name, *) => { ... }
+}
 
 --
+
+
+
+
+
 
 # command-line usage
 --code
@@ -250,7 +255,7 @@ silk query -e "find person where person.id=1" (input file)
 silk query -e "update experiment { append $(date) }" (input file)
 
 # generating an alternative structure
-cat sample.silk | silk  
+cat sample.silk | silk alt 
 
 # compression
 silk compress (input file)
@@ -265,9 +270,8 @@ silk index (input file)
 
 Example
 --code
-%schema student(id:int[key], name:string)
-%schema teacher(id:int[key], name:string)
-%schema class(id:int[key], name:string, teacher:class, student*:class)
+%schema person(id:int[key], name)
+%schema class(id:int[key], name, teacher:person, student*:person)
 
 -student|
 1	Leo
@@ -281,6 +285,6 @@ Example
  -id: 1
  -name: English 
  -teacher(id:1)
- -student
+ -student(id:1, )
 
 --

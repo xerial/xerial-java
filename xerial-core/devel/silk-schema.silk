@@ -1,0 +1,157 @@
+%silk(version:1.0)
+
+-title: Silk Schema Specification
+-author: Taro L. Saito <leo@xerial.org>
+
+-section: Examples
+
+--code
+
+(schema_def) := "%schema" (name) : (type)
+
+
+--
+
+--code
+%schema person(id:int, name, family:person*) 
+
+
+--
+
+%schema student(id:int, name, teacher(id:int, name))
+
+or 
+
+%schema student(id:int, name, teacher:teacher)
+%schema teacher(id:int, name, e-mail, address)
+
+-- 
+
+When omitting the type string, the parameter type for the attribute becomes the string:
+
+%schema student (id:int[key], name)
+%schema teacher (id:int[key], name, e-mail, address)
+# A class creates a relationship between a teacher and students 
+%schema class (id:int, grade:int, year:int, name, teacher, student*)
+
+-student[student]|
+1	leo
+2	yui
+...
+
+-class(id:1, name:2-2, year:2010)
+ -teacher(id:1, name:Yamaguchi, e-mail:yamaguchi@u-tokyo.ac.jp)
+ -student(id:s001)
+ -student(id:s002)
+ ..
+
+
+%schema interval (start:int, end:int)
+%schema gene < interval (name, exon:interval*, cds:interval*)
+%schema track(name, height:int, property:map)
+
+
+Polymorphism
+
+-section: basic types
+
+string
+int
+real (float, double)
+boolean 
+
+
+-section: array type
+
+string*
+int*
+real*
+
+-section: map types
+
+--code
+map 
+  synomym of (_:string[key])
+
+map<int, string>
+  synonym of (_:int[key])
+
+
+--
+
+-section: tuple type
+
+
+--code
+<schema>      := "%schema" <type def>
+<type def>    := <qname> (":" <type name> | <tuple>)? <type option>* "*"?
+<qname>       := "_" | [A-Za-z][A-Za-z0-9_- ]*
+<type name>   := <basic type> | <qname>
+<basic type>  := "string" | "int" | "int32" | "int64" | "boolean" | "real" | "float" | "double" 
+<tuple>       := "(" <type def> ("," <type def>)* ")"
+<type option> := "[" ("key")   "]"
+
+--
+
+# primary keys, foreign keys
+
+
+-section: Example
+
+
+%schema fasta(name, description, sequence:clob)
+
+-fasta
+ -name: chrY
+ -description: chrY mm9|...
+ -sequence>
+GATCCAAAACACATTCTCCCTGGTAGCATGGACAAGCAACATTTTGGGAG
+AAATGGAGCAAAAAAACATAAACTTCACAGTAACAAACATAAACActctc
+tctctctctctctctctctctctctctctctctctctctctctctctcCA
+CACACACACACACTCGCACTCACAGCCTCACAACACAGGTATACATGTTT
+ACTTAGGTCACTCAGAATTGTAAACTGTAAGTGTGCCTTGCAAAGAACCA
+...
+-fasta
+ -name: chrX
+...
+
+
+query
+ sort fasta with name[token]
+
+
+%schema interval (start:int, end:int)
+%schema read < interval (name)
+%schema gene < read (exon:interval*, cds:interval*)
+%schema sam read < read (cigar, tag:map) 
+%schema bed read < read (color)
+
+-result(id:1)
+ -sam read
+  -name: S0001
+  -start: 100341
+  -end: 100391
+  -cigar: 50M
+  -tag
+   -XS:56
+   -AS:56
+   -XN:0
+ -bed read
+  -name: S002
+  -start: 100341
+  -end: 100391
+  -color: #30435
+
+query:
+ result(id = 1).read
+
+is a syntax sugar of
+ result(id = 1).{read|gene|sam read|bed read}
+
+-result(id:1)
+ 
+
+
+
+
+

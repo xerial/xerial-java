@@ -24,8 +24,10 @@
 //--------------------------------------
 package org.xerial.util.reflect;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -33,6 +35,7 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.util.Pair;
 
@@ -102,6 +105,19 @@ public class ReflectionUtilTest {
         assertEquals(List.class, RawTypes.class.getField("p2").getType());
         assertEquals(List.class, RawTypes.class.getField("p3").getType());
 
+    }
+
+    public static class WithArray {
+        public int[] vector;
+    }
+
+    @Ignore
+    @Test
+    public void addingToArrayType() throws Exception {
+        WithArray w = new WithArray();
+        Field field = WithArray.class.getField("vector");
+        // TODO: Should we support adder for array field?
+        ReflectionUtil.setFieldValue(w, field, 1);
     }
 
 }

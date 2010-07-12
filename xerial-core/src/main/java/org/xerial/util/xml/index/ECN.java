@@ -85,7 +85,7 @@ public class ECN implements Comparable<ECN> {
 
     /**
      * @param index
-     * @return index�̈
+     * @return
      */
     public int get(int index) {
         return val.get(index);

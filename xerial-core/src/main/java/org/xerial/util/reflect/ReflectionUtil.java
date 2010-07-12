@@ -297,7 +297,7 @@ public class ReflectionUtil {
                     ReflectionUtil.setFieldValue_internal(bean, field, collection);
                 }
 
-                // use adder
+                // using the adder of the collection  
                 try {
                     Method adder = field.getType().getMethod("add", Object.class);
                     Type elementType = getGenericCollectionElementType(field);

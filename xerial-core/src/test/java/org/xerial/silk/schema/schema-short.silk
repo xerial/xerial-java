@@ -1,0 +1,11 @@
+%silk(version:1.0, type:schema)
+
+%schema refseq (group, name)
+%schema sequence length (refseq, chr, length:int)
+%schema coordinate(refseq, chr)
+%schema interval(name, chr, start:int, end:int, strand:["+", "-"])
+%index  z-value on interval(start, end)
+%index  keyword on interval(name)
+%schema gene < interval (exon*:interval, cds*:interval)
+%schema read < interval (sequence, qv*:int)
+

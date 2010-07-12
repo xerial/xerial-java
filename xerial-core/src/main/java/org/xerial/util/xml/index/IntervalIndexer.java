@@ -41,7 +41,8 @@ import org.xmlpull.v1.XmlPullParser;
 public class IntervalIndexer extends AbstractSAXEventHandler {
     private final static String EMPTY_STRING = "";
 
-    Deque<Pair<Integer, String>> _startOrderStack; // (start, text data) �̃stack
+    // (start, end) stack
+    Deque<Pair<Integer, String>> _startOrderStack;
     int _currentDepth = 0;
     int _startOrder = 0;
     LWIndexWriter _writer;

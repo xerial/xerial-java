@@ -66,11 +66,11 @@ public class SilkLinePushParser implements SilkParserBase {
     private boolean inBlock = false;
 
     public SilkLinePushParser(URL resourceURL) throws IOException {
-        this(new InputStreamReader(resourceURL.openStream()));
+        this(new InputStreamReader(resourceURL.openStream(), "utf-8"));
     }
 
     public SilkLinePushParser(URL resourceURL, SilkParserConfig config) throws IOException {
-        this(new InputStreamReader(resourceURL.openStream()), config);
+        this(new InputStreamReader(resourceURL.openStream(), "utf-8"), config);
     }
 
     public SilkLinePushParser(Reader reader) {
