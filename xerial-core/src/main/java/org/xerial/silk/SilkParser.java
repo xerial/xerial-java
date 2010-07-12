@@ -256,7 +256,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                 text(line.getTrimmedDataLine());
                 break;
             case SEQUENCE_PRESERVING_WHITESPACES:
-                text(line.getDataLine() + StringUtil.NEW_LINE);
+                text(line.getDataLine() + "\n");
                 break;
             case ZERO_OR_MORE:
                 // CSV data
