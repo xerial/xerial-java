@@ -24,8 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xerial.ObjectHandlerBase;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
@@ -362,7 +362,7 @@ public class LensTest {
     @Test
     public void testFind() throws Exception {
         Lens.findFromSilk(FileResource.find(LensTest.class, "sequence.silk"), "gene", MyGene.class,
-                new ObjectHandler<MyGene>() {
+                new ObjectHandlerBase<MyGene>() {
                     public void handle(MyGene input) throws Exception {
                         _logger.info(Lens.toJSON(input));
                     }
@@ -400,7 +400,7 @@ public class LensTest {
     public void readingSilkIndexes() throws Exception {
         StopWatch sw = new StopWatch();
         Lens.findFromSilk(FileResource.find(LensTest.class, "index.silk"), "sequence",
-                Record.class, new ObjectHandler<Record>() {
+                Record.class, new ObjectHandlerBase<Record>() {
                     public void handle(Record input) throws Exception {
 
                     }

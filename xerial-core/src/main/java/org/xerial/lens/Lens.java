@@ -321,7 +321,15 @@ public class Lens {
     public static <Result> void find(Class<Result> bindingType, String targetNodeName,
             ObjectHandler<Result> handler, TreeParser parser) throws XerialException {
         ObjectMapper mapper = new ObjectMapper(bindingType, targetNodeName);
-        mapper.find(handler, targetNodeName, parser);
+
+        try {
+            handler.init();
+            mapper.find(handler, targetNodeName, parser);
+            handler.finish();
+        }
+        catch (Exception e) {
+            throw XerialException.convert(e);
+        }
     }
 
 }

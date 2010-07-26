@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2009 Taro L. Saito
+ *  Copyright 2010 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,39 +16,33 @@
 //--------------------------------------
 // XerialJ
 //
-// ObjectHandler.java
-// Since: 2009/07/04 10:58:39
+// ObjectHandlerBase.java
+// Since: Jul 26, 2010 10:42:52 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial;
+
+import org.xerial.lens.ObjectHandler;
 
 /**
- * Handler interface of a sequence of objects
+ * A base implementation of {@link ObjectHandler}
  * 
  * @author leo
  * 
+ * @param <T>
  */
-public interface ObjectHandler<T> {
+public abstract class ObjectHandlerBase<T> implements ObjectHandler<T> {
 
-    /**
-     * Called before starting the object retrieval
-     * 
-     * @throws Exception
-     */
-    public void init() throws Exception;
+    @Override
+    public void finish() throws Exception {
+    // do nothing
+    }
 
-    /**
-     * @param input
-     * @throws Exception
-     */
-    public void handle(T input) throws Exception;
+    @Override
+    public void init() throws Exception {
+    // do nothing
+    }
 
-    /**
-     * Called at the end of the object retrieval
-     * 
-     * @throws Exception
-     */
-    public void finish() throws Exception;
 }

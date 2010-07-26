@@ -35,6 +35,7 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.ObjectHandlerBase;
 import org.xerial.lens.LensTest.Gene;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
@@ -289,7 +290,7 @@ public class ObjectMapperTest {
 
     }
 
-    static class FindHandler implements ObjectHandler<Person> {
+    static class FindHandler extends ObjectHandlerBase<Person> {
 
         public void handle(Person input) throws Exception {
             _logger.info("find: person " + input);
@@ -333,7 +334,7 @@ public class ObjectMapperTest {
     public void sam() throws Exception {
 
         Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam-sample.silk"), "record",
-                SAMEntry.class, new ObjectHandler<SAMEntry>() {
+                SAMEntry.class, new ObjectHandlerBase<SAMEntry>() {
                     public void handle(SAMEntry input) throws Exception {
                         _logger.debug(Lens.toSilk(input));
                         for (String each : new String[] { "Nm", "RG", "H1", "MF", "H0" })
