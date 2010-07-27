@@ -2,14 +2,14 @@
   <parent>
     <artifactId>xerial-project</artifactId>
     <groupId>org.xerial</groupId>
-    <version>1.2.4-SNAPSHOT</version>
+    <version>1.2.4</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
   <name>Xerial Core</name>
-  <version>1.2.4-SNAPSHOT</version>
+  <version>1.2.4</version>
   <description>Core library of the Xerial project.</description>
 
 
