@@ -322,7 +322,7 @@ public class ObjectMapperTest {
         public int end;
         public int mapq;
         public String cigar;
-        public String mrnm; // mate reference name
+        public String mrnm; // mate reference nameh
         public int iSize;
         public String seq;
         public String qual;

@@ -38,6 +38,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.tree.TreeEvent;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
@@ -295,6 +296,16 @@ public class SilkWalkerTest {
     @Test
     public void utf8() throws Exception {
         compare("utf8.silk", "utf8.json");
+    }
+
+    @Test
+    public void utgbView() throws Exception {
+        SilkPullParser p = new SilkPullParser(FileResource.open(SilkWalkerTest.class,
+                "utgb-view.silk"));
+        for (TreeEvent e; (e = p.next()) != null;) {
+            _logger.debug(e);
+        }
+
     }
 
 }

@@ -1,0 +1,77 @@
+%silk(version:1.0)
+-track group
+  -id: 1
+  -class: org.utgenome.gwt.utgb.client.track.TrackGroup
+  -coordinate
+    -species: c.elegans
+    -ref: ce6
+    -chr: chrI
+    -start: 600001
+    -end: 700000
+    -pixel width: 1044
+  -property
+    -dbGroup: genome
+    -sequence_size: 20919567
+-track
+  -name: UTGB Navigator
+  -height: 48
+  -pack: true
+  -class: NavigatorTrack
+  -property
+    -sequenceList: [{"species":"c.elegans", "revision":["ce6"]}]
+-track
+  -name: "Keyword Search "
+  -height: 26
+  -pack: true
+  -class: KeywordSearchTrack
+  -property
+    -keyword.examples: ["WormBase Sequence name (e.g. F36H1.4a)","geneticist's name (e.g. lin-3)","Refseq name (e.g. NM_171418)"]
+    -species.scope: unknown
+-track
+  -name: "Chromosome Map Track "
+  -height: 73
+  -pack: true
+  -class: ChromosomeMapTrack
+  -property
+    -displayType: compact
+    -leftMargin: 0
+-track
+  -name: Sequence Overview
+  -height: 14
+  -pack: true
+  -class: SequenceRulerTrack
+  -property
+    -window_size: 10000
+    -sequence_size: 10000000
+-track
+  -name: Ruler
+  -height: 14
+  -pack: true
+  -class: RulerTrack
+-track
+   -name: Genome sequence
+   -height: 18
+   -pack: true
+   -class: GenomeTrack
+   -property
+     -queryParams: dbGroup,dbName
+     -trackBaseURL: utgb-core/Sequence.png?%q
+     -baseURL: utgb-core/Sequence.png?%q
+     -trackURL: utgb-core/Sequence.png?group=utgb&species=c.elegans&revision=ce6&name=chrI&start=600001&end=700000&width=1044&dbGroup=genome
+     -type: image
+-track
+  -name: "RefSeq genes "
+  -height: 44
+  -pack: true
+  -class: ReadTrack
+  -property
+    -onclick.p.value: %q
+    -onclick.p.key: read
+    -coverage.style: default
+    -showLabels: true
+    -onclick.url: http://www.wormbase.org/db/gene/gene?name=%q;class=Gene
+    -layout: pileup
+    -path: db/keyword/Refseq_rename_gene.bed
+    -leftMargin: 0
+    -dbType: AUTO
+    -onclick.action: link

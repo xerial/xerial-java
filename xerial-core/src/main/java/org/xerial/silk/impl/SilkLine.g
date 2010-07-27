@@ -193,7 +193,7 @@ fragment PlainFirst
 PlainOneLine
 	: { isKey() }? =>  PlainFirst PlainSafeKey* { transit(Symbol.LeaveValue); }  
   | { isInValue() }? => PlainFirst  PlainSafeIn* { transit(Symbol.LeaveValue); }  
-  | { isOutValue() }? => (String | ~('"' | '@' | WhiteSpace) PlainSafeOut*){ transit(Symbol.LeaveValue); }  
+  | { isOutValue() }? => (String | ~('"' | '@' | WhiteSpace) PlainSafeOut* | JSON){ transit(Symbol.LeaveValue); }  
 	;
   
 

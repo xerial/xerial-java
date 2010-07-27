@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
+import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.tree.ANTLRTreeParser;
 import org.xerial.lens.tree.JSONTreeParser;
@@ -182,12 +183,24 @@ public class Lens {
         if (silkResource == null)
             throw new NullPointerException("silk resouce is null");
 
-        return load(result, new SilkParser(silkResource));
+        return loadSilk(result, new SilkParser(silkResource));
     }
 
     public static <Result> Result loadSilk(Result result, Reader silkReader)
             throws XerialException, IOException {
-        return load(result, new SilkParser(silkReader));
+        return loadSilk(result, new SilkParser(silkReader));
+    }
+
+    public static <Result> Result loadSilk(Result result, SilkParser silkReader)
+            throws XerialException, IOException {
+        try {
+            return load(result, silkReader);
+        }
+        catch (XerialException e) {
+            ErrorCode code = e.getErrorCode();
+            throw new XerialException(code, String.format("error when reading line %d: %s",
+                    silkReader.getNumReadLine(), e.getMessage()));
+        }
     }
 
     public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader)

@@ -53,3 +53,7 @@ $ hg push (google)
 $ mvn release:perform
 
 
+== Release to sourceforge.jp
+(after releasing a project to xerial.org)
+$ hg push (google)
+$ mvn release:perform -Darguments="-P sourceforge" -Dtag="xerial-project-(version)"
