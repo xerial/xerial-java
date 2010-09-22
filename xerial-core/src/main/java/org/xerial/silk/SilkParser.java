@@ -24,10 +24,15 @@
 //--------------------------------------
 package org.xerial.silk;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +96,20 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         this(input, SilkEnv.newEnv());
     }
 
+    public SilkParser(InputStream input) throws IOException {
+        this(new InputStreamReader(input));
+    }
+
+    /**
+     * Creates a new reader for the given input file
+     * 
+     * @param input
+     * @throws IOException
+     */
+    public SilkParser(File input) throws IOException {
+        this(new BufferedReader(new FileReader(input)), SilkEnv.newEnv(getResourceBasePath(input)));
+    }
+
     /**
      * Creates a new reader inherited the given environment
      * 
@@ -132,6 +151,16 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         else
             this.parser = new SilkLinePushParser(input);
         this.parseContext = env;
+    }
+
+    static String getResourceBasePath(File resourcePath) throws IOException {
+        try {
+            URL resource = resourcePath.toURI().toURL();
+            return getResourceBasePath(resource);
+        }
+        catch (MalformedURLException e) {
+            throw new IOException("invalid path: " + resourcePath);
+        }
     }
 
     static String getResourceBasePath(URL resource) {
@@ -684,8 +713,8 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             }
         }
         catch (JSONException e) {
-            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine, e
-                    .getMessage()));
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine,
+                    e.getMessage()));
         }
 
     }
@@ -771,8 +800,9 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         if (pluginTable == null) {
             pluginTable = new TreeMap<String, Class<SilkFunctionPlugin>>();
             // load plugins 
-            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class
-                    .getPackage(), SilkFunctionPlugin.class, SilkWalker.class.getClassLoader())) {
+            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(
+                    SilkFunctionPlugin.class.getPackage(), SilkFunctionPlugin.class,
+                    SilkWalker.class.getClassLoader())) {
                 String functionName = each.getSimpleName().toLowerCase();
                 _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);

@@ -24,14 +24,12 @@
 //--------------------------------------
 package org.xerial.weaver.core.cui;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import org.xerial.lens.relation.schema.RelationSchema;
 import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.io.StandardInputStream;
@@ -52,19 +50,17 @@ public class Convert implements SilkWeaverCommand {
     @Override
     public int execute(SilkWeaverModule module, String[] args) throws Exception {
 
-        // prepare the input
-        InputStream in = null;
+        // prepare the parser
+        SilkParser parser = null;
         if ("-".equals(input)) {
             // use standard input
-            in = new StandardInputStream();
+            parser = new SilkParser(new StandardInputStream());
         }
         else {
             // open file
             _logger.info("input: " + input);
-            in = new FileInputStream(input);
+            parser = new SilkParser(new File(input));
         }
-        // wrap the input stream with a buffer
-        in = new BufferedInputStream(in);
 
         // prepre the output
         OutputStream out = null;
@@ -79,7 +75,6 @@ public class Convert implements SilkWeaverCommand {
         // wrap the output stream with a buffer
         out = new BufferedOutputStream(out);
 
-        SilkParser parser = new SilkParser(new InputStreamReader(in));
         parser.parse(new TreeEventHandler() {
 
             @Override
@@ -97,6 +92,11 @@ public class Convert implements SilkWeaverCommand {
             public void text(String nodeName, String textDataFragment) throws Exception {
                 if (_logger.isDebugEnabled())
                     _logger.debug(String.format("text  %s:%s", nodeName, textDataFragment));
+            }
+
+            @Override
+            public void schema(RelationSchema schema) throws Exception {
+
             }
 
             @Override

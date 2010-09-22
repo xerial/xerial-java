@@ -24,38 +24,43 @@
 //--------------------------------------
 package org.xerial.lens.tree;
 
+import org.xerial.lens.relation.schema.RelationSchema;
+
 /**
  * Empty implementation of the {@link TreeEventHandler}
  * 
  * @author leo
  * 
  */
-public class TreeEventHandlerBase implements TreeEventHandler
-{
+public class TreeEventHandlerBase implements TreeEventHandler {
 
-    public void finish() throws Exception
-    {
-
-    }
-
-    public void init() throws Exception
-    {
+    @Override
+    public void finish() throws Exception {
 
     }
 
-    public void leaveNode(String nodeName) throws Exception
-    {
+    @Override
+    public void init() throws Exception {
 
     }
 
-    public void text(String nodeName, String textDataFragment) throws Exception
-    {
+    @Override
+    public void leaveNode(String nodeName) throws Exception {
 
     }
 
-    public void visitNode(String nodeName, String immediateNodeValue) throws Exception
-    {
+    @Override
+    public void text(String nodeName, String textDataFragment) throws Exception {
 
     }
 
+    @Override
+    public void visitNode(String nodeName, String immediateNodeValue) throws Exception {
+
+    }
+
+    @Override
+    public void schema(RelationSchema schema) throws Exception {
+
+    }
 }

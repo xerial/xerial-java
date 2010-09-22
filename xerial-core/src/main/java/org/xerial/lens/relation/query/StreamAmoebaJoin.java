@@ -36,8 +36,9 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ObjectLens;
 import org.xerial.lens.relation.Node;
-import org.xerial.lens.relation.TupleIndex;
 import org.xerial.lens.relation.Node.NodeBuilder;
+import org.xerial.lens.relation.TupleIndex;
+import org.xerial.lens.relation.schema.RelationSchema;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.lens.tree.TreeParser;
@@ -322,6 +323,11 @@ public class StreamAmoebaJoin {
      * 
      */
     private class AmoebaFinder implements TreeEventHandler {
+
+        @Override
+        public void schema(RelationSchema schema) throws Exception {
+            // do nothing
+        }
 
         public void finish() throws Exception {
             leaveNode("root");

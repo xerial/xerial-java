@@ -27,7 +27,7 @@ package org.xerial.util.text;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.tree.TreeEventHandler;
+import org.xerial.lens.tree.TreeEventHandlerBase;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -45,28 +45,33 @@ public class TabAsTreeParserTest {
     public void parse() throws Exception {
         TabAsTreeParser p = new TabAsTreeParser(FileResource.open(TabAsTreeParserTest.class,
                 "sample.tab"));
-        p.parse(new TreeEventHandler() {
+        p.parse(new TreeEventHandlerBase() {
 
+            @Override
             public void finish() throws Exception {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
+            @Override
             public void init() throws Exception {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
+            @Override
             public void leaveNode(String nodeName) throws Exception {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
+            @Override
             public void text(String nodeName, String textDataFragment) throws Exception {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 
+            @Override
             public void visitNode(String nodeName, String immediateNodeValue) throws Exception {
 
                 _logger.debug(String.format("visit %s:%s", nodeName, immediateNodeValue));
