@@ -227,9 +227,25 @@ for each e in "result.silk" {
 
 --
 
+# set intersection
+
+--code
+# dbsnp.txt
+-snp(id, chr, start, end)
+
+# 1000genomes-SNV.txt
+-snp(id, chr, start, end)
 
 
+s1 = snp(id, chr, start, end) in "dbsnp.txt"
+s2 = snp(id, chr, start, end) in "1000genomes-SNV.txt"
 
+join s1 with s2 where s1(start, end) intersect with s2(start, end)
+
+
+# s1.join(s2, where:{s1(start, end).intersect_with(s2(start,end))})
+
+-- 
 
 
 # command-line usage
@@ -263,6 +279,8 @@ silk compress (input file)
 # indexing
 silk index (input file)
 
+
+
 --
 
 
@@ -288,3 +306,4 @@ Example
  -student(id:1, )
 
 --
+
