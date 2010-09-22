@@ -43,26 +43,44 @@ public class SilkWeaverMain extends SilkWeaverModuleBase {
     private static Logger _logger = Logger.getLogger(SilkWeaverMain.class);
 
     /**
-     * Entry point of the CUI interface
+     * Entry point of the CUI interface. If you want to execute a SilkWeaver
+     * command within a program, use {@link #execute(String[])} since this main
+     * method invokes System.exit(returnCode) to pass the return code to the
+     * JVM, then terminate the JVM.
      * 
      * @param args
      *            command-line arguments
      */
     public static void main(String[] args) {
+        int ret = execute(args);
+        System.exit(ret);
+    }
+
+    /**
+     * 
+     * 
+     * @param args
+     * @return
+     */
+    public static int execute(String[] args) {
+
         SilkWeaverMain m = new SilkWeaverMain();
 
         OptionParser parser = new OptionParser(m);
         try {
             parser.setIgnoreUnknownOption(true);
             parser.parse(args);
-            m.execute(null, parser.getUnusedArguments());
+            return m.execute(null, parser.getUnusedArguments());
         }
         catch (OptionParserException e) {
             _logger.error(e.getMessage());
             parser.printUsage();
+
+            return ReturnCode.EINVAL.toInt();
         }
         catch (Exception e) {
             e.printStackTrace();
+            return ReturnCode.FAILURE.toInt();
         }
     }
 
@@ -80,21 +98,11 @@ public class SilkWeaverMain extends SilkWeaverModuleBase {
 
     public String getProgramInfo() {
         VersionInfo vi = getVersionInfo();
-        return String.format("Silk Weaver: version %s (%s)", vi.version, vi.revision);
+        return String.format("Silk Weaver: version %s", vi.version);
     }
 
     public static class VersionInfo {
         public String version = "(unknown)";
-        private String revision = "Revision: unknown";
-
-        public void setRevision(String rev) {
-            if (rev != null && rev.length() > 1)
-                revision = rev.substring(1, rev.length() - 1).trim();
-        }
-
-        public String getRevision() {
-            return revision;
-        }
 
         public void addDependency_Version(String d, String v) {
 

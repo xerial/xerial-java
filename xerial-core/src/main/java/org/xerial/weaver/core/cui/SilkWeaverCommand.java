@@ -25,6 +25,10 @@
 package org.xerial.weaver.core.cui;
 
 /**
+ * Common interface of the SilkWeaver commands. To add a new SilkWeaver command,
+ * implements this interface, then put your code to
+ * <i>org.xerial.weaver.core.cui</i> package.
+ * 
  * @author leo
  * 
  */
@@ -44,9 +48,16 @@ public interface SilkWeaverCommand {
     public String getOneLineDescription();
 
     /**
-     * Execute the command
+     * Execute the command, and return the execution status
      * 
+     * @param module
+     *            the module to which this command belongs. This might be null
+     *            when no parent exists.
+     * @param unusedArgs
+     *            command arguments
+     * @return Return status code. See also {@link ReturnCode}.
+     * @throws Exception
      */
-    public void execute(SilkWeaverModule module, String[] unusedArgs) throws Exception;
+    public int execute(SilkWeaverModule module, String[] args) throws Exception;
 
 }

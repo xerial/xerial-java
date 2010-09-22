@@ -1,6 +1,6 @@
-#Thu Apr 08 17:30:40 JST 2010
+#Wed Sep 22 11:54:32 JST 2010
 eclipse.preferences.version=1
-formatter_profile=_Xerial
+formatter_profile=_xerial.org
 formatter_settings_version=11
 instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true
 org.eclipse.jdt.ui.javadoc=false

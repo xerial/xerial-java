@@ -32,24 +32,25 @@ package org.xerial.weaver.core.cui;
  */
 public enum ReturnCode {
 
-    SUCCESS(0) /* normal termination */, EPERM(1) /* Operation not permitted */,
-    ENOENT(2) /* No such file or directory */, ESRCH(3) /* No such process */,
-    EINTR(4) /* Interrupted system call */, EIO(5) /* Input/output error */,
-    ENXIO(6) /* Device not configured */, E2BIG(7) /* Argument list too long */,
-    ENOEXEC(8) /* Exec format error */, EBADF(9) /* Bad file descriptor */,
-    ECHILD(10) /* No child processes */, EDEADLK(11) /* Resource deadlock avoided */,
-    ENOMEM(12) /* Cannot allocate memory */, EACCES(13) /* Permission denied */,
-    EFAULT(14) /* Bad address */, ENOTBLK(15) /* Block device required */,
-    EBUSY(16) /* Device / Resource busy */, EEXIST(17) /* File exists */,
-    EXDEV(18) /* Cross-device link */, ENODEV(19) /* Operation not supported by device */,
-    ENOTDIR(20) /* Not a directory */, EISDIR(21) /* Is a directory */,
-    EINVAL(22) /* Invalid argument */, ENFILE(23) /* Too many open files in system */,
-    EMFILE(24) /* Too many open files */, ENOTTY(25) /* Inappropriate ioctl for device */,
-    ETXTBSY(26) /* Text file busy */, EFBIG(27) /* File too large */,
-    ENOSPC(28) /* No space left on device */, ESPIPE(29) /* Illegal seek */,
-    EROFS(30) /* Read-only file system */, EMLINK(31) /* Too many links */,
-    EPIPE(32) /* Broken pipe */, EDOM(33) /* Numerical argument out of domain */,
-    ERANGE(34) /* Result too large */, EAGAIN(35) /* Resource temporarily unavailable */,
+    FAILURE(-1) /* error occurred */, SUCCESS(0) /* normal termination */,
+    EPERM(1) /* Operation not permitted */, ENOENT(2) /* No such file or directory */,
+    ESRCH(3) /* No such process */, EINTR(4) /* Interrupted system call */,
+    EIO(5) /* Input/output error */, ENXIO(6) /* Device not configured */,
+    E2BIG(7) /* Argument list too long */, ENOEXEC(8) /* Exec format error */,
+    EBADF(9) /* Bad file descriptor */, ECHILD(10) /* No child processes */,
+    EDEADLK(11) /* Resource deadlock avoided */, ENOMEM(12) /* Cannot allocate memory */, EACCES(
+            13) /* Permission denied */, EFAULT(14) /* Bad address */,
+    ENOTBLK(15) /* Block device required */, EBUSY(16) /* Device / Resource busy */,
+    EEXIST(17) /* File exists */, EXDEV(18) /* Cross-device link */,
+    ENODEV(19) /* Operation not supported by device */, ENOTDIR(20) /* Not a directory */,
+    EISDIR(21) /* Is a directory */, EINVAL(22) /* Invalid argument */,
+    ENFILE(23) /* Too many open files in system */, EMFILE(24) /* Too many open files */, ENOTTY(
+            25) /* Inappropriate ioctl for device */, ETXTBSY(26) /* Text file busy */,
+    EFBIG(27) /* File too large */, ENOSPC(28) /* No space left on device */,
+    ESPIPE(29) /* Illegal seek */, EROFS(30) /* Read-only file system */,
+    EMLINK(31) /* Too many links */, EPIPE(32) /* Broken pipe */,
+    EDOM(33) /* Numerical argument out of domain */, ERANGE(34) /* Result too large */,
+    EAGAIN(35) /* Resource temporarily unavailable */,
     EWOULDBLOCK(35) /* Operation would block */, EINPROGRESS(36) /* Operation now in progress */,
     EALREADY(37) /* Operation already in progress */,
     ENOTSOCK(38) /* Socket operation on non-socket */,
@@ -100,6 +101,10 @@ public enum ReturnCode {
 
     ReturnCode(int code) {
         this.code = code;
+    }
+
+    public int toInt() {
+        return code;
     }
 
 }

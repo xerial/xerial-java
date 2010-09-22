@@ -39,8 +39,9 @@ public class Help implements SilkWeaverCommand {
     @Argument(index = 0, required = false, name = "command")
     String targetCommand = null;
 
-    public void execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
+    public int execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
         module.displayHelp(targetCommand);
+        return ReturnCode.SUCCESS.toInt();
     }
 
     public String getCommandName() {

@@ -65,7 +65,7 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
     @Option(longName = "loglevel", varName = "LEVEL", description = "set log level: OFF, TRACE, DEBUG, INFO(default), WARN, ERROR, FATAL")
     protected LogLevel logLevel = LogLevel.INFO;
 
-    @Option(longName = "logconfig", varName = "path", description = "specify the log config file")
+    @Option(symbol = "l", longName = "logconfig", varName = "path", description = "specify the path to the log config file")
     protected String logConfigFilePath = null;
 
     protected SilkWeaverModuleBase(Package commandBasePackage) {
@@ -85,7 +85,7 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
         return subModuleList;
     }
 
-    public void execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
+    public int execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
 
         // set the log level
         Logger packageLogger = Logger.getLogger("org.xerial.weaver");
@@ -110,11 +110,11 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
             System.out.println(getProgramInfo());
             if (displayHelp) {
                 displayHelp();
-                return;
+                return ReturnCode.SUCCESS.toInt();
             }
             else {
                 System.out.println("type --help for a list of the available commands");
-                return;
+                return ReturnCode.SUCCESS.toInt();
             }
         }
         else {
@@ -123,7 +123,7 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
             if (c == null) {
                 System.err.println("unknown command: " + commandName);
                 System.err.println("type --help for a list of the available commands");
-                return;
+                return ReturnCode.EINVAL.toInt();
             }
             else {
                 // bind the unused arguments to the sub command
@@ -152,6 +152,8 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
                 }
             }
         }
+
+        return ReturnCode.SUCCESS.toInt();
 
     }
 
@@ -186,8 +188,8 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
         System.out.println("[available commands]");
 
         for (SilkWeaverCommand c : getSubCommandList()) {
-            System.out.println(String.format("  %-15s %s", c.getCommandName(), c
-                    .getOneLineDescription()));
+            System.out.println(String.format("  %-15s %s", c.getCommandName(),
+                    c.getOneLineDescription()));
         }
     }
 

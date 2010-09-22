@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.weaver;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,17 +44,17 @@ public class SilkWeaverMainTest {
 
     @Test
     public void programInfo() throws Exception {
-        SilkWeaverMain.main(new String[] {});
+        assertTrue(SilkWeaverMain.execute(new String[] {}) == 0);
     }
 
     @Test
     public void helpCommand() throws Exception {
-        SilkWeaverMain.main(new String[] { "--help" });
+        assertTrue(SilkWeaverMain.execute(new String[] { "--help" }) == 0);
     }
 
     @Test
     public void help() throws Exception {
-        SilkWeaverMain.main(new String[] { "help", "--help" });
+        assertEquals(0, SilkWeaverMain.execute(new String[] { "help", "--help" }));
     }
 
 }

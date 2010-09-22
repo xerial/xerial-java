@@ -51,7 +51,7 @@ public class Copy implements SilkWeaverCommand {
     @Option(symbol = "b", longName = "buffersize", varName = "KB", description = "buffer size in KB (default = 64KB)")
     private int bufferSizeInKB = 64;
 
-    public void execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
+    public int execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
 
         StopWatch timer = new StopWatch();
         timer.reset();
@@ -67,6 +67,8 @@ public class Copy implements SilkWeaverCommand {
         double time = timer.getElapsedTime();
         double mbPerSec = (s.length() / (double) (1024 * 1024)) / time;
         _logger.debug(String.format("elapsed time: %.2f sec. %.2f MB/sec", time, mbPerSec));
+
+        return ReturnCode.SUCCESS.toInt();
     }
 
     public String getCommandName() {
