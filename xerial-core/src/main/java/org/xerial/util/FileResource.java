@@ -27,6 +27,7 @@ package org.xerial.util;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
@@ -612,6 +613,28 @@ public class FileResource {
 
         return result;
 
+    }
+
+    /**
+     * Create a temporary file from the specified resource, then return the path
+     * to the temporary file
+     * 
+     * @param <T>
+     * @param searchBase
+     * @param path
+     * @param tempDir
+     * @return
+     * @throws IOException
+     */
+    public static <T> File copyToTemp(Class<T> searchBase, String path, File tempDir)
+            throws IOException {
+        BufferedInputStream resource = openByteStream(searchBase, path);
+        if (resource == null)
+            throw new FileNotFoundException(path);
+
+        File tmp = FileUtil.createTempFile(tempDir, "tmp-", new File(path).getName());
+        FileUtil.copy(resource, tmp);
+        return tmp;
     }
 
 }

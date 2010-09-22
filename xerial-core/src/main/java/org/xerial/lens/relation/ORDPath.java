@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2010 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,43 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// ORDPath.java
+// Since: Sep 22, 2010 10:30:16 AM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.xerial.lens.relation;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * Compact representation of TupleIndex (e.g., 1.1.3 => [(01, 001), (01, 001),
+ * (01,011)] = 010010100101011)
+ * 
+ * 
  * 
  * @author leo
  * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
-
-    /**
-     * name of the argument. If nothing is given, field name is used;
-     */
-    String name() default "";
-
-    /**
-     * This argument is required or not. (default = false)
-     */
-    boolean required() default false;
-
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+public class ORDPath {
 
 }

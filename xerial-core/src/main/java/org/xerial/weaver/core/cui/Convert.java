@@ -24,7 +24,94 @@
 //--------------------------------------
 package org.xerial.weaver.core.cui;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+
+import org.xerial.lens.tree.TreeEventHandler;
+import org.xerial.silk.SilkParser;
+import org.xerial.util.io.StandardInputStream;
+import org.xerial.util.io.StandardOutputStream;
+import org.xerial.util.log.Logger;
+import org.xerial.util.opt.Argument;
+
 public class Convert implements SilkWeaverCommand {
+
+    private static Logger _logger = Logger.getLogger(Convert.class);
+
+    @Argument(index = 0, required = false)
+    private String input = "-";
+
+    @Argument(index = 1, required = false)
+    private String output = "-";
+
+    @Override
+    public int execute(SilkWeaverModule module, String[] args) throws Exception {
+
+        // prepare the input
+        InputStream in = null;
+        if ("-".equals(input)) {
+            // use standard input
+            in = new StandardInputStream();
+        }
+        else {
+            // open file
+            _logger.info("input: " + input);
+            in = new FileInputStream(input);
+        }
+        // wrap the input stream with a buffer
+        in = new BufferedInputStream(in);
+
+        // prepre the output
+        OutputStream out = null;
+        if ("-".equals(output)) {
+            // use standard output
+            out = new StandardOutputStream();
+        }
+        else {
+            _logger.info("output: " + output);
+            out = new FileOutputStream(output);
+        }
+        // wrap the output stream with a buffer
+        out = new BufferedOutputStream(out);
+
+        SilkParser parser = new SilkParser(new InputStreamReader(in));
+        parser.parse(new TreeEventHandler() {
+
+            @Override
+            public void init() throws Exception {
+                _logger.info("start parsing");
+            }
+
+            @Override
+            public void visitNode(String nodeName, String immediateNodeValue) throws Exception {
+                if (_logger.isDebugEnabled())
+                    _logger.debug(String.format("visit %s:%s", nodeName, immediateNodeValue));
+            }
+
+            @Override
+            public void text(String nodeName, String textDataFragment) throws Exception {
+                if (_logger.isDebugEnabled())
+                    _logger.debug(String.format("text  %s:%s", nodeName, textDataFragment));
+            }
+
+            @Override
+            public void leaveNode(String nodeName) throws Exception {
+
+            }
+
+            @Override
+            public void finish() throws Exception {
+                _logger.info("parsing finished");
+            }
+        });
+
+        return ReturnCode.SUCCESS.toInt();
+    }
 
     @Override
     public String getCommandName() {
@@ -34,12 +121,6 @@ public class Convert implements SilkWeaverCommand {
     @Override
     public String getOneLineDescription() {
         return "convert Silk data into a binary format";
-    }
-
-    @Override
-    public int execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
-
-        return ReturnCode.SUCCESS.toInt();
     }
 
 }

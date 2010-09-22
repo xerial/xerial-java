@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2010 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,43 +16,44 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// StandardOutputStream.java
+// Since: Sep 22, 2010 12:48:58 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.io;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * An wrapper class of STDOUT for avoiding accidentally closing STDOUT, which
+ * should not be closed by users.
  * 
  * @author leo
  * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
+public class StandardOutputStream extends OutputStream {
 
-    /**
-     * name of the argument. If nothing is given, field name is used;
-     */
-    String name() default "";
+    @Override
+    public void flush() throws IOException {
+        System.out.flush();
+    }
 
-    /**
-     * This argument is required or not. (default = false)
-     */
-    boolean required() default false;
+    @Override
+    public void write(int b) throws IOException {
+        System.out.write(b);
+    }
 
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        System.out.write(b, off, len);
+    }
+
+    @Override
+    public void close() throws IOException {
+        // do nothing
+    }
 
 }

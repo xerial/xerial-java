@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2010 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,43 +16,31 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// ObjectSchema.java
+// Since: Sep 21, 2010 3:35:00 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package org.xerial.weaver.store;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * Schema of an object
  * 
  * @author leo
  * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
+public class ObjectSchema {
 
-    /**
-     * name of the argument. If nothing is given, field name is used;
-     */
-    String name() default "";
+    public static enum DataType {
+        // primitive types
+        INT, // (31-bit signed integer)
+        FLOAT, // (32-bit floating point value)
+        LONG, // (63-bit signed integer)
+        DOUBLE, // (64-bit floating point value; double type)
+        STRING, // (UTF-8 string)
+        BOOLEAN, // (Boolean value: True or False)
 
-    /**
-     * This argument is required or not. (default = false)
-     */
-    boolean required() default false;
-
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+    }
 
 }

@@ -26,7 +26,10 @@ package org.xerial.weaver.core.cui;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
+import org.xerial.util.FileResource;
 
 public class ConvertTest {
 
@@ -34,6 +37,17 @@ public class ConvertTest {
     public void testConvertHelp() throws Exception {
 
         assertEquals(0, SilkWeaverMain.execute(new String[] { "convert", "--help" }));
+
+    }
+
+    @Test
+    public void convertFASTA() throws Exception {
+
+        File fasta = FileResource.copyToTemp(ConvertTest.class, "sample.fa.silk",
+                new File("target"));
+        fasta.deleteOnExit();
+
+        SilkWeaverMain.execute(new String[] { "convert", "-l", "debug", fasta.getAbsolutePath() });
 
     }
 

@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2008 Taro L. Saito
+ *  Copyright 2010 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,43 +16,44 @@
 //--------------------------------------
 // XerialJ
 //
-// Argument.java
-// Since: Oct 27, 2008 11:37:08 AM
+// StandardInputStream.java
+// Since: Sep 22, 2010 12:41:07 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.io;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * Command-line argument with no option prefix such as "-" or "--"
+ * An wrapper of System.in used for avoiding accidentally closing System.in,
+ * which should not be closed by the user.
  * 
  * @author leo
  * 
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Argument {
+public class StandardInputStream extends InputStream {
 
-    /**
-     * name of the argument. If nothing is given, field name is used;
-     */
-    String name() default "";
+    @Override
+    public int read() throws IOException {
+        return System.in.read();
+    }
 
-    /**
-     * This argument is required or not. (default = false)
-     */
-    boolean required() default false;
+    @Override
+    public int read(byte[] b) throws IOException {
+        return System.in.read(b);
+    }
 
-    /**
-     * argument index (0-origin) among the arguments without option prefix, "-"
-     * or "--". The default is 0.
-     */
-    int index() default 0;
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        return System.in.read(b, off, len);
+    }
+
+    @Override
+    public void close() throws IOException {
+        // do nothing
+    }
 
 }

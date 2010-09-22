@@ -63,7 +63,7 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
     protected boolean displayHelp = false;
 
     @Option(longName = "loglevel", varName = "LEVEL", description = "set log level: OFF, TRACE, DEBUG, INFO(default), WARN, ERROR, FATAL")
-    protected LogLevel logLevel = LogLevel.INFO;
+    protected LogLevel logLevel = null;
 
     @Option(symbol = "l", longName = "logconfig", varName = "path", description = "specify the path to the log config file")
     protected String logConfigFilePath = null;
@@ -88,8 +88,10 @@ public abstract class SilkWeaverModuleBase implements SilkWeaverModule {
     public int execute(SilkWeaverModule module, String[] unusedArgs) throws Exception {
 
         // set the log level
-        Logger packageLogger = Logger.getLogger("org.xerial.weaver");
-        packageLogger.setLogLevel(logLevel);
+        if (logLevel != null) {
+            Logger packageLogger = Logger.getLogger("org.xerial.weaver");
+            packageLogger.setLogLevel(logLevel);
+        }
 
         // load log config file
         if (logConfigFilePath != null) {
