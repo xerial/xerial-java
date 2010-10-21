@@ -34,8 +34,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -365,7 +365,7 @@ public class SilkWriter {
 
         int indentLevel = printIndent();
         out.print(nodeIndicator);
-        out.print(nodeName);
+        out.print(nodeName != null ? nodeName : "");
     }
 
     public SilkWriter tabDataSchema(String nodeName) {

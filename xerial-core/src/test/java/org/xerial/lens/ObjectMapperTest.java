@@ -35,7 +35,6 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.ObjectHandlerBase;
 import org.xerial.lens.LensTest.Gene;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;

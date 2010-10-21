@@ -22,9 +22,8 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial;
+package org.xerial.lens;
 
-import org.xerial.lens.ObjectHandler;
 
 /**
  * A base implementation of {@link ObjectHandler}

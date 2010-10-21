@@ -34,7 +34,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.ObjectHandlerBase;
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;

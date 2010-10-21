@@ -66,8 +66,8 @@ public class SilkWriterTest {
         config.leaf("group", "utgb");
         w.commentLine("database connection settings");
 
-        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite").attribute("scope",
-                "debug");
+        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite")
+                .attribute("scope", "debug");
         dbNode.leaf("address", "db/sample.db");
 
         SilkWriter t = w.tabDataSchema("gene").attribute("id").attribute("start").attribute("end");
@@ -86,8 +86,8 @@ public class SilkWriterTest {
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
 
-        SilkWalker s1 = new SilkWalker(FileResource
-                .open(SilkWriterTest.class, "writer-result.silk"));
+        SilkWalker s1 = new SilkWalker(
+                FileResource.open(SilkWriterTest.class, "writer-result.silk"));
         SilkWalker s2 = new SilkWalker(new StringReader(s));
 
         s1.walk(l1);
@@ -239,6 +239,20 @@ public class SilkWriterTest {
         w.sortInfo("sequence", "offset");
         w.node("A");
         _logger.debug(buf.toString());
+    }
+
+    @Test
+    public void arrayNoNameNode() throws Exception {
+        StringWriter buf = new StringWriter();
+        SilkWriter w = new SilkWriter(buf);
+
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(new Person(1, "leo"));
+        persons.add(new Person(2, "yui"));
+        w.toSilk(persons);
+        w.flush();
+        _logger.info(buf.toString());
+
     }
 
 }
