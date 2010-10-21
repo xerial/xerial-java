@@ -251,7 +251,7 @@ public class SilkWriterTest {
         persons.add(new Person(2, "yui"));
         w.toSilk(persons);
         w.flush();
-        _logger.info(buf.toString());
+        _logger.debug(buf.toString());
 
     }
 
