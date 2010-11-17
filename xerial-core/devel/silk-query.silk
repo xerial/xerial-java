@@ -307,3 +307,33 @@ Example
 
 --
 
+
+
+# exended function synax
+
+@function: argument, ... 
+
+@function(arg1:value1, arg2:value2, ...)
+
+@function
+ -arg1: value1
+ -arg2: value2
+
+
+
+# Simple Silk 
+
+<letter> := [A-Za-z]
+<digit>  := [0-9]
+<hex digit> := ('0' .. '9' | 'A' .. 'F' | 'a' .. 'f');
+<unicode char> := ~("\""| "\\");
+<string char> := <unicode char> | <escape sequence>
+<escape sequence> :=  "\\" ("\"" | "\\" | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u' HexDigit HexDigit HexDigit HexDigit)
+
+
+<name char> := <letter> | "_" | "." | " "
+<string char> := 
+<string> := "\"" <string char>* "\""  (greedy match)
+<node name> := <name char> | 
+
+

@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial</artifactId>
-  <version>3</version>
+  <version>4</version>
   <description>
     Xerial, pronounced as ex-erial, is an XML database management system. 
   </description>
@@ -60,18 +60,18 @@
   <distributionManagement>
     <!-- for development releases -->
     <site>
-      <id>xerial.dav</id>
-      <url>dav:https://www.xerial.org/maven/repository/site</url>
+      <id>xerial.scp</id>
+      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/site</url>
     </site>
     <repository>
-      <id>xerial.dav</id>
+      <id>xerial.scp</id>
       <name>Xerial Maven Repository</name>
-      <url>dav:https://www.xerial.org/maven/repository/artifact</url>
+      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/artifact</url>
     </repository>
     <snapshotRepository>
-      <id>xerial.dav</id>
+      <id>xerial.scp</id>
       <name>Xerial Maven Snapshot Repository</name>
-      <url>dav:https://www.xerial.org/maven/repository/snapshot</url>
+      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/snapshot</url>
       <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
@@ -138,7 +138,7 @@
 	  <name>Xerial Artifact Repository</name>
 	  <url>http://www.xerial.org/maven/repository/snapshot</url>
 	  <snapshots>
-            <enabled>true</enabled>
+         <enabled>true</enabled>
 	  </snapshots>
 	</repository>
       </repositories>
