@@ -61,17 +61,17 @@
     <!-- for development releases -->
     <site>
       <id>xerial.scp</id>
-      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/site</url>
+      <url>scpexe://www.xerial.org/home/wev/maven.xerial.org/repository/site</url>
     </site>
     <repository>
       <id>xerial.scp</id>
       <name>Xerial Maven Repository</name>
-      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/artifact</url>
+      <url>scpexe://www.xerial.org/home/wev/maven.xerial.org/repository/artifact</url>
     </repository>
     <snapshotRepository>
       <id>xerial.scp</id>
       <name>Xerial Maven Snapshot Repository</name>
-      <url>scp://www.xerial.org/home/wev/maven.xerial.org/repository/snapshot</url>
+      <url>scpexe://www.xerial.org/home/wev/maven.xerial.org/repository/snapshot</url>
       <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
