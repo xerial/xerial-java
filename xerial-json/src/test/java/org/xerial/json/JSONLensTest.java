@@ -37,6 +37,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
+import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
@@ -402,16 +403,81 @@ public class JSONLensTest
         }
     }
 
+    public class Sample
+    {
+        int    id;
+        String name;
+
+        public Sample() {}
+
+        /**
+         * @param id
+         * @param name
+         */
+        public Sample(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "id=" + id + " name=" + name;
+        }
+    }
+
     @Test
     public void createBeanFromJSON() throws IOException, XerialException {
-        Sample s = JSONLens.loadJSON(Sample.class, FileResource.open(XMLLensTest.class, "sample.json"));
+        Sample s = JSONLens.loadJSON(Sample.class, FileResource.open(JSONLensTest.class, "sample.json"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
 
+    public static class SampleList
+    {
+        private static Logger     _logger    = Logger.getLogger(SampleList.class);
+        private ArrayList<Sample> sampleList = new ArrayList<Sample>();
+        private String            listName;
+
+        public String getListName() {
+            return listName;
+        }
+
+        public void setListName(String listName) {
+            this.listName = listName;
+        }
+
+        public SampleList() {}
+
+        public void addSample(Sample s) {
+            _logger.trace("add: " + s);
+            sampleList.add(s);
+        }
+
+        public ArrayList<Sample> getSampleList() {
+            return sampleList;
+        }
+
+    }
+
     @Test
     public void createNestedBeanFromJSON() throws XerialException, IOException {
-        SampleList sl = JSONLens.loadJSON(SampleList.class, FileResource.open(XMLLensTest.class, "samplelist.json"));
+        SampleList sl = JSONLens.loadJSON(SampleList.class, FileResource.open(JSONLensTest.class, "samplelist.json"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());
@@ -501,7 +567,6 @@ public class JSONLensTest
         // json string should have the form: { "nameTable":[ [1, "apple"], [2,
         // "banana"], [3, "coconut"] ] }
         String json = JSONLens.toJSON(n1);
-        String silk = SilkLens.toSilk(n1);
 
         NameTable n2 = new NameTable();
         JSONLens.loadJSON(n2, json);
@@ -773,13 +838,9 @@ public class JSONLensTest
 
         // Subclass of Array cannot be JSONObject, so explicit conversion to JSONObject must be used
         String json = JSONLens.toJSON(pv);
-        String silk = SilkLens.toSilk(pv);
 
         PersonVector pv2 = new PersonVector();
         JSONLens.loadJSON(pv2, json);
-
-        PersonVector pv3 = new PersonVector();
-        SilkLens.loadSilk(pv3, silk);
 
         assertEquals(1, pv2.size());
         assertEquals(pv, pv2);
