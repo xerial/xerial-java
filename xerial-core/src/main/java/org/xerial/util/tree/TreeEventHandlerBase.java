@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.tree;
 
-import org.xerial.lens.relation.schema.RelationSchema;
 
 /**
  * Empty implementation of the {@link TreeEventHandler}
@@ -59,8 +58,4 @@ public class TreeEventHandlerBase implements TreeEventHandler {
 
     }
 
-    @Override
-    public void schema(RelationSchema schema) throws Exception {
-
-    }
 }

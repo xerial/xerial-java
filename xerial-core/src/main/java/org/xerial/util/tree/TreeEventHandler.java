@@ -25,7 +25,6 @@
 package org.xerial.util.tree;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.relation.schema.RelationSchema;
 
 /**
  * {@link TreeEvent} handler interface
@@ -71,13 +70,6 @@ public interface TreeEventHandler {
      */
     public void leaveNode(String nodeName) throws Exception;
 
-    /**
-     * Invoked when a schema definition is found.
-     * 
-     * @param schema
-     * @throws Exception
-     */
-    public void schema(RelationSchema schema) throws Exception;
 
     /**
      * When the tree visit has finished

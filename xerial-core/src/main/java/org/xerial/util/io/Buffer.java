@@ -27,7 +27,7 @@ package org.xerial.util.io;
 import java.io.UTFDataFormatException;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.relation.VariableLengthInteger;
+import org.xerial.util.VariableLengthInteger;
 
 /**
  * Buffer to read/write raw memory data

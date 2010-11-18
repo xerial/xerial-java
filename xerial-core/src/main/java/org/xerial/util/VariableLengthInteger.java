@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation;
+package org.xerial.util;
 
 import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
