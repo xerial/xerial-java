@@ -36,35 +36,23 @@ import java.util.Vector;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
-import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.BeanUtilTest;
-import org.xerial.util.bean.JSONArray;
-import org.xerial.util.bean.JSONException;
-import org.xerial.util.bean.JSONObject;
-import org.xerial.util.bean.UTGBException;
-import org.xerial.util.bean.sample.Book;
-import org.xerial.util.bean.sample.Gene;
-import org.xerial.util.bean.sample.GenePartial;
-import org.xerial.util.bean.sample.Person;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.impl.Sample;
-import org.xerial.xml.impl.SampleList;
-import org.xerial.xml.impl.XMLLensTest;
 
-public class JSONLensTest {
+public class JSONLensTest
+{
 
     private static Logger _logger = Logger.getLogger(JSONLensTest.class);
 
-    public static class Gene {
-        private int id;
-        private int start;
-        private int end;
+    public static class Gene
+    {
+        private int    id;
+        private int    start;
+        private int    end;
         private String strand;
         private String name;
         private String target;
@@ -151,8 +139,9 @@ public class JSONLensTest {
      * @author leo
      * 
      */
-    public static class Person implements Comparable<Person> {
-        int id;
+    public static class Person implements Comparable<Person>
+    {
+        int    id;
         String name;
 
         public Person() {}
@@ -194,8 +183,9 @@ public class JSONLensTest {
 
     }
 
-    public static class Book {
-        String title;
+    public static class Book
+    {
+        String            title;
         ArrayList<String> authorList = new ArrayList<String>();
 
         public Book() {}
@@ -223,7 +213,8 @@ public class JSONLensTest {
         }
     }
 
-    public static class PrivateGetterSetter {
+    public static class PrivateGetterSetter
+    {
         Double value;
 
         public PrivateGetterSetter(Double value) {
@@ -265,7 +256,8 @@ public class JSONLensTest {
         assertEquals(0.0, p.getValue(), 0.01);
     }
 
-    public class Address {
+    public class Address
+    {
         Person person;
         String address;
 
@@ -296,9 +288,10 @@ public class JSONLensTest {
 
     }
 
-    public class CollectionParam {
-        Vector<String> nameList = new Vector<String>();
-        ArrayList<Integer> idList = new ArrayList<Integer>();
+    public class CollectionParam
+    {
+        Vector<String>     nameList = new Vector<String>();
+        ArrayList<Integer> idList   = new ArrayList<Integer>();
 
         public CollectionParam(Vector<String> nameList, ArrayList<Integer> idList) {
             this.nameList = nameList;
@@ -366,7 +359,8 @@ public class JSONLensTest {
         assertEquals("world", addr2.getAddress());
     }
 
-    public class PersonList {
+    public class PersonList
+    {
         Vector<Person> personList = new Vector<Person>();
 
         public PersonList() {}
@@ -408,16 +402,14 @@ public class JSONLensTest {
 
     @Test
     public void createBeanFromJSON() throws IOException, XerialException {
-        Sample s = JSONLens.loadJSON(Sample.class,
-                FileResource.open(XMLLensTest.class, "sample.json"));
+        Sample s = JSONLens.loadJSON(Sample.class, FileResource.open(XMLLensTest.class, "sample.json"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
 
     @Test
     public void createNestedBeanFromJSON() throws XerialException, IOException {
-        SampleList sl = JSONLens.loadJSON(SampleList.class,
-                FileResource.open(XMLLensTest.class, "samplelist.json"));
+        SampleList sl = JSONLens.loadJSON(SampleList.class, FileResource.open(XMLLensTest.class, "samplelist.json"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());
@@ -426,7 +418,8 @@ public class JSONLensTest {
         assertEquals("My Family", sl.getListName());
     }
 
-    public static class PrimitiveAdder {
+    public static class PrimitiveAdder
+    {
         Vector<Integer> valueList = new Vector<Integer>();
 
         public PrimitiveAdder() {}
@@ -468,7 +461,8 @@ public class JSONLensTest {
 
     }
 
-    public static class NameTable {
+    public static class NameTable
+    {
         Map<Integer, String> nameTable = new TreeMap<Integer, String>();
 
         public NameTable() {}
@@ -516,7 +510,8 @@ public class JSONLensTest {
         }
     }
 
-    public class Mate {
+    public class Mate
+    {
         Map<Person, Person> pair = new TreeMap<Person, Person>();
 
         public Mate() {}
@@ -565,8 +560,9 @@ public class JSONLensTest {
         assertTrue(bs.getBindRules().size() == 0);
     }
 
-    public static class HogeHoge {
-        public SortedMap<Integer, String> map = new TreeMap<Integer, String>();
+    public static class HogeHoge
+    {
+        public SortedMap<Integer, String>                     map   = new TreeMap<Integer, String>();
         public SortedMap<Integer, SortedMap<Integer, String>> graph = new TreeMap<Integer, SortedMap<Integer, String>>();
 
         public HogeHoge() {}
@@ -611,7 +607,8 @@ public class JSONLensTest {
     }
 
     @SuppressWarnings("serial")
-    public static class UnknownTypeMap extends TreeMap {
+    public static class UnknownTypeMap extends TreeMap
+    {
         String mapName;
 
         public UnknownTypeMap() {}
@@ -654,14 +651,16 @@ public class JSONLensTest {
     }
 
     @SuppressWarnings("serial")
-    public class PersonTable extends TreeMap<Integer, Person> {
+    public class PersonTable extends TreeMap<Integer, Person>
+    {
         public PersonTable() {
             super();
         }
     }
 
     @SuppressWarnings("serial")
-    public class ComplexMap extends TreeMap<Integer, PersonTable> {
+    public class ComplexMap extends TreeMap<Integer, PersonTable>
+    {
         private String name = "n/a";
 
         public ComplexMap() {
@@ -708,7 +707,8 @@ public class JSONLensTest {
 
     }
 
-    class NonConstructableClass {
+    class NonConstructableClass
+    {
         public NonConstructableClass() {}
 
         public void setName(String value) {
@@ -757,7 +757,8 @@ public class JSONLensTest {
     }
 
     @SuppressWarnings("serial")
-    public class PersonVector extends Vector<Person> {
+    public class PersonVector extends Vector<Person>
+    {
         public PersonVector() {}
 
     }
@@ -782,7 +783,8 @@ public class JSONLensTest {
         assertEquals(pv, pv2);
     }
 
-    public class PersonList2 {
+    public class PersonList2
+    {
         ArrayList personList = new ArrayList();
 
         public PersonList2() {}
@@ -812,154 +814,6 @@ public class JSONLensTest {
 
         String j3 = JSONUtil.toJSON(pl2);
         _logger.debug(j3);
-
-    }
-
-    /**
-     * Test method for
-     * {@link org.utgenome.util.bean.BeanUtil#toJSON(java.lang.Object)}.
-     * 
-     * @throws JSONException
-     * @throws UTGBException
-     * @throws UTGBException
-     * @throws JSONException
-     * @throws JSONException
-     * @throws XerialException
-     * @throws JSONException
-     */
-    @Test
-    public void simpleBeanClassToJSON() throws XerialException, JSONException {
-        String str = JSONLens.toJSON(new Person(5, "leo"));
-        JSONObject json = new JSONObject(str);
-        assertEquals(5, json.getInt("id"));
-        assertEquals("leo", json.getString("name"));
-    }
-
-    @Test
-    public void classWithArrayParameterToJSON() throws JSONException, XerialException {
-        String str = JSONLens.toJSON(new Book("Data on the Web", new String[] { "Abiteboul",
-                "Buneman" }));
-        JSONObject json = new JSONObject(str);
-        JSONArray author = json.getJSONArray("author");
-        assertEquals(2, author.size());
-        assertEquals("Abiteboul", author.get(0).toString());
-        assertEquals("Buneman", author.get(1).toString());
-        assertEquals("Data on the Web", json.getString("title"));
-    }
-
-    /*
-     * @Test public void addBean() throws InvalidJSONDataException,
-     * XerialException { Value[] va = {new Value("1"), new Value("2"), new
-     * Value("invalid", "-1")}; Vector<Value> v = new Vector<Value>();
-     * for(Value value : va) v.add(value); ValueDomain vd = new ValueDomain(v);
-     * String json = JSONLens.toJSON(vd);
-     * 
-     * ValueDomain vd2 = new ValueDomain(); BeanUtil.populateBean(vd2, json);
-     * int i =0; assertEquals(va.length, vd2.getValueList().size()); for(Object
-     * obj : vd2.getValueList()) { Value val = (Value) obj;
-     * assertEquals(va[i].getLabel(), val.getLabel());
-     * assertEquals(va[i].getValue(), val.getValue()); i++; } }
-     */
-
-    private boolean foundGene1 = false;
-    private boolean foundGene2 = false;
-
-    @Test
-    public void streamJSONReader() throws IOException, XerialException {
-        foundGene1 = false;
-        foundGene2 = false;
-
-        StopWatch stopWatch = new StopWatch();
-        JSONLens.loadJSON(Gene.class,
-                FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
-                new ObjectHandlerBase<Gene>() {
-                    public void handle(Gene gene) throws Exception {
-                        assertNotNull(gene);
-                        if (gene.getId() == 1) {
-                            assertEquals("gene1", gene.getName());
-                            assertEquals(100, gene.getStart());
-                            assertEquals(200, gene.getEnd());
-                            assertEquals("chr1", gene.getTarget());
-                            assertEquals("-", gene.getStrand());
-                            foundGene1 = true;
-                        }
-                        else if (gene.getId() == 2) {
-                            assertEquals("gene2", gene.getName());
-                            assertEquals(300, gene.getStart());
-                            assertEquals(500, gene.getEnd());
-                            assertEquals("chr2", gene.getTarget());
-                            assertEquals("+", gene.getStrand());
-                            foundGene2 = true;
-                        }
-                        else {
-                            fail("invalid gene");
-                        }
-
-                    }
-
-                    public void handleException(Exception e) {
-                        _logger.error(e);
-                    }
-
-                });
-        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
-
-        assertTrue(foundGene1);
-        assertTrue(foundGene2);
-
-    }
-
-    @Test
-    public void partialMatchTest() throws XerialException, IOException {
-        foundGene1 = false;
-        foundGene2 = false;
-
-        StopWatch stopWatch = new StopWatch();
-        JSONLens.findFromJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
-                "gene", GenePartial.class, new ObjectHandler<GenePartial>() {
-                    public void handle(GenePartial gene) throws Exception {
-                        assertNotNull(gene);
-                        if (gene.getId() == 1) {
-                            assertEquals(100, gene.getStart());
-                            assertEquals(200, gene.getEnd());
-                            assertEquals("chr1", gene.getTarget());
-                            assertEquals("-", gene.getStrand());
-                            foundGene1 = true;
-                        }
-                        else if (gene.getId() == 2) {
-                            assertEquals(300, gene.getStart());
-                            assertEquals(500, gene.getEnd());
-                            assertEquals("chr2", gene.getTarget());
-                            assertEquals("+", gene.getStrand());
-                            foundGene2 = true;
-                        }
-                        else {
-                            fail("invalid gene");
-                        }
-
-                    }
-
-                    public void handleException(Exception e) {
-                        _logger.error(e);
-                    }
-
-                    @Override
-                    public void init() throws Exception {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void finish() throws Exception {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                });
-        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
-
-        assertTrue(foundGene1);
-        assertTrue(foundGene2);
 
     }
 

@@ -7,11 +7,10 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
-  <artifactId>xerial-core</artifactId>
-  <name>Xerial Core</name>
+  <artifactId>xerial-lens</artifactId>
+  <name>Xerial Lens Library</name>
   <version>1.3.0-SNAPSHOT</version>
-  <description>Core library of the Xerial project.</description>
-
+  <description>Lens for mapping between objects and structured data (XML, JSON, Silk, etc.)</description>
 
   <scm>
     <connection>scm:hg:https://core.xerial.googlecode.com/hg/</connection>
@@ -44,6 +43,22 @@
     </testResources>
 
     <plugins>
+      <plugin>
+        <groupId>org.xerial.maven</groupId>
+        <artifactId>maven-antlr-plugin</artifactId>
+	    <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        </configuration>
+      </plugin>
       
       <plugin>
       	<artifactId>maven-eclipse-plugin</artifactId>
@@ -100,6 +115,21 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>xerial-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <version>3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>xpp3</groupId>
+      <artifactId>xpp3</artifactId>
+      <version>1.1.4c</version>
+    </dependency>
 
   </dependencies>
 </project>

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.tree;
+package org.xerial.xml;
 
 import java.io.Reader;
 
