@@ -32,7 +32,6 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.sample.Mate;
 import org.xerial.util.bean.sample.Person;
@@ -40,11 +39,13 @@ import org.xerial.util.bean.sample.PersonVector;
 import org.xerial.util.bean.sample.TrackInfo;
 import org.xerial.util.log.Logger;
 
-public class XMLLensTest {
+public class XMLLensTest
+{
 
     private static Logger _logger = Logger.getLogger(XMLLensTest.class);
 
-    public static class PropertyData {
+    public static class PropertyData
+    {
         HashMap<String, String> map = new HashMap<String, String>();
 
         public void putProperty(String key, String value) {
@@ -54,8 +55,7 @@ public class XMLLensTest {
 
     @Test
     public void putterTestForXML() throws Exception {
-        PropertyData data = XMLLens.createXMLBean(PropertyData.class,
-                FileResource.open(XMLLensTest.class, "prop.xml"));
+        PropertyData data = XMLLens.createXMLBean(PropertyData.class, FileResource.open(XMLLensTest.class, "prop.xml"));
         assertEquals("value1", data.map.get("key1"));
         assertEquals("hello", data.map.get("message"));
 
@@ -102,72 +102,76 @@ public class XMLLensTest {
         assertEquals(t.getProperty().get("revision"), t2.getProperty().get("revision"));
     }
 
-    public static class DASFeature {
-        public DASGFF gff;
+    public static class DASFeature
+    {
+        public DASGFF  gff;
         public Segment segment;
-
-        @Override
-        public String toString() {
-            return JSONLens.toJSON(this);
-        }
 
     }
 
-    public static class DASGFF {
+    public static class DASGFF
+    {
         public String version;
         public String href;
 
     }
 
-    public static class Segment {
-        public String id;
-        public long start;
-        public long stop;
+    public static class Segment
+    {
+        public String        id;
+        public long          start;
+        public long          stop;
         public List<Feature> feature;
     }
 
-    public static class Feature {
-        public String id;
-        public long start;
-        public long end;
+    public static class Feature
+    {
+        public String      id;
+        public long        start;
+        public long        end;
 
-        public String score;
-        public String orientation;
+        public String      score;
+        public String      orientation;
 
-        public Method method;
+        public Method      method;
         public FeatureType type;
-        public Group group;
-        public Target target;
+        public Group       group;
+        public Target      target;
 
     }
 
-    public static class Target {
+    public static class Target
+    {
         public String id;
-        public long start;
-        public long stop;
+        public long   start;
+        public long   stop;
     }
 
-    public static class FeatureType {
+    public static class FeatureType
+    {
         public String id;
         public String category;
         public String value;
 
     }
 
-    public static class Group {
+    public static class Group
+    {
         public String id;
         public String type;
         public String label;
-        public Link link;
+        public Link   link;
 
     }
 
-    public static class Link {
+    public static class Link
+    {
         public String href;
         public String value;
     }
 
-    public static class Method {
+    public static class Method
+    {
         public String id;
         public String value;
     }
@@ -192,8 +196,7 @@ public class XMLLensTest {
      */
     @Test
     public void dasTest() throws Exception {
-        DASFeature das = XMLLens.loadXML(DASFeature.class,
-                FileResource.find(XMLLensTest.class, "das.xml"));
+        DASFeature das = XMLLens.loadXML(DASFeature.class, FileResource.find(XMLLensTest.class, "das.xml"));
         assertEquals(1, das.segment.feature.size());
         Feature f = das.segment.feature.get(0);
         _logger.debug(das);

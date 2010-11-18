@@ -31,9 +31,9 @@ import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.tree.TreeEvent.EventType;
-import org.xerial.xml.impl.TreeEventQueue;
+import org.xerial.util.tree.TreeStreamReader;
+import org.xerial.util.tree.impl.TreeEventQueue;
 
 /**
  * JSON stream reader
@@ -41,12 +41,13 @@ import org.xerial.xml.impl.TreeEventQueue;
  * @author leo
  * 
  */
-public class JSONStreamReader implements TreeStreamReader {
-    private static Logger _logger = Logger.getLogger(JSONStreamReader.class);
+public class JSONStreamReader implements TreeStreamReader
+{
+    private static Logger         _logger           = Logger.getLogger(JSONStreamReader.class);
 
-    private final JSONPullParser jsonPullParser;
-    private final TreeEventQueue eventQueue = new TreeEventQueue();
-    private JSONEvent lastEvent = null;
+    private final JSONPullParser  jsonPullParser;
+    private final TreeEventQueue  eventQueue        = new TreeEventQueue();
+    private JSONEvent             lastEvent         = null;
 
     private ArrayDeque<TreeEvent> pendingEventQueue = new ArrayDeque<TreeEvent>();
 
