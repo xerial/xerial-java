@@ -28,6 +28,13 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+/**
+ * Tree with prefix-search capability
+ * 
+ * @author leo
+ * 
+ * @param <T>
+ */
 public class PrefixTree<T> {
 
     private TreeMap<String, T> holder = new TreeMap<String, T>();
