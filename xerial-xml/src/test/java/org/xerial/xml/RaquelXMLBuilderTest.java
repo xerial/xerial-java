@@ -26,14 +26,12 @@ package org.xerial.xml;
 
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.util.FileResource;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
-import org.xerial.weaver.cui.XerialMain;
 
-public class RaquelXMLBuilderTest {
+public class RaquelXMLBuilderTest
+{
 
     @Before
     public void setUp() throws Exception {}
@@ -44,33 +42,38 @@ public class RaquelXMLBuilderTest {
     }
 
     @Test
-    public void purifyHelp() throws Exception {
-
-        XerialMain.execute(new String[] { "purify", "--help" });
+    public void empty() throws Exception {
 
     }
 
-    @Ignore
-    @Test
-    public void purify() throws Exception {
-        XerialMain.execute(new String[] { "purify",
-                FileResource.find(RaquelXMLBuilderTest.class, "r.xml").getPath(), "-s",
-                FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
-    }
-
-    @Ignore
-    @Test
-    public void purify2() throws Exception {
-        XerialMain.execute(new String[] { "purify",
-                FileResource.find(RaquelXMLBuilderTest.class, "sample.xml").getPath(), "-s",
-                FileResource.find(RaquelXMLBuilderTest.class, "sample.schema").getPath() });
-    }
-
-    @Test
-    public void purifySAM() throws Exception {
-        XerialMain.execute(new String[] { "purify", "-t",
-                FileResource.find(RaquelXMLBuilderTest.class, "sam.tab").getPath(), "-s",
-                FileResource.find(RaquelXMLBuilderTest.class, "sam.schema").getPath() });
-    }
+    //    @Test
+    //    public void purifyHelp() throws Exception {
+    //
+    //        XerialMain.execute(new String[] { "purify", "--help" });
+    //
+    //    }
+    //
+    //    @Ignore
+    //    @Test
+    //    public void purify() throws Exception {
+    //        XerialMain.execute(new String[] { "purify",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "r.xml").getPath(), "-s",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "common.schema").getPath() });
+    //    }
+    //
+    //    @Ignore
+    //    @Test
+    //    public void purify2() throws Exception {
+    //        XerialMain.execute(new String[] { "purify",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "sample.xml").getPath(), "-s",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "sample.schema").getPath() });
+    //    }
+    //
+    //    @Test
+    //    public void purifySAM() throws Exception {
+    //        XerialMain.execute(new String[] { "purify", "-t",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "sam.tab").getPath(), "-s",
+    //                FileResource.find(RaquelXMLBuilderTest.class, "sam.schema").getPath() });
+    //    }
 
 }

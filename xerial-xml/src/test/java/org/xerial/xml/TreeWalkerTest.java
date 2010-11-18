@@ -31,9 +31,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
-import org.xerial.xml.XMLTreeWalker;
+import org.xerial.util.tree.TreeVisitor;
+import org.xerial.util.tree.TreeWalker;
 
-public class TreeWalkerTest {
+public class TreeWalkerTest
+{
 
     @Before
     public void setUp() throws Exception {}
@@ -41,7 +43,8 @@ public class TreeWalkerTest {
     @After
     public void tearDown() throws Exception {}
 
-    class MyWalker extends XMLTreeWalker {
+    class MyWalker extends XMLTreeWalker
+    {
         public MyWalker(Reader xmlReader) {
             super(xmlReader);
         }
@@ -68,14 +71,12 @@ public class TreeWalkerTest {
 
             }
 
-            public void text(String nodeName, String textDataFragment, TreeWalker walker)
-                    throws XerialException {
+            public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException {
                 // TODO Auto-generated method stub
 
             }
 
-            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
-                    throws XerialException {
+            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException {
                 // TODO Auto-generated method stub
 
             }
