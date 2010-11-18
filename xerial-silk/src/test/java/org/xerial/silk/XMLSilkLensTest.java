@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.silk;
 
 import static org.junit.Assert.*;
 
