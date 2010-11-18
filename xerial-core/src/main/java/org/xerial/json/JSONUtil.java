@@ -166,8 +166,12 @@ public class JSONUtil {
             return new JSONString((String) value);
         else if (value instanceof Integer)
             return new JSONInteger((Integer) value);
+        else if (value instanceof Long)
+            return new JSONLong((Long) value);
         else if (value instanceof Double)
             return new JSONDouble((Double) value);
+        else if (value instanceof Boolean)
+            return new JSONBoolean((Boolean) value);
         else if (value instanceof Float)
             return new JSONDouble((Float) value);
         else

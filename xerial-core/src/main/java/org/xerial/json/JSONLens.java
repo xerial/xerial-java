@@ -26,6 +26,7 @@ package org.xerial.json;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
@@ -50,6 +51,16 @@ public class JSONLens {
         Lens.find(targetType, targetNodeName, handler, new JSONTreeParser(input));
     }
 
+    public static <Result> void loadJSON(Class<Result> targetType, Reader jsonReader,
+            ObjectHandler<Result> handler) throws XerialException, IOException {
+        Lens.find(targetType, handler, new JSONTreeParser(jsonReader));
+    }
+
+    public static <Result> Result loadJSON(Class<Result> targetType, String json)
+            throws XerialException, IOException {
+        return loadJSON(targetType, new StringReader(json));
+    }
+
     public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader)
             throws XerialException, IOException {
         return loadJSON(TypeInfo.createInstance(targetType), jsonReader);
@@ -58,6 +69,11 @@ public class JSONLens {
     public static <Result> Result loadJSON(Result result, Reader jsonReader)
             throws XerialException, IOException {
         return Lens.load(result, new JSONTreeParser(jsonReader));
+    }
+
+    public static <Result> Result loadJSON(Result result, String json) throws XerialException,
+            IOException {
+        return Lens.load(result, new JSONTreeParser(new StringReader(json)));
     }
 
 }

@@ -31,10 +31,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONStreamWalker;
 import org.xerial.silk.SilkWalker;
 import org.xerial.silk.TreeWalkLog;
 import org.xerial.util.FileResource;
-import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitorBase;
 

@@ -33,7 +33,6 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
 public class JSONWriterTest {
@@ -56,7 +55,7 @@ public class JSONWriterTest {
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBeanWithJSON(p, jsonData);
+        JSONLens.loadJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("Leo", p.getName());
@@ -83,7 +82,7 @@ public class JSONWriterTest {
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBeanWithJSON(p, jsonData);
+        JSONLens.loadJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("Leo", p.getName());
@@ -123,7 +122,7 @@ public class JSONWriterTest {
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBeanWithJSON(p, jsonData);
+        JSONLens.loadJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("leo leo leo", p.getName());
@@ -145,7 +144,7 @@ public class JSONWriterTest {
         String jsonData = writer.toString();
         _logger.debug(jsonData);
         Person p = new Person();
-        BeanUtil.populateBeanWithJSON(p, jsonData);
+        JSONLens.loadJSON(p, jsonData);
 
         assertEquals(1, p.getId());
         assertEquals("leo leo leo", p.getName());

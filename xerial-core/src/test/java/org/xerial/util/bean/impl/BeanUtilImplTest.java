@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -35,32 +34,26 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 
+public class BeanUtilImplTest {
 
-
-public class BeanUtilImplTest
-{
-    
-    
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
-    
+    public void tearDown() throws Exception {}
+
     @Test
-    public void createBeanFromXML() throws XerialException, IOException
-    {
-        Sample s = BeanUtilImpl.createBeanFromXML(Sample.class, FileResource.open(BeanUtilImplTest.class, "sample.xml"));
+    public void createBeanFromXML() throws XerialException, IOException {
+        Sample s = BeanUtilImpl.createBeanFromXML(Sample.class,
+                FileResource.open(BeanUtilImplTest.class, "sample.xml"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
 
     @Test
-    public void createNestedBeanFromXML() throws XerialException, IOException
-    {
-        SampleList sl = BeanUtilImpl.createBeanFromXML(SampleList.class, FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
+    public void createNestedBeanFromXML() throws XerialException, IOException {
+        SampleList sl = BeanUtilImpl.createBeanFromXML(SampleList.class,
+                FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());
@@ -68,41 +61,21 @@ public class BeanUtilImplTest
         assertEquals("Yui", sl.getSampleList().get(1).getName());
         assertEquals("My Family", sl.getListName());
     }
-    
+
     @Test
-    public void populateBeanFromXML() throws XerialException, IOException
-    {
+    public void populateBeanFromXML() throws XerialException, IOException {
         Sample s = new Sample();
-        BeanUtilImpl.populateBeanWithXML(s, FileResource.open(BeanUtilImplTest.class, "sample.xml"));
+        BeanUtilImpl
+                .populateBeanWithXML(s, FileResource.open(BeanUtilImplTest.class, "sample.xml"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
 
     @Test
-    public void populateNestedBeanFromXML() throws XerialException, IOException
-    {
+    public void populateNestedBeanFromXML() throws XerialException, IOException {
         SampleList sl = new SampleList();
-        BeanUtilImpl.populateBeanWithXML(sl, FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
-        assertEquals(2, sl.getSampleList().size());
-        assertEquals(100, sl.getSampleList().get(0).getId());
-        assertEquals(101, sl.getSampleList().get(1).getId());
-        assertEquals("Leo", sl.getSampleList().get(0).getName());
-        assertEquals("Yui", sl.getSampleList().get(1).getName());
-        assertEquals("My Family", sl.getListName());
-    }
-    
-    @Test
-    public void createBeanFromJSON() throws IOException, XerialException
-    {
-        Sample s = BeanUtilImpl.createBeanFromJSON(Sample.class, FileResource.open(BeanUtilImplTest.class, "sample.json"));
-        assertEquals(100, s.getId());
-        assertEquals("Leo", s.getName());
-    }
-    
-    @Test
-    public void createNestedBeanFromJSON() throws XerialException, IOException
-    {
-        SampleList sl = BeanUtilImpl.createBeanFromJSON(SampleList.class, FileResource.open(BeanUtilImplTest.class, "samplelist.json"));
+        BeanUtilImpl.populateBeanWithXML(sl,
+                FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());

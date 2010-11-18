@@ -24,7 +24,6 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.util.Map;
 
@@ -32,7 +31,6 @@ import org.antlr.runtime.tree.Tree;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
 import org.xerial.util.bean.ANTLRWalker;
-import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.MapWalker;
 import org.xerial.util.tree.TreeWalker;
 import org.xerial.util.xml.XMLTreeWalker;
@@ -119,16 +117,6 @@ public class BeanUtilImpl {
     public static <E> E populateBeanWithParseTree(E bean, Tree parseTree,
             final String[] parserTokenNames) throws XerialException {
         return createBean(new ANTLRWalker(parserTokenNames, parseTree), bean);
-    }
-
-    public static <E> E createBeanFromJSON(Class<E> beanType, Reader jsonReader)
-            throws IOException, XerialException {
-        return createTypedBean(new JSONStreamWalker(jsonReader), beanType);
-    }
-
-    public static Object populateBeanWithJSON(Object bean, Reader jsonReader) throws IOException,
-            XerialException {
-        return createBean(new JSONStreamWalker(jsonReader), bean);
     }
 
     public static <E> E createBeanFromMap(Class<E> beanType, Map< ? , ? > map)

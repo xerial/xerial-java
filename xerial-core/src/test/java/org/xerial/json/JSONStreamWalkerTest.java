@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.json;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -31,10 +31,8 @@ import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.Token;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONEvent;
-import org.xerial.json.JSONException;
-import org.xerial.json.JSONPullParser;
 import org.xerial.json.impl.JSONLexer;
+import org.xerial.lens.ObjectHandlerBase;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.sample.Gene;
@@ -48,29 +46,29 @@ public class JSONStreamWalkerTest {
     class MyVisitor implements TreeVisitor {
 
         public void finish(TreeWalker walker) throws XerialException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
 
         }
 
         public void init(TreeWalker walker) throws XerialException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
 
         }
 
         public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
 
         }
 
         public void visitNode(String nodeName, String nodeValue, TreeWalker walker)
                 throws XerialException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
 
         }
 
         public void text(String nodeName, String nodeValue, TreeWalker walker)
                 throws XerialException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
 
         }
 
@@ -115,10 +113,10 @@ public class JSONStreamWalkerTest {
     @Test
     public void loadJSONPerf() throws XerialException, IOException {
         stopWatch.reset();
-        BeanUtil.loadJSON(getSampleData(), Gene.class, new BeanHandler<Gene>() {
+        JSONLens.loadJSON(Gene.class, getSampleData(), new ObjectHandlerBase<Gene>() {
 
             public void handle(Gene bean) throws Exception {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
 
             }
 

@@ -31,8 +31,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONStreamWalker;
 import org.xerial.util.FileResource;
-import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.log.Logger;
 
 public class SilkLineFastParserTest

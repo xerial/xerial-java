@@ -46,21 +46,10 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONArray;
-import org.xerial.json.JSONBoolean;
-import org.xerial.json.JSONDouble;
-import org.xerial.json.JSONInteger;
-import org.xerial.json.JSONLong;
-import org.xerial.json.JSONObject;
-import org.xerial.json.JSONString;
-import org.xerial.json.JSONValue;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.impl.Appender;
 import org.xerial.util.bean.impl.ArraySetter;
-import org.xerial.util.bean.impl.BeanBindingProcess;
-import org.xerial.util.bean.impl.BeanStreamReader;
 import org.xerial.util.bean.impl.BeanUtilImpl;
-import org.xerial.util.bean.impl.BindRuleGeneratorForBeanStream;
 import org.xerial.util.bean.impl.CollectionAdder;
 import org.xerial.util.bean.impl.CollectionSetter;
 import org.xerial.util.bean.impl.Getter;
@@ -585,117 +574,9 @@ public class BeanUtil {
         return builder.toString();
     }
 
-    public static String toJSON(Object bean) throws XerialException {
-        return outputAsJSONValue(bean).toString();
-    }
-
-    public static JSONObject toJSONObject(Object bean) throws XerialException {
-        return outputAsJSONValue(bean).getJSONObject();
-    }
-
-    public static JSONObject toJSONObject(Collection< ? > collection) throws XerialException {
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("elem", outputAsJSONValue(collection));
-        return jsonObj;
-    }
-
-    public static JSONValue getValue(Object bean, String propertyName) throws XerialException {
-        JSONObject json = toJSONObject(bean);
-        return json.get(propertyName);
-    }
-
-    private static JSONValue outputAsJSONValue(Object bean) throws XerialException {
-        if (bean == null)
-            return null;
-        Class< ? > beanClass = bean.getClass();
-
-        if (beanClass.isArray()) {
-            Object[] array = (Object[]) bean;
-            JSONArray jsonArray = new JSONArray();
-            for (Object obj : array)
-                jsonArray.add(outputAsJSONValue(obj));
-            return jsonArray;
-        }
-        else if (TypeInfo.isBasicType(beanClass)) {
-            String jsonStr = bean.toString();
-            JSONValue value = null;
-            if (beanClass == String.class)
-                value = new JSONString(jsonStr);
-            else if (beanClass == int.class || beanClass == Integer.class)
-                value = new JSONInteger(jsonStr);
-            else if (beanClass == double.class || beanClass == Double.class)
-                value = new JSONDouble(jsonStr);
-            else if (beanClass == float.class || beanClass == Float.class)
-                value = new JSONDouble(jsonStr);
-            else if (beanClass == boolean.class || beanClass == Boolean.class)
-                value = new JSONBoolean((Boolean) bean);
-            else if (beanClass == long.class || beanClass == Long.class)
-                value = new JSONLong(jsonStr);
-            else
-                throw new XerialException(XerialErrorCode.InvalidBeanClass, beanClass.toString()
-                        + " is not basic type");
-            return value;
-        }
-        else {
-
-            if (TypeInfo.isCollection(beanClass)) {
-                Collection< ? > collection = (Collection< ? >) bean;
-                JSONArray jsonArray = new JSONArray();
-                for (Object obj : collection)
-                    jsonArray.add(outputAsJSONValue(obj));
-
-                if (hasGetter(beanClass)) {
-                    // extended Array class
-                    JSONObject json = new JSONObject();
-                    json.put("elem", jsonArray);
-                    return outputBeanParameters(json, bean);
-                }
-                else
-                    return jsonArray;
-            }
-            else if (TypeInfo.isMap(beanClass)) {
-                Map< ? , ? > map = (Map< ? , ? >) bean;
-                JSONArray jsonArray = new JSONArray();
-                for (Object key : map.keySet()) {
-                    JSONObject pair = new JSONObject();
-                    pair.put("key", outputAsJSONValue(key));
-                    pair.put("value", outputAsJSONValue(map.get(key)));
-                    jsonArray.add(pair);
-                }
-
-                BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-                if (outputRuleSet.getBindRules().size() > 0) {
-                    // extended Map class
-                    JSONObject json = new JSONObject();
-                    json.put("elem", jsonArray);
-                    return outputBeanParameters(json, bean);
-                }
-                else
-                    return jsonArray;
-            }
-            else
-                return outputBeanParameters(new JSONObject(), bean);
-        }
-
-    }
-
     private static boolean hasGetter(Class< ? > beanClass) throws XerialException {
         BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
         return outputRuleSet.getBindRules().size() > 0;
-    }
-
-    private static JSONObject outputBeanParameters(JSONObject json, Object bean)
-            throws XerialException {
-        BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(bean.getClass());
-        for (BeanBinder rule : outputRuleSet.getBindRules()) {
-            Method getter = rule.getMethod();
-            String parameterName = rule.getParameterName();
-
-            Object parameterValue = invokeGetterMethod(getter, bean);
-            if (parameterValue != null)
-                json.put(parameterName, outputAsJSONValue(parameterValue));
-        }
-        return json;
     }
 
     private static Object invokeGetterMethod(Method getter, Object bean) throws XerialException {
@@ -736,171 +617,6 @@ public class BeanUtil {
         BeanUtilImpl.populateBeanWithXML(bean, xmlElement);
     }
 
-    // protected static void populateBeanWithXML(Object bean, Object xmlValue)
-    // throws BeanException
-    // {
-    // if (xmlValue == null)
-    // return;
-    //
-    // Class beanClass = bean.getClass();
-    // if (TypeInformation.isBasicType(beanClass))
-    // {
-    // bean = populateBasicTypeWithXML(beanClass, xmlValue);
-    // }
-    // else
-    // {
-    // if (TypeInformation.isDOMElement(xmlValue.getClass()))
-    // populateBeanWithXML(bean, (Element) xmlValue);
-    // else
-    // {
-    // throw new BeanException(XerialErrorCode.UnsupportedXMLDataType,
-    // "unsupported value type: "
-    // + xmlValue.getClass().toString());
-    // }
-    // }
-    // }
-
-    public static void populateBeanWithJSON(Object bean, Reader jsonReader) throws XerialException,
-            IOException {
-        BeanUtilImpl.populateBeanWithJSON(bean, jsonReader);
-    }
-
-    /**
-     * fill a bean class with a given JSON data
-     * 
-     * @param bean
-     *            a bean class
-     * @param jsonData
-     *            a string representation of a JSON data
-     * @throws IOException
-     * @throws InvalidJSONDataException
-     *             when the input json data is invalid (cannot interpret as a
-     *             JSON object)
-     * @throws InvalidXerialException
-     *             when a bean class has invalid structure
-     */
-    public static void populateBeanWithJSON(Object bean, String jsonData) throws XerialException {
-        // parse the input JSON data
-        try {
-            populateBeanWithJSON(bean, new StringReader(jsonData));
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IOError, e);
-        }
-
-    }
-
-    /**
-     * fill a bean class with a given JSONObject data
-     * 
-     * @param bean
-     *            a bean class
-     * @param json
-     *            a JSONOBject
-     * @throws InvalidXerialException
-     * @throws InvalidJSONDataException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     */
-    public static void populateBean(Object bean, JSONObject json) throws XerialException {
-        try {
-            BeanUtilImpl.populateBeanWithJSON(bean, new StringReader(json.toJSONString()));
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IOError, e.getMessage());
-        }
-    }
-
-    /*
-     * Map<K, V> m m.json = { "elem":[{"key":k1, "value":v1}, {"key":k2, "value":v2}, ...] }
-     * 
-     * Map a = Map<A, Map<B, C>> a.json = 
-     * { "elem" : [{"key":"a1", "value":{"elem" : [{"key":b1, "value":c1}, {"key":b2, "value":c2}, ...]}}]}, 
-     * "
-     * 
-     * Collection { "elem" : [f1, f2, ..., ] }
-     * 
-     * Array [f1, f2, ... ]
-     * 
-     * When a JSONArray comes as an input, it is bound to Object[]
-     * 
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws InvalidJSONDataException
-     */
-    protected static void populateBean(Object bean, JSONArray jsonArray) throws XerialException {
-        Class< ? > beanClass = bean.getClass();
-        if (beanClass.isArray()) {
-            Object[] array = (Object[]) bean;
-            Class< ? > componentType = beanClass.getComponentType();
-            for (int i = 0; i < jsonArray.size(); i++) {
-                try {
-                    array[i] = componentType.newInstance();
-                }
-                catch (InstantiationException e) {
-                    throw new XerialException(XerialErrorCode.InstantiationFailure, e);
-                }
-                catch (IllegalAccessException e) {
-                    throw new XerialException(XerialErrorCode.IllegalAccess, e);
-                }
-                populateBeanWithJSON(array[i], jsonArray.get(i));
-            }
-        }
-        else
-            throw new XerialException(XerialErrorCode.InvalidJSONArray,
-                    "to bind json array to a bean, it must be an instance array (e.g. Object[])");
-
-    }
-
-    protected static void populateBeanWithJSON(Object bean, Object jsonValue)
-            throws XerialException {
-        if (jsonValue.getClass() == JSONObject.class) {
-            populateBean(bean, (JSONObject) jsonValue);
-        }
-        else if (jsonValue.getClass() == JSONArray.class) {
-            populateBean(bean, (JSONArray) jsonValue);
-        }
-        else {
-            // the object is a JSONValue
-            Class< ? > beanClass = bean.getClass();
-            if (TypeInfo.isBasicType(beanClass)) {
-                String jsonStr = jsonValue.toString();
-                if (beanClass == String.class)
-                    bean = new String(jsonStr);
-                else if (beanClass == int.class || beanClass == Integer.class)
-                    bean = new Integer(jsonStr);
-                else if (beanClass == double.class || beanClass == Double.class)
-                    bean = new Double(jsonStr);
-                else if (beanClass == float.class || beanClass == Float.class)
-                    bean = new Float(jsonStr);
-                else if (beanClass == boolean.class || beanClass == Boolean.class)
-                    bean = new Boolean(jsonStr);
-                else
-                    throw new XerialException(XerialErrorCode.InvalidBeanClass);
-            }
-        }
-    }
-
-    public static Object createBeanFromJSON(Class< ? > beanType, Reader jsonReader)
-            throws IOException, XerialException {
-        try {
-            return BeanUtilImpl.createBeanFromJSON(beanType, jsonReader);
-        }
-        catch (XerialException e) {
-            throw new XerialException(XerialErrorCode.BindFailure, e.getMessage());
-        }
-    }
-
-    public static Object createBeanFromJSON(Class< ? > beanType, String json)
-            throws XerialException {
-        try {
-            return BeanUtilImpl.createBeanFromJSON(beanType, new StringReader(json));
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IOError, e.getMessage());
-        }
-    }
-
     public static Object createInstance(Class< ? > c) throws XerialException {
         return TypeInfo.createInstance(c);
     }
@@ -916,27 +632,6 @@ public class BeanUtil {
         bean = createInstance(valueType);
         populateBeanWithXML(bean, xmlData);
         return bean;
-    }
-
-    public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass,
-            BeanHandler<T> beanHandler) throws IOException, XerialException {
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(
-                beanHandler), new BindRuleGeneratorForBeanStream<T>(beanClass));
-
-        JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
-        walker.walk(bindingProcess);
-
-    }
-
-    public static <T> void loadJSON(Reader jsonReader, Class<T> beanClass, String targetNodeName,
-            BeanHandler<T> beanHandler) throws IOException, XerialException {
-
-        BeanBindingProcess bindingProcess = new BeanBindingProcess(new BeanStreamReader<T>(
-                beanHandler), new BindRuleGeneratorForBeanStream<T>(beanClass, targetNodeName));
-
-        JSONStreamWalker walker = new JSONStreamWalker(jsonReader);
-        walker.walk(bindingProcess);
-
     }
 
 }

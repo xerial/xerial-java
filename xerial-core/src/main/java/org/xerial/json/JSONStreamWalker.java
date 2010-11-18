@@ -22,12 +22,11 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.json;
 
 import java.io.IOException;
 import java.io.Reader;
 
-import org.xerial.json.JSONStreamReader;
 import org.xerial.util.tree.TreeWalkerImpl;
 
 /**

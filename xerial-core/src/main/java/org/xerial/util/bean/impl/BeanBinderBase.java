@@ -29,8 +29,6 @@ import java.lang.reflect.Method;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONArray;
-import org.xerial.json.JSONObject;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.TypeInfo;
 
@@ -40,8 +38,7 @@ import org.xerial.util.bean.TypeInfo;
  * @author leo
  * 
  */
-abstract class BeanBinderBase implements BeanBinder
-{
+abstract class BeanBinderBase implements BeanBinder {
     Method method;
 
     String parameterName;
@@ -62,6 +59,7 @@ abstract class BeanBinderBase implements BeanBinder
     }
 
     // @see org.utgenome.util.BeanBinder#toString()
+    @Override
     public String toString() {
         return "(" + method.toString() + ") ";
     }
@@ -76,15 +74,10 @@ abstract class BeanBinderBase implements BeanBinder
         this.parameterName = parameterName;
     }
 
-    public static JSONArray getJSONArray(Object json, String key) {
-        if (json == null || json.getClass() != JSONObject.class)
-            return null;
-        return ((JSONObject) json).getJSONArray(key);
-    }
-
     public static void constractableTest(Class< ? > c) throws XerialException {
         if (!TypeInfo.canInstantiate(c)) {
-            throw new XerialException(XerialErrorCode.NoPublicConstructor, c + " has no public constructor");
+            throw new XerialException(XerialErrorCode.NoPublicConstructor, c
+                    + " has no public constructor");
         }
     }
 
