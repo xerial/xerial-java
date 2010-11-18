@@ -26,22 +26,16 @@ package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.json.JSONLens;
-import org.xerial.silk.SilkLens;
-import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
-public class ObjectLensTest {
+public class ObjectLensTest
+{
 
     private static Logger _logger = Logger.getLogger(ObjectLensTest.class);
 
@@ -94,77 +88,8 @@ public class ObjectLensTest {
         assertEquals("gapopenpenalty", ObjectLens.getCanonicalParameterName("GAPOPEN PENALTY"));
     }
 
-    public static class ExtMap extends TreeMap<Integer, String> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        public String name = "ext-map";
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof ExtMap))
-                return false;
-
-            ExtMap other = (ExtMap) o;
-
-            return name.equals(other.name) && super.equals(other);
-
-        }
-    }
-
-    @Test
-    public void mapTest() throws Exception {
-        ExtMap extMap = new ExtMap();
-        extMap.put(1, "hello");
-        extMap.put(10, "world");
-        String json = JSONLens.toJSON(extMap);
-        _logger.debug(json);
-
-        ExtMap extMap2 = JSONLens.loadJSON(ExtMap.class, new StringReader(json));
-        _logger.debug(JSONLens.toJSON(extMap2));
-
-        assertEquals(extMap, extMap2);
-    }
-
-    public static class ExtList extends ArrayList<Integer> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-        public String name = "ext-list";
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof ExtList))
-                return false;
-
-            ExtList other = (ExtList) o;
-
-            return name.equals(other.name) && super.equals(other);
-
-        }
-    }
-
-    @Test
-    public void arrayTest() throws Exception {
-        ExtList extList = new ExtList();
-
-        extList.add(10);
-        extList.add(14);
-
-        String json = JSONLens.toJSON(extList);
-        _logger.debug(json);
-
-        ExtList extList2 = JSONLens.loadJSON(ExtList.class, new StringReader(json));
-        _logger.debug(JSONLens.toJSON(extList2));
-
-        assertEquals(extList, extList2);
-
-    }
-
-    public static class PropReader {
+    public static class PropReader
+    {
         Properties prop = new Properties();
 
         public void put(String key, String value) {
@@ -172,8 +97,9 @@ public class ObjectLensTest {
         }
     }
 
-    public static class Person {
-        public int id;
+    public static class Person
+    {
+        public int    id;
         public String name;
     }
 
@@ -205,37 +131,6 @@ public class ObjectLensTest {
 
         assertEquals(50, p.id);
         assertEquals("yui", p.name);
-
-    }
-
-    public static class PropTest {
-        public Properties prop = new Properties();
-    }
-
-    @Test
-    public void propertyGetter() throws Exception {
-
-        PropTest p = new PropTest();
-        ObjectLens lens = new ObjectLens(PropTest.class);
-        lens.setParameter(p, "prop", "hello", "world");
-        assertEquals("world", lens.getParameter(p, "prop", "hello"));
-
-        String silk = SilkLens.toSilk(p);
-
-        PropTest p2 = SilkLens.loadSilk(PropTest.class, new StringReader(silk));
-        assertTrue(p2.prop.containsKey("hello"));
-        assertEquals("world", p2.prop.getProperty("hello"));
-
-    }
-
-    @Ignore
-    @Test
-    public void longProp() throws Exception {
-        PropTest p = SilkLens.loadSilk(PropTest.class,
-                FileResource.open(ObjectLensTest.class, "longprop.silk"));
-        assertTrue(p.prop.containsKey("sequenceList"));
-
-        _logger.info(SilkLens.toSilk(p));
 
     }
 

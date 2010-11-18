@@ -68,7 +68,7 @@ import org.xerial.util.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.xml.impl.TreeEventQueue;
+import org.xerial.util.tree.impl.TreeEventQueue;
 
 /**
  * Push-style Silk format parser
@@ -76,15 +76,16 @@ import org.xerial.xml.impl.TreeEventQueue;
  * @author leo
  * 
  */
-public class SilkParser implements SilkEventHandler, TreeParser {
-    private static Logger _logger = Logger.getLogger(SilkParser.class);
+public class SilkParser implements SilkEventHandler, TreeParser
+{
+    private static Logger          _logger     = Logger.getLogger(SilkParser.class);
 
-    private final SilkParserBase parser;
-    private final SilkEnv parseContext;
+    private final SilkParserBase   parser;
+    private final SilkEnv          parseContext;
     private final SilkParserConfig config;
 
-    private final TreeEventQueue eventQueue = new TreeEventQueue();
-    private long numReadLine = 0;
+    private final TreeEventQueue   eventQueue  = new TreeEventQueue();
+    private long                   numReadLine = 0;
 
     /**
      * Creates a new reader with the specified reader
@@ -140,8 +141,8 @@ public class SilkParser implements SilkEventHandler, TreeParser {
     }
 
     public SilkParser(URL resource, SilkEnv env, SilkParserConfig config) throws IOException {
-        this(new InputStreamReader(resource.openStream(), "UTF8"), SilkEnv.newEnv(env,
-                getResourceBasePath(resource)), config);
+        this(new InputStreamReader(resource.openStream(), "UTF8"), SilkEnv.newEnv(env, getResourceBasePath(resource)),
+                config);
     }
 
     public SilkParser(Reader input, SilkEnv env, SilkParserConfig config) throws IOException {
@@ -607,8 +608,9 @@ public class SilkParser implements SilkEventHandler, TreeParser {
 
     }
 
-    private class EvalJSON {
-        private final String json;
+    private class EvalJSON
+    {
+        private final String         json;
         private final JSONPullParser parser;
 
         EvalJSON(String json) {
@@ -713,8 +715,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
             }
         }
         catch (JSONException e) {
-            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine,
-                    e.getMessage()));
+            throw new XerialException(e.getErrorCode(), String.format("line=%d: %s", numReadLine, e.getMessage()));
         }
 
     }
@@ -800,9 +801,8 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         if (pluginTable == null) {
             pluginTable = new TreeMap<String, Class<SilkFunctionPlugin>>();
             // load plugins 
-            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(
-                    SilkFunctionPlugin.class.getPackage(), SilkFunctionPlugin.class,
-                    SilkWalker.class.getClassLoader())) {
+            for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
+                    SilkFunctionPlugin.class, SilkWalker.class.getClassLoader())) {
                 String functionName = each.getSimpleName().toLowerCase();
                 _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);
@@ -820,8 +820,9 @@ public class SilkParser implements SilkEventHandler, TreeParser {
      * @author leo
      * 
      */
-    private static class PluginField {
-        Field field;
+    private static class PluginField
+    {
+        Field                field;
         SilkFunctionArgument argInfo;
 
         private PluginField(SilkFunctionArgument argInfo, Field field) {
@@ -830,10 +831,11 @@ public class SilkParser implements SilkEventHandler, TreeParser {
         }
     }
 
-    private static class PluginHolder {
+    private static class PluginHolder
+    {
         Class< ? extends SilkFunctionPlugin> pluginClass;
-        ArrayList<PluginField> argumentFieldList = new ArrayList<PluginField>();
-        Map<String, PluginField> keyValueFieldTable = new HashMap<String, PluginField>();
+        ArrayList<PluginField>               argumentFieldList  = new ArrayList<PluginField>();
+        Map<String, PluginField>             keyValueFieldTable = new HashMap<String, PluginField>();
 
         public PluginHolder(Class< ? extends SilkFunctionPlugin> pluginClass) {
             this.pluginClass = pluginClass;
@@ -885,8 +887,7 @@ public class SilkParser implements SilkEventHandler, TreeParser {
                         // unnamed argument
                         // matching argument order
                         if (noNameArgCount >= argumentFieldList.size()) {
-                            _logger.warn(String.format(
-                                    "no corresponding field for the argument %s is found",
+                            _logger.warn(String.format("no corresponding field for the argument %s is found",
                                     eachArgument));
                             continue;
                         }

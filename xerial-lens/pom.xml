@@ -4,7 +4,7 @@
     <groupId>org.xerial</groupId>
     <version>1.3.0-SNAPSHOT</version>
   </parent>
-
+ 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-lens</artifactId>

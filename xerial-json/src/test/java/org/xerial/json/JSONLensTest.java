@@ -27,7 +27,9 @@ package org.xerial.json;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -1023,6 +1025,89 @@ public class JSONLensTest
 
         assertTrue(foundGene1);
         assertTrue(foundGene2);
+
+    }
+
+    public static class ArrayData
+    {
+        public List<String> list = new ArrayList<String>();
+    }
+
+    @Test
+    public void toJSONTest() throws Exception {
+        ArrayData d = new ArrayData();
+        assertEquals("{\"list\":[]}", JSONLens.toJSON(d));
+    }
+
+    @Test
+    public void mapTest() throws Exception {
+        ExtMap extMap = new ExtMap();
+        extMap.put(1, "hello");
+        extMap.put(10, "world");
+        String json = JSONLens.toJSON(extMap);
+        _logger.debug(json);
+
+        ExtMap extMap2 = JSONLens.loadJSON(ExtMap.class, new StringReader(json));
+        _logger.debug(JSONLens.toJSON(extMap2));
+
+        assertEquals(extMap, extMap2);
+    }
+
+    public static class ExtList extends ArrayList<Integer>
+    {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+        public String             name             = "ext-list";
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof ExtList))
+                return false;
+
+            ExtList other = (ExtList) o;
+
+            return name.equals(other.name) && super.equals(other);
+
+        }
+    }
+
+    public static class ExtMap extends TreeMap<Integer, String>
+    {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        public String             name             = "ext-map";
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof ExtMap))
+                return false;
+
+            ExtMap other = (ExtMap) o;
+
+            return name.equals(other.name) && super.equals(other);
+
+        }
+    }
+
+    @Test
+    public void arrayTest() throws Exception {
+        ExtList extList = new ExtList();
+
+        extList.add(10);
+        extList.add(14);
+
+        String json = JSONLens.toJSON(extList);
+        _logger.debug(json);
+
+        ExtList extList2 = JSONLens.loadJSON(ExtList.class, new StringReader(json));
+        _logger.debug(JSONLens.toJSON(extList2));
+
+        assertEquals(extList, extList2);
 
     }
 
