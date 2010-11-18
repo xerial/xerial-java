@@ -28,7 +28,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.core.cui.XerialMain;
+import org.xerial.lens.cui.XerialMain;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;

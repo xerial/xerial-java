@@ -22,7 +22,7 @@
 // $URL: http://www.xerial.org/svn/project/XerialJ/trunk/xerial-raquel/src/main/java/org/xerial/raquel/cui/Purify.java $
 // $Author: leo $
 //--------------------------------------
-package org.xerial.core.cui;
+package org.xerial.lens.cui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

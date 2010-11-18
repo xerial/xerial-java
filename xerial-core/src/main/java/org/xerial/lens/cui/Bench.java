@@ -22,7 +22,7 @@
 // $URL: https://www.xerial.org/svn/project/XerialJ/trunk/xerial-raquel/src/main/java/org/xerial/raquel/cui/Bench.java $
 // $Author: leo $
 //--------------------------------------
-package org.xerial.core.cui;
+package org.xerial.lens.cui;
 
 import java.io.BufferedWriter;
 import java.io.File;

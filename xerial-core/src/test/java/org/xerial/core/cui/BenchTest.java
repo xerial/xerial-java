@@ -27,7 +27,7 @@ package org.xerial.core.cui;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.core.cui.XerialMain;
+import org.xerial.lens.cui.XerialMain;
 
 public class BenchTest {
 
