@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.util;
 
 /**
  * Handler interface of a sequence of objects

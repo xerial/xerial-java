@@ -40,6 +40,7 @@ import org.xerial.lens.LensTest.Gene;
 import org.xerial.silk.SilkLens;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
+import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.log.Logger;
 
 public class ObjectMapperTest {

@@ -27,9 +27,7 @@ package org.xerial.util.bean;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,13 +38,10 @@ import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONLens;
 import org.xerial.json.JSONObject;
-import org.xerial.lens.Coordinate;
-import org.xerial.lens.ObjectHandler;
-import org.xerial.lens.ObjectHandlerBase;
-import org.xerial.silk.SilkUtil;
 import org.xerial.util.FileResource;
+import org.xerial.util.ObjectHandler;
+import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
-import org.xerial.util.StringUtil;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.Gene;
 import org.xerial.util.bean.sample.GenePartial;
@@ -310,120 +305,6 @@ public class BeanUtilTest {
         assertTrue(foundGene1);
         assertTrue(foundGene2);
 
-    }
-
-    public static class ReferenceSeq {
-        long start;
-        String name;
-        String strand;
-        String sequence;
-        List<Read> reads = new ArrayList<Read>();
-
-        public void setStart(long start) {
-            this.start = start;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setStrand(String strand) {
-            this.strand = strand;
-        }
-
-        public void setSequence(String sequence) {
-            this.sequence = sequence;
-        }
-
-        public void addRead(Read read) {
-            reads.add(read);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("name=%s, start=%d, strand=%s, sequence=%s\nread:\n%s", name,
-                    start, strand, sequence, StringUtil.join(reads, "\n"));
-        }
-    }
-
-    public static class Read {
-        String name;
-        long start;
-        String strand;
-        String sequence;
-        String QV;
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setStart(long start) {
-            this.start = start;
-        }
-
-        public void setStrand(String strand) {
-            this.strand = strand;
-        }
-
-        public void setSequence(String sequence) {
-            this.sequence = sequence;
-        }
-
-        public void setQV(String qv) {
-            QV = qv;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("name=%s, start=%s, strand=%s, QV=%s, sequence=%s", name, start,
-                    strand, QV, sequence);
-        }
-
-    }
-
-    public static class ReadSet {
-        Coordinate coord;
-        List<ReferenceSeq> references = new ArrayList<ReferenceSeq>();
-
-        public void addCoordinate(Coordinate coord) {
-            this.coord = coord;
-        }
-
-        public void addReference(ReferenceSeq reference) {
-            references.add(reference);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("coordinate: %s\nreference:\n%s", coord,
-                    StringUtil.join(references, "\n"));
-        }
-    }
-
-    @Test
-    public void testSilkBean() throws Exception {
-        ReadSet r = SilkUtil.createSilkBean(ReadSet.class,
-                FileResource.find(BeanUtilTest.class, "readset.silk"));
-        _logger.debug(r.toString());
-    }
-
-    public static class Sequence {
-        private StringBuilder buf = new StringBuilder();
-
-        public void appendSeq(String sequence) {
-            buf.append(sequence);
-        }
-
-        public String getSeq() {
-            return buf.toString();
-        }
-    }
-
-    @Test
-    public void appenderTest() throws Exception {
-        Sequence seq = new Sequence();
-        SilkUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
-        assertEquals("ABCDEFGHIJ", seq.getSeq());
     }
 
     public static class PropertyData {

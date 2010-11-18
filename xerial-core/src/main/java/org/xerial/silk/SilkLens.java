@@ -26,12 +26,13 @@ package org.xerial.silk;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
 
 import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
-import org.xerial.lens.ObjectHandler;
+import org.xerial.util.ObjectHandler;
 import org.xerial.util.bean.TypeInfo;
 
 /**
@@ -64,6 +65,11 @@ public class SilkLens {
     public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource)
             throws IOException, XerialException {
         return loadSilk(TypeInfo.createInstance(targetType), silkResource);
+    }
+
+    public static <Result> Result loadSilk(Result target, String silk) throws IOException,
+            XerialException {
+        return loadSilk(target, new StringReader(silk));
     }
 
     public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException,

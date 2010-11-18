@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util;
+package org.xerial.silk;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,7 +33,10 @@ import java.util.regex.Pattern;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.silk.SilkWalkerTest;
+import org.xerial.util.FastBufferedReader;
+import org.xerial.util.FileResource;
+import org.xerial.util.StopWatch;
+import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
 public class FastBufferedReaderTest {

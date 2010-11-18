@@ -41,6 +41,7 @@ import org.xerial.lens.relation.Tuple;
 import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
+import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
