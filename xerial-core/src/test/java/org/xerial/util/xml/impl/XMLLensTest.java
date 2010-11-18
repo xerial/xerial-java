@@ -33,9 +33,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
-import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.util.xml.XMLLens;
 
-public class BeanUtilImplTest {
+public class XMLLensTest {
 
     @Before
     public void setUp() throws Exception {}
@@ -45,16 +45,16 @@ public class BeanUtilImplTest {
 
     @Test
     public void createBeanFromXML() throws XerialException, IOException {
-        Sample s = BeanUtilImpl.createBeanFromXML(Sample.class,
-                FileResource.open(BeanUtilImplTest.class, "sample.xml"));
+        Sample s = XMLLens.createBeanFromXML(Sample.class,
+                FileResource.open(XMLLensTest.class, "sample.xml"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
 
     @Test
     public void createNestedBeanFromXML() throws XerialException, IOException {
-        SampleList sl = BeanUtilImpl.createBeanFromXML(SampleList.class,
-                FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
+        SampleList sl = XMLLens.createBeanFromXML(SampleList.class,
+                FileResource.open(XMLLensTest.class, "samplelist.xml"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());
@@ -66,8 +66,7 @@ public class BeanUtilImplTest {
     @Test
     public void populateBeanFromXML() throws XerialException, IOException {
         Sample s = new Sample();
-        BeanUtilImpl
-                .populateBeanWithXML(s, FileResource.open(BeanUtilImplTest.class, "sample.xml"));
+        XMLLens.populateBeanWithXML(s, FileResource.open(XMLLensTest.class, "sample.xml"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
@@ -75,8 +74,7 @@ public class BeanUtilImplTest {
     @Test
     public void populateNestedBeanFromXML() throws XerialException, IOException {
         SampleList sl = new SampleList();
-        BeanUtilImpl.populateBeanWithXML(sl,
-                FileResource.open(BeanUtilImplTest.class, "samplelist.xml"));
+        XMLLens.populateBeanWithXML(sl, FileResource.open(XMLLensTest.class, "samplelist.xml"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());

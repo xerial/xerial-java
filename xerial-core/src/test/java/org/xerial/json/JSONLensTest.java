@@ -43,7 +43,7 @@ import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
-import org.xerial.util.xml.impl.BeanUtilImplTest;
+import org.xerial.util.xml.impl.XMLLensTest;
 import org.xerial.util.xml.impl.Sample;
 import org.xerial.util.xml.impl.SampleList;
 
@@ -399,7 +399,7 @@ public class JSONLensTest {
     @Test
     public void createBeanFromJSON() throws IOException, XerialException {
         Sample s = JSONLens.loadJSON(Sample.class,
-                FileResource.open(BeanUtilImplTest.class, "sample.json"));
+                FileResource.open(XMLLensTest.class, "sample.json"));
         assertEquals(100, s.getId());
         assertEquals("Leo", s.getName());
     }
@@ -407,7 +407,7 @@ public class JSONLensTest {
     @Test
     public void createNestedBeanFromJSON() throws XerialException, IOException {
         SampleList sl = JSONLens.loadJSON(SampleList.class,
-                FileResource.open(BeanUtilImplTest.class, "samplelist.json"));
+                FileResource.open(XMLLensTest.class, "samplelist.json"));
         assertEquals(2, sl.getSampleList().size());
         assertEquals(100, sl.getSampleList().get(0).getId());
         assertEquals(101, sl.getSampleList().get(1).getId());
