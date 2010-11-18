@@ -27,17 +27,18 @@ package org.xerial.xml;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.sample.Mate;
 import org.xerial.util.bean.sample.Person;
 import org.xerial.util.bean.sample.PersonVector;
 import org.xerial.util.bean.sample.TrackInfo;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.XMLLens;
 
 public class XMLLensTest {
 
@@ -101,4 +102,110 @@ public class XMLLensTest {
         assertEquals(t.getProperty().get("revision"), t2.getProperty().get("revision"));
     }
 
+    public static class DASFeature {
+        public DASGFF gff;
+        public Segment segment;
+
+        @Override
+        public String toString() {
+            return JSONLens.toJSON(this);
+        }
+
+    }
+
+    public static class DASGFF {
+        public String version;
+        public String href;
+
+    }
+
+    public static class Segment {
+        public String id;
+        public long start;
+        public long stop;
+        public List<Feature> feature;
+    }
+
+    public static class Feature {
+        public String id;
+        public long start;
+        public long end;
+
+        public String score;
+        public String orientation;
+
+        public Method method;
+        public FeatureType type;
+        public Group group;
+        public Target target;
+
+    }
+
+    public static class Target {
+        public String id;
+        public long start;
+        public long stop;
+    }
+
+    public static class FeatureType {
+        public String id;
+        public String category;
+        public String value;
+
+    }
+
+    public static class Group {
+        public String id;
+        public String type;
+        public String label;
+        public Link link;
+
+    }
+
+    public static class Link {
+        public String href;
+        public String value;
+    }
+
+    public static class Method {
+        public String id;
+        public String value;
+    }
+
+    /*
+     * <pre>
+    <SEGMENT id="13" start="1800000" stop="18100000"> 
+    <FEATURE id="ENSE00001471274"> 
+    <START>17957458</START> 
+    <END>17957578</END> 
+    <TYPE id="exon:coding:ensembl" category="transcription">exon:coding:ensembl</TYPE> 
+    <METHOD id="ensembl">ensembl</METHOD> 
+    <SCORE>-</SCORE> 
+    <ORIENTATION>-</ORIENTATION> 
+    <GROUP id="ENST00000342944" type="transcript:ensembl" label="ENST00000342944 (AL138715.11-201)"> 
+      <LINK href="http://www.ensembl.org/Homo_sapiens/Transcript/Summary?t=ENST00000342944;db=core">TransView ENST00000342944</LINK> 
+    </GROUP> 
+    <TARGET id="ENST00000342944" start="1" stop="121" /> 
+    </FEATURE> 
+    </SEGMENT> 
+    </pre>
+     */
+    @Test
+    public void dasTest() throws Exception {
+        DASFeature das = XMLLens.loadXML(DASFeature.class,
+                FileResource.find(XMLLensTest.class, "das.xml"));
+        assertEquals(1, das.segment.feature.size());
+        Feature f = das.segment.feature.get(0);
+        _logger.debug(das);
+        assertEquals("ENSE00001471274", f.id);
+        assertEquals(17957458L, f.start);
+        assertEquals(17957578L, f.end);
+        assertEquals("-", f.score);
+        assertEquals("-", f.orientation);
+        Target t = f.target;
+        assertEquals("ENST00000342944", t.id);
+        assertEquals(1L, t.start);
+        assertEquals(121L, t.stop);
+
+    }
 }

@@ -40,23 +40,17 @@ import org.junit.Test;
 import org.xerial.util.io.VirtualFile;
 import org.xerial.util.log.Logger;
 
-public class FileResourceTest
-{
+public class FileResourceTest {
     private Logger _logger = Logger.getLogger(FileResourceTest.class);
-    
-    
+
     @Before
-    public void setUp() throws Exception
-    {
-    }
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void find() throws IOException
-    {
+    public void find() throws IOException {
         URL loc = FileResource.find(FileResourceTest.class, "test-resource.txt");
         _logger.trace("resource URL: " + loc);
         assertNotNull(loc);
@@ -65,53 +59,46 @@ public class FileResourceTest
         assertNotNull(line);
         assertEquals("hello world", line);
     }
-    
-    
+
     @Test
-    public void findFromRootPackage() throws URISyntaxException
-    {
-        URL url = FileResource.find("empty.file");
+    public void findFromRootPackage() throws URISyntaxException {
+        URL url = FileResource.find("org/xerial/util/empty.file");
         assertNotNull(url);
         File file = new File(url.toURI());
         assertEquals("empty.file", file.getName());
     }
 
     @Test
-    public void listResources()
-    {
+    public void listResources() {
         List<VirtualFile> resourceList = FileResource.listResources("org.xerial.util");
-        
-        for(VirtualFile vf : resourceList)
-        {
+
+        for (VirtualFile vf : resourceList) {
             _logger.trace(vf.getLogicalPath() + " : " + vf.getURL());
         }
-        
+
     }
-    
-    @Test 
-    public void filter()
-    {
-        List<VirtualFile> resourceList = FileResource.listResources("org.xerial.util", new ResourceFilter(){
-            public boolean accept(String resourcePath)
-            {
-                return resourcePath.endsWith(".java");
-            }
-        });
-        
-        for(VirtualFile vf : resourceList)
-        {
+
+    @Test
+    public void filter() {
+        List<VirtualFile> resourceList = FileResource.listResources("org.xerial.util",
+                new ResourceFilter() {
+                    public boolean accept(String resourcePath) {
+                        return resourcePath.endsWith(".java");
+                    }
+                });
+
+        for (VirtualFile vf : resourceList) {
             assertTrue(vf.getLogicalPath().endsWith(".java"));
         }
     }
-    
+
     @Test
-    public void listResoucesInJAR()
-    {
+    public void listResoucesInJAR() {
         List<VirtualFile> resourceList = FileResource.listResources("org.junit.runner");
-        assertTrue("at least one resource must be found in org.junit.runner", resourceList.size() > 0);
-        
-        for(VirtualFile vf : resourceList)
-        {
+        assertTrue("at least one resource must be found in org.junit.runner",
+                resourceList.size() > 0);
+
+        for (VirtualFile vf : resourceList) {
             _logger.trace(vf.getLogicalPath() + " : " + vf.getURL());
         }
     }

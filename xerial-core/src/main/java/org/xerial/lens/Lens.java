@@ -24,11 +24,6 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +36,6 @@ import org.xerial.util.antlr.ANTLRTreeParser;
 import org.xerial.util.bean.BeanHandler;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.xml.XMLTreeParser;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured
@@ -156,31 +150,6 @@ import org.xerial.xml.XMLTreeParser;
  */
 public class Lens {
 
-    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException,
-            XerialException {
-        if (xmlResource == null)
-            throw new NullPointerException("XML resource is null");
-
-        return load(result,
-                new XMLTreeParser(new BufferedReader(
-                        new InputStreamReader(xmlResource.openStream()))));
-    }
-
-    public static <Result> Result loadXML(Class<Result> result, URL xmlResource)
-            throws IOException, XerialException {
-        return loadXML(TypeInfo.createInstance(result), xmlResource);
-    }
-
-    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader)
-            throws IOException, XerialException {
-        return loadXML(TypeInfo.createInstance(result), xmlReader);
-    }
-
-    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException,
-            XerialException {
-        return load(result, new XMLTreeParser(xmlReader));
-    }
-
     public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
             final String[] parserTokenNames) throws XerialException {
         return loadANTLRParseTree(TypeInfo.createInstance(resultType), tree, parserTokenNames);
@@ -220,11 +189,6 @@ public class Lens {
     public static <Result> Result load(Result result, TreeParser parser) throws XerialException {
         ObjectMapper mapper = ObjectMapper.getMapper(result.getClass());
         return mapper.map(result, parser);
-    }
-
-    public static <Result> void findFromXML(Reader input, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException {
-        find(targetType, targetNodeName, handler, new XMLTreeParser(input));
     }
 
     public static <Result> void find(Class<Result> bindingType, ObjectHandler<Result> handler,

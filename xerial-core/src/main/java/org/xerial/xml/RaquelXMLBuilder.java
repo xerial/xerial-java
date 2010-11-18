@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation;
+package org.xerial.xml;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -32,6 +32,13 @@ import java.util.List;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.relation.ContainerManager;
+import org.xerial.lens.relation.Node;
+import org.xerial.lens.relation.NodeTupleIterator;
+import org.xerial.lens.relation.Tuple;
+import org.xerial.lens.relation.TupleContainer;
+import org.xerial.lens.relation.TupleElement;
+import org.xerial.lens.relation.TupleIndex;
 import org.xerial.lens.relation.query.SpectramBloomFilter;
 import org.xerial.lens.relation.query.TableJoin;
 import org.xerial.lens.relation.query.TableJoin.OneToManyTupleCursor;
@@ -44,8 +51,6 @@ import org.xerial.util.Range;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.XMLAttribute;
-import org.xerial.xml.XMLGenerator;
 import org.xerial.xml.XMLGenerator.IndentType;
 
 /**
@@ -366,9 +371,7 @@ public class RaquelXMLBuilder {
                     }
                     if (_logger.isDebugEnabled()) {
                         _logger.debug(String.format("parent:\n %s", container));
-                        _logger
-                                .debug(String
-                                        .format("need join: %s with %s", nodeName, nextSkelton));
+                        _logger.debug(String.format("need join: %s with %s", nodeName, nextSkelton));
                     }
                     XMLBuilder builder = new XMLBuilder(container, nextSkelton);
                     builder.build();

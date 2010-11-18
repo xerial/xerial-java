@@ -34,7 +34,6 @@ import java.io.Writer;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.lens.relation.ContainerManager;
-import org.xerial.lens.relation.RaquelXMLBuilder;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.RelationStreamCollector;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
@@ -47,6 +46,7 @@ import org.xerial.util.opt.Option;
 import org.xerial.util.opt.OptionParserException;
 import org.xerial.util.opt.Usage;
 import org.xerial.util.text.TabAsTreeParser;
+import org.xerial.xml.RaquelXMLBuilder;
 import org.xerial.xml.XMLTreeParser;
 
 /**

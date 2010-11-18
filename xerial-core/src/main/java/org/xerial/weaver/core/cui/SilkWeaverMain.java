@@ -26,11 +26,11 @@ package org.xerial.weaver.core.cui;
 
 import java.net.URL;
 
-import org.xerial.lens.Lens;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.OptionParser;
 import org.xerial.util.opt.OptionParserException;
 import org.xerial.util.opt.Usage;
+import org.xerial.xml.XMLLens;
 
 /**
  * Command-line interface of the Silk Weaver
@@ -124,7 +124,7 @@ public class SilkWeaverMain extends SilkWeaverModuleBase {
         VersionInfo vi = new VersionInfo();
         if (pomFile != null) {
             try {
-                Lens.loadXML(vi, pomFile);
+                XMLLens.loadXML(vi, pomFile);
             }
             catch (Exception e) {
                 _logger.error(e);

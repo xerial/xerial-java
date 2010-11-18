@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.relation;
+package org.xerial.xml;
 
 import org.junit.AfterClass;
 import org.junit.Before;

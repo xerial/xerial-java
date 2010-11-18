@@ -24,17 +24,22 @@
 //--------------------------------------
 package org.xerial.xml;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Map;
 
 import org.w3c.dom.Element;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.Lens;
+import org.xerial.util.ObjectHandler;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
@@ -44,6 +49,35 @@ import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.reflect.ReflectionUtil;
 
 public class XMLLens {
+
+    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException,
+            XerialException {
+        if (xmlResource == null)
+            throw new NullPointerException("XML resource is null");
+
+        return Lens.load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(
+                xmlResource.openStream()))));
+    }
+
+    public static <Result> Result loadXML(Class<Result> result, URL xmlResource)
+            throws IOException, XerialException {
+        return loadXML(TypeInfo.createInstance(result), xmlResource);
+    }
+
+    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader)
+            throws IOException, XerialException {
+        return loadXML(TypeInfo.createInstance(result), xmlReader);
+    }
+
+    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException,
+            XerialException {
+        return Lens.load(result, new XMLTreeParser(xmlReader));
+    }
+
+    public static <Result> void findFromXML(Reader input, String targetNodeName,
+            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException {
+        Lens.find(targetType, targetNodeName, handler, new XMLTreeParser(input));
+    }
 
     private static class BeanToXMLProcess {
         private ByteArrayOutputStream _buffer = new ByteArrayOutputStream();
