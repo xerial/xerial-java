@@ -38,10 +38,20 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
+import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
+import org.xerial.util.bean.BeanUtilTest;
+import org.xerial.util.bean.JSONArray;
+import org.xerial.util.bean.JSONException;
+import org.xerial.util.bean.JSONObject;
+import org.xerial.util.bean.UTGBException;
+import org.xerial.util.bean.sample.Book;
+import org.xerial.util.bean.sample.Gene;
+import org.xerial.util.bean.sample.GenePartial;
+import org.xerial.util.bean.sample.Person;
 import org.xerial.util.log.Logger;
 import org.xerial.xml.impl.Sample;
 import org.xerial.xml.impl.SampleList;
@@ -802,6 +812,154 @@ public class JSONLensTest {
 
         String j3 = JSONUtil.toJSON(pl2);
         _logger.debug(j3);
+
+    }
+
+    /**
+     * Test method for
+     * {@link org.utgenome.util.bean.BeanUtil#toJSON(java.lang.Object)}.
+     * 
+     * @throws JSONException
+     * @throws UTGBException
+     * @throws UTGBException
+     * @throws JSONException
+     * @throws JSONException
+     * @throws XerialException
+     * @throws JSONException
+     */
+    @Test
+    public void simpleBeanClassToJSON() throws XerialException, JSONException {
+        String str = JSONLens.toJSON(new Person(5, "leo"));
+        JSONObject json = new JSONObject(str);
+        assertEquals(5, json.getInt("id"));
+        assertEquals("leo", json.getString("name"));
+    }
+
+    @Test
+    public void classWithArrayParameterToJSON() throws JSONException, XerialException {
+        String str = JSONLens.toJSON(new Book("Data on the Web", new String[] { "Abiteboul",
+                "Buneman" }));
+        JSONObject json = new JSONObject(str);
+        JSONArray author = json.getJSONArray("author");
+        assertEquals(2, author.size());
+        assertEquals("Abiteboul", author.get(0).toString());
+        assertEquals("Buneman", author.get(1).toString());
+        assertEquals("Data on the Web", json.getString("title"));
+    }
+
+    /*
+     * @Test public void addBean() throws InvalidJSONDataException,
+     * XerialException { Value[] va = {new Value("1"), new Value("2"), new
+     * Value("invalid", "-1")}; Vector<Value> v = new Vector<Value>();
+     * for(Value value : va) v.add(value); ValueDomain vd = new ValueDomain(v);
+     * String json = JSONLens.toJSON(vd);
+     * 
+     * ValueDomain vd2 = new ValueDomain(); BeanUtil.populateBean(vd2, json);
+     * int i =0; assertEquals(va.length, vd2.getValueList().size()); for(Object
+     * obj : vd2.getValueList()) { Value val = (Value) obj;
+     * assertEquals(va[i].getLabel(), val.getLabel());
+     * assertEquals(va[i].getValue(), val.getValue()); i++; } }
+     */
+
+    private boolean foundGene1 = false;
+    private boolean foundGene2 = false;
+
+    @Test
+    public void streamJSONReader() throws IOException, XerialException {
+        foundGene1 = false;
+        foundGene2 = false;
+
+        StopWatch stopWatch = new StopWatch();
+        JSONLens.loadJSON(Gene.class,
+                FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
+                new ObjectHandlerBase<Gene>() {
+                    public void handle(Gene gene) throws Exception {
+                        assertNotNull(gene);
+                        if (gene.getId() == 1) {
+                            assertEquals("gene1", gene.getName());
+                            assertEquals(100, gene.getStart());
+                            assertEquals(200, gene.getEnd());
+                            assertEquals("chr1", gene.getTarget());
+                            assertEquals("-", gene.getStrand());
+                            foundGene1 = true;
+                        }
+                        else if (gene.getId() == 2) {
+                            assertEquals("gene2", gene.getName());
+                            assertEquals(300, gene.getStart());
+                            assertEquals(500, gene.getEnd());
+                            assertEquals("chr2", gene.getTarget());
+                            assertEquals("+", gene.getStrand());
+                            foundGene2 = true;
+                        }
+                        else {
+                            fail("invalid gene");
+                        }
+
+                    }
+
+                    public void handleException(Exception e) {
+                        _logger.error(e);
+                    }
+
+                });
+        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
+
+        assertTrue(foundGene1);
+        assertTrue(foundGene2);
+
+    }
+
+    @Test
+    public void partialMatchTest() throws XerialException, IOException {
+        foundGene1 = false;
+        foundGene2 = false;
+
+        StopWatch stopWatch = new StopWatch();
+        JSONLens.findFromJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
+                "gene", GenePartial.class, new ObjectHandler<GenePartial>() {
+                    public void handle(GenePartial gene) throws Exception {
+                        assertNotNull(gene);
+                        if (gene.getId() == 1) {
+                            assertEquals(100, gene.getStart());
+                            assertEquals(200, gene.getEnd());
+                            assertEquals("chr1", gene.getTarget());
+                            assertEquals("-", gene.getStrand());
+                            foundGene1 = true;
+                        }
+                        else if (gene.getId() == 2) {
+                            assertEquals(300, gene.getStart());
+                            assertEquals(500, gene.getEnd());
+                            assertEquals("chr2", gene.getTarget());
+                            assertEquals("+", gene.getStrand());
+                            foundGene2 = true;
+                        }
+                        else {
+                            fail("invalid gene");
+                        }
+
+                    }
+
+                    public void handleException(Exception e) {
+                        _logger.error(e);
+                    }
+
+                    @Override
+                    public void init() throws Exception {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void finish() throws Exception {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                });
+        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
+
+        assertTrue(foundGene1);
+        assertTrue(foundGene2);
 
     }
 

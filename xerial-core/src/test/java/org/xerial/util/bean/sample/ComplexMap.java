@@ -26,8 +26,6 @@ package org.xerial.util.bean.sample;
 
 import java.util.TreeMap;
 
-import org.xerial.json.JSONUtil;
-
 @SuppressWarnings("serial")
 public class ComplexMap extends TreeMap<Integer, PersonTable> {
     private String name = "n/a";
@@ -42,11 +40,6 @@ public class ComplexMap extends TreeMap<Integer, PersonTable> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return JSONUtil.toJSON(this);
     }
 
 }
