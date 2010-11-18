@@ -24,8 +24,6 @@
 //--------------------------------------
 package org.xerial.core;
 
-import org.xerial.json.JSONErrorCode;
-
 /**
  * Base exception class for Xerial Project.
  * 
@@ -33,7 +31,7 @@ import org.xerial.json.JSONErrorCode;
  * {@link ErrorCode} interface. To add your own error codes for the use with
  * {@link XerialException}, you have to implement the {@link ErrorCode}
  * interface. See examples of error codes: {@link XerialErrorCode},
- * {@link JSONErrorCode}, etc.
+ * JSONErrorCode, etc.
  * 
  * @author leo
  * 

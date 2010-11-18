@@ -28,9 +28,9 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.cui.XerialMain;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
+import org.xerial.weaver.cui.XerialMain;
 
 public class SilkMainTest {
 

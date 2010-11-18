@@ -18,6 +18,7 @@
     <module>xerial-core</module>
     <module>xerial-json</module>
     <module>xerial-xml</module>
+    <module>xerial-silk</module>
   </modules>
 
   <scm>

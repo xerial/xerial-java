@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.cui;
+package org.xerial.weaver.cui;
 
 /**
  * Common interface for Silk CUI commands

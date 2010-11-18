@@ -30,9 +30,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.lens.cui.Filter;
-import org.xerial.lens.cui.XerialMain;
 import org.xerial.util.FileResource;
+import org.xerial.weaver.cui.Filter;
+import org.xerial.weaver.cui.XerialMain;
 
 public class FilterTest {
 

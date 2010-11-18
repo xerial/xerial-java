@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.cui;
+package org.xerial.weaver.cui;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
