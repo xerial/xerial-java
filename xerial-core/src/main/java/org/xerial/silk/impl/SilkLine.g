@@ -75,7 +75,7 @@ import org.xerial.silk.impl.SilkLexerState;
 import org.xerial.silk.impl.SilkLexerState.State;
 import org.xerial.silk.impl.SilkLexerState.Symbol;
 }
-
+ 
  
 @header
 {

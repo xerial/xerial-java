@@ -55,6 +55,8 @@ public class SilkLinePushParser implements SilkParserBase {
     private static Logger _logger = Logger.getLogger(SilkLinePushParser.class);
 
     private final SilkLineLexer lexer;
+    private final CommonTokenStream tokenStream = new CommonTokenStream();
+
     private final BufferedReader buffer;
     private long lineCount = 0;
     private SilkEventHandler handler = null;
@@ -92,8 +94,8 @@ public class SilkLinePushParser implements SilkParserBase {
         handler.handle(e);
     }
 
-    public static SilkEvent parseLine(SilkLineLexer lexer, String line) throws IOException,
-            XerialException {
+    public static SilkEvent parseLine(SilkLineLexer lexer, CommonTokenStream tokenStream,
+            String line) throws IOException, XerialException {
         if (line.length() <= 0) {
             return BlankLineEvent;
         }
@@ -133,12 +135,12 @@ public class SilkLinePushParser implements SilkParserBase {
         lexer.setCharStream(new ANTLRStringStream(line));
 
         // 17500 lines/sec
-
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        tokenStream.setTokenSource(lexer);
 
         if (_logger.isTraceEnabled()) {
-            _logger.trace(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
-                    ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
+            _logger.trace(StringUtil.join(
+                    ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
+                            ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
         }
 
         // 100,000 lines/sec 
@@ -168,7 +170,7 @@ public class SilkLinePushParser implements SilkParserBase {
 
                 try {
                     if (!inBlock) {
-                        SilkEvent e = parseLine(lexer, line);
+                        SilkEvent e = parseLine(lexer, tokenStream, line);
                         if (e != null) {
 
                             switch (e.type) {

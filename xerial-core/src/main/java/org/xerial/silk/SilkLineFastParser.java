@@ -39,6 +39,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.antlr.runtime.CommonTokenStream;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.impl.SilkLineLexer;
@@ -143,6 +144,7 @@ public class SilkLineFastParser implements SilkParserBase {
         final List<String> cache;
         final ArrayDeque<SilkEvent> eventQueue;
         final SilkLineLexer lexer = new SilkLineLexer();
+        final CommonTokenStream tokenStream = new CommonTokenStream();
         final int lsn;
 
         Mapper(int lsn, List<String> cache) {
@@ -154,7 +156,8 @@ public class SilkLineFastParser implements SilkParserBase {
         public ArrayDeque<SilkEvent> call() throws Exception {
             for (int cursor = 0; cursor < cache.size(); cursor++) {
                 try {
-                    SilkEvent e = SilkLinePushParser.parseLine(lexer, cache.get(cursor));
+                    SilkEvent e = SilkLinePushParser.parseLine(lexer, tokenStream,
+                            cache.get(cursor));
                     if (e != null) {
                         eventQueue.add(e);
                     }
