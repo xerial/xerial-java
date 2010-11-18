@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.reflect;
+package org.xerial.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +34,6 @@ import java.util.Map;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.util.Pair;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 

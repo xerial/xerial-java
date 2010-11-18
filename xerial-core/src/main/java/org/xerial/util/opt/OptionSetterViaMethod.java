@@ -29,8 +29,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.ReflectionUtil;
 import org.xerial.util.bean.TypeInfo;
-import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Option setter using a class method.

@@ -39,11 +39,11 @@ import org.xerial.lens.impl.ParameterGetter;
 import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.lens.impl.RelationSetter;
 import org.xerial.util.Pair;
+import org.xerial.util.ReflectionUtil;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
-import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Tree to Object lens

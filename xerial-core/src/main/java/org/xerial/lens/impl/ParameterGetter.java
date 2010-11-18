@@ -31,9 +31,9 @@ import java.util.Map;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.lens.ObjectLens;
+import org.xerial.util.ReflectionUtil;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.TypeInfo;
-import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * For retrieving object parameter values

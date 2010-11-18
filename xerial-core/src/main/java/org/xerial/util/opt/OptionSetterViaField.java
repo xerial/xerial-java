@@ -27,8 +27,8 @@ package org.xerial.util.opt;
 import java.lang.reflect.Field;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.ReflectionUtil;
 import org.xerial.util.bean.TypeInfo;
-import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Option setter that bind arguments directory to a field variable

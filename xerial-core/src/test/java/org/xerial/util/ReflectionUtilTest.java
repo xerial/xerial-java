@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.reflect;
+package org.xerial.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +38,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.util.Pair;
+import org.xerial.util.ReflectionUtil;
 
 public class ReflectionUtilTest {
 

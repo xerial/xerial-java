@@ -32,10 +32,10 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ObjectLens;
+import org.xerial.util.ReflectionUtil;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
-import org.xerial.util.reflect.ReflectionUtil;
 
 /**
  * Object setter base class.
