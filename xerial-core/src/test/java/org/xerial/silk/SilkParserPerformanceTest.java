@@ -46,7 +46,7 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeEventHandlerBase;
 import org.xerial.util.tree.TreeEvent.EventType;
-import org.xerial.util.xml.pullparser.PullParserUtil;
+import org.xerial.xml.pullparser.PullParserUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;

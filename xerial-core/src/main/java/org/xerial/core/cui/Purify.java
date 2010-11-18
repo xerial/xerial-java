@@ -47,7 +47,7 @@ import org.xerial.util.opt.Option;
 import org.xerial.util.opt.OptionParserException;
 import org.xerial.util.opt.Usage;
 import org.xerial.util.text.TabAsTreeParser;
-import org.xerial.util.xml.XMLTreeParser;
+import org.xerial.xml.XMLTreeParser;
 
 /**
  * Alternative XML structure generator

@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
-import org.xerial.util.xml.pullparser.PullParserUtil;
+import org.xerial.xml.pullparser.PullParserUtil;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 

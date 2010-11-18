@@ -44,9 +44,9 @@ import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeVisitorBase;
 import org.xerial.util.tree.TreeWalker;
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLErrorCode;
-import org.xerial.util.xml.XMLGenerator;
+import org.xerial.xml.XMLAttribute;
+import org.xerial.xml.XMLErrorCode;
+import org.xerial.xml.XMLGenerator;
 
 /**
  * Utilities for handling Silk file format.

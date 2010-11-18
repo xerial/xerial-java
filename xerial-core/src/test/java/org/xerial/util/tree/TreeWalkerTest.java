@@ -31,61 +31,52 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
-import org.xerial.util.xml.XMLTreeWalker;
+import org.xerial.xml.XMLTreeWalker;
 
-public class TreeWalkerTest
-{
+public class TreeWalkerTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    class MyWalker extends XMLTreeWalker
-    {
-        public MyWalker(Reader xmlReader)
-        {
+    class MyWalker extends XMLTreeWalker {
+        public MyWalker(Reader xmlReader) {
             super(xmlReader);
         }
 
     }
 
     @Test
-    public void testname() throws Exception
-    {
-        MyWalker walker = new MyWalker(FileResource.open(TreeWalkerTest.class, "../xml/simple.xml"));
+    public void testname() throws Exception {
+        MyWalker walker = new MyWalker(FileResource.open(TreeWalkerTest.class, "simple.xml"));
         walker.walk(new TreeVisitor() {
 
-            public void finish(TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
+            public void finish(TreeWalker walker) throws XerialException {
+                // TODO Auto-generated method stub
 
             }
 
-            public void init(TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
+            public void init(TreeWalker walker) throws XerialException {
+                // TODO Auto-generated method stub
 
             }
 
-            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
+            public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
+                // TODO Auto-generated method stub
 
             }
 
-            public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
+            public void text(String nodeName, String textDataFragment, TreeWalker walker)
+                    throws XerialException {
+                // TODO Auto-generated method stub
 
             }
 
-            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-            {
-            // TODO Auto-generated method stub
+            public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
+                    throws XerialException {
+                // TODO Auto-generated method stub
 
             }
 

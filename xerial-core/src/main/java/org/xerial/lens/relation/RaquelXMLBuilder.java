@@ -44,9 +44,9 @@ import org.xerial.util.Range;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.log.Logger;
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLGenerator;
-import org.xerial.util.xml.XMLGenerator.IndentType;
+import org.xerial.xml.XMLAttribute;
+import org.xerial.xml.XMLGenerator;
+import org.xerial.xml.XMLGenerator.IndentType;
 
 /**
  * Compact XML builder

@@ -38,8 +38,8 @@ import org.xerial.util.ZipfRandom;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
-import org.xerial.util.xml.XMLAttribute;
-import org.xerial.util.xml.XMLGenerator;
+import org.xerial.xml.XMLAttribute;
+import org.xerial.xml.XMLGenerator;
 
 /**
  * Benchmark generator

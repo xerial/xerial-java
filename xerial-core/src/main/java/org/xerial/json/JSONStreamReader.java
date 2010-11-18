@@ -33,7 +33,7 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
 import org.xerial.util.tree.TreeEvent.EventType;
-import org.xerial.util.xml.impl.TreeEventQueue;
+import org.xerial.xml.impl.TreeEventQueue;
 
 /**
  * JSON stream reader

@@ -68,7 +68,7 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.reflect.ReflectionUtil;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.util.xml.impl.TreeEventQueue;
+import org.xerial.xml.impl.TreeEventQueue;
 
 /**
  * Push-style Silk format parser

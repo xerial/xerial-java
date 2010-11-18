@@ -52,7 +52,7 @@ import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
 import org.xerial.util.text.TabAsTreeParser;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.util.xml.XMLTreeParser;
+import org.xerial.xml.XMLTreeParser;
 
 @Usage(command = "filter")
 public class Filter implements XerialCommand {

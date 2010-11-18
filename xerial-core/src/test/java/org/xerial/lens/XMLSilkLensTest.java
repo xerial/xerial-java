@@ -36,7 +36,7 @@ import org.xerial.silk.TreeWalkLog;
 import org.xerial.silk.XMLSilkLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
-import org.xerial.util.xml.XMLTreeWalker;
+import org.xerial.xml.XMLTreeWalker;
 
 public class XMLSilkLensTest {
 

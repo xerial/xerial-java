@@ -43,9 +43,9 @@ import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
-import org.xerial.util.xml.impl.XMLLensTest;
-import org.xerial.util.xml.impl.Sample;
-import org.xerial.util.xml.impl.SampleList;
+import org.xerial.xml.impl.Sample;
+import org.xerial.xml.impl.SampleList;
+import org.xerial.xml.impl.XMLLensTest;
 
 public class JSONLensTest {
 
