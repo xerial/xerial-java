@@ -22,8 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.antlr;
-
+package org.xerial.util.text;
 
 import static org.junit.Assert.*;
 
@@ -32,27 +31,44 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.antlr.Template;
 
-public class TemplateTest
-{
+public class TemplateTest {
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
-    
+    public void tearDown() throws Exception {}
+
     @Test
-    public void apply()
-    {
+    public void apply() {
         Template t = new Template("hello $name$!");
         Properties prop = new Properties();
         prop.put("name", "Leo");
         String result = t.apply(prop);
         assertEquals("hello Leo!", result);
+    }
+
+    @Test
+    public void escape() throws Exception {
+
+        Template t = new Template("hello $name$! \\$kept\\$");
+        Properties prop = new Properties();
+        prop.put("name", "Leo");
+        prop.put("kept\\", "not preserved");
+        String result = t.apply(prop);
+        assertEquals("hello Leo! \\$kept\\$", result);
+
+    }
+
+    @Test
+    public void multiline() throws Exception {
+        Template t = new Template("Hello $name$!\n Hello $name$ $name$ \n Good Job!");
+        Properties prop = new Properties();
+        prop.put("name", "Leo");
+        String result = t.apply(prop);
+        assertEquals("Hello Leo!\n Hello Leo Leo \n Good Job!", result);
+
     }
 
 }
