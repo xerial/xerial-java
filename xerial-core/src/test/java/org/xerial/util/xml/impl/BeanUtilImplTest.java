@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean.impl;
+package org.xerial.util.xml.impl;
 
 import static org.junit.Assert.*;
 
@@ -33,6 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
+import org.xerial.util.bean.impl.BeanUtilImpl;
 
 public class BeanUtilImplTest {
 

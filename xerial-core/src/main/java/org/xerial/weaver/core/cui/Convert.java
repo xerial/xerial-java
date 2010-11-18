@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.xerial.lens.relation.schema.RelationSchema;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.io.StandardInputStream;
 import org.xerial.util.io.StandardOutputStream;
@@ -92,11 +91,6 @@ public class Convert implements SilkWeaverCommand {
             public void text(String nodeName, String textDataFragment) throws Exception {
                 if (_logger.isDebugEnabled())
                     _logger.debug(String.format("text  %s:%s", nodeName, textDataFragment));
-            }
-
-            @Override
-            public void schema(RelationSchema schema) throws Exception {
-
             }
 
             @Override

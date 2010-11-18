@@ -16,47 +16,50 @@
 //--------------------------------------
 // XerialJ
 //
-// SampleList.java
-// Since: Dec 19, 2007 5:25:46 PM
+// Sample.java
+// Since: Dec 19, 2007 4:47:44 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean.impl;
+package org.xerial.util.xml.impl;
 
-import java.util.ArrayList;
-
-import org.xerial.util.log.Logger;
-
-public class SampleList
+public class Sample
 {
-    private static Logger _logger = Logger.getLogger(SampleList.class); 
-    private ArrayList<Sample> sampleList = new ArrayList<Sample>(); 
-    private String listName;
+    int id;
+    String name;
     
-    public String getListName()
-    {
-        return listName;
-    }
-
-    public void setListName(String listName)
-    {
-        this.listName = listName;
-    }
-
-    public SampleList()
+    public Sample()
     {}
     
-    public void addSample(Sample s)
+    /**
+     * @param id
+     * @param name
+     */
+    public Sample(int id, String name)
     {
-        _logger.trace("add: " + s);
-        sampleList.add(s);
+        this.id = id;
+        this.name = name;
     }
-
-    public ArrayList<Sample> getSampleList()
+    public int getId()
     {
-        return sampleList;
+        return id;
     }
-
-        
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String toString()
+    {
+        return "id=" + id + " name=" + name;
+    }
 }

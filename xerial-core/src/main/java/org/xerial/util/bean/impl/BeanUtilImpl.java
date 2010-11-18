@@ -24,16 +24,11 @@
 //--------------------------------------
 package org.xerial.util.bean.impl;
 
-import java.io.Reader;
 import java.util.Map;
 
-import org.antlr.runtime.tree.Tree;
-import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.MapWalker;
 import org.xerial.util.tree.TreeWalker;
-import org.xerial.util.xml.XMLTreeWalker;
 
 /**
  * Implementations of BeanUtil
@@ -76,47 +71,15 @@ public class BeanUtilImpl {
      * @throws XerialException
      */
     @SuppressWarnings("unchecked")
-    protected static <E> E createBean(TreeWalker treeWalker, E bean) throws XerialException {
+    public static <E> E createBean(TreeWalker treeWalker, E bean) throws XerialException {
         return (E) createBean(treeWalker, new BeanBindingProcess(bean));
         //return new ObjectMapper().map(bean, treeWalker);
     }
 
-    protected static Object createBean(TreeWalker treeWalker, BeanBindingProcess beanBindingVisitor)
+    public static Object createBean(TreeWalker treeWalker, BeanBindingProcess beanBindingVisitor)
             throws XerialException {
         treeWalker.walk(beanBindingVisitor);
         return beanBindingVisitor.getResultBean();
-    }
-
-    // XML Stream
-    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader)
-            throws XerialException {
-        return createTypedBean(new XMLTreeWalker(xmlReader), beanType);
-    }
-
-    public static Object populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException {
-        return createBean(new XMLTreeWalker(xmlReader), bean);
-    }
-
-    // XML DOM
-    public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement)
-            throws XerialException {
-        return createTypedBean(new XMLTreeWalker(xmlElement), beanType);
-    }
-
-    public static Object populateBeanWithXML(Object bean, Element xmlElement)
-            throws XerialException {
-        return createBean(new XMLTreeWalker(xmlElement), new BeanBindingProcess(bean));
-    }
-
-    // ANTLR ParseTree
-    public static <E> E createBeanFromParseTree(Class<E> beanType, Tree parseTree,
-            final String[] parserTokenNames) throws XerialException {
-        return createTypedBean(new ANTLRWalker(parserTokenNames, parseTree), beanType);
-    }
-
-    public static <E> E populateBeanWithParseTree(E bean, Tree parseTree,
-            final String[] parserTokenNames) throws XerialException {
-        return createBean(new ANTLRWalker(parserTokenNames, parseTree), bean);
     }
 
     public static <E> E createBeanFromMap(Class<E> beanType, Map< ? , ? > map)

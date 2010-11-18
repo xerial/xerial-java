@@ -27,11 +27,9 @@ package org.xerial.util.bean;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
@@ -45,10 +43,7 @@ import org.xerial.util.StopWatch;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.Gene;
 import org.xerial.util.bean.sample.GenePartial;
-import org.xerial.util.bean.sample.Mate;
 import org.xerial.util.bean.sample.Person;
-import org.xerial.util.bean.sample.PersonVector;
-import org.xerial.util.bean.sample.TrackInfo;
 import org.xerial.util.log.Logger;
 
 /**
@@ -164,47 +159,6 @@ public class BeanUtilTest {
      * assertEquals(va[i].getValue(), val.getValue()); i++; } }
      */
 
-    @Test
-    public void beanToXML() throws XerialException {
-        PersonVector pv = new PersonVector();
-        pv.add(new Person(1, "leo"));
-        pv.add(new Person(2, "taro"));
-        String xml = BeanUtil.toXML("person", pv);
-        _logger.debug(xml);
-
-        Person[] pair1 = { new Person(1, "leo"), new Person(2, "naoko") };
-        Person[] pair2 = { new Person(3, "json"), new Person(4, "xml") };
-
-        Mate m1 = new Mate();
-        m1.putPair(pair1[0], pair1[1]);
-        m1.putPair(pair2[0], pair2[1]);
-        String xml2 = BeanUtil.toXML("mate", m1);
-        _logger.debug(xml);
-        _logger.debug(xml2);
-
-        assertTrue(true);
-    }
-
-    @Ignore
-    @Test
-    public void beanToXML2() throws XerialException {
-        TrackInfo t = new TrackInfo("sample track", false);
-        t.putProperty("species", "human");
-        t.putProperty("revision", "hg18");
-
-        String xml = BeanUtil.toXML("track-info", t);
-        _logger.debug(xml);
-
-        TrackInfo t2 = new TrackInfo();
-        BeanUtil.populateBeanWithXML(t2, xml);
-        _logger.debug(BeanUtil.toXML("track-info", t2));
-
-        assertEquals(t.getName(), t2.getName());
-        assertEquals(t.getPack(), t2.getPack());
-        assertEquals(t.getProperty().get("species"), t2.getProperty().get("species"));
-        assertEquals(t.getProperty().get("revision"), t2.getProperty().get("revision"));
-    }
-
     private boolean foundGene1 = false;
     private boolean foundGene2 = false;
 
@@ -307,20 +261,4 @@ public class BeanUtilTest {
 
     }
 
-    public static class PropertyData {
-        HashMap<String, String> map = new HashMap<String, String>();
-
-        public void putProperty(String key, String value) {
-            map.put(key, value);
-        }
-    }
-
-    @Test
-    public void putterTestForXML() throws Exception {
-        PropertyData data = BeanUtil.createXMLBean(PropertyData.class,
-                FileResource.open(BeanUtilTest.class, "sample/prop.xml"));
-        assertEquals("value1", data.map.get("key1"));
-        assertEquals("hello", data.map.get("message"));
-
-    }
 }

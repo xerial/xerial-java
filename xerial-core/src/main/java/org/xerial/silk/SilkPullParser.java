@@ -37,7 +37,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.relation.schema.RelationSchema;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
@@ -146,11 +145,6 @@ public class SilkPullParser implements TreeStreamReader {
                 parser.parse(new TreeEventHandler() {
                     public void finish() throws Exception {
                         hasParsingFinished = true;
-                    }
-
-                    @Override
-                    public void schema(RelationSchema schema) throws Exception {
-
                     }
 
                     public void init() throws Exception {

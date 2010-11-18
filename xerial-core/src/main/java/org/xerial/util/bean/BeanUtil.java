@@ -24,10 +24,6 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -43,7 +39,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.w3c.dom.Element;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.Pair;
@@ -56,7 +51,6 @@ import org.xerial.util.bean.impl.Getter;
 import org.xerial.util.bean.impl.MapPutter;
 import org.xerial.util.bean.impl.MapSetter;
 import org.xerial.util.bean.impl.Setter;
-import org.xerial.util.xml.XMLGenerator;
 
 /**
  * BeanUtil class supports data binding between JSON data and a bean class.
@@ -471,85 +465,6 @@ public class BeanUtil {
     static private Pattern _setGetAddMethodPattern = Pattern
             .compile("^(set|get|add|put|append)((\\S)(\\S*))?");
 
-    private static class BeanToXMLProcess {
-        private ByteArrayOutputStream _buffer = new ByteArrayOutputStream();
-
-        private XMLGenerator _out = new XMLGenerator(_buffer);
-
-        public BeanToXMLProcess() {
-
-        }
-
-        public String generateXML(String tagName, Object bean) throws XerialException {
-            try {
-                toXML(tagName, bean);
-                _out.endDocument();
-                _out.flush();
-                return _buffer.toString();
-            }
-            catch (IllegalArgumentException e) {
-                throw new XerialException(XerialErrorCode.IllegalArgument, e);
-            }
-        }
-
-        private void toXML(String tagName, Object bean) throws XerialException {
-            if (bean == null)
-                return;
-
-            Class< ? > beanClass = bean.getClass();
-
-            if (beanClass.isArray()) {
-                Object[] array = (Object[]) bean;
-                int i = 0;
-                for (; i < array.length - 1; i++) {
-                    toXML(tagName, array[i]);
-                    _out.text(",");
-                }
-                toXML(tagName, array[i]);
-            }
-            else if (TypeInfo.isBasicType(beanClass)) {
-                _out.element(tagName, bean.toString());
-            }
-            else {
-                if (TypeInfo.isCollection(beanClass)) {
-                    Collection< ? > collection = (Collection< ? >) bean;
-                    for (Object elem : collection) {
-                        toXML(tagName, elem);
-                    }
-                }
-                else if (TypeInfo.isMap(beanClass)) {
-                    Map< ? , ? > map = (Map< ? , ? >) bean;
-
-                    for (Object key : map.keySet()) {
-                        _out.startTag(tagName);
-                        _out.element("key", key.toString());
-                        _out.element("value", map.get(key).toString());
-                        _out.endTag();
-                    }
-                }
-                else {
-                    // return an XML elemenet
-                    _out.startTag(tagName);
-                    BeanBinderSet outputRuleSet = BeanUtil.getBeanOutputRule(beanClass);
-                    for (BeanBinder rule : outputRuleSet.getBindRules()) {
-                        Method getter = rule.getMethod();
-                        String parameterName = rule.getParameterName();
-
-                        Object parameterValue = invokeGetterMethod(getter, bean);
-                        toXML(parameterName, parameterValue);
-                    }
-                    _out.endTag();
-                }
-            }
-
-        }
-    }
-
-    public static String toXML(String tagName, Object bean) throws XerialException {
-        BeanToXMLProcess bp = new BeanToXMLProcess();
-        return bp.generateXML(tagName, bean);
-    }
-
     public static String toJSONFromResultSet(ResultSet resultSet) throws SQLException {
         StringBuilder builder = new StringBuilder();
         ResultSetMetaData metadata = resultSet.getMetaData();
@@ -598,40 +513,8 @@ public class BeanUtil {
         BeanUtilImpl.populateBeanWithMap(bean, map);
     }
 
-    public static void populateBeanWithXML(Object bean, Reader xmlReader) throws XerialException {
-        if (bean == null)
-            throw new XerialException(XerialErrorCode.BeanObjectIsNull);
-
-        BeanUtilImpl.populateBeanWithXML(bean, xmlReader);
-
-    }
-
-    public static void populateBeanWithXML(Object bean, String xmlData) throws XerialException {
-        populateBeanWithXML(bean, new StringReader(xmlData));
-    }
-
-    public static void populateBeanWithXML(Object bean, Element xmlElement) throws XerialException {
-        if (xmlElement == null)
-            return; // there is nothing to bind
-
-        BeanUtilImpl.populateBeanWithXML(bean, xmlElement);
-    }
-
     public static Object createInstance(Class< ? > c) throws XerialException {
         return TypeInfo.createInstance(c);
-    }
-
-    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws XerialException,
-            IOException, XerialException {
-
-        return BeanUtilImpl.createBeanFromXML(valueType, xmlReader);
-    }
-
-    public static Object createXMLBean(Class< ? > valueType, String xmlData) throws XerialException {
-        Object bean;
-        bean = createInstance(valueType);
-        populateBeanWithXML(bean, xmlData);
-        return bean;
     }
 
 }

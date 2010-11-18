@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util.antlr;
 
 import java.util.ArrayList;
 import java.util.List;

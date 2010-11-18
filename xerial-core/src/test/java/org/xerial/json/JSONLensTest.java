@@ -42,10 +42,10 @@ import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.impl.BeanUtilImplTest;
-import org.xerial.util.bean.impl.Sample;
-import org.xerial.util.bean.impl.SampleList;
 import org.xerial.util.log.Logger;
+import org.xerial.util.xml.impl.BeanUtilImplTest;
+import org.xerial.util.xml.impl.Sample;
+import org.xerial.util.xml.impl.SampleList;
 
 public class JSONLensTest {
 
@@ -800,8 +800,8 @@ public class JSONLensTest {
         String json2 = JSONLens.toJSON(pl2);
         _logger.debug(json2);
 
-        String xml = BeanUtil.toXML("personList", pl);
-        _logger.debug(xml);
+        String j3 = JSONUtil.toJSON(pl2);
+        _logger.debug(j3);
 
     }
 
