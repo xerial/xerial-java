@@ -51,8 +51,7 @@ import org.xerial.util.xml.XMLGenerator;
  * @author leo
  * 
  */
-public class SilkUtil
-{
+public class SilkUtil {
     /**
      * Silk to Object mapping. Create a bean object from a given Silk file. The
      * parameter values of the specified bean class will be populated with the
@@ -69,8 +68,8 @@ public class SilkUtil
      * @throws IOException
      *             when failed to open the specified Silk file.
      */
-    public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException, IOException
-    {
+    public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException,
+            IOException {
         return BeanUtilImpl.createBeanFromSilk(beanType, silkSource);
     }
 
@@ -88,8 +87,7 @@ public class SilkUtil
      * @throws IOException
      *             when failed to open the specified Silk file
      */
-    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException
-    {
+    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException {
         return BeanUtilImpl.populateBeanWithSilk(bean, silkSource);
     }
 
@@ -103,8 +101,7 @@ public class SilkUtil
      * @throws IOException
      * @throws XerialException
      */
-    public static String toXML(URL silkSource) throws IOException, XerialException
-    {
+    public static String toXML(URL silkSource) throws IOException, XerialException {
         StringWriter buf = new StringWriter();
         toXML(silkSource, buf);
         return buf.toString();
@@ -118,8 +115,7 @@ public class SilkUtil
      * @throws IOException
      * @throws XerialException
      */
-    public static void toXML(URL silkSource, Writer out) throws IOException, XerialException
-    {
+    public static void toXML(URL silkSource, Writer out) throws IOException, XerialException {
         SilkWalker walker = new SilkWalker(silkSource);
         XMLBuilder builder = new XMLBuilder(out);
         walker.walk(builder);
@@ -137,24 +133,19 @@ public class SilkUtil
      * @author leo
      * 
      */
-    private static class XMLBuilder extends TreeVisitorBase
-    {
+    private static class XMLBuilder extends TreeVisitorBase {
         final XMLGenerator xout;
         final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
-        public XMLBuilder(Writer out)
-        {
+        public XMLBuilder(Writer out) {
             xout = new XMLGenerator(out);
         }
 
-        private void popQueue()
-        {
-            if (!eventQueue.isEmpty())
-            {
+        private void popQueue() {
+            if (!eventQueue.isEmpty()) {
                 TreeEvent prev = eventQueue.removeLast();
 
-                switch (prev.event)
-                {
+                switch (prev.event) {
                 case VISIT:
                     if (prev.nodeValue == null)
                         xout.startTag(prev.nodeName);
@@ -169,28 +160,26 @@ public class SilkUtil
         }
 
         @Override
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-        {
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
+                throws XerialException {
             popQueue();
-            eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName, immediateNodeValue));
+            eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName,
+                    immediateNodeValue));
         }
 
         @Override
-        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
-        {
+        public void text(String nodeName, String textDataFragment, TreeWalker walker)
+                throws XerialException {
             popQueue();
             xout.text(textDataFragment);
         }
 
         @Override
-        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-        {
-            if (!eventQueue.isEmpty())
-            {
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
+            if (!eventQueue.isEmpty()) {
                 TreeEvent prev = eventQueue.removeLast();
 
-                switch (prev.event)
-                {
+                switch (prev.event) {
                 case VISIT:
                     if (prev.nodeValue == null)
                         xout.selfCloseTag(prev.nodeName);
@@ -203,14 +192,12 @@ public class SilkUtil
         }
 
         @Override
-        public void init(TreeWalker walker) throws XerialException
-        {
+        public void init(TreeWalker walker) throws XerialException {
             visitNode("silk", null, walker);
         }
 
         @Override
-        public void finish(TreeWalker walker) throws XerialException
-        {
+        public void finish(TreeWalker walker) throws XerialException {
             leaveNode("silk", walker);
             xout.endDocument();
         }
@@ -226,8 +213,7 @@ public class SilkUtil
      * @throws IOException
      * @throws XerialException
      */
-    public static Writer toJSON(URL silkSource, Writer out) throws IOException, XerialException
-    {
+    public static Writer toJSON(URL silkSource, Writer out) throws IOException, XerialException {
         SilkWalker walker = new SilkWalker(silkSource);
         JSONBuilder jsonBuilder = new JSONBuilder();
         walker.walk(jsonBuilder);
@@ -236,67 +222,54 @@ public class SilkUtil
         return out;
     }
 
-    private static class JSONBuilder implements TreeVisitor
-    {
+    private static class JSONBuilder implements TreeVisitor {
         JSONArray root = new JSONArray();
         Deque<JSONObject> contextStack = new ArrayDeque<JSONObject>();
         Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
         final StringBuilder ZERO_CAPACITY_BUFFER = new StringBuilder(0);
 
-        public JSONBuilder()
-        {
+        public JSONBuilder() {
 
         }
 
-        public JSONArray getRoot()
-        {
+        public JSONArray getRoot() {
             return root;
         }
 
-        private JSONObject getContext()
-        {
+        private JSONObject getContext() {
             return contextStack.peekLast();
         }
 
-        private StringBuilder getTextBuilder()
-        {
-            if (textStack.peekLast() == ZERO_CAPACITY_BUFFER)
-            {
+        private StringBuilder getTextBuilder() {
+            if (textStack.peekLast() == ZERO_CAPACITY_BUFFER) {
                 textStack.removeLast();
                 textStack.addLast(new StringBuilder());
             }
             return textStack.peekLast();
         }
 
-        public void finish(TreeWalker walker) throws XerialException
-        {}
+        public void finish(TreeWalker walker) throws XerialException {}
 
-        public void init(TreeWalker walker) throws XerialException
-        {}
+        public void init(TreeWalker walker) throws XerialException {}
 
-        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException
-        {
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
             JSONObject node = getContext();
             contextStack.removeLast();
 
-            if (node.keys().size() == 0)
-            {
+            if (node.keys().size() == 0) {
                 // flatten object into single key:value pair
                 JSONObject parent = getContext();
                 if (textStack.peekLast() != ZERO_CAPACITY_BUFFER)
                     parent.put(nodeName, textStack.peekLast().toString());
 
-                if (contextStack.size() == 1)
-                {
+                if (contextStack.size() == 1) {
                     contextStack.removeLast(); // remove additional object
                     textStack.removeLast();
                     return;
                 }
             }
-            else
-            {
-                if (contextStack.size() == 1)
-                {
+            else {
+                if (contextStack.size() == 1) {
                     contextStack.removeLast(); // remove additional object
                     textStack.removeLast();
                     return;
@@ -305,17 +278,14 @@ public class SilkUtil
                 JSONObject parent = getContext();
                 if (!parent.hasKey(nodeName))
                     parent.put(nodeName, node);
-                else
-                {
+                else {
                     // use array to handle multiple occurrences of the same name node
                     JSONValue elderBrother = parent.get(nodeName);
                     JSONArray array = elderBrother.getJSONArray();
-                    if (array != null)
-                    {
+                    if (array != null) {
                         array.add(node);
                     }
-                    else
-                    {
+                    else {
                         parent.remove(nodeName);
                         array = new JSONArray();
                         array.add(elderBrother);
@@ -329,17 +299,16 @@ public class SilkUtil
             textStack.removeLast();
         }
 
-        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException
-        {
+        public void text(String nodeName, String textDataFragment, TreeWalker walker)
+                throws XerialException {
             getTextBuilder().append(textDataFragment);
         }
 
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException
-        {
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
+                throws XerialException {
             JSONObject newContext = new JSONObject();
 
-            if (contextStack.isEmpty())
-            {
+            if (contextStack.isEmpty()) {
                 JSONObject childOfRoot = new JSONObject();
                 childOfRoot.put(nodeName, newContext);
                 root.add(childOfRoot);
@@ -355,9 +324,22 @@ public class SilkUtil
     }
 
     /**
+     * Convert the given object into Silk
+     * 
+     * @param obj
+     * @return
+     */
+    public static String toSilk(Object obj) {
+        StringWriter buf = new StringWriter();
+        SilkWriter writer = new SilkWriter(buf);
+        writer.toSilk(obj);
+        writer.flush();
+        return buf.toString();
+    }
+
+    /**
      * Forbid construction
      */
-    protected SilkUtil()
-    {}
+    protected SilkUtil() {}
 
 }

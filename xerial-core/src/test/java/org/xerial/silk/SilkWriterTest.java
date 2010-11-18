@@ -34,7 +34,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.Lens;
 import org.xerial.lens.relation.TupleIndex;
 import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.FileResource;
@@ -140,7 +139,7 @@ public class SilkWriterTest {
     @Test
     public void tupleIndex() throws Exception {
         TupleIndex i = new TupleIndex(1);
-        String s = Lens.toSilk(i);
+        String s = SilkLens.toSilk(i);
         _logger.debug(s);
     }
 
@@ -149,7 +148,7 @@ public class SilkWriterTest {
         ArrayList<String> input = new ArrayList<String>();
         input.add("hello");
         input.add("world");
-        String s = Lens.toSilk(input);
+        String s = SilkLens.toSilk(input);
         _logger.debug(s);
     }
 
@@ -177,7 +176,7 @@ public class SilkWriterTest {
         ArrayList<Person> p = new ArrayList<Person>();
         p.add(new Person(1, "leo"));
         p.add(new Person(2, "yui"));
-        String s = Lens.toSilk(p);
+        String s = SilkLens.toSilk(p);
         _logger.info(s);
     }
 

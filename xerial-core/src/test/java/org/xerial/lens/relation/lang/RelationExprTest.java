@@ -27,7 +27,7 @@ package org.xerial.lens.relation.lang;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.Lens;
+import org.xerial.silk.SilkLens;
 import org.xerial.util.log.Logger;
 
 public class RelationExprTest {
@@ -41,7 +41,7 @@ public class RelationExprTest {
 
     public RelationExpr parse(String query) throws Exception {
         RelationExpr e = RelationExpr.parse(query);
-        _logger.debug(Lens.toSilk(e));
+        _logger.debug(SilkLens.toSilk(e));
         _logger.debug(e.buildQuerySet());
         return e;
     }

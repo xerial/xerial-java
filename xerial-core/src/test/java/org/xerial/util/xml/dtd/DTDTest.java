@@ -30,7 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.lens.Lens;
+import org.xerial.silk.SilkUtil;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -47,18 +47,18 @@ public class DTDTest {
     @Test
     public void testParse() throws XerialException, IOException {
         DTD d = DTD.parse(FileResource.open(DTDTest.class, "auction.dtd"));
-        _logger.debug(Lens.toSilk(d));
+        _logger.debug(SilkUtil.toSilk(d));
     }
 
     @Test
     public void testParseDBLP() throws XerialException, IOException {
         DTD d = DTD.parse(FileResource.open(DTDTest.class, "dblp.dtd"));
-        _logger.debug(Lens.toSilk(d));
+        _logger.debug(SilkUtil.toSilk(d));
     }
 
     @Test
     public void testParseSIGMODRecord() throws XerialException, IOException {
         DTD d = DTD.parse(FileResource.open(DTDTest.class, "SigmodRecord.dtd"));
-        _logger.debug(Lens.toSilk(d));
+        _logger.debug(SilkUtil.toSilk(d));
     }
 }

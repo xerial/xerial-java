@@ -37,7 +37,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.lens.Lens;
 import org.xerial.lens.tree.TreeEvent;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.JSONStreamWalker;
@@ -278,11 +277,11 @@ public class SilkWalkerTest {
         DateTest dt = new DateTest();
         dt.time = now;
 
-        String silk = Lens.toSilk(dt);
+        String silk = SilkLens.toSilk(dt);
 
         _logger.info(silk);
 
-        DateTest dt2 = Lens.loadSilk(DateTest.class, new StringReader(silk));
+        DateTest dt2 = SilkLens.loadSilk(DateTest.class, new StringReader(silk));
 
         assertTrue(dt.time.compareTo(dt2.time) >= 0);
 

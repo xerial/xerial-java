@@ -24,9 +24,7 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -37,6 +35,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xerial.json.JSONLens;
+import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
@@ -119,11 +119,11 @@ public class ObjectLensTest {
         ExtMap extMap = new ExtMap();
         extMap.put(1, "hello");
         extMap.put(10, "world");
-        String json = ObjectLens.toJSON(extMap);
+        String json = JSONLens.toJSON(extMap);
         _logger.debug(json);
 
-        ExtMap extMap2 = Lens.loadJSON(ExtMap.class, new StringReader(json));
-        _logger.debug(ObjectLens.toJSON(extMap2));
+        ExtMap extMap2 = JSONLens.loadJSON(ExtMap.class, new StringReader(json));
+        _logger.debug(JSONLens.toJSON(extMap2));
 
         assertEquals(extMap, extMap2);
     }
@@ -154,11 +154,11 @@ public class ObjectLensTest {
         extList.add(10);
         extList.add(14);
 
-        String json = ObjectLens.toJSON(extList);
+        String json = JSONLens.toJSON(extList);
         _logger.debug(json);
 
-        ExtList extList2 = Lens.loadJSON(ExtList.class, new StringReader(json));
-        _logger.debug(ObjectLens.toJSON(extList2));
+        ExtList extList2 = JSONLens.loadJSON(ExtList.class, new StringReader(json));
+        _logger.debug(JSONLens.toJSON(extList2));
 
         assertEquals(extList, extList2);
 
@@ -220,9 +220,9 @@ public class ObjectLensTest {
         lens.setParameter(p, "prop", "hello", "world");
         assertEquals("world", lens.getParameter(p, "prop", "hello"));
 
-        String silk = Lens.toSilk(p);
+        String silk = SilkLens.toSilk(p);
 
-        PropTest p2 = Lens.loadSilk(PropTest.class, new StringReader(silk));
+        PropTest p2 = SilkLens.loadSilk(PropTest.class, new StringReader(silk));
         assertTrue(p2.prop.containsKey("hello"));
         assertEquals("world", p2.prop.getProperty("hello"));
 
@@ -231,11 +231,11 @@ public class ObjectLensTest {
     @Ignore
     @Test
     public void longProp() throws Exception {
-        PropTest p = Lens.loadSilk(PropTest.class, FileResource.open(ObjectLensTest.class,
-                "longprop.silk"));
+        PropTest p = SilkLens.loadSilk(PropTest.class,
+                FileResource.open(ObjectLensTest.class, "longprop.silk"));
         assertTrue(p.prop.containsKey("sequenceList"));
 
-        _logger.info(Lens.toSilk(p));
+        _logger.info(SilkLens.toSilk(p));
 
     }
 

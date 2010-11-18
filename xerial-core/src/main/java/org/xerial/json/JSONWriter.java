@@ -32,7 +32,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import org.xerial.core.XerialError;
-import org.xerial.lens.ObjectLens;
 
 /**
  * A support class for generating JSON data
@@ -190,7 +189,7 @@ public class JSONWriter {
     }
 
     public void addObject(Object bean) {
-        String jsonObject = ObjectLens.toJSON(bean);
+        String jsonObject = JSONLens.toJSON(bean);
         addInternal(jsonObject);
     }
 
@@ -239,7 +238,7 @@ public class JSONWriter {
         if (obj == null)
             return; // output nothing
         else {
-            putInternal(key, ObjectLens.toJSON(obj));
+            putInternal(key, JSONLens.toJSON(obj));
         }
 
     }

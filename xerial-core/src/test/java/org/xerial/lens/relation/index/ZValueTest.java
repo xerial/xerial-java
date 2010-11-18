@@ -24,13 +24,13 @@
 //--------------------------------------
 package org.xerial.lens.relation.index;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.lens.Lens;
+import org.xerial.silk.SilkLens;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
@@ -83,7 +83,8 @@ public class ZValueTest {
     public void plot() throws Exception {
 
         System.out.println("zvalue\tstart\tend\tcolor");
-        Lens.loadSilk(LocusQuery.class, FileResource.find(SilkUtilTest.class, "scaffold5001.silk"));
+        SilkLens.loadSilk(LocusQuery.class,
+                FileResource.find(SilkUtilTest.class, "scaffold5001.silk"));
 
     }
 

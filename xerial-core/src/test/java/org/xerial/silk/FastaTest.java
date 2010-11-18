@@ -33,13 +33,12 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.Lens;
-import org.xerial.lens.ObjectLens;
+import org.xerial.json.JSONLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.TYPE, ElementType.METHOD })
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @interface EqJoin {
 
     public String[] left();
@@ -50,38 +49,30 @@ import org.xerial.util.log.Logger;
 
 }
 
-public class FastaTest
-{
+public class FastaTest {
     private static Logger _logger = Logger.getLogger(FastaTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    public static class FastaQuery
-    {
+    public static class FastaQuery {
         FastaItem prev = null;
 
-        public void addGroup_Name(String group, FastaItem f)
-        {
-            _logger.info(String.format("group: %s, fasta: %s", group, ObjectLens.toJSON(f)));
+        public void addGroup_Name(String group, FastaItem f) {
+            _logger.info(String.format("group: %s, fasta: %s", group, JSONLens.toJSON(f)));
         }
 
-        public void addName(FastaItem f)
-        {
-            _logger.debug(ObjectLens.toJSON(f));
+        public void addName(FastaItem f) {
+            _logger.debug(JSONLens.toJSON(f));
 
-            if (prev != null && prev.getSequence().contains("TTAGGG"))
-            {
+            if (prev != null && prev.getSequence().contains("TTAGGG")) {
                 // output both records
             }
 
-            if (f.getSequence().contains("TTAGGG"))
-            {
+            if (f.getSequence().contains("TTAGGG")) {
 
             }
 
@@ -89,63 +80,55 @@ public class FastaTest
 
         }
 
-        public void flush()
-        {
+        public void flush() {
 
         }
 
     }
 
-    public static class S1
-    {
+    public static class S1 {
         public int id;
         public String name;
 
-        public int getRid()
-        {
+        public int getRid() {
             return id - 1;
         }
 
     }
 
-    public static class S2
-    {
+    public static class S2 {
         public int rid;
         public String info;
     }
 
     @EqJoin(left = "rid", leftClass = S1.class, right = "rid")
-    public static class S3
-    {
+    public static class S3 {
         public S1 s1;
 
         public List<S2> s2;
 
     }
 
-    public static class FastaItem
-    {
+    public static class FastaItem {
         public String value;
         public String link;
 
         private StringBuilder sequence = new StringBuilder();
 
-        public void appendSequence(String s)
-        {
+        public void appendSequence(String s) {
             sequence.append(s);
         }
 
-        public String getSequence()
-        {
+        public String getSequence() {
             return sequence.toString();
         }
 
     }
 
     @Test
-    public void testname() throws Exception
-    {
-        FastaQuery result = Lens.loadSilk(FastaQuery.class, FileResource.open(FastaTest.class, "fasta.silk"));
+    public void testname() throws Exception {
+        FastaQuery result = SilkLens.loadSilk(FastaQuery.class,
+                FileResource.open(FastaTest.class, "fasta.silk"));
         result.flush();
 
         //ObjectStream<S3> sin = Lens.joinSilk(S3.class, "input1", "input2");

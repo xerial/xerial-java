@@ -33,12 +33,10 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialException;
-import org.xerial.lens.Lens;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
-public class JSONWriterTest
-{
+public class JSONWriterTest {
     private static Logger _logger = Logger.getLogger(JSONWriterTest.class);
 
     @Test
@@ -182,10 +180,9 @@ public class JSONWriterTest
 
     }
 
-    public static class Seq
-    {
-        public int    start;
-        public int    end;
+    public static class Seq {
+        public int start;
+        public int end;
         public String sequence;
     }
 
@@ -207,8 +204,8 @@ public class JSONWriterTest
         String j = writer.toString();
         _logger.info(j);
 
-        Seq s = Lens.loadJSON(Seq.class, new StringReader(j));
-        _logger.info(Lens.toJSON(s));
+        Seq s = JSONLens.loadJSON(Seq.class, new StringReader(j));
+        _logger.info(JSONLens.toJSON(s));
 
         assertEquals(1, s.start);
         assertEquals(2, s.end);

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens;
+package org.xerial.silk;
 
 import java.io.Reader;
 import java.io.StringWriter;
@@ -32,7 +32,6 @@ import java.util.Iterator;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.silk.SilkWriter;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Pair;
 import org.xerial.util.StringUtil;

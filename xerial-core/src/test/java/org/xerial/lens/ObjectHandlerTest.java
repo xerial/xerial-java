@@ -29,6 +29,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
 
 public class ObjectHandlerTest {
@@ -83,8 +84,8 @@ public class ObjectHandlerTest {
     public void initTest() throws Exception {
 
         Handler<SAMEntry> h = new Handler<SAMEntry>();
-        Lens.findFromSilk(FileResource.open(ObjectHandlerTest.class, "sam-sample.silk"), "record",
-                SAMEntry.class, h);
+        SilkLens.findFromSilk(FileResource.open(ObjectHandlerTest.class, "sam-sample.silk"),
+                "record", SAMEntry.class, h);
 
         assertTrue(h.isInitialized);
         assertTrue(h.isFinished);

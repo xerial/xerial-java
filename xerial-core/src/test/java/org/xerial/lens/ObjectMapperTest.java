@@ -35,7 +35,9 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.json.JSONLens;
 import org.xerial.lens.LensTest.Gene;
+import org.xerial.silk.SilkLens;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
@@ -116,8 +118,8 @@ public class ObjectMapperTest {
     @Test
     public void map() throws Exception {
         ObjectMapper mapper = new ObjectMapper(GeneDB.class);
-        GeneDB gdb = mapper.map(GeneDB.class, new SilkParser(FileResource.find(
-                ObjectMapperTest.class, "gene.silk")));
+        GeneDB gdb = mapper.map(GeneDB.class,
+                new SilkParser(FileResource.find(ObjectMapperTest.class, "gene.silk")));
 
         assertEquals("gene data", gdb.description);
     }
@@ -132,8 +134,8 @@ public class ObjectMapperTest {
 
     @Test
     public void enumBind() throws Exception {
-        EnumData ret = Lens.loadSilk(EnumData.class, FileResource.find(ObjectMapperTest.class,
-                "enum.silk"));
+        EnumData ret = SilkLens.loadSilk(EnumData.class,
+                FileResource.find(ObjectMapperTest.class, "enum.silk"));
         assertEquals(6, ret.mark.size());
 
     }
@@ -145,7 +147,8 @@ public class ObjectMapperTest {
 
     @Test
     public void primitiveTypeBind() throws Exception {
-        Read r = Lens.loadSilk(Read.class, FileResource.find(ObjectMapperTest.class, "long.silk"));
+        Read r = SilkLens.loadSilk(Read.class,
+                FileResource.find(ObjectMapperTest.class, "long.silk"));
         assertEquals(1721L, r.viewstart);
         assertEquals(2871L, r.viewend);
     }
@@ -165,8 +168,8 @@ public class ObjectMapperTest {
 
     @Test
     public void rename() throws Exception {
-        Rename r = Lens.loadSilk(Rename.class, FileResource.find(ObjectMapperTest.class,
-                "gene.silk"));
+        Rename r = SilkLens.loadSilk(Rename.class,
+                FileResource.find(ObjectMapperTest.class, "gene.silk"));
         assertEquals(2, r.genes.size());
 
     }
@@ -181,8 +184,8 @@ public class ObjectMapperTest {
 
     @Test
     public void property() throws Exception {
-        PropReader p = Lens.loadSilk(PropReader.class, FileResource.open(ObjectMapperTest.class,
-                "property.silk"));
+        PropReader p = SilkLens.loadSilk(PropReader.class,
+                FileResource.open(ObjectMapperTest.class, "property.silk"));
 
         assertEquals(2, p.prop.size());
         assertEquals("hello", p.prop.get("db.name"));
@@ -196,10 +199,10 @@ public class ObjectMapperTest {
     @Test
     public void propFieldTest() throws Exception {
 
-        PropField p = Lens.loadSilk(PropField.class, FileResource.open(ObjectMapperTest.class,
-                "property.silk"));
+        PropField p = SilkLens.loadSilk(PropField.class,
+                FileResource.open(ObjectMapperTest.class, "property.silk"));
 
-        _logger.info(Lens.toSilk(p));
+        _logger.info(SilkLens.toSilk(p));
 
         assertEquals(2, p._.size());
         assertEquals("hello", p._.get("db.name"));
@@ -210,10 +213,10 @@ public class ObjectMapperTest {
     @Test
     public void propFieldOfMultiLinesTest() throws Exception {
 
-        PropField p = Lens.loadSilk(PropField.class, FileResource.open(ObjectMapperTest.class,
-                "property2.silk"));
+        PropField p = SilkLens.loadSilk(PropField.class,
+                FileResource.open(ObjectMapperTest.class, "property2.silk"));
 
-        _logger.info(Lens.toSilk(p));
+        _logger.info(SilkLens.toSilk(p));
 
         assertEquals(1, p._.size());
         assertTrue(p._.containsKey("sequenceList"));
@@ -230,8 +233,8 @@ public class ObjectMapperTest {
 
     @Test
     public void propFiledOFMultiLinesInNestedNode() throws Exception {
-        TrackList l = Lens.loadSilk(TrackList.class, FileResource.find(ObjectMapperTest.class,
-                "nested-property.silk"));
+        TrackList l = SilkLens.loadSilk(TrackList.class,
+                FileResource.find(ObjectMapperTest.class, "nested-property.silk"));
 
         assertNotNull(l.track);
         assertEquals("t1", l.track.id);
@@ -246,8 +249,8 @@ public class ObjectMapperTest {
 
     @Test
     public void mapPutter() throws Exception {
-        MapField m = Lens.loadSilk(MapField.class, FileResource.open(ObjectMapperTest.class,
-                "map.silk"));
+        MapField m = SilkLens.loadSilk(MapField.class,
+                FileResource.open(ObjectMapperTest.class, "map.silk"));
         assertNotNull(m.id_name);
         assertEquals(2, m.id_name.size());
         String n1 = m.id_name.get(1);
@@ -262,7 +265,7 @@ public class ObjectMapperTest {
 
         @Override
         public String toString() {
-            return Lens.toJSON(this);
+            return JSONLens.toJSON(this);
         }
     }
 
@@ -271,7 +274,7 @@ public class ObjectMapperTest {
 
         @Override
         public String toString() {
-            return Lens.toJSON(this);
+            return JSONLens.toJSON(this);
         }
     }
 
@@ -281,11 +284,11 @@ public class ObjectMapperTest {
 
     @Test
     public void complexMapField() throws Exception {
-        ComplexMapField m = Lens.loadSilk(ComplexMapField.class, FileResource.open(
-                ObjectMapperTest.class, "map2.silk"));
+        ComplexMapField m = SilkLens.loadSilk(ComplexMapField.class,
+                FileResource.open(ObjectMapperTest.class, "map2.silk"));
         assertEquals(2, m.classes.size());
 
-        _logger.debug(Lens.toJSON(m.classes));
+        _logger.debug(JSONLens.toJSON(m.classes));
 
     }
 
@@ -307,7 +310,7 @@ public class ObjectMapperTest {
 
     @Test
     public void find() throws Exception {
-        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "map2.silk"), "person",
+        SilkLens.findFromSilk(FileResource.find(ObjectMapperTest.class, "map2.silk"), "person",
                 Person.class, new FindHandler());
 
     }
@@ -332,10 +335,10 @@ public class ObjectMapperTest {
     @Test
     public void sam() throws Exception {
 
-        Lens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam-sample.silk"), "record",
-                SAMEntry.class, new ObjectHandlerBase<SAMEntry>() {
+        SilkLens.findFromSilk(FileResource.find(ObjectMapperTest.class, "sam-sample.silk"),
+                "record", SAMEntry.class, new ObjectHandlerBase<SAMEntry>() {
                     public void handle(SAMEntry input) throws Exception {
-                        _logger.debug(Lens.toSilk(input));
+                        _logger.debug(SilkLens.toSilk(input));
                         for (String each : new String[] { "Nm", "RG", "H1", "MF", "H0" })
                             assertTrue(input.tag.containsKey(each));
                         if (input.qname.equals("read_28701_28881_323b")) {}

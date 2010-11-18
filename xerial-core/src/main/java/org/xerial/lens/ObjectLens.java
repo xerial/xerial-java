@@ -24,27 +24,20 @@
 //--------------------------------------
 package org.xerial.lens;
 
-import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONString;
-import org.xerial.json.JSONWriter;
 import org.xerial.lens.impl.ParameterGetter;
 import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.lens.impl.RelationSetter;
-import org.xerial.silk.SilkWriter;
 import org.xerial.util.Pair;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.BeanUtil;
@@ -252,8 +245,8 @@ public class ObjectLens {
                         Class< ? > keyType = mapElementType.getFirst();
                         Class< ? > valueType = mapElementType.getSecond();
 
-                        keyValueName = new Pair<String, String>(keyType.getSimpleName(), valueType
-                                .getSimpleName());
+                        keyValueName = new Pair<String, String>(keyType.getSimpleName(),
+                                valueType.getSimpleName());
 
                         if (isBasicTypeOrObject(keyType) && isBasicTypeOrObject(valueType)) {
 
@@ -311,8 +304,7 @@ public class ObjectLens {
                     String paramName = pickPropertyName(methodName);
                     Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
                     if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo
-                            .isMap(parentOfTheSetter))
-                            && paramName.equals("all"))
+                            .isMap(parentOfTheSetter)) && paramName.equals("all"))
                         break;
 
                     if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter)) {
@@ -503,126 +495,6 @@ public class ObjectLens {
         else
             return new Pair<String, String>(getCanonicalParameterName(m.group(1)),
                     getCanonicalParameterName(m.group(2)));
-    }
-
-    public static String toSilk(Object obj) {
-        StringWriter buf = new StringWriter();
-        SilkWriter writer = new SilkWriter(buf);
-        writer.toSilk(obj);
-        writer.flush();
-        return buf.toString();
-    }
-
-    public static String toJSON(Object obj) {
-        if (obj == null)
-            return "null";
-
-        Class< ? > c = obj.getClass();
-
-        if (TypeInfo.isBasicType(c)) {
-            if (c == String.class)
-                return JSONString.toJSONString(obj.toString());
-            else
-                return obj.toString();
-        }
-
-        StringWriter buf = new StringWriter();
-        JSONWriter json = new JSONWriter(buf);
-
-        toJSON(json, obj);
-
-        json.flush();
-        return buf.toString();
-    }
-
-    private static void toJSON(JSONWriter json, Object obj) {
-        Class< ? > c = obj.getClass();
-
-        if (TypeInfo.isBasicType(c)) {
-            json.addObject(obj);
-            return;
-        }
-
-        ObjectLens lens = getObjectLens(obj.getClass());
-
-        if (TypeInfo.isCollection(c)) {
-            Collection< ? > collection = (Collection< ? >) obj;
-            boolean hasAttributes = lens.hasAttributes();
-
-            boolean bracketIsOpen = false;
-
-            if (hasAttributes) {
-                json.startObject();
-                outputParemters(json, obj);
-
-                if (!collection.isEmpty()) {
-                    json.startArray("entry");
-                    bracketIsOpen = true;
-                }
-            }
-            else {
-                json.startArray();
-                bracketIsOpen = true;
-            }
-
-            for (Object elem : collection) {
-                toJSON(json, elem);
-            }
-
-            if (bracketIsOpen)
-                json.endArray();
-
-            if (hasAttributes)
-                json.endObject();
-
-        }
-        else if (TypeInfo.isMap(c)) {
-            Map< ? , ? > map = (Map< ? , ? >) obj;
-            boolean hasAttributes = lens.hasAttributes();
-
-            if (hasAttributes) {
-                json.startObject();
-                outputParemters(json, obj);
-
-                if (!map.isEmpty())
-                    json.startArray("entry");
-            }
-            else if (!map.isEmpty())
-                json.startArray();
-
-            for (Entry< ? , ? > each : map.entrySet()) {
-                json.startObject();
-                json.putObject("key", each.getKey());
-                json.putObject("value", each.getValue());
-                json.endObject();
-            }
-
-            if (!map.isEmpty())
-                json.endArray();
-
-            if (hasAttributes)
-                json.endObject();
-        }
-        else {
-            if (!lens.getterContainer.isEmpty()) {
-                json.startObject();
-                outputParemters(json, obj);
-                json.endObject();
-            }
-            else {
-                // empty getter object. try toString()
-                json.startString();
-                json.append(obj.toString());
-                json.endString();
-            }
-        }
-    }
-
-    private static void outputParemters(JSONWriter json, Object obj) {
-        ObjectLens lens = getObjectLens(obj.getClass());
-        for (ParameterGetter getter : lens.getGetterContainer()) {
-            json.putObject(getter.getCanonicalParamName(), getter.get(obj));
-        }
     }
 
 }

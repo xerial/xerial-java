@@ -24,15 +24,139 @@
 //--------------------------------------
 package org.xerial.json;
 
-public class JSONUtil
-{
+import java.io.StringWriter;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.xerial.lens.ObjectLens;
+import org.xerial.lens.impl.ParameterGetter;
+import org.xerial.util.bean.TypeInfo;
+
+public class JSONUtil {
 
     // non constractable
-    private JSONUtil()
-    {}
+    private JSONUtil() {}
 
-    public static JSONValue toJSONValue(Object value) throws JSONException
-    {
+    /**
+     * Convert a given object into JSON
+     * 
+     * @param obj
+     * @return
+     */
+    public static String toJSON(Object obj) {
+        if (obj == null)
+            return "null";
+
+        Class< ? > c = obj.getClass();
+
+        if (TypeInfo.isBasicType(c)) {
+            if (c == String.class)
+                return JSONString.toJSONString(obj.toString());
+            else
+                return obj.toString();
+        }
+
+        StringWriter buf = new StringWriter();
+        JSONWriter json = new JSONWriter(buf);
+
+        toJSON(json, obj);
+
+        json.flush();
+        return buf.toString();
+    }
+
+    private static void toJSON(JSONWriter json, Object obj) {
+        Class< ? > c = obj.getClass();
+
+        if (TypeInfo.isBasicType(c)) {
+            json.addObject(obj);
+            return;
+        }
+
+        ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
+
+        if (TypeInfo.isCollection(c)) {
+            Collection< ? > collection = (Collection< ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+
+            boolean bracketIsOpen = false;
+
+            if (hasAttributes) {
+                json.startObject();
+                outputParemters(json, obj);
+
+                if (!collection.isEmpty()) {
+                    json.startArray("entry");
+                    bracketIsOpen = true;
+                }
+            }
+            else {
+                json.startArray();
+                bracketIsOpen = true;
+            }
+
+            for (Object elem : collection) {
+                toJSON(json, elem);
+            }
+
+            if (bracketIsOpen)
+                json.endArray();
+
+            if (hasAttributes)
+                json.endObject();
+
+        }
+        else if (TypeInfo.isMap(c)) {
+            Map< ? , ? > map = (Map< ? , ? >) obj;
+            boolean hasAttributes = lens.hasAttributes();
+
+            if (hasAttributes) {
+                json.startObject();
+                outputParemters(json, obj);
+
+                if (!map.isEmpty())
+                    json.startArray("entry");
+            }
+            else if (!map.isEmpty())
+                json.startArray();
+
+            for (Entry< ? , ? > each : map.entrySet()) {
+                json.startObject();
+                json.putObject("key", each.getKey());
+                json.putObject("value", each.getValue());
+                json.endObject();
+            }
+
+            if (!map.isEmpty())
+                json.endArray();
+
+            if (hasAttributes)
+                json.endObject();
+        }
+        else {
+            if (!lens.getGetterContainer().isEmpty()) {
+                json.startObject();
+                outputParemters(json, obj);
+                json.endObject();
+            }
+            else {
+                // empty getter object. try toString()
+                json.startString();
+                json.append(obj.toString());
+                json.endString();
+            }
+        }
+    }
+
+    private static void outputParemters(JSONWriter json, Object obj) {
+        ObjectLens lens = ObjectLens.getObjectLens(obj.getClass());
+        for (ParameterGetter getter : lens.getGetterContainer()) {
+            json.putObject(getter.getCanonicalParamName(), getter.get(obj));
+        }
+    }
+
+    public static JSONValue toJSONValue(Object value) throws JSONException {
         if (value == null)
             return new JSONNull();
 
@@ -47,24 +171,22 @@ public class JSONUtil
         else if (value instanceof Float)
             return new JSONDouble((Float) value);
         else
-            throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve " + value
-                    + " type as JSONValue");
+            throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve "
+                    + value + " type as JSONValue");
 
     }
 
-    public static JSONValue parseJSON(String jsonObjectOrArray) throws JSONException
-    {
+    public static JSONValue parseJSON(String jsonObjectOrArray) throws JSONException {
         String json = jsonObjectOrArray.trim();
-        if (json.startsWith("{"))
-        {
+        if (json.startsWith("{")) {
             return new JSONObject(json);
         }
-        else if (json.startsWith("["))
-        {
+        else if (json.startsWith("[")) {
             return new JSONArray(json);
         }
         else
-            throw new JSONException(JSONErrorCode.InvalidJSONData, "json data must start with { or [");
+            throw new JSONException(JSONErrorCode.InvalidJSONData,
+                    "json data must start with { or [");
 
     }
 

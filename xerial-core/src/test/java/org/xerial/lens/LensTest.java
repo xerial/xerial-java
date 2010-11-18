@@ -35,8 +35,10 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.json.JSONLens;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
+import org.xerial.silk.SilkLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
 import org.xerial.util.StopWatch;
@@ -71,8 +73,8 @@ public class LensTest {
 
     @Test
     public void testTranslateSilk() throws IOException, XerialException {
-        GeneTable g = Lens.loadSilk(GeneTable.class, FileResource.find(LensTest.class,
-                "sequence.silk"));
+        GeneTable g = SilkLens.loadSilk(GeneTable.class,
+                FileResource.find(LensTest.class, "sequence.silk"));
 
         assertNotNull(g);
         assertEquals(2, g.sequenceTable.size());
@@ -91,8 +93,8 @@ public class LensTest {
         //   -gene(name:gene1)
         // In the above example, two amoebas (coordinate, name:chr1), (coordinate, (gene), name:gene1) will be found.
 
-        Coordinate c = Lens.loadSilk(Coordinate.class, FileResource.find(LensTest.class,
-                "sequence.silk"));
+        Coordinate c = SilkLens.loadSilk(Coordinate.class,
+                FileResource.find(LensTest.class, "sequence.silk"));
 
         _logger.info(c);
         assertNotNull(c);
@@ -105,7 +107,7 @@ public class LensTest {
     @Test
     public void testBED() throws Exception {
         BEDQuery result = new BEDQuery("chr7", 1L, 1000000000L);
-        Lens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
+        SilkLens.loadSilk(result, FileResource.find(LensTest.class, "sample.bed.silk"));
 
         _logger.debug(StringUtil.join(result.geneList, "\n"));
 
@@ -157,7 +159,7 @@ public class LensTest {
 
         @Override
         public String toString() {
-            return ObjectLens.toJSON(this);
+            return JSONLens.toJSON(this);
         }
     }
 
@@ -198,7 +200,7 @@ public class LensTest {
 
         @Override
         public String toString() {
-            return ObjectLens.toJSON(this);
+            return JSONLens.toJSON(this);
         }
 
     }
@@ -282,8 +284,8 @@ public class LensTest {
      */
     @Test
     public void dasTest() throws Exception {
-        DASFeature das = Lens.loadXML(DASFeature.class, FileResource
-                .find(LensTest.class, "das.xml"));
+        DASFeature das = Lens.loadXML(DASFeature.class,
+                FileResource.find(LensTest.class, "das.xml"));
         assertEquals(1, das.segment.feature.size());
         Feature f = das.segment.feature.get(0);
         _logger.debug(das);
@@ -309,8 +311,8 @@ public class LensTest {
 
     @Test
     public void textData() throws Exception {
-        TextQuery q = Lens
-                .loadSilk(TextQuery.class, FileResource.find(LensTest.class, "text.silk"));
+        TextQuery q = SilkLens.loadSilk(TextQuery.class,
+                FileResource.find(LensTest.class, "text.silk"));
         assertNotNull(q.text);
         assertEquals("hello world", q.text.value);
     }
@@ -322,7 +324,7 @@ public class LensTest {
     @Test
     public void toJSONTest() throws Exception {
         ArrayData d = new ArrayData();
-        assertEquals("{\"list\":[]}", Lens.toJSON(d));
+        assertEquals("{\"list\":[]}", JSONLens.toJSON(d));
     }
 
     public static class MyGene {
@@ -352,18 +354,18 @@ public class LensTest {
     @Test
     public void testLens() throws Exception {
 
-        MyGeneQuery result = Lens.loadSilk(MyGeneQuery.class, FileResource.open(LensTest.class,
-                "sequence.silk"));
+        MyGeneQuery result = SilkLens.loadSilk(MyGeneQuery.class,
+                FileResource.open(LensTest.class, "sequence.silk"));
 
-        _logger.debug(Lens.toJSON(result));
+        _logger.debug(JSONLens.toJSON(result));
     }
 
     @Test
     public void testFind() throws Exception {
-        Lens.findFromSilk(FileResource.find(LensTest.class, "sequence.silk"), "gene", MyGene.class,
-                new ObjectHandlerBase<MyGene>() {
+        SilkLens.findFromSilk(FileResource.find(LensTest.class, "sequence.silk"), "gene",
+                MyGene.class, new ObjectHandlerBase<MyGene>() {
                     public void handle(MyGene input) throws Exception {
-                        _logger.info(Lens.toJSON(input));
+                        _logger.info(JSONLens.toJSON(input));
                     }
                 });
     }
@@ -384,7 +386,7 @@ public class LensTest {
         t.add(new TupleNode(1, "A"));
         t.add(new TupleNode(2, "B"));
 
-        String s = Lens.toSilk(t);
+        String s = SilkLens.toSilk(t);
         _logger.debug(s);
     }
 
@@ -398,7 +400,7 @@ public class LensTest {
     @Test
     public void readingSilkIndexes() throws Exception {
         StopWatch sw = new StopWatch();
-        Lens.findFromSilk(FileResource.find(LensTest.class, "index.silk"), "sequence",
+        SilkLens.findFromSilk(FileResource.find(LensTest.class, "index.silk"), "sequence",
                 Record.class, new ObjectHandlerBase<Record>() {
                     public void handle(Record input) throws Exception {
 

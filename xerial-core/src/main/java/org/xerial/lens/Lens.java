@@ -34,14 +34,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
-import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.tree.ANTLRTreeParser;
-import org.xerial.lens.tree.JSONTreeParser;
 import org.xerial.lens.tree.MapTreeParser;
 import org.xerial.lens.tree.TreeParser;
 import org.xerial.lens.tree.XMLTreeParser;
-import org.xerial.silk.SilkParser;
 import org.xerial.util.bean.BeanHandler;
 import org.xerial.util.bean.TypeInfo;
 
@@ -158,63 +155,14 @@ import org.xerial.util.bean.TypeInfo;
  */
 public class Lens {
 
-    /**
-     * Translate the specified Silk file into an instance of the target object.
-     * 
-     * @param <Result>
-     * @param silkFileResource
-     *            resource path to the input Silk file
-     * @param targetClass
-     *            target class to which the input Silk format will be converted
-     * 
-     * @return translated object of the targetClass type
-     * @throws IOException
-     *             when failed to read resources
-     * @throws XerialException
-     *             when failed to parse the input Silk file
-     */
-    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource)
-            throws IOException, XerialException {
-        return loadSilk(TypeInfo.createInstance(targetType), silkResource);
-    }
-
-    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException,
-            XerialException {
-        if (silkResource == null)
-            throw new NullPointerException("silk resouce is null");
-
-        return loadSilk(result, new SilkParser(silkResource));
-    }
-
-    public static <Result> Result loadSilk(Result result, Reader silkReader)
-            throws XerialException, IOException {
-        return loadSilk(result, new SilkParser(silkReader));
-    }
-
-    public static <Result> Result loadSilk(Result result, SilkParser silkReader)
-            throws XerialException, IOException {
-        try {
-            return load(result, silkReader);
-        }
-        catch (XerialException e) {
-            ErrorCode code = e.getErrorCode();
-            throw new XerialException(code, String.format("error when reading line %d: %s",
-                    silkReader.getNumReadLine(), e.getMessage()));
-        }
-    }
-
-    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader)
-            throws XerialException, IOException {
-        return loadSilk(TypeInfo.createInstance(resultType), silkReader);
-    }
-
     public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException,
             XerialException {
         if (xmlResource == null)
             throw new NullPointerException("XML resource is null");
 
-        return load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(xmlResource
-                .openStream()))));
+        return load(result,
+                new XMLTreeParser(new BufferedReader(
+                        new InputStreamReader(xmlResource.openStream()))));
     }
 
     public static <Result> Result loadXML(Class<Result> result, URL xmlResource)
@@ -230,16 +178,6 @@ public class Lens {
     public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException,
             XerialException {
         return load(result, new XMLTreeParser(xmlReader));
-    }
-
-    public static <Result> Result loadJSON(Class<Result> targetType, Reader jsonReader)
-            throws XerialException, IOException {
-        return loadJSON(TypeInfo.createInstance(targetType), jsonReader);
-    }
-
-    public static <Result> Result loadJSON(Result result, Reader jsonReader)
-            throws XerialException, IOException {
-        return load(result, new JSONTreeParser(jsonReader));
     }
 
     public static <Result> Result loadANTLRParseTree(Class<Result> resultType, Tree tree,
@@ -283,47 +221,9 @@ public class Lens {
         return mapper.map(result, parser);
     }
 
-    public static String toJSON(Object obj) {
-        return ObjectLens.toJSON(obj);
-    }
-
-    public static String toSilk(Object obj) {
-        return ObjectLens.toSilk(obj);
-    }
-
-    /**
-     * Find the target nodes of the specified type from the input Silk data. The
-     * given object handler will be used to report the found target objects.
-     * 
-     * @param <Result>
-     * @param silkResource
-     * @param targetNodeName
-     * @param targetType
-     * @param handler
-     * @throws IOException
-     * @throws XerialException
-     */
-    public static <Result> void findFromSilk(URL silkResource, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws IOException,
-            XerialException {
-        find(targetType, targetNodeName, handler, new SilkParser(silkResource));
-    }
-
-    public static <Result> void findFromSilk(Reader input, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
-            IOException {
-        find(targetType, targetNodeName, handler, new SilkParser(input));
-    }
-
     public static <Result> void findFromXML(Reader input, String targetNodeName,
             Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException {
         find(targetType, targetNodeName, handler, new XMLTreeParser(input));
-    }
-
-    public static <Result> void findFromJSON(Reader input, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
-            IOException {
-        find(targetType, targetNodeName, handler, new JSONTreeParser(input));
     }
 
     public static <Result> void find(Class<Result> bindingType, ObjectHandler<Result> handler,

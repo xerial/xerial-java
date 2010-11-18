@@ -29,12 +29,12 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.Lens;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.schema.Schema;
+import org.xerial.silk.SilkLens;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
@@ -97,7 +97,7 @@ public class SilkSchemaTest {
         //        assertEquals("Alignment", r.name);
         //        assertEquals(2, r.attribute.size());
 
-        _logger.debug(Lens.toSilk(schema));
+        _logger.debug(SilkLens.toSilk(schema));
 
         //_logger.info(schema.toGraphviz());
 
@@ -108,7 +108,7 @@ public class SilkSchemaTest {
 
         SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
 
-        _logger.debug(Lens.toSilk(schema));
+        _logger.debug(SilkLens.toSilk(schema));
 
         QuerySet qs = schema.buildAmoebaJoinQuery();
 

@@ -30,7 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 
-import org.xerial.lens.ObjectLens;
+import org.xerial.json.JSONLens;
 import org.xerial.lens.tree.TreeEventHandlerBase;
 import org.xerial.silk.SilkEvent;
 import org.xerial.silk.SilkEventHandler;
@@ -95,7 +95,7 @@ public class Scan implements XerialCommand {
         config.numWorkers = numThreads;
         config.numLinesInBlock = numLines;
 
-        _logger.info("config: " + ObjectLens.toJSON(config));
+        _logger.info("config: " + JSONLens.toJSON(config));
 
         switch (mode) {
         case NODE: {
