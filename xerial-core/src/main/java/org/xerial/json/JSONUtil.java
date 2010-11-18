@@ -31,7 +31,7 @@ import java.util.Map.Entry;
 
 import org.xerial.lens.ObjectLens;
 import org.xerial.lens.impl.ParameterGetter;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 public class JSONUtil {
 

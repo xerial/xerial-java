@@ -64,7 +64,7 @@ import org.xerial.silk.plugin.SilkFunctionPlugin;
 import org.xerial.util.FileResource;
 import org.xerial.util.ReflectionUtil;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;

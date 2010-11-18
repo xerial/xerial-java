@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util;
 
 import static org.junit.Assert.*;
 
@@ -32,6 +32,8 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.util.TypeInfo;
+import org.xerial.util.TypeReference;
 
 public class TypeReferenceTest
 {

@@ -30,7 +30,7 @@ import java.lang.reflect.Type;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.ReflectionUtil;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 /**
  * Option setter using a class method.

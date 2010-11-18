@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.Pair;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.impl.Appender;
 import org.xerial.util.bean.impl.ArraySetter;
 import org.xerial.util.bean.impl.BeanUtilImpl;

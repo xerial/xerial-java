@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

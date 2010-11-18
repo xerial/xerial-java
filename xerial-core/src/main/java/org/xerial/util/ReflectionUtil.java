@@ -34,8 +34,6 @@ import java.util.Map;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInfo;
 
 /**
  * Reflection utilities

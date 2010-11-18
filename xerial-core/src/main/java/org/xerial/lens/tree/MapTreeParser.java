@@ -27,7 +27,7 @@ package org.xerial.lens.tree;
 import java.util.Collection;
 import java.util.Map;
 
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;
 

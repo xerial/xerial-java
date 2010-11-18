@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 /**
  * OptionItem

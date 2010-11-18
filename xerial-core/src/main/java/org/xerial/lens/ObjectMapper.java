@@ -49,8 +49,8 @@ import org.xerial.lens.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.ObjectHandler;
-import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeConverter;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeParser;
 

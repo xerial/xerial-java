@@ -33,8 +33,8 @@ import org.xerial.core.XerialException;
 import org.xerial.lens.antlr.ANTLRTreeParser;
 import org.xerial.lens.tree.MapTreeParser;
 import org.xerial.util.ObjectHandler;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanHandler;
-import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.tree.TreeParser;
 
 /**

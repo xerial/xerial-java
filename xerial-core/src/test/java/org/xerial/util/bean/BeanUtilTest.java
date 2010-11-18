@@ -40,6 +40,7 @@ import org.xerial.util.FileResource;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.bean.sample.Gene;
 import org.xerial.util.bean.sample.GenePartial;

@@ -34,7 +34,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.util.Pair;
 import org.xerial.util.ReflectionUtil;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 /**
  * RelationSetter is for setting a node tuple to an object

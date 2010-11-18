@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util;
 
 import static org.junit.Assert.*;
 
@@ -50,6 +50,7 @@ import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Pair;
 import org.xerial.util.Triplet;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.sample.Book;
 import org.xerial.util.log.Logger;
 

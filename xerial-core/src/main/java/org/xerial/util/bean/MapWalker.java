@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;

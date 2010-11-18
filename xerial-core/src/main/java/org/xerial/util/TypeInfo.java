@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -47,9 +47,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.util.ArrayDeque;
-import org.xerial.util.Pair;
-import org.xerial.util.Triplet;
 
 /**
  * TypeInfo holds the information of standard types that can be directly

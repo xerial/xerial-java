@@ -37,9 +37,9 @@ import java.util.List;
 
 import org.xerial.core.XerialException;
 import org.xerial.lens.impl.ParameterSetter;
+import org.xerial.util.TypeConverter;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanHandler;
-import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 
 /**

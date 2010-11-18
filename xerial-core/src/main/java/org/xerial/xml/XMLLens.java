@@ -41,10 +41,10 @@ import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.ReflectionUtil;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 

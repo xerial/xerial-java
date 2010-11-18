@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.bean;
+package org.xerial.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,6 +34,7 @@ import java.util.Date;
 
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.util.TypeConverter;
 import org.xerial.util.log.Logger;
 
 public class TypeConverterTest {

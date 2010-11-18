@@ -37,7 +37,7 @@ import org.xerial.json.JSONObject;
 import org.xerial.json.JSONValue;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.tree.TreeEvent;

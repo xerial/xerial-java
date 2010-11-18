@@ -29,8 +29,8 @@ import java.lang.reflect.Method;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanBinder;
-import org.xerial.util.bean.TypeInfo;
 
 /**
  * A Binder holds a getter/setter method and its parameter type.

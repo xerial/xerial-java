@@ -27,7 +27,7 @@ package org.xerial.util.bean.impl;
 import java.lang.reflect.Method;
 
 import org.xerial.core.XerialException;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 public class MapSetter extends BeanBinderBase
 {

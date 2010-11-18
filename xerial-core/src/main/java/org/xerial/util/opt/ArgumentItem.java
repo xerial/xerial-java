@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.Range;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeInfo;
 
 /**
  * ArgumentItem

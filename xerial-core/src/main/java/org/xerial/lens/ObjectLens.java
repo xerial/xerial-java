@@ -41,8 +41,8 @@ import org.xerial.lens.impl.RelationSetter;
 import org.xerial.util.Pair;
 import org.xerial.util.ReflectionUtil;
 import org.xerial.util.StringUtil;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
 
 /**

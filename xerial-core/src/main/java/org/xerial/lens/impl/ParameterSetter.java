@@ -33,8 +33,8 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.ObjectLens;
 import org.xerial.util.ReflectionUtil;
-import org.xerial.util.bean.TypeConverter;
-import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.TypeConverter;
+import org.xerial.util.TypeInfo;
 import org.xerial.util.log.Logger;
 
 /**
