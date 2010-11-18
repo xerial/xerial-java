@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.template;
+package org.xerial.lens.antlr;
 
 import java.io.BufferedReader;
 import java.io.IOException;

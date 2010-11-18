@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.antlr;
+package org.xerial.lens.antlr;
 
 import org.antlr.runtime.tree.Tree;
 import org.xerial.util.tree.TreeEventHandler;

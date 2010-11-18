@@ -34,10 +34,10 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.lens.relation.query.impl.XPathLexer;
 import org.xerial.lens.relation.query.impl.XPathParser;
 import org.xerial.lens.relation.query.impl.XPathParser.xpath_return;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
 /**

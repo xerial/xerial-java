@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.template;
+package org.xerial.lens.antlr;
 
 
 import static org.junit.Assert.*;
@@ -32,6 +32,7 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.antlr.Template;
 
 public class TemplateTest
 {

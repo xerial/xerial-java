@@ -40,12 +40,12 @@ import java.util.Properties;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.antlr.Template;
 import org.xerial.util.Algorithm;
 import org.xerial.util.Mapper;
 import org.xerial.util.Range;
 import org.xerial.util.ResourcePath;
 import org.xerial.util.StringUtil;
-import org.xerial.util.template.Template;
 
 /**
  * Option Structure

@@ -29,9 +29,9 @@ import org.antlr.runtime.CommonTokenStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
 public class SilkSchemaLexerTest {

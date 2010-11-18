@@ -32,6 +32,7 @@ import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
 import org.xerial.lens.ObjectLens;
+import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleElement;
 import org.xerial.lens.relation.query.QuerySet;
@@ -40,7 +41,6 @@ import org.xerial.lens.relation.query.impl.LensQueryLexer;
 import org.xerial.lens.relation.query.impl.LensQueryParser;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
 /**

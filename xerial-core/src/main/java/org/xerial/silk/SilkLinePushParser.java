@@ -35,6 +35,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.silk.impl.SilkLineLexer;
 import org.xerial.silk.impl.SilkNodeParser;
 import org.xerial.silk.model.SilkCommentLine;
@@ -42,7 +43,6 @@ import org.xerial.silk.model.SilkDataLine;
 import org.xerial.silk.model.SilkElement;
 import org.xerial.silk.model.SilkPreamble;
 import org.xerial.util.StringUtil;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.log.Logger;
 
 /**

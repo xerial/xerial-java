@@ -36,6 +36,7 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.lens.relation.DataType;
 import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.query.QuerySet;
@@ -44,7 +45,6 @@ import org.xerial.lens.relation.schema.SchemaBuilder;
 import org.xerial.silk.schema.impl.SilkSchemaLexer;
 import org.xerial.silk.schema.impl.SilkSchemaParser;
 import org.xerial.util.StringUtil;
-import org.xerial.util.antlr.ANTLRUtil;
 import org.xerial.util.graph.GraphvizHelper;
 import org.xerial.util.log.Logger;
 

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.antlr;
+package org.xerial.lens.antlr;
 
 import java.io.IOException;
 import java.net.URL;
