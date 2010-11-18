@@ -28,11 +28,11 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.tree.TreeEvent;
-import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeStreamReader;
+import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.impl.TreeEventQueue;
 
 /**

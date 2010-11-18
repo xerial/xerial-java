@@ -25,7 +25,6 @@
 package org.xerial.util.tree;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.tree.TreeEvent;
 
 /**
  * A common interface for the stream parser of structured data.

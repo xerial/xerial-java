@@ -22,9 +22,8 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.tree;
+package org.xerial.util.tree;
 
-import org.xerial.util.tree.TreeVisitor;
 
 /**
  * Representation of the {@link TreeVisitor} events

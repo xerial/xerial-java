@@ -22,15 +22,16 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.tree;
+package org.xerial.json;
 
 import java.io.IOException;
 import java.io.Reader;
 
-import org.xerial.json.JSONEvent;
-import org.xerial.json.JSONPullParser;
-import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.ArrayDeque;
+import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEventHandler;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.tree.TreeEvent.EventType;
 
 /**
  * Push-style JSON parser

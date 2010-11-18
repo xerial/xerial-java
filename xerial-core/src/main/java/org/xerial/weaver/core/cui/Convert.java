@@ -30,12 +30,12 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import org.xerial.lens.relation.schema.RelationSchema;
-import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.io.StandardInputStream;
 import org.xerial.util.io.StandardOutputStream;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
+import org.xerial.util.tree.TreeEventHandler;
 
 public class Convert implements SilkWeaverCommand {
 

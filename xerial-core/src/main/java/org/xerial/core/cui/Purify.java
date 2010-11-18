@@ -40,7 +40,6 @@ import org.xerial.lens.relation.query.RelationStreamCollector;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.schema.RelationSchema;
 import org.xerial.lens.relation.schema.SchemaSet;
-import org.xerial.lens.tree.XMLTreeParser;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.Argument;
@@ -48,6 +47,7 @@ import org.xerial.util.opt.Option;
 import org.xerial.util.opt.OptionParserException;
 import org.xerial.util.opt.Usage;
 import org.xerial.util.text.TabAsTreeParser;
+import org.xerial.util.xml.XMLTreeParser;
 
 /**
  * Alternative XML structure generator

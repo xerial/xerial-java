@@ -25,7 +25,6 @@
 package org.xerial.util.tree;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.tree.TreeEvent;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 

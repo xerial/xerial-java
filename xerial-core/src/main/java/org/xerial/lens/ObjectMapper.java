@@ -46,12 +46,12 @@ import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
-import org.xerial.lens.tree.TreeParser;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
 import org.xerial.util.bean.TypeConverter;
 import org.xerial.util.bean.TypeInfo;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeParser;
 
 /**
  * Object-Tree mapping processor

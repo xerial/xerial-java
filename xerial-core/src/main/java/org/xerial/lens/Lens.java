@@ -37,10 +37,10 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialException;
 import org.xerial.lens.tree.ANTLRTreeParser;
 import org.xerial.lens.tree.MapTreeParser;
-import org.xerial.lens.tree.TreeParser;
-import org.xerial.lens.tree.XMLTreeParser;
 import org.xerial.util.bean.BeanHandler;
 import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.xml.XMLTreeParser;
 
 /**
  * Lens is an O-X mapping utility. O stands for Objects, and X for structured

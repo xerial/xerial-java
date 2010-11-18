@@ -27,9 +27,9 @@ package org.xerial.util.text;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.tree.TreeEventHandlerBase;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeEventHandlerBase;
 
 public class TabAsTreeParserTest {
 

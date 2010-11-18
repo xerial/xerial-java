@@ -32,11 +32,11 @@ import java.net.URL;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.tree.TreeEventHandler;
 import org.xerial.silk.SilkEnv;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileType;
 import org.xerial.util.io.Base64OutputStream;
+import org.xerial.util.tree.TreeEventHandler;
 
 /**
  * <em>import</em> function

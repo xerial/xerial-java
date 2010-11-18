@@ -27,7 +27,7 @@ package org.xerial.lens.tree.binary;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.xerial.lens.tree.TreeEvent;
+import org.xerial.util.tree.TreeEvent;
 
 /**
  * For writing tree event stream in binary

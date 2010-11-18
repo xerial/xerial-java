@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.tree;
+package org.xerial.util.xml;
 
 import java.io.Reader;
 
@@ -31,9 +31,12 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.tree.TreeEvent.EventType;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEventHandler;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.xml.impl.TreeEventQueue;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

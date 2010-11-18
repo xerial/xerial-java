@@ -32,6 +32,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.xerial.json.JSONTreeParser;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleElement;
@@ -41,9 +42,6 @@ import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.RelationExtractor;
 import org.xerial.lens.relation.query.RelationHandler;
 import org.xerial.lens.relation.schema.Schema;
-import org.xerial.lens.tree.JSONTreeParser;
-import org.xerial.lens.tree.TreeParser;
-import org.xerial.lens.tree.XMLTreeParser;
 import org.xerial.silk.SilkEnv;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.FileType;
@@ -53,6 +51,8 @@ import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Option;
 import org.xerial.util.opt.Usage;
 import org.xerial.util.text.TabAsTreeParser;
+import org.xerial.util.tree.TreeParser;
+import org.xerial.util.xml.XMLTreeParser;
 
 @Usage(command = "filter")
 public class Filter implements XerialCommand {

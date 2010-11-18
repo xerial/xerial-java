@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.lens.tree;
+package org.xerial.util.tree;
 
 import org.xerial.core.XerialException;
 import org.xerial.lens.relation.schema.RelationSchema;

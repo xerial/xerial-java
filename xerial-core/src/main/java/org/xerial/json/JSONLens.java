@@ -30,7 +30,6 @@ import java.io.Reader;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
 import org.xerial.lens.ObjectHandler;
-import org.xerial.lens.tree.JSONTreeParser;
 import org.xerial.util.bean.TypeInfo;
 
 /**
