@@ -26,13 +26,11 @@ package org.xerial.util.bean.impl;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.net.URL;
 import java.util.Map;
 
 import org.antlr.runtime.tree.Tree;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialException;
-import org.xerial.silk.SilkWalker;
 import org.xerial.util.bean.ANTLRWalker;
 import org.xerial.util.bean.JSONStreamWalker;
 import org.xerial.util.bean.MapWalker;
@@ -65,7 +63,7 @@ public class BeanUtilImpl {
      * @return
      * @throws XerialException
      */
-    protected static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType)
+    public static <E> E createTypedBean(TreeWalker treeWalker, Class<E> beanType)
             throws XerialException {
         return beanType.cast(createBean(treeWalker, new BeanBindingProcess(beanType)));
         //return new ObjectMapper().map(beanType, treeWalker);
@@ -89,17 +87,6 @@ public class BeanUtilImpl {
             throws XerialException {
         treeWalker.walk(beanBindingVisitor);
         return beanBindingVisitor.getResultBean();
-    }
-
-    // Silk Stream
-    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress)
-            throws XerialException, IOException {
-        return createTypedBean(new SilkWalker(silkFileAddress), beanType);
-    }
-
-    public static <E> E populateBeanWithSilk(E bean, URL silkFileAddress) throws XerialException,
-            IOException {
-        return (E) createBean(new SilkWalker(silkFileAddress), bean);
     }
 
     // XML Stream

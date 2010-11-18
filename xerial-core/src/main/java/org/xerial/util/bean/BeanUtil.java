@@ -33,7 +33,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -55,8 +54,6 @@ import org.xerial.json.JSONLong;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONString;
 import org.xerial.json.JSONValue;
-import org.xerial.silk.SilkLens;
-import org.xerial.silk.SilkWalker;
 import org.xerial.util.Pair;
 import org.xerial.util.bean.impl.Appender;
 import org.xerial.util.bean.impl.ArraySetter;
@@ -884,18 +881,6 @@ public class BeanUtil {
         }
     }
 
-    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation)
-            throws XerialException, IOException {
-        try {
-            SilkLens.loadSilk(bean, silkResourceLocation);
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
-
-        return bean;
-    }
-
     public static Object createBeanFromJSON(Class< ? > beanType, Reader jsonReader)
             throws IOException, XerialException {
         try {
@@ -930,22 +915,6 @@ public class BeanUtil {
         Object bean;
         bean = createInstance(valueType);
         populateBeanWithXML(bean, xmlData);
-        return bean;
-    }
-
-    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation)
-            throws XerialException {
-        T bean = TypeInfo.createInstance(beanClass);
-        BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
-
-        try {
-            SilkWalker walker = new SilkWalker(silkFileLocation);
-            walker.walk(bindingProcess);
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
-
         return bean;
     }
 

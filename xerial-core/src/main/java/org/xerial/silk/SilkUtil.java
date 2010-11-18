@@ -30,12 +30,15 @@ import java.io.Writer;
 import java.net.URL;
 
 import org.xerial.core.XerialError;
+import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.json.JSONArray;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONValue;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.Deque;
+import org.xerial.util.bean.TypeInfo;
+import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanUtilImpl;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeVisitor;
@@ -70,7 +73,7 @@ public class SilkUtil {
      */
     public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException,
             IOException {
-        return BeanUtilImpl.createBeanFromSilk(beanType, silkSource);
+        return createBeanFromSilk(beanType, silkSource);
     }
 
     /**
@@ -88,7 +91,7 @@ public class SilkUtil {
      *             when failed to open the specified Silk file
      */
     public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException {
-        return BeanUtilImpl.populateBeanWithSilk(bean, silkSource);
+        return populateBeanWithSilk(bean, silkSource);
     }
 
     /**
@@ -336,6 +339,45 @@ public class SilkUtil {
         writer.flush();
         return buf.toString();
     }
+
+    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation)
+            throws XerialException {
+        T bean = TypeInfo.createInstance(beanClass);
+        BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
+
+        try {
+            SilkWalker walker = new SilkWalker(silkFileLocation);
+            walker.walk(bindingProcess);
+        }
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+
+        return bean;
+    }
+
+    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation)
+            throws XerialException, IOException {
+        try {
+            SilkLens.loadSilk(bean, silkResourceLocation);
+        }
+        catch (IOException e) {
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        }
+
+        return bean;
+    }
+
+    // Silk Stream
+    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress)
+            throws XerialException, IOException {
+        return BeanUtilImpl.createTypedBean(new SilkWalker(silkFileAddress), beanType);
+    }
+
+    //    public static <E> E populateBeanWithSilk(E bean, URL silkFileAddress) throws XerialException,
+    //            IOException {
+    //        return BeanUtilImpl.createBean(new SilkWalker(silkFileAddress), bean);
+    //    }
 
     /**
      * Forbid construction

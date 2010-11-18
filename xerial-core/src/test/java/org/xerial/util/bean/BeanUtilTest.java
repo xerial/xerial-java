@@ -24,10 +24,7 @@
 //--------------------------------------
 package org.xerial.util.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +43,7 @@ import org.xerial.json.JSONArray;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
 import org.xerial.lens.Coordinate;
+import org.xerial.silk.SilkUtil;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
@@ -726,15 +724,15 @@ public class BeanUtilTest {
 
         @Override
         public String toString() {
-            return String.format("coordinate: %s\nreference:\n%s", coord, StringUtil.join(
-                    references, "\n"));
+            return String.format("coordinate: %s\nreference:\n%s", coord,
+                    StringUtil.join(references, "\n"));
         }
     }
 
     @Test
     public void testSilkBean() throws Exception {
-        ReadSet r = BeanUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class,
-                "readset.silk"));
+        ReadSet r = SilkUtil.createSilkBean(ReadSet.class,
+                FileResource.find(BeanUtilTest.class, "readset.silk"));
         _logger.debug(r.toString());
     }
 
@@ -753,7 +751,7 @@ public class BeanUtilTest {
     @Test
     public void appenderTest() throws Exception {
         Sequence seq = new Sequence();
-        BeanUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
+        SilkUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
         assertEquals("ABCDEFGHIJ", seq.getSeq());
     }
 
@@ -767,8 +765,8 @@ public class BeanUtilTest {
 
     @Test
     public void putterTestForXML() throws Exception {
-        PropertyData data = BeanUtil.createXMLBean(PropertyData.class, FileResource.open(
-                BeanUtilTest.class, "sample/prop.xml"));
+        PropertyData data = BeanUtil.createXMLBean(PropertyData.class,
+                FileResource.open(BeanUtilTest.class, "sample/prop.xml"));
         assertEquals("value1", data.map.get("key1"));
         assertEquals("hello", data.map.get("message"));
 
