@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.xerial.core.ReturnCode;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.weaver.core.cui;
+package org.xerial.core;
 
 /**
  * Return codes of command-line programs

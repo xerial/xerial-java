@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.weaver.core.cui;
 
+import org.xerial.core.ReturnCode;
+
 /**
  * Common interface of the SilkWeaver commands. To add a new SilkWeaver command,
  * implements this interface, then put your code to

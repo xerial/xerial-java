@@ -26,6 +26,7 @@ package org.xerial.weaver.core.cui;
 
 import java.io.File;
 
+import org.xerial.core.ReturnCode;
 import org.xerial.util.StopWatch;
 import org.xerial.util.io.FileCopy;
 import org.xerial.util.io.FileCopy.Config;

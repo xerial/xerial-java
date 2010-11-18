@@ -26,6 +26,7 @@ package org.xerial.weaver.core.cui;
 
 import java.net.URL;
 
+import org.xerial.core.ReturnCode;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.OptionParser;
 import org.xerial.util.opt.OptionParserException;

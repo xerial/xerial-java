@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import org.xerial.core.ReturnCode;
 import org.xerial.silk.SilkParser;
 import org.xerial.util.io.StandardInputStream;
 import org.xerial.util.io.StandardOutputStream;

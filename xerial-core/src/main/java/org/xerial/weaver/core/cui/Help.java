@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.weaver.core.cui;
 
+import org.xerial.core.ReturnCode;
 import org.xerial.util.opt.Argument;
 import org.xerial.util.opt.Usage;
 
