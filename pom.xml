@@ -174,21 +174,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.1.1</version>
         <configuration>
           <inputEncoding>Shift_JIS</inputEncoding>
           <outputEncoding>UTF-8</outputEncoding>
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-twiki</artifactId>
-            <version>1.0-alpha-10</version>
-          </dependency>
-          <dependency>
             <groupId>org.xerial.maven</groupId>
             <artifactId>doxia-aqua</artifactId>
-            <version>1.0.4</version>
+            <version>1.1-SNAPSHOT</version>
           </dependency>
         </dependencies>
       </plugin>

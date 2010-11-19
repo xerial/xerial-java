@@ -22,23 +22,28 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.io.StringReader;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.core.XerialException;
 import org.xerial.silk.SilkWalker;
 import org.xerial.silk.TreeWalkLog;
-import org.xerial.silk.XMLSilkLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 import org.xerial.xml.XMLTreeWalker;
+import org.xerial.xml.pullparser.PullParserUtil;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-public class XMLSilkLensTest {
+public class XMLSilkLensTest
+{
 
     private static Logger _logger = Logger.getLogger(XMLSilkLensTest.class);
 
@@ -49,16 +54,27 @@ public class XMLSilkLensTest {
     public void tearDown() throws Exception {}
 
     @Test
+    public void testToXML() throws IOException, XerialException, XmlPullParserException {
+        String xml = XMLSilkLens.toXML(FileResource.find(XMLSilkLensTest.class, "small.silk"));
+        _logger.debug(xml);
+
+        XmlPullParser pullParser = PullParserUtil.newParser(new StringReader(xml));
+
+        int event;
+        while ((event = pullParser.next()) != XmlPullParser.END_DOCUMENT) {
+
+        }
+    }
+
+    @Test
     public void toSilk() throws Exception {
-        String silk = XMLSilkLens.toSilk(FileResource.open(XMLSilkLensTest.class,
-                "track-config.xml"));
+        String silk = XMLSilkLens.toSilk(FileResource.open(XMLSilkLensTest.class, "track-config.xml"));
         _logger.info(silk);
 
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
 
-        XMLTreeWalker x = new XMLTreeWalker(FileResource.open(XMLSilkLensTest.class,
-                "track-config.xml"));
+        XMLTreeWalker x = new XMLTreeWalker(FileResource.open(XMLSilkLensTest.class, "track-config.xml"));
         SilkWalker sw = new SilkWalker(new StringReader(silk));
         x.walk(l1);
         sw.walk(l2);

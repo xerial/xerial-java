@@ -26,7 +26,6 @@ package org.xerial.silk;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -44,26 +43,24 @@ import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
-import org.xerial.util.tree.TreeEventHandlerBase;
 import org.xerial.util.tree.TreeEvent.EventType;
-import org.xerial.xml.pullparser.PullParserUtil;
+import org.xerial.util.tree.TreeEventHandlerBase;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xmlpull.v1.XmlPullParser;
 
-public class SilkParserPerformanceTest {
-    private static Logger _logger = Logger.getLogger(SilkParserPerformanceTest.class);
+public class SilkParserPerformanceTest
+{
+    private static Logger       _logger        = Logger.getLogger(SilkParserPerformanceTest.class);
 
-    private static final URL largeFile = FileResource.find(SilkParserPerformanceTest.class,
-            "scaffold1.silk");
-    private static final int largeFileSize = 30593075;
+    private static final URL    largeFile      = FileResource.find(SilkParserPerformanceTest.class, "scaffold1.silk");
+    private static final int    largeFileSize  = 30593075;
     private static final double largeFileLines = 111965;
-    private static final int numNodes = 5826313;
+    private static final int    numNodes       = 5826313;
 
-    private SilkParserConfig config;
+    private SilkParserConfig    config;
 
     @Before
     public void setUp() throws Exception {
@@ -133,8 +130,7 @@ public class SilkParserPerformanceTest {
 
             }
 
-            public void startElement(String uri, String localName, String name, Attributes atts)
-                    throws SAXException {
+            public void startElement(String uri, String localName, String name, Attributes atts) throws SAXException {
 
             }
 
@@ -154,26 +150,25 @@ public class SilkParserPerformanceTest {
         // 104.5 sec. (Xeon)
     }
 
-    @Ignore
-    @Test
-    public void xmlPullPerformance() throws Exception {
-        XmlPullParser parser = PullParserUtil.newParser(new BufferedReader(new FileReader(
-                "f:/cygwin/home/leo/work/t2k/xmark-1.0.xml")));
-
-        StopWatch timer = new StopWatch();
-        while (parser.next() != XmlPullParser.END_DOCUMENT) {}
-        _logger.info("time: " + timer.getElapsedTime());
-
-        // 125.3 sec. (Xeon)
-
-    }
+    //    @Ignore
+    //    @Test
+    //    public void xmlPullPerformance() throws Exception {
+    //        XmlPullParser parser = PullParserUtil.newParser(new BufferedReader(new FileReader(
+    //                "f:/cygwin/home/leo/work/t2k/xmark-1.0.xml")));
+    //
+    //        StopWatch timer = new StopWatch();
+    //        while (parser.next() != XmlPullParser.END_DOCUMENT) {}
+    //        _logger.info("time: " + timer.getElapsedTime());
+    //
+    //        // 125.3 sec. (Xeon)
+    //
+    //    }
 
     public static void reportNodeCountStat(int count, double time) {
         double percentage = ((double) count / numNodes) * 100;
         double speed = numNodes / time;
 
-        _logger.debug(String
-                .format("%2.2f%%, time=%5.2f, %,10.0f nodes/s", percentage, time, speed));
+        _logger.debug(String.format("%2.2f%%, time=%5.2f, %,10.0f nodes/s", percentage, time, speed));
 
     }
 
@@ -185,14 +180,13 @@ public class SilkParserPerformanceTest {
         double speedPerNode = (count) / time;
         double speedPerLine = (largeFileLines) / time;
         double speedInMBS = largeFileSize / 1024 / 1024 / time;
-        _logger.info(String.format("[%-20s] time=%5.2f %,10.0f nodes/s, %5.2f MB/s %7.0f lines/s",
-                name, time, speedPerNode, speedInMBS, speedPerLine));
+        _logger.info(String.format("[%-20s] time=%5.2f %,10.0f nodes/s, %5.2f MB/s %7.0f lines/s", name, time,
+                speedPerNode, speedInMBS, speedPerLine));
     }
 
     @Test
     public void maxReadSpeed() throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()),
-                config.bufferSize);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(largeFile.openStream()), config.bufferSize);
         int lineCount = 0;
         String line = null;
         StopWatch timer = new StopWatch();
@@ -202,8 +196,8 @@ public class SilkParserPerformanceTest {
                 double percentage = (lineCount / largeFileLines) * 100;
                 double time = timer.getElapsedTime();
                 double speed = lineCount / time;
-                _logger.debug(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/s", percentage,
-                        lineCount, time, speed));
+                _logger.debug(String.format("%2.2f%%, line=%d, time=%s, %2.2f lines/s", percentage, lineCount, time,
+                        speed));
             }
         }
         reportTotalSpeed("BufferedReader", timer.getElapsedTime());

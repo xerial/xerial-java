@@ -22,19 +22,31 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.lens;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.silk.SilkWalker;
+import org.xerial.silk.SilkWriter;
 import org.xerial.util.ArrayDeque;
+import org.xerial.util.Deque;
 import org.xerial.util.Pair;
 import org.xerial.util.StringUtil;
+import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeVisitorBase;
+import org.xerial.util.tree.TreeWalker;
+import org.xerial.xml.XMLAttribute;
+import org.xerial.xml.XMLErrorCode;
+import org.xerial.xml.XMLGenerator;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -48,12 +60,15 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * @author leo
  * 
  */
-public class XMLSilkLens {
+public class XMLSilkLens
+{
 
-    private static class XMLToSilkSAXHandler extends DefaultHandler2 {
+    private static class XMLToSilkSAXHandler extends DefaultHandler2
+    {
         private SilkWriter context;
 
-        private static class AttributeNodes implements Iterable<Pair<String, String>> {
+        private static class AttributeNodes implements Iterable<Pair<String, String>>
+        {
             ArrayList<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
 
             public void add(String name, String value) {
@@ -75,11 +90,12 @@ public class XMLSilkLens {
 
         }
 
-        private static class TagContext {
-            public final String tagName;
+        private static class TagContext
+        {
+            public final String         tagName;
             public final AttributeNodes attribute;
-            public StringBuilder textBuf = new StringBuilder();
-            public boolean isOpen = false;
+            public StringBuilder        textBuf = new StringBuilder();
+            public boolean              isOpen  = false;
 
             public TagContext(String tagName, AttributeNodes attribute) {
                 this.tagName = tagName;
@@ -92,7 +108,7 @@ public class XMLSilkLens {
             }
         }
 
-        private ArrayDeque<TagContext> contextStack = new ArrayDeque<TagContext>();
+        private ArrayDeque<TagContext> contextStack        = new ArrayDeque<TagContext>();
         private ArrayDeque<TagContext> unopendContextStack = new ArrayDeque<TagContext>();
 
         public XMLToSilkSAXHandler(Writer out) {
@@ -101,8 +117,7 @@ public class XMLSilkLens {
 
         @Override
         public void characters(char[] ch, int start, int length) throws SAXException {
-            TagContext tc = unopendContextStack.isEmpty() ? contextStack.getLast()
-                    : unopendContextStack.getLast();
+            TagContext tc = unopendContextStack.isEmpty() ? contextStack.getLast() : unopendContextStack.getLast();
             tc.textBuf.append(ch, start, length);
 
         }
@@ -163,8 +178,7 @@ public class XMLSilkLens {
         }
 
         @Override
-        public void startElement(String uri, String localName, String name, Attributes atts)
-                throws SAXException {
+        public void startElement(String uri, String localName, String name, Attributes atts) throws SAXException {
 
             openContext();
 
@@ -203,14 +217,141 @@ public class XMLSilkLens {
 
         }
         catch (Exception e) {
-            throw new XerialException(XerialErrorCode.INVALID_STATE,
-                    "failed to instantiate the XML parser: " + e);
+            throw new XerialException(XerialErrorCode.INVALID_STATE, "failed to instantiate the XML parser: " + e);
         }
 
         //        XMLTreeWalker treeWalker = new XMLTreeWalker(xml);
         //      treeWalker.walk(new XMLToSilk(buf));
 
         return buf.toString();
+    }
+
+    //    /**
+    //     * Populate the parameter values of the given bean using the content of the
+    //     * Silk file.
+    //     * 
+    //     * @param <E>
+    //     * @param bean
+    //     *            object to populate
+    //     * @param silkSource
+    //     *            Silk file address
+    //     * @return
+    //     * @throws XerialException
+    //     * @throws IOException
+    //     *             when failed to open the specified Silk file
+    //     */
+    //    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException {
+    //        return populateBeanWithSilk(bean, silkSource);
+    //    }
+
+    /**
+     * Convert the given Silk file into XML data. Since Silk's data model is
+     * forest, while XML is tree, the root element (&lt;silk&gt; tag) for the
+     * XML data will be generated.
+     * 
+     * @param silkSource
+     * @return
+     * @throws IOException
+     * @throws XerialException
+     */
+    public static String toXML(URL silkSource) throws IOException, XerialException {
+        StringWriter buf = new StringWriter();
+        toXML(silkSource, buf);
+        return buf.toString();
+    }
+
+    /**
+     * Convert the silk file into XML
+     * 
+     * @param silkSource
+     * @param out
+     * @throws IOException
+     * @throws XerialException
+     */
+    public static void toXML(URL silkSource, Writer out) throws IOException, XerialException {
+        SilkWalker walker = new SilkWalker(silkSource);
+        XMLBuilder builder = new XMLBuilder(out);
+        walker.walk(builder);
+
+    }
+
+    /**
+     * 
+     * <pre>
+     * 1:visit -&gt; 2:visit : pop(1), startTag(1, value=&quot;..&quot;), push(2:visit)
+     * 1:visit -&gt; 2:text : pop(1), startTag(1, value=&quot;..&quot;), text(2:text) 
+     * 1:visit -&gt; 2:leave : pop(1), selfCloseTag(1, value=&quot;..&quot;)
+     * </pre>
+     * 
+     * @author leo
+     * 
+     */
+    private static class XMLBuilder extends TreeVisitorBase
+    {
+        final XMLGenerator     xout;
+        final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
+
+        public XMLBuilder(Writer out) {
+            xout = new XMLGenerator(out);
+        }
+
+        private void popQueue() {
+            if (!eventQueue.isEmpty()) {
+                TreeEvent prev = eventQueue.removeLast();
+
+                switch (prev.event) {
+                case VISIT:
+                    if (prev.nodeValue == null)
+                        xout.startTag(prev.nodeName);
+                    else
+                        xout.startTag(prev.nodeName, new XMLAttribute("value", prev.nodeValue));
+                    break;
+                default:
+                    throw new XerialError(XMLErrorCode.INVALID_XML_STRUCTURE);
+                }
+            }
+
+        }
+
+        @Override
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException {
+            popQueue();
+            eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName, immediateNodeValue));
+        }
+
+        @Override
+        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException {
+            popQueue();
+            xout.text(textDataFragment);
+        }
+
+        @Override
+        public void leaveNode(String nodeName, TreeWalker walker) throws XerialException {
+            if (!eventQueue.isEmpty()) {
+                TreeEvent prev = eventQueue.removeLast();
+
+                switch (prev.event) {
+                case VISIT:
+                    if (prev.nodeValue == null)
+                        xout.selfCloseTag(prev.nodeName);
+                    else
+                        xout.element(prev.nodeName, prev.nodeValue);
+                }
+            }
+            else
+                xout.endTag();
+        }
+
+        @Override
+        public void init(TreeWalker walker) throws XerialException {
+            visitNode("silk", null, walker);
+        }
+
+        @Override
+        public void finish(TreeWalker walker) throws XerialException {
+            leaveNode("silk", walker);
+            xout.endDocument();
+        }
     }
 
 }

@@ -1,0 +1,17 @@
+-node1
+
+-node2
+  -p1:hello
+  -p2: long text value spareted by some white spaces.
+  
+-link(page name: Welcome to Xerial, url:"http://www.xerial.org/")
+
+
+-data(id, name)|
+1	leo
+2	yui
+
+-seq>
+ACCTGC
+AGGTT
+
