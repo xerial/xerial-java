@@ -34,13 +34,13 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.lens.relation.TupleIndex;
 import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
-public class SilkWriterTest {
+public class SilkWriterTest
+{
     private static Logger _logger = Logger.getLogger(SilkWriterTest.class);
 
     @Before
@@ -65,8 +65,7 @@ public class SilkWriterTest {
         config.leaf("group", "utgb");
         w.commentLine("database connection settings");
 
-        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite")
-                .attribute("scope", "debug");
+        SilkWriter dbNode = w.node("database").attribute("dbms", "sqlite").attribute("scope", "debug");
         dbNode.leaf("address", "db/sample.db");
 
         SilkWriter t = w.tabDataSchema("gene").attribute("id").attribute("start").attribute("end");
@@ -85,8 +84,7 @@ public class SilkWriterTest {
         TreeWalkLog l1 = new TreeWalkLog();
         TreeWalkLog l2 = new TreeWalkLog();
 
-        SilkWalker s1 = new SilkWalker(
-                FileResource.open(SilkWriterTest.class, "writer-result.silk"));
+        SilkWalker s1 = new SilkWalker(FileResource.open(SilkWriterTest.class, "writer-result.silk"));
         SilkWalker s2 = new SilkWalker(new StringReader(s));
 
         s1.walk(l1);
@@ -96,15 +94,17 @@ public class SilkWriterTest {
         assertTrue(cmp);
     }
 
-    static class A {
-        public String name;
+    static class A
+    {
+        public String  name;
         public boolean flag = true;
-        public List<B> b = new ArrayList<B>();
+        public List<B> b    = new ArrayList<B>();
     }
 
-    static class B {
-        public int id;
-        public String type = "B";
+    static class B
+    {
+        public int          id;
+        public String       type = "B";
         public List<String> item = new ArrayList<String>();
 
         public B(int id) {
@@ -137,23 +137,17 @@ public class SilkWriterTest {
     }
 
     @Test
-    public void tupleIndex() throws Exception {
-        TupleIndex i = new TupleIndex(1);
-        String s = SilkLens.toSilk(i);
-        _logger.debug(s);
-    }
-
-    @Test
     public void array() throws Exception {
         ArrayList<String> input = new ArrayList<String>();
         input.add("hello");
         input.add("world");
-        String s = SilkLens.toSilk(input);
+        String s = SilkUtil.toSilk(input);
         _logger.debug(s);
     }
 
-    static class Person {
-        public int id;
+    static class Person
+    {
+        public int    id;
         public String name;
 
         public Person(int id, String name) {
@@ -176,16 +170,15 @@ public class SilkWriterTest {
         ArrayList<Person> p = new ArrayList<Person>();
         p.add(new Person(1, "leo"));
         p.add(new Person(2, "yui"));
-        String s = SilkLens.toSilk(p);
+        String s = SilkUtil.toSilk(p);
         _logger.info(s);
     }
 
     @Test
     public void sanitize() throws Exception {
 
-        String[] v = new String[] { "this is a node(0)'s value", "this is a node, value",
-                "this is a node |value|", "this is a {node} value", "this is a node*",
-                "invalid value:" };
+        String[] v = new String[] { "this is a node(0)'s value", "this is a node, value", "this is a node |value|",
+                "this is a {node} value", "this is a node*", "invalid value:" };
 
         for (String each : v) {
             String s = SilkWriter.sanitizeInLineNodeValue(each);
