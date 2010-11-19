@@ -1,3 +1,0 @@
-usage: weaver <command> [option] [args]
-Type weaver <command> --help for a help on a specific command.
-
