@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-xml</artifactId>
-  <name>Xerial JSON Library</name>
+  <name>Xerial XML Library</name>
   <version>2.0-SNAPSHOT</version>
   <description>XML Parser/Indexing library.</description>
 

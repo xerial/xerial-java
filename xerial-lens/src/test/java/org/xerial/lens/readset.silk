@@ -1,0 +1,23 @@
+%silk(version:1.0)
+# coodinate specifies the target sequence
+-coordinate(group:utgb, species:medaka, revision:version1.0, type:colorspace)
+# specifies a reference sequence
+-reference(name:scaffold1, start:1043, strand:+)
+ -sequence>
+A010132310011011111212333333333333333333333331212121
+3213123012312031230123102320032123032102312312302130
+21312031230132003110001320202020123012310
+# read data aligned to the reference sequence
+ -read(name, start, strand, sequence, QV)|
+seq1	1043	+	A010012113	20.1
+seq2	1047	+	C01232103011	24.5
+
+# start data for another reference
+-reference(name:scaffold1034, start:0, strand:-)
+ -sequence>
+C4323423434101323100110111112123333312111
+21312031230132003110001320202020123012
+ -read(name, start, strand, sequence, QV)|
+seq3	0	+	A010012113	20.1
+seq4	0	+	C01232103011	24.5
+

@@ -45,7 +45,6 @@ import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.BeanUtilTest;
 import org.xerial.util.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 
@@ -145,7 +144,7 @@ public class SilkLensTest
 
     @Test
     public void testSilkBean() throws Exception {
-        ReadSet r = SilkLens.loadSilk(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
+        ReadSet r = SilkLens.loadSilk(ReadSet.class, FileResource.find(SilkLensTest.class, "readset.silk"));
         _logger.debug(r.toString());
     }
 
@@ -165,7 +164,7 @@ public class SilkLensTest
     @Test
     public void appenderTest() throws Exception {
         Sequence seq = new Sequence();
-        SilkLens.loadSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
+        SilkLens.loadSilk(seq, FileResource.find(SilkLensTest.class, "seq.silk"));
         assertEquals("ABCDEFGHIJ", seq.getSeq());
     }
 

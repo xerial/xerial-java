@@ -48,8 +48,6 @@ import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
-import org.xerial.util.bean.BeanUtilTest;
-import org.xerial.util.bean.sample.GenePartial;
 import org.xerial.util.log.Logger;
 
 public class JSONLensTest
@@ -940,7 +938,7 @@ public class JSONLensTest
         foundGene2 = false;
 
         StopWatch stopWatch = new StopWatch();
-        JSONLens.loadJSON(Gene.class, FileResource.open(BeanUtilTest.class, "sample/genelist.json"),
+        JSONLens.loadJSON(Gene.class, FileResource.open(JSONLensTest.class, "genelist.json"),
                 new ObjectHandlerBase<Gene>() {
                     public void handle(Gene gene) throws Exception {
                         assertNotNull(gene);
@@ -978,13 +976,71 @@ public class JSONLensTest
 
     }
 
+    /**
+     * same object with Gene except the name parameter is missing
+     * 
+     * @author leo
+     * 
+     */
+    public class GenePartial
+    {
+        private int    id;
+        private int    start;
+        private int    end;
+        private String strand;
+        private String target;
+
+        public GenePartial() {}
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
+        public void setStart(int start) {
+            this.start = start;
+        }
+
+        public int getEnd() {
+            return end;
+        }
+
+        public void setEnd(int end) {
+            this.end = end;
+        }
+
+        public String getStrand() {
+            return strand;
+        }
+
+        public void setStrand(String strand) {
+            this.strand = strand;
+        }
+
+        public String getTarget() {
+            return target;
+        }
+
+        public void setTarget(String target) {
+            this.target = target;
+        }
+
+    }
+
     @Test
     public void partialMatchTest() throws XerialException, IOException {
         foundGene1 = false;
         foundGene2 = false;
 
         StopWatch stopWatch = new StopWatch();
-        JSONLens.findFromJSON(FileResource.open(BeanUtilTest.class, "sample/genelist.json"), "gene", GenePartial.class,
+        JSONLens.findFromJSON(FileResource.open(JSONLensTest.class, "genelist.json"), "gene", GenePartial.class,
                 new ObjectHandler<GenePartial>() {
                     public void handle(GenePartial gene) throws Exception {
                         assertNotNull(gene);

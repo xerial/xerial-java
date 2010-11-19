@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.xerial.util.log.Logger;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -125,6 +126,11 @@ public class FastaTest
         public String getSequence() {
             return sequence.toString();
         }
+
+    }
+
+    @Test
+    public void dummy() throws Exception {
 
     }
 
