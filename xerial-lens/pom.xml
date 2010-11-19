@@ -43,18 +43,6 @@
   <dependencies>
     <dependency>
       <groupId>org.xerial</groupId>
-      <artifactId>xerial-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.xerial</groupId>
-      <artifactId>xerial-json</artifactId>
-      <version>${project.version}</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.xerial</groupId>
       <artifactId>xerial-silk</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
