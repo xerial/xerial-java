@@ -29,11 +29,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.xerial.lens.ObjectLens;
-import org.xerial.lens.impl.ParameterGetter;
 import org.xerial.util.TypeInfo;
+import org.xerial.util.lens.ObjectLens;
+import org.xerial.util.lens.impl.ParameterGetter;
 
-public class JSONUtil {
+public class JSONUtil
+{
 
     // non constractable
     private JSONUtil() {}
@@ -175,8 +176,8 @@ public class JSONUtil {
         else if (value instanceof Float)
             return new JSONDouble((Float) value);
         else
-            throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve "
-                    + value + " type as JSONValue");
+            throw new JSONException(JSONErrorCode.CannotConvertToJSONValue, "cannot resolve " + value
+                    + " type as JSONValue");
 
     }
 
@@ -189,8 +190,7 @@ public class JSONUtil {
             return new JSONArray(json);
         }
         else
-            throw new JSONException(JSONErrorCode.InvalidJSONData,
-                    "json data must start with { or [");
+            throw new JSONException(JSONErrorCode.InvalidJSONData, "json data must start with { or [");
 
     }
 

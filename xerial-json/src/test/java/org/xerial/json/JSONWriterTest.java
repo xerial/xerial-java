@@ -35,7 +35,8 @@ import org.xerial.core.XerialError;
 import org.xerial.core.XerialException;
 import org.xerial.util.log.Logger;
 
-public class JSONWriterTest {
+public class JSONWriterTest
+{
     private static Logger _logger = Logger.getLogger(JSONWriterTest.class);
 
     @Test
@@ -54,14 +55,13 @@ public class JSONWriterTest {
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        Person p = new Person();
-        JSONLens.loadJSON(p, jsonData);
+        JSONObject p = new JSONObject(jsonData);
 
-        assertEquals(1, p.getId());
-        assertEquals("Leo", p.getName());
-        assertEquals(2, p.getPhoneList().size());
-        assertEquals("xxx", p.getPhoneList().get(0));
-        assertEquals("yyy", p.getPhoneList().get(1));
+        assertEquals(1, p.getInt("id"));
+        assertEquals("Leo", p.getString("name"));
+        assertEquals(2, p.getJSONArray("phone").size());
+        assertEquals("xxx", p.getJSONArray("phone").getString(0));
+        assertEquals("yyy", p.getJSONArray("phone").getString(1));
     }
 
     @Test
@@ -81,14 +81,13 @@ public class JSONWriterTest {
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        Person p = new Person();
-        JSONLens.loadJSON(p, jsonData);
+        JSONObject p = new JSONObject(jsonData);
 
-        assertEquals(1, p.getId());
-        assertEquals("Leo", p.getName());
-        assertEquals(2, p.getPhoneList().size());
-        assertEquals("xxx", p.getPhoneList().get(0));
-        assertEquals("yyy", p.getPhoneList().get(1));
+        assertEquals(1, p.getInt("id"));
+        assertEquals("Leo", p.getString("name"));
+        assertEquals(2, p.getJSONArray("phone").size());
+        assertEquals("xxx", p.getJSONArray("phone").getString(0));
+        assertEquals("yyy", p.getJSONArray("phone").getString(1));
     }
 
     @Test(expected = XerialError.class)
@@ -121,11 +120,9 @@ public class JSONWriterTest {
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        Person p = new Person();
-        JSONLens.loadJSON(p, jsonData);
-
-        assertEquals(1, p.getId());
-        assertEquals("leo leo leo", p.getName());
+        JSONObject p = new JSONObject(jsonData);
+        assertEquals(1, p.getInt("id"));
+        assertEquals("leo leo leo", p.getString("name"));
     }
 
     @Test
@@ -143,11 +140,11 @@ public class JSONWriterTest {
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        Person p = new Person();
-        JSONLens.loadJSON(p, jsonData);
 
-        assertEquals(1, p.getId());
-        assertEquals("leo leo leo", p.getName());
+        JSONObject p = new JSONObject(jsonData);
+
+        assertEquals(1, p.getInt("id"));
+        assertEquals("leo leo leo", p.getString("name"));
     }
 
     @Test
@@ -179,9 +176,10 @@ public class JSONWriterTest {
 
     }
 
-    public static class Seq {
-        public int start;
-        public int end;
+    public static class Seq
+    {
+        public int    start;
+        public int    end;
         public String sequence;
     }
 
@@ -203,11 +201,10 @@ public class JSONWriterTest {
         String j = writer.toString();
         _logger.info(j);
 
-        Seq s = JSONLens.loadJSON(Seq.class, new StringReader(j));
-        _logger.info(JSONLens.toJSON(s));
+        JSONObject r = new JSONObject(j);
+        assertEquals(1, r.getInt("start"));
+        assertEquals(2, r.getInt("end"));
+        assertEquals("AAAACCCC", r.getString("sequence"));
 
-        assertEquals(1, s.start);
-        assertEquals(2, s.end);
-        assertEquals("AAAACCCC", s.sequence);
     }
 }
