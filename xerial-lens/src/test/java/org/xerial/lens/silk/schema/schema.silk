@@ -1,0 +1,55 @@
+%silk(version:1.0, type:schema)
+
+module org.utgenome
+
+# coordinate system information
+class Coordinate
+  :group string default "utgb"
+  :species 
+  :revision
+  :name
+end
+
+# region on a genome sequence
+class Locus
+  belongs_to Coordinate
+
+  :name
+  :start integer
+  :end integer
+  :strand
+
+  index interval on :start, :end
+  index keyword on :id
+end
+
+# gene data with sequence data
+class Gene < Locus
+  :sequence sequence
+end
+
+class Exon < Locus
+  belongs_to Gene
+end
+
+class CDS < Locus
+  belongs_to Gene
+end
+
+# reference sequence
+class Reference < Locus
+  :sequence sequence
+end
+
+# short-read data
+class Read < Locus
+  belongs_to Reference
+
+  :sequence 
+  :qv integer*
+end 
+
+end 
+
+
+

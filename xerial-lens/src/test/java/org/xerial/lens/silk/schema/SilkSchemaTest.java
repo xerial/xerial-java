@@ -22,24 +22,29 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.schema;
+package org.xerial.lens.silk.schema;
 
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.xerial.lens.SilkLens;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
+import org.xerial.lens.relation.query.QueryBuilder;
 import org.xerial.lens.relation.query.QuerySet;
 import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.schema.Schema;
-import org.xerial.silk.SilkLens;
 import org.xerial.silk.SilkParser;
+import org.xerial.silk.schema.SilkClass;
+import org.xerial.silk.schema.SilkModule;
+import org.xerial.silk.schema.SilkSchema;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
-public class SilkSchemaTest {
+public class SilkSchemaTest
+{
 
     private static Logger _logger = Logger.getLogger(SilkSchemaTest.class);
 
@@ -51,8 +56,7 @@ public class SilkSchemaTest {
 
     @Test
     public void parse() throws Exception {
-        SilkSchema schema = SilkSchema
-                .parse(FileResource.open(SilkSchemaTest.class, "schema.silk"));
+        SilkSchema schema = QueryBuilder.parse(FileResource.open(SilkSchemaTest.class, "schema.silk"));
 
         // confirm module
         SilkModule globalModule = schema.globalModule;
@@ -106,11 +110,11 @@ public class SilkSchemaTest {
     @Test
     public void buildQuery() throws Exception {
 
-        SilkSchema schema = SilkSchema.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
+        SilkSchema schema = QueryBuilder.parse(FileResource.open(SilkSchemaTest.class, "read.silk"));
 
         _logger.debug(SilkLens.toSilk(schema));
 
-        QuerySet qs = schema.buildAmoebaJoinQuery();
+        QuerySet qs = QueryBuilder.buildAmoebaJoinQuery(schema);
 
         _logger.debug(qs);
 
@@ -122,14 +126,12 @@ public class SilkSchemaTest {
             }
 
             @Override
-            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
-                    throws Exception {
+            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
                 _logger.trace(String.format("amoeba (%s, %s)", coreNode, attributeNode));
             }
 
             @Override
-            public void text(Schema schema, Node coreNode, Node textNode, String text)
-                    throws Exception {
+            public void text(Schema schema, Node coreNode, Node textNode, String text) throws Exception {
                 _logger.trace(String.format("text (%s, %s:%s)", coreNode, textNode, text));
             }
         });

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk.schema.impl;
+package org.xerial.lens.silk.schema;
 
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -30,11 +30,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.antlr.ANTLRUtil;
+import org.xerial.silk.schema.impl.SilkSchemaLexer;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
-public class SilkSchemaLexerTest {
+public class SilkSchemaLexerTest
+{
 
     private static Logger _logger = Logger.getLogger(SilkSchemaLexerTest.class);
 
@@ -46,11 +48,12 @@ public class SilkSchemaLexerTest {
 
     @Test
     public void lex() throws Exception {
-        SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(FileResource.open(
-                SilkSchemaLexerTest.class, "../schema.silk")));
+        SilkSchemaLexer lexer = new SilkSchemaLexer(new ANTLRReaderStream(FileResource.open(SilkSchemaLexerTest.class,
+                "../schema.silk")));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        _logger.debug(StringUtil.join(ANTLRUtil.prettyPrintTokenList(tokens.getTokens(), ANTLRUtil
-                .getTokenTable(SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
+        _logger.debug(StringUtil.join(
+                ANTLRUtil.prettyPrintTokenList(tokens.getTokens(),
+                        ANTLRUtil.getTokenTable(SilkSchemaLexer.class, "SilkSchema.tokens")), "\n"));
     }
 }

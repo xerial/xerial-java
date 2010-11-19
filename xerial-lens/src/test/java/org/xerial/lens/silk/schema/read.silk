@@ -1,0 +1,54 @@
+%silk(version:1.0, type:schema)
+
+# coordinate system information
+class Coordinate
+  :group string default "utgb"
+  :system
+  :species 
+  :revision
+  :name
+end
+
+# region on a genome sequence
+class Locus
+  belongs_to Coordinate
+
+  :name
+  :start integer
+  :end integer
+#  :zvalue zvalue(:start, :end) 
+  :strand
+
+  index keyword on :name
+end
+
+# reference sequence
+class Reference < Locus
+  :sequence sequence
+end
+
+# short-read data
+class Read < Locus
+  belongs_to Reference
+
+  :sequence 
+  :qv integer*
+end 
+
+
+projection V1 on Coordinate
+  *
+  order_by :name
+end 
+
+projection V2 on Reference
+  Coordinate, :name, :start, :end, :strand
+  order_by Coordinate, :start
+end
+
+projection V3 on Read
+  Reference, :name, :start, :end, :strand
+  order_by Reference, :start
+end
+
+
