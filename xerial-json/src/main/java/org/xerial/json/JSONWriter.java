@@ -39,15 +39,16 @@ import org.xerial.core.XerialError;
  * @author leo
  * 
  */
-public class JSONWriter {
+public class JSONWriter
+{
     private final PrintWriter writer;
 
     enum JSONState {
         InObject, InArray, InString, Root, Unknown
     }
 
-    private final LinkedList<JSONState> stateStack = new LinkedList<JSONState>();
-    private final LinkedList<Integer> elementCountStack = new LinkedList<Integer>();
+    private final LinkedList<JSONState> stateStack        = new LinkedList<JSONState>();
+    private final LinkedList<Integer>   elementCountStack = new LinkedList<Integer>();
 
     public JSONWriter(Writer writer) {
         this.writer = new PrintWriter(writer);
@@ -90,8 +91,7 @@ public class JSONWriter {
 
     public void endObject() {
         if (getCurrentState() != JSONState.InObject)
-            throw new XerialError(JSONErrorCode.NotInAJSONObject,
-                    "cannot end the object outside of the JSON object");
+            throw new XerialError(JSONErrorCode.NotInAJSONObject, "cannot end the object outside of the JSON object");
         writer.print("}");
         popState();
 
@@ -106,8 +106,7 @@ public class JSONWriter {
 
     public void endArray() {
         if (getCurrentState() != JSONState.InArray)
-            throw new XerialError(JSONErrorCode.NotInAJSONArray,
-                    "cannot end the arry outside of the JSON array");
+            throw new XerialError(JSONErrorCode.NotInAJSONArray, "cannot end the arry outside of the JSON array");
 
         writer.print("]");
         popState();
@@ -189,7 +188,7 @@ public class JSONWriter {
     }
 
     public void addObject(Object bean) {
-        String jsonObject = JSONLens.toJSON(bean);
+        String jsonObject = JSONUtil.toJSON(bean);
         addInternal(jsonObject);
     }
 
@@ -238,7 +237,7 @@ public class JSONWriter {
         if (obj == null)
             return; // output nothing
         else {
-            putInternal(key, JSONLens.toJSON(obj));
+            putInternal(key, JSONUtil.toJSON(obj));
         }
 
     }
@@ -291,8 +290,7 @@ public class JSONWriter {
     }
 
     public void endJSON() {
-        for (ListIterator<JSONState> it = stateStack.listIterator(stateStack.size()); it
-                .hasPrevious();) {
+        for (ListIterator<JSONState> it = stateStack.listIterator(stateStack.size()); it.hasPrevious();) {
             JSONState state = it.previous();
             switch (state) {
             case InObject:
