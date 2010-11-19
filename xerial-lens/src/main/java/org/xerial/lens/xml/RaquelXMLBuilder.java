@@ -51,6 +51,8 @@ import org.xerial.util.Range;
 import org.xerial.util.graph.Automaton;
 import org.xerial.util.graph.AutomatonCursor;
 import org.xerial.util.log.Logger;
+import org.xerial.xml.XMLAttribute;
+import org.xerial.xml.XMLGenerator;
 import org.xerial.xml.XMLGenerator.IndentType;
 
 /**
@@ -59,14 +61,15 @@ import org.xerial.xml.XMLGenerator.IndentType;
  * @author leo
  * 
  */
-public class RaquelXMLBuilder {
-    private static Logger _logger = Logger.getLogger(RaquelXMLBuilder.class);
+public class RaquelXMLBuilder
+{
+    private static Logger                           _logger = Logger.getLogger(RaquelXMLBuilder.class);
 
-    private final ContainerManager storage;
-    private final SchemaSet schemaSet;
+    private final ContainerManager                  storage;
+    private final SchemaSet                         schemaSet;
     private final Automaton<XMLSkeltonNode, String> skelton;
     //private final Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation;
-    private final XMLGenerator xml;
+    private final XMLGenerator                      xml;
 
     public RaquelXMLBuilder(ContainerManager storage, SchemaSet schema) {
         //            Map<Schema, List<NodeValueCardinality>> distinctNodeCountOfEachRelation) {
@@ -97,9 +100,10 @@ public class RaquelXMLBuilder {
     }
 
     private static final int CORE_NODE_INDEX = 0; // A-node index
-    private static final int M_NODE_INDEX = 1; // M node index of 1:M relationship
+    private static final int M_NODE_INDEX    = 1; // M node index of 1:M relationship
 
-    class XMLBuilder {
+    class XMLBuilder
+    {
         final XMLSkeltonNode target;
         final TupleContainer parentTuples;
 
@@ -115,8 +119,7 @@ public class RaquelXMLBuilder {
          */
         public XMLBuilder(TupleContainer parentTuples, XMLSkeltonNode target) {
             if (target.size() <= 0)
-                throw new XerialError(XerialErrorCode.INVALID_STATE,
-                        "target must have at least one TupleSchema");
+                throw new XerialError(XerialErrorCode.INVALID_STATE, "target must have at least one TupleSchema");
 
             this.parentTuples = parentTuples;
             this.target = target;
@@ -136,8 +139,7 @@ public class RaquelXMLBuilder {
             if (parentTuples == null) {
                 // read all
                 if (target.size() != 1)
-                    throw new XerialError(XerialErrorCode.INVALID_STATE,
-                            "root tuple list must be size 1");
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "root tuple list must be size 1");
 
                 TupleContainer buffer = readAll(target.get(0));
 
@@ -154,9 +156,8 @@ public class RaquelXMLBuilder {
             for (Schema each : target) {
                 // left join with parent table
                 NodeTupleIterator rightIterator = new NodeTupleIterator(each, storage);
-                TupleContainer tmpResult = TableJoin.leftSemiJoin(parentTuples.getInputCursor(),
-                        joinNodeName, each.isOneToMany() ? new OneToManyTupleCursor(rightIterator)
-                                : rightIterator);
+                TupleContainer tmpResult = TableJoin.leftSemiJoin(parentTuples.getInputCursor(), joinNodeName,
+                        each.isOneToMany() ? new OneToManyTupleCursor(rightIterator) : rightIterator);
 
                 if (mergedTable == null)
                     mergedTable = tmpResult;
@@ -175,8 +176,7 @@ public class RaquelXMLBuilder {
             }
             else {
                 // output only core node 
-                new LeafTableBuilder(parentTuples, new SchemaBuilder().add(joinNodeName).build())
-                        .build();
+                new LeafTableBuilder(parentTuples, new SchemaBuilder().add(joinNodeName).build()).build();
             }
 
         }
@@ -199,8 +199,7 @@ public class RaquelXMLBuilder {
             if (_logger.isDebugEnabled())
                 _logger.debug("read all: " + targetRelation);
             TupleContainer result = new TupleContainer(targetRelation);
-            for (NodeTupleIterator cursor = new NodeTupleIterator(targetRelation, storage); cursor
-                    .hasNext();)
+            for (NodeTupleIterator cursor = new NodeTupleIterator(targetRelation, storage); cursor.hasNext();)
                 result.add(cursor.next());
 
             if (_logger.isDebugEnabled())
@@ -209,10 +208,11 @@ public class RaquelXMLBuilder {
             return result;
         }
 
-        class LeafTableBuilder {
-            final Schema targetSchema;
+        class LeafTableBuilder
+        {
+            final Schema         targetSchema;
             final TupleContainer input;
-            int leafCount = 0;
+            int                  leafCount = 0;
 
             public LeafTableBuilder(TupleContainer bufferToBuild) {
                 this(bufferToBuild, bufferToBuild.getSchema());
@@ -276,8 +276,7 @@ public class RaquelXMLBuilder {
             }
 
             public Schema alternativeXMLStructure() {
-                return SchemaMapping.createAlternativeXMLStructure(targetSchema, target, input,
-                        schemaSet);
+                return SchemaMapping.createAlternativeXMLStructure(targetSchema, target, input, schemaSet);
             }
 
             boolean isCoreNode(String nodeName) {
@@ -290,8 +289,7 @@ public class RaquelXMLBuilder {
                     return; // no more output
 
                 if (_logger.isDebugEnabled())
-                    _logger.debug(String.format("---- build node: target: %s, latticeCursor: %s",
-                            target, cursor));
+                    _logger.debug(String.format("---- build node: target: %s, latticeCursor: %s", target, cursor));
 
                 if (target.isAtom()) {
                     String nodeName = target.getName();
@@ -309,15 +307,13 @@ public class RaquelXMLBuilder {
                     TupleElement<Node> base = input.get(range.start).get(nodeIndexInInput);
                     int beginRow = range.start;
                     for (int relationCursor = range.start; relationCursor < range.end; relationCursor++) {
-                        TupleElement<Node> current = input.get(relationCursor)
-                                .get(nodeIndexInInput);
+                        TupleElement<Node> current = input.get(relationCursor).get(nodeIndexInInput);
                         if (current == null)
                             continue;
                         if (doNotMerge || current.isTuple() || !isEqualIncludingNull(base, current)) {
                             // core node must be output individually.
                             // except the core node, can create a group
-                            buildGroup(base.castToNode(), newSchema, cursor, new Range(beginRow,
-                                    relationCursor));
+                            buildGroup(base.castToNode(), newSchema, cursor, new Range(beginRow, relationCursor));
                             base = current;
                             beginRow = relationCursor;
                         }
@@ -325,8 +321,7 @@ public class RaquelXMLBuilder {
                     // output remaining nodes
                     if (beginRow < range.end) {
                         if (base != null)
-                            buildGroup(base.castToNode(), newSchema, cursor, new Range(beginRow,
-                                    range.end));
+                            buildGroup(base.castToNode(), newSchema, cursor, new Range(beginRow, range.end));
                     }
                 }
                 else {
@@ -340,15 +335,13 @@ public class RaquelXMLBuilder {
                 String nodeName = input.getSchema().get(nodeIndexInSrc).getName();
 
                 if (_logger.isDebugEnabled())
-                    _logger.debug(String.format("---- buildLeaf: node=%s, range=%s", nodeName,
-                            range));
+                    _logger.debug(String.format("---- buildLeaf: node=%s, range=%s", nodeName, range));
 
                 AutomatonCursor<XMLSkeltonNode, String> skeltonCursor = skelton.cursor(target);
                 if (skeltonCursor.canAccept(nodeName)) {
                     XMLSkeltonNode nextSkelton = skeltonCursor.transit(nodeName);
                     TupleIndex parentNodeIndex = input.getSchema().getNodeIndex(nodeName);
-                    TupleContainer container = new TupleContainer(new SchemaBuilder().add(nodeName)
-                            .build());
+                    TupleContainer container = new TupleContainer(new SchemaBuilder().add(nodeName).build());
                     for (int relationCursor = range.start; relationCursor < range.end; relationCursor++) {
                         Tuple<Node> t = input.get(relationCursor);
                         TupleElement<Node> cell = t.get(parentNodeIndex);
@@ -390,8 +383,7 @@ public class RaquelXMLBuilder {
                     return;
 
                 if (_logger.isDebugEnabled())
-                    _logger.debug(String.format("---- buildGroup: node=%s, range=%s", node,
-                            nextRange));
+                    _logger.debug(String.format("---- buildGroup: node=%s, range=%s", node, nextRange));
 
                 startTag(node);
                 TupleIndex nextCursor = cursor.sibling();
@@ -451,8 +443,7 @@ public class RaquelXMLBuilder {
     void startTag(Node node) {
         if (node.nodeValue != null) {
             if (!schemaSet.getTreeNodeSet().contains(node.nodeName))
-                xml.startTag(node.nodeName, new XMLAttribute(node.nodeName + ":value",
-                        escapeText(node.nodeValue)));
+                xml.startTag(node.nodeName, new XMLAttribute(node.nodeName + ":value", escapeText(node.nodeValue)));
             else {
                 xml.text(escapeText(node.nodeValue));
             }

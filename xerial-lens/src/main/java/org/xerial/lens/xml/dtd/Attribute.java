@@ -1,5 +1,5 @@
 /*--------------------------------------------------------------------------
- *  Copyright 2009 Taro L. Saito
+ *  Copyright 2008 Taro L. Saito
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,15 +16,19 @@
 //--------------------------------------
 // XerialJ
 //
-// MapEntry.java
-// Since: May 21, 2009 2:39:57 PM
+// Attribute.java
+// Since: Oct 30, 2008 4:28:19 PM
 //
 // $URL$
 // $Author$
-//-----------------------
-package org.xerial.lens.impl;
+//--------------------------------------
+package org.xerial.lens.xml.dtd;
 
-public class MapEntry {
-    public Object key;
-    public Object value;
+import org.xerial.lens.xml.dtd.AttributeList;
+
+public class Attribute
+{
+    String        name;
+    AttributeList attributeList;
+
 }

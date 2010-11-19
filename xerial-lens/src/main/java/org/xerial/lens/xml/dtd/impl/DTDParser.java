@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2010-01-25 17:28:04
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 DTD.g 2010-11-19 10:24:15
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -7,8 +7,7 @@
 // Since  2007/07/25 11:40:17
 // 
 //--------------------------------------------------
-package org.xerial.xml.dtd.impl;
-//import org.xerial.util.log.Logger;
+package org.xerial.lens.xml.dtd.impl;
 
 
 import org.antlr.runtime.*;
@@ -24,66 +23,66 @@ public class DTDParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DTD", "STRINGTYPE", "TOKENIZEDTYPE", "ENUMTYPE", "NAME", "ATTRIBUTE", "ATTLIST", "DECL", "TYPE", "ELEMENT", "COMPONENT", "OCCURRENCE", "CONTENTSPEC", "ENTITY", "ENTITY_REF", "VALUE", "ML_COMMENT", "At", "Colon", "Comma", "Apos", "Quot", "Dot", "SemiColon", "LParen", "RParen", "Letter", "Digit", "Digits", "NameChar", "WhiteSpaceChar", "String", "Name", "Reference", "AttValue", "EntityRef", "CharRef", "DefaultDecl", "Element", "'>'", "'EMPTY'", "'ANY'", "'?'", "'*'", "'+'", "'|'", "'#PCDATA'", "'<!ATTLIST'", "'NOTATION'", "'CDATA'", "'ID'", "'IDREF'", "'IDREFS'", "'ENTITY'", "'ENTITIES'", "'NMTOKEN'", "'NMTOKENS'", "'<!ENTITY'", "'%'"
     };
-    public static final int TYPE=12;
-    public static final int CONTENTSPEC=16;
-    public static final int ELEMENT=13;
-    public static final int DefaultDecl=41;
-    public static final int ENTITY_REF=18;
-    public static final int Digit=31;
-    public static final int Apos=24;
-    public static final int T__57=57;
-    public static final int SemiColon=27;
-    public static final int T__51=51;
-    public static final int T__47=47;
-    public static final int T__50=50;
-    public static final int ENTITY=17;
-    public static final int ATTLIST=10;
-    public static final int TOKENIZEDTYPE=6;
-    public static final int VALUE=19;
-    public static final int AttValue=38;
-    public static final int Letter=30;
-    public static final int T__52=52;
-    public static final int T__46=46;
-    public static final int Comma=23;
-    public static final int Dot=26;
-    public static final int T__62=62;
-    public static final int T__49=49;
-    public static final int T__61=61;
-    public static final int T__59=59;
-    public static final int DECL=11;
-    public static final int ML_COMMENT=20;
-    public static final int T__54=54;
-    public static final int T__48=48;
-    public static final int EntityRef=39;
-    public static final int Colon=22;
-    public static final int T__56=56;
-    public static final int At=21;
-    public static final int STRINGTYPE=5;
-    public static final int NameChar=33;
-    public static final int DTD=4;
-    public static final int T__58=58;
-    public static final int T__44=44;
-    public static final int RParen=29;
-    public static final int Name=36;
-    public static final int T__55=55;
-    public static final int T__45=45;
-    public static final int LParen=28;
-    public static final int String=35;
     public static final int CharRef=40;
-    public static final int OCCURRENCE=15;
-    public static final int T__43=43;
-    public static final int WhiteSpaceChar=34;
+    public static final int DefaultDecl=41;
+    public static final int Apos=24;
+    public static final int T__62=62;
+    public static final int ATTLIST=10;
+    public static final int ATTRIBUTE=9;
+    public static final int ENUMTYPE=7;
+    public static final int ENTITY_REF=18;
+    public static final int T__61=61;
     public static final int EOF=-1;
-    public static final int Reference=37;
+    public static final int T__60=60;
+    public static final int AttValue=38;
+    public static final int CONTENTSPEC=16;
+    public static final int TYPE=12;
+    public static final int ENTITY=17;
+    public static final int T__55=55;
+    public static final int T__56=56;
+    public static final int ML_COMMENT=20;
+    public static final int T__57=57;
+    public static final int T__58=58;
+    public static final int NAME=8;
+    public static final int T__51=51;
+    public static final int T__52=52;
     public static final int T__53=53;
+    public static final int T__54=54;
+    public static final int Digits=32;
+    public static final int WhiteSpaceChar=34;
+    public static final int T__59=59;
+    public static final int DTD=4;
+    public static final int ELEMENT=13;
+    public static final int String=35;
+    public static final int Reference=37;
+    public static final int T__50=50;
     public static final int COMPONENT=14;
     public static final int Quot=25;
-    public static final int ATTRIBUTE=9;
-    public static final int T__60=60;
-    public static final int NAME=8;
-    public static final int Digits=32;
+    public static final int SemiColon=27;
+    public static final int T__43=43;
+    public static final int RParen=29;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__44=44;
+    public static final int At=21;
+    public static final int LParen=28;
+    public static final int T__45=45;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int NameChar=33;
+    public static final int Colon=22;
+    public static final int OCCURRENCE=15;
+    public static final int VALUE=19;
+    public static final int Digit=31;
+    public static final int TOKENIZEDTYPE=6;
+    public static final int EntityRef=39;
+    public static final int DECL=11;
+    public static final int STRINGTYPE=5;
+    public static final int Name=36;
+    public static final int Dot=26;
+    public static final int Comma=23;
+    public static final int Letter=30;
     public static final int Element=42;
-    public static final int ENUMTYPE=7;
 
     // delegates
     // delegators
@@ -116,7 +115,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "dtd"
-    // DTD.g:152:1: dtd : ( markupdecl )* -> ^( DTD ( markupdecl )* ) ;
+    // DTD.g:151:1: dtd : ( markupdecl )* -> ^( DTD ( markupdecl )* ) ;
     public final DTDParser.dtd_return dtd() throws RecognitionException {
         DTDParser.dtd_return retval = new DTDParser.dtd_return();
         retval.start = input.LT(1);
@@ -128,10 +127,10 @@ public class DTDParser extends Parser {
 
         RewriteRuleSubtreeStream stream_markupdecl=new RewriteRuleSubtreeStream(adaptor,"rule markupdecl");
         try {
-            // DTD.g:152:4: ( ( markupdecl )* -> ^( DTD ( markupdecl )* ) )
-            // DTD.g:152:6: ( markupdecl )*
+            // DTD.g:151:4: ( ( markupdecl )* -> ^( DTD ( markupdecl )* ) )
+            // DTD.g:151:6: ( markupdecl )*
             {
-            // DTD.g:152:6: ( markupdecl )*
+            // DTD.g:151:6: ( markupdecl )*
             loop1:
             do {
                 int alt1=2;
@@ -144,7 +143,7 @@ public class DTDParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // DTD.g:152:6: markupdecl
+            	    // DTD.g:151:6: markupdecl
             	    {
             	    pushFollow(FOLLOW_markupdecl_in_dtd552);
             	    markupdecl1=markupdecl();
@@ -175,14 +174,14 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 153:3: -> ^( DTD ( markupdecl )* )
+            // 152:3: -> ^( DTD ( markupdecl )* )
             {
-                // DTD.g:153:6: ^( DTD ( markupdecl )* )
+                // DTD.g:152:6: ^( DTD ( markupdecl )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DTD, "DTD"), root_1);
 
-                // DTD.g:153:12: ( markupdecl )*
+                // DTD.g:152:12: ( markupdecl )*
                 while ( stream_markupdecl.hasNext() ) {
                     adaptor.addChild(root_1, stream_markupdecl.nextTree());
 
@@ -223,7 +222,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "markupdecl"
-    // DTD.g:156:1: fragment markupdecl : ( elementDecl | attlistDecl | entityDecl );
+    // DTD.g:155:1: fragment markupdecl : ( elementDecl | attlistDecl | entityDecl );
     public final DTDParser.markupdecl_return markupdecl() throws RecognitionException {
         DTDParser.markupdecl_return retval = new DTDParser.markupdecl_return();
         retval.start = input.LT(1);
@@ -239,7 +238,7 @@ public class DTDParser extends Parser {
 
 
         try {
-            // DTD.g:157:11: ( elementDecl | attlistDecl | entityDecl )
+            // DTD.g:156:11: ( elementDecl | attlistDecl | entityDecl )
             int alt2=3;
             switch ( input.LA(1) ) {
             case Element:
@@ -267,7 +266,7 @@ public class DTDParser extends Parser {
 
             switch (alt2) {
                 case 1 :
-                    // DTD.g:157:13: elementDecl
+                    // DTD.g:156:13: elementDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -281,7 +280,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:157:27: attlistDecl
+                    // DTD.g:156:27: attlistDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -295,7 +294,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // DTD.g:157:41: entityDecl
+                    // DTD.g:156:41: entityDecl
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -336,7 +335,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "elementDecl"
-    // DTD.g:159:1: elementDecl : Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) ;
+    // DTD.g:158:1: elementDecl : Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) ;
     public final DTDParser.elementDecl_return elementDecl() throws RecognitionException {
         DTDParser.elementDecl_return retval = new DTDParser.elementDecl_return();
         retval.start = input.LT(1);
@@ -352,13 +351,13 @@ public class DTDParser extends Parser {
         Object Element5_tree=null;
         Object Name6_tree=null;
         Object char_literal8_tree=null;
+        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
         RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
         RewriteRuleTokenStream stream_Element=new RewriteRuleTokenStream(adaptor,"token Element");
-        RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
         RewriteRuleSubtreeStream stream_contentSpec=new RewriteRuleSubtreeStream(adaptor,"rule contentSpec");
         try {
-            // DTD.g:159:12: ( Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) )
-            // DTD.g:159:14: Element Name contentSpec '>'
+            // DTD.g:158:12: ( Element Name contentSpec '>' -> ^( ELEMENT NAME[$Name.text] contentSpec ) )
+            // DTD.g:158:14: Element Name contentSpec '>'
             {
             Element5=(Token)match(input,Element,FOLLOW_Element_in_elementDecl590); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_Element.add(Element5);
@@ -389,9 +388,9 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 160:3: -> ^( ELEMENT NAME[$Name.text] contentSpec )
+            // 159:3: -> ^( ELEMENT NAME[$Name.text] contentSpec )
             {
-                // DTD.g:160:6: ^( ELEMENT NAME[$Name.text] contentSpec )
+                // DTD.g:159:6: ^( ELEMENT NAME[$Name.text] contentSpec )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELEMENT, "ELEMENT"), root_1);
@@ -433,7 +432,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "contentSpec"
-    // DTD.g:163:1: fragment contentSpec : ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children );
+    // DTD.g:162:1: fragment contentSpec : ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children );
     public final DTDParser.contentSpec_return contentSpec() throws RecognitionException {
         DTDParser.contentSpec_return retval = new DTDParser.contentSpec_return();
         retval.start = input.LT(1);
@@ -449,11 +448,11 @@ public class DTDParser extends Parser {
 
         Object string_literal9_tree=null;
         Object string_literal10_tree=null;
-        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
         RewriteRuleTokenStream stream_45=new RewriteRuleTokenStream(adaptor,"token 45");
+        RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
 
         try {
-            // DTD.g:165:3: ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children )
+            // DTD.g:164:3: ( 'EMPTY' -> CONTENTSPEC[\"EMPTY\"] | 'ANY' -> CONTENTSPEC[\"ANY\"] | mixed | children )
             int alt3=4;
             switch ( input.LA(1) ) {
             case 44:
@@ -495,7 +494,7 @@ public class DTDParser extends Parser {
 
             switch (alt3) {
                 case 1 :
-                    // DTD.g:165:5: 'EMPTY'
+                    // DTD.g:164:5: 'EMPTY'
                     {
                     string_literal9=(Token)match(input,44,FOLLOW_44_in_contentSpec624); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_44.add(string_literal9);
@@ -514,7 +513,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 165:13: -> CONTENTSPEC[\"EMPTY\"]
+                    // 164:13: -> CONTENTSPEC[\"EMPTY\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(CONTENTSPEC, "EMPTY"));
 
@@ -524,7 +523,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:166:5: 'ANY'
+                    // DTD.g:165:5: 'ANY'
                     {
                     string_literal10=(Token)match(input,45,FOLLOW_45_in_contentSpec635); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_45.add(string_literal10);
@@ -543,7 +542,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 166:13: -> CONTENTSPEC[\"ANY\"]
+                    // 165:13: -> CONTENTSPEC[\"ANY\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(CONTENTSPEC, "ANY"));
 
@@ -553,7 +552,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // DTD.g:167:5: mixed
+                    // DTD.g:166:5: mixed
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -567,7 +566,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // DTD.g:168:5: children
+                    // DTD.g:167:5: children
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -608,7 +607,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "children"
-    // DTD.g:171:1: fragment children : ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
+    // DTD.g:170:1: fragment children : ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
     public final DTDParser.children_return children() throws RecognitionException {
         DTDParser.children_return retval = new DTDParser.children_return();
         retval.start = input.LT(1);
@@ -624,11 +623,11 @@ public class DTDParser extends Parser {
         DTDParser.plural_return plural16 = null;
 
 
-        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
         RewriteRuleSubtreeStream stream_choice=new RewriteRuleSubtreeStream(adaptor,"rule choice");
+        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
         RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
-            // DTD.g:173:1: ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
+            // DTD.g:172:1: ( ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -658,7 +657,7 @@ public class DTDParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // DTD.g:173:3: ( choice )=> choice ( plural )?
+                    // DTD.g:172:3: ( choice )=> choice ( plural )?
                     {
                     pushFollow(FOLLOW_choice_in_children678);
                     choice13=choice();
@@ -666,7 +665,7 @@ public class DTDParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_choice.add(choice13.getTree());
-                    // DTD.g:173:23: ( plural )?
+                    // DTD.g:172:23: ( plural )?
                     int alt4=2;
                     int LA4_0 = input.LA(1);
 
@@ -675,7 +674,7 @@ public class DTDParser extends Parser {
                     }
                     switch (alt4) {
                         case 1 :
-                            // DTD.g:173:23: plural
+                            // DTD.g:172:23: plural
                             {
                             pushFollow(FOLLOW_plural_in_children681);
                             plural14=plural();
@@ -703,16 +702,16 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 173:31: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                    // 172:31: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
                     {
-                        // DTD.g:173:34: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                        // DTD.g:172:34: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "choice"));
                         adaptor.addChild(root_1, stream_choice.nextTree());
-                        // DTD.g:173:69: ( plural )?
+                        // DTD.g:172:69: ( plural )?
                         if ( stream_plural.hasNext() ) {
                             adaptor.addChild(root_1, stream_plural.nextTree());
 
@@ -728,7 +727,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:174:3: ( seq )=> seq ( plural )?
+                    // DTD.g:173:3: ( seq )=> seq ( plural )?
                     {
                     pushFollow(FOLLOW_seq_in_children707);
                     seq15=seq();
@@ -736,7 +735,7 @@ public class DTDParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_seq.add(seq15.getTree());
-                    // DTD.g:174:16: ( plural )?
+                    // DTD.g:173:16: ( plural )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -745,7 +744,7 @@ public class DTDParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // DTD.g:174:16: plural
+                            // DTD.g:173:16: plural
                             {
                             pushFollow(FOLLOW_plural_in_children709);
                             plural16=plural();
@@ -762,7 +761,7 @@ public class DTDParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: seq, plural
+                    // elements: plural, seq
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -773,16 +772,16 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 174:24: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                    // 173:24: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
                     {
-                        // DTD.g:174:27: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                        // DTD.g:173:27: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "seq"));
                         adaptor.addChild(root_1, stream_seq.nextTree());
-                        // DTD.g:174:55: ( plural )?
+                        // DTD.g:173:55: ( plural )?
                         if ( stream_plural.hasNext() ) {
                             adaptor.addChild(root_1, stream_plural.nextTree());
 
@@ -825,7 +824,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "cp"
-    // DTD.g:177:1: fragment cp : ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
+    // DTD.g:176:1: fragment cp : ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) );
     public final DTDParser.cp_return cp() throws RecognitionException {
         DTDParser.cp_return retval = new DTDParser.cp_return();
         retval.start = input.LT(1);
@@ -846,11 +845,11 @@ public class DTDParser extends Parser {
 
         Object Name17_tree=null;
         RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
-        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
         RewriteRuleSubtreeStream stream_choice=new RewriteRuleSubtreeStream(adaptor,"rule choice");
+        RewriteRuleSubtreeStream stream_seq=new RewriteRuleSubtreeStream(adaptor,"rule seq");
         RewriteRuleSubtreeStream stream_plural=new RewriteRuleSubtreeStream(adaptor,"rule plural");
         try {
-            // DTD.g:179:1: ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
+            // DTD.g:178:1: ( ( Name )=> Name ( plural )? -> ^( COMPONENT NAME[$Name.text] ( plural )? ) | ( choice )=> choice ( plural )? -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? ) | ( seq )=> seq ( plural )? -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? ) )
             int alt10=3;
             int LA10_0 = input.LA(1);
 
@@ -883,12 +882,12 @@ public class DTDParser extends Parser {
             }
             switch (alt10) {
                 case 1 :
-                    // DTD.g:179:3: ( Name )=> Name ( plural )?
+                    // DTD.g:178:3: ( Name )=> Name ( plural )?
                     {
                     Name17=(Token)match(input,Name,FOLLOW_Name_in_cp743); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_Name.add(Name17);
 
-                    // DTD.g:179:19: ( plural )?
+                    // DTD.g:178:19: ( plural )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -897,7 +896,7 @@ public class DTDParser extends Parser {
                     }
                     switch (alt7) {
                         case 1 :
-                            // DTD.g:179:19: plural
+                            // DTD.g:178:19: plural
                             {
                             pushFollow(FOLLOW_plural_in_cp746);
                             plural18=plural();
@@ -925,15 +924,15 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 179:27: -> ^( COMPONENT NAME[$Name.text] ( plural )? )
+                    // 178:27: -> ^( COMPONENT NAME[$Name.text] ( plural )? )
                     {
-                        // DTD.g:179:30: ^( COMPONENT NAME[$Name.text] ( plural )? )
+                        // DTD.g:178:30: ^( COMPONENT NAME[$Name.text] ( plural )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name17!=null?Name17.getText():null)));
-                        // DTD.g:179:59: ( plural )?
+                        // DTD.g:178:59: ( plural )?
                         if ( stream_plural.hasNext() ) {
                             adaptor.addChild(root_1, stream_plural.nextTree());
 
@@ -949,7 +948,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:180:4: ( choice )=> choice ( plural )?
+                    // DTD.g:179:4: ( choice )=> choice ( plural )?
                     {
                     pushFollow(FOLLOW_choice_in_cp770);
                     choice19=choice();
@@ -957,7 +956,7 @@ public class DTDParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_choice.add(choice19.getTree());
-                    // DTD.g:180:24: ( plural )?
+                    // DTD.g:179:24: ( plural )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -966,7 +965,7 @@ public class DTDParser extends Parser {
                     }
                     switch (alt8) {
                         case 1 :
-                            // DTD.g:180:24: plural
+                            // DTD.g:179:24: plural
                             {
                             pushFollow(FOLLOW_plural_in_cp773);
                             plural20=plural();
@@ -994,16 +993,16 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 180:32: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                    // 179:32: -> ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
                     {
-                        // DTD.g:180:35: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
+                        // DTD.g:179:35: ^( COMPONENT TYPE[\"choice\"] choice ( plural )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "choice"));
                         adaptor.addChild(root_1, stream_choice.nextTree());
-                        // DTD.g:180:69: ( plural )?
+                        // DTD.g:179:69: ( plural )?
                         if ( stream_plural.hasNext() ) {
                             adaptor.addChild(root_1, stream_plural.nextTree());
 
@@ -1019,7 +1018,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // DTD.g:181:4: ( seq )=> seq ( plural )?
+                    // DTD.g:180:4: ( seq )=> seq ( plural )?
                     {
                     pushFollow(FOLLOW_seq_in_cp799);
                     seq21=seq();
@@ -1027,7 +1026,7 @@ public class DTDParser extends Parser {
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_seq.add(seq21.getTree());
-                    // DTD.g:181:18: ( plural )?
+                    // DTD.g:180:18: ( plural )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -1036,7 +1035,7 @@ public class DTDParser extends Parser {
                     }
                     switch (alt9) {
                         case 1 :
-                            // DTD.g:181:18: plural
+                            // DTD.g:180:18: plural
                             {
                             pushFollow(FOLLOW_plural_in_cp802);
                             plural22=plural();
@@ -1064,16 +1063,16 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 181:26: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                    // 180:26: -> ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
                     {
-                        // DTD.g:181:29: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
+                        // DTD.g:180:29: ^( COMPONENT TYPE[\"seq\"] seq ( plural )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "seq"));
                         adaptor.addChild(root_1, stream_seq.nextTree());
-                        // DTD.g:181:57: ( plural )?
+                        // DTD.g:180:57: ( plural )?
                         if ( stream_plural.hasNext() ) {
                             adaptor.addChild(root_1, stream_plural.nextTree());
 
@@ -1116,7 +1115,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "plural"
-    // DTD.g:184:1: fragment plural : ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] );
+    // DTD.g:183:1: fragment plural : ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] );
     public final DTDParser.plural_return plural() throws RecognitionException {
         DTDParser.plural_return retval = new DTDParser.plural_return();
         retval.start = input.LT(1);
@@ -1131,11 +1130,11 @@ public class DTDParser extends Parser {
         Object char_literal24_tree=null;
         Object char_literal25_tree=null;
         RewriteRuleTokenStream stream_48=new RewriteRuleTokenStream(adaptor,"token 48");
-        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
         RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
+        RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
 
         try {
-            // DTD.g:186:3: ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] )
+            // DTD.g:185:3: ( '?' -> OCCURRENCE[\"ZERO_OR_ONE\"] | '*' -> OCCURRENCE[\"ZERO_OR_MORE\"] | '+' -> OCCURRENCE[\"ONE_OR_MORE\"] )
             int alt11=3;
             switch ( input.LA(1) ) {
             case 46:
@@ -1163,7 +1162,7 @@ public class DTDParser extends Parser {
 
             switch (alt11) {
                 case 1 :
-                    // DTD.g:186:5: '?'
+                    // DTD.g:185:5: '?'
                     {
                     char_literal23=(Token)match(input,46,FOLLOW_46_in_plural830); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_46.add(char_literal23);
@@ -1182,7 +1181,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 186:9: -> OCCURRENCE[\"ZERO_OR_ONE\"]
+                    // 185:9: -> OCCURRENCE[\"ZERO_OR_ONE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ZERO_OR_ONE"));
 
@@ -1192,7 +1191,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:187:5: '*'
+                    // DTD.g:186:5: '*'
                     {
                     char_literal24=(Token)match(input,47,FOLLOW_47_in_plural841); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_47.add(char_literal24);
@@ -1211,7 +1210,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 187:9: -> OCCURRENCE[\"ZERO_OR_MORE\"]
+                    // 186:9: -> OCCURRENCE[\"ZERO_OR_MORE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ZERO_OR_MORE"));
 
@@ -1221,7 +1220,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // DTD.g:188:5: '+'
+                    // DTD.g:187:5: '+'
                     {
                     char_literal25=(Token)match(input,48,FOLLOW_48_in_plural852); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_48.add(char_literal25);
@@ -1240,7 +1239,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 188:9: -> OCCURRENCE[\"ONE_OR_MORE\"]
+                    // 187:9: -> OCCURRENCE[\"ONE_OR_MORE\"]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(OCCURRENCE, "ONE_OR_MORE"));
 
@@ -1277,7 +1276,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "choice"
-    // DTD.g:192:1: fragment choice : LParen cp ( '|' cp )* RParen -> ( cp )+ ;
+    // DTD.g:191:1: fragment choice : LParen cp ( '|' cp )* RParen -> ( cp )+ ;
     public final DTDParser.choice_return choice() throws RecognitionException {
         DTDParser.choice_return retval = new DTDParser.choice_return();
         retval.start = input.LT(1);
@@ -1295,13 +1294,13 @@ public class DTDParser extends Parser {
         Object LParen26_tree=null;
         Object char_literal28_tree=null;
         Object RParen30_tree=null;
-        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_49=new RewriteRuleTokenStream(adaptor,"token 49");
+        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
         RewriteRuleSubtreeStream stream_cp=new RewriteRuleSubtreeStream(adaptor,"rule cp");
         try {
-            // DTD.g:193:7: ( LParen cp ( '|' cp )* RParen -> ( cp )+ )
-            // DTD.g:193:9: LParen cp ( '|' cp )* RParen
+            // DTD.g:192:7: ( LParen cp ( '|' cp )* RParen -> ( cp )+ )
+            // DTD.g:192:9: LParen cp ( '|' cp )* RParen
             {
             LParen26=(Token)match(input,LParen,FOLLOW_LParen_in_choice872); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LParen.add(LParen26);
@@ -1312,7 +1311,7 @@ public class DTDParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_cp.add(cp27.getTree());
-            // DTD.g:193:19: ( '|' cp )*
+            // DTD.g:192:19: ( '|' cp )*
             loop12:
             do {
                 int alt12=2;
@@ -1325,7 +1324,7 @@ public class DTDParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // DTD.g:193:20: '|' cp
+            	    // DTD.g:192:20: '|' cp
             	    {
             	    char_literal28=(Token)match(input,49,FOLLOW_49_in_choice877); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_49.add(char_literal28);
@@ -1362,7 +1361,7 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 194:3: -> ( cp )+
+            // 193:3: -> ( cp )+
             {
                 if ( !(stream_cp.hasNext()) ) {
                     throw new RewriteEarlyExitException();
@@ -1404,7 +1403,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "seq"
-    // DTD.g:197:1: fragment seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ ;
+    // DTD.g:196:1: fragment seq : ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ ;
     public final DTDParser.seq_return seq() throws RecognitionException {
         DTDParser.seq_return retval = new DTDParser.seq_return();
         retval.start = input.LT(1);
@@ -1422,13 +1421,13 @@ public class DTDParser extends Parser {
         Object LParen31_tree=null;
         Object Comma33_tree=null;
         Object RParen35_tree=null;
-        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleTokenStream stream_Comma=new RewriteRuleTokenStream(adaptor,"token Comma");
         RewriteRuleSubtreeStream stream_cp=new RewriteRuleSubtreeStream(adaptor,"rule cp");
         try {
-            // DTD.g:198:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ )
-            // DTD.g:198:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
+            // DTD.g:197:4: ( ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen -> ( cp )+ )
+            // DTD.g:197:6: ( LParen cp Comma )=> LParen cp ( Comma cp )+ RParen
             {
             LParen31=(Token)match(input,LParen,FOLLOW_LParen_in_seq912); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LParen.add(LParen31);
@@ -1439,7 +1438,7 @@ public class DTDParser extends Parser {
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_cp.add(cp32.getTree());
-            // DTD.g:198:37: ( Comma cp )+
+            // DTD.g:197:37: ( Comma cp )+
             int cnt13=0;
             loop13:
             do {
@@ -1453,7 +1452,7 @@ public class DTDParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // DTD.g:198:38: Comma cp
+            	    // DTD.g:197:38: Comma cp
             	    {
             	    Comma33=(Token)match(input,Comma,FOLLOW_Comma_in_seq917); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_Comma.add(Comma33);
@@ -1495,7 +1494,7 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 199:3: -> ( cp )+
+            // 198:3: -> ( cp )+
             {
                 if ( !(stream_cp.hasNext()) ) {
                     throw new RewriteEarlyExitException();
@@ -1537,7 +1536,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "mixed"
-    // DTD.g:202:1: fragment mixed : ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) );
+    // DTD.g:201:1: fragment mixed : ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) );
     public final DTDParser.mixed_return mixed() throws RecognitionException {
         DTDParser.mixed_return retval = new DTDParser.mixed_return();
         retval.start = input.LT(1);
@@ -1563,14 +1562,14 @@ public class DTDParser extends Parser {
         Object LParen42_tree=null;
         Object string_literal43_tree=null;
         Object RParen44_tree=null;
-        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
-        RewriteRuleTokenStream stream_50=new RewriteRuleTokenStream(adaptor,"token 50");
-        RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
         RewriteRuleTokenStream stream_49=new RewriteRuleTokenStream(adaptor,"token 49");
+        RewriteRuleTokenStream stream_RParen=new RewriteRuleTokenStream(adaptor,"token RParen");
+        RewriteRuleTokenStream stream_47=new RewriteRuleTokenStream(adaptor,"token 47");
         RewriteRuleTokenStream stream_LParen=new RewriteRuleTokenStream(adaptor,"token LParen");
+        RewriteRuleTokenStream stream_50=new RewriteRuleTokenStream(adaptor,"token 50");
         RewriteRuleSubtreeStream stream_mixed_i=new RewriteRuleSubtreeStream(adaptor,"rule mixed_i");
         try {
-            // DTD.g:204:3: ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) )
+            // DTD.g:203:3: ( LParen '#PCDATA' ( '|' mixed_i )* RParen '*' -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* ) | LParen '#PCDATA' RParen -> ^( COMPONENT TYPE[\"pcdata\"] ) )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1625,7 +1624,7 @@ public class DTDParser extends Parser {
             }
             switch (alt15) {
                 case 1 :
-                    // DTD.g:204:5: LParen '#PCDATA' ( '|' mixed_i )* RParen '*'
+                    // DTD.g:203:5: LParen '#PCDATA' ( '|' mixed_i )* RParen '*'
                     {
                     LParen36=(Token)match(input,LParen,FOLLOW_LParen_in_mixed945); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LParen.add(LParen36);
@@ -1633,7 +1632,7 @@ public class DTDParser extends Parser {
                     string_literal37=(Token)match(input,50,FOLLOW_50_in_mixed947); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_50.add(string_literal37);
 
-                    // DTD.g:204:22: ( '|' mixed_i )*
+                    // DTD.g:203:22: ( '|' mixed_i )*
                     loop14:
                     do {
                         int alt14=2;
@@ -1646,7 +1645,7 @@ public class DTDParser extends Parser {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // DTD.g:204:23: '|' mixed_i
+                    	    // DTD.g:203:23: '|' mixed_i
                     	    {
                     	    char_literal38=(Token)match(input,49,FOLLOW_49_in_mixed950); if (state.failed) return retval; 
                     	    if ( state.backtracking==0 ) stream_49.add(char_literal38);
@@ -1686,15 +1685,15 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 205:5: -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
+                    // 204:5: -> ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
                     {
-                        // DTD.g:205:8: ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
+                        // DTD.g:204:8: ^( COMPONENT TYPE[\"mixed\"] ( mixed_i )* )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
 
                         adaptor.addChild(root_1, (Object)adaptor.create(TYPE, "mixed"));
-                        // DTD.g:205:34: ( mixed_i )*
+                        // DTD.g:204:34: ( mixed_i )*
                         while ( stream_mixed_i.hasNext() ) {
                             adaptor.addChild(root_1, stream_mixed_i.nextTree());
 
@@ -1710,7 +1709,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:206:5: LParen '#PCDATA' RParen
+                    // DTD.g:205:5: LParen '#PCDATA' RParen
                     {
                     LParen42=(Token)match(input,LParen,FOLLOW_LParen_in_mixed980); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LParen.add(LParen42);
@@ -1735,9 +1734,9 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 207:5: -> ^( COMPONENT TYPE[\"pcdata\"] )
+                    // 206:5: -> ^( COMPONENT TYPE[\"pcdata\"] )
                     {
-                        // DTD.g:207:8: ^( COMPONENT TYPE[\"pcdata\"] )
+                        // DTD.g:206:8: ^( COMPONENT TYPE[\"pcdata\"] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPONENT, "COMPONENT"), root_1);
@@ -1780,7 +1779,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "mixed_i"
-    // DTD.g:210:1: mixed_i : Name -> NAME[$Name.text] ;
+    // DTD.g:209:1: mixed_i : Name -> NAME[$Name.text] ;
     public final DTDParser.mixed_i_return mixed_i() throws RecognitionException {
         DTDParser.mixed_i_return retval = new DTDParser.mixed_i_return();
         retval.start = input.LT(1);
@@ -1793,8 +1792,8 @@ public class DTDParser extends Parser {
         RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
 
         try {
-            // DTD.g:211:3: ( Name -> NAME[$Name.text] )
-            // DTD.g:211:5: Name
+            // DTD.g:210:3: ( Name -> NAME[$Name.text] )
+            // DTD.g:210:5: Name
             {
             Name45=(Token)match(input,Name,FOLLOW_Name_in_mixed_i1013); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_Name.add(Name45);
@@ -1813,7 +1812,7 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 211:10: -> NAME[$Name.text]
+            // 210:10: -> NAME[$Name.text]
             {
                 adaptor.addChild(root_0, (Object)adaptor.create(NAME, (Name45!=null?Name45.getText():null)));
 
@@ -1848,7 +1847,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "attlistDecl"
-    // DTD.g:214:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) ;
+    // DTD.g:213:1: attlistDecl : '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) ;
     public final DTDParser.attlistDecl_return attlistDecl() throws RecognitionException {
         DTDParser.attlistDecl_return retval = new DTDParser.attlistDecl_return();
         retval.start = input.LT(1);
@@ -1864,13 +1863,13 @@ public class DTDParser extends Parser {
         Object string_literal46_tree=null;
         Object Name47_tree=null;
         Object char_literal49_tree=null;
-        RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
         RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
         RewriteRuleTokenStream stream_51=new RewriteRuleTokenStream(adaptor,"token 51");
         RewriteRuleSubtreeStream stream_attDef=new RewriteRuleSubtreeStream(adaptor,"rule attDef");
         try {
-            // DTD.g:214:12: ( '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) )
-            // DTD.g:214:14: '<!ATTLIST' Name ( attDef )* '>'
+            // DTD.g:213:12: ( '<!ATTLIST' Name ( attDef )* '>' -> ^( ATTLIST NAME[$Name.text] ( attDef )* ) )
+            // DTD.g:213:14: '<!ATTLIST' Name ( attDef )* '>'
             {
             string_literal46=(Token)match(input,51,FOLLOW_51_in_attlistDecl1034); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_51.add(string_literal46);
@@ -1878,7 +1877,7 @@ public class DTDParser extends Parser {
             Name47=(Token)match(input,Name,FOLLOW_Name_in_attlistDecl1036); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_Name.add(Name47);
 
-            // DTD.g:214:31: ( attDef )*
+            // DTD.g:213:31: ( attDef )*
             loop16:
             do {
                 int alt16=2;
@@ -1891,7 +1890,7 @@ public class DTDParser extends Parser {
 
                 switch (alt16) {
             	case 1 :
-            	    // DTD.g:214:31: attDef
+            	    // DTD.g:213:31: attDef
             	    {
             	    pushFollow(FOLLOW_attDef_in_attlistDecl1038);
             	    attDef48=attDef();
@@ -1925,15 +1924,15 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 215:3: -> ^( ATTLIST NAME[$Name.text] ( attDef )* )
+            // 214:3: -> ^( ATTLIST NAME[$Name.text] ( attDef )* )
             {
-                // DTD.g:215:6: ^( ATTLIST NAME[$Name.text] ( attDef )* )
+                // DTD.g:214:6: ^( ATTLIST NAME[$Name.text] ( attDef )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTLIST, "ATTLIST"), root_1);
 
                 adaptor.addChild(root_1, (Object)adaptor.create(NAME, (Name47!=null?Name47.getText():null)));
-                // DTD.g:215:33: ( attDef )*
+                // DTD.g:214:33: ( attDef )*
                 while ( stream_attDef.hasNext() ) {
                     adaptor.addChild(root_1, stream_attDef.nextTree());
 
@@ -1974,7 +1973,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "attDef"
-    // DTD.g:218:1: fragment attDef : Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] ) ;
+    // DTD.g:217:1: fragment attDef : Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] ) ;
     public final DTDParser.attDef_return attDef() throws RecognitionException {
         DTDParser.attDef_return retval = new DTDParser.attDef_return();
         retval.start = input.LT(1);
@@ -1988,12 +1987,12 @@ public class DTDParser extends Parser {
 
         Object Name50_tree=null;
         Object DefaultDecl52_tree=null;
-        RewriteRuleTokenStream stream_DefaultDecl=new RewriteRuleTokenStream(adaptor,"token DefaultDecl");
         RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleTokenStream stream_DefaultDecl=new RewriteRuleTokenStream(adaptor,"token DefaultDecl");
         RewriteRuleSubtreeStream stream_attType=new RewriteRuleSubtreeStream(adaptor,"rule attType");
         try {
-            // DTD.g:219:7: ( Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] ) )
-            // DTD.g:219:9: Name attType DefaultDecl
+            // DTD.g:218:7: ( Name attType DefaultDecl -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] ) )
+            // DTD.g:218:9: Name attType DefaultDecl
             {
             Name50=(Token)match(input,Name,FOLLOW_Name_in_attDef1067); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_Name.add(Name50);
@@ -2021,9 +2020,9 @@ public class DTDParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 220:3: -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] )
+            // 219:3: -> ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] )
             {
-                // DTD.g:220:6: ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] )
+                // DTD.g:219:6: ^( ATTRIBUTE NAME[$Name.text] attType DECL[$DefaultDecl.text] )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ATTRIBUTE, "ATTRIBUTE"), root_1);
@@ -2066,7 +2065,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "attType"
-    // DTD.g:223:1: fragment attType : ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] );
+    // DTD.g:222:1: fragment attType : ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] );
     public final DTDParser.attType_return attType() throws RecognitionException {
         DTDParser.attType_return retval = new DTDParser.attType_return();
         retval.start = input.LT(1);
@@ -2080,11 +2079,11 @@ public class DTDParser extends Parser {
         DTDParser.enumeratedType_return enumeratedType55 = null;
 
 
+        RewriteRuleSubtreeStream stream_stringType=new RewriteRuleSubtreeStream(adaptor,"rule stringType");
         RewriteRuleSubtreeStream stream_enumeratedType=new RewriteRuleSubtreeStream(adaptor,"rule enumeratedType");
         RewriteRuleSubtreeStream stream_tokenizedType=new RewriteRuleSubtreeStream(adaptor,"rule tokenizedType");
-        RewriteRuleSubtreeStream stream_stringType=new RewriteRuleSubtreeStream(adaptor,"rule stringType");
         try {
-            // DTD.g:225:3: ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] )
+            // DTD.g:224:3: ( stringType -> STRINGTYPE[$stringType.text] | tokenizedType -> TOKENIZEDTYPE[$tokenizedType.text] | enumeratedType -> ENUMTYPE[$enumeratedType.text] )
             int alt17=3;
             switch ( input.LA(1) ) {
             case 53:
@@ -2119,7 +2118,7 @@ public class DTDParser extends Parser {
 
             switch (alt17) {
                 case 1 :
-                    // DTD.g:225:5: stringType
+                    // DTD.g:224:5: stringType
                     {
                     pushFollow(FOLLOW_stringType_in_attType1103);
                     stringType53=stringType();
@@ -2141,7 +2140,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 225:16: -> STRINGTYPE[$stringType.text]
+                    // 224:16: -> STRINGTYPE[$stringType.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(STRINGTYPE, (stringType53!=null?input.toString(stringType53.start,stringType53.stop):null)));
 
@@ -2151,7 +2150,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:226:5: tokenizedType
+                    // DTD.g:225:5: tokenizedType
                     {
                     pushFollow(FOLLOW_tokenizedType_in_attType1115);
                     tokenizedType54=tokenizedType();
@@ -2173,7 +2172,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 226:19: -> TOKENIZEDTYPE[$tokenizedType.text]
+                    // 225:19: -> TOKENIZEDTYPE[$tokenizedType.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(TOKENIZEDTYPE, (tokenizedType54!=null?input.toString(tokenizedType54.start,tokenizedType54.stop):null)));
 
@@ -2183,7 +2182,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // DTD.g:227:5: enumeratedType
+                    // DTD.g:226:5: enumeratedType
                     {
                     pushFollow(FOLLOW_enumeratedType_in_attType1127);
                     enumeratedType55=enumeratedType();
@@ -2205,7 +2204,7 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 227:20: -> ENUMTYPE[$enumeratedType.text]
+                    // 226:20: -> ENUMTYPE[$enumeratedType.text]
                     {
                         adaptor.addChild(root_0, (Object)adaptor.create(ENUMTYPE, (enumeratedType55!=null?input.toString(enumeratedType55.start,enumeratedType55.stop):null)));
 
@@ -2242,7 +2241,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "enumeration"
-    // DTD.g:230:1: fragment enumeration : LParen Name ( '|' Name )* RParen ;
+    // DTD.g:229:1: fragment enumeration : LParen Name ( '|' Name )* RParen ;
     public final DTDParser.enumeration_return enumeration() throws RecognitionException {
         DTDParser.enumeration_return retval = new DTDParser.enumeration_return();
         retval.start = input.LT(1);
@@ -2262,8 +2261,8 @@ public class DTDParser extends Parser {
         Object RParen60_tree=null;
 
         try {
-            // DTD.g:231:12: ( LParen Name ( '|' Name )* RParen )
-            // DTD.g:231:14: LParen Name ( '|' Name )* RParen
+            // DTD.g:230:12: ( LParen Name ( '|' Name )* RParen )
+            // DTD.g:230:14: LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2277,7 +2276,7 @@ public class DTDParser extends Parser {
             Name57_tree = (Object)adaptor.create(Name57);
             adaptor.addChild(root_0, Name57_tree);
             }
-            // DTD.g:231:26: ( '|' Name )*
+            // DTD.g:230:26: ( '|' Name )*
             loop18:
             do {
                 int alt18=2;
@@ -2290,7 +2289,7 @@ public class DTDParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // DTD.g:231:27: '|' Name
+            	    // DTD.g:230:27: '|' Name
             	    {
             	    char_literal58=(Token)match(input,49,FOLLOW_49_in_enumeration1149); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -2345,7 +2344,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "enumeratedType"
-    // DTD.g:232:1: fragment enumeratedType : ( notationType | enumeration );
+    // DTD.g:231:1: fragment enumeratedType : ( notationType | enumeration );
     public final DTDParser.enumeratedType_return enumeratedType() throws RecognitionException {
         DTDParser.enumeratedType_return retval = new DTDParser.enumeratedType_return();
         retval.start = input.LT(1);
@@ -2359,7 +2358,7 @@ public class DTDParser extends Parser {
 
 
         try {
-            // DTD.g:233:15: ( notationType | enumeration )
+            // DTD.g:232:15: ( notationType | enumeration )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2378,7 +2377,7 @@ public class DTDParser extends Parser {
             }
             switch (alt19) {
                 case 1 :
-                    // DTD.g:233:17: notationType
+                    // DTD.g:232:17: notationType
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2392,7 +2391,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:233:32: enumeration
+                    // DTD.g:232:32: enumeration
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -2433,7 +2432,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "notationType"
-    // DTD.g:234:1: fragment notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
+    // DTD.g:233:1: fragment notationType : 'NOTATION' LParen Name ( '|' Name )* RParen ;
     public final DTDParser.notationType_return notationType() throws RecognitionException {
         DTDParser.notationType_return retval = new DTDParser.notationType_return();
         retval.start = input.LT(1);
@@ -2455,8 +2454,8 @@ public class DTDParser extends Parser {
         Object RParen68_tree=null;
 
         try {
-            // DTD.g:235:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
-            // DTD.g:235:15: 'NOTATION' LParen Name ( '|' Name )* RParen
+            // DTD.g:234:13: ( 'NOTATION' LParen Name ( '|' Name )* RParen )
+            // DTD.g:234:15: 'NOTATION' LParen Name ( '|' Name )* RParen
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2475,7 +2474,7 @@ public class DTDParser extends Parser {
             Name65_tree = (Object)adaptor.create(Name65);
             adaptor.addChild(root_0, Name65_tree);
             }
-            // DTD.g:235:38: ( '|' Name )*
+            // DTD.g:234:38: ( '|' Name )*
             loop20:
             do {
                 int alt20=2;
@@ -2488,7 +2487,7 @@ public class DTDParser extends Parser {
 
                 switch (alt20) {
             	case 1 :
-            	    // DTD.g:235:39: '|' Name
+            	    // DTD.g:234:39: '|' Name
             	    {
             	    char_literal66=(Token)match(input,49,FOLLOW_49_in_notationType1182); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
@@ -2543,7 +2542,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "stringType"
-    // DTD.g:237:1: fragment stringType : 'CDATA' ;
+    // DTD.g:236:1: fragment stringType : 'CDATA' ;
     public final DTDParser.stringType_return stringType() throws RecognitionException {
         DTDParser.stringType_return retval = new DTDParser.stringType_return();
         retval.start = input.LT(1);
@@ -2555,8 +2554,8 @@ public class DTDParser extends Parser {
         Object string_literal69_tree=null;
 
         try {
-            // DTD.g:238:11: ( 'CDATA' )
-            // DTD.g:238:13: 'CDATA'
+            // DTD.g:237:11: ( 'CDATA' )
+            // DTD.g:237:13: 'CDATA'
             {
             root_0 = (Object)adaptor.nil();
 
@@ -2594,7 +2593,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "tokenizedType"
-    // DTD.g:241:1: fragment tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
+    // DTD.g:240:1: fragment tokenizedType : ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' );
     public final DTDParser.tokenizedType_return tokenizedType() throws RecognitionException {
         DTDParser.tokenizedType_return retval = new DTDParser.tokenizedType_return();
         retval.start = input.LT(1);
@@ -2606,7 +2605,7 @@ public class DTDParser extends Parser {
         Object set70_tree=null;
 
         try {
-            // DTD.g:243:3: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
+            // DTD.g:242:3: ( 'ID' | 'IDREF' | 'IDREFS' | 'ENTITY' | 'ENTITIES' | 'NMTOKEN' | 'NMTOKENS' )
             // DTD.g:
             {
             root_0 = (Object)adaptor.nil();
@@ -2652,7 +2651,7 @@ public class DTDParser extends Parser {
     };
 
     // $ANTLR start "entityDecl"
-    // DTD.g:247:1: entityDecl : ( '<!ENTITY' Name String '>' -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] ) | '<!ENTITY' '%' Name String '>' -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] ) );
+    // DTD.g:246:1: entityDecl : ( '<!ENTITY' Name String '>' -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] ) | '<!ENTITY' '%' Name String '>' -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] ) );
     public final DTDParser.entityDecl_return entityDecl() throws RecognitionException {
         DTDParser.entityDecl_return retval = new DTDParser.entityDecl_return();
         retval.start = input.LT(1);
@@ -2678,14 +2677,14 @@ public class DTDParser extends Parser {
         Object Name77_tree=null;
         Object String78_tree=null;
         Object char_literal79_tree=null;
-        RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
-        RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
-        RewriteRuleTokenStream stream_61=new RewriteRuleTokenStream(adaptor,"token 61");
-        RewriteRuleTokenStream stream_62=new RewriteRuleTokenStream(adaptor,"token 62");
         RewriteRuleTokenStream stream_Name=new RewriteRuleTokenStream(adaptor,"token Name");
+        RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
+        RewriteRuleTokenStream stream_String=new RewriteRuleTokenStream(adaptor,"token String");
+        RewriteRuleTokenStream stream_62=new RewriteRuleTokenStream(adaptor,"token 62");
+        RewriteRuleTokenStream stream_61=new RewriteRuleTokenStream(adaptor,"token 61");
 
         try {
-            // DTD.g:248:3: ( '<!ENTITY' Name String '>' -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] ) | '<!ENTITY' '%' Name String '>' -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] ) )
+            // DTD.g:247:3: ( '<!ENTITY' Name String '>' -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] ) | '<!ENTITY' '%' Name String '>' -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] ) )
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2715,7 +2714,7 @@ public class DTDParser extends Parser {
             }
             switch (alt21) {
                 case 1 :
-                    // DTD.g:248:5: '<!ENTITY' Name String '>'
+                    // DTD.g:247:5: '<!ENTITY' Name String '>'
                     {
                     string_literal71=(Token)match(input,61,FOLLOW_61_in_entityDecl1249); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_61.add(string_literal71);
@@ -2743,9 +2742,9 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 248:32: -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] )
+                    // 247:32: -> ^( ENTITY NAME[$Name.text] VALUE[$String.text] )
                     {
-                        // DTD.g:248:35: ^( ENTITY NAME[$Name.text] VALUE[$String.text] )
+                        // DTD.g:247:35: ^( ENTITY NAME[$Name.text] VALUE[$String.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ENTITY, "ENTITY"), root_1);
@@ -2762,7 +2761,7 @@ public class DTDParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // DTD.g:249:5: '<!ENTITY' '%' Name String '>'
+                    // DTD.g:248:5: '<!ENTITY' '%' Name String '>'
                     {
                     string_literal75=(Token)match(input,61,FOLLOW_61_in_entityDecl1273); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_61.add(string_literal75);
@@ -2793,9 +2792,9 @@ public class DTDParser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 249:36: -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] )
+                    // 248:36: -> ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] )
                     {
-                        // DTD.g:249:39: ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] )
+                        // DTD.g:248:39: ^( ENTITY_REF NAME[$Name.text] VALUE[$String.text] )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ENTITY_REF, "ENTITY_REF"), root_1);
@@ -2835,8 +2834,8 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred1_DTD
     public final void synpred1_DTD_fragment() throws RecognitionException {   
-        // DTD.g:173:3: ( choice )
-        // DTD.g:173:4: choice
+        // DTD.g:172:3: ( choice )
+        // DTD.g:172:4: choice
         {
         pushFollow(FOLLOW_choice_in_synpred1_DTD673);
         choice();
@@ -2850,8 +2849,8 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred2_DTD
     public final void synpred2_DTD_fragment() throws RecognitionException {   
-        // DTD.g:174:3: ( seq )
-        // DTD.g:174:4: seq
+        // DTD.g:173:3: ( seq )
+        // DTD.g:173:4: seq
         {
         pushFollow(FOLLOW_seq_in_synpred2_DTD702);
         seq();
@@ -2865,8 +2864,8 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred3_DTD
     public final void synpred3_DTD_fragment() throws RecognitionException {   
-        // DTD.g:179:3: ( Name )
-        // DTD.g:179:4: Name
+        // DTD.g:178:3: ( Name )
+        // DTD.g:178:4: Name
         {
         match(input,Name,FOLLOW_Name_in_synpred3_DTD738); if (state.failed) return ;
 
@@ -2876,8 +2875,8 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred4_DTD
     public final void synpred4_DTD_fragment() throws RecognitionException {   
-        // DTD.g:180:4: ( choice )
-        // DTD.g:180:5: choice
+        // DTD.g:179:4: ( choice )
+        // DTD.g:179:5: choice
         {
         pushFollow(FOLLOW_choice_in_synpred4_DTD765);
         choice();
@@ -2891,8 +2890,8 @@ public class DTDParser extends Parser {
 
     // $ANTLR start synpred5_DTD
     public final void synpred5_DTD_fragment() throws RecognitionException {   
-        // DTD.g:181:4: ( seq )
-        // DTD.g:181:5: seq
+        // DTD.g:180:4: ( seq )
+        // DTD.g:180:5: seq
         {
         pushFollow(FOLLOW_seq_in_synpred5_DTD794);
         seq();
@@ -2906,11 +2905,11 @@ public class DTDParser extends Parser {
 
     // Delegated rules
 
-    public final boolean synpred5_DTD() {
+    public final boolean synpred3_DTD() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred5_DTD_fragment(); // can never throw exception
+            synpred3_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2934,6 +2933,20 @@ public class DTDParser extends Parser {
         state.failed=false;
         return success;
     }
+    public final boolean synpred4_DTD() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred4_DTD_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred1_DTD() {
         state.backtracking++;
         int start = input.mark();
@@ -2948,25 +2961,11 @@ public class DTDParser extends Parser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred3_DTD() {
+    public final boolean synpred5_DTD() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred3_DTD_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred4_DTD() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred4_DTD_fragment(); // can never throw exception
+            synpred5_DTD_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 import java.io.IOException;
 
@@ -32,12 +32,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.lens.antlr.ANTLRUtil;
+import org.xerial.lens.xml.dtd.impl.DTDParser;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.dtd.DTDParserUtil;
-import org.xerial.xml.dtd.impl.DTDParser;
 
-public class DTDParserTest {
+public class DTDParserTest
+{
     Logger _logger = Logger.getLogger(DTDParserTest.class);
 
     @Before
@@ -50,8 +50,8 @@ public class DTDParserTest {
 
     @Test
     public void parse() throws IOException, RecognitionException {
-        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class,
-                "auction.dtd").openStream());
+        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class, "auction.dtd")
+                .openStream());
         DTDParser.dtd_return r = parser.dtd();
         CommonTree t = (CommonTree) r.getTree();
         _logger.debug(ANTLRUtil.parseTree(t, DTDParser.tokenNames));
@@ -59,8 +59,8 @@ public class DTDParserTest {
 
     @Test
     public void parseLine() throws IOException, RecognitionException {
-        DTDParser parser = DTDParserUtil.createParser(FileResource.find(DTDParserTest.class,
-                "simple.dtd").openStream());
+        DTDParser parser = DTDParserUtil
+                .createParser(FileResource.find(DTDParserTest.class, "simple.dtd").openStream());
         DTDParser.dtd_return r = parser.dtd();
         CommonTree t = (CommonTree) r.getTree();
         _logger.debug(ANTLRUtil.parseTree(t, DTDParser.tokenNames));

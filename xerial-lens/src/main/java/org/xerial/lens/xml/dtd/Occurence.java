@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 public enum Occurence {
     ONE, ZERO_OR_MORE, ONE_OR_MORE

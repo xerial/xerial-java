@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.lens.relation;
 
-import org.xerial.lens.ObjectLens;
+import org.xerial.util.lens.ObjectLens;
 
 /**
  * Node is an element ({@link TupleElement}) of a relation.
@@ -32,13 +32,14 @@ import org.xerial.lens.ObjectLens;
  * @author leo
  * 
  */
-public class Node extends NodeBase<Node> {
-    public static final int INVALID_ID = -1;
-    public static final String NULL_TEXT = null;
+public class Node extends NodeBase<Node>
+{
+    public static final int    INVALID_ID = -1;
+    public static final String NULL_TEXT  = null;
 
-    public final long nodeID;
-    public final String nodeName;
-    public final String nodeValue;
+    public final long          nodeID;
+    public final String        nodeName;
+    public final String        nodeValue;
 
     private Node(String nodeName, long nodeID, String nodeValue) {
         this.nodeID = nodeID;
@@ -56,9 +57,10 @@ public class Node extends NodeBase<Node> {
      * @author leo
      * 
      */
-    public static class NodeBuilder {
-        private long nodeID = INVALID_ID;
-        private String nodeValue = NULL_TEXT;
+    public static class NodeBuilder
+    {
+        private long         nodeID    = INVALID_ID;
+        private String       nodeValue = NULL_TEXT;
         private final String nodeName;
 
         public NodeBuilder(String nodeName) {

@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -36,9 +36,9 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
+import org.xerial.lens.xml.dtd.impl.DTDLexer;
+import org.xerial.lens.xml.dtd.impl.DTDParser;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.dtd.impl.DTDLexer;
-import org.xerial.xml.dtd.impl.DTDParser;
 
 /**
  * Object representation of the DTD format
@@ -46,21 +46,23 @@ import org.xerial.xml.dtd.impl.DTDParser;
  * @author leo
  * 
  */
-public class DTD {
+public class DTD
+{
 
     private static Logger _logger = Logger.getLogger(DTD.class);
 
-    public List<Element> element = new ArrayList<Element>();
-    public List<Attlist> attlist = new ArrayList<Attlist>();
+    public List<Element>  element = new ArrayList<Element>();
+    public List<Attlist>  attlist = new ArrayList<Attlist>();
 
     public static enum ContentSpec {
         EMPTY, ANY
     }
 
-    public static class Element {
-        public String name;
+    public static class Element
+    {
+        public String      name;
         public ContentSpec contentSpec;
-        public Component component;
+        public Component   component;
     }
 
     public static enum Occurrence {
@@ -71,19 +73,21 @@ public class DTD {
         CHOICE, SEQ, MIXED, PCDATA
     }
 
-    public static class Component {
-        public Occurrence occurrence = Occurrence.ONE;
-        public ContentType type = ContentType.SEQ;
-        public String name;
-        public List<Component> component = new ArrayList<Component>();
+    public static class Component
+    {
+        public Occurrence      occurrence = Occurrence.ONE;
+        public ContentType     type       = ContentType.SEQ;
+        public String          name;
+        public List<Component> component  = new ArrayList<Component>();
 
         public Component get(int index) {
             return component.get(index);
         }
     }
 
-    public static class Attlist {
-        public String name;
+    public static class Attlist
+    {
+        public String          name;
         public List<Attribute> attribute = new ArrayList<Attribute>();
     }
 
@@ -99,11 +103,12 @@ public class DTD {
         REQUIRED, IMPLIED, FIXED
     }
 
-    public static class Attribute {
-        public String name;
-        public StringType stringType;
+    public static class Attribute
+    {
+        public String        name;
+        public StringType    stringType;
         public TokenizedType tokenizedType;
-        public String enumType;
+        public String        enumType;
         public AttributeDecl decl;
     }
 

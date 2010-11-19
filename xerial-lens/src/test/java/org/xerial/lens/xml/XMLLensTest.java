@@ -32,6 +32,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
+import org.xerial.lens.XMLLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.bean.sample.Mate;
 import org.xerial.util.bean.sample.Person;

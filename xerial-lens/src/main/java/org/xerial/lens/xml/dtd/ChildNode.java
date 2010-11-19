@@ -22,7 +22,9 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
+
+import org.xerial.lens.xml.dtd.Occurence;
 
 public class ChildNode
 {

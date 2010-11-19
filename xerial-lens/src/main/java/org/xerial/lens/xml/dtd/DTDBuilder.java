@@ -16,17 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Attribute.java
-// Since: Oct 30, 2008 4:28:19 PM
+// DTDBuilder.java
+// Since: Oct 30, 2008 4:10:52 PM
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
-public class Attribute
+public class DTDBuilder
 {
-    String        name;
-    AttributeList attributeList;
+    public void addElement()
+    {
 
+    }
+
+    public void addAttributeList()
+    {
+
+    }
 }

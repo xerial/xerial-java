@@ -36,10 +36,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.xerial.core.XerialException;
-import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.util.TypeConverter;
 import org.xerial.util.TypeInfo;
 import org.xerial.util.bean.BeanHandler;
+import org.xerial.util.lens.ObjectLens;
+import org.xerial.util.lens.impl.ParameterSetter;
 import org.xerial.util.log.Logger;
 
 /**
@@ -48,15 +49,17 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class JDBCLens<E> {
+public class JDBCLens<E>
+{
 
-    private static Logger _logger = Logger.getLogger(JDBCLens.class);
+    private static Logger                 _logger          = Logger.getLogger(JDBCLens.class);
 
-    private final ObjectLens lens;
-    private final Class<E> targetType;
+    private final ObjectLens              lens;
+    private final Class<E>                targetType;
     private final HashMap<String, Binder> paramName_binder = new HashMap<String, Binder>();
 
-    private static class Binder {
+    private static class Binder
+    {
         private ParameterSetter setter;
 
         public Binder(ParameterSetter setter) {
@@ -142,7 +145,8 @@ public class JDBCLens<E> {
 
     }
 
-    class BeanContainer implements BeanHandler<E> {
+    class BeanContainer implements BeanHandler<E>
+    {
         List<E> result = new ArrayList<E>();
 
         public void handle(E bean) throws Exception {

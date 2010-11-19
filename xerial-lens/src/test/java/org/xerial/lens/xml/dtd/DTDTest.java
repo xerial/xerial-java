@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 import java.io.IOException;
 
@@ -32,9 +32,9 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.dtd.DTD;
 
-public class DTDTest {
+public class DTDTest
+{
 
     private static Logger _logger = Logger.getLogger(DTDTest.class);
 

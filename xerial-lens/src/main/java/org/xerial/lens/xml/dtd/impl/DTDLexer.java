@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 DTD.g 2010-01-25 17:28:04
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 DTD.g 2010-11-19 10:24:15
 
 //--------------------------------------------------
 // Xerial -- Transactional XML Database System      
@@ -8,7 +8,7 @@
 // 
 //--------------------------------------------------
 
-package org.xerial.xml.dtd.impl;
+package org.xerial.lens.xml.dtd.impl;
 import org.xerial.util.log.Logger;
 
 
@@ -19,66 +19,66 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DTDLexer extends Lexer {
-    public static final int TYPE=12;
-    public static final int CONTENTSPEC=16;
-    public static final int ELEMENT=13;
-    public static final int DefaultDecl=41;
-    public static final int ENTITY_REF=18;
-    public static final int T__57=57;
-    public static final int Apos=24;
-    public static final int Digit=31;
-    public static final int SemiColon=27;
-    public static final int T__51=51;
-    public static final int T__47=47;
-    public static final int T__50=50;
-    public static final int ENTITY=17;
-    public static final int ATTLIST=10;
-    public static final int VALUE=19;
-    public static final int TOKENIZEDTYPE=6;
-    public static final int AttValue=38;
-    public static final int Letter=30;
-    public static final int T__52=52;
-    public static final int T__46=46;
-    public static final int Comma=23;
-    public static final int Dot=26;
-    public static final int T__62=62;
-    public static final int T__49=49;
-    public static final int T__61=61;
-    public static final int T__59=59;
-    public static final int DECL=11;
-    public static final int ML_COMMENT=20;
-    public static final int T__54=54;
-    public static final int T__48=48;
-    public static final int EntityRef=39;
-    public static final int Colon=22;
-    public static final int T__56=56;
-    public static final int At=21;
-    public static final int STRINGTYPE=5;
-    public static final int NameChar=33;
-    public static final int DTD=4;
-    public static final int T__58=58;
-    public static final int T__44=44;
-    public static final int RParen=29;
-    public static final int Name=36;
-    public static final int T__45=45;
-    public static final int T__55=55;
-    public static final int LParen=28;
-    public static final int String=35;
     public static final int CharRef=40;
-    public static final int OCCURRENCE=15;
-    public static final int T__43=43;
-    public static final int WhiteSpaceChar=34;
-    public static final int EOF=-1;
-    public static final int T__53=53;
-    public static final int Reference=37;
-    public static final int COMPONENT=14;
+    public static final int DefaultDecl=41;
+    public static final int Apos=24;
+    public static final int T__62=62;
+    public static final int ATTLIST=10;
     public static final int ATTRIBUTE=9;
-    public static final int Quot=25;
-    public static final int NAME=8;
-    public static final int T__60=60;
-    public static final int Digits=32;
-    public static final int Element=42;
     public static final int ENUMTYPE=7;
+    public static final int ENTITY_REF=18;
+    public static final int T__61=61;
+    public static final int T__60=60;
+    public static final int EOF=-1;
+    public static final int CONTENTSPEC=16;
+    public static final int AttValue=38;
+    public static final int TYPE=12;
+    public static final int ENTITY=17;
+    public static final int T__55=55;
+    public static final int T__56=56;
+    public static final int ML_COMMENT=20;
+    public static final int T__57=57;
+    public static final int T__58=58;
+    public static final int NAME=8;
+    public static final int T__51=51;
+    public static final int T__52=52;
+    public static final int T__53=53;
+    public static final int T__54=54;
+    public static final int Digits=32;
+    public static final int WhiteSpaceChar=34;
+    public static final int T__59=59;
+    public static final int DTD=4;
+    public static final int ELEMENT=13;
+    public static final int String=35;
+    public static final int Reference=37;
+    public static final int T__50=50;
+    public static final int COMPONENT=14;
+    public static final int Quot=25;
+    public static final int SemiColon=27;
+    public static final int T__43=43;
+    public static final int RParen=29;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int At=21;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int LParen=28;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int NameChar=33;
+    public static final int Colon=22;
+    public static final int VALUE=19;
+    public static final int OCCURRENCE=15;
+    public static final int Digit=31;
+    public static final int TOKENIZEDTYPE=6;
+    public static final int EntityRef=39;
+    public static final int DECL=11;
+    public static final int STRINGTYPE=5;
+    public static final int Dot=26;
+    public static final int Name=36;
+    public static final int Comma=23;
+    public static final int Letter=30;
+    public static final int Element=42;
 
     // delegates
     // delegators
@@ -512,12 +512,12 @@ public class DTDLexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:88:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
-            // DTD.g:88:9: '<!--' ( options {greedy=false; } : . )* '-->'
+            // DTD.g:87:5: ( '<!--' ( options {greedy=false; } : . )* '-->' )
+            // DTD.g:87:9: '<!--' ( options {greedy=false; } : . )* '-->'
             {
             match("<!--"); 
 
-            // DTD.g:88:16: ( options {greedy=false; } : . )*
+            // DTD.g:87:16: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -551,7 +551,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // DTD.g:88:43: .
+            	    // DTD.g:87:43: .
             	    {
             	    matchAny(); 
 
@@ -582,8 +582,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = At;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:91:3: ( '@' )
-            // DTD.g:91:5: '@'
+            // DTD.g:90:3: ( '@' )
+            // DTD.g:90:5: '@'
             {
             match('@'); 
 
@@ -602,8 +602,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:92:6: ( ':' )
-            // DTD.g:92:8: ':'
+            // DTD.g:91:6: ( ':' )
+            // DTD.g:91:8: ':'
             {
             match(':'); 
 
@@ -622,8 +622,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:93:6: ( ',' )
-            // DTD.g:93:8: ','
+            // DTD.g:92:6: ( ',' )
+            // DTD.g:92:8: ','
             {
             match(','); 
 
@@ -642,8 +642,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Apos;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:94:5: ( '\\'' )
-            // DTD.g:94:7: '\\''
+            // DTD.g:93:5: ( '\\'' )
+            // DTD.g:93:7: '\\''
             {
             match('\''); 
 
@@ -662,8 +662,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Quot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:95:5: ( '\"' )
-            // DTD.g:95:7: '\"'
+            // DTD.g:94:5: ( '\"' )
+            // DTD.g:94:7: '\"'
             {
             match('\"'); 
 
@@ -682,8 +682,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:96:4: ( '.' )
-            // DTD.g:96:6: '.'
+            // DTD.g:95:4: ( '.' )
+            // DTD.g:95:6: '.'
             {
             match('.'); 
 
@@ -702,8 +702,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = SemiColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:97:10: ( ';' )
-            // DTD.g:97:12: ';'
+            // DTD.g:96:10: ( ';' )
+            // DTD.g:96:12: ';'
             {
             match(';'); 
 
@@ -722,8 +722,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = LParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:99:7: ( '(' )
-            // DTD.g:99:9: '('
+            // DTD.g:98:7: ( '(' )
+            // DTD.g:98:9: '('
             {
             match('('); 
 
@@ -742,8 +742,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = RParen;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:100:7: ( ')' )
-            // DTD.g:100:9: ')'
+            // DTD.g:99:7: ( ')' )
+            // DTD.g:99:9: ')'
             {
             match(')'); 
 
@@ -760,7 +760,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // DTD.g:102:16: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // DTD.g:101:16: ( 'a' .. 'z' | 'A' .. 'Z' )
             // DTD.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -784,8 +784,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // DTD.g:103:15: ( '0' .. '9' )
-            // DTD.g:103:17: '0' .. '9'
+            // DTD.g:102:15: ( '0' .. '9' )
+            // DTD.g:102:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -802,10 +802,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Digits;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:104:7: ( ( Digit )+ )
-            // DTD.g:104:9: ( Digit )+
+            // DTD.g:103:7: ( ( Digit )+ )
+            // DTD.g:103:9: ( Digit )+
             {
-            // DTD.g:104:9: ( Digit )+
+            // DTD.g:103:9: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -819,7 +819,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // DTD.g:104:10: Digit
+            	    // DTD.g:103:10: Digit
             	    {
             	    mDigit(); 
 
@@ -849,7 +849,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "NameChar"
     public final void mNameChar() throws RecognitionException {
         try {
-            // DTD.g:106:18: ( Letter | Digit | '_' | '-' | At )
+            // DTD.g:105:18: ( Letter | Digit | '_' | '-' | At )
             // DTD.g:
             {
             if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='@' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -875,10 +875,10 @@ public class DTDLexer extends Lexer {
         try {
             int _type = WhiteSpaceChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:108:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
-            // DTD.g:108:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:107:15: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             {
-            // DTD.g:108:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+            // DTD.g:107:17: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
             int cnt3=0;
             loop3:
             do {
@@ -933,7 +933,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:111:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
+            // DTD.g:110:1: ( Quot (~ '\"' )* Quot | Apos (~ '\\'' )* Apos )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -951,10 +951,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // DTD.g:111:3: Quot (~ '\"' )* Quot
+                    // DTD.g:110:3: Quot (~ '\"' )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:111:8: (~ '\"' )*
+                    // DTD.g:110:8: (~ '\"' )*
                     loop4:
                     do {
                         int alt4=2;
@@ -967,7 +967,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // DTD.g:111:9: ~ '\"'
+                    	    // DTD.g:110:9: ~ '\"'
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -992,10 +992,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:112:3: Apos (~ '\\'' )* Apos
+                    // DTD.g:111:3: Apos (~ '\\'' )* Apos
                     {
                     mApos(); 
-                    // DTD.g:112:8: (~ '\\'' )*
+                    // DTD.g:111:8: (~ '\\'' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1008,7 +1008,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // DTD.g:112:9: ~ '\\''
+                    	    // DTD.g:111:9: ~ '\\''
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1047,8 +1047,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:114:5: ( ( Letter | '_' ) ( NameChar )* )
-            // DTD.g:114:7: ( Letter | '_' ) ( NameChar )*
+            // DTD.g:113:5: ( ( Letter | '_' ) ( NameChar )* )
+            // DTD.g:113:7: ( Letter | '_' ) ( NameChar )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1059,7 +1059,7 @@ public class DTDLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // DTD.g:114:22: ( NameChar )*
+            // DTD.g:113:22: ( NameChar )*
             loop7:
             do {
                 int alt7=2;
@@ -1072,7 +1072,7 @@ public class DTDLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // DTD.g:114:22: NameChar
+            	    // DTD.g:113:22: NameChar
             	    {
             	    mNameChar(); 
 
@@ -1098,7 +1098,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "AttValue"
     public final void mAttValue() throws RecognitionException {
         try {
-            // DTD.g:117:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
+            // DTD.g:116:18: ( Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot | Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1116,10 +1116,10 @@ public class DTDLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // DTD.g:118:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
+                    // DTD.g:117:5: Quot (~ ( '<' | '&' | Quot ) | Reference )* Quot
                     {
                     mQuot(); 
-                    // DTD.g:118:10: (~ ( '<' | '&' | Quot ) | Reference )*
+                    // DTD.g:117:10: (~ ( '<' | '&' | Quot ) | Reference )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1135,7 +1135,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // DTD.g:118:11: ~ ( '<' | '&' | Quot )
+                    	    // DTD.g:117:11: ~ ( '<' | '&' | Quot )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1150,7 +1150,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:118:33: Reference
+                    	    // DTD.g:117:33: Reference
                     	    {
                     	    mReference(); 
 
@@ -1167,10 +1167,10 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:119:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
+                    // DTD.g:118:7: Apos (~ ( '<' | '&' | Apos ) | Reference )* Apos
                     {
                     mApos(); 
-                    // DTD.g:119:12: (~ ( '<' | '&' | Apos ) | Reference )*
+                    // DTD.g:118:12: (~ ( '<' | '&' | Apos ) | Reference )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1186,7 +1186,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // DTD.g:119:13: ~ ( '<' | '&' | Apos )
+                    	    // DTD.g:118:13: ~ ( '<' | '&' | Apos )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1201,7 +1201,7 @@ public class DTDLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // DTD.g:119:35: Reference
+                    	    // DTD.g:118:35: Reference
                     	    {
                     	    mReference(); 
 
@@ -1230,7 +1230,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Reference;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:122:10: ( EntityRef | CharRef )
+            // DTD.g:121:10: ( EntityRef | CharRef )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1258,14 +1258,14 @@ public class DTDLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // DTD.g:122:12: EntityRef
+                    // DTD.g:121:12: EntityRef
                     {
                     mEntityRef(); 
 
                     }
                     break;
                 case 2 :
-                    // DTD.g:122:24: CharRef
+                    // DTD.g:121:24: CharRef
                     {
                     mCharRef(); 
 
@@ -1284,8 +1284,8 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "EntityRef"
     public final void mEntityRef() throws RecognitionException {
         try {
-            // DTD.g:123:19: ( '&' Name SemiColon )
-            // DTD.g:123:21: '&' Name SemiColon
+            // DTD.g:122:19: ( '&' Name SemiColon )
+            // DTD.g:122:21: '&' Name SemiColon
             {
             match('&'); 
             mName(); 
@@ -1302,7 +1302,7 @@ public class DTDLexer extends Lexer {
     // $ANTLR start "CharRef"
     public final void mCharRef() throws RecognitionException {
         try {
-            // DTD.g:124:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
+            // DTD.g:123:17: ( '&#' ( '0' .. '9' )+ SemiColon | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1340,11 +1340,11 @@ public class DTDLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // DTD.g:124:19: '&#' ( '0' .. '9' )+ SemiColon
+                    // DTD.g:123:19: '&#' ( '0' .. '9' )+ SemiColon
                     {
                     match("&#"); 
 
-                    // DTD.g:124:24: ( '0' .. '9' )+
+                    // DTD.g:123:24: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -1358,7 +1358,7 @@ public class DTDLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // DTD.g:124:25: '0' .. '9'
+                    	    // DTD.g:123:25: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1379,11 +1379,11 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:124:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
+                    // DTD.g:123:48: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ SemiColon
                     {
                     match("&#x"); 
 
-                    // DTD.g:124:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // DTD.g:123:54: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1438,7 +1438,7 @@ public class DTDLexer extends Lexer {
         try {
             int _type = DefaultDecl;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:128:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
+            // DTD.g:127:3: ( '#REQUIRED' | '#IMPLIED' | ( ( '#FIXED' )? AttValue ) )
             int alt16=3;
             int LA16_0 = input.LA(1);
 
@@ -1478,7 +1478,7 @@ public class DTDLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // DTD.g:128:5: '#REQUIRED'
+                    // DTD.g:127:5: '#REQUIRED'
                     {
                     match("#REQUIRED"); 
 
@@ -1487,7 +1487,7 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // DTD.g:129:5: '#IMPLIED'
+                    // DTD.g:128:5: '#IMPLIED'
                     {
                     match("#IMPLIED"); 
 
@@ -1496,12 +1496,12 @@ public class DTDLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // DTD.g:130:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
                     {
-                    // DTD.g:130:5: ( ( '#FIXED' )? AttValue )
-                    // DTD.g:130:6: ( '#FIXED' )? AttValue
+                    // DTD.g:129:5: ( ( '#FIXED' )? AttValue )
+                    // DTD.g:129:6: ( '#FIXED' )? AttValue
                     {
-                    // DTD.g:130:6: ( '#FIXED' )?
+                    // DTD.g:129:6: ( '#FIXED' )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1510,7 +1510,7 @@ public class DTDLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // DTD.g:130:6: '#FIXED'
+                            // DTD.g:129:6: '#FIXED'
                             {
                             match("#FIXED"); 
 
@@ -1543,8 +1543,8 @@ public class DTDLexer extends Lexer {
         try {
             int _type = Element;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // DTD.g:133:8: ( '<!ELEMENT' )
-            // DTD.g:133:10: '<!ELEMENT'
+            // DTD.g:132:8: ( '<!ELEMENT' )
+            // DTD.g:132:10: '<!ELEMENT'
             {
             match("<!ELEMENT"); 
 
@@ -1840,30 +1840,30 @@ public class DTDLexer extends Lexer {
     static final String DFA17_minS =
         "\1\11\1\uffff\1\115\1\116\4\uffff\1\106\1\41\1\115\2\104\4\uffff"+
         "\2\0\10\uffff\1\120\1\124\1\131\2\uffff\1\55\2\124\1\101\1\55\1"+
-        "\uffff\2\0\3\uffff\2\0\1\uffff\1\124\1\111\1\55\1\uffff\1\114\1"+
-        "\uffff\1\101\1\117\1\124\1\105\1\uffff\4\0\1\131\1\124\3\uffff\1"+
-        "\124\1\113\1\101\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff\1"+
-        "\55\1\105\1\117\1\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1\116"+
-        "\1\55\1\uffff\3\55\4\uffff";
+        "\uffff\2\0\3\uffff\1\0\1\uffff\1\0\1\124\1\111\1\55\1\uffff\1\114"+
+        "\1\uffff\1\101\1\117\1\124\1\105\1\uffff\4\0\1\131\1\124\3\uffff"+
+        "\1\124\1\113\1\101\1\106\10\0\1\55\2\111\1\105\2\55\4\0\1\uffff"+
+        "\1\55\1\105\1\117\1\116\1\uffff\1\55\1\uffff\2\0\1\uffff\1\123\1"+
+        "\116\1\55\1\uffff\3\55\4\uffff";
     static final String DFA17_maxS =
         "\1\174\1\uffff\2\116\4\uffff\1\122\1\41\1\117\2\104\4\uffff\2\uffff"+
         "\10\uffff\1\120\1\124\1\131\2\uffff\1\105\2\124\1\101\1\172\1\uffff"+
-        "\2\uffff\3\uffff\2\uffff\1\uffff\1\124\1\111\1\172\1\uffff\1\116"+
-        "\1\uffff\1\101\1\117\1\124\1\105\1\uffff\4\uffff\1\131\1\124\3\uffff"+
-        "\1\124\1\113\1\101\1\106\10\uffff\1\172\1\131\1\111\1\105\2\172"+
-        "\4\uffff\1\uffff\1\172\1\105\1\117\1\116\1\uffff\1\172\1\uffff\2"+
-        "\uffff\1\uffff\1\123\1\116\1\172\1\uffff\3\172\4\uffff";
+        "\2\uffff\3\uffff\1\uffff\1\uffff\1\uffff\1\124\1\111\1\172\1\uffff"+
+        "\1\116\1\uffff\1\101\1\117\1\124\1\105\1\uffff\4\uffff\1\131\1\124"+
+        "\3\uffff\1\124\1\113\1\101\1\106\10\uffff\1\172\1\131\1\111\1\105"+
+        "\2\172\4\uffff\1\uffff\1\172\1\105\1\117\1\116\1\uffff\1\172\1\uffff"+
+        "\2\uffff\1\uffff\1\123\1\116\1\172\1\uffff\3\172\4\uffff";
     static final String DFA17_acceptS =
         "\1\uffff\1\1\2\uffff\1\4\1\5\1\6\1\7\5\uffff\1\24\1\26\1\27\1\30"+
         "\2\uffff\1\33\1\34\1\35\1\36\1\37\1\40\1\42\1\43\3\uffff\1\10\1"+
-        "\44\5\uffff\1\31\2\uffff\2\41\1\32\2\uffff\1\41\3\uffff\1\11\1\uffff"+
+        "\44\5\uffff\1\31\2\uffff\2\41\1\32\1\uffff\1\41\4\uffff\1\11\1\uffff"+
         "\1\25\4\uffff\1\14\6\uffff\1\3\1\23\1\45\26\uffff\1\2\4\uffff\1"+
         "\13\1\uffff\1\15\2\uffff\1\17\3\uffff\1\16\3\uffff\1\21\1\20\1\12"+
         "\1\22";
     static final String DFA17_specialS =
-        "\21\uffff\1\17\1\23\23\uffff\1\10\1\6\3\uffff\1\2\1\11\14\uffff"+
-        "\1\27\1\15\1\26\1\4\11\uffff\1\20\1\7\1\3\1\1\1\25\1\16\1\12\1\24"+
-        "\6\uffff\1\21\1\0\1\22\1\14\10\uffff\1\5\1\13\14\uffff}>";
+        "\21\uffff\1\17\1\2\23\uffff\1\23\1\7\3\uffff\1\11\1\uffff\1\13"+
+        "\13\uffff\1\20\1\22\1\25\1\5\11\uffff\1\10\1\27\1\3\1\15\1\6\1\16"+
+        "\1\0\1\24\6\uffff\1\4\1\1\1\21\1\14\10\uffff\1\12\1\26\14\uffff}>";
     static final String[] DFA17_transitionS = {
             "\2\30\1\uffff\2\30\22\uffff\1\30\1\uffff\1\22\1\10\1\uffff"+
             "\1\15\1\32\1\21\1\25\1\26\1\5\1\6\1\20\1\uffff\1\23\1\uffff"+
@@ -1887,7 +1887,7 @@ public class DTDLexer extends Lexer {
             "",
             "",
             "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
-            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\42\53\1\54\3\53\1\55\25\53\1\51\uffc3\53",
             "",
             "",
             "",
@@ -1913,9 +1913,9 @@ public class DTDLexer extends Lexer {
             "",
             "",
             "",
-            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
-            "\43\51\1\73\35\51\32\74\4\51\1\74\1\51\32\74\uff85\51",
+            "\42\53\1\54\3\53\1\55\25\53\1\51\uffc3\53",
             "",
+            "\43\51\1\73\35\51\32\74\4\51\1\74\1\51\32\74\uff85\51",
             "\1\75",
             "\1\76",
             "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
@@ -1952,7 +1952,7 @@ public class DTDLexer extends Lexer {
             "\60\51\12\113\1\51\1\127\uffc4\51",
             "\55\51\1\114\2\51\12\114\1\51\1\115\4\51\33\114\4\51\1\114"+
             "\1\51\32\114\uff85\51",
-            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\42\53\1\54\3\53\1\55\25\53\1\51\uffc3\53",
             "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
             "\31",
             "\1\132\17\uffff\1\131",
@@ -1965,7 +1965,7 @@ public class DTDLexer extends Lexer {
             "\60\51\12\124\1\51\1\140\5\51\6\124\32\51\6\124\uff99\51",
             "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
             "\60\51\12\126\1\51\1\141\5\51\6\126\32\51\6\126\uff99\51",
-            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\42\53\1\54\3\53\1\55\25\53\1\51\uffc3\53",
             "",
             "\1\31\2\uffff\12\31\6\uffff\33\31\4\uffff\1\31\1\uffff\32"+
             "\31",
@@ -1977,7 +1977,7 @@ public class DTDLexer extends Lexer {
             "\31",
             "",
             "\46\46\1\47\1\50\24\46\1\51\uffc3\46",
-            "\42\53\1\55\3\53\1\54\25\53\1\51\uffc3\53",
+            "\42\53\1\54\3\53\1\55\25\53\1\51\uffc3\53",
             "",
             "\1\147",
             "\1\150",
@@ -2033,6 +2033,18 @@ public class DTDLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA17_76 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_76>='\u0000' && LA17_76<=',')||(LA17_76>='.' && LA17_76<='/')||LA17_76==':'||(LA17_76>='<' && LA17_76<='?')||(LA17_76>='[' && LA17_76<='^')||LA17_76=='`'||(LA17_76>='{' && LA17_76<='\uFFFF')) ) {s = 41;}
+
+                        else if ( (LA17_76==';') ) {s = 77;}
+
+                        else if ( (LA17_76=='-'||(LA17_76>='0' && LA17_76<='9')||(LA17_76>='@' && LA17_76<='Z')||LA17_76=='_'||(LA17_76>='a' && LA17_76<='z')) ) {s = 76;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA17_85 = input.LA(1);
 
                         s = -1;
@@ -2046,31 +2058,19 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
-                        int LA17_73 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_73=='\'') ) {s = 40;}
-
-                        else if ( ((LA17_73>='\u0000' && LA17_73<='%')||(LA17_73>='(' && LA17_73<=';')||(LA17_73>='=' && LA17_73<='\uFFFF')) ) {s = 38;}
-
-                        else if ( (LA17_73=='&') ) {s = 39;}
-
-                        else if ( (LA17_73=='<') ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 2 : 
-                        int LA17_43 = input.LA(1);
+                        int LA17_18 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_43=='\"') ) {s = 45;}
+                        if ( ((LA17_18>='\u0000' && LA17_18<='!')||(LA17_18>='#' && LA17_18<='%')||(LA17_18>='\'' && LA17_18<=';')||(LA17_18>='=' && LA17_18<='\uFFFF')) ) {s = 43;}
 
-                        else if ( ((LA17_43>='\u0000' && LA17_43<='!')||(LA17_43>='#' && LA17_43<='%')||(LA17_43>='\'' && LA17_43<=';')||(LA17_43>='=' && LA17_43<='\uFFFF')) ) {s = 43;}
+                        else if ( (LA17_18=='\"') ) {s = 44;}
 
-                        else if ( (LA17_43=='&') ) {s = 44;}
+                        else if ( (LA17_18=='&') ) {s = 45;}
 
-                        else if ( (LA17_43=='<') ) {s = 41;}
+                        else if ( (LA17_18=='<') ) {s = 41;}
+
+                        else s = 42;
 
                         if ( s>=0 ) return s;
                         break;
@@ -2087,18 +2087,76 @@ public class DTDLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA17_60 = input.LA(1);
+                        int LA17_84 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_60>='\u0000' && LA17_60<=',')||(LA17_60>='.' && LA17_60<='/')||LA17_60==':'||(LA17_60>='<' && LA17_60<='?')||(LA17_60>='[' && LA17_60<='^')||LA17_60=='`'||(LA17_60>='{' && LA17_60<='\uFFFF')) ) {s = 41;}
+                        if ( (LA17_84==';') ) {s = 96;}
 
-                        else if ( (LA17_60=='-'||(LA17_60>='0' && LA17_60<='9')||(LA17_60>='@' && LA17_60<='Z')||LA17_60=='_'||(LA17_60>='a' && LA17_60<='z')) ) {s = 76;}
+                        else if ( ((LA17_84>='0' && LA17_84<='9')||(LA17_84>='A' && LA17_84<='F')||(LA17_84>='a' && LA17_84<='f')) ) {s = 84;}
 
-                        else if ( (LA17_60==';') ) {s = 77;}
+                        else if ( ((LA17_84>='\u0000' && LA17_84<='/')||LA17_84==':'||(LA17_84>='<' && LA17_84<='@')||(LA17_84>='G' && LA17_84<='`')||(LA17_84>='g' && LA17_84<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
+                        int LA17_60 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_60=='-'||(LA17_60>='0' && LA17_60<='9')||(LA17_60>='@' && LA17_60<='Z')||LA17_60=='_'||(LA17_60>='a' && LA17_60<='z')) ) {s = 76;}
+
+                        else if ( (LA17_60==';') ) {s = 77;}
+
+                        else if ( ((LA17_60>='\u0000' && LA17_60<=',')||(LA17_60>='.' && LA17_60<='/')||LA17_60==':'||(LA17_60>='<' && LA17_60<='?')||(LA17_60>='[' && LA17_60<='^')||LA17_60=='`'||(LA17_60>='{' && LA17_60<='\uFFFF')) ) {s = 41;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA17_74 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_74>='\u0000' && LA17_74<='/')||(LA17_74>=':' && LA17_74<='@')||(LA17_74>='G' && LA17_74<='`')||(LA17_74>='g' && LA17_74<='\uFFFF')) ) {s = 41;}
+
+                        else if ( ((LA17_74>='0' && LA17_74<='9')||(LA17_74>='A' && LA17_74<='F')||(LA17_74>='a' && LA17_74<='f')) ) {s = 86;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA17_39 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_39=='#') ) {s = 57;}
+
+                        else if ( ((LA17_39>='A' && LA17_39<='Z')||LA17_39=='_'||(LA17_39>='a' && LA17_39<='z')) ) {s = 58;}
+
+                        else if ( ((LA17_39>='\u0000' && LA17_39<='\"')||(LA17_39>='$' && LA17_39<='@')||(LA17_39>='[' && LA17_39<='^')||LA17_39=='`'||(LA17_39>='{' && LA17_39<='\uFFFF')) ) {s = 41;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA17_70 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA17_70>='\u0000' && LA17_70<='/')||(LA17_70>=':' && LA17_70<='@')||(LA17_70>='G' && LA17_70<='`')||(LA17_70>='g' && LA17_70<='\uFFFF')) ) {s = 41;}
+
+                        else if ( ((LA17_70>='0' && LA17_70<='9')||(LA17_70>='A' && LA17_70<='F')||(LA17_70>='a' && LA17_70<='f')) ) {s = 84;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA17_43 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_43=='\"') ) {s = 44;}
+
+                        else if ( ((LA17_43>='\u0000' && LA17_43<='!')||(LA17_43>='#' && LA17_43<='%')||(LA17_43>='\'' && LA17_43<=';')||(LA17_43>='=' && LA17_43<='\uFFFF')) ) {s = 43;}
+
+                        else if ( (LA17_43=='&') ) {s = 45;}
+
+                        else if ( (LA17_43=='<') ) {s = 41;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
                         int LA17_96 = input.LA(1);
 
                         s = -1;
@@ -2112,79 +2170,15 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA17_39 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_39=='#') ) {s = 57;}
-
-                        else if ( ((LA17_39>='A' && LA17_39<='Z')||LA17_39=='_'||(LA17_39>='a' && LA17_39<='z')) ) {s = 58;}
-
-                        else if ( ((LA17_39>='\u0000' && LA17_39<='\"')||(LA17_39>='$' && LA17_39<='@')||(LA17_39>='[' && LA17_39<='^')||LA17_39=='`'||(LA17_39>='{' && LA17_39<='\uFFFF')) ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA17_71 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_71==';') ) {s = 85;}
-
-                        else if ( ((LA17_71>='0' && LA17_71<='9')) ) {s = 71;}
-
-                        else if ( ((LA17_71>='\u0000' && LA17_71<='/')||LA17_71==':'||(LA17_71>='<' && LA17_71<='\uFFFF')) ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA17_38 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_38=='\'') ) {s = 40;}
-
-                        else if ( ((LA17_38>='\u0000' && LA17_38<='%')||(LA17_38>='(' && LA17_38<=';')||(LA17_38>='=' && LA17_38<='\uFFFF')) ) {s = 38;}
-
-                        else if ( (LA17_38=='&') ) {s = 39;}
-
-                        else if ( (LA17_38=='<') ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA17_44 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_44=='#') ) {s = 59;}
-
-                        else if ( ((LA17_44>='A' && LA17_44<='Z')||LA17_44=='_'||(LA17_44>='a' && LA17_44<='z')) ) {s = 60;}
-
-                        else if ( ((LA17_44>='\u0000' && LA17_44<='\"')||(LA17_44>='$' && LA17_44<='@')||(LA17_44>='[' && LA17_44<='^')||LA17_44=='`'||(LA17_44>='{' && LA17_44<='\uFFFF')) ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA17_76 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA17_76==';') ) {s = 77;}
-
-                        else if ( (LA17_76=='-'||(LA17_76>='0' && LA17_76<='9')||(LA17_76>='@' && LA17_76<='Z')||LA17_76=='_'||(LA17_76>='a' && LA17_76<='z')) ) {s = 76;}
-
-                        else if ( ((LA17_76>='\u0000' && LA17_76<=',')||(LA17_76>='.' && LA17_76<='/')||LA17_76==':'||(LA17_76>='<' && LA17_76<='?')||(LA17_76>='[' && LA17_76<='^')||LA17_76=='`'||(LA17_76>='{' && LA17_76<='\uFFFF')) ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 11 : 
-                        int LA17_97 = input.LA(1);
+                        int LA17_45 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_97=='\"') ) {s = 45;}
+                        if ( (LA17_45=='#') ) {s = 59;}
 
-                        else if ( ((LA17_97>='\u0000' && LA17_97<='!')||(LA17_97>='#' && LA17_97<='%')||(LA17_97>='\'' && LA17_97<=';')||(LA17_97>='=' && LA17_97<='\uFFFF')) ) {s = 43;}
+                        else if ( ((LA17_45>='\u0000' && LA17_45<='\"')||(LA17_45>='$' && LA17_45<='@')||(LA17_45>='[' && LA17_45<='^')||LA17_45=='`'||(LA17_45>='{' && LA17_45<='\uFFFF')) ) {s = 41;}
 
-                        else if ( (LA17_97=='&') ) {s = 44;}
-
-                        else if ( (LA17_97=='<') ) {s = 41;}
+                        else if ( ((LA17_45>='A' && LA17_45<='Z')||LA17_45=='_'||(LA17_45>='a' && LA17_45<='z')) ) {s = 60;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -2192,25 +2186,27 @@ public class DTDLexer extends Lexer {
                         int LA17_87 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_87=='\"') ) {s = 45;}
+                        if ( (LA17_87=='\"') ) {s = 44;}
 
                         else if ( ((LA17_87>='\u0000' && LA17_87<='!')||(LA17_87>='#' && LA17_87<='%')||(LA17_87>='\'' && LA17_87<=';')||(LA17_87>='=' && LA17_87<='\uFFFF')) ) {s = 43;}
 
-                        else if ( (LA17_87=='&') ) {s = 44;}
+                        else if ( (LA17_87=='&') ) {s = 45;}
 
                         else if ( (LA17_87=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA17_58 = input.LA(1);
+                        int LA17_73 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_58=='-'||(LA17_58>='0' && LA17_58<='9')||(LA17_58>='@' && LA17_58<='Z')||LA17_58=='_'||(LA17_58>='a' && LA17_58<='z')) ) {s = 72;}
+                        if ( (LA17_73=='\'') ) {s = 40;}
 
-                        else if ( (LA17_58==';') ) {s = 73;}
+                        else if ( ((LA17_73>='\u0000' && LA17_73<='%')||(LA17_73>='(' && LA17_73<=';')||(LA17_73>='=' && LA17_73<='\uFFFF')) ) {s = 38;}
 
-                        else if ( ((LA17_58>='\u0000' && LA17_58<=',')||(LA17_58>='.' && LA17_58<='/')||LA17_58==':'||(LA17_58>='<' && LA17_58<='?')||(LA17_58>='[' && LA17_58<='^')||LA17_58=='`'||(LA17_58>='{' && LA17_58<='\uFFFF')) ) {s = 41;}
+                        else if ( (LA17_73=='&') ) {s = 39;}
+
+                        else if ( (LA17_73=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -2218,11 +2214,11 @@ public class DTDLexer extends Lexer {
                         int LA17_75 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_75==';') ) {s = 87;}
+                        if ( ((LA17_75>='\u0000' && LA17_75<='/')||LA17_75==':'||(LA17_75>='<' && LA17_75<='\uFFFF')) ) {s = 41;}
+
+                        else if ( (LA17_75==';') ) {s = 87;}
 
                         else if ( ((LA17_75>='0' && LA17_75<='9')) ) {s = 75;}
-
-                        else if ( ((LA17_75>='\u0000' && LA17_75<='/')||LA17_75==':'||(LA17_75>='<' && LA17_75<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -2243,52 +2239,52 @@ public class DTDLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA17_70 = input.LA(1);
+                        int LA17_57 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_70>='0' && LA17_70<='9')||(LA17_70>='A' && LA17_70<='F')||(LA17_70>='a' && LA17_70<='f')) ) {s = 84;}
+                        if ( (LA17_57=='x') ) {s = 70;}
 
-                        else if ( ((LA17_70>='\u0000' && LA17_70<='/')||(LA17_70>=':' && LA17_70<='@')||(LA17_70>='G' && LA17_70<='`')||(LA17_70>='g' && LA17_70<='\uFFFF')) ) {s = 41;}
+                        else if ( ((LA17_57>='0' && LA17_57<='9')) ) {s = 71;}
+
+                        else if ( ((LA17_57>='\u0000' && LA17_57<='/')||(LA17_57>=':' && LA17_57<='w')||(LA17_57>='y' && LA17_57<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA17_84 = input.LA(1);
+                        int LA17_86 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_84==';') ) {s = 96;}
+                        if ( (LA17_86==';') ) {s = 97;}
 
-                        else if ( ((LA17_84>='0' && LA17_84<='9')||(LA17_84>='A' && LA17_84<='F')||(LA17_84>='a' && LA17_84<='f')) ) {s = 84;}
+                        else if ( ((LA17_86>='0' && LA17_86<='9')||(LA17_86>='A' && LA17_86<='F')||(LA17_86>='a' && LA17_86<='f')) ) {s = 86;}
 
-                        else if ( ((LA17_84>='\u0000' && LA17_84<='/')||LA17_84==':'||(LA17_84>='<' && LA17_84<='@')||(LA17_84>='G' && LA17_84<='`')||(LA17_84>='g' && LA17_84<='\uFFFF')) ) {s = 41;}
+                        else if ( ((LA17_86>='\u0000' && LA17_86<='/')||LA17_86==':'||(LA17_86>='<' && LA17_86<='@')||(LA17_86>='G' && LA17_86<='`')||(LA17_86>='g' && LA17_86<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA17_86 = input.LA(1);
+                        int LA17_58 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_86>='\u0000' && LA17_86<='/')||LA17_86==':'||(LA17_86>='<' && LA17_86<='@')||(LA17_86>='G' && LA17_86<='`')||(LA17_86>='g' && LA17_86<='\uFFFF')) ) {s = 41;}
+                        if ( (LA17_58=='-'||(LA17_58>='0' && LA17_58<='9')||(LA17_58>='@' && LA17_58<='Z')||LA17_58=='_'||(LA17_58>='a' && LA17_58<='z')) ) {s = 72;}
 
-                        else if ( (LA17_86==';') ) {s = 97;}
+                        else if ( (LA17_58==';') ) {s = 73;}
 
-                        else if ( ((LA17_86>='0' && LA17_86<='9')||(LA17_86>='A' && LA17_86<='F')||(LA17_86>='a' && LA17_86<='f')) ) {s = 86;}
+                        else if ( ((LA17_58>='\u0000' && LA17_58<=',')||(LA17_58>='.' && LA17_58<='/')||LA17_58==':'||(LA17_58>='<' && LA17_58<='?')||(LA17_58>='[' && LA17_58<='^')||LA17_58=='`'||(LA17_58>='{' && LA17_58<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 19 : 
-                        int LA17_18 = input.LA(1);
+                        int LA17_38 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA17_18>='\u0000' && LA17_18<='!')||(LA17_18>='#' && LA17_18<='%')||(LA17_18>='\'' && LA17_18<=';')||(LA17_18>='=' && LA17_18<='\uFFFF')) ) {s = 43;}
+                        if ( (LA17_38=='\'') ) {s = 40;}
 
-                        else if ( (LA17_18=='&') ) {s = 44;}
+                        else if ( ((LA17_38>='\u0000' && LA17_38<='%')||(LA17_38>='(' && LA17_38<=';')||(LA17_38>='=' && LA17_38<='\uFFFF')) ) {s = 38;}
 
-                        else if ( (LA17_18=='\"') ) {s = 45;}
+                        else if ( (LA17_38=='&') ) {s = 39;}
 
-                        else if ( (LA17_18=='<') ) {s = 41;}
-
-                        else s = 42;
+                        else if ( (LA17_38=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -2296,27 +2292,17 @@ public class DTDLexer extends Lexer {
                         int LA17_77 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_77=='\"') ) {s = 45;}
+                        if ( (LA17_77=='\"') ) {s = 44;}
 
                         else if ( ((LA17_77>='\u0000' && LA17_77<='!')||(LA17_77>='#' && LA17_77<='%')||(LA17_77>='\'' && LA17_77<=';')||(LA17_77>='=' && LA17_77<='\uFFFF')) ) {s = 43;}
 
-                        else if ( (LA17_77=='&') ) {s = 44;}
+                        else if ( (LA17_77=='&') ) {s = 45;}
 
                         else if ( (LA17_77=='<') ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA17_74 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA17_74>='0' && LA17_74<='9')||(LA17_74>='A' && LA17_74<='F')||(LA17_74>='a' && LA17_74<='f')) ) {s = 86;}
-
-                        else if ( ((LA17_74>='\u0000' && LA17_74<='/')||(LA17_74>=':' && LA17_74<='@')||(LA17_74>='G' && LA17_74<='`')||(LA17_74>='g' && LA17_74<='\uFFFF')) ) {s = 41;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
                         int LA17_59 = input.LA(1);
 
                         s = -1;
@@ -2328,15 +2314,29 @@ public class DTDLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA17_57 = input.LA(1);
+                    case 22 : 
+                        int LA17_97 = input.LA(1);
 
                         s = -1;
-                        if ( (LA17_57=='x') ) {s = 70;}
+                        if ( (LA17_97=='\"') ) {s = 44;}
 
-                        else if ( ((LA17_57>='0' && LA17_57<='9')) ) {s = 71;}
+                        else if ( ((LA17_97>='\u0000' && LA17_97<='!')||(LA17_97>='#' && LA17_97<='%')||(LA17_97>='\'' && LA17_97<=';')||(LA17_97>='=' && LA17_97<='\uFFFF')) ) {s = 43;}
 
-                        else if ( ((LA17_57>='\u0000' && LA17_57<='/')||(LA17_57>=':' && LA17_57<='w')||(LA17_57>='y' && LA17_57<='\uFFFF')) ) {s = 41;}
+                        else if ( (LA17_97=='&') ) {s = 45;}
+
+                        else if ( (LA17_97=='<') ) {s = 41;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA17_71 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA17_71==';') ) {s = 85;}
+
+                        else if ( ((LA17_71>='0' && LA17_71<='9')) ) {s = 71;}
+
+                        else if ( ((LA17_71>='\u0000' && LA17_71<='/')||LA17_71==':'||(LA17_71>='<' && LA17_71<='\uFFFF')) ) {s = 41;}
 
                         if ( s>=0 ) return s;
                         break;

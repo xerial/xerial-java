@@ -31,7 +31,6 @@ import org.antlr.runtime.tree.Tree;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.lens.Lens;
-import org.xerial.lens.ObjectLens;
 import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.lens.relation.TupleElement;
@@ -41,6 +40,7 @@ import org.xerial.lens.relation.query.impl.LensQueryLexer;
 import org.xerial.lens.relation.query.impl.LensQueryParser;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
+import org.xerial.util.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 
 /**
@@ -49,18 +49,21 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class RelationExpr extends Tuple<RelationAttribute> {
+public class RelationExpr extends Tuple<RelationAttribute>
+{
 
     private static Logger _logger = Logger.getLogger(RelationExpr.class);
 
-    public String name;
-    public String alias;
+    public String         name;
+    public String         alias;
 
-    private static class RelationQuery {
+    private static class RelationQuery
+    {
         public RelationExpr relation;
     }
 
-    public static class TreeDefinition {
+    public static class TreeDefinition
+    {
         private String name;
 
         public TreeDefinition() {}
@@ -97,9 +100,7 @@ public class RelationExpr extends Tuple<RelationAttribute> {
         try {
             LensQueryParser.relation_return ret = p.relation();
             if (_logger.isDebugEnabled())
-                _logger
-                        .debug(ANTLRUtil
-                                .parseTree((Tree) ret.getTree(), LensQueryParser.tokenNames));
+                _logger.debug(ANTLRUtil.parseTree((Tree) ret.getTree(), LensQueryParser.tokenNames));
 
             RelationQuery r = Lens.loadANTLRParseTree(RelationQuery.class, (Tree) ret.getTree(),
                     LensQueryParser.tokenNames);
@@ -160,8 +161,8 @@ public class RelationExpr extends Tuple<RelationAttribute> {
                 for (Schema s : re.buildQuerySet().getTargetQuerySet())
                     b.addQueryTarget(s);
 
-                b.addQueryTarget(new SchemaBuilder().add(cName).add(
-                        ObjectLens.getCanonicalParameterName(re.name)).build());
+                b.addQueryTarget(new SchemaBuilder().add(cName).add(ObjectLens.getCanonicalParameterName(re.name))
+                        .build());
             }
             else {
                 RelationAttribute ra = RelationAttribute.class.cast(each);

@@ -38,7 +38,6 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.Lens;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.ReflectionUtil;
 import org.xerial.util.TypeInfo;
@@ -47,42 +46,43 @@ import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.bean.impl.BeanBindingProcess;
 import org.xerial.util.bean.impl.BeanUtilImpl;
+import org.xerial.xml.XMLGenerator;
+import org.xerial.xml.XMLTreeParser;
+import org.xerial.xml.XMLTreeWalker;
 
-public class XMLLens {
+public class XMLLens
+{
 
-    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException,
-            XerialException {
+    public static <Result> Result loadXML(Result result, URL xmlResource) throws IOException, XerialException {
         if (xmlResource == null)
             throw new NullPointerException("XML resource is null");
 
-        return Lens.load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(
-                xmlResource.openStream()))));
+        return Lens
+                .load(result, new XMLTreeParser(new BufferedReader(new InputStreamReader(xmlResource.openStream()))));
     }
 
-    public static <Result> Result loadXML(Class<Result> result, URL xmlResource)
-            throws IOException, XerialException {
+    public static <Result> Result loadXML(Class<Result> result, URL xmlResource) throws IOException, XerialException {
         return loadXML(TypeInfo.createInstance(result), xmlResource);
     }
 
-    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader)
-            throws IOException, XerialException {
+    public static <Result> Result loadXML(Class<Result> result, Reader xmlReader) throws IOException, XerialException {
         return loadXML(TypeInfo.createInstance(result), xmlReader);
     }
 
-    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException,
-            XerialException {
+    public static <Result> Result loadXML(Result result, Reader xmlReader) throws IOException, XerialException {
         return Lens.load(result, new XMLTreeParser(xmlReader));
     }
 
-    public static <Result> void findFromXML(Reader input, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException {
+    public static <Result> void findFromXML(Reader input, String targetNodeName, Class<Result> targetType,
+            ObjectHandler<Result> handler) throws XerialException {
         Lens.find(targetType, targetNodeName, handler, new XMLTreeParser(input));
     }
 
-    private static class BeanToXMLProcess {
+    private static class BeanToXMLProcess
+    {
         private ByteArrayOutputStream _buffer = new ByteArrayOutputStream();
 
-        private XMLGenerator _out = new XMLGenerator(_buffer);
+        private XMLGenerator          _out    = new XMLGenerator(_buffer);
 
         public BeanToXMLProcess() {
 
@@ -158,8 +158,8 @@ public class XMLLens {
         return bp.generateXML(tagName, bean);
     }
 
-    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws XerialException,
-            IOException, XerialException {
+    public static <E> E createXMLBean(Class<E> valueType, Reader xmlReader) throws XerialException, IOException,
+            XerialException {
         return createBeanFromXML(valueType, xmlReader);
     }
 
@@ -171,8 +171,7 @@ public class XMLLens {
     }
 
     // XML Stream
-    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader)
-            throws XerialException {
+    public static <E> E createBeanFromXML(Class<E> beanType, Reader xmlReader) throws XerialException {
         return BeanUtilImpl.createTypedBean(new XMLTreeWalker(xmlReader), beanType);
     }
 
@@ -185,13 +184,11 @@ public class XMLLens {
     }
 
     // XML DOM
-    public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement)
-            throws XerialException {
+    public static <E> E createBeanFromXML(Class<E> beanType, Element xmlElement) throws XerialException {
         return BeanUtilImpl.createTypedBean(new XMLTreeWalker(xmlElement), beanType);
     }
 
-    public static Object populateBeanWithXML(Object bean, Element xmlElement)
-            throws XerialException {
+    public static Object populateBeanWithXML(Object bean, Element xmlElement) throws XerialException {
         return BeanUtilImpl.createBean(new XMLTreeWalker(xmlElement), new BeanBindingProcess(bean));
     }
 

@@ -33,17 +33,13 @@ import java.util.Set;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.impl.MapEntry;
-import org.xerial.lens.impl.ParameterSetter;
-import org.xerial.lens.impl.RelationSetter;
-import org.xerial.lens.impl.ParameterSetter.MapEntryBinder;
 import org.xerial.lens.relation.FD;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.query.AmoebaJoinHandler;
 import org.xerial.lens.relation.query.AmoebaJoinHandlerBase;
 import org.xerial.lens.relation.query.QuerySet;
-import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.query.QuerySet.QuerySetBuilder;
+import org.xerial.lens.relation.query.StreamAmoebaJoin;
 import org.xerial.lens.relation.schema.Schema;
 import org.xerial.lens.relation.schema.SchemaBuilder;
 import org.xerial.util.ArrayDeque;
@@ -51,6 +47,11 @@ import org.xerial.util.Deque;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.TypeConverter;
 import org.xerial.util.TypeInfo;
+import org.xerial.util.lens.ObjectLens;
+import org.xerial.util.lens.impl.MapEntry;
+import org.xerial.util.lens.impl.ParameterSetter;
+import org.xerial.util.lens.impl.ParameterSetter.MapEntryBinder;
+import org.xerial.util.lens.impl.RelationSetter;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeParser;
 
@@ -60,13 +61,14 @@ import org.xerial.util.tree.TreeParser;
  * @author leo
  * 
  */
-public class ObjectMapper {
-    private static Logger _logger = Logger.getLogger(ObjectMapper.class);
+public class ObjectMapper
+{
+    private static Logger                            _logger        = Logger.getLogger(ObjectMapper.class);
 
     // schema -> binder 
-    private final HashMap<Schema, Binder> schema2binder = new HashMap<Schema, Binder>();
+    private final HashMap<Schema, Binder>            schema2binder  = new HashMap<Schema, Binder>();
 
-    final QuerySet qs;
+    final QuerySet                                   qs;
     //final ObjectHandler<?> handler;
 
     private static HashMap<Class< ? >, ObjectMapper> prebuiltMapper = new HashMap<Class< ? >, ObjectMapper>();
@@ -100,8 +102,7 @@ public class ObjectMapper {
         return mp.execute(qs, object, parser);
     }
 
-    public <T> void find(ObjectHandler<T> handler, String targetNodeName, TreeParser parser)
-            throws XerialException {
+    public <T> void find(ObjectHandler<T> handler, String targetNodeName, TreeParser parser) throws XerialException {
         MappingProcess mp = new MappingProcess();
         mp.handler = handler;
         mp.execute(qs, "root", parser); // "root" is a dummy object
@@ -125,10 +126,11 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private class QueryBuilder {
-        QuerySetBuilder queryBuilder = new QuerySetBuilder();
-        Schema rootAndTargetNodeSchema = null;
-        private final HashMap<String, Set<Class< ? >>> processedClassTable = new HashMap<String, Set<Class< ? >>>();
+    private class QueryBuilder
+    {
+        QuerySetBuilder                                queryBuilder            = new QuerySetBuilder();
+        Schema                                         rootAndTargetNodeSchema = null;
+        private final HashMap<String, Set<Class< ? >>> processedClassTable     = new HashMap<String, Set<Class< ? >>>();
 
         //Set<Class< ? >> processedClasses = new HashSet<Class< ? >>();
 
@@ -186,12 +188,10 @@ public class ObjectMapper {
                     builder.add("*");
                     Schema s = builder.build();
                     queryBuilder.addQueryTarget(s);
-                    schema2binder.put(s, new PropertyBinder(ObjectLens.getObjectLens(each
-                            .getParameterType())));
+                    schema2binder.put(s, new PropertyBinder(ObjectLens.getObjectLens(each.getParameterType())));
 
                     // (alias, param)
-                    Schema s2 = new SchemaBuilder().add(alias)
-                            .add(each.getCanonicalParameterName()).build();
+                    Schema s2 = new SchemaBuilder().add(alias).add(each.getCanonicalParameterName()).build();
                     queryBuilder.addQueryTarget(s2);
                     schema2binder.put(s2, new AttributeBinder(lens.getTargetType(), each));
 
@@ -215,8 +215,7 @@ public class ObjectMapper {
                 build(each.getCoreNodeType(), each.getCoreNodeName());
                 build(each.getAttributeNodeType(), each.getAttributeNodeName());
 
-                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(
-                        each.getAttributeNodeName()).build();
+                Schema s = new SchemaBuilder().add(each.getCoreNodeName()).add(each.getAttributeNodeName()).build();
                 queryBuilder.addQueryTarget(s);
 
                 schema2binder.put(s, new RelationBinder(lens, each));
@@ -243,16 +242,17 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private static interface Binder {
-        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
-                throws XerialException;
+    private static interface Binder
+    {
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode) throws XerialException;
 
-        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
-                String textValue) throws XerialException;
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException;
 
     }
 
-    private static class TargetNodeReporter<T> implements Binder {
+    private static class TargetNodeReporter<T> implements Binder
+    {
 
         private final Class<T> targetNodeType;
 
@@ -262,23 +262,21 @@ public class ObjectMapper {
         }
 
         @SuppressWarnings("unchecked")
-        public void bind(MappingProcess proc, Schema schema, Node rootNode, Node targetNode)
-                throws XerialException {
+        public void bind(MappingProcess proc, Schema schema, Node rootNode, Node targetNode) throws XerialException {
 
             Object targetNodeInstance = proc.getNodeInstance(targetNode, targetNodeType);
             try {
-                ((ObjectHandler<T>) proc.getObjectHandler()).handle(targetNodeType
-                        .cast(targetNodeInstance));
+                ((ObjectHandler<T>) proc.getObjectHandler()).handle(targetNodeType.cast(targetNodeInstance));
             }
             catch (Exception e) {
                 throw XerialException.convert(e);
             }
         }
 
-        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
-                String textValue) throws XerialException {
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
 
-        // ignore the text event
+            // ignore the text event
         }
 
     }
@@ -289,8 +287,9 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private static class RelationBinder implements Binder {
-        private final ObjectLens lens;
+    private static class RelationBinder implements Binder
+    {
+        private final ObjectLens     lens;
         private final RelationSetter setter;
 
         public RelationBinder(ObjectLens lens, RelationSetter setter) {
@@ -298,16 +297,13 @@ public class ObjectMapper {
             this.setter = setter;
         }
 
-        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
-                throws XerialException {
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode) throws XerialException {
             Object coreNodeInstance = proc.getNodeInstance(coreNode, setter.getCoreNodeType());
-            Object attributeNodeInstance = proc.getNodeInstance(attributeNode, setter
-                    .getAttributeNodeType());
+            Object attributeNodeInstance = proc.getNodeInstance(attributeNode, setter.getAttributeNodeType());
 
             Object contextNode = findContextNode(proc, lens.getTargetType());
             if (contextNode == null)
-                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for "
-                        + setter);
+                throw new XerialException(XerialErrorCode.INVALID_INPUT, "no context node for " + setter);
 
             if (attributeNodeInstance != null) {
                 setter.bind(contextNode, coreNodeInstance, attributeNodeInstance);
@@ -324,13 +320,14 @@ public class ObjectMapper {
             return null;
         }
 
-        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
-                String textValue) throws XerialException {
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
             throw new XerialError(XerialErrorCode.UNSUPPORTED);
         }
     }
 
-    private static class PropertyBinder implements Binder {
+    private static class PropertyBinder implements Binder
+    {
 
         private final ObjectLens lens;
 
@@ -338,16 +335,15 @@ public class ObjectMapper {
             this.lens = lens;
         }
 
-        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
-                throws XerialException {
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode) throws XerialException {
 
             Object coreNodeInstance = proc.getNodeInstance(coreNode, lens.getTargetType());
             if (attributeNode.nodeValue != null)
                 lens.setProperty(coreNodeInstance, attributeNode.nodeName, attributeNode.nodeValue);
         }
 
-        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
-                String textValue) throws XerialException {
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
 
             Object coreNodeInstance = proc.getNodeInstance(coreNode, lens.getTargetType());
             Object prevValue = lens.getProperty(coreNodeInstance, textNode.nodeName);
@@ -365,10 +361,11 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private class AttributeBinder implements Binder {
+    private class AttributeBinder implements Binder
+    {
         final ParameterSetter setter;
-        final Class< ? > coreNodeType;
-        final Class< ? > attributeNodeType;
+        final Class< ? >      coreNodeType;
+        final Class< ? >      attributeNodeType;
 
         public AttributeBinder(Class< ? > coreNodeType, ParameterSetter setter) {
             this.setter = setter;
@@ -377,8 +374,7 @@ public class ObjectMapper {
 
         }
 
-        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode)
-                throws XerialException {
+        public void bind(MappingProcess proc, Schema schema, Node coreNode, Node attributeNode) throws XerialException {
             Object coreNodeInstance = proc.getNodeInstance(coreNode, coreNodeType);
             Object attributeNodeInstance = proc.getNodeInstance(attributeNode, attributeNodeType);
 
@@ -386,8 +382,8 @@ public class ObjectMapper {
                 setter.bind(coreNodeInstance, attributeNodeInstance);
         }
 
-        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode,
-                String textValue) throws XerialException {
+        public void bindText(MappingProcess proc, Schema schema, Node coreNode, Node textNode, String textValue)
+                throws XerialException {
             Object coreNodeInstance = proc.getNodeInstance(coreNode, coreNodeType);
             Object textNodeInstance = proc.getNodeInstance(textNode, attributeNodeType);
 
@@ -405,11 +401,12 @@ public class ObjectMapper {
      * @author leo
      * 
      */
-    private class MappingProcess {
+    private class MappingProcess
+    {
         // id -> corresponding object instance
-        HashMap<Long, Object> objectHolder = new HashMap<Long, Object>();
-        Deque<Object> contextNodeStack = new ArrayDeque<Object>();
-        ObjectHandler< ? > handler = null;
+        HashMap<Long, Object> objectHolder     = new HashMap<Long, Object>();
+        Deque<Object>         contextNodeStack = new ArrayDeque<Object>();
+        ObjectHandler< ? >    handler          = null;
 
         ObjectHandler< ? > getObjectHandler() {
             return handler;
@@ -466,14 +463,12 @@ public class ObjectMapper {
 
         }
 
-        void setTextValue(Object instance, Class< ? > textNodeType, String textValue)
-                throws XerialException {
+        void setTextValue(Object instance, Class< ? > textNodeType, String textValue) throws XerialException {
             // bind the node value to the instance
             ObjectLens lens = ObjectLens.getObjectLens(textNodeType);
             ParameterSetter valueSetter = lens.getValueSetter();
             if (valueSetter != null)
-                valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter
-                        .getParameterType(), textValue));
+                valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter.getParameterType(), textValue));
 
         }
 
@@ -495,8 +490,8 @@ public class ObjectMapper {
                     ObjectLens lens = ObjectLens.getObjectLens(nodeType);
                     ParameterSetter valueSetter = lens.getValueSetter();
                     if (valueSetter != null)
-                        valueSetter.bind(instance, TypeConverter.convertToBasicType(valueSetter
-                                .getParameterType(), nodeValue));
+                        valueSetter.bind(instance,
+                                TypeConverter.convertToBasicType(valueSetter.getParameterType(), nodeValue));
                 }
 
             }
@@ -510,7 +505,8 @@ public class ObjectMapper {
          * @author leo
          * 
          */
-        private class RelationExtracter extends AmoebaJoinHandlerBase {
+        private class RelationExtracter extends AmoebaJoinHandlerBase
+        {
 
             @Override
             public void leaveNode(Schema schema, Node node) throws Exception {
@@ -532,46 +528,38 @@ public class ObjectMapper {
             }
 
             @Override
-            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode)
-                    throws Exception {
+            public void newAmoeba(Schema schema, Node coreNode, Node attributeNode) throws Exception {
                 if (_logger.isTraceEnabled())
-                    _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode,
-                            schema));
+                    _logger.trace(String.format("amoeba: (%s, %s) in %s", coreNode, attributeNode, schema));
 
                 Binder binder = schema2binder.get(schema);
                 if (binder == null)
-                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
-                            + schema);
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
 
                 try {
                     binder.bind(MappingProcess.this, schema, coreNode, attributeNode);
                 }
                 catch (XerialException e) {
-                    _logger.warn(String.format(
-                            "failed to bind: core node=%s, attribute node=%s, schema=%s\n%s",
+                    _logger.warn(String.format("failed to bind: core node=%s, attribute node=%s, schema=%s\n%s",
                             coreNode, attributeNode, schema, e));
                 }
 
             }
 
             @Override
-            public void text(Schema schema, Node coreNode, Node textNode, String textFragment)
-                    throws Exception {
+            public void text(Schema schema, Node coreNode, Node textNode, String textFragment) throws Exception {
                 if (_logger.isTraceEnabled())
-                    _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode,
-                            textFragment, schema));
+                    _logger.trace(String.format("text:   (%s, %s:%s) in %s", coreNode, textNode, textFragment, schema));
 
                 Binder binder = schema2binder.get(schema);
                 if (binder == null)
-                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema "
-                            + schema);
+                    throw new XerialError(XerialErrorCode.INVALID_STATE, "no binder for schema " + schema);
 
                 try {
                     binder.bindText(MappingProcess.this, schema, coreNode, textNode, textFragment);
                 }
                 catch (XerialException e) {
-                    _logger.warn(String.format(
-                            "failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
+                    _logger.warn(String.format("failed to bind text: core node=%s, attributeName=%s, text=%s\n%s",
                             coreNode, textNode, textFragment, e));
                 }
             }

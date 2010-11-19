@@ -22,10 +22,13 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.xerial.lens.xml.dtd.ChildNode;
+import org.xerial.lens.xml.dtd.Occurence;
 
 public class ChildList
 {

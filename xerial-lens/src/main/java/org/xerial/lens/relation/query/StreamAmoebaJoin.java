@@ -34,7 +34,6 @@ import java.util.Map.Entry;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.ObjectLens;
 import org.xerial.lens.relation.Node;
 import org.xerial.lens.relation.Node.NodeBuilder;
 import org.xerial.lens.relation.TupleIndex;
@@ -46,6 +45,7 @@ import org.xerial.util.graph.Edge;
 import org.xerial.util.graph.Lattice;
 import org.xerial.util.graph.LatticeCursor;
 import org.xerial.util.graph.LatticeNode;
+import org.xerial.util.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;
@@ -58,33 +58,35 @@ import org.xerial.util.tree.TreeParser;
  * @author leo
  * 
  */
-public class StreamAmoebaJoin {
-    public static final String ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
+public class StreamAmoebaJoin
+{
+    public static final String                 ALTERNATIVE_ATTRIBUTE_SYMBOL = "-";
 
-    private static Logger _logger = Logger.getLogger(StreamAmoebaJoin.class);
-    private static Logger _logger2 = Logger.getLogger(StreamAmoebaJoin.class, "lattice");
+    private static Logger                      _logger                      = Logger.getLogger(StreamAmoebaJoin.class);
+    private static Logger                      _logger2                     = Logger.getLogger(StreamAmoebaJoin.class,
+                                                                                    "lattice");
 
-    final QuerySet query;
-    final AmoebaJoinHandler handler;
+    final QuerySet                             query;
+    final AmoebaJoinHandler                    handler;
 
-    private final static String EMPTY_NODE_NAME = "";
+    private final static String                EMPTY_NODE_NAME              = "";
 
     // for running amoeba join
-    private long nodeCount = -1;
-    private Lattice<String> nodeNameLattice = new Lattice<String>();
-    private LatticeCursor<String> latticeCursor;
+    private long                               nodeCount                    = -1;
+    private Lattice<String>                    nodeNameLattice              = new Lattice<String>();
+    private LatticeCursor<String>              latticeCursor;
 
-    private Deque<String> currentPath = new ArrayDeque<String>();
-    private Deque<LatticeNode<String>> stateStack = new ArrayDeque<LatticeNode<String>>();
+    private Deque<String>                      currentPath                  = new ArrayDeque<String>();
+    private Deque<LatticeNode<String>>         stateStack                   = new ArrayDeque<LatticeNode<String>>();
 
     //  HashedChainMap<String, XMLNode> nodeStackOfEachTag = new HashedChainMap<String, XMLNode>();
-    private HashedDeque<String, Node> nodeStackOfEachTag = new HashedDeque<String, Node>();
+    private HashedDeque<String, Node>          nodeStackOfEachTag           = new HashedDeque<String, Node>();
 
-    private HashMap<Edge, List<Operation>> operationSetOnForward = new HashMap<Edge, List<Operation>>();
-    private HashMap<Edge, List<Operation>> operationSetOnBack = new HashMap<Edge, List<Operation>>();
-    private HashMap<Edge, List<TextOperation>> operatSetOnText = new HashMap<Edge, List<TextOperation>>();
+    private HashMap<Edge, List<Operation>>     operationSetOnForward        = new HashMap<Edge, List<Operation>>();
+    private HashMap<Edge, List<Operation>>     operationSetOnBack           = new HashMap<Edge, List<Operation>>();
+    private HashMap<Edge, List<TextOperation>> operatSetOnText              = new HashMap<Edge, List<TextOperation>>();
 
-    private int attributeAmoebaSize = 1;
+    private int                                attributeAmoebaSize          = 1;
 
     public StreamAmoebaJoin(QuerySet query, AmoebaJoinHandler handler) throws IOException {
         this.query = query;
@@ -94,11 +96,13 @@ public class StreamAmoebaJoin {
             throw new XerialError(XerialErrorCode.INVALID_INPUT, "query set is null");
     }
 
-    static interface TextOperation {
+    static interface TextOperation
+    {
         void execute(String testNodeName, String textData) throws Exception;
     }
 
-    class PropertyTextSetOperation implements TextOperation {
+    class PropertyTextSetOperation implements TextOperation
+    {
         final String c_coreNodeName;
 
         public PropertyTextSetOperation(String c_coreNodeName) {
@@ -116,7 +120,8 @@ public class StreamAmoebaJoin {
 
     }
 
-    class SimpleTextOperation implements TextOperation {
+    class SimpleTextOperation implements TextOperation
+    {
         final Schema schema;
         final String coreNodeName;
 
@@ -141,7 +146,8 @@ public class StreamAmoebaJoin {
         }
     }
 
-    class ContextBasedTextOperation implements TextOperation {
+    class ContextBasedTextOperation implements TextOperation
+    {
         final HashMap<String, TextOperation> coreNode_action = new HashMap<String, TextOperation>();
 
         public ContextBasedTextOperation(ScopedPushRelation scopedPushOperation) {
@@ -152,8 +158,7 @@ public class StreamAmoebaJoin {
 
         public void execute(String nodeName, String textData) throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
-                    && hop <= attributeAmoebaSize; hop++) {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute(nodeName, textData);
@@ -170,11 +175,13 @@ public class StreamAmoebaJoin {
      * @author leo
      * 
      */
-    static interface Operation {
+    static interface Operation
+    {
         void execute() throws Exception;
     }
 
-    class PushRelation implements Operation {
+    class PushRelation implements Operation
+    {
         final Schema schema;
         final String coreNodeName;
         final String attributeNodeName;
@@ -212,7 +219,8 @@ public class StreamAmoebaJoin {
         }
     }
 
-    class ScopedPushRelation implements Operation {
+    class ScopedPushRelation implements Operation
+    {
         final HashMap<String, PushRelation> coreNode_action = new HashMap<String, PushRelation>();
 
         public ScopedPushRelation(List<PushRelation> candidates) {
@@ -223,8 +231,7 @@ public class StreamAmoebaJoin {
 
         public void execute() throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
-                    && hop <= attributeAmoebaSize; hop++) {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute();
@@ -235,7 +242,8 @@ public class StreamAmoebaJoin {
 
     }
 
-    class ScopedPopRelation implements Operation {
+    class ScopedPopRelation implements Operation
+    {
         final HashMap<String, PopRelation> coreNode_action = new HashMap<String, PopRelation>();
 
         public ScopedPopRelation(List<PushRelation> candidates) {
@@ -248,8 +256,7 @@ public class StreamAmoebaJoin {
 
         public void execute() throws Exception {
             int hop = 0;
-            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext()
-                    && hop <= attributeAmoebaSize; hop++) {
+            for (Iterator<String> it = currentPath.descendingIterator(); it.hasNext() && hop <= attributeAmoebaSize; hop++) {
                 String contextNode = it.next();
                 if (coreNode_action.containsKey(contextNode)) {
                     coreNode_action.get(contextNode).execute();
@@ -263,7 +270,8 @@ public class StreamAmoebaJoin {
 
     }
 
-    class PopRelation implements Operation {
+    class PopRelation implements Operation
+    {
         final Schema schema;
         final String poppedTag;
 
@@ -280,7 +288,8 @@ public class StreamAmoebaJoin {
 
     }
 
-    class PushLoopedRelation implements Operation {
+    class PushLoopedRelation implements Operation
+    {
         final Schema schema;
         final String tagName;
 
@@ -299,8 +308,7 @@ public class StreamAmoebaJoin {
             Node previouslyFoundNode = reverseCursor.next();
 
             if (_logger.isTraceEnabled())
-                _logger.trace(String.format("loop back: %s and %s", previouslyFoundNode,
-                        newlyFoundNode));
+                _logger.trace(String.format("loop back: %s and %s", previouslyFoundNode, newlyFoundNode));
 
             handler.newAmoeba(schema, previouslyFoundNode, newlyFoundNode);
         }
@@ -321,7 +329,8 @@ public class StreamAmoebaJoin {
      * @author leo
      * 
      */
-    private class AmoebaFinder implements TreeEventHandler {
+    private class AmoebaFinder implements TreeEventHandler
+    {
 
         public void finish() throws Exception {
             leaveNode("root");
@@ -342,8 +351,7 @@ public class StreamAmoebaJoin {
 
         public void visitNode(String nodeName, String nodeValue) throws Exception {
 
-            Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue)
-                    .build();
+            Node currentNode = new NodeBuilder(nodeName).nodeID(++nodeCount).nodeValue(nodeValue).build();
 
             String cNodeName = currentNode.getCanonicalNodeName();
             Deque<Node> nodeStack = getNodeStack(cNodeName);
@@ -358,8 +366,7 @@ public class StreamAmoebaJoin {
             // for tree nodes
 
             if (query.isTreeNode(cNodeName)) {
-                throw new XerialError(XerialErrorCode.UNSUPPORTED,
-                        "tree not is not currently supported");
+                throw new XerialError(XerialErrorCode.UNSUPPORTED, "tree not is not currently supported");
             }
 
         }
@@ -389,8 +396,7 @@ public class StreamAmoebaJoin {
                         textOperation.add(new ContextBasedTextOperation((ScopedPushRelation) each));
                     }
                     else
-                        throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: "
-                                + each);
+                        throw new XerialError(XerialErrorCode.INVALID_STATE, "unknown operation: " + each);
                 }
 
             }
@@ -437,8 +443,8 @@ public class StreamAmoebaJoin {
          * @param newlyFoundTag
          * @return
          */
-        private List<Operation> getForwardActionList(LatticeNode<String> prevState,
-                LatticeNode<String> nextState, String newlyFoundTag) {
+        private List<Operation> getForwardActionList(LatticeNode<String> prevState, LatticeNode<String> nextState,
+                String newlyFoundTag) {
             Edge currentEdge = new Edge(prevState.getID(), nextState.getID());
 
             List<Operation> actionList = operationSetOnForward.get(currentEdge);
@@ -479,8 +485,8 @@ public class StreamAmoebaJoin {
                             continue;
 
                         if (_logger2.isTraceEnabled())
-                            _logger2.trace(String.format("new pair: %s, %s (in %s)",
-                                    previouslyFoundNode, newlyFoundTag, r));
+                            _logger2.trace(String.format("new pair: %s, %s (in %s)", previouslyFoundNode,
+                                    newlyFoundTag, r));
 
                         foundAction.add(new PushRelation(r, previouslyFoundNode, newlyFoundTag));
                         break;

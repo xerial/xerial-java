@@ -22,17 +22,18 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml.dtd;
+package org.xerial.lens.xml.dtd;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.xerial.lens.xml.dtd.DTDParserUtil;
+import org.xerial.lens.xml.dtd.impl.DTDLexer;
+import org.xerial.lens.xml.dtd.impl.DTDParser;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
-import org.xerial.xml.dtd.impl.DTDLexer;
-import org.xerial.xml.dtd.impl.DTDParser;
 
 public class DTDParserUtil
 {

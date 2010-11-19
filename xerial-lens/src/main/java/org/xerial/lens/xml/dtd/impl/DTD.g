@@ -51,7 +51,7 @@ VALUE;
 // 
 //--------------------------------------------------
 
-package org.xerial.util.xml.dtd.impl;
+package org.xerial.lens.xml.dtd.impl;
 import org.xerial.util.log.Logger;
 
 }
@@ -72,8 +72,7 @@ catch(RecognitionException e){
 // Since  2007/07/25 11:40:17
 // 
 //--------------------------------------------------
-package org.xerial.util.xml.dtd.impl;
-//import org.xerial.util.log.Logger;
+package org.xerial.lens.xml.dtd.impl;
 }
 
 /*
