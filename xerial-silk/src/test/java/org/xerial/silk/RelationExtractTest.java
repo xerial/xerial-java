@@ -30,11 +30,11 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.json.JSONLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
-public class RelationExtractTest {
+public class RelationExtractTest
+{
     private static Logger _logger = Logger.getLogger(RelationExtractTest.class);
 
     @Before
@@ -43,18 +43,19 @@ public class RelationExtractTest {
     @After
     public void tearDown() throws Exception {}
 
-    public static class Coordinate {
+    public static class Coordinate
+    {
         public String name;
         public String species;
 
     }
 
-    public static class GeneList {
+    public static class GeneList
+    {
         private List<Gene> geneList = new ArrayList<Gene>();
 
         public void add(Coordinate coordinate, Gene gene) {
-            _logger.info(String.format("corrdinate %s, gene %s", JSONLens.toJSON(coordinate),
-                    JSONLens.toJSON(gene)));
+            _logger.info(String.format("corrdinate %s, gene %s", SilkUtil.toSilk(coordinate), SilkUtil.toSilk(gene)));
         }
 
         public void add(Gene g) {
@@ -67,9 +68,10 @@ public class RelationExtractTest {
 
     }
 
-    public static class Gene {
+    public static class Gene
+    {
         public String name;
-        public long start;
+        public long   start;
         public String strand;
         public String sequence;
 
@@ -80,7 +82,7 @@ public class RelationExtractTest {
         GeneList geneList = SilkLens.loadSilk(GeneList.class,
                 FileResource.open(RelationExtractTest.class, "sequence.silk"));
 
-        _logger.info(JSONLens.toJSON(geneList));
+        _logger.info(SilkUtil.toSilk(geneList));
     }
 
 }

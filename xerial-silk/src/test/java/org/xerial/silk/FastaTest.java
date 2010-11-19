@@ -33,7 +33,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.json.JSONLens;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
@@ -49,7 +48,8 @@ import org.xerial.util.log.Logger;
 
 }
 
-public class FastaTest {
+public class FastaTest
+{
     private static Logger _logger = Logger.getLogger(FastaTest.class);
 
     @Before
@@ -58,15 +58,16 @@ public class FastaTest {
     @After
     public void tearDown() throws Exception {}
 
-    public static class FastaQuery {
+    public static class FastaQuery
+    {
         FastaItem prev = null;
 
         public void addGroup_Name(String group, FastaItem f) {
-            _logger.info(String.format("group: %s, fasta: %s", group, JSONLens.toJSON(f)));
+            _logger.info(String.format("group: %s, fasta: %s", group, SilkUtil.toSilk(f)));
         }
 
         public void addName(FastaItem f) {
-            _logger.debug(JSONLens.toJSON(f));
+            _logger.debug(SilkUtil.toSilk(f));
 
             if (prev != null && prev.getSequence().contains("TTAGGG")) {
                 // output both records
@@ -86,8 +87,9 @@ public class FastaTest {
 
     }
 
-    public static class S1 {
-        public int id;
+    public static class S1
+    {
+        public int    id;
         public String name;
 
         public int getRid() {
@@ -96,22 +98,25 @@ public class FastaTest {
 
     }
 
-    public static class S2 {
-        public int rid;
+    public static class S2
+    {
+        public int    rid;
         public String info;
     }
 
     @EqJoin(left = "rid", leftClass = S1.class, right = "rid")
-    public static class S3 {
-        public S1 s1;
+    public static class S3
+    {
+        public S1       s1;
 
         public List<S2> s2;
 
     }
 
-    public static class FastaItem {
-        public String value;
-        public String link;
+    public static class FastaItem
+    {
+        public String         value;
+        public String         link;
 
         private StringBuilder sequence = new StringBuilder();
 
@@ -127,8 +132,7 @@ public class FastaTest {
 
     @Test
     public void testname() throws Exception {
-        FastaQuery result = SilkLens.loadSilk(FastaQuery.class,
-                FileResource.open(FastaTest.class, "fasta.silk"));
+        FastaQuery result = SilkLens.loadSilk(FastaQuery.class, FileResource.open(FastaTest.class, "fasta.silk"));
         result.flush();
 
         //ObjectStream<S3> sin = Lens.joinSilk(S3.class, "input1", "input2");

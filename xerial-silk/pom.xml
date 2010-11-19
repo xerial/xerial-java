@@ -122,11 +122,6 @@
     </dependency>
     <dependency>
       <groupId>org.xerial</groupId>
-      <artifactId>xerial-lens</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.xerial</groupId>
       <artifactId>xerial-json</artifactId>
       <version>${project.version}</version>
     </dependency>

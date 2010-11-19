@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.xml;
+package org.xerial.lens;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
