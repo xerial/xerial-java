@@ -28,10 +28,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.silk.SilkLens;
+import org.xerial.lens.SilkLens;
 import org.xerial.util.log.Logger;
 
-public class XPathExprTest {
+public class XPathExprTest
+{
 
     private static Logger _logger = Logger.getLogger(XPathExprTest.class);
 

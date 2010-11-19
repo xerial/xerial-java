@@ -41,10 +41,10 @@ import java.util.regex.Pattern;
 
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
-import org.xerial.lens.ObjectLens;
-import org.xerial.lens.impl.ParameterGetter;
 import org.xerial.util.StringUtil;
 import org.xerial.util.TypeInfo;
+import org.xerial.util.lens.ObjectLens;
+import org.xerial.util.lens.impl.ParameterGetter;
 
 /**
  * Supporting class for generating Silk data. This class is not thread-safe,
@@ -54,13 +54,14 @@ import org.xerial.util.TypeInfo;
  * @author leo
  * 
  */
-public class SilkWriter {
+public class SilkWriter
+{
 
-    private final SilkWriter parent;
+    private final SilkWriter  parent;
     private final PrintWriter out;
-    private Set<SilkWriter> childWriterSet = new HashSet<SilkWriter>();
+    private Set<SilkWriter>   childWriterSet = new HashSet<SilkWriter>();
 
-    private final String contextNodeName;
+    private final String      contextNodeName;
 
     /**
      * Silk output format configurations
@@ -68,51 +69,52 @@ public class SilkWriter {
      * @author leo
      * 
      */
-    public static class FormatConfig {
+    public static class FormatConfig
+    {
 
         // indentation
-        public int indentWidth = 2;
-        public boolean indentBeforeDataLine = false;
-        public boolean indentCommentLine = false;
+        public int     indentWidth                     = 2;
+        public boolean indentBeforeDataLine            = false;
+        public boolean indentCommentLine               = false;
 
         // comment
-        public boolean insertSpaceAfterCommentSymbol = true;
+        public boolean insertSpaceAfterCommentSymbol   = true;
 
         // comma
-        public boolean insertSpaceAfterComma = true;
+        public boolean insertSpaceAfterComma           = true;
 
         // colon
-        public boolean insertSpaceBeforeColon = false;
-        public boolean insertSpaceAfterColon = true;
+        public boolean insertSpaceBeforeColon          = false;
+        public boolean insertSpaceAfterColon           = true;
         /**
          * insert tab after colon symbol (intermediate node only)
          */
-        public boolean insertTabAfterColon = false;
+        public boolean insertTabAfterColon             = false;
 
         // colon (inline-node)
         public boolean insertSpaceBeforeAttributeColon = false;
-        public boolean insertSpaceAfterAttributeColon = false;
-        public boolean insertTabAfterAttributeColon = false;
+        public boolean insertSpaceAfterAttributeColon  = false;
+        public boolean insertTabAfterAttributeColon    = false;
 
         // preamble
-        public boolean insertSpaceAfterPreambleSymbol = false;
+        public boolean insertSpaceAfterPreambleSymbol  = false;
 
         // parenthesis 
-        public boolean insertSpaceOutsideOfParen = false;
-        public boolean insertSpaceInsideOfParen = false;
+        public boolean insertSpaceOutsideOfParen       = false;
+        public boolean insertSpaceInsideOfParen        = false;
 
         // use attribute?
-        public boolean preferUsingAttribute = false;
+        public boolean preferUsingAttribute            = false;
     }
 
-    private FormatConfig formatConfig = new FormatConfig();
-    private final int levelOffset;
-    private boolean isUsable = true;
+    private FormatConfig formatConfig        = new FormatConfig();
+    private final int    levelOffset;
+    private boolean      isUsable            = true;
 
-    private SyntaxType nodeValueSyntaxType = SyntaxType.DEFAULT;
+    private SyntaxType   nodeValueSyntaxType = SyntaxType.DEFAULT;
 
-    private boolean isFirstLine = true;
-    private int numAttribute = 0;
+    private boolean      isFirstLine         = true;
+    private int          numAttribute        = 0;
 
     public SilkWriter(Writer out) {
         this.out = new PrintWriter(out);
@@ -512,8 +514,8 @@ public class SilkWriter {
             if (formatConfig.insertTabAfterColon)
                 out.print("\t");
             if (nodeValue.length() > 0
-                    && (StringUtil.isWhiteSpace(nodeValue.substring(0, 1)) || StringUtil
-                            .isWhiteSpace(nodeValue.substring(nodeValue.length() - 1)))) {
+                    && (StringUtil.isWhiteSpace(nodeValue.substring(0, 1)) || StringUtil.isWhiteSpace(nodeValue
+                            .substring(nodeValue.length() - 1)))) {
                 // preserve white spaces
                 out.print("\"");
                 out.print(nodeValue);

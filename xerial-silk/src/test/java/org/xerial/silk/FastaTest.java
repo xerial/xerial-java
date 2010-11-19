@@ -32,8 +32,6 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -130,15 +128,15 @@ public class FastaTest
 
     }
 
-    @Test
-    public void testname() throws Exception {
-        FastaQuery result = SilkLens.loadSilk(FastaQuery.class, FileResource.open(FastaTest.class, "fasta.silk"));
-        result.flush();
-
-        //ObjectStream<S3> sin = Lens.joinSilk(S3.class, "input1", "input2");
-
-        //ObjectStream<S4> out = Lens.joinSilk(S4.class, sin, "input3");
-
-    }
+    //    @Test
+    //    public void testname() throws Exception {
+    //        FastaQuery result = SilkLens.loadSilk(FastaQuery.class, FileResource.open(FastaTest.class, "fasta.silk"));
+    //        result.flush();
+    //
+    //        //ObjectStream<S3> sin = Lens.joinSilk(S3.class, "input1", "input2");
+    //
+    //        //ObjectStream<S4> out = Lens.joinSilk(S4.class, sin, "input3");
+    //
+    //    }
 
 }

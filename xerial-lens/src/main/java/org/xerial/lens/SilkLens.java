@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.lens;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -31,7 +31,8 @@ import java.net.URL;
 
 import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.Lens;
+import org.xerial.silk.SilkParser;
+import org.xerial.silk.SilkUtil;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.TypeInfo;
 
@@ -41,7 +42,8 @@ import org.xerial.util.TypeInfo;
  * @author leo
  * 
  */
-public class SilkLens {
+public class SilkLens
+{
 
     public static String toSilk(Object obj) {
         return SilkUtil.toSilk(obj);
@@ -62,31 +64,27 @@ public class SilkLens {
      * @throws XerialException
      *             when failed to parse the input Silk file
      */
-    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource)
-            throws IOException, XerialException {
+    public static <Result> Result loadSilk(Class<Result> targetType, URL silkResource) throws IOException,
+            XerialException {
         return loadSilk(TypeInfo.createInstance(targetType), silkResource);
     }
 
-    public static <Result> Result loadSilk(Result target, String silk) throws IOException,
-            XerialException {
+    public static <Result> Result loadSilk(Result target, String silk) throws IOException, XerialException {
         return loadSilk(target, new StringReader(silk));
     }
 
-    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException,
-            XerialException {
+    public static <Result> Result loadSilk(Result result, URL silkResource) throws IOException, XerialException {
         if (silkResource == null)
             throw new NullPointerException("silk resouce is null");
 
         return loadSilk(result, new SilkParser(silkResource));
     }
 
-    public static <Result> Result loadSilk(Result result, Reader silkReader)
-            throws XerialException, IOException {
+    public static <Result> Result loadSilk(Result result, Reader silkReader) throws XerialException, IOException {
         return loadSilk(result, new SilkParser(silkReader));
     }
 
-    public static <Result> Result loadSilk(Result result, SilkParser silkReader)
-            throws XerialException, IOException {
+    public static <Result> Result loadSilk(Result result, SilkParser silkReader) throws XerialException, IOException {
         try {
             return Lens.load(result, silkReader);
         }
@@ -97,8 +95,8 @@ public class SilkLens {
         }
     }
 
-    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader)
-            throws XerialException, IOException {
+    public static <Result> Result loadSilk(Class<Result> resultType, Reader silkReader) throws XerialException,
+            IOException {
         return loadSilk(TypeInfo.createInstance(resultType), silkReader);
     }
 
@@ -114,15 +112,13 @@ public class SilkLens {
      * @throws IOException
      * @throws XerialException
      */
-    public static <Result> void findFromSilk(URL silkResource, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws IOException,
-            XerialException {
+    public static <Result> void findFromSilk(URL silkResource, String targetNodeName, Class<Result> targetType,
+            ObjectHandler<Result> handler) throws IOException, XerialException {
         Lens.find(targetType, targetNodeName, handler, new SilkParser(silkResource));
     }
 
-    public static <Result> void findFromSilk(Reader input, String targetNodeName,
-            Class<Result> targetType, ObjectHandler<Result> handler) throws XerialException,
-            IOException {
+    public static <Result> void findFromSilk(Reader input, String targetNodeName, Class<Result> targetType,
+            ObjectHandler<Result> handler) throws XerialException, IOException {
         Lens.find(targetType, targetNodeName, handler, new SilkParser(input));
     }
 

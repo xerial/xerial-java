@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.silk;
+package org.xerial.lens;
 
 import static org.junit.Assert.*;
 
@@ -36,13 +36,7 @@ import java.util.Properties;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.json.JSONLens;
-import org.xerial.lens.Coordinate;
-import org.xerial.lens.Lens;
-import org.xerial.lens.LensTest;
 import org.xerial.lens.LensTest.MyGene;
-import org.xerial.lens.ObjectLens;
-import org.xerial.lens.ObjectLensTest;
 import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.util.FileResource;
@@ -52,6 +46,7 @@ import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
 import org.xerial.util.bean.BeanUtilTest;
+import org.xerial.util.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 
 public class SilkLensTest
@@ -150,7 +145,7 @@ public class SilkLensTest
 
     @Test
     public void testSilkBean() throws Exception {
-        ReadSet r = SilkUtil.createSilkBean(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
+        ReadSet r = SilkLens.loadSilk(ReadSet.class, FileResource.find(BeanUtilTest.class, "readset.silk"));
         _logger.debug(r.toString());
     }
 
@@ -170,7 +165,7 @@ public class SilkLensTest
     @Test
     public void appenderTest() throws Exception {
         Sequence seq = new Sequence();
-        SilkUtil.populateBeanWithSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
+        SilkLens.loadSilk(seq, FileResource.find(BeanUtilTest.class, "seq.silk"));
         assertEquals("ABCDEFGHIJ", seq.getSeq());
     }
 
@@ -420,7 +415,7 @@ public class SilkLensTest
     @Ignore
     @Test
     public void longProp() throws Exception {
-        PropTest p = SilkLens.loadSilk(PropTest.class, FileResource.open(ObjectLensTest.class, "longprop.silk"));
+        PropTest p = SilkLens.loadSilk(PropTest.class, FileResource.open(SilkLensTest.class, "longprop.silk"));
         assertTrue(p.prop.containsKey("sequenceList"));
 
         _logger.info(SilkLens.toSilk(p));

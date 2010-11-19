@@ -27,10 +27,11 @@ package org.xerial.lens.relation.lang;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.silk.SilkLens;
+import org.xerial.lens.SilkLens;
 import org.xerial.util.log.Logger;
 
-public class RelationExprTest {
+public class RelationExprTest
+{
     private static Logger _logger = Logger.getLogger(RelationExprTest.class);
 
     @Before

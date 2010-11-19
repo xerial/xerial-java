@@ -54,7 +54,8 @@ import org.xerial.xml.XMLGenerator;
  * @author leo
  * 
  */
-public class SilkUtil {
+public class SilkUtil
+{
     /**
      * Silk to Object mapping. Create a bean object from a given Silk file. The
      * parameter values of the specified bean class will be populated with the
@@ -71,28 +72,27 @@ public class SilkUtil {
      * @throws IOException
      *             when failed to open the specified Silk file.
      */
-    public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException,
-            IOException {
+    public static <E> E createBean(Class<E> beanType, URL silkSource) throws XerialException, IOException {
         return createBeanFromSilk(beanType, silkSource);
     }
 
-    /**
-     * Populate the parameter values of the given bean using the content of the
-     * Silk file.
-     * 
-     * @param <E>
-     * @param bean
-     *            object to populate
-     * @param silkSource
-     *            Silk file address
-     * @return
-     * @throws XerialException
-     * @throws IOException
-     *             when failed to open the specified Silk file
-     */
-    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException {
-        return populateBeanWithSilk(bean, silkSource);
-    }
+    //    /**
+    //     * Populate the parameter values of the given bean using the content of the
+    //     * Silk file.
+    //     * 
+    //     * @param <E>
+    //     * @param bean
+    //     *            object to populate
+    //     * @param silkSource
+    //     *            Silk file address
+    //     * @return
+    //     * @throws XerialException
+    //     * @throws IOException
+    //     *             when failed to open the specified Silk file
+    //     */
+    //    public static <E> E populateBean(E bean, URL silkSource) throws XerialException, IOException {
+    //        return populateBeanWithSilk(bean, silkSource);
+    //    }
 
     /**
      * Convert the given Silk file into XML data. Since Silk's data model is
@@ -136,8 +136,9 @@ public class SilkUtil {
      * @author leo
      * 
      */
-    private static class XMLBuilder extends TreeVisitorBase {
-        final XMLGenerator xout;
+    private static class XMLBuilder extends TreeVisitorBase
+    {
+        final XMLGenerator     xout;
         final Deque<TreeEvent> eventQueue = new ArrayDeque<TreeEvent>();
 
         public XMLBuilder(Writer out) {
@@ -163,16 +164,13 @@ public class SilkUtil {
         }
 
         @Override
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
-                throws XerialException {
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException {
             popQueue();
-            eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName,
-                    immediateNodeValue));
+            eventQueue.addLast(new TreeEvent(TreeEvent.EventType.VISIT, nodeName, immediateNodeValue));
         }
 
         @Override
-        public void text(String nodeName, String textDataFragment, TreeWalker walker)
-                throws XerialException {
+        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException {
             popQueue();
             xout.text(textDataFragment);
         }
@@ -225,11 +223,12 @@ public class SilkUtil {
         return out;
     }
 
-    private static class JSONBuilder implements TreeVisitor {
-        JSONArray root = new JSONArray();
-        Deque<JSONObject> contextStack = new ArrayDeque<JSONObject>();
-        Deque<StringBuilder> textStack = new ArrayDeque<StringBuilder>();
-        final StringBuilder ZERO_CAPACITY_BUFFER = new StringBuilder(0);
+    private static class JSONBuilder implements TreeVisitor
+    {
+        JSONArray            root                 = new JSONArray();
+        Deque<JSONObject>    contextStack         = new ArrayDeque<JSONObject>();
+        Deque<StringBuilder> textStack            = new ArrayDeque<StringBuilder>();
+        final StringBuilder  ZERO_CAPACITY_BUFFER = new StringBuilder(0);
 
         public JSONBuilder() {
 
@@ -302,13 +301,11 @@ public class SilkUtil {
             textStack.removeLast();
         }
 
-        public void text(String nodeName, String textDataFragment, TreeWalker walker)
-                throws XerialException {
+        public void text(String nodeName, String textDataFragment, TreeWalker walker) throws XerialException {
             getTextBuilder().append(textDataFragment);
         }
 
-        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker)
-                throws XerialException {
+        public void visitNode(String nodeName, String immediateNodeValue, TreeWalker walker) throws XerialException {
             JSONObject newContext = new JSONObject();
 
             if (contextStack.isEmpty()) {
@@ -340,8 +337,7 @@ public class SilkUtil {
         return buf.toString();
     }
 
-    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation)
-            throws XerialException {
+    public static <T> T createSilkBean(Class<T> beanClass, URL silkFileLocation) throws XerialException {
         T bean = TypeInfo.createInstance(beanClass);
         BeanBindingProcess bindingProcess = BeanBindingProcess.newBinderWithRootContext(bean);
 
@@ -356,21 +352,20 @@ public class SilkUtil {
         return bean;
     }
 
-    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation)
-            throws XerialException, IOException {
-        try {
-            SilkLens.loadSilk(bean, silkResourceLocation);
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
-
-        return bean;
-    }
+    //    public static <T> T populateBeanWithSilk(T bean, URL silkResourceLocation)
+    //            throws XerialException, IOException {
+    //        try {
+    //            SilkLens.loadSilk(bean, silkResourceLocation);
+    //        }
+    //        catch (IOException e) {
+    //            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+    //        }
+    //
+    //        return bean;
+    //    }
 
     // Silk Stream
-    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress)
-            throws XerialException, IOException {
+    public static <E> E createBeanFromSilk(Class<E> beanType, URL silkFileAddress) throws XerialException, IOException {
         return BeanUtilImpl.createTypedBean(new SilkWalker(silkFileAddress), beanType);
     }
 

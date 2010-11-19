@@ -35,14 +35,12 @@ import org.antlr.runtime.CommonTokenStream;
 import org.xerial.core.XerialError;
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
-import org.xerial.lens.antlr.ANTLRUtil;
 import org.xerial.silk.impl.SilkLineLexer;
 import org.xerial.silk.impl.SilkNodeParser;
 import org.xerial.silk.model.SilkCommentLine;
 import org.xerial.silk.model.SilkDataLine;
 import org.xerial.silk.model.SilkElement;
 import org.xerial.silk.model.SilkPreamble;
-import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
 
 /**
@@ -51,21 +49,22 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SilkLinePushParser implements SilkParserBase {
-    private static Logger _logger = Logger.getLogger(SilkLinePushParser.class);
+public class SilkLinePushParser implements SilkParserBase
+{
+    private static Logger           _logger        = Logger.getLogger(SilkLinePushParser.class);
 
-    private final SilkLineLexer lexer;
-    private final CommonTokenStream tokenStream = new CommonTokenStream();
+    private final SilkLineLexer     lexer;
+    private final CommonTokenStream tokenStream    = new CommonTokenStream();
 
-    private final BufferedReader buffer;
-    private long lineCount = 0;
-    private SilkEventHandler handler = null;
-    private final SilkParserConfig config;
+    private final BufferedReader    buffer;
+    private long                    lineCount      = 0;
+    private SilkEventHandler        handler        = null;
+    private final SilkParserConfig  config;
 
-    private static final SilkEvent EOFEvent = new SilkEvent(SilkEventType.END_OF_FILE, null);
-    private static final SilkEvent BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
+    private static final SilkEvent  EOFEvent       = new SilkEvent(SilkEventType.END_OF_FILE, null);
+    private static final SilkEvent  BlankLineEvent = new SilkEvent(SilkEventType.BLANK_LINE, null);
 
-    private boolean inBlock = false;
+    private boolean                 inBlock        = false;
 
     public SilkLinePushParser(URL resourceURL) throws IOException {
         this(new InputStreamReader(resourceURL.openStream(), "UTF8"));
@@ -94,8 +93,8 @@ public class SilkLinePushParser implements SilkParserBase {
         handler.handle(e);
     }
 
-    public static SilkEvent parseLine(SilkLineLexer lexer, CommonTokenStream tokenStream,
-            String line) throws IOException, XerialException {
+    public static SilkEvent parseLine(SilkLineLexer lexer, CommonTokenStream tokenStream, String line)
+            throws IOException, XerialException {
         if (line.length() <= 0) {
             return BlankLineEvent;
         }
@@ -137,11 +136,11 @@ public class SilkLinePushParser implements SilkParserBase {
         // 17500 lines/sec
         tokenStream.setTokenSource(lexer);
 
-        if (_logger.isTraceEnabled()) {
-            _logger.trace(StringUtil.join(
-                    ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
-                            ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
-        }
+        //        if (_logger.isTraceEnabled()) {
+        //            _logger.trace(StringUtil.join(
+        //                    ANTLRUtil.prettyPrintTokenList(tokenStream.getTokens(),
+        //                            ANTLRUtil.getTokenTable(SilkLineLexer.class, "SilkLine.tokens")), "\n"));
+        //        }
 
         // 100,000 lines/sec 
         // 60,000 lines/sec (if consuming the entire lexer input)
@@ -207,8 +206,8 @@ public class SilkLinePushParser implements SilkParserBase {
             push(EOFEvent);
         }
         catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, String.format("line=%d: %s",
-                    lineCount, e.getMessage()));
+            throw new XerialException(XerialErrorCode.IO_EXCEPTION, String.format("line=%d: %s", lineCount,
+                    e.getMessage()));
         }
         finally {
 

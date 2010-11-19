@@ -30,12 +30,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.xerial.silk.SilkLens;
+import org.xerial.lens.SilkLens;
 import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 
-public class ZValueTest {
+public class ZValueTest
+{
 
     @Before
     public void setUp() throws Exception {}
@@ -58,12 +59,14 @@ public class ZValueTest {
 
     }
 
-    public static class Locus {
+    public static class Locus
+    {
         public int start;
         public int end;
     }
 
-    public static class LocusQuery {
+    public static class LocusQuery
+    {
         int count = 0;
 
         public void addRead(Locus locus) {
@@ -73,8 +76,7 @@ public class ZValueTest {
         private void out(Locus locus) {
             long zvalue = ZValue.interleave(locus.start, locus.end);
             int color = (count++ / 50) % 10;
-            System.out.println(String.format("%d\t%d\t%d\t%s", zvalue, locus.start, locus.end,
-                    color));
+            System.out.println(String.format("%d\t%d\t%d\t%s", zvalue, locus.start, locus.end, color));
         }
     }
 
@@ -83,8 +85,7 @@ public class ZValueTest {
     public void plot() throws Exception {
 
         System.out.println("zvalue\tstart\tend\tcolor");
-        SilkLens.loadSilk(LocusQuery.class,
-                FileResource.find(SilkUtilTest.class, "scaffold5001.silk"));
+        SilkLens.loadSilk(LocusQuery.class, FileResource.find(SilkUtilTest.class, "scaffold5001.silk"));
 
     }
 
