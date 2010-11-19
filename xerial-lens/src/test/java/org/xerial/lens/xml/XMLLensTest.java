@@ -28,15 +28,15 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Vector;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.XMLLens;
 import org.xerial.util.FileResource;
-import org.xerial.util.bean.sample.Mate;
-import org.xerial.util.bean.sample.Person;
-import org.xerial.util.bean.sample.PersonVector;
 import org.xerial.util.bean.sample.TrackInfo;
 import org.xerial.util.log.Logger;
 
@@ -60,6 +60,80 @@ public class XMLLensTest
         assertEquals("value1", data.map.get("key1"));
         assertEquals("hello", data.map.get("message"));
 
+    }
+
+    public static class Person implements Comparable<Person>
+    {
+        int    id;
+        String name;
+
+        public Person() {}
+
+        public Person(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof Person) {
+                Person other = (Person) o;
+                return (id == other.id) && (name.equals(other.name));
+            }
+            else
+                return false;
+        }
+
+        public int compareTo(Person o) {
+            return (this.id - o.id);
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+    }
+
+    @SuppressWarnings("serial")
+    public class PersonVector extends Vector<Person>
+    {
+        public PersonVector() {}
+
+    }
+
+    public class Mate
+    {
+        Map<Person, Person> pair = new TreeMap<Person, Person>();
+
+        public Mate() {}
+
+        public Map<Person, Person> getPair() {
+            return pair;
+        }
+
+        public void setPair(Map<Person, Person> pair) {
+            this.pair = pair;
+        }
+
+        public void putPair(Person p1, Person p2) {
+            pair.put(p1, p2);
+        }
+
+        public Person getPair(Person p1) {
+            return pair.get(p1);
+        }
     }
 
     @Test

@@ -26,6 +26,7 @@ package org.xerial.lens;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.xerial.util.log.Logger;
 
 public class LensTest
@@ -44,6 +45,11 @@ public class LensTest
         public long   start;
         public String link;
         public String sequence;
+    }
+
+    @Test
+    public void dummy() throws Exception {
+
     }
 
 }

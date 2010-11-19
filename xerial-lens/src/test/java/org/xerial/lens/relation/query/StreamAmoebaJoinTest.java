@@ -42,10 +42,11 @@ import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEventHandlerBase;
 
-public class StreamAmoebaJoinTest {
+public class StreamAmoebaJoinTest
+{
     private static Logger _logger = Logger.getLogger(StreamAmoebaJoinTest.class);
 
-    SilkParserConfig config = new SilkParserConfig();
+    SilkParserConfig      config  = new SilkParserConfig();
 
     @Before
     public void setUp() throws Exception {
@@ -59,26 +60,26 @@ public class StreamAmoebaJoinTest {
     @Test
     public void query() throws Exception {
         QuerySetBuilder qs = new QuerySetBuilder();
-        qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("group").add("species").add(
-                "revision").add("name").add("sequence").build());
-        qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT,
-                FD.ONE_OR_MORE).build());
-        qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add(
-                "end").add("sequence").build());
+        qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("group").add("species").add("revision").add("name")
+                .add("sequence").build());
+        qs.addQueryTarget(new SchemaBuilder().add("coordinate").add("gene", DataType.STRUCT, FD.ONE_OR_MORE).build());
+        qs.addQueryTarget(new SchemaBuilder().add("gene").add("id").add("name").add("start").add("end").add("sequence")
+                .build());
 
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs.build(), new AmoebaJoinHandlerBase() {
 
+            @Override
             public void newAmoeba(Schema schema, Node n1, Node n2) {
                 _logger.debug(String.format("relation (%s, %s)", n1, n2));
             }
 
+            @Override
             public void leaveNode(Schema schema, Node node) {
                 _logger.trace(String.format("leave %s in %s", node, schema));
             }
 
             public void text(Schema schema, Node contextNode, String nodeName, String text) {
-                _logger.debug(String.format("text %s:%s of %s in %s", nodeName, text, contextNode,
-                        schema));
+                _logger.debug(String.format("text %s:%s of %s in %s", nodeName, text, contextNode, schema));
             }
         });
 
@@ -94,11 +95,13 @@ public class StreamAmoebaJoinTest {
 
             int count = 0;
 
+            @Override
             public void newAmoeba(Schema schema, Node n1, Node n2) {
                 _logger.debug(String.format("relation (%s, %s)", n1, n2));
                 count++;
             }
 
+            @Override
             public void finish() {
                 assertEquals(2, count);
             }
@@ -114,15 +117,14 @@ public class StreamAmoebaJoinTest {
         QuerySet qs = new QuerySetBuilder().build();
         StreamAmoebaJoin aj = new StreamAmoebaJoin(qs, new AmoebaJoinHandlerBase());
         StopWatch sw = new StopWatch();
-        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class,
-                "../../../silk/scaffold1.silk"), config));
+        aj.sweep(new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"), config));
         _logger.info("time: " + sw.getElapsedTime());
     }
 
     @Test
     public void silkWalkPerformance() throws Exception {
-        SilkParser parser = new SilkParser(FileResource.find(StreamAmoebaJoinTest.class,
-                "../../../silk/scaffold1.silk"), config);
+        SilkParser parser = new SilkParser(FileResource.find(StreamAmoebaJoinTest.class, "../../silk/scaffold1.silk"),
+                config);
         StopWatch sw = new StopWatch();
         parser.parse(new TreeEventHandlerBase());
         _logger.info("time: " + sw.getElapsedTime());
