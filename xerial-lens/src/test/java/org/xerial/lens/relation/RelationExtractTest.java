@@ -82,7 +82,7 @@ public class RelationExtractTest
     @Test
     public void test() throws Exception {
         GeneList geneList = SilkLens.loadSilk(GeneList.class,
-                FileResource.open(RelationExtractTest.class, "sequence.silk"));
+                FileResource.open(RelationExtractTest.class, "../sequence.silk"));
 
         _logger.info(SilkUtil.toSilk(geneList));
     }
