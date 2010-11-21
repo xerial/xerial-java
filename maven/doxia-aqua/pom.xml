@@ -23,7 +23,8 @@
   </properties>
 
 
-  <url>http://www.xerial.org/maven/repository/site/xerial-project/maven/doxia-aqua</url>  
+  <url>http://www.xerial.org/</url>  
+
 
   <scm>
     <connection>scm:hg:https://xerial.googlecode.com/hg/</connection>
