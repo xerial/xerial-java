@@ -38,6 +38,7 @@ import org.xerial.silk.SilkWriter.FormatConfig;
 import org.xerial.util.FileResource;
 import org.xerial.util.StringUtil;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeWalkLog;
 
 public class SilkWriterTest
 {

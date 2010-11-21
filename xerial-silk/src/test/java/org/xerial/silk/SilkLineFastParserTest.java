@@ -34,21 +34,19 @@ import org.xerial.core.XerialException;
 import org.xerial.json.JSONStreamWalker;
 import org.xerial.util.FileResource;
 import org.xerial.util.log.Logger;
+import org.xerial.util.tree.TreeWalkLog;
 
 public class SilkLineFastParserTest
 {
     private static Logger _logger = Logger.getLogger(SilkLineFastParserTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    public static void compare(String silkFile, String jsonFile) throws IOException, XerialException
-    {
+    public static void compare(String silkFile, String jsonFile) throws IOException, XerialException {
         SilkParserConfig config = new SilkParserConfig();
         config.numWorkers = 2; // use SilkLineFastParser
         SilkWalker walker = new SilkWalker(FileResource.find(SilkLineFastParserTest.class, silkFile), config);
@@ -65,8 +63,7 @@ public class SilkLineFastParserTest
     }
 
     @Test
-    public void parse() throws Exception
-    {
+    public void parse() throws Exception {
         compare("small.silk", "small.json");
     }
 

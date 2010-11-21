@@ -42,6 +42,7 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeEvent;
 import org.xerial.util.tree.TreeNode;
 import org.xerial.util.tree.TreeVisitorBase;
+import org.xerial.util.tree.TreeWalkLog;
 import org.xerial.util.tree.TreeWalker;
 
 public class SilkWalkerTest
