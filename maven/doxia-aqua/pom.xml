@@ -5,7 +5,7 @@
 
   <groupId>org.xerial.maven</groupId>
   <artifactId>doxia-aqua</artifactId>
-  <version>1.1</version>
+  <version>1.2-SNAPSHOT</version>
   <name>Doxia :: Aqua</name>
   <description>Doxia Module for wiki (xerial-aqua format) to HTML
     conversion</description>
