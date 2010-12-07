@@ -62,7 +62,7 @@
           <locale>en_US</locale>
           <stylesheetfile>${basedir}/target/xerial-style/javadoc.css</stylesheetfile>
           <overview>${basedir}/target/xerial-style/overview.html</overview>
-          <bottom><![CDATA[<a rel="license" href="http://creativecommons.org/licenses/by-sa/2.1/jp/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.1/jp/">Creative Commons Attribution-ShareAlike 2.1 Japan License</a>.<!--<rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><Work rdf:about=""><dc:date>2005</dc:date><dc:rights><Agent><dc:title>Taro L. Saito</dc:title></Agent></dc:rights><license rdf:resource="http://creativecommons.org/licenses/by-sa/2.1/jp/" /></Work><License rdf:about="http://creativecommons.org/licenses/by-sa/2.1/jp/"><permits rdf:resource="http://web.resource.org/cc/Reproduction" /><permits rdf:resource="http://web.resource.org/cc/Distribution" /><requires rdf:resource="http://web.resource.org/cc/Notice" /><requires rdf:resource="http://web.resource.org/cc/Attribution" /><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" /><requires rdf:resource="http://web.resource.org/cc/ShareAlike" /></License></rdf:RDF>-->]]></bottom>
+          <bottom><![CDATA[<a rel="license" href="http://creativecommons.org/licenses/by-sa/2.1/jp/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.1/jp/">Creative Commons Attribution-ShareAlike 2.1 Japan License</a>.<!--<rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><Work rdf:about=""><dc:date>2005</dc:date><dc:rights><Agent><dc:title>Taro L. Saito</dc:title></Agent></dc:rights><license rdf:resource="http://creativecommons.org/licenses/by-sa/2.1/jp/" /></Work><License rdf:about="http://creativecommons.org/licenses/by-sa/2.1/jp/"><permits rdf:resource="http://web.resource.org/cc/Reproduction" /><permits rdf:resource="http://web.resource.org/cc/Distribution" /><requires rdf:resource="http://web.resource.org/cc/Notice" /><requires rdf:resource="http://web.resource.org/cc/Attribution" /><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" /><requires rdf:resource="http://web.resource.org/cc/ShakreAlike" /></License></rdf:RDF>-->]]></bottom>
           <excludePackageNames>*.impl</excludePackageNames>
           <groups>
             <group>
@@ -184,7 +184,7 @@
           <dependency>
             <groupId>org.xerial.maven</groupId>
             <artifactId>doxia-aqua</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.1</version>
           </dependency>
         </dependencies>
       </plugin>
