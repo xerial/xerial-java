@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
 
   <groupId>org.xerial.maven</groupId>
   <artifactId>doxia-aqua</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>Doxia :: Aqua</name>
   <description>Doxia Module for wiki (xerial-aqua format) to HTML
     conversion</description>
@@ -72,13 +71,21 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.1</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.1</version>
         <configuration>
           <!-- do not run site-deploy goal, included in the default settings -->
           <goals>deploy</goals>
           <connectionUrl>scm:hg:https://xerial.googlecode.com/hg/</connectionUrl>
-          <arguments></arguments>
+          <arguments />
           
         </configuration>
       </plugin>
