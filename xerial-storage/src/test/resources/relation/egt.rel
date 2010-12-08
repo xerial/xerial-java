@@ -1,0 +1,19 @@
+// object definition
+OBJECT geneTrack (name string, species string, revision string) 
+OBJECT gene (target string, start integer, end integer, name string | target, start)
+OBJECT exon (start integer, end integer | start)
+OBJECT graph (target string, start integer, end integer, unit integer, nums string | target, start)
+
+// sets one-to-many relationships between gene-exons, gene-graphs
+RELATIONSHIP gene HASMANY exon, graph
+RELATIONSHIP eagyGeneTrack HASMANY gene
+RELATIONSHIP eagyGeneTrack HASONE geneTrack
+
+DIVIDE gene by DISTINCT target, RANGE start
+DIVIDE graph by DISTINCT target, RANGE start    
+
+//CREATE  INDEX on gene (start, end)
+
+// expected query workloads 
+SELECT gene.*, exon.* from gene, exon order by target, start
+
