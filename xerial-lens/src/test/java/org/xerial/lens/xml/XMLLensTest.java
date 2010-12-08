@@ -37,7 +37,6 @@ import org.junit.Test;
 import org.xerial.core.XerialException;
 import org.xerial.lens.XMLLens;
 import org.xerial.util.FileResource;
-import org.xerial.util.bean.sample.TrackInfo;
 import org.xerial.util.log.Logger;
 
 public class XMLLensTest
@@ -155,6 +154,46 @@ public class XMLLensTest
         _logger.debug(xml2);
 
         assertTrue(true);
+    }
+
+    public static class TrackInfo
+    {
+        String  name;
+        boolean pack     = true;
+        HashMap property = new HashMap();
+
+        public TrackInfo() {}
+
+        public TrackInfo(String name, boolean pack) {
+            super();
+            this.name = name;
+            this.pack = pack;
+        }
+
+        public void putProperty(String key, String value) {
+            property.put(key, value);
+        }
+
+        public HashMap getProperty() {
+            return property;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public boolean getPack() {
+            return pack;
+        }
+
+        public void setPack(boolean pack) {
+            this.pack = pack;
+        }
+
     }
 
     @Ignore

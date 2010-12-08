@@ -31,7 +31,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xerial.lens.SilkLens;
-import org.xerial.silk.SilkUtilTest;
 import org.xerial.util.FileResource;
 import org.xerial.util.Pair;
 
@@ -85,7 +84,7 @@ public class ZValueTest
     public void plot() throws Exception {
 
         System.out.println("zvalue\tstart\tend\tcolor");
-        SilkLens.loadSilk(LocusQuery.class, FileResource.find(SilkUtilTest.class, "scaffold5001.silk"));
+        SilkLens.loadSilk(LocusQuery.class, FileResource.find(ZValueTest.class, "../../silk/scaffold5001.silk"));
 
     }
 
