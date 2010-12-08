@@ -24,9 +24,9 @@
 //--------------------------------------
 package org.xerial.db.storage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.junit.After;
@@ -45,7 +45,8 @@ public class DiskFileTest
 
     @Test
     public void write() throws DBException, FileNotFoundException {
-        DiskFile file = new DiskFile("target/diskfile.db");
+        final String out = "target/diskfile.db";
+        DiskFile file = new DiskFile(out);
         try {
             String m = "hello world!";
             byte[] buf = m.getBytes();
@@ -67,12 +68,14 @@ public class DiskFileTest
         }
         finally {
             file.close();
+            new File(out).delete();
         }
     }
 
     @Test
     public void writeAtSpecificLocation() throws DBException, FileNotFoundException {
-        DiskFile file = new DiskFile("diskfile.db");
+        final String out = "target/diskfile.db";
+        DiskFile file = new DiskFile(out);
         try {
             String m = "hello world!";
             byte[] buf = m.getBytes();
@@ -96,6 +99,7 @@ public class DiskFileTest
         }
         finally {
             file.close();
+            new File(out).delete();
         }
 
     }
