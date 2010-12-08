@@ -49,7 +49,7 @@
   <dependencies>
     <dependency>
       <groupId>org.xerial</groupId>
-      <artifactId>xerial-core</artifactId>
+      <artifactId>xerial-lens</artifactId>
       <version>${project.version}</version>
     </dependency>
 

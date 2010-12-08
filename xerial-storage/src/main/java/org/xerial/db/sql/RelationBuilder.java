@@ -35,11 +35,11 @@ import org.xerial.json.JSONArray;
 import org.xerial.json.JSONErrorCode;
 import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
-import org.xerial.lens.ObjectLens;
-import org.xerial.lens.impl.ParameterSetter;
 import org.xerial.util.bean.BeanBinder;
 import org.xerial.util.bean.BeanBinderSet;
 import org.xerial.util.bean.BeanUtil;
+import org.xerial.util.lens.ObjectLens;
+import org.xerial.util.lens.impl.ParameterSetter;
 
 /**
  * RelationBuilder creates a Relation instance from a JSON string or a Bean
@@ -127,7 +127,7 @@ public class RelationBuilder
             ObjectLens lens = ObjectLens.getObjectLens(beanClass);
             for (ParameterSetter setter : lens.getSetterList()) {
                 Class< ? > returnType = setter.getParameterType();
-                String p = setter.getParameterName();
+                String p = setter.getCanonicalParameterName();
 
                 DataType dt = Relation.getDataType(p, returnType);
                 _relation.add(dt);

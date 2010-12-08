@@ -38,8 +38,8 @@ import org.xerial.db.datatype.DataType;
 import org.xerial.db.sql.RelationBuilder;
 import org.xerial.db.sql.SQLExpression;
 import org.xerial.json.JSONObject;
+import org.xerial.lens.JSONLens;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
 /**
@@ -121,7 +121,7 @@ public class SQLiteCatalog
     public String createValueTupleFromBean(String tableName, Object bean) throws DBException, XerialException {
         Relation r = getRelation(tableName);
 
-        JSONObject json = (JSONObject) BeanUtil.toJSONObject(bean);
+        JSONObject json = new JSONObject(JSONLens.toJSON(bean));
 
         HashMap<String, String> valueList = new HashMap<String, String>();
         for (String attribute : json.keys())

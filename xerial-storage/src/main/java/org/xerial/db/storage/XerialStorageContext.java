@@ -24,15 +24,12 @@
 //--------------------------------------
 package org.xerial.db.storage;
 
-import org.xerial.amoeba.AmoebaQuery;
-import org.xerial.amoeba.AmoebaQueryResultSetHandler;
-import org.xerial.amoeba.AmoebaTuple;
-import org.xerial.db.DBException;
 
 /**
  * 
  * 
- * <p>An example table data:
+ * <p>
+ * An example table data:
  * 
  * <pre>
  * Gene Table
@@ -44,13 +41,17 @@ import org.xerial.db.DBException;
  * |-------------------|
  * </pre>
  * 
- * <p>possible annotations for this table:
+ * <p>
+ * possible annotations for this table:
+ * 
  * <pre>
  *  species="human", chromosome="chr18", genome.revision="hg18", creater="leo", 
- *  created_at="2007/07/06" 
+ *  created_at="2007/07/06"
  * </pre>
  * 
- * <p>Some user may generate the following table, containing annotations: 
+ * <p>
+ * Some user may generate the following table, containing annotations:
+ * 
  * <pre>
  * Gene Table with annotation
  * --------------------------------------------
@@ -61,14 +62,17 @@ import org.xerial.db.DBException;
  * |-------------------------------------------
  * </pre>
  * 
- * <p>In both cases, we want to use the same syntax to query these tables. For example, to retrieve
- * gene data of human chromosome 18:
+ * <p>
+ * In both cases, we want to use the same syntax to query these tables. For
+ * example, to retrieve gene data of human chromosome 18:
  * 
  * <pre>
  * select id, start, end from gene_table where species="human" and chromosome="chr18"
  * </pre>
  * 
- * <p>Corresponding AmoebaQuery representation:
+ * <p>
+ * Corresponding AmoebaQuery representation:
+ * 
  * <pre>
  * select gene.id, gene.start, gene.end from (species = "human", chromosome="chr18")
  * </pre>
@@ -91,8 +95,8 @@ import org.xerial.db.DBException;
  * </pre>
  * </code>
  * 
- * <p> Adding exon data to individual genes: 
- * <code>
+ * <p>
+ * Adding exon data to individual genes: <code>
  * <pre>
  *  db.append("gene:(id=1)", "exon:(start=10, end=15)");
  *  db.append("gene:(id=1)", "exon:(start=20, end=30, description='my exon')");
@@ -100,8 +104,7 @@ import org.xerial.db.DBException;
  * </pre>
  * </code>
  * 
- * If you forget to add id for each gene, you can add such IDs later:
- * <code>
+ * If you forget to add id for each gene, you can add such IDs later: <code>
  * <pre>
  * int count = 1;
  * for(AmeobaQueryResultSetHandler handler = db.retrieve("gene"); handler.hasNext(); )
@@ -114,60 +117,72 @@ import org.xerial.db.DBException;
  * 
  * 
  * @author leo
- *
+ * 
  */
-public interface XerialStorageContext {
-	
-	/**
-	 * Retrieves database data 
-	 * @param query the query
-	 * @return ResultSetHandler for amoeba query
-	 * @throws XerialFSException
-	 */
-	public AmoebaQueryResultSetHandler retrieve(AmoebaQuery query) throws DBException;
+public interface XerialStorageContext
+{
 
-	/**
-	 * Retreives database data within the specified context
-	 * @param context the context
-	 * @param query  the query
-	 * @return ResultSetHandler for amoeba query
-	 * @throws XerialFSException
-	 */
-	public AmoebaQueryResultSetHandler retrieve(AmoebaQuery context, AmoebaQuery query) throws DBException;
-	
-	/**
-	 * Appends the data without specifying a particular context, i.e., the data will be inserted into the global context 
-	 * @param tuple a data to insert
-	 * @throws XerialFSException
-	 */
-	public void append(AmoebaTuple tuple) throws DBException;
+    /**
+     * Retrieves database data
+     * 
+     * @param query
+     *            the query
+     * @return ResultSetHandler for amoeba query
+     * @throws XerialFSException
+     */
+    //public AmoebaQueryResultSetHandler retrieve(AmoebaQuery query) throws DBException;
 
-	/**
-	 * Appends the data into the given context
-	 * @param context the update context
-     * @param tuple a data to write
-   	 * @throws XerialFSException
-	 */
-	public void append(AmoebaQuery contest, AmoebaTuple tuple) throws DBException;
-	
+    /**
+     * Retreives database data within the specified context
+     * 
+     * @param context
+     *            the context
+     * @param query
+     *            the query
+     * @return ResultSetHandler for amoeba query
+     * @throws XerialFSException
+     */
+    //public AmoebaQueryResultSetHandler retrieve(AmoebaQuery context, AmoebaQuery query) throws DBException;
 
-	/**
-	 * Overwrites the data in the global context of the database file
-	 * @param tuple a data to write
-	 * @throws XerialFSException
-	 */
-	public void write(AmoebaTuple tuple) throws DBException;
-	
-	/**
-	 * Overwrites the data within the specified context 
-     * @param conetxt the update context
-     * @param tuple a data to write
-	 * @throws XerialFSException 
-	 */
-	public void write(AmoebaQuery context, AmoebaTuple tuple) throws DBException;
-	
-	
-	
+    /**
+     * Appends the data without specifying a particular context, i.e., the data
+     * will be inserted into the global context
+     * 
+     * @param tuple
+     *            a data to insert
+     * @throws XerialFSException
+     */
+    //public void append(AmoebaTuple tuple) throws DBException;
+
+    /**
+     * Appends the data into the given context
+     * 
+     * @param context
+     *            the update context
+     * @param tuple
+     *            a data to write
+     * @throws XerialFSException
+     */
+    //public void append(AmoebaQuery contest, AmoebaTuple tuple) throws DBException;
+
+    /**
+     * Overwrites the data in the global context of the database file
+     * 
+     * @param tuple
+     *            a data to write
+     * @throws XerialFSException
+     */
+    //public void write(AmoebaTuple tuple) throws DBException;
+
+    /**
+     * Overwrites the data within the specified context
+     * 
+     * @param conetxt
+     *            the update context
+     * @param tuple
+     *            a data to write
+     * @throws XerialFSException
+     */
+    //public void write(AmoebaQuery context, AmoebaTuple tuple) throws DBException;
+
 }
-
-

@@ -22,6 +22,7 @@
     <module>xerial-json</module>
     <module>xerial-xml</module>
     <module>xerial-silk</module>
+    <module>xerial-storage</module>
   </modules>
 
   <scm>

@@ -44,10 +44,10 @@ import org.xerial.db.sql.RelationBuilder;
 import org.xerial.db.sql.SQLExpression;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONValue;
+import org.xerial.lens.JSONLens;
 import org.xerial.util.CollectionUtil;
 import org.xerial.util.Functor;
 import org.xerial.util.StringUtil;
-import org.xerial.util.bean.BeanUtil;
 import org.xerial.util.log.Logger;
 
 /**
@@ -128,7 +128,7 @@ public class SQLiteAccess extends DatabaseAccessBase
         List<SQLiteDataTypeInfo> keyAttribute = getCatalog().getKeyAttributeName(tableName);
         ArrayList<String> deleteTargetCondition = new ArrayList<String>();
         for (SQLiteDataTypeInfo key : keyAttribute) {
-            JSONObject json = BeanUtil.toJSONObject(bean);
+            JSONObject json = new JSONObject(JSONLens.toJSON(bean));
             JSONValue value = json.get(key.getName());
             if (value == null)
                 throw new DBException(DBErrorCode.InvalidDataFormat, "key value cannot be null: " + key.getName());

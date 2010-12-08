@@ -48,10 +48,10 @@ import org.xerial.db.sql.PreparedStatementHandler;
 import org.xerial.db.sql.QueryParam;
 import org.xerial.db.sql.RelationBuilder;
 import org.xerial.db.sql.SQLExpression;
-import org.xerial.lens.ObjectLens;
 import org.xerial.util.Pair;
 import org.xerial.util.Predicate;
 import org.xerial.util.StringUtil;
+import org.xerial.util.lens.ObjectLens;
 import org.xerial.util.log.Logger;
 
 /**
@@ -62,8 +62,7 @@ import org.xerial.util.log.Logger;
  */
 public class ObjectStorageImpl implements ObjectStorage
 {
-    private static Logger                   _logger                               = Logger
-                                                                                          .getLogger(ObjectStorageImpl.class);
+    private static Logger                   _logger                               = Logger.getLogger(ObjectStorageImpl.class);
 
     private DatabaseAccess                  dbAccess;
 
@@ -110,8 +109,8 @@ public class ObjectStorageImpl implements ObjectStorage
                 valueList.add(pair.getSecond());
             }
 
-            String sql = SQLExpression.fillTemplate("insert into $1($2) values($3)", tableName, StringUtil.join(
-                    writableAttributeList(r), ", "), StringUtil.join(valueList, ", "));
+            String sql = SQLExpression.fillTemplate("insert into $1($2) values($3)", tableName,
+                    StringUtil.join(writableAttributeList(r), ", "), StringUtil.join(valueList, ", "));
 
             int lastGeneratedID = dbAccess.insertAndRetrieveKeysWithPreparedStatement(sql,
                     new PreparedStatementHandler() {
@@ -274,8 +273,8 @@ public class ObjectStorageImpl implements ObjectStorage
                 break;
             case DATETIME: {
                 Date date = Date.class.cast(value);
-                String dateValue = (date == null) ? "" : String.format("'%s'", DateFormat.getDateTimeInstance().format(
-                        date));
+                String dateValue = (date == null) ? "" : String.format("'%s'",
+                        DateFormat.getDateTimeInstance().format(date));
                 valueList.add(new Pair<DataType, String>(dt, dateValue));
 
                 break;
@@ -296,8 +295,8 @@ public class ObjectStorageImpl implements ObjectStorage
             case TEXT:
             default:
                 // with quotation
-                valueList.add(new Pair<DataType, String>(dt, String.format("'%s'", value == null ? "" : value
-                        .toString())));
+                valueList.add(new Pair<DataType, String>(dt, String.format("'%s'",
+                        value == null ? "" : value.toString())));
                 break;
             }
         }
@@ -344,8 +343,8 @@ public class ObjectStorageImpl implements ObjectStorage
         int startPointID = getBeanID(startPoint);
         String tableName = getTableName(associatedType);
         String parentIDColumnName = getAssociatedIDColumnName(startPoint.getClass());
-        String sql = SQLExpression.fillTemplate("select $1 from $2 u where $3 = $4 order by u.id", getSelectColumnList(
-                associatedType, "u."), tableName, parentIDColumnName, startPointID);
+        String sql = SQLExpression.fillTemplate("select $1 from $2 u where $3 = $4 order by u.id",
+                getSelectColumnList(associatedType, "u."), tableName, parentIDColumnName, startPointID);
         return dbAccess.query(sql, associatedType);
     }
 
@@ -367,9 +366,9 @@ public class ObjectStorageImpl implements ObjectStorage
         String tableName = getTableName(associatedType);
         String parentIDColumnName = getAssociatedIDColumnName(startPointClass);
         String sql = SQLExpression.fillTemplate("select $1 from $2 u where $3 = $4 $5 order by $6",
-                getSelectColumnList(associatedType, "u."), tableName, parentIDColumnName, idOfT, (queryParam
-                        .getWhereCondition() != null) ? "and " + queryParam.getWhereCondition() : "", (queryParam
-                        .getOrderByColumns() != null) ? queryParam.getOrderByColumns() : "u.id");
+                getSelectColumnList(associatedType, "u."), tableName, parentIDColumnName, idOfT,
+                (queryParam.getWhereCondition() != null) ? "and " + queryParam.getWhereCondition() : "",
+                (queryParam.getOrderByColumns() != null) ? queryParam.getOrderByColumns() : "u.id");
         return dbAccess.query(sql, associatedType);
     }
 
@@ -483,8 +482,8 @@ public class ObjectStorageImpl implements ObjectStorage
     public <T, U> T getParent(Class<T> parentClass, Class<U> childClass, int idOfU) throws DBException {
         String parentTableName = getTableName(parentClass);
         String childTableName = getTableName(childClass);
-        String sql = SQLExpression.fillTemplate("select $1 from $2 t, $3 u where u.id = $4", getSelectColumnList(
-                parentClass, "t."), parentTableName, childTableName, idOfU);
+        String sql = SQLExpression.fillTemplate("select $1 from $2 t, $3 u where u.id = $4",
+                getSelectColumnList(parentClass, "t."), parentTableName, childTableName, idOfU);
         List<T> result = dbAccess.query(sql, parentClass);
         if (result == null || result.size() <= 0)
             return null;
@@ -629,8 +628,8 @@ public class ObjectStorageImpl implements ObjectStorage
             setModifiedAtTimeStamp(bean, now);
 
             final Pair<String, List<byte[]>> setValueList = createUpdateStatement(r, bean);
-            String sql = SQLExpression.fillTemplate("update $1 set $2 where id = $3", tableName, setValueList
-                    .getFirst(), id);
+            String sql = SQLExpression.fillTemplate("update $1 set $2 where id = $3", tableName,
+                    setValueList.getFirst(), id);
 
             dbAccess.updateWithPreparedStatement(sql, new PreparedStatementHandler() {
                 public void setup(PreparedStatement preparedStatement) throws SQLException {
@@ -659,8 +658,8 @@ public class ObjectStorageImpl implements ObjectStorage
                 setModifiedAtTimeStamp(bean, now);
 
                 final Pair<String, List<byte[]>> setValueList = createUpdateStatement(r, bean);
-                String sql = SQLExpression.fillTemplate("update $1 set $2 where id = $3", tableName, setValueList
-                        .getFirst(), id);
+                String sql = SQLExpression.fillTemplate("update $1 set $2 where id = $3", tableName,
+                        setValueList.getFirst(), id);
 
                 dbAccess.updateWithPreparedStatement(sql, new PreparedStatementHandler() {
                     public void setup(PreparedStatement preparedStatement) throws SQLException {

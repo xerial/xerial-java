@@ -24,13 +24,9 @@
 //--------------------------------------
 package org.xerial.db.storage;
 
-import org.xerial.amoeba.AmoebaQuery;
 
-public interface XerialStorageMaster 
+public interface XerialStorageMaster
 {
     XerialStorageContext getStorage(String path);
-    XerialStorageContext getStorage(AmoebaQuery context);
+    //XerialStorageContext getStorage(AmoebaQuery context);
 }
-
-
-

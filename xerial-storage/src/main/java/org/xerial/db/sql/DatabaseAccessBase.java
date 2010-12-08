@@ -46,6 +46,7 @@ import org.xerial.db.DBException;
 import org.xerial.db.Relation;
 import org.xerial.db.datatype.DataType;
 import org.xerial.json.JSONObject;
+import org.xerial.json.JSONUtil;
 import org.xerial.json.JSONValue;
 import org.xerial.lens.Lens;
 import org.xerial.util.Predicate;
@@ -119,15 +120,18 @@ public class DatabaseAccessBase implements DatabaseAccess
             this.pred = pred;
         }
 
+        @Override
         public void handle(T bean) throws Exception {
             if (bean != null && pred.apply(bean))
                 result.add(bean);
         }
 
+        @Override
         public void finish() {
 
         }
 
+        @Override
         public void init() {
 
         }
@@ -535,8 +539,8 @@ public class DatabaseAccessBase implements DatabaseAccess
     public <T> int insert(String tableName, T bean) throws DBException {
         String sql;
         try {
-            sql = SQLExpression.fillTemplate("insert into $1 values($2)", tableName, createValueTupleFromBean(
-                    tableName, bean));
+            sql = SQLExpression.fillTemplate("insert into $1 values($2)", tableName,
+                    createValueTupleFromBean(tableName, bean));
             return update(sql);
         }
         catch (XerialException e) {
@@ -567,7 +571,7 @@ public class DatabaseAccessBase implements DatabaseAccess
     protected String createValueTupleFromBean(String tableName, Object bean) throws DBException, XerialException {
         Relation r = getRelation(tableName);
 
-        JSONObject json = (JSONObject) BeanUtil.toJSONObject(bean);
+        JSONObject json = new JSONObject(JSONUtil.toJSON(bean));
 
         ArrayList<String> tupleValue = new ArrayList<String>();
         for (DataType dt : r.getDataTypeList()) {
