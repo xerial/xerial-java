@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-storage</artifactId>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>2.0-SNAPSHOT</version>
   <name>Xerial Storage</name>
   <description>
     Xerial Storage System
@@ -13,7 +13,7 @@
   <parent>
     <groupId>org.xerial</groupId>
     <artifactId>xerial-project</artifactId>
-    <version>1.0.1</version>
+    <version>2.0-SNAPSHOT</version>
   </parent>
 
   <build>
@@ -50,13 +50,13 @@
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>xerial-core</artifactId>
-      <version>1.0.17</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.6.20</version>
+      <version>3.7.2</version>
     </dependency>
 
     <dependency>
