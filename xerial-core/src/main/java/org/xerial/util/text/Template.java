@@ -105,6 +105,7 @@ public class Template {
             e.printStackTrace();
         }
 
-        return out.toString();
+        String r = out.toString();
+        return r.replaceAll(Matcher.quoteReplacement("\\$"), Matcher.quoteReplacement("$"));
     }
 }

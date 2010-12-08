@@ -57,7 +57,7 @@ public class TemplateTest {
         prop.put("name", "Leo");
         prop.put("kept\\", "not preserved");
         String result = t.apply(prop);
-        assertEquals("hello Leo! \\$kept\\$", result);
+        assertEquals("hello Leo! $kept$", result);
 
     }
 
