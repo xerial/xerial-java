@@ -94,6 +94,7 @@ public class Template {
                         if (value != null)
                             out.append(value.toString());
                     }
+                    cursor = varEnd;
                 }
 
                 if (cursor < line.length()) {

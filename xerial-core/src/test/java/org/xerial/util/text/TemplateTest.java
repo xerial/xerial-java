@@ -50,6 +50,14 @@ public class TemplateTest {
     }
 
     @Test
+    public void emptyProperty() {
+        Template t = new Template("hello $name$!");
+        Properties prop = new Properties();
+        String result = t.apply(prop);
+        assertEquals("hello !", result);
+    }
+
+    @Test
     public void escape() throws Exception {
 
         Template t = new Template("hello $name$! \\$kept\\$");
@@ -68,6 +76,16 @@ public class TemplateTest {
         prop.put("name", "Leo");
         String result = t.apply(prop);
         assertEquals("Hello Leo!\n Hello Leo Leo \n Good Job!", result);
+
+    }
+
+    @Test
+    public void keywordAtTheEOL() throws Exception {
+        Template t = new Template("$name$");
+        Properties prop = new Properties();
+        prop.put("name", "Leo");
+        String result = t.apply(prop);
+        assertEquals("Leo", result);
 
     }
 
