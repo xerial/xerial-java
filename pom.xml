@@ -16,7 +16,6 @@
   </parent>
 
   <modules>
-	<module>maven/maven-antlr-plugin</module>
     <module>xerial-core</module>
     <module>xerial-lens</module>
     <module>xerial-json</module>
