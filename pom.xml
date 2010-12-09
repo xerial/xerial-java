@@ -104,10 +104,11 @@
     </plugins>
   </reporting>
 
-
+  <properties>
+   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <build>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- this settings are required to include source codes to the generated 
       jar files -->
     <resources>
