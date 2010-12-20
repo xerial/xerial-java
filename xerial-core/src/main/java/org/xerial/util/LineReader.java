@@ -115,7 +115,7 @@ public class LineReader implements Iterable<String> {
                 try {
                     String line = readLine();
                     if (line != null) {
-                        queue.push(line);
+                        queue.addLast(line);
                         return true;
                     }
                 }
