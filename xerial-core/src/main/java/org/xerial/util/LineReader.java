@@ -30,27 +30,37 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Iterator;
 
 /**
- * An extension of the BufferedReader
+ * An extension of the BufferedReader for reading lines. The input file (or
+ * buffer) will be closed automatically upon finished reading.
+ * 
  * 
  * @author leo
  * 
  */
-public class LineReader extends BufferedReader {
+public class LineReader implements Iterable<String> {
 
     private int lineCount = 0;
 
+    private BufferedReader reader;
+    private boolean hasFinishedReading = false;
+
     public LineReader(File file) throws FileNotFoundException {
-        super(wrap(new FileReader(file)));
+        this.reader = wrap(new FileReader(file));
+    }
+
+    public LineReader(File file, int bufferSize) throws FileNotFoundException {
+        this.reader = wrap(new FileReader(file), bufferSize);
     }
 
     public LineReader(Reader in) {
-        super(wrap(in));
+        this.reader = wrap(in);
     }
 
     public LineReader(Reader in, int bufferSize) {
-        super(wrap(in), bufferSize);
+        this.reader = wrap(in, bufferSize);
     }
 
     private static BufferedReader wrap(Reader in) {
@@ -62,6 +72,10 @@ public class LineReader extends BufferedReader {
         }
     }
 
+    private static BufferedReader wrap(Reader in, int bufferSize) {
+        return new BufferedReader(in, bufferSize);
+    }
+
     /**
      * Current line number. The first line is 1
      * 
@@ -71,12 +85,59 @@ public class LineReader extends BufferedReader {
         return lineCount;
     }
 
-    @Override
     public String readLine() throws IOException {
-        String line = super.readLine();
+        String line = reader.readLine();
         if (line != null)
             lineCount++;
-        return super.readLine();
+        else
+            close();
+        return line;
+    }
+
+    public void close() throws IOException {
+        if (!hasFinishedReading) {
+            hasFinishedReading = true;
+            reader.close();
+        }
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return new Iterator<String>() {
+
+            ArrayDeque<String> queue = new ArrayDeque<String>();
+
+            @Override
+            public boolean hasNext() {
+                if (!queue.isEmpty())
+                    return true;
+
+                try {
+                    String line = readLine();
+                    if (line != null) {
+                        queue.push(line);
+                        return true;
+                    }
+                }
+                catch (IOException e) {
+                    // An error occurred while reading
+                }
+                return false;
+            }
+
+            @Override
+            public String next() {
+                if (!hasNext()) {
+                    return null;
+                }
+                return queue.pollFirst();
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException("remove");
+            }
+        };
     }
 
 }
