@@ -27,12 +27,14 @@ package org.xerial.lens;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.URL;
 
 import org.xerial.core.ErrorCode;
 import org.xerial.core.XerialException;
 import org.xerial.silk.SilkParser;
 import org.xerial.silk.SilkUtil;
+import org.xerial.silk.SilkWriter;
 import org.xerial.util.ObjectHandler;
 import org.xerial.util.TypeInfo;
 
@@ -47,6 +49,14 @@ public class SilkLens
 
     public static String toSilk(Object obj) {
         return SilkUtil.toSilk(obj);
+    }
+
+    public static String toSilk(String nodeName, Object obj) {
+        StringWriter buf = new StringWriter();
+        SilkWriter writer = new SilkWriter(buf);
+        writer.leafObject(nodeName, obj);
+        writer.flush();
+        return buf.toString();
     }
 
     /**
