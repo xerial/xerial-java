@@ -33,7 +33,14 @@ package org.xerial.core;
 public enum XerialErrorCode implements ErrorCode {
 
     // related to programming error
-    INVALID_STATE, SYNTAX_ERROR, NOT_INITIALIZED, UNSUPPORTED, INVALID_INPUT, INVALID_ARGUMENT, NOT_READY, INVALID_USAGE,
+    INVALID_STATE,
+    SYNTAX_ERROR,
+    NOT_INITIALIZED,
+    UNSUPPORTED,
+    INVALID_INPUT,
+    INVALID_ARGUMENT,
+    NOT_READY,
+    INVALID_USAGE,
     // collection
     MISSING_ELEMENT,
 
@@ -44,22 +51,39 @@ public enum XerialErrorCode implements ErrorCode {
     RESOURCE_NOT_FOUND,
 
     // I/O
-    READ_ERROR, OUTPUT_ERROR, IO_EXCEPTION, INTERRUPTED, DISK_IO_ERROR,
+    READ_ERROR,
+    OUTPUT_ERROR,
+    IO_EXCEPTION,
+    INTERRUPTED,
+    DISK_IO_ERROR,
 
     // disk page
-    INVALID_CHAIN_INDEX, TOO_LARGE_RELATION, LOAD_FAILURE,
+    INVALID_CHAIN_INDEX,
+    TOO_LARGE_RELATION,
+    LOAD_FAILURE,
 
     // option parser error
-    DUPLICATE_OPTION, NO_OPTION, NO_USAGE_ANNOTATION, MISSING_ARGUMENT,
+    DUPLICATE_OPTION,
+    NO_OPTION,
+    NO_USAGE_ANNOTATION,
+    MISSING_ARGUMENT,
 
     // type 
-    MISSING_TYPE_PARAMETER, NOT_A_COLLECTION, INACCESSIBLE_METHOD, WRONG_DATA_TYPE, DECODE_ERROR, ENCODE_ERROR,
+    MISSING_TYPE_PARAMETER,
+    NOT_A_COLLECTION,
+    INACCESSIBLE_METHOD,
+    WRONG_DATA_TYPE,
+    DECODE_ERROR,
+    ENCODE_ERROR,
 
     // parse error
-    INVALID_TOKEN, PARSE_ERROR,
+    INVALID_TOKEN,
+    PARSE_ERROR,
+    UNKNOWN_COMMAND,
 
     // general exception
-    INHERITED, HAS_AN_EXTENDED_ERROR_CODE,
+    INHERITED,
+    HAS_AN_EXTENDED_ERROR_CODE,
 
     // Bean specific error codes
     IOError,
@@ -67,20 +91,26 @@ public enum XerialErrorCode implements ErrorCode {
     NoMoreSubtree,
 
     // XML
-    InvalidXMLData, ParserError, UnsupportedXMLDataType,
+    InvalidXMLData,
+    ParserError,
+    UnsupportedXMLDataType,
 
     // JSON
-    InvalidJSONData, InvalidJSONArray,
+    InvalidJSONData,
+    InvalidJSONArray,
 
     UnsupportedDataType,
 
     // Bean class
-    InvalidBeanClass, IllegalArgument, IllegalAccess, NoPublicConstructor, InstantiationFailure, InvalidNumberFormat, InvocationTargetException,
+    InvalidBeanClass, IllegalArgument, IllegalAccess, NoPublicConstructor, InstantiationFailure,
+    InvalidNumberFormat, InvocationTargetException,
 
     BeanObjectIsNull,
 
     // binder
-    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair, MapContainerIsNotFound, MapElementConstructionFailed, InvalidDateFormat, InvalidFormat, InvalidType;
+    GetterCannotBeUsedToBindData, BindFailure, UnknownBeanUpdator, InvalidKeyAndValuePair,
+    MapContainerIsNotFound, MapElementConstructionFailed, InvalidDateFormat, InvalidFormat,
+    InvalidType;
 
     private final String description;
 
