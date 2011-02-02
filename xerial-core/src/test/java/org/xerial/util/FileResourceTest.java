@@ -103,4 +103,10 @@ public class FileResourceTest {
         }
     }
 
+    @Test
+    public void loadIntoString() throws IOException {
+        String text = FileResource.loadIntoString(FileResourceTest.class, "test-resource.txt");
+        assertEquals("hello world", text);
+    }
+
 }

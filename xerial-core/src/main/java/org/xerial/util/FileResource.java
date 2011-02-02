@@ -26,6 +26,7 @@ package org.xerial.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -635,6 +636,36 @@ public class FileResource {
         File tmp = FileUtil.createTempFile(tempDir, "tmp-", new File(path).getName());
         FileUtil.copy(resource, tmp);
         return tmp;
+    }
+
+    /**
+     * Load the given resource file into String
+     * 
+     * @param <T>
+     * @param referenceClass
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static <T> String loadIntoString(Class<T> referenceClass, String path)
+            throws IOException {
+        BufferedInputStream in = openByteStream(referenceClass, path);
+        if (in == null)
+            throw new FileNotFoundException(String.format("reference class:%s, path:%s",
+                    referenceClass.getName(), path));
+
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        try {
+            byte[] tmp = new byte[4028];
+            for (int readBytes = 0; (readBytes = in.read(tmp)) != -1;) {
+                buf.write(tmp, 0, readBytes);
+            }
+            buf.flush();
+            return buf.toString();
+        }
+        finally {
+            in.close();
+        }
     }
 
 }
