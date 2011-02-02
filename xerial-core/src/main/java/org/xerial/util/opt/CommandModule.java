@@ -24,6 +24,6 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
-public interface CommandModule extends Command {
+public interface CommandModule {
 
 }

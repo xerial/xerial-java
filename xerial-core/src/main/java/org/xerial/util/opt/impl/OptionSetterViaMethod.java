@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.impl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -31,6 +31,7 @@ import java.lang.reflect.Type;
 import org.xerial.core.XerialException;
 import org.xerial.util.ReflectionUtil;
 import org.xerial.util.TypeInfo;
+import org.xerial.util.opt.OptionParserException;
 
 /**
  * Option setter using a class method.

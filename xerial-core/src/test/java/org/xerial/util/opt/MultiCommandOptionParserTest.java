@@ -192,4 +192,11 @@ public class MultiCommandOptionParserTest {
         });
 
     }
+
+    @Test
+    public void autoLoadModule() throws Exception {
+
+        final MultiCommandOptionParser m = new MultiCommandOptionParser();
+
+    }
 }

@@ -22,13 +22,15 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.xerial.core.XerialException;
 import org.xerial.util.TypeInfo;
+import org.xerial.util.opt.Option;
+import org.xerial.util.opt.OptionParserException;
 
 /**
  * OptionItem

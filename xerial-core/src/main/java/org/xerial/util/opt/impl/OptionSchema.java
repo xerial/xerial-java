@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,6 +45,9 @@ import org.xerial.util.Mapper;
 import org.xerial.util.Range;
 import org.xerial.util.ResourcePath;
 import org.xerial.util.StringUtil;
+import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Option;
+import org.xerial.util.opt.Usage;
 import org.xerial.util.text.Template;
 
 /**
@@ -58,11 +61,11 @@ public class OptionSchema {
     private final ArrayList<ArgumentItem> argumentItemList = new ArrayList<ArgumentItem>();
     private Usage usage = null;
 
-    List<OptionItem> getOptionItemList() {
+    public List<OptionItem> getOptionItemList() {
         return optionItemList;
     }
 
-    List<ArgumentItem> getArgumentItemList() {
+    public List<ArgumentItem> getArgumentItemList() {
         return argumentItemList;
     }
 

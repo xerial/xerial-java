@@ -70,17 +70,18 @@ public class MultiCommandOptionParser {
     }
 
     public void addCommand(Class< ? > commandClass) {
+        if (Modifier.isAbstract(commandClass.getModifiers())
+                || !Command.class.isAssignableFrom(commandClass))
+            return;
+
         try {
-            if (!Modifier.isAbstract(commandClass.getModifiers())
-                    && Command.class.isAssignableFrom(commandClass)) {
-                // found a sub command class
-                @SuppressWarnings("unchecked")
-                Class<Command> cl = (Class<Command>) commandClass;
-                Command subCommand = (Command) commandClass.newInstance();
-                if (subCommand == null)
-                    return;
-                commandList.add(subCommand.name(), cl);
-            }
+            // found a sub command class
+            @SuppressWarnings("unchecked")
+            Class<Command> cl = (Class<Command>) commandClass;
+            Command subCommand = (Command) commandClass.newInstance();
+            if (subCommand == null)
+                return;
+            commandList.add(subCommand.name(), cl);
         }
         catch (InstantiationException e) {
             _logger.error(e);
@@ -118,7 +119,7 @@ public class MultiCommandOptionParser {
 
     }
 
-    public void addModule() {
+    public void addModule(String moduleName, Package packageToSearch) {
 
     }
 

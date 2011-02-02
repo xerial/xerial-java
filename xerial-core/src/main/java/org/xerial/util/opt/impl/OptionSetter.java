@@ -22,9 +22,10 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.impl;
 
 import org.xerial.core.XerialException;
+import org.xerial.util.opt.OptionParserException;
 
 /**
  * @author leo

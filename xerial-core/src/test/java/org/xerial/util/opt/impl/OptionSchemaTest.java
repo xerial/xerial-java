@@ -22,7 +22,7 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -36,6 +36,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xerial.util.log.LogLevel;
 import org.xerial.util.log.Logger;
+import org.xerial.util.opt.Argument;
+import org.xerial.util.opt.Option;
+import org.xerial.util.opt.Usage;
+import org.xerial.util.opt.impl.OptionSchema;
 
 public class OptionSchemaTest
 {
