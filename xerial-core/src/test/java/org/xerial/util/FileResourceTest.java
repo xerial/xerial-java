@@ -105,8 +105,13 @@ public class FileResourceTest {
 
     @Test
     public void loadIntoString() throws IOException {
-        String text = FileResource.loadIntoString(FileResourceTest.class, "test-resource.txt");
+        String text = FileResource
+                .loadIntoString(this.getClass().getPackage(), "test-resource.txt");
         assertEquals("hello world", text);
+
+        text = FileResource.loadIntoString(this.getClass(), "test-resource.txt");
+        assertEquals("hello world", text);
+
     }
 
 }

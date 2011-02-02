@@ -630,12 +630,18 @@ public class FileResource {
     public static <T> File copyToTemp(Class<T> searchBase, String path, File tempDir)
             throws IOException {
         BufferedInputStream resource = openByteStream(searchBase, path);
-        if (resource == null)
-            throw new FileNotFoundException(path);
+        try {
+            if (resource == null)
+                throw new FileNotFoundException(path);
 
-        File tmp = FileUtil.createTempFile(tempDir, "tmp-", new File(path).getName());
-        FileUtil.copy(resource, tmp);
-        return tmp;
+            File tmp = FileUtil.createTempFile(tempDir, "tmp-", new File(path).getName());
+            FileUtil.copy(resource, tmp);
+            return tmp;
+        }
+        finally {
+            if (resource != null)
+                resource.close();
+        }
     }
 
     /**
@@ -666,6 +672,28 @@ public class FileResource {
         finally {
             in.close();
         }
+    }
+
+    public static <T> String loadIntoString(Package referencePackage, String path)
+            throws IOException {
+        BufferedInputStream in = openByteStream(referencePackage, path);
+        if (in == null)
+            throw new FileNotFoundException(String.format("reference package:%s, path:%s",
+                    referencePackage.getName(), path));
+
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        try {
+            byte[] tmp = new byte[4028];
+            for (int readBytes = 0; (readBytes = in.read(tmp)) != -1;) {
+                buf.write(tmp, 0, readBytes);
+            }
+            buf.flush();
+            return buf.toString();
+        }
+        finally {
+            in.close();
+        }
+
     }
 
 }
