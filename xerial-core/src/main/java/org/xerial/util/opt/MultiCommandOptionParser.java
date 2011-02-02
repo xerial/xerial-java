@@ -178,8 +178,7 @@ public class MultiCommandOptionParser {
                         "unkown command %s", globalOption.command));
             Command subCommand = subCommandCl.newInstance();
 
-            Object subCommandOption = subCommand.getOptionHolder();
-            OptionParser subOpt = new OptionParser(subCommandOption);
+            OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
             if (globalOption.displayHelp) {
                 subOpt.printUsage();
             }

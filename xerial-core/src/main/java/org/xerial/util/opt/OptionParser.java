@@ -53,8 +53,12 @@ public class OptionParser {
 
     private boolean ignoreAfterTheFirstArgument = false;
 
+    private static class EmptyOptionHolder {
+
+    }
+
     public <T> OptionParser(T optionHolder) {
-        this.optionHolder = optionHolder;
+        this.optionHolder = optionHolder == null ? new EmptyOptionHolder() : optionHolder;
         schema = OptionSchema.newOptionSchema(optionHolder);
     }
 
@@ -248,10 +252,9 @@ public class OptionParser {
                         if (shortOptionList.length() != 1)
                             throw new OptionParserException(
                                     XerialErrorCode.SYNTAX_ERROR,
-                                    String
-                                            .format(
-                                                    "short name option -%s with an arguments must be a single notation",
-                                                    shortOptionName));
+                                    String.format(
+                                            "short name option -%s with an arguments must be a single notation",
+                                            shortOptionName));
 
                         setOption(optionItem, args[++index]);
                     }
@@ -282,8 +285,8 @@ public class OptionParser {
                         argItem.set(optionHolder, currentArg);
                     }
                     catch (XerialException e) {
-                        throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT, e
-                                .getMessage());
+                        throw new OptionParserException(XerialErrorCode.INVALID_ARGUMENT,
+                                e.getMessage());
                     }
 
                     // when duplicate values for the argument variable have found
@@ -311,8 +314,8 @@ public class OptionParser {
         for (ArgumentItem argItem : schema.getArgumentItemList()) {
             if (argItem.getArgumentDescriptor().required()
                     && !activatedArgument.contains(argItem.getArgumentDescriptor()))
-                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT, argItem
-                        .toString());
+                throw new OptionParserException(XerialErrorCode.MISSING_ARGUMENT,
+                        argItem.toString());
         }
 
     }

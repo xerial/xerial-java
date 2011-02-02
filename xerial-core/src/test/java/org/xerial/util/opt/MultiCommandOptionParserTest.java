@@ -31,36 +31,10 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 import org.xerial.util.log.Logger;
+import org.xerial.util.opt.samplemodule.Hello;
 
 public class MultiCommandOptionParserTest {
     private static Logger _logger = Logger.getLogger(MultiCommandOptionParserTest.class);
-
-    public static class Hello implements Command {
-
-        @Argument
-        String name = "";
-
-        @Override
-        public String name() {
-            return "hello";
-        }
-
-        @Override
-        public String getOneLineDescription() {
-            return "say hello";
-        }
-
-        @Override
-        public Object getOptionHolder() {
-            return this;
-        }
-
-        @Override
-        public void execute() throws Exception {
-            System.out.println("hello " + name);
-        }
-
-    }
 
     public static interface Validator {
         public void execute() throws Exception;
@@ -77,9 +51,8 @@ public class MultiCommandOptionParserTest {
             validator.execute();
             out.flush();
             String stdOutMessage = buffer.toString();
-            if (validator != null) {
-                validator.validate(stdOutMessage);
-            }
+            _logger.debug(stdOutMessage);
+            validator.validate(stdOutMessage);
         }
         finally {
             System.setOut(defaultOut);
@@ -88,86 +61,135 @@ public class MultiCommandOptionParserTest {
 
     @Test
     public void multiCommands() throws Exception {
-        PrintStream out = new PrintStream(new ByteArrayOutputStream());
-        PrintStream defaultOut = System.out;
-        System.setOut(out);
 
-        try {
-            final MultiCommandOptionParser m = new MultiCommandOptionParser();
-            m.addCommand(Hello.class);
+        final MultiCommandOptionParser m = new MultiCommandOptionParser();
+        m.addCommand(Hello.class);
 
-            testStdOut(new Validator() {
-                @Override
-                public void validate(String output) {
-                    assertTrue(output.contains("type --help"));
-                }
+        testStdOut(new Validator() {
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("type --help"));
+            }
 
-                @Override
-                public void execute() throws Exception {
-                    m.displayDefaultMessage();
-                }
-            });
+            @Override
+            public void execute() throws Exception {
+                m.displayDefaultMessage();
+            }
+        });
 
-            testStdOut(new Validator() {
-                @Override
-                public void execute() throws Exception {
-                    m.execute(new String[] { "--help" });
-                }
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help" });
+            }
 
-                @Override
-                public void validate(String output) {
-                    assertTrue(output.contains("-h"));
-                    assertTrue(output.contains("--help"));
-                }
-            });
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("-h"));
+                assertTrue(output.contains("--help"));
+            }
+        });
 
-            Validator v1 = new Validator() {
-                @Override
-                public void execute() throws Exception {
-                    m.execute(new String[] { "hello" });
-                }
+        Validator v1 = new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "hello" });
+            }
 
-                @Override
-                public void validate(String output) {
-                    assertTrue(output.startsWith("hello"));
-                }
+            @Override
+            public void validate(String output) {
+                assertTrue(output.startsWith("hello"));
+            }
 
-            };
-            testStdOut(v1);
+        };
+        testStdOut(v1);
 
-            testStdOut(new Validator() {
+        testStdOut(new Validator() {
 
-                @Override
-                public void execute() throws Exception {
-                    m.execute(new String[] { "hello", "world" });
-                }
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "hello", "world" });
+            }
 
-                @Override
-                public void validate(String output) {
-                    assertTrue(output.startsWith("hello world"));
-                }
-            });
+            @Override
+            public void validate(String output) {
+                assertTrue(output.startsWith("hello world"));
+            }
+        });
 
-            // Test whether a new instance of the command is created for each call of execute(args);
-            testStdOut(v1);
+        // Test whether a new instance of the command is created for each call of execute(args);
+        testStdOut(v1);
 
-            // display help message of sub commands
-            testStdOut(new Validator() {
-                @Override
-                public void execute() throws Exception {
-                    m.execute(new String[] { "hello", "--help" });
-                }
+        // display help message of sub commands
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "hello", "--help" });
+            }
 
-                @Override
-                public void validate(String output) {
-                    assertTrue(output.contains("name"));
-                }
-            });
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("name"));
+            }
+        });
 
-        }
-        finally {
-            System.setOut(defaultOut);
-        }
     }
 
+    @Test
+    public void loadPackage() throws Exception {
+        final MultiCommandOptionParser m = new MultiCommandOptionParser();
+        m.addCommandsIn(Package.getPackage("org.xerial.util.opt.samplemodule"));
+
+        testStdOut(new Validator() {
+
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("hello"));
+                assertTrue(output.contains("import"));
+            }
+        });
+
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "hello" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.startsWith("hello"));
+            }
+        });
+
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "import", "-i", "sample.file" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("sample.file"));
+            }
+        });
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help", "import" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("-i"));
+                assertTrue(output.contains("input file"));
+            }
+        });
+
+    }
 }

@@ -146,12 +146,12 @@ public class OptionSchema {
         if (usage != null) {
             helpMessageTemplateValue.put(TemplateVariable.COMMAND.name(), usage.command());
             if (usage.description() != null && usage.description().length() > 0)
-                helpMessageTemplateValue.put(TemplateVariable.DESCRIPTION.name(), usage
-                        .description());
+                helpMessageTemplateValue.put(TemplateVariable.DESCRIPTION.name(),
+                        usage.description());
         }
 
-        helpMessageTemplateValue.put(TemplateVariable.ARGUMENT_LIST.name(), StringUtil.join(
-                argExpressionList, " "));
+        helpMessageTemplateValue.put(TemplateVariable.ARGUMENT_LIST.name(),
+                StringUtil.join(argExpressionList, " "));
 
         // option list
         Collections.sort(optionItemList, new Comparator<OptionItem>() {
@@ -198,8 +198,8 @@ public class OptionSchema {
             optionListHelpWriter.append(line);
             optionListHelpWriter.append(StringUtil.newline());
         }
-        helpMessageTemplateValue.put(TemplateVariable.OPTION_LIST.name(), optionListHelpWriter
-                .toString());
+        helpMessageTemplateValue.put(TemplateVariable.OPTION_LIST.name(),
+                optionListHelpWriter.toString());
 
         // render help messages using template
 
