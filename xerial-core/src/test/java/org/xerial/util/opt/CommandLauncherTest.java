@@ -33,8 +33,8 @@ import org.junit.Test;
 import org.xerial.util.log.Logger;
 import org.xerial.util.opt.samplemodule.Hello;
 
-public class MultiCommandOptionParserTest {
-    private static Logger _logger = Logger.getLogger(MultiCommandOptionParserTest.class);
+public class CommandLauncherTest {
+    private static Logger _logger = Logger.getLogger(CommandLauncherTest.class);
 
     public static interface Validator {
         public void execute() throws Exception;
@@ -62,7 +62,8 @@ public class MultiCommandOptionParserTest {
     @Test
     public void multiCommands() throws Exception {
 
-        final CommandModuleBase m = new CommandModuleBase(Hello.class.getPackage());
+        final CommandLauncher m = new CommandLauncher();
+        m.addCommand(Hello.class);
 
         testStdOut(new Validator() {
             @Override
@@ -72,7 +73,7 @@ public class MultiCommandOptionParserTest {
 
             @Override
             public void execute() throws Exception {
-                m.printDefaultMessage();
+                m.execute(new String[] {});
             }
         });
 
@@ -119,6 +120,14 @@ public class MultiCommandOptionParserTest {
 
         // Test whether a new instance of the command is created for each call of execute(args);
         testStdOut(v1);
+
+    }
+
+    @Test
+    public void addPackage() throws Exception {
+
+        final CommandLauncher m = new CommandLauncher();
+        m.addCommandsIn(Hello.class.getPackage());
 
         // display help message of sub commands
         testStdOut(new Validator() {
@@ -184,5 +193,23 @@ public class MultiCommandOptionParserTest {
             }
         });
 
+    }
+    
+    @Test
+    public void recursive() throws Exception {
+        final CommandLauncher m = new CommandLauncher();
+        m.addCommandsIn(Hello.class.getPackage(), true);
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] {"hello2"});
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("HELLO"));
+            }});
+        
     }
 }

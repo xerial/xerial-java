@@ -26,8 +26,5 @@ package org.xerial.util.opt;
 
 public interface CommandModule extends Command {
 
-    public Package getCommandBasePackage();
-
-    public void addModule(CommandModule module);
-
+    public void printUsage() throws Exception;
 }

@@ -41,13 +41,10 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public abstract class CommandModuleBase implements Command {
+public class CommandModuleBase implements CommandModule {
 
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private PrefixTree<Command> commandList = new PrefixTree<Command>();
-
-    private final String name;
-    private final String commandPackage;
 
     public static class Message {
         public String defaultMessage = "type --help for the list of sub commands";
@@ -55,21 +52,19 @@ public abstract class CommandModuleBase implements Command {
 
     private Message message = new Message();
 
-    public CommandModuleBase(Package commandPackage) {
-        this(null, commandPackage);
+    public CommandModuleBase() {
+
     }
 
-    public CommandModuleBase(String name, Package commandPackage) {
-        if (commandPackage == null)
-            throw new NullPointerException("package is null");
+    public void addModule(CommandModule module) {
+        if (commandList.findBy(module.name()) != null) {
+            _logger.warn("duplicate module (or command) name found: " + module.name());
+        }
+        commandList.add(module.name(), module);
 
-        this.name = name;
-        this.commandPackage = commandPackage.getName();
-
-        addCommandsIn(this.commandPackage);
     }
 
-    private void addCommand(Class< ? > commandClass) {
+    public void addCommand(Class< ? > commandClass) {
         if (Modifier.isAbstract(commandClass.getModifiers())
                 || !Command.class.isAssignableFrom(commandClass))
             return;
@@ -95,7 +90,7 @@ public abstract class CommandModuleBase implements Command {
         }
     }
 
-    private void addCommandsIn(String packageName) {
+    public void addCommandsIn(String packageName, boolean recursive) {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
         List<VirtualFile> classFileList = FileResource.listResources(packageName,
@@ -112,9 +107,9 @@ public abstract class CommandModuleBase implements Command {
             if (dot <= 0)
                 continue;
 
-            //            if (logicalPath.contains("/")) {
-            //
-            //            }
+            if (!recursive && logicalPath.contains("/")) {
+                continue;
+            }
 
             String className = packageName + "."
                     + logicalPath.substring(0, dot).replaceAll("/", ".");
@@ -170,11 +165,11 @@ public abstract class CommandModuleBase implements Command {
         else {
             Command subCommand = getSubCommand(globalOption.command);
             OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
-            if (CommandModuleBase.class.isAssignableFrom(subCommand.getClass())) {
-                // when the sub command is a module, delegate the help message processing   
+            if (CommandModule.class.isAssignableFrom(subCommand.getClass())) {
+                // when the sub command is a module, delegate the help message processing to it  
                 String[] unusedArguments = globalOptionParser.getUnusedArguments();
                 subOpt.parse(unusedArguments);
-                CommandModuleBase module = CommandModuleBase.class.cast(subCommand);
+                CommandModule module = CommandModule.class.cast(subCommand);
                 module.printUsage();
             }
             else {
@@ -231,7 +226,7 @@ public abstract class CommandModuleBase implements Command {
 
     @Override
     public String name() {
-        return name;
+        return null;
     }
 
 }
