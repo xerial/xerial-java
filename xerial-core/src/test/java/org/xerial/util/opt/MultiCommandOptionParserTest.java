@@ -62,8 +62,7 @@ public class MultiCommandOptionParserTest {
     @Test
     public void multiCommands() throws Exception {
 
-        final MultiCommandOptionParser m = new MultiCommandOptionParser();
-        m.addCommand(Hello.class);
+        final CommandModuleBase m = new CommandModuleBase(Hello.class.getPackage());
 
         testStdOut(new Validator() {
             @Override
@@ -73,7 +72,7 @@ public class MultiCommandOptionParserTest {
 
             @Override
             public void execute() throws Exception {
-                m.displayDefaultMessage();
+                m.printDefaultMessage();
             }
         });
 
@@ -99,6 +98,7 @@ public class MultiCommandOptionParserTest {
             @Override
             public void validate(String output) {
                 assertTrue(output.startsWith("hello"));
+                assertTrue(!output.contains("world"));
             }
 
         };
@@ -132,13 +132,6 @@ public class MultiCommandOptionParserTest {
                 assertTrue(output.contains("name"));
             }
         });
-
-    }
-
-    @Test
-    public void loadPackage() throws Exception {
-        final MultiCommandOptionParser m = new MultiCommandOptionParser();
-        m.addCommandsIn(Package.getPackage("org.xerial.util.opt.samplemodule"));
 
         testStdOut(new Validator() {
 
@@ -190,13 +183,6 @@ public class MultiCommandOptionParserTest {
                 assertTrue(output.contains("input file"));
             }
         });
-
-    }
-
-    @Test
-    public void autoLoadModule() throws Exception {
-
-        final MultiCommandOptionParser m = new MultiCommandOptionParser();
 
     }
 }

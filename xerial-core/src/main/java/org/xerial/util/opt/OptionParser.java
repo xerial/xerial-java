@@ -46,8 +46,8 @@ import org.xerial.util.opt.impl.OptionSchema;
  * 
  */
 public class OptionParser {
-    private final OptionSchema schema;
-    private final Object optionHolder;
+    private OptionSchema schema;
+    private Object optionHolder;
 
     private boolean ignoreUnknownOption = false;
     private HashSet<Option> activatedOption = new HashSet<Option>();
@@ -61,8 +61,7 @@ public class OptionParser {
     }
 
     public <T> OptionParser(T optionHolder) {
-        this.optionHolder = optionHolder == null ? new EmptyOptionHolder() : optionHolder;
-        schema = OptionSchema.newOptionSchema(optionHolder);
+        setOptionHolder(optionHolder);
     }
 
     public <T> OptionParser(Class<T> optionHolderType) {
@@ -72,8 +71,12 @@ public class OptionParser {
         catch (XerialException e) {
             throw new XerialError(XerialErrorCode.INVALID_ARGUMENT, e);
         }
+        setOptionHolder(optionHolder);
+    }
 
-        schema = OptionSchema.newOptionSchema(optionHolder);
+    public <T> void setOptionHolder(T optionHolder) {
+        this.optionHolder = optionHolder == null ? new EmptyOptionHolder() : optionHolder;
+        schema = OptionSchema.newOptionSchema(this.optionHolder);
     }
 
     @SuppressWarnings("unchecked")

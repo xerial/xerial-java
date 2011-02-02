@@ -16,8 +16,8 @@
 //--------------------------------------
 // XerialJ
 //
-// MultiCommandOptionParser.java
-// Since: 2011/02/01 17:11:01
+// CommandModule.java
+// Since: 2011/02/01 17:13:23
 //
 // $URL$
 // $Author$
@@ -25,6 +25,7 @@
 package org.xerial.util.opt;
 
 import java.lang.reflect.Modifier;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.xerial.core.XerialErrorCode;
@@ -35,41 +36,40 @@ import org.xerial.util.io.VirtualFile;
 import org.xerial.util.log.Logger;
 
 /**
- * Option parser supporting multiple command.
+ * A set of commands
  * 
  * @author leo
  * 
  */
-public class MultiCommandOptionParser {
+public abstract class CommandModuleBase implements Command {
 
-    private static Logger _logger = Logger.getLogger(MultiCommandOptionParser.class);
+    private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
+    private PrefixTree<Command> commandList = new PrefixTree<Command>();
 
-    public static class GlobalOption {
-        @Argument(index = 0)
-        public String command;
-        @Option(symbol = "h", longName = "help", description = "display help messages")
-        public boolean displayHelp = false;
-    }
-
-    private PrefixTree<Class<Command>> commandList = new PrefixTree<Class<Command>>();
+    private final String name;
+    private final String commandPackage;
 
     public static class Message {
         public String defaultMessage = "type --help for the list of sub commands";
     }
 
-    private final Message message;
-    private GlobalOption globalOption;
-    private OptionParser globalOptionParser;
+    private Message message = new Message();
 
-    public MultiCommandOptionParser() {
-        this(new Message());
+    public CommandModuleBase(Package commandPackage) {
+        this(null, commandPackage);
     }
 
-    public MultiCommandOptionParser(Message m) {
-        this.message = m;
+    public CommandModuleBase(String name, Package commandPackage) {
+        if (commandPackage == null)
+            throw new NullPointerException("package is null");
+
+        this.name = name;
+        this.commandPackage = commandPackage.getName();
+
+        addCommandsIn(this.commandPackage);
     }
 
-    public void addCommand(Class< ? > commandClass) {
+    private void addCommand(Class< ? > commandClass) {
         if (Modifier.isAbstract(commandClass.getModifiers())
                 || !Command.class.isAssignableFrom(commandClass))
             return;
@@ -81,7 +81,11 @@ public class MultiCommandOptionParser {
             Command subCommand = (Command) commandClass.newInstance();
             if (subCommand == null)
                 return;
-            commandList.add(subCommand.name(), cl);
+
+            if (commandList.findBy(subCommand.name()) != null) {
+                _logger.warn("duplicate command found: " + subCommand.name());
+            }
+            commandList.add(subCommand.name(), subCommand);
         }
         catch (InstantiationException e) {
             _logger.error(e);
@@ -91,21 +95,27 @@ public class MultiCommandOptionParser {
         }
     }
 
-    public void addCommandsIn(Package packageToSearch) {
+    private void addCommandsIn(String packageName) {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
-        String packageName = packageToSearch.getName();
         List<VirtualFile> classFileList = FileResource.listResources(packageName,
                 new ResourceFilter() {
                     public boolean accept(String resourcePath) {
                         return resourcePath.endsWith(".class");
                     }
                 });
+
+        LinkedHashSet<String> subPackagePath = new LinkedHashSet<String>();
         for (VirtualFile vf : classFileList) {
             String logicalPath = vf.getLogicalPath();
             int dot = logicalPath.lastIndexOf(".");
             if (dot <= 0)
                 continue;
+
+            //            if (logicalPath.contains("/")) {
+            //
+            //            }
+
             String className = packageName + "."
                     + logicalPath.substring(0, dot).replaceAll("/", ".");
             try {
@@ -119,43 +129,71 @@ public class MultiCommandOptionParser {
 
     }
 
-    public void addModule(String moduleName, Package packageToSearch) {
-
+    @Override
+    public Object getOptionHolder() {
+        return null;
     }
 
-    public void displayDefaultMessage() {
+    public static class GlobalOption {
+        @Argument(index = 0)
+        public String command;
+        @Option(symbol = "h", longName = "help", description = "display help messages")
+        public boolean displayHelp = false;
+    }
+
+    private GlobalOption globalOption;
+    private OptionParser globalOptionParser;
+
+    public void printDefaultMessage() {
         System.out.println(message.defaultMessage);
     }
 
-    public void displayHelpMessage() {
+    public void printUsage() throws Exception {
 
-        // display the help message of the global options
-        if (globalOptionParser == null) {
+        if (globalOption == null) {
             globalOption = new GlobalOption();
             globalOptionParser = new OptionParser(globalOption);
         }
 
-        globalOptionParser.printUsage();
-        // list all sub commands
-        System.out.println("[sub commands]");
-        for (String subCommandName : commandList.keySet()) {
-            try {
-                Command c = commandList.get(subCommandName).newInstance();
+        if (globalOption.command == null) {
+            // display the help message of the global options
+            globalOptionParser.printUsage();
+            // list all sub commands
+            System.out.println("[sub commands]");
+            for (String subCommandName : commandList.keySet()) {
+                Command c = commandList.get(subCommandName);
                 System.out.format("  %-15s\t%s", subCommandName, c.getOneLineDescription());
                 System.out.println();
             }
-            catch (InstantiationException e) {
-                _logger.error(e);
+            return;
+        }
+        else {
+            Command subCommand = getSubCommand(globalOption.command);
+            OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
+            if (CommandModuleBase.class.isAssignableFrom(subCommand.getClass())) {
+                // when the sub command is a module, delegate the help message processing   
+                String[] unusedArguments = globalOptionParser.getUnusedArguments();
+                subOpt.parse(unusedArguments);
+                CommandModuleBase module = CommandModuleBase.class.cast(subCommand);
+                module.printUsage();
             }
-            catch (IllegalAccessException e) {
-                _logger.error(e);
+            else {
+                subOpt.printUsage();
             }
         }
-        return;
+    }
+
+    public Command getSubCommand(String name) throws Exception {
+        // search for sub command
+        Command subCommand = commandList.findBy(globalOption.command);
+        if (subCommand == null)
+            throw new OptionParserException(XerialErrorCode.UNKNOWN_COMMAND, String.format(
+                    "unkown command %s", globalOption.command));
+
+        return subCommand.getClass().newInstance();
     }
 
     public void execute(String[] args) throws Exception {
-
         // Create a new instance of the option holder for each call 
         globalOption = new GlobalOption();
         globalOptionParser = new OptionParser(globalOption);
@@ -164,35 +202,36 @@ public class MultiCommandOptionParser {
         try {
             globalOptionParser.parse(args);
 
+            if (globalOption.displayHelp) {
+                printUsage();
+                return;
+            }
+
             if (globalOption.command == null) {
-                if (globalOption.displayHelp)
-                    displayHelpMessage();
-                else
-                    displayDefaultMessage();
+                printDefaultMessage();
                 return;
             }
 
             // search for sub command
-            Class<Command> subCommandCl = commandList.findBy(globalOption.command);
-            if (subCommandCl == null)
-                throw new OptionParserException(XerialErrorCode.UNKNOWN_COMMAND, String.format(
-                        "unkown command %s", globalOption.command));
-            Command subCommand = subCommandCl.newInstance();
-
+            Command subCommand = getSubCommand(globalOption.command);
             OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
-            if (globalOption.displayHelp) {
-                subOpt.printUsage();
-            }
-            else {
-                subOpt.parse(globalOptionParser.getUnusedArguments());
-                subCommand.execute();
-            }
-
+            String[] unusedArguments = globalOptionParser.getUnusedArguments();
+            subOpt.parse(unusedArguments);
+            subCommand.execute(unusedArguments);
         }
         catch (Exception e) {
             throw e;
         }
+    }
 
+    @Override
+    public String getOneLineDescription() {
+        return null;
+    }
+
+    @Override
+    public String name() {
+        return name;
     }
 
 }

@@ -48,7 +48,7 @@ public class Import implements Command {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute(String[] args) throws Exception {
         System.out.println("importing " + input);
     }
 

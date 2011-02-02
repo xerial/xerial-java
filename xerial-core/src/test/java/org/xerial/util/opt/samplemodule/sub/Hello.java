@@ -16,14 +16,36 @@
 //--------------------------------------
 // XerialJ
 //
-// CommandModule.java
-// Since: 2011/02/01 17:13:23
+// Hello.java
+// Since: 2011/02/02 11:51:20
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.samplemodule.sub;
 
-public interface CommandModule {
+import org.xerial.util.opt.Command;
+
+public class Hello implements Command {
+
+    @Override
+    public String name() {
+        return "hello2";
+    }
+
+    @Override
+    public String getOneLineDescription() {
+        return "say hello";
+    }
+
+    @Override
+    public Object getOptionHolder() {
+        return this;
+    }
+
+    @Override
+    public void execute(String[] args) throws Exception {
+        System.out.println("HELLO");
+    }
 
 }

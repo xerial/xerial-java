@@ -16,40 +16,20 @@
 //--------------------------------------
 // XerialJ
 //
-// Hello.java
-// Since: 2011/02/02 11:51:20
+// NotACommand.java
+// Since: 2011/02/02 12:09:34
 //
 // $URL$
 // $Author$
 //--------------------------------------
 package org.xerial.util.opt.samplemodule;
 
-import org.xerial.util.opt.Argument;
-import org.xerial.util.opt.Command;
-
-public class Hello implements Command {
-
-    @Argument
-    String name = "";
-
-    @Override
-    public String name() {
-        return "hello";
-    }
-
-    @Override
-    public String getOneLineDescription() {
-        return "say hello";
-    }
-
-    @Override
-    public Object getOptionHolder() {
-        return this;
-    }
-
-    @Override
-    public void execute(String[] args) throws Exception {
-        System.out.println("hello " + name);
-    }
+/**
+ * Dummy class
+ * 
+ * @author leo
+ * 
+ */
+public class NotACommand {
 
 }

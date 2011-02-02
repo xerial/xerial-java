@@ -48,19 +48,25 @@ public interface Command {
 
     /**
      * Return the option holder, in which command-line options are defined. If
-     * you define command-line options in the class extended this Command
-     * interface, return <i>this</i> pointer. When no need exists to parse
-     * command-line arguments, simply return null;
+     * you define command-line options as fields in this Command class using
+     * {@link Option} and {@link Argument} annotations, return <i>this</i>
+     * pointer. When no need exists to parse command-line arguments, simply
+     * return null;
      * 
      * @return
      */
     public Object getOptionHolder();
 
     /**
-     * Execute the command
+     * Execute the command.
      * 
+     * @param args
+     *            command-line arguments. No need exists to parse this arguments
+     *            by yourself, since options for this command is already bound
+     *            to the fields in the option holder, if you annotate the fields
+     *            with {@link Option} or {@link Argument}.
      * @throws Exception
      */
-    public void execute() throws Exception;
+    public void execute(String[] args) throws Exception;
 
 }
