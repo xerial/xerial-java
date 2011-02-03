@@ -16,23 +16,30 @@
 //--------------------------------------
 // XerialJ
 //
-// CommandModule.java
-// Since: 2011/02/02 18:21:05
+// FindModule.java
+// Since: 2011/02/03 16:06:13
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt;
+package org.xerial.util.opt.samplemodule;
 
-/**
- * An interface for creating a set of commands. To implement this, extend
- * {@link CommandModuleBase} class.
- * 
- * @see {@link CommandModuleBase}
- * @author leo
- * 
- */
-public interface CommandModule extends Command {
+import org.xerial.util.opt.CommandModuleBase;
 
-    public void printUsage() throws Exception;
+public class FindModule extends CommandModuleBase {
+
+    public FindModule() {
+        addCommand(Import.class);
+    }
+
+    @Override
+    public String name() {
+        return "find";
+    }
+
+    @Override
+    public String getOneLineDescription() {
+        return "find module";
+    }
+
 }

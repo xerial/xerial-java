@@ -36,7 +36,19 @@ import org.xerial.util.io.VirtualFile;
 import org.xerial.util.log.Logger;
 
 /**
- * A set of commands
+ * A set of commands. To create your own module, extend this class and use
+ * {@link #addCommand(Class)}, {@link #addCommandsIn(String, boolean)} methods
+ * in the constructor to add commands in the module.
+ * 
+ * <code>
+ * <pre>
+ * class MyModule extends CommandModuleBase {
+ *    public MyModule() { addCommand(Hello.class); }
+ *    public String name() { return "mymodule"; }
+ *    public String getOneLineDescription() { return "My Module. e.g. mymodule hello"; }
+ * }
+ * </pre>
+ * </code>
  * 
  * @author leo
  * 
@@ -126,18 +138,13 @@ public class CommandModuleBase implements CommandModule {
 
     @Override
     public Object getOptionHolder() {
-        return null;
+        return this;
     }
 
-    public static class GlobalOption {
-        @Argument(index = 0)
-        public String command;
-        @Option(symbol = "h", longName = "help", description = "display help messages")
-        public boolean displayHelp = false;
-    }
-
-    private GlobalOption globalOption;
-    private OptionParser globalOptionParser;
+    @Argument(index = 0)
+    public String command;
+    @Option(symbol = "h", longName = "help", description = "display help messages")
+    public boolean displayHelp = false;
 
     public void printDefaultMessage() {
         System.out.println(message.defaultMessage);
@@ -145,12 +152,8 @@ public class CommandModuleBase implements CommandModule {
 
     public void printUsage() throws Exception {
 
-        if (globalOption == null) {
-            globalOption = new GlobalOption();
-            globalOptionParser = new OptionParser(globalOption);
-        }
-
-        if (globalOption.command == null) {
+        OptionParser globalOptionParser = new OptionParser(this);
+        if (command == null) {
             // display the help message of the global options
             globalOptionParser.printUsage();
             // list all sub commands
@@ -163,7 +166,7 @@ public class CommandModuleBase implements CommandModule {
             return;
         }
         else {
-            Command subCommand = getSubCommand(globalOption.command);
+            Command subCommand = getSubCommand(command);
             OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
             if (CommandModule.class.isAssignableFrom(subCommand.getClass())) {
                 // when the sub command is a module, delegate the help message processing to it  
@@ -180,39 +183,49 @@ public class CommandModuleBase implements CommandModule {
 
     public Command getSubCommand(String name) throws Exception {
         // search for sub command
-        Command subCommand = commandList.findBy(globalOption.command);
+        Command subCommand = commandList.findBy(command);
         if (subCommand == null)
             throw new OptionParserException(XerialErrorCode.UNKNOWN_COMMAND, String.format(
-                    "unkown command %s", globalOption.command));
+                    "unkown command %s", command));
 
         return subCommand.getClass().newInstance();
     }
 
+    private void resetOption() {
+        command = null;
+        displayHelp = false;
+    }
+
     public void execute(String[] args) throws Exception {
-        // Create a new instance of the option holder for each call 
-        globalOption = new GlobalOption();
-        globalOptionParser = new OptionParser(globalOption);
+        // reset the option
+        resetOption();
+        OptionParser globalOptionParser = new OptionParser(this);
         globalOptionParser.setIgnoreUnknownOption(true);
 
         try {
             globalOptionParser.parse(args);
 
-            if (globalOption.displayHelp) {
+            if (displayHelp) {
                 printUsage();
                 return;
             }
 
-            if (globalOption.command == null) {
+            if (command == null) {
                 printDefaultMessage();
                 return;
             }
 
-            // search for sub command
-            Command subCommand = getSubCommand(globalOption.command);
-            OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
             String[] unusedArguments = globalOptionParser.getUnusedArguments();
-            subOpt.parse(unusedArguments);
-            subCommand.execute(unusedArguments);
+            // search for sub command
+            Command subCommand = getSubCommand(command);
+            if (CommandModule.class.isInstance(subCommand)) {
+                subCommand.execute(unusedArguments);
+            }
+            else {
+                OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
+                subOpt.parse(unusedArguments);
+                subCommand.execute(unusedArguments);
+            }
         }
         catch (Exception e) {
             throw e;

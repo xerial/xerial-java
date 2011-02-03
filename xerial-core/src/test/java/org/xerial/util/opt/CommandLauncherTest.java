@@ -31,6 +31,7 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 import org.xerial.util.log.Logger;
+import org.xerial.util.opt.samplemodule.FindModule;
 import org.xerial.util.opt.samplemodule.Hello;
 
 public class CommandLauncherTest {
@@ -60,7 +61,7 @@ public class CommandLauncherTest {
     }
 
     @Test
-    public void multiCommands() throws Exception {
+    public void addCommand() throws Exception {
 
         final CommandLauncher m = new CommandLauncher();
         m.addCommand(Hello.class);
@@ -194,7 +195,7 @@ public class CommandLauncherTest {
         });
 
     }
-    
+
     @Test
     public void recursive() throws Exception {
         final CommandLauncher m = new CommandLauncher();
@@ -203,13 +204,83 @@ public class CommandLauncherTest {
 
             @Override
             public void execute() throws Exception {
-                m.execute(new String[] {"hello2"});
+                m.execute(new String[] { "hello2" });
             }
 
             @Override
             public void validate(String output) {
                 assertTrue(output.contains("HELLO"));
-            }});
-        
+            }
+        });
+
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "hello" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("hello"));
+            }
+        });
+
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("hello2"));
+            }
+        });
+    }
+
+    @Test
+    public void moduleTest() throws Exception {
+        final CommandLauncher m = new CommandLauncher();
+        m.addModule(new FindModule());
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("find"));
+            }
+        });
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "find", "--help" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("import"));
+            }
+        });
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "find", "import", "-i", "sample.file" });
+            }
+
+            @Override
+            public void validate(String output) {
+                output.contains("sample.file");
+            }
+        });
+
     }
 }

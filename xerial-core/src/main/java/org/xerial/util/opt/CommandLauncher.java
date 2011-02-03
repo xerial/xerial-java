@@ -45,10 +45,20 @@ public class CommandLauncher {
         addCommandsIn(p, false);
     }
 
+    public void addCommandsIn(String packageName) {
+        addCommandsIn(packageName, false);
+    }
+
     public void addCommandsIn(Package p, boolean recursive) {
         if (p == null)
             throw new NullPointerException("package is null");
         globalModule.addCommandsIn(p.getName(), recursive);
+    }
+
+    public void addCommandsIn(String packageName, boolean recursive) {
+        if (packageName == null)
+            throw new NullPointerException("package is null");
+        globalModule.addCommandsIn(packageName, recursive);
     }
 
     public void addModule(CommandModule module) {
