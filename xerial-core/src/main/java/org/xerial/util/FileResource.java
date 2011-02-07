@@ -171,7 +171,7 @@ public class FileResource {
      *         resourceFilter
      */
     public static List<VirtualFile> listResources(ResourceFilter resourceFilter) {
-        return listResources(FileResource.class.getClassLoader(), resourceFilter);
+        return listResources(Thread.currentThread().getContextClassLoader(), resourceFilter);
     }
 
     /**
@@ -273,7 +273,8 @@ public class FileResource {
      */
     public static List<VirtualFile> listResources(String basePackageName,
             ResourceFilter resourceFilter) {
-        return listResources(FileResource.class.getClassLoader(), basePackageName, resourceFilter);
+        return listResources(Thread.currentThread().getContextClassLoader(), basePackageName,
+                resourceFilter);
     }
 
     /**
