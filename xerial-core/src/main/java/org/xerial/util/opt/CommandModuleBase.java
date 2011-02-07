@@ -218,7 +218,7 @@ public class CommandModuleBase implements CommandModule {
             String[] unusedArguments = globalOptionParser.getUnusedArguments();
             // search for sub command
             Command subCommand = getSubCommand(command);
-            if (CommandModule.class.isInstance(subCommand)) {
+            if (CommandModule.class.isInstance(subCommand) || subCommand.getOptionHolder() == null) {
                 subCommand.execute(unusedArguments);
             }
             else {

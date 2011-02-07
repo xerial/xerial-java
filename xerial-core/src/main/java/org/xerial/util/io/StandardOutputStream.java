@@ -26,6 +26,7 @@ package org.xerial.util.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  * An wrapper class of STDOUT for avoiding accidentally closing STDOUT, which
@@ -36,19 +37,25 @@ import java.io.OutputStream;
  */
 public class StandardOutputStream extends OutputStream {
 
+    public PrintStream out;
+
+    public StandardOutputStream() {
+        this.out = System.out;
+    }
+
     @Override
     public void flush() throws IOException {
-        System.out.flush();
+        out.flush();
     }
 
     @Override
     public void write(int b) throws IOException {
-        System.out.write(b);
+        out.write(b);
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-        System.out.write(b, off, len);
+        out.write(b, off, len);
     }
 
     @Override

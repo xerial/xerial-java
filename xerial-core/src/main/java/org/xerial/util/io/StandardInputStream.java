@@ -36,19 +36,25 @@ import java.io.InputStream;
  */
 public class StandardInputStream extends InputStream {
 
+    private InputStream in;
+
+    public StandardInputStream() {
+        this.in = System.in;
+    }
+
     @Override
     public int read() throws IOException {
-        return System.in.read();
+        return in.read();
     }
 
     @Override
     public int read(byte[] b) throws IOException {
-        return System.in.read(b);
+        return in.read(b);
     }
 
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
-        return System.in.read(b, off, len);
+        return in.read(b, off, len);
     }
 
     @Override
