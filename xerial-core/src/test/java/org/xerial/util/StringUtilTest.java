@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -94,11 +94,11 @@ public class StringUtilTest {
         assertEquals("XML string", StringUtil.varNameToNaturalName("XML_String"));
         assertEquals("param name", StringUtil.varNameToNaturalName("paramName"));
         assertEquals("allow TAB in var name", StringUtil.varNameToNaturalName("allowTABinVarName"));
-        assertEquals("wiki name like var name", StringUtil
-                .varNameToNaturalName("WikiNameLikeVarName"));
+        assertEquals("wiki name like var name",
+                StringUtil.varNameToNaturalName("WikiNameLikeVarName"));
 
-        assertEquals("wiki name like var name", StringUtil
-                .varNameToNaturalName("Wiki Name Like Var Name"));
+        assertEquals("wiki name like var name",
+                StringUtil.varNameToNaturalName("Wiki Name Like Var Name"));
 
         assertEquals("var arg01", StringUtil.varNameToNaturalName("var_arg01"));
         assertEquals("para1", StringUtil.varNameToNaturalName("para1"));
@@ -107,6 +107,22 @@ public class StringUtilTest {
 
         assertEquals("action package", StringUtil.varNameToNaturalName("actionPackage"));
 
+    }
+
+    @Test
+    public void tokenizeArgs() throws Exception {
+        parseArg(new String[] { "hello", "world", "\"with quotation\"" });
+        parseArg(new String[] { "hello", "world", "\"with quotation\"", "'single quotation mark'" });
+        parseArg(new String[] { "-Djava=\"environment\"", "server", "-g" });
+        parseArg(new String[] { "-Djava=\"environment vari\"", "-Dmaven.test.skip=\"true\"" });
+    }
+
+    public static void parseArg(String[] args) {
+        String[] r = StringUtil.tokenizeCommandLineArgument(StringUtil.join(args, " "));
+        assertEquals(r.length, args.length);
+        for (int i = 0; i < args.length; ++i) {
+            assertEquals(StringUtil.unquote(args[i]), r[i]);
+        }
     }
 
 }

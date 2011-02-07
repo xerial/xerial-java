@@ -515,13 +515,16 @@ public class FileResource {
         String resourcePath = packagePath + resourceFileName;
         if (!resourcePath.startsWith("/"))
             resourcePath = "/" + resourcePath;
-        _logger.trace("search resource: " + resourcePath);
+        if (_logger.isTraceEnabled())
+            _logger.trace("search resource: " + resourcePath);
 
-        URL r = FileResource.class.getResource(resourcePath);
-        if (r == null)
-            return Thread.currentThread().getContextClassLoader().getResource(resourcePath);
-        else
-            return r;
+        for (ClassLoader cl = Thread.currentThread().getContextClassLoader(); cl != null; cl = cl
+                .getParent()) {
+            URL r = cl.getResource(resourcePath);
+            if (r != null)
+                return r;
+        }
+        return FileResource.class.getResource(resourcePath);
     }
 
     /*

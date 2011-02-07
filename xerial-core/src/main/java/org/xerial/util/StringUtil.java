@@ -235,4 +235,122 @@ public class StringUtil {
         return Character.isUpperCase(c) || c == '_' || c == '-' || c == ' ';
     }
 
+    /**
+     * Split the given string into args[]
+     * 
+     * @param arg
+     * @return
+     */
+    public static String[] tokenizeCommandLineArgument(String arg) {
+        ArrayList<String> split = CommandLineParser.split(arg);
+        String[] args = new String[split.size()];
+        for (int i = 0; i < split.size(); ++i)
+            args[i] = split.get(i);
+        return args;
+    }
+
+    public static class CommandLineParser {
+        private final String arg;
+        private int wordStart = 0;
+        private int cursor = 0;
+        private ArrayList<String> tokens = new ArrayList<String>();
+
+        private CommandLineParser(String arg) {
+            this.arg = arg;
+        }
+
+        ArrayList<String> split() {
+
+            for (; cursor < arg.length(); cursor++) {
+                char c = arg.charAt(cursor);
+                switch (c) {
+                case '"':
+                    parseDoubleQuoteString();
+                    break;
+                case '\'':
+                    parseSingleQuoteString();
+                    break;
+                case '\\':
+                    parseEscapeSequence();
+                    break;
+                case ' ':
+                case '\t':
+                case '\n':
+                case '\r':
+                    if (wordStart < cursor) {
+                        tokens.add(arg.substring(wordStart, cursor));
+                    }
+                    wordStart = cursor + 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            if (wordStart < cursor) {
+                tokens.add(arg.substring(wordStart, Math.min(cursor, arg.length())));
+            }
+
+            return tokens;
+        }
+
+        void parseEscapeSequence() {
+            cursor++;
+            cursor++;
+        }
+
+        void parseDoubleQuoteString() {
+
+            boolean isSingleToken = false;
+            if (wordStart == cursor) {
+                wordStart = cursor + 1;
+                isSingleToken = true;
+            }
+            cursor++;
+
+            for (; cursor < arg.length(); cursor++) {
+                switch (arg.charAt(cursor)) {
+                case '\\':
+                    parseEscapeSequence();
+                    break;
+                case '"':
+                    if (wordStart < cursor) {
+                        tokens.add(arg.substring(wordStart, isSingleToken ? cursor : cursor + 1));
+                        wordStart = cursor + 1;
+                    }
+                    return;
+                }
+            }
+
+        }
+
+        void parseSingleQuoteString() {
+
+            boolean isSingleToken = false;
+            if (wordStart == cursor) {
+                wordStart = cursor + 1;
+                isSingleToken = true;
+            }
+            cursor++;
+            for (; cursor < arg.length(); cursor++) {
+                switch (arg.charAt(cursor)) {
+                case '\\':
+                    parseEscapeSequence();
+                    break;
+                case '\'':
+                    if (wordStart < cursor) {
+                        tokens.add(arg.substring(wordStart, isSingleToken ? cursor : cursor + 1));
+                        wordStart = cursor + 1;
+                    }
+                    return;
+                }
+            }
+        }
+
+        public static ArrayList<String> split(String arg) {
+            return new CommandLineParser(arg).split();
+        }
+
+    }
+
 }
