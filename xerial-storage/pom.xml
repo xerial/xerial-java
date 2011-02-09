@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-storage</artifactId>
-  <version>2.0.2</version>
+  <version>2.0.3-SNAPSHOT</version>
   <name>Xerial Storage</name>
   <description>
     Xerial Storage System
@@ -13,7 +13,7 @@
   <parent>
     <groupId>org.xerial</groupId>
     <artifactId>xerial-project</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3-SNAPSHOT</version>
   </parent>
 
   <build>
