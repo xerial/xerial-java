@@ -115,6 +115,7 @@ public class StringUtilTest {
         parseArg(new String[] { "hello", "world", "\"with quotation\"", "'single quotation mark'" });
         parseArg(new String[] { "-Djava=\"environment\"", "server", "-g" });
         parseArg(new String[] { "-Djava=\"environment vari\"", "-Dmaven.test.skip=\"true\"" });
+        parseArg(new String[] { "-Dmessage=\"\\\"hello world\\\"\"" });
     }
 
     public static void parseArg(String[] args) {

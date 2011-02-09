@@ -52,7 +52,7 @@ public class CommandLauncherTest {
             validator.execute();
             out.flush();
             String stdOutMessage = buffer.toString();
-            _logger.debug(stdOutMessage);
+            _logger.debug("\n" + stdOutMessage);
             validator.validate(stdOutMessage);
         }
         finally {
@@ -283,4 +283,11 @@ public class CommandLauncherTest {
         });
 
     }
+
+    @Test
+    public void setHelpMessage() throws Exception {
+        final CommandLauncher m = new CommandLauncher();
+
+    }
+
 }
