@@ -58,11 +58,7 @@ public class CommandModuleBase implements CommandModule {
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private PrefixTree<Command> commandList = new PrefixTree<Command>();
 
-    public static class Message {
-        public String defaultMessage = "type --help for the list of sub commands";
-    }
-
-    private Message message = new Message();
+    private CommandHelpMessage message = new CommandHelpMessage();
 
     public CommandModuleBase() {
 
@@ -147,6 +143,7 @@ public class CommandModuleBase implements CommandModule {
     public boolean displayHelp = false;
 
     public void printDefaultMessage() {
+        System.out.println(message.defaultHeader);
         System.out.println(message.defaultMessage);
     }
 
@@ -240,6 +237,10 @@ public class CommandModuleBase implements CommandModule {
     @Override
     public String name() {
         return null;
+    }
+
+    public void setMessage(CommandHelpMessage message) {
+        this.message = message;
     }
 
 }

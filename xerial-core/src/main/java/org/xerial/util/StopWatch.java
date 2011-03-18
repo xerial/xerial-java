@@ -31,20 +31,18 @@ package org.xerial.util;
  * @author leo
  * 
  */
-public class StopWatch
-{
+public class StopWatch {
     enum State {
         RUNNING, STOPPED
     }
 
     private long lastSystemTime;
     private long accumulatedElapsedTime;
-    private State               state     = State.RUNNING;
-    
+    private State state = State.RUNNING;
+
     private static final double NANO_UNIT = 1000000000L;
 
-    public StopWatch()
-    {
+    public StopWatch() {
         reset();
     }
 
@@ -53,16 +51,13 @@ public class StopWatch
      * 
      * @return the elapsed time in seconds.
      */
-    public double getElapsedTime()
-    {
-        if (state == State.RUNNING)
-        {
+    public double getElapsedTime() {
+        if (state == State.RUNNING) {
             long now = System.nanoTime();
             long diff = now - lastSystemTime;
             return (accumulatedElapsedTime + diff) / NANO_UNIT;
         }
-        else
-        {
+        else {
             return accumulatedElapsedTime / NANO_UNIT;
         }
     }
@@ -73,14 +68,12 @@ public class StopWatch
      * {@link StopWatch#getIntervalTime()} will measure the time intervals
      * beginning from this method call.
      */
-    public void reset()
-    {
+    public void reset() {
         lastSystemTime = System.nanoTime();
         accumulatedElapsedTime = 0L;
     }
-    
-    public void stop()
-    {
+
+    public void stop() {
         if (state == State.STOPPED)
             return;
 
@@ -92,13 +85,16 @@ public class StopWatch
         state = State.STOPPED;
     }
 
-    public void resume()
-    {
+    public void resume() {
         if (state == State.RUNNING)
             return;
 
         lastSystemTime = System.nanoTime();
         state = State.RUNNING;
+    }
+
+    public String reportElapsedTime() {
+        return String.format("%.2f sec." + getElapsedTime());
     }
 
 }

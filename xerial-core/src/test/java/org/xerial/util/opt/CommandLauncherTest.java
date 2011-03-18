@@ -287,6 +287,24 @@ public class CommandLauncherTest {
     @Test
     public void setHelpMessage() throws Exception {
         final CommandLauncher m = new CommandLauncher();
+        final CommandHelpMessage mesg = new CommandHelpMessage();
+        mesg.defaultHeader = "My command launcher. version 1.0";
+        m.setMessage(mesg);
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] {});
+            }
+
+            @Override
+            public void validate(String output) {
+                output.contains(mesg.defaultHeader);
+                output.contains(mesg.defaultMessage);
+            }
+
+        });
 
     }
 

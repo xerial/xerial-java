@@ -37,6 +37,10 @@ public class CommandLauncher {
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private CommandModuleBase globalModule = new CommandModuleBase();
 
+    public void setMessage(CommandHelpMessage message) {
+        globalModule.setMessage(message);
+    }
+
     public void addCommand(Class< ? > commandClass) {
         globalModule.addCommand(commandClass);
     }
