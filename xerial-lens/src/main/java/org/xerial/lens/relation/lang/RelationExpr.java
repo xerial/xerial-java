@@ -87,10 +87,6 @@ public class RelationExpr extends Tuple<RelationAttribute>
 
     }
 
-    public String getName() {
-        return name;
-    }
-
     public static RelationExpr parse(String expr) throws XerialException {
 
         LensQueryLexer l = new LensQueryLexer(new ANTLRStringStream(expr));

@@ -24,7 +24,11 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -134,23 +138,50 @@ public class CommandModuleBase implements CommandModule {
 
     @Override
     public Object getOptionHolder() {
-        return this;
+        return globalOption;
     }
 
-    @Argument(index = 0)
-    public String command;
-    @Option(symbol = "h", longName = "help", description = "display help messages")
-    public boolean displayHelp = false;
+    private GlobalCommandOption globalOption = new GlobalCommandOption();
 
     public void printDefaultMessage() {
         System.out.println(message.defaultHeader);
         System.out.println(message.defaultMessage);
     }
 
+    @Override
+    public URL getHelpMessageResource() {
+        return null;
+    }
+
+    public static void printHelpMessage(URL helpFile) {
+
+        if (helpFile == null)
+            return;
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(helpFile.openStream()));
+            try {
+                for (String line; (line = in.readLine()) != null;) {
+                    System.out.println(line);
+                }
+            }
+            finally {
+                if (in != null)
+                    in.close();
+            }
+        }
+        catch (IOException e) {
+            _logger.error("help file is not found: " + helpFile);
+        }
+
+    }
+
     public void printUsage() throws Exception {
 
-        OptionParser globalOptionParser = new OptionParser(this);
-        if (command == null) {
+        OptionParser globalOptionParser = new OptionParser(getOptionHolder());
+        if (globalOption.command == null) {
+
+            printHelpMessage(getHelpMessageResource());
             // display the help message of the global options
             globalOptionParser.printUsage();
             // list all sub commands
@@ -163,7 +194,7 @@ public class CommandModuleBase implements CommandModule {
             return;
         }
         else {
-            Command subCommand = getSubCommand(command);
+            Command subCommand = getSubCommand(globalOption.command);
             OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
             if (CommandModule.class.isAssignableFrom(subCommand.getClass())) {
                 // when the sub command is a module, delegate the help message processing to it  
@@ -173,6 +204,7 @@ public class CommandModuleBase implements CommandModule {
                 module.printUsage();
             }
             else {
+                printHelpMessage(subCommand.getHelpMessageResource());
                 subOpt.printUsage();
             }
         }
@@ -180,41 +212,41 @@ public class CommandModuleBase implements CommandModule {
 
     public Command getSubCommand(String name) throws Exception {
         // search for sub command
-        Command subCommand = commandList.findBy(command);
+        Command subCommand = commandList.findBy(globalOption.command);
         if (subCommand == null)
             throw new OptionParserException(XerialErrorCode.UNKNOWN_COMMAND, String.format(
-                    "unkown command %s", command));
+                    "unkown command %s", globalOption.command));
 
         return subCommand.getClass().newInstance();
     }
 
     private void resetOption() {
-        command = null;
-        displayHelp = false;
+        globalOption.command = null;
+        globalOption.displayHelp = false;
     }
 
     public void execute(String[] args) throws Exception {
         // reset the option
         resetOption();
-        OptionParser globalOptionParser = new OptionParser(this);
+        OptionParser globalOptionParser = new OptionParser(getOptionHolder());
         globalOptionParser.setIgnoreUnknownOption(true);
 
         try {
             globalOptionParser.parse(args);
 
-            if (displayHelp) {
+            if (globalOption.displayHelp) {
                 printUsage();
                 return;
             }
 
-            if (command == null) {
+            if (globalOption.command == null) {
                 printDefaultMessage();
                 return;
             }
 
             String[] unusedArguments = globalOptionParser.getUnusedArguments();
             // search for sub command
-            Command subCommand = getSubCommand(command);
+            Command subCommand = getSubCommand(globalOption.command);
             if (CommandModule.class.isInstance(subCommand) || subCommand.getOptionHolder() == null) {
                 subCommand.execute(unusedArguments);
             }
@@ -241,6 +273,10 @@ public class CommandModuleBase implements CommandModule {
 
     public void setMessage(CommandHelpMessage message) {
         this.message = message;
+    }
+
+    public void setOptionHolder(GlobalCommandOption opt) {
+        this.globalOption = opt;
     }
 
 }

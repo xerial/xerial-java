@@ -16,40 +16,26 @@
 //--------------------------------------
 // XerialJ
 //
-// Hello.java
-// Since: 2011/02/02 11:51:20
+// GlobalCommandOption.java
+// Since: 2011/03/22 17:55:18
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt.samplemodule;
+package org.xerial.util.opt;
 
-import org.xerial.util.opt.Argument;
-import org.xerial.util.opt.CommandBase;
-
-public class Hello extends CommandBase {
-
-    @Argument
-    String name = "";
-
-    @Override
-    public String name() {
-        return "hello";
-    }
-
-    @Override
-    public String getOneLineDescription() {
-        return "say hello";
-    }
-
-    @Override
-    public Object getOptionHolder() {
-        return this;
-    }
-
-    @Override
-    public void execute(String[] args) throws Exception {
-        System.out.println("hello " + name);
-    }
-
+/**
+ * Global option of the command launcher. Extend this class to add your own
+ * global command-line options.
+ * 
+ * @see CommandLauncher#setMessage(CommandHelpMessage)
+ * 
+ * @author leo
+ * 
+ */
+public class GlobalCommandOption {
+    @Argument(index = 0)
+    public String command;
+    @Option(symbol = "h", longName = "help", description = "display help messages")
+    public boolean displayHelp = false;
 }

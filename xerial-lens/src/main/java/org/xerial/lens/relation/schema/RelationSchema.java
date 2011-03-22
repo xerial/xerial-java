@@ -62,10 +62,11 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class RelationSchema {
-    private static Logger _logger = Logger.getLogger(RelationSchema.class);
+public class RelationSchema
+{
+    private static Logger                   _logger            = Logger.getLogger(RelationSchema.class);
 
-    private final ArrayList<RelationExpr> relationDefList = new ArrayList<RelationExpr>();
+    private final ArrayList<RelationExpr>   relationDefList    = new ArrayList<RelationExpr>();
     private final ArrayList<TreeDefinition> treeDefinitionList = new ArrayList<TreeDefinition>();
 
     public RelationSchema() {
@@ -116,12 +117,11 @@ public class RelationSchema {
             RelationSchemaParser.schema_return ret = parser.schema();
             if (_logger.isDebugEnabled()) {
                 _logger.debug("parse tree:\n"
-                        + ANTLRUtil
-                                .parseTree((Tree) ret.getTree(), RelationSchemaParser.tokenNames));
+                        + ANTLRUtil.parseTree((Tree) ret.getTree(), RelationSchemaParser.tokenNames));
             }
 
-            RelationSchema schema = Lens.loadANTLRParseTree(RelationSchema.class, (Tree) ret
-                    .getTree(), RelationSchemaParser.tokenNames);
+            RelationSchema schema = Lens.loadANTLRParseTree(RelationSchema.class, (Tree) ret.getTree(),
+                    RelationSchemaParser.tokenNames);
             return schema;
         }
         catch (RecognitionException e) {
@@ -133,7 +133,7 @@ public class RelationSchema {
         Graph<String, FD> fdGraph = new AdjacencyList<String, FD>();
 
         for (RelationExpr eachRelation : getRelation()) {
-            String relationName = eachRelation.getName();
+            String relationName = eachRelation.name;
 
             for (TupleElement<RelationAttribute> each : eachRelation) {
                 if (!each.isAtom())
@@ -141,7 +141,7 @@ public class RelationSchema {
                 RelationAttribute eachAttribute = each.castToNode();
                 String attributeName = eachAttribute.name;
                 if (attributeName.startsWith("@"))
-                    attributeName = eachRelation.getName() + attributeName;
+                    attributeName = eachRelation.name + attributeName;
 
                 fdGraph.addEdge(relationName, attributeName, eachAttribute.fd);
             }
@@ -176,8 +176,7 @@ public class RelationSchema {
         for (int nodeID : fdGraph.getNodeIDSet()) {
             for (int destNodeID : fdGraph.getDestNodeIDSetOf(nodeID)) {
                 FD occurrence = fdGraph.getEdgeLabel(new Edge(nodeID, destNodeID));
-                out.println(String.format("%s -> %s %s;", nodeID, destNodeID, edgeStyle
-                        .get(occurrence)));
+                out.println(String.format("%s -> %s %s;", nodeID, destNodeID, edgeStyle.get(occurrence)));
             }
 
         }

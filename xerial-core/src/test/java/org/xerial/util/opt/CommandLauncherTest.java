@@ -308,4 +308,28 @@ public class CommandLauncherTest {
 
     }
 
+    @Test
+    public void extendGlobalOption() throws Exception {
+        GlobalCommandOption myOpt = new GlobalCommandOption() {
+            @Option(symbol = "o", description = "output directory")
+            String out;
+        };
+        final CommandLauncher m = new CommandLauncher();
+        m.setGlobalCommandOption(myOpt);
+
+        testStdOut(new Validator() {
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "--help" });
+            }
+
+            @Override
+            public void validate(String output) {
+                output.contains("-o");
+                output.contains("output directory");
+            }
+        });
+
+    }
+
 }

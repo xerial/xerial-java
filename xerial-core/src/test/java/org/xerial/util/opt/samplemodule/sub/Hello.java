@@ -24,9 +24,9 @@
 //--------------------------------------
 package org.xerial.util.opt.samplemodule.sub;
 
-import org.xerial.util.opt.Command;
+import org.xerial.util.opt.CommandBase;
 
-public class Hello implements Command {
+public class Hello extends CommandBase {
 
     @Override
     public String name() {

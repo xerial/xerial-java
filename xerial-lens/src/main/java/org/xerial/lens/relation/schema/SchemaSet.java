@@ -48,16 +48,17 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class SchemaSet {
-    private static Logger _logger = Logger.getLogger(SchemaSet.class);
+public class SchemaSet
+{
+    private static Logger                           _logger          = Logger.getLogger(SchemaSet.class);
 
-    private final AdjacencyList<String, FD> fdGraph;
+    private final AdjacencyList<String, FD>         fdGraph;
 
-    private final Automaton<XMLSkeltonNode, String> skelton = new Automaton<XMLSkeltonNode, String>();
-    private XMLSkeltonNode rootSkelton = null;
-    private final ArrayList<Schema> nestedSchemaList = new ArrayList<Schema>();
+    private final Automaton<XMLSkeltonNode, String> skelton          = new Automaton<XMLSkeltonNode, String>();
+    private XMLSkeltonNode                          rootSkelton      = null;
+    private final ArrayList<Schema>                 nestedSchemaList = new ArrayList<Schema>();
 
-    private final HashSet<String> treeNodeSet = new HashSet<String>();
+    private final HashSet<String>                   treeNodeSet      = new HashSet<String>();
 
     public SchemaSet(RelationSchema userDefinedSchema) throws XerialException {
         // tree node name
@@ -69,7 +70,7 @@ public class SchemaSet {
         HashMap<String, List<RelationExpr>> relationListOfEachCoreNode = new HashMap<String, List<RelationExpr>>();
         fdGraph = new AdjacencyList<String, FD>();
         for (RelationExpr relation : userDefinedSchema.getRelation()) {
-            String coreNodeName = relation.getName();
+            String coreNodeName = relation.name;
 
             // group relations by core node names
             List<RelationExpr> list = relationListOfEachCoreNode.get(coreNodeName);
@@ -154,8 +155,7 @@ public class SchemaSet {
 
         // find a root node 
         if (startNodeSet.isEmpty() || startNodeSet.size() != 1)
-            throw new XerialException(XerialErrorCode.INVALID_STATE,
-                    "no root schema or multiple root: " + startNodeSet);
+            throw new XerialException(XerialErrorCode.INVALID_STATE, "no root schema or multiple root: " + startNodeSet);
 
         for (String name : startNodeSet) {
             rootSkelton = skeltonNodeTable.get(name);

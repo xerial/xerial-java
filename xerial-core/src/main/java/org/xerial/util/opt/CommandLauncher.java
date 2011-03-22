@@ -41,6 +41,10 @@ public class CommandLauncher {
         globalModule.setMessage(message);
     }
 
+    public void setGlobalCommandOption(GlobalCommandOption opt) {
+        globalModule.setOptionHolder(opt);
+    }
+
     public void addCommand(Class< ? > commandClass) {
         globalModule.addCommand(commandClass);
     }
@@ -67,13 +71,6 @@ public class CommandLauncher {
 
     public void addModule(CommandModule module) {
         globalModule.addModule(module);
-    }
-
-    public static class GlobalOption {
-        @Argument(index = 0)
-        public String command;
-        @Option(symbol = "h", longName = "help", description = "display help messages")
-        public boolean displayHelp = false;
     }
 
     public void execute(String[] args) throws Exception {

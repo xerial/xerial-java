@@ -42,14 +42,14 @@ public class RelationExprTest
 
     public RelationExpr parse(String query) throws Exception {
         RelationExpr e = RelationExpr.parse(query);
-        _logger.debug(SilkLens.toSilk(e));
+        _logger.debug("\n" + SilkLens.toSilk(e));
         _logger.debug(e.buildQuerySet());
         return e;
     }
 
     @Test
     public void q1() throws Exception {
-        RelationExpr e = parse("A(B, C)");
+        parse("A(B, C)");
     }
 
     @Test

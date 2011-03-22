@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
+import java.net.URL;
+
 /**
  * An interface for defining a command in a module
  * 
@@ -56,6 +58,14 @@ public interface Command {
      * @return
      */
     public Object getOptionHolder();
+
+    /**
+     * Return the file resource address of the help message of this command. If
+     * the return value is null, no detailed help message will be displayed.
+     * 
+     * @return
+     */
+    public URL getHelpMessageResource();
 
     /**
      * Execute the command.

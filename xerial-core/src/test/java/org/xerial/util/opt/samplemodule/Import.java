@@ -24,10 +24,10 @@
 //--------------------------------------
 package org.xerial.util.opt.samplemodule;
 
-import org.xerial.util.opt.Command;
+import org.xerial.util.opt.CommandBase;
 import org.xerial.util.opt.Option;
 
-public class Import implements Command {
+public class Import extends CommandBase {
 
     @Option(symbol = "i", description = "input file")
     public String input = "-";

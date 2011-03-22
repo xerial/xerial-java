@@ -16,31 +16,23 @@
 //--------------------------------------
 // XerialJ
 //
-// Hello.java
-// Since: 2011/02/02 11:51:20
+// CommandBase.java
+// Since: 2011/03/22 17:50:18
 //
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.util.opt.samplemodule;
+package org.xerial.util.opt;
 
-import org.xerial.util.opt.Argument;
-import org.xerial.util.opt.CommandBase;
+import java.net.URL;
 
-public class Hello extends CommandBase {
-
-    @Argument
-    String name = "";
-
-    @Override
-    public String name() {
-        return "hello";
-    }
-
-    @Override
-    public String getOneLineDescription() {
-        return "say hello";
-    }
+/**
+ * Base implementation of the {@link Command} interface
+ * 
+ * @author leo
+ * 
+ */
+public abstract class CommandBase implements Command {
 
     @Override
     public Object getOptionHolder() {
@@ -48,8 +40,8 @@ public class Hello extends CommandBase {
     }
 
     @Override
-    public void execute(String[] args) throws Exception {
-        System.out.println("hello " + name);
+    public URL getHelpMessageResource() {
+        return null;
     }
 
 }
