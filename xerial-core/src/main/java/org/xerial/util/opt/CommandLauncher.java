@@ -24,6 +24,8 @@
 //--------------------------------------
 package org.xerial.util.opt;
 
+import java.util.Set;
+
 import org.xerial.util.log.Logger;
 
 /**
@@ -37,12 +39,20 @@ public class CommandLauncher {
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private CommandModuleBase globalModule = new CommandModuleBase();
 
+    public Set<String> getCommandNameSet() {
+        return globalModule.getCommandNameSet();
+    }
+
     public void setMessage(CommandHelpMessage message) {
         globalModule.setMessage(message);
     }
 
     public void setGlobalCommandOption(GlobalCommandOption opt) {
         globalModule.setOptionHolder(opt);
+    }
+
+    public void addEventHandler(CommandLauncherEventHandler handler) {
+        globalModule.addEventHandler(handler);
     }
 
     public void addCommand(Class< ? > commandClass) {

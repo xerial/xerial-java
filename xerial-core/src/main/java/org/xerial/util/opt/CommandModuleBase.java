@@ -29,8 +29,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.util.FileResource;
@@ -61,11 +63,16 @@ public class CommandModuleBase implements CommandModule {
 
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private PrefixTree<Command> commandList = new PrefixTree<Command>();
+    private List<CommandLauncherEventHandler> eventHandlers = new ArrayList<CommandLauncherEventHandler>();
 
     private CommandHelpMessage message = new CommandHelpMessage();
 
     public CommandModuleBase() {
 
+    }
+
+    public void addEventHandler(CommandLauncherEventHandler handler) {
+        this.eventHandlers.add(handler);
     }
 
     public void addModule(CommandModule module) {
@@ -210,6 +217,10 @@ public class CommandModuleBase implements CommandModule {
         }
     }
 
+    public Set<String> getCommandNameSet() {
+        return commandList.keySet();
+    }
+
     public Command getSubCommand(String name) throws Exception {
         // search for sub command
         Command subCommand = commandList.findBy(globalOption.command);
@@ -233,6 +244,10 @@ public class CommandModuleBase implements CommandModule {
 
         try {
             globalOptionParser.parse(args);
+
+            for (CommandLauncherEventHandler each : eventHandlers) {
+                each.afterReadingGlobalOptions(globalOption);
+            }
 
             if (globalOption.displayHelp) {
                 printUsage();
