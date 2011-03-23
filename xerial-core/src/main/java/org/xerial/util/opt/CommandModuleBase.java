@@ -96,7 +96,9 @@ public class CommandModuleBase implements CommandModule {
             if (subCommand == null)
                 return;
 
-            if (commandList.findBy(subCommand.name()) != null) {
+            // duplicate check
+            Command command = commandList.findBy(subCommand.name());
+            if (command != null && command.name().equals(subCommand.name())) {
                 _logger.warn("duplicate command found: " + subCommand.name());
             }
             commandList.add(subCommand.name(), subCommand);
@@ -110,7 +112,6 @@ public class CommandModuleBase implements CommandModule {
     }
 
     public void addCommandsIn(String packageName, boolean recursive) {
-        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
         List<VirtualFile> classFileList = FileResource.listResources(packageName,
                 new ResourceFilter() {
@@ -119,6 +120,7 @@ public class CommandModuleBase implements CommandModule {
                     }
                 });
 
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         LinkedHashSet<String> subPackagePath = new LinkedHashSet<String>();
         for (VirtualFile vf : classFileList) {
             String logicalPath = vf.getLogicalPath();

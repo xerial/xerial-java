@@ -163,6 +163,23 @@ public class FileResource {
     }
 
     /**
+     * list up resources recursively under the given base package name
+     * 
+     * @param basePackageName
+     *            package name to search. e.g. org.xerial.util
+     * @param classLoader
+     *            class loader
+     * @return the list of resources represented as {@link VirtualFile}
+     */
+    public static List<VirtualFile> listResources(String basePackageName, ClassLoader classLoader) {
+        return listResources(classLoader, basePackageName, new ResourceFilter() {
+            public boolean accept(String resourcePath) {
+                return true;
+            }
+        });
+    }
+
+    /**
      * Lists up all resources satisfying the given resourceFilter from the
      * current class loader
      * 
@@ -590,7 +607,7 @@ public class FileResource {
         List<Class<T>> result = new ArrayList<Class<T>>();
 
         String packageName = searchPath.getName();
-        List<VirtualFile> classFileList = FileResource.listResources(packageName,
+        List<VirtualFile> classFileList = FileResource.listResources(classLoader, packageName,
                 new ResourceFilter() {
                     public boolean accept(String resourcePath) {
                         return resourcePath.endsWith(".class");

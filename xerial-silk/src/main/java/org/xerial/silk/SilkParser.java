@@ -769,7 +769,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
     /**
      * Plugin holder
      */
-    private static Map<String, Class<SilkFunctionPlugin>> pluginTable = null;
+    private static Map<String, Class< ? extends SilkFunctionPlugin>> pluginTable = null;
 
     /**
      * Get the plugin of the specified name
@@ -779,7 +779,7 @@ public class SilkParser implements SilkEventHandler, TreeParser
      * @return plugin instance or null if no corresponding plugin is found.
      */
     private SilkFunctionPlugin getPlugin(String name) {
-        Class<SilkFunctionPlugin> pluginClass = getPluginTable().get(name);
+        Class< ? extends SilkFunctionPlugin> pluginClass = getPluginTable().get(name);
         if (pluginClass == null)
             return null;
 
@@ -797,16 +797,17 @@ public class SilkParser implements SilkEventHandler, TreeParser
         }
     }
 
-    private Map<String, Class<SilkFunctionPlugin>> getPluginTable() {
+    private Map<String, Class< ? extends SilkFunctionPlugin>> getPluginTable() {
         if (pluginTable == null) {
-            pluginTable = new TreeMap<String, Class<SilkFunctionPlugin>>();
+            pluginTable = new TreeMap<String, Class< ? extends SilkFunctionPlugin>>();
             // load plugins 
             for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
-                    SilkFunctionPlugin.class, SilkWalker.class.getClassLoader())) {
+                    SilkFunctionPlugin.class, SilkFunctionPlugin.class.getClassLoader())) {
                 String functionName = each.getSimpleName().toLowerCase();
                 _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);
             }
+
         }
 
         return pluginTable;
