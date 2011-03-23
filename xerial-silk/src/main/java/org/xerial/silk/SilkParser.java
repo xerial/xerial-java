@@ -801,8 +801,10 @@ public class SilkParser implements SilkEventHandler, TreeParser
         if (pluginTable == null) {
             pluginTable = new TreeMap<String, Class< ? extends SilkFunctionPlugin>>();
             // load plugins 
+            ClassLoader cl = SilkParser.class.getClassLoader();
+
             for (Class<SilkFunctionPlugin> each : FileResource.findClasses(SilkFunctionPlugin.class.getPackage(),
-                    SilkFunctionPlugin.class, SilkFunctionPlugin.class.getClassLoader())) {
+                    SilkFunctionPlugin.class, cl)) {
                 String functionName = each.getSimpleName().toLowerCase();
                 _logger.trace("loaded " + functionName);
                 pluginTable.put(functionName, each);
