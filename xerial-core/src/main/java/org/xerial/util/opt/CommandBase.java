@@ -44,4 +44,10 @@ public abstract class CommandBase implements Command {
         return null;
     }
 
+    @Override
+    public void execute(GlobalCommandOption globalOption, String[] args) throws Exception {
+        // ignore global options in default
+        execute(args);
+    }
+
 }

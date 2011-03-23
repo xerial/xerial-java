@@ -79,4 +79,18 @@ public interface Command {
      */
     public void execute(String[] args) throws Exception;
 
+    /**
+     * Execute the command.
+     * 
+     * @param globalOption
+     *            Global option. The global option might be null, if no global
+     *            option is given.
+     * @param args
+     *            command-line arguments. No need exists to parse this arguments
+     *            by yourself, since options for this command is already bound
+     *            to the fields in the option holder, if you annotate the fields
+     *            with {@link Option} or {@link Argument}.
+     * @throws Exception
+     */
+    public void execute(GlobalCommandOption globalOption, String[] args) throws Exception;
 }

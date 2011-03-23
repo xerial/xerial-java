@@ -64,7 +64,7 @@ public class CommandModuleBase implements CommandModule {
     private static Logger _logger = Logger.getLogger(CommandModuleBase.class);
     private PrefixTree<Command> commandList = new PrefixTree<Command>();
     private List<CommandLauncherEventHandler> eventHandlers = new ArrayList<CommandLauncherEventHandler>();
-
+    private GlobalCommandOption globalOption = new GlobalCommandOption();
     private CommandHelpMessage message = new CommandHelpMessage();
 
     public CommandModuleBase() {
@@ -147,8 +147,6 @@ public class CommandModuleBase implements CommandModule {
     public Object getOptionHolder() {
         return globalOption;
     }
-
-    private GlobalCommandOption globalOption = new GlobalCommandOption();
 
     public void printDefaultMessage() {
         System.out.println(message.defaultHeader);
@@ -245,6 +243,7 @@ public class CommandModuleBase implements CommandModule {
         try {
             globalOptionParser.parse(args);
 
+            // invoke an event
             for (CommandLauncherEventHandler each : eventHandlers) {
                 each.afterReadingGlobalOptions(globalOption);
             }
@@ -263,12 +262,13 @@ public class CommandModuleBase implements CommandModule {
             // search for sub command
             Command subCommand = getSubCommand(globalOption.command);
             if (CommandModule.class.isInstance(subCommand) || subCommand.getOptionHolder() == null) {
-                subCommand.execute(unusedArguments);
+                subCommand.execute(globalOption, unusedArguments);
             }
             else {
                 OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
                 subOpt.parse(unusedArguments);
-                subCommand.execute(unusedArguments);
+
+                subCommand.execute(globalOption, unusedArguments);
             }
         }
         catch (Exception e) {
@@ -292,6 +292,12 @@ public class CommandModuleBase implements CommandModule {
 
     public void setOptionHolder(GlobalCommandOption opt) {
         this.globalOption = opt;
+    }
+
+    @Override
+    public void execute(GlobalCommandOption globalOption, String[] args) throws Exception {
+        this.globalOption = globalOption;
+        execute(args);
     }
 
 }

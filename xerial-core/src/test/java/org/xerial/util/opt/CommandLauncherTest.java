@@ -332,4 +332,55 @@ public class CommandLauncherTest {
 
     }
 
+    static class MyCommand extends CommandBase {
+
+        static class MyOpt extends GlobalCommandOption {
+            @Option(symbol = "o", description = "output directory")
+            String out;
+        }
+
+        @Override
+        public String name() {
+            return "mytest";
+        }
+
+        @Override
+        public String getOneLineDescription() {
+            return "sample test";
+        }
+
+        public void execute(String[] args) throws Exception {
+            // do nothing
+            System.out.println("shouldn't reach here");
+        }
+
+        @Override
+        public void execute(GlobalCommandOption globalOption, String[] args) throws Exception {
+            MyOpt opt = (MyOpt) globalOption;
+            System.out.println(opt.out);
+        }
+
+    }
+
+    @Test
+    public void globalOption() throws Exception {
+        final CommandLauncher m = new CommandLauncher();
+        m.setGlobalCommandOption(new MyCommand.MyOpt());
+        m.addCommand(MyCommand.class);
+
+        testStdOut(new Validator() {
+
+            @Override
+            public void execute() throws Exception {
+                m.execute(new String[] { "mytest", "-o", "hello" });
+            }
+
+            @Override
+            public void validate(String output) {
+                assertTrue(output.contains("hello"));
+            }
+        });
+
+    }
+
 }
