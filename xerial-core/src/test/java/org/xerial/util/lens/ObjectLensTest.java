@@ -34,8 +34,7 @@ import org.junit.Test;
 import org.xerial.util.Pair;
 import org.xerial.util.log.Logger;
 
-public class ObjectLensTest
-{
+public class ObjectLensTest {
 
     private static Logger _logger = Logger.getLogger(ObjectLensTest.class);
 
@@ -68,10 +67,10 @@ public class ObjectLensTest
     @Test
     public void pickPropertyName() throws Exception {
         String c = ObjectLens.pickPropertyName("addSomething");
-        assertEquals("something", c);
+        assertEquals("Something", c);
 
         c = ObjectLens.pickPropertyName("addSomethingImportant");
-        assertEquals("somethingimportant", c);
+        assertEquals("SomethingImportant", c);
 
         c = ObjectLens.pickPropertyName("add");
         assertEquals("", c);
@@ -88,8 +87,7 @@ public class ObjectLensTest
         assertEquals("gapopenpenalty", ObjectLens.getCanonicalParameterName("GAPOPEN PENALTY"));
     }
 
-    public static class PropReader
-    {
+    public static class PropReader {
         Properties prop = new Properties();
 
         public void put(String key, String value) {
@@ -97,9 +95,8 @@ public class ObjectLensTest
         }
     }
 
-    public static class Person
-    {
-        public int    id;
+    public static class Person {
+        public int id;
         public String name;
     }
 

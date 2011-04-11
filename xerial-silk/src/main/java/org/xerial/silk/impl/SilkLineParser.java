@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-11-18 12:44:57
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 SilkLine.g 2011-03-25 16:16:13
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -35,7 +35,7 @@ import org.antlr.runtime.tree.*;
 
 public class SilkLineParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Silk", "SilkNode", "SilkLine", "Name", "Value", "Occurrence", "DataType", "Function", "Argument", "KeyValuePair", "Key", "WhiteSpace", "LineBreakChar", "LineComment", "BlockIndent", "NodeIndent", "PullUpNodeIndent", "FunctionIndent", "BlankLine", "LParen", "RParen", "Comma", "Colon", "Seq", "TabSeq", "Star", "At", "Plus", "LBracket", "RBracket", "Question", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "ScopeIndicator", "FlowIndicator", "Indicator", "PlainUnsafeChar", "PlainSafeKey", "PlainSafeIn", "PlainSafeOut", "NonSpaceChar", "PlainFirst", "JSON", "PlainOneLine", "Separation"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Silk", "SilkNode", "SilkLine", "Name", "Value", "Occurrence", "DataType", "Function", "Argument", "KeyValuePair", "Key", "WhiteSpace", "LineBreakChar", "LineComment", "BlockIndent", "NodeIndent", "PullUpNodeIndent", "FunctionIndent", "BlankLine", "LParen", "RParen", "Comma", "Colon", "Seq", "TabSeq", "Star", "At", "Plus", "LBracket", "RBracket", "Question", "Digit", "Letter", "HexDigit", "UnicodeChar", "EscapeSequence", "StringChar", "StringChar_s", "String", "ScopeIndicator", "FlowIndicator", "Indicator", "PlainUnsafeChar", "PlainSafeKey", "PlainSafeIn", "PlainSafeOut", "NonSpaceChar", "PlainFirst", "JSON", "PlainOneLine", "Spaces"
     };
     public static final int Key=14;
     public static final int DataType=10;
@@ -52,6 +52,7 @@ public class SilkLineParser extends Parser {
     public static final int Silk=4;
     public static final int PlainOneLine=53;
     public static final int NonSpaceChar=50;
+    public static final int Spaces=54;
     public static final int KeyValuePair=13;
     public static final int Argument=12;
     public static final int WhiteSpace=15;
@@ -73,7 +74,6 @@ public class SilkLineParser extends Parser {
     public static final int Digit=35;
     public static final int FunctionIndent=21;
     public static final int PlainFirst=51;
-    public static final int Separation=54;
     public static final int Seq=27;
     public static final int Plus=31;
     public static final int JSON=52;
@@ -842,7 +842,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: nodeValue, attributeList, plural, indent
+                    // elements: plural, indent, nodeValue, attributeList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1128,7 +1128,7 @@ public class SilkLineParser extends Parser {
 
 
             // AST REWRITE
-            // elements: plural, attributeList, dataType, nodeValue
+            // elements: attributeList, nodeValue, plural, dataType
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1770,7 +1770,7 @@ public class SilkLineParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: function_i, NodeIndent
+                    // elements: NodeIndent, function_i
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 

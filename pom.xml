@@ -195,6 +195,8 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>2.1</version>
         <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <preparationGoals>clean install</preparationGoals>
           <!-- do not run site-deploy goal, included in the default settings -->
           <goals>deploy</goals>
           <connectionUrl>scm:hg:https://xerial.googlecode.com/hg/</connectionUrl>

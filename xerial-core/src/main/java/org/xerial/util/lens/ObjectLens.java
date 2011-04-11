@@ -481,7 +481,7 @@ public class ObjectLens {
             return null;
         else {
             if (m.group(2) != null)
-                return getCanonicalParameterName(m.group(2));
+                return m.group(2);
             else
                 return "";
         }

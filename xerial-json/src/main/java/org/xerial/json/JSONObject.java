@@ -29,18 +29,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.xerial.json.impl.JSONLexer;
-import org.xerial.json.impl.JSONParser;
-import org.xerial.json.impl.JSONTokenizer;
-import org.xerial.json.impl.JSONWalker;
 
 /**
  * JSONObject
@@ -48,10 +39,12 @@ import org.xerial.json.impl.JSONWalker;
  * @author leo
  * 
  */
-public class JSONObject extends JSONValueBase {
+public class JSONObject extends JSONValueBase
+{
 
     @SuppressWarnings("serial")
-    class JSONObjectContent extends LinkedHashMap<String, JSONValue> {
+    class JSONObjectContent extends LinkedHashMap<String, JSONValue>
+    {
     }
 
     JSONObjectContent content = new JSONObjectContent();
@@ -119,17 +112,20 @@ public class JSONObject extends JSONValueBase {
     }
 
     public JSONObject(String jsonStr) throws JSONException {
-        try {
-            CommonTree t = parse(jsonStr);
-            CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
-            JSONWalker walker = new JSONWalker(ts);
-            JSONObject obj = walker.jsonObject();
-            this.content = obj.content;
-        }
-        catch (RecognitionException e) {
-            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
-                    + "(" + e.charPositionInLine + ")");
-        }
+        this(new JSONTokenizer(jsonStr));
+        //    	
+        //    	
+        //        try {
+        //            CommonTree t = parse(jsonStr);
+        //            CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
+        //            JSONWalker walker = new JSONWalker(ts);
+        //            JSONObject obj = walker.jsonObject();
+        //            this.content = obj.content;
+        //        }
+        //        catch (RecognitionException e) {
+        //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
+        //                    + "(" + e.charPositionInLine + ")");
+        //        }
     }
 
     /*
@@ -201,20 +197,20 @@ public class JSONObject extends JSONValueBase {
     }
     */
 
-    public static CommonTree parse(String jsonStr) throws JSONException {
-        JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JSONParser parser = new JSONParser(tokens);
-
-        try {
-            JSONParser.jsonObject_return r = parser.jsonObject();
-            return (CommonTree) r.getTree();
-        }
-        catch (RecognitionException e) {
-            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
-                    + "(" + e.charPositionInLine + ")");
-        }
-    }
+    //    public static CommonTree parse(String jsonStr) throws JSONException {
+    //        JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
+    //        CommonTokenStream tokens = new CommonTokenStream(lexer);
+    //        JSONParser parser = new JSONParser(tokens);
+    //
+    //        try {
+    //            JSONParser.jsonObject_return r = parser.jsonObject();
+    //            return (CommonTree) r.getTree();
+    //        }
+    //        catch (RecognitionException e) {
+    //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
+    //                    + "(" + e.charPositionInLine + ")");
+    //        }
+    //    }
 
     public JSONObject(List<JSONElement> elemList) {
         for (JSONElement e : elemList)
@@ -229,10 +225,12 @@ public class JSONObject extends JSONValueBase {
         content.put(key, translateAsJSONValue(value));
     }
 
+    @Override
     public String toString() {
         return toJSONString();
     }
 
+    @Override
     public String toJSONString() {
         StringBuilder jsonBuilder = new StringBuilder();
         jsonBuilder.append("{");
@@ -240,8 +238,7 @@ public class JSONObject extends JSONValueBase {
         for (Iterator<Entry<String, JSONValue>> it = content.entrySet().iterator(); it.hasNext();) {
             Entry<String, JSONValue> entry = it.next();
             String jsonKey = "\"" + entry.getKey() + "\"";
-            String jsonValue = (entry.getValue() == null) ? "null" : entry.getValue()
-                    .toJSONString();
+            String jsonValue = (entry.getValue() == null) ? "null" : entry.getValue().toJSONString();
             elementList.add(jsonKey + ":" + jsonValue);
         }
         jsonBuilder.append(join(elementList, ","));

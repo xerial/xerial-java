@@ -1,4 +1,4 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 SilkLine.g 2010-11-18 12:44:57
+// $ANTLR 3.2 Sep 23, 2009 14:05:07 SilkLine.g 2011-03-25 16:16:13
 
 /*--------------------------------------------------------------------------
  *  Copyright 2009 Taro L. Saito
@@ -53,6 +53,7 @@ public class SilkLineLexer extends Lexer {
     public static final int Indicator=45;
     public static final int PlainOneLine=53;
     public static final int NonSpaceChar=50;
+    public static final int Spaces=54;
     public static final int KeyValuePair=13;
     public static final int Argument=12;
     public static final int WhiteSpace=15;
@@ -74,7 +75,6 @@ public class SilkLineLexer extends Lexer {
     public static final int Digit=35;
     public static final int FunctionIndent=21;
     public static final int PlainFirst=51;
-    public static final int Separation=54;
     public static final int Seq=27;
     public static final int Plus=31;
     public static final int JSON=52;
@@ -1034,7 +1034,7 @@ public class SilkLineLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            Token s=null;
+            CommonToken s=null;
 
             // SilkLine.g:173:7: ( '\"' s= StringChar_s '\"' )
             // SilkLine.g:173:9: '\"' s= StringChar_s '\"'
@@ -1655,18 +1655,18 @@ public class SilkLineLexer extends Lexer {
     }
     // $ANTLR end "JSON"
 
-    // $ANTLR start "Separation"
-    public final void mSeparation() throws RecognitionException {
+    // $ANTLR start "Spaces"
+    public final void mSpaces() throws RecognitionException {
         try {
-            int _type = Separation;
+            int _type = Spaces;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // SilkLine.g:225:11: ({...}? => ( WhiteSpace )+ )
-            // SilkLine.g:225:13: {...}? => ( WhiteSpace )+
+            // SilkLine.g:225:7: ({...}? => ( WhiteSpace )+ )
+            // SilkLine.g:225:9: {...}? => ( WhiteSpace )+
             {
             if ( !(( !isHead() )) ) {
-                throw new FailedPredicateException(input, "Separation", " !isHead() ");
+                throw new FailedPredicateException(input, "Spaces", " !isHead() ");
             }
-            // SilkLine.g:225:31: ( WhiteSpace )+
+            // SilkLine.g:225:27: ( WhiteSpace )+
             int cnt18=0;
             loop18:
             do {
@@ -1680,7 +1680,7 @@ public class SilkLineLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // SilkLine.g:225:31: WhiteSpace
+            	    // SilkLine.g:225:27: WhiteSpace
             	    {
             	    mWhiteSpace(); 
 
@@ -1706,10 +1706,10 @@ public class SilkLineLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Separation"
+    // $ANTLR end "Spaces"
 
     public void mTokens() throws RecognitionException {
-        // SilkLine.g:1:8: ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation )
+        // SilkLine.g:1:8: ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Spaces )
         int alt19=22;
         alt19 = dfa19.predict(input);
         switch (alt19) {
@@ -1861,9 +1861,9 @@ public class SilkLineLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // SilkLine.g:1:189: Separation
+                // SilkLine.g:1:189: Spaces
                 {
-                mSeparation(); 
+                mSpaces(); 
 
                 }
                 break;
@@ -1969,21 +1969,21 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( ((LA16_0>='\u0000' && LA16_0<='\b')||(LA16_0>='\n' && LA16_0<='\u001F')||LA16_0=='!'||(LA16_0>='#' && LA16_0<='$')||LA16_0=='&'||(LA16_0>='.' && LA16_0<='9')||(LA16_0>=';' && LA16_0<='<')||(LA16_0>='A' && LA16_0<='Z')||(LA16_0>='^' && LA16_0<='z')||(LA16_0>='~' && LA16_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {s = 1;}
 
-                        else if ( (LA16_0=='-') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 2;}
+                        else if ( (LA16_0=='-') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 2;}
 
-                        else if ( (LA16_0=='=') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 3;}
+                        else if ( (LA16_0=='=') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 3;}
 
-                        else if ( (LA16_0=='+') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 4;}
+                        else if ( (LA16_0=='+') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 4;}
 
-                        else if ( (LA16_0=='*') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 5;}
+                        else if ( (LA16_0=='*') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 5;}
 
-                        else if ( (LA16_0==':'||LA16_0=='?') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 6;}
+                        else if ( (LA16_0==':'||LA16_0=='?') && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 6;}
 
                         else if ( (LA16_0=='\"') && (( isOutValue() ))) {s = 7;}
 
-                        else if ( (LA16_0=='{') && ((( isOutValue() )||(( isOutValue() )&&( isValue() ))))) {s = 8;}
+                        else if ( (LA16_0=='{') && (((( isOutValue() )&&( isValue() ))||( isOutValue() )))) {s = 8;}
 
-                        else if ( (LA16_0=='[') && ((( isOutValue() )||(( isOutValue() )&&( isValue() ))))) {s = 9;}
+                        else if ( (LA16_0=='[') && (((( isOutValue() )&&( isValue() ))||( isOutValue() )))) {s = 9;}
 
                         else if ( (LA16_0=='%'||(LA16_0>='\'' && LA16_0<=')')||LA16_0==','||LA16_0=='>'||(LA16_0>='\\' && LA16_0<=']')||(LA16_0>='|' && LA16_0<='}')) && (( isOutValue() ))) {s = 10;}
 
@@ -2015,7 +2015,7 @@ public class SilkLineLexer extends Lexer {
                         int index16_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA16_6>='\u0000' && LA16_6<='\b')||(LA16_6>='\n' && LA16_6<='\u001F')||LA16_6=='!'||(LA16_6>='#' && LA16_6<='[')||(LA16_6>=']' && LA16_6<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 13;}
+                        if ( ((LA16_6>='\u0000' && LA16_6<='\b')||(LA16_6>='\n' && LA16_6<='\u001F')||LA16_6=='!'||(LA16_6>='#' && LA16_6<='[')||(LA16_6>=']' && LA16_6<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 13;}
 
                         else s = 10;
 
@@ -2265,7 +2265,7 @@ public class SilkLineLexer extends Lexer {
             this.transition = DFA19_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Separation );";
+            return "1:1: Tokens : ( LineComment | BlockIndent | NodeIndent | PullUpNodeIndent | FunctionIndent | BlankLine | LParen | RParen | Comma | Colon | Seq | TabSeq | Star | At | Plus | LBracket | RBracket | Question | String | PlainOneLine | JSON | Spaces );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -2341,7 +2341,7 @@ public class SilkLineLexer extends Lexer {
 
                         else if ( (LA19_0==' ') && ((( isHead() )||( !isHead() )))) {s = 2;}
 
-                        else if ( (LA19_0=='-') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 3;}
+                        else if ( (LA19_0=='-') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 3;}
 
                         else if ( (LA19_0=='@') ) {s = 4;}
 
@@ -2373,9 +2373,9 @@ public class SilkLineLexer extends Lexer {
 
                         else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\n' && LA19_0<='\u001F')||LA19_0=='!'||LA19_0=='$'||LA19_0=='&'||(LA19_0>='.' && LA19_0<='9')||(LA19_0>=';' && LA19_0<='<')||(LA19_0>='A' && LA19_0<='Z')||(LA19_0>='^' && LA19_0<='z')||(LA19_0>='~' && LA19_0<='\uFFFF')) && ((( isInValue() )||( isOutValue() )||( isKey() )))) {s = 19;}
 
-                        else if ( (LA19_0=='=') && ((( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 20;}
+                        else if ( (LA19_0=='=') && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 20;}
 
-                        else if ( (LA19_0=='{') && (((( isOutValue() )&&( isValue() ))||( isValue() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isOutValue() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 21;}
+                        else if ( (LA19_0=='{') && ((( isValue() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||( isOutValue() )||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))||(( isOutValue() )&&( isValue() ))))) {s = 21;}
 
                         else if ( (LA19_0=='%'||LA19_0=='\''||LA19_0=='\\'||LA19_0=='}') && (( isOutValue() ))) {s = 22;}
 
@@ -2437,7 +2437,7 @@ public class SilkLineLexer extends Lexer {
                         int index19_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA19_13>='\u0000' && LA19_13<='!')||(LA19_13>='#' && LA19_13<='\'')||LA19_13=='+'||(LA19_13>='-' && LA19_13<='9')||(LA19_13>=';' && LA19_13<='<')||(LA19_13>='?' && LA19_13<='Z')||LA19_13=='\\'||(LA19_13>='^' && LA19_13<='z')||(LA19_13>='~' && LA19_13<='\uFFFF')) && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 35;}
+                        if ( ((LA19_13>='\u0000' && LA19_13<='!')||(LA19_13>='#' && LA19_13<='\'')||LA19_13=='+'||(LA19_13>='-' && LA19_13<='9')||(LA19_13>=';' && LA19_13<='<')||(LA19_13>='?' && LA19_13<='Z')||LA19_13=='\\'||(LA19_13>='^' && LA19_13<='z')||(LA19_13>='~' && LA19_13<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )))) {s = 35;}
 
                         else if ( (LA19_13=='*'||LA19_13==':'||(LA19_13>='=' && LA19_13<='>')||LA19_13=='['||LA19_13==']'||(LA19_13>='{' && LA19_13<='}')) && (((( isInValue() )&&( isValue() ))||( isOutValue() )))) {s = 36;}
 
@@ -2545,9 +2545,9 @@ public class SilkLineLexer extends Lexer {
                         int index19_46 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))))) ) {s = 72;}
+                        if ( (!((((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))))) ) {s = 72;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))) ) {s = 57;}
+                        else if ( (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))) ) {s = 57;}
 
                          
                         input.seek(index19_46);
@@ -2592,7 +2592,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 60;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||( isOutValue() ))) ) {s = 57;}
+                        else if ( ((( isOutValue() )||(( isInValue() )&&( isValue() )))) ) {s = 57;}
 
                          
                         input.seek(index19_64);
@@ -2620,9 +2620,9 @@ public class SilkLineLexer extends Lexer {
                         int index19_47 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (!((((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))))) ) {s = 73;}
+                        if ( (!((((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))))) ) {s = 73;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))) ) {s = 57;}
+                        else if ( (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))) ) {s = 57;}
 
                          
                         input.seek(index19_47);
@@ -2682,7 +2682,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 62;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))) ) {s = 57;}
+                        else if ( (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))) ) {s = 57;}
 
                          
                         input.seek(index19_34);
@@ -2697,7 +2697,7 @@ public class SilkLineLexer extends Lexer {
                         s = -1;
                         if ( (( isHead() )) ) {s = 61;}
 
-                        else if ( (((( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() ))) ) {s = 57;}
+                        else if ( (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() )))) ) {s = 57;}
 
                          
                         input.seek(index19_63);
@@ -2789,7 +2789,7 @@ public class SilkLineLexer extends Lexer {
                         int index19_32 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA19_32>='\u0000' && LA19_32<='!')||(LA19_32>='#' && LA19_32<='\'')||LA19_32=='+'||(LA19_32>='-' && LA19_32<='9')||(LA19_32>=';' && LA19_32<='<')||(LA19_32>='?' && LA19_32<='Z')||LA19_32=='\\'||(LA19_32>='^' && LA19_32<='z')||(LA19_32>='~' && LA19_32<='\uFFFF')) && ((( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 35;}
+                        if ( ((LA19_32>='\u0000' && LA19_32<='!')||(LA19_32>='#' && LA19_32<='\'')||LA19_32=='+'||(LA19_32>='-' && LA19_32<='9')||(LA19_32>=';' && LA19_32<='<')||(LA19_32>='?' && LA19_32<='Z')||LA19_32=='\\'||(LA19_32>='^' && LA19_32<='z')||(LA19_32>='~' && LA19_32<='\uFFFF')) && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 35;}
 
                         else if ( (LA19_32=='*'||LA19_32==':'||(LA19_32>='=' && LA19_32<='>')||LA19_32=='['||LA19_32==']'||(LA19_32>='{' && LA19_32<='}')) && ((( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 36;}
 
@@ -2842,11 +2842,11 @@ public class SilkLineLexer extends Lexer {
                         int index19_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA19_3=='-') && (((( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))))) {s = 32;}
+                        if ( (LA19_3=='-') && (((( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))||(( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 32;}
 
-                        else if ( (LA19_3=='>') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 33;}
+                        else if ( (LA19_3=='>') && (((( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))||( isHead() )||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 33;}
 
-                        else if ( ((LA19_3>='\u0000' && LA19_3<='!')||(LA19_3>='#' && LA19_3<='\'')||LA19_3=='+'||(LA19_3>='.' && LA19_3<='9')||(LA19_3>=';' && LA19_3<='<')||(LA19_3>='?' && LA19_3<='Z')||LA19_3=='\\'||(LA19_3>='^' && LA19_3<='z')||(LA19_3>='~' && LA19_3<='\uFFFF')) && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 35;}
+                        else if ( ((LA19_3>='\u0000' && LA19_3<='!')||(LA19_3>='#' && LA19_3<='\'')||LA19_3=='+'||(LA19_3>='.' && LA19_3<='9')||(LA19_3>=';' && LA19_3<='<')||(LA19_3>='?' && LA19_3<='Z')||LA19_3=='\\'||(LA19_3>='^' && LA19_3<='z')||(LA19_3>='~' && LA19_3<='\uFFFF')) && ((( isOutValue() )||(( isKey() )&&( isValue() ))||(( isInValue() )&&( isValue() ))))) {s = 35;}
 
                         else if ( (LA19_3=='*'||LA19_3==':'||LA19_3=='='||LA19_3=='['||LA19_3==']'||(LA19_3>='{' && LA19_3<='}')) && (((( isInValue() )&&( isValue() ))||( isOutValue() )))) {s = 36;}
 
@@ -2942,7 +2942,7 @@ public class SilkLineLexer extends Lexer {
                         int index19_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA19_17>='\u0000' && LA19_17<='\b')||(LA19_17>='\n' && LA19_17<='\u001F')||LA19_17=='!'||(LA19_17>='#' && LA19_17<='[')||(LA19_17>=']' && LA19_17<='\uFFFF')) && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 43;}
+                        if ( ((LA19_17>='\u0000' && LA19_17<='\b')||(LA19_17>='\n' && LA19_17<='\u001F')||LA19_17=='!'||(LA19_17>='#' && LA19_17<='[')||(LA19_17>=']' && LA19_17<='\uFFFF')) && (((( isInValue() )&&( isValue() ))||( isOutValue() )||(( isKey() )&&( isValue() ))))) {s = 43;}
 
                         else if ( (LA19_17=='\t'||LA19_17==' '||LA19_17=='\\') && (( isOutValue() ))) {s = 37;}
 
@@ -3129,7 +3129,7 @@ public class SilkLineLexer extends Lexer {
                         int index19_14 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA19_14>='\u0000' && LA19_14<='!')||(LA19_14>='#' && LA19_14<='\'')||LA19_14=='+'||(LA19_14>='-' && LA19_14<='9')||(LA19_14>=';' && LA19_14<='<')||(LA19_14>='?' && LA19_14<='Z')||LA19_14=='\\'||(LA19_14>='^' && LA19_14<='z')||(LA19_14>='~' && LA19_14<='\uFFFF')) && ((( isOutValue() )||(( isInValue() )&&( isValue() ))||(( isKey() )&&( isValue() ))))) {s = 35;}
+                        if ( ((LA19_14>='\u0000' && LA19_14<='!')||(LA19_14>='#' && LA19_14<='\'')||LA19_14=='+'||(LA19_14>='-' && LA19_14<='9')||(LA19_14>=';' && LA19_14<='<')||(LA19_14>='?' && LA19_14<='Z')||LA19_14=='\\'||(LA19_14>='^' && LA19_14<='z')||(LA19_14>='~' && LA19_14<='\uFFFF')) && (((( isKey() )&&( isValue() ))||( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 35;}
 
                         else if ( (LA19_14=='*'||LA19_14==':'||(LA19_14>='=' && LA19_14<='>')||LA19_14=='['||LA19_14==']'||(LA19_14>='{' && LA19_14<='}')) && ((( isOutValue() )||(( isInValue() )&&( isValue() ))))) {s = 36;}
 

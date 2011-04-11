@@ -222,7 +222,7 @@ JSON
 	}  
 	;
 	 
-Separation: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
+Spaces: { !isHead() }? => WhiteSpace+ { $channel=HIDDEN; };
 
  
 

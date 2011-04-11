@@ -203,6 +203,7 @@ public class CommandModuleBase implements CommandModule {
         else {
             Command subCommand = getSubCommand(globalOption.command);
             OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
+            subOpt.setIgnoreUnknownOption(true);
             if (CommandModule.class.isAssignableFrom(subCommand.getClass())) {
                 // when the sub command is a module, delegate the help message processing to it  
                 String[] unusedArguments = globalOptionParser.getUnusedArguments();

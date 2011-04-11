@@ -35,8 +35,8 @@ import org.xerial.core.XerialException;
 import org.xerial.silk.model.SilkElement;
 import org.xerial.silk.model.SilkFunction;
 import org.xerial.silk.model.SilkNode;
-import org.xerial.silk.model.SilkNodeOccurrence;
 import org.xerial.silk.model.SilkNode.SilkNodeBuilder;
+import org.xerial.silk.model.SilkNodeOccurrence;
 import org.xerial.util.CollectionUtil;
 import org.xerial.util.Functor;
 import org.xerial.util.StringUtil;
@@ -47,7 +47,8 @@ import org.xerial.util.StringUtil;
  * @author leo
  * 
  */
-public class SilkNodeParser {
+public class SilkNodeParser
+{
     private final CommonTokenStream tokenStream;
 
     public SilkNodeParser(CommonTokenStream tokenStream) {
@@ -179,8 +180,7 @@ public class SilkNodeParser {
         switch (nextToken) {
         case At:
             // TODO
-            throw new XerialException(XerialErrorCode.PARSE_ERROR,
-                    "nested function is not yet supported");
+            throw new XerialException(XerialErrorCode.PARSE_ERROR, "nested function is not yet supported");
         case PlainOneLine:
         case String:
             Token t = getToken(1);
@@ -372,28 +372,27 @@ public class SilkNodeParser {
     }
 
     private XerialException unexpectedToken(Token t) throws XerialException {
-        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format(
-                "unexpected token %s", SilkLineParser.tokenNames[t.getType()], toString(t)));
+        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("unexpected token %s",
+                SilkLineParser.tokenNames[t.getType()], toString(t)));
 
     }
 
     private XerialException unexpectedToken(Token t, Integer... expectedTokenTypes) {
-        List<String> expectedTokenNames = CollectionUtil.collect(expectedTokenTypes,
-                new Functor<Integer, String>() {
-                    public String apply(Integer input) {
-                        return SilkLineParser.tokenNames[input.intValue()];
-                    }
-                });
+        List<String> expectedTokenNames = CollectionUtil.collect(expectedTokenTypes, new Functor<Integer, String>() {
+            public String apply(Integer input) {
+                return SilkLineParser.tokenNames[input.intValue()];
+            }
+        });
 
-        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format(
-                "expected %s, but %s", StringUtil.join(expectedTokenNames, " or "), toString(t)));
+        return new XerialException(XerialErrorCode.PARSE_ERROR, java.lang.String.format("expected %s, but %s",
+                StringUtil.join(expectedTokenNames, " or "), toString(t)));
     }
 
     private String toString(Token t) {
 
         int type = t.getType();
-        return java.lang.String.format("[%s at char %d: %s]", type >= 0
-                && type < SilkLineParser.tokenNames.length ? SilkLineParser.tokenNames[type]
-                : "unknown token type: " + type, t.getCharPositionInLine(), t.getText());
+        return java.lang.String.format("[%s at char %d: %s]",
+                type >= 0 && type < SilkLineParser.tokenNames.length ? SilkLineParser.tokenNames[type]
+                        : "unknown token type: " + type, t.getCharPositionInLine(), t.getText());
     }
 }

@@ -22,24 +22,13 @@
 // $URL$
 // $Author$
 //--------------------------------------
-package org.xerial.json.impl;
+package org.xerial.json;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.xerial.json.JSONArray;
-import org.xerial.json.JSONBoolean;
-import org.xerial.json.JSONDouble;
-import org.xerial.json.JSONErrorCode;
-import org.xerial.json.JSONException;
-import org.xerial.json.JSONInteger;
-import org.xerial.json.JSONLong;
-import org.xerial.json.JSONNull;
-import org.xerial.json.JSONObject;
-import org.xerial.json.JSONString;
-import org.xerial.json.JSONValue;
 
 /*
 Copyright (c) 2002 JSON.org
