@@ -27,11 +27,11 @@ package org.xerial.util.io;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.StringReader;
 
 import org.junit.Test;
 
-public class BufferedScannerTest
-{
+public class BufferedScannerTest {
     @Test
     public void scanner() throws Exception {
 
@@ -71,6 +71,19 @@ public class BufferedScannerTest
         String m = "Hello World\nThanks for using silk-weaver!!!\nTaro L. Saito";
         byte[] b = m.getBytes("UTF-8");
         BufferedScanner s = new BufferedScanner(new ByteArrayInputStream(b), 10);
+
+        for (int i = 0; i < m.length(); ++i) {
+            assertEquals(m.charAt(i), s.LA(1));
+            s.consume();
+        }
+        assertEquals(-1, s.LA(1));
+
+    }
+
+    @Test
+    public void charBuffer() throws Exception {
+        String m = "Hello World\nThanks for using silk-weaver!!!\nTaro L. Saito";
+        BufferedScanner s = new BufferedScanner(new StringReader(m), 10);
 
         for (int i = 0; i < m.length(); ++i) {
             assertEquals(m.charAt(i), s.LA(1));
