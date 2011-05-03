@@ -24,25 +24,24 @@
 //--------------------------------------
 package org.xerial.json;
 
-public class JSONNull extends JSONValueBase {
+public class JSONNull extends JSONValueBase
+{
 
-	
-	public String toString()
-	{
-		return "null";
-	}
-	
-	@Override
-	public JSONNull getJSONNull() {
-		return this;
-	}
+    public final static JSONNull NULL = new JSONNull();
 
-    public JSONValueType getValueType()
-    {
+    private JSONNull() {}
+
+    @Override
+    public String toString() {
+        return "null";
+    }
+
+    @Override
+    public JSONNull getJSONNull() {
+        return this;
+    }
+
+    public JSONValueType getValueType() {
         return JSONValueType.Null;
     }
 }
-
-
-
-

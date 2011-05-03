@@ -55,21 +55,12 @@ public class JSONObject extends JSONValueBase
 
     }
 
-    public static JSONObject parse(String s) throws JSONException {
-        return parse(new JSONPullParser(s));
+    public JSONObject(String jsonStr) throws JSONException {
+        new JSONPullParser(jsonStr).populateJSONObject(this);
     }
 
-    public static JSONObject parse(JSONPullParser p) throws JSONException {
-
-        JSONEvent e = p.next();
-        if (e != JSONEvent.StartObject)
-            throw new JSONException(JSONErrorCode.InvalidJSONData, "JSONObject must begin with '{'");
-
-        JSONObject v = p.getValue().getJSONObject();
-        if (v == null)
-            throw new JSONException(JSONErrorCode.ParseError, "Failed to construct a JSONObject");
-
-        return v;
+    public static JSONObject parse(String s) throws JSONException {
+        return new JSONObject(s);
     }
 
     public JSONObject(JSONTokenizer x) throws JSONException {

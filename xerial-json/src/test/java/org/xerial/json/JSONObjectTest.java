@@ -88,7 +88,7 @@ public class JSONObjectTest
             JSONObject obj = JSONObject.parse("{ \"person\":{\"name\":\"leo\", \"id\":3}, \"isValid\":true}");
             _logger.debug(obj);
             assertEquals(2, obj.elementSize());
-            assertEquals(new JSONBoolean(true), obj.get("isValid"));
+            assertEquals(JSONBoolean.toJSONBoolean(true), obj.get("isValid"));
             JSONValue v = obj.get("person");
             assertTrue(v instanceof JSONObject);
             JSONObject p = (JSONObject) v;

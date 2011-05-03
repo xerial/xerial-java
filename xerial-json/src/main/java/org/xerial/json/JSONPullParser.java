@@ -141,10 +141,12 @@ public class JSONPullParser
                 return new JSONInteger(getText());
             case Double:
                 return new JSONDouble(getText());
-            case Boolean:
-                return new JSONBoolean(getText());
+            case True:
+                return JSONBoolean.True;
+            case False:
+                return JSONBoolean.False;
             case Null:
-                return new JSONNull();
+                return JSONNull.NULL;
             case StartObject:
                 return readJSONObject(new JSONObject(), getDepth());
             case StartArray:
@@ -171,9 +173,13 @@ public class JSONPullParser
             case String:
             case Integer:
             case Double:
-            case Boolean:
                 return getText();
+            case True:
+                return "true";
+            case False:
+                return "false";
             case Null:
+                return "null";
             case StartObject:
                 return readJSONObject(new JSONObject(), getDepth()).toJSONString();
             case StartArray:
@@ -186,7 +192,17 @@ public class JSONPullParser
 
     }
 
-    private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException {
+    public void populateJSONObject(JSONObject obj) throws JSONException {
+        if (lastReportedEvent == null)
+            next();
+
+        if (lastReportedEvent.getEvent() != JSONEvent.StartObject)
+            throw new JSONException(JSONErrorCode.InvalidJSONData);
+
+        readJSONObject(obj, getDepth());
+    }
+
+    JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException {
         while (true) {
             JSONEvent event = next();
             switch (event) {
@@ -203,11 +219,18 @@ public class JSONPullParser
                 break;
             case EndArray:
                 throw new JSONException(JSONErrorCode.NotInAJSONObject);
+            case True:
+                jsonObject.put(getKeyName(), JSONBoolean.True);
+                break;
+            case False:
+                jsonObject.put(getKeyName(), JSONBoolean.False);
+                break;
+            case Null:
+                jsonObject.put(getKeyName(), JSONNull.NULL);
+                break;
             case String:
-            case Boolean:
             case Double:
             case Integer:
-            case Null:
                 jsonObject.put(getKeyName(), getValue());
                 break;
             case EndJSON:
@@ -234,11 +257,18 @@ public class JSONPullParser
                     return jsonArray;
                 else
                     throw new JSONException(JSONErrorCode.ParseError);
+            case True:
+                jsonArray.add(JSONBoolean.True);
+                break;
+            case False:
+                jsonArray.add(JSONBoolean.False);
+                break;
+            case Null:
+                jsonArray.add(JSONNull.NULL);
+                break;
             case String:
-            case Boolean:
             case Double:
             case Integer:
-            case Null:
                 jsonArray.add(getValue());
                 break;
             case EndJSON:
@@ -317,9 +347,11 @@ public class JSONPullParser
                     valueWithKeyTest();
                     return reportEvent(token, JSONEvent.Double);
                 case True:
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.True);
                 case False:
                     valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.Boolean);
+                    return reportEvent(token, JSONEvent.False);
                 case Null:
                     valueWithKeyTest();
                     return reportEvent(token, JSONEvent.Null);

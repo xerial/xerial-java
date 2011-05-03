@@ -29,9 +29,9 @@ import java.io.Reader;
 
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.tree.TreeEvent;
+import org.xerial.util.tree.TreeEvent.EventType;
 import org.xerial.util.tree.TreeEventHandler;
 import org.xerial.util.tree.TreeParser;
-import org.xerial.util.tree.TreeEvent.EventType;
 
 /**
  * Push-style JSON parser
@@ -39,9 +39,10 @@ import org.xerial.util.tree.TreeEvent.EventType;
  * @author leo
  * 
  */
-public class JSONTreeParser implements TreeParser {
-    private final JSONPullParser jsonPullParser;
-    private JSONEvent lastEvent = null;
+public class JSONTreeParser implements TreeParser
+{
+    private final JSONPullParser  jsonPullParser;
+    private JSONEvent             lastEvent         = null;
 
     private ArrayDeque<TreeEvent> pendingEventQueue = new ArrayDeque<TreeEvent>();
 
@@ -96,7 +97,8 @@ public class JSONTreeParser implements TreeParser {
             case String:
             case Integer:
             case Double:
-            case Boolean:
+            case True:
+            case False:
             case Null: {
                 String key = jsonPullParser.getKeyName();
                 String value = lastEvent != JSONEvent.Null ? jsonPullParser.getText() : null;

@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 {
 
@@ -57,8 +56,9 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
             switch (e) {
             case Integer:
             case Double:
-            case Boolean:
             case Null:
+            case True:
+            case False:
             case String:
                 array.add(parser.getValue());
                 break;
@@ -89,7 +89,8 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
             switch (e) {
             case Integer:
             case Double:
-            case Boolean:
+            case True:
+            case False:
             case Null:
             case String:
                 String key = parser.getKeyName();

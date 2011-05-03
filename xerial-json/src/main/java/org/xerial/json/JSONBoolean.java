@@ -24,52 +24,59 @@
 //--------------------------------------
 package org.xerial.json;
 
-public class JSONBoolean extends JSONValueBase {
-	
-	private boolean _value;
-	
-	public JSONBoolean(boolean b)
-	{
-		this._value = b; 
-	}
-	
-	public JSONBoolean(String text)
-    {
-	    if(text.equals("true"))
-	        this._value = true;
-	    else
-	        this._value = false;
+public class JSONBoolean extends JSONValueBase
+{
+
+    public final static JSONBoolean True  = new JSONBoolean(true);
+    public final static JSONBoolean False = new JSONBoolean(false);
+
+    private boolean                 _value;
+
+    private JSONBoolean(boolean b) {
+        this._value = b;
     }
 
-    public boolean getValue()
-	{
-		return _value;
-	}
-	
-	public String toString() 
-	{
-		return _value ? "true" : "false"; 
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if(!(o instanceof JSONBoolean))
-			return false;
-		
-		return getValue() == ((JSONBoolean) o).getValue();
-	}
-	
-	@Override
-	public JSONBoolean getJSONBoolean() {
-		return this;
-	}
+    private JSONBoolean(String text) {
+        if (text.equals("true"))
+            this._value = true;
+        else
+            this._value = false;
+    }
 
-    public JSONValueType getValueType()
-    {
+    public static JSONBoolean toJSONBoolean(boolean bool) {
+        return bool ? True : False;
+    }
+
+    public static JSONBoolean toJSONBoolean(String value) {
+        if (value.equals("true"))
+            return True;
+        else
+            return False;
+    }
+
+    public boolean getValue() {
+        return _value;
+    }
+
+    @Override
+    public String toString() {
+        return _value ? "true" : "false";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof JSONBoolean))
+            return false;
+
+        return getValue() == ((JSONBoolean) o).getValue();
+    }
+
+    @Override
+    public JSONBoolean getJSONBoolean() {
+        return this;
+    }
+
+    public JSONValueType getValueType() {
         return JSONValueType.Boolean;
     }
 }
-
-
-
-

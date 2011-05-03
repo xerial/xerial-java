@@ -118,7 +118,8 @@ public class JSONStreamReader implements TreeStreamReader
         case String:
         case Integer:
         case Double:
-        case Boolean:
+        case True:
+        case False:
         case Null: {
             String key = jsonPullParser.getKeyName();
             String value = lastEvent != JSONEvent.Null ? jsonPullParser.getText() : null;

@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-
 /*
 Copyright (c) 2002 JSON.org
 
@@ -65,9 +64,9 @@ SOFTWARE.
 public class JSONTokenizer
 {
 
-    private int index;
-    private Reader reader;
-    private char lastChar;
+    private int     index;
+    private Reader  reader;
+    private char    lastChar;
     private boolean useLastChar;
 
     /**
@@ -76,8 +75,7 @@ public class JSONTokenizer
      * @param reader
      *            A reader.
      */
-    public JSONTokenizer(Reader reader)
-    {
+    public JSONTokenizer(Reader reader) {
         this.reader = reader.markSupported() ? reader : new BufferedReader(reader);
         this.useLastChar = false;
         this.index = 0;
@@ -89,8 +87,7 @@ public class JSONTokenizer
      * @param s
      *            A source string.
      */
-    public JSONTokenizer(String s)
-    {
+    public JSONTokenizer(String s) {
         this(new StringReader(s));
     }
 
@@ -99,10 +96,8 @@ public class JSONTokenizer
      * that you can test for a digit or letter before attempting to parse the
      * next number or identifier.
      */
-    public void back() throws JSONException
-    {
-        if (useLastChar || index <= 0)
-        {
+    public void back() throws JSONException {
+        if (useLastChar || index <= 0) {
             throw new JSONException(JSONErrorCode.InvalidJSONData, "Stepping back two steps is not supported");
         }
         index -= 1;
@@ -117,18 +112,14 @@ public class JSONTokenizer
      *            between 'a' and 'f'.
      * @return An int between 0 and 15, or -1 if c was not a hex digit.
      */
-    public static int dehexchar(char c)
-    {
-        if (c >= '0' && c <= '9')
-        {
+    public static int dehexchar(char c) {
+        if (c >= '0' && c <= '9') {
             return c - '0';
         }
-        if (c >= 'A' && c <= 'F')
-        {
+        if (c >= 'A' && c <= 'F') {
             return c - ('A' - 10);
         }
-        if (c >= 'a' && c <= 'f')
-        {
+        if (c >= 'a' && c <= 'f') {
             return c - ('a' - 10);
         }
         return -1;
@@ -140,11 +131,9 @@ public class JSONTokenizer
      * 
      * @return true if not yet at the end of the source.
      */
-    public boolean more() throws JSONException
-    {
+    public boolean more() throws JSONException {
         char nextChar = next();
-        if (nextChar == 0)
-        {
+        if (nextChar == 0) {
             return false;
         }
         back();
@@ -156,29 +145,23 @@ public class JSONTokenizer
      * 
      * @return The next character, or 0 if past the end of the source string.
      */
-    public char next() throws JSONException
-    {
-        if (this.useLastChar)
-        {
+    public char next() throws JSONException {
+        if (this.useLastChar) {
             this.useLastChar = false;
-            if (this.lastChar != 0)
-            {
+            if (this.lastChar != 0) {
                 this.index += 1;
             }
             return this.lastChar;
         }
         int c;
-        try
-        {
+        try {
             c = this.reader.read();
         }
-        catch (IOException exc)
-        {
+        catch (IOException exc) {
             throw new JSONException(JSONErrorCode.InvalidJSONData, exc);
         }
 
-        if (c <= 0)
-        { // End of stream
+        if (c <= 0) { // End of stream
             this.lastChar = 0;
             return 0;
         }
@@ -197,11 +180,9 @@ public class JSONTokenizer
      * @throws JSONException
      *             if the character does not match.
      */
-    public char next(char c) throws JSONException
-    {
+    public char next(char c) throws JSONException {
         char n = next();
-        if (n != c)
-        {
+        if (n != c) {
             throw syntaxError("Expected '" + c + "' and instead saw '" + n + "'");
         }
         return n;
@@ -217,39 +198,32 @@ public class JSONTokenizer
      *             Substring bounds error if there are not n characters
      *             remaining in the source string.
      */
-    public String next(int n) throws JSONException
-    {
-        if (n == 0)
-        {
+    public String next(int n) throws JSONException {
+        if (n == 0) {
             return "";
         }
 
         char[] buffer = new char[n];
         int pos = 0;
 
-        if (this.useLastChar)
-        {
+        if (this.useLastChar) {
             this.useLastChar = false;
             buffer[0] = this.lastChar;
             pos = 1;
         }
 
-        try
-        {
+        try {
             int len;
-            while ((pos < n) && ((len = reader.read(buffer, pos, n - pos)) != -1))
-            {
+            while ((pos < n) && ((len = reader.read(buffer, pos, n - pos)) != -1)) {
                 pos += len;
             }
         }
-        catch (IOException exc)
-        {
+        catch (IOException exc) {
             throw new JSONException(JSONErrorCode.InvalidJSONData, exc);
         }
         this.index += pos;
 
-        if (pos < n)
-        {
+        if (pos < n) {
             throw syntaxError("Substring bounds error");
         }
 
@@ -263,13 +237,10 @@ public class JSONTokenizer
      * @throws JSONException
      * @return A character, or 0 if there are no more characters.
      */
-    public char nextClean() throws JSONException
-    {
-        for (;;)
-        {
+    public char nextClean() throws JSONException {
+        for (;;) {
             char c = next();
-            if (c == 0 || c > ' ')
-            {
+            if (c == 0 || c > ' ') {
                 return c;
             }
         }
@@ -281,29 +252,26 @@ public class JSONTokenizer
      * single quotes, but an implementation is allowed to accept them.
      * 
      * @param quote
-     *            The quoting character, either <code>"</code>&nbsp;<small>(double
-     *            quote)</small> or <code>'</code>&nbsp;<small>(single quote)</small>.
+     *            The quoting character, either <code>"</code>
+     *            &nbsp;<small>(double quote)</small> or <code>'</code>
+     *            &nbsp;<small>(single quote)</small>.
      * @return A String.
      * @throws JSONException
      *             Unterminated string.
      */
-    public JSONString nextString(char quote) throws JSONException
-    {
+    public JSONString nextString(char quote) throws JSONException {
         char c;
         StringBuffer sb = new StringBuffer();
-        for (;;)
-        {
+        for (;;) {
             c = next();
-            switch (c)
-            {
+            switch (c) {
             case 0:
             case '\n':
             case '\r':
                 throw syntaxError("Unterminated string");
             case '\\':
                 c = next();
-                switch (c)
-                {
+                switch (c) {
                 case 'b':
                     sb.append('\b');
                     break;
@@ -330,8 +298,7 @@ public class JSONTokenizer
                 }
                 break;
             default:
-                if (c == quote)
-                {
+                if (c == quote) {
                     return new JSONString(sb.toString());
                 }
                 sb.append(c);
@@ -347,16 +314,12 @@ public class JSONTokenizer
      *            A delimiter character.
      * @return A string.
      */
-    public String nextTo(char d) throws JSONException
-    {
+    public String nextTo(char d) throws JSONException {
         StringBuffer sb = new StringBuffer();
-        for (;;)
-        {
+        for (;;) {
             char c = next();
-            if (c == d || c == 0 || c == '\n' || c == '\r')
-            {
-                if (c != 0)
-                {
+            if (c == d || c == 0 || c == '\n' || c == '\r') {
+                if (c != 0) {
                     back();
                 }
                 return sb.toString().trim();
@@ -373,17 +336,13 @@ public class JSONTokenizer
      *            A set of delimiter characters.
      * @return A string, trimmed.
      */
-    public String nextTo(String delimiters) throws JSONException
-    {
+    public String nextTo(String delimiters) throws JSONException {
         char c;
         StringBuffer sb = new StringBuffer();
-        for (;;)
-        {
+        for (;;) {
             c = next();
-            if (delimiters.indexOf(c) >= 0 || c == 0 || c == '\n' || c == '\r')
-            {
-                if (c != 0)
-                {
+            if (delimiters.indexOf(c) >= 0 || c == 0 || c == '\n' || c == '\r') {
+                if (c != 0) {
                     back();
                 }
                 return sb.toString().trim();
@@ -401,13 +360,11 @@ public class JSONTokenizer
      * 
      * @return An object.
      */
-    public JSONValue nextValue() throws JSONException
-    {
+    public JSONValue nextValue() throws JSONException {
         char c = nextClean();
         String s;
 
-        switch (c)
-        {
+        switch (c) {
         case '"':
         case '\'':
             return nextString(c);
@@ -430,16 +387,14 @@ public class JSONTokenizer
          */
 
         StringBuffer sb = new StringBuffer();
-        while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0)
-        {
+        while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
             sb.append(c);
             c = next();
         }
         back();
 
         s = sb.toString().trim();
-        if (s.equals(""))
-        {
+        if (s.equals("")) {
             throw syntaxError("Missing value");
         }
         return stringToValue(s);
@@ -453,23 +408,18 @@ public class JSONTokenizer
      *            A String.
      * @return A simple JSON value.
      */
-    public static JSONValue stringToValue(String s)
-    {
-        if (s.equals(""))
-        {
+    public static JSONValue stringToValue(String s) {
+        if (s.equals("")) {
             return new JSONString(s);
         }
-        if (s.equalsIgnoreCase("true"))
-        {
-            return new JSONBoolean(true);
+        if (s.equalsIgnoreCase("true")) {
+            return JSONBoolean.True;
         }
-        if (s.equalsIgnoreCase("false"))
-        {
-            return new JSONBoolean(false);
+        if (s.equalsIgnoreCase("false")) {
+            return JSONBoolean.False;
         }
-        if (s.equalsIgnoreCase("null"))
-        {
-            return new JSONNull();
+        if (s.equalsIgnoreCase("null")) {
+            return JSONNull.NULL;
         }
 
         /*
@@ -481,54 +431,40 @@ public class JSONTokenizer
          */
 
         char b = s.charAt(0);
-        if ((b >= '0' && b <= '9') || b == '.' || b == '-' || b == '+')
-        {
-            if (b == '0')
-            {
-                if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X'))
-                {
-                    try
-                    {
+        if ((b >= '0' && b <= '9') || b == '.' || b == '-' || b == '+') {
+            if (b == '0') {
+                if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
+                    try {
                         return new JSONInteger(Integer.parseInt(s.substring(2), 16));
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                         /* Ignore the error */
                     }
                 }
-                else
-                {
-                    try
-                    {
+                else {
+                    try {
                         return new JSONInteger(Integer.parseInt(s, 8));
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                         /* Ignore the error */
                     }
                 }
             }
-            try
-            {
-                if (s.indexOf('.') > -1 || s.indexOf('e') > -1 || s.indexOf('E') > -1)
-                {
+            try {
+                if (s.indexOf('.') > -1 || s.indexOf('e') > -1 || s.indexOf('E') > -1) {
                     return new JSONDouble(Double.valueOf(s));
                 }
-                else
-                {
+                else {
                     Long myLong = new Long(s);
-                    if (myLong.longValue() == myLong.intValue())
-                    {
+                    if (myLong.longValue() == myLong.intValue()) {
                         return new JSONInteger(myLong.intValue());
                     }
-                    else
-                    {
+                    else {
                         return new JSONLong(myLong);
                     }
                 }
             }
-            catch (Exception f)
-            {
+            catch (Exception f) {
                 /* Ignore the error */
             }
         }
@@ -544,18 +480,14 @@ public class JSONTokenizer
      * @return The requested character, or zero if the requested character is
      *         not found.
      */
-    public char skipTo(char to) throws JSONException
-    {
+    public char skipTo(char to) throws JSONException {
         char c;
-        try
-        {
+        try {
             int startIndex = this.index;
             reader.mark(Integer.MAX_VALUE);
-            do
-            {
+            do {
                 c = next();
-                if (c == 0)
-                {
+                if (c == 0) {
                     reader.reset();
                     this.index = startIndex;
                     return c;
@@ -563,8 +495,7 @@ public class JSONTokenizer
             }
             while (c != to);
         }
-        catch (IOException exc)
-        {
+        catch (IOException exc) {
             throw new JSONException(JSONErrorCode.InvalidJSONData, exc);
         }
 
@@ -579,8 +510,7 @@ public class JSONTokenizer
      *            The error message.
      * @return A JSONException object, suitable for throwing
      */
-    public JSONException syntaxError(String message)
-    {
+    public JSONException syntaxError(String message) {
         return new JSONException(JSONErrorCode.InvalidJSONData, message + toString());
     }
 
@@ -589,8 +519,8 @@ public class JSONTokenizer
      * 
      * @return " at character [this.index]"
      */
-    public String toString()
-    {
+    @Override
+    public String toString() {
         return " at character " + index;
     }
 }

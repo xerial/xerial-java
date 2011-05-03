@@ -25,18 +25,5 @@
 package org.xerial.json;
 
 public enum JSONEvent {
-	EndJSON,
-	StartObject,
-	EndObject,
-	StartArray,
-	EndArray,
-	String,
-	Integer,
-	Double,
-	Boolean,
-	Null,
+    EndJSON, StartObject, EndObject, StartArray, EndArray, String, Integer, Double, True, False, Null,
 }
-
-
-
-
