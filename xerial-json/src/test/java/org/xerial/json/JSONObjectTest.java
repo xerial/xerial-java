@@ -69,7 +69,7 @@ public class JSONObjectTest
     public void testJSONObjectString() throws Exception {
 
         try {
-            JSONObject obj = new JSONObject("{ \"name\":\"leo\", \"id\":3}");
+            JSONObject obj = JSONObject.parse("{ \"name\":\"leo\", \"id\":3}");
             assertEquals(2, obj.elementSize());
             assertEquals(JSONValueType.String, obj.get("name").getValueType());
             assertEquals(new JSONString("leo"), obj.get("name"));
@@ -85,7 +85,7 @@ public class JSONObjectTest
     @Test
     public void testNestedJSONObject() throws Exception {
         try {
-            JSONObject obj = new JSONObject("{ \"person\":{\"name\":\"leo\", \"id\":3}, \"isValid\":true}");
+            JSONObject obj = JSONObject.parse("{ \"person\":{\"name\":\"leo\", \"id\":3}, \"isValid\":true}");
             _logger.debug(obj);
             assertEquals(2, obj.elementSize());
             assertEquals(new JSONBoolean(true), obj.get("isValid"));
@@ -105,7 +105,7 @@ public class JSONObjectTest
     public void testArray() throws Exception {
         JSONObject obj;
         try {
-            obj = new JSONObject("{ \"person\":[\"leo\", 3, \"yui\"]}");
+            obj = JSONObject.parse("{ \"person\":[\"leo\", 3, \"yui\"]}");
             _logger.debug(obj);
 
             assertEquals(1, obj.elementSize());

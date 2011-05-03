@@ -55,7 +55,7 @@ public class JSONWriterTest
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        JSONObject p = new JSONObject(jsonData);
+        JSONObject p = JSONObject.parse(jsonData);
 
         assertEquals(1, p.getInt("id"));
         assertEquals("Leo", p.getString("name"));
@@ -81,7 +81,7 @@ public class JSONWriterTest
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        JSONObject p = new JSONObject(jsonData);
+        JSONObject p = JSONObject.parse(jsonData);
 
         assertEquals(1, p.getInt("id"));
         assertEquals("Leo", p.getString("name"));
@@ -120,7 +120,7 @@ public class JSONWriterTest
 
         String jsonData = writer.toString();
         _logger.debug(jsonData);
-        JSONObject p = new JSONObject(jsonData);
+        JSONObject p = JSONObject.parse(jsonData);
         assertEquals(1, p.getInt("id"));
         assertEquals("leo leo leo", p.getString("name"));
     }
@@ -141,7 +141,7 @@ public class JSONWriterTest
         String jsonData = writer.toString();
         _logger.debug(jsonData);
 
-        JSONObject p = new JSONObject(jsonData);
+        JSONObject p = JSONObject.parse(jsonData);
 
         assertEquals(1, p.getInt("id"));
         assertEquals("leo leo leo", p.getString("name"));
@@ -201,7 +201,7 @@ public class JSONWriterTest
         String j = writer.toString();
         _logger.info(j);
 
-        JSONObject r = new JSONObject(j);
+        JSONObject r = JSONObject.parse(j);
         assertEquals(1, r.getInt("start"));
         assertEquals(2, r.getInt("end"));
         assertEquals("AAAACCCC", r.getString("sequence"));

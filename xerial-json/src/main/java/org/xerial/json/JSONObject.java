@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-
 /**
  * JSONObject
  * 
@@ -54,6 +53,23 @@ public class JSONObject extends JSONValueBase
      */
     public JSONObject() {
 
+    }
+
+    public static JSONObject parse(String s) throws JSONException {
+        return parse(new JSONPullParser(s));
+    }
+
+    public static JSONObject parse(JSONPullParser p) throws JSONException {
+
+        JSONEvent e = p.next();
+        if (e != JSONEvent.StartObject)
+            throw new JSONException(JSONErrorCode.InvalidJSONData, "JSONObject must begin with '{'");
+
+        JSONObject v = p.getValue().getJSONObject();
+        if (v == null)
+            throw new JSONException(JSONErrorCode.ParseError, "Failed to construct a JSONObject");
+
+        return v;
     }
 
     public JSONObject(JSONTokenizer x) throws JSONException {
@@ -110,107 +126,6 @@ public class JSONObject extends JSONValueBase
             }
         }
     }
-
-    public JSONObject(String jsonStr) throws JSONException {
-        this(new JSONTokenizer(jsonStr));
-        //    	
-        //    	
-        //        try {
-        //            CommonTree t = parse(jsonStr);
-        //            CommonTreeNodeStream ts = new CommonTreeNodeStream(t);
-        //            JSONWalker walker = new JSONWalker(ts);
-        //            JSONObject obj = walker.jsonObject();
-        //            this.content = obj.content;
-        //        }
-        //        catch (RecognitionException e) {
-        //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
-        //                    + "(" + e.charPositionInLine + ")");
-        //        }
-    }
-
-    /*
-    public static JSONObject convertXMLtoJSONObject(Reader xmlReader)
-    {
-        JSONObject result = new JSONObject();
-        try
-        {
-            XmlPullParser parser = PullParserUtil.newParser(xmlReader);
-            
-            LinkedList<JSONObject> objectStack = new LinkedList<JSONObject>();
-            objectStack.add(result);
-            JSONObject currentJSONObject = objectStack.getLast();
-            
-            boolean firstTagIsFound = false;
-            int state;
-            while((state = parser.next()) != XmlPullParser.END_DOCUMENT)
-            {
-                switch(state)
-                {
-                case XmlPullParser.START_TAG:
-                    if(firstTagIsFound)
-                    {
-                        JSONObject childObject = new JSONObject();
-                        objectStack.add(childObject);
-                        currentJSONObject = childObject;
-                    }
-                    else
-                    {
-                        firstTagIsFound = true;
-                    }
-                    // parse attributes
-                    for(int i=0; i<parser.getAttributeCount(); i++)
-                    {
-                        String attribName = parser.getAttributeName(i);
-                        String attribValue = parser.getAttributeValue(i);
-                        currentJSONObject.put(attribName, attribValue);
-                    }
-                    break;
-
-                    
-                    
-                }
-            }
-            
-            
-        }
-        catch (XMLParserException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (XmlPullParserException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (JSONException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
-    */
-
-    //    public static CommonTree parse(String jsonStr) throws JSONException {
-    //        JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
-    //        CommonTokenStream tokens = new CommonTokenStream(lexer);
-    //        JSONParser parser = new JSONParser(tokens);
-    //
-    //        try {
-    //            JSONParser.jsonObject_return r = parser.jsonObject();
-    //            return (CommonTree) r.getTree();
-    //        }
-    //        catch (RecognitionException e) {
-    //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line
-    //                    + "(" + e.charPositionInLine + ")");
-    //        }
-    //    }
 
     public JSONObject(List<JSONElement> elemList) {
         for (JSONElement e : elemList)

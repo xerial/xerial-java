@@ -184,7 +184,7 @@ public class JSONUtil
     public static JSONValue parseJSON(String jsonObjectOrArray) throws JSONException {
         String json = jsonObjectOrArray.trim();
         if (json.startsWith("{")) {
-            return new JSONObject(json);
+            return JSONObject.parse(json);
         }
         else if (json.startsWith("[")) {
             return new JSONArray(json);
