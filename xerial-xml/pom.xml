@@ -2,14 +2,14 @@
   <parent>
     <artifactId>xerial-project</artifactId>
     <groupId>org.xerial</groupId>
-    <version>2.0.6-SNAPSHOT</version>
+    <version>2.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-xml</artifactId>
   <name>Xerial XML Library</name>
-  <version>2.0.6-SNAPSHOT</version>
+  <version>2.1-SNAPSHOT</version>
   <description>XML Parser/Indexing library.</description>
 
   <scm>
