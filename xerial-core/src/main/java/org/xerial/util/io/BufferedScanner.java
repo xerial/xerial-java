@@ -259,9 +259,9 @@ public class BufferedScanner {
                 // Move [mark.cursor, limit) to the [0, ..., mark.cursor)
                 if (lenToPreserve > 0)
                     buffer.slide(mark.cursor, lenToPreserve);
-                mark.cursor = 0;
                 bufferLimit = lenToPreserve;
                 current.cursor -= mark.cursor;
+                mark.cursor = 0;
             }
             else {
                 // The buffer got too big, invalidate the mark
