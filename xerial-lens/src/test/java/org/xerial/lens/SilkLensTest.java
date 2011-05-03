@@ -41,7 +41,6 @@ import org.xerial.lens.relation.NodeBase;
 import org.xerial.lens.relation.Tuple;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
-import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
@@ -186,7 +185,7 @@ public class SilkLensTest
 
     }
 
-    public static class Handler<SAMEntry> implements ObjectHandler<SAMEntry>
+    public static class Handler<SAMEntry> extends ObjectHandlerBase<SAMEntry>
     {
 
         public boolean isInitialized = false;

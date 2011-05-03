@@ -43,7 +43,6 @@ import org.xerial.json.JSONException;
 import org.xerial.json.JSONObject;
 import org.xerial.json.JSONUtil;
 import org.xerial.util.FileResource;
-import org.xerial.util.ObjectHandler;
 import org.xerial.util.ObjectHandlerBase;
 import org.xerial.util.StopWatch;
 import org.xerial.util.bean.BeanBinderSet;
@@ -1041,7 +1040,7 @@ public class JSONLensTest
 
         StopWatch stopWatch = new StopWatch();
         JSONLens.findFromJSON(FileResource.open(JSONLensTest.class, "genelist.json"), "gene", GenePartial.class,
-                new ObjectHandler<GenePartial>() {
+                new ObjectHandlerBase<GenePartial>() {
                     public void handle(GenePartial gene) throws Exception {
                         assertNotNull(gene);
                         if (gene.getId() == 1) {

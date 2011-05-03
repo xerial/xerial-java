@@ -36,12 +36,12 @@ public abstract class ObjectHandlerBase<T> implements ObjectHandler<T> {
 
     @Override
     public void finish() throws Exception {
-    // do nothing
+        // do nothing
     }
 
     @Override
     public void init() throws Exception {
-    // do nothing
+        // do nothing
     }
 
 }

@@ -33,7 +33,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.xerial.util.ObjectHandler;
+import org.xerial.util.ObjectHandlerBase;
 
 public class ObjectStreamReader<T>
 {
@@ -60,7 +60,7 @@ public class ObjectStreamReader<T>
         threadManger.shutdown();
     }
 
-    private class BackgroundObjectStreamHandler implements ObjectHandler<T>, Callable<Void>
+    private class BackgroundObjectStreamHandler extends ObjectHandlerBase<T> implements Callable<Void>
     {
 
         @Override
@@ -70,18 +70,8 @@ public class ObjectStreamReader<T>
         }
 
         @Override
-        public void init() throws Exception {
-
-        }
-
-        @Override
         public void handle(T input) throws Exception {
             prefetchedObjects.add(input);
-        }
-
-        @Override
-        public void finish() throws Exception {
-
         }
 
     }

@@ -54,19 +54,17 @@ public class SilkLexerState
         NodeStart, Colon, EnterParen, LeaveParen, LeaveValue, At
     }
 
-    private static final Automaton<State, Symbol> automaton = new Automaton<State, Symbol>();
-    private Deque<State> stateStack = new ArrayDeque<State>();
+    private static final Automaton<State, Symbol> automaton  = new Automaton<State, Symbol>();
+    private Deque<State>                          stateStack = new ArrayDeque<State>();
 
     //private State beforeJSONState = State.INIT;
     //private int nestLevel = 0;
-    private final AutomatonCursor<State, Symbol> cursor;
+    private final AutomatonCursor<State, Symbol>  cursor;
 
-    static
-    {
+    static {
         automaton.addTransition(State.INIT, Symbol.NodeStart, State.OUT_KEY);
         automaton.addTransition(State.OUT_KEY, Symbol.EnterParen, State.IN_KEY);
         automaton.addTransition(State.OUT_KEY, Symbol.Colon, State.OUT_VALUE);
-        //automaton.addTransition(State.OUT_VALUE, Symbol.EnterParen, State.IN_KEY);
         automaton.addTransition(State.IN_KEY, Symbol.Colon, State.IN_VALUE);
         automaton.addTransition(State.IN_VALUE, Symbol.LeaveValue, State.IN_KEY);
         automaton.addTransition(State.IN_VALUE, Symbol.EnterParen, State.IN_KEY);
@@ -77,16 +75,13 @@ public class SilkLexerState
             automaton.addStarTransition(each, each);
     }
 
-    public SilkLexerState()
-    {
+    public SilkLexerState() {
         cursor = automaton.cursor(State.INIT);
     }
 
-    public State transit(Symbol input)
-    {
+    public State transit(Symbol input) {
         State current = getCurrentState();
-        switch (input)
-        {
+        switch (input) {
         case At:
             stateStack.addLast(current);
             break;
@@ -95,10 +90,8 @@ public class SilkLexerState
                 stateStack.addLast(current);
             break;
         case LeaveParen:
-            if (current != State.OUT_VALUE)
-            {
-                if (!stateStack.isEmpty())
-                {
+            if (current != State.OUT_VALUE) {
+                if (!stateStack.isEmpty()) {
                     State prevState = stateStack.removeLast();
                     cursor.reset(prevState);
                     return prevState;
@@ -110,35 +103,29 @@ public class SilkLexerState
         return cursor.transit(input);
     }
 
-    public State getCurrentState()
-    {
+    public State getCurrentState() {
         return cursor.getState();
     }
 
-    public boolean isInKey()
-    {
+    public boolean isInKey() {
         State current = cursor.getState();
         return current == State.IN_KEY || current == State.OUT_KEY;
     }
 
-    public boolean isValue()
-    {
+    public boolean isValue() {
         State current = cursor.getState();
         return current == State.IN_VALUE || current == State.OUT_VALUE;
     }
 
-    public boolean isInValue()
-    {
+    public boolean isInValue() {
         return getCurrentState() == State.IN_VALUE;
     }
 
-    public boolean isOutValue()
-    {
+    public boolean isOutValue() {
         return getCurrentState() == State.OUT_VALUE;
     }
 
-    public void reset()
-    {
+    public void reset() {
         cursor.reset(State.INIT);
         stateStack.clear();
         //        beforeJSONState = State.INIT;
