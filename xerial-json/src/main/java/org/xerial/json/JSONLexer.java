@@ -317,6 +317,8 @@ public class JSONLexer
         if (c != expected)
             throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format("expected:'%s' but found '%s'",
                     expected, c));
+        else
+            scanner.consume();
     }
 
     private XerialException error(String tokenType, int foundChar) {
