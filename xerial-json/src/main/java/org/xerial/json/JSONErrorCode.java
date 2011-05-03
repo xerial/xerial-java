@@ -37,11 +37,22 @@ import org.xerial.core.ErrorCode;
 public enum JSONErrorCode implements ErrorCode {
 
     // JSONException
-    InvalidJSONData, KeyIsNotFound, NotAJSONNumber, NotAJSONString, NotAJSONObject, CannotConvertToJSONValue,
+    InvalidJSONData,
+    KeyIsNotFound,
+    NotAJSONNumber,
+    NotAJSONString,
+    NotAJSONObject,
+    CannotConvertToJSONValue,
 
-    JSONValueIsNotFound, NotInAJSONObject, NotInAJSONArray, UnexpectedEndOfJSON,
+    JSONValueIsNotFound,
+    NotInAJSONObject,
+    NotInAJSONArray,
+    UnexpectedEndOfJSON,
 
-    ParseError, InvalidBeanClass, NotInAJSONString, ;
+    ParseError,
+    InvalidBeanClass,
+    NotInAJSONString,
+    Inherited, ;
 
     private final String description;
 

@@ -28,12 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.ANTLRReaderStream;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.Token;
-import org.xerial.json.impl.JSONLexer;
+import org.xerial.core.XerialErrorCode;
+import org.xerial.core.XerialException;
+import org.xerial.json.JSONLexer.Token;
+import org.xerial.json.impl.JSONToken;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.log.Logger;
 
@@ -43,56 +41,41 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class JSONPullParser {
+public class JSONPullParser
+{
     private static enum ParseState {
         Root, InObject, InArray, Key, KeyedValue
     }
 
-    private static Logger _logger = Logger.getLogger(JSONPullParser.class);
-    private JSONLexer _lexer = new JSONLexer();
+    private static Logger          _logger           = Logger.getLogger(JSONPullParser.class);
+    private JSONLexer              _lexer;
 
-    private ArrayDeque<ParseState> parseStateStack = new ArrayDeque<ParseState>();
-    private ArrayDeque<String> keyStack = new ArrayDeque<String>();
+    private ArrayDeque<ParseState> parseStateStack   = new ArrayDeque<ParseState>();
+    private ArrayDeque<String>     keyStack          = new ArrayDeque<String>();
 
-    private JSONPullParserEvent lastReportedEvent = null;
-    private int currentDepth = 0;
+    private JSONPullParserEvent    lastReportedEvent = null;
+    private int                    currentDepth      = 0;
 
     public JSONPullParser(String jsonString) {
-        reset(jsonString);
-    }
-
-    public JSONPullParser(JSONObject jsonObject) {
-        reset(jsonObject);
+        _lexer = new JSONLexer(jsonString);
+        init();
     }
 
     public JSONPullParser(InputStream jsonStream) throws IOException {
-        reset(jsonStream);
+        _lexer = new JSONLexer(jsonStream);
+        init();
     }
 
-    public JSONPullParser(Reader reader) throws IOException {
-        reset(reader);
+    public JSONPullParser(Reader jsonReader) throws IOException {
+        _lexer = new JSONLexer(jsonReader);
+        init();
     }
 
-    public void reset(String jsonString) {
-        reset(new ANTLRStringStream(jsonString));
+    public JSONPullParser(JSONObject jsonObject) {
+        this(jsonObject.toJSONString());
     }
 
-    public void reset(JSONObject jsonObject) {
-        reset(new ANTLRStringStream(jsonObject.toJSONString()));
-    }
-
-    public void reset(InputStream jsonStream) throws IOException {
-        reset(new ANTLRInputStream(jsonStream));
-    }
-
-    public void reset(Reader reader) throws IOException {
-        reset(new ANTLRReaderStream(reader));
-    }
-
-    private void reset(CharStream newStream) {
-        _lexer.reset();
-        _lexer.setCharStream(newStream);
-
+    private void init() {
         parseStateStack.clear();
         keyStack.clear();
 
@@ -112,8 +95,8 @@ public class JSONPullParser {
             if (ps == current)
                 return;
         }
-        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: "
-                + current.name() + " line = " + _lexer.getLine());
+        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: " + current.name() + " line = "
+                + _lexer.getLineNumber());
     }
 
     private void popKeyStack() {
@@ -203,8 +186,7 @@ public class JSONPullParser {
 
     }
 
-    private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth)
-            throws JSONException {
+    private JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException {
         while (true) {
             JSONEvent event = next();
             switch (event) {
@@ -275,71 +257,85 @@ public class JSONPullParser {
      *             when some syntax error is found.
      */
     public JSONEvent next() throws JSONException {
-        Token token;
-        while ((token = _lexer.nextToken()) != Token.EOF_TOKEN) {
-            if (getCurrentParseState() == ParseState.KeyedValue) {
-                keyStack.removeLast();
-                popParseState();
-                if (getCurrentParseState() == ParseState.Key)
+
+        try {
+            for (Token token = null; (token = _lexer.nextToken()) != null;) {
+                if (getCurrentParseState() == ParseState.KeyedValue) {
+                    keyStack.removeLast();
                     popParseState();
-                else
-                    throw new JSONException(JSONErrorCode.ParseError);
-            }
-
-            int tokenType = token.getType();
-
-            switch (tokenType) {
-            case JSONLexer.LBrace:
-                valueWithKeyTest();
-                currentDepth++;
-                pushParseState(ParseState.InObject);
-                return reportEvent(token, JSONEvent.StartObject);
-            case JSONLexer.RBrace:
-                currentDepth--;
-                validateParseState(ParseState.InObject);
-                popParseState();
-                popKeyStack();
-                return reportEvent(token, JSONEvent.EndObject);
-            case JSONLexer.LBracket:
-                valueWithKeyTest();
-                currentDepth++;
-                pushParseState(ParseState.InArray);
-                return reportEvent(token, JSONEvent.StartArray);
-            case JSONLexer.RBracket:
-                currentDepth--;
-                validateParseState(ParseState.InArray);
-                popParseState();
-                popKeyStack();
-                return reportEvent(token, JSONEvent.EndArray);
-            case JSONLexer.Comma:
-                validateParseState(ParseState.InArray, ParseState.InObject);
-                continue;
-            case JSONLexer.Colon:
-                validateParseState(ParseState.Key); // next sequence will be a
-                // keyed value
-                continue;
-            case JSONLexer.String:
-                if (getCurrentParseState() == ParseState.InObject) {
-                    // key
-                    pushParseState(ParseState.Key);
-                    keyStack.addLast(unescapeString(token.getText()));
-                    continue;
+                    if (getCurrentParseState() == ParseState.Key)
+                        popParseState();
+                    else
+                        throw new JSONException(JSONErrorCode.ParseError);
                 }
-                valueWithKeyTest();
-                return reportEvent(token, JSONEvent.String);
-            case JSONLexer.Integer:
-                valueWithKeyTest();
-                return reportEvent(token, JSONEvent.Integer);
-            case JSONLexer.Double:
-                valueWithKeyTest();
-                return reportEvent(token, JSONEvent.Double);
-            case JSONLexer.TRUE:
-            case JSONLexer.FALSE:
-                valueWithKeyTest();
-                return reportEvent(token, JSONEvent.Boolean);
-            case JSONLexer.NULL:
-                valueWithKeyTest();
-                return reportEvent(token, JSONEvent.Null);
+
+                JSONToken tokenType = token.type;
+
+                switch (tokenType) {
+                case LBrace:
+                    valueWithKeyTest();
+                    currentDepth++;
+                    pushParseState(ParseState.InObject);
+                    return reportEvent(token, JSONEvent.StartObject);
+                case RBrace:
+                    currentDepth--;
+                    validateParseState(ParseState.InObject);
+                    popParseState();
+                    popKeyStack();
+                    return reportEvent(token, JSONEvent.EndObject);
+                case LBracket:
+                    valueWithKeyTest();
+                    currentDepth++;
+                    pushParseState(ParseState.InArray);
+                    return reportEvent(token, JSONEvent.StartArray);
+                case RBracket:
+                    currentDepth--;
+                    validateParseState(ParseState.InArray);
+                    popParseState();
+                    popKeyStack();
+                    return reportEvent(token, JSONEvent.EndArray);
+                case Comma:
+                    validateParseState(ParseState.InArray, ParseState.InObject);
+                    continue;
+                case Colon:
+                    validateParseState(ParseState.Key); // next sequence will be a
+                    // keyed value
+                    continue;
+                case String:
+                    if (getCurrentParseState() == ParseState.InObject) {
+                        // key
+                        pushParseState(ParseState.Key);
+                        keyStack.addLast(unescapeString(token.str));
+                        continue;
+                    }
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.String);
+                case Integer:
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.Integer);
+                case Double:
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.Double);
+                case True:
+                case False:
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.Boolean);
+                case Null:
+                    valueWithKeyTest();
+                    return reportEvent(token, JSONEvent.Null);
+                }
+            }
+        }
+        catch (JSONException e) {
+            throw e;
+        }
+        catch (XerialException e) {
+            XerialErrorCode code = e.getErrorCode();
+            switch (code) {
+            case PARSE_ERROR:
+                throw new JSONException(JSONErrorCode.ParseError, e);
+            default:
+                throw new JSONException(JSONErrorCode.Inherited, e);
             }
         }
 
@@ -367,9 +363,9 @@ public class JSONPullParser {
 
     public String getText() {
         if (lastReportedEvent.getEvent() == JSONEvent.String)
-            return unescapeString(lastReportedEvent.getToken().getText());
+            return unescapeString(lastReportedEvent.getToken().str);
         else
-            return lastReportedEvent.getToken().getText();
+            return lastReportedEvent.getToken().str;
     }
 
     private static String unescapeString(String text) {
@@ -435,8 +431,9 @@ public class JSONPullParser {
  * @author leo
  * 
  */
-class JSONPullParserEvent {
-    private Token t;
+class JSONPullParserEvent
+{
+    private Token     t;
     private JSONEvent event;
 
     public JSONPullParserEvent(Token t, JSONEvent event) {

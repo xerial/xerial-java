@@ -23,6 +23,7 @@
 package org.xerial.json;
 
 import java.io.InputStream;
+import java.io.Reader;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
@@ -54,6 +55,14 @@ public class JSONLexer
 
     public JSONLexer(InputStream in) {
         this.scanner = new BufferedScanner(in);
+    }
+
+    public JSONLexer(Reader in) {
+        this.scanner = new BufferedScanner(in);
+    }
+
+    public JSONLexer(String json) {
+        this.scanner = new BufferedScanner(json);
     }
 
     public void close() throws XerialException {
@@ -325,6 +334,14 @@ public class JSONLexer
 
     void emitString() {
         tokenQueue.add(new Token(JSONToken.String, scanner.selectedString(1)));
+    }
+
+    public int getLineNumber() {
+        return scanner.getLineNumber();
+    }
+
+    public int getPosInLine() {
+        return scanner.getPosInLine();
     }
 
 }
