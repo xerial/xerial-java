@@ -41,20 +41,19 @@ import org.xerial.util.log.Logger;
  * @author leo
  * 
  */
-public class JSONPullParser
-{
+public class JSONPullParser {
     private static enum ParseState {
         Root, InObject, InArray, Key, KeyedValue
     }
 
-    private static Logger          _logger           = Logger.getLogger(JSONPullParser.class);
-    private JSONLexer              _lexer;
+    private static Logger _logger = Logger.getLogger(JSONPullParser.class);
+    private JSONLexer _lexer;
 
-    private ArrayDeque<ParseState> parseStateStack   = new ArrayDeque<ParseState>();
-    private ArrayDeque<String>     keyStack          = new ArrayDeque<String>();
+    private ArrayDeque<ParseState> parseStateStack = new ArrayDeque<ParseState>();
+    private ArrayDeque<String> keyStack = new ArrayDeque<String>();
 
-    private JSONPullParserEvent    lastReportedEvent = null;
-    private int                    currentDepth      = 0;
+    private JSONPullParserEvent lastReportedEvent = null;
+    private int currentDepth = 0;
 
     public JSONPullParser(String jsonString) {
         _lexer = new JSONLexer(jsonString);
@@ -95,8 +94,8 @@ public class JSONPullParser
             if (ps == current)
                 return;
         }
-        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: " + current.name() + " line = "
-                + _lexer.getLineNumber());
+        throw new JSONException(JSONErrorCode.InvalidJSONData, "invalid parse state: "
+                + current.name() + " line = " + _lexer.getLineNumber());
     }
 
     private void popKeyStack() {
@@ -404,10 +403,18 @@ public class JSONPullParser
     }
 
     public String getText() {
-        if (lastReportedEvent.getEvent() == JSONEvent.String)
+        switch (lastReportedEvent.getEvent()) {
+        case String:
             return unescapeString(lastReportedEvent.getToken().str);
-        else
+        case True:
+            return "true";
+        case False:
+            return "false";
+        case Null:
+            return "null";
+        default:
             return lastReportedEvent.getToken().str;
+        }
     }
 
     private static String unescapeString(String text) {
@@ -473,9 +480,8 @@ public class JSONPullParser
  * @author leo
  * 
  */
-class JSONPullParserEvent
-{
-    private Token     t;
+class JSONPullParserEvent {
+    private Token t;
     private JSONEvent event;
 
     public JSONPullParserEvent(Token t, JSONEvent event) {
