@@ -27,11 +27,8 @@ package org.xerial.json;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.antlr.runtime.ANTLRReaderStream;
-import org.antlr.runtime.Token;
 import org.junit.Test;
 import org.xerial.core.XerialException;
-import org.xerial.json.impl.JSONLexer;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
@@ -88,10 +85,10 @@ public class JSONStreamWalkerTest
     }
 
     @Test
-    public void lexerPerf() throws IOException {
-        JSONLexer lexer = new JSONLexer(new ANTLRReaderStream(getSampleData()));
+    public void lexerPerf() throws Exception {
+        JSONLexer lexer = new JSONLexer(getSampleData());
         stopWatch.reset();
-        while ((lexer.nextToken() != Token.EOF_TOKEN)) {
+        while ((lexer.nextToken() != null)) {
 
         }
         _logger.debug("lexical analysis time: " + stopWatch.getElapsedTime());

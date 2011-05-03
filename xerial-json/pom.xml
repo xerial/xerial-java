@@ -21,6 +21,7 @@
   <build>
 
     <plugins>
+    <!-- 
       <plugin>
         <groupId>org.xerial.maven</groupId>
         <artifactId>maven-antlr-plugin</artifactId>
@@ -37,7 +38,7 @@
           <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         </configuration>
       </plugin>
-      
+       -->
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.1</version>
@@ -56,11 +57,6 @@
       <groupId>org.xerial</groupId>
       <artifactId>xerial-core</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr</artifactId>
-      <version>3.2</version>
     </dependency>
 
   </dependencies>

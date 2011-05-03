@@ -26,12 +26,10 @@ package org.xerial.json;
 
 import static org.junit.Assert.*;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.Token;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xerial.json.impl.JSONLexer;
+import org.xerial.json.JSONLexer.Token;
 import org.xerial.util.FileResource;
 import org.xerial.util.HashedArrayList;
 import org.xerial.util.StopWatch;
@@ -43,22 +41,18 @@ public class JSONStreamReaderTest
     private static Logger _logger = Logger.getLogger(JSONStreamReaderTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
-    HashedArrayList<String, String> parse(String file) throws Exception
-    {
+    HashedArrayList<String, String> parse(String file) throws Exception {
         JSONStreamReader reader = new JSONStreamReader(FileResource.open(JSONStreamReaderTest.class, file));
         TreeEvent e;
 
         HashedArrayList<String, String> data = new HashedArrayList<String, String>();
 
-        while ((e = reader.next()) != null)
-        {
+        while ((e = reader.next()) != null) {
             _logger.debug(e);
 
             if (e.isVisit())
@@ -69,8 +63,7 @@ public class JSONStreamReaderTest
     }
 
     @Test
-    public void testNext() throws Exception
-    {
+    public void testNext() throws Exception {
         HashedArrayList<String, String> data = parse("sample.json");
 
         assertEquals("Leo", data.get("name").get(0));
@@ -78,8 +71,7 @@ public class JSONStreamReaderTest
     }
 
     @Test
-    public void testArray() throws Exception
-    {
+    public void testArray() throws Exception {
         HashedArrayList<String, String> data = parse("array.json");
 
         assertEquals(2, data.get("author").size());
@@ -92,16 +84,14 @@ public class JSONStreamReaderTest
     }
 
     @Test
-    public void testParse() throws Exception
-    {
+    public void testParse() throws Exception {
 
         // generate a sample JSON array
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
         final int N = 5000;
-        for (; i < N; i++)
-        {
+        for (; i < N; i++) {
             sample.append(i);
             sample.append(",");
         }
@@ -112,13 +102,11 @@ public class JSONStreamReaderTest
 
         StopWatch timer = new StopWatch();
 
-        for (int n = 0; n < 500; n++)
-        {
+        for (int n = 0; n < 500; n++) {
             JSONPullParser parser = new JSONPullParser(json);
 
             JSONEvent e;
-            while ((e = parser.next()) != JSONEvent.EndJSON)
-            {}
+            while ((e = parser.next()) != JSONEvent.EndJSON) {}
 
         }
         _logger.info("time: " + timer.getElapsedTime());
@@ -126,16 +114,14 @@ public class JSONStreamReaderTest
     }
 
     @Test
-    public void testLexerPerformance() throws Exception
-    {
+    public void testLexerPerformance() throws Exception {
 
         // generate a sample JSON array
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
         final int N = 5000;
-        for (; i < N; i++)
-        {
+        for (; i < N; i++) {
             sample.append(i);
             sample.append(",");
         }
@@ -146,13 +132,11 @@ public class JSONStreamReaderTest
 
         StopWatch timer = new StopWatch();
 
-        for (int n = 0; n < 500; n++)
-        {
-            JSONLexer lexer = new JSONLexer(new ANTLRStringStream(json));
+        for (int n = 0; n < 500; n++) {
+            JSONLexer lexer = new JSONLexer(json);
 
             Token t;
-            while ((t = lexer.nextToken()).getType() != Token.EOF)
-            {}
+            while ((t = lexer.nextToken()) != null) {}
 
         }
         _logger.info("time: " + timer.getElapsedTime());
@@ -160,16 +144,14 @@ public class JSONStreamReaderTest
     }
 
     @Test
-    public void testJSONTokenerPeformance() throws Exception
-    {
+    public void testJSONTokenerPeformance() throws Exception {
 
         // generate a sample JSON array
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
         final int N = 5000;
-        for (; i < N; i++)
-        {
+        for (; i < N; i++) {
             sample.append(i);
             sample.append(",");
         }
@@ -180,8 +162,7 @@ public class JSONStreamReaderTest
 
         StopWatch timer = new StopWatch();
 
-        for (int n = 0; n < 500; n++)
-        {
+        for (int n = 0; n < 500; n++) {
             JSONTokenizer tokenizer = new JSONTokenizer(json);
 
             parseArray(tokenizer);
@@ -194,55 +175,44 @@ public class JSONStreamReaderTest
 
     }
 
-    public void parseArray(JSONTokenizer tokenizer) throws JSONException
-    {
+    public void parseArray(JSONTokenizer tokenizer) throws JSONException {
         char c = tokenizer.nextClean();
         char q;
-        if (c == '[')
-        {
+        if (c == '[') {
             q = ']';
         }
-        else if (c == '(')
-        {
+        else if (c == '(') {
             q = ')';
         }
-        else
-        {
+        else {
             throw tokenizer.syntaxError("A JSONArray text must start with '['");
         }
-        if (tokenizer.nextClean() == ']')
-        {
+        if (tokenizer.nextClean() == ']') {
             return;
         }
         tokenizer.back();
-        for (;;)
-        {
-            if (tokenizer.nextClean() == ',')
-            {
+        for (;;) {
+            if (tokenizer.nextClean() == ',') {
                 tokenizer.back();
                 //_array.add(null);
             }
-            else
-            {
+            else {
                 tokenizer.back();
                 tokenizer.nextValue();
                 //_array.add(tokenizer.nextValue());
             }
             c = tokenizer.nextClean();
-            switch (c)
-            {
+            switch (c) {
             case ';':
             case ',':
-                if (tokenizer.nextClean() == ']')
-                {
+                if (tokenizer.nextClean() == ']') {
                     return;
                 }
                 tokenizer.back();
                 break;
             case ']':
             case ')':
-                if (q != c)
-                {
+                if (q != c) {
                     throw tokenizer.syntaxError("Expected a '" + new Character(q) + "'");
                 }
                 return;

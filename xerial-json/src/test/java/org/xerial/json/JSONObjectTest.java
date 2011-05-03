@@ -26,7 +26,6 @@ package org.xerial.json;
 
 import static org.junit.Assert.*;
 
-import org.antlr.runtime.RecognitionException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -67,7 +66,7 @@ public class JSONObjectTest
     //	}
 
     @Test
-    public void testJSONObjectString() throws RecognitionException {
+    public void testJSONObjectString() throws Exception {
 
         try {
             JSONObject obj = new JSONObject("{ \"name\":\"leo\", \"id\":3}");
@@ -84,7 +83,7 @@ public class JSONObjectTest
     }
 
     @Test
-    public void testNestedJSONObject() throws RecognitionException {
+    public void testNestedJSONObject() throws Exception {
         try {
             JSONObject obj = new JSONObject("{ \"person\":{\"name\":\"leo\", \"id\":3}, \"isValid\":true}");
             _logger.debug(obj);
@@ -103,7 +102,7 @@ public class JSONObjectTest
     }
 
     @Test
-    public void testArray() throws RecognitionException {
+    public void testArray() throws Exception {
         JSONObject obj;
         try {
             obj = new JSONObject("{ \"person\":[\"leo\", 3, \"yui\"]}");
