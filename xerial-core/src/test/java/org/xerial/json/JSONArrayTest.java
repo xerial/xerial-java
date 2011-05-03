@@ -32,8 +32,7 @@ import org.junit.Test;
 import org.xerial.util.StopWatch;
 import org.xerial.util.log.Logger;
 
-public class JSONArrayTest
-{
+public class JSONArrayTest {
 
     private static Logger _logger = Logger.getLogger(JSONArrayTest.class);
 
@@ -89,6 +88,7 @@ public class JSONArrayTest
 
     }
 
+    @Test
     public void populateFromPullParser() throws JSONException {
         String json = createSampleJSONArrayData();
 

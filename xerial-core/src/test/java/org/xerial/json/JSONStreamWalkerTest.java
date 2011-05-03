@@ -25,7 +25,7 @@
 package org.xerial.json;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
 
 import org.junit.Test;
 import org.xerial.core.XerialException;
@@ -35,12 +35,10 @@ import org.xerial.util.log.Logger;
 import org.xerial.util.tree.TreeVisitor;
 import org.xerial.util.tree.TreeWalker;
 
-public class JSONStreamWalkerTest
-{
+public class JSONStreamWalkerTest {
     private static Logger _logger = Logger.getLogger(JSONStreamWalkerTest.class);
 
-    class MyVisitor implements TreeVisitor
-    {
+    class MyVisitor implements TreeVisitor {
 
         public void finish(TreeWalker walker) throws XerialException {
             // TODO Auto-generated method stub
@@ -57,12 +55,14 @@ public class JSONStreamWalkerTest
 
         }
 
-        public void visitNode(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
+        public void visitNode(String nodeName, String nodeValue, TreeWalker walker)
+                throws XerialException {
             // TODO Auto-generated method stub
 
         }
 
-        public void text(String nodeName, String nodeValue, TreeWalker walker) throws XerialException {
+        public void text(String nodeName, String nodeValue, TreeWalker walker)
+                throws XerialException {
             // TODO Auto-generated method stub
 
         }
@@ -71,13 +71,17 @@ public class JSONStreamWalkerTest
 
     private StopWatch stopWatch = new StopWatch();
 
-    public Reader getSampleData() throws IOException {
-        return FileResource.open(JSONStreamWalkerTest.class, "chr1.json");
+    public InputStream getSampleDataInputStream() throws IOException {
+        return FileResource.openByteStream(JSONStreamWalkerTest.class, "chr1.json");
+    }
+
+    public InputStream getSampleDataReader() throws IOException {
+        return FileResource.openByteStream(JSONStreamWalkerTest.class, "chr1.json");
     }
 
     @Test
     public void walk() throws IOException, XerialException {
-        JSONStreamWalker walker = new JSONStreamWalker(getSampleData());
+        JSONStreamWalker walker = new JSONStreamWalker(getSampleDataInputStream());
 
         stopWatch.reset();
         walker.walk(new MyVisitor());
@@ -85,42 +89,35 @@ public class JSONStreamWalkerTest
     }
 
     @Test
-    public void lexerPerf() throws Exception {
-        JSONLexer lexer = new JSONLexer(getSampleData());
+    public void lexerPerfWithReader() throws Exception {
+        JSONLexer lexer = new JSONLexer(getSampleDataReader());
         stopWatch.reset();
         while ((lexer.nextToken() != null)) {
 
         }
-        _logger.debug("lexical analysis time: " + stopWatch.getElapsedTime());
+        _logger.debug("lexical analysis time with Reader: " + stopWatch.getElapsedTime());
+
+    }
+
+    @Test
+    public void lexerPerfwithInputStream() throws Exception {
+        JSONLexer lexer = new JSONLexer(getSampleDataInputStream());
+        stopWatch.reset();
+        while ((lexer.nextToken() != null)) {
+
+        }
+        _logger.debug("lexical analysis time with InputStream: " + stopWatch.getElapsedTime());
 
     }
 
     @Test
     public void pullParserPerf() throws IOException, JSONException {
-        JSONPullParser parser = new JSONPullParser(getSampleData());
+        JSONPullParser parser = new JSONPullParser(getSampleDataInputStream());
         stopWatch.reset();
         while (parser.next() != JSONEvent.EndJSON) {
 
         }
         _logger.debug("pull parsing time: " + stopWatch.getElapsedTime());
     }
-
-    //    @Test
-    //    public void loadJSONPerf() throws XerialException, IOException {
-    //        stopWatch.reset();
-    //        JSONLens.loadJSON(Gene.class, getSampleData(), new ObjectHandlerBase<Gene>() {
-    //
-    //            public void handle(Gene bean) throws Exception {
-    //                // TODO Auto-generated method stub
-    //
-    //            }
-    //
-    //            public void handleException(Exception e) {
-    //                _logger.error(e);
-    //            }
-    //
-    //        });
-    //        _logger.debug("loadJSON time: " + stopWatch.getElapsedTime());
-    //    }
 
 }

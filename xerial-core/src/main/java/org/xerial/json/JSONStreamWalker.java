@@ -25,6 +25,7 @@
 package org.xerial.json;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 
 import org.xerial.util.tree.TreeWalkerImpl;
@@ -35,10 +36,12 @@ import org.xerial.util.tree.TreeWalkerImpl;
  * @author leo
  * 
  */
-public class JSONStreamWalker extends TreeWalkerImpl
-{
-    public JSONStreamWalker(Reader jsonStream) throws IOException
-    {
+public class JSONStreamWalker extends TreeWalkerImpl {
+    public JSONStreamWalker(Reader jsonStream) throws IOException {
+        super(new JSONStreamReader(jsonStream));
+    }
+
+    public JSONStreamWalker(InputStream jsonStream) throws IOException {
         super(new JSONStreamReader(jsonStream));
     }
 

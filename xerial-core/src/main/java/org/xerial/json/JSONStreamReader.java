@@ -25,6 +25,7 @@
 package org.xerial.json;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 
 import org.xerial.core.XerialException;
@@ -41,13 +42,12 @@ import org.xerial.util.tree.impl.TreeEventQueue;
  * @author leo
  * 
  */
-public class JSONStreamReader implements TreeStreamReader
-{
-    private static Logger         _logger           = Logger.getLogger(JSONStreamReader.class);
+public class JSONStreamReader implements TreeStreamReader {
+    private static Logger _logger = Logger.getLogger(JSONStreamReader.class);
 
-    private final JSONPullParser  jsonPullParser;
-    private final TreeEventQueue  eventQueue        = new TreeEventQueue();
-    private JSONEvent             lastEvent         = null;
+    private final JSONPullParser jsonPullParser;
+    private final TreeEventQueue eventQueue = new TreeEventQueue();
+    private JSONEvent lastEvent = null;
 
     private ArrayDeque<TreeEvent> pendingEventQueue = new ArrayDeque<TreeEvent>();
 
@@ -59,6 +59,10 @@ public class JSONStreamReader implements TreeStreamReader
      * @throws IOException
      */
     public JSONStreamReader(Reader jsonStream) throws IOException {
+        jsonPullParser = new JSONPullParser(jsonStream);
+    }
+
+    public JSONStreamReader(InputStream jsonStream) throws IOException {
         jsonPullParser = new JSONPullParser(jsonStream);
     }
 
