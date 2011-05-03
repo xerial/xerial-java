@@ -199,7 +199,7 @@ public class JSONWriterTest
         json.endJSON();
 
         String j = writer.toString();
-        _logger.info(j);
+        _logger.debug(j);
 
         JSONObject r = JSONObject.parse(j);
         assertEquals(1, r.getInt("start"));

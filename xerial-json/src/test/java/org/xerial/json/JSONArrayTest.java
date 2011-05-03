@@ -24,7 +24,7 @@
 //--------------------------------------
 package org.xerial.json;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,16 +38,13 @@ public class JSONArrayTest
     private static Logger _logger = Logger.getLogger(JSONArrayTest.class);
 
     @Before
-    public void setUp() throws Exception
-    {}
+    public void setUp() throws Exception {}
 
     @After
-    public void tearDown() throws Exception
-    {}
+    public void tearDown() throws Exception {}
 
     @Test
-    public void constructor() throws JSONException
-    {
+    public void constructor() throws JSONException {
         JSONArray array = new JSONArray("[1, 2, 3]");
         assertEquals(1, array.getJSONInteger(0).getIntValue());
         assertEquals(2, array.getJSONInteger(1).getIntValue());
@@ -55,8 +52,7 @@ public class JSONArrayTest
     }
 
     @Test
-    public void objectInAnArray() throws JSONException
-    {
+    public void objectInAnArray() throws JSONException {
         JSONArray array = new JSONArray("[{\"id\":1, \"name\":\"leo\"}]");
         JSONObject p = array.getJSONObject(0);
         assertEquals(1, p.getInt("id"));
@@ -65,15 +61,13 @@ public class JSONArrayTest
 
     final int N = 5000;
 
-    public String createSampleJSONArrayData()
-    {
+    public String createSampleJSONArrayData() {
         // generate a sample JSON array
         StringBuilder sample = new StringBuilder();
         sample.append("[");
         int i = 0;
 
-        for (; i < N - 1; i++)
-        {
+        for (; i < N - 1; i++) {
             sample.append(i);
             sample.append(",");
         }
@@ -84,12 +78,10 @@ public class JSONArrayTest
     }
 
     @Test
-    public void testParse() throws JSONException
-    {
+    public void testParse() throws JSONException {
         String json = createSampleJSONArrayData();
         StopWatch timer = new StopWatch();
-        for (int n = 0; n < 500; n++)
-        {
+        for (int n = 0; n < 500; n++) {
             JSONArray array = new JSONArray(json);
             assertEquals(N, array.size());
         }
@@ -97,14 +89,11 @@ public class JSONArrayTest
 
     }
 
-    @Test
-    public void testParseANTLRLexer() throws JSONException
-    {
+    public void populateFromPullParser() throws JSONException {
         String json = createSampleJSONArrayData();
 
         StopWatch timer = new StopWatch();
-        for (int n = 0; n < 500; n++)
-        {
+        for (int n = 0; n < 500; n++) {
             JSONArray array = new JSONArray(new JSONPullParser(json));
             assertEquals(N, array.size());
         }

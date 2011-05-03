@@ -117,73 +117,9 @@ public class JSONArray extends JSONValueBase implements Iterable<JSONValue>
 
     }
 
-    public JSONArray(JSONTokenizer tokenizer) throws JSONException {
-
-        char c = tokenizer.nextClean();
-        char q;
-        if (c == '[') {
-            q = ']';
-        }
-        else if (c == '(') {
-            q = ')';
-        }
-        else {
-            throw tokenizer.syntaxError("A JSONArray text must start with '['");
-        }
-        if (tokenizer.nextClean() == ']') {
-            return;
-        }
-        tokenizer.back();
-        for (;;) {
-            if (tokenizer.nextClean() == ',') {
-                tokenizer.back();
-                _array.add(null);
-            }
-            else {
-                tokenizer.back();
-                _array.add(tokenizer.nextValue());
-            }
-            c = tokenizer.nextClean();
-            switch (c) {
-            case ';':
-            case ',':
-                if (tokenizer.nextClean() == ']') {
-                    return;
-                }
-                tokenizer.back();
-                break;
-            case ']':
-            case ')':
-                if (q != c) {
-                    throw tokenizer.syntaxError("Expected a '" + new Character(q) + "'");
-                }
-                return;
-            default:
-                throw tokenizer.syntaxError("Expected a ',' or ']'");
-            }
-        }
-    }
-
     public JSONArray(String jsonStr) throws JSONException {
-        this(new JSONTokenizer(jsonStr));
+        new JSONPullParser(jsonStr).populateJSONArray(this);
     }
-
-    //    public static CommonTree parse(String jsonStr) throws JSONException
-    //    {
-    //        JSONLexer lexer = new JSONLexer(new ANTLRStringStream(jsonStr));
-    //        CommonTokenStream tokens = new CommonTokenStream(lexer);
-    //        JSONParser parser = new JSONParser(tokens);
-    //        try
-    //        {
-    //            JSONParser.jsonArray_return r = parser.jsonArray();
-    //            return (CommonTree) r.getTree();
-    //        }
-    //        catch (RecognitionException e)
-    //        {
-    //            throw new JSONException(JSONErrorCode.InvalidJSONData, jsonStr + ": line=" + e.line + "("
-    //                    + e.charPositionInLine + ")");
-    //        }
-    //    }
 
     public void add(JSONValue value) {
         _array.add(value);

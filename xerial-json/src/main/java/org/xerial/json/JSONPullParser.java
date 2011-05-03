@@ -202,6 +202,16 @@ public class JSONPullParser
         readJSONObject(obj, getDepth());
     }
 
+    public void populateJSONArray(JSONArray array) throws JSONException {
+        if (lastReportedEvent == null)
+            next();
+
+        if (lastReportedEvent.getEvent() != JSONEvent.StartArray)
+            throw new JSONException(JSONErrorCode.InvalidJSONData);
+
+        readJSONArray(array, getDepth());
+    }
+
     JSONObject readJSONObject(JSONObject jsonObject, int baseObjectDepth) throws JSONException {
         while (true) {
             JSONEvent event = next();
