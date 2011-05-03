@@ -26,6 +26,7 @@ package org.xerial.util.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
@@ -38,10 +39,122 @@ import org.xerial.core.XerialException;
  * 
  */
 public class BufferedScanner {
+    private static interface Buffer {
+        int length();
+
+        int get(int index);
+
+        int feed(int offset, int length) throws IOException;
+
+        String toString(int offset, int length);
+
+        void close() throws IOException;
+
+        /**
+         * Slide the buffer contents [offset, offset+len) to [0,.. len)
+         * 
+         * @param offset
+         * @param len
+         */
+        void slide(int offset, int len);
+    }
+
+    private static class ByteBuffer implements Buffer {
+        InputStream source;
+        byte[] buffer;
+
+        public ByteBuffer(InputStream source, int bufferSize) {
+            this.source = source;
+            this.buffer = new byte[bufferSize];
+        }
+
+        public ByteBuffer(byte[] buffer) {
+            this.buffer = buffer;
+        }
+
+        @Override
+        public int get(int index) {
+            return buffer[index];
+        }
+
+        @Override
+        public int length() {
+            return buffer.length;
+        }
+
+        @Override
+        public String toString(int offset, int length) {
+            return new String(buffer, offset, length);
+        }
+
+        @Override
+        public int feed(int offset, int length) throws IOException {
+            if (source == null)
+                return -1;
+            return source.read(buffer, offset, length);
+        }
+
+        @Override
+        public void close() throws IOException {
+            if (source != null)
+                source.close();
+
+        }
+
+        @Override
+        public void slide(int offset, int len) {
+            System.arraycopy(buffer, offset, buffer, 0, len);
+        }
+    }
+
+    private static class CharBuffer implements Buffer {
+        Reader source;
+        char[] buffer;
+
+        public CharBuffer(Reader source, int bufferSize) {
+            this.source = source;
+            this.buffer = new char[bufferSize];
+        }
+
+        @Override
+        public int get(int index) {
+            return buffer[index];
+        }
+
+        @Override
+        public int length() {
+            return buffer.length;
+        }
+
+        @Override
+        public String toString(int offset, int length) {
+            return new String(buffer, offset, length);
+        }
+
+        @Override
+        public int feed(int offset, int length) throws IOException {
+            if (source == null)
+                return -1;
+            return source.read(buffer, offset, length);
+        }
+
+        @Override
+        public void close() throws IOException {
+            if (source != null)
+                source.close();
+
+        }
+
+        @Override
+        public void slide(int offset, int len) {
+            System.arraycopy(buffer, offset, buffer, 0, len);
+        }
+
+    }
+
     public final static int EOF = -1;
 
-    private final InputStream in;
-    private byte[] buffer;
+    private Buffer buffer;
     private int bufferLimit = 0;
     private boolean reachedEOF = false;
 
@@ -57,7 +170,6 @@ public class BufferedScanner {
             this.lineNumber = m.lineNumber;
             this.posInLine = m.posInLine;
         }
-
     }
 
     private ScannerState mark;
@@ -70,19 +182,27 @@ public class BufferedScanner {
     public BufferedScanner(InputStream in, int bufferSize) {
         if (in == null)
             throw new NullPointerException("input is null");
-        this.in = in;
-        buffer = new byte[bufferSize];
+        buffer = new ByteBuffer(in, bufferSize);
+    }
+
+    public BufferedScanner(Reader in) {
+        this(in, 8 * 1024); // 8kb buffer
+    }
+
+    public BufferedScanner(Reader in, int bufferSize) {
+        if (in == null)
+            throw new NullPointerException("input is null");
+        buffer = new CharBuffer(in, bufferSize);
     }
 
     public BufferedScanner(String s) {
-        this.in = null;
-        buffer = s.getBytes();
-        bufferLimit = buffer.length;
+        buffer = new ByteBuffer(s.getBytes());
+        bufferLimit = buffer.length();
     }
 
     public void close() throws XerialException {
         try {
-            in.close();
+            buffer.close();
         }
         catch (IOException e) {
             throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
@@ -101,7 +221,7 @@ public class BufferedScanner {
             }
         }
 
-        int ch = buffer[current.cursor++];
+        int ch = buffer.get(current.cursor++);
         current.posInLine++;
         if (ch == '\n') {
             current.lineNumber++;
@@ -124,22 +244,21 @@ public class BufferedScanner {
             }
         }
 
-        return buffer[current.cursor + lookahead - 1];
+        return buffer.get(current.cursor + lookahead - 1);
     }
 
     private boolean fill() throws XerialException {
-        if (in == null || reachedEOF) {
-            reachedEOF = true;
+        if (reachedEOF) {
             return false;
         }
 
         // Move the [mark ... limit)
         if (mark != null) {
             int lenToPreserve = bufferLimit - mark.cursor;
-            if (lenToPreserve < buffer.length) {
+            if (lenToPreserve < buffer.length()) {
                 // Move [mark.cursor, limit) to the [0, ..., mark.cursor)
                 if (lenToPreserve > 0)
-                    System.arraycopy(buffer, mark.cursor, buffer, 0, lenToPreserve);
+                    buffer.slide(mark.cursor, lenToPreserve);
                 mark.cursor = 0;
                 bufferLimit = lenToPreserve;
                 current.cursor -= mark.cursor;
@@ -157,9 +276,9 @@ public class BufferedScanner {
         }
 
         // Read the data from the stream, and fill the buffer
-        int readLen = buffer.length - bufferLimit;
+        int readLen = buffer.length() - bufferLimit;
         try {
-            int readBytes = in.read(buffer, current.cursor, readLen);
+            int readBytes = buffer.feed(current.cursor, readLen);
             if (readBytes < readLen) {
                 reachedEOF = true;
             }
@@ -180,7 +299,7 @@ public class BufferedScanner {
             return null;
 
         int size = current.cursor - mark.cursor;
-        return new String(buffer, mark.cursor, size);
+        return buffer.toString(mark.cursor, size);
     }
 
     public String selectedStringWithTrimming() {
@@ -191,12 +310,12 @@ public class BufferedScanner {
         int end = current.cursor;
 
         for (; begin < end; begin++) {
-            int c = buffer[begin];
+            int c = buffer.get(begin);
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
                 break;
         }
         for (; begin < end; end--) {
-            int c = buffer[end - 1];
+            int c = buffer.get(end - 1);
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
                 break;
         }
@@ -205,7 +324,7 @@ public class BufferedScanner {
         }
 
         int size = end - begin;
-        return new String(buffer, begin, size);
+        return buffer.toString(begin, size);
     }
 
     public String selectedString(int margin) {
@@ -215,7 +334,7 @@ public class BufferedScanner {
         int begin = mark.cursor + margin;
         int end = current.cursor - margin;
         int size = end - begin;
-        return new String(buffer, begin, size);
+        return buffer.toString(begin, size);
     }
 
     public void mark() {
