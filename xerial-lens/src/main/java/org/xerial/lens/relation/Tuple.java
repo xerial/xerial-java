@@ -42,7 +42,8 @@ import org.xerial.core.XerialErrorCode;
  * 
  */
 public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElement<NodeType>,
-        Iterable<TupleElement<NodeType>> {
+        Iterable<TupleElement<NodeType>>
+{
 
     private final List<TupleElement<NodeType>> nodeList;
 
@@ -132,7 +133,7 @@ public class Tuple<NodeType extends TupleElement<NodeType>> implements TupleElem
     }
 
     public boolean isAtom() {
-        return true;
+        return false;
     }
 
     public boolean isTuple() {
