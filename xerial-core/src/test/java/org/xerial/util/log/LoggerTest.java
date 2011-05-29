@@ -27,6 +27,7 @@ package org.xerial.util.log;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import org.junit.After;
 import org.junit.Before;
@@ -80,6 +81,17 @@ public class LoggerTest {
         s.reset();
         for (int i = 0; i < N; i++) {}
         logger.info(s.getElapsedTime());
+    }
+
+    @Test
+    public void formattedLog() throws Exception {
+        Logger logger = Logger.getLogger(LoggerTest.class);
+        logger.trace("hello %s", "world");
+        logger.debug("year:%d", Calendar.getInstance().get(Calendar.YEAR));
+        logger.info("hello %s, %s", "xerial", "leo");
+        logger.warn("test warning message in %s, %s", "xerial", "leo");
+        logger.error("test error message in %s, %s", "xerial", "leo");
+        logger.fatal("test message in %s, %s", "xerial", "leo");
     }
 
     @Test

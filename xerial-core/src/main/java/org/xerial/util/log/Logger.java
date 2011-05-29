@@ -224,8 +224,18 @@ public class Logger {
         return true;
     }
 
+    public boolean trace(String format, Object... args) {
+        log(LogLevel.TRACE, format, args);
+        return true;
+    }
+
     public boolean debug(Object message) {
         log(LogLevel.DEBUG, message);
+        return true;
+    }
+
+    public boolean debug(String format, Object... args) {
+        log(LogLevel.DEBUG, format, args);
         return true;
     }
 
@@ -234,8 +244,18 @@ public class Logger {
         return true;
     }
 
+    public boolean info(String format, Object... args) {
+        log(LogLevel.INFO, format, args);
+        return true;
+    }
+
     public boolean warn(Object message) {
         log(LogLevel.WARN, message);
+        return true;
+    }
+
+    public boolean warn(String format, Object... args) {
+        log(LogLevel.WARN, format, args);
         return true;
     }
 
@@ -244,8 +264,18 @@ public class Logger {
         return true;
     }
 
+    public boolean error(String format, Object... args) {
+        log(LogLevel.ERROR, format, args);
+        return true;
+    }
+
     public boolean fatal(Object message) {
         log(LogLevel.FATAL, message);
+        return true;
+    }
+
+    public boolean fatal(String format, Object... args) {
+        log(LogLevel.FATAL, format, args);
         return true;
     }
 
@@ -317,7 +347,11 @@ public class Logger {
         }
     }
 
-    private void log(LogLevel logLevel, Object message) {
+    protected void log(LogLevel logLevel, String template, Object... args) {
+        log(logLevel, String.format(template, args));
+    }
+
+    protected void log(LogLevel logLevel, Object message) {
         if (!isEnabled(logLevel))
             return;
 
