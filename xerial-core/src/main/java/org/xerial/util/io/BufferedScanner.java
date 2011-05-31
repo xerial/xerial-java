@@ -105,6 +105,7 @@ public class BufferedScanner {
         public void slide(int offset, int len) {
             System.arraycopy(buffer, offset, buffer, 0, len);
         }
+
     }
 
     private static class CharBuffer implements Buffer {
