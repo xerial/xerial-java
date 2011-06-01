@@ -269,8 +269,8 @@ public class CommandModuleBase implements CommandModule {
             }
             else {
                 OptionParser subOpt = new OptionParser(subCommand.getOptionHolder());
+                subOpt.setIgnoreUnknownOption(true);
                 subOpt.parse(unusedArguments);
-
                 subCommand.execute(globalOption, unusedArguments);
             }
         }

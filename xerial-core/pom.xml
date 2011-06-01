@@ -4,7 +4,6 @@
     <groupId>org.xerial</groupId>
     <version>2.1-SNAPSHOT</version>
   </parent>
-
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
   <artifactId>xerial-core</artifactId>
