@@ -38,6 +38,11 @@ public class UTF8String {
     private final byte[] str;
     private String s;
 
+    /**
+     * cached hash code
+     */
+    private int hash;
+
     public UTF8String(byte[] str) {
         this(str, 0, str.length);
     }
@@ -82,6 +87,44 @@ public class UTF8String {
             s = new String(str, UTF8);
         }
         return s;
+    }
+
+    @Override
+    public int hashCode() {
+        int h = hash;
+        int len = byteSize();
+        if (h == 0 && len > 0) {
+            int off = 0;
+            byte val[] = str;
+            for (int i = 0; i < len; i++) {
+                h = 31 * h + val[off++];
+            }
+            hash = h;
+        }
+        return h;
+    }
+
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        if (anObject instanceof String) {
+            UTF8String anotherString = UTF8String.class.cast(anObject);
+            int n = byteSize();
+            if (n == anotherString.byteSize()) {
+                byte v1[] = str;
+                byte v2[] = anotherString.str;
+                int i = 0;
+                int j = 0;
+                while (n-- != 0) {
+                    if (v1[i++] != v2[j++])
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 }
