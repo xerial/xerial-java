@@ -93,7 +93,6 @@ public class BufferedScannerTest {
             s.consume();
         }
         assertEquals(-1, s.LA(1));
-
     }
 
     @Test

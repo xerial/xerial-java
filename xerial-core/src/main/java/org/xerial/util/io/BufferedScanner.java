@@ -408,6 +408,10 @@ public class BufferedScanner {
         return buffer.toUTF8String(selected.begin, selected.size());
     }
 
+    public int distanceFromFirstMark() {
+        return current.cursor - markQueue.peekFirst().cursor;
+    }
+
     public void mark() {
         markQueue.add(new ScannerState(current));
     }

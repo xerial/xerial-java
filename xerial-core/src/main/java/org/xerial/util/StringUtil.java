@@ -154,6 +154,10 @@ public class StringUtil {
         return NEW_LINE;
     }
 
+    public static String chompNewLine(String line) {
+        return line.replaceAll("(\r|\n\r?)$", "");
+    }
+
     public static ArrayList<String> splitAtTab(String line) {
         return split(line, '\t');
     }
