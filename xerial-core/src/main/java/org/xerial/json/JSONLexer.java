@@ -37,12 +37,10 @@ import org.xerial.util.io.BufferedScanner;
  * @author leo
  * 
  */
-public class JSONLexer
-{
-    public static class Token
-    {
+public class JSONLexer {
+    public static class Token {
         public final JSONToken type;
-        public final String    str;
+        public final String str;
 
         public Token(JSONToken type, String str) {
             this.type = type;
@@ -50,19 +48,23 @@ public class JSONLexer
         }
     }
 
-    private BufferedScanner   scanner;
+    private BufferedScanner scanner;
     private ArrayDeque<Token> tokenQueue = new ArrayDeque<Token>();
 
     public JSONLexer(InputStream in) {
-        this.scanner = new BufferedScanner(in);
+        this(new BufferedScanner(in));
     }
 
     public JSONLexer(Reader in) {
-        this.scanner = new BufferedScanner(in);
+        this(new BufferedScanner(in));
     }
 
     public JSONLexer(String json) {
-        this.scanner = new BufferedScanner(json);
+        this(new BufferedScanner(json));
+    }
+
+    public JSONLexer(BufferedScanner scanner) {
+        this.scanner = scanner;
     }
 
     public void close() throws XerialException {
@@ -84,6 +86,7 @@ public class JSONLexer
 
         // Retrieve the next token
         matchWhiteSpaces(); // skip white spaces
+        scanner.resetMarks();
         scanner.mark();
         int c = scanner.LA(1);
         switch (c) {
@@ -238,8 +241,8 @@ public class JSONLexer
         return true;
     }
 
-    private final static byte[] NULL  = { 'n', 'u', 'l', 'l' };
-    private final static byte[] TRUE  = { 't', 'r', 'u', 'e' };
+    private final static byte[] NULL = { 'n', 'u', 'l', 'l' };
+    private final static byte[] TRUE = { 't', 'r', 'u', 'e' };
     private final static byte[] FALSE = { 'f', 'a', 'l', 's', 'e' };
 
     boolean match(byte[] text) throws XerialException {
@@ -315,15 +318,15 @@ public class JSONLexer
     public void match(int expected) throws XerialException {
         int c = scanner.LA(1);
         if (c != expected)
-            throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format("expected:'%s' but found '%s'",
-                    expected, c));
+            throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format(
+                    "expected:'%s' but found '%s'", expected, c));
         else
             scanner.consume();
     }
 
     private XerialException error(String tokenType, int foundChar) {
-        return new XerialException(XerialErrorCode.PARSE_ERROR, String.format("<%s> invalid char '%s'", tokenType,
-                foundChar));
+        return new XerialException(XerialErrorCode.PARSE_ERROR, String.format(
+                "<%s> invalid char '%s'", tokenType, foundChar));
     }
 
     void emit(JSONToken type) {
@@ -338,8 +341,8 @@ public class JSONLexer
         tokenQueue.add(new Token(JSONToken.String, scanner.selectedString(1)));
     }
 
-    public int getLineNumber() {
-        return scanner.getLineNumber();
+    public long getLineNumber() {
+        return scanner.getLineCount();
     }
 
     public int getPosInLine() {

@@ -175,11 +175,15 @@ public class BufferedScanner {
 
     private static class ScannerState {
         public int cursor = 0;
+        public int posInLine = 0;
+        public long lineCount = 0;
 
         public ScannerState() {}
 
         public ScannerState(ScannerState m) {
             this.cursor = m.cursor;
+            this.posInLine = m.posInLine;
+            this.lineCount = m.lineCount;
         }
 
         @Override
@@ -243,6 +247,19 @@ public class BufferedScanner {
         }
 
         int ch = buffer.get(current.cursor++);
+        current.posInLine++;
+        switch (ch) {
+        case '\r':
+            if (LA(1) != '\n') {
+                current.lineCount++;
+                current.posInLine = 0;
+            }
+            break;
+        case '\n':
+            current.lineCount++;
+            current.posInLine = 0;
+            break;
+        }
     }
 
     /**
@@ -425,6 +442,14 @@ public class BufferedScanner {
      */
     public void rewind() {
         current = markQueue.pollLast();
+    }
+
+    public long getLineCount() {
+        return current.lineCount;
+    }
+
+    public int getPosInLine() {
+        return current.posInLine;
     }
 
 }
