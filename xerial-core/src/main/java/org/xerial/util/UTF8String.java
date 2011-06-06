@@ -51,6 +51,15 @@ public class UTF8String {
         this.str = new String(input, offset, len).getBytes(UTF8);
     }
 
+    public UTF8String(String s) {
+        this.s = s;
+        this.str = s.getBytes(UTF8);
+    }
+
+    public int get(int index) {
+        return str[index];
+    }
+
     public byte[] getBytes() {
         return str;
     }

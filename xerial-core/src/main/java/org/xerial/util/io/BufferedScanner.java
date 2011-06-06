@@ -30,6 +30,7 @@ import java.io.Reader;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.ArrayDeque;
 import org.xerial.util.UTF8String;
 
 /**
@@ -49,7 +50,7 @@ public class BufferedScanner {
 
         String toString(int offset, int length);
 
-        UTF8String toUTF8(int offset, int length);
+        UTF8String toUTF8String(int offset, int length);
 
         void close() throws IOException;
 
@@ -110,7 +111,7 @@ public class BufferedScanner {
         }
 
         @Override
-        public UTF8String toUTF8(int offset, int length) {
+        public UTF8String toUTF8String(int offset, int length) {
             return new UTF8String(buffer, offset, length);
         }
 
@@ -160,7 +161,7 @@ public class BufferedScanner {
         }
 
         @Override
-        public UTF8String toUTF8(int offset, int length) {
+        public UTF8String toUTF8String(int offset, int length) {
             return new UTF8String(buffer, offset, length);
         }
 
@@ -174,29 +175,30 @@ public class BufferedScanner {
 
     private static class ScannerState {
         public int cursor = 0;
-        public int lineNumber = 1;
-        public int posInLine = 0;
 
         public ScannerState() {}
 
         public ScannerState(ScannerState m) {
             this.cursor = m.cursor;
-            this.lineNumber = m.lineNumber;
-            this.posInLine = m.posInLine;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%d", cursor);
         }
     }
 
-    private ScannerState mark;
-    private ScannerState current = new ScannerState();
+    private ArrayDeque<ScannerState> markQueue = new ArrayDeque<ScannerState>();
+    private ScannerState current;
 
     public BufferedScanner(InputStream in) {
         this(in, 8 * 1024); // 8kb buffer
     }
 
     public BufferedScanner(InputStream in, int bufferSize) {
+        this(new ByteBuffer(in, bufferSize));
         if (in == null)
             throw new NullPointerException("input is null");
-        buffer = new ByteBuffer(in, bufferSize);
     }
 
     public BufferedScanner(Reader in) {
@@ -204,14 +206,19 @@ public class BufferedScanner {
     }
 
     public BufferedScanner(Reader in, int bufferSize) {
+        this(new CharBuffer(in, bufferSize));
         if (in == null)
             throw new NullPointerException("input is null");
-        buffer = new CharBuffer(in, bufferSize);
+    }
+
+    public BufferedScanner(Buffer buffer) {
+        this.buffer = buffer;
+        this.current = new ScannerState();
     }
 
     public BufferedScanner(String s) {
-        buffer = new ByteBuffer(s.getBytes());
-        bufferLimit = buffer.length();
+        this(new ByteBuffer(s.getBytes()));
+        this.bufferLimit = buffer.length();
     }
 
     public void close() throws XerialException {
@@ -224,7 +231,7 @@ public class BufferedScanner {
     }
 
     public boolean hasReachedEOF() {
-        return current.cursor >= bufferLimit && reachedEOF;
+        return reachedEOF && current.cursor >= bufferLimit;
     }
 
     public void consume() throws XerialException {
@@ -236,11 +243,6 @@ public class BufferedScanner {
         }
 
         int ch = buffer.get(current.cursor++);
-        current.posInLine++;
-        if (ch == '\n') {
-            current.lineNumber++;
-            current.posInLine = 0;
-        }
     }
 
     /**
@@ -267,7 +269,8 @@ public class BufferedScanner {
         }
 
         // Move the [mark ... limit)
-        if (mark != null) {
+        if (!markQueue.isEmpty()) {
+            ScannerState mark = markQueue.peekFirst();
             int lenToPreserve = bufferLimit - mark.cursor;
             if (lenToPreserve < buffer.length()) {
                 // Move [mark.cursor, limit) to the [0, ..., mark.cursor)
@@ -309,10 +312,10 @@ public class BufferedScanner {
     }
 
     public Range getSelectedRange() {
-        if (mark == null)
+        if (markQueue.isEmpty())
             throw new NullPointerException("no mark is set");
 
-        return new Range(mark.cursor, current.cursor);
+        return new Range(markQueue.getLast().cursor, current.cursor);
     }
 
     public String selectedString() {
@@ -322,12 +325,12 @@ public class BufferedScanner {
 
     public UTF8String selectedUTF8String() {
         Range r = getSelectedRange();
-        return buffer.toUTF8(r.begin, r.size());
+        return buffer.toUTF8String(r.begin, r.size());
     }
 
     public UTF8String selectedUTF8StringWithTrimming() {
         Range r = trim(getSelectedRange());
-        return buffer.toUTF8(r.begin, r.size());
+        return buffer.toUTF8String(r.begin, r.size());
     }
 
     private static class Range {
@@ -341,6 +344,11 @@ public class BufferedScanner {
 
         public int size() {
             return end - begin;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("[%d,%d)", begin, end);
         }
     }
 
@@ -378,7 +386,7 @@ public class BufferedScanner {
     }
 
     public String selectedString(int margin) {
-        if (mark == null)
+        if (markQueue.isEmpty())
             return null;
 
         Range selected = getSelectedRange();
@@ -386,34 +394,33 @@ public class BufferedScanner {
         return buffer.toString(trimmed.begin, trimmed.size());
     }
 
+    public UTF8String selectedUTF8String(int margin) {
+        if (markQueue.isEmpty())
+            return null;
+
+        Range selected = getSelectedRange();
+        Range trimmed = new Range(selected.begin + margin, selected.end - margin);
+        return buffer.toUTF8String(trimmed.begin, trimmed.size());
+    }
+
+    public UTF8String selectedUTF8StringFromFirstMark() {
+        Range selected = new Range(markQueue.peekFirst().cursor, current.cursor);
+        return buffer.toUTF8String(selected.begin, selected.size());
+    }
+
     public void mark() {
-        mark = new ScannerState(current);
+        markQueue.add(new ScannerState(current));
+    }
+
+    public void resetMarks() {
+        markQueue.clear();
     }
 
     /**
      * Reset the stream position to the last marker.
      */
     public void rewind() {
-        current = mark;
-        mark = null;
+        current = markQueue.pollLast();
     }
 
-    /**
-     * Get the current line number. The first line number is 1.
-     * 
-     * @return
-     */
-    public int getLineNumber() {
-        return current.lineNumber;
-    }
-
-    /**
-     * Get the character position in the current line. The first character
-     * position in line is 1.
-     * 
-     * @return
-     */
-    public int getPosInLine() {
-        return current.posInLine;
-    }
 }

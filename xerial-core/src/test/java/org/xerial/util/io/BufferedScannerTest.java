@@ -30,6 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 
 import org.junit.Test;
+import org.xerial.util.UTF8String;
 
 public class BufferedScannerTest {
     @Test
@@ -92,6 +93,29 @@ public class BufferedScannerTest {
             s.consume();
         }
         assertEquals(-1, s.LA(1));
+
+    }
+
+    @Test
+    public void multipleMarks() throws Exception {
+        String m = "Hello World\nThanks for using silk-weaver!!!\nTaro L. Saito";
+        BufferedScanner s = new BufferedScanner(new StringReader(m));
+        s.mark();
+        for (int i = 0; i < 28; ++i) {
+            if (s.LA(1) == '\n') {
+                s.consume();
+                s.resetMarks();
+                s.mark();
+            }
+            else {
+                s.consume();
+                if (i % 5 == 0)
+                    s.mark();
+            }
+        }
+
+        UTF8String u = s.selectedUTF8StringFromFirstMark();
+        assertEquals("Thanks for using", u.toString());
 
     }
 
