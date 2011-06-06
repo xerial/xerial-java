@@ -84,7 +84,7 @@ public class JSONArrayTest {
             JSONArray array = new JSONArray(json);
             assertEquals(N, array.size());
         }
-        _logger.info("time: " + timer.getElapsedTime());
+        _logger.info("time when using JSONArray(constructor): " + timer.getElapsedTime());
 
     }
 
@@ -97,7 +97,7 @@ public class JSONArrayTest {
             JSONArray array = new JSONArray(new JSONPullParser(json));
             assertEquals(N, array.size());
         }
-        _logger.info("time: " + timer.getElapsedTime());
+        _logger.info("time when using JSONPullParser: " + timer.getElapsedTime());
 
     }
 

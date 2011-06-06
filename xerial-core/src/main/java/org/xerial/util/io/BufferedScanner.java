@@ -30,6 +30,7 @@ import java.io.Reader;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
+import org.xerial.util.UTF8String;
 
 /**
  * A character scanner which support character look-ahead and mark
@@ -47,6 +48,8 @@ public class BufferedScanner {
         int feed(int offset, int length) throws IOException;
 
         String toString(int offset, int length);
+
+        UTF8String toUTF8(int offset, int length);
 
         void close() throws IOException;
 
@@ -106,6 +109,11 @@ public class BufferedScanner {
             System.arraycopy(buffer, offset, buffer, 0, len);
         }
 
+        @Override
+        public UTF8String toUTF8(int offset, int length) {
+            return new UTF8String(buffer, offset, length);
+        }
+
     }
 
     private static class CharBuffer implements Buffer {
@@ -149,6 +157,11 @@ public class BufferedScanner {
         @Override
         public void slide(int offset, int len) {
             System.arraycopy(buffer, offset, buffer, 0, len);
+        }
+
+        @Override
+        public UTF8String toUTF8(int offset, int length) {
+            return new UTF8String(buffer, offset, length);
         }
 
     }
@@ -295,20 +308,45 @@ public class BufferedScanner {
         }
     }
 
-    public String selectedString() {
+    public Range getSelectedRange() {
         if (mark == null)
-            return null;
+            throw new NullPointerException("no mark is set");
 
-        int size = current.cursor - mark.cursor;
-        return buffer.toString(mark.cursor, size);
+        return new Range(mark.cursor, current.cursor);
     }
 
-    public String selectedStringWithTrimming() {
-        if (mark == null)
-            return null;
+    public String selectedString() {
+        Range r = getSelectedRange();
+        return buffer.toString(r.begin, r.size());
+    }
 
-        int begin = mark.cursor;
-        int end = current.cursor;
+    public UTF8String selectedUTF8String() {
+        Range r = getSelectedRange();
+        return buffer.toUTF8(r.begin, r.size());
+    }
+
+    public UTF8String selectedUTF8StringWithTrimming() {
+        Range r = trim(getSelectedRange());
+        return buffer.toUTF8(r.begin, r.size());
+    }
+
+    private static class Range {
+        public final int begin;
+        public final int end;
+
+        public Range(int begin, int end) {
+            this.begin = begin;
+            this.end = end;
+        }
+
+        public int size() {
+            return end - begin;
+        }
+    }
+
+    Range trim(Range input) {
+        int begin = input.begin;
+        int end = input.end;
 
         for (; begin < end; begin++) {
             int c = buffer.get(begin);
@@ -325,17 +363,27 @@ public class BufferedScanner {
         }
 
         int size = end - begin;
-        return buffer.toString(begin, size);
+        return new Range(begin, end);
+    }
+
+    Range trim() {
+        return trim(getSelectedRange());
+    }
+
+    public String selectedStringWithTrimming() {
+        Range r = trim();
+        if (r == null)
+            return null;
+        return buffer.toString(r.begin, r.size());
     }
 
     public String selectedString(int margin) {
         if (mark == null)
             return null;
 
-        int begin = mark.cursor + margin;
-        int end = current.cursor - margin;
-        int size = end - begin;
-        return buffer.toString(begin, size);
+        Range selected = getSelectedRange();
+        Range trimmed = new Range(selected.begin + margin, selected.end - margin);
+        return buffer.toString(trimmed.begin, trimmed.size());
     }
 
     public void mark() {

@@ -40,6 +40,7 @@ import org.xerial.util.impl.CSVLineParser;
  * 
  */
 public class StringUtil {
+
     public static final String SINGLE_QUOTE = "\'";
     public static final String DOUBLE_QUOTE = "\"";
     public static final String NEW_LINE = System.getProperty("line.separator");

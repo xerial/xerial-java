@@ -57,6 +57,7 @@ public class BufferedScannerTest {
 
         assertEquals('o', s.LA(1));
         assertEquals("Hell", s.selectedString());
+        assertEquals("Hell", s.selectedUTF8String().toString());
         s.rewind();
 
         for (int i = 0; i < m.length(); ++i) {
@@ -74,6 +75,7 @@ public class BufferedScannerTest {
 
         for (int i = 0; i < m.length(); ++i) {
             assertEquals(m.charAt(i), s.LA(1));
+
             s.consume();
         }
         assertEquals(-1, s.LA(1));
