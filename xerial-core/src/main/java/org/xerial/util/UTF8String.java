@@ -56,6 +56,10 @@ public class UTF8String {
         this.str = s.getBytes(UTF8);
     }
 
+    public static UTF8String format(String format, Object... args) {
+        return new UTF8String(String.format(format, args));
+    }
+
     public int get(int index) {
         return str[index];
     }
