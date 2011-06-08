@@ -280,15 +280,19 @@ public class BufferedScanner {
             current.cursor = i + 1;
             if (eol) {
                 if (buf == null) {
+                    current.lineCount++;
+                    current.posInLine = 0;
                     return new UTF8String((byte[]) buffer.rawBuffer(), start, len);
                 }
-                else
-                    buf.write((byte[]) buffer.rawBuffer(), start, len);
+
+                buf.write((byte[]) buffer.rawBuffer(), start, len);
                 if (ch == '\r') {
                     if (LA(1) == '\n') {
                         consume();
                     }
                 }
+                current.lineCount++;
+                current.posInLine = 0;
                 return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
             }
 

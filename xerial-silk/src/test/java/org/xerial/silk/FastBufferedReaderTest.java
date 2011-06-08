@@ -143,7 +143,7 @@ public class FastBufferedReaderTest
         StopWatch s = new StopWatch();
 
         File in = FileResource.copyToTemp(SilkWalkerTest.class, "scaffold1.silk", new File("target"));
-        final int N = 5;
+        final int N = 10;
 
         {
             s.reset();
