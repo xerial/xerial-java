@@ -24,6 +24,7 @@
 //--------------------------------------
 package org.xerial.util.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -61,6 +62,7 @@ public class BufferedScanner {
          * @param len
          */
         void slide(int offset, int len);
+
     }
 
     private static class ByteBuffer implements Buffer {
@@ -238,6 +240,31 @@ public class BufferedScanner {
         return reachedEOF && current.cursor >= bufferLimit;
     }
 
+    public UTF8String nextLine() throws XerialException {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        int ch;
+        outer_loop: for (;;) {
+            ch = LA(1);
+            switch (ch) {
+            case '\r':
+                consume();
+                if (LA(1) == '\n') {
+                    consume();
+                }
+                break outer_loop;
+            case '\n':
+            case EOF:
+                consume();
+                break outer_loop;
+            default:
+                buf.write(ch);
+                consume();
+                break;
+            }
+        }
+        return buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
+    }
+
     public void consume() throws XerialException {
         if (current.cursor >= bufferLimit) {
             if (!fill()) {
@@ -277,6 +304,7 @@ public class BufferedScanner {
             }
         }
 
+        // current.cursor might be changed at fill(), so we need to recompute the lookahead position  
         return buffer.get(current.cursor + lookahead - 1);
     }
 
@@ -299,7 +327,7 @@ public class BufferedScanner {
             }
             else {
                 // The buffer got too big, invalidate the mark
-                mark = null;
+                markQueue.clear();
                 bufferLimit = 0;
                 current.cursor = 0;
             }

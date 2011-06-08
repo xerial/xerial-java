@@ -118,4 +118,15 @@ public class BufferedScannerTest {
 
     }
 
+    @Test
+    public void netxLine() throws Exception {
+        String m = "Hello World\nThanks for using silk-weaver!!!\nTaro L. Saito";
+        BufferedScanner s = new BufferedScanner(new StringReader(m), 10);
+
+        assertEquals("Hello World", s.nextLine().toString());
+        assertEquals("Thanks for using silk-weaver!!!", s.nextLine().toString());
+        assertEquals("Taro L. Saito", s.nextLine().toString());
+        assertNull(s.nextLine());
+    }
+
 }

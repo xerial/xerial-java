@@ -336,9 +336,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
     }
 
     public E peekFirst(int k) {
-        int pos = head + k;
-        if (pos >= tail)
-            throw new NoSuchElementException();
+        int pos = (head + k) & (elements.length - 1);
         return elements[head + k];
     }
 
