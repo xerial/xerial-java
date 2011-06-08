@@ -177,6 +177,7 @@ public class BufferedScanner {
 
     private static class ScannerState {
         public int cursor = 0;
+
         public int posInLine = 0;
         public long lineCount = 0;
 
@@ -241,28 +242,39 @@ public class BufferedScanner {
     }
 
     public UTF8String nextLine() throws XerialException {
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        int ch;
+        ByteArrayOutputStream buf = null;
+        boolean eol = false;
         outer_loop: for (;;) {
-            ch = LA(1);
+
+            if (current.cursor >= bufferLimit)
+                fill();
+            if (current.cursor >= bufferLimit) {
+                if (buf != null && buf.size() > 0)
+                    return new UTF8String(buf.toByteArray());
+                else
+                    return null;
+            }
+            int ch = buffer.get(current.cursor++);
+
             switch (ch) {
             case '\r':
-                consume();
-                if (LA(1) == '\n') {
-                    consume();
-                }
-                break outer_loop;
+                eol = true;
+                break;
             case '\n':
             case EOF:
-                consume();
                 break outer_loop;
             default:
+                if (eol) {
+                    current.cursor--;
+                    break outer_loop;
+                }
+                if (buf == null)
+                    buf = new ByteArrayOutputStream(16);
                 buf.write(ch);
-                consume();
                 break;
             }
         }
-        return buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
+        return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
     }
 
     public void consume() throws XerialException {

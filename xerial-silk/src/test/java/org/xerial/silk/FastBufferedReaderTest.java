@@ -42,6 +42,8 @@ import org.xerial.util.FastBufferedReader;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
+import org.xerial.util.UTF8String;
+import org.xerial.util.io.BufferedScanner;
 import org.xerial.util.log.Logger;
 
 public class FastBufferedReaderTest
@@ -141,7 +143,7 @@ public class FastBufferedReaderTest
         StopWatch s = new StopWatch();
 
         File in = FileResource.copyToTemp(SilkWalkerTest.class, "scaffold1.silk", new File("target"));
-        final int N = 1;
+        final int N = 5;
 
         {
             s.reset();
@@ -169,12 +171,21 @@ public class FastBufferedReaderTest
         {
             s.reset();
             int lineCount = 0;
-            char[] buf = new char[8192];
             for (int i = 0; i < N; i++) {
                 BufferedReader fb = new BufferedReader(new FileReader(in));
                 for (String line; (line = fb.readLine()) != null; lineCount++) {}
             }
             _logger.info(String.format("BufferedReader readLine: %.2f", s.getElapsedTime()));
+        }
+
+        {
+            s.reset();
+            int lineCount = 0;
+            for (int i = 0; i < N; i++) {
+                BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
+                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
+            }
+            _logger.info(String.format("BufferedScanner nextLine: %.2f", s.getElapsedTime()));
         }
 
         {
