@@ -63,6 +63,7 @@ public class BufferedScanner {
          */
         void slide(int offset, int len);
 
+        Object rawBuffer();
     }
 
     private static class ByteBuffer implements Buffer {
@@ -117,6 +118,10 @@ public class BufferedScanner {
             return new UTF8String(buffer, offset, length);
         }
 
+        @Override
+        public byte[] rawBuffer() {
+            return buffer;
+        }
     }
 
     private static class CharBuffer implements Buffer {
@@ -165,6 +170,11 @@ public class BufferedScanner {
         @Override
         public UTF8String toUTF8String(int offset, int length) {
             return new UTF8String(buffer, offset, length);
+        }
+
+        @Override
+        public char[] rawBuffer() {
+            return buffer;
         }
 
     }
@@ -242,10 +252,9 @@ public class BufferedScanner {
     }
 
     public UTF8String nextLine() throws XerialException {
-        ByteArrayOutputStream buf = null;
-        boolean eol = false;
-        outer_loop: for (;;) {
 
+        ByteArrayOutputStream buf = null;
+        for (;;) {
             if (current.cursor >= bufferLimit)
                 fill();
             if (current.cursor >= bufferLimit) {
@@ -254,25 +263,41 @@ public class BufferedScanner {
                 else
                     return null;
             }
-            int ch = buffer.get(current.cursor++);
 
-            if (ch == '\r') {
-                eol = true;
-            }
-            else if (ch == '\n' || ch == EOF) {
-                break outer_loop;
-            }
-            else {
-                if (eol) {
-                    current.cursor--;
-                    break outer_loop;
+            boolean eol = false;
+            int i = current.cursor;
+            int ch = EOF;
+            charLoop: for (; i < bufferLimit; i++) {
+                ch = buffer.get(i);
+                if (ch == '\n' || ch == '\r') {
+                    eol = true;
+                    break charLoop;
                 }
-                if (buf == null)
-                    buf = new ByteArrayOutputStream(16);
-                buf.write(ch);
             }
+
+            int start = current.cursor;
+            int len = i - start;
+            current.cursor = i + 1;
+            if (eol) {
+                if (buf == null) {
+                    return new UTF8String((byte[]) buffer.rawBuffer(), start, len);
+                }
+                else
+                    buf.write((byte[]) buffer.rawBuffer(), start, len);
+                if (ch == '\r') {
+                    if (LA(1) == '\n') {
+                        consume();
+                    }
+                }
+                return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
+            }
+
+            if (buf == null)
+                buf = new ByteArrayOutputStream(16);
+
+            buf.write((byte[]) buffer.rawBuffer(), start, len);
         }
-        return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
+
     }
 
     public void consume() throws XerialException {

@@ -175,7 +175,7 @@ public class FastBufferedReaderTest
                 BufferedReader fb = new BufferedReader(new FileReader(in));
                 for (String line; (line = fb.readLine()) != null; lineCount++) {}
             }
-            _logger.info(String.format("BufferedReader readLine: %.2f", s.getElapsedTime()));
+            _logger.info(String.format("BufferedReader readLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
         }
 
         {
@@ -185,7 +185,7 @@ public class FastBufferedReaderTest
                 BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
                 for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
             }
-            _logger.info(String.format("BufferedScanner nextLine: %.2f", s.getElapsedTime()));
+            _logger.info(String.format("BufferedScanner nextLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
         }
 
         {
