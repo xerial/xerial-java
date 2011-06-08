@@ -256,14 +256,13 @@ public class BufferedScanner {
             }
             int ch = buffer.get(current.cursor++);
 
-            switch (ch) {
-            case '\r':
+            if (ch == '\r') {
                 eol = true;
-                break;
-            case '\n':
-            case EOF:
+            }
+            else if (ch == '\n' || ch == EOF) {
                 break outer_loop;
-            default:
+            }
+            else {
                 if (eol) {
                     current.cursor--;
                     break outer_loop;
@@ -271,7 +270,6 @@ public class BufferedScanner {
                 if (buf == null)
                     buf = new ByteArrayOutputStream(16);
                 buf.write(ch);
-                break;
             }
         }
         return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
