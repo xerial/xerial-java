@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import org.xerial.core.XerialErrorCode;
 import org.xerial.core.XerialException;
@@ -42,6 +43,8 @@ import org.xerial.util.UTF8String;
  * 
  */
 public class BufferedScanner {
+    private final static Charset UTF8 = Charset.forName("UTF8");
+
     private static interface Buffer {
         int length();
 
@@ -63,7 +66,66 @@ public class BufferedScanner {
          */
         void slide(int offset, int len);
 
-        Object rawBuffer();
+        ArrayBuilder newBuilder(int initialBufferSize);
+
+        //byte[] rawBuffer();
+    }
+
+    private static interface ArrayBuilder {
+        void append(Buffer buf, int offset, int length);
+
+        UTF8String toUTF8String();
+
+        int size();
+    }
+
+    private static class ByteArrayBuilder implements ArrayBuilder {
+
+        ByteArrayOutputStream out;
+
+        public ByteArrayBuilder(int initialBufferSize) {
+            this.out = new ByteArrayOutputStream(initialBufferSize);
+        }
+
+        @Override
+        public void append(Buffer buf, int offset, int length) {
+            out.write(((ByteBuffer) buf).buffer, offset, length);
+        }
+
+        @Override
+        public UTF8String toUTF8String() {
+            return new UTF8String(out.toByteArray());
+        }
+
+        @Override
+        public int size() {
+            return out.size();
+        }
+    }
+
+    private static class CharArrayBuilder implements ArrayBuilder {
+
+        StringBuilder out;
+
+        public CharArrayBuilder(int initialBufferSize) {
+            this.out = new StringBuilder(initialBufferSize);
+        }
+
+        @Override
+        public void append(Buffer buf, int offset, int length) {
+            out.append(((CharBuffer) buf).buffer, offset, length);
+        }
+
+        @Override
+        public UTF8String toUTF8String() {
+            return new UTF8String(out.toString());
+        }
+
+        @Override
+        public int size() {
+            return out.length();
+        }
+
     }
 
     private static class ByteBuffer implements Buffer {
@@ -105,7 +167,6 @@ public class BufferedScanner {
         public void close() throws IOException {
             if (source != null)
                 source.close();
-
         }
 
         @Override
@@ -119,9 +180,10 @@ public class BufferedScanner {
         }
 
         @Override
-        public byte[] rawBuffer() {
-            return buffer;
+        public ArrayBuilder newBuilder(int initialBufferSize) {
+            return new ByteArrayBuilder(initialBufferSize);
         }
+
     }
 
     private static class CharBuffer implements Buffer {
@@ -159,7 +221,6 @@ public class BufferedScanner {
         public void close() throws IOException {
             if (source != null)
                 source.close();
-
         }
 
         @Override
@@ -173,21 +234,18 @@ public class BufferedScanner {
         }
 
         @Override
-        public char[] rawBuffer() {
-            return buffer;
+        public ArrayBuilder newBuilder(int initialBufferSize) {
+            return new CharArrayBuilder(initialBufferSize);
         }
-
     }
 
     public final static int EOF = -1;
-
     private Buffer buffer;
     private int bufferLimit = 0;
     private boolean reachedEOF = false;
 
     private static class ScannerState {
         public int cursor = 0;
-
         public int posInLine = 0;
         public long lineCount = 0;
 
@@ -252,18 +310,16 @@ public class BufferedScanner {
     }
 
     public UTF8String nextLine() throws XerialException {
-
-        ByteArrayOutputStream buf = null;
+        ArrayBuilder currentLine = null;
         for (;;) {
             if (current.cursor >= bufferLimit)
                 fill();
             if (current.cursor >= bufferLimit) {
-                if (buf != null && buf.size() > 0)
-                    return new UTF8String(buf.toByteArray());
+                if (currentLine != null && currentLine.size() > 0)
+                    return currentLine.toUTF8String();
                 else
                     return null;
             }
-
             boolean eol = false;
             int i = current.cursor;
             int ch = EOF;
@@ -274,58 +330,54 @@ public class BufferedScanner {
                     break charLoop;
                 }
             }
-
             int start = current.cursor;
             int len = i - start;
             current.cursor = i + 1;
             if (eol) {
-                if (buf == null) {
-                    current.lineCount++;
-                    current.posInLine = 0;
-                    return new UTF8String((byte[]) buffer.rawBuffer(), start, len);
+                if (currentLine == null) {
+                    incrementLineCount();
+                    return buffer.toUTF8String(start, len);
                 }
-
-                buf.write((byte[]) buffer.rawBuffer(), start, len);
+                currentLine.append(buffer, start, len);
                 if (ch == '\r') {
                     if (LA(1) == '\n') {
-                        consume();
+                        current.cursor++;
                     }
                 }
-                current.lineCount++;
-                current.posInLine = 0;
-                return buf != null && buf.size() > 0 ? new UTF8String(buf.toByteArray()) : null;
+                incrementLineCount();
+                return currentLine != null && currentLine.size() > 0 ? currentLine.toUTF8String()
+                        : null;
             }
-
-            if (buf == null)
-                buf = new ByteArrayOutputStream(16);
-
-            buf.write((byte[]) buffer.rawBuffer(), start, len);
+            if (currentLine == null)
+                currentLine = buffer.newBuilder(16);
+            currentLine.append(buffer, start, len);
         }
-
     }
 
     public void consume() throws XerialException {
         if (current.cursor >= bufferLimit) {
             if (!fill()) {
-                // Do nothing
+                // No more characters to consume. Do nothing
                 return;
             }
         }
-
         int ch = buffer.get(current.cursor++);
         current.posInLine++;
         switch (ch) {
-        case '\r':
-            if (LA(1) != '\n') {
-                current.lineCount++;
-                current.posInLine = 0;
-            }
-            break;
-        case '\n':
-            current.lineCount++;
-            current.posInLine = 0;
-            break;
+            case '\r':
+                if (LA(1) != '\n') {
+                    incrementLineCount();
+                }
+                break;
+            case '\n':
+                incrementLineCount();
+                break;
         }
+    }
+
+    private void incrementLineCount() {
+        current.lineCount++;
+        current.posInLine = 0;
     }
 
     /**
@@ -342,7 +394,6 @@ public class BufferedScanner {
                 return EOF;
             }
         }
-
         // current.cursor might be changed at fill(), so we need to recompute the lookahead position  
         return buffer.get(current.cursor + lookahead - 1);
     }
@@ -351,7 +402,6 @@ public class BufferedScanner {
         if (reachedEOF) {
             return false;
         }
-
         // Move the [mark ... limit)
         if (!markQueue.isEmpty()) {
             ScannerState mark = markQueue.peekFirst();
@@ -375,7 +425,6 @@ public class BufferedScanner {
             bufferLimit = 0;
             current.cursor = 0;
         }
-
         // Read the data from the stream, and fill the buffer
         int readLen = buffer.length() - bufferLimit;
         try {
@@ -398,7 +447,6 @@ public class BufferedScanner {
     public Range getSelectedRange() {
         if (markQueue.isEmpty())
             throw new NullPointerException("no mark is set");
-
         return new Range(markQueue.getLast().cursor, current.cursor);
     }
 
@@ -439,7 +487,6 @@ public class BufferedScanner {
     Range trim(Range input) {
         int begin = input.begin;
         int end = input.end;
-
         for (; begin < end; begin++) {
             int c = buffer.get(begin);
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
@@ -453,7 +500,6 @@ public class BufferedScanner {
         if (begin >= end) {
             begin = end;
         }
-
         int size = end - begin;
         return new Range(begin, end);
     }
@@ -472,7 +518,6 @@ public class BufferedScanner {
     public String selectedString(int margin) {
         if (markQueue.isEmpty())
             return null;
-
         Range selected = getSelectedRange();
         Range trimmed = new Range(selected.begin + margin, selected.end - margin);
         return buffer.toString(trimmed.begin, trimmed.size());
@@ -481,7 +526,6 @@ public class BufferedScanner {
     public UTF8String selectedUTF8String(int margin) {
         if (markQueue.isEmpty())
             return null;
-
         Range selected = getSelectedRange();
         Range trimmed = new Range(selected.begin + margin, selected.end - margin);
         return buffer.toUTF8String(trimmed.begin, trimmed.size());
@@ -518,5 +562,4 @@ public class BufferedScanner {
     public int getPosInLine() {
         return current.posInLine;
     }
-
 }

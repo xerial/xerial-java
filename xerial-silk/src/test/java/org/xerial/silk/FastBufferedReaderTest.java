@@ -143,7 +143,7 @@ public class FastBufferedReaderTest
         StopWatch s = new StopWatch();
 
         File in = FileResource.copyToTemp(SilkWalkerTest.class, "scaffold1.silk", new File("target"));
-        final int N = 10;
+        final int N = 1;
 
         {
             s.reset();
@@ -186,6 +186,30 @@ public class FastBufferedReaderTest
                 for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
             }
             _logger.info(String.format("BufferedScanner nextLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
+        }
+
+        {
+            s.reset();
+            int lineCount = 0;
+            for (int i = 0; i < N; i++) {
+                BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
+                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {
+                    String st = line.toString();
+                }
+            }
+            _logger.info(String.format("BufferedScanner nextLine (with String conversion): %.2f, line:%d",
+                    s.getElapsedTime(), lineCount));
+        }
+
+        {
+            s.reset();
+            int lineCount = 0;
+            for (int i = 0; i < N; i++) {
+                BufferedScanner fb = new BufferedScanner(new FileReader(in));
+                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
+            }
+            _logger.info(String.format("BufferedScanner nextLine with Reader input: %.2f, line:%d", s.getElapsedTime(),
+                    lineCount));
         }
 
         {

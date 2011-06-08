@@ -68,6 +68,25 @@ public class ReaderInputStream extends InputStream {
     }
 
     /**
+     * Construct a <CODE>ReaderInputStream</CODE> for the specified
+     * <CODE>Reader</CODE>, with the specified encoding.
+     * 
+     * @param reader
+     *            non-null <CODE>Reader</CODE>.
+     * @param encoding
+     *            non-null <CODE>Charset</CODE>
+     */
+    public ReaderInputStream(Reader reader, Charset charset) {
+        this(reader);
+        if (encoding == null) {
+            throw new IllegalArgumentException("encoding must not be null");
+        }
+        else {
+            this.encoding = charset;
+        }
+    }
+
+    /**
      * Reads from the <CODE>Reader</CODE>, returning the same value.
      * 
      * @return the value of the next character in the <CODE>Reader</CODE>.

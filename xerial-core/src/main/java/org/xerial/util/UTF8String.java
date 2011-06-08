@@ -32,7 +32,7 @@ import java.nio.charset.Charset;
  * @author leo
  * 
  */
-public class UTF8String {
+public class UTF8String implements CharSequence {
     public final static Charset UTF8 = Charset.forName("UTF-8");
 
     private final byte[] str;
@@ -125,6 +125,16 @@ public class UTF8String {
             }
         }
         return false;
+    }
+
+    @Override
+    public char charAt(int index) {
+        return (char) str[index];
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return new UTF8String(str, start, end - start);
     }
 
 }
