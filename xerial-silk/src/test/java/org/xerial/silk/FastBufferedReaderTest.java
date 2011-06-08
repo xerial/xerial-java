@@ -143,7 +143,7 @@ public class FastBufferedReaderTest
         StopWatch s = new StopWatch();
 
         File in = FileResource.copyToTemp(SilkWalkerTest.class, "scaffold1.silk", new File("target"));
-        final int N = 1;
+        final int N = 20;
 
         {
             s.reset();
@@ -172,20 +172,19 @@ public class FastBufferedReaderTest
             s.reset();
             int lineCount = 0;
             for (int i = 0; i < N; i++) {
-                BufferedReader fb = new BufferedReader(new FileReader(in));
-                for (String line; (line = fb.readLine()) != null; lineCount++) {}
-            }
-            _logger.info(String.format("BufferedReader readLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
-        }
-
-        {
-            s.reset();
-            int lineCount = 0;
-            for (int i = 0; i < N; i++) {
                 BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
                 for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
             }
             _logger.info(String.format("BufferedScanner nextLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
+        }
+        {
+            s.reset();
+            int lineCount = 0;
+            for (int i = 0; i < N; i++) {
+                BufferedReader fb = new BufferedReader(new FileReader(in));
+                for (String line; (line = fb.readLine()) != null; lineCount++) {}
+            }
+            _logger.info(String.format("BufferedReader readLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
         }
 
         {
@@ -240,30 +239,6 @@ public class FastBufferedReaderTest
             int lineCount = 0;
             byte[] buf = new byte[8192];
             for (int i = 0; i < N; i++) {
-                BufferedInputStream fb = new BufferedInputStream(new FileInputStream(in));
-                for (int readSize = 0; (readSize = fb.read(buf)) != -1;) {
-                    for (int c = 0; c < readSize; c++) {
-                        if (buf[c] == '\r') {
-                            lineCount++;
-                            if (c + 1 < readSize && buf[c + 1] == '\n') {
-                                c++;
-                            }
-                        }
-                        else if (buf[c] == '\n') {
-                            lineCount++;
-                        }
-                    }
-
-                }
-            }
-            _logger.info(String.format("BufferedInputStream: %.2f", s.getElapsedTime()));
-        }
-
-        {
-            s.reset();
-            int lineCount = 0;
-            byte[] buf = new byte[8192];
-            for (int i = 0; i < N; i++) {
                 FastBufferedInputStream fb = new FastBufferedInputStream(new FileInputStream(in));
                 for (int readSize = 0; (readSize = fb.read(buf)) != -1;) {
                     for (int c = 0; c < readSize; c++) {
@@ -281,6 +256,30 @@ public class FastBufferedReaderTest
                 }
             }
             _logger.info(String.format("FastBufferedInputStream: %.2f", s.getElapsedTime()));
+        }
+
+        {
+            s.reset();
+            int lineCount = 0;
+            byte[] buf = new byte[8192];
+            for (int i = 0; i < N; i++) {
+                BufferedInputStream fb = new BufferedInputStream(new FileInputStream(in));
+                for (int readSize = 0; (readSize = fb.read(buf)) != -1;) {
+                    for (int c = 0; c < readSize; c++) {
+                        if (buf[c] == '\r') {
+                            lineCount++;
+                            if (c + 1 < readSize && buf[c + 1] == '\n') {
+                                c++;
+                            }
+                        }
+                        else if (buf[c] == '\n') {
+                            lineCount++;
+                        }
+                    }
+
+                }
+            }
+            _logger.info(String.format("BufferedInputStream: %.2f", s.getElapsedTime()));
         }
 
     }

@@ -77,10 +77,6 @@ public class UTF8String implements CharSequence {
         return str.length;
     }
 
-    public int length() {
-        return toString().length();
-    }
-
     @Override
     public String toString() {
         if (s == null) {
@@ -128,13 +124,18 @@ public class UTF8String implements CharSequence {
     }
 
     @Override
+    public int length() {
+        return toString().length();
+    }
+
+    @Override
     public char charAt(int index) {
-        return (char) str[index];
+        return toString().charAt(index);
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        return new UTF8String(str, start, end - start);
+        return toString().subSequence(start, end);
     }
 
 }

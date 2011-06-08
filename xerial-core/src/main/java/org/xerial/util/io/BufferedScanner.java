@@ -246,15 +246,11 @@ public class BufferedScanner {
 
     private static class ScannerState {
         public int cursor = 0;
-        public int posInLine = 0;
-        public long lineCount = 0;
 
         public ScannerState() {}
 
         public ScannerState(ScannerState m) {
             this.cursor = m.cursor;
-            this.posInLine = m.posInLine;
-            this.lineCount = m.lineCount;
         }
 
         @Override
@@ -292,6 +288,11 @@ public class BufferedScanner {
     }
 
     public BufferedScanner(String s) {
+        this(new ByteBuffer(s.getBytes()));
+        this.bufferLimit = buffer.length();
+    }
+
+    public BufferedScanner(UTF8String s) {
         this(new ByteBuffer(s.getBytes()));
         this.bufferLimit = buffer.length();
     }
@@ -335,7 +336,7 @@ public class BufferedScanner {
             current.cursor = i + 1;
             if (eol) {
                 if (currentLine == null) {
-                    incrementLineCount();
+                    //incrementLineCount();
                     return buffer.toUTF8String(start, len);
                 }
                 currentLine.append(buffer, start, len);
@@ -344,7 +345,7 @@ public class BufferedScanner {
                         current.cursor++;
                     }
                 }
-                incrementLineCount();
+                //incrementLineCount();
                 return currentLine != null && currentLine.size() > 0 ? currentLine.toUTF8String()
                         : null;
             }
@@ -354,30 +355,15 @@ public class BufferedScanner {
         }
     }
 
-    public void consume() throws XerialException {
+    public int consume() throws XerialException {
         if (current.cursor >= bufferLimit) {
             if (!fill()) {
                 // No more characters to consume. Do nothing
-                return;
+                return EOF;
             }
         }
         int ch = buffer.get(current.cursor++);
-        current.posInLine++;
-        switch (ch) {
-            case '\r':
-                if (LA(1) != '\n') {
-                    incrementLineCount();
-                }
-                break;
-            case '\n':
-                incrementLineCount();
-                break;
-        }
-    }
-
-    private void incrementLineCount() {
-        current.lineCount++;
-        current.posInLine = 0;
+        return ch;
     }
 
     /**
@@ -555,11 +541,4 @@ public class BufferedScanner {
         current = markQueue.pollLast();
     }
 
-    public long getLineCount() {
-        return current.lineCount;
-    }
-
-    public int getPosInLine() {
-        return current.posInLine;
-    }
 }
