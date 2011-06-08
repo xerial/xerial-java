@@ -290,11 +290,13 @@ public class BufferedScanner {
     public BufferedScanner(String s) {
         this(new ByteBuffer(s.getBytes()));
         this.bufferLimit = buffer.length();
+        this.reachedEOF = true;
     }
 
     public BufferedScanner(UTF8String s) {
         this(new ByteBuffer(s.getBytes()));
         this.bufferLimit = buffer.length();
+        this.reachedEOF = true;
     }
 
     public void close() throws XerialException {
@@ -335,16 +337,17 @@ public class BufferedScanner {
             int len = i - start;
             current.cursor = i + 1;
             if (eol) {
-                if (currentLine == null) {
-                    //incrementLineCount();
-                    return buffer.toUTF8String(start, len);
-                }
-                currentLine.append(buffer, start, len);
                 if (ch == '\r') {
                     if (LA(1) == '\n') {
                         current.cursor++;
                     }
                 }
+
+                if (currentLine == null) {
+                    //incrementLineCount();
+                    return buffer.toUTF8String(start, len);
+                }
+                currentLine.append(buffer, start, len);
                 //incrementLineCount();
                 return currentLine != null && currentLine.size() > 0 ? currentLine.toUTF8String()
                         : null;
@@ -398,7 +401,10 @@ public class BufferedScanner {
                     buffer.slide(mark.cursor, lenToPreserve);
                 bufferLimit = lenToPreserve;
                 current.cursor -= mark.cursor;
-                mark.cursor = 0;
+                int slideLen = mark.cursor;
+                for (ScannerState each : markQueue) {
+                    each.cursor -= slideLen;
+                }
             }
             else {
                 // The buffer got too big, invalidate the mark
