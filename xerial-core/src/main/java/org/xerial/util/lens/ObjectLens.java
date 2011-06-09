@@ -46,7 +46,11 @@ import org.xerial.util.lens.impl.RelationSetter;
 import org.xerial.util.log.Logger;
 
 /**
- * Tree to Object lens
+ * Lens is information of object interface, e.g., methods and fields that can be
+ * modified dynamically. This {@link ObjectLens#getObjectLens(Class)} returns a
+ * holder (called ObjectLens) of public fields (except array types) and public
+ * setter/getter/putter methods defined in a given class.
+ * 
  * 
  * @author leo
  * 
@@ -300,60 +304,63 @@ public class ObjectLens {
             if (methodName.startsWith("add") || methodName.startsWith("set")) {
                 Class< ? >[] argTypes = eachMethod.getParameterTypes();
                 switch (argTypes.length) {
-                case 1: {
-                    String paramName = pickPropertyName(methodName);
-                    Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
-                    if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo
-                            .isMap(parentOfTheSetter)) && paramName.equals("all"))
-                        break;
+                    case 1: {
+                        String paramName = pickPropertyName(methodName);
+                        Class< ? > parentOfTheSetter = eachMethod.getDeclaringClass();
+                        if ((TypeInfo.isCollection(parentOfTheSetter) || TypeInfo
+                                .isMap(parentOfTheSetter)) && paramName.equals("all"))
+                            break;
 
-                    if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter)) {
-                        Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(
-                                targetType, argTypes[0]);
-                        setterContainer.add(ParameterSetter.newSetter(elementType, "entry",
-                                eachMethod));
-                    }
-                    else
-                        addNewSetter(setterContainer, paramName, eachMethod);
-                    break;
-                }
-                case 2: {
-                    if (TypeInfo.isCollection(eachMethod.getDeclaringClass())) {
+                        if (paramName.length() <= 0 && TypeInfo.isCollection(parentOfTheSetter)) {
+                            Class< ? > elementType = BeanUtil.resolveActualTypeOfCollectionElement(
+                                    targetType, argTypes[0]);
+                            setterContainer.add(ParameterSetter.newSetter(elementType, "entry",
+                                    eachMethod));
+                        }
+                        else
+                            addNewSetter(setterContainer, paramName, eachMethod);
                         break;
                     }
-
-                    // relation adder
-
-                    Pair<String, String> relName = pickRelationName(pickPropertyName(methodName,
-                            false));
-                    if (relName == null) {
-                        // infer relation node names
-                        if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
-
-                            Class< ? >[] mapElementType = BeanUtil.resolveActualTypeOfMapElement(
-                                    targetType, eachMethod.getParameterTypes());
-
-                            // map.put(Key, Value)
-                            setterContainer.add(ParameterSetter.newMapEntrySetter(
-                                    mapElementType[0], mapElementType[1]));
-
-                            // (entry, key)
-                            setterContainer.add(ParameterSetter.newKeySetter(mapElementType[0]));
-                            // (entry, value)
-                            setterContainer.add(ParameterSetter.newValueSetter(mapElementType[1]));
-                            continue;
+                    case 2: {
+                        if (TypeInfo.isCollection(eachMethod.getDeclaringClass())) {
+                            break;
                         }
-                        else {
-                            relName = new Pair<String, String>(
-                                    getCanonicalParameterName(argTypes[0].getSimpleName()),
-                                    getCanonicalParameterName(argTypes[1].getSimpleName()));
+
+                        // relation adder
+
+                        Pair<String, String> relName = pickRelationName(pickPropertyName(
+                                methodName, false));
+                        if (relName == null) {
+                            // infer relation node names
+                            if (TypeInfo.isMap(eachMethod.getDeclaringClass())) {
+
+                                Class< ? >[] mapElementType = BeanUtil
+                                        .resolveActualTypeOfMapElement(targetType,
+                                                eachMethod.getParameterTypes());
+
+                                // map.put(Key, Value)
+                                setterContainer.add(ParameterSetter.newMapEntrySetter(
+                                        mapElementType[0], mapElementType[1]));
+
+                                // (entry, key)
+                                setterContainer
+                                        .add(ParameterSetter.newKeySetter(mapElementType[0]));
+                                // (entry, value)
+                                setterContainer.add(ParameterSetter
+                                        .newValueSetter(mapElementType[1]));
+                                continue;
+                            }
+                            else {
+                                relName = new Pair<String, String>(
+                                        getCanonicalParameterName(argTypes[0].getSimpleName()),
+                                        getCanonicalParameterName(argTypes[1].getSimpleName()));
+                            }
                         }
+
+                        relationSetterContainer.add(RelationSetter.newRelationSetter(
+                                relName.getFirst(), relName.getSecond(), eachMethod));
+                        break;
                     }
-
-                    relationSetterContainer.add(RelationSetter.newRelationSetter(
-                            relName.getFirst(), relName.getSecond(), eachMethod));
-                    break;
-                }
                 }
 
                 continue;

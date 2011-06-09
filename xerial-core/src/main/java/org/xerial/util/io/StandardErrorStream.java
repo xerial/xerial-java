@@ -29,7 +29,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * An wrapper class of STDOUT for avoiding accidentally closing STDOUT, which
+ * An wrapper class of STDERR for avoiding accidentally closing STDERR, which
  * should not be closed by users.
  * 
  * @author leo
