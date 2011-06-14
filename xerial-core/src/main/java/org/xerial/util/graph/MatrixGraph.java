@@ -24,25 +24,55 @@
 //--------------------------------------
 package org.xerial.util.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 public class MatrixGraph<Node> {
 
     private int[][] matrix;
+    private HashMap<Node, Integer> nodeTable = new HashMap<Node, Integer>();
+    private int nodeCount = 0;
 
     public MatrixGraph(int numNodes) {
         matrix = new int[numNodes][numNodes];
     }
 
     public void addNode(Node node) {
-        // do something
-
+        int nodeID = nodeCount++;
+        if (nodeID >= matrix.length) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        this.nodeTable.put(node, nodeID);
     }
 
     public void addEdge(Node src, Node dest) {
-
+        matrix[getNodeID(src)][getNodeID(dest)] = 1;
     }
 
-    public boolean containsNode(String each) {
-        // TODO implementation
-        return false;
+    public int getNodeID(Node node) {
+        if (nodeTable.containsKey(node))
+            return nodeTable.get(node);
+        else
+            throw new NoSuchElementException("node " + node + " is not found");
+    }
+
+    public List<Node> getDestNodes(Node node) {
+        int nodeID = getNodeID(node);
+        List<Node> destNodeSet = new ArrayList<Node>();
+        for (int col = 0; col < matrix.length; ++col) {
+            if (matrix[nodeID][col] == 1) {
+                // destNodeSet.add(nodeTable. )
+            }
+        }
+    }
+
+    public boolean containsNode(String node) {
+        return nodeTable.containsKey(node);
+    }
+
+    public boolean hasEdge(Node src, Node dest) {
+        return matrix[getNodeID(src)][getNodeID(dest)] == 1;
     }
 }

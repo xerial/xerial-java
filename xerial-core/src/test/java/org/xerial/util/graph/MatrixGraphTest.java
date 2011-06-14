@@ -45,6 +45,22 @@ public class MatrixGraphTest {
         for (String each : nodes)
             assertTrue(g.containsNode(each));
 
+        // Tests for edge connections
+        assertTrue(g.hasEdge("A", "B"));
+        assertTrue(g.hasEdge("B", "C"));
+        assertTrue(g.hasEdge("A", "D"));
+        assertFalse(g.hasEdge("A", "C"));
+
+        try {
+            g.addNode("F");
+
+            fail("cannot reach here");
+        }
+        catch (Exception e) {
+            // OK
+
+        }
+
     }
 
 }
