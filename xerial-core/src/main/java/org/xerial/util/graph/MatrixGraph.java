@@ -33,6 +33,7 @@ public class MatrixGraph<Node> {
 
     private int[][] matrix;
     private HashMap<Node, Integer> nodeTable = new HashMap<Node, Integer>();
+    private HashMap<Integer, Node> nodeIDToNodeTable = new HashMap<Integer, Node>();
     private int nodeCount = 0;
 
     public MatrixGraph(int numNodes) {
@@ -45,6 +46,7 @@ public class MatrixGraph<Node> {
             throw new ArrayIndexOutOfBoundsException();
         }
         this.nodeTable.put(node, nodeID);
+        this.nodeIDToNodeTable.put(nodeID, node);
     }
 
     public void addEdge(Node src, Node dest) {
@@ -58,14 +60,19 @@ public class MatrixGraph<Node> {
             throw new NoSuchElementException("node " + node + " is not found");
     }
 
-    public List<Node> getDestNodes(Node node) {
+    public Node getNode(int nodeID) {
+        return nodeIDToNodeTable.get(nodeID);
+    }
+
+    public List<Node> getDestNodeSet(Node node) {
         int nodeID = getNodeID(node);
         List<Node> destNodeSet = new ArrayList<Node>();
         for (int col = 0; col < matrix.length; ++col) {
             if (matrix[nodeID][col] == 1) {
-                // destNodeSet.add(nodeTable. )
+                destNodeSet.add(getNode(col));
             }
         }
+        return destNodeSet;
     }
 
     public boolean containsNode(String node) {

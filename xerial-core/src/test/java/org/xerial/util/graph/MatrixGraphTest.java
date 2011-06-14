@@ -26,7 +26,10 @@ package org.xerial.util.graph;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
+import org.xerial.util.log.Logger;
 
 public class MatrixGraphTest {
 
@@ -61,6 +64,25 @@ public class MatrixGraphTest {
 
         }
 
+        List<String> destNodeSet = g.getDestNodeSet("A");
+        assertTrue(destNodeSet.contains("B"));
+        assertTrue(destNodeSet.contains("D"));
+        assertFalse(destNodeSet.contains("A"));
+        assertFalse(destNodeSet.contains("C"));
+
     }
 
+    private static Logger _logger = Logger.getLogger(MatrixGraphTest.class);
+
+    @Test
+    public void graphviz() throws Exception {
+
+        AdjacencyList<String, String> g = new AdjacencyList<String, String>();
+        g.addEdge("A", "B");
+        g.addEdge("A", "D");
+        g.addEdge("B", "C");
+
+        _logger.info(g.toGraphViz());
+
+    }
 }
