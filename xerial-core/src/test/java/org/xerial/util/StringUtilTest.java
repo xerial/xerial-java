@@ -90,6 +90,9 @@ public class StringUtilTest {
 
     @Test
     public void var2nat() throws Exception {
+
+        assertEquals("distance to SL1", StringUtil.varNameToNaturalName("distanceToSL1"));
+
         assertEquals("hello world", StringUtil.varNameToNaturalName("helloWorld"));
         assertEquals("XML string", StringUtil.varNameToNaturalName("XML_String"));
         assertEquals("param name", StringUtil.varNameToNaturalName("paramName"));

@@ -208,7 +208,7 @@ public class StringUtil {
             int start = 0;
             int cursor = 0;
             while (cursor < varName.length()) {
-                while (cursor < varName.length() && Character.isUpperCase(varName.charAt(cursor))) {
+                while (cursor < varName.length() && isPrefix(varName.charAt(cursor))) {
                     cursor++;
                 }
                 if ((cursor - start) >= 2) {
@@ -240,6 +240,10 @@ public class StringUtil {
         return Character.isUpperCase(c) || c == '_' || c == '-' || c == ' ';
     }
 
+    private static boolean isPrefix(char c) {
+        return Character.isUpperCase(c) || Character.isDigit(c);
+    }
+
     /**
      * Split the given string into args[]
      * 
@@ -269,26 +273,26 @@ public class StringUtil {
             for (; cursor < arg.length(); cursor++) {
                 char c = arg.charAt(cursor);
                 switch (c) {
-                case '"':
-                    parseDoubleQuoteString();
-                    break;
-                case '\'':
-                    parseSingleQuoteString();
-                    break;
-                case '\\':
-                    parseEscapeSequence();
-                    break;
-                case ' ':
-                case '\t':
-                case '\n':
-                case '\r':
-                    if (wordStart < cursor) {
-                        tokens.add(arg.substring(wordStart, cursor));
-                    }
-                    wordStart = cursor + 1;
-                    break;
-                default:
-                    break;
+                    case '"':
+                        parseDoubleQuoteString();
+                        break;
+                    case '\'':
+                        parseSingleQuoteString();
+                        break;
+                    case '\\':
+                        parseEscapeSequence();
+                        break;
+                    case ' ':
+                    case '\t':
+                    case '\n':
+                    case '\r':
+                        if (wordStart < cursor) {
+                            tokens.add(arg.substring(wordStart, cursor));
+                        }
+                        wordStart = cursor + 1;
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -315,15 +319,16 @@ public class StringUtil {
 
             for (; cursor < arg.length(); cursor++) {
                 switch (arg.charAt(cursor)) {
-                case '\\':
-                    parseEscapeSequence();
-                    break;
-                case '"':
-                    if (wordStart < cursor) {
-                        tokens.add(arg.substring(wordStart, isSingleToken ? cursor : cursor + 1));
-                        wordStart = cursor + 1;
-                    }
-                    return;
+                    case '\\':
+                        parseEscapeSequence();
+                        break;
+                    case '"':
+                        if (wordStart < cursor) {
+                            tokens.add(arg
+                                    .substring(wordStart, isSingleToken ? cursor : cursor + 1));
+                            wordStart = cursor + 1;
+                        }
+                        return;
                 }
             }
 
@@ -339,15 +344,16 @@ public class StringUtil {
             cursor++;
             for (; cursor < arg.length(); cursor++) {
                 switch (arg.charAt(cursor)) {
-                case '\\':
-                    parseEscapeSequence();
-                    break;
-                case '\'':
-                    if (wordStart < cursor) {
-                        tokens.add(arg.substring(wordStart, isSingleToken ? cursor : cursor + 1));
-                        wordStart = cursor + 1;
-                    }
-                    return;
+                    case '\\':
+                        parseEscapeSequence();
+                        break;
+                    case '\'':
+                        if (wordStart < cursor) {
+                            tokens.add(arg
+                                    .substring(wordStart, isSingleToken ? cursor : cursor + 1));
+                            wordStart = cursor + 1;
+                        }
+                        return;
                 }
             }
         }
