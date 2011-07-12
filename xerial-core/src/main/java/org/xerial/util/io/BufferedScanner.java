@@ -188,6 +188,13 @@ public class BufferedScanner {
             this.buffer = new char[bufferSize];
         }
 
+        public CharBuffer(CharSequence s) {
+            this.source = null;
+            this.buffer = new char[s.length()];
+            for (int i = 0; i < s.length(); ++i)
+                buffer[i] = s.charAt(i);
+        }
+
         @Override
         public int get(int index) {
             return buffer[index];
@@ -272,6 +279,14 @@ public class BufferedScanner {
 
     public BufferedScanner(Buffer buffer) {
         this.buffer = buffer;
+        this.current = new ScannerState();
+    }
+
+    public BufferedScanner(CharSequence s) {
+        if (s.getClass() == UTF8String.class)
+            this.buffer = new ByteBuffer(((UTF8String) s).getBytes());
+        else
+            this.buffer = new CharBuffer(s);
         this.current = new ScannerState();
     }
 
