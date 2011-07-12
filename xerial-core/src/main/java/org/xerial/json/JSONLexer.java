@@ -40,9 +40,9 @@ import org.xerial.util.io.BufferedScanner;
 public class JSONLexer {
     public static class Token {
         public final JSONToken type;
-        public final String str;
+        public final CharSequence str;
 
-        public Token(JSONToken type, String str) {
+        public Token(JSONToken type, CharSequence str) {
             this.type = type;
             this.str = str;
         }
@@ -374,11 +374,11 @@ public class JSONLexer {
     }
 
     void emitText(JSONToken type) {
-        tokenQueue.add(new Token(type, scanner.selectedString()));
+        tokenQueue.add(new Token(type, scanner.selectedRawString()));
     }
 
     void emitString() {
-        tokenQueue.add(new Token(JSONToken.String, scanner.selectedString(1)));
+        tokenQueue.add(new Token(JSONToken.String, scanner.selectedRawString(1)));
     }
 
     public long getLineNumber() {

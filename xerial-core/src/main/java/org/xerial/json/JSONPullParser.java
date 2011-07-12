@@ -134,24 +134,24 @@ public class JSONPullParser {
 
         while (lastReportedEvent.getEvent() != JSONEvent.EndJSON) {
             switch (lastReportedEvent.getEvent()) {
-            case String:
-                return new JSONString(getText());
-            case Integer:
-                return new JSONInteger(getText());
-            case Double:
-                return new JSONDouble(getText());
-            case True:
-                return JSONBoolean.True;
-            case False:
-                return JSONBoolean.False;
-            case Null:
-                return JSONNull.NULL;
-            case StartObject:
-                return readJSONObject(new JSONObject(), getDepth());
-            case StartArray:
-                return readJSONArray(new JSONArray(), getDepth());
-            default:
-                next();
+                case String:
+                    return new JSONString(getText());
+                case Integer:
+                    return new JSONInteger(getText());
+                case Double:
+                    return new JSONDouble(getText());
+                case True:
+                    return JSONBoolean.True;
+                case False:
+                    return JSONBoolean.False;
+                case Null:
+                    return JSONNull.NULL;
+                case StartObject:
+                    return readJSONObject(new JSONObject(), getDepth());
+                case StartArray:
+                    return readJSONArray(new JSONArray(), getDepth());
+                default:
+                    next();
             }
         }
         throw new JSONException(JSONErrorCode.JSONValueIsNotFound);
@@ -169,22 +169,22 @@ public class JSONPullParser {
 
         while (lastReportedEvent.getEvent() != JSONEvent.EndJSON) {
             switch (lastReportedEvent.getEvent()) {
-            case String:
-            case Integer:
-            case Double:
-                return getText();
-            case True:
-                return "true";
-            case False:
-                return "false";
-            case Null:
-                return "null";
-            case StartObject:
-                return readJSONObject(new JSONObject(), getDepth()).toJSONString();
-            case StartArray:
-                return readJSONArray(new JSONArray(), getDepth()).toJSONString();
-            default:
-                next();
+                case String:
+                case Integer:
+                case Double:
+                    return getText();
+                case True:
+                    return "true";
+                case False:
+                    return "false";
+                case Null:
+                    return "null";
+                case StartObject:
+                    return readJSONObject(new JSONObject(), getDepth()).toJSONString();
+                case StartArray:
+                    return readJSONArray(new JSONArray(), getDepth()).toJSONString();
+                default:
+                    next();
             }
         }
         throw new JSONException(JSONErrorCode.JSONValueIsNotFound);
@@ -215,36 +215,36 @@ public class JSONPullParser {
         while (true) {
             JSONEvent event = next();
             switch (event) {
-            case StartObject:
-                jsonObject.put(getKeyName(), readJSONObject(new JSONObject(), getDepth()));
-                break;
-            case EndObject:
-                if (getDepth() < baseObjectDepth)
-                    return jsonObject;
-                else
-                    throw new JSONException(JSONErrorCode.ParseError);
-            case StartArray:
-                jsonObject.put(getKeyName(), readJSONArray(new JSONArray(), getDepth()));
-                break;
-            case EndArray:
-                throw new JSONException(JSONErrorCode.NotInAJSONObject);
-            case True:
-                jsonObject.put(getKeyName(), JSONBoolean.True);
-                break;
-            case False:
-                jsonObject.put(getKeyName(), JSONBoolean.False);
-                break;
-            case Null:
-                jsonObject.put(getKeyName(), JSONNull.NULL);
-                break;
-            case String:
-            case Double:
-            case Integer:
-                jsonObject.put(getKeyName(), getValue());
-                break;
-            case EndJSON:
-            default:
-                throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
+                case StartObject:
+                    jsonObject.put(getKeyName(), readJSONObject(new JSONObject(), getDepth()));
+                    break;
+                case EndObject:
+                    if (getDepth() < baseObjectDepth)
+                        return jsonObject;
+                    else
+                        throw new JSONException(JSONErrorCode.ParseError);
+                case StartArray:
+                    jsonObject.put(getKeyName(), readJSONArray(new JSONArray(), getDepth()));
+                    break;
+                case EndArray:
+                    throw new JSONException(JSONErrorCode.NotInAJSONObject);
+                case True:
+                    jsonObject.put(getKeyName(), JSONBoolean.True);
+                    break;
+                case False:
+                    jsonObject.put(getKeyName(), JSONBoolean.False);
+                    break;
+                case Null:
+                    jsonObject.put(getKeyName(), JSONNull.NULL);
+                    break;
+                case String:
+                case Double:
+                case Integer:
+                    jsonObject.put(getKeyName(), getValue());
+                    break;
+                case EndJSON:
+                default:
+                    throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
             }
         }
     }
@@ -253,36 +253,36 @@ public class JSONPullParser {
         while (true) {
             JSONEvent event = next();
             switch (event) {
-            case StartObject:
-                jsonArray.add(readJSONObject(new JSONObject(), getDepth()));
-                break;
-            case EndObject:
-                throw new JSONException(JSONErrorCode.ParseError);
-            case StartArray:
-                jsonArray.add(readJSONArray(new JSONArray(), getDepth()));
-                break;
-            case EndArray:
-                if (getDepth() < baseArrayDepth)
-                    return jsonArray;
-                else
+                case StartObject:
+                    jsonArray.add(readJSONObject(new JSONObject(), getDepth()));
+                    break;
+                case EndObject:
                     throw new JSONException(JSONErrorCode.ParseError);
-            case True:
-                jsonArray.add(JSONBoolean.True);
-                break;
-            case False:
-                jsonArray.add(JSONBoolean.False);
-                break;
-            case Null:
-                jsonArray.add(JSONNull.NULL);
-                break;
-            case String:
-            case Double:
-            case Integer:
-                jsonArray.add(getValue());
-                break;
-            case EndJSON:
-            default:
-                throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
+                case StartArray:
+                    jsonArray.add(readJSONArray(new JSONArray(), getDepth()));
+                    break;
+                case EndArray:
+                    if (getDepth() < baseArrayDepth)
+                        return jsonArray;
+                    else
+                        throw new JSONException(JSONErrorCode.ParseError);
+                case True:
+                    jsonArray.add(JSONBoolean.True);
+                    break;
+                case False:
+                    jsonArray.add(JSONBoolean.False);
+                    break;
+                case Null:
+                    jsonArray.add(JSONNull.NULL);
+                    break;
+                case String:
+                case Double:
+                case Integer:
+                    jsonArray.add(getValue());
+                    break;
+                case EndJSON:
+                default:
+                    throw new JSONException(JSONErrorCode.UnexpectedEndOfJSON);
             }
         }
     }
@@ -311,59 +311,59 @@ public class JSONPullParser {
                 JSONToken tokenType = token.type;
 
                 switch (tokenType) {
-                case LBrace:
-                    valueWithKeyTest();
-                    currentDepth++;
-                    pushParseState(ParseState.InObject);
-                    return reportEvent(token, JSONEvent.StartObject);
-                case RBrace:
-                    currentDepth--;
-                    validateParseState(ParseState.InObject);
-                    popParseState();
-                    popKeyStack();
-                    return reportEvent(token, JSONEvent.EndObject);
-                case LBracket:
-                    valueWithKeyTest();
-                    currentDepth++;
-                    pushParseState(ParseState.InArray);
-                    return reportEvent(token, JSONEvent.StartArray);
-                case RBracket:
-                    currentDepth--;
-                    validateParseState(ParseState.InArray);
-                    popParseState();
-                    popKeyStack();
-                    return reportEvent(token, JSONEvent.EndArray);
-                case Comma:
-                    validateParseState(ParseState.InArray, ParseState.InObject);
-                    continue;
-                case Colon:
-                    validateParseState(ParseState.Key); // next sequence will be a
-                    // keyed value
-                    continue;
-                case String:
-                    if (getCurrentParseState() == ParseState.InObject) {
-                        // key
-                        pushParseState(ParseState.Key);
-                        keyStack.addLast(unescapeString(token.str));
+                    case LBrace:
+                        valueWithKeyTest();
+                        currentDepth++;
+                        pushParseState(ParseState.InObject);
+                        return reportEvent(token, JSONEvent.StartObject);
+                    case RBrace:
+                        currentDepth--;
+                        validateParseState(ParseState.InObject);
+                        popParseState();
+                        popKeyStack();
+                        return reportEvent(token, JSONEvent.EndObject);
+                    case LBracket:
+                        valueWithKeyTest();
+                        currentDepth++;
+                        pushParseState(ParseState.InArray);
+                        return reportEvent(token, JSONEvent.StartArray);
+                    case RBracket:
+                        currentDepth--;
+                        validateParseState(ParseState.InArray);
+                        popParseState();
+                        popKeyStack();
+                        return reportEvent(token, JSONEvent.EndArray);
+                    case Comma:
+                        validateParseState(ParseState.InArray, ParseState.InObject);
                         continue;
-                    }
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.String);
-                case Integer:
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.Integer);
-                case Double:
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.Double);
-                case True:
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.True);
-                case False:
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.False);
-                case Null:
-                    valueWithKeyTest();
-                    return reportEvent(token, JSONEvent.Null);
+                    case Colon:
+                        validateParseState(ParseState.Key); // next sequence will be a
+                        // keyed value
+                        continue;
+                    case String:
+                        if (getCurrentParseState() == ParseState.InObject) {
+                            // key
+                            pushParseState(ParseState.Key);
+                            keyStack.addLast(unescapeString(token.str));
+                            continue;
+                        }
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.String);
+                    case Integer:
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.Integer);
+                    case Double:
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.Double);
+                    case True:
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.True);
+                    case False:
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.False);
+                    case Null:
+                        valueWithKeyTest();
+                        return reportEvent(token, JSONEvent.Null);
                 }
             }
         }
@@ -373,10 +373,10 @@ public class JSONPullParser {
         catch (XerialException e) {
             XerialErrorCode code = e.getErrorCode();
             switch (code) {
-            case PARSE_ERROR:
-                throw new JSONException(JSONErrorCode.ParseError, e);
-            default:
-                throw new JSONException(JSONErrorCode.Inherited, e);
+                case PARSE_ERROR:
+                    throw new JSONException(JSONErrorCode.ParseError, e);
+                default:
+                    throw new JSONException(JSONErrorCode.Inherited, e);
             }
         }
 
@@ -404,20 +404,20 @@ public class JSONPullParser {
 
     public String getText() {
         switch (lastReportedEvent.getEvent()) {
-        case String:
-            return unescapeString(lastReportedEvent.getToken().str);
-        case True:
-            return "true";
-        case False:
-            return "false";
-        case Null:
-            return "null";
-        default:
-            return lastReportedEvent.getToken().str;
+            case String:
+                return unescapeString(lastReportedEvent.getToken().str);
+            case True:
+                return "true";
+            case False:
+                return "false";
+            case Null:
+                return "null";
+            default:
+                return lastReportedEvent.getToken().str.toString();
         }
     }
 
-    private static String unescapeString(String text) {
+    private static String unescapeString(CharSequence text) {
         if (text == null)
             return null;
 
@@ -433,32 +433,32 @@ public class JSONPullParser {
             if (c == '\\' && i + 1 < len) {
                 char escapeChar = text.charAt(i + 1);
                 switch (escapeChar) {
-                case '\\':
-                    buf.append('\\');
-                    break;
-                case 'b':
-                    buf.append('\b');
-                    break;
-                case 'f':
-                    buf.append('\f');
-                    break;
-                case 'n':
-                    buf.append('\n');
-                    break;
-                case 'r':
-                    buf.append('\r');
-                    break;
-                case 't':
-                    buf.append('\t');
-                    break;
-                case 'u':
-                    if (i + 4 < len) {
-                        String hex = text.substring(i + 1, i + 5);
-                        int code = Integer.parseInt(hex, 16);
-                        buf.append((char) code);
-                        i += 3;
-                    }
-                    break;
+                    case '\\':
+                        buf.append('\\');
+                        break;
+                    case 'b':
+                        buf.append('\b');
+                        break;
+                    case 'f':
+                        buf.append('\f');
+                        break;
+                    case 'n':
+                        buf.append('\n');
+                        break;
+                    case 'r':
+                        buf.append('\r');
+                        break;
+                    case 't':
+                        buf.append('\t');
+                        break;
+                    case 'u':
+                        if (i + 4 < len) {
+                            CharSequence hex = text.subSequence(i + 1, i + 5);
+                            int code = Integer.parseInt(hex.toString(), 16);
+                            buf.append((char) code);
+                            i += 3;
+                        }
+                        break;
                 }
                 i++;
             }

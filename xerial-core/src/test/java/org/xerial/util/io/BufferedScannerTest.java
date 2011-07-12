@@ -30,7 +30,6 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 
 import org.junit.Test;
-import org.xerial.util.UTF8String;
 
 public class BufferedScannerTest {
     @Test
@@ -57,8 +56,7 @@ public class BufferedScannerTest {
             s.consume();
 
         assertEquals('o', s.LA(1));
-        assertEquals("Hell", s.selectedString());
-        assertEquals("Hell", s.selectedUTF8String().toString());
+        assertEquals("Hell", s.selectedRawString().toString());
         s.rewind();
 
         for (int i = 0; i < m.length(); ++i) {
@@ -113,7 +111,7 @@ public class BufferedScannerTest {
             }
         }
 
-        UTF8String u = s.selectedUTF8StringFromFirstMark();
+        CharSequence u = s.selectedRawStringFromFirstMark();
         assertEquals("Thanks for using", u.toString());
 
     }

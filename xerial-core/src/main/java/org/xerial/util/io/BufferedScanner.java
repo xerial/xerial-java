@@ -52,9 +52,7 @@ public class BufferedScanner {
 
         int feed(int offset, int length) throws IOException;
 
-        String toString(int offset, int length);
-
-        UTF8String toUTF8String(int offset, int length);
+        CharSequence toRawString(int offset, int length);
 
         void close() throws IOException;
 
@@ -74,7 +72,7 @@ public class BufferedScanner {
     private static interface ArrayBuilder {
         void append(Buffer buf, int offset, int length);
 
-        UTF8String toUTF8String();
+        CharSequence toRawString();
 
         int size();
     }
@@ -93,7 +91,7 @@ public class BufferedScanner {
         }
 
         @Override
-        public UTF8String toUTF8String() {
+        public CharSequence toRawString() {
             return new UTF8String(out.toByteArray());
         }
 
@@ -117,7 +115,7 @@ public class BufferedScanner {
         }
 
         @Override
-        public UTF8String toUTF8String() {
+        public CharSequence toRawString() {
             return new UTF8String(out.toString());
         }
 
@@ -152,8 +150,8 @@ public class BufferedScanner {
         }
 
         @Override
-        public String toString(int offset, int length) {
-            return new String(buffer, offset, length);
+        public CharSequence toRawString(int offset, int length) {
+            return new UTF8String(buffer, offset, length);
         }
 
         @Override
@@ -172,11 +170,6 @@ public class BufferedScanner {
         @Override
         public void slide(int offset, int len) {
             System.arraycopy(buffer, offset, buffer, 0, len);
-        }
-
-        @Override
-        public UTF8String toUTF8String(int offset, int length) {
-            return new UTF8String(buffer, offset, length);
         }
 
         @Override
@@ -206,11 +199,6 @@ public class BufferedScanner {
         }
 
         @Override
-        public String toString(int offset, int length) {
-            return new String(buffer, offset, length);
-        }
-
-        @Override
         public int feed(int offset, int length) throws IOException {
             if (source == null)
                 return -1;
@@ -229,8 +217,8 @@ public class BufferedScanner {
         }
 
         @Override
-        public UTF8String toUTF8String(int offset, int length) {
-            return new UTF8String(buffer, offset, length);
+        public CharSequence toRawString(int offset, int length) {
+            return new String(buffer, offset, length);
         }
 
         @Override
@@ -312,14 +300,14 @@ public class BufferedScanner {
         return reachedEOF && current.cursor >= bufferLimit;
     }
 
-    public UTF8String nextLine() throws XerialException {
+    public CharSequence nextLine() throws XerialException {
         ArrayBuilder currentLine = null;
         for (;;) {
             if (current.cursor >= bufferLimit)
                 fill();
             if (current.cursor >= bufferLimit) {
                 if (currentLine != null && currentLine.size() > 0)
-                    return currentLine.toUTF8String();
+                    return currentLine.toRawString();
                 else
                     return null;
             }
@@ -345,11 +333,11 @@ public class BufferedScanner {
 
                 if (currentLine == null) {
                     //incrementLineCount();
-                    return buffer.toUTF8String(start, len);
+                    return buffer.toRawString(start, len);
                 }
                 currentLine.append(buffer, start, len);
                 //incrementLineCount();
-                return currentLine != null && currentLine.size() > 0 ? currentLine.toUTF8String()
+                return currentLine != null && currentLine.size() > 0 ? currentLine.toRawString()
                         : null;
             }
             if (currentLine == null)
@@ -442,19 +430,14 @@ public class BufferedScanner {
         return new Range(markQueue.getLast().cursor, current.cursor);
     }
 
-    public String selectedString() {
+    public CharSequence selectedRawString() {
         Range r = getSelectedRange();
-        return buffer.toString(r.begin, r.size());
+        return buffer.toRawString(r.begin, r.size());
     }
 
-    public UTF8String selectedUTF8String() {
-        Range r = getSelectedRange();
-        return buffer.toUTF8String(r.begin, r.size());
-    }
-
-    public UTF8String selectedUTF8StringWithTrimming() {
+    public CharSequence selectedRawStringWithTrimming() {
         Range r = trim(getSelectedRange());
-        return buffer.toUTF8String(r.begin, r.size());
+        return buffer.toRawString(r.begin, r.size());
     }
 
     private static class Range {
@@ -500,32 +483,17 @@ public class BufferedScanner {
         return trim(getSelectedRange());
     }
 
-    public String selectedStringWithTrimming() {
-        Range r = trim();
-        if (r == null)
-            return null;
-        return buffer.toString(r.begin, r.size());
-    }
-
-    public String selectedString(int margin) {
+    public CharSequence selectedRawString(int margin) {
         if (markQueue.isEmpty())
             return null;
         Range selected = getSelectedRange();
         Range trimmed = new Range(selected.begin + margin, selected.end - margin);
-        return buffer.toString(trimmed.begin, trimmed.size());
+        return buffer.toRawString(trimmed.begin, trimmed.size());
     }
 
-    public UTF8String selectedUTF8String(int margin) {
-        if (markQueue.isEmpty())
-            return null;
-        Range selected = getSelectedRange();
-        Range trimmed = new Range(selected.begin + margin, selected.end - margin);
-        return buffer.toUTF8String(trimmed.begin, trimmed.size());
-    }
-
-    public UTF8String selectedUTF8StringFromFirstMark() {
+    public CharSequence selectedRawStringFromFirstMark() {
         Range selected = new Range(markQueue.peekFirst().cursor, current.cursor);
-        return buffer.toUTF8String(selected.begin, selected.size());
+        return buffer.toRawString(selected.begin, selected.size());
     }
 
     public int distanceFromFirstMark() {
