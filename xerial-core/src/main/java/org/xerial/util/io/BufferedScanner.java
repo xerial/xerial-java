@@ -287,7 +287,9 @@ public class BufferedScanner {
             this.buffer = new ByteBuffer(((UTF8String) s).getBytes());
         else
             this.buffer = new CharBuffer(s);
+        this.bufferLimit = this.buffer.length();
         this.current = new ScannerState();
+        this.reachedEOF = true;
     }
 
     public BufferedScanner(String s) {

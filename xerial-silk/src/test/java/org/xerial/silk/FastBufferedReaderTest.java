@@ -42,7 +42,6 @@ import org.xerial.util.FastBufferedReader;
 import org.xerial.util.FileResource;
 import org.xerial.util.StopWatch;
 import org.xerial.util.StringUtil;
-import org.xerial.util.UTF8String;
 import org.xerial.util.io.BufferedScanner;
 import org.xerial.util.log.Logger;
 
@@ -173,7 +172,7 @@ public class FastBufferedReaderTest
             int lineCount = 0;
             for (int i = 0; i < N; i++) {
                 BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
-                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
+                for (CharSequence line; (line = fb.nextLine()) != null; lineCount++) {}
             }
             _logger.info(String.format("BufferedScanner nextLine: %.2f, line:%d", s.getElapsedTime(), lineCount));
         }
@@ -192,7 +191,7 @@ public class FastBufferedReaderTest
             int lineCount = 0;
             for (int i = 0; i < N; i++) {
                 BufferedScanner fb = new BufferedScanner(new FileInputStream(in));
-                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {
+                for (CharSequence line; (line = fb.nextLine()) != null; lineCount++) {
                     String st = line.toString();
                 }
             }
@@ -205,7 +204,7 @@ public class FastBufferedReaderTest
             int lineCount = 0;
             for (int i = 0; i < N; i++) {
                 BufferedScanner fb = new BufferedScanner(new FileReader(in));
-                for (UTF8String line; (line = fb.nextLine()) != null; lineCount++) {}
+                for (CharSequence line; (line = fb.nextLine()) != null; lineCount++) {}
             }
             _logger.info(String.format("BufferedScanner nextLine with Reader input: %.2f, line:%d", s.getElapsedTime(),
                     lineCount));
