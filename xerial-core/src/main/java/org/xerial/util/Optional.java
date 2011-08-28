@@ -59,4 +59,9 @@ public class Optional<T> {
         this.isDefined = false;
     }
 
+    @Override
+    public String toString() {
+        return isDefined ? holder.toString() : "N/A";
+    }
+
 }

@@ -60,6 +60,7 @@ public class StandardOutputStream extends OutputStream {
 
     @Override
     public void close() throws IOException {
+        this.out.flush();
         // do nothing
     }
 
