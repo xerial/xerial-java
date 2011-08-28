@@ -32,6 +32,8 @@ import java.io.Reader;
 import java.util.Properties;
 import java.util.TreeMap;
 
+import org.xerial.util.Optional;
+
 /**
  * Logger
  * 
@@ -45,7 +47,7 @@ public class Logger {
     private String _loggerFullName = "";
     private String _loggerShortName = "";
     private Logger _parentLogger = null;
-    private boolean _emitEscapeSequence = false;
+    private Optional<Boolean> _useColor = new Optional<Boolean>();
 
     private static TreeMap<String, Logger> _loggerHolder = new TreeMap<String, Logger>();
     private static Logger _rootLogger = new Logger();
@@ -70,7 +72,7 @@ public class Logger {
 
         String useColor = System.getProperty("log.color");
         if (useColor != null)
-            _rootLogger._emitEscapeSequence = Boolean.parseBoolean(useColor);
+            _rootLogger._useColor.set(Boolean.parseBoolean(useColor));
 
         String loggerConfigFile = System.getProperty("log.config");
         if (loggerConfigFile != null) {
@@ -137,7 +139,6 @@ public class Logger {
         else {
             Logger newLogger = new Logger(fullTypeName);
             _loggerHolder.put(fullTypeName, newLogger);
-            newLogger._emitEscapeSequence = _rootLogger._emitEscapeSequence;
             return newLogger;
         }
     }
@@ -286,14 +287,22 @@ public class Logger {
      * @return
      */
     public void enableColor(boolean enable) {
-        _emitEscapeSequence = enable;
+        _useColor.set(enable);
     }
 
     /**
      * @return true when escape sequence is used to output the log
      */
     public boolean isColorEnabled() {
-        return _emitEscapeSequence;
+        if (_useColor.isUndefined()) {
+            if (_parentLogger != null) {
+                boolean useColor = _parentLogger.isColorEnabled();
+                _useColor.set(useColor);
+            }
+            else
+                _useColor.set(false); // default
+        }
+        return _useColor.get();
     }
 
     public boolean isDebugEnabled() {
