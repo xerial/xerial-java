@@ -47,6 +47,11 @@ public class JSONLexer {
             this.type = type;
             this.str = str;
         }
+
+        @Override
+        public String toString() {
+            return String.format("[%s] %s", type, str == null ? "" : str);
+        }
     }
 
     private BufferedScanner scanner;
@@ -120,6 +125,8 @@ public class JSONLexer {
             case '"':
                 parseString();
                 break;
+            case BufferedScanner.EOF:
+                return null;
             default: {
                 parseValue();
                 break;
@@ -155,7 +162,7 @@ public class JSONLexer {
 
     protected int LA(int k) throws XerialException {
         try {
-            return scanner.LA(1);
+            return scanner.LA(k);
         }
         catch (IOException e) {
             throw XerialException.convert(e);
@@ -167,7 +174,7 @@ public class JSONLexer {
             int c = scanner.consume();
             switch (c) {
                 case '\r':
-                    if (LA(1) != '\n') {
+                    if (scanner.LA(1) != '\n') {
                         lineCount++;
                         posInLine = 0;
                     }
@@ -193,66 +200,66 @@ public class JSONLexer {
             parseNumber();
             return;
         }
-        else if (match(NULL))
+        else if (match(NULL)) {
             emit(JSONToken.Null);
+            return;
+        }
         else if (match(TRUE)) {
             emit(JSONToken.True);
+            return;
         }
         else if (match(FALSE)) {
             emit(JSONToken.False);
+            return;
         }
 
-        error("value", LA(1));
+        throw error("value", LA(1));
     }
 
     public void parseNumber() throws XerialException {
-        try {
-            {
-                int c = scanner.LA(1);
-                // Negative flag
-                if (c == '-') {
-                    int c2 = scanner.LA(2);
-                    if (c2 >= '0' && c2 <= '9') {
-                        consume();
-                        c = c2;
-                    }
-                    else
-                        throw error("Number", c);
-                }
 
-                if (c == '0') {
+        {
+            int c = LA(1);
+            // Negative flag
+            if (c == '-') {
+                int c2 = LA(2);
+                if (c2 >= '0' && c2 <= '9') {
                     consume();
-                }
-                else if (c >= '1' && c <= '9') {
-                    consume();
-                    matchDigit_s();
+                    c = c2;
                 }
                 else
                     throw error("Number", c);
             }
 
-            {
-                int c = scanner.LA(1);
-                switch (c) {
-                    case '.': {
-                        consume();
-                        matchDigit_p();
-                        int c2 = scanner.LA(1);
-                        matchExp();
-                        emitText(JSONToken.Double);
-                        break;
-                    }
-                    default:
-                        if (matchExp())
-                            emitText(JSONToken.Double);
-                        else
-                            emitText(JSONToken.Integer);
-                        break;
-                }
+            if (c == '0') {
+                consume();
             }
+            else if (c >= '1' && c <= '9') {
+                consume();
+                matchDigit_s();
+            }
+            else
+                throw error("Number", c);
         }
-        catch (IOException e) {
-            throw XerialException.convert(e);
+
+        {
+            int c = LA(1);
+            switch (c) {
+                case '.': {
+                    consume();
+                    matchDigit_p();
+                    int c2 = LA(1);
+                    matchExp();
+                    emitText(JSONToken.Double);
+                    break;
+                }
+                default:
+                    if (matchExp())
+                        emitText(JSONToken.Double);
+                    else
+                        emitText(JSONToken.Integer);
+                    break;
+            }
         }
 
     }
