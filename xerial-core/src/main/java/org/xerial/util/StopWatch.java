@@ -94,7 +94,7 @@ public class StopWatch {
     }
 
     public String reportElapsedTime() {
-        return String.format("%.2f sec." + getElapsedTime());
+        return String.format("%.2f sec.", getElapsedTime());
     }
 
 }

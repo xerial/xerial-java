@@ -30,8 +30,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-import org.xerial.core.XerialErrorCode;
-import org.xerial.core.XerialException;
 import org.xerial.util.ArrayDeque;
 import org.xerial.util.UTF8String;
 
@@ -304,20 +302,15 @@ public class BufferedScanner {
         this.reachedEOF = true;
     }
 
-    public void close() throws XerialException {
-        try {
-            buffer.close();
-        }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
-        }
+    public void close() throws IOException {
+        buffer.close();
     }
 
     public boolean hasReachedEOF() {
         return reachedEOF && current.cursor >= bufferLimit;
     }
 
-    public CharSequence nextLine() throws XerialException {
+    public CharSequence nextLine() throws IOException {
         ArrayBuilder currentLine = null;
         for (;;) {
             if (current.cursor >= bufferLimit)
@@ -363,7 +356,7 @@ public class BufferedScanner {
         }
     }
 
-    public int consume() throws XerialException {
+    public int consume() throws IOException {
         if (current.cursor >= bufferLimit) {
             if (!fill()) {
                 // No more characters to consume. Do nothing
@@ -381,7 +374,7 @@ public class BufferedScanner {
      * @return
      * @throws IOException
      */
-    public int LA(int lookahead) throws XerialException {
+    public int LA(int lookahead) throws IOException {
         if (current.cursor + lookahead - 1 >= bufferLimit) {
             if (!fill()) {
                 // No more character
@@ -392,7 +385,7 @@ public class BufferedScanner {
         return buffer.get(current.cursor + lookahead - 1);
     }
 
-    private boolean fill() throws XerialException {
+    private boolean fill() throws IOException {
         if (reachedEOF) {
             return false;
         }
@@ -424,21 +417,17 @@ public class BufferedScanner {
         }
         // Read the data from the stream, and fill the buffer
         int readLen = buffer.length() - bufferLimit;
-        try {
-            int readBytes = buffer.feed(current.cursor, readLen);
-            if (readBytes < readLen) {
-                reachedEOF = true;
-            }
-            if (readBytes == -1)
-                return false;
-            else {
-                bufferLimit += readBytes;
-                return true;
-            }
+        int readBytes = buffer.feed(current.cursor, readLen);
+        if (readBytes < readLen) {
+            reachedEOF = true;
         }
-        catch (IOException e) {
-            throw new XerialException(XerialErrorCode.IO_EXCEPTION, e);
+        if (readBytes == -1)
+            return false;
+        else {
+            bufferLimit += readBytes;
+            return true;
         }
+
     }
 
     public Range getSelectedRange() {

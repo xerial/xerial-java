@@ -22,6 +22,7 @@
 //--------------------------------------
 package org.xerial.json;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
@@ -69,7 +70,7 @@ public class JSONLexer {
         this.scanner = scanner;
     }
 
-    public void close() throws XerialException {
+    public void close() throws IOException {
         scanner.close();
     }
 
@@ -130,13 +131,13 @@ public class JSONLexer {
 
     void matchWhiteSpaces() throws XerialException {
         loop: for (;;) {
-            int c = scanner.LA(1);
+            int c = LA(1);
             switch (c) {
                 case ' ':
                 case '\t':
                     break;
                 case '\r':
-                    if (scanner.LA(1) != '\n') {
+                    if (LA(1) != '\n') {
                         lineCount++;
                         posInLine = 0;
                     }
@@ -153,30 +154,40 @@ public class JSONLexer {
     }
 
     protected int LA(int k) throws XerialException {
-        return scanner.LA(1);
+        try {
+            return scanner.LA(1);
+        }
+        catch (IOException e) {
+            throw XerialException.convert(e);
+        }
     }
 
     protected void consume() throws XerialException {
-        int c = scanner.consume();
-        switch (c) {
-            case '\r':
-                if (scanner.LA(1) != '\n') {
+        try {
+            int c = scanner.consume();
+            switch (c) {
+                case '\r':
+                    if (LA(1) != '\n') {
+                        lineCount++;
+                        posInLine = 0;
+                    }
+                    break;
+                case '\n':
                     lineCount++;
                     posInLine = 0;
-                }
-                break;
-            case '\n':
-                lineCount++;
-                posInLine = 0;
-                break;
-            default:
-                posInLine++;
-                break;
+                    break;
+                default:
+                    posInLine++;
+                    break;
+            }
+        }
+        catch (IOException e) {
+            throw XerialException.convert(e);
         }
     }
 
     public void parseValue() throws XerialException {
-        int c = scanner.LA(1);
+        int c = LA(1);
 
         if (c == '-' || c >= '0' && c <= '9') {
             parseNumber();
@@ -191,59 +202,64 @@ public class JSONLexer {
             emit(JSONToken.False);
         }
 
-        error("value", scanner.LA(1));
+        error("value", LA(1));
     }
 
     public void parseNumber() throws XerialException {
-        {
-            int c = scanner.LA(1);
-            // Negative flag
-            if (c == '-') {
-                int c2 = scanner.LA(2);
-                if (c2 >= '0' && c2 <= '9') {
+        try {
+            {
+                int c = scanner.LA(1);
+                // Negative flag
+                if (c == '-') {
+                    int c2 = scanner.LA(2);
+                    if (c2 >= '0' && c2 <= '9') {
+                        consume();
+                        c = c2;
+                    }
+                    else
+                        throw error("Number", c);
+                }
+
+                if (c == '0') {
                     consume();
-                    c = c2;
+                }
+                else if (c >= '1' && c <= '9') {
+                    consume();
+                    matchDigit_s();
                 }
                 else
                     throw error("Number", c);
             }
 
-            if (c == '0') {
-                consume();
-            }
-            else if (c >= '1' && c <= '9') {
-                consume();
-                matchDigit_s();
-            }
-            else
-                throw error("Number", c);
-        }
-
-        {
-            int c = scanner.LA(1);
-            switch (c) {
-                case '.': {
-                    consume();
-                    matchDigit_p();
-                    int c2 = scanner.LA(1);
-                    matchExp();
-                    emitText(JSONToken.Double);
-                    break;
-                }
-                default:
-                    if (matchExp())
+            {
+                int c = scanner.LA(1);
+                switch (c) {
+                    case '.': {
+                        consume();
+                        matchDigit_p();
+                        int c2 = scanner.LA(1);
+                        matchExp();
                         emitText(JSONToken.Double);
-                    else
-                        emitText(JSONToken.Integer);
-                    break;
+                        break;
+                    }
+                    default:
+                        if (matchExp())
+                            emitText(JSONToken.Double);
+                        else
+                            emitText(JSONToken.Integer);
+                        break;
+                }
             }
+        }
+        catch (IOException e) {
+            throw XerialException.convert(e);
         }
 
     }
 
     private void matchDigit_s() throws XerialException {
         for (;;) {
-            int c = scanner.LA(1);
+            int c = LA(1);
             if (c >= '0' && c <= '9')
                 consume();
             else
@@ -252,18 +268,23 @@ public class JSONLexer {
     }
 
     private void matchDigit_p() throws XerialException {
-        int c = scanner.LA(1);
-        if (c >= '0' && c <= '9')
-            consume();
-        else
-            throw error("Digit+", c);
+        try {
+            int c = scanner.LA(1);
+            if (c >= '0' && c <= '9')
+                consume();
+            else
+                throw error("Digit+", c);
 
-        matchDigit_s();
+            matchDigit_s();
+        }
+        catch (IOException e) {
+            throw XerialException.convert(e);
+        }
     }
 
     private boolean matchExp() throws XerialException {
         {
-            int c = scanner.LA(1);
+            int c = LA(1);
             if (c == 'e' || c == 'E')
                 consume();
             else
@@ -271,7 +292,7 @@ public class JSONLexer {
         }
 
         {
-            int c = scanner.LA(1);
+            int c = LA(1);
             if (c == '+' || c == '-') {
                 consume();
             }
@@ -287,7 +308,7 @@ public class JSONLexer {
 
     boolean match(byte[] text) throws XerialException {
         for (int i = 0; i < text.length; ++i) {
-            if (text[i] != scanner.LA(i + 1))
+            if (text[i] != LA(i + 1))
                 return false;
         }
 
@@ -302,7 +323,7 @@ public class JSONLexer {
 
         boolean toContinue = true;
         for (;;) {
-            int c = scanner.LA(1);
+            int c = LA(1);
             switch (c) {
                 case '"':
                     // end of string
@@ -321,42 +342,48 @@ public class JSONLexer {
     }
 
     public void matchEscapeSequence() throws XerialException {
-        match('\\');
-        int c = scanner.LA(1);
-        switch (c) {
-            case '"':
-            case '\\':
-            case '/':
-            case 'b':
-            case 'f':
-            case 'n':
-            case 'r':
-            case 't':
-                consume();
-                break;
-            case 'u':
-                consume();
-                for (int i = 0; i < 4; ++i) {
-                    matchHexDigit();
-                }
-                break;
-            default:
-                throw error("escape sequence", c);
+        try {
+            match('\\');
+            int c = scanner.LA(1);
+            switch (c) {
+                case '"':
+                case '\\':
+                case '/':
+                case 'b':
+                case 'f':
+                case 'n':
+                case 'r':
+                case 't':
+                    consume();
+                    break;
+                case 'u':
+                    consume();
+                    for (int i = 0; i < 4; ++i) {
+                        matchHexDigit();
+                    }
+                    break;
+                default:
+                    throw error("escape sequence", c);
+            }
+        }
+        catch (IOException e) {
+            throw XerialException.convert(e);
         }
     }
 
     public void matchHexDigit() throws XerialException {
-        int c = scanner.LA(1);
+        int c = LA(1);
         if (c >= '0' && c <= '9' || c >= 'A' && c <= 'F' || c >= 'a' && c >= 'f') {
             consume();
         }
         else {
             throw error("hex digit", c);
         }
+
     }
 
     public void match(int expected) throws XerialException {
-        int c = scanner.LA(1);
+        int c = LA(1);
         if (c != expected)
             throw new XerialException(XerialErrorCode.PARSE_ERROR, String.format(
                     "expected:'%s' but found '%s'", expected, c));
