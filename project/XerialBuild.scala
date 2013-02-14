@@ -41,6 +41,7 @@ object XerialBuild extends Build {
       }
     }
   }
+  lazy val defaultJavacOptions = Seq("-encoding", "UTF-8", "-source", "1.6")
 
   lazy val buildSettings = Defaults.defaultSettings ++ releaseSettings ++ Seq[Setting[_]](
     organization := "org.xerial.java",
@@ -48,6 +49,7 @@ object XerialBuild extends Build {
     organizationHomepage := Some(new URL("http://xerial.org/")),
     description := "Xerial: Data Management Utiilities",
     scalaVersion := SCALA_VERSION,
+    autoScalaLibrary := false,
     publishMavenStyle := true,
     publishArtifact in Test := false,
     publishTo <<= version { (v) => Some(releaseResolver(v)) },
@@ -57,7 +59,8 @@ object XerialBuild extends Build {
     parallelExecution := true,
     parallelExecution in Test := false,
     crossPaths := false,
-    scalacOptions ++= Seq("-encoding", "UTF-8", "-deprecation", "-unchecked", "-target:jvm-1.6", "-feature"),
+    javacOptions in Compile := defaultJavacOptions ++ Seq("-target", "1.6"),
+    javacOptions in Compile in doc := defaultJavacOptions ++  Seq("-windowtitle", "Xerial API", "-linkoffline", "http://docs.oracle.com/javase/6/docs/api/", "http://docs.oracle.com/javase/6/docs/api/"),
     pomExtra := {
       <url>http://xerial.org/</url>
       <licenses>
@@ -72,9 +75,7 @@ object XerialBuild extends Build {
           <url>github.com/xerial/xerial-java.git</url>
         </scm>
         <properties>
-          <scala.version>
-            {SCALA_VERSION}
-          </scala.version>
+          <scala.version>{SCALA_VERSION}</scala.version>
           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         </properties>
         <developers>
@@ -162,7 +163,7 @@ object XerialBuild extends Build {
   object Dependencies {
     val testLib = Seq(
      "junit" % "junit" % "4.10" % "test",
-      "org.scalatest" %% "scalatest" % "2.0.M5b" % "test",
+//      "org.scalatest" %% "scalatest" % "2.0.M5b" % "test",
       "com.novocode" % "junit-interface" % "0.10-M2" % "test"
     )
   }
